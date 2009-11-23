@@ -23,7 +23,7 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 """
 
-__VERSION__ = "2.0.0"
+__VERSION__ = "2.0.1"
 
 import urllib, urllib2, base64, hmac
 from hashlib import sha1
@@ -322,11 +322,35 @@ class Gather(Verb):
 class Number(Verb):
     """Specify phone number in a nested Dial element.
     
+    number: phone number to dial
     sendDigits: key to press after connecting to the number
     """
     def __init__(self, number, sendDigits=None, **kwargs):
         Verb.__init__(self, sendDigits=sendDigits, **kwargs)
         self.body = number
+
+class Conference(Verb):
+    """Specify conference in a nested Dial element.
+    
+    name: friendly name of conference 
+    muted: keep this participant muted (bool)
+    beep: play a beep when this participant enters/leaves (bool)
+    startConferenceOnEnter: start conf when this participants joins (bool)
+    endConferenceOnExit: end conf when this participants leaves (bool)
+    waitUrl: TwiML url that executes before conference starts
+    waitMethod: HTTP method for waitUrl GET/POST
+    """
+    GET = 'GET'
+    POST = 'POST'
+    
+    def __init__(self, name, muted=None, beep=None,
+        startConferenceOnEnter=None, endConferenceOnExit=None, waitUrl=None,
+        waitMethod=None, **kwargs):
+        Verb.__init__(self, muted=muted, beep=beep, **kwargs)
+        if waitMethod and (waitMethod != self.GET and waitMethod != self.POST):
+            raise TwilioException( \
+                "Invalid waitMethod parameter, must be GET or POST")
+        self.body = name
 
 class Dial(Verb):
     """Dial another phone number and connect it to this call
@@ -339,7 +363,7 @@ class Dial(Verb):
     
     def __init__(self, number=None, action=None, method=None, **kwargs):
         Verb.__init__(self, action=action, method=method, **kwargs)
-        self.nestables = ['Number']
+        self.nestables = ['Number', 'Conference']
         if number and len(number.split(',')) > 1:
             for n in number.split(','):
                 self.append(Number(n.strip()))
