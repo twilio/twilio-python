@@ -346,7 +346,10 @@ class Conference(Verb):
     def __init__(self, name, muted=None, beep=None,
         startConferenceOnEnter=None, endConferenceOnExit=None, waitUrl=None,
         waitMethod=None, **kwargs):
-        Verb.__init__(self, muted=muted, beep=beep, **kwargs)
+        Verb.__init__(self, muted=muted, beep=beep,
+            startConferenceOnEnter=startConferenceOnEnter,
+            endConferenceOnExit=endConferenceOnExit, waitUrl=waitUrl,
+            waitMethod=waitMethod, **kwargs)
         if waitMethod and (waitMethod != self.GET and waitMethod != self.POST):
             raise TwilioException( \
                 "Invalid waitMethod parameter, must be GET or POST")
