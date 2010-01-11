@@ -23,7 +23,7 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 """
 
-__VERSION__ = "2.0.1"
+__VERSION__ = "2.0.2"
 
 import urllib, urllib2, base64, hmac
 from hashlib import sha1
@@ -166,6 +166,7 @@ class Verb:
         self.verbs = []
         self.attrs = {}
         for k, v in kwargs.items():
+            if k == "sender": k = "from"
             if v: self.attrs[k] = quoteattr(str(v))
     
     def __repr__(self):
@@ -224,6 +225,9 @@ class Verb:
     
     def addRecord(self, **kwargs):
         return self.append(Record(**kwargs))
+    
+    def addConference(self, **kwargs):
+        return self.append(Conference(**kwargs))
 
 class Response(Verb):
     """Twilio response object.
@@ -233,7 +237,7 @@ class Response(Verb):
     def __init__(self, version=None, **kwargs):
         Verb.__init__(self, version=version, **kwargs)
         self.nestables = ['Say', 'Play', 'Gather', 'Record', 'Dial',
-            'Redirect', 'Pause', 'Hangup']
+            'Redirect', 'Pause', 'Hangup', 'Sms']
 
 class Say(Verb):
     """Say text
@@ -328,6 +332,26 @@ class Number(Verb):
     def __init__(self, number, sendDigits=None, **kwargs):
         Verb.__init__(self, sendDigits=sendDigits, **kwargs)
         self.body = number
+        
+class Sms(Verb):
+    """ Send a Sms Message to a phone number
+    
+    to: whom to send message to, defaults based on the direction of the call
+    sender: whom to send message from.
+    action: url to request after the message is queued
+    method: submit to 'action' url using GET or POST
+    statusCallback: url to hit when the message is actually sent
+    """
+    GET = 'GET'
+    POST = 'POST'
+    
+    def __init__(self, msg, to=None, sender=None, method=None, action=None,
+        statusCallback=None, **kwargs):
+        Verb.__init__(self, action=action, method=method, to=to, sender=sender,
+            statusCallback=statusCallback, **kwargs)
+        if method and (method != self.GET and method != self.POST):
+            raise TwilioException( \
+                "Invalid method parameter, must be GET or POST")
 
 class Conference(Verb):
     """Specify conference in a nested Dial element.

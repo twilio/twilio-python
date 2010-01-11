@@ -18,6 +18,8 @@ SUPPORTED VERBS:
     Record
     Pause
     Number
+    Conference
+    Sms
 """
 
 import twilio
