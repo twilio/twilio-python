@@ -23,32 +23,52 @@ d = {
     'Called' : '415-555-1212',
     'Url' : 'http://demo.twilio.com/welcome',
 }
-print account.request('/%s/Accounts/%s/Calls' % \
-    (API_VERSION, ACCOUNT_SID), 'POST', d)
+try:
+    print account.request('/%s/Accounts/%s/Calls' % \
+                              (API_VERSION, ACCOUNT_SID), 'POST', d)
+except Exception, e:
+    print e
+    print e.read()
 
 # ===========================================================================
 # 2. Get a list of recent completed calls (i.e. Status = 2)
 #    uses a HTTP GET
 d = { 'Status':2, }
-print account.request('/%s/Accounts/%s/Calls' % \
-    (API_VERSION, ACCOUNT_SID), 'GET', d)
+try:
+    print account.request('/%s/Accounts/%s/Calls' % \
+                              (API_VERSION, ACCOUNT_SID), 'GET', d)
+except Exception, e:
+    print e
+    print e.read()
 
 # ===========================================================================
 # 3. Get a list of recent notification log entries
 #    uses a HTTP GET
-print account.request('/%s/Accounts/%s/Notifications' % \
-    (API_VERSION, ACCOUNT_SID), 'GET')
+try:
+    print account.request('/%s/Accounts/%s/Notifications' % \
+                              (API_VERSION, ACCOUNT_SID), 'GET')
+except Exception, e:
+    print e
+    print e.read()
 
 # ===========================================================================
 # 4. Get a list of audio recordings for a certain call
 #    uses a HTTP GET
 d = { 'CallSid':'CA0c7001f3f3f5063b7f7d96def0f1ed00', }
-print account.request('/%s/Accounts/%s/Recordings' % \
-    (API_VERSION, ACCOUNT_SID), 'GET', d)
-
+try:
+    print account.request('/%s/Accounts/%s/Recordings' % \
+                              (API_VERSION, ACCOUNT_SID), 'GET', d)
+except Exception, e:
+    print e
+    print e.read()
+    
 # ===========================================================================
 # 5. Delete a specific recording
 #    uses a HTTP DELETE, no response is returned when using DELETE
-account.request( \
-    '/%s/Accounts/%s/Recordings/RE4e75a0b62a5c52e5cb96dc25fb4101d9' % \
-    (API_VERSION, ACCOUNT_SID), 'DELETE')
+try:
+    account.request( \
+        '/%s/Accounts/%s/Recordings/RE4e75a0b62a5c52e5cb96dc25fb4101d9' % \
+            (API_VERSION, ACCOUNT_SID), 'DELETE')
+except Exception, e:
+    print e
+    print e.read()
