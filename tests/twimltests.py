@@ -254,6 +254,22 @@ class TestSms(TwilioTest):
     def testBadAppend(self):
         """ should raise exceptions for wrong appending"""
         self.improperAppend(twilio.Sms("Hello"))
+        
+class TestDial(TwilioTest):
+    
+    def testDial(self):
+        """ should redirect the call"""
+        r = twilio.Response()
+        r.append(twilio.Dial("1231231234"))
+        r = self.strip(r)
+        self.assertEquals(r, '<Response><Dial>1231231234</Dial></Response>')
+        
+    def testConvienceMethod(self):
+        """ should dial to a url via post"""
+        r = twilio.Response()
+        r.addDial()
+        r = self.strip(r)
+        self.assertEquals(r, '<Response><Dial/></Response>')
     
 if __name__ == '__main__':
     unittest.main()
