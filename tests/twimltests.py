@@ -17,6 +17,7 @@ class TwilioTest(unittest.TestCase):
         self.assertRaises(twilio.TwilioException, verb.append, twilio.Dial())
         self.assertRaises(twilio.TwilioException, verb.append, twilio.Conference(""))
         self.assertRaises(twilio.TwilioException, verb.append, twilio.Sms(""))
+        self.assertRaises(twilio.TwilioException, verb.append, twilio.Pause())
 
 class TestResponse(TwilioTest):
     
@@ -270,6 +271,100 @@ class TestDial(TwilioTest):
         r.addDial()
         r = self.strip(r)
         self.assertEquals(r, '<Response><Dial/></Response>')
+        
+    def testAddNumber(self):
+        """add a number to a dial"""
+        r = twilio.Response()
+        d = twilio.Dial()
+        d.append(twilio.Number("1231231234"))
+        r.append(d)
+        r = self.strip(r)
+        self.assertEquals(r, '<Response><Dial><Number>1231231234</Number></Dial></Response>')
+        
+    def testAddNumberConvience(self):
+        """add a number to a dial, convience method"""
+        r = twilio.Response()
+        d = r.addDial()
+        d.addNumber("1231231234")
+        r = self.strip(r)
+        self.assertEquals(r, '<Response><Dial><Number>1231231234</Number></Dial></Response>')  
+        
+    def testAddConference(self):
+        """ add a conference to a dial"""
+        r = twilio.Response()
+        d = twilio.Dial()
+        d.append(twilio.Conference("My Room"))
+        r.append(d)
+        r = self.strip(r)
+        self.assertEquals(r, '<Response><Dial><Conference>My Room</Conference></Dial></Response>')
+        
+    def testAddConferenceConvenceMethod(self):
+        """ add a conference to a dial, conviently"""
+        r = twilio.Response()
+        d = r.addDial()
+        d.addConference("My Room")
+        r = self.strip(r)
+        self.assertEquals(r, '<Response><Dial><Conference>My Room</Conference></Dial></Response>')   
+        
+    def testAddAttribute(self):
+        """add attribute"""
+        r = twilio.Conference("MyRoom",foo="bar")
+        r = self.strip(r)
+        self.assertEquals(r, '<Conference foo="bar">MyRoom</Conference>')
+    
+        
+    def testBadAppend(self):
+        """ should raise exceptions for wrong appending"""
+        self.improperAppend(twilio.Conference("Hello"))
+        
+        
+class TestGather(TwilioTest):
+    
+    def testEmpty(self):
+        """ a gather with nothing inside"""
+        r = twilio.Response()
+        r.append(twilio.Gather())
+        r = self.strip(r)
+        self.assertEquals(r, '<Response><Gather/></Response>')
+    
+    def testNestedSayPlayPause(self):
+        """ a gather with a say, play, and pause"""
+        r = twilio.Response()
+        g = twilio.Gather()
+        g.append(twilio.Say("Hey"))
+        g.append(twilio.Play("hey.mp3"))
+        g.append(twilio.Pause())
+        r.append(g)
+        r = self.strip(r)
+        self.assertEquals(r, '<Response><Gather><Say>Hey</Say><Play>hey.mp3</Play><Pause/></Gather></Response>')
+        
+        
+    def testNestedSayPlayPauseConvience(self):
+        """ a gather with a say, play, and pause"""
+        r = twilio.Response()
+        g = r.addGather()
+        g.addSay("Hey")
+        g.addPlay("hey.mp3")
+        g.addPause()
+        r = self.strip(r)
+        self.assertEquals(r, '<Response><Gather><Say>Hey</Say><Play>hey.mp3</Play><Pause/></Gather></Response>')
+        
+    def testAddAttribute(self):
+        """add attribute"""
+        r = twilio.Gather(foo="bar")
+        r = self.strip(r)
+        self.assertEquals(r, '<Gather foo="bar"/>')
+        
+    def testImproperNesting(self):
+        """ bad nesting"""
+        verb = twilio.Gather()
+        self.assertRaises(twilio.TwilioException, verb.append, twilio.Gather())
+        self.assertRaises(twilio.TwilioException, verb.append, twilio.Record())
+        self.assertRaises(twilio.TwilioException, verb.append, twilio.Hangup())
+        self.assertRaises(twilio.TwilioException, verb.append, twilio.Redirect())
+        self.assertRaises(twilio.TwilioException, verb.append, twilio.Dial())
+        self.assertRaises(twilio.TwilioException, verb.append, twilio.Conference(""))
+        self.assertRaises(twilio.TwilioException, verb.append, twilio.Sms(""))
     
 if __name__ == '__main__':
     unittest.main()

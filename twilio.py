@@ -299,7 +299,7 @@ class Redirect(Verb):
     POST = 'POST'
     
     def __init__(self, url=None, method=None, **kwargs):
-        Verb.__init__(self, **kwargs)
+        Verb.__init__(self, method=method, **kwargs)
         if method and (method != self.GET and method != self.POST):
             raise TwilioException( \
                 "Invalid method parameter, must be 'GET' or 'POST'")
