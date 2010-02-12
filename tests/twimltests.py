@@ -1,6 +1,5 @@
 import unittest
-import twiliofun as twilio
-#import twilio
+import twilio
 import re
 
 class TwilioTest(unittest.TestCase):
