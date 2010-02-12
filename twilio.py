@@ -23,7 +23,7 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 """
 
-__VERSION__ = "2.0.2"
+__VERSION__ = "2.0.5"
 
 import urllib, urllib2, base64, hmac
 from hashlib import sha1
@@ -171,7 +171,9 @@ class Verb:
     
     def __repr__(self):
         s = '<%s' % self.name
-        for a in self.attrs:
+        keys = self.attrs.keys()
+        keys.sort()
+        for a in keys:
             s += ' %s=%s' % (a, self.attrs[a])
         if self.body or len(self.verbs) > 0:
             s += '>'
@@ -226,8 +228,11 @@ class Verb:
     def addRecord(self, **kwargs):
         return self.append(Record(**kwargs))
     
-    def addConference(self, **kwargs):
-        return self.append(Conference(**kwargs))
+    def addConference(self, name, **kwargs):
+        return self.append(Conference(name, **kwargs))
+        
+    def addSms(self, msg, **kwargs):
+        return self.append(Sms(msg, **kwargs))
 
 class Response(Verb):
     """Twilio response object.
@@ -290,8 +295,14 @@ class Redirect(Verb):
     
     url: redirect url
     """
-    def __init__(self, url=None, **kwargs):
+    GET = 'GET'
+    POST = 'POST'
+    
+    def __init__(self, url=None, method=None, **kwargs):
         Verb.__init__(self, **kwargs)
+        if method and (method != self.GET and method != self.POST):
+            raise TwilioException( \
+                "Invalid method parameter, must be 'GET' or 'POST'")
         self.body = url
 
 class Hangup(Verb):
@@ -352,6 +363,7 @@ class Sms(Verb):
         if method and (method != self.GET and method != self.POST):
             raise TwilioException( \
                 "Invalid method parameter, must be GET or POST")
+        self.body = msg
 
 class Conference(Verb):
     """Specify conference in a nested Dial element.
