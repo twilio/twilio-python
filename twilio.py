@@ -23,7 +23,7 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 """
 
-__VERSION__ = "2.0.6"
+__VERSION__ = "2.0.7"
 
 import urllib, urllib2, base64, hmac
 from hashlib import sha1
@@ -267,7 +267,8 @@ class Say(Verb):
         if voice and (voice != self.MAN and voice != self.WOMAN):
             raise TwilioException( \
                 "Invalid Say voice parameter, must be 'man' or 'woman'")
-        if voice and (voice != self.MAN and voice != self.WOMAN):
+        if language and (language != self.ENGLISH and language != self.SPANISH 
+            and language != self.FRENCH and language != self.GERMAN):
             raise TwilioException( \
                 "Invalid Say language parameter, must be " + \
                 "'en', 'es', 'fr', or 'de'")
