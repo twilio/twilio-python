@@ -344,7 +344,7 @@ class Number(Verb):
     def __init__(self, number, sendDigits=None, **kwargs):
         Verb.__init__(self, sendDigits=sendDigits, **kwargs)
         self.body = number
-        
+
 class Sms(Verb):
     """ Send a Sms Message to a phone number
     
@@ -431,6 +431,20 @@ class Record(Verb):
         if method and (method != self.GET and method != self.POST):
             raise TwilioException( \
                 "Invalid method parameter, must be GET or POST")
+
+class Reject(Verb):
+    """Reject an incoming call
+    
+    reason: message to play when rejecting a call
+    """
+    REJECTED = 'rejected'
+    BUSY = 'busy'
+    
+    def __init__(self, reason=None, **kwargs):
+        Verb.__init__(self, reason=reason, **kwargs)
+        if reason and (reason != self.REJECTED and reason != self.BUSY):
+            raise TwilioException( \
+                "Invalid reason parameter, must be BUSY or REJECTED")
 
 # Twilio Utility function and Request Validation
 # ===========================================================================

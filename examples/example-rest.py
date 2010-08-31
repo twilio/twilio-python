@@ -3,7 +3,7 @@
 import twilio
 
 # Twilio REST API version
-API_VERSION = '2008-08-01'
+API_VERSION = '2010-04-01'
 
 # Twilio AccountSid and AuthToken
 ACCOUNT_SID = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
@@ -19,8 +19,8 @@ account = twilio.Account(ACCOUNT_SID, ACCOUNT_TOKEN)
 # 1. Initiate a new outbound call to 415-555-1212
 #    uses a HTTP POST
 d = {
-    'Caller' : CALLER_ID,
-    'Called' : '415-555-1212',
+    'From' : CALLER_ID,
+    'To' : '415-555-1212',
     'Url' : 'http://demo.twilio.com/welcome',
 }
 try:

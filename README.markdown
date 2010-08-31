@@ -15,9 +15,10 @@ Download the source and run
     $ python setup.py install
 
 ### Usage
-To use the Twilio library, just 'import
-twilio' in the your current py file. As shown in example-rest.py, you will need to specify the ACCOUNT_ID and ACCOUNT_TOKEN given to you by Twilio before you can make REST requests. In
-addition, you will need to choose a 'Caller' and 'Called' before making
+To use the Twilio library, just 'import twilio' in the your current python
+file. As shown in example-rest.py, you will need to specify the ACCOUNT_ID and
+ACCOUNT_TOKEN given to you by Twilio before you can make REST requests. In
+addition, you will need to choose a 'To' and 'From' before making
 outgoing calls. See http://www.twilio.com/docs for more information.
 
 ### Files
