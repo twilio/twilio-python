@@ -12,6 +12,7 @@ class TwilioTest(unittest.TestCase):
         self.assertRaises(twilio.TwilioException, verb.append, twilio.Play(""))
         self.assertRaises(twilio.TwilioException, verb.append, twilio.Record())
         self.assertRaises(twilio.TwilioException, verb.append, twilio.Hangup())
+        self.assertRaises(twilio.TwilioException, verb.append, twilio.Reject())
         self.assertRaises(twilio.TwilioException, verb.append, twilio.Redirect())
         self.assertRaises(twilio.TwilioException, verb.append, twilio.Dial())
         self.assertRaises(twilio.TwilioException, verb.append, twilio.Conference(""))
@@ -213,6 +214,27 @@ class TestHangup(TwilioTest):
         """ should raise exceptions for wrong appending"""
         self.improperAppend(twilio.Hangup())
         
+
+class TestReject(TwilioTest):
+    
+    def testReject(self):
+        """should be a Reject with default reason"""
+        r = twilio.Response()
+        r.append(twilio.Reject())
+        r = self.strip(r)
+        self.assertEquals(r, '<Response><Reject/></Response>')
+        
+    def testRejectConvenience(self):
+        """should be a Reject with reason Busy"""
+        r = twilio.Response()
+        r.addReject(reason='busy')
+        r = self.strip(r)
+        self.assertEquals(r, '<Response><Reject reason="busy"/></Response>')
+
+    def testBadAppend(self):
+        """ should raise exceptions for wrong appending"""
+        self.improperAppend(twilio.Reject())
+ 
 class TestSms(TwilioTest):
     
     def testEmpty(self):
