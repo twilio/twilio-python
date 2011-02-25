@@ -61,7 +61,7 @@ try:
 except Exception, e:
     print e
     print e.read()
-    
+
 # ===========================================================================
 # 5. Delete a specific recording
 #    uses a HTTP DELETE, no response is returned when using DELETE
@@ -72,3 +72,21 @@ try:
 except Exception, e:
     print e
     print e.read()
+
+# ===========================================================================
+# 6. Send an SMS message
+#    uses a HTTP POST
+OUTGOING_NUMBER = "NNNNNNNNNNN"
+msg = "Hello!"
+d = {
+    "From" : CALLER_ID,
+    "To"   : OUTGOING_NUMBER,
+    "Body" : msg
+}
+try:
+    account.request( '/%s/Accounts/%s/SMS/Messages' % \
+                    (API_VERSION, ACCOUNT_SID), "POST", d)
+except Exception, e:
+    print e
+    print e.read()
+
