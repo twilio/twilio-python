@@ -22,9 +22,9 @@ addition, you will need to choose a 'To' and 'From' before making
 outgoing calls. See http://www.twilio.com/docs for more information.
 
 ### Testing
-You can use the Twilio library for testing as well, using the Fake Twilio API
-hosted at https://twilioapi.appspot.com. Note that this API is not officially
-supported by Twilio, so be careful. To use the fake API, just specify
+You can use the Twilio library for testing as well, using the [Fake Twilio
+API](https://twilioapi.appspot.com). Note that this API is *not officially
+supported by Twilio*, so be careful. To use the fake API, just specify
 `test=True` when creating an Account object.
 
 ### Files
