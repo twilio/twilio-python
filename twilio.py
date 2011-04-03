@@ -48,7 +48,7 @@ class HTTPErrorProcessor(urllib2.HTTPErrorProcessor):
                 'http', request, response, code, msg, hdrs)
         return response
 
-class HTTPErrorAppEngine(Exception): pass
+class HTTPErrorAppEngine(urllib2.HTTPError): pass
 
 class TwilioUrlRequest(urllib2.Request):
     def get_method(self):
@@ -128,8 +128,8 @@ class Account:
             headers={'Content-Type': 'application/x-www-form-urlencoded',
                 'Authorization': 'Basic %s' % authstring})
         if r.status_code >= 300:
-            raise HTTPErrorAppEngine("HTTP %s: %s" % \
-                (r.status_code, r.content))
+            raise HTTPErrorAppEngine(r.final_url, r.status_code,
+                r.content, r.headers, None)
         return r.content
     
     def request(self, path, method=None, vars={}):
