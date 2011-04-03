@@ -75,7 +75,7 @@ class Account:
         self.id = id
         self.token = token
         self.opener = None
-        if self.test:
+        if test:
             self.api_url = "https://twilioapi.appspot.com"
         else:
             self.api_url = "https://api.twilio.com"
