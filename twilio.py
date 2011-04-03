@@ -35,8 +35,6 @@ try:
 except:
     APPENGINE = False
 
-_TWILIO_API_URL = 'https://api.twilio.com'
-
 class TwilioException(Exception): pass
 
 # Twilio REST Helpers
@@ -64,17 +62,23 @@ class Account:
     standalone python applications using the urllib/urlib2 libraries and
     inside Google App Engine applications using urlfetch.
     """
-    def __init__(self, id, token):
-        """initialize a twilio account object
+    def __init__(self, id, token, test=False):
+        """initialize a Twilio account object
         
         id: Twilio account SID/ID
         token: Twilio account token
+        test: if False, use the real Twilio API. If True, use the fake Twilio
+          testing API hosted at https://twilioapi.appspot.com
         
         returns a Twilio account object
         """
         self.id = id
         self.token = token
         self.opener = None
+        if self.test:
+            self.api_url = "https://twilioapi.appspot.com"
+        else:
+            self.api_url = "https://api.twilio.com"
     
     def _build_get_uri(self, uri, params):
         if params and len(params) > 0:
@@ -144,9 +148,9 @@ class Account:
                 'HTTP %s method not implemented' % method)
         
         if path[0] == '/':
-            uri = _TWILIO_API_URL + path
+            uri = self.api_url + path
         else:
-            uri = _TWILIO_API_URL + '/' + path
+            uri = _self.api_url + '/' + path
         
         if APPENGINE:
             return self._appengine_fetch(uri, vars, method)
