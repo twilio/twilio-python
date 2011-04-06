@@ -2,7 +2,7 @@ from setuptools import setup
 setup(
     name = "twilio",
     py_modules = ['twilio'],
-    version = "2.0.8",
+    version = "2.0.9",
     description = "Twilio API client and TwiML generator",
     author = "Twilio",
     author_email = "help@twilio.com",
