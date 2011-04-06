@@ -216,6 +216,9 @@ class Verb:
     def addHangup(self, **kwargs):
         return self.append(Hangup(**kwargs)) 
     
+    def addReject(self, **kwargs):
+        return self.append(Reject(**kwargs)) 
+ 
     def addGather(self, **kwargs):
         return self.append(Gather(**kwargs))
     
@@ -242,7 +245,7 @@ class Response(Verb):
     def __init__(self, version=None, **kwargs):
         Verb.__init__(self, version=version, **kwargs)
         self.nestables = ['Say', 'Play', 'Gather', 'Record', 'Dial',
-            'Redirect', 'Pause', 'Hangup', 'Sms']
+            'Redirect', 'Pause', 'Hangup', 'Reject', 'Sms']
 
 class Say(Verb):
     """Say text
