@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup
 setup(
     name = "twilio",
     py_modules = ['twilio'],
@@ -7,7 +7,6 @@ setup(
     author = "Twilio",
     author_email = "help@twilio.com",
     url = "http://github.com/twilio/twilio-python/",
-    download_url = "http://github.com/twilio/twilio-python/tarball/2.0.1",
     keywords = ["twilio","twiml"],
     classifiers = [
         "Programming Language :: Python",
@@ -21,7 +20,7 @@ setup(
     long_description = """\
     Python Twilio Helper Library
     ----------------------------
-    
+
     DESCRIPTION
     The Twilio REST SDK simplifies the process of makes calls to the Twilio REST.
     The Twilio REST API lets to you initiate outgoing calls, list previous call,
@@ -34,6 +33,6 @@ setup(
     requests. In addition, you will need to choose a 'To' and 'From' before
     making outgoing calls. See http://www.twilio.com/docs for more
     information.
-    
+
      LICENSE The Twilio Python Helper Library is distributed under the MIT
     License """ )
