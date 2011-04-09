@@ -428,7 +428,7 @@ class Record(Verb):
     POST = 'POST'
 
     def __init__(self, action=None, method=None, maxLength=None,
-        timeout=None, **kwargs):
+                 timeout=None, **kwargs):
         Verb.__init__(self, action=action, method=method, maxLength=maxLength,
             timeout=timeout, **kwargs)
         if method and (method != self.GET and method != self.POST):
