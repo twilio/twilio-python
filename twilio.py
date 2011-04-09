@@ -167,7 +167,7 @@ class Verb:
         self.attrs = {}
         for k, v in kwargs.items():
             if k == "sender": k = "from"
-            if v: self.attrs[k] = quoteattr(str(v))
+            if v != None: self.attrs[k] = quoteattr(str(v))
 
     def __repr__(self):
         s = '<%s' % self.name
