@@ -7,8 +7,8 @@ and much more.  See http://www.twilio.com/docs for more information.
 
 ### Installation
 
-    $ sudo pip install twilio
-    
+    $ pip install twilio
+
 ### Manual Installation
 Download the source and run
 

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import unittest
 import twilio
 import re
@@ -43,6 +44,12 @@ class TestSay(TwilioTest):
         r.append(twilio.Say("Hello World"))
         r = self.strip(r)
         self.assertEquals(r, "<Response><Say>Hello World</Say></Response>")
+
+    def testSayFrench(self):
+        """should say hello monkey"""
+        r = twilio.Response()
+        r.append(twilio.Say(u"nécessaire et d'autres"))
+        self.assertEquals(unicode(r), u"<Response><Say>nécessaire et d'autres</Say></Response>")
 
     def testSayLoop(self):
         """should say hello monkey and loop 3 times"""

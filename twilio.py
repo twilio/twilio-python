@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Copyright (c) 2009 Twilio, Inc.
 
@@ -27,7 +28,7 @@ __VERSION__ = "2.0.9"
 
 import urllib, urllib2, base64, hmac
 from hashlib import sha1
-from xml.sax.saxutils import escape, quoteattr
+from xml.dom.minidom import Document
 
 try:
     from google.appengine.api import urlfetch
@@ -167,27 +168,36 @@ class Verb:
         self.attrs = {}
         for k, v in kwargs.items():
             if k == "sender": k = "from"
-            if v != None: self.attrs[k] = quoteattr(str(v))
+            if v != None: self.attrs[k] = unicode(v)
 
     def __repr__(self):
-        s = '<%s' % self.name
+        """
+        String representation of an verb
+        """
+        doc = Document()
+        return self._xml(doc).toxml()
+
+    def _xml(self, root):
+        """
+        Return an XML element representing this verb
+        """
+        verb = root.createElement(self.name)
+
+        # Add attributes
         keys = self.attrs.keys()
         keys.sort()
         for a in keys:
-            s += ' %s=%s' % (a, self.attrs[a])
-        if self.body or len(self.verbs) > 0:
-            s += '>'
-            if self.body:
-                s += escape(self.body)
-            if len(self.verbs) > 0:
-                s += '\n'
-                for v in self.verbs:
-                    for l in str(v)[:-1].split('\n'):
-                        s += "\t%s\n" % l
-            s += '</%s>\n' % self.name
-        else:
-            s += '/>\n'
-        return s
+            verb.setAttribute(a, self.attrs[a])
+
+        if self.body:
+            text = root.createTextNode(self.body)
+            verb.appendChild(text)
+
+        for c in self.verbs:
+            verb.appendChild(c._xml(root))
+
+        return verb
+
 
     def append(self, verb):
         if not self.nestables:
