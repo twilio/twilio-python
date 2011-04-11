@@ -24,7 +24,7 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 """
 
-__VERSION__ = "2.0.9"
+__VERSION__ = "2.0.10"
 
 import urllib, urllib2, base64, hmac
 from hashlib import sha1
