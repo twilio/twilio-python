@@ -389,17 +389,18 @@ class Conference(Verb):
     endConferenceOnExit: end conf when this participants leaves (bool)
     waitUrl: TwiML url that executes before conference starts
     waitMethod: HTTP method for waitUrl GET/POST
+    maxParticipants: max number of participants allowed (<= 40) (int)
     """
     GET = 'GET'
     POST = 'POST'
 
     def __init__(self, name, muted=None, beep=None,
         startConferenceOnEnter=None, endConferenceOnExit=None, waitUrl=None,
-        waitMethod=None, **kwargs):
+        waitMethod=None, maxParticipants=None, **kwargs):
         Verb.__init__(self, muted=muted, beep=beep,
             startConferenceOnEnter=startConferenceOnEnter,
             endConferenceOnExit=endConferenceOnExit, waitUrl=waitUrl,
-            waitMethod=waitMethod, **kwargs)
+            waitMethod=waitMethod, maxParticipants=maxParticipants, **kwargs)
         if waitMethod and (waitMethod != self.GET and waitMethod != self.POST):
             raise TwilioException( \
                 "Invalid waitMethod parameter, must be GET or POST")
