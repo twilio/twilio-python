@@ -10,7 +10,7 @@ ACCOUNT_SID = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
 ACCOUNT_TOKEN = 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'
 
 # Outgoing Caller ID previously validated with Twilio
-CALLER_ID = 'NNNNNNNNNN';
+CALLER_ID = 'NNNNNNNNNN'
 
 # Create a Twilio REST account object using your Twilio account ID and token
 account = twilio.Account(ACCOUNT_SID, ACCOUNT_TOKEN)
