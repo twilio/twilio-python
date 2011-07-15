@@ -1,0 +1,88 @@
+<html>
+<table> 
+<thead> 
+<tr> 
+  <th align="left">Property</th> 
+  <th align="left">Description</th> 
+</tr> 
+</thead> 
+<tbody> 
+<tr> 
+  <td align="left">Sid</td> 
+  <td align="left">A 34 character string that uniquely idetifies this resource.</td> 
+</tr> 
+<tr> 
+  <td align="left">DateCreated</td> 
+  <td align="left">The date that this resource was created, given as GMT <a href="http://www.ietf.org/rfc/rfc2822.txt">RFC 2822</a> format.</td> 
+</tr> 
+<tr> 
+  <td align="left">DateUpdated</td> 
+  <td align="left">The date that this resource was last updated, given as GMT <a href="http://www.ietf.org/rfc/rfc2822.txt">RFC 2822</a> format.</td> 
+</tr> 
+<tr> 
+  <td align="left">FriendlyName</td> 
+  <td align="left">A human readable descriptive text for this resource, up to 64 characters long. By default, the <code>FriendlyName</code> is a nicely formatted version of the phone number.</td> 
+</tr> 
+<tr> 
+  <td align="left">AccountSid</td> 
+  <td align="left">The unique id of the <a href="account">Account</a> responsible for this phone number.</td> 
+</tr> 
+<tr> 
+  <td align="left">PhoneNumber</td> 
+  <td align="left">The incoming phone number. e.g., +16175551212 (<a href="http://en.wikipedia.org/wiki/E.164">E.164</a> format)</td> 
+</tr> 
+<tr> 
+  <td align="left">ApiVersion</td> 
+  <td align="left">Calls to this phone number will start a new TwiML session with this API version.</td> 
+</tr> 
+<tr> 
+  <td align="left">VoiceCallerIdLookup</td> 
+  <td align="left">Look up the caller's caller-ID name from the CNAM database (additional charges apply). Either <code>true</code> or <code>false</code>.</td> 
+</tr> 
+<tr> 
+  <td align="left">VoiceUrl</td> 
+  <td align="left">The URL Twilio will request when this phone number receives a call.</td> 
+</tr> 
+<tr> 
+  <td align="left">VoiceMethod</td> 
+  <td align="left">The HTTP method Twilio will use when requesting the above <code>Url</code>. Either <code>GET</code> or <code>POST</code>.</td> 
+</tr> 
+<tr> 
+  <td align="left">VoiceFallbackUrl</td> 
+  <td align="left">The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by <code>Url</code>.</td> 
+</tr> 
+<tr> 
+  <td align="left">VoiceFallbackMethod</td> 
+  <td align="left">The HTTP method Twilio will use when requesting the <code>VoiceFallbackUrl</code>. Either <code>GET</code> or <code>POST</code>.</td> 
+</tr> 
+<tr> 
+  <td align="left">StatusCallback</td> 
+  <td align="left">The URL that Twilio will request to pass status parameters (such as call ended) to your application.</td> 
+</tr> 
+<tr> 
+  <td align="left">StatusCallbackMethod</td> 
+  <td align="left">The HTTP method Twilio will use to make requests to the <code>StatusCallback</code> URL. Either <code>GET</code> or <code>POST</code>.</td> 
+</tr> 
+<tr> 
+  <td align="left">SmsUrl</td> 
+  <td align="left">The URL Twilio will request when receiving an incoming SMS message to this number.</td> 
+</tr> 
+<tr> 
+  <td align="left">SmsMethod</td> 
+  <td align="left">The HTTP method Twilio will use when making requests to the <code>SmsUrl</code>. Either <code>GET</code> or <code>POST</code>.</td> 
+</tr> 
+<tr> 
+  <td align="left">SmsFallbackUrl</td> 
+  <td align="left">The URL that Twilio will request if an error occurs retrieving or executing the TwiML from <code>SmsUrl</code>.</td> 
+</tr> 
+<tr> 
+  <td align="left">SmsFallbackMethod</td> 
+  <td align="left">The HTTP method Twilio will use when requesting the above URL. Either <code>GET</code> or <code>POST</code>.</td> 
+</tr> 
+<tr> 
+  <td align="left">Uri</td> 
+  <td align="left">The URI for this resource, relative to https://api.twilio.com.</td> 
+</tr> 
+</tbody> 
+</table>
+</html>

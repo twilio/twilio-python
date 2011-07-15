@@ -1,0 +1,52 @@
+<html>
+<table> 
+<thead> 
+<tr> 
+  <th>Property</th> 
+  <th>Description</th> 
+</tr> 
+</thead> 
+<tbody> 
+<tr> 
+  <td>Sid</td> 
+  <td>A 34 character string that uniquely identifies this resource.</td> 
+</tr> 
+<tr> 
+  <td>DateCreated</td> 
+  <td>The date that this resource was created, given in <a href="http://www.ietf.org/rfc/rfc2822.txt">RFC 2822</a> format.</td> 
+</tr> 
+<tr> 
+  <td>DateUpdated</td> 
+  <td>The date that this resource was last updated, given in <a href="http://www.ietf.org/rfc/rfc2822.txt">RFC 2822</a> format.</td> 
+</tr> 
+<tr> 
+  <td>AccountSid</td> 
+  <td>The unique id of the <a href="account">Account</a> responsible for this transcription.</td> 
+</tr> 
+<tr> 
+  <td>Status</td> 
+  <td>A string representing the status of the transcription: <code>in-progress</code>, <code>completed</code> or <code>failed</code>.</td> 
+</tr> 
+<tr> 
+  <td>RecordingSid</td> 
+  <td>The unique id of the <a href="recording">Recording</a> this Transcription was made of.</td> 
+</tr> 
+<tr> 
+  <td>Duration</td> 
+  <td>The duration of the transcribed audio, in seconds.</td> 
+</tr> 
+<tr> 
+  <td>TranscriptionText</td> 
+  <td>The text content of the transcription.</td> 
+</tr> 
+<tr> 
+  <td>Price</td> 
+  <td>The charge for this transcript in USD. Populated after the transcript is completed. Note, this value may not be immediately available.</td> 
+</tr> 
+<tr> 
+  <td>Uri</td> 
+  <td>The URI for this resource, relative to https://api.twilio.com</td> 
+</tr> 
+</tbody> 
+</table>
+</html>
