@@ -1,0 +1,64 @@
+<html>
+<table> 
+<thead> 
+<tr> 
+  <th align="left">Property</th> 
+  <th align="left">Description</th> 
+</tr> 
+</thead> 
+<tbody> 
+<tr> 
+  <td align="left">Sid</td> 
+  <td align="left">A 34 character string that uniquely identifies this resource.</td> 
+</tr> 
+<tr> 
+  <td align="left">DateCreated</td> 
+  <td align="left">The date that this resource was created, given in <a href="http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822">RFC 2822</a> format.</td> 
+</tr> 
+<tr> 
+  <td align="left">DateUpdated</td> 
+  <td align="left">The date that this resource was last updated, given in <a href="http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822">RFC 2822</a> format.</td> 
+</tr> 
+<tr> 
+  <td align="left">DateSent</td> 
+  <td align="left">The date that the SMS was sent, given in <a href="http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822">RFC 2822</a> format.</td> 
+</tr> 
+<tr> 
+  <td align="left">AccountSid</td> 
+  <td align="left">The unique id of the <a href="account">Account</a> that sent this SMS message.</td> 
+</tr> 
+<tr> 
+  <td align="left">From</td> 
+  <td align="left">The phone number that initiated the message in <a href="http://en.wikipedia.org/wiki/E.164">E.164</a> format. For incoming messages, this will be the remote phone. For outgoing messages, this will be one of your Twilio phone numbers.</td> 
+</tr> 
+<tr> 
+  <td align="left">To</td> 
+  <td align="left">The phone number that received the message in <a href="http://en.wikipedia.org/wiki/E.164">E.164</a> format. For incoming messages, this will be one of your Twilio phone numbers. For outgoing messages, this will be the remote phone.</td> 
+</tr> 
+<tr> 
+  <td align="left">Body</td> 
+  <td align="left">The text body of the SMS message. Up to 160 characters long.</td> 
+</tr> 
+<tr> 
+  <td align="left">Status</td> 
+  <td align="left">The status of this SMS message. Either <code>queued</code>, <code>sending</code>, <code>sent</code>, or <code>failed</code>.</td> 
+</tr> 
+<tr> 
+  <td align="left">Direction</td> 
+  <td align="left">The direction of this SMS message. <code>incoming</code> for incoming messages, <code>outbound-api</code> for messages initiated via the REST API, <code>outbound-call</code> for messages initiated during a call or <code>outbound-reply</code> for messages initiated in response to an incoming SMS.</td> 
+</tr> 
+<tr> 
+  <td align="left">Price</td> 
+  <td align="left">The amount billed for the message.</td> 
+</tr> 
+<tr> 
+  <td align="left">ApiVersion</td> 
+  <td align="left">The version of the Twilio API used to process the SMS message.</td> 
+</tr> 
+<tr> 
+  <td align="left">Uri</td> 
+  <td align="left">The URI for this resource, relative to https://api.twilio.com</td> 
+</tr> 
+</tbody> 
+</table>
+</html>

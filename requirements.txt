@@ -1,0 +1,4 @@
+sphinx
+mock
+httplib2
+nose
