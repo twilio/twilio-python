@@ -27,12 +27,10 @@ import sys, os
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinxtogithub',
 ]
 
 # Load the source for autodoc
 sys.path.insert(0, os.path.abspath(os.path.join(os.getcwd(), '..')))
-
 
 
 # Add any paths that contain templates here, relative to this directory.
