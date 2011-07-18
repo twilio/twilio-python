@@ -44,4 +44,4 @@ To control phone calls, your application need to output TwiML. Use :class:`twili
 
 ### Digging Deeper
 
-The full power of the Twilio API is at your finger tips. The [full documentation](http://readthedocs.org) explains all the awesome features available to use.
+The full power of the Twilio API is at your finger tips. The [full documentation](http://readthedocs.org/docs/twilio-python/en/latest/) explains all the awesome features available to use.

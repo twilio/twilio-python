@@ -9,8 +9,6 @@ Make requests to Twilio's `REST API <http://www.twilio.com/docs/api/twiml/>`_ an
 Installation
 ================
 
-Latest version: `3.0`_
-
 .. code-block:: bash
 
     pip install twilio
