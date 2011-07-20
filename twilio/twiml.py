@@ -38,7 +38,7 @@ class Verb(object):
         xml = ET.tostring(self.xml()).encode("utf-8")
 
         if xml_declaration:
-            return u'<?xml version="1.0" encoding="utf-8"?>' + xml
+            return u'<?xml version="1.0" encoding="UTF-8"?>' + xml
         else:
             return xml
 
