@@ -14,7 +14,7 @@ Getting started with the Twilio API couldn't be easier. Create a Twilio REST cli
 
 
 ```python
-from twilio.rest import TwilioRestClient()
+from twilio.rest import TwilioRestClient
 
 client = TwilioRestClient()
 call = client.calls.make(to="9991231234", from_="9991231234",
