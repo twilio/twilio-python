@@ -16,8 +16,8 @@ The :class:`Calls` resource allows you to make outgoing calls. Before a call can
     from twilio.rest import TwilioRestClient
 
     client = TwilioRestClient()
-    call = client.calls.make(to="9991231234, from_="9991231234")
-                           url="http://foo.com/call.xml")
+    call = client.calls.create(to="9991231234, from_="9991231234",
+                               url="http://foo.com/call.xml")
     print call.length
     print call.sid
 
