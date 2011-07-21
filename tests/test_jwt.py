@@ -1,5 +1,6 @@
 import jwt
 import unittest
+import urllib
 from twilio.util import TwilioCapability
 
 class TokenTest(unittest.TestCase):
