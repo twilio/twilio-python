@@ -18,7 +18,7 @@ class RequestValidator(object):
         :param params: post vars that Twilio sent with the request
         :param auth: tuple with (account_sid, token)
 
-        Returns the computed signature
+        :returns: The computed signature
         """
         s = uri
         if len(params) > 0:
@@ -37,7 +37,7 @@ class RequestValidator(object):
         :param signature: expexcted signature in HTTP X-Twilio-Signature header
         :param auth: tuple with (account_sid, token)
 
-        returns true if the request passes validation, false if not
+        :returns: True if the request passes validation, False if not
         """
         return self.compute_signature(uri, params) == signature
 
@@ -45,17 +45,17 @@ class RequestValidator(object):
 class TwilioCapability(object):
     """
     A token to control permissions with Twilio Client
+
+    :param string account_sid: the account sid to which this token
+                               is granted access
+    :param string auth_token: the secret key used to sign the token.
+                              Note, this auth token is not visible to the
+                              user of the token.
+
+    :returns: A new TwilioCapability with zero permissions
     """
 
     def __init__(self, account_sid, auth_token):
-        """Create a new TwilioCapability with zero permissions
-
-        Arguments:
-        account_sid -- the account sid to which this token is granted access
-        auth_token  -- the secret key used to sign the token. Note, this auth
-                       token is not visible to the user of the token.
-
-        """
         self.account_sid = account_sid
         self.auth_token = auth_token
         self.capabilities = {}
@@ -71,8 +71,8 @@ class TwilioCapability(object):
     def generate(self, expires=3600):
         """Generate a valid JWT token with an expiration date.
 
-        Keyword Arguments:
-        expires -- The token lifetime, in seconds. Defaults to 1 hour (3600)
+        :param int expires: The token lifetime, in seconds. Defaults to
+                            1 hour (3600)
 
         """
         payload = self.payload()
@@ -86,9 +86,8 @@ class TwilioCapability(object):
 
         Keyword arguments are passed to the application.
 
-        Arguments:
-        application_sid -- Application to contact
-        client_name     -- (Optional) used for caller id in client to client
+        :param string application_sid: Application to contact
+        :param string client_name: Used for caller id in client to client
 
         """
         scope_params = {
@@ -107,8 +106,7 @@ class TwilioCapability(object):
         connections then configure the TwilioCapability through this method and
         specify the client name.
 
-        Arguments:
-        client_name -- Client name to accept calls from
+        :param string client_name: Client name to accept calls from
 
         """
         self.capabilities["incoming"] = ScopeURI("client", "incoming", {
