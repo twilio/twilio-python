@@ -1,5 +1,6 @@
-__version_info__ = ('3', '0', '1')
+__version_info__ = ('3', '0', '2')
 __version__ = '.'.join(__version_info__)
+
 
 class TwilioException(Exception):
     pass

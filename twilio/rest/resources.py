@@ -1,9 +1,5 @@
-import base64
 import datetime
 import logging
-import re
-import os
-import urllib
 
 from twilio import TwilioException
 from twilio import TwilioRestException
@@ -781,7 +777,8 @@ class PhoneNumbers(ListResource):
 
     def purchase(self, phone_number=None, area_code=None, voice_url=None,
                  voice_method=None, voice_fallback_url=None,
-                 voice_fallback_method=None, status_callback_method=None,
+                 voice_fallback_method=None,
+                 status_callback_url=None, status_callback_method=None,
                  sms_url=None, sms_method=None, sms_fallback_url=None,
                  sms_fallback_method=None, voice_caller_id_lookup=None,
                  account_sid=None, application_sid=None):
@@ -801,6 +798,8 @@ class PhoneNumbers(ListResource):
                 "SmsMethod": sms_method,
                 "SmsFallbackUrl": sms_fallback_url,
                 "SmsFallbackMethod": sms_fallback_method,
+                "StatusCallback": status_callback_url,
+                "StatusCallbackMethod": status_callback_method,
                 "VoiceCallerIdLookup": voice_caller_id_lookup,
                 "AccountSid": account_sid,
                 "ApplicationSid": application_sid,

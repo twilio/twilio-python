@@ -49,17 +49,43 @@ class AvailabePhoneNumbersTest(unittest.TestCase):
         self.assertIsInstance(instance.parent, Mock)
         self.assertEquals(instance.hey, "you")
 
+    def test_purchase_status_callback(self):
+        request = Mock()
+        request.return_value = (Mock(), {"available_phone_numbers": []})
+        self.resource.request = request
+
+        self.resource.list()
+
+        uri = "http://api.twilio.com/AvailablePhoneNumbers/US/Local"
+        request.assert_called_with("GET", uri, params={})
+
 
 class PhoneNumbersTest(unittest.TestCase):
 
+    def setUp(self):
+        self.resource = PhoneNumbers("http://api.twilio.com",
+                                     ("user", "pass"))
+
     def test_reference(self):
-        base = "http://api.twilio.com"
-        phone_numbers = PhoneNumbers(base, Mock())
+        self.assertEquals(self.resource.available_phone_numbers.phone_numbers,
+                          self.resource)
 
-        self.assertEquals(phone_numbers.available_phone_numbers.phone_numbers,
-                          phone_numbers)
+    def test_purchase_status_callback(self):
+        request = Mock()
+        response = Mock()
+        response.status_code = 201
+        request.return_value = (response, {"sid": ""})
+        self.resource.request = request
 
+        self.resource.purchase(area_code="530", status_callback_url="http://",
+                               status_callback_method="POST")
 
+        uri = "http://api.twilio.com/IncomingPhoneNumbers"
 
+        data = {
+            "AreaCode": "530",
+            "StatusCallback": "http://",
+            "StatusCallbackMethod": "POST",
+            }
 
-
+        request.assert_called_with("POST", uri, data=data)
