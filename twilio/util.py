@@ -63,11 +63,17 @@ class TwilioCapability(object):
         self.account_sid = account_sid
         self.auth_token = auth_token
         self.capabilities = {}
+        self.client_name = None
 
     def payload(self):
         """Return the payload for this token."""
+        if "outgoing" in self.capabilities and self.client_name is not None:
+            scope = self.capabilities["outgoing"]
+            scope.params["clientName"] = self.client_name
+
         capabilities = self.capabilities.values()
         scope_uris = [str(scope_uri) for scope_uri in capabilities]
+
         return {
             "scope": " ".join(scope_uris)
         }
@@ -84,21 +90,16 @@ class TwilioCapability(object):
         payload['exp'] = int(time.time() + expires)
         return jwt.encode(payload, self.auth_token, "HS256")
 
-    def allow_client_outgoing(self, application_sid,
-                              client_name=None, **kwargs):
+    def allow_client_outgoing(self, application_sid, **kwargs):
         """Allow the user of this token to make outgoing connections.
 
         Keyword arguments are passed to the application.
 
         :param string application_sid: Application to contact
-        :param string client_name: Used for caller id in client to client
-
         """
         scope_params = {
             "appSid": application_sid,
         }
-        if client_name:
-            scope_params["clientName"] = client_name
         if kwargs:
             scope_params["appParams"] = urllib.urlencode(kwargs, doseq=True)
 
@@ -113,6 +114,7 @@ class TwilioCapability(object):
         :param string client_name: Client name to accept calls from
 
         """
+        self.client_name = client_name
         self.capabilities["incoming"] = ScopeURI("client", "incoming", {
             'clientName': client_name
         })
@@ -134,8 +136,9 @@ class ScopeURI(object):
     def __init__(self, service, privilege, params=None):
         self.service = service
         self.privilege = privilege
-        self.params = urllib.urlencode(params) if params else None
+        self.params = params
 
     def __str__(self):
-        param_string = "?%s" % self.params if self.params else ''
+        params = urllib.urlencode(self.params) if self.params else None
+        param_string = "?%s" % params if params else ''
         return "scope:%s:%s%s" % (self.service, self.privilege, param_string)

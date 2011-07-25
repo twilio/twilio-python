@@ -66,7 +66,7 @@ class TokenTest(unittest.TestCase):
         token.allow_client_incoming("andy")
         token.allow_event_stream()
 
-        outgoing_uri = "scope:client:outgoing?appSid=AP123&appParams=foobar%3D3"
+        outgoing_uri = "scope:client:outgoing?appSid=AP123&appParams=foobar%3D3&clientName=andy"
         incoming_uri = "scope:client:incoming?clientName=andy"
         event_uri = "scope:stream:subscribe?path=%2F2010-04-01%2FEvents"
 
