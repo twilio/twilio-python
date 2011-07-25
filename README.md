@@ -25,7 +25,7 @@ print call.sid
 
 ### Generating TwiML
 
-To control phone calls, your application need to output TwiML. Use :class:`twilio.twiml..Response` to easily create such responses.
+To control phone calls, your application need to output TwiML. Use `twilio.twiml..Response` to easily create such responses.
 
 ```python
 from twilio import twiml
