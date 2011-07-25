@@ -1,9 +1,5 @@
-import base64
 import datetime
 import logging
-import re
-import os
-import urllib
 
 from twilio import TwilioException
 from twilio import TwilioRestException
