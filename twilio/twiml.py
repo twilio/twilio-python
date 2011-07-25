@@ -319,7 +319,7 @@ class Sms(Verb):
     """ Send a Sms Message to a phone number
 
     :param to: whom to send message to
-    :param from_: whom to send message from.
+    :param sender: whom to send message from.
     :param action: url to request after the message is queued
     :param method: submit to 'action' url using GET or POST
     :param statusCallback: url to hit when the message is actually sent
