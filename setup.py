@@ -1,13 +1,13 @@
 from setuptools import setup, find_packages
 setup(
     name = "twilio",
-    version = "3.0.2",
+    version = "3.1.0",
     description = "Twilio API client and TwiML generator",
     author = "Twilio",
     author_email = "help@twilio.com",
     url = "http://github.com/twilio/twilio-python/",
     keywords = ["twilio","twiml"],
-    install_requires = ["httplib2"],
+    install_requires = ["httplib2", "pyjwt"],
     packages = find_packages(),
     classifiers = [
         "Programming Language :: Python",
