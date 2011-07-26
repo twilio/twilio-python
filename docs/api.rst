@@ -10,4 +10,5 @@ A complete API reference to the :data:`twilio` module.
    api/rest/index
    api/rest/resources
    api/twiml
+   api/util
 

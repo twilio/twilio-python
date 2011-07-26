@@ -69,6 +69,7 @@ Small functions useful for validating requests are coming from Twilio
     :maxdepth: 1
 
     usage/validation
+    usage/token-generation
 
 Upgrade Plan
 ==================
@@ -97,12 +98,3 @@ All development occurs over on `Github <https://github.com/twilio/twilio-python>
 Report bugs using the Github `issue tracker <https://github.com/twilio/twilio-python/issues>`_.
 
 If you’ve got questions that aren’t answered by this documentation, ask the `#twilio IRC channel <irc://irc.freenode.net/#twilio>`_
-
-Changelog
-=================
-Current stable version is 3.0.0.
-
-.. toctree::
-   :maxdepth: 1
-
-   changelog
