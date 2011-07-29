@@ -3,8 +3,8 @@ Test that make+request is making correct HTTP requests
 
 Uses the awesome httpbin.org to validate responses
 """
-
 import json
+import twilio
 from nose.tools import assert_equals
 from nose.tools import raises
 from mock import patch
@@ -14,7 +14,7 @@ from twilio.rest.resources import make_request
 from twilio.rest.resources import make_twilio_request
 
 get_headers = {
-    "User-Agent": "twilio-python",
+    "User-Agent": "twilio-python/{}".format(twilio.__version__),
     "Accept": "application/json",
     }
 
