@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 setup(
     name = "twilio",
-    version = "3.2.1",
+    version = "3.2.2",
     description = "Twilio API client and TwiML generator",
     author = "Twilio",
     author_email = "help@twilio.com",
