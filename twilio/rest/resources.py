@@ -538,6 +538,13 @@ class Call(InstanceResource):
         a = self.parent.hangup(self.name)
         self.load(a.__dict__)
 
+    def cancel(self):
+        """ If the called is queued or rining, cancel the calls.
+        Will not affect in progress calls
+        """
+        a = self.parent.cancel(self.name)
+        self.load(a.__dict__)
+
     def route(self, **kwargs):
         """Route the specified :class:`Call` to another url.
 
@@ -571,10 +578,10 @@ class Calls(ListResource):
             "Status": status,
             "StartTime<": started_before,
             "StartTime>": started_after,
-            "StartTime": started,
+            "StartTime": parse_date(started),
             "EndTime<": ended_before,
             "EndTime>": ended_after,
-            "EndTime": ended,
+            "EndTime": parse_date(ended),
             })
         return self.get_instances(params=params, **kwargs)
 
@@ -609,6 +616,15 @@ class Calls(ListResource):
             })
         return self.update_instance(sid, params)
 
+    def cancel(self, sid):
+        """ If this call is queued or ringing, cancel the call
+        Will not affect in-progress calls.
+
+        :param sid: A Call Sid for a specific call
+        :returns: Updated :class:`Call` resource
+        """
+        return self.update(sid, status=Call.CANCELED)
+
     def hangup(self, sid):
         """ If this call is currenlty active, hang up the call.
         If this call is scheduled to be made, remove the call
@@ -617,7 +633,7 @@ class Calls(ListResource):
         :param sid: A Call Sid for a specific call
         :returns: Updated :class:`Call` resource
         """
-        return self.update(sid, status=Call.CANCELED)
+        return self.update(sid, status=Call.COMPLETED)
 
     def route(self, sid, url, method="POST"):
         """Route the specified :class:`Call` to another url.
