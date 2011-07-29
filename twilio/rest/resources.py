@@ -1,6 +1,6 @@
 import datetime
 import logging
-
+import twilio
 from twilio import TwilioException
 from twilio import TwilioRestException
 from urllib import urlencode
@@ -144,7 +144,7 @@ def make_twilio_request(method, uri, **kwargs):
     Make a request to Twilio. Throws an error
     """
     headers = kwargs.get("headers", {})
-    headers["User-Agent"] = "twilio-python/3.2.0"   # Add user aggent string
+    headers["User-Agent"] = "twilio-python/%s" % twilio.__version__
 
     if method == "POST" and "Content-Type" not in headers:
         headers["Content-Type"] = "application/x-www-form-urlencoded"

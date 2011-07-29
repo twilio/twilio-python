@@ -330,6 +330,20 @@ class TestDial(TwilioTest):
         r = self.strip(r)
         self.assertEquals(r, '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Conference>My Room</Conference></Dial></Response>')
 
+    def test_add_empty_client(self):
+        """ add an empty client to a dial"""
+        r = Response()
+        d = r.dial()
+        d.client("")
+        self.assertEquals(str(r), '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Client /></Dial></Response>')
+
+    def test_add_client(self):
+        """ add a client to a dial"""
+        r = Response()
+        d = r.dial()
+        d.client("alice")
+        self.assertEquals(str(r), '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Client>alice</Client></Dial></Response>')
+
     def testAddConferenceConvenceMethod(self):
         """ add a conference to a dial, conviently"""
         r = Response()

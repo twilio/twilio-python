@@ -315,6 +315,16 @@ class Number(Verb):
         self.body = number
 
 
+class Client(Verb):
+    """Specify a client name to call in a nested Dial element.
+
+    :param name: Client name to connect to
+    """
+    def __init__(self, name, **kwargs):
+        Verb.__init__(self, **kwargs)
+        self.body = name
+
+
 class Sms(Verb):
     """ Send a Sms Message to a phone number
 
@@ -375,7 +385,7 @@ class Dial(Verb):
 
     def __init__(self, number=None, action=None, method=None, **kwargs):
         Verb.__init__(self, action=action, method=method, **kwargs)
-        self.nestables = ['Number', 'Conference']
+        self.nestables = ['Number', 'Conference', 'Client']
         if number and len(number.split(',')) > 1:
             for n in number.split(','):
                 self.append(Number(n.strip()))
@@ -384,6 +394,9 @@ class Dial(Verb):
         if method and (method != self.GET and method != self.POST):
             raise TwimlException( \
                 "Invalid method parameter, must be GET or POST")
+
+    def client(self, name, **kwargs):
+        return self.append(Client(name, **kwargs))
 
     def number(self, number, **kwargs):
         return self.append(Number(number, **kwargs))
