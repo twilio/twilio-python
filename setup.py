@@ -10,13 +10,16 @@ setup(
     install_requires = ["httplib2", "pyjwt"],
     packages = find_packages(),
     classifiers = [
-        "Programming Language :: Python",
-        "Operating System :: OS Independent",
-        "License :: OSI Approved :: MIT License",
-        "Intended Audience :: Developers",
         "Development Status :: 5 - Production/Stable",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 2.5",
+        "Programming Language :: Python :: 2.6",
+        "Programming Language :: Python :: 2.7",
         "Topic :: Software Development :: Libraries :: Python Modules",
-        "Topic :: Communications :: Telephony"
+        "Topic :: Communications :: Telephony",
         ],
     long_description = """\
     Python Twilio Helper Library
