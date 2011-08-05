@@ -11,8 +11,8 @@ Making a Call
 
     from twilio.rest import TwilioRestClient()
 
-    client = TwilioRestClient()
-    call = client.calls.make(to="9991231234", from_="9991231234",
+    client = TwilioRestClient(account='YOURACCOUNTSID', token='YOURTOKEN')
+    call = client.calls.create(to="9991231234", from_="9991231234",
                              url="http://foo.com/call.xml")
     print call.length
     print call.sid
@@ -20,7 +20,7 @@ Making a Call
 Generating TwiML
 =================
 
-To control phone calls, your application need to output TwiML. Use :class:`twilio.twiml..Response` to easily create such responses.
+To control phone calls, your application need to output TwiML. Use :class:`twilio.twiml.Response` to easily create such responses.
 
 .. code-block:: python
 
@@ -39,9 +39,3 @@ Digging Deeper
 ========================
 
 The full power of the Twilio API is at your finger tips. The :ref:`user-guide` explains all the awesome features available to use.
-
-
-
-
-
-
