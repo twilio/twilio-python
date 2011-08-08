@@ -11,7 +11,7 @@ Authentication
 
 The :class:`TwilioRestClient` needs your Twilio credentials. While these can be passed in directly to the constructor, we suggest storing your credentials as environment variables. Why? You'll never have to worry about committing your credentials and accidentally posting them somewhere public.
 
-The :class:`TwilioClient` looks for :const:`TWILIO_ACCOUNT_SID` and :const:`TWILIO_AUTH_TOKEN` inside the current environment.
+The :class:`TwilioRestClient` looks for :const:`TWILIO_ACCOUNT_SID` and :const:`TWILIO_AUTH_TOKEN` inside the current environment.
 
 With those two values set, create a new :class:`TwilioClient`.
 

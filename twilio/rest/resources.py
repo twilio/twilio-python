@@ -451,7 +451,7 @@ class Recordings(ListResource):
     def list(self, call_sid=None, before=None, after=None, **kwargs):
         """
         Returns a page of :class:`Recording` resources as a list.
-        For paging informtion see :class:`ListResource`.
+        For paging information see :class:`ListResource`.
 
         :param date after: Only list recordings logged after this datetime
         :param date before: Only list recordings logger before this datetime

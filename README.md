@@ -10,8 +10,13 @@ Install from PyPi using pip
 
 Getting started with the Twilio API couldn't be easier. Create a Twilio REST client to get started. For example, the following code makes a call using the Twilio REST API.
 
-### Making a Call
+### API Credentials
 
+`TwilioRestClient` needs your Twilio credentials. While these can be passed in directly to the constructor, we suggest storing your credentials as environment variables. Why? You'll never have to worry about committing your credentials and accidentally posting them somewhere public.
+
+The `TwilioRestClient` looks for `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN` inside the current environment.
+
+### Making a Call
 
 ```python
 from twilio.rest import TwilioRestClient
