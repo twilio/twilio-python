@@ -115,10 +115,10 @@ def make_request(method, url,
 
     See the requests documentation for explanation of all these parameters
 
-    Currently timeout, allow_redirects, proxies, files, and cookies
-    are all ignored
+    Currently proxies, files, and cookies are all ignored
     """
-    http = httplib2.Http()
+    http = httplib2.Http(timeout=timeout)
+    http.follow_redirects = allow_redirects
 
     if auth is not None:
         http.add_credentials(auth[0], auth[1])
