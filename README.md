@@ -36,6 +36,11 @@ print call.sid
 
 The `TwilioRestClient` looks for `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN` inside the current environment.
 
+```python
+from twilio.rest import TwilioRestClient
+client = TwilioRestClient()
+```
+
 ### Generating TwiML
 
 To control phone calls, your application need to output TwiML. Use `twilio.twiml..Response` to easily create such responses.
