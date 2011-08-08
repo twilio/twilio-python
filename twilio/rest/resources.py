@@ -1184,7 +1184,7 @@ class Applications(ListResource):
                voice_fallback_method=None, status_callback=None,
                status_callback_method=None, voice_caller_id_lookup=None,
                sms_url=None, sms_method=None, sms_fallback_url=None,
-               sms_status_callback=None):
+               sms_fallback_method=None, sms_status_callback=None):
         """
         Update an :class:`Application` with any of these optional parameters.
 
@@ -1249,7 +1249,7 @@ class Applications(ListResource):
                voice_fallback_method=None, status_callback=None,
                status_callback_method=None, voice_caller_id_lookup=None,
                sms_url=None, sms_method=None, sms_fallback_url=None,
-               sms_status_callback=None):
+               sms_fallback_method=None, sms_status_callback=None):
         """
         Update an :class:`Application` with the given parameters.
 
@@ -1269,7 +1269,7 @@ class Applications(ListResource):
                 "SmsFallbackMethod": sms_fallback_method,
                 "SmsStatusCallback": sms_status_callback,
                 })
-        return self.update_instance(params)
+        return self.update_instance(sid, params)
 
     def delete(self, sid):
         """
