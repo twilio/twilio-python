@@ -17,7 +17,7 @@ Capability tokens are used by `Twilio Client <http://www.twilio.com/api/client>`
     account_sid = "AC123123"
     auth_token = "secret"
 
-    capability = TwilioCability(account_sid, auth_token)
+    capability = TwilioCapability(account_sid, auth_token)
 
 
 Allow Incoming Connections
