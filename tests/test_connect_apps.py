@@ -41,32 +41,8 @@ class ConnectAppTest(unittest.TestCase):
             params={}, auth=self.auth)
 
     def test_create(self):
-        self.resource.create_instance = Mock()
-        self.resource.create(
-            friendly_name="foo",
-            authorize_url="http://nowhere",
-            deauthorize_callback="http://anywhere",
-            deauthorize_callback_method="POST",
-            description="bat",
-            company_name="Skylon",
-            homepage_url="http://uhhhhh",
-            )
-
-        self.resource.create_instance.assert_called_with({
-            "FriendlyName": "foo",
-            "AuthorizeRedirectUrl": "http://nowhere",
-            "DeauthorizeCallbackUrl": "http://anywhere",
-            "DeauthorizeCallbackMethod": "POST",
-            "Description": "bat",
-            "CompanyName": "Skylon",
-            "HomepageUrl": "http://uhhhhh",
-            })
-
-    def test_create_premission(self):
-        self.resource.create_instance = Mock()
-        self.resource.create(permissions=["post-call", "get-all"])
-        self.resource.create_instance.assert_called_with({
-            "Permissions": "post-call,get-all"})
+        with self.assertRaises(AttributeError):
+            self.resource.create()
 
     def test_delete(self):
         with self.assertRaises(AttributeError):

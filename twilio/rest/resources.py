@@ -533,48 +533,6 @@ class ConnectApps(ListResource):
         """
         return self.get_instances(**kwargs)
 
-    def create(self, friendly_name=None, authorize_url=None,
-            deauthorize_callback=None, deauthorize_callback_method=None,
-            permissions=None, description=None, company_name=None,
-            homepage_url=None):
-        """
-        Create a new :class:`ConnectApp` resources as a list.
-
-        :param friendly_name: A human readable description of the Connect App,
-                              with maximum length 64 characters.
-        :param authorize_url: The URL the user's browser will redirect to after
-                              Twilio authenticates the user and obtains 
-                              authorization for this Connect App.
-        :param deauthorize_callback: The URL to which Twilio will send a 
-                                     request when a user de-authorizes this 
-                                     Connect App.
-        :param deauthrozie_callback_method: The HTTP method to be used when 
-                                            making a request to the 
-                                            DeauthorizeCallbackUrl. 
-                                            Either GET or POST.
-        :param permissions: A list of permissions to request. Allowed values
-                            are `get-all` and `post-all` 
-        :param description: A more detailed human readable description 
-                            of the Connect App.
-        :param company_name: The company name for this Connect App.
-        :param homepage_url: The public URL where users can obtain more 
-                             information about this Connect App.
-        """
-        if permissions:
-            permissions = ",".join(permissions)
-
-        params = transform_params({
-            "FriendlyName": friendly_name,
-            "AuthorizeRedirectUrl": authorize_url,
-            "DeauthorizeCallbackUrl": deauthorize_callback,
-            "DeauthorizeCallbackMethod": deauthorize_callback_method,
-            "Permissions": permissions,
-            "Description": description,
-            "HomepageUrl": homepage_url,
-            "CompanyName": company_name,
-            })
-        return self.create_instance(params)
-
 
 class AuthorizedConnectApp(ConnectApp):
     """ An authorized connect app """
@@ -598,10 +556,6 @@ class AuthorizedConnectApps(ConnectApps):
     name = "AuthorizedConnectApps"
     instance = AuthorizedConnectApp
     key = "authorized_connect_apps"
-
-    def create(self, **kwargs):
-        """ You can't create a authorized connect app"""
-        raise AttributeError
 
 
 class Call(InstanceResource):
