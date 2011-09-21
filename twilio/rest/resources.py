@@ -132,7 +132,7 @@ def make_request(method, url,
             url = '%s&%s' % (url, enc_params)
         else:
             url = '%s?%s' % (url, enc_params)
-
+    
     resp, content = http.request(url, method, headers=headers, body=data)
 
     # Format httplib2 reqeusts as reqeusts objects
@@ -209,6 +209,7 @@ class Resource(object):
 class InstanceResource(Resource):
 
     subresources = []
+    id_key = "sid"
 
     def __init__(self, parent, sid):
         self.parent = parent
@@ -343,7 +344,7 @@ class ListResource(Resource):
             pass
 
     def load_instance(self, data):
-        instance = self.instance(self, data["sid"])
+        instance = self.instance(self, data[self.instance.id_key])
         instance.load(data)
         instance.load_subresources()
         return instance
@@ -511,6 +512,50 @@ class Notifications(ListResource):
         Delete a given Notificiation
         """
         return self.delete_instance(sid)
+
+
+class ConnectApp(InstanceResource):
+    """ An authorized connect app """
+    pass
+
+
+class ConnectApps(ListResource):
+    """ A list of Call resources """
+
+    name = "ConnectApps"
+    instance = ConnectApp
+    key = "connect_apps"
+
+    def list(self, **kwargs):
+        """
+        Returns a page of :class:`Call` resources as a list. For paging
+        informtion see :class:`ListResource`
+        """
+        return self.get_instances(**kwargs)
+
+
+class AuthorizedConnectApp(ConnectApp):
+    """ An authorized connect app """
+
+    id_key = "connect_app_sid"
+
+    def load(self, entries):
+        """ Translate certain parameters into others"""
+        result = {}
+
+        for k, v in entries.iteritems():
+            k = k.replace("connect_app_", "")
+            result[k] = v
+
+        super(AuthorizedConnectApp, self).load(result)
+
+
+class AuthorizedConnectApps(ConnectApps):
+    """ A list of Call resources """
+
+    name = "AuthorizedConnectApps"
+    instance = AuthorizedConnectApp
+    key = "authorized_connect_apps"
 
 
 class Call(InstanceResource):
@@ -683,7 +728,7 @@ class CallerIds(ListResource):
             "PhoneNumber": phone_number,
             "FrienldyName": friendly_name,
             })
-        return self.get_instances(params=params, **kwargs)
+        return self.get_instances(params=params, **kwargs) 
 
     def update(self, sid, friendly_name=None):
         """
@@ -955,6 +1000,7 @@ class SmsMessages(ListResource):
             })
         return self.create_instance(params)
 
+    @normalize_dates
     def list(self, to=None, from_=None, before=None, after=None, **kwargs):
         """
         Returns a page of :class:`SMSMessage` resources as a list. For
@@ -1120,6 +1166,7 @@ class Conferences(ListResource):
     name = "Conferences"
     instance = Conference
 
+    @normalize_dates
     def list(self, status=None, friendly_name=None, updated_before=None,
              updated_after=None, created_after=None, created_before=None,
              updated=None, created=None, **kwargs):
@@ -1138,12 +1185,12 @@ class Conferences(ListResource):
             "FriendlyName": friendly_name,
             "DateUpdated<": updated_before,
             "DateUpdated>": updated_after,
-            "DateUpdated": updated,
+            "DateUpdated=": parse_date(updated),
             "DateCreated<": created_before,
             "DateCreated>": created_after,
-            "DateCreated": created,
+            "DateCreated=": parse_date(created),
             })
-        return self.get_instance(params=params, **kwargs)
+        return self.get_instances(params=params, **kwargs)
 
 
 class Application(InstanceResource):
@@ -1295,6 +1342,8 @@ class Account(InstanceResource):
         CallerIds,
         PhoneNumbers,
         Conferences,
+        ConnectApps,
+        AuthorizedConnectApps,
         ]
 
     def update(self, **kwargs):
