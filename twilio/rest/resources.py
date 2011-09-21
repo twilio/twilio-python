@@ -132,7 +132,7 @@ def make_request(method, url,
             url = '%s&%s' % (url, enc_params)
         else:
             url = '%s?%s' % (url, enc_params)
-
+    
     resp, content = http.request(url, method, headers=headers, body=data)
 
     # Format httplib2 reqeusts as reqeusts objects
@@ -209,6 +209,7 @@ class Resource(object):
 class InstanceResource(Resource):
 
     subresources = []
+    id_key = "sid"
 
     def __init__(self, parent, sid):
         self.parent = parent
@@ -343,7 +344,7 @@ class ListResource(Resource):
             pass
 
     def load_instance(self, data):
-        instance = self.instance(self, data["sid"])
+        instance = self.instance(self, data[self.instance.id_key])
         instance.load(data)
         instance.load_subresources()
         return instance
@@ -511,6 +512,96 @@ class Notifications(ListResource):
         Delete a given Notificiation
         """
         return self.delete_instance(sid)
+
+
+class ConnectApp(InstanceResource):
+    """ An authorized connect app """
+    pass
+
+
+class ConnectApps(ListResource):
+    """ A list of Call resources """
+
+    name = "ConnectApps"
+    instance = ConnectApp
+    key = "connect_apps"
+
+    def list(self, **kwargs):
+        """
+        Returns a page of :class:`Call` resources as a list. For paging
+        informtion see :class:`ListResource`
+        """
+        return self.get_instances(**kwargs)
+
+    def create(self, friendly_name=None, authorize_url=None,
+            deauthorize_callback=None, deauthorize_callback_method=None,
+            permissions=None, description=None, company_name=None,
+            homepage_url=None):
+        """
+        Create a new :class:`ConnectApp` resources as a list.
+
+        :param friendly_name: A human readable description of the Connect App,
+                              with maximum length 64 characters.
+        :param authorize_url: The URL the user's browser will redirect to after
+                              Twilio authenticates the user and obtains 
+                              authorization for this Connect App.
+        :param deauthorize_callback: The URL to which Twilio will send a 
+                                     request when a user de-authorizes this 
+                                     Connect App.
+        :param deauthrozie_callback_method: The HTTP method to be used when 
+                                            making a request to the 
+                                            DeauthorizeCallbackUrl. 
+                                            Either GET or POST.
+        :param permissions: A list of permissions to request. Allowed values
+                            are `get-all` and `post-all` 
+        :param description: A more detailed human readable description 
+                            of the Connect App.
+        :param company_name: The company name for this Connect App.
+        :param homepage_url: The public URL where users can obtain more 
+                             information about this Connect App.
+        """
+        if permissions:
+            permissions = ",".join(permissions)
+
+        params = transform_params({
+            "FriendlyName": friendly_name,
+            "AuthorizeRedirectUrl": authorize_url,
+            "DeauthorizeCallbackUrl": deauthorize_callback,
+            "DeauthorizeCallbackMethod": deauthorize_callback_method,
+            "Permissions": permissions,
+            "Description": description,
+            "HomepageUrl": homepage_url,
+            "CompanyName": company_name,
+            })
+        return self.create_instance(params)
+
+
+class AuthorizedConnectApp(ConnectApp):
+    """ An authorized connect app """
+
+    id_key = "connect_app_sid"
+
+    def load(self, entries):
+        """ Translate certain parameters into others"""
+        result = {}
+
+        for k, v in entries.iteritems():
+            k = k.replace("connect_app_", "")
+            result[k] = v
+
+        super(AuthorizedConnectApp, self).load(result)
+
+
+class AuthorizedConnectApps(ConnectApps):
+    """ A list of Call resources """
+
+    name = "AuthorizedConnectApps"
+    instance = AuthorizedConnectApp
+    key = "authorized_connect_apps"
+
+    def create(self, **kwargs):
+        """ You can't create a authorized connect app"""
+        raise AttributeError
 
 
 class Call(InstanceResource):
@@ -683,7 +774,7 @@ class CallerIds(ListResource):
             "PhoneNumber": phone_number,
             "FrienldyName": friendly_name,
             })
-        return self.get_instances(params=params, **kwargs)
+        return self.get_instances(params=params, **kwargs) 
 
     def update(self, sid, friendly_name=None):
         """

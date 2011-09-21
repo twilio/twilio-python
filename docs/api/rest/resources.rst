@@ -128,7 +128,7 @@ Applications
    .. attribute:: uri
 
       The URI for this resource, relative to https://api.twilio.com
-
+      
 
 Calls
 >>>>>>
@@ -287,6 +287,72 @@ Conferences
    .. attribute:: participants
 
       The :class:`Participants` resource, listing people currently in this conference
+
+
+Connect Apps
+>>>>>>>>>>>>>>
+
+.. autoclass:: twilio.rest.resrouces.ConnectApps
+   :members:
+   :exclude-members: instance
+
+.. autoclass:: twilio.rest.resources.ConnectApp
+   :members:
+
+   .. attribute:: sid
+
+      A 34 character string that uniquely identifies this resource.
+
+   .. attribute:: date_created
+
+      The date that this resource was created, given as GMT in RFC 2822 format.
+
+   .. attribute:: date_updated
+
+      The date that this resource was last updated, given as GMT in RFC 2822 format.
+
+   .. attribute:: account_sid
+
+      The unique id of the Account responsible for creating this call.
+
+   .. attribute:: permissions
+
+      The list of permissions that your ConnectApp requests.
+
+   .. attribute:: friendly_name
+
+      A human readable name for this resource.
+
+   .. attribute:: description
+
+      A more detailed human readable description of this resource.
+
+   .. attribute:: company_name
+
+      The company name set for this Connect App.
+
+   .. attribute:: homepage_url
+
+      The public URL where users can obtain more information about this Connect App.
+
+   .. attribute:: authorize_redirect_url
+     
+      The URL the user's browser will redirect to after Twilio authenticates the 
+      user and obtains authorization for this Connect App.
+
+   .. atribute:: deauthorize_callback_url
+
+      The URL to which Twilio will send a request when a user de-authorizes this 
+      Connect App.
+
+   .. attribute:: deauthorize_callback_method
+
+      The HTTP method to be used when making a request to the deauthorize
+      callback url.
+
+   .. attribute:: uri 
+
+      The URI for this resource, relative to https://api.twilio.com.
 
 
 Notifications

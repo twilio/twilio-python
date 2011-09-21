@@ -4,8 +4,10 @@ from twilio import TwilioException
 from twilio.rest.resources import make_request
 from twilio.rest.resources import Accounts
 from twilio.rest.resources import Applications
+from twilio.rest.resources import AuthorizedConnectApps
 from twilio.rest.resources import Calls
 from twilio.rest.resources import CallerIds
+from twilio.rest.resources import ConnectApps
 from twilio.rest.resources import Notifications
 from twilio.rest.resources import Recordings
 from twilio.rest.resources import Transcriptions
@@ -99,8 +101,10 @@ class TwilioRestClient(object):
 
         self.accounts = Accounts(version_uri, auth)
         self.applications = Applications(account_uri, auth)
+        self.authorized_connect_apps = AuthorizedConnectApps(account_uri, auth)
         self.calls = Calls(account_uri, auth)
         self.caller_ids = CallerIds(account_uri, auth)
+        self.connect_apps = ConnectApps(account_uri, auth)
         self.notifications = Notifications(account_uri, auth)
         self.recordings = Recordings(account_uri, auth)
         self.transcriptions = Transcriptions(account_uri, auth)
