@@ -9,6 +9,6 @@ Version 3.3.0
 Released on September 21, 2011
 
 - Add support for Twilio Connect. Connect applications and authorized Connect
-  applications are now availble via the rest client.
-- Fix a problem where date and datetimes weren't getting coverted to strings
-  when querying list resources
+  applications are now availble via the REST client.
+- Fix a problem where date and datetimes weren't coverted to strings when
+  querying list resources

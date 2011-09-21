@@ -98,3 +98,5 @@ All development occurs over on `Github <https://github.com/twilio/twilio-python>
 Report bugs using the Github `issue tracker <https://github.com/twilio/twilio-python/issues>`_.
 
 If you’ve got questions that aren’t answered by this documentation, ask the `#twilio IRC channel <irc://irc.freenode.net/#twilio>`_
+
+See the :doc:`/changelog` for version history.
