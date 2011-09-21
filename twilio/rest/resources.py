@@ -1000,6 +1000,7 @@ class SmsMessages(ListResource):
             })
         return self.create_instance(params)
 
+    @normalize_dates
     def list(self, to=None, from_=None, before=None, after=None, **kwargs):
         """
         Returns a page of :class:`SMSMessage` resources as a list. For
@@ -1165,6 +1166,7 @@ class Conferences(ListResource):
     name = "Conferences"
     instance = Conference
 
+    @normalize_dates
     def list(self, status=None, friendly_name=None, updated_before=None,
              updated_after=None, created_after=None, created_before=None,
              updated=None, created=None, **kwargs):
@@ -1183,12 +1185,12 @@ class Conferences(ListResource):
             "FriendlyName": friendly_name,
             "DateUpdated<": updated_before,
             "DateUpdated>": updated_after,
-            "DateUpdated": updated,
+            "DateUpdated=": parse_date(updated),
             "DateCreated<": created_before,
             "DateCreated>": created_after,
-            "DateCreated": created,
+            "DateCreated=": parse_date(created),
             })
-        return self.get_instance(params=params, **kwargs)
+        return self.get_instances(params=params, **kwargs)
 
 
 class Application(InstanceResource):
@@ -1340,6 +1342,8 @@ class Account(InstanceResource):
         CallerIds,
         PhoneNumbers,
         Conferences,
+        ConnectApps,
+        AuthorizedConnectApps,
         ]
 
     def update(self, **kwargs):
