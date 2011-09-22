@@ -12,9 +12,9 @@ Getting started with the Twilio API couldn't be easier. Create a Twilio REST cli
 
 ### API Credentials
 
-`TwilioRestClient` needs your Twilio credentials. While these can be passed in directly to the constructor, we suggest storing your credentials as environment variables. Why? You'll never have to worry about committing your credentials and accidentally posting them somewhere public.
+To get started, the `TwilioRestClient` needs your Twilio credentials. You can either pass these directly to the constructor (see the code below) or via environment variables.
 
-The `TwilioRestClient` looks for `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN` inside the current environment.
+We suggest storing your credentials as environment variables. Why? You'll never have to worry about committing your credentials and accidentally posting them somewhere public.
 
 ### Making a Call
 
@@ -25,16 +25,12 @@ account = "AXXXXXXXXXXXXXXXXX"
 token = "YYYYYYYYYYYYYYYYYY"
 client = TwilioRestClient(account, token)
 
-call = client.calls.create(to="9991231234", from_="9991231234",
-                           url="http://foo.com/call.xml")
+call = client.calls.create(to="9991231234", from_="9991231234", url="http://foo.com/call.xml")
 print call.length
 print call.sid
 ```
-#### API Credentials
 
-`TwilioRestClient` needs your Twilio credentials. While these can be passed in directly to the constructor (see above), we suggest storing your credentials as environment variables. Why? You'll never have to worry about committing your credentials and accidentally posting them somewhere public.
-
-The `TwilioRestClient` looks for `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN` inside the current environment.
+Alternatively, a `TwilioRestClient` constructor without these parameters will look for `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN` inside the current environment.
 
 ```python
 from twilio.rest import TwilioRestClient
