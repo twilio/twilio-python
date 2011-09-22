@@ -16,6 +16,21 @@ To get started, the `TwilioRestClient` needs your Twilio credentials. You can ei
 
 We suggest storing your credentials as environment variables. Why? You'll never have to worry about committing your credentials and accidentally posting them somewhere public.
 
+```python
+from twilio.rest import TwilioRestClient
+
+account = "AXXXXXXXXXXXXXXXXX"
+token = "YYYYYYYYYYYYYYYYYY"
+client = TwilioRestClient(account, token)
+```
+
+Alternatively, a `TwilioRestClient` constructor without these parameters will look for `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN` inside the current environment.
+
+```python
+from twilio.rest import TwilioRestClient
+client = TwilioRestClient()
+```
+
 ### Making a Call
 
 ```python
@@ -30,12 +45,6 @@ print call.length
 print call.sid
 ```
 
-Alternatively, a `TwilioRestClient` constructor without these parameters will look for `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN` inside the current environment.
-
-```python
-from twilio.rest import TwilioRestClient
-client = TwilioRestClient()
-```
 
 ### Generating TwiML
 
