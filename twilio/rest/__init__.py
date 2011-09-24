@@ -93,7 +93,21 @@ class TwilioRestClient(object):
         if not account or not token:
             account, token = find_credentials()
             if not account or not token:
-                raise TwilioException("Could not find account credentials")
+                raise TwilioException("""
+Twilio could not find your account credentials. Pass them into the
+TwilioRestClient constructor like this:
+
+    client = TwilioRestClient(account='AC38135355602040856210245275870',
+                              token='2flnf5tdp7so0lmfdu3d')
+
+Or, add your credentials to your shell environment. From the terminal, run
+
+    echo "export TWILIO_ACCOUNT_SID=AC3813535560204085626521" >> ~/.bashrc
+    echo "export TWILIO_AUTH_TOKEN=2flnf5tdp7so0lmfdu3d7wod" >> ~/.bashrc
+
+and be sure to replace the values for the Account SID and auth token with the
+values from your Twilio Account at https://www.twilio.com/user/account.
+""")
 
         auth = (account, token)
         version_uri = "%s/%s" % (base, version)
