@@ -41,26 +41,25 @@ token = "YYYYYYYYYYYYYYYYYY"
 client = TwilioRestClient(account, token)
 
 call = client.calls.create(to="9991231234", from_="9991231234", url="http://foo.com/call.xml")
-print call.length
 print call.sid
 ```
 
 
-### Generating TwiML
+### Handling a call using TwiML
 
-To control phone calls, your application need to output TwiML. Use `twilio.twiml..Response` to easily create such responses.
+To control phone calls, your application need to output TwiML. Use `twilio.twiml.Response` to easily create such responses.
 
 ```python
 from twilio import twiml
 
 r = twiml.Response()
-r.play("monkey.mp3", loop=5)
+r.say("Welcome to twilio!")
 print str(r)
 ```
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<Response><Play loop="5">monkey.mp3</Play><Response>
+<Response><Say>Welcome to twilio!</Say></Response>
 ```
 
 ### Digging Deeper
