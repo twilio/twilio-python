@@ -1,3 +1,4 @@
+import re
 import datetime
 import logging
 import twilio
@@ -776,12 +777,28 @@ class CallerIds(ListResource):
 
 class PhoneNumber(InstanceResource):
 
-    def trasfer(self, account_sid):
+    def load(self, entries):
+        """ Set the proper Account owner of this phone number """
+
+        # Only check if entries has a uri
+        if "account_sid" in entries:
+        
+            # Parse the parent's uri to get the scheme and base
+            uri = re.sub(r'AC(.*)', entries["account_sid"],
+                self.parent.base_uri)
+
+            self.parent = PhoneNumbers(uri, self.parent.auth)
+            self.base_uri = self.parent.uri
+
+        super(PhoneNumber, self).load(entries)
+
+    def transfer(self, account_sid):
         """
         Transfer the phone number with sid from the current account to another
         identified by account_sid
         """
-        pass
+        a = self.parent.transfer(self.name, account_sid)
+        self.load(a.__dict__)
 
     def update(self, **kwargs):
         """
@@ -887,12 +904,12 @@ class PhoneNumbers(ListResource):
         """
         return self.available_phone_numbers.list(**kwargs)
 
-    def trasfer(self, sid, account_sid):
+    def transfer(self, sid, account_sid):
         """
         Transfer the phone number with sid from the current account to another
         identified by account_sid
         """
-        return self.update_instance(sid, {"Url": url, "Method": method})
+        return self.update(sid, account_sid=account_sid) 
 
     def update(self, sid, api_version=None, voice_url=None, voice_method=None,
                voice_fallback_url=None, voice_fallback_method=None,
