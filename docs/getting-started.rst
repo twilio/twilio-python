@@ -9,9 +9,13 @@ Making a Call
 
 .. code-block:: python
 
-    from twilio.rest import TwilioRestClient()
+    from twilio.rest import TwilioRestClient
 
-    client = TwilioRestClient()
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     call = client.calls.make(to="9991231234", from_="9991231234",
                              url="http://foo.com/call.xml")
     print call.length
