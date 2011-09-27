@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.3.1
+-------------
+
+Released on September 27, 2011
+
+- Allow phone numbers to be transferred between accounts and subaccounts
+
 Version 3.3.0
 -------------
 
