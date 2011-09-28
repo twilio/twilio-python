@@ -1202,10 +1202,10 @@ class Conferences(ListResource):
             "FriendlyName": friendly_name,
             "DateUpdated<": updated_before,
             "DateUpdated>": updated_after,
-            "DateUpdated=": parse_date(updated),
+            "DateUpdated": parse_date(updated),
             "DateCreated<": created_before,
             "DateCreated>": created_after,
-            "DateCreated=": parse_date(created),
+            "DateCreated": parse_date(created),
             })
         return self.get_instances(params=params, **kwargs)
 

@@ -19,7 +19,7 @@ class ConferenceTest(unittest.TestCase):
         self.resource.get_instances = Mock()
         self.resource.list(created=date(2011, 1, 1))
         self.resource.get_instances.assert_called_with(params={
-            "DateCreated=": "2011-01-01"})
+            "DateCreated": "2011-01-01"})
 
     def test_list_before(self):
         self.resource.get_instances = Mock()
