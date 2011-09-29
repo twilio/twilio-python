@@ -28,6 +28,12 @@ class Verb(object):
     def __str__(self):
         return self.toxml()
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        return False
+
     def toxml(self, xml_declaration=True):
         """
         Return the contents of this verb as an XML string

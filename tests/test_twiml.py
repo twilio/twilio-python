@@ -374,11 +374,11 @@ class TestGather(TwilioTest):
         self.assertEquals(r, '<?xml version="1.0" encoding="UTF-8"?><Response><Gather /></Response>')
 
     def test_context_manager(self):
-        r = Response()
-        with r.gather() as g:
-            g.say("Hello")
+        with Response() as r:
+            with r.gather() as g:
+                g.say("Hello")
 
-        self.assertEquals(r, '<?xml version="1.0" encoding="UTF-8"?><Response><Gather><Say>Hello</Say></Gather></Response>')
+            self.assertEquals(str(r), '<?xml version="1.0" encoding="UTF-8"?><Response><Gather><Say>Hello</Say></Gather></Response>')
 
     def testNestedSayPlayPause(self):
         """ a gather with a say, play, and pause"""
