@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.3.2
+-------------
+
+Released on September 29, 2011
+
+- TwiML verbs can now be used as context managers
+
 Version 3.3.1
 -------------
 
