@@ -21,7 +21,7 @@ Finding numbers to buy couldn't be easier. We first search for a number in area 
     client = TwilioRestClient()
     numbers = client.phone_numbers.search(area_code=530)
 
-    if len(numbers) > 0:
+    if numbers:
         numbers[0].purchase()
     else:
         print "No numbers in 530 available"
