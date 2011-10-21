@@ -13,7 +13,7 @@ Installation
 
     pip install twilio
 
-You can also `download the source <https://github.com/twilio/twilio-python/zipball/master>` and install using :data:`setuptools`
+You can also `download the source <https://github.com/twilio/twilio-python/zipball/master>`_ and install by downloading :data:`setuptools`, navigating in the Terminal to the folder containing the **twilio-python** library, and then running:
 
 .. code-block:: bash
 
