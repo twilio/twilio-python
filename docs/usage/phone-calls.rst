@@ -75,7 +75,7 @@ The :class:`Call` resource makes it easy to find current live calls and redirect
     from twilio.rest.resources import Call
 
     client = TwilioRestClient()
-    calls = client.calls.list(statsus=Call.IN_PROGRESS)
+    calls = client.calls.list(status=Call.IN_PROGRESS)
     for c in calls:
         c.route("http://foo.com/new.xml", method="POST")
 
