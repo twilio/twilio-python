@@ -16,8 +16,8 @@ Making a Call
     AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
 
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
-    call = client.calls.make(to="9991231234", from_="9991231234",
-                             url="http://foo.com/call.xml")
+    call = client.calls.create(to="9991231234", from_="9991231234",
+                               url="http://foo.com/call.xml")
     print call.length
     print call.sid
 
