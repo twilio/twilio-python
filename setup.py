@@ -9,7 +9,7 @@ setup(
     author_email = "help@twilio.com",
     url = "http://github.com/twilio/twilio-python/",
     keywords = ["twilio","twiml"],
-    install_requires = ["httplib2", "pyjwt"],
+    install_requires = ["httplib2 == 0.7.1", "pyjwt==0.1.2"],
     packages = find_packages(),
     classifiers = [
         "Development Status :: 5 - Production/Stable",
