@@ -5,6 +5,7 @@ import unittest
 from twilio import twiml
 from twilio.twiml import TwimlException
 from twilio.twiml import Response
+import xml.etree.ElementTree as ET
 
 class TwilioTest(unittest.TestCase):
     def strip(self, xml):
@@ -287,6 +288,36 @@ class TestSms(TwilioTest):
     def testBadAppend(self):
         """ should raise exceptions for wrong appending"""
         self.improperAppend(twiml.Sms("Hello"))
+
+
+class TestConference(TwilioTest):
+
+    def setUp(self):
+        r = Response()
+        with r.dial() as dial:
+            dial.conference("TestConferenceAttributes", beep=False, waitUrl="",
+                startConferenceOnEnter=True, endConferenceOnExit=True)
+        xml = r.toxml()
+
+        #parse twiml XML string with Element Tree and inspect structure
+        tree = ET.fromstring(xml)
+        self.conf = tree.find(".//Dial/Conference")
+
+    def test_conf_text(self):
+        self.assertEqual(self.conf.text.strip(), "TestConferenceAttributes")
+
+    def test_conf_beep(self):
+        self.assertEqual(self.conf.get('beep'), "false")
+
+    def test_conf_waiturl(self):
+        self.assertEqual(self.conf.get('waitUrl'), "")
+
+    def test_conf_start_conference(self):
+        self.assertEqual(self.conf.get('startConferenceOnEnter'), "true")
+
+    def test_conf_end_conference(self):
+        self.assertEqual(self.conf.get('endConferenceOnExit'), "true")
+
 
 class TestDial(TwilioTest):
 

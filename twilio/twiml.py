@@ -22,7 +22,7 @@ class Verb(object):
         for k, v in kwargs.items():
             if k == "sender":
                 k = "from"
-            if v:
+            if v is not None:
                 self.attrs[k] = v
 
     def __str__(self):
@@ -54,7 +54,12 @@ class Verb(object):
         keys = self.attrs.keys()
         keys.sort()
         for a in keys:
-            el.set(a, str(self.attrs[a]))
+            value = self.attrs[a]
+
+            if isinstance(value, bool):
+                el.set(a, str(value).lower())
+            else:
+                el.set(a, str(value))
 
         if self.body:
             el.text = self.body

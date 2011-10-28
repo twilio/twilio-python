@@ -24,13 +24,19 @@ class RequestValidator(object):
 
         :returns: The computed signature
         """
-        s = uri
+        s = unicode(uri)
         if len(params) > 0:
             for k, v in sorted(params.items()):
                 s += k + v
 
         # compute signature and compare signatures
-        computed = base64.encodestring(hmac.new(self.token, s, sha1).digest())
+
+        mac = hmac.new(self.token, s.encode("utf-8"), sha1)
+        computed = base64.b64encode(mac.digest())
+
+        # print base64.b64decode(computed.strip())
+        # print base64.b64decode(computed.strip()).decode("utf-8")
+
         return computed.strip()
 
     def validate(self, uri, params, signature):
