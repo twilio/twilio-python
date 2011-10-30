@@ -1,6 +1,8 @@
-A module for using the Twilio REST API and generating valid TwiML. [Check out
-the full documentation](http://readthedocs.org/docs/twilio-python/en/latest/
-"Twilio Python library documentation")
+A module for using the Twilio REST API and generating valid
+[TwiML](http://www.twilio.com/docs/api/twiml/ "TwiML -
+Twilio Markup Language)"). [Click here to read the full
+documentation.](http://readthedocs.org/docs/twilio-python/en/latest/ "Twilio
+Python library documentation")
 
 ## Installation
 
@@ -19,6 +21,8 @@ Alternately, you can [download the source code
 source code") for `twilio-python`, and then run:
 
     $ python setup.py install
+
+You may need to run the above commands with `sudo`.
 
 ## Getting Started
 
@@ -68,7 +72,7 @@ print call.sid
 ```
 
 ### Send an SMS
-from twilio.rest import TwilioRestClient
+```from twilio.rest import TwilioRestClient
 
 account = "AXXXXXXXXXXXXXXXXX"
 token = "YYYYYYYYYYYYYYYYYY"
@@ -76,12 +80,13 @@ client = TwilioRestClient(account, token)
 
 message = client.sms.messages.create(to="+12316851234", from_="+15555555555",
                                      body="Hello there!")
+```
 
 ### Handling a call using TwiML
 
 To control phone calls, your application needs to output
-[TwiML](http://www.twilio.com/docs/api/twiml/ "TwiML (Twilio Markup Language)).
-Use `twilio.twiml.Response` to easily create such responses.
+[TwiML](http://www.twilio.com/docs/api/twiml/ "TwiML - Twilio Markup
+Language)"). Use `twilio.twiml.Response` to easily create such responses.
 
 ```python
 from twilio import twiml
