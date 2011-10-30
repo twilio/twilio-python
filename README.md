@@ -1,6 +1,6 @@
 A module for using the Twilio REST API and generating valid
 [TwiML](http://www.twilio.com/docs/api/twiml/ "TwiML -
-Twilio Markup Language)"). [Click here to read the full
+Twilio Markup Language"). [Click here to read the full
 documentation.](http://readthedocs.org/docs/twilio-python/en/latest/ "Twilio
 Python library documentation")
 
@@ -86,7 +86,7 @@ message = client.sms.messages.create(to="+12316851234", from_="+15555555555",
 
 To control phone calls, your application needs to output
 [TwiML](http://www.twilio.com/docs/api/twiml/ "TwiML - Twilio Markup
-Language)"). Use `twilio.twiml.Response` to easily create such responses.
+Language"). Use `twilio.twiml.Response` to easily create such responses.
 
 ```python
 from twilio import twiml
@@ -105,5 +105,5 @@ print str(r)
 
 The full power of the Twilio API is at your fingertips. The [full
 documentation](http://readthedocs.org/docs/twilio-python/en/latest/ "Twilio
-Python library documentation") explains
-all the awesome features available to use.
+Python library documentation") explains all the awesome features available to
+use.
