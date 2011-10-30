@@ -27,7 +27,11 @@ The following code will print out the :attr:`duration` for each :class:`Recordin
 
     from twilio.rest import TwilioRestClient
 
-    client = TwilioRestClient()
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     for recording in client.recordings.list():
         print recording.duration
 
@@ -40,7 +44,11 @@ The following will only show recordings made before January 1, 2011.
     from datetime import date
     from twilio.rest import TwilioRestClient
 
-    client = TwilioRestClient()
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     for recording in client.recordings.list(before=date(2011,1,1)):
         print recording.duration
 
@@ -53,20 +61,31 @@ The :class:`Recordings` resource allows you to delete unnecessary recordings.
 
     from twilio.rest import TwilioRestClient
 
-    client = TwilioRestClient()
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     client.recordings.delete("RC123")
 
 Accessing Related Transcptions
 -------------------------------
 
-The :class:`Recordings` resource allows you to delete unnecessary recordings. The following prints out the text for each of the transcriptions associated with this recording.
+The :class:`Recordings` resource allows you to delete unnecessary recordings.
+The following prints out the text for each of the transcriptions associated
+with this recording.
 
 .. code-block:: python
 
     from twilio.rest import TwilioRestClient
 
-    client = TwilioRestClient()
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     recording = client.recordings.get("RC123")
 
     for transcription in recording.transcriptions.list():
         print transcription.transcription_text
+

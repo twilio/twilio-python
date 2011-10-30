@@ -24,7 +24,9 @@ Making a Call
 Generating TwiML
 =================
 
-To control phone calls, your application needs to output TwiML. Use :class:`twilio.twiml.Response` to easily create such responses.
+To control phone calls, your application needs to output `TwiML
+<http://www.twilio.com/docs/api/twiml/>`_. Use :class:`twilio.twiml.Response`
+to easily create such responses.
 
 .. code-block:: python
 
@@ -42,10 +44,6 @@ To control phone calls, your application needs to output TwiML. Use :class:`twil
 Digging Deeper
 ========================
 
-The full power of the Twilio API is at your finger tips. The :ref:`user-guide` explains all the awesome features available to use.
-
-
-
-
-
+The full power of the Twilio API is at your fingertips. The :ref:`user-guide`
+explains all the awesome features available to use.
 

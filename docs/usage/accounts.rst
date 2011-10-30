@@ -18,8 +18,12 @@ Use the :meth:`Account.update` to modify one of your accounts. Right now the onl
 
     from twilio.rest import TwilioRestClient
 
-    conn = TwilioRestClient()
-    account = conn.accounts.get()
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
+    account = client.accounts.get()
     account.update(name="My Awesome Account")
 
 Creating Subaccounts
@@ -31,8 +35,12 @@ Subaccounts are easy to make.
 
     from twilio.rest import TwilioRestClient
 
-    conn = TwilioRestClient()
-    subaccount = conn.accounts.create(name="My Awesome SubAccount")
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
+    subaccount = client.accounts.create(name="My Awesome SubAccount")
 
 Managing Subaccounts
 -------------------------
@@ -43,10 +51,14 @@ Say you have a subaccount for Client X with an account sid `AC123`
 
     from twilio.rest import TwilioRestClient
 
-    conn = TwilioRestClient()
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
 
     # Client X's subaccount
-    subaccount = conn.accounts.get('AC123')
+    subaccount = client.accounts.get('AC123')
 
 Client X hasn't paid you recently, so let's suspend their account.
 
@@ -63,13 +75,9 @@ If it was just a misunderstanding, reenable their account.
 Otherwise, close their account permanently.
 
 .. warning::
-    This action can't be undone. Be careful
+    This action can't be undone. 
 
 .. code-block:: python
 
     subaccount.close()
-
-
-
-
 

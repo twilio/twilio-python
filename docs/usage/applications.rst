@@ -17,8 +17,12 @@ The following code will print out the :attr:`friendly_name` for each :class:`App
 
     from twilio.rest import TwilioRestClient
 
-    conn = TwilioRestClient()
-    for app in conn.applications.list():
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
+    for app in client.applications.list():
         print app.friendly_name
 
 
@@ -31,8 +35,12 @@ You can filter applications by FriendlyName
 
     from twilio.rest import TwilioRestClient
 
-    conn = TwilioRestClient()
-    for app in conn.applications.list(friendly_name="FOO"):
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
+    for app in client.applications.list(friendly_name="FOO"):
         print app.sid
 
 Creating an Application
@@ -44,8 +52,12 @@ When creating an application, no fields are required. We create an application w
 
     from twilio.rest import TwilioRestClient
 
-    conn = TwilioRestClient()
-    application = conn.applications.create(friendly_name="My New App")
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
+    application = client.applications.create(friendly_name="My New App")
 
 
 Updating an Application
@@ -55,9 +67,13 @@ Updating an Application
 
     from twilio.rest import TwilioRestClient
 
-    conn = TwilioRestClient()
-    url = "http://www.example.com/twiml.xml"
-    application = conn.applications.update(app_sid, voice_url=url)
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
+    url = "http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient"
+    application = client.applications.update(app_sid, voice_url=url)
 
 
 Deleting an Application
@@ -67,5 +83,9 @@ Deleting an Application
 
     from twilio.rest import TwilioRestClient
 
-    conn = TwilioRestClient()
-    conn.applications.delete(app_sid)
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
+    client.applications.delete(app_sid)
