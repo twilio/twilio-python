@@ -37,14 +37,14 @@ directly to the constructor (see the code below) or via environment variables.
 ```python
 from twilio.rest import TwilioRestClient
 
-account = "AXXXXXXXXXXXXXXXXX"
+account = "ACXXXXXXXXXXXXXXXXX"
 token = "YYYYYYYYYYYYYYYYYY"
 client = TwilioRestClient(account, token)
 ```
 
-Alternatively, a `TwilioRestClient` constructor without these parameters will
-look for `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN` inside the current
-environment.
+Alternately, a `TwilioRestClient` constructor without these parameters will
+look for `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN` variables inside the
+current environment.
 
 We suggest storing your credentials as environment variables. Why? You'll never
 have to worry about committing your credentials and accidentally posting them
@@ -61,7 +61,7 @@ client = TwilioRestClient()
 ```python
 from twilio.rest import TwilioRestClient
 
-account = "AXXXXXXXXXXXXXXXXX"
+account = "ACXXXXXXXXXXXXXXXXX"
 token = "YYYYYYYYYYYYYYYYYY"
 client = TwilioRestClient(account, token)
 
@@ -75,7 +75,7 @@ print call.sid
 ```python
 from twilio.rest import TwilioRestClient
 
-account = "AXXXXXXXXXXXXXXXXX"
+account = "ACXXXXXXXXXXXXXXXXX"
 token = "YYYYYYYYYYYYYYYYYY"
 client = TwilioRestClient(account, token)
 

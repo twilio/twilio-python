@@ -4,7 +4,7 @@ Quickstart
 
 Getting started with the Twilio API couldn't be easier. Create a Twilio REST client to get started. For example, the following code makes a call using the Twilio REST API.
 
-Making a Call
+Make a Call
 ===============
 
 .. code-block:: python
@@ -17,9 +17,23 @@ Making a Call
 
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     call = client.calls.create(to="9991231234", from_="9991231234",
-                               url="http://foo.com/call.xml")
+                               url="http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient")
     print call.length
     print call.sid
+
+Send an SMS
+================
+
+.. code-block:: python
+
+    from twilio.rest import TwilioRestClient
+
+    account = "ACXXXXXXXXXXXXXXXXX"
+    token = "YYYYYYYYYYYYYYYYYY"
+    client = TwilioRestClient(account, token)
+
+    message = client.sms.messages.create(to="+12316851234", from_="+15555555555",
+                                         body="Hello there!")
 
 Generating TwiML
 =================
@@ -33,13 +47,13 @@ to easily create such responses.
     from twilio import twiml
 
     r = twiml.Response()
-    r.play("monkey.mp3", loop=5)
+    r.play("https://api.twilio.com/cowbell.mp3", loop=5)
     print str(r)
 
 .. code-block:: xml
 
     <?xml version="1.0" encoding="utf-8"?>
-    <Response><Play loop="5">monkey.mp3</Play><Response>
+    <Response><Play loop="5">https://api.twilio.com/cowbell.mp3</Play><Response>
 
 Digging Deeper
 ========================
