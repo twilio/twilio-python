@@ -72,7 +72,8 @@ print call.sid
 ```
 
 ### Send an SMS
-```from twilio.rest import TwilioRestClient
+```python
+from twilio.rest import TwilioRestClient
 
 account = "AXXXXXXXXXXXXXXXXX"
 token = "YYYYYYYYYYYYYYYYYY"
