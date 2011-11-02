@@ -193,6 +193,7 @@ class Say(Verb):
     WOMAN = 'woman'
 
     ENGLISH = 'en'
+    BRITISH = 'en-gb'
     SPANISH = 'es'
     FRENCH = 'fr'
     GERMAN = 'de'
@@ -205,10 +206,11 @@ class Say(Verb):
             raise TwimlException(
                 "Invalid Say voice parameter, must be 'man' or 'woman'")
         if language and language not in \
-                [self.ENGLISH, self.SPANISH, self.FRENCH, self.GERMAN]:
+                [self.ENGLISH, self.BRITISH, self.SPANISH, self.FRENCH,
+                    self.GERMAN]:
             raise TwimlException(
                 "Invalid Say language parameter, must be "
-                "'en', 'es', 'fr', or 'de'")
+                "'en', 'en-gb', 'es', 'fr', or 'de'")
 
 class Play(Verb):
     """Play an audio file at a URL
