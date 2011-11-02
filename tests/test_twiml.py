@@ -63,6 +63,13 @@ class TestSay(TwilioTest):
         r = self.strip(r)
         self.assertEquals(r, '<?xml version="1.0" encoding="UTF-8"?><Response><Say loop="3">Hello Monkey</Say></Response>')
 
+    def testSayLoopGreatBritian(self):
+        """should say have a woman say hello monkey and loop 3 times"""
+        r = Response()
+        r.append(twiml.Say("Hello Monkey", language="en-gb"))
+        r = self.strip(r)
+        self.assertEquals(r, '<?xml version="1.0" encoding="UTF-8"?><Response><Say language="en-gb">Hello Monkey</Say></Response>')
+
     def testSayLoopWoman(self):
         """should say have a woman say hello monkey and loop 3 times"""
         r = Response()
