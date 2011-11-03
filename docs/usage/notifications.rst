@@ -15,7 +15,11 @@ The following code will print out additional information about each of your curr
 
     from twilio.rest import TwilioRestClient
 
-    client = TwilioRestClient()
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     for notification in client.notifications.list():
         print notification.more_info
 
@@ -25,7 +29,11 @@ You can filter transcriptions by :attr:`log` and :attr:`message_date`. The :attr
 
     from twilio.rest import TwilioRestClient
 
-    client = TwilioRestClient()
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
 
     ERROR = 0
 
@@ -43,5 +51,10 @@ Your account can sometimes generate an inordinate amount of :class:`Notification
 
     from twilio.rest import TwilioRestClient
 
-    client = TwilioRestClient()
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     client.notifications.delete("NO123")
+

@@ -17,6 +17,10 @@ The following code will print out lengths :attr:`friendly_name` for each :class:
 
     from twilio.rest import TwilioRestClient
 
-    conn = TwilioRestClient()
-    for transcription in conn.transcriptions.list():
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
+    for transcription in client.transcriptions.list():
         print transcription.duration

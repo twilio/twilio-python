@@ -31,7 +31,7 @@ Here is how you would place an outgoing call with the older version.
     d = {
         'From' : CALLER_ID,
         'To' : '415-555-1212',
-        'Url' : 'http://demo.twilio.com/welcome',
+        'Url' : 'http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient',
     }
 
     print account.request('/%s/Accounts/%s/Calls' % \
@@ -53,7 +53,7 @@ The same code, updated to work with the new version (albeit using deprecated met
     d = {
         'From' : CALLER_ID,
         'To' : '415-555-1212',
-        'Url' : 'http://demo.twilio.com/welcome',
+        'Url' : 'http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient',
     }
 
     print client.request('/%s/Accounts/%s/Calls' % \
@@ -70,7 +70,7 @@ A final version using the new interface.
 
     client = TwilioRestClient(ACCOUNT_SID, ACCOUNT_TOKEN)
     call = client.calls.create(from_='NNNNNNNNNN', to='415-555-1212',
-                               url='http://demo.twilio.com/welcome')
+                               url='http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient')
 
     print call
 
@@ -78,7 +78,9 @@ A final version using the new interface.
 Generating TwiML
 =================
 
-:class:`Response` has moved into the :mod:`twiml` module. The `add*` methods have also been deprecated in favor of method names without the 'add' prefix (as shown below).
+:class:`Response` has moved into the :mod:`twiml` module. The `add*` methods
+have also been deprecated in favor of method names without the 'add' prefix (as
+shown below).
 
 Here is how you would craft a response using the old library.
 
@@ -90,7 +92,7 @@ Here is how you would craft a response using the old library.
     r.addSay("Hello World", voice=twilio.Say.MAN, language=twilio.Say.FRENCH,
              loop=10)
     r.addDial("4155551212", timeLimit=45)
-    r.addPlay("http://www.mp3.com")
+    r.addPlay("https://api.twilio.com/cowbell.mp3")
     print r
 
 To use the new version, just change the import at the top.
@@ -103,10 +105,11 @@ To use the new version, just change the import at the top.
     r.addSay("Hello World", voice=twiml.Say.MAN, language=twiml.Say.FRENCH,
              loop=10)
     r.addDial("4155551212", timeLimit=45)
-    r.addPlay("http://www.mp3.com")
+    r.addPlay("https://api.twilio.com/cowbell.mp3")
     print str(r)
 
-The add methods are deprecated and undocumented, so please change them to the new methods. For example, `r.addSay` would become `r.say`.
+The add methods are deprecated and undocumented, so please change them to the
+new methods. For example, `r.addSay` would become `r.say`.
 
 .. code-block:: python
 
@@ -117,7 +120,7 @@ The add methods are deprecated and undocumented, so please change them to the ne
     r.say("Hello World", voice=twiml.Say.MAN, language=twiml.Say.FRENCH,
              loop=10)
     r.dial("4155551212", timeLimit=45)
-    r.play("http://www.mp3.com")
+    r.play("https://api.twilio.com/cowbell.mp3")
 
     print str(r)
 
@@ -125,7 +128,9 @@ The add methods are deprecated and undocumented, so please change them to the ne
 Checking Signatures
 =====================
 
-The :class:`Utils` class has been renamed to :class:`TwilioValidation` in the :mod:`twilio.util` module and the :meth:`validateRequest` method has been renamed :meth:`validate`.
+The :class:`Utils` class has been renamed to :class:`TwilioValidation` in the
+:mod:`twilio.util` module and the :meth:`validateRequest` method has been
+renamed :meth:`validate`.
 
 A sample using the old version of **twilio-python**.
 
@@ -138,10 +143,14 @@ A sample using the old version of **twilio-python**.
 
     utils = twilio.Utils(ACCOUNT_SID, ACCOUNT_TOKEN)
 
+    # the callback URL you provided to Twilio for the phone number/app
     url = "http://UUUUUUUUUUUUUUUUUU"
+
+    the POST variables attached to the request (e.g. "From", "To")
     post_vars = {}
 
-    signature = "SSSSSSSSSSSSSSSSSSSSSSSSSSSS"
+    # X-Twilio-Signature header value
+    signature = "HpS7PBa1Agvt4OtO+wZp75IuQa0=" # will look something like that
 
     if utils.validateRequest(url, post_vars, signature):
         print "was confirmed to have come from Twilio."
@@ -158,12 +167,17 @@ The same sample, converted to use the new version.
 
     utils = util.RequestValidator(ACCOUNT_TOKEN)
 
-    url = "http://UUUUUUUUUUUUUUUUUU"
+    # the callback URL you provided to Twilio
+    url = "http://www.example.com/my/callback/url.xml"
+
+    # the POST variables attached to the request (eg "From", "To")
     post_vars = {}
 
-    signature = "SSSSSSSSSSSSSSSSSSSSSSSSSSSS"
+    # X-Twilio-Signature header value
+    signature = "HpS7PBa1Agvt4OtO+wZp75IuQa0=" # will look something like that
 
     if utils.validate(url, post_vars, signature):
         print "was confirmed to have come from Twilio."
     else:
         print "was NOT VALID.  It might have been spoofed!"
+

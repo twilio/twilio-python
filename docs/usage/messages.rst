@@ -9,13 +9,17 @@ For more information, see the `SMS Message REST Resource <http://www.twilio.com/
 Sending a Text Message
 ----------------------
 
-Send a text message in only a few lines of code
+Send a text message in only a few lines of code.
 
 .. code-block:: python
 
     from twilio.rest import TwilioRestClient
 
-    client = TwilioRestClient()
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
 
     message = client.sms.messages.create(to="+13216851234",
                                          from_="+15555555555",
@@ -24,7 +28,9 @@ Send a text message in only a few lines of code
 
 .. note:: The message body must be less than 160 characters in length
 
-If you want to send a message from a `short code <http://www.twilio.com/api/sms/short-codes>`_ on Twilio, just set :attr:`from_` to your short code's number.
+If you want to send a message from a `short code
+<http://www.twilio.com/api/sms/short-codes>`_ on Twilio, just set :attr:`from_`
+to your short code's number.
 
 
 Retrieving Sent Messages
@@ -34,7 +40,11 @@ Retrieving Sent Messages
 
     from twilio.rest import TwilioRestClient
 
-    client = TwilioRestClient()
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
 
     for message in client.sms.messages.list():
         print message.body
@@ -50,7 +60,11 @@ The :meth:`list` methods supports filtering on :attr:`to`, :attr:`from_`, and :a
     from datetime import date
     from twilio.rest import TwilioRestClient
 
-    client = TwilioRestClient()
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
 
     messages = client.sms.messages.list(to="+5466758723",
                                         date_sent=date(2011,1,1))

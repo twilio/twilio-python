@@ -9,7 +9,10 @@ To access Twilio REST resources, you'll first need to instantiate a :class:`Twil
 Authentication
 --------------------------
 
-The :class:`TwilioRestClient` needs your Twilio credentials. While these can be passed in directly to the constructor, we suggest storing your credentials as environment variables. Why? You'll never have to worry about committing your credentials and accidentally posting them somewhere public.
+The :class:`TwilioRestClient` needs your Twilio credentials. While these can be
+passed in directly to the constructor, we suggest storing your credentials as
+environment variables. Why? You'll never have to worry about committing your
+credentials and accidentally posting them somewhere public.
 
 The :class:`TwilioRestClient` looks for :const:`TWILIO_ACCOUNT_SID` and :const:`TWILIO_AUTH_TOKEN` inside the current environment.
 
@@ -21,7 +24,8 @@ With those two values set, create a new :class:`TwilioClient`.
 
     conn = TwilioRestClient()
 
-If you'd rather not use environment variables, pass your account credentials directly to the the constructor.
+If you'd rather not use environment variables, pass your account credentials
+directly to the the constructor.
 
 .. code-block:: python
 
@@ -41,7 +45,11 @@ The :class:`TwilioRestClient` gives you access to various list resources. :meth:
 
     from twilio.rest import TwilioRestClient
 
-    client = TwilioRestClient()
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     resources = client.phone_calls.list()
 
 :meth:`resource.ListResource.list` accepts paging arguments. The following will return page 3 with page size of 25.
@@ -50,7 +58,11 @@ The :class:`TwilioRestClient` gives you access to various list resources. :meth:
 
     from twilio.rest import TwilioRestClient
 
-    client = TwilioRestClient()
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     resources = client.phone_calls.list(page=3, page_size=25)
 
 
@@ -65,7 +77,11 @@ Sometimes you'd like to retrieve all records from a list resource. Instead of ma
 
     from twilio.rest import TwilioRestClient
 
-    client = TwilioRestClient()
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     for number in client.phone_numbers.iter():
         print number.friendly_name
 
@@ -79,7 +95,11 @@ To get an individual instance resource, use :class:`resources.ListResource.get`.
 
     from twilio.rest import TwilioRestClient
 
-    client = TwilioRestClient()
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
 
     call = client.calls.get("CA123")
     print call.sid
