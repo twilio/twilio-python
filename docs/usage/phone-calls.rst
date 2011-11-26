@@ -48,7 +48,7 @@ If you already have a :class:`Call` sid, you can use the client to retrieve that
 Accessing Specific Call Resources
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-Each :class:`Call` resource also has access to its `notifications`, `recordings`, and `transcriptions`. These attributes are :class:`ListResources`, just like the :class:`Calls` resources itself.
+Each :class:`Call` resource also has access to its `notifications`, `recordings`, and `transcriptions`. These attributes are :class:`ListResources`, just like the :class:`Calls` resource itself.
 
 .. code-block:: python
 
