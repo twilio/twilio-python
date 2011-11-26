@@ -63,7 +63,7 @@ Each :class:`Call` resource also has access to its `notifications`, `recordings`
     call = client.calls.get(sid)
 
     print call.notifications.list()
-    print call.recordsings.list()
+    print call.recordings.list()
     print call.transcriptions.list()
 
 However, what if you only have a `CallSid`, and not the actual :class:`Resource`? No worries, as :meth:`list` can be filter based on `CallSid`.
@@ -79,7 +79,7 @@ However, what if you only have a `CallSid`, and not the actual :class:`Resource`
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     sid = "CA24234"
     print client.notifications.list(call=sid)
-    print client.recordsings.list(call=sid)
+    print client.recordings.list(call=sid)
     print client.transcriptions.list(call=sid)
 
 
