@@ -292,7 +292,7 @@ Conferences
 Connect Apps
 >>>>>>>>>>>>>>
 
-.. autoclass:: twilio.rest.resrouces.ConnectApps
+.. autoclass:: twilio.rest.resources.ConnectApps
    :members:
    :exclude-members: instance
 
@@ -340,7 +340,7 @@ Connect Apps
       The URL the user's browser will redirect to after Twilio authenticates the 
       user and obtains authorization for this Connect App.
 
-   .. atribute:: deauthorize_callback_url
+   .. attribute:: deauthorize_callback_url
 
       The URL to which Twilio will send a request when a user de-authorizes this 
       Connect App.

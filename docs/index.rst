@@ -60,7 +60,7 @@ Generates valid TwiML for controlling and manipulating phone calls.
 
     usage/twiml
 
-Utilites
+Utilities
 ----------
 
 Small functions useful for validating requests are coming from Twilio
