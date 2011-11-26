@@ -3,6 +3,17 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.3.3
+-------------
+
+Released on November 3, 2011
+
+- Support unicode characters when validating requests
+- Add support for Great Britain language on the Say verb
+- Set Sms Application, Voice Application, and/or a Friendly 
+  Name when purchasing a number
+- Add missing parameters for resource creation and update
+
 Version 3.3.2
 -------------
 

@@ -13,6 +13,21 @@ class PhoneNumberTest(unittest.TestCase):
         self.uri = "/base"
         self.auth = ("AC123", "token")
 
+    def test_application_sid(self):
+        resource = PhoneNumbers(self.uri, self.auth)
+        resource.update_instance = Mock()
+        resource.update("SID", application_sid="foo")
+        resource.update_instance.assert_called_with(
+                "SID", {"ApplicationSid": "foo"})
+
+
+    def test_status_callback_url(self):
+        resource = PhoneNumbers(self.uri, self.auth)
+        resource.update_instance = Mock()
+        resource.update("SID", status_callback="foo")
+        resource.update_instance.assert_called_with(
+                "SID", {"StatusCallback": "foo"})
+
     def test_transfer(self):
         resource = PhoneNumbers(self.uri, self.auth)
         resource.update = Mock()

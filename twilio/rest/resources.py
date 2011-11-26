@@ -859,7 +859,8 @@ class PhoneNumbers(ListResource):
                  status_callback_url=None, status_callback_method=None,
                  sms_url=None, sms_method=None, sms_fallback_url=None,
                  sms_fallback_method=None, voice_caller_id_lookup=None,
-                 account_sid=None, application_sid=None):
+                 account_sid=None, sms_application_sid=None,
+                 voice_application_sid=None, friendly_name=None):
         """
         Attempt to purchase the specified number. The only required parameters
         are **either** phone_number or area_code
@@ -880,7 +881,9 @@ class PhoneNumbers(ListResource):
                 "StatusCallbackMethod": status_callback_method,
                 "VoiceCallerIdLookup": voice_caller_id_lookup,
                 "AccountSid": account_sid,
-                "ApplicationSid": application_sid,
+                "SmsApplicationSid": sms_application_sid,
+                "VoiceApplicationSid": voice_application_sid,
+                "FriendlyName": friendly_name,
                })
 
         if phone_number:
@@ -916,7 +919,7 @@ class PhoneNumbers(ListResource):
                status_callback_method=None, sms_url=None, sms_method=None,
                sms_fallback_url=None, sms_fallback_method=None,
                voice_caller_id_lookup=None, account_sid=None,
-               application_sid=None):
+               application_sid=None, status_callback=None):
         """
         Update this phone number instance
         """
@@ -926,6 +929,7 @@ class PhoneNumbers(ListResource):
                 "VoiceMethod": voice_method,
                 "VoiceFallbackUrl": voice_fallback_url,
                 "VoiceFallbackMethod": voice_fallback_method,
+                "StatusCallback": status_callback,
                 "StatusCallbackMethod": status_callback_method,
                 "SmsUrl": sms_url,
                 "SmsMethod": sms_method,
@@ -1302,6 +1306,8 @@ class Applications(ListResource):
                 "StatusCallback": status_callback,
                 "StatusCallbackMethod": status_callback_method,
                 "VoiceCallerIdLookup": voice_caller_id_lookup,
+                "SmsUrl": sms_url,
+                "SmsMethod": sms_method,
                 "SmsFallbackUrl": sms_fallback_url,
                 "SmsFallbackMethod": sms_fallback_method,
                 "SmsStatusCallback": sms_status_callback,
@@ -1329,6 +1335,8 @@ class Applications(ListResource):
                 "StatusCallback": status_callback,
                 "StatusCallbackMethod": status_callback_method,
                 "VoiceCallerIdLookup": voice_caller_id_lookup,
+                "SmsUrl": sms_url,
+                "SmsMethod": sms_method,
                 "SmsFallbackUrl": sms_fallback_url,
                 "SmsFallbackMethod": sms_fallback_method,
                 "SmsStatusCallback": sms_status_callback,

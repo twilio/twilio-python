@@ -22,7 +22,7 @@ class Verb(object):
         for k, v in kwargs.items():
             if k == "sender":
                 k = "from"
-            if v:
+            if v is not None:
                 self.attrs[k] = v
 
     def __str__(self):
@@ -54,7 +54,12 @@ class Verb(object):
         keys = self.attrs.keys()
         keys.sort()
         for a in keys:
-            el.set(a, str(self.attrs[a]))
+            value = self.attrs[a]
+
+            if isinstance(value, bool):
+                el.set(a, str(value).lower())
+            else:
+                el.set(a, str(value))
 
         if self.body:
             el.text = self.body
@@ -183,7 +188,7 @@ class Say(Verb):
     :param language: allows you pick a voice with a specific language's accent
                      and pronunciations. Twilio currently supports languages
                      'en' (English), 'es' (Spanish), 'fr' (French), and 'de'
-                     (German).
+                     (German), 'en-gb' (English Great Britain").
 
     :param loop: specifies how many times you'd like the text repeated.
                  Specifying '0' will cause the the :class:`Say` verb to loop
@@ -193,6 +198,7 @@ class Say(Verb):
     WOMAN = 'woman'
 
     ENGLISH = 'en'
+    BRITISH = 'en-gb'
     SPANISH = 'es'
     FRENCH = 'fr'
     GERMAN = 'de'
@@ -201,14 +207,6 @@ class Say(Verb):
         Verb.__init__(self, voice=voice, language=language, loop=loop,
             **kwargs)
         self.body = text
-        if voice and voice not in [self.MAN, self.WOMAN]:
-            raise TwimlException(
-                "Invalid Say voice parameter, must be 'man' or 'woman'")
-        if language and language not in \
-                [self.ENGLISH, self.SPANISH, self.FRENCH, self.GERMAN]:
-            raise TwimlException(
-                "Invalid Say language parameter, must be "
-                "'en', 'es', 'fr', or 'de'")
 
 class Play(Verb):
     """Play an audio file at a URL
