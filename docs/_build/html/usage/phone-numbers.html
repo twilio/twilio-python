@@ -1,0 +1,212 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Phone Numbers &mdash; twilio-python 3.3.3 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/flasky.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.3.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="twilio-python 3.3.3 documentation" href="../index.html" />
+    <link rel="next" title="SMS Messages" href="messages.html" />
+    <link rel="prev" title="Phone Calls" href="phone-calls.html" />
+   
+  
+  <link media="only screen and (max-device-width: 480px)" href="../_static/small_flask.css" type= "text/css" rel="stylesheet" />
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="messages.html" title="SMS Messages"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="phone-calls.html" title="Phone Calls"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">twilio-python 3.3.3 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <span class="target" id="module-twilio.rest.resources"></span><div class="section" id="phone-numbers">
+<h1>Phone Numbers<a class="headerlink" href="#phone-numbers" title="Permalink to this headline">¶</a></h1>
+<p>With Twilio you can search and buy real phones numbers, just using the API.</p>
+<p>For more information, see the <a class="reference external" href="http://www.twilio.com/docs/api/rest/incoming-phone-numbers">IncomingPhoneNumbers REST Resource</a> documentation.</p>
+<div class="section" id="searching-and-buying-a-number">
+<h2>Searching and Buying a Number<a class="headerlink" href="#searching-and-buying-a-number" title="Permalink to this headline">¶</a></h2>
+<p>Finding numbers to buy couldn&#8217;t be easier. We first search for a number in area code 530. Once we find one, we&#8217;ll purchase it for our account.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">twilio.rest</span> <span class="kn">import</span> <span class="n">TwilioRestClient</span>
+
+<span class="c"># To find these visit https://www.twilio.com/user/account</span>
+<span class="n">ACCOUNT_SID</span> <span class="o">=</span> <span class="s">&quot;ACXXXXXXXXXXXXXXXXX&quot;</span>
+<span class="n">AUTH_TOKEN</span> <span class="o">=</span> <span class="s">&quot;YYYYYYYYYYYYYYYYYY&quot;</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">TwilioRestClient</span><span class="p">(</span><span class="n">ACCOUNT_SID</span><span class="p">,</span> <span class="n">AUTH_TOKEN</span><span class="p">)</span>
+<span class="n">numbers</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">phone_numbers</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">area_code</span><span class="o">=</span><span class="mi">530</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">numbers</span><span class="p">:</span>
+    <span class="n">numbers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">purchase</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&quot;No numbers in 530 available&quot;</span>
+</pre></div>
+</div>
+<div class="section" id="toll-free-numbers">
+<h3>Toll Free Numbers<a class="headerlink" href="#toll-free-numbers" title="Permalink to this headline">¶</a></h3>
+<p>By default, <tt class="xref py py-meth docutils literal"><span class="pre">search()</span></tt> looks for local phone numbers. Set <tt class="xref py py-data docutils literal"><span class="pre">type</span></tt> to
+<tt class="docutils literal"><span class="pre">tollfree</span></tt> to search toll-free numbers instead.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">numbers</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">phone_numbers</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s">&quot;tollfree&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="numbers-containing-words">
+<h3>Numbers Containing Words<a class="headerlink" href="#numbers-containing-words" title="Permalink to this headline">¶</a></h3>
+<p>Phone number search also supports looking for words inside phone numbers. The following example will find any phone number with &#8220;FOO&#8221; in it.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">numbers</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">phone_numbers</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">contains</span><span class="o">=</span><span class="s">&quot;FOO&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can use the &#8216;&#8217;*&#8217;&#8217; wildcard to match any character. The following example finds any phone number that matches the pattern &#8216;&#8217;D*D&#8217;&#8216;.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">numbers</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">phone_numbers</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">contains</span><span class="o">=</span><span class="s">&quot;D*D&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="../api/rest/resources.html#twilio.rest.resources.PhoneNumbers.search" title="twilio.rest.resources.PhoneNumbers.search"><tt class="xref py py-meth docutils literal"><span class="pre">PhoneNumbers.search()</span></tt></a> method has plenty of other options
+to augment your search. The <a class="reference external" href="http://www.twilio.com/docs/api/rest/available-phone-numbers">AvailablePhoneNumbers REST Resource</a> documentation
+also documents the various search options.</p>
+</div>
+</div>
+<div class="section" id="buying-a-number">
+<h2>Buying a Number<a class="headerlink" href="#buying-a-number" title="Permalink to this headline">¶</a></h2>
+<p>If you&#8217;ve found a phone number you want, you can purchase the number.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">twilio.rest</span> <span class="kn">import</span> <span class="n">TwilioRestClient</span>
+
+<span class="c"># To find these visit https://www.twilio.com/user/account</span>
+<span class="n">ACCOUNT_SID</span> <span class="o">=</span> <span class="s">&quot;ACXXXXXXXXXXXXXXXXX&quot;</span>
+<span class="n">AUTH_TOKEN</span> <span class="o">=</span> <span class="s">&quot;YYYYYYYYYYYYYYYYYY&quot;</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">TwilioRestClient</span><span class="p">(</span><span class="n">ACCOUNT_SID</span><span class="p">,</span> <span class="n">AUTH_TOKEN</span><span class="p">)</span>
+<span class="n">number</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">phone_numbers</span><span class="o">.</span><span class="n">purchase</span><span class="p">(</span><span class="s">&quot;+15305431234&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>However, it&#8217;s easier to purchase numbers after finding them using search (as shown in the first example).</p>
+</div>
+<div class="section" id="changing-applications">
+<h2>Changing Applications<a class="headerlink" href="#changing-applications" title="Permalink to this headline">¶</a></h2>
+<p>An <a class="reference internal" href="../api/rest/resources.html#twilio.rest.resources.Application" title="twilio.rest.resources.Application"><tt class="xref py py-class docutils literal"><span class="pre">Application</span></tt></a> encapsulates all necessary URLs for use with phone numbers. Update an application on a phone number using <tt class="xref py py-meth docutils literal"><span class="pre">update()</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">twilio.rest</span> <span class="kn">import</span> <span class="n">TwilioRestClient</span>
+
+<span class="n">phone_sid</span> <span class="o">=</span> <span class="s">&quot;PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;</span>
+
+<span class="c"># To find these visit https://www.twilio.com/user/account</span>
+<span class="n">ACCOUNT_SID</span> <span class="o">=</span> <span class="s">&quot;ACXXXXXXXXXXXXXXXXX&quot;</span>
+<span class="n">AUTH_TOKEN</span> <span class="o">=</span> <span class="s">&quot;YYYYYYYYYYYYYYYYYY&quot;</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">TwilioRestClient</span><span class="p">(</span><span class="n">ACCOUNT_SID</span><span class="p">,</span> <span class="n">AUTH_TOKEN</span><span class="p">)</span>
+<span class="n">number</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">phone_numbers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">phone_sid</span><span class="p">,</span> <span class="n">application</span><span class="o">=</span><span class="s">&quot;AP123&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="applications.html"><em>Applications</em></a> for instructions on updating and maintaining Applications.</p>
+</div>
+<div class="section" id="validate-caller-id">
+<h2>Validate Caller Id<a class="headerlink" href="#validate-caller-id" title="Permalink to this headline">¶</a></h2>
+<p>Twilio Adding a new phone number to your validated numbers is quick and easy</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">twilio.rest</span> <span class="kn">import</span> <span class="n">TwilioRestClient</span>
+
+<span class="c"># To find these visit https://www.twilio.com/user/account</span>
+<span class="n">ACCOUNT_SID</span> <span class="o">=</span> <span class="s">&quot;ACXXXXXXXXXXXXXXXXX&quot;</span>
+<span class="n">AUTH_TOKEN</span> <span class="o">=</span> <span class="s">&quot;YYYYYYYYYYYYYYYYYY&quot;</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">TwilioRestClient</span><span class="p">(</span><span class="n">ACCOUNT_SID</span><span class="p">,</span> <span class="n">AUTH_TOKEN</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">caller_ids</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="s">&quot;+9876543212&quot;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">response</span><span class="p">[</span><span class="s">&quot;validation_code&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Twilio will call the provided number and wait for the validation code to be
+entered.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Phone Numbers</a><ul>
+<li><a class="reference internal" href="#searching-and-buying-a-number">Searching and Buying a Number</a><ul>
+<li><a class="reference internal" href="#toll-free-numbers">Toll Free Numbers</a></li>
+<li><a class="reference internal" href="#numbers-containing-words">Numbers Containing Words</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#buying-a-number">Buying a Number</a></li>
+<li><a class="reference internal" href="#changing-applications">Changing Applications</a></li>
+<li><a class="reference internal" href="#validate-caller-id">Validate Caller Id</a></li>
+</ul>
+</li>
+</ul>
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="phone-calls.html" title="previous chapter">Phone Calls</a></li>
+      <li>Next: <a href="messages.html" title="next chapter">SMS Messages</a></li>
+  </ul></li>
+</ul>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/usage/phone-numbers.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2011, Twilio Inc..
+    </div>
+    <a href="https://github.com/twilio/twilio-python">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
+    </a>
+  </body>
+</html>

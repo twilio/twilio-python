@@ -1,0 +1,261 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Upgrade Guide &mdash; twilio-python 3.3.3 documentation</title>
+    
+    <link rel="stylesheet" href="_static/flasky.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '3.3.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="twilio-python 3.3.3 documentation" href="index.html" />
+   
+  
+  <link media="only screen and (max-device-width: 480px)" href="_static/small_flask.css" type= "text/css" rel="stylesheet" />
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">twilio-python 3.3.3 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="upgrade-guide">
+<h1>Upgrade Guide<a class="headerlink" href="#upgrade-guide" title="Permalink to this headline">¶</a></h1>
+<p>Porting your application from <strong>twilio-python</strong> 2.0 to 3.0 is straightforward. All the same methods are still offered. Only their location has changed.</p>
+<div class="section" id="making-api-requests">
+<h2>Making API Requests<a class="headerlink" href="#making-api-requests" title="Permalink to this headline">¶</a></h2>
+<p><tt class="xref py py-class docutils literal"><span class="pre">twilio.Account</span></tt> has been moved to <a class="reference internal" href="api/rest/index.html#twilio.rest.TwilioRestClient" title="twilio.rest.TwilioRestClient"><tt class="xref py py-class docutils literal"><span class="pre">twilio.rest.TwilioRestClient</span></tt></a>. The rest client offers a greatly improved API; however, the old <tt class="xref py py-meth docutils literal"><span class="pre">request()</span></tt> method still exists (in a deprecated state). We suggest you migrate your code to use the new API.</p>
+<p>Here is how you would place an outgoing call with the older version.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">twilio</span>
+
+<span class="c"># Twilio REST API version</span>
+<span class="n">API_VERSION</span> <span class="o">=</span> <span class="s">&#39;2010-04-01&#39;</span>
+
+<span class="c"># Twilio AccountSid and AuthToken</span>
+<span class="n">ACCOUNT_SID</span> <span class="o">=</span> <span class="s">&#39;ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&#39;</span>
+<span class="n">ACCOUNT_TOKEN</span> <span class="o">=</span> <span class="s">&#39;YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY&#39;</span>
+
+<span class="c"># Outgoing Caller ID previously validated with Twilio</span>
+<span class="n">CALLER_ID</span> <span class="o">=</span> <span class="s">&#39;NNNNNNNNNN&#39;</span><span class="p">;</span>
+
+<span class="c"># Create a Twilio REST account object using your account ID and token</span>
+<span class="n">account</span> <span class="o">=</span> <span class="n">twilio</span><span class="o">.</span><span class="n">Account</span><span class="p">(</span><span class="n">ACCOUNT_SID</span><span class="p">,</span> <span class="n">ACCOUNT_TOKEN</span><span class="p">)</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;From&#39;</span> <span class="p">:</span> <span class="n">CALLER_ID</span><span class="p">,</span>
+    <span class="s">&#39;To&#39;</span> <span class="p">:</span> <span class="s">&#39;415-555-1212&#39;</span><span class="p">,</span>
+    <span class="s">&#39;Url&#39;</span> <span class="p">:</span> <span class="s">&#39;http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">print</span> <span class="n">account</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s">&#39;/</span><span class="si">%s</span><span class="s">/Accounts/</span><span class="si">%s</span><span class="s">/Calls&#39;</span> <span class="o">%</span> \
+                     <span class="p">(</span><span class="n">API_VERSION</span><span class="p">,</span> <span class="n">ACCOUNT_SID</span><span class="p">),</span> <span class="s">&#39;POST&#39;</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The same code, updated to work with the new version (albeit using deprecated methods).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">twilio.rest</span> <span class="kn">import</span> <span class="n">TwilioRestClient</span>
+
+<span class="n">API_VERSION</span> <span class="o">=</span> <span class="s">&#39;2010-04-01&#39;</span>
+<span class="n">ACCOUNT_SID</span> <span class="o">=</span> <span class="s">&#39;ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&#39;</span>
+<span class="n">ACCOUNT_TOKEN</span> <span class="o">=</span> <span class="s">&#39;YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY&#39;</span>
+<span class="n">CALLER_ID</span> <span class="o">=</span> <span class="s">&#39;NNNNNNNNNN&#39;</span><span class="p">;</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">TwilioRestClient</span><span class="p">(</span><span class="n">ACCOUNT_SID</span><span class="p">,</span> <span class="n">ACCOUNT_TOKEN</span><span class="p">)</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;From&#39;</span> <span class="p">:</span> <span class="n">CALLER_ID</span><span class="p">,</span>
+    <span class="s">&#39;To&#39;</span> <span class="p">:</span> <span class="s">&#39;415-555-1212&#39;</span><span class="p">,</span>
+    <span class="s">&#39;Url&#39;</span> <span class="p">:</span> <span class="s">&#39;http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">print</span> <span class="n">client</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s">&#39;/</span><span class="si">%s</span><span class="s">/Accounts/</span><span class="si">%s</span><span class="s">/Calls&#39;</span> <span class="o">%</span> \
+                    <span class="p">(</span><span class="n">API_VERSION</span><span class="p">,</span> <span class="n">ACCOUNT_SID</span><span class="p">),</span> <span class="s">&#39;POST&#39;</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A final version using the new interface.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">twilio.rest</span> <span class="kn">import</span> <span class="n">TwilioRestClient</span>
+
+<span class="n">ACCOUNT_SID</span> <span class="o">=</span> <span class="s">&#39;ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&#39;</span>
+<span class="n">ACCOUNT_TOKEN</span> <span class="o">=</span> <span class="s">&#39;YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY&#39;</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">TwilioRestClient</span><span class="p">(</span><span class="n">ACCOUNT_SID</span><span class="p">,</span> <span class="n">ACCOUNT_TOKEN</span><span class="p">)</span>
+<span class="n">call</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">calls</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">from_</span><span class="o">=</span><span class="s">&#39;NNNNNNNNNN&#39;</span><span class="p">,</span> <span class="n">to</span><span class="o">=</span><span class="s">&#39;415-555-1212&#39;</span><span class="p">,</span>
+                           <span class="n">url</span><span class="o">=</span><span class="s">&#39;http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient&#39;</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="n">call</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="generating-twiml">
+<h2>Generating TwiML<a class="headerlink" href="#generating-twiml" title="Permalink to this headline">¶</a></h2>
+<p><tt class="xref py py-class docutils literal"><span class="pre">Response</span></tt> has moved into the <tt class="xref py py-mod docutils literal"><span class="pre">twiml</span></tt> module. The <cite>add*</cite> methods
+have also been deprecated in favor of method names without the &#8216;add&#8217; prefix (as
+shown below).</p>
+<p>Here is how you would craft a response using the old library.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">twilio</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">twilio</span><span class="o">.</span><span class="n">Response</span><span class="p">()</span>
+<span class="n">r</span><span class="o">.</span><span class="n">addSay</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">,</span> <span class="n">voice</span><span class="o">=</span><span class="n">twilio</span><span class="o">.</span><span class="n">Say</span><span class="o">.</span><span class="n">MAN</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="n">twilio</span><span class="o">.</span><span class="n">Say</span><span class="o">.</span><span class="n">FRENCH</span><span class="p">,</span>
+         <span class="n">loop</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">r</span><span class="o">.</span><span class="n">addDial</span><span class="p">(</span><span class="s">&quot;4155551212&quot;</span><span class="p">,</span> <span class="n">timeLimit</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">r</span><span class="o">.</span><span class="n">addPlay</span><span class="p">(</span><span class="s">&quot;https://api.twilio.com/cowbell.mp3&quot;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">r</span>
+</pre></div>
+</div>
+<p>To use the new version, just change the import at the top.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">twilio</span> <span class="kn">import</span> <span class="n">twiml</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">twiml</span><span class="o">.</span><span class="n">Response</span><span class="p">()</span>
+<span class="n">r</span><span class="o">.</span><span class="n">addSay</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">,</span> <span class="n">voice</span><span class="o">=</span><span class="n">twiml</span><span class="o">.</span><span class="n">Say</span><span class="o">.</span><span class="n">MAN</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="n">twiml</span><span class="o">.</span><span class="n">Say</span><span class="o">.</span><span class="n">FRENCH</span><span class="p">,</span>
+         <span class="n">loop</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">r</span><span class="o">.</span><span class="n">addDial</span><span class="p">(</span><span class="s">&quot;4155551212&quot;</span><span class="p">,</span> <span class="n">timeLimit</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">r</span><span class="o">.</span><span class="n">addPlay</span><span class="p">(</span><span class="s">&quot;https://api.twilio.com/cowbell.mp3&quot;</span><span class="p">)</span>
+<span class="k">print</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The add methods are deprecated and undocumented, so please change them to the
+new methods. For example, <cite>r.addSay</cite> would become <cite>r.say</cite>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">twilio</span> <span class="kn">import</span> <span class="n">twiml</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">twiml</span><span class="o">.</span><span class="n">Response</span><span class="p">()</span>
+
+<span class="n">r</span><span class="o">.</span><span class="n">say</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">,</span> <span class="n">voice</span><span class="o">=</span><span class="n">twiml</span><span class="o">.</span><span class="n">Say</span><span class="o">.</span><span class="n">MAN</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="n">twiml</span><span class="o">.</span><span class="n">Say</span><span class="o">.</span><span class="n">FRENCH</span><span class="p">,</span>
+         <span class="n">loop</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">r</span><span class="o">.</span><span class="n">dial</span><span class="p">(</span><span class="s">&quot;4155551212&quot;</span><span class="p">,</span> <span class="n">timeLimit</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">r</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="s">&quot;https://api.twilio.com/cowbell.mp3&quot;</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="checking-signatures">
+<h2>Checking Signatures<a class="headerlink" href="#checking-signatures" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="xref py py-class docutils literal"><span class="pre">Utils</span></tt> class has been renamed to <tt class="xref py py-class docutils literal"><span class="pre">TwilioValidation</span></tt> in the
+<a class="reference internal" href="usage/validation.html#module-twilio.util" title="twilio.util"><tt class="xref py py-mod docutils literal"><span class="pre">twilio.util</span></tt></a> module and the <tt class="xref py py-meth docutils literal"><span class="pre">validateRequest()</span></tt> method has been
+renamed <tt class="xref py py-meth docutils literal"><span class="pre">validate()</span></tt>.</p>
+<p>A sample using the old version of <strong>twilio-python</strong>.</p>
+<div class="highlight-python"><pre>import twilio
+
+ACCOUNT_SID = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+ACCOUNT_TOKEN = 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'
+
+utils = twilio.Utils(ACCOUNT_SID, ACCOUNT_TOKEN)
+
+# the callback URL you provided to Twilio for the phone number/app
+url = "http://UUUUUUUUUUUUUUUUUU"
+
+the POST variables attached to the request (e.g. "From", "To")
+post_vars = {}
+
+# X-Twilio-Signature header value
+signature = "HpS7PBa1Agvt4OtO+wZp75IuQa0=" # will look something like that
+
+if utils.validateRequest(url, post_vars, signature):
+    print "was confirmed to have come from Twilio."
+else:
+    print "was NOT VALID.  It might have been spoofed!"</pre>
+</div>
+<p>The same sample, converted to use the new version.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">twilio</span> <span class="kn">import</span> <span class="n">util</span>
+
+<span class="n">ACCOUNT_TOKEN</span> <span class="o">=</span> <span class="s">&#39;YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY&#39;</span>
+
+<span class="n">utils</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">RequestValidator</span><span class="p">(</span><span class="n">ACCOUNT_TOKEN</span><span class="p">)</span>
+
+<span class="c"># the callback URL you provided to Twilio</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s">&quot;http://www.example.com/my/callback/url.xml&quot;</span>
+
+<span class="c"># the POST variables attached to the request (eg &quot;From&quot;, &quot;To&quot;)</span>
+<span class="n">post_vars</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="c"># X-Twilio-Signature header value</span>
+<span class="n">signature</span> <span class="o">=</span> <span class="s">&quot;HpS7PBa1Agvt4OtO+wZp75IuQa0=&quot;</span> <span class="c"># will look something like that</span>
+
+<span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">post_vars</span><span class="p">,</span> <span class="n">signature</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">&quot;was confirmed to have come from Twilio.&quot;</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&quot;was NOT VALID.  It might have been spoofed!&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Upgrade Guide</a><ul>
+<li><a class="reference internal" href="#making-api-requests">Making API Requests</a></li>
+<li><a class="reference internal" href="#generating-twiml">Generating TwiML</a></li>
+<li><a class="reference internal" href="#checking-signatures">Checking Signatures</a></li>
+</ul>
+</li>
+</ul>
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/upgrade-guide.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2011, Twilio Inc..
+    </div>
+    <a href="https://github.com/twilio/twilio-python">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
+    </a>
+  </body>
+</html>

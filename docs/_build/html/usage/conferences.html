@@ -1,0 +1,196 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Conferences and Participants &mdash; twilio-python 3.3.3 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/flasky.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.3.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="twilio-python 3.3.3 documentation" href="../index.html" />
+    <link rel="next" title="Applications" href="applications.html" />
+    <link rel="prev" title="Accounts" href="accounts.html" />
+   
+  
+  <link media="only screen and (max-device-width: 480px)" href="../_static/small_flask.css" type= "text/css" rel="stylesheet" />
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="applications.html" title="Applications"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="accounts.html" title="Accounts"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">twilio-python 3.3.3 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <span class="target" id="module-twilio.rest.resources"></span><div class="section" id="conferences-and-participants">
+<h1>Conferences and Participants<a class="headerlink" href="#conferences-and-participants" title="Permalink to this headline">¶</a></h1>
+<p>For more information, see the <a class="reference external" href="http://www.twilio.com/docs/api/rest/conference">Conference REST Resource</a> and <a class="reference external" href="http://www.twilio.com/docs/api/rest/conference">Participant REST Resource</a> documentation.</p>
+<div class="section" id="listing-conferences">
+<h2>Listing Conferences<a class="headerlink" href="#listing-conferences" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">twilio.rest</span> <span class="kn">import</span> <span class="n">TwilioRestClient</span>
+
+<span class="c"># To find these visit https://www.twilio.com/user/account</span>
+<span class="n">ACCOUNT_SID</span> <span class="o">=</span> <span class="s">&quot;ACXXXXXXXXXXXXXXXXX&quot;</span>
+<span class="n">AUTH_TOKEN</span> <span class="o">=</span> <span class="s">&quot;YYYYYYYYYYYYYYYYYY&quot;</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">TwilioRestClient</span><span class="p">(</span><span class="n">ACCOUNT_SID</span><span class="p">,</span> <span class="n">AUTH_TOKEN</span><span class="p">)</span>
+<span class="n">conferences</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">conferences</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">conference</span> <span class="ow">in</span> <span class="n">conferences</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">conference</span><span class="o">.</span><span class="n">sid</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="filtering-conferences">
+<h2>Filtering Conferences<a class="headerlink" href="#filtering-conferences" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="xref py py-meth docutils literal"><span class="pre">Conferences.list()</span></tt> method supports filtering on <tt class="xref py py-attr docutils literal"><span class="pre">status</span></tt>, <tt class="xref py py-attr docutils literal"><span class="pre">date_updated</span></tt>, <tt class="xref py py-attr docutils literal"><span class="pre">date_created</span></tt> and <tt class="xref py py-attr docutils literal"><span class="pre">friendly_name</span></tt>. The following code will return a list of all active conferences and print their friendly name.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">twilio.rest</span> <span class="kn">import</span> <span class="n">TwilioRestClient</span>
+
+<span class="c"># To find these visit https://www.twilio.com/user/account</span>
+<span class="n">ACCOUNT_SID</span> <span class="o">=</span> <span class="s">&quot;ACXXXXXXXXXXXXXXXXX&quot;</span>
+<span class="n">AUTH_TOKEN</span> <span class="o">=</span> <span class="s">&quot;YYYYYYYYYYYYYYYYYY&quot;</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">TwilioRestClient</span><span class="p">(</span><span class="n">ACCOUNT_SID</span><span class="p">,</span> <span class="n">AUTH_TOKEN</span><span class="p">)</span>
+<span class="n">conferences</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">conferences</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="s">&quot;active&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">conference</span> <span class="ow">in</span> <span class="n">conferences</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">conference</span><span class="o">.</span><span class="n">friendly_name</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="listing-participants">
+<h2>Listing Participants<a class="headerlink" href="#listing-participants" title="Permalink to this headline">¶</a></h2>
+<p>Each <a class="reference internal" href="../api/rest/resources.html#twilio.rest.resources.Conference" title="twilio.rest.resources.Conference"><tt class="xref py py-class docutils literal"><span class="pre">Conference</span></tt></a> has a <tt class="xref py py-attr docutils literal"><span class="pre">participants</span></tt> instance which represents all current users in the conference</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">twilio.rest</span> <span class="kn">import</span> <span class="n">TwilioRestClient</span>
+
+<span class="c"># To find these visit https://www.twilio.com/user/account</span>
+<span class="n">ACCOUNT_SID</span> <span class="o">=</span> <span class="s">&quot;ACXXXXXXXXXXXXXXXXX&quot;</span>
+<span class="n">AUTH_TOKEN</span> <span class="o">=</span> <span class="s">&quot;YYYYYYYYYYYYYYYYYY&quot;</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">TwilioRestClient</span><span class="p">(</span><span class="n">ACCOUNT_SID</span><span class="p">,</span> <span class="n">AUTH_TOKEN</span><span class="p">)</span>
+<span class="n">conference</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">conferences</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;CF123&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">participant</span> <span class="ow">in</span> <span class="n">conference</span><span class="o">.</span><span class="n">participants</span><span class="o">.</span><span class="n">list</span><span class="p">():</span>
+    <span class="k">print</span> <span class="n">participant</span><span class="o">.</span><span class="n">sid</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="managing-participants">
+<h2>Managing Participants<a class="headerlink" href="#managing-participants" title="Permalink to this headline">¶</a></h2>
+<p>Each <a class="reference internal" href="../api/rest/resources.html#twilio.rest.resources.Conference" title="twilio.rest.resources.Conference"><tt class="xref py py-class docutils literal"><span class="pre">Conference</span></tt></a> has a <tt class="xref py py-attr docutils literal"><span class="pre">participants</span></tt> function that returns a
+<a class="reference internal" href="../api/rest/resources.html#twilio.rest.resources.Participants" title="twilio.rest.resources.Participants"><tt class="xref py py-class docutils literal"><span class="pre">Participants</span></tt></a> instance. This behavior differs from other list resources
+because <a class="reference internal" href="../api/rest/resources.html#twilio.rest.resources.Participants" title="twilio.rest.resources.Participants"><tt class="xref py py-class docutils literal"><span class="pre">Participants</span></tt></a> needs a participant sid AND a conference sid to
+access the participants resource.</p>
+<p>Participants can be either muted or kicked out of the conference. The following
+code kicks out the first participants and mutes the rest.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">twilio.rest</span> <span class="kn">import</span> <span class="n">TwilioRestClient</span>
+
+<span class="c"># To find these visit https://www.twilio.com/user/account</span>
+<span class="n">ACCOUNT_SID</span> <span class="o">=</span> <span class="s">&quot;ACXXXXXXXXXXXXXXXXX&quot;</span>
+<span class="n">AUTH_TOKEN</span> <span class="o">=</span> <span class="s">&quot;YYYYYYYYYYYYYYYYYY&quot;</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">TwilioRestClient</span><span class="p">(</span><span class="n">ACCOUNT_SID</span><span class="p">,</span> <span class="n">AUTH_TOKEN</span><span class="p">)</span>
+<span class="n">participants</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">participants</span><span class="p">(</span><span class="s">&quot;CF123&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">participants</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">return</span>
+
+<span class="c"># Kick the first person out</span>
+<span class="n">participants</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span><span class="o">.</span><span class="n">kick</span><span class="p">()</span>
+
+<span class="c"># And mute the rest</span>
+<span class="k">for</span> <span class="n">participant</span> <span class="ow">in</span> <span class="n">participants</span><span class="p">:</span>
+    <span class="n">participant</span><span class="o">.</span><span class="n">mute</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Conferences and Participants</a><ul>
+<li><a class="reference internal" href="#listing-conferences">Listing Conferences</a></li>
+<li><a class="reference internal" href="#filtering-conferences">Filtering Conferences</a></li>
+<li><a class="reference internal" href="#listing-participants">Listing Participants</a></li>
+<li><a class="reference internal" href="#managing-participants">Managing Participants</a></li>
+</ul>
+</li>
+</ul>
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="accounts.html" title="previous chapter">Accounts</a></li>
+      <li>Next: <a href="applications.html" title="next chapter">Applications</a></li>
+  </ul></li>
+</ul>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/usage/conferences.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2011, Twilio Inc..
+    </div>
+    <a href="https://github.com/twilio/twilio-python">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
+    </a>
+  </body>
+</html>
