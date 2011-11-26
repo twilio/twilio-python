@@ -1,0 +1,157 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Quickstart &mdash; twilio-python 3.3.3 documentation</title>
+    
+    <link rel="stylesheet" href="_static/flasky.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '3.3.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="twilio-python 3.3.3 documentation" href="index.html" />
+   
+  
+  <link media="only screen and (max-device-width: 480px)" href="_static/small_flask.css" type= "text/css" rel="stylesheet" />
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">twilio-python 3.3.3 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="quickstart">
+<h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
+<p>Getting started with the Twilio API couldn&#8217;t be easier. Create a Twilio REST client to get started. For example, the following code makes a call using the Twilio REST API.</p>
+<div class="section" id="make-a-call">
+<h2>Make a Call<a class="headerlink" href="#make-a-call" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">twilio.rest</span> <span class="kn">import</span> <span class="n">TwilioRestClient</span>
+
+<span class="c"># To find these visit https://www.twilio.com/user/account</span>
+<span class="n">ACCOUNT_SID</span> <span class="o">=</span> <span class="s">&quot;ACXXXXXXXXXXXXXXXXX&quot;</span>
+<span class="n">AUTH_TOKEN</span> <span class="o">=</span> <span class="s">&quot;YYYYYYYYYYYYYYYYYY&quot;</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">TwilioRestClient</span><span class="p">(</span><span class="n">ACCOUNT_SID</span><span class="p">,</span> <span class="n">AUTH_TOKEN</span><span class="p">)</span>
+<span class="n">call</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">calls</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="s">&quot;9991231234&quot;</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="s">&quot;9991231234&quot;</span><span class="p">,</span>
+                           <span class="n">url</span><span class="o">=</span><span class="s">&quot;http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient&quot;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">call</span><span class="o">.</span><span class="n">length</span>
+<span class="k">print</span> <span class="n">call</span><span class="o">.</span><span class="n">sid</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="send-an-sms">
+<h2>Send an SMS<a class="headerlink" href="#send-an-sms" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">twilio.rest</span> <span class="kn">import</span> <span class="n">TwilioRestClient</span>
+
+<span class="n">account</span> <span class="o">=</span> <span class="s">&quot;ACXXXXXXXXXXXXXXXXX&quot;</span>
+<span class="n">token</span> <span class="o">=</span> <span class="s">&quot;YYYYYYYYYYYYYYYYYY&quot;</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">TwilioRestClient</span><span class="p">(</span><span class="n">account</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+
+<span class="n">message</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">sms</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="s">&quot;+12316851234&quot;</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="s">&quot;+15555555555&quot;</span><span class="p">,</span>
+                                     <span class="n">body</span><span class="o">=</span><span class="s">&quot;Hello there!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="generating-twiml">
+<h2>Generating TwiML<a class="headerlink" href="#generating-twiml" title="Permalink to this headline">¶</a></h2>
+<p>To control phone calls, your application needs to output <a class="reference external" href="http://www.twilio.com/docs/api/twiml/">TwiML</a>. Use <a class="reference internal" href="api/twiml.html#twilio.twiml.Response" title="twilio.twiml.Response"><tt class="xref py py-class docutils literal"><span class="pre">twilio.twiml.Response</span></tt></a>
+to easily create such responses.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">twilio</span> <span class="kn">import</span> <span class="n">twiml</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">twiml</span><span class="o">.</span><span class="n">Response</span><span class="p">()</span>
+<span class="n">r</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="s">&quot;https://api.twilio.com/cowbell.mp3&quot;</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="k">print</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;Response&gt;&lt;Play</span> <span class="na">loop=</span><span class="s">&quot;5&quot;</span><span class="nt">&gt;</span>https://api.twilio.com/cowbell.mp3<span class="nt">&lt;/Play&gt;&lt;Response&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="digging-deeper">
+<h2>Digging Deeper<a class="headerlink" href="#digging-deeper" title="Permalink to this headline">¶</a></h2>
+<p>The full power of the Twilio API is at your fingertips. The <a class="reference internal" href="index.html#user-guide"><em>User Guide</em></a>
+explains all the awesome features available to use.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Quickstart</a><ul>
+<li><a class="reference internal" href="#make-a-call">Make a Call</a></li>
+<li><a class="reference internal" href="#send-an-sms">Send an SMS</a></li>
+<li><a class="reference internal" href="#generating-twiml">Generating TwiML</a></li>
+<li><a class="reference internal" href="#digging-deeper">Digging Deeper</a></li>
+</ul>
+</li>
+</ul>
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/getting-started.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2011, Twilio Inc..
+    </div>
+    <a href="https://github.com/twilio/twilio-python">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
+    </a>
+  </body>
+</html>

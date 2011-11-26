@@ -1,0 +1,2118 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>twilio.rest.resources &mdash; twilio-python 3.3.3 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/flasky.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '3.3.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="twilio-python 3.3.3 documentation" href="../../index.html" />
+    <link rel="up" title="API Documentation" href="../../api.html" />
+    <link rel="next" title="twilio.twiml" href="../twiml.html" />
+    <link rel="prev" title="twilio.rest" href="index.html" />
+   
+  
+  <link media="only screen and (max-device-width: 480px)" href="../../_static/small_flask.css" type= "text/css" rel="stylesheet" />
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../twiml.html" title="twilio.twiml"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="twilio.rest"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">twilio-python 3.3.3 documentation</a> &raquo;</li>
+          <li><a href="../../api.html" accesskey="U">API Documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <span class="target" id="module-twilio.rest.resources"></span><div class="section" id="twilio-rest-resources">
+<h1><a class="reference internal" href="#module-twilio.rest.resources" title="twilio.rest.resources"><tt class="xref py py-mod docutils literal"><span class="pre">twilio.rest.resources</span></tt></a><a class="headerlink" href="#twilio-rest-resources" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="twilio.rest.resources.ListResource">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">ListResource</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.ListResource" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="twilio.rest.resources.ListResource.count">
+<tt class="descname">count</tt><big>(</big><big>)</big><a class="headerlink" href="#twilio.rest.resources.ListResource.count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the number of instance resources contained in this list resource</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.ListResource.get">
+<tt class="descname">get</tt><big>(</big><em>sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.ListResource.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an instance resource</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.ListResource.iter">
+<tt class="descname">iter</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.ListResource.iter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all instance resources using an iterator
+Can only be called on classes which implement list()</p>
+<p>TODO Make this use the next_url instead</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="accounts">
+<h2>Accounts<a class="headerlink" href="#accounts" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="twilio.rest.resources.Accounts">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">Accounts</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of Account resources</p>
+<dl class="method">
+<dt id="twilio.rest.resources.Accounts.activate">
+<tt class="descname">activate</tt><big>(</big><em>sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Accounts.activate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reactivate an account, Alias to update</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Accounts.close">
+<tt class="descname">close</tt><big>(</big><em>sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Accounts.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Permenently deactivate an account, Alias to update</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Accounts.create">
+<tt class="descname">create</tt><big>(</big><em>friendly_name=None</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Accounts.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a newly created sub account resource.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>friendly_name</strong> &#8211; Update the description of this account.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Accounts.list">
+<tt class="descname">list</tt><big>(</big><em>friendly_name=None</em>, <em>status=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Accounts.list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a page of <a class="reference internal" href="#twilio.rest.resources.Account" title="twilio.rest.resources.Account"><tt class="xref py py-class docutils literal"><span class="pre">Account</span></tt></a> resources as a list. For paging
+informtion see <a class="reference internal" href="#twilio.rest.resources.ListResource" title="twilio.rest.resources.ListResource"><tt class="xref py py-class docutils literal"><span class="pre">ListResource</span></tt></a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>friendly_name</strong> (<em>date</em>) &#8211; Only list accounts with this friendly name</li>
+<li><strong>status</strong> (<em>date</em>) &#8211; Only list accounts with this status</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Accounts.suspend">
+<tt class="descname">suspend</tt><big>(</big><em>sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Accounts.suspend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Temporarily suspend an account, Alias to update</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Accounts.update">
+<tt class="descname">update</tt><big>(</big><em>sid</em>, <em>friendly_name=None</em>, <em>status=None</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Accounts.update" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>sid</strong> &#8211; Account identifier</li>
+<li><strong>friendly_name</strong> &#8211; Update the description of this account.</li>
+<li><strong>status</strong> &#8211; Alter the status of this account</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Use <tt class="xref py py-data docutils literal"><span class="pre">CLOSED</span></tt> to irreversibly close this account,
+<tt class="xref py py-data docutils literal"><span class="pre">SUSPENDED</span></tt> to temporarily suspend it, or <tt class="xref py py-data docutils literal"><span class="pre">ACTIVE</span></tt>
+to reactivate it.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twilio.rest.resources.Account">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">Account</tt><big>(</big><em>parent</em>, <em>sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Account" title="Permalink to this definition">¶</a></dt>
+<dd><p>An Account resource</p>
+<dl class="attribute">
+<dt id="twilio.rest.resources.Account.sid">
+<tt class="descname">sid</tt><a class="headerlink" href="#twilio.rest.resources.Account.sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>A 34 character string that uniquely identifies this account.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Account.date_created">
+<tt class="descname">date_created</tt><a class="headerlink" href="#twilio.rest.resources.Account.date_created" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that this account was created, in GMT in RFC 2822 format</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Account.date_updated">
+<tt class="descname">date_updated</tt><a class="headerlink" href="#twilio.rest.resources.Account.date_updated" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that this account was last updated, in GMT in RFC 2822 format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Account.friendly_name">
+<tt class="descname">friendly_name</tt><a class="headerlink" href="#twilio.rest.resources.Account.friendly_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>A human readable description of this account, up to 64 characters long. By default the FriendlyName is your email address.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Account.status">
+<tt class="descname">status</tt><a class="headerlink" href="#twilio.rest.resources.Account.status" title="Permalink to this definition">¶</a></dt>
+<dd><p>The status of this account. Usually active, but can be suspended if you&#8217;ve been bad, or closed if you&#8217;ve been horrible.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Account.auth_token">
+<tt class="descname">auth_token</tt><a class="headerlink" href="#twilio.rest.resources.Account.auth_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>The authorization token for this account. This token should be kept a secret, so no sharing.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Account.activate">
+<tt class="descname">activate</tt><big>(</big><big>)</big><a class="headerlink" href="#twilio.rest.resources.Account.activate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reactivate this account</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Account.close">
+<tt class="descname">close</tt><big>(</big><big>)</big><a class="headerlink" href="#twilio.rest.resources.Account.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Permenently deactivate this account</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Account.suspend">
+<tt class="descname">suspend</tt><big>(</big><big>)</big><a class="headerlink" href="#twilio.rest.resources.Account.suspend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Temporarily suspend this account</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Account.update">
+<tt class="descname">update</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Account.update" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>friendly_name</strong> &#8211; Update the description of this account.</li>
+<li><strong>status</strong> &#8211; Alter the status of this account</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Use <tt class="xref py py-data docutils literal"><span class="pre">CLOSED</span></tt> to irreversibly close this account,
+<tt class="xref py py-data docutils literal"><span class="pre">SUSPENDED</span></tt> to temporarily suspend it, or <tt class="xref py py-data docutils literal"><span class="pre">ACTIVE</span></tt>
+to reactivate it.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="applications">
+<h2>Applications<a class="headerlink" href="#applications" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="twilio.rest.resources.Applications">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">Applications</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Applications" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="twilio.rest.resources.Applications.create">
+<tt class="descname">create</tt><big>(</big><em>friendly_name=None</em>, <em>api_version=None</em>, <em>voice_url=None</em>, <em>voice_method=None</em>, <em>voice_fallback_url=None</em>, <em>voice_fallback_method=None</em>, <em>status_callback=None</em>, <em>status_callback_method=None</em>, <em>voice_caller_id_lookup=None</em>, <em>sms_url=None</em>, <em>sms_method=None</em>, <em>sms_fallback_url=None</em>, <em>sms_fallback_method=None</em>, <em>sms_status_callback=None</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Applications.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update an <a class="reference internal" href="#twilio.rest.resources.Application" title="twilio.rest.resources.Application"><tt class="xref py py-class docutils literal"><span class="pre">Application</span></tt></a> with any of these optional parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>friendly_name</strong> &#8211; A human readable description of the application,
+with maximum length 64 characters.</li>
+<li><strong>api_version</strong> &#8211; Requests to this application&#8217;s URLs will start a
+new TwiML session with this API version.
+Either 2010-04-01 or 2008-08-01.</li>
+<li><strong>voice_url</strong> &#8211; The URL that Twilio should request when somebody
+dials a phone number assigned to this application.</li>
+<li><strong>voice_method</strong> &#8211; The HTTP method that should be used to request the
+VoiceUrl. Either GET or POST.</li>
+<li><strong>voice_fallback_url</strong> &#8211; A URL that Twilio will request if an error
+occurs requesting or executing the TwiML
+defined by VoiceUrl.</li>
+<li><strong>voice_fallback_method</strong> &#8211; The HTTP method that should be used to
+request the VoiceFallbackUrl. Either GET
+or POST.</li>
+<li><strong>status_callback</strong> &#8211; The URL that Twilio will request to pass status
+parameters (such as call ended) to your
+application.</li>
+<li><strong>status_callback_method</strong> &#8211; The HTTP method Twilio will use to make
+requests to the StatusCallback URL.
+Either GET or POST.</li>
+<li><strong>voice_caller_id_lookup</strong> &#8211; Do a lookup of a caller&#8217;s name from the
+CNAM database and post it to your app.
+Either true or false.</li>
+<li><strong>sms_url</strong> &#8211; The URL that Twilio should request when somebody sends
+an SMS to a phone number assigned to this application.</li>
+<li><strong>sms_method</strong> &#8211; The HTTP method that should be used to request the
+SmsUrl. Either GET or POST.</li>
+<li><strong>sms_fallback_url</strong> &#8211; A URL that Twilio will request if an error
+occurs requesting or executing the TwiML
+defined by SmsUrl.</li>
+<li><strong>sms_fallback_method</strong> &#8211; The HTTP method that should be used to
+request the SmsFallbackUrl. Either GET
+or POST.</li>
+<li><strong>sms_status_callback</strong> &#8211; Twilio will make a POST request to this URL
+to pass status parameters (such as sent or
+failed) to your application if you specify
+this application&#8217;s Sid as the
+ApplicationSid on an outgoing SMS request.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Applications.delete">
+<tt class="descname">delete</tt><big>(</big><em>sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Applications.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update an <a class="reference internal" href="#twilio.rest.resources.Application" title="twilio.rest.resources.Application"><tt class="xref py py-class docutils literal"><span class="pre">Application</span></tt></a> with the given parameters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Applications.list">
+<tt class="descname">list</tt><big>(</big><em>friendly_name=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Applications.list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a page of <a class="reference internal" href="#twilio.rest.resources.Application" title="twilio.rest.resources.Application"><tt class="xref py py-class docutils literal"><span class="pre">Application</span></tt></a> resources as a list. For paging
+informtion see <a class="reference internal" href="#twilio.rest.resources.ListResource" title="twilio.rest.resources.ListResource"><tt class="xref py py-class docutils literal"><span class="pre">ListResource</span></tt></a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>friendly_name</strong> (<em>date</em>) &#8211; List applications with this friendly name</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Applications.update">
+<tt class="descname">update</tt><big>(</big><em>sid</em>, <em>friendly_name=None</em>, <em>api_version=None</em>, <em>voice_url=None</em>, <em>voice_method=None</em>, <em>voice_fallback_url=None</em>, <em>voice_fallback_method=None</em>, <em>status_callback=None</em>, <em>status_callback_method=None</em>, <em>voice_caller_id_lookup=None</em>, <em>sms_url=None</em>, <em>sms_method=None</em>, <em>sms_fallback_url=None</em>, <em>sms_fallback_method=None</em>, <em>sms_status_callback=None</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Applications.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update an <a class="reference internal" href="#twilio.rest.resources.Application" title="twilio.rest.resources.Application"><tt class="xref py py-class docutils literal"><span class="pre">Application</span></tt></a> with the given parameters.</p>
+<p>All the parameters are describe above in <a class="reference internal" href="#twilio.rest.resources.Applications.create" title="twilio.rest.resources.Applications.create"><tt class="xref py py-meth docutils literal"><span class="pre">create()</span></tt></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twilio.rest.resources.Application">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">Application</tt><big>(</big><em>parent</em>, <em>sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Application" title="Permalink to this definition">¶</a></dt>
+<dd><p>An application resource</p>
+<dl class="attribute">
+<dt id="twilio.rest.resources.Application.sid">
+<tt class="descname">sid</tt><a class="headerlink" href="#twilio.rest.resources.Application.sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>A 34 character string that uniquely identifies this application.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Application.date_created">
+<tt class="descname">date_created</tt><a class="headerlink" href="#twilio.rest.resources.Application.date_created" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that this application was created, in GMT in RFC 2822 format</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Application.date_updated">
+<tt class="descname">date_updated</tt><a class="headerlink" href="#twilio.rest.resources.Application.date_updated" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that this application was last updated, in GMT in RFC 2822 format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Application.friendly_name">
+<tt class="descname">friendly_name</tt><a class="headerlink" href="#twilio.rest.resources.Application.friendly_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>A human readable description of this application, up to 64 characters long. By default the FriendlyName is your email address.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Application.status">
+<tt class="descname">status</tt><a class="headerlink" href="#twilio.rest.resources.Application.status" title="Permalink to this definition">¶</a></dt>
+<dd><p>The status of this account. Usually active, but can be suspended if you&#8217;ve been bad, or closed if you&#8217;ve been horrible.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Application.api_version">
+<tt class="descname">api_version</tt><a class="headerlink" href="#twilio.rest.resources.Application.api_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Requests to this application will start a new TwiML session with this API version.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Application.voice_url">
+<tt class="descname">voice_url</tt><a class="headerlink" href="#twilio.rest.resources.Application.voice_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>URL Twilio will request when a phone number assigned to this application receives a call.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Application.voice_method">
+<tt class="descname">voice_method</tt><a class="headerlink" href="#twilio.rest.resources.Application.voice_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>The HTTP method Twilio will use when requesting the above Url. Either GET or POST.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Application.voice_fallback_url">
+<tt class="descname">voice_fallback_url</tt><a class="headerlink" href="#twilio.rest.resources.Application.voice_fallback_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by Url.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Application.voice_fallback_method">
+<tt class="descname">voice_fallback_method</tt><a class="headerlink" href="#twilio.rest.resources.Application.voice_fallback_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>The HTTP method Twilio will use when requesting the VoiceFallbackUrl. Either GET or POST.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Application.status_callback">
+<tt class="descname">status_callback</tt><a class="headerlink" href="#twilio.rest.resources.Application.status_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URL that Twilio will request to pass status parameters (such as call ended) to your application.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Application.status_callback_method">
+<tt class="descname">status_callback_method</tt><a class="headerlink" href="#twilio.rest.resources.Application.status_callback_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>The HTTP method Twilio will use to make requests to the StatusCallback URL. Either GET or POST.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Application.voice_caller_id_lookup">
+<tt class="descname">voice_caller_id_lookup</tt><a class="headerlink" href="#twilio.rest.resources.Application.voice_caller_id_lookup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Look up the caller&#8217;s caller-ID name from the CNAM database (additional charges apply). Either true or false.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Application.sms_url">
+<tt class="descname">sms_url</tt><a class="headerlink" href="#twilio.rest.resources.Application.sms_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URL Twilio will request when a phone number assigned to this application receives an incoming SMS message.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Application.sms_method">
+<tt class="descname">sms_method</tt><a class="headerlink" href="#twilio.rest.resources.Application.sms_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>The HTTP method Twilio will use when making requests to the SmsUrl. Either GET or POST.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Application.sms_fallback_url">
+<tt class="descname">sms_fallback_url</tt><a class="headerlink" href="#twilio.rest.resources.Application.sms_fallback_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URL that Twilio will request if an error occurs retrieving or executing the TwiML from SmsUrl.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Application.sms_fallback_method">
+<tt class="descname">sms_fallback_method</tt><a class="headerlink" href="#twilio.rest.resources.Application.sms_fallback_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>The HTTP method Twilio will use when requesting the above URL. Either GET or POST.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Application.sms_status_callback">
+<tt class="descname">sms_status_callback</tt><a class="headerlink" href="#twilio.rest.resources.Application.sms_status_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Twilio will make a POST request to this URL to pass status parameters (such as sent or failed) to your application if you specify this application&#8217;s Sid as the ApplicationSid on an outgoing SMS request.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Application.uri">
+<tt class="descname">uri</tt><a class="headerlink" href="#twilio.rest.resources.Application.uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URI for this resource, relative to <a class="reference external" href="https://api.twilio.com">https://api.twilio.com</a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Application.delete">
+<tt class="descname">delete</tt><big>(</big><big>)</big><a class="headerlink" href="#twilio.rest.resources.Application.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete this application</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Application.update">
+<tt class="descname">update</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Application.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update this application</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="calls">
+<h2>Calls<a class="headerlink" href="#calls" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="twilio.rest.resources.Calls">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">Calls</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Calls" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of Call resources</p>
+<dl class="method">
+<dt id="twilio.rest.resources.Calls.cancel">
+<tt class="descname">cancel</tt><big>(</big><em>sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Calls.cancel" title="Permalink to this definition">¶</a></dt>
+<dd><p>If this call is queued or ringing, cancel the call
+Will not affect in-progress calls.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sid</strong> &#8211; A Call Sid for a specific call</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Updated <a class="reference internal" href="#twilio.rest.resources.Call" title="twilio.rest.resources.Call"><tt class="xref py py-class docutils literal"><span class="pre">Call</span></tt></a> resource</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Calls.create">
+<tt class="descname">create</tt><big>(</big><em>to</em>, <em>from_</em>, <em>url</em>, <em>method=None</em>, <em>fallback_url=None</em>, <em>fallback_method=None</em>, <em>status_callback=None</em>, <em>status_method=None</em>, <em>if_machine=None</em>, <em>send_digits=None</em>, <em>timeout=None</em>, <em>application_sid=None</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Calls.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a phone call to a number</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Calls.hangup">
+<tt class="descname">hangup</tt><big>(</big><em>sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Calls.hangup" title="Permalink to this definition">¶</a></dt>
+<dd><p>If this call is currenlty active, hang up the call.
+If this call is scheduled to be made, remove the call
+from the queue</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sid</strong> &#8211; A Call Sid for a specific call</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Updated <a class="reference internal" href="#twilio.rest.resources.Call" title="twilio.rest.resources.Call"><tt class="xref py py-class docutils literal"><span class="pre">Call</span></tt></a> resource</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Calls.route">
+<tt class="descname">route</tt><big>(</big><em>sid</em>, <em>url</em>, <em>method='POST'</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Calls.route" title="Permalink to this definition">¶</a></dt>
+<dd><p>Route the specified <a class="reference internal" href="#twilio.rest.resources.Call" title="twilio.rest.resources.Call"><tt class="xref py py-class docutils literal"><span class="pre">Call</span></tt></a> to another url.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>sid</strong> &#8211; A Call Sid for a specific call</li>
+<li><strong>url</strong> &#8211; A valid URL that returns TwiML.</li>
+<li><strong>method</strong> &#8211; The HTTP method Twilio uses when requesting the URL.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Updated <a class="reference internal" href="#twilio.rest.resources.Call" title="twilio.rest.resources.Call"><tt class="xref py py-class docutils literal"><span class="pre">Call</span></tt></a> resource</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twilio.rest.resources.Call">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">Call</tt><big>(</big><em>parent</em>, <em>sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Call" title="Permalink to this definition">¶</a></dt>
+<dd><p>A call resource</p>
+<dl class="attribute">
+<dt id="twilio.rest.resources.Call.sid">
+<tt class="descname">sid</tt><a class="headerlink" href="#twilio.rest.resources.Call.sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>A 34 character string that uniquely identifies this resource.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Call.parent_call_sid">
+<tt class="descname">parent_call_sid</tt><a class="headerlink" href="#twilio.rest.resources.Call.parent_call_sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>A 34 character string that uniquely identifies the call that created this leg.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Call.date_created">
+<tt class="descname">date_created</tt><a class="headerlink" href="#twilio.rest.resources.Call.date_created" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that this resource was created, given as GMT in RFC 2822 format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Call.date_updated">
+<tt class="descname">date_updated</tt><a class="headerlink" href="#twilio.rest.resources.Call.date_updated" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that this resource was last updated, given as GMT in RFC 2822 format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Call.account_sid">
+<tt class="descname">account_sid</tt><a class="headerlink" href="#twilio.rest.resources.Call.account_sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>The unique id of the Account responsible for creating this call.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Call.to">
+<tt class="descname">to</tt><a class="headerlink" href="#twilio.rest.resources.Call.to" title="Permalink to this definition">¶</a></dt>
+<dd><p>The phone number that received this call. e.g., +16175551212 (E.164 format)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Call.from_">
+<tt class="descname">from_</tt><a class="headerlink" href="#twilio.rest.resources.Call.from_" title="Permalink to this definition">¶</a></dt>
+<dd><p>The phone number that made this call. e.g., +16175551212 (E.164 format)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Call.phone_number_sid">
+<tt class="descname">phone_number_sid</tt><a class="headerlink" href="#twilio.rest.resources.Call.phone_number_sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the call was inbound, this is the Sid of the IncomingPhoneNumber that received the call. If the call was outbound, it is the Sid of the OutgoingCallerId from which the call was placed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Call.status">
+<tt class="descname">status</tt><a class="headerlink" href="#twilio.rest.resources.Call.status" title="Permalink to this definition">¶</a></dt>
+<dd><p>A string representing the status of the call. May be <tt class="xref py py-data docutils literal"><span class="pre">QUEUED</span></tt>, <tt class="xref py py-data docutils literal"><span class="pre">RINGING</span></tt>, <tt class="xref py py-data docutils literal"><span class="pre">IN-PROGRESS</span></tt>, <tt class="xref py py-data docutils literal"><span class="pre">COMPLETED</span></tt>, <tt class="xref py py-data docutils literal"><span class="pre">FAILED</span></tt>, <tt class="xref py py-data docutils literal"><span class="pre">BUSY</span></tt> or <tt class="xref py py-data docutils literal"><span class="pre">NO_ANSWER</span></tt>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Call.start_time">
+<tt class="descname">start_time</tt><a class="headerlink" href="#twilio.rest.resources.Call.start_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>The start time of the call, given as GMT in RFC 2822 format. Empty if the call has not yet been dialed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Call.end_time">
+<tt class="descname">end_time</tt><a class="headerlink" href="#twilio.rest.resources.Call.end_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>The end time of the call, given as GMT in RFC 2822 format. Empty if the call did not complete successfully.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Call.duration">
+<tt class="descname">duration</tt><a class="headerlink" href="#twilio.rest.resources.Call.duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>The length of the call in seconds. This value is empty for busy, failed, unanswered or ongoing calls.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Call.price">
+<tt class="descname">price</tt><a class="headerlink" href="#twilio.rest.resources.Call.price" title="Permalink to this definition">¶</a></dt>
+<dd><p>The charge for this call in USD. Populated after the call is completed. May not be immediately available.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Call.direction">
+<tt class="descname">direction</tt><a class="headerlink" href="#twilio.rest.resources.Call.direction" title="Permalink to this definition">¶</a></dt>
+<dd><p>A string describing the direction of the call. inbound for inbound calls, outbound-api for calls initiated via the REST API or outbound-dial for calls initiated by a &lt;Dial&gt; verb.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Call.answered_by">
+<tt class="descname">answered_by</tt><a class="headerlink" href="#twilio.rest.resources.Call.answered_by" title="Permalink to this definition">¶</a></dt>
+<dd><p>If this call was initiated with answering machine detection, either human or machine. Empty otherwise.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Call.forwarded_from">
+<tt class="descname">forwarded_from</tt><a class="headerlink" href="#twilio.rest.resources.Call.forwarded_from" title="Permalink to this definition">¶</a></dt>
+<dd><p>If this call was an incoming call forwarded from another number, the forwarding phone number (depends on carrier supporting forwarding). Empty otherwise.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Call.caller_name">
+<tt class="descname">caller_name</tt><a class="headerlink" href="#twilio.rest.resources.Call.caller_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>If this call was an incoming call from a phone number with Caller ID Lookup enabled, the caller&#8217;s name. Empty otherwise.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Call.cancel">
+<tt class="descname">cancel</tt><big>(</big><big>)</big><a class="headerlink" href="#twilio.rest.resources.Call.cancel" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the called is queued or rining, cancel the calls.
+Will not affect in progress calls</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Call.hangup">
+<tt class="descname">hangup</tt><big>(</big><big>)</big><a class="headerlink" href="#twilio.rest.resources.Call.hangup" title="Permalink to this definition">¶</a></dt>
+<dd><p>If this call is currenlty active, hang up the call.
+If this call is scheduled to be made, remove the call
+from the queue</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Call.route">
+<tt class="descname">route</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Call.route" title="Permalink to this definition">¶</a></dt>
+<dd><p>Route the specified <a class="reference internal" href="#twilio.rest.resources.Call" title="twilio.rest.resources.Call"><tt class="xref py py-class docutils literal"><span class="pre">Call</span></tt></a> to another url.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>url</strong> &#8211; A valid URL that returns TwiML.</li>
+<li><strong>method</strong> &#8211; HTTP method Twilio uses when requesting the above URL.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="caller-ids">
+<h2>Caller Ids<a class="headerlink" href="#caller-ids" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="twilio.rest.resources.CallerIds">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">CallerIds</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.CallerIds" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of <a class="reference internal" href="#twilio.rest.resources.CallerId" title="twilio.rest.resources.CallerId"><tt class="xref py py-class docutils literal"><span class="pre">CallerId</span></tt></a> resources</p>
+<dl class="method">
+<dt id="twilio.rest.resources.CallerIds.delete">
+<tt class="descname">delete</tt><big>(</big><em>sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.CallerIds.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes a specific <a class="reference internal" href="#twilio.rest.resources.CallerId" title="twilio.rest.resources.CallerId"><tt class="xref py py-class docutils literal"><span class="pre">CallerId</span></tt></a> from the account.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.CallerIds.list">
+<tt class="descname">list</tt><big>(</big><em>phone_number=None</em>, <em>friendly_name=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.CallerIds.list" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>phone_number</strong> &#8211; Show caller ids with this phone number.</li>
+<li><strong>friendly_name</strong> &#8211; Show caller ids with this friendly name.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.CallerIds.update">
+<tt class="descname">update</tt><big>(</big><em>sid</em>, <em>friendly_name=None</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.CallerIds.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update a specific <a class="reference internal" href="#twilio.rest.resources.CallerId" title="twilio.rest.resources.CallerId"><tt class="xref py py-class docutils literal"><span class="pre">CallerId</span></tt></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.CallerIds.validate">
+<tt class="descname">validate</tt><big>(</big><em>phone_number</em>, <em>friendly_name=None</em>, <em>call_delay=None</em>, <em>extension=None</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.CallerIds.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Begin the validation procress for the given number.</p>
+<p>Returns a dictionary with the following keys</p>
+<p><strong>account_sid</strong>:
+The unique id of the Account to which the Validation Request belongs.</p>
+<p><strong>phone_number</strong>: The incoming phone number being validated,
+formatted with a &#8216;+&#8217; and country code e.g., +16175551212</p>
+<p><strong>friendly_name</strong>: The friendly name you provided, if any.</p>
+<p><strong>validation_code</strong>: The 6 digit validation code that must be entered
+via the phone to validate this phone number for Caller ID.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>phone_number</strong> &#8211; The phone number to call and validate</li>
+<li><strong>friendly_name</strong> &#8211; A description for the new caller ID</li>
+<li><strong>call_delay</strong> &#8211; Number of seconds to delay the validation call.</li>
+<li><strong>extension</strong> &#8211; Digits to dial after connecting the validation call.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A response dictionary</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twilio.rest.resources.CallerId">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">CallerId</tt><big>(</big><em>parent</em>, <em>sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.CallerId" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="twilio.rest.resources.CallerId.sid">
+<tt class="descname">sid</tt><a class="headerlink" href="#twilio.rest.resources.CallerId.sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>A 34 character string that uniquely identifies this resource.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.CallerId.date_created">
+<tt class="descname">date_created</tt><a class="headerlink" href="#twilio.rest.resources.CallerId.date_created" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that this resource was created, given in RFC 2822 format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.CallerId.date_updated">
+<tt class="descname">date_updated</tt><a class="headerlink" href="#twilio.rest.resources.CallerId.date_updated" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that this resource was last updated, given in RFC 2822 format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.CallerId.friendly_name">
+<tt class="descname">friendly_name</tt><a class="headerlink" href="#twilio.rest.resources.CallerId.friendly_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>A human readable descriptive text for this resource, up to 64 characters long. By default, the FriendlyName is a nicely formatted version of the phone number.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.CallerId.account_sid">
+<tt class="descname">account_sid</tt><a class="headerlink" href="#twilio.rest.resources.CallerId.account_sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>The unique id of the Account responsible for this Caller Id.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.CallerId.phone_number">
+<tt class="descname">phone_number</tt><a class="headerlink" href="#twilio.rest.resources.CallerId.phone_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>The incoming phone number. Formatted with a &#8216;+&#8217; and country code e.g., +16175551212 (E.164 format).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.CallerId.uri">
+<tt class="descname">uri</tt><a class="headerlink" href="#twilio.rest.resources.CallerId.uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URI for this resource, relative to <a class="reference external" href="https://api.twilio.com">https://api.twilio.com</a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.CallerId.delete">
+<tt class="descname">delete</tt><big>(</big><big>)</big><a class="headerlink" href="#twilio.rest.resources.CallerId.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes this caller ID from the account.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.CallerId.update">
+<tt class="descname">update</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.CallerId.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the CallerId</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="conferences">
+<h2>Conferences<a class="headerlink" href="#conferences" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="twilio.rest.resources.Conferences">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">Conferences</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Conferences" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="twilio.rest.resources.Conference">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">Conference</tt><big>(</big><em>parent</em>, <em>sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Conference" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="twilio.rest.resources.Conference.sid">
+<tt class="descname">sid</tt><a class="headerlink" href="#twilio.rest.resources.Conference.sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>A 34 character string that uniquely identifies this conference.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Conference.friendly_name">
+<tt class="descname">friendly_name</tt><a class="headerlink" href="#twilio.rest.resources.Conference.friendly_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>A user provided string that identifies this conference room.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Conference.status">
+<tt class="descname">status</tt><a class="headerlink" href="#twilio.rest.resources.Conference.status" title="Permalink to this definition">¶</a></dt>
+<dd><p>A string representing the status of the conference. May be init, in-progress, or completed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Conference.date_created">
+<tt class="descname">date_created</tt><a class="headerlink" href="#twilio.rest.resources.Conference.date_created" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that this conference was created, given as GMT in RFC 2822 format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Conference.date_updated">
+<tt class="descname">date_updated</tt><a class="headerlink" href="#twilio.rest.resources.Conference.date_updated" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that this conference was last updated, given as GMT in RFC 2822 format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Conference.account_sid">
+<tt class="descname">account_sid</tt><a class="headerlink" href="#twilio.rest.resources.Conference.account_sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>The unique id of the Account responsible for creating this conference.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Conference.uri">
+<tt class="descname">uri</tt><a class="headerlink" href="#twilio.rest.resources.Conference.uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URI for this resource, relative to <a class="reference external" href="https://api.twilio.com">https://api.twilio.com</a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Conference.participants">
+<tt class="descname">participants</tt><a class="headerlink" href="#twilio.rest.resources.Conference.participants" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <a class="reference internal" href="#twilio.rest.resources.Participants" title="twilio.rest.resources.Participants"><tt class="xref py py-class docutils literal"><span class="pre">Participants</span></tt></a> resource, listing people currently in this conference</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="connect-apps">
+<h2>Connect Apps<a class="headerlink" href="#connect-apps" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="twilio.rest.resources.ConnectApps">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">ConnectApps</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.ConnectApps" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of Call resources</p>
+<dl class="method">
+<dt id="twilio.rest.resources.ConnectApps.list">
+<tt class="descname">list</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.ConnectApps.list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a page of <a class="reference internal" href="#twilio.rest.resources.Call" title="twilio.rest.resources.Call"><tt class="xref py py-class docutils literal"><span class="pre">Call</span></tt></a> resources as a list. For paging
+informtion see <a class="reference internal" href="#twilio.rest.resources.ListResource" title="twilio.rest.resources.ListResource"><tt class="xref py py-class docutils literal"><span class="pre">ListResource</span></tt></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twilio.rest.resources.ConnectApp">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">ConnectApp</tt><big>(</big><em>parent</em>, <em>sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.ConnectApp" title="Permalink to this definition">¶</a></dt>
+<dd><p>An authorized connect app</p>
+<dl class="attribute">
+<dt id="twilio.rest.resources.ConnectApp.sid">
+<tt class="descname">sid</tt><a class="headerlink" href="#twilio.rest.resources.ConnectApp.sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>A 34 character string that uniquely identifies this resource.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.ConnectApp.date_created">
+<tt class="descname">date_created</tt><a class="headerlink" href="#twilio.rest.resources.ConnectApp.date_created" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that this resource was created, given as GMT in RFC 2822 format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.ConnectApp.date_updated">
+<tt class="descname">date_updated</tt><a class="headerlink" href="#twilio.rest.resources.ConnectApp.date_updated" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that this resource was last updated, given as GMT in RFC 2822 format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.ConnectApp.account_sid">
+<tt class="descname">account_sid</tt><a class="headerlink" href="#twilio.rest.resources.ConnectApp.account_sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>The unique id of the Account responsible for creating this call.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.ConnectApp.permissions">
+<tt class="descname">permissions</tt><a class="headerlink" href="#twilio.rest.resources.ConnectApp.permissions" title="Permalink to this definition">¶</a></dt>
+<dd><p>The list of permissions that your ConnectApp requests.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.ConnectApp.friendly_name">
+<tt class="descname">friendly_name</tt><a class="headerlink" href="#twilio.rest.resources.ConnectApp.friendly_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>A human readable name for this resource.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.ConnectApp.description">
+<tt class="descname">description</tt><a class="headerlink" href="#twilio.rest.resources.ConnectApp.description" title="Permalink to this definition">¶</a></dt>
+<dd><p>A more detailed human readable description of this resource.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.ConnectApp.company_name">
+<tt class="descname">company_name</tt><a class="headerlink" href="#twilio.rest.resources.ConnectApp.company_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The company name set for this Connect App.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.ConnectApp.homepage_url">
+<tt class="descname">homepage_url</tt><a class="headerlink" href="#twilio.rest.resources.ConnectApp.homepage_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>The public URL where users can obtain more information about this Connect App.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.ConnectApp.authorize_redirect_url">
+<tt class="descname">authorize_redirect_url</tt><a class="headerlink" href="#twilio.rest.resources.ConnectApp.authorize_redirect_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URL the user&#8217;s browser will redirect to after Twilio authenticates the
+user and obtains authorization for this Connect App.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.ConnectApp.deauthorize_callback_url">
+<tt class="descname">deauthorize_callback_url</tt><a class="headerlink" href="#twilio.rest.resources.ConnectApp.deauthorize_callback_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URL to which Twilio will send a request when a user de-authorizes this
+Connect App.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.ConnectApp.deauthorize_callback_method">
+<tt class="descname">deauthorize_callback_method</tt><a class="headerlink" href="#twilio.rest.resources.ConnectApp.deauthorize_callback_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>The HTTP method to be used when making a request to the deauthorize
+callback url.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.ConnectApp.uri">
+<tt class="descname">uri</tt><a class="headerlink" href="#twilio.rest.resources.ConnectApp.uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URI for this resource, relative to <a class="reference external" href="https://api.twilio.com">https://api.twilio.com</a>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="notifications">
+<h2>Notifications<a class="headerlink" href="#notifications" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="twilio.rest.resources.Notifications">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">Notifications</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Notifications" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="twilio.rest.resources.Notifications.delete">
+<tt class="descname">delete</tt><big>(</big><em>sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Notifications.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a given Notificiation</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twilio.rest.resources.Notification">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">Notification</tt><big>(</big><em>parent</em>, <em>sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Notification" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="twilio.rest.resources.Notification.sid">
+<tt class="descname">sid</tt><a class="headerlink" href="#twilio.rest.resources.Notification.sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>A 34 character string that uniquely identifies this resource.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Notification.date_created">
+<tt class="descname">date_created</tt><a class="headerlink" href="#twilio.rest.resources.Notification.date_created" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that this resource was created, given in RFC 2822 format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Notification.date_updated">
+<tt class="descname">date_updated</tt><a class="headerlink" href="#twilio.rest.resources.Notification.date_updated" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that this resource was last updated, given in RFC 2822 format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Notification.account_sid">
+<tt class="descname">account_sid</tt><a class="headerlink" href="#twilio.rest.resources.Notification.account_sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>The unique id of the Account responsible for this notification.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Notification.call_sid">
+<tt class="descname">call_sid</tt><a class="headerlink" href="#twilio.rest.resources.Notification.call_sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>CallSid is the unique id of the call during which the notification was generated. Empty if the notification was generated by the REST API without regard to a specific phone call.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Notification.api_version">
+<tt class="descname">api_version</tt><a class="headerlink" href="#twilio.rest.resources.Notification.api_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>The version of the Twilio in use when this notification was generated.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Notification.log">
+<tt class="descname">log</tt><a class="headerlink" href="#twilio.rest.resources.Notification.log" title="Permalink to this definition">¶</a></dt>
+<dd><p>An integer log level corresponding to the type of notification: 0 is ERROR, 1 is WARNING.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Notification.error_code">
+<tt class="descname">error_code</tt><a class="headerlink" href="#twilio.rest.resources.Notification.error_code" title="Permalink to this definition">¶</a></dt>
+<dd><p>A unique error code for the error condition. You can lookup errors, with possible causes and solutions, in our Error Dictionary.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Notification.more_info">
+<tt class="descname">more_info</tt><a class="headerlink" href="#twilio.rest.resources.Notification.more_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>A URL for more information about the error condition. The URL is a page in our Error Dictionary.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Notification.message_text">
+<tt class="descname">message_text</tt><a class="headerlink" href="#twilio.rest.resources.Notification.message_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>The text of the notification.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Notification.message_date">
+<tt class="descname">message_date</tt><a class="headerlink" href="#twilio.rest.resources.Notification.message_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date the notification was actually generated, given in RFC 2822 format. Due to buffering, this may be slightly different than the DateCreated date.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Notification.request_url">
+<tt class="descname">request_url</tt><a class="headerlink" href="#twilio.rest.resources.Notification.request_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URL of the resource that generated the notification. If the notification was generated during a phone call: This is the URL of the resource on YOUR SERVER that caused the notification. If the notification was generated by your use of the REST API: This is the URL of the REST resource you were attempting to request on Twilio&#8217;s servers.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Notification.request_method">
+<tt class="descname">request_method</tt><a class="headerlink" href="#twilio.rest.resources.Notification.request_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>The HTTP method in use for the request that generated the notification. If the notification was generated during a phone call: The HTTP Method use to request the resource on your server. If the notification was generated by your use of the REST API: This is the HTTP method used in your request to the REST resource on Twilio&#8217;s servers.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Notification.request_variables">
+<tt class="descname">request_variables</tt><a class="headerlink" href="#twilio.rest.resources.Notification.request_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Twilio-generated HTTP GET or POST variables sent to your server. Alternatively, if the notification was generated by the REST API, this field will include any HTTP POST or PUT variables you sent to the REST API.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Notification.response_headers">
+<tt class="descname">response_headers</tt><a class="headerlink" href="#twilio.rest.resources.Notification.response_headers" title="Permalink to this definition">¶</a></dt>
+<dd><p>The HTTP headers returned by your server.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Notification.response_body">
+<tt class="descname">response_body</tt><a class="headerlink" href="#twilio.rest.resources.Notification.response_body" title="Permalink to this definition">¶</a></dt>
+<dd><p>The HTTP body returned by your server.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Notification.uri">
+<tt class="descname">uri</tt><a class="headerlink" href="#twilio.rest.resources.Notification.uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URI for this resource, relative to <a class="reference external" href="https://api.twilio.com">https://api.twilio.com</a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Notification.delete">
+<tt class="descname">delete</tt><big>(</big><big>)</big><a class="headerlink" href="#twilio.rest.resources.Notification.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete this notification</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="participlants">
+<h2>Participlants<a class="headerlink" href="#participlants" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="twilio.rest.resources.Participants">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">Participants</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Participants" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="twilio.rest.resources.Participants.delete">
+<tt class="descname">delete</tt><big>(</big><em>call_sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Participants.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the participant from the given conference</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Participants.kick">
+<tt class="descname">kick</tt><big>(</big><em>call_sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Participants.kick" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the participant from the given conference</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Participants.list">
+<tt class="descname">list</tt><big>(</big><em>muted=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Participants.list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of <a class="reference internal" href="#twilio.rest.resources.Participant" title="twilio.rest.resources.Participant"><tt class="xref py py-class docutils literal"><span class="pre">Participant</span></tt></a> resources in the given
+conference</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>conference_sid</strong> &#8211; Conference this participant is part of</li>
+<li><strong>muted</strong> (<em>boolean</em>) &#8211; If True, only show participants who are muted</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Participants.mute">
+<tt class="descname">mute</tt><big>(</big><em>call_sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Participants.mute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mute the given participant</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Participants.unmute">
+<tt class="descname">unmute</tt><big>(</big><em>call_sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Participants.unmute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unmute the given participant</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Participants.update">
+<tt class="descname">update</tt><big>(</big><em>sid</em>, <em>muted=None</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Participants.update" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>sid</strong> &#8211; Paticipant identifier</li>
+<li><strong>muted</strong> (<em>boolean</em>) &#8211; If true, mute this participant</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twilio.rest.resources.Participant">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">Participant</tt><big>(</big><em>parent</em>, <em>sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Participant" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="twilio.rest.resources.Participant.call_sid">
+<tt class="descname">call_sid</tt><a class="headerlink" href="#twilio.rest.resources.Participant.call_sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>A 34 character string that uniquely identifies the call that is connected to this conference</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Participant.conference_sid">
+<tt class="descname">conference_sid</tt><a class="headerlink" href="#twilio.rest.resources.Participant.conference_sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>A 34 character string that identifies the conference this participant is in</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Participant.date_created">
+<tt class="descname">date_created</tt><a class="headerlink" href="#twilio.rest.resources.Participant.date_created" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that this resource was created, given in RFC 2822 format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Participant.date_updated">
+<tt class="descname">date_updated</tt><a class="headerlink" href="#twilio.rest.resources.Participant.date_updated" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that this resource was last updated, given in RFC 2822 format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Participant.account_sid">
+<tt class="descname">account_sid</tt><a class="headerlink" href="#twilio.rest.resources.Participant.account_sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>The unique id of the Account that created this conference</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Participant.muted">
+<tt class="descname">muted</tt><a class="headerlink" href="#twilio.rest.resources.Participant.muted" title="Permalink to this definition">¶</a></dt>
+<dd><p>true if this participant is currently muted. false otherwise.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Participant.start_conference_on_enter">
+<tt class="descname">start_conference_on_enter</tt><a class="headerlink" href="#twilio.rest.resources.Participant.start_conference_on_enter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Was the startConferenceOnEnter attribute set on this participant (true or false)?</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Participant.end_conference_on_exit">
+<tt class="descname">end_conference_on_exit</tt><a class="headerlink" href="#twilio.rest.resources.Participant.end_conference_on_exit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Was the endConferenceOnExit attribute set on this participant (true or false)?</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Participant.uri">
+<tt class="descname">uri</tt><a class="headerlink" href="#twilio.rest.resources.Participant.uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URI for this resource, relative to <a class="reference external" href="https://api.twilio.com">https://api.twilio.com</a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Participant.kick">
+<tt class="descname">kick</tt><big>(</big><big>)</big><a class="headerlink" href="#twilio.rest.resources.Participant.kick" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the participant from the given conference</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Participant.mute">
+<tt class="descname">mute</tt><big>(</big><big>)</big><a class="headerlink" href="#twilio.rest.resources.Participant.mute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mute the participant</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Participant.unmute">
+<tt class="descname">unmute</tt><big>(</big><big>)</big><a class="headerlink" href="#twilio.rest.resources.Participant.unmute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unmute the participant</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="phone-numbers">
+<h2>Phone Numbers<a class="headerlink" href="#phone-numbers" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="twilio.rest.resources.PhoneNumbers">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">PhoneNumbers</tt><big>(</big><em>base_uri</em>, <em>auth</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.PhoneNumbers" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="twilio.rest.resources.PhoneNumbers.delete">
+<tt class="descname">delete</tt><big>(</big><em>sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.PhoneNumbers.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Release this phone number from your account. Twilio will no longer
+answer calls to this number, and you will stop being billed the
+monthly phone number fees. The phone number will eventually be
+recycled and potentially given to another customer, so use with care.
+If you make a mistake, contact us... we may be able to give you the
+number back.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.PhoneNumbers.list">
+<tt class="descname">list</tt><big>(</big><em>phone_number=None</em>, <em>friendly_name=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.PhoneNumbers.list" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>phone_number</strong> &#8211; Show phone numbers that match this pattern.</li>
+<li><strong>friendly_name</strong> &#8211; Show phone numbers with this friendly name</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>You can specify partial numbers and use &#8216;*&#8217; as a wildcard.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.PhoneNumbers.purchase">
+<tt class="descname">purchase</tt><big>(</big><em>phone_number=None</em>, <em>area_code=None</em>, <em>voice_url=None</em>, <em>voice_method=None</em>, <em>voice_fallback_url=None</em>, <em>voice_fallback_method=None</em>, <em>status_callback_url=None</em>, <em>status_callback_method=None</em>, <em>sms_url=None</em>, <em>sms_method=None</em>, <em>sms_fallback_url=None</em>, <em>sms_fallback_method=None</em>, <em>voice_caller_id_lookup=None</em>, <em>account_sid=None</em>, <em>sms_application_sid=None</em>, <em>voice_application_sid=None</em>, <em>friendly_name=None</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.PhoneNumbers.purchase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attempt to purchase the specified number. The only required parameters
+are <strong>either</strong> phone_number or area_code</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Returns a <a class="reference internal" href="#twilio.rest.resources.PhoneNumber" title="twilio.rest.resources.PhoneNumber"><tt class="xref py py-class docutils literal"><span class="pre">PhoneNumber</span></tt></a> instance on success,
+<tt class="xref py py-data docutils literal"><span class="pre">False</span></tt> on failure</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.PhoneNumbers.search">
+<tt class="descname">search</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.PhoneNumbers.search" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>type</strong> &#8211; The type of phone number to search for.</li>
+<li><strong>country</strong> (<em>integer</em>) &#8211; Either &#8220;US&#8221; or &#8220;CA&#8221;. Defaults to &#8220;US&#8221;</li>
+<li><strong>region</strong> (<em>string</em>) &#8211; When searching the US, show numbers in this state</li>
+<li><strong>postal_code</strong> (<em>string</em>) &#8211; Only show numbers in this area code</li>
+<li><strong>rate_center</strong> (<em>string</em>) &#8211; US only.</li>
+<li><strong>near_lat_long</strong> (<em>tuple</em>) &#8211; Find close numbers within Distance miles.</li>
+<li><strong>distance</strong> (<em>integer</em>) &#8211; Search radius for a Near- query in miles.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.PhoneNumbers.transfer">
+<tt class="descname">transfer</tt><big>(</big><em>sid</em>, <em>account_sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.PhoneNumbers.transfer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transfer the phone number with sid from the current account to another
+identified by account_sid</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.PhoneNumbers.update">
+<tt class="descname">update</tt><big>(</big><em>sid</em>, <em>api_version=None</em>, <em>voice_url=None</em>, <em>voice_method=None</em>, <em>voice_fallback_url=None</em>, <em>voice_fallback_method=None</em>, <em>status_callback_method=None</em>, <em>sms_url=None</em>, <em>sms_method=None</em>, <em>sms_fallback_url=None</em>, <em>sms_fallback_method=None</em>, <em>voice_caller_id_lookup=None</em>, <em>account_sid=None</em>, <em>application_sid=None</em>, <em>status_callback=None</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.PhoneNumbers.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update this phone number instance</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twilio.rest.resources.PhoneNumber">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">PhoneNumber</tt><big>(</big><em>parent</em>, <em>sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.PhoneNumber" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="twilio.rest.resources.PhoneNumber.sid">
+<tt class="descname">sid</tt><a class="headerlink" href="#twilio.rest.resources.PhoneNumber.sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>A 34 character string that uniquely idetifies this resource.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.PhoneNumber.date_created">
+<tt class="descname">date_created</tt><a class="headerlink" href="#twilio.rest.resources.PhoneNumber.date_created" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that this resource was created, given as GMT RFC 2822 format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.PhoneNumber.date_updated">
+<tt class="descname">date_updated</tt><a class="headerlink" href="#twilio.rest.resources.PhoneNumber.date_updated" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that this resource was last updated, given as GMT RFC 2822 format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.PhoneNumber.friendly_name">
+<tt class="descname">friendly_name</tt><a class="headerlink" href="#twilio.rest.resources.PhoneNumber.friendly_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>A human readable descriptive text for this resource, up to 64 characters long. By default, the FriendlyName is a nicely formatted version of the phone number.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.PhoneNumber.account_sid">
+<tt class="descname">account_sid</tt><a class="headerlink" href="#twilio.rest.resources.PhoneNumber.account_sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>The unique id of the Account responsible for this phone number.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.PhoneNumber.phone_number">
+<tt class="descname">phone_number</tt><a class="headerlink" href="#twilio.rest.resources.PhoneNumber.phone_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>The incoming phone number. e.g., +16175551212 (E.164 format)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.PhoneNumber.api_version">
+<tt class="descname">api_version</tt><a class="headerlink" href="#twilio.rest.resources.PhoneNumber.api_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls to this phone number will start a new TwiML session with this API version.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.PhoneNumber.voice_caller_id_lookup">
+<tt class="descname">voice_caller_id_lookup</tt><a class="headerlink" href="#twilio.rest.resources.PhoneNumber.voice_caller_id_lookup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Look up the caller&#8217;s caller-ID name from the CNAM database (additional charges apply). Either true or false.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.PhoneNumber.voice_url">
+<tt class="descname">voice_url</tt><a class="headerlink" href="#twilio.rest.resources.PhoneNumber.voice_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URL Twilio will request when this phone number receives a call.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.PhoneNumber.voice_method">
+<tt class="descname">voice_method</tt><a class="headerlink" href="#twilio.rest.resources.PhoneNumber.voice_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>The HTTP method Twilio will use when requesting the above Url. Either GET or POST.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.PhoneNumber.voice_fallback_url">
+<tt class="descname">voice_fallback_url</tt><a class="headerlink" href="#twilio.rest.resources.PhoneNumber.voice_fallback_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by Url.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.PhoneNumber.voice_fallback_method">
+<tt class="descname">voice_fallback_method</tt><a class="headerlink" href="#twilio.rest.resources.PhoneNumber.voice_fallback_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>The HTTP method Twilio will use when requesting the VoiceFallbackUrl. Either GET or POST.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.PhoneNumber.status_callback">
+<tt class="descname">status_callback</tt><a class="headerlink" href="#twilio.rest.resources.PhoneNumber.status_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URL that Twilio will request to pass status parameters (such as call ended) to your application.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.PhoneNumber.status_callback_method">
+<tt class="descname">status_callback_method</tt><a class="headerlink" href="#twilio.rest.resources.PhoneNumber.status_callback_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>The HTTP method Twilio will use to make requests to the StatusCallback URL. Either GET or POST.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.PhoneNumber.sms_url">
+<tt class="descname">sms_url</tt><a class="headerlink" href="#twilio.rest.resources.PhoneNumber.sms_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URL Twilio will request when receiving an incoming SMS message to this number.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.PhoneNumber.sms_method">
+<tt class="descname">sms_method</tt><a class="headerlink" href="#twilio.rest.resources.PhoneNumber.sms_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>The HTTP method Twilio will use when making requests to the SmsUrl. Either GET or POST.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.PhoneNumber.sms_fallback_url">
+<tt class="descname">sms_fallback_url</tt><a class="headerlink" href="#twilio.rest.resources.PhoneNumber.sms_fallback_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URL that Twilio will request if an error occurs retrieving or executing the TwiML from SmsUrl.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.PhoneNumber.sms_fallback_method">
+<tt class="descname">sms_fallback_method</tt><a class="headerlink" href="#twilio.rest.resources.PhoneNumber.sms_fallback_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>The HTTP method Twilio will use when requesting the above URL. Either GET or POST.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.PhoneNumber.uri">
+<tt class="descname">uri</tt><a class="headerlink" href="#twilio.rest.resources.PhoneNumber.uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URI for this resource, relative to <a class="reference external" href="https://api.twilio.com">https://api.twilio.com</a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.PhoneNumber.delete">
+<tt class="descname">delete</tt><big>(</big><big>)</big><a class="headerlink" href="#twilio.rest.resources.PhoneNumber.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Release this phone number from your account. Twilio will no longer
+answer calls to this number, and you will stop being billed the monthly
+phone number fees. The phone number will eventually be recycled and
+potentially given to another customer, so use with care. If you make a
+mistake, contact us... we may be able to give you the number back.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.PhoneNumber.load">
+<tt class="descname">load</tt><big>(</big><em>entries</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.PhoneNumber.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the proper Account owner of this phone number</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.PhoneNumber.transfer">
+<tt class="descname">transfer</tt><big>(</big><em>account_sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.PhoneNumber.transfer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transfer the phone number with sid from the current account to another
+identified by account_sid</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.PhoneNumber.update">
+<tt class="descname">update</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.PhoneNumber.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update this phone number instance</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twilio.rest.resources.AvailablePhoneNumber">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">AvailablePhoneNumber</tt><big>(</big><em>parent</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.AvailablePhoneNumber" title="Permalink to this definition">¶</a></dt>
+<dd><p>An available phone number resource</p>
+<dl class="attribute">
+<dt id="twilio.rest.resources.AvailablePhoneNumber.friendly_name">
+<tt class="descname">friendly_name</tt><a class="headerlink" href="#twilio.rest.resources.AvailablePhoneNumber.friendly_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>A nicely-formatted version of the phone number.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.AvailablePhoneNumber.phone_number">
+<tt class="descname">phone_number</tt><a class="headerlink" href="#twilio.rest.resources.AvailablePhoneNumber.phone_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>The phone number, in E.164 (i.e. &#8220;+1&#8221;) format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.AvailablePhoneNumber.lata">
+<tt class="descname">lata</tt><a class="headerlink" href="#twilio.rest.resources.AvailablePhoneNumber.lata" title="Permalink to this definition">¶</a></dt>
+<dd><p>The LATA of this phone number.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.AvailablePhoneNumber.rate_center">
+<tt class="descname">rate_center</tt><a class="headerlink" href="#twilio.rest.resources.AvailablePhoneNumber.rate_center" title="Permalink to this definition">¶</a></dt>
+<dd><p>The rate center of this phone number.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.AvailablePhoneNumber.latitude">
+<tt class="descname">latitude</tt><a class="headerlink" href="#twilio.rest.resources.AvailablePhoneNumber.latitude" title="Permalink to this definition">¶</a></dt>
+<dd><p>The latitude coordinate of this phone number.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.AvailablePhoneNumber.longitude">
+<tt class="descname">longitude</tt><a class="headerlink" href="#twilio.rest.resources.AvailablePhoneNumber.longitude" title="Permalink to this definition">¶</a></dt>
+<dd><p>The longitude coordinate of this phone number.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.AvailablePhoneNumber.region">
+<tt class="descname">region</tt><a class="headerlink" href="#twilio.rest.resources.AvailablePhoneNumber.region" title="Permalink to this definition">¶</a></dt>
+<dd><p>The two-letter state or province abbreviation of this phone number.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.AvailablePhoneNumber.postal_code">
+<tt class="descname">postal_code</tt><a class="headerlink" href="#twilio.rest.resources.AvailablePhoneNumber.postal_code" title="Permalink to this definition">¶</a></dt>
+<dd><p>The postal (zip) code of this phone number.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.AvailablePhoneNumber.iso_country">
+<tt class="descname">iso_country</tt><a class="headerlink" href="#twilio.rest.resources.AvailablePhoneNumber.iso_country" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="recordings">
+<h2>Recordings<a class="headerlink" href="#recordings" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="twilio.rest.resources.Recordings">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">Recordings</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Recordings" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="twilio.rest.resources.Recordings.delete">
+<tt class="descname">delete</tt><big>(</big><em>sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Recordings.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete the given recording</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twilio.rest.resources.Recording">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">Recording</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Recording" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="twilio.rest.resources.Recording.sid">
+<tt class="descname">sid</tt><a class="headerlink" href="#twilio.rest.resources.Recording.sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>A 34 character string that uniquely identifies this resource.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Recording.date_created">
+<tt class="descname">date_created</tt><a class="headerlink" href="#twilio.rest.resources.Recording.date_created" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that this resource was created, given in RFC 2822 format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Recording.date_updated">
+<tt class="descname">date_updated</tt><a class="headerlink" href="#twilio.rest.resources.Recording.date_updated" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that this resource was last updated, given in RFC 2822 format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Recording.account_sid">
+<tt class="descname">account_sid</tt><a class="headerlink" href="#twilio.rest.resources.Recording.account_sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>The unique id of the Account responsible for this recording.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Recording.call_sid">
+<tt class="descname">call_sid</tt><a class="headerlink" href="#twilio.rest.resources.Recording.call_sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>The call during which the recording was made.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Recording.duration">
+<tt class="descname">duration</tt><a class="headerlink" href="#twilio.rest.resources.Recording.duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>The length of the recording, in seconds.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Recording.api_version">
+<tt class="descname">api_version</tt><a class="headerlink" href="#twilio.rest.resources.Recording.api_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>The version of the API in use during the recording.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Recording.uri">
+<tt class="descname">uri</tt><a class="headerlink" href="#twilio.rest.resources.Recording.uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URI for this resource, relative to <a class="reference external" href="https://api.twilio.com">https://api.twilio.com</a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Recording.subresource_uris">
+<tt class="descname">subresource_uris</tt><a class="headerlink" href="#twilio.rest.resources.Recording.subresource_uris" title="Permalink to this definition">¶</a></dt>
+<dd><p>The list of subresources under this account</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Recording.formats">
+<tt class="descname">formats</tt><a class="headerlink" href="#twilio.rest.resources.Recording.formats" title="Permalink to this definition">¶</a></dt>
+<dd><p>A dictionary of the audio formats available for this recording</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&quot;wav&quot;</span><span class="p">:</span> <span class="s">&quot;https://api.twilio.com/path/to/recording.wav&quot;</span><span class="p">,</span>
+    <span class="s">&quot;mp3&quot;</span><span class="p">:</span> <span class="s">&quot;https://api.twilio.com/path/to/recording.mp3&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Recording.delete">
+<tt class="descname">delete</tt><big>(</big><big>)</big><a class="headerlink" href="#twilio.rest.resources.Recording.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete this recording</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="sandbox">
+<h2>Sandbox<a class="headerlink" href="#sandbox" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="twilio.rest.resources.Sandboxes">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">Sandboxes</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Sandboxes" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="twilio.rest.resources.Sandboxes.get">
+<tt class="descname">get</tt><big>(</big><big>)</big><a class="headerlink" href="#twilio.rest.resources.Sandboxes.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Request the specified instance resource</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Sandboxes.update">
+<tt class="descname">update</tt><big>(</big><em>voice_url=None</em>, <em>voice_method=None</em>, <em>sms_url=None</em>, <em>sms_method=None</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Sandboxes.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update your Twilio Sandbox</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twilio.rest.resources.Sandbox">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">Sandbox</tt><big>(</big><em>parent</em>, <em>sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Sandbox" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="twilio.rest.resources.Sandbox.pin">
+<tt class="descname">pin</tt><a class="headerlink" href="#twilio.rest.resources.Sandbox.pin" title="Permalink to this definition">¶</a></dt>
+<dd><p>An 8 digit number that gives access to this sandbox.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Sandbox.account_sid">
+<tt class="descname">account_sid</tt><a class="headerlink" href="#twilio.rest.resources.Sandbox.account_sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>The unique id of the Account connected to this sandbox.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Sandbox.phone_number">
+<tt class="descname">phone_number</tt><a class="headerlink" href="#twilio.rest.resources.Sandbox.phone_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>The phone number of the sandbox.  Formatted with a &#8216;+&#8217; and country code e.g., +16175551212 (E.164 format).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Sandbox.voice_url">
+<tt class="descname">voice_url</tt><a class="headerlink" href="#twilio.rest.resources.Sandbox.voice_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URL Twilio will request when the sandbox number is called.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Sandbox.voice_method">
+<tt class="descname">voice_method</tt><a class="headerlink" href="#twilio.rest.resources.Sandbox.voice_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>The HTTP method to use when requesting the above URL. Either GET or POST.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Sandbox.sms_url">
+<tt class="descname">sms_url</tt><a class="headerlink" href="#twilio.rest.resources.Sandbox.sms_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URL Twilio will request when receiving an incoming SMS message to the sandbox number.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Sandbox.sms_method">
+<tt class="descname">sms_method</tt><a class="headerlink" href="#twilio.rest.resources.Sandbox.sms_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>The HTTP method to use when requesting the sms URL. Either GET or POST.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Sandbox.date_created">
+<tt class="descname">date_created</tt><a class="headerlink" href="#twilio.rest.resources.Sandbox.date_created" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that this resource was created, given in RFC 2822 format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Sandbox.date_updated">
+<tt class="descname">date_updated</tt><a class="headerlink" href="#twilio.rest.resources.Sandbox.date_updated" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that this resource was last updated, given in RFC 2822 format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Sandbox.uri">
+<tt class="descname">uri</tt><a class="headerlink" href="#twilio.rest.resources.Sandbox.uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URI for this resource, relative to <a class="reference external" href="https://api.twilio.com">https://api.twilio.com</a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.Sandbox.update">
+<tt class="descname">update</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Sandbox.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update your Twilio Sandbox</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="short-codes">
+<h2>Short Codes<a class="headerlink" href="#short-codes" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="twilio.rest.resources.ShortCodes">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">ShortCodes</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.ShortCodes" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="twilio.rest.resources.ShortCodes.list">
+<tt class="descname">list</tt><big>(</big><em>short_code=None</em>, <em>friendly_name=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.ShortCodes.list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a page of <a class="reference internal" href="#twilio.rest.resources.ShortCode" title="twilio.rest.resources.ShortCode"><tt class="xref py py-class docutils literal"><span class="pre">ShortCode</span></tt></a> resources as a list. For
+paging informtion see <a class="reference internal" href="#twilio.rest.resources.ListResource" title="twilio.rest.resources.ListResource"><tt class="xref py py-class docutils literal"><span class="pre">ListResource</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>short_code</strong> &#8211; Only show the ShortCode resources that match this
+pattern. You can specify partial numbers and use &#8216;*&#8217;
+as a wildcard for any digit.</li>
+<li><strong>friendly_name</strong> &#8211; Only show the ShortCode resources with friendly
+names that exactly match this name.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.rest.resources.ShortCodes.update">
+<tt class="descname">update</tt><big>(</big><em>sid</em>, <em>friendly_name=None</em>, <em>api_version=None</em>, <em>url=None</em>, <em>method=None</em>, <em>fallback_url=None</em>, <em>fallback_method=None</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.ShortCodes.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a page of <tt class="xref py py-class docutils literal"><span class="pre">SMSMessage</span></tt> resources as a list. For
+paging informtion see <a class="reference internal" href="#twilio.rest.resources.ListResource" title="twilio.rest.resources.ListResource"><tt class="xref py py-class docutils literal"><span class="pre">ListResource</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>friendly_name</strong> &#8211; Description of the short code, with maximum
+length 64 characters.</li>
+<li><strong>api_version</strong> &#8211; SMSs to this short code will start a new TwiML
+session with this API version.</li>
+<li><strong>url</strong> &#8211; The URL that Twilio should request when somebody sends an
+SMS to the short code.</li>
+<li><strong>method</strong> &#8211; The HTTP method that should be used to request the url.</li>
+<li><strong>fallback_url</strong> &#8211; A URL that Twilio will request if an error occurs
+requesting or executing the TwiML at the url.</li>
+<li><strong>fallback_method</strong> &#8211; The HTTP method that should be used to request
+the fallback_url.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twilio.rest.resources.ShortCode">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">ShortCode</tt><big>(</big><em>parent</em>, <em>sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.ShortCode" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="twilio.rest.resources.ShortCode.sid">
+<tt class="descname">sid</tt><a class="headerlink" href="#twilio.rest.resources.ShortCode.sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>A 34 character string that uniquely identifies this resource.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.ShortCode.date_created">
+<tt class="descname">date_created</tt><a class="headerlink" href="#twilio.rest.resources.ShortCode.date_created" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that this resource was created, given in RFC 2822 format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.ShortCode.date_updated">
+<tt class="descname">date_updated</tt><a class="headerlink" href="#twilio.rest.resources.ShortCode.date_updated" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that this resource was last updated, given in RFC 2822 format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.ShortCode.friendly_name">
+<tt class="descname">friendly_name</tt><a class="headerlink" href="#twilio.rest.resources.ShortCode.friendly_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>A human readable descriptive text for this resource, up to 64 characters long. By default, the <a class="reference internal" href="#twilio.rest.resources.ShortCode.friendly_name" title="twilio.rest.resources.ShortCode.friendly_name"><tt class="xref py py-attr docutils literal"><span class="pre">friendly_name</span></tt></a> is just the short code.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.ShortCode.account_sid">
+<tt class="descname">account_sid</tt><a class="headerlink" href="#twilio.rest.resources.ShortCode.account_sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>The unique id of the Account that owns this short code.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.ShortCode.short_code">
+<tt class="descname">short_code</tt><a class="headerlink" href="#twilio.rest.resources.ShortCode.short_code" title="Permalink to this definition">¶</a></dt>
+<dd><p>The short code. e.g., 894546.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.ShortCode.api_version">
+<tt class="descname">api_version</tt><a class="headerlink" href="#twilio.rest.resources.ShortCode.api_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>SMSs to this short code will start a new TwiML session with this API version.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.ShortCode.sms_url">
+<tt class="descname">sms_url</tt><a class="headerlink" href="#twilio.rest.resources.ShortCode.sms_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URL Twilio will request when receiving an incoming SMS message to this short code.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.ShortCode.sms_method">
+<tt class="descname">sms_method</tt><a class="headerlink" href="#twilio.rest.resources.ShortCode.sms_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>The HTTP method Twilio will use when making requests to the <a class="reference internal" href="#twilio.rest.resources.ShortCode.sms_url" title="twilio.rest.resources.ShortCode.sms_url"><tt class="xref py py-attr docutils literal"><span class="pre">sms_url</span></tt></a>. Either GET or POST.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.ShortCode.sms_fallback_url">
+<tt class="descname">sms_fallback_url</tt><a class="headerlink" href="#twilio.rest.resources.ShortCode.sms_fallback_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URL that Twilio will request if an error occurs retrieving or executing the TwiML from <a class="reference internal" href="#twilio.rest.resources.ShortCode.sms_url" title="twilio.rest.resources.ShortCode.sms_url"><tt class="xref py py-attr docutils literal"><span class="pre">sms_url</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.ShortCode.sms_fallback_method">
+<tt class="descname">sms_fallback_method</tt><a class="headerlink" href="#twilio.rest.resources.ShortCode.sms_fallback_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>The HTTP method Twilio will use when requesting the above URL. Either GET or POST.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.ShortCode.uri">
+<tt class="descname">uri</tt><a class="headerlink" href="#twilio.rest.resources.ShortCode.uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URI for this resource, relative to <a class="reference external" href="https://api.twilio.com">https://api.twilio.com</a>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="sms-messages">
+<h2>SMS Messages<a class="headerlink" href="#sms-messages" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="twilio.rest.resources.SmsMessages">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">SmsMessages</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.SmsMessages" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="twilio.rest.resources.SmsMessages.create">
+<tt class="descname">create</tt><big>(</big><em>to=None</em>, <em>from_=None</em>, <em>body=None</em>, <em>status_callback=None</em>, <em>application_sid=None</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.SmsMessages.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and send a SMS Message.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>to</strong> &#8211; The destination phone number.</li>
+<li><strong>from</strong> &#8211; The phone number sending this message.</li>
+<li><strong>body</strong> &#8211; The message you want to send, limited to 160 characters.</li>
+<li><strong>status_callback</strong> &#8211; URL that Twilio will update with message info</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twilio.rest.resources.SmsMessage">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">SmsMessage</tt><big>(</big><em>parent</em>, <em>sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.SmsMessage" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="twilio.rest.resources.SmsMessage.sid">
+<tt class="descname">sid</tt><a class="headerlink" href="#twilio.rest.resources.SmsMessage.sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>A 34 character string that uniquely identifies this resource.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.SmsMessage.date_created">
+<tt class="descname">date_created</tt><a class="headerlink" href="#twilio.rest.resources.SmsMessage.date_created" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that this resource was created, given in RFC 2822 format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.SmsMessage.date_updated">
+<tt class="descname">date_updated</tt><a class="headerlink" href="#twilio.rest.resources.SmsMessage.date_updated" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that this resource was last updated, given in RFC 2822 format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.SmsMessage.date_sent">
+<tt class="descname">date_sent</tt><a class="headerlink" href="#twilio.rest.resources.SmsMessage.date_sent" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that the SMS was sent, given in RFC 2822 format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.SmsMessage.account_sid">
+<tt class="descname">account_sid</tt><a class="headerlink" href="#twilio.rest.resources.SmsMessage.account_sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>The unique id of the Account that sent this SMS message.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.SmsMessage.from">
+<tt class="descname">from</tt><a class="headerlink" href="#twilio.rest.resources.SmsMessage.from" title="Permalink to this definition">¶</a></dt>
+<dd><p>The phone number that initiated the message in E.164 format. For incoming messages, this will be the remote phone. For outgoing messages, this will be one of your Twilio phone numbers.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.SmsMessage.to">
+<tt class="descname">to</tt><a class="headerlink" href="#twilio.rest.resources.SmsMessage.to" title="Permalink to this definition">¶</a></dt>
+<dd><p>The phone number that received the message in E.164 format. For incoming messages, this will be one of your Twilio phone numbers. For outgoing messages, this will be the remote phone.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.SmsMessage.body">
+<tt class="descname">body</tt><a class="headerlink" href="#twilio.rest.resources.SmsMessage.body" title="Permalink to this definition">¶</a></dt>
+<dd><p>The text body of the SMS message. Up to 160 characters long.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.SmsMessage.status">
+<tt class="descname">status</tt><a class="headerlink" href="#twilio.rest.resources.SmsMessage.status" title="Permalink to this definition">¶</a></dt>
+<dd><p>The status of this SMS message. Either queued, sending, sent, or failed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.SmsMessage.direction">
+<tt class="descname">direction</tt><a class="headerlink" href="#twilio.rest.resources.SmsMessage.direction" title="Permalink to this definition">¶</a></dt>
+<dd><p>The direction of this SMS message. incoming for incoming messages, outbound-api for messages initiated via the REST API, outbound-call for messages initiated during a call or outbound-reply for messages initiated in response to an incoming SMS.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.SmsMessage.price">
+<tt class="descname">price</tt><a class="headerlink" href="#twilio.rest.resources.SmsMessage.price" title="Permalink to this definition">¶</a></dt>
+<dd><p>The amount billed for the message.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.SmsMessage.api_version">
+<tt class="descname">api_version</tt><a class="headerlink" href="#twilio.rest.resources.SmsMessage.api_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>The version of the Twilio API used to process the SMS message.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.SmsMessage.uri">
+<tt class="descname">uri</tt><a class="headerlink" href="#twilio.rest.resources.SmsMessage.uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URI for this resource, relative to <a class="reference external" href="https://api.twilio.com">https://api.twilio.com</a></p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="transcriptions">
+<h2>Transcriptions<a class="headerlink" href="#transcriptions" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="twilio.rest.resources.Transcriptions">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">Transcriptions</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Transcriptions" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="twilio.rest.resources.Transcriptions.list">
+<tt class="descname">list</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Transcriptions.list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of <a class="reference internal" href="#twilio.rest.resources.Transcription" title="twilio.rest.resources.Transcription"><tt class="xref py py-class docutils literal"><span class="pre">Transcription</span></tt></a> resources</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="twilio.rest.resources.Transcription">
+<em class="property">class </em><tt class="descclassname">twilio.rest.resources.</tt><tt class="descname">Transcription</tt><big>(</big><em>parent</em>, <em>sid</em><big>)</big><a class="headerlink" href="#twilio.rest.resources.Transcription" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="twilio.rest.resources.Transcription.sid">
+<tt class="descname">sid</tt><a class="headerlink" href="#twilio.rest.resources.Transcription.sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>A 34 character string that uniquely identifies this resource.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Transcription.date_created">
+<tt class="descname">date_created</tt><a class="headerlink" href="#twilio.rest.resources.Transcription.date_created" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that this resource was created, given in RFC 2822 format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Transcription.date_updated">
+<tt class="descname">date_updated</tt><a class="headerlink" href="#twilio.rest.resources.Transcription.date_updated" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date that this resource was last updated, given in RFC 2822 format.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Transcription.account_sid">
+<tt class="descname">account_sid</tt><a class="headerlink" href="#twilio.rest.resources.Transcription.account_sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>The unique id of the Account responsible for this transcription.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Transcription.status">
+<tt class="descname">status</tt><a class="headerlink" href="#twilio.rest.resources.Transcription.status" title="Permalink to this definition">¶</a></dt>
+<dd><p>A string representing the status of the transcription: in-progress, completed or failed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Transcription.recording_sid">
+<tt class="descname">recording_sid</tt><a class="headerlink" href="#twilio.rest.resources.Transcription.recording_sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>The unique id of the Recording this Transcription was made of.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Transcription.duration">
+<tt class="descname">duration</tt><a class="headerlink" href="#twilio.rest.resources.Transcription.duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>The duration of the transcribed audio, in seconds.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Transcription.transcription_text">
+<tt class="descname">transcription_text</tt><a class="headerlink" href="#twilio.rest.resources.Transcription.transcription_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>The text content of the transcription.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Transcription.price">
+<tt class="descname">price</tt><a class="headerlink" href="#twilio.rest.resources.Transcription.price" title="Permalink to this definition">¶</a></dt>
+<dd><p>The charge for this transcript in USD. Populated after the transcript is completed. Note, this value may not be immediately available.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="twilio.rest.resources.Transcription.uri">
+<tt class="descname">uri</tt><a class="headerlink" href="#twilio.rest.resources.Transcription.uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URI for this resource, relative to <a class="reference external" href="https://api.twilio.com">https://api.twilio.com</a></p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">twilio.rest.resources</span></tt></a><ul>
+<li><a class="reference internal" href="#accounts">Accounts</a></li>
+<li><a class="reference internal" href="#applications">Applications</a></li>
+<li><a class="reference internal" href="#calls">Calls</a></li>
+<li><a class="reference internal" href="#caller-ids">Caller Ids</a></li>
+<li><a class="reference internal" href="#conferences">Conferences</a></li>
+<li><a class="reference internal" href="#connect-apps">Connect Apps</a></li>
+<li><a class="reference internal" href="#notifications">Notifications</a></li>
+<li><a class="reference internal" href="#participlants">Participlants</a></li>
+<li><a class="reference internal" href="#phone-numbers">Phone Numbers</a></li>
+<li><a class="reference internal" href="#recordings">Recordings</a></li>
+<li><a class="reference internal" href="#sandbox">Sandbox</a></li>
+<li><a class="reference internal" href="#short-codes">Short Codes</a></li>
+<li><a class="reference internal" href="#sms-messages">SMS Messages</a></li>
+<li><a class="reference internal" href="#transcriptions">Transcriptions</a></li>
+</ul>
+</li>
+</ul>
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../../api.html">API Documentation</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">twilio.rest</span></tt></a></li>
+      <li>Next: <a href="../twiml.html" title="next chapter"><tt class="docutils literal"><span class="pre">twilio.twiml</span></tt></a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/api/rest/resources.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2011, Twilio Inc..
+    </div>
+    <a href="https://github.com/twilio/twilio-python">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
+    </a>
+  </body>
+</html>

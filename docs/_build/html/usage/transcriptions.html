@@ -1,0 +1,130 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Transcriptions &mdash; twilio-python 3.3.3 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/flasky.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.3.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="twilio-python 3.3.3 documentation" href="../index.html" />
+    <link rel="next" title="TwiML Creation" href="twiml.html" />
+    <link rel="prev" title="Recordings" href="recordings.html" />
+   
+  
+  <link media="only screen and (max-device-width: 480px)" href="../_static/small_flask.css" type= "text/css" rel="stylesheet" />
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="twiml.html" title="TwiML Creation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="recordings.html" title="Recordings"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">twilio-python 3.3.3 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <span class="target" id="module-twilio.rest.resources"></span><div class="section" id="transcriptions">
+<h1>Transcriptions<a class="headerlink" href="#transcriptions" title="Permalink to this headline">¶</a></h1>
+<p>Transcriptions are generated from recordings via the <a class="reference external" href="http://www.twilio.com/docs/api/twiml/record">TwiML &lt;Record&gt; verb</a>. Using the API, you can only read your transcription records.</p>
+<p>For more information, see the <a class="reference external" href="http://www.twilio.com/docs/api/rest/transcription">Transcriptions REST Resource</a> documentation.</p>
+<div class="section" id="listing-your-transcriptions">
+<h2>Listing Your Transcriptions<a class="headerlink" href="#listing-your-transcriptions" title="Permalink to this headline">¶</a></h2>
+<p>The following code will print out lengths <tt class="xref py py-attr docutils literal"><span class="pre">friendly_name</span></tt> for each <a class="reference internal" href="../api/rest/resources.html#twilio.rest.resources.Application" title="twilio.rest.resources.Application"><tt class="xref py py-class docutils literal"><span class="pre">Application</span></tt></a>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">twilio.rest</span> <span class="kn">import</span> <span class="n">TwilioRestClient</span>
+
+<span class="c"># To find these visit https://www.twilio.com/user/account</span>
+<span class="n">ACCOUNT_SID</span> <span class="o">=</span> <span class="s">&quot;ACXXXXXXXXXXXXXXXXX&quot;</span>
+<span class="n">AUTH_TOKEN</span> <span class="o">=</span> <span class="s">&quot;YYYYYYYYYYYYYYYYYY&quot;</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">TwilioRestClient</span><span class="p">(</span><span class="n">ACCOUNT_SID</span><span class="p">,</span> <span class="n">AUTH_TOKEN</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">transcription</span> <span class="ow">in</span> <span class="n">client</span><span class="o">.</span><span class="n">transcriptions</span><span class="o">.</span><span class="n">list</span><span class="p">():</span>
+    <span class="k">print</span> <span class="n">transcription</span><span class="o">.</span><span class="n">duration</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Transcriptions</a><ul>
+<li><a class="reference internal" href="#listing-your-transcriptions">Listing Your Transcriptions</a></li>
+</ul>
+</li>
+</ul>
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="recordings.html" title="previous chapter">Recordings</a></li>
+      <li>Next: <a href="twiml.html" title="next chapter">TwiML Creation</a></li>
+  </ul></li>
+</ul>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/usage/transcriptions.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2011, Twilio Inc..
+    </div>
+    <a href="https://github.com/twilio/twilio-python">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
+    </a>
+  </body>
+</html>

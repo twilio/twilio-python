@@ -1,0 +1,492 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>twilio.twiml &mdash; twilio-python 3.3.3 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/flasky.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.3.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="twilio-python 3.3.3 documentation" href="../index.html" />
+    <link rel="up" title="API Documentation" href="../api.html" />
+    <link rel="next" title="twilio.util" href="util.html" />
+    <link rel="prev" title="twilio.rest.resources" href="rest/resources.html" />
+   
+  
+  <link media="only screen and (max-device-width: 480px)" href="../_static/small_flask.css" type= "text/css" rel="stylesheet" />
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="util.html" title="twilio.util"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="rest/resources.html" title="twilio.rest.resources"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">twilio-python 3.3.3 documentation</a> &raquo;</li>
+          <li><a href="../api.html" accesskey="U">API Documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-twilio.twiml">
+<span id="twilio-twiml"></span><h1><a class="reference internal" href="../usage/twiml.html#module-twilio.twiml" title="twilio.twiml"><tt class="xref py py-mod docutils literal"><span class="pre">twilio.twiml</span></tt></a><a class="headerlink" href="#module-twilio.twiml" title="Permalink to this headline">¶</a></h1>
+<p>Make sure to check out the TwiML overview and tutorial</p>
+<dl class="class">
+<dt id="twilio.twiml.Response">
+<em class="property">class </em><tt class="descclassname">twilio.twiml.</tt><tt class="descname">Response</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.twiml.Response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Twilio response object.</p>
+<dl class="method">
+<dt id="twilio.twiml.Response.dial">
+<tt class="descname">dial</tt><big>(</big><em>number=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.twiml.Response.dial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a newly created <a class="reference internal" href="#twilio.twiml.Dial" title="twilio.twiml.Dial"><tt class="xref py py-class docutils literal"><span class="pre">Dial</span></tt></a> verb, nested inside this
+<a class="reference internal" href="#twilio.twiml.Response" title="twilio.twiml.Response"><tt class="xref py py-class docutils literal"><span class="pre">Response</span></tt></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.twiml.Response.gather">
+<tt class="descname">gather</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.twiml.Response.gather" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a newly created <a class="reference internal" href="#twilio.twiml.Gather" title="twilio.twiml.Gather"><tt class="xref py py-class docutils literal"><span class="pre">Gather</span></tt></a> verb, nested inside this
+<a class="reference internal" href="#twilio.twiml.Response" title="twilio.twiml.Response"><tt class="xref py py-class docutils literal"><span class="pre">Response</span></tt></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.twiml.Response.hangup">
+<tt class="descname">hangup</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.twiml.Response.hangup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a newly created <a class="reference internal" href="#twilio.twiml.Hangup" title="twilio.twiml.Hangup"><tt class="xref py py-class docutils literal"><span class="pre">Hangup</span></tt></a> verb, nested inside this
+<a class="reference internal" href="#twilio.twiml.Response" title="twilio.twiml.Response"><tt class="xref py py-class docutils literal"><span class="pre">Response</span></tt></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.twiml.Response.pause">
+<tt class="descname">pause</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.twiml.Response.pause" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a newly created <a class="reference internal" href="#twilio.twiml.Pause" title="twilio.twiml.Pause"><tt class="xref py py-class docutils literal"><span class="pre">Pause</span></tt></a> verb, nested inside this
+<a class="reference internal" href="#twilio.twiml.Response" title="twilio.twiml.Response"><tt class="xref py py-class docutils literal"><span class="pre">Response</span></tt></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.twiml.Response.play">
+<tt class="descname">play</tt><big>(</big><em>url</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.twiml.Response.play" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a newly created <a class="reference internal" href="#twilio.twiml.Play" title="twilio.twiml.Play"><tt class="xref py py-class docutils literal"><span class="pre">Play</span></tt></a> verb, nested inside this
+<a class="reference internal" href="#twilio.twiml.Response" title="twilio.twiml.Response"><tt class="xref py py-class docutils literal"><span class="pre">Response</span></tt></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.twiml.Response.record">
+<tt class="descname">record</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.twiml.Response.record" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a newly created <a class="reference internal" href="#twilio.twiml.Record" title="twilio.twiml.Record"><tt class="xref py py-class docutils literal"><span class="pre">Record</span></tt></a> verb, nested inside this
+<a class="reference internal" href="#twilio.twiml.Response" title="twilio.twiml.Response"><tt class="xref py py-class docutils literal"><span class="pre">Response</span></tt></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.twiml.Response.redirect">
+<tt class="descname">redirect</tt><big>(</big><em>url=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.twiml.Response.redirect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a newly created <a class="reference internal" href="#twilio.twiml.Redirect" title="twilio.twiml.Redirect"><tt class="xref py py-class docutils literal"><span class="pre">Redirect</span></tt></a> verb, nested inside this
+<a class="reference internal" href="#twilio.twiml.Response" title="twilio.twiml.Response"><tt class="xref py py-class docutils literal"><span class="pre">Response</span></tt></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.twiml.Response.reject">
+<tt class="descname">reject</tt><big>(</big><em>reason=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.twiml.Response.reject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a newly created <a class="reference internal" href="#twilio.twiml.Hangup" title="twilio.twiml.Hangup"><tt class="xref py py-class docutils literal"><span class="pre">Hangup</span></tt></a> verb, nested inside this
+<a class="reference internal" href="#twilio.twiml.Response" title="twilio.twiml.Response"><tt class="xref py py-class docutils literal"><span class="pre">Response</span></tt></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.twiml.Response.say">
+<tt class="descname">say</tt><big>(</big><em>text</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.twiml.Response.say" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a newly created <a class="reference internal" href="#twilio.twiml.Say" title="twilio.twiml.Say"><tt class="xref py py-class docutils literal"><span class="pre">Say</span></tt></a> verb, nested inside this
+<a class="reference internal" href="#twilio.twiml.Response" title="twilio.twiml.Response"><tt class="xref py py-class docutils literal"><span class="pre">Response</span></tt></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="twilio.twiml.Response.sms">
+<tt class="descname">sms</tt><big>(</big><em>msg</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.twiml.Response.sms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a newly created <a class="reference internal" href="#twilio.twiml.Sms" title="twilio.twiml.Sms"><tt class="xref py py-class docutils literal"><span class="pre">Sms</span></tt></a> verb, nested inside this
+<a class="reference internal" href="#twilio.twiml.Response" title="twilio.twiml.Response"><tt class="xref py py-class docutils literal"><span class="pre">Response</span></tt></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="primary-verbs">
+<h2>Primary Verbs<a class="headerlink" href="#primary-verbs" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="twilio.twiml.Say">
+<em class="property">class </em><tt class="descclassname">twilio.twiml.</tt><tt class="descname">Say</tt><big>(</big><em>text</em>, <em>voice=None</em>, <em>language=None</em>, <em>loop=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.twiml.Say" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <a class="reference internal" href="#twilio.twiml.Say" title="twilio.twiml.Say"><tt class="xref py py-class docutils literal"><span class="pre">Say</span></tt></a> verb converts text to speech that is read back to the
+caller.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>voice</strong> &#8211; allows you to choose a male or female voice to read text
+back.</li>
+<li><strong>language</strong> &#8211; allows you pick a voice with a specific language&#8217;s accent
+and pronunciations. Twilio currently supports languages
+&#8216;en&#8217; (English), &#8216;es&#8217; (Spanish), &#8216;fr&#8217; (French), and &#8216;de&#8217;
+(German), &#8216;en-gb&#8217; (English Great Britain&#8221;).</li>
+<li><strong>loop</strong> &#8211; specifies how many times you&#8217;d like the text repeated.
+Specifying &#8216;0&#8217; will cause the the <a class="reference internal" href="#twilio.twiml.Say" title="twilio.twiml.Say"><tt class="xref py py-class docutils literal"><span class="pre">Say</span></tt></a> verb to loop
+until the call is hung up.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="twilio.twiml.Play">
+<em class="property">class </em><tt class="descclassname">twilio.twiml.</tt><tt class="descname">Play</tt><big>(</big><em>url</em>, <em>loop=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.twiml.Play" title="Permalink to this definition">¶</a></dt>
+<dd><p>Play an audio file at a URL</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>url</strong> &#8211; point to af audio file. The MIME type on the file must be set
+correctly.</li>
+<li><strong>loop</strong> &#8211; specifies how many times you&#8217;d like the text repeated.
+Specifying &#8216;0&#8217; will cause the the <a class="reference internal" href="#twilio.twiml.Say" title="twilio.twiml.Say"><tt class="xref py py-class docutils literal"><span class="pre">Say</span></tt></a> verb to loop
+until the call is hung up. Defaults to 1.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="twilio.twiml.Dial">
+<em class="property">class </em><tt class="descclassname">twilio.twiml.</tt><tt class="descname">Dial</tt><big>(</big><em>number=None</em>, <em>action=None</em>, <em>method=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.twiml.Dial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dial another phone number and connect it to this call</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>action</strong> &#8211; submit the result of the dial to this URL</li>
+<li><strong>method</strong> &#8211; submit to &#8216;action&#8217; url using GET or POST</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="twilio.twiml.Gather">
+<em class="property">class </em><tt class="descclassname">twilio.twiml.</tt><tt class="descname">Gather</tt><big>(</big><em>action=None</em>, <em>method=None</em>, <em>numDigits=None</em>, <em>timeout=None</em>, <em>finishOnKey=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.twiml.Gather" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gather digits from the caller&#8217;s keypad</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>action</strong> &#8211; URL to which the digits entered will be sent</li>
+<li><strong>method</strong> &#8211; submit to &#8216;action&#8217; url using GET or POST</li>
+<li><strong>numDigits</strong> &#8211; how many digits to gather before returning</li>
+<li><strong>timeout</strong> &#8211; wait for this many seconds before returning</li>
+<li><strong>finishOnKey</strong> &#8211; key that triggers the end of caller input</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="twilio.twiml.Record">
+<em class="property">class </em><tt class="descclassname">twilio.twiml.</tt><tt class="descname">Record</tt><big>(</big><em>action=None</em>, <em>method=None</em>, <em>timeout=None</em>, <em>finishOnKey=None</em>, <em>maxLength=None</em>, <em>transcribe=None</em>, <em>transcribeCallback=None</em>, <em>playBeep=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.twiml.Record" title="Permalink to this definition">¶</a></dt>
+<dd><p>Record audio from caller</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>action</strong> &#8211; submit the result of the dial to this URL</li>
+<li><strong>method</strong> &#8211; submit to &#8216;action&#8217; url using GET or POST</li>
+<li><strong>maxLength</strong> &#8211; maximum number of seconds to record</li>
+<li><strong>timeout</strong> &#8211; seconds of silence before considering the recording done</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="seconday-verbs">
+<h2>Seconday Verbs<a class="headerlink" href="#seconday-verbs" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="twilio.twiml.Hangup">
+<em class="property">class </em><tt class="descclassname">twilio.twiml.</tt><tt class="descname">Hangup</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.twiml.Hangup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hangup the call</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twilio.twiml.Redirect">
+<em class="property">class </em><tt class="descclassname">twilio.twiml.</tt><tt class="descname">Redirect</tt><big>(</big><em>url=''</em>, <em>method=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.twiml.Redirect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Redirect call flow to another URL</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>url</strong> &#8211; specifies the url which Twilio should query to retrieve new
+TwiML. The default is the current url</li>
+<li><strong>method</strong> &#8211; specifies the HTTP method to use when retrieving the url</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="twilio.twiml.Reject">
+<em class="property">class </em><tt class="descclassname">twilio.twiml.</tt><tt class="descname">Reject</tt><big>(</big><em>reason=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.twiml.Reject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hangup the call</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="twilio.twiml.Pause">
+<em class="property">class </em><tt class="descclassname">twilio.twiml.</tt><tt class="descname">Pause</tt><big>(</big><em>length=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.twiml.Pause" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pause the call</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>length</strong> &#8211; specifies how many seconds Twilio will wait silently before
+continuing on.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="twilio.twiml.Sms">
+<em class="property">class </em><tt class="descclassname">twilio.twiml.</tt><tt class="descname">Sms</tt><big>(</big><em>msg</em>, <em>to=None</em>, <em>sender=None</em>, <em>method=None</em>, <em>action=None</em>, <em>statusCallback=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.twiml.Sms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a Sms Message to a phone number</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>to</strong> &#8211; whom to send message to</li>
+<li><strong>sender</strong> &#8211; whom to send message from.</li>
+<li><strong>action</strong> &#8211; url to request after the message is queued</li>
+<li><strong>method</strong> &#8211; submit to &#8216;action&#8217; url using GET or POST</li>
+<li><strong>statusCallback</strong> &#8211; url to hit when the message is actually sent</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="nouns">
+<h2>Nouns<a class="headerlink" href="#nouns" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="twilio.twiml.Conference">
+<em class="property">class </em><tt class="descclassname">twilio.twiml.</tt><tt class="descname">Conference</tt><big>(</big><em>name</em>, <em>muted=None</em>, <em>beep=None</em>, <em>startConferenceOnEnter=None</em>, <em>endConferenceOnExit=None</em>, <em>waitUrl=None</em>, <em>waitMethod=None</em>, <em>maxParticipants=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.twiml.Conference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify conference in a nested Dial element.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; friendly name of conference</li>
+<li><strong>muted</strong> (<em>bool</em>) &#8211; keep this participant muted</li>
+<li><strong>beep</strong> (<em>bool</em>) &#8211; play a beep when this participant enters/leaves</li>
+<li><strong>startConferenceOnEnter</strong> (<em>bool</em>) &#8211; start conf when this participants joins</li>
+<li><strong>endConferenceOnExit</strong> (<em>bool</em>) &#8211; end conf when this participants leaves</li>
+<li><strong>waitUrl</strong> &#8211; TwiML url that executes before conference starts</li>
+<li><strong>waitMethod</strong> &#8211; HTTP method for waitUrl GET/POST</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="twilio.twiml.Number">
+<em class="property">class </em><tt class="descclassname">twilio.twiml.</tt><tt class="descname">Number</tt><big>(</big><em>number</em>, <em>sendDigits=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#twilio.twiml.Number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify phone number in a nested Dial element.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>number</strong> &#8211; phone number to dial</li>
+<li><strong>sendDigits</strong> &#8211; key to press after connecting to the number</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="constants">
+<h2>Constants<a class="headerlink" href="#constants" title="Permalink to this headline">¶</a></h2>
+<p>Many TwiML verbs accept only certain values for specific attributes, such as <a class="reference internal" href="#twilio.twiml.MAN" title="twilio.twiml.MAN"><tt class="xref py py-data docutils literal"><span class="pre">MAN</span></tt></a> and <a class="reference internal" href="#twilio.twiml.WOMAN" title="twilio.twiml.WOMAN"><tt class="xref py py-data docutils literal"><span class="pre">WOMAN</span></tt></a> for voices.</p>
+<div class="section" id="voices">
+<h3>Voices<a class="headerlink" href="#voices" title="Permalink to this headline">¶</a></h3>
+<dl class="data">
+<dt id="twilio.twiml.MAN">
+<tt class="descclassname">twilio.twiml.</tt><tt class="descname">MAN</tt><a class="headerlink" href="#twilio.twiml.MAN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="twilio.twiml.WOMAN">
+<tt class="descclassname">twilio.twiml.</tt><tt class="descname">WOMAN</tt><a class="headerlink" href="#twilio.twiml.WOMAN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="languages">
+<h3>Languages<a class="headerlink" href="#languages" title="Permalink to this headline">¶</a></h3>
+<dl class="data">
+<dt id="twilio.twiml.ENGLISH">
+<tt class="descclassname">twilio.twiml.</tt><tt class="descname">ENGLISH</tt><a class="headerlink" href="#twilio.twiml.ENGLISH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="twilio.twiml.SPANISH">
+<tt class="descclassname">twilio.twiml.</tt><tt class="descname">SPANISH</tt><a class="headerlink" href="#twilio.twiml.SPANISH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="twilio.twiml.FRENCH">
+<tt class="descclassname">twilio.twiml.</tt><tt class="descname">FRENCH</tt><a class="headerlink" href="#twilio.twiml.FRENCH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="twilio.twiml.GERMAN">
+<tt class="descclassname">twilio.twiml.</tt><tt class="descname">GERMAN</tt><a class="headerlink" href="#twilio.twiml.GERMAN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="http-method">
+<h3>HTTP Method<a class="headerlink" href="#http-method" title="Permalink to this headline">¶</a></h3>
+<dl class="data">
+<dt id="twilio.twiml.GET">
+<tt class="descclassname">twilio.twiml.</tt><tt class="descname">GET</tt><a class="headerlink" href="#twilio.twiml.GET" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="twilio.twiml.POST">
+<tt class="descclassname">twilio.twiml.</tt><tt class="descname">POST</tt><a class="headerlink" href="#twilio.twiml.POST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="rejection-reasons">
+<h3>Rejection Reasons<a class="headerlink" href="#rejection-reasons" title="Permalink to this headline">¶</a></h3>
+<dl class="data">
+<dt id="twilio.twiml.REJECTED">
+<tt class="descclassname">twilio.twiml.</tt><tt class="descname">REJECTED</tt><a class="headerlink" href="#twilio.twiml.REJECTED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="twilio.twiml.BUSY">
+<tt class="descclassname">twilio.twiml.</tt><tt class="descname">BUSY</tt><a class="headerlink" href="#twilio.twiml.BUSY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">twilio.twiml</span></tt></a><ul>
+<li><a class="reference internal" href="#primary-verbs">Primary Verbs</a></li>
+<li><a class="reference internal" href="#seconday-verbs">Seconday Verbs</a></li>
+<li><a class="reference internal" href="#nouns">Nouns</a></li>
+<li><a class="reference internal" href="#constants">Constants</a><ul>
+<li><a class="reference internal" href="#voices">Voices</a></li>
+<li><a class="reference internal" href="#languages">Languages</a></li>
+<li><a class="reference internal" href="#http-method">HTTP Method</a></li>
+<li><a class="reference internal" href="#rejection-reasons">Rejection Reasons</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../api.html">API Documentation</a><ul>
+      <li>Previous: <a href="rest/resources.html" title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">twilio.rest.resources</span></tt></a></li>
+      <li>Next: <a href="util.html" title="next chapter"><tt class="docutils literal"><span class="pre">twilio.util</span></tt></a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/api/twiml.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2011, Twilio Inc..
+    </div>
+    <a href="https://github.com/twilio/twilio-python">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
+    </a>
+  </body>
+</html>
