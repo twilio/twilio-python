@@ -7,7 +7,6 @@
 .. autoclass:: ListResource
    :members: count, get, iter
 
-
 Accounts
 >>>>>>>>>
 
