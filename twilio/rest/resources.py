@@ -93,6 +93,8 @@ def normalize_dates(myfunc):
             if len(res):
                 kwargs[k] = parse_date(v)
         return myfunc(*args, **kwargs)
+    inner_func.__doc__ = myfunc.__doc__
+    inner_func.__repr__ = myfunc.__repr__
     return inner_func
 
 
@@ -100,7 +102,6 @@ class Response(object):
     """
     Take a httplib2 response and turn it into a requests response
     """
-
     def __init__(self, httplib_resp, content, url):
         self.content = content
         self.cached = False
