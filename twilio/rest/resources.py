@@ -128,7 +128,10 @@ def make_request(method, url,
     if data is not None:
         udata = {}
         for k, v in data.iteritems():
-            udata[k.encode('utf-8')] = unicode(v).encode('utf-8')
+            try:
+                udata[k.encode('utf-8')] = unicode(v).encode('utf-8')
+            except UnicodeDecodeError:
+                udata[k.encode('utf-8')] = v
         data = urlencode(udata)
 
     if params is not None:
@@ -806,7 +809,7 @@ class PhoneNumber(InstanceResource):
 
     def update(self, **kwargs):
         """
-        Update this phone number instance
+        Update this phone number instance. 
         """
         a = self.parent.update(self.name, **kwargs)
         self.load(a.__dict__)
