@@ -125,7 +125,10 @@ def make_request(method, url,
         http.add_credentials(auth[0], auth[1])
 
     if data is not None:
-        data = urlencode(data)
+        udata = {}
+        for k, v in data.iteritems():
+            udata[k.encode('utf-8')] = unicode(v).encode('utf-8')
+        data = urlencode(udata)
 
     if params is not None:
         enc_params = urlencode(params, doseq=True)
