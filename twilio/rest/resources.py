@@ -140,7 +140,7 @@ def make_request(method, url,
             url = '%s&%s' % (url, enc_params)
         else:
             url = '%s?%s' % (url, enc_params)
-    
+
     resp, content = http.request(url, method, headers=headers, body=data)
 
     # Format httplib2 reqeusts as reqeusts objects
@@ -276,7 +276,16 @@ class ListResource(Resource):
 
     def get_instances(self, params=None, page=None, page_size=None):
         """
-        Query the list resource for a list of InstanceResources
+        Query the list resource for a list of InstanceResources.
+
+        Raises a TwilioRestException if requesting a page of results that does
+        not exist.
+
+        :param dict params: List of URL parameters to be included in request
+        :param int page: The page of results to retrieve (most recent at 0)
+        :param int page_size: The number of results to be returned.
+
+        :returns: -- the list of resources
         """
         params = params or {}
 
@@ -297,7 +306,7 @@ class ListResource(Resource):
         """
         Create an InstanceResource via a POST to the List Resource
 
-        :param dict body: Dictoionary of POST data
+        :param dict body: Dictionary of POST data
         """
         resp, instance = self.request("POST", self.uri, data=body)
 
@@ -356,7 +365,6 @@ class ListResource(Resource):
         instance.load(data)
         instance.load_subresources()
         return instance
-
 
 class AvailablePhoneNumber(InstanceResource):
     """ An available phone number resource """
@@ -736,7 +744,7 @@ class CallerIds(ListResource):
             "PhoneNumber": phone_number,
             "FrienldyName": friendly_name,
             })
-        return self.get_instances(params=params, **kwargs) 
+        return self.get_instances(params=params, **kwargs)
 
     def update(self, sid, friendly_name=None):
         """
@@ -789,7 +797,7 @@ class PhoneNumber(InstanceResource):
 
         # Only check if entries has a uri
         if "account_sid" in entries:
-        
+
             # Parse the parent's uri to get the scheme and base
             uri = re.sub(r'AC(.*)', entries["account_sid"],
                 self.parent.base_uri)
@@ -919,7 +927,7 @@ class PhoneNumbers(ListResource):
         Transfer the phone number with sid from the current account to another
         identified by account_sid
         """
-        return self.update(sid, account_sid=account_sid) 
+        return self.update(sid, account_sid=account_sid)
 
     def update(self, sid, api_version=None, voice_url=None, voice_method=None,
                voice_fallback_url=None, voice_fallback_method=None,
@@ -977,7 +985,7 @@ class Sandboxes(ListResource):
         """
         Update your Twilio Sandbox
         """
-        data = transform_params({
+        body = transform_params({
                 "VoiceUrl": voice_url,
                 "VoiceMethod": voice_method,
                 "SmsUrl": sms_url,
@@ -1037,9 +1045,9 @@ class SmsMessages(ListResource):
         paging informtion see :class:`ListResource`.
 
         :param to: Only show SMS messages to this phone number.
-        :param from_: Onlye show SMS message from this phone number.
+        :param from_: Only show SMS messages from this phone number.
         :param date after: Only list recordings logged after this datetime
-        :param date before: Only list recordings logger before this datetime
+        :param date before: Only list recordings logged before this datetime
         """
         params = transform_params({
             "To": to,
