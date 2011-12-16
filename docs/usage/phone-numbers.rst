@@ -97,7 +97,7 @@ An :class:`Application` encapsulates all necessary URLs for use with phone numbe
     AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
 
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
-    number = client.phone_numbers.update(phone_sid, application_sid="AP123")
+    number = client.phone_numbers.update(phone_sid, sms_application_sid="AP123")
 
 See :doc:`/usage/applications` for instructions on updating and maintaining Applications.
 

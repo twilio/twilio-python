@@ -923,7 +923,8 @@ class PhoneNumbers(ListResource):
                status_callback_method=None, sms_url=None, sms_method=None,
                sms_fallback_url=None, sms_fallback_method=None,
                voice_caller_id_lookup=None, account_sid=None,
-               application_sid=None, status_callback=None):
+               voice_application_sid=None, status_callback=None,
+               application_sid=None, sms_application_sid=None):
         """
         Update this phone number instance
         """
@@ -933,15 +934,16 @@ class PhoneNumbers(ListResource):
                 "VoiceMethod": voice_method,
                 "VoiceFallbackUrl": voice_fallback_url,
                 "VoiceFallbackMethod": voice_fallback_method,
+                "VoiceApplicationSid": voice_application_sid or application_sid,
                 "StatusCallback": status_callback,
                 "StatusCallbackMethod": status_callback_method,
                 "SmsUrl": sms_url,
                 "SmsMethod": sms_method,
                 "SmsFallbackUrl": sms_fallback_url,
                 "SmsFallbackMethod": sms_fallback_method,
+                "SmsApplicationSid": sms_application_sid or application_sid,
                 "VoiceCallerIdLookup": voice_caller_id_lookup,
                 "AccountSid": account_sid,
-                "ApplicationSid": application_sid,
                 })
         return self.update_instance(sid, params)
 
