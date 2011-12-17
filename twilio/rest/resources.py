@@ -128,7 +128,10 @@ def make_request(method, url,
     if data is not None:
         udata = {}
         for k, v in data.iteritems():
-            udata[k.encode('utf-8')] = v.encode('utf-8')
+            try:
+                udata[k.encode('utf-8')] = unicode(v).encode('utf-8')
+            except UnicodeDecodeError:
+                udata[k.encode('utf-8')] = unicode(v, 'utf-8').encode('utf-8')
         data = urlencode(udata)
 
     if params is not None:
