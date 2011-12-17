@@ -128,10 +128,7 @@ def make_request(method, url,
     if data is not None:
         udata = {}
         for k, v in data.iteritems():
-            try:
-                udata[k.encode('utf-8')] = unicode(v).encode('utf-8')
-            except UnicodeDecodeError:
-                udata[k.encode('utf-8')] = v
+            udata[k.encode('utf-8')] = v.encode('utf-8')
         data = urlencode(udata)
 
     if params is not None:
@@ -365,6 +362,7 @@ class ListResource(Resource):
         instance.load(data)
         instance.load_subresources()
         return instance
+
 
 class AvailablePhoneNumber(InstanceResource):
     """ An available phone number resource """
@@ -797,7 +795,6 @@ class PhoneNumber(InstanceResource):
 
         # Only check if entries has a uri
         if "account_sid" in entries:
-
             # Parse the parent's uri to get the scheme and base
             uri = re.sub(r'AC(.*)', entries["account_sid"],
                 self.parent.base_uri)
