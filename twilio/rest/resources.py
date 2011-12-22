@@ -93,6 +93,8 @@ def normalize_dates(myfunc):
             if len(res):
                 kwargs[k] = parse_date(v)
         return myfunc(*args, **kwargs)
+    inner_func.__doc__ = myfunc.__doc__
+    inner_func.__repr__ = myfunc.__repr__
     return inner_func
 
 
@@ -100,7 +102,6 @@ class Response(object):
     """
     Take a httplib2 response and turn it into a requests response
     """
-
     def __init__(self, httplib_resp, content, url):
         self.content = content
         self.cached = False
@@ -125,7 +126,13 @@ def make_request(method, url,
         http.add_credentials(auth[0], auth[1])
 
     if data is not None:
-        data = urlencode(data)
+        udata = {}
+        for k, v in data.iteritems():
+            try:
+                udata[k.encode('utf-8')] = unicode(v).encode('utf-8')
+            except UnicodeDecodeError:
+                udata[k.encode('utf-8')] = unicode(v, 'utf-8').encode('utf-8')
+        data = urlencode(udata)
 
     if params is not None:
         enc_params = urlencode(params, doseq=True)
@@ -358,6 +365,7 @@ class ListResource(Resource):
         instance.load(data)
         instance.load_subresources()
         return instance
+
 
 class AvailablePhoneNumber(InstanceResource):
     """ An available phone number resource """
@@ -790,7 +798,6 @@ class PhoneNumber(InstanceResource):
 
         # Only check if entries has a uri
         if "account_sid" in entries:
-
             # Parse the parent's uri to get the scheme and base
             uri = re.sub(r'AC(.*)', entries["account_sid"],
                 self.parent.base_uri)
@@ -810,7 +817,7 @@ class PhoneNumber(InstanceResource):
 
     def update(self, **kwargs):
         """
-        Update this phone number instance
+        Update this phone number instance. 
         """
         a = self.parent.update(self.name, **kwargs)
         self.load(a.__dict__)
@@ -927,7 +934,8 @@ class PhoneNumbers(ListResource):
                status_callback_method=None, sms_url=None, sms_method=None,
                sms_fallback_url=None, sms_fallback_method=None,
                voice_caller_id_lookup=None, account_sid=None,
-               application_sid=None, status_callback=None):
+               voice_application_sid=None, status_callback=None,
+               application_sid=None, sms_application_sid=None):
         """
         Update this phone number instance
         """
@@ -937,15 +945,16 @@ class PhoneNumbers(ListResource):
                 "VoiceMethod": voice_method,
                 "VoiceFallbackUrl": voice_fallback_url,
                 "VoiceFallbackMethod": voice_fallback_method,
+                "VoiceApplicationSid": voice_application_sid or application_sid,
                 "StatusCallback": status_callback,
                 "StatusCallbackMethod": status_callback_method,
                 "SmsUrl": sms_url,
                 "SmsMethod": sms_method,
                 "SmsFallbackUrl": sms_fallback_url,
                 "SmsFallbackMethod": sms_fallback_method,
+                "SmsApplicationSid": sms_application_sid or application_sid,
                 "VoiceCallerIdLookup": voice_caller_id_lookup,
                 "AccountSid": account_sid,
-                "ApplicationSid": application_sid,
                 })
         return self.update_instance(sid, params)
 

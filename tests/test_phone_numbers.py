@@ -18,7 +18,21 @@ class PhoneNumberTest(unittest.TestCase):
         resource.update_instance = Mock()
         resource.update("SID", application_sid="foo")
         resource.update_instance.assert_called_with(
-                "SID", {"ApplicationSid": "foo"})
+                "SID", {"VoiceApplicationSid": "foo", "SmsApplicationSid": "foo"})
+
+    def test_voice_application_sid(self):
+        resource = PhoneNumbers(self.uri, self.auth)
+        resource.update_instance = Mock()
+        resource.update("SID", voice_application_sid="foo")
+        resource.update_instance.assert_called_with(
+                "SID", {"VoiceApplicationSid": "foo"})
+
+    def test_sms_application_sid(self):
+        resource = PhoneNumbers(self.uri, self.auth)
+        resource.update_instance = Mock()
+        resource.update("SID", sms_application_sid="foo")
+        resource.update_instance.assert_called_with(
+                "SID", {"SmsApplicationSid": "foo"})
 
 
     def test_status_callback_url(self):

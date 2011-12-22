@@ -3,6 +3,16 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.3.4
+-------------
+
+Released on December 16, 2011
+
+- Allow both unicode strings and encoded byte strings in request data
+- Add support for SMS and Voice application sids to phone number updating 
+- Fix documentation error relating to phone number purchasing
+- Include doc string information for decorated functions
+
 Version 3.3.3
 -------------
 
