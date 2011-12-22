@@ -4,7 +4,7 @@
 Phone Numbers
 =================
 
-With Twilio you can search and buy real phones numbers, just using the API.
+With Twilio you can search and buy real phone numbers, just using the API.
 
 For more information, see the `IncomingPhoneNumbers REST Resource <http://www.twilio.com/docs/api/rest/incoming-phone-numbers>`_ documentation.
 
@@ -33,7 +33,7 @@ Finding numbers to buy couldn't be easier. We first search for a number in area 
 Toll Free Numbers
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-By default, :meth:`search` looks for local phone numbers. Set :data:`type` to
+By default, :meth:`PhoneNumbers.search` looks for local phone numbers. Set :data:`type` to
 ``tollfree`` to search toll-free numbers instead.
 
 .. code-block:: python

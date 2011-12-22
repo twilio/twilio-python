@@ -21,7 +21,8 @@ TwiML creation begins with the :class:`Response` verb. Each successive verb is c
    <?xml version="1.0" encoding="utf-8"?>
    <Response><Say>Hello</Say><Response>
 
-The verb methods (outlined in the complete reference) take the body (only text) of the verb as the first argument. All attributes are keyword arguments.
+The verb methods (outlined in the :doc:`complete reference </api/twiml>`) take the body (only text)
+of the verb as the first argument. All attributes are keyword arguments.
 
 .. code-block:: python
 
