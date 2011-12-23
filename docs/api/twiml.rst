@@ -26,7 +26,7 @@ Primary Verbs
    :members:
 
 Secondary Verbs
-~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~
 
 .. autoclass:: twilio.twiml.Hangup
    :members:
