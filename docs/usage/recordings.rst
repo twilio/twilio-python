@@ -14,8 +14,8 @@ Each :class:`Recording` has a :attr:`formats` dictionary which lists the audio f
 .. code-block:: python
 
    {
-       "mp3": "http://path/to/recording.mp3",
-       "wav": "http://path/to/recording.wav",
+       "mp3": "https://api.twilio.com/cowbell.mp3",
+       "wav": "http://www.dailywav.com/0112/noFateButWhatWeMake.wav",
    }
 
 Listing Your Recordings
