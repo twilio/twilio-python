@@ -48,7 +48,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'twilio-python'
-copyright = "".join([str(datetime.utcnow().year), u', Twilio Inc.'])
+copyright = unicode(datetime.utcnow().year) + u', Twilio Inc'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
