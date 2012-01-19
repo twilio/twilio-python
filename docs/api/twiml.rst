@@ -25,8 +25,8 @@ Primary Verbs
 .. autoclass:: twilio.twiml.Record
    :members:
 
-Seconday Verbs
-~~~~~~~~~~~~~~
+Secondary Verbs
+~~~~~~~~~~~~~~~
 
 .. autoclass:: twilio.twiml.Hangup
    :members:
@@ -52,10 +52,14 @@ Nouns
 .. autoclass:: twilio.twiml.Number
    :members:
 
+.. autoclass:: twilio.twiml.Client
+   :members:
+
 Constants
 ~~~~~~~~~
 
-Many TwiML verbs accept only certain values for specific attributes, such as :data:`MAN` and :data:`WOMAN` for voices.
+Many TwiML verbs accept only certain values for specific attributes, such as
+:data:`MAN` and :data:`WOMAN` for voices.
 
 Voices
 >>>>>>

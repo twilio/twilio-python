@@ -2,7 +2,9 @@
 Quickstart
 ===========
 
-Getting started with the Twilio API couldn't be easier. Create a Twilio REST client to get started. For example, the following code makes a call using the Twilio REST API.
+Getting started with the Twilio API couldn't be easier. Create a Twilio REST
+client to get started. For example, the following code makes a call using the
+Twilio REST API.
 
 Make a Call
 ===============
