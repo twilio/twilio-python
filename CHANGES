@@ -3,6 +3,14 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.3.5
+-------------
+
+Released on January 18, 2011
+
+- Fix a bug with the depreacted `TwilioRestClient.request` method
+- Fix a bug in filtering SMS messages by DateSent
+
 Version 3.3.4
 -------------
 
