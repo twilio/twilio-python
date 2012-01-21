@@ -1,5 +1,5 @@
 ====================
-Twilio Python
+Twilio Python Helper Library
 ====================
 
 Make requests to Twilio's `REST API <http://www.twilio.com/docs/api/twiml/>`_ and create `TwiML <http://www.twilio.com/docs/api/twiml/>`_ without a hassle. And you thought Twilio couldn't get any easier.
@@ -9,11 +9,21 @@ Make requests to Twilio's `REST API <http://www.twilio.com/docs/api/twiml/>`_ an
 Installation
 ================
 
+Install from PyPi using `pip <http://www.pip-installer.org/en/latest/>`_, a
+package manager for Python.
+
 .. code-block:: bash
 
     $ pip install twilio
 
-You can also `download the source <https://github.com/twilio/twilio-python/zipball/master>`_ and install by downloading :data:`setuptools`, navigating in the Terminal to the folder containing the **twilio-python** library, and then running:
+Don't have pip installed? Try installing it, by running this from the command
+line:
+
+.. code-block:: bash
+
+    $ curl https://raw.github.com/pypa/pip/master/contrib/get-pip.py | python
+
+Or, install the library by `downloading the source <https://github.com/twilio/twilio-python/zipball/master>`_, installing :data:`setuptools`, navigating in the Terminal to the folder containing the **twilio-python** library, and then running:
 
 .. code-block:: bash
 
@@ -89,6 +99,17 @@ so only use when you really need to dive deep into the library.
 
     api
 
+Frequently Asked Questions
+==========================
+
+What to do if you get an ``ImportError``, and some advice about how to format
+phone numbers.
+
+.. toctree::
+    :maxdepth: 2
+
+    faq
+
 Support and Development
 ==========================
 All development occurs over on `Github <https://github.com/twilio/twilio-python>`_. To checkout the source,
@@ -103,3 +124,4 @@ Report bugs using the Github `issue tracker <https://github.com/twilio/twilio-py
 If you have questions that aren't answered by this documentation, ask the `#twilio IRC channel <irc://irc.freenode.net/#twilio>`_
 
 See the :doc:`/changelog` for version history.
+
