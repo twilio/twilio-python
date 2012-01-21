@@ -65,9 +65,9 @@ class TwilioRestClient(object):
                 'HTTP %s method not implemented' % method)
 
         if path[0] == '/':
-            uri = _TWILIO_API_URL + path
+            uri = self.base + path
         else:
-            uri = _TWILIO_API_URL + '/' + path
+            uri = self.base + '/' + path
 
         if method == "GET":
             params = vars
@@ -108,7 +108,8 @@ Or, add your credentials to your shell environment. From the terminal, run
 and be sure to replace the values for the Account SID and auth token with the
 values from your Twilio Account at https://www.twilio.com/user/account.
 """)
-
+        
+        self.base = base
         auth = (account, token)
         version_uri = "%s/%s" % (base, version)
         account_uri = "%s/%s/Accounts/%s" % (base, version, account)
