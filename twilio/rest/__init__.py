@@ -134,7 +134,7 @@ values from your Twilio Account at https://www.twilio.com/user/account.
     def participants(self, conference_sid):
         """
         Return a :class:`Participants` instance for the :class:`Conference`
-        with conference_sid,
+        with the given conference_sid
         """
         base_uri = "%s/Conferences/%s" % (self.account_uri, conference_sid)
         return Participants(base_uri, self.auth)

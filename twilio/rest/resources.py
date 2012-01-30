@@ -674,7 +674,7 @@ class Calls(ListResource):
         :param int timeout: The integer number of seconds that Twilio should allow the phone to ring before assuming there is no answer.
         :param string application_sid: The 34 character sid of the application Twilio should use to handle this phone call. Should not be used in conjunction with the url parameter.
 
-        :return: An :class:`Call` object
+        :return: A :class:`Call` object
         """
         params = transform_params({
             "To": to,
@@ -710,9 +710,8 @@ class Calls(ListResource):
         return self.update(sid, status=Call.CANCELED)
 
     def hangup(self, sid):
-        """ If this call is currenlty active, hang up the call.
-        If this call is scheduled to be made, remove the call
-        from the queue
+        """ If this call is currently active, hang up the call. If this call is
+        scheduled to be made, remove the call from the queue.
 
         :param sid: A Call Sid for a specific call
         :returns: Updated :class:`Call` resource
@@ -1062,7 +1061,7 @@ class SmsMessages(ListResource):
         return self.create_instance(params)
 
     @normalize_dates
-    def list(self, to=None, from_=None, before=None, after=None, 
+    def list(self, to=None, from_=None, before=None, after=None,
              date_sent=None, **kwargs):
         """
         Returns a page of :class:`SMSMessage` resources as a list. For

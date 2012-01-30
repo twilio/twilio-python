@@ -16,7 +16,7 @@ line:
 
     $ curl https://raw.github.com/pypa/pip/master/contrib/get-pip.py | python
 
-Alternately, you can [download the source code
+Or, you can [download the source code
 (ZIP)](https://github.com/twilio/twilio-python/zipball/master "twilio-python
 source code") for `twilio-python`, and then run:
 
