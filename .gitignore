@@ -19,3 +19,6 @@ pip-log.txt
 .tox
 
 .DS_Store
+
+# Sphinx
+docs/tmp
