@@ -3,6 +3,11 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+DEVELOPMENT 
+-----------
+
+- Remove doc/tmp directory which was preventing installation on certain Windows machines
+
 Version 3.3.5
 -------------
 
