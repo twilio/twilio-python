@@ -9,6 +9,11 @@ class ConferenceTest(unittest.TestCase):
     def setUp(self):
         self.resource = Conferences("foo", ("sid", "token"))
 
+    def test_list(self):
+        self.resource.get_instances = Mock()
+        self.resource.list()
+        self.resource.get_instances.assert_called_with(params={})
+
     def test_list_after(self):
         self.resource.get_instances = Mock()
         self.resource.list(created_after=date(2011, 1, 1))

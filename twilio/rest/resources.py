@@ -652,7 +652,29 @@ class Calls(ListResource):
                if_machine=None, send_digits=None, timeout=None,
                application_sid=None):
         """
-        Make a phone call to a number
+        Make a phone call to a number.
+
+        :param string to: The phone number to call
+        :param string `from_`: The caller ID (must be a verified Twilio number)
+        :param string url: The URL to read TwiML from when the call connects
+        :param method: The HTTP method Twilio should use to request the url
+        :type method: None (defaults to 'POST'), 'GET', or 'POST'
+        :param string fallback_url: A URL that Twilio will request if an error occurs requesting or executing the TwiML at url.
+        :param string fallback_method: The HTTP method that Twilio should use to request the fallback_url
+        :type fallback_method: None (will make a 'POST' request), 'GET', or 'POST'
+        :param string status_callback: A URL that Twilio will request when the call ends to notify your app.
+        :param string status_method: The HTTP method Twilio should use when requesting the above URL.
+        :param string if_machine: Tell Twilio to try and determine if a machine
+            (like voicemail) or a human has answered the call.
+            See more in our `answering machine documentation
+            <http://www.twilio.com/docs/api/rest/making_calls#handling-outcomes-answering-machines">`_.
+        :type if_machine: None, 'Continue', or 'Hangup'
+        :param string send_digits: A string of keys to dial after connecting to the number.
+        :type send_digits: None or any combination of (0-9), '#', '*' or 'w' (to insert a half second pause).
+        :param int timeout: The integer number of seconds that Twilio should allow the phone to ring before assuming there is no answer.
+        :param string application_sid: The 34 character sid of the application Twilio should use to handle this phone call. Should not be used in conjunction with the url parameter.
+
+        :return: A :class:`Call` object
         """
         params = transform_params({
             "To": to,
@@ -679,7 +701,7 @@ class Calls(ListResource):
         return self.update_instance(sid, params)
 
     def cancel(self, sid):
-        """ If this call is queued or ringing, cancel the call
+        """ If this call is queued or ringing, cancel the call.
         Will not affect in-progress calls.
 
         :param sid: A Call Sid for a specific call
@@ -688,9 +710,8 @@ class Calls(ListResource):
         return self.update(sid, status=Call.CANCELED)
 
     def hangup(self, sid):
-        """ If this call is currenlty active, hang up the call.
-        If this call is scheduled to be made, remove the call
-        from the queue
+        """ If this call is currently active, hang up the call. If this call is
+        scheduled to be made, remove the call from the queue.
 
         :param sid: A Call Sid for a specific call
         :returns: Updated :class:`Call` resource
@@ -817,7 +838,7 @@ class PhoneNumber(InstanceResource):
 
     def update(self, **kwargs):
         """
-        Update this phone number instance. 
+        Update this phone number instance.
         """
         a = self.parent.update(self.name, **kwargs)
         self.load(a.__dict__)
@@ -1024,10 +1045,11 @@ class SmsMessages(ListResource):
         """
         Create and send a SMS Message.
 
-        :param to: The destination phone number.
-        :param from_: The phone number sending this message.
-        :param body: The message you want to send, limited to 160 characters.
-        :param status_callback: URL that Twilio will update with message info
+        :param string to: The destination phone number.
+        :param string `from_`: The phone number sending this message (must be a verified Twilio number)
+        :param string body: The message you want to send, limited to 160 characters.
+        :param status_callback: A URL that Twilio will POST to when your message is processed.
+        :param string application_sid: The 34 character sid of the application Twilio should use to handle this phone call.
         """
         params = transform_params({
             "To": to,
@@ -1039,13 +1061,18 @@ class SmsMessages(ListResource):
         return self.create_instance(params)
 
     @normalize_dates
-    def list(self, to=None, from_=None, before=None, after=None, **kwargs):
+    def list(self, to=None, from_=None, before=None, after=None,
+             date_sent=None, **kwargs):
         """
         Returns a page of :class:`SMSMessage` resources as a list. For
         paging informtion see :class:`ListResource`.
 
         :param to: Only show SMS messages to this phone number.
         :param from_: Only show SMS messages from this phone number.
+        :param date after: Only list SMS messages sent after this date.
+        :param date before: Only list SMS message sent before this date.
+        :param date date_sent: Only list SMS message sent on this date.
+        :param `from_`: Only show SMS messages from this phone number.
         :param date after: Only list recordings logged after this datetime
         :param date before: Only list recordings logged before this datetime
         """
@@ -1054,6 +1081,7 @@ class SmsMessages(ListResource):
             "From": from_,
             "DateSent<": before,
             "DateSent>": after,
+            "DateSent": parse_date(date_sent),
             })
         return self.get_instances(params=params, **kwargs)
 
@@ -1073,7 +1101,7 @@ class ShortCodes(ListResource):
     def list(self, short_code=None, friendly_name=None, **kwargs):
         """
         Returns a page of :class:`ShortCode` resources as a list. For
-        paging informtion see :class:`ListResource`.
+        paging information see :class:`ListResource`.
 
         :param short_code: Only show the ShortCode resources that match this
                            pattern. You can specify partial numbers and use '*'
@@ -1090,8 +1118,7 @@ class ShortCodes(ListResource):
     def update(self, sid, friendly_name=None, api_version=None, url=None,
                method=None, fallback_url=None, fallback_method=None):
         """
-        Returns a page of :class:`SMSMessage` resources as a list. For
-        paging informtion see :class:`ListResource`.
+        Update a specific :class:`ShortCode`, by specifying the sid.
 
         :param friendly_name: Description of the short code, with maximum
                               length 64 characters.
@@ -1271,7 +1298,7 @@ class Applications(ListResource):
                sms_url=None, sms_method=None, sms_fallback_url=None,
                sms_fallback_method=None, sms_status_callback=None):
         """
-        Update an :class:`Application` with any of these optional parameters.
+        Create an :class:`Application` with any of these optional parameters.
 
         :param friendly_name: A human readable description of the application,
                               with maximum length 64 characters.

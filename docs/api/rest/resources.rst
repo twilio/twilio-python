@@ -656,8 +656,8 @@ Recordings
       .. code-block:: python
 
           {
-              "wav": "https://api.twilio.com/path/to/recording.wav",
-              "mp3": "https://api.twilio.com/path/to/recording.mp3",
+              "wav": "http://www.dailywav.com/0112/noFateButWhatWeMake.wav",
+              "mp3": "https://api.twilio.com/cowbell.mp3",
           }
 
 Sandbox

@@ -3,6 +3,29 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+DEVELOPMENT 
+-----------
+
+- Remove doc/tmp directory which was preventing installation on certain Windows machines
+
+Version 3.3.5
+-------------
+
+Released on January 18, 2011
+
+- Fix a bug with the depreacted `TwilioRestClient.request` method
+- Fix a bug in filtering SMS messages by DateSent
+
+Version 3.3.4
+-------------
+
+Released on December 16, 2011
+
+- Allow both unicode strings and encoded byte strings in request data
+- Add support for SMS and Voice application sids to phone number updating 
+- Fix documentation error relating to phone number purchasing
+- Include doc string information for decorated functions
+
 Version 3.3.3
 -------------
 

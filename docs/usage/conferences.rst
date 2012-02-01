@@ -73,8 +73,6 @@ access the participants resource.
 Participants can be either muted or kicked out of the conference. The following
 code kicks out the first participants and mutes the rest.
 
-.. note::
-
 .. code-block:: python
 
     from twilio.rest import TwilioRestClient
