@@ -8,12 +8,18 @@ DEVELOPMENT
 
 - Remove doc/tmp directory which was preventing installation on certain Windows machines
 
+Version 3.3.6
+-------------
+
+Add disable_presence_events method to the TwilioCapability object to support
+new Client feature.
+
 Version 3.3.5
 -------------
 
 Released on January 18, 2011
 
-- Fix a bug with the depreacted `TwilioRestClient.request` method
+- Fix a bug with the deprecated `TwilioRestClient.request` method
 - Fix a bug in filtering SMS messages by DateSent
 
 Version 3.3.4

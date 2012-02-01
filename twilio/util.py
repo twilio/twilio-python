@@ -93,7 +93,10 @@ class TwilioCapability(object):
         return jwt.encode(payload, self.auth_token, "HS256")
 
     def disable_presence_events(self):
-        """Disallow presence subscriptions with this token.
+        """Disallow presence subscriptions on this token.
+
+        Presence events can use lots of bandwidth. Use this method to disable
+        notification of new Presence events.
         """
         scope_params = {
             "enabled": False

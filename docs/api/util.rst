@@ -8,6 +8,7 @@
    :members:
 
 .. autoclass:: twilio.util.TwilioCapability
-   :members: allow_client_incoming, allow_client_outgoing, generate
+   :members: allow_client_incoming, allow_client_outgoing,
+       disable_presence_events, generate
 
 

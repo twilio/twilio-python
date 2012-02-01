@@ -50,8 +50,23 @@ To make an outgoing connection from a `Twilio Client <http://www.twilio.com/api/
     application_sid = "APabe7650f654fc34655fc81ae71caa3ff" # Twilio Application Sid
     capability.allow_client_outgoing(application_sid)
 
+Disable Presence Events
+=======================
+
+Presence events can use lots of bandwidth if there are many clients
+subscribed to the network. To disable presence events, call
+:meth:`disable_presence_events` on your capability object.
+
+.. code-block:: python
+
+    capability.disable_presence_events()
+
 Generate a Token
 ==================
+
+Once you have assigned all of the capabilities you would like the Client token
+to have, generate a capability token that you can use in your frontend Client
+app.
 
 .. code-block:: python
 
@@ -66,3 +81,4 @@ token expiration, :meth:`generate` takes an optional :attr:`expires` argument.
 
 This token will now expire in 10 minutes. If you haven't guessed already,
 :attr:`expires` is expressed in seconds.
+
