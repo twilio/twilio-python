@@ -34,9 +34,6 @@ class RequestValidator(object):
         mac = hmac.new(self.token, s.encode("utf-8"), sha1)
         computed = base64.b64encode(mac.digest())
 
-        # print base64.b64decode(computed.strip())
-        # print base64.b64decode(computed.strip()).decode("utf-8")
-
         return computed.strip()
 
     def validate(self, uri, params, signature):
@@ -88,13 +85,21 @@ class TwilioCapability(object):
         """Generate a valid JWT token with an expiration date.
 
         :param int expires: The token lifetime, in seconds. Defaults to
-                            1 hour (3600)
-
+                            1 hour (3600 seconds)
         """
         payload = self.payload()
         payload['iss'] = self.account_sid
         payload['exp'] = int(time.time() + expires)
         return jwt.encode(payload, self.auth_token, "HS256")
+
+    def disable_presence_events(self):
+        """Disallow presence subscriptions with this token.
+        """
+        scope_params = {
+            "enabled": False
+        }
+        self.capabilities['presence_events'] = ScopeURI("client", "presence",
+                                                        scope_params)
 
     def allow_client_outgoing(self, application_sid, **kwargs):
         """Allow the user of this token to make outgoing connections.
