@@ -17,7 +17,7 @@ def test_paging(mock):
     resp = create_mock_json("tests/resources/notifications_list.json")
     mock.return_value = resp
 
-    uri = "{}/Notifications".format(BASE_URI)
+    uri = "%s/Notifications" % (BASE_URI)
     list_resource.list(before=date(2010,12,5))
     exp_params = {'MessageDate<': '2010-12-05'}
 
@@ -28,7 +28,7 @@ def test_get(mock):
     resp = create_mock_json("tests/resources/notifications_instance.json")
     mock.return_value = resp
 
-    uri = "{}/Notifications/{}".format(BASE_URI, RE_SID)
+    uri = "%s/Notifications/%s" % (BASE_URI, RE_SID)
     r = list_reosource.get(RE_SID)
 
     mock.assert_called_with("GET", uri, auth=AUTH)
@@ -39,7 +39,7 @@ def test_get(mock):
     resp.status_code = 204
     mock.return_value = resp
 
-    uri = "{}/Notifications/{}".format(BASE_URI, RE_SID)
+    uri = "%s/Notifications/%s" % (BASE_URI, RE_SID)
     r = list_resource.delete(RE_SID)
 
     mock.assert_called_with("DELETE", uri, auth=AUTH)

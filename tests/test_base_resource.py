@@ -16,7 +16,7 @@ auth = (account_sid, "token")
 
 def test_resource_init():
     r = Resource(base_uri, auth)
-    uri = "{}/{}".format(base_uri, r.name)
+    uri = "%s/%s" % (base_uri, r.name)
 
     assert_equals(r.base_uri, base_uri)
     assert_equals(r.auth, auth)
@@ -35,7 +35,7 @@ class ListResourceTest(unittest.TestCase):
         self.r = ListResource(base_uri, auth)
 
     def testListResourceInit(self):
-        uri = "{}/{}".format(base_uri, self.r.name)
+        uri = "%s/%s" % (base_uri, self.r.name)
         self.assertEquals(self.r.uri, uri)
 
     def testKeyValue(self):

@@ -10,7 +10,7 @@ import os
 sid  = "ed59a5733d2c1c1c69a83a28"
 
 def twilio_clean(contents):
-    contents = re.sub(r"([A-Z]{2}\w{8})\w{24}", r"\1{}".format(sid), contents)
+    contents = re.sub(r"([A-Z]{2}\w{8})\w{24}", r"\1%s" % sid, contents)
     contents = re.sub(r"\"[a-z0-9]{32}\"", "\"AUTHTOKEN\"", contents)
     contents = re.sub(r"\+\d{10}", r"+14158675309", contents)
     contents = re.sub(r"[0-9\- \(\)]{14}", r"(415) 867-5309", contents)

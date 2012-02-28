@@ -16,7 +16,7 @@ def test_paging(mock):
     resp = create_mock_json("tests/resources/calls_list.json")
     mock.return_value = resp
 
-    uri = "{}/Calls".format(BASE_URI)
+    uri = "%s/Calls" % (BASE_URI)
     list_resource.list(started=date(2010,12,5))
     exp_params = {'StartTime': '2010-12-05'}
 
@@ -27,7 +27,7 @@ def test_paging(mock):
     resp = create_mock_json("tests/resources/calls_list.json")
     mock.return_value = resp
 
-    uri = "{}/Calls".format(BASE_URI)
+    uri = "%s/Calls" % (BASE_URI)
     list_resource.list(started_before=date(2010,12,5))
     exp_params = {'StartTime<': '2010-12-05'}
 
@@ -38,7 +38,7 @@ def test_get(mock):
     resp = create_mock_json("tests/resources/calls_instance.json")
     mock.return_value = resp
 
-    uri = "{}/Calls/{}".format(BASE_URI, CALL_SID)
+    uri = "%s/Calls/%s" % (BASE_URI, CALL_SID)
     r = list_resource.get(CALL_SID)
 
     mock.assert_called_with("GET", uri, auth=AUTH)
@@ -49,7 +49,7 @@ def test_hangup(mock):
     resp.status_code = 204
     mock.return_value = resp
 
-    uri = "{}/Calls/{}".format(BASE_URI, CALL_SID)
+    uri = "%s/Calls/%s" % (BASE_URI, CALL_SID)
     r = list_resource.hangup(CALL_SID)
     exp_data = {"Status": "completed"}
 
@@ -62,7 +62,7 @@ def test_cancel(mock):
     resp.status_code = 204
     mock.return_value = resp
 
-    uri = "{}/Calls/{}".format(BASE_URI, CALL_SID)
+    uri = "%s/Calls/%s" % (BASE_URI, CALL_SID)
     r = list_resource.cancel(CALL_SID)
     exp_data = {"Status": "canceled"}
 

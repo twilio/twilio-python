@@ -15,7 +15,7 @@ def test_paging(mock):
     resp = create_mock_json("tests/resources/transcriptions_list.json")
     mock.return_value = resp
 
-    uri = "{}/Transcriptions".format(BASE_URI)
+    uri = "%s/Transcriptions" % (BASE_URI)
     transcriptions.list(page=2)
 
     mock.assert_called_with("GET", uri, params={"Page": 2}, auth=AUTH)
@@ -25,7 +25,7 @@ def test_get(mock):
     resp = create_mock_json("tests/resources/transcriptions_instance.json")
     mock.return_value = resp
 
-    uri = "{}/Transcriptions/TR123".format(BASE_URI)
+    uri = "%s/Transcriptions/TR123" % (BASE_URI)
     transcriptions.get("TR123")
 
     mock.assert_called_with("GET", uri, auth=AUTH)
