@@ -3,7 +3,11 @@ try:
     import json
 except ImportError:
     import simplejson as json
-import unittest
+import sys
+if sys.version_info < (2, 7):
+    import unittest2 as unittest
+else:
+    import unittest
 from mock import Mock, patch
 from twilio import TwilioException
 from twilio.rest.resources import PhoneNumbers

@@ -7,6 +7,7 @@ try:
     import json
 except ImportError:
     import simplejson as json
+
 import twilio
 from nose.tools import assert_equals
 from nose.tools import raises

@@ -2,7 +2,11 @@
 from __future__ import with_statement
 import re
 import twilio
-import unittest
+import sys
+if sys.version_info < (2, 7):
+    import unittest2 as unittest
+else:
+    import unittest
 from twilio import twiml
 from twilio.twiml import TwimlException
 from twilio.twiml import Response
