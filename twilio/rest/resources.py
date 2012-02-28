@@ -9,10 +9,10 @@ from urlparse import urlparse
 
 # import json
 try:
-    import simplejson as json
+    import json
 except ImportError:
     try:
-        import json
+        import simplejson as json
     except ImportError:
         from django.utils import simplejson as json
 
