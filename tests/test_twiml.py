@@ -6,6 +6,8 @@ from twilio import twiml
 from twilio.twiml import TwimlException
 from twilio.twiml import Response
 import xml.etree.ElementTree as ET
+from __future__ import with_statement
+
 
 class TwilioTest(unittest.TestCase):
     def strip(self, xml):

@@ -4,6 +4,7 @@ from mock import Mock, patch
 from twilio import TwilioException
 from twilio.rest.resources import PhoneNumbers
 from twilio.rest.resources import PhoneNumber
+from __future__ import with_statement
 
 
 class PhoneNumberTest(unittest.TestCase):

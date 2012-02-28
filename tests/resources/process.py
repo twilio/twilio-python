@@ -5,6 +5,7 @@ import argparse
 import json
 import random
 import os
+from __future__ import with_statement
 
 sid  = "ed59a5733d2c1c1c69a83a28"
 

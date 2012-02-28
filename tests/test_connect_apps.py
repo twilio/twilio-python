@@ -3,6 +3,7 @@ from mock import Mock, patch
 from twilio import TwilioException
 from twilio.rest.resources import ConnectApps
 from twilio.rest.resources import ConnectApp
+from __future__ import with_statement
 
 
 class ConnectAppTest(unittest.TestCase):

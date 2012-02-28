@@ -4,6 +4,7 @@ from twilio import TwilioException
 from twilio.rest.resources import AvailablePhoneNumber
 from twilio.rest.resources import AvailablePhoneNumbers
 from twilio.rest.resources import PhoneNumbers
+from __future__ import with_statement
 
 
 class AvailablePhoneNumberTest(unittest.TestCase):
