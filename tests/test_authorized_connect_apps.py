@@ -1,9 +1,9 @@
+from __future__ import with_statement
 import unittest
 from mock import Mock, patch
 from twilio import TwilioException
 from twilio.rest.resources import AuthorizedConnectApps
 from twilio.rest.resources import AuthorizedConnectApp
-from __future__ import with_statement
 
 class AuthorizedConnectAppTest(unittest.TestCase):
 
