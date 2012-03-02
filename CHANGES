@@ -3,10 +3,12 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
-DEVELOPMENT 
+Version 3.3.6
 -----------
 
 - Remove doc/tmp directory which was preventing installation on certain Windows machines
+- Add Travis CI integration
+- Update httplib2 dependency
 
 Version 3.3.5
 -------------
