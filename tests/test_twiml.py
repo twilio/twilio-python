@@ -340,6 +340,16 @@ class TestDial(TwilioTest):
         r.append(twiml.Dial("1231231234"))
         r = self.strip(r)
         self.assertEquals(r, '<?xml version="1.0" encoding="UTF-8"?><Response><Dial>1231231234</Dial></Response>')
+        
+    def testDialCallerId(self):
+        """Should set the callerId on a dial verb"""
+        r.Response()
+        c = twiml.Number("1231231234")
+        d = twiml.Dial(callerId="44123456789")
+        d.append(c)
+        r.append(d)
+        r = self.strip(r)
+        self.assertEquals(r, '<?xml version="1.0" encoding="UTF-8"?><Response><Dial callerId="44123456789"><Number>1231231234</Number></Dial></Response>')
 
     def testConvienceMethod(self):
         """ should dial to a url via post"""
