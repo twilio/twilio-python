@@ -387,8 +387,8 @@ class Dial(Verb):
     GET = 'GET'
     POST = 'POST'
 
-    def __init__(self, number=None, action=None, method=None, callerId=None **kwargs):
-        Verb.__init__(self, action=action, method=method, **kwargs)
+    def __init__(self, number=None, action=None, method=None, callerId=None, **kwargs):
+        Verb.__init__(self, action=action, method=method, callerId=callerId, **kwargs)
         self.nestables = ['Number', 'Conference', 'Client']
         if number and len(number.split(',')) > 1:
             for n in number.split(','):
