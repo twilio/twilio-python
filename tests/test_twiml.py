@@ -341,7 +341,7 @@ class TestDial(TwilioTest):
         r = self.strip(r)
         self.assertEquals(r, '<?xml version="1.0" encoding="UTF-8"?><Response><Dial>1231231234</Dial></Response>')
         
-    def testDialCallerId:
+    def testDialCallerId(self):
         """Should set the callerId on a dial verb"""
         r.Response()
         c = twiml.Number("1231231234")
