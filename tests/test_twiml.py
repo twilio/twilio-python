@@ -348,6 +348,7 @@ class TestDial(TwilioTest):
         d = twiml.Dial(callerId="44123456789")
         d.append(c)
         r.append(d)
+        r = self.strip(r)
         self.assertEquals(r, '<?xml version="1.0" encoding="UTF-8"?><Response><Dial callerId="44123456789"><Number>1231231234</Number></Dial></Response>')
 
     def testConvienceMethod(self):
