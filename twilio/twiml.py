@@ -368,7 +368,7 @@ class Dial(Verb):
 
     :param action: submit the result of the dial to this URL
     :param method: submit to 'action' url using GET or POST
-    :param time timeout: The number of seconds to waits for the called 
+    :param int timeout: The number of seconds to waits for the called 
                          party to answer the call
     :param bool hangupOnStar: Allow the calling party to hang up on the 
                               called party by pressing the '*' key

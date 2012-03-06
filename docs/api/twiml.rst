@@ -54,31 +54,3 @@ Nouns
 
 .. autoclass:: twilio.twiml.Client
    :members:
-
-Constants
-~~~~~~~~~
-
-Many TwiML verbs accept only certain values for specific attributes, such as
-:data:`MAN` and :data:`WOMAN` for voices.
-
-Voices
->>>>>>
-.. data:: MAN
-.. data:: WOMAN
-
-Languages
->>>>>>>>>
-.. data:: ENGLISH
-.. data:: SPANISH
-.. data:: FRENCH
-.. data:: GERMAN
-
-HTTP Method
->>>>>>>>>>>
-.. data:: GET
-.. data:: POST
-
-Rejection Reasons
->>>>>>>>>>>>>>>>>
-.. data:: REJECTED
-.. data:: BUSY
