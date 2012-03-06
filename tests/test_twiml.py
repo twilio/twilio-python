@@ -467,6 +467,3 @@ class TestGather(TwilioTest):
         self.assertRaises(TwimlException, verb.append, twiml.Dial())
         self.assertRaises(TwimlException, verb.append, twiml.Conference(""))
         self.assertRaises(TwimlException, verb.append, twiml.Sms(""))
-
-if __name__ == '__main__':
-    unittest.main()
