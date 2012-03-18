@@ -50,7 +50,7 @@ The :class:`TwilioRestClient` gives you access to various list resources. :meth:
     AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
 
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
-    resources = client.phone_calls.list()
+    resources = client.calls.list()
 
 :meth:`resource.ListResource.list` accepts paging arguments. The following will return page 3 with page size of 25.
 
@@ -63,7 +63,7 @@ The :class:`TwilioRestClient` gives you access to various list resources. :meth:
     AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
 
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
-    resources = client.phone_calls.list(page=3, page_size=25)
+    resources = client.calls.list(page=3, page_size=25)
 
 
 Listing All Resources
