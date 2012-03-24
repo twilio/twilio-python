@@ -75,5 +75,4 @@ The :meth:`list` methods supports filtering on :attr:`to`, :attr:`from_`, and :a
 
 Short Codes
 --------------
-Not supported just yet, as `Twilio Short Code <http://www.twilio.com/sms/short-codes>`_
-is still in beta. You can sign up to be notified when short codes launch.
+You can sign up for a `Twilio Short Code <http://www.twilio.com/sms/short-codes>`_.
