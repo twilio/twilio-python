@@ -23,8 +23,8 @@ Use the :meth:`Account.update` to modify one of your accounts. Right now the onl
     AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
 
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
-    account = client.accounts.get()
-    account.update(name="My Awesome Account")
+    account = client.accounts.get(ACCOUNT_SID)
+    account.update(friendly_name="My Awesome Account")
 
 Creating Subaccounts
 ----------------------
