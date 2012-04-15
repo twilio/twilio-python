@@ -23,6 +23,25 @@ def test_paging(mock):
     mock.assert_called_with("GET", uri, params=exp_params, auth=AUTH)
 
 @patch("twilio.rest.resources.make_twilio_request")
+def test_create_call(mock):
+    resp = create_mock_json("tests/resources/calls_instance.json")
+    resp.status_code = 201
+    mock.return_value = resp
+
+    uri = "%s/Calls" % (BASE_URI)
+    list_resource.create("TO", "FROM", "url", record=True, application_sid='APPSID')
+    exp_params = {
+        'To': "TO",
+        'From': "FROM",
+        'Url': "url",
+        'Record': "true",
+        'ApplicationSid': 'APPSID',
+        }
+
+    mock.assert_called_with("POST", uri, data=exp_params, auth=AUTH)
+
+
+@patch("twilio.rest.resources.make_twilio_request")
 def test_paging(mock):
     resp = create_mock_json("tests/resources/calls_list.json")
     mock.return_value = resp
