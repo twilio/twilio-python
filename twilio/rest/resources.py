@@ -34,7 +34,7 @@ def transform_params(p):
 
 def format_name(word):
     if word.lower() == word:
-        return u''.join([letter.title() for letter in word.split('_')])
+        return convert_case(word)
     else:
         return word
 
@@ -406,10 +406,10 @@ class AvailablePhoneNumbers(ListResource):
         """
         Search for phone numbers
         """
-        kwargs["in_region"] = kwargs.get("in_region") or region
-        kwargs["in_postal_code"] = kwargs.get("in_postal_code") or postal_code
-        kwargs["in_lata"] = kwargs.get("in_lata") or lata
-        kwargs["in_rate_center"] = kwargs.get("in_rate_center") or rate_center
+        kwargs["in_region"] = kwargs.get("in_region", region)
+        kwargs["in_postal_code"] = kwargs.get("in_postal_code", postal_code)
+        kwargs["in_lata"] = kwargs.get("in_lata", lata)
+        kwargs["in_rate_center"] = kwargs.get("in_rate_center", rate_center)
         params = transform_params(kwargs)
 
         uri = "%s/%s/%s" % (self.uri, country, self.types[type])
@@ -852,7 +852,7 @@ class PhoneNumbers(ListResource):
         :returns: Returns a :class:`PhoneNumber` instance on success,
                   :data:`False` on failure
         """
-        kwargs["StatusCallback"] = kwargs.get("status_callback") or status_callback_url
+        kwargs["StatusCallback"] = kwargs.get("status_callback", status_callback_url)
         params = transform_params(kwargs)
 
         if "PhoneNumber" not in params and "AreaCode" not in params:
@@ -1021,12 +1021,12 @@ class ShortCodes(ListResource):
         :param fallback_method: The HTTP method that should be used to request
                                 the fallback_url.
         """
-        kwargs["sms_url"] = kwargs.get("sms_url") or url
-        kwargs["sms_method"] = kwargs.get("sms_method") or method
+        kwargs["sms_url"] = kwargs.get("sms_url", url)
+        kwargs["sms_method"] = kwargs.get("sms_method", method)
         kwargs["sms_fallback_url"] = \
-            kwargs.get("sms_fallback_url") or fallback_url
+            kwargs.get("sms_fallback_url", fallback_url)
         kwargs["sms_fallback_method"] = \
-            kwargs.get("sms_fallback_method") or fallback_method
+            kwargs.get("sms_fallback_method", fallback_method)
         return self.update_instance(sid, transform_params(kwargs))
 
 
@@ -1125,8 +1125,8 @@ class Conferences(ListResource):
         :param date created_after: List conferences created after this date
         :param date created_before: List conferences created before this date
         """
-        kwargs["DateUpdated"] = parse_date(kwargs.get("date_updated") or updated)
-        kwargs["DateCreated"] = parse_date(kwargs.get("date_created") or created)
+        kwargs["DateUpdated"] = parse_date(kwargs.get("date_updated", updated))
+        kwargs["DateCreated"] = parse_date(kwargs.get("date_created", created))
         kwargs["DateUpdated<"] = updated_before
         kwargs["DateUpdated>"] = updated_after
         kwargs["DateCreated<"] = created_before
