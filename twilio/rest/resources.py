@@ -513,7 +513,7 @@ class Notifications(ListResource):
     def list(self, before=None, after=None, **kwargs):
         """
         Returns a page of :class:`Notification` resources as a list.
-        For paging informtion see :class:`ListResource`.
+        For paging information see :class:`ListResource`.
 
         **NOTE**: Due to the potentially voluminous amount of data in a
         notification, the full HTTP request and response data is only returned
@@ -526,7 +526,6 @@ class Notifications(ListResource):
         kwargs["MessageDate<"] = before
         kwargs["MessageDate>"] = after
         return self.get_instances(params=transform_params(kwargs))
-        return self.get_instances(params=params, **kwargs)
 
     def delete(self, sid):
         """
