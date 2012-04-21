@@ -34,7 +34,8 @@ def transform_params(p):
     becomes:
     {"Record": "true", "DateCreated": "2012-01-02"}
     """
-    p = [(format_name(d), convert_boolean(p[d])) for d in p if p[d] is not None]
+    p = [(format_name(d),
+          convert_boolean(p[d])) for d in p if p[d] is not None]
     return dict(p)
 
 
@@ -638,7 +639,7 @@ class Calls(ListResource):
         :param date before: Only list calls started before this datetime
         """
         kwargs["from"] = from_
-        kwargs["StartTime<"] =  started_before
+        kwargs["StartTime<"] = started_before
         kwargs["StartTime>"] = started_after
         kwargs["StartTime"] = parse_date(started)
         kwargs["EndTime<"] = ended_before
@@ -850,7 +851,7 @@ class PhoneNumbers(ListResource):
 
         You can specify partial numbers and use '*' as a wildcard.
         """
-        return self.get_instances(params=trasnform_params(kwargs))
+        return self.get_instances(params=transform_params(kwargs))
 
     def purchase(self, status_callback_url=None, **kwargs):
         """
@@ -1012,8 +1013,8 @@ class ShortCodes(ListResource):
         """
         return self.get_instances(params=transform_params(kwargs))
 
-    def update(self, sid, url=None, method=None,
-               fallback_url=None, fallback_method=None):
+    def update(self, sid, url=None, method=None, fallback_url=None,
+               fallback_method=None, **kwargs):
         """
         Update a specific :class:`ShortCode`, by specifying the sid.
 
