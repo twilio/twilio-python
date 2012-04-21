@@ -753,7 +753,7 @@ class CallerIds(ListResource):
 
     def validate(self, phone_number, **kwargs):
         """
-        Begin the validation procress for the given number.
+        Begin the validation process for the given number.
 
         Returns a dictionary with the following keys
 
