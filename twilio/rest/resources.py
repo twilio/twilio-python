@@ -956,7 +956,8 @@ class PhoneNumbers(ListResource):
                sms_fallback_url=None, sms_fallback_method=None,
                voice_caller_id_lookup=None, account_sid=None,
                voice_application_sid=None, status_callback=None,
-               application_sid=None, sms_application_sid=None):
+               application_sid=None, sms_application_sid=None,
+               friendly_name=None):
         """
         Update this phone number instance
         """
@@ -976,6 +977,7 @@ class PhoneNumbers(ListResource):
                 "SmsApplicationSid": sms_application_sid or application_sid,
                 "VoiceCallerIdLookup": voice_caller_id_lookup,
                 "AccountSid": account_sid,
+                "FriendlyName": friendly_name
                 })
         return self.update_instance(sid, params)
 
