@@ -541,7 +541,7 @@ class ConnectApp(InstanceResource):
 
 
 class ConnectApps(ListResource):
-    """ A list of Call resources """
+    """ A list of Connect App resources """
 
     name = "ConnectApps"
     instance = ConnectApp
@@ -549,7 +549,7 @@ class ConnectApps(ListResource):
 
     def list(self, **kwargs):
         """
-        Returns a page of :class:`Call` resources as a list. For paging
+        Returns a page of :class:`ConnectApp` resources as a list. For paging
         informtion see :class:`ListResource`
         """
         return self.get_instances(**kwargs)
@@ -572,7 +572,7 @@ class AuthorizedConnectApp(ConnectApp):
 
 
 class AuthorizedConnectApps(ConnectApps):
-    """ A list of Call resources """
+    """ A list of Authorized Connect App resources """
 
     name = "AuthorizedConnectApps"
     instance = AuthorizedConnectApp
