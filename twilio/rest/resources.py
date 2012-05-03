@@ -52,13 +52,10 @@ def parse_date(d):
         return d
 
 
-def convert_boolean(bool):
-    if bool == True:
-        return "true"
-    elif bool == False:
-        return "false"
-    else:
-        return bool
+def convert_boolean(boolean):
+    if isinstance(boolean, bool):
+        return 'true' if boolean else 'false'
+    return boolean
 
 
 def convert_case(s):
@@ -281,7 +278,7 @@ class ListResource(Resource):
         resp, item = self.request("GET", uri)
         return self.load_instance(item)
 
-    def get_instances(self, params=None, page=None, page_size=None):
+    def get_instances(self, params):
         """
         Query the list resource for a list of InstanceResources.
 
@@ -294,13 +291,7 @@ class ListResource(Resource):
 
         :returns: -- the list of resources
         """
-        params = params or {}
-
-        if page is not None:
-            params["Page"] = page
-
-        if page_size is not None:
-            params["PageSize"] = page_size
+        params = transform_params(params)
 
         resp, page = self.request("GET", self.uri, params=params)
 
@@ -315,7 +306,8 @@ class ListResource(Resource):
 
         :param dict body: Dictionary of POST data
         """
-        resp, instance = self.request("POST", self.uri, data=body)
+        resp, instance = self.request("POST", self.uri,
+                                      data=transform_params(body))
 
         if resp.status_code != 201:
             raise TwilioRestException(resp.status,
@@ -341,7 +333,7 @@ class ListResource(Resource):
         body: string -- Dict of items to POST
         """
         uri = "%s/%s" % (self.uri, sid)
-        resp, entry = self.request("POST", uri, data=body)
+        resp, entry = self.request("POST", uri, data=transform_params(body))
         return self.load_instance(entry)
 
     def count(self):
@@ -437,7 +429,7 @@ class Transcriptions(ListResource):
         """
         Return a list of :class:`Transcription` resources
         """
-        return self.get_instances(**kwargs)
+        return self.get_instances(kwargs)
 
 
 class Recording(InstanceResource):
@@ -477,7 +469,7 @@ class Recordings(ListResource):
         """
         kwargs["DateCreated<"] = before
         kwargs["DateCreated>"] = after
-        return self.get_instances(params=transform_params(kwargs))
+        return self.get_instances(kwargs)
 
     def delete(self, sid):
         """
@@ -516,8 +508,7 @@ class Notifications(ListResource):
         """
         kwargs["MessageDate<"] = before
         kwargs["MessageDate>"] = after
-        return self.get_instances(params=transform_params(kwargs))
-        return self.get_instances(params=params, **kwargs)
+        return self.get_instances(kwargs)
 
     def delete(self, sid):
         """
@@ -543,7 +534,7 @@ class ConnectApps(ListResource):
         Returns a page of :class:`Call` resources as a list. For paging
         informtion see :class:`ListResource`
         """
-        return self.get_instances(**kwargs)
+        return self.get_instances(kwargs)
 
 
 class AuthorizedConnectApp(ConnectApp):
@@ -636,7 +627,7 @@ class Calls(ListResource):
         kwargs["EndTime<"] = ended_before
         kwargs["EndTime>"] = ended_after
         kwargs["EndTime"] = parse_date(ended)
-        return self.get_instances(params=transform_params(kwargs))
+        return self.get_instances(kwargs)
 
     def create(self, to, from_, url, status_method=None, **kwargs):
         """
@@ -668,10 +659,10 @@ class Calls(ListResource):
         kwargs["to"] = to
         kwargs["url"] = url
         kwargs["status_callback_method"] = status_method
-        return self.create_instance(transform_params(kwargs))
+        return self.create_instance(kwargs)
 
     def update(self, sid, **kwargs):
-        return self.update_instance(sid, transform_params(kwargs))
+        return self.update_instance(sid, kwargs)
 
     def cancel(self, sid):
         """ If this call is queued or ringing, cancel the call.
@@ -735,13 +726,13 @@ class CallerIds(ListResource):
         :param phone_number: Show caller ids with this phone number.
         :param friendly_name: Show caller ids with this friendly name.
         """
-        return self.get_instances(params=transform_params(kwargs))
+        return self.get_instances(kwargs)
 
     def update(self, sid, **kwargs):
         """
         Update a specific :class:`CallerId`
         """
-        return self.update_instance(sid, transform_params(kwargs))
+        return self.update_instance(sid, kwargs)
 
     def validate(self, phone_number, **kwargs):
         """
@@ -842,7 +833,7 @@ class PhoneNumbers(ListResource):
 
         You can specify partial numbers and use '*' as a wildcard.
         """
-        return self.get_instances(params=trasnform_params(kwargs))
+        return self.get_instances(kwargs)
 
     def purchase(self, status_callback_url=None, **kwargs):
         """
@@ -853,12 +844,11 @@ class PhoneNumbers(ListResource):
                   :data:`False` on failure
         """
         kwargs["StatusCallback"] = kwargs.get("status_callback", status_callback_url)
-        params = transform_params(kwargs)
 
-        if "PhoneNumber" not in params and "AreaCode" not in params:
+        if 'phone_number' not in kwargs and 'area_code' not in kwargs:
             raise TypeError("phone_number or area_code is required")
 
-        return self.create_instance(params)
+        return self.create_instance(kwargs)
 
     def search(self, **kwargs):
         """
@@ -888,7 +878,7 @@ class PhoneNumbers(ListResource):
                 if sid_type not in kwargs:
                     kwargs[sid_type] = kwargs["application_sid"]
             del kwargs["application_sid"]
-        return self.update_instance(sid, transform_params(kwargs))
+        return self.update_instance(sid, kwargs)
 
 
 class Sandbox(InstanceResource):
@@ -955,7 +945,7 @@ class SmsMessages(ListResource):
         :param string application_sid: The 34 character sid of the application Twilio should use to handle this phone call.
         """
         kwargs["from"] = from_
-        return self.create_instance(transform_params(kwargs))
+        return self.create_instance(kwargs)
 
     @normalize_dates
     def list(self, from_=None, before=None, after=None, date_sent=None, **kwargs):
@@ -976,7 +966,7 @@ class SmsMessages(ListResource):
         kwargs["DateSent<"] = before
         kwargs["DateSent>"] = after
         kwargs["DateSent"] = parse_date(date_sent)
-        return self.get_instances(params=transform_params(kwargs))
+        return self.get_instances(kwargs)
 
 
 class ShortCode(InstanceResource):
@@ -1002,7 +992,7 @@ class ShortCodes(ListResource):
         :param friendly_name: Only show the ShortCode resources with friendly
                               names that exactly match this name.
         """
-        return self.get_instances(params=transform_params(kwargs))
+        return self.get_instances(kwargs)
 
     def update(self, sid, url=None, method=None,
                fallback_url=None, fallback_method=None):
@@ -1027,7 +1017,7 @@ class ShortCodes(ListResource):
             kwargs.get("sms_fallback_url", fallback_url)
         kwargs["sms_fallback_method"] = \
             kwargs.get("sms_fallback_method", fallback_method)
-        return self.update_instance(sid, transform_params(kwargs))
+        return self.update_instance(sid, kwargs)
 
 
 class Participant(InstanceResource):
@@ -1066,7 +1056,7 @@ class Participants(ListResource):
         :param conference_sid: Conference this participant is part of
         :param boolean muted: If True, only show participants who are muted
         """
-        return self.get_instances(params=transform_params(kwargs))
+        return self.get_instances(kwargs)
 
     def mute(self, call_sid):
         """
@@ -1097,7 +1087,7 @@ class Participants(ListResource):
         :param sid: Paticipant identifier
         :param boolean muted: If true, mute this participant
         """
-        return self.update_instance(sid, transform_params(kwargs))
+        return self.update_instance(sid, kwargs)
 
 
 class Conference(InstanceResource):
@@ -1131,7 +1121,7 @@ class Conferences(ListResource):
         kwargs["DateUpdated>"] = updated_after
         kwargs["DateCreated<"] = created_before
         kwargs["DateCreated>"] = created_after
-        return self.get_instances(params=transform_params(kwargs))
+        return self.get_instances(kwargs)
 
 
 class Application(InstanceResource):
@@ -1155,17 +1145,14 @@ class Applications(ListResource):
     name = "Applications"
     instance = Application
 
-    def list(self, friendly_name=None, **kwargs):
+    def list(self, **kwargs):
         """
         Returns a page of :class:`Application` resources as a list. For paging
         informtion see :class:`ListResource`
 
         :param date friendly_name: List applications with this friendly name
         """
-        params = transform_params({
-                "FriendlyName": friendly_name,
-                })
-        return self.get_instances(params=params, **kwargs)
+        return self.get_instances(kwargs)
 
     def create(self, **kwargs):
         """
@@ -1211,7 +1198,7 @@ class Applications(ListResource):
                                     this application's Sid as the
                                     ApplicationSid on an outgoing SMS request.
         """
-        return self.create_instance(transform_params(kwargs))
+        return self.create_instance(kwargs)
 
     def update(self, sid, **kwargs): 
         """
@@ -1219,7 +1206,7 @@ class Applications(ListResource):
 
         All the parameters are describe above in :meth:`create`
         """
-        return self.update_instance(sid, transform_params(kwargs))
+        return self.update_instance(sid, kwargs)
 
     def delete(self, sid):
         """
@@ -1285,7 +1272,7 @@ class Accounts(ListResource):
     name = "Accounts"
     instance = Account
 
-    def list(self, friendly_name=None, status=None, **kwargs):
+    def list(self, **kwargs):
         """
         Returns a page of :class:`Account` resources as a list. For paging
         informtion see :class:`ListResource`
@@ -1293,11 +1280,7 @@ class Accounts(ListResource):
         :param date friendly_name: Only list accounts with this friendly name
         :param date status: Only list accounts with this status
         """
-        params = transform_params({
-                "FriendlyName": friendly_name,
-                "Status": status,
-                })
-        return self.get_instances(params=params, **kwargs)
+        return self.get_instances(kwargs)
 
     def update(self, sid, **kwargs):
         """
@@ -1309,7 +1292,7 @@ class Accounts(ListResource):
         :data:`SUSPENDED` to temporarily suspend it, or :data:`ACTIVE`
         to reactivate it.
         """
-        return self.update_instance(sid, transform_params(kwargs))
+        return self.update_instance(sid, kwargs)
 
     def close(self, sid):
         """
@@ -1335,4 +1318,4 @@ class Accounts(ListResource):
 
         :param friendly_name: Update the description of this account.
         """
-        return self.create_instance(transform_params(kwargs))
+        return self.create_instance(kwargs)
