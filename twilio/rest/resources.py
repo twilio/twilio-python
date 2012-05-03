@@ -27,8 +27,15 @@ def transform_params(p):
     """
     Transform parameters, throwing away any None values
     and convert False and True values to strings
+
+    Ex:
+    {"record": true, "date_created": "2012-01-02"}
+
+    becomes:
+    {"Record": "true", "DateCreated": "2012-01-02"}
     """
-    p = [(format_name(d), convert_boolean(p[d])) for d in p if p[d] is not None]
+    p = [(format_name(d),
+          convert_boolean(p[d])) for d in p if p[d] is not None]
     return dict(p)
 
 
@@ -60,7 +67,10 @@ def convert_boolean(boolean):
 
 def convert_case(s):
     """
-    Given a string in snake case, conver to CamelCase
+    Given a string in snake case, convert to CamelCase
+
+    Ex:
+    date_created -> DateCreated
     """
     return ''.join([a.title() for a in s.split("_") if a])
 
@@ -496,7 +506,7 @@ class Notifications(ListResource):
     def list(self, before=None, after=None, **kwargs):
         """
         Returns a page of :class:`Notification` resources as a list.
-        For paging informtion see :class:`ListResource`.
+        For paging information see :class:`ListResource`.
 
         **NOTE**: Due to the potentially voluminous amount of data in a
         notification, the full HTTP request and response data is only returned
@@ -523,7 +533,7 @@ class ConnectApp(InstanceResource):
 
 
 class ConnectApps(ListResource):
-    """ A list of Call resources """
+    """ A list of Connect App resources """
 
     name = "ConnectApps"
     instance = ConnectApp
@@ -531,7 +541,7 @@ class ConnectApps(ListResource):
 
     def list(self, **kwargs):
         """
-        Returns a page of :class:`Call` resources as a list. For paging
+        Returns a page of :class:`ConnectApp` resources as a list. For paging
         informtion see :class:`ListResource`
         """
         return self.get_instances(kwargs)
@@ -554,7 +564,7 @@ class AuthorizedConnectApp(ConnectApp):
 
 
 class AuthorizedConnectApps(ConnectApps):
-    """ A list of Call resources """
+    """ A list of Authorized Connect App resources """
 
     name = "AuthorizedConnectApps"
     instance = AuthorizedConnectApp
@@ -621,7 +631,7 @@ class Calls(ListResource):
         :param date before: Only list calls started before this datetime
         """
         kwargs["from"] = from_
-        kwargs["StartTime<"] =  started_before
+        kwargs["StartTime<"] = started_before
         kwargs["StartTime>"] = started_after
         kwargs["StartTime"] = parse_date(started)
         kwargs["EndTime<"] = ended_before
@@ -736,7 +746,7 @@ class CallerIds(ListResource):
 
     def validate(self, phone_number, **kwargs):
         """
-        Begin the validation procress for the given number.
+        Begin the validation process for the given number.
 
         Returns a dictionary with the following keys
 
@@ -994,8 +1004,8 @@ class ShortCodes(ListResource):
         """
         return self.get_instances(kwargs)
 
-    def update(self, sid, url=None, method=None,
-               fallback_url=None, fallback_method=None):
+    def update(self, sid, url=None, method=None, fallback_url=None,
+               fallback_method=None, **kwargs):
         """
         Update a specific :class:`ShortCode`, by specifying the sid.
 
@@ -1200,7 +1210,7 @@ class Applications(ListResource):
         """
         return self.create_instance(kwargs)
 
-    def update(self, sid, **kwargs): 
+    def update(self, sid, **kwargs):
         """
         Update an :class:`Application` with the given parameters.
 
