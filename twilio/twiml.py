@@ -81,7 +81,6 @@ class Verb(object):
         return el
 
     def append(self, verb):
-        print self.nestables
         if not self.nestables or verb.name not in self.nestables:
             raise TwimlException("%s is not nestable inside %s" % \
                 (verb.name, self.name))
