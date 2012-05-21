@@ -9,6 +9,7 @@ from twilio.rest.resources import parse_date
 from twilio.rest.resources import transform_params
 from twilio.rest.resources import convert_keys
 from twilio.rest.resources import convert_case
+from twilio.rest.resources import convert_boolean
 from twilio.rest.resources import normalize_dates
 
 
@@ -65,6 +66,11 @@ class CoreTest(unittest.TestCase):
         self.assertEquals(convert_case("from_"), "From")
         self.assertEquals(convert_case("to"), "To")
         self.assertEquals(convert_case("frienldy_name"), "FrienldyName")
+
+    def test_convert_bool(self):
+        self.assertEquals(convert_boolean(False), "false")
+        self.assertEquals(convert_boolean(True), "true")
+        self.assertEquals(convert_boolean(1), 1)
 
     def test_convert_keys(self):
         d = {
