@@ -650,7 +650,7 @@ class Calls(ListResource):
     def create(self, to, from_, url, method=None, fallback_url=None,
                fallback_method=None, status_callback=None, status_method=None,
                if_machine=None, send_digits=None, timeout=None,
-               application_sid=None):
+               application_sid=None, record=None):
         """
         Make a phone call to a number.
 
@@ -689,6 +689,7 @@ class Calls(ListResource):
             "Timeout": timeout,
             "IfMachine": if_machine,
             "ApplicationSid": application_sid,
+            "Record": record,
             })
         return self.create_instance(params)
 
