@@ -3,6 +3,11 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.3.7
+-----------
+
+- Allow arbitrary keyword arguments on resource creation and listing
+
 Version 3.3.6
 -----------
 

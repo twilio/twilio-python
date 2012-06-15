@@ -22,3 +22,5 @@ pip-log.txt
 
 # Sphinx
 docs/tmp
+docs/_build
+cover
