@@ -10,6 +10,8 @@ parts
 bin
 develop-eggs
 .installed.cfg
+scratch
+env
 
 # Installer logs
 pip-log.txt

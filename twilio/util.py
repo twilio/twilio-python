@@ -30,12 +30,8 @@ class RequestValidator(object):
                 s += k + v
 
         # compute signature and compare signatures
-
         mac = hmac.new(self.token, s.encode("utf-8"), sha1)
         computed = base64.b64encode(mac.digest())
-
-        # print base64.b64decode(computed.strip())
-        # print base64.b64decode(computed.strip()).decode("utf-8")
 
         return computed.strip()
 
