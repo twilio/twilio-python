@@ -52,6 +52,12 @@ class ListResourceTest(unittest.TestCase):
         with self.assertRaises(StopIteration):
             self.r.iter().next()
 
+    def testRequest(self):
+        self.r.request = Mock()
+        self.r.request.return_value = Mock(), {self.r.key: [{'sid': 'foo'}]}
+        self.r.iter().next()
+        self.r.request.assert_called_with("GET", "https://api.twilio.com/2010-04-01/Resources", params={})
+ 
     def testIterOneItem(self):
         self.r.request = Mock()
         self.r.request.return_value = Mock(), {self.r.key: [{'sid': 'foo'}]}

@@ -1,5 +1,5 @@
 sphinx
-mock
+mock==0.8.0
 httplib2
 nose
 pyjwt
