@@ -5,7 +5,7 @@ import twilio
 from twilio import TwilioException
 from twilio import TwilioRestException
 from urllib import urlencode
-from urlparse import urlparse
+from urlparse import urlparse, parse_qs
 
 # import json
 try:
@@ -356,18 +356,28 @@ class ListResource(Resource):
     def iter(self, **kwargs):
         """
         Return all instance resources using an iterator
-        Can only be called on classes which implement list()
-
-        TODO Make this use the next_url instead
         """
-        p = 0
-        try:
-            while True:
-                for r in self.list(page=p, **kwargs):
-                    yield r
-                p += 1
-        except TwilioRestException:
-            pass
+        next_uri = self.uri
+        params = transform_params(kwargs)
+
+        while next_uri:
+            try:
+                resp, page = self.request("GET", next_uri, params=params)
+
+                if self.key not in page:
+                    raise StopIteration()
+
+                for ir in page[self.key]:
+                    yield self.load_instance(ir)
+
+                if not page.get('next_page_uri', ''):
+                    raise StopIteration()
+
+                o = urlparse(page['next_page_uri'])
+                params.update(parse_qs(o.query))
+            except TwilioRestException:
+                raise StopIteration()
+
 
     def load_instance(self, data):
         instance = self.instance(self, data[self.instance.id_key])
