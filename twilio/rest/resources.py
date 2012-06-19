@@ -357,26 +357,22 @@ class ListResource(Resource):
         """
         Return all instance resources using an iterator
         """
-        next_uri = self.uri
         params = transform_params(kwargs)
 
-        while next_uri:
-            try:
-                resp, page = self.request("GET", next_uri, params=params)
+        while True:
+            resp, page = self.request("GET", self.uri, params=params)
 
-                if self.key not in page:
-                    raise StopIteration()
-
-                for ir in page[self.key]:
-                    yield self.load_instance(ir)
-
-                if not page.get('next_page_uri', ''):
-                    raise StopIteration()
-
-                o = urlparse(page['next_page_uri'])
-                params.update(parse_qs(o.query))
-            except TwilioRestException:
+            if self.key not in page:
                 raise StopIteration()
+
+            for ir in page[self.key]:
+                yield self.load_instance(ir)
+
+            if not page.get('next_page_uri', ''):
+                raise StopIteration()
+
+            o = urlparse(page['next_page_uri'])
+            params.update(parse_qs(o.query))
 
 
     def load_instance(self, data):
