@@ -3,6 +3,12 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.3.8
+-----------
+
+- Use next_page_uri when iterating over a list resource
+
+
 Version 3.3.7
 -----------
 

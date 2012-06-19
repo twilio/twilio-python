@@ -6,7 +6,7 @@ if sys.version_info < (2, 7):
     import unittest2 as unittest
 else:
     import unittest
-from mock import Mock
+from mock import Mock, patch
 from nose.tools import assert_equals
 from nose.tools import raises
 from twilio.rest.resources import Resource
@@ -45,9 +45,46 @@ class ListResourceTest(unittest.TestCase):
     def testKeyValue(self):
         self.assertEquals(self.r.key, self.r.name.lower())
 
+    def testIterNoKey(self):
+        self.r.request = Mock()
+        self.r.request.return_value = Mock(), {}
+
+        with self.assertRaises(StopIteration):
+            self.r.iter().next()
+
+    def testRequest(self):
+        self.r.request = Mock()
+        self.r.request.return_value = Mock(), {self.r.key: [{'sid': 'foo'}]}
+        self.r.iter().next()
+        self.r.request.assert_called_with("GET", "https://api.twilio.com/2010-04-01/Resources", params={})
+ 
+    def testIterOneItem(self):
+        self.r.request = Mock()
+        self.r.request.return_value = Mock(), {self.r.key: [{'sid': 'foo'}]}
+
+        items = self.r.iter()
+        items.next()
+
+        with self.assertRaises(StopIteration):
+            items.next()
+  
+    def testIterNoNextPage(self):
+        self.r.request = Mock()
+        self.r.request.return_value = Mock(), {self.r.key: []}
+
+        with self.assertRaises(StopIteration):
+            self.r.iter().next()
+ 
     def testKeyValue(self):
         self.r.key = "Hey"
         self.assertEquals(self.r.key, "Hey")
+ 
+    def testInstanceLoading(self):
+        instance = self.r.load_instance({"sid": "foo"})
+
+        self.assertIsInstance(instance, InstanceResource)
+        self.assertEquals(instance.sid, "foo")
+
 
     def testInstanceLoading(self):
         instance = self.r.load_instance({"sid": "foo"})
