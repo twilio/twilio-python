@@ -3,8 +3,14 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.3.9
+-------------
+
+- Fix an error introduced in 3.3.7 that prevented validation calls from
+  succeeding.
+
 Version 3.3.8
------------
+-------------
 
 - Use next_page_uri when iterating over a list resource
 
@@ -26,7 +32,7 @@ Version 3.3.5
 
 Released on January 18, 2011
 
-- Fix a bug with the depreacted `TwilioRestClient.request` method
+- Fix a bug with the deprecated `TwilioRestClient.request` method
 - Fix a bug in filtering SMS messages by DateSent
 
 Version 3.3.4
