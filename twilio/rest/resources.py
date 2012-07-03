@@ -773,6 +773,7 @@ class CallerIds(ListResource):
         :param extension: Digits to dial after connecting the validation call.
         :returns: A response dictionary
         """
+        kwargs["phone_number"] = phone_number
         params = transform_params(kwargs)
         resp, validation = self.request("POST", self.uri, data=params)
         return validation
