@@ -14,3 +14,22 @@ Checklist:
         git tag latest
         git push upstream --tags
 
+* Upload to PyPI. You need a `~/.pypirc` file with this in it:
+
+        [pypirc]
+        servers =
+            pypi
+
+        [server-login]
+        username:<username>
+        password:<password>
+
+    You can get the username and password from someone who has them.
+
+    Then run:
+
+        python setup.py sdist
+
+    If you are satisfied with the output, upload to PyPI:
+
+        python setup.py sdist upload
