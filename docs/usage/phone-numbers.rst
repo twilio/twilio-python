@@ -101,9 +101,9 @@ An :class:`Application` encapsulates all necessary URLs for use with phone numbe
 
 See :doc:`/usage/applications` for instructions on updating and maintaining Applications.
 
-Validate Caller Id
+Validate a Phone Number
 -----------------------
-Twilio Adding a new phone number to your validated numbers is quick and easy
+Validating a phone number is quick and easy.
 
 .. code-block:: python
 
