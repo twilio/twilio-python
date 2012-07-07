@@ -13,7 +13,7 @@ Twilio Client.
 Capability tokens are used by `Twilio Client
 <http://www.twilio.com/api/client>`_ to provide connection
 security and authorization. The `Capability Token documentation
-<http://www.twilio.con/docs/tokens>`_ explains in depth the purpose and
+<http://www.twilio.com/docs/tokens>`_ explains in depth the purpose and
 features of these tokens.
 
 :class:`TwilioCapability` is responsible for the creation of these capability
