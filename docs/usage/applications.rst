@@ -46,7 +46,9 @@ You can filter applications by FriendlyName
 Creating an Application
 -------------------------
 
-When creating an application, no fields are required. We create an application with only a :attr:`friendly_name`. :meth:`Applications.create()` accepts many other arguments for url configuration.
+When creating an application, no fields are required. We create an application
+with only a :attr:`friendly_name`. The :meth:`Applications.create()` method
+accepts many other arguments for url configuration.
 
 .. code-block:: python
 
@@ -73,6 +75,7 @@ Updating an Application
 
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     url = "http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient"
+    app_sid = 'AP123' # the app you'd like to update
     application = client.applications.update(app_sid, voice_url=url)
 
 
@@ -87,5 +90,6 @@ Deleting an Application
     ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
     AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
 
+    app_sid = 'AP123' # the app you'd like to delete
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     client.applications.delete(app_sid)
