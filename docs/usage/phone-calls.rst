@@ -138,7 +138,7 @@ resource to update the record without having to use :meth:`get` first.
                         url="http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient", 
                         method="POST")
 
-Handing up the call also works.
+Hanging up the call also works.
 
 .. code-block:: python
 

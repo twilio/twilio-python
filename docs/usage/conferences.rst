@@ -71,7 +71,7 @@ because :class:`Participants` needs a participant sid AND a conference sid to
 access the participants resource.
 
 Participants can be either muted or kicked out of the conference. The following
-code kicks out the first participants and mutes the rest.
+code kicks out the first participant and mutes the rest.
 
 .. code-block:: python
 
