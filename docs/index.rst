@@ -59,6 +59,7 @@ Query the Twilio REST API to create phone calls, send SMS messages and so much m
     usage/notifications
     usage/recordings
     usage/transcriptions
+    usage/caller-ids
 
 TwiML
 ---------

@@ -61,7 +61,6 @@ to augment your search. The `AvailablePhoneNumbers REST Resource
 <http://www.twilio.com/docs/api/rest/available-phone-numbers>`_ documentation
 also documents the various search options.
 
-
 Buying a Number
 ---------------
 
@@ -78,8 +77,30 @@ If you've found a phone number you want, you can purchase the number.
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     number = client.phone_numbers.purchase("+15305431234")
 
-However, it's easier to purchase numbers after finding them using search (as shown in the first example).
+However, it's easier to purchase numbers after finding them using search (as
+shown in the first example).
 
+Updating Properties on a Number
+------------------
+
+To update the properties on a phone number, call :meth:`update`
+on the phone number object, with any of the parameters
+listed in the `IncomingPhoneNumbers Resource documentation
+<http://www.twilio.com/docs/api/rest/incoming-phone-numbers>`_
+
+.. code-block:: python
+
+    from twilio.rest import TwilioRestClient
+
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
+    for number in client.phone_numbers.list(api_version="2010-04-01"):
+        number.update(voice_url="http://twimlets.com/holdmusic?" + 
+            "Bucket=com.twilio.music.ambient", 
+            status_callback="http://example.com/callback")
 
 Changing Applications
 ----------------------
@@ -103,20 +124,6 @@ See :doc:`/usage/applications` for instructions on updating and maintaining Appl
 
 Validate a Phone Number
 -----------------------
-Validating a phone number is quick and easy.
 
-.. code-block:: python
-
-    from twilio.rest import TwilioRestClient
-
-    # To find these visit https://www.twilio.com/user/account
-    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
-    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
-
-    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
-    response = client.caller_ids.validate("+9876543212")
-    print response["validation_code"]
-
-Twilio will call the provided number and wait for the validation code to be
-entered.
+See validation instructions here: :doc:`/usage/caller-ids`:
 
