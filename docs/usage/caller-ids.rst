@@ -1,3 +1,8 @@
+.. module:: twilio.rest.resources
+
+=================
+Caller Ids
+=================
 
 Validate a Phone Number
 -----------------------
