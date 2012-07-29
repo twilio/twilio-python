@@ -1126,7 +1126,7 @@ class Conferences(ListResource):
         Return a list of :class:`Conference` resources
 
         :param status: Show conferences with this status
-        :param frienldy_name: Show conferences with this exact frienldy_name
+        :param friendly_name: Show conferences with this exact friendly_name
         :param date updated_after: List conferences updated after this date
         :param date updated_before: List conferences updated before this date
         :param date created_after: List conferences created after this date

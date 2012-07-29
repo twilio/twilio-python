@@ -23,7 +23,7 @@ can be successfully started, you'll need a url which outputs valid `TwiML
     AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
 
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
-    call = client.calls.create(to="9991231234, from_="9991231234",
+    call = client.calls.create(to="9991231234", from_="9991231234",
                                url="http://foo.com/call.xml")
     print call.length
     print call.sid
