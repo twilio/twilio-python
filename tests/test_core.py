@@ -65,7 +65,7 @@ class CoreTest(unittest.TestCase):
     def test_convert_case(self):
         self.assertEquals(convert_case("from_"), "From")
         self.assertEquals(convert_case("to"), "To")
-        self.assertEquals(convert_case("frienldy_name"), "FrienldyName")
+        self.assertEquals(convert_case("friendly_name"), "FriendlyName")
 
     def test_convert_bool(self):
         self.assertEquals(convert_boolean(False), "false")
