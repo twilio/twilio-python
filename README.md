@@ -76,6 +76,7 @@ print call.sid
 ```
 
 ### Send an SMS
+
 ```python
 from twilio.rest import TwilioRestClient
 
@@ -112,3 +113,16 @@ The full power of the Twilio API is at your fingertips. The [full
 documentation](http://readthedocs.org/docs/twilio-python/en/latest/ "Twilio
 Python library documentation") explains all the awesome features available to
 use.
+
+* [Retrieve Call Records][calls]
+* [Retrieve SMS Message Records][sms-messages]
+* [Search for a Phone Number][number]
+* [Buy a Number][number]
+* [Validate a Phone Number][validate]
+* [List Recordings][recordings]
+
+[number]: http://twilio-python.readthedocs.org/en/latest/usage/phone-numbers.html#searching-and-buying-a-number
+[validate]: http://twilio-python.readthedocs.org/en/latest/usage/caller-ids.html
+[recordings]: http://twilio-python.readthedocs.org/en/latest/usage/recordings.html#listing-your-recordings
+[sms-messages]: http://twilio-python.readthedocs.org/en/latest/usage/messages.html#retrieving-sent-messages
+[calls]: http://twilio-python.readthedocs.org/en/latest/usage/phone-calls.html#retrieve-a-call-record
