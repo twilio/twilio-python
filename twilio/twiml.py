@@ -367,9 +367,9 @@ class Dial(Verb):
 
     :param action: submit the result of the dial to this URL
     :param method: submit to 'action' url using GET or POST
-    :param int timeout: The number of seconds to waits for the called 
+    :param int timeout: The number of seconds to waits for the called
                          party to answer the call
-    :param bool hangupOnStar: Allow the calling party to hang up on the 
+    :param bool hangupOnStar: Allow the calling party to hang up on the
                               called party by pressing the '*' key
     :param int timeLimit: The maximum duration of the Call in seconds
     :param callerId: The caller ID that will appear to the called party
@@ -377,10 +377,10 @@ class Dial(Verb):
     """
     GET = 'GET'
     POST = 'POST'
-    nestables = ['Number', 'Conference', 'Client']
+    nestables = ['Number', 'Conference', 'Client', 'Queue']
 
     def __init__(self, number=None, **kwargs):
-        super(Dial, self).__init__(**kwargs) 
+        super(Dial, self).__init__(**kwargs)
         if number and len(number.split(',')) > 1:
             for n in number.split(','):
                 self.append(Number(n.strip()))
@@ -396,11 +396,30 @@ class Dial(Verb):
     def conference(self, name, **kwargs):
         return self.append(Conference(name, **kwargs))
 
+    def queue(self, name, **kwargs):
+        return self.append(Queue(name, **kwargs))
+
     def addNumber(self, *args, **kwargs):
         return self.number(*args, **kwargs)
 
     def addConference(self, *args, **kwargs):
         return self.conference(*args, **kwargs)
+
+
+class Queue(Verb):
+    """Specify queue in a nested Dial element.
+
+    :param name: friendly name for the queue
+    :param url: url to a twiml document that executes after a call is dequeued
+                and before the call is connected
+    :param method: HTTP method for url GET/POST
+    """
+    GET = 'GET'
+    POST = 'POST'
+
+    def __init__(self, name, **kwargs):
+        super(Queue, self).__init__(**kwargs)
+        self.body = name
 
 
 class Record(Verb):

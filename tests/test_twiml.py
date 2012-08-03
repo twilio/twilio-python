@@ -332,6 +332,29 @@ class TestConference(TwilioTest):
         self.assertEqual(self.conf.get('endConferenceOnExit'), "true")
 
 
+class TestQueue(TwilioTest):
+
+    def setUp(self):
+        r = Response()
+        with r.dial() as dial:
+            dial.queue("TestQueueAttribute", url="", method='GET')
+        xml = r.toxml()
+
+        #parse twiml XML string with Element Tree and inspect
+        #structure
+        tree = ET.fromstring(xml)
+        self.conf = tree.find(".//Dial/Queue")
+
+    def test_conf_text(self):
+        self.assertEqual(self.conf.text.strip(), "TestQueueAttribute")
+
+    def test_conf_waiturl(self):
+        self.assertEqual(self.conf.get('url'), "")
+
+    def test_conf_method(self):
+        self.assertEqual(self.conf.get('method'), "GET")
+
+
 class TestDial(TwilioTest):
 
     def testDial(self):
@@ -373,6 +396,14 @@ class TestDial(TwilioTest):
         r.append(d)
         r = self.strip(r)
         self.assertEquals(r, '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Conference>My Room</Conference></Dial></Response>')
+
+    def test_add_queue(self):
+        """ add a queue to a dial"""
+        r = Response()
+        d = r.dial()
+        d.append(twiml.Queue("The Cute Queue"))
+        r = self.strip(r)
+        self.assertEquals(r, '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Queue>The Cute Queue</Queue></Dial></Response>')
 
     def test_add_empty_client(self):
         """ add an empty client to a dial"""
