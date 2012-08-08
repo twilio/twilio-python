@@ -12,17 +12,6 @@ CALL_SID = "CA47e13748ed59a5733d2c1c1c69a83a28"
 list_resource = Calls(BASE_URI, AUTH)
 
 @patch("twilio.rest.resources.make_twilio_request")
-def test_paging(mock):
-    resp = create_mock_json("tests/resources/calls_list.json")
-    mock.return_value = resp
-
-    uri = "%s/Calls" % (BASE_URI)
-    list_resource.list(started=date(2010,12,5))
-    exp_params = {'StartTime': '2010-12-05'}
-
-    mock.assert_called_with("GET", uri, params=exp_params, auth=AUTH)
-
-@patch("twilio.rest.resources.make_twilio_request")
 def test_create_call(mock):
     resp = create_mock_json("tests/resources/calls_instance.json")
     resp.status_code = 201

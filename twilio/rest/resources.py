@@ -340,7 +340,7 @@ class ListResource(Resource):
         Update an InstanceResource via a POST
 
         sid: string -- String identifier for the list resource
-        body: string -- Dict of items to POST
+        body: dictionary -- Dict of items to POST
         """
         uri = "%s/%s" % (self.uri, sid)
         resp, entry = self.request("POST", uri, data=transform_params(body))
@@ -1183,13 +1183,13 @@ class Queue(InstanceResource):
                          current size results in the queue rejecting incoming
                          requests until it shrinks below the new max size
         """
-        return self.parent.update(self.sid, kwargs)
+        return self.parent.update_instance(self.name, kwargs)
 
     def delete(self):
         """
         Delete this queue.  Can only be run on empty queues.
         """
-        return self.parent.delete(self.sid)
+        return self.parent.delete_instance(self.name)
 
 
 class Queues(ListResource):
@@ -1199,12 +1199,13 @@ class Queues(ListResource):
     def list(self, **kwargs):
         return self.get_instances(kwargs)
 
-    def create(self, **kwargs):
+    def create(self, name, **kwargs):
         """ Create an :class:`Queue` with any of these optional parameters.
-        :param friendly_name: A human readable description of the application,
+        :param name: A human readable description of the application,
                               with maximum length 64 characters.
-        :param max_size: The upper limit of calls allowed into the queue
+        :param max_size: The limit on calls allowed into the queue (optional)
         """
+        kwargs['friendly_name'] = name
         return self.create_instance(kwargs)
 
 
@@ -1317,6 +1318,7 @@ class Account(InstanceResource):
         PhoneNumbers,
         Conferences,
         ConnectApps,
+        Queues,
         AuthorizedConnectApps,
         ]
 

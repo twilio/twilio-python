@@ -26,7 +26,11 @@ class TwilioTest(unittest.TestCase):
         self.assertRaises(TwimlException, verb.append, twiml.Reject())
         self.assertRaises(TwimlException, verb.append, twiml.Redirect())
         self.assertRaises(TwimlException, verb.append, twiml.Dial())
+        self.assertRaises(TwimlException, verb.append, twiml.Enqueue(""))
+        self.assertRaises(TwimlException, verb.append, twiml.Queue(""))
+        self.assertRaises(TwimlException, verb.append, twiml.Leave())
         self.assertRaises(TwimlException, verb.append, twiml.Conference(""))
+        self.assertRaises(TwimlException, verb.append, twiml.Client(""))
         self.assertRaises(TwimlException, verb.append, twiml.Sms(""))
         self.assertRaises(TwimlException, verb.append, twiml.Pause())
 
@@ -240,6 +244,20 @@ class TestHangup(TwilioTest):
         self.improperAppend(twiml.Hangup())
 
 
+class TestLeave(TwilioTest):
+
+    def testLeave(self):
+        """convenience: should Hangup to a url via POST"""
+        r = Response()
+        r.append(twiml.Leave())
+        r = self.strip(r)
+        self.assertEquals(r, '<?xml version="1.0" encoding="UTF-8"?><Response><Leave /></Response>')
+
+    def testBadAppend(self):
+        """ should raise exceptions for wrong appending"""
+        self.improperAppend(twiml.Leave())
+
+
 class TestReject(TwilioTest):
 
     def testReject(self):
@@ -338,12 +356,12 @@ class TestQueue(TwilioTest):
         r = Response()
         with r.dial() as dial:
             dial.queue("TestQueueAttribute", url="", method='GET')
-        xml = r.toxml()
+            xml = r.toxml()
 
         #parse twiml XML string with Element Tree and inspect
-        #structure
-        tree = ET.fromstring(xml)
-        self.conf = tree.find(".//Dial/Queue")
+            #structure
+            tree = ET.fromstring(xml)
+            self.conf = tree.find(".//Dial/Queue")
 
     def test_conf_text(self):
         self.assertEqual(self.conf.text.strip(), "TestQueueAttribute")
@@ -353,6 +371,35 @@ class TestQueue(TwilioTest):
 
     def test_conf_method(self):
         self.assertEqual(self.conf.get('method'), "GET")
+
+
+class TestEnqueue(TwilioTest):
+
+    def setUp(self):
+        r = Response()
+        r.enqueue("TestEnqueueAttribute", action="act", method='GET',
+                  wait_url='wait', wait_url_method='POST')
+        xml = r.toxml()
+
+        #parse twiml XML string with Element Tree and inspect
+        #structure
+        tree = ET.fromstring(xml)
+        self.conf = tree.find(".//Enqueue")
+
+    def test_conf_text(self):
+        self.assertEqual(self.conf.text.strip(), "TestEnqueueAttribute")
+
+    def test_conf_waiturl(self):
+        self.assertEqual(self.conf.get('wait_url'), "wait")
+
+    def test_conf_method(self):
+        self.assertEqual(self.conf.get('method'), "GET")
+
+    def test_conf_action(self):
+        self.assertEqual(self.conf.get('action'), "act")
+
+    def test_conf_waitmethod(self):
+        self.assertEqual(self.conf.get('wait_url_method'), "POST")
 
 
 class TestDial(TwilioTest):
