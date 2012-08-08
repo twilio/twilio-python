@@ -82,7 +82,7 @@ class Verb(object):
 
     def append(self, verb):
         if not self.nestables or verb.name not in self.nestables:
-            raise TwimlException("%s is not nestable inside %s" % \
+            raise TwimlException("%s is not nestable inside %s" %
                 (verb.name, self.name))
         self.verbs.append(verb)
         return verb
@@ -101,6 +101,8 @@ class Response(Verb):
         'Hangup',
         'Reject',
         'Sms',
+        'Enqueue',
+        'Leave'
         ]
 
     def __init__(self, **kwargs):
@@ -146,6 +148,16 @@ class Response(Verb):
         """Return a newly created :class:`Dial` verb, nested inside this
         :class:`Response` """
         return self.append(Dial(number, **kwargs))
+
+    def enqueue(self, name, **kwargs):
+        """Return a newly created :class:`Enqueue` verb, nested inside this
+        :class:`Response` """
+        return self.append(Enqueue(name, **kwargs))
+
+    def leave(self, **kwargs):
+        """Return a newly created :class:`Leave` verb, nested inside this
+        :class:`Response` """
+        return self.append(Leave(**kwargs))
 
     def record(self, **kwargs):
         """Return a newly created :class:`Record` verb, nested inside this
@@ -367,9 +379,9 @@ class Dial(Verb):
 
     :param action: submit the result of the dial to this URL
     :param method: submit to 'action' url using GET or POST
-    :param int timeout: The number of seconds to waits for the called 
+    :param int timeout: The number of seconds to waits for the called
                          party to answer the call
-    :param bool hangupOnStar: Allow the calling party to hang up on the 
+    :param bool hangupOnStar: Allow the calling party to hang up on the
                               called party by pressing the '*' key
     :param int timeLimit: The maximum duration of the Call in seconds
     :param callerId: The caller ID that will appear to the called party
@@ -377,10 +389,10 @@ class Dial(Verb):
     """
     GET = 'GET'
     POST = 'POST'
-    nestables = ['Number', 'Conference', 'Client']
+    nestables = ['Number', 'Conference', 'Client', 'Queue']
 
     def __init__(self, number=None, **kwargs):
-        super(Dial, self).__init__(**kwargs) 
+        super(Dial, self).__init__(**kwargs)
         if number and len(number.split(',')) > 1:
             for n in number.split(','):
                 self.append(Number(n.strip()))
@@ -396,11 +408,57 @@ class Dial(Verb):
     def conference(self, name, **kwargs):
         return self.append(Conference(name, **kwargs))
 
+    def queue(self, name, **kwargs):
+        return self.append(Queue(name, **kwargs))
+
     def addNumber(self, *args, **kwargs):
         return self.number(*args, **kwargs)
 
     def addConference(self, *args, **kwargs):
         return self.conference(*args, **kwargs)
+
+
+class Queue(Verb):
+    """Specify queue in a nested Dial element.
+
+    :param name: friendly name for the queue
+    :param url: url to a twiml document that executes after a call is dequeued
+    and before the call is connected
+    :param method: HTTP method for url GET/POST
+    """
+    GET = 'GET'
+    POST = 'POST'
+
+    def __init__(self, name, **kwargs):
+        super(Queue, self).__init__(**kwargs)
+        self.body = name
+
+
+class Enqueue(Verb):
+    """Enqueue the call into a specific queue.
+
+    :param name: friendly name for the queue
+    :param action: url to a twiml document that executes when the call
+                   leaves the queue. When dequeued via a <Dial> verb,
+                   this url is executed after the bridged parties disconnect
+    :param method: HTTP method for action GET/POST
+    :param wait_url: url to a twiml document that executes
+                     while the call is on the queue
+    :param wait_url_methid: HTTP method for wait_url GET/POST
+    """
+    GET = 'GET'
+    POST = 'POST'
+
+    def __init__(self, name, **kwargs):
+        super(Enqueue, self).__init__(**kwargs)
+        self.body = name
+
+
+class Leave(Verb):
+    """Signals the call to leave its queue
+    """
+    GET = 'GET'
+    POST = 'POST'
 
 
 class Record(Verb):
