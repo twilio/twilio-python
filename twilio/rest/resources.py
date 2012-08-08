@@ -1142,12 +1142,13 @@ class Conferences(ListResource):
 
 
 class Member(InstanceResource):
-    pass
+    id_key = "call_sid"
 
 
 class Members(ListResource):
     name = "Members"
     instance = Member
+    key = "queue_members"
 
     def list(self, **kwargs):
         """
