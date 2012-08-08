@@ -434,28 +434,12 @@ class Queue(Verb):
         self.body = name
 
 
-class Queue(Verb):
-    """Specify queue in a nested Dial element.
-
-    :param name: friendly name for the queue
-    :param url: url to a twiml document that executes after a call is dequeued
-    and before the call is connected
-    :param method: HTTP method for url GET/POST
-    """
-    GET = 'GET'
-    POST = 'POST'
-
-    def __init__(self, name, **kwargs):
-        super(Queue, self).__init__(**kwargs)
-        self.body = name
-
-
 class Enqueue(Verb):
     """Enqueue the call into a specific queue.
 
     :param name: friendly name for the queue
     :param action: url to a twiml document that executes when the call
-                   leaves the queue. When dequeued vial a <Dial> verb,
+                   leaves the queue. When dequeued via a <Dial> verb,
                    this url is executed after the bridged parties disconnect
     :param method: HTTP method for action GET/POST
     :param wait_url: url to a twiml document that executes
