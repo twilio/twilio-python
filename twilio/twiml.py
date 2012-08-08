@@ -471,7 +471,7 @@ class Enqueue(Verb):
 
 
 class Leave(Verb):
-    """Signals the call to leave it's queue
+    """Signals the call to leave its queue
     """
     GET = 'GET'
     POST = 'POST'

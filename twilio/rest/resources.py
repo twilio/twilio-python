@@ -1154,7 +1154,7 @@ class Members(ListResource):
         """
         Returns a list of :class:`Member` resources in the given queue
 
-        :param queue_sid: Conference this participant is part of
+        :param queue_sid: Queue this participant is part of
         """
         return self.get_instances(kwargs)
 
