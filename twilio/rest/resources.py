@@ -1158,7 +1158,7 @@ class Members(ListResource):
         """
         return self.get_instances(kwargs)
 
-    def dequeue(self, url, call_sid='Front'):
+    def dequeue(self, url, call_sid='Front', **kwargs):
         """
         Dequeues a member from the queue and have the member's call
         begin executing the TwiML document at the url.
@@ -1167,7 +1167,8 @@ class Members(ListResource):
                          the member at the front of the queue will be used
         :param url: url of the TwiML document to be executed.
         """
-        return self.update_instance(call_sid, {"url":url})
+        kwargs['url'] = url
+        return self.update_instance(call_sid, kwargs)
 
 
 class Queue(InstanceResource):
