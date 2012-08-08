@@ -5,7 +5,12 @@ import twilio
 from twilio import TwilioException
 from twilio import TwilioRestException
 from urllib import urlencode
-from urlparse import urlparse, parse_qs
+from urlparse import urlparse
+
+try:
+    from urlparse import parse_qs
+except ImportError:
+    from cgi import parse_qs
 
 # import json
 try:
