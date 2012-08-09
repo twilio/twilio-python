@@ -1,11 +1,12 @@
-"""
-Test the base Resource class
-"""
+# -*- coding: utf-8 -*-
+from __future__ import with_statement
 import sys
+
 if sys.version_info < (2, 7):
     import unittest2 as unittest
 else:
     import unittest
+
 from mock import Mock, patch
 from nose.tools import assert_equals
 from nose.tools import raises
