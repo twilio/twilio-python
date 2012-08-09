@@ -423,7 +423,7 @@ class Queue(Verb):
 
     :param name: friendly name for the queue
     :param url: url to a twiml document that executes after a call is dequeued
-    and before the call is connected
+                and before the call is connected
     :param method: HTTP method for url GET/POST
     """
     GET = 'GET'
@@ -444,7 +444,7 @@ class Enqueue(Verb):
     :param method: HTTP method for action GET/POST
     :param wait_url: url to a twiml document that executes
                      while the call is on the queue
-    :param wait_url_methid: HTTP method for wait_url GET/POST
+    :param wait_url_method: HTTP method for wait_url GET/POST
     """
     GET = 'GET'
     POST = 'POST'
