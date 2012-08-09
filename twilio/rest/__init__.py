@@ -7,6 +7,7 @@ from twilio.rest.resources import Applications
 from twilio.rest.resources import AuthorizedConnectApps
 from twilio.rest.resources import Calls
 from twilio.rest.resources import CallerIds
+from twilio.rest.resources import Queues
 from twilio.rest.resources import ConnectApps
 from twilio.rest.resources import Notifications
 from twilio.rest.resources import Recordings
@@ -108,7 +109,7 @@ Or, add your credentials to your shell environment. From the terminal, run
 and be sure to replace the values for the Account SID and auth token with the
 values from your Twilio Account at https://www.twilio.com/user/account.
 """)
-        
+
         self.base = base
         auth = (account, token)
         version_uri = "%s/%s" % (base, version)
@@ -126,6 +127,7 @@ values from your Twilio Account at https://www.twilio.com/user/account.
         self.sms = Sms(account_uri, auth)
         self.phone_numbers = PhoneNumbers(account_uri, auth)
         self.conferences = Conferences(account_uri, auth)
+        self.queues = Queues(account_uri, auth)
         self.sandboxes = Sandboxes(account_uri, auth)
 
         self.auth = auth
@@ -138,4 +140,3 @@ values from your Twilio Account at https://www.twilio.com/user/account.
         """
         base_uri = "%s/Conferences/%s" % (self.account_uri, conference_sid)
         return Participants(base_uri, self.auth)
-

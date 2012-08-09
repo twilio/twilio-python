@@ -4,7 +4,7 @@
 Conferences and Participants
 ==============================
 
-For more information, see the `Conference REST Resource <http://www.twilio.com/docs/api/rest/conference>`_ and `Participant REST Resource <http://www.twilio.com/docs/api/rest/conference>`_ documentation.
+For more information, see the `Conference REST Resource <http://www.twilio.com/docs/api/rest/conference>`_ and `Participant REST Resource <http://www.twilio.com/docs/api/rest/participant>`_ documentation.
 
 Listing Conferences
 -----------------------
@@ -93,4 +93,3 @@ code kicks out the first participant and mutes the rest.
     # And mute the rest
     for participant in participants:
         participant.mute()
-

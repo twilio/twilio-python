@@ -60,7 +60,7 @@ Query the Twilio REST API to create phone calls, send SMS messages and so much m
     usage/recordings
     usage/transcriptions
     usage/caller-ids
-
+    usage/queues
 TwiML
 ---------
 
@@ -125,4 +125,3 @@ Report bugs using the Github `issue tracker <https://github.com/twilio/twilio-py
 If you have questions that aren't answered by this documentation, ask the `#twilio IRC channel <irc://irc.freenode.net/#twilio>`_
 
 See the :doc:`/changelog` for version history.
-
