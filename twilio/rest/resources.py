@@ -5,7 +5,12 @@ import twilio
 from twilio import TwilioException
 from twilio import TwilioRestException
 from urllib import urlencode
-from urlparse import urlparse, parse_qs
+from urlparse import urlparse
+
+try:
+    from urlparse import parse_qs
+except ImportError:
+    from cgi import parse_qs
 
 # import json
 try:
@@ -1180,6 +1185,7 @@ class Queue(InstanceResource):
     def update(self, **kwargs):
         """
         Update this queue
+
         :param friendly_name: A new friendly name for this queue
         :param max_size: A new max size. Changing a max size to less than the
                          current size results in the queue rejecting incoming
@@ -1207,12 +1213,33 @@ class Queues(ListResource):
 
     def create(self, name, **kwargs):
         """ Create an :class:`Queue` with any of these optional parameters.
+
         :param name: A human readable description of the application,
                               with maximum length 64 characters.
         :param max_size: The limit on calls allowed into the queue (optional)
         """
         kwargs['friendly_name'] = name
         return self.create_instance(kwargs)
+
+    def update(self, sid, **kwargs):
+        """
+        Update a :class:`Queue`
+    
+        :param sid: String identifier for a Queue resource
+        :param friendly_name: A new friendly name for this queue
+        :param max_size: A new max size. Changing a max size to less than the
+                         current size results in the queue rejecting incoming
+                         requests until it shrinks below the new max size
+        """
+        return self.update_instance(sid, kwargs)
+
+    def delete(self, sid):
+        """
+        Delete a :class:`Queue`. Can only be run on empty queues.
+
+        :param sid: String identifier for a Queue resource
+        """
+        return self.delete_instance(sid)
 
 
 class Application(InstanceResource):
@@ -1301,7 +1328,7 @@ class Applications(ListResource):
 
     def delete(self, sid):
         """
-        Update an :class:`Application` with the given parameters.
+        Delete an :class:`Application`
         """
         return self.delete_instance(sid)
 
