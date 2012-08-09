@@ -48,7 +48,7 @@ Getting a specific Queue Member
 
 To retrieve information about a specific member in the queue, each
 :class:`Members` has a :attr:`get` method. :attr:`get` accepts one
-argument. The argument can either be a call_sid thats in the queue,
+argument. The argument can either be a `call_sid` thats in the queue,
 in which case :attr:`get` will return a :class:`Member` instance
 representing that call, or the argument can be 'Front', in which case
 :attr:`Get` will return a :class:`Member` instance representing the
@@ -64,10 +64,7 @@ first call in the queue.
     QUEUE_SID = "QUaaaaaaaaaaaaa"
     CALL_SID = "CAxxxxxxxxxxxxxx"
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
-    members = client.queues.get(QUEUE_SID).queue_members.list()
-
-    if len(members) == 0:
-        return
+    members = client.queues.get(QUEUE_SID).queue_members
 
     # Get the first call in the queue
     print members.get('Front').date_enqueued
@@ -96,10 +93,7 @@ default values are 'Front' and 'GET'
     QUEUE_SID = "QUaaaaaaaaaaaaa"
 
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
-    members = client.queues.get(QUEUE_SID).queue_members.list()
-
-    if len(members) == 0:
-        return
+    members = client.queues.get(QUEUE_SID).queue_members
 
     # Dequeue the first call in the queue
     print members.dequeue('http://www.twilio.com/welcome/call')
