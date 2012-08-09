@@ -1199,6 +1199,10 @@ class Queues(ListResource):
     instance = Queue
 
     def list(self, **kwargs):
+        """
+        Returns a page of :class:`Queue` resources as a list sorted by DateUpdated.
+        For paging informtion see :class:`ListResource`
+        """
         return self.get_instances(kwargs)
 
     def create(self, name, **kwargs):
