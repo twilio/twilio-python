@@ -43,6 +43,12 @@ Secondary Verbs
 .. autoclass:: twilio.twiml.Sms
    :members:
 
+.. autoclass:: twilio.twiml.Enqueue
+   :members:
+
+.. autoclass:: twilio.twiml.Leave
+   :members:
+
 Nouns
 ~~~~~~
 
@@ -53,4 +59,7 @@ Nouns
    :members:
 
 .. autoclass:: twilio.twiml.Client
+   :members:
+
+.. autoclass:: twilio.twiml.Queue
    :members:
