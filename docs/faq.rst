@@ -99,7 +99,7 @@ Then you can convert user input to phone numbers like this:
             # Phone number may already be in E.164 format.
             parse_type = None
         else:
-            # Assume it's a US number
+            # If no country code information is present, assume it's a US number
             parse_type = "US"
 
         phone_representation = phonenumbers.parse(raw_phone, parse_type)
