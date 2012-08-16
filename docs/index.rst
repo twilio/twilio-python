@@ -39,7 +39,7 @@ The :doc:`/getting-started` will get you up and running in a few quick minutes. 
 User Guide
 ==================
 
-Functionality is split over three different sub-packages within **twilio-python**. Below are in-depth guide to specific portions of the library.
+Functionality is split over three different sub-packages within **twilio-python**. Below are in-depth guides to specific portions of the library.
 
 REST API
 ----------
