@@ -4,10 +4,11 @@ if sys.version_info < (2, 7):
     import unittest2 as unittest
 else:
     import unittest
+
 from mock import Mock, patch
-from twilio import TwilioException
 from twilio.rest.resources import AuthorizedConnectApps
 from twilio.rest.resources import AuthorizedConnectApp
+
 
 class AuthorizedConnectAppTest(unittest.TestCase):
 
@@ -38,14 +39,14 @@ class AuthorizedConnectAppTest(unittest.TestCase):
     def test_load(self):
         instance = AuthorizedConnectApp(Mock(), "sid")
         instance.load({
-            "connect_app_sid":"SID",
-            "account_sid":"AC8dfe2f2358cf421cb6134cf6f217c6a3",
-            "permissions":["get-all"],
-            "connect_app_friendly_name":"foo",
-            "connect_app_description":"bat",
-            "connect_app_company_name":"bar",
-            "connect_app_homepage_url":"http://www.google.com",
-            "uri":"/2010-04-01/Accounts/",
+            "connect_app_sid": "SID",
+            "account_sid": "AC8dfe2f2358cf421cb6134cf6f217c6a3",
+            "permissions": ["get-all"],
+            "connect_app_friendly_name": "foo",
+            "connect_app_description": "bat",
+            "connect_app_company_name": "bar",
+            "connect_app_homepage_url": "http://www.google.com",
+            "uri": "/2010-04-01/Accounts/",
             })
 
         self.assertEquals(instance.permissions, ["get-all"])
@@ -66,4 +67,3 @@ class AuthorizedConnectAppTest(unittest.TestCase):
     def test_update(self):
         with self.assertRaises(AttributeError):
             self.resource.update()
-

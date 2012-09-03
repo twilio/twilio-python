@@ -11,6 +11,7 @@ CALL_SID = "CA47e13748ed59a5733d2c1c1c69a83a28"
 
 list_resource = Calls(BASE_URI, AUTH)
 
+
 @patch("twilio.rest.resources.make_twilio_request")
 def test_create_call(mock):
     resp = create_mock_json("tests/resources/calls_instance.json")
