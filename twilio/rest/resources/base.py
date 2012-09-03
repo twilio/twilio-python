@@ -1,11 +1,10 @@
-import json
 import logging
 from urlparse import urlparse
 from urllib import urlencode
 
 import twilio
 from twilio import TwilioException, TwilioRestException
-from twilio.rest.resources.imports import parse_qs, httplib2
+from twilio.rest.resources.imports import parse_qs, httplib2, json
 from twilio.rest.resources.util import transform_params
 
 
