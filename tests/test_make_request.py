@@ -9,13 +9,10 @@ except ImportError:
     import simplejson as json
 
 import twilio
-from nose.tools import assert_equals
 from nose.tools import raises
-from mock import patch
-from mock import Mock
+from mock import patch, Mock
 from twilio import TwilioRestException
-from twilio.rest.resources import make_request
-from twilio.rest.resources import make_twilio_request
+from twilio.rest.resources.request import make_request, make_twilio_request
 
 get_headers = {
     "User-Agent": "twilio-python/%s" % (twilio.__version__),
@@ -26,7 +23,7 @@ post_headers = get_headers.copy()
 post_headers["Content-Type"] = "application/x-www-form-urlencoded"
 
 
-@patch('twilio.rest.resources.Response')
+@patch('twilio.rest.resources.base.Response')
 @patch('httplib2.Http')
 def test_get_params(http_mock, response_mock):
     http = Mock()
@@ -37,7 +34,7 @@ def test_get_params(http_mock, response_mock):
             body=None, headers=None)
 
 
-@patch('twilio.rest.resources.Response')
+@patch('twilio.rest.resources.base.Response')
 @patch('httplib2.Http')
 def test_get_extra_paranms(http_mock, response_mock):
     http = Mock()
@@ -48,7 +45,7 @@ def test_get_extra_paranms(http_mock, response_mock):
             body=None, headers=None)
 
 
-@patch('twilio.rest.resources.Response')
+@patch('twilio.rest.resources.base.Response')
 @patch('httplib2.Http')
 def test_resp_uri(http_mock, response_mock):
     http = Mock()
@@ -59,15 +56,16 @@ def test_resp_uri(http_mock, response_mock):
             body=None, headers=None)
 
 
-@patch('twilio.rest.resources.make_request')
+@patch('twilio.rest.resources.request.make_request')
 def test_make_twilio_request_headers(mock):
     url = "http://random/url"
     make_twilio_request("POST", url)
     mock.assert_called_with("POST", "http://random/url.json",
                             headers=post_headers)
 
+
 @raises(TwilioRestException)
-@patch('twilio.rest.resources.make_request')
+@patch('twilio.rest.resources.request.make_request')
 def test_make_twilio_request_bad_data(mock):
     resp = Mock()
     resp.ok = False

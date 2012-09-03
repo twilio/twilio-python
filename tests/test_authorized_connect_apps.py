@@ -18,7 +18,7 @@ class AuthorizedConnectAppTest(unittest.TestCase):
         self.auth = ("AC123", "token")
         self.resource = AuthorizedConnectApps(self.uri, self.auth)
 
-    @patch("twilio.rest.resources.make_twilio_request")
+    @patch("twilio.rest.resources.base.make_twilio_request")
     def test_get(self, mock):
         mock.return_value = Mock()
         mock.return_value.content = '{"connect_app_sid": "SID"}'
@@ -27,7 +27,7 @@ class AuthorizedConnectAppTest(unittest.TestCase):
         mock.assert_called_with("GET", "/base/AuthorizedConnectApps/SID",
             auth=self.auth)
 
-    @patch("twilio.rest.resources.make_twilio_request")
+    @patch("twilio.rest.resources.base.make_twilio_request")
     def test_list(self, mock):
         mock.return_value = Mock()
         mock.return_value.content = '{"authorized_connect_apps": []}'
