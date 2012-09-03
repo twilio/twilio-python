@@ -1102,7 +1102,7 @@ class Participants(ListResource):
         """
         Remove the participant from the given conference
         """
-        return self._delete(call_sid)
+        return self.delete_instance(call_sid)
 
     def update(self, sid, **kwargs):
         """
