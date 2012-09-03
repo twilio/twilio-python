@@ -15,10 +15,8 @@ from twilio.rest.resources.util import (
     convert_keys, normalize_dates
 )
 from twilio.rest.resources.base import (
-    Response, Resource, InstanceResource, ListResource
-)
-from twilio.rest.resources.request import (
-    make_twilio_request, make_request
+    Response, Resource, InstanceResource, ListResource,
+    make_request, make_twilio_request
 )
 from twilio.rest.resources.phone_numbers import (
     AvailablePhoneNumber, AvailablePhoneNumbers, PhoneNumber, PhoneNumbers

@@ -28,7 +28,7 @@ class RestClientTest(unittest.TestCase):
         self.assertIsInstance(self.client.authorized_connect_apps,
             resources.AuthorizedConnectApps)
 
-    @patch("twilio.rest.resources.request.make_request")
+    @patch("twilio.rest.resources.base.make_request")
     def test_conferences(self, mock):
         mock.return_value = Mock()
         mock.return_value.ok = True

@@ -12,7 +12,7 @@ import twilio
 from nose.tools import raises
 from mock import patch, Mock
 from twilio import TwilioRestException
-from twilio.rest.resources.request import make_request, make_twilio_request
+from twilio.rest.resources.base import make_request, make_twilio_request
 
 get_headers = {
     "User-Agent": "twilio-python/%s" % (twilio.__version__),
@@ -56,7 +56,7 @@ def test_resp_uri(http_mock, response_mock):
             body=None, headers=None)
 
 
-@patch('twilio.rest.resources.request.make_request')
+@patch('twilio.rest.resources.base.make_request')
 def test_make_twilio_request_headers(mock):
     url = "http://random/url"
     make_twilio_request("POST", url)
@@ -65,7 +65,7 @@ def test_make_twilio_request_headers(mock):
 
 
 @raises(TwilioRestException)
-@patch('twilio.rest.resources.request.make_request')
+@patch('twilio.rest.resources.base.make_request')
 def test_make_twilio_request_bad_data(mock):
     resp = Mock()
     resp.ok = False
