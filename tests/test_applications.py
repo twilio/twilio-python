@@ -3,9 +3,10 @@ if sys.version_info < (2, 7):
     import unittest2 as unittest
 else:
     import unittest
+
 from mock import Mock
-from twilio import TwilioException
-from twilio.rest.resources import Application
+#from twilio import TwilioException
+#from twilio.rest.resources import Application
 from twilio.rest.resources import Applications
 
 
@@ -45,7 +46,7 @@ class ApplicationsTest(unittest.TestCase):
         self.resource.update("123", voice_url="hey")
 
         uri = "http://api.twilio.com/Applications/123"
-        request.assert_called_with("POST", uri, data={"VoiceUrl":"hey"})
+        request.assert_called_with("POST", uri, data={"VoiceUrl": "hey"})
 
     def test_create(self):
         request = Mock()
@@ -57,4 +58,4 @@ class ApplicationsTest(unittest.TestCase):
         self.resource.create(friendly_name="hey")
 
         uri = "http://api.twilio.com/Applications"
-        request.assert_called_with("POST", uri, data={"FriendlyName":"hey"})
+        request.assert_called_with("POST", uri, data={"FriendlyName": "hey"})
