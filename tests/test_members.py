@@ -1,9 +1,6 @@
-from mock import patch, Mock
-from datetime import date
-from mock import patch, Mock
-from nose.tools import raises, assert_equals, assert_true
+from mock import patch
 from tools import create_mock_json
-from twilio.rest.resources import Member, Members
+from twilio.rest.resources import Members
 
 QUEUE_SID = "QU1b9faddec3d54ec18488f86c83019bf0"
 ACCOUNT_SID = "AC123"
@@ -15,7 +12,8 @@ TWIML_URL = "example_twiml_url"
 
 list_resource = Members(BASE_URI, AUTH)
 
-@patch("twilio.rest.resources.make_twilio_request")
+
+@patch("twilio.rest.resources.base.make_twilio_request")
 def test_members_list(mock):
     resp = create_mock_json("tests/resources/members_list.json")
     mock.return_value = resp
@@ -25,7 +23,8 @@ def test_members_list(mock):
 
     mock.assert_called_with("GET", uri, params={}, auth=AUTH)
 
-@patch("twilio.rest.resources.make_twilio_request")
+
+@patch("twilio.rest.resources.base.make_twilio_request")
 def test_members_dequeue_front(mock):
     resp = create_mock_json("tests/resources/members_instance.json")
     mock.return_value = resp
@@ -35,7 +34,8 @@ def test_members_dequeue_front(mock):
 
     mock.assert_called_with("POST", uri, data={"Url": TWIML_URL}, auth=AUTH)
 
-@patch("twilio.rest.resources.make_twilio_request")
+
+@patch("twilio.rest.resources.base.make_twilio_request")
 def test_members_dequeue_call(mock):
     resp = create_mock_json("tests/resources/members_instance.json")
     mock.return_value = resp

@@ -3,8 +3,9 @@ if sys.version_info < (2, 7):
     import unittest2 as unittest
 else:
     import unittest
+
 from datetime import date
-from mock import patch, Mock
+from mock import Mock
 from twilio.rest.resources import SmsMessages
 
 DEFAULT = {
@@ -13,6 +14,7 @@ DEFAULT = {
     'DateSent>': None,
     'DateSent': None,
     }
+
 
 class SmsTest(unittest.TestCase):
 
@@ -37,6 +39,3 @@ class SmsTest(unittest.TestCase):
         self.resource.list(before=date(2011, 1, 1))
         self.params['DateSent<'] = "2011-01-01"
         self.resource.get_instances.assert_called_with(self.params)
-
-
-

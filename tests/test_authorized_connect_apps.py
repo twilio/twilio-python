@@ -4,10 +4,11 @@ if sys.version_info < (2, 7):
     import unittest2 as unittest
 else:
     import unittest
+
 from mock import Mock, patch
-from twilio import TwilioException
 from twilio.rest.resources import AuthorizedConnectApps
 from twilio.rest.resources import AuthorizedConnectApp
+
 
 class AuthorizedConnectAppTest(unittest.TestCase):
 
@@ -17,7 +18,7 @@ class AuthorizedConnectAppTest(unittest.TestCase):
         self.auth = ("AC123", "token")
         self.resource = AuthorizedConnectApps(self.uri, self.auth)
 
-    @patch("twilio.rest.resources.make_twilio_request")
+    @patch("twilio.rest.resources.base.make_twilio_request")
     def test_get(self, mock):
         mock.return_value = Mock()
         mock.return_value.content = '{"connect_app_sid": "SID"}'
@@ -26,7 +27,7 @@ class AuthorizedConnectAppTest(unittest.TestCase):
         mock.assert_called_with("GET", "/base/AuthorizedConnectApps/SID",
             auth=self.auth)
 
-    @patch("twilio.rest.resources.make_twilio_request")
+    @patch("twilio.rest.resources.base.make_twilio_request")
     def test_list(self, mock):
         mock.return_value = Mock()
         mock.return_value.content = '{"authorized_connect_apps": []}'
@@ -38,14 +39,14 @@ class AuthorizedConnectAppTest(unittest.TestCase):
     def test_load(self):
         instance = AuthorizedConnectApp(Mock(), "sid")
         instance.load({
-            "connect_app_sid":"SID",
-            "account_sid":"AC8dfe2f2358cf421cb6134cf6f217c6a3",
-            "permissions":["get-all"],
-            "connect_app_friendly_name":"foo",
-            "connect_app_description":"bat",
-            "connect_app_company_name":"bar",
-            "connect_app_homepage_url":"http://www.google.com",
-            "uri":"/2010-04-01/Accounts/",
+            "connect_app_sid": "SID",
+            "account_sid": "AC8dfe2f2358cf421cb6134cf6f217c6a3",
+            "permissions": ["get-all"],
+            "connect_app_friendly_name": "foo",
+            "connect_app_description": "bat",
+            "connect_app_company_name": "bar",
+            "connect_app_homepage_url": "http://www.google.com",
+            "uri": "/2010-04-01/Accounts/",
             })
 
         self.assertEquals(instance.permissions, ["get-all"])
@@ -66,4 +67,3 @@ class AuthorizedConnectAppTest(unittest.TestCase):
     def test_update(self):
         with self.assertRaises(AttributeError):
             self.resource.update()
-

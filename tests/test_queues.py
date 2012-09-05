@@ -1,7 +1,4 @@
-from mock import patch, Mock
-from datetime import date
-from mock import patch, Mock
-from nose.tools import raises, assert_equals, assert_true
+from mock import patch
 from tools import create_mock_json
 from twilio.rest.resources import Queues, Queue
 
@@ -14,7 +11,8 @@ CALL_SID = "CAaaf2e9ded94aba3e57c42a3d55be6ff2"
 list_resource = Queues(BASE_URI, AUTH)
 instance_resource = Queue(list_resource, QUEUE_SID)
 
-@patch("twilio.rest.resources.make_twilio_request")
+
+@patch("twilio.rest.resources.base.make_twilio_request")
 def test_queues_list(mock):
     resp = create_mock_json("tests/resources/queues_list.json")
     mock.return_value = resp
@@ -24,7 +22,8 @@ def test_queues_list(mock):
 
     mock.assert_called_with("GET", uri, params={}, auth=AUTH)
 
-@patch("twilio.rest.resources.make_twilio_request")
+
+@patch("twilio.rest.resources.base.make_twilio_request")
 def test_queues_create(mock):
     resp = create_mock_json("tests/resources/queues_instance.json")
     resp.status_code = 201
@@ -37,34 +36,35 @@ def test_queues_create(mock):
                             data={'FriendlyName': 'test', 'MaxSize': 9001},
                             auth=AUTH)
 
-@patch("twilio.rest.resources.make_twilio_request")
+
+@patch("twilio.rest.resources.base.make_twilio_request")
 def test_queues_get(mock):
     resp = create_mock_json("tests/resources/queues_instance.json")
     mock.return_value = resp
 
     uri = "%s/Queues/%s" % (BASE_URI, QUEUE_SID)
-    r = list_resource.get(QUEUE_SID)
-
+    list_resource.get(QUEUE_SID)
     mock.assert_called_with("GET", uri, auth=AUTH)
 
 
-@patch("twilio.rest.resources.make_twilio_request")
+@patch("twilio.rest.resources.base.make_twilio_request")
 def test_queue_update(mock):
     resp = create_mock_json("tests/resources/queues_instance.json")
     mock.return_value = resp
 
     uri = "%s/Queues/%s" % (BASE_URI, QUEUE_SID)
-    r = instance_resource.update(friendly_name='QQ')
+    instance_resource.update(friendly_name='QQ')
 
-    mock.assert_called_with("POST", uri, data={'FriendlyName':'QQ'}, auth=AUTH)
+    mock.assert_called_with("POST", uri,
+        data={'FriendlyName': 'QQ'}, auth=AUTH)
 
 
-@patch("twilio.rest.resources.make_twilio_request")
+@patch("twilio.rest.resources.base.make_twilio_request")
 def test_queue_delete(mock):
     resp = create_mock_json("tests/resources/queues_instance.json")
     mock.return_value = resp
 
     uri = "%s/Queues/%s" % (BASE_URI, QUEUE_SID)
-    r = instance_resource.delete()
+    instance_resource.delete()
 
     mock.assert_called_with("DELETE", uri, auth=AUTH)
