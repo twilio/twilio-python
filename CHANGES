@@ -3,6 +3,12 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.3.11
+-------------
+
+- Fix a bug where participants could not be kicked from a Conference
+
+
 Version 3.3.10
 -------------
 
