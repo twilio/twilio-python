@@ -1,10 +1,13 @@
-.. module:: twilio.rest.resources
+.. module:: twilio.rest.resources.sms_messages
 
 ============
 SMS Messages
 ============
 
-For more information, see the `SMS Message REST Resource <http://www.twilio.com/docs/api/rest/sms>`_ documentation.
+For more information, see the
+`SMS Message REST Resource <http://www.twilio.com/docs/api/rest/sms>`_
+documentation.
+
 
 Sending a Text Message
 ----------------------
@@ -53,7 +56,9 @@ Retrieving Sent Messages
 Filtering Your Messages
 -------------------------
 
-The :meth:`list` methods supports filtering on :attr:`to`, :attr:`from_`, and :attr:`date_sent`. The following will only show messages to "+5466758723" on January 1st, 2011.
+The :meth:`list` methods supports filtering on :attr:`to`, :attr:`from_`,
+and :attr:`date_sent`.
+The following will only show messages to "+5466758723" on January 1st, 2011.
 
 .. code-block:: python
 
@@ -71,5 +76,4 @@ The :meth:`list` methods supports filtering on :attr:`to`, :attr:`from_`, and :a
 
     for message in messages:
         print message.body
-
 

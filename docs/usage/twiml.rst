@@ -6,7 +6,12 @@
 TwiML Creation
 ==============
 
-TwiML creation begins with the :class:`Response` verb. Each successive verb is created by calling various methods on the response, such as :meth:`say` or :meth:`play`. These methods return the verbs they create to ease the creation of nested TwiML. To finish, call the :meth:`toxml` method on the :class:`Response`, which returns raw TwiML.
+TwiML creation begins with the :class:`Response` verb.
+Each successive verb is created by calling various methods on the response,
+such as :meth:`say` or :meth:`play`.
+These methods return the verbs they create to ease creation of nested TwiML.
+To finish, call the :meth:`toxml` method on the :class:`Response`,
+which returns raw TwiML.
 
 .. code-block:: python
 
@@ -21,8 +26,9 @@ TwiML creation begins with the :class:`Response` verb. Each successive verb is c
    <?xml version="1.0" encoding="utf-8"?>
    <Response><Say>Hello</Say><Response>
 
-The verb methods (outlined in the :doc:`complete reference </api/twiml>`) take the body (only text)
-of the verb as the first argument. All attributes are keyword arguments.
+The verb methods (outlined in the :doc:`complete reference </api/twiml>`)
+take the body (only text) of the verb as the first argument.
+All attributes are keyword arguments.
 
 .. code-block:: python
 
@@ -35,9 +41,12 @@ of the verb as the first argument. All attributes are keyword arguments.
 .. code-block:: xml
 
     <?xml version="1.0" encoding="utf-8"?>
-    <Response><Play loop="3">https://api.twilio.com/cowbell.mp3</Play><Response>
+    <Response>
+        <Play loop="3">https://api.twilio.com/cowbell.mp3</Play>
+    <Response>
 
-Python 2.6+ added the :const:`with` statement for context management. Using :const:`with`, the module can *almost* emulate Ruby blocks.
+Python 2.6+ added the :const:`with` statement for context management.
+Using :const:`with`, the module can *almost* emulate Ruby blocks.
 
 .. code-block:: python
 
@@ -59,7 +68,8 @@ which returns the following
       <Gather finishOnKey="4"><Say>World</Say></Gather>
     </Response>
 
-If you don't want the XML declaration in your output, use the :meth:`toxml` method
+If you don't want the XML declaration in your output,
+use the :meth:`toxml` method
 
 .. code-block:: python
 
@@ -77,3 +87,4 @@ If you don't want the XML declaration in your output, use the :meth:`toxml` meth
       <Say>Hello</Say>
       <Gather finishOnKey="4"><Say>World</Say></Gather>
     </Response>
+

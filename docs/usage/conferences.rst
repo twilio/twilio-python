@@ -6,6 +6,7 @@ Conferences and Participants
 
 For more information, see the `Conference REST Resource <http://www.twilio.com/docs/api/rest/conference>`_ and `Participant REST Resource <http://www.twilio.com/docs/api/rest/participant>`_ documentation.
 
+
 Listing Conferences
 -----------------------
 
@@ -22,6 +23,7 @@ Listing Conferences
 
     for conference in conferences:
         print conference.sid
+
 
 Filtering Conferences
 -----------------------
@@ -62,6 +64,10 @@ Each :class:`Conference` has a :attr:`participants` instance which represents al
     for participant in conference.participants.list():
         print participant.sid
 
+:class:`Conferences` and :class:`Participants` are subclasses of :class:`ListResource`.
+Therefore, their instances have the inherited methods such as :meth:`count`.
+
+
 Managing Participants
 ----------------------
 
@@ -93,3 +99,4 @@ code kicks out the first participant and mutes the rest.
     # And mute the rest
     for participant in participants:
         participant.mute()
+
