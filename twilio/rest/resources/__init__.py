@@ -47,3 +47,5 @@ from twilio.rest.resources.applications import (
 from twilio.rest.resources.accounts import Account, Accounts
 
 from twilio.rest.resources.usage_triggers import UsageTriggers
+
+from twilio.rest.resources.usage_records import UsageRecords
