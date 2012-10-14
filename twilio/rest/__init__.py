@@ -17,6 +17,8 @@ from twilio.rest.resources import Participants
 from twilio.rest.resources import PhoneNumbers
 from twilio.rest.resources import Conferences
 from twilio.rest.resources import Sandboxes
+from twilio.rest.resources import UsageTriggers
+from twilio.rest.resources import UsageRecords
 from urllib import urlencode
 from urlparse import urljoin
 
@@ -129,6 +131,8 @@ values from your Twilio Account at https://www.twilio.com/user/account.
         self.conferences = Conferences(account_uri, auth)
         self.queues = Queues(account_uri, auth)
         self.sandboxes = Sandboxes(account_uri, auth)
+        self.usage_triggers = UsageTriggers(account_uri, auth)
+        self.usage_records = UsageRecords(account_uri, auth)
 
         self.auth = auth
         self.account_uri = account_uri
