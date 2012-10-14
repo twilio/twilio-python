@@ -74,6 +74,15 @@ class UsageTriggers(ListResource):
 class UsageRecord(InstanceResource):
     """ A usage record resource """
 
+    def load(self, entries):
+        uri = entries.get('uri')
+        super(UsageRecord, self).load(entries)
+        self.__dict__.update({'uri': uri})
+
+    @property
+    def uri(self):
+        return self.__dict__.get('uri')
+
 
 class UsageRecords(ListResource):
     name = "Usage/Records"
