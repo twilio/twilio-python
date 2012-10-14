@@ -64,6 +64,13 @@ class UsageTriggers(ListResource):
         return self.create_instance(kwargs)
 
 
+    def delete(self, sid):
+        """
+        Delete a :class:`UsageTrigger`
+        """
+        return self.delete_instance(sid)
+
+
 class UsageRecord(InstanceResource):
     """ A usage record resource """
 
