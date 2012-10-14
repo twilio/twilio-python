@@ -1,5 +1,8 @@
 import sys
-import json
+try:
+    import json
+except ImportError:
+    import simplejson as json
 
 if sys.version_info < (2, 7):
     import unittest2 as unittest
