@@ -62,7 +62,7 @@ def test_records_paging(request):
     request.return_value = resp
 
     uri = "%s/Usage/Records" % BASE_URI
-    usage.records.all.list(
+    usage.records.list(
         start_date="2012-10-12",
         end_date="2012-10-13",
         category="sms")

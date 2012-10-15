@@ -83,8 +83,7 @@ class UsageRecord(InstanceResource):
     def uri(self):
         return self.__dict__.get('uri')
 
-
-class UsageRecords(ListResource):
+class BaseUsageRecords(ListResource):
     name = "Usage/Records"
     instance = UsageRecord
     key = "usage_records"
@@ -113,31 +112,43 @@ class UsageRecords(ListResource):
         return instance
 
 
-class UsageRecordsDaily(UsageRecords):
+class UsageRecords(BaseUsageRecords):
+    def __init__(self, base_uri, auth):
+        super(UsageRecords, self).__init__(base_uri, auth)
+        self.daily = UsageRecordsDaily(base_uri, auth)
+        self.monthly = UsageRecordsMonthly(base_uri, auth)
+        self.yearly = UsageRecordsYearly(base_uri, auth)
+        self.today = UsageRecordsToday(base_uri, auth)
+        self.yesterday = UsageRecordsYesterday(base_uri, auth)
+        self.this_month = UsageRecordsThisMonth(base_uri, auth)
+        self.last_month = UsageRecordsLastMonth(base_uri, auth)
+
+
+class UsageRecordsDaily(BaseUsageRecords):
     name = "Usage/Records/Daily"
 
 
-class UsageRecordsMonthly(UsageRecords):
+class UsageRecordsMonthly(BaseUsageRecords):
     name = "Usage/Records/Monthly"
 
 
-class UsageRecordsYearly(UsageRecords):
+class UsageRecordsYearly(BaseUsageRecords):
     name = "Usage/Records/Yearly"
 
 
-class UsageRecordsToday(UsageRecords):
+class UsageRecordsToday(BaseUsageRecords):
     name = "Usage/Records/Today"
 
 
-class UsageRecordsYesterday(UsageRecords):
+class UsageRecordsYesterday(BaseUsageRecords):
     name = "Usage/Records/Yesterday"
 
 
-class UsageRecordsThisMonth(UsageRecords):
+class UsageRecordsThisMonth(BaseUsageRecords):
     name = "Usage/Records/ThisMonth"
 
 
-class UsageRecordsLastMonth(UsageRecords):
+class UsageRecordsLastMonth(BaseUsageRecords):
     name = "Usage/Records/LastMonth"
 
 UsageRecord.subresources = [
@@ -150,22 +161,11 @@ UsageRecord.subresources = [
     UsageRecordsLastMonth
 ]
 
-class Records(object):
-    def __init__(self, base_uri, auth):
-        self.all = UsageRecords(base_uri, auth)
-        self.daily = UsageRecordsDaily(base_uri, auth)
-        self.monthly = UsageRecordsMonthly(base_uri, auth)
-        self.yearly = UsageRecordsYearly(base_uri, auth)
-        self.today = UsageRecordsToday(base_uri, auth)
-        self.yesterday = UsageRecordsYesterday(base_uri, auth)
-        self.this_month = UsageRecordsThisMonth(base_uri, auth)
-        self.last_month = UsageRecordsLastMonth(base_uri, auth)
-
 class Usage(object):
     """
     Holds all the specific Usage list resources
     """
 
     def __init__(self, base_uri, auth):
-        self.records = Records(base_uri, auth)
+        self.records = UsageRecords(base_uri, auth)
         self.triggers = UsageTriggers(base_uri, auth)
