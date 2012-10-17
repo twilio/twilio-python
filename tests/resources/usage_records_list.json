@@ -1,0 +1,65 @@
+{
+  "page": 0,
+  "num_pages": 1,
+  "page_size": 50,
+  "total": 2,
+  "start": 0,
+  "end": 1,
+  "uri": "\/2010-04-01\/Accounts\/AC4bf2dafbed59a5733d2c1c1c69a83a28\/Usage/Records.json?Page=0&PageSize=50",
+  "previous_page_uri": null,
+  "next_page_uri": "\/2010-04-01\/Accounts\/AC4bf2dafbed59a5733d2c1c1c69a83a28\/Calls.json?Page=1&PageSize=50",
+  "last_page_uri": "\/2010-04-01\/Accounts\/AC4bf2dafbed59a5733d2c1c1c69a83a28\/Calls.json?Page=10&PageSize=50",
+  "first_page_uri": "/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Records.json?Page=0&PageSize=50",
+   "usage_records": [
+      {
+         "category": "calleridlookups",
+         "subresource_uris": [
+            "/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Records/AllTime.json?Category=calleridlookups",
+            "/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Records/Today.json?Category=calleridlookups",
+            "/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Records/Yesterday.json?Category=calleridlookups",
+            "/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Records/ThisMonth.json?Category=calleridlookups",
+            "/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Records/LastMonth.json?Category=calleridlookups",
+            "/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Records/ThisYear.json?Category=calleridlookups",
+            "/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Records/LastYear.json?Category=calleridlookups",
+            "/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Records/Daily.json?Category=calleridlookups",
+            "/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Records/Monthly.json?Category=calleridlookups",
+            "/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Records/Yearly.json?Category=calleridlookups"
+         ],
+         "description": "Caller ID lookups",
+         "end_date": "2012-09-29",
+         "usage_unit": "Lookups",
+         "price": "0",
+         "uri": "/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Records.json?Category=calleridlookups&StartDate=2012-09-22&EndDate=2012-09-29",
+         "number": "0",
+         "account_sid": "ACed70abd024d3f57a4027b5dc2ca88d5b",
+         "trigger_uri": "/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Triggers.json?UsageCategory=calleridlookups",
+         "usage": "0",
+         "start_date": "2012-09-22"
+      },
+      {
+         "category": "recordings",
+         "subresource_uris": [
+            "/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Records/AllTime.json?Category=recordings",
+            "/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Records/Today.json?Category=recordings",
+            "/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Records/Yesterday.json?Category=recordings",
+            "/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Records/ThisMonth.json?Category=recordings",
+            "/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Records/LastMonth.json?Category=recordings",
+            "/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Records/ThisYear.json?Category=recordings",
+            "/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Records/LastYear.json?Category=recordings",
+            "/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Records/Daily.json?Category=recordings",
+            "/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Records/Monthly.json?Category=recordings",
+            "/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Records/Yearly.json?Category=recordings"
+         ],
+         "description": "Call recordings",
+         "end_date": "2012-09-29",
+         "usage_unit": "Minutes",
+         "price": "0",
+         "uri": "/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Records.json?Category=recordings&StartDate=2012-09-22&EndDate=2012-09-29",
+         "number": "0",
+         "account_sid": "ACed70abd024d3f57a4027b5dc2ca88d5b",
+         "trigger_uri": "/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Triggers.json?UsageCategory=recordings",
+         "usage": "0",
+         "start_date": "2012-09-22"
+      }
+  ]
+}
