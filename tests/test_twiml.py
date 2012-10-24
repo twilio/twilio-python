@@ -334,7 +334,7 @@ class TestConference(TwilioTest):
 
         #parse twiml XML string with Element Tree and inspect structure
         tree = ET.fromstring(xml)
-        self.conf = tree.find(".//Dial/Conference")
+        self.conf = tree.find(".//Conference")
 
     def test_conf_text(self):
         self.assertEqual(self.conf.text.strip(), "TestConferenceAttributes")
@@ -363,7 +363,7 @@ class TestQueue(TwilioTest):
         #parse twiml XML string with Element Tree and inspect
             #structure
             tree = ET.fromstring(xml)
-            self.conf = tree.find(".//Dial/Queue")
+            self.conf = tree.find(".//Queue")
 
     def test_conf_text(self):
         self.assertEqual(self.conf.text.strip(), "TestQueueAttribute")
@@ -386,7 +386,7 @@ class TestEnqueue(TwilioTest):
         #parse twiml XML string with Element Tree and inspect
         #structure
         tree = ET.fromstring(xml)
-        self.conf = tree.find(".//Enqueue")
+        self.conf = tree.find("./Enqueue")
 
     def test_conf_text(self):
         self.assertEqual(self.conf.text.strip(), "TestEnqueueAttribute")
