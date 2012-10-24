@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import with_statement
+from __future__ import unicode_literals
 import re
 from six import u, text_type
 import twilio
@@ -63,7 +64,7 @@ class TestSay(TwilioTest):
     def testSayFrench(self):
         """should say hello monkey"""
         r = Response()
-        r.append(twiml.Say(u("nécessaire et d'autres")))
+        r.append(twiml.Say("nécessaire et d'autres")) # it works on python 2.6 with the from __future__ import unicode_literal
         self.assertEquals(text_type(r),
                           '<?xml version="1.0" encoding="UTF-8"?><Response><Say>n&#233;cessaire et d\'autres</Say></Response>')
 

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 from mock import patch, Mock
 from six import u
 from twilio.rest import resources
@@ -42,7 +43,7 @@ def test_double_encoding(resp_mock, mock):
     http = mock.return_value
     http.request.return_value = (Mock(), Mock())
 
-    body = u("Chloéñ")
+    body = "Chloéñ" # I can do that with the from future import
 
     data = {
         "body": body.encode('utf-8'),
@@ -61,7 +62,7 @@ def test_paging(resp_mock, mock):
     http.request.return_value = (Mock(), Mock())
 
     data = {
-        "body": u("Chloéñ"),
+        "body": "Chloéñ", # I can do that with the from future import
         }
 
     resources.make_request("GET", "http://www.example.com", data=data)
