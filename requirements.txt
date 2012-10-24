@@ -1,3 +1,2 @@
 six
 httplib2
-unittest2
