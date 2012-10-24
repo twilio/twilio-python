@@ -13,7 +13,6 @@ REQUIRES = ["httplib2 >= 0.7", "six"]
 
 if sys.version_info < (2, 6):
     REQUIRES.append('simplejson')
-    print REQUIRES
     
 setup(
     name = "twilio",
