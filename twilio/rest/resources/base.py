@@ -102,6 +102,9 @@ class Resource(object):
         return (isinstance(other, self.__class__)
                 and self.__dict__ == other.__dict__)
 
+    def __hash__(self):
+        return  hash(frozenset(self.__dict__))
+
     def __ne__(self, other):
         return not self.__eq__(other)
 
