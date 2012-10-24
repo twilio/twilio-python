@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
+from six import b
+
 if sys.version_info < (2, 7):
     import unittest2 as unittest
 else:
@@ -44,7 +46,7 @@ class ValidationTest(unittest.TestCase):
             "ToZip": "94612",
             }
 
-        expected = b"fF+xx6dTinOaCdZ0aIeNkHr/ZAA="
+        expected = b("fF+xx6dTinOaCdZ0aIeNkHr/ZAA=")
 
         self.assertEquals(validator.compute_signature(uri, params), expected)
         self.assertTrue(validator.validate(uri, params, expected))
