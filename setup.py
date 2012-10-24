@@ -17,7 +17,7 @@ setup(
     author_email = "help@twilio.com",
     url = "http://github.com/twilio/twilio-python/",
     keywords = ["twilio","twiml"],
-    install_requires = ["httplib2 >= 0.7, < 0.8", "pyjwt==0.1.2"],
+    install_requires = ["httplib2 >= 0.7", "pyjwt"],
     packages = find_packages(),
     classifiers = [
         "Development Status :: 5 - Production/Stable",
