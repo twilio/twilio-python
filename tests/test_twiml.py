@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import with_statement
 import re
+from six import u, text_type
 import twilio
 import sys
 if sys.version_info < (2, 7):
@@ -15,7 +16,7 @@ import xml.etree.ElementTree as ET
 
 class TwilioTest(unittest.TestCase):
     def strip(self, xml):
-        return str(xml)
+        return text_type(xml)
 
     def improperAppend(self, verb):
         self.assertRaises(TwimlException, verb.append, twiml.Say(""))
@@ -62,8 +63,8 @@ class TestSay(TwilioTest):
     def testSayFrench(self):
         """should say hello monkey"""
         r = Response()
-        r.append(twiml.Say(u"nécessaire et d'autres"))
-        self.assertEquals(unicode(r),
+        r.append(twiml.Say(u("nécessaire et d'autres")))
+        self.assertEquals(text_type(r),
                           '<?xml version="1.0" encoding="UTF-8"?><Response><Say>n&#233;cessaire et d\'autres</Say></Response>')
 
     def testSayLoop(self):

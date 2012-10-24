@@ -3,6 +3,7 @@ Make sure to check out the TwiML overview and tutorial
 """
 
 import xml.etree.ElementTree as ET
+from six import u
 
 
 class TwimlException(Exception):
@@ -52,10 +53,10 @@ class Verb(object):
         :param bool xml_declaration: Include the XML declaration. Defaults to
                                      True
         """
-        xml = ET.tostring(self.xml()).encode("utf-8")
+        xml = ET.tostring(self.xml()).decode('utf-8')
 
         if xml_declaration:
-            return u'<?xml version="1.0" encoding="UTF-8"?>' + xml
+            return '<?xml version="1.0" encoding="UTF-8"?>' + xml
         else:
             return xml
 
@@ -63,7 +64,7 @@ class Verb(object):
         el = ET.Element(self.name)
 
         keys = self.attrs.keys()
-        keys.sort()
+        keys = sorted(keys)
         for a in keys:
             value = self.attrs[a]
 

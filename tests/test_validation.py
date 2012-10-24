@@ -44,7 +44,7 @@ class ValidationTest(unittest.TestCase):
             "ToZip": "94612",
             }
 
-        expected = "fF+xx6dTinOaCdZ0aIeNkHr/ZAA="
+        expected = b"fF+xx6dTinOaCdZ0aIeNkHr/ZAA="
 
         self.assertEquals(validator.compute_signature(uri, params), expected)
         self.assertTrue(validator.validate(uri, params, expected))

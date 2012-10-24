@@ -1,6 +1,7 @@
 import logging
-from urlparse import urlparse
-from urllib import urlencode
+from six import text_type, iteritems, binary_type
+from twilio.compat import urlparse
+from twilio.compat import urlencode
 
 import twilio
 from twilio import TwilioException, TwilioRestException
@@ -37,11 +38,14 @@ def make_request(method, url,
 
     if data is not None:
         udata = {}
-        for k, v in data.iteritems():
-            try:
-                udata[k.encode('utf-8')] = unicode(v).encode('utf-8')
-            except UnicodeDecodeError:
-                udata[k.encode('utf-8')] = unicode(v, 'utf-8').encode('utf-8')
+        for k, v in iteritems(data):
+            key = k.encode('utf-8')
+            if isinstance(v, text_type):
+                udata[key] = v.encode('utf-8')
+            elif isinstance(v, binary_type):
+                udata[key] = v
+            else:
+                raise ValueError('data should be either a binary or a string')
         data = urlencode(udata)
 
     if params is not None:
@@ -71,7 +75,7 @@ def make_twilio_request(method, uri, **kwargs):
 
     if "Accept" not in headers:
         headers["Accept"] = "application/json"
-        uri = uri + ".json"
+        uri += ".json"
 
     resp = make_request(method, uri, **kwargs)
 

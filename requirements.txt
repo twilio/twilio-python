@@ -1,2 +1,2 @@
+six
 httplib2
-pyjwt

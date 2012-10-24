@@ -17,7 +17,7 @@ setup(
     author_email = "help@twilio.com",
     url = "http://github.com/twilio/twilio-python/",
     keywords = ["twilio","twiml"],
-    install_requires = ["httplib2 >= 0.7", "pyjwt"],
+    install_requires = ["httplib2 >= 0.7", "six"],
     packages = find_packages(),
     classifiers = [
         "Development Status :: 5 - Production/Stable",
@@ -28,6 +28,7 @@ setup(
         "Programming Language :: Python :: 2.5",
         "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.2",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Communications :: Telephony",
         ],
