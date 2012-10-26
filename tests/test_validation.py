@@ -52,7 +52,7 @@ class ValidationTest(unittest.TestCase):
         self.assertTrue(validator.validate(uri, params, expected))
 
     @unittest.skip("utf 8 support still a work in progress")
-    def test_international_sms(self):
+    def te_st_international_sms(self):
 
         token = os.environ["TWILIO_AUTH_TOKEN"]
         validator = RequestValidator(token)
