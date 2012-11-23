@@ -24,3 +24,20 @@ Validating a phone number is quick and easy.
 Twilio will call the provided number and wait for the validation code to be
 entered.
 
+Delete a Phone Number
+---------------------
+
+Deleting a phone number is quick and easy.
+
+.. code-block:: python
+
+    from twilio.rest import TwilioRestClient
+    
+    # To find these visit https://www.twilio.com/user/account
+    account = "ACXXXXXXXXXXXXXXXXX"
+    token = "YYYYYYYYYYYYYYYYYY"
+    client = TwilioRestClient(account, token)
+
+    response = client.caller_ids.list(phone_number="+15555555555")
+    callerid = response[0]
+    print callerid.delete()
