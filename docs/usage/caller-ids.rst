@@ -40,4 +40,4 @@ Deleting a phone number is quick and easy.
 
     response = client.caller_ids.list(phone_number="+15555555555")
     callerid = response[0]
-    print callerid.delete()
+    callerid.delete()
