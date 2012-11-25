@@ -11,8 +11,8 @@ Making a Phone Call
 -------------------
 
 The :class:`Calls` resource allows you to make outgoing calls. Before a call
-can be successfully started, you'll need a url which outputs valid `TwiML
-<http://www.twilio.com/docs/api/twiml/>`_.
+can be successfully started, you'll need a to set up a url endpoint which
+outputs valid `TwiML <http://www.twilio.com/docs/api/twiml/>`_.
 
 .. code-block:: python
 
@@ -66,7 +66,9 @@ Each :class:`Call` resource also has access to its `notifications`, `recordings`
     print call.recordings.list()
     print call.transcriptions.list()
 
-However, what if you only have a `CallSid`, and not the actual :class:`Resource`? No worries, as :meth:`list` can be filter based on `CallSid`.
+However, what if you only have a `CallSid`, and not the actual
+:class:`Resource`? No worries, as :meth:`list` can be filtered based on a given
+`CallSid`.
 
 .. code-block:: python
 
