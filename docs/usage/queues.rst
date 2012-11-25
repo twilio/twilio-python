@@ -18,7 +18,7 @@ Listing Queues
     AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
 
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
-    conferences = client.queues.list()
+    queues = client.queues.list()
 
     for queue in queues:
         print queue.sid
