@@ -1,6 +1,6 @@
-====================
+=============================
 Twilio Python Helper Library
-====================
+=============================
 
 Make requests to Twilio's `REST API <http://www.twilio.com/docs/api/twiml/>`_ and create `TwiML <http://www.twilio.com/docs/api/twiml/>`_ without a hassle. And you thought Twilio couldn't get any easier.
 
