@@ -71,7 +71,7 @@ Listing All Resources
 
 Sometimes you'd like to retrieve all records from a list resource. Instead of manually paging over the resource, the :class:`resources.ListResource.iter` method returns a generator. After exhausting the current page, the generator will request the next page of results.
 
-.. warning:: Accessing all your records can be slow. We suggest only doing so when you absolutely need all the records
+.. warning:: Accessing all your records can be slow. We suggest only doing so when you absolutely need all the records.
 
 .. code-block:: python
 
@@ -102,5 +102,5 @@ To get an individual instance resource, use :class:`resources.ListResource.get`.
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
 
     call = client.calls.get("CA123")
-    print call.sid
+    print call.to
 
