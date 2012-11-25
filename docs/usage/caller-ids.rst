@@ -19,7 +19,7 @@ Validating a phone number is quick and easy.
 
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     response = client.caller_ids.validate("+44 9876543212")
-    print response["validation_code"]
+    print response.validation_code
 
 Twilio will call the provided number and wait for the validation code to be
 entered.

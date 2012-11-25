@@ -81,7 +81,7 @@ However, it's easier to purchase numbers after finding them using search (as
 shown in the first example).
 
 Updating Properties on a Number
-------------------
+-------------------------------
 
 To update the properties on a phone number, call :meth:`update`
 on the phone number object, with any of the parameters

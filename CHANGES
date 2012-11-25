@@ -4,13 +4,13 @@ twilio-python Changelog
 Here you can see the full list of changes between each twilio-python release.
 
 Version 3.3.11
--------------
+--------------
 
 - Fix a bug where participants could not be kicked from a Conference
 
 
 Version 3.3.10
--------------
+--------------
 
 - Add support for Queue. Fix a bug where the library wouldn't work in Python 2.5
 
@@ -28,12 +28,12 @@ Version 3.3.8
 
 
 Version 3.3.7
------------
+-------------
 
 - Allow arbitrary keyword arguments on resource creation and listing
 
 Version 3.3.6
------------
+-------------
 
 - Remove doc/tmp directory which was preventing installation on certain Windows machines
 - Add Travis CI integration
