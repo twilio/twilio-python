@@ -64,6 +64,11 @@ class UsageTriggers(ListResource):
         return self.create_instance(kwargs)
 
 
+    def update(self, sid, **kwargs):
+        """ Update the UsageTrigger with the given sid to have the kwargs """
+        return self.update_instance(sid, kwargs)
+
+
     def delete(self, sid):
         """
         Delete a :class:`UsageTrigger`
