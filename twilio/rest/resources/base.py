@@ -5,7 +5,7 @@ from urllib import urlencode
 import twilio
 from twilio import TwilioException, TwilioRestException
 from twilio.rest.resources.imports import parse_qs, httplib2, json
-from twilio.rest.resources.util import transform_params
+from twilio.rest.resources.util import transform_params, parse_rfc2822_date
 
 
 class Response(object):
@@ -142,6 +142,10 @@ class InstanceResource(Resource):
 
         if "uri" in entries.keys():
             del entries["uri"]
+
+        for key in entries.keys():
+            if key.startswith("date_"):
+                entries[key] = parse_rfc2822_date(entries[key])
 
         self.__dict__.update(entries)
 
