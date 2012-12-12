@@ -8,10 +8,11 @@ class TwilioException(Exception):
 
 class TwilioRestException(TwilioException):
 
-    def __init__(self, status, uri, msg=""):
+    def __init__(self, status, uri, msg="", code=None):
         self.uri = uri
         self.status = status
         self.msg = msg
+        self.code = code
 
     def __str__(self):
         return "HTTP ERROR %s: %s \n %s" % (self.status, self.msg, self.uri)
