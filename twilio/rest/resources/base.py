@@ -78,11 +78,13 @@ def make_twilio_request(method, uri, **kwargs):
     if not resp.ok:
         try:
             error = json.loads(resp.content)
-            message = "%s: %s" % (error["code"], error["message"])
+            code = error["code"]
+            message = "%s: %s" % (code, error["message"])
         except:
+            code = None
             message = resp.content
 
-        raise TwilioRestException(resp.status_code, resp.url, message)
+        raise TwilioRestException(resp.status_code, resp.url, message, code)
 
     return resp
 
