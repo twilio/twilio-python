@@ -33,8 +33,8 @@ Finding numbers to buy couldn't be easier. We first search for a number in area 
 Toll Free Numbers
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-By default, :meth:`PhoneNumbers.search` looks for local phone numbers. Set :data:`type` to
-``tollfree`` to search toll-free numbers instead.
+By default, :meth:`PhoneNumbers.search` looks for local phone numbers. Add a
+:data:`type` : ``tollfree`` parameter to search toll-free numbers instead.
 
 .. code-block:: python
 
@@ -60,8 +60,9 @@ You can use the ''*'' wildcard to match any character. The following example fin
 International Numbers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-By default, Phone number search is looking for US-based numbers.
-Set :data:`country` keyword to your country code of choice to search for international numbers.
+By default, the client library will look for US numbers. Set the
+:data:`country` keyword to a country code of your choice to search for
+international numbers.
 
 .. code-block:: python
 
@@ -73,12 +74,12 @@ Set :data:`country` keyword to your country code of choice to search for interna
 - :data:`region`: When searching the US, show numbers in this state
 - :data:`postal_code`: Only show numbers in this area code
 - :data:`rate_center`: US only.
-- :data:`near_lat_long`: Find close numbers within Distance miles.
+- :data:`near_lat_long`: Find numbers near this latitude and longitude.
 - :data:`distance`: Search radius for a Near- query in miles.
 
 The `AvailablePhoneNumbers REST Resource
 <http://www.twilio.com/docs/api/rest/available-phone-numbers>`_ documentation
-also documents the various search options.
+has more information on the various search options.
 
 Buying a Number
 ---------------
