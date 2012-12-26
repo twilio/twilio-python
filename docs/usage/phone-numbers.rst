@@ -56,8 +56,27 @@ You can use the ''*'' wildcard to match any character. The following example fin
 
     numbers = client.phone_numbers.search(contains="D*D")
 
-:meth:`PhoneNumbers.search` method has plenty of other options
-to augment your search. The `AvailablePhoneNumbers REST Resource
+
+International Numbers
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+By default, Phone number search is looking for US-based numbers.
+Set :data:`country` keyword to your country code of choice to search for international numbers.
+
+.. code-block:: python
+
+    numbers = client.phone_numbers.search(country="FR")
+
+
+:meth:`PhoneNumbers.search` method has plenty of other options to augment your search :
+
+- :data:`region`: When searching the US, show numbers in this state
+- :data:`postal_code`: Only show numbers in this area code
+- :data:`rate_center`: US only.
+- :data:`near_lat_long`: Find close numbers within Distance miles.
+- :data:`distance`: Search radius for a Near- query in miles.
+
+The `AvailablePhoneNumbers REST Resource
 <http://www.twilio.com/docs/api/rest/available-phone-numbers>`_ documentation
 also documents the various search options.
 
