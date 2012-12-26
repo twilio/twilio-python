@@ -1,4 +1,5 @@
 import datetime
+from email.utils import parsedate
 
 
 def transform_params(p):
@@ -36,6 +37,14 @@ def parse_date(d):
         return str(d)
     elif isinstance(d, str):
         return d
+
+
+def parse_rfc2822_date(s):
+    """
+    Parses an RFC 2822 date string and returns a time zone naive datetime
+    object. It is assumed that all dates returned from Twilio are UTC.
+    """
+    return datetime.datetime(*parsedate(s)[:6])
 
 
 def convert_boolean(boolean):
