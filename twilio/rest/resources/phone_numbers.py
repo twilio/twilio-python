@@ -147,7 +147,7 @@ class PhoneNumbers(ListResource):
     def search(self, **kwargs):
         """
         :param type: The type of phone number to search for.
-        :param string country: Either "US" or "CA". Defaults to "US"
+        :param string country: Only show numbers for this country (iso2)
         :param string region: When searching the US, show numbers in this state
         :param string postal_code: Only show numbers in this area code
         :param string rate_center: US only.
