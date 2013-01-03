@@ -8,6 +8,7 @@ from twilio.rest.resources import AuthorizedConnectApps
 from twilio.rest.resources import Calls
 from twilio.rest.resources import CallerIds
 from twilio.rest.resources import Queues
+from twilio.rest.resources import Members
 from twilio.rest.resources import ConnectApps
 from twilio.rest.resources import Notifications
 from twilio.rest.resources import Recordings
@@ -18,8 +19,6 @@ from twilio.rest.resources import PhoneNumbers
 from twilio.rest.resources import Conferences
 from twilio.rest.resources import Sandboxes
 from twilio.rest.resources import Usage
-from urllib import urlencode
-from urlparse import urljoin
 
 
 def find_credentials():
@@ -142,3 +141,11 @@ values from your Twilio Account at https://www.twilio.com/user/account.
         """
         base_uri = "%s/Conferences/%s" % (self.account_uri, conference_sid)
         return Participants(base_uri, self.auth)
+
+    def members(self, queue_sid):
+        """
+        Return a :class:`Members` instance for the :class:`Queue`
+        with the given queue_sid
+        """
+        base_uri = "%s/Queues/%s" % (self.account_uri, queue_sid)
+        return Members(base_uri, self.auth)
