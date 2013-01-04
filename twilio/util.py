@@ -1,19 +1,15 @@
 import base64
 import hmac
 import time
-import urllib
 from hashlib import sha1
 
-try:
-    import jwt
-except:
-    from twilio.contrib import jwt
-
+from twilio import jwt
+from twilio.compat import urlencode
 
 class RequestValidator(object):
 
     def __init__(self, token):
-        self.token = token
+        self.token = token.encode("utf-8")
 
     def compute_signature(self, uri, params):
         """Compute the signature for a given request
@@ -24,7 +20,7 @@ class RequestValidator(object):
 
         :returns: The computed signature
         """
-        s = unicode(uri)
+        s = uri
         if len(params) > 0:
             for k, v in sorted(params.items()):
                 s += k + v
@@ -90,7 +86,7 @@ class TwilioCapability(object):
         payload = self.payload()
         payload['iss'] = self.account_sid
         payload['exp'] = int(time.time() + expires)
-        return jwt.encode(payload, self.auth_token, "HS256")
+        return jwt.encode(payload, self.auth_token)
 
     def allow_client_outgoing(self, application_sid, **kwargs):
         """Allow the user of this token to make outgoing connections.
@@ -103,7 +99,7 @@ class TwilioCapability(object):
             "appSid": application_sid,
         }
         if kwargs:
-            scope_params["appParams"] = urllib.urlencode(kwargs, doseq=True)
+            scope_params["appParams"] = urlencode(kwargs, doseq=True)
 
         self.capabilities["outgoing"] = ScopeURI("client", "outgoing",
                                                  scope_params)
@@ -127,7 +123,7 @@ class TwilioCapability(object):
             "path": "/2010-04-01/Events",
         }
         if kwargs:
-            scope_params['params'] = urllib.urlencode(kwargs, doseq=True)
+            scope_params['params'] = urlencode(kwargs, doseq=True)
 
         self.capabilities["events"] = ScopeURI("stream", "subscribe",
                                                scope_params)
@@ -141,6 +137,6 @@ class ScopeURI(object):
         self.params = params
 
     def __str__(self):
-        params = urllib.urlencode(self.params) if self.params else None
+        params = urlencode(self.params) if self.params else None
         param_string = "?%s" % params if params else ''
         return "scope:%s:%s%s" % (self.service, self.privilege, param_string)

@@ -1,4 +1,5 @@
 import datetime
+from six import iteritems
 
 
 def transform_params(p):
@@ -70,7 +71,7 @@ def convert_keys(d):
 
     result = {}
 
-    for k, v in d.iteritems():
+    for k, v in iteritems(d):
         if k in special:
             result[special[k]] = v
         else:
@@ -81,7 +82,7 @@ def convert_keys(d):
 
 def normalize_dates(myfunc):
     def inner_func(*args, **kwargs):
-        for k, v in kwargs.iteritems():
+        for k, v in iteritems(kwargs):
             res = [True for s in ["after", "before", "on"] if s in k]
             if len(res):
                 kwargs[k] = parse_date(v)

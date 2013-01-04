@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import with_statement
-import re
-import twilio
-import sys
-if sys.version_info < (2, 7):
-    import unittest2 as unittest
-else:
+
+from six import u, text_type
+import six
+if six.PY3:
     import unittest
+else:
+    import unittest2 as unittest
 from twilio import twiml
 from twilio.twiml import TwimlException
 from twilio.twiml import Response
@@ -15,7 +15,7 @@ import xml.etree.ElementTree as ET
 
 class TwilioTest(unittest.TestCase):
     def strip(self, xml):
-        return str(xml)
+        return text_type(xml)
 
     def improperAppend(self, verb):
         self.assertRaises(TwimlException, verb.append, twiml.Say(""))
@@ -62,8 +62,8 @@ class TestSay(TwilioTest):
     def testSayFrench(self):
         """should say hello monkey"""
         r = Response()
-        r.append(twiml.Say(u"nécessaire et d'autres"))
-        self.assertEquals(unicode(r),
+        r.append(twiml.Say(u("n\xe9cessaire et d'autres"))) # it works on python 2.6 with the from __future__ import unicode_literal
+        self.assertEquals(text_type(r),
                           '<?xml version="1.0" encoding="UTF-8"?><Response><Say>n&#233;cessaire et d\'autres</Say></Response>')
 
     def testSayLoop(self):
@@ -332,7 +332,7 @@ class TestConference(TwilioTest):
 
         #parse twiml XML string with Element Tree and inspect structure
         tree = ET.fromstring(xml)
-        self.conf = tree.find(".//Dial/Conference")
+        self.conf = tree.find(".//Conference")
 
     def test_conf_text(self):
         self.assertEqual(self.conf.text.strip(), "TestConferenceAttributes")
@@ -361,7 +361,7 @@ class TestQueue(TwilioTest):
         #parse twiml XML string with Element Tree and inspect
             #structure
             tree = ET.fromstring(xml)
-            self.conf = tree.find(".//Dial/Queue")
+            self.conf = tree.find(".//Queue")
 
     def test_conf_text(self):
         self.assertEqual(self.conf.text.strip(), "TestQueueAttribute")
@@ -384,7 +384,7 @@ class TestEnqueue(TwilioTest):
         #parse twiml XML string with Element Tree and inspect
         #structure
         tree = ET.fromstring(xml)
-        self.conf = tree.find(".//Enqueue")
+        self.conf = tree.find("./Enqueue")
 
     def test_conf_text(self):
         self.assertEqual(self.conf.text.strip(), "TestEnqueueAttribute")

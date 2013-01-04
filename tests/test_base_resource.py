@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import with_statement
-import sys
-
-if sys.version_info < (2, 7):
-    import unittest2 as unittest
-else:
+import six
+if six.PY3:
     import unittest
+else:
+    import unittest2 as unittest
 
 from mock import Mock, patch
 from nose.tools import assert_equals
@@ -13,6 +12,7 @@ from nose.tools import raises
 from twilio.rest.resources import Resource
 from twilio.rest.resources import ListResource
 from twilio.rest.resources import InstanceResource
+from six import advance_iterator
 
 base_uri = "https://api.twilio.com/2010-04-01"
 account_sid = "AC123"
@@ -51,12 +51,12 @@ class ListResourceTest(unittest.TestCase):
         self.r.request.return_value = Mock(), {}
 
         with self.assertRaises(StopIteration):
-            self.r.iter().next()
+            advance_iterator(self.r.iter())
 
     def testRequest(self):
         self.r.request = Mock()
         self.r.request.return_value = Mock(), {self.r.key: [{'sid': 'foo'}]}
-        self.r.iter().next()
+        advance_iterator(self.r.iter())
         self.r.request.assert_called_with("GET", "https://api.twilio.com/2010-04-01/Resources", params={})
  
     def testIterOneItem(self):
@@ -64,17 +64,17 @@ class ListResourceTest(unittest.TestCase):
         self.r.request.return_value = Mock(), {self.r.key: [{'sid': 'foo'}]}
 
         items = self.r.iter()
-        items.next()
+        advance_iterator(items)
 
         with self.assertRaises(StopIteration):
-            items.next()
+            advance_iterator(items)
   
     def testIterNoNextPage(self):
         self.r.request = Mock()
         self.r.request.return_value = Mock(), {self.r.key: []}
 
         with self.assertRaises(StopIteration):
-            self.r.iter().next()
+            advance_iterator(self.r.iter())
  
     def testKeyValue(self):
         self.r.key = "Hey"

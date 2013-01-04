@@ -1,5 +1,5 @@
 from twilio.rest.resources import InstanceResource, ListResource
-
+from six import iteritems
 
 class ConnectApp(InstanceResource):
     """ An authorized connect app """
@@ -30,7 +30,7 @@ class AuthorizedConnectApp(ConnectApp):
         """ Translate certain parameters into others"""
         result = {}
 
-        for k, v in entries.iteritems():
+        for k, v in iteritems(entries):
             k = k.replace("connect_app_", "")
             result[k] = v
 
