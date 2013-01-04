@@ -1,3 +1,4 @@
+import sys
 from twilio import __version__
 from setuptools import setup, find_packages
 
@@ -8,6 +9,14 @@ from setuptools import setup, find_packages
 #
 # You need to have the setuptools module installed. Try reading the setuptools
 # documentation: http://pypi.python.org/pypi/setuptools
+REQUIRES = ["httplib2 >= 0.7", "six"]
+
+if sys.version_info < (2, 6):
+    REQUIRES.append('simplejson')
+if sys.version_info >= (3,0):
+    REQUIRES.append('unittest2py3k')
+else:
+    REQUIRES.append('unittest2')
 
 setup(
     name = "twilio",
@@ -17,7 +26,7 @@ setup(
     author_email = "help@twilio.com",
     url = "http://github.com/twilio/twilio-python/",
     keywords = ["twilio","twiml"],
-    install_requires = ["httplib2 >= 0.7, < 0.8", "pyjwt==0.1.2"],
+    install_requires = REQUIRES,
     packages = find_packages(),
     classifiers = [
         "Development Status :: 5 - Production/Stable",
@@ -28,6 +37,7 @@ setup(
         "Programming Language :: Python :: 2.5",
         "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.2",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Communications :: Telephony",
         ],

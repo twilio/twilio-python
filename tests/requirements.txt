@@ -1,0 +1,7 @@
+sphinx
+mock==0.8.0
+nose
+simplejson
+unittest2
+coverage
+nosexcover
