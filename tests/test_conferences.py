@@ -1,8 +1,9 @@
-import sys
-if sys.version_info < (2, 7):
-    import unittest2 as unittest
-else:
+import six
+if six.PY3:
     import unittest
+else:
+    import unittest2 as unittest
+
 from datetime import date
 from mock import patch, Mock
 from twilio.rest.resources import Conferences

@@ -1,8 +1,8 @@
-import sys
-if sys.version_info < (2, 7):
-    import unittest2 as unittest
-else:
+import six
+if six.PY3:
     import unittest
+else:
+    import unittest2 as unittest
 
 from twilio.rest import TwilioRestClient, resources
 from mock import patch, Mock

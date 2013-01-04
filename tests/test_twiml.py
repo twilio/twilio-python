@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import with_statement
 
-import re
 from six import u, text_type
-import twilio
-import sys
-if sys.version_info < (2, 7):
-    import unittest2 as unittest
-else:
+import six
+if six.PY3:
     import unittest
+else:
+    import unittest2 as unittest
 from twilio import twiml
 from twilio.twiml import TwimlException
 from twilio.twiml import Response

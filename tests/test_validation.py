@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
-import os
-import sys
 from six import b
 
-if sys.version_info < (2, 7):
-    import unittest2 as unittest
-else:
+import six
+if six.PY3:
     import unittest
+else:
+    import unittest2 as unittest
 from twilio.util import RequestValidator
 
 
