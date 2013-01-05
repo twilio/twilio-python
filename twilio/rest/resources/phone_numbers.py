@@ -79,10 +79,13 @@ class PhoneNumber(InstanceResource):
         a = self.parent.transfer(self.name, account_sid)
         self.load(a.__dict__)
 
-    def update(self, **kwargs):
+    def update(self, status_callback_url=None, **kwargs):
         """
         Update this phone number instance.
         """
+        kwargs["StatusCallback"] = kwargs.get("status_callback",
+                                              status_callback_url)
+
         a = self.parent.update(self.name, **kwargs)
         self.load(a.__dict__)
 
