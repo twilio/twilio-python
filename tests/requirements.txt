@@ -5,3 +5,4 @@ simplejson
 unittest2
 coverage
 nosexcover
+six

@@ -1,7 +1,7 @@
 import re
 
 from twilio import TwilioException
-from twilio.rest.resources.util import transform_params
+from twilio.rest.resources.util import change_dict_key, transform_params
 from twilio.rest.resources import InstanceResource, ListResource
 
 
@@ -79,14 +79,14 @@ class PhoneNumber(InstanceResource):
         a = self.parent.transfer(self.name, account_sid)
         self.load(a.__dict__)
 
-    def update(self, status_callback_url=None, **kwargs):
+    def update(self, **kwargs):
         """
         Update this phone number instance.
         """
-        kwargs["StatusCallback"] = kwargs.get("status_callback",
-                                              status_callback_url)
+        kwargs_copy = dict(kwargs)
+        change_dict_key(kwargs_copy, from_key="status_callback_url", to_key="status_callback")
 
-        a = self.parent.update(self.name, **kwargs)
+        a = self.parent.update(self.name, **kwargs_copy)
         self.load(a.__dict__)
 
     def delete(self):
@@ -170,9 +170,12 @@ class PhoneNumbers(ListResource):
         """
         Update this phone number instance
         """
-        if "application_sid" in kwargs:
+        kwargs_copy = dict(kwargs)
+        change_dict_key(kwargs_copy, from_key="status_callback_url", to_key="status_callback")
+
+        if "application_sid" in kwargs_copy:
             for sid_type in ["voice_application_sid", "sms_application_sid"]:
-                if sid_type not in kwargs:
-                    kwargs[sid_type] = kwargs["application_sid"]
-            del kwargs["application_sid"]
-        return self.update_instance(sid, kwargs)
+                if sid_type not in kwargs_copy:
+                    kwargs_copy[sid_type] = kwargs_copy["application_sid"]
+            del kwargs_copy["application_sid"]
+        return self.update_instance(sid, kwargs_copy)
