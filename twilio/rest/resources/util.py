@@ -90,3 +90,17 @@ def normalize_dates(myfunc):
     inner_func.__doc__ = myfunc.__doc__
     inner_func.__repr__ = myfunc.__repr__
     return inner_func
+
+def change_dict_key(d, from_key, to_key):
+    """
+    Changes a dictionary's key from from_key to to_key. No-op if the key does not exist.
+
+    :param d: Dictionary with key to change
+    :param from_key: Old key
+    :param to_key: New key
+    :return: None
+    """
+    try:
+        d[to_key] = d.pop(from_key)
+    except KeyError:
+        pass
