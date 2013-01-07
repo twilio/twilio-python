@@ -21,6 +21,19 @@ class PhoneNumberTest(unittest.TestCase):
         self.uri = "/base"
         self.auth = ("AC123", "token")
 
+    def test_update_rename_status_callback_url(self):
+        mock = Mock()
+        mock.uri = "/base"
+        instance = PhoneNumber(mock, "SID")
+        instance.update(status_callback_url="http://www.example.com")
+        mock.update.assert_called_with("SID", status_callback="http://www.example.com")
+
+    def test_update_instance_rename_status_callback_url(self):
+        resource = PhoneNumbers(self.uri, self.auth)
+        resource.update_instance = Mock()
+        resource.update("SID", status_callback_url="http://www.example.com")
+        resource.update_instance.assert_called_with("SID", {"status_callback": "http://www.example.com"})
+
     def test_application_sid(self):
         resource = PhoneNumbers(self.uri, self.auth)
         resource.update_instance = Mock()
