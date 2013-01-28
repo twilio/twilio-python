@@ -14,9 +14,6 @@ except ImportError:
         from django.utils import simplejson as json
 
 # httplib2
-try:
-    import httplib2
-except ImportError:
-    from twilio.contrib import httplib2
+import httplib2
 
 
