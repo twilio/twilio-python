@@ -71,6 +71,26 @@ class Calls(ListResource):
         kwargs["EndTime>"] = ended_after
         kwargs["EndTime"] = parse_date(ended)
         return self.get_instances(kwargs)
+    
+    @normalize_dates
+    def num_pages(self, from_=None, ended_after=None,
+             ended_before=None, ended=None, started_before=None,
+             started_after=None, started=None, **kwargs):
+        """
+        Returns a number of pages in results of a corresponding list request. Accepts same
+        parameter as the list resource.
+
+        :param date after: Only list calls started after this datetime
+        :param date before: Only list calls started before this datetime
+        """
+        kwargs["from"] = from_
+        kwargs["StartTime<"] = started_before
+        kwargs["StartTime>"] = started_after
+        kwargs["StartTime"] = parse_date(started)
+        kwargs["EndTime<"] = ended_before
+        kwargs["EndTime>"] = ended_after
+        kwargs["EndTime"] = parse_date(ended)
+        return self.get_number_pages(kwargs)
 
     def create(self, to, from_, url, status_method=None, **kwargs):
         """
