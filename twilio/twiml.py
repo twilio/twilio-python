@@ -412,8 +412,8 @@ class Dial(Verb):
     def queue(self, name, **kwargs):
         return self.append(Queue(name, **kwargs))
 
-    def sip(self, name=None, **kwargs):
-        return self.append(Sip(name, **kwargs))
+    def sip(self, sip_address=None, **kwargs):
+        return self.append(Sip(sip_address, **kwargs))
 
     def addNumber(self, *args, **kwargs):
         return self.number(*args, **kwargs)
@@ -509,7 +509,7 @@ class Sip(Verb):
 
 
 class Uri(Verb):
-    """A collection of headers"""
+    """A uniform resource indentifier"""
     def __init__(self, uri, **kwargs):
         super(Uri, self).__init__(**kwargs)
         self.body = uri
