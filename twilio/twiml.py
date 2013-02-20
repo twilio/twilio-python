@@ -4,7 +4,7 @@ Make sure to check out the TwiML overview and tutorial
 
 import xml.etree.ElementTree as ET
 from six import u
-
+from six import iteritems
 
 class TwimlException(Exception):
     pass
@@ -502,7 +502,7 @@ class Sip(Verb):
         """
         collection = Headers()
 
-        for key, value in headers.iteritems():
+        for key, value in iteritems(headers):
             collection.append(Header(name=key, value=value))
 
         return self.append(collection)
