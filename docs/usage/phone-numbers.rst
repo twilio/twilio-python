@@ -33,8 +33,8 @@ Finding numbers to buy couldn't be easier. We first search for a number in area 
 Toll Free Numbers
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-By default, :meth:`PhoneNumbers.search` looks for local phone numbers. Set :data:`type` to
-``tollfree`` to search toll-free numbers instead.
+By default, :meth:`PhoneNumbers.search` looks for local phone numbers. Add a
+:data:`type` : ``tollfree`` parameter to search toll-free numbers instead.
 
 .. code-block:: python
 
@@ -56,11 +56,30 @@ You can use the ''*'' wildcard to match any character. The following example fin
 
     numbers = client.phone_numbers.search(contains="D*D")
 
-:meth:`PhoneNumbers.search` method has plenty of other options
-to augment your search. The `AvailablePhoneNumbers REST Resource
-<http://www.twilio.com/docs/api/rest/available-phone-numbers>`_ documentation
-also documents the various search options.
 
+International Numbers
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+By default, the client library will look for US numbers. Set the
+:data:`country` keyword to a country code of your choice to search for
+international numbers.
+
+.. code-block:: python
+
+    numbers = client.phone_numbers.search(country="FR")
+
+
+:meth:`PhoneNumbers.search` method has plenty of other options to augment your search :
+
+- :data:`region`: When searching the US, show numbers in this state
+- :data:`postal_code`: Only show numbers in this area code
+- :data:`rate_center`: US only.
+- :data:`near_lat_long`: Find numbers near this latitude and longitude.
+- :data:`distance`: Search radius for a Near- query in miles.
+
+The `AvailablePhoneNumbers REST Resource
+<http://www.twilio.com/docs/api/rest/available-phone-numbers>`_ documentation
+has more information on the various search options.
 
 Buying a Number
 ---------------
@@ -78,8 +97,30 @@ If you've found a phone number you want, you can purchase the number.
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     number = client.phone_numbers.purchase("+15305431234")
 
-However, it's easier to purchase numbers after finding them using search (as shown in the first example).
+However, it's easier to purchase numbers after finding them using search (as
+shown in the first example).
 
+Updating Properties on a Number
+-------------------------------
+
+To update the properties on a phone number, call :meth:`update`
+on the phone number object, with any of the parameters
+listed in the `IncomingPhoneNumbers Resource documentation
+<http://www.twilio.com/docs/api/rest/incoming-phone-numbers>`_
+
+.. code-block:: python
+
+    from twilio.rest import TwilioRestClient
+
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
+    for number in client.phone_numbers.list(api_version="2010-04-01"):
+        number.update(voice_url="http://twimlets.com/holdmusic?" + 
+            "Bucket=com.twilio.music.ambient", 
+            status_callback="http://example.com/callback")
 
 Changing Applications
 ----------------------
@@ -101,22 +142,8 @@ An :class:`Application` encapsulates all necessary URLs for use with phone numbe
 
 See :doc:`/usage/applications` for instructions on updating and maintaining Applications.
 
-Validate Caller Id
+Validate a Phone Number
 -----------------------
-Twilio Adding a new phone number to your validated numbers is quick and easy
 
-.. code-block:: python
-
-    from twilio.rest import TwilioRestClient
-
-    # To find these visit https://www.twilio.com/user/account
-    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
-    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
-
-    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
-    response = client.caller_ids.validate("+9876543212")
-    print response["validation_code"]
-
-Twilio will call the provided number and wait for the validation code to be
-entered.
+See validation instructions here: :doc:`/usage/caller-ids`:
 

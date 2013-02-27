@@ -3,8 +3,55 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.4.3
+-------------
+
+Adds correct dependencies to the `setup.py` file.
+
+Version 3.4.2
+-------------
+
+Released on January 2, 2013
+
+Adds a convenience function to retrieve the members of a queue by running 
+client.members("QU123").
+
+Version 3.4.1
+-------------
+
+Python3 support!
+
+Version 3.3.11
+--------------
+
+- Fix a bug where participants could not be kicked from a Conference
+
+
+Version 3.3.10
+--------------
+
+- Add support for Queue. Fix a bug where the library wouldn't work in Python 2.5
+
+
+Version 3.3.9
+-------------
+
+- Fix an error introduced in 3.3.7 that prevented validation calls from
+  succeeding.
+
+Version 3.3.8
+-------------
+
+- Use next_page_uri when iterating over a list resource
+
+
+Version 3.3.7
+-------------
+
+- Allow arbitrary keyword arguments on resource creation and listing
+
 Version 3.3.6
------------
+-------------
 
 - Remove doc/tmp directory which was preventing installation on certain Windows machines
 - Add Travis CI integration
@@ -15,7 +62,7 @@ Version 3.3.5
 
 Released on January 18, 2011
 
-- Fix a bug with the depreacted `TwilioRestClient.request` method
+- Fix a bug with the deprecated `TwilioRestClient.request` method
 - Fix a bug in filtering SMS messages by DateSent
 
 Version 3.3.4

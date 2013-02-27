@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import with_statement
-import re
-import twilio
-import sys
-if sys.version_info < (2, 7):
-    import unittest2 as unittest
-else:
+
+from six import u, text_type
+import six
+if six.PY3:
     import unittest
+else:
+    import unittest2 as unittest
 from twilio import twiml
 from twilio.twiml import TwimlException
 from twilio.twiml import Response
@@ -15,7 +15,7 @@ import xml.etree.ElementTree as ET
 
 class TwilioTest(unittest.TestCase):
     def strip(self, xml):
-        return str(xml)
+        return text_type(xml)
 
     def improperAppend(self, verb):
         self.assertRaises(TwimlException, verb.append, twiml.Say(""))
@@ -26,7 +26,11 @@ class TwilioTest(unittest.TestCase):
         self.assertRaises(TwimlException, verb.append, twiml.Reject())
         self.assertRaises(TwimlException, verb.append, twiml.Redirect())
         self.assertRaises(TwimlException, verb.append, twiml.Dial())
+        self.assertRaises(TwimlException, verb.append, twiml.Enqueue(""))
+        self.assertRaises(TwimlException, verb.append, twiml.Queue(""))
+        self.assertRaises(TwimlException, verb.append, twiml.Leave())
         self.assertRaises(TwimlException, verb.append, twiml.Conference(""))
+        self.assertRaises(TwimlException, verb.append, twiml.Client(""))
         self.assertRaises(TwimlException, verb.append, twiml.Sms(""))
         self.assertRaises(TwimlException, verb.append, twiml.Pause())
 
@@ -58,8 +62,8 @@ class TestSay(TwilioTest):
     def testSayFrench(self):
         """should say hello monkey"""
         r = Response()
-        r.append(twiml.Say(u"nécessaire et d'autres"))
-        self.assertEquals(unicode(r),
+        r.append(twiml.Say(u("n\xe9cessaire et d'autres"))) # it works on python 2.6 with the from __future__ import unicode_literal
+        self.assertEquals(text_type(r),
                           '<?xml version="1.0" encoding="UTF-8"?><Response><Say>n&#233;cessaire et d\'autres</Say></Response>')
 
     def testSayLoop(self):
@@ -240,6 +244,20 @@ class TestHangup(TwilioTest):
         self.improperAppend(twiml.Hangup())
 
 
+class TestLeave(TwilioTest):
+
+    def testLeave(self):
+        """convenience: should Hangup to a url via POST"""
+        r = Response()
+        r.append(twiml.Leave())
+        r = self.strip(r)
+        self.assertEquals(r, '<?xml version="1.0" encoding="UTF-8"?><Response><Leave /></Response>')
+
+    def testBadAppend(self):
+        """ should raise exceptions for wrong appending"""
+        self.improperAppend(twiml.Leave())
+
+
 class TestReject(TwilioTest):
 
     def testReject(self):
@@ -314,7 +332,7 @@ class TestConference(TwilioTest):
 
         #parse twiml XML string with Element Tree and inspect structure
         tree = ET.fromstring(xml)
-        self.conf = tree.find(".//Dial/Conference")
+        self.conf = tree.find(".//Conference")
 
     def test_conf_text(self):
         self.assertEqual(self.conf.text.strip(), "TestConferenceAttributes")
@@ -330,6 +348,58 @@ class TestConference(TwilioTest):
 
     def test_conf_end_conference(self):
         self.assertEqual(self.conf.get('endConferenceOnExit'), "true")
+
+
+class TestQueue(TwilioTest):
+
+    def setUp(self):
+        r = Response()
+        with r.dial() as dial:
+            dial.queue("TestQueueAttribute", url="", method='GET')
+            xml = r.toxml()
+
+        #parse twiml XML string with Element Tree and inspect
+            #structure
+            tree = ET.fromstring(xml)
+            self.conf = tree.find(".//Queue")
+
+    def test_conf_text(self):
+        self.assertEqual(self.conf.text.strip(), "TestQueueAttribute")
+
+    def test_conf_waiturl(self):
+        self.assertEqual(self.conf.get('url'), "")
+
+    def test_conf_method(self):
+        self.assertEqual(self.conf.get('method'), "GET")
+
+
+class TestEnqueue(TwilioTest):
+
+    def setUp(self):
+        r = Response()
+        r.enqueue("TestEnqueueAttribute", action="act", method='GET',
+                  wait_url='wait', wait_url_method='POST')
+        xml = r.toxml()
+
+        #parse twiml XML string with Element Tree and inspect
+        #structure
+        tree = ET.fromstring(xml)
+        self.conf = tree.find("./Enqueue")
+
+    def test_conf_text(self):
+        self.assertEqual(self.conf.text.strip(), "TestEnqueueAttribute")
+
+    def test_conf_waiturl(self):
+        self.assertEqual(self.conf.get('wait_url'), "wait")
+
+    def test_conf_method(self):
+        self.assertEqual(self.conf.get('method'), "GET")
+
+    def test_conf_action(self):
+        self.assertEqual(self.conf.get('action'), "act")
+
+    def test_conf_waitmethod(self):
+        self.assertEqual(self.conf.get('wait_url_method'), "POST")
 
 
 class TestDial(TwilioTest):
@@ -373,6 +443,14 @@ class TestDial(TwilioTest):
         r.append(d)
         r = self.strip(r)
         self.assertEquals(r, '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Conference>My Room</Conference></Dial></Response>')
+
+    def test_add_queue(self):
+        """ add a queue to a dial"""
+        r = Response()
+        d = r.dial()
+        d.append(twiml.Queue("The Cute Queue"))
+        r = self.strip(r)
+        self.assertEquals(r, '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Queue>The Cute Queue</Queue></Dial></Response>')
 
     def test_add_empty_client(self):
         """ add an empty client to a dial"""

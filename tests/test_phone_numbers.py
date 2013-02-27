@@ -3,11 +3,11 @@ try:
     import json
 except ImportError:
     import simplejson as json
-import sys
-if sys.version_info < (2, 7):
-    import unittest2 as unittest
-else:
+import six
+if six.PY3:
     import unittest
+else:
+    import unittest2 as unittest
 from mock import Mock, patch
 from twilio import TwilioException
 from twilio.rest.resources import PhoneNumbers
@@ -21,26 +21,39 @@ class PhoneNumberTest(unittest.TestCase):
         self.uri = "/base"
         self.auth = ("AC123", "token")
 
+    def test_update_rename_status_callback_url(self):
+        mock = Mock()
+        mock.uri = "/base"
+        instance = PhoneNumber(mock, "SID")
+        instance.update(status_callback_url="http://www.example.com")
+        mock.update.assert_called_with("SID", status_callback="http://www.example.com")
+
+    def test_update_instance_rename_status_callback_url(self):
+        resource = PhoneNumbers(self.uri, self.auth)
+        resource.update_instance = Mock()
+        resource.update("SID", status_callback_url="http://www.example.com")
+        resource.update_instance.assert_called_with("SID", {"status_callback": "http://www.example.com"})
+
     def test_application_sid(self):
         resource = PhoneNumbers(self.uri, self.auth)
         resource.update_instance = Mock()
         resource.update("SID", application_sid="foo")
         resource.update_instance.assert_called_with(
-                "SID", {"VoiceApplicationSid": "foo", "SmsApplicationSid": "foo"})
+                "SID", {"voice_application_sid": "foo", "sms_application_sid": "foo"})
 
     def test_voice_application_sid(self):
         resource = PhoneNumbers(self.uri, self.auth)
         resource.update_instance = Mock()
         resource.update("SID", voice_application_sid="foo")
         resource.update_instance.assert_called_with(
-                "SID", {"VoiceApplicationSid": "foo"})
+                "SID", {"voice_application_sid": "foo"})
 
     def test_sms_application_sid(self):
         resource = PhoneNumbers(self.uri, self.auth)
         resource.update_instance = Mock()
         resource.update("SID", sms_application_sid="foo")
         resource.update_instance.assert_called_with(
-                "SID", {"SmsApplicationSid": "foo"})
+                "SID", {"sms_application_sid": "foo"})
 
 
     def test_status_callback_url(self):
@@ -48,7 +61,7 @@ class PhoneNumberTest(unittest.TestCase):
         resource.update_instance = Mock()
         resource.update("SID", status_callback="foo")
         resource.update_instance.assert_called_with(
-                "SID", {"StatusCallback": "foo"})
+                "SID", {"status_callback": "foo"})
 
     def test_transfer(self):
         resource = PhoneNumbers(self.uri, self.auth)

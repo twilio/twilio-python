@@ -7,6 +7,8 @@ from twilio.rest.resources import Applications
 from twilio.rest.resources import AuthorizedConnectApps
 from twilio.rest.resources import Calls
 from twilio.rest.resources import CallerIds
+from twilio.rest.resources import Queues
+from twilio.rest.resources import Members
 from twilio.rest.resources import ConnectApps
 from twilio.rest.resources import Notifications
 from twilio.rest.resources import Recordings
@@ -16,8 +18,7 @@ from twilio.rest.resources import Participants
 from twilio.rest.resources import PhoneNumbers
 from twilio.rest.resources import Conferences
 from twilio.rest.resources import Sandboxes
-from urllib import urlencode
-from urlparse import urljoin
+from twilio.rest.resources import Usage
 
 
 def find_credentials():
@@ -108,7 +109,7 @@ Or, add your credentials to your shell environment. From the terminal, run
 and be sure to replace the values for the Account SID and auth token with the
 values from your Twilio Account at https://www.twilio.com/user/account.
 """)
-        
+
         self.base = base
         auth = (account, token)
         version_uri = "%s/%s" % (base, version)
@@ -126,7 +127,9 @@ values from your Twilio Account at https://www.twilio.com/user/account.
         self.sms = Sms(account_uri, auth)
         self.phone_numbers = PhoneNumbers(account_uri, auth)
         self.conferences = Conferences(account_uri, auth)
+        self.queues = Queues(account_uri, auth)
         self.sandboxes = Sandboxes(account_uri, auth)
+        self.usage = Usage(account_uri, auth)
 
         self.auth = auth
         self.account_uri = account_uri
@@ -139,3 +142,10 @@ values from your Twilio Account at https://www.twilio.com/user/account.
         base_uri = "%s/Conferences/%s" % (self.account_uri, conference_sid)
         return Participants(base_uri, self.auth)
 
+    def members(self, queue_sid):
+        """
+        Return a :class:`Members` instance for the :class:`Queue`
+        with the given queue_sid
+        """
+        base_uri = "%s/Queues/%s" % (self.account_uri, queue_sid)
+        return Members(base_uri, self.auth)

@@ -1,4 +1,4 @@
-__version_info__ = ('3', '3', '6')
+__version_info__ = ('3', '4', '3')
 __version__ = '.'.join(__version_info__)
 
 
@@ -8,10 +8,11 @@ class TwilioException(Exception):
 
 class TwilioRestException(TwilioException):
 
-    def __init__(self, status, uri, msg=""):
+    def __init__(self, status, uri, msg="", code=None):
         self.uri = uri
         self.status = status
         self.msg = msg
+        self.code = code
 
     def __str__(self):
         return "HTTP ERROR %s: %s \n %s" % (self.status, self.msg, self.uri)

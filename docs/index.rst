@@ -1,6 +1,6 @@
-====================
+=============================
 Twilio Python Helper Library
-====================
+=============================
 
 Make requests to Twilio's `REST API <http://www.twilio.com/docs/api/twiml/>`_ and create `TwiML <http://www.twilio.com/docs/api/twiml/>`_ without a hassle. And you thought Twilio couldn't get any easier.
 
@@ -39,7 +39,7 @@ The :doc:`/getting-started` will get you up and running in a few quick minutes. 
 User Guide
 ==================
 
-Functionality is split over three different sub-packages within **twilio-python**. Below are in-depth guide to specific portions of the library.
+Functionality is split over three different sub-packages within **twilio-python**. Below are in-depth guides to specific portions of the library.
 
 REST API
 ----------
@@ -59,7 +59,8 @@ Query the Twilio REST API to create phone calls, send SMS messages and so much m
     usage/notifications
     usage/recordings
     usage/transcriptions
-
+    usage/caller-ids
+    usage/queues
 TwiML
 ---------
 
@@ -124,4 +125,3 @@ Report bugs using the Github `issue tracker <https://github.com/twilio/twilio-py
 If you have questions that aren't answered by this documentation, ask the `#twilio IRC channel <irc://irc.freenode.net/#twilio>`_
 
 See the :doc:`/changelog` for version history.
-

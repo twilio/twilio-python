@@ -1,0 +1,15 @@
+{
+   "sid": "UT33c6aeeba34e48f38d6899ea5b765ad4",
+   "date_updated": "2012-09-29 12:47:54",
+   "current_usage_value": "7",
+   "friendly_name": "Trigger for calls at usage of 500",
+   "uri": "/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Triggers/UT33c6aeeba34e48f38d6899ea5b765ad4/UT33c6aeeba34e48f38d6899ea5b765ad4.json",
+   "usage_record_uri": "/2010-04-01/Accounts/ACed70abd024d3f57a4027b5dc2ca88d5b/Usage/Records.json?Category=calls",
+   "trigger_by": "usage",
+   "callback_method": "POST",
+   "date_created": "2012-09-29 12:45:43",
+   "callback_url": "http://www.example.com/",
+   "recurring": "daily",
+   "usage_category": "calls",
+   "trigger_value": "500.000000"
+}

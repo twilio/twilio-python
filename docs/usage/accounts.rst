@@ -74,10 +74,10 @@ If it was just a misunderstanding, reenable their account.
 
 Otherwise, close their account permanently.
 
-.. warning::
-    This action can't be undone. 
-
 .. code-block:: python
 
     subaccount.close()
+
+.. warning::
+    This action can't be undone. 
 

@@ -1,7 +1,2 @@
-sphinx
-mock
+six
 httplib2
-nose
-pyjwt
-simplejson
-unittest2

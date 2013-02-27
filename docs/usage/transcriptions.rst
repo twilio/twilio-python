@@ -11,7 +11,7 @@ For more information, see the `Transcriptions REST Resource <http://www.twilio.c
 Listing Your Transcriptions
 ----------------------------
 
-The following code will print out lengths :attr:`friendly_name` for each :class:`Application`.
+The following code will print out the length of each :class:`Transcription`.
 
 .. code-block:: python
 

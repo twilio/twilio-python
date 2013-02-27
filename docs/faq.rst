@@ -42,11 +42,11 @@ the Terminal:
     which -a python
     which -a pip
 
-``pip`` needs to install the Twilio library to a path that your Python executable
-can read from. Sometimes there will be more than one version of pip, like
-pip-2.5, pip-2.7 etc. You can find all of them by running ``compgen -c | grep
-pip``. There can also be more than one version of Python, especially if you have
-Macports or homebrew.
+``pip`` needs to install the Twilio library to a path that your Python
+executable can read from. Sometimes there will be more than one version of pip,
+like pip-2.5, pip-2.7 etc. You can find all of them by running ``compgen -c |
+grep pip`` (works with Bash on \*nix machines). There can also be more than one
+version of Python, especially if you have Macports or homebrew.
 
 You also may be using an outdated version of the twilio-python library, which
 did not use a ``twilio.rest.TwilioRestClient`` object. Check which version of the
@@ -64,7 +64,7 @@ version, you can upgrade with this command:
     $ pip install --upgrade twilio
 
 Note that if you have code that uses the older version of the library, it may
-breake when you upgrade your site.
+break when you upgrade your site.
 
 Formatting phone numbers
 ------------------------
@@ -99,7 +99,7 @@ Then you can convert user input to phone numbers like this:
             # Phone number may already be in E.164 format.
             parse_type = None
         else:
-            # Assume it's a US number
+            # If no country code information is present, assume it's a US number
             parse_type = "US"
 
         phone_representation = phonenumbers.parse(raw_phone, parse_type)
