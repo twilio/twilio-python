@@ -3,7 +3,6 @@ Make sure to check out the TwiML overview and tutorial
 """
 
 import xml.etree.ElementTree as ET
-from six import u
 from six import iteritems
 
 class TwimlException(Exception):
@@ -495,18 +494,6 @@ class Sip(Verb):
     def uri(self, uri, **kwargs):
         return self.append(Uri(uri, **kwargs))
 
-    def headers(self, headers):
-        """Add headers to this Sip noun
-
-        :param dict headers: A dictionary of headers
-        """
-        collection = Headers()
-
-        for key, value in iteritems(headers):
-            collection.append(Header(name=key, value=value))
-
-        return self.append(collection)
-
 
 class Uri(Verb):
     """A uniform resource indentifier"""
@@ -515,11 +502,3 @@ class Uri(Verb):
         self.body = uri
 
 
-class Headers(Verb):
-    """A collection of headers"""
-    nestables = ['Header']
-
-
-class Header(Verb):
-    """A single headers"""
-    pass
