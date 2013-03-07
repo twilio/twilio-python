@@ -95,7 +95,7 @@ If you've found a phone number you want, you can purchase the number.
     AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
 
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
-    number = client.phone_numbers.purchase("+15305431234")
+    number = client.phone_numbers.purchase(phone_number="+15305431234")
 
 However, it's easier to purchase numbers after finding them using search (as
 shown in the first example).
