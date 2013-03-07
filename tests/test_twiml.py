@@ -437,17 +437,6 @@ class TestDial(TwilioTest):
         r = self.strip(r)
         self.assertEquals(r, '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Sip><Uri>foo@example.com</Uri></Sip></Dial></Response>')
 
-    def testSipUriHeaders(self):
-        """ should redirect the call"""
-        r = Response()
-        d = r.dial()
-        s = d.sip()
-        s.uri('foo@example.com')
-        s.headers({'foo-bar': 'key'})
-        r = self.strip(r)
-        self.assertEquals(r, '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Sip><Uri>foo@example.com</Uri><Headers><Header name="foo-bar" value="key" /></Headers></Sip></Dial></Response>')
-
-
     def testConvienceMethod(self):
         """ should dial to a url via post"""
         r = Response()
