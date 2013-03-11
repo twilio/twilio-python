@@ -85,7 +85,8 @@ class Calls(ListResource):
             occurs requesting or executing the TwiML at url
         :param string fallback_method: The HTTP method that Twilio should use
             to request the fallback_url
-        :type fallback_method: None (will make 'POST' request), 'GET', or 'POST'
+        :type fallback_method: None (will make 'POST' request),
+                               'GET', or 'POST'
         :param string status_callback: A URL that Twilio will request when the
             call ends to notify your app.
         :param string status_method: The HTTP method Twilio should use when
@@ -93,7 +94,7 @@ class Calls(ListResource):
         :param string if_machine: Tell Twilio to try and determine if a machine
             (like voicemail) or a human has answered the call.
             See more in our `answering machine documentation
-            <http://www.twilio.com/docs/api/rest/making_calls#handling-outcomes-answering-machines">`_.
+            <http://www.twilio.com/docs/api/rest/making_calls>`_.
         :type if_machine: None, 'Continue', or 'Hangup'
         :param string send_digits: A string of keys to dial after
             connecting to the number.

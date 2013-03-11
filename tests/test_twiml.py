@@ -174,13 +174,6 @@ class TestRecord(TwilioTest):
         r = self.strip(r)
         self.assertEquals(r, '<?xml version="1.0" encoding="UTF-8"?><Response><Record transcribeCallback="example.com" /></Response>')
 
-    def testRecordMaxlengthFinishTimeout(self):
-        """should record with an maxlength, finishonkey, and timeout"""
-        r = Response()
-        r.addRecord(timeout=4,finishOnKey="#", maxLength=30)
-        r = self.strip(r)
-        self.assertEquals(r, '<?xml version="1.0" encoding="UTF-8"?><Response><Record finishOnKey="#" maxLength="30" timeout="4" /></Response>')
-
     def testRecordAddAttribute(self):
         """add attribute"""
         r = twiml.Record(foo="bar")

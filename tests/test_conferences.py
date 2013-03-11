@@ -46,6 +46,3 @@ class ConferenceTest(unittest.TestCase):
         self.resource.list(created_before=date(2011, 1, 1))
         self.params["DateCreated<"] = "2011-01-01"
         self.resource.get_instances.assert_called_with(self.params)
-
-
-

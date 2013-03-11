@@ -15,5 +15,3 @@ except ImportError:
 
 # httplib2
 import httplib2
-
-

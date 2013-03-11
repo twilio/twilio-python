@@ -6,6 +6,7 @@ from hashlib import sha1
 from twilio import jwt
 from twilio.compat import urlencode
 
+
 class RequestValidator(object):
 
     def __init__(self, token):

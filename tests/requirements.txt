@@ -6,3 +6,4 @@ unittest2
 coverage
 nosexcover
 six
+flake8
