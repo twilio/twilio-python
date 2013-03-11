@@ -425,7 +425,6 @@ class TestDial(TwilioTest):
         r = self.strip(r)
         self.assertEquals(r, '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Sip password="bar" username="foo">foo@example.com</Sip></Dial></Response>')
 
-
     def testSipUri(self):
         """ should redirect the call"""
         r = Response()

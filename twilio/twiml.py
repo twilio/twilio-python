@@ -1,9 +1,9 @@
 """
 Make sure to check out the TwiML overview and tutorial
 """
-
 import xml.etree.ElementTree as ET
 from six import iteritems
+
 
 class TwimlException(Exception):
     pass
@@ -500,5 +500,3 @@ class Uri(Verb):
     def __init__(self, uri, **kwargs):
         super(Uri, self).__init__(**kwargs)
         self.body = uri
-
-
