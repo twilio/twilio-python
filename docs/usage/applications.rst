@@ -4,9 +4,13 @@
 Applications
 =================
 
-An application inside of Twilio is just a set of URLs and other configuration data that tells Twilio how to behave when one of your Twilio numbers receives a call or SMS message.
+An application inside of Twilio is just a set of URLs and other configuration
+data that tells Twilio how to behave when one of your Twilio numbers receives
+a call or SMS message.
 
-For more information, see the `Application REST Resource <http://www.twilio.com/docs/api/rest/applications>`_ documentation.
+For more information, see the `Application REST Resource
+<http://www.twilio.com/docs/api/rest/applications>`_ documentation.
+
 
 Listing Your Applications
 --------------------------
@@ -42,6 +46,7 @@ You can filter applications by FriendlyName
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     for app in client.applications.list(friendly_name="FOO"):
         print app.sid
+
 
 Creating an Application
 -------------------------
@@ -93,3 +98,4 @@ Deleting an Application
     app_sid = 'AP123' # the app you'd like to delete
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     client.applications.delete(app_sid)
+

@@ -4,7 +4,11 @@
 Queues and Members
 ==============================
 
-For more information, see the `Queue REST Resource <http://www.twilio.com/docs/api/rest/queue>`_ and `Member REST Resource <http://www.twilio.com/docs/api/rest/member>`_ documentation.
+For more information, see the
+`Queue REST Resource <http://www.twilio.com/docs/api/rest/queue>`_
+and `Member REST Resource <http://www.twilio.com/docs/api/rest/member>`_
+documentation.
+
 
 Listing Queues
 -----------------------
@@ -22,6 +26,7 @@ Listing Queues
 
     for queue in queues:
         print queue.sid
+
 
 Listing Queue Members
 ----------------------
@@ -42,6 +47,7 @@ represents all current calls in the queue.
 
     for member in queue.queue_members.list():
         print member.call_sid
+
 
 Getting a specific Queue Member
 -------------------------------
@@ -97,3 +103,4 @@ default values are 'Front' and 'GET'
 
     # Dequeue the first call in the queue
     print members.dequeue('http://www.twilio.com/welcome/call')
+
