@@ -1,6 +1,7 @@
 from twilio.rest.resources import InstanceResource, ListResource
 from six import iteritems
 
+
 class ConnectApp(InstanceResource):
     """ An authorized connect app """
     pass

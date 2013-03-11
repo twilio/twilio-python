@@ -2,7 +2,7 @@ import datetime
 from six import iteritems
 
 
-def transform_params(p):
+def transform_params(parameters):
     """
     Transform parameters, throwing away any None values
     and convert False and True values to strings
@@ -13,10 +13,13 @@ def transform_params(p):
     becomes:
     {"Record": "true", "DateCreated": "2012-01-02"}
     """
-    p = [(format_name(d), convert_boolean(p[d])) for d in p
-         if p[d] is not None
-    ]
-    return dict(p)
+    transformed_parameters = {}
+
+    for key, value in iteritems(parameters):
+        if value is not None:
+            transformed_parameters[format_name(key)] = convert_boolean(value)
+
+    return transformed_parameters
 
 
 def format_name(word):
@@ -61,12 +64,12 @@ def convert_keys(d):
     """
     special = {
         "started_before": "StartTime<",
-        "started_after":  "StartTime>",
-        "started":        "StartTime",
-        "ended_before":   "EndTime<",
-        "ended_after":    "EndTime>",
-        "ended":          "EndTime",
-        "from_":          "From",
+        "started_after": "StartTime>",
+        "started": "StartTime",
+        "ended_before": "EndTime<",
+        "ended_after": "EndTime>",
+        "ended": "EndTime",
+        "from_": "From",
     }
 
     result = {}
@@ -91,9 +94,11 @@ def normalize_dates(myfunc):
     inner_func.__repr__ = myfunc.__repr__
     return inner_func
 
+
 def change_dict_key(d, from_key, to_key):
     """
-    Changes a dictionary's key from from_key to to_key. No-op if the key does not exist.
+    Changes a dictionary's key from from_key to to_key.
+    No-op if the key does not exist.
 
     :param d: Dictionary with key to change
     :param from_key: Old key

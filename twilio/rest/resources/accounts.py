@@ -33,7 +33,7 @@ class Account(InstanceResource):
         ConnectApps,
         Queues,
         AuthorizedConnectApps,
-        ]
+    ]
 
     def update(self, **kwargs):
         """

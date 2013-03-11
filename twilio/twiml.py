@@ -84,7 +84,7 @@ class Verb(object):
     def append(self, verb):
         if not self.nestables or verb.name not in self.nestables:
             raise TwimlException("%s is not nestable inside %s" %
-                (verb.name, self.name))
+                                 (verb.name, self.name))
         self.verbs.append(verb)
         return verb
 
@@ -104,7 +104,7 @@ class Response(Verb):
         'Sms',
         'Enqueue',
         'Leave'
-        ]
+    ]
 
     def __init__(self, **kwargs):
         """Version: Twilio API version e.g. 2008-08-01 """

@@ -25,7 +25,7 @@ class AuthorizedConnectAppTest(unittest.TestCase):
 
         self.resource.get("SID")
         mock.assert_called_with("GET", "/base/AuthorizedConnectApps/SID",
-            auth=self.auth)
+                                auth=self.auth)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_list(self, mock):
@@ -34,7 +34,7 @@ class AuthorizedConnectAppTest(unittest.TestCase):
 
         self.resource.list()
         mock.assert_called_with("GET", "/base/AuthorizedConnectApps",
-            params={}, auth=self.auth)
+                                params={}, auth=self.auth)
 
     def test_load(self):
         instance = AuthorizedConnectApp(Mock(), "sid")
@@ -47,7 +47,7 @@ class AuthorizedConnectAppTest(unittest.TestCase):
             "connect_app_company_name": "bar",
             "connect_app_homepage_url": "http://www.google.com",
             "uri": "/2010-04-01/Accounts/",
-            })
+        })
 
         self.assertEquals(instance.permissions, ["get-all"])
         self.assertEquals(instance.sid, "SID")

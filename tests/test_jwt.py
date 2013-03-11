@@ -8,6 +8,7 @@ else:
 
 from twilio.util import TwilioCapability
 
+
 class JwtTest(unittest.TestCase):
 
     def assertIn(self, foo, bar, msg=None):
@@ -64,7 +65,6 @@ class JwtTest(unittest.TestCase):
         event_uri = "scope:stream:subscribe?path=%2F2010-04-01%2FEvents&params=foobar%3Dhey"
         self.assertEquals(payload["scope"], event_uri)
 
-
     def test_decode(self):
         token = TwilioCapability("AC123", "XXXXX")
         token.allow_client_outgoing("AP123", foobar=3)
@@ -106,18 +106,14 @@ class JwtTest(unittest.TestCase):
 
     def test_allow_skip_verification(self):
         right_secret = 'foo'
-        bad_secret = 'bar'
         jwt_message = jwt.encode(self.payload, right_secret)
         decoded_payload = jwt.decode(jwt_message, verify=False)
         self.assertEqual(decoded_payload, self.payload)
 
     def test_no_secret(self):
         right_secret = 'foo'
-        bad_secret = 'bar'
         jwt_message = jwt.encode(self.payload, right_secret)
         self.assertRaises(jwt.DecodeError, jwt.decode, jwt_message)
 
     def test_invalid_crypto_alg(self):
         self.assertRaises(NotImplementedError, jwt.encode, self.payload, "secret", "HS1024")
-
-

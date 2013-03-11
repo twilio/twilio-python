@@ -8,8 +8,8 @@ from twilio.rest import TwilioRestClient, resources
 from mock import patch, Mock
 from tools import create_mock_json
 
-
 AUTH = ("ACCOUNT_SID", "AUTH_TOKEN")
+
 
 class RestClientTest(unittest.TestCase):
 

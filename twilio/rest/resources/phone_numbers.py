@@ -64,7 +64,7 @@ class PhoneNumber(InstanceResource):
         if "account_sid" in entries:
             # Parse the parent's uri to get the scheme and base
             uri = re.sub(r'AC(.*)', entries["account_sid"],
-                self.parent.base_uri)
+                         self.parent.base_uri)
 
             self.parent = PhoneNumbers(uri, self.parent.auth)
             self.base_uri = self.parent.uri
@@ -84,7 +84,8 @@ class PhoneNumber(InstanceResource):
         Update this phone number instance.
         """
         kwargs_copy = dict(kwargs)
-        change_dict_key(kwargs_copy, from_key="status_callback_url", to_key="status_callback")
+        change_dict_key(kwargs_copy, from_key="status_callback_url",
+                        to_key="status_callback")
 
         a = self.parent.update(self.name, **kwargs_copy)
         self.load(a.__dict__)
@@ -171,7 +172,8 @@ class PhoneNumbers(ListResource):
         Update this phone number instance
         """
         kwargs_copy = dict(kwargs)
-        change_dict_key(kwargs_copy, from_key="status_callback_url", to_key="status_callback")
+        change_dict_key(kwargs_copy, from_key="status_callback_url",
+                        to_key="status_callback")
 
         if "application_sid" in kwargs_copy:
             for sid_type in ["voice_application_sid", "sms_application_sid"]:

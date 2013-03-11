@@ -76,7 +76,7 @@ class Conference(InstanceResource):
 
     subresources = [
         Participants
-        ]
+    ]
 
 
 class Conferences(ListResource):
