@@ -6,9 +6,8 @@ if six.PY3:
 else:
     import unittest2 as unittest
 
-from mock import Mock, patch
+from mock import Mock
 from nose.tools import assert_equals
-from nose.tools import raises
 from twilio.rest.resources import Resource
 from twilio.rest.resources import ListResource
 from twilio.rest.resources import InstanceResource
@@ -27,6 +26,7 @@ def test_resource_init():
     assert_equals(r.auth, auth)
     assert_equals(r.uri, uri)
 
+
 def test_equivalence():
     p = ListResource(base_uri, auth)
     r1 = p.load_instance({"sid": "AC123"})
@@ -43,7 +43,7 @@ class ListResourceTest(unittest.TestCase):
         uri = "%s/%s" % (base_uri, self.r.name)
         self.assertEquals(self.r.uri, uri)
 
-    def testKeyValue(self):
+    def testKeyValueLower(self):
         self.assertEquals(self.r.key, self.r.name.lower())
 
     def testIterNoKey(self):
@@ -58,7 +58,7 @@ class ListResourceTest(unittest.TestCase):
         self.r.request.return_value = Mock(), {self.r.key: [{'sid': 'foo'}]}
         advance_iterator(self.r.iter())
         self.r.request.assert_called_with("GET", "https://api.twilio.com/2010-04-01/Resources", params={})
- 
+
     def testIterOneItem(self):
         self.r.request = Mock()
         self.r.request.return_value = Mock(), {self.r.key: [{'sid': 'foo'}]}
@@ -68,24 +68,17 @@ class ListResourceTest(unittest.TestCase):
 
         with self.assertRaises(StopIteration):
             advance_iterator(items)
-  
+
     def testIterNoNextPage(self):
         self.r.request = Mock()
         self.r.request.return_value = Mock(), {self.r.key: []}
 
         with self.assertRaises(StopIteration):
             advance_iterator(self.r.iter())
- 
+
     def testKeyValue(self):
         self.r.key = "Hey"
         self.assertEquals(self.r.key, "Hey")
- 
-    def testInstanceLoading(self):
-        instance = self.r.load_instance({"sid": "foo"})
-
-        self.assertIsInstance(instance, InstanceResource)
-        self.assertEquals(instance.sid, "foo")
-
 
     def testInstanceLoading(self):
         instance = self.r.load_instance({"sid": "foo"})
@@ -122,4 +115,3 @@ class testInstanceResourceInit(unittest.TestCase):
         self.r.subresources = [m]
         self.r.load_subresources()
         m.assert_called_with(self.r.uri, self.r.auth)
-

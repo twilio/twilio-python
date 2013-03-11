@@ -21,9 +21,9 @@ class Response(object):
         self.url = url
 
 
-def make_request(method, url,
-    params=None, data=None, headers=None, cookies=None, files=None,
-    auth=None, timeout=None, allow_redirects=False, proxies=None):
+def make_request(method, url, params=None, data=None, headers=None,
+                 cookies=None, files=None, auth=None, timeout=None,
+                 allow_redirects=False, proxies=None):
     """Sends an HTTP request Returns :class:`Response <models.Response>`
 
     See the requests documentation for explanation of all these parameters
@@ -107,7 +107,7 @@ class Resource(object):
                 and self.__dict__ == other.__dict__)
 
     def __hash__(self):
-        return  hash(frozenset(self.__dict__))
+        return hash(frozenset(self.__dict__))
 
     def __ne__(self, other):
         return not self.__eq__(other)
@@ -141,8 +141,7 @@ class InstanceResource(Resource):
     def __init__(self, parent, sid):
         self.parent = parent
         self.name = sid
-        super(InstanceResource, self).__init__(parent.uri,
-            parent.auth)
+        super(InstanceResource, self).__init__(parent.uri, parent.auth)
 
     def load(self, entries):
         if "from" in entries.keys():

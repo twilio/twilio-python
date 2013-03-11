@@ -3,12 +3,6 @@ Test that make+request is making correct HTTP requests
 
 Uses the awesome httpbin.org to validate responses
 """
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
-
 import twilio
 from nose.tools import raises
 from mock import patch, Mock
