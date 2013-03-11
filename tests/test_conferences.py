@@ -5,7 +5,7 @@ else:
     import unittest2 as unittest
 
 from datetime import date
-from mock import patch, Mock
+from mock import Mock
 from twilio.rest.resources import Conferences
 
 DEFAULT = {

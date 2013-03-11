@@ -8,8 +8,7 @@ if six.PY3:
     import unittest
 else:
     import unittest2 as unittest
-from mock import Mock, patch
-from twilio import TwilioException
+from mock import Mock
 from twilio.rest.resources import PhoneNumbers
 from twilio.rest.resources import PhoneNumber
 
@@ -55,7 +54,6 @@ class PhoneNumberTest(unittest.TestCase):
         resource.update_instance.assert_called_with(
                 "SID", {"sms_application_sid": "foo"})
 
-
     def test_status_callback_url(self):
         resource = PhoneNumbers(self.uri, self.auth)
         resource.update_instance = Mock()
@@ -86,8 +84,6 @@ class PhoneNumberTest(unittest.TestCase):
             entry = json.load(f)
             resource.load(entry)
 
-        self.assertEquals(resource.parent.base_uri, 
+        self.assertEquals(resource.parent.base_uri,
             ("https://api.twilio.com/2010-04-01/Accounts/AC4bf2dafbed59a573"
              "3d2c1c1c69a83a28"))
-
-
