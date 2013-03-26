@@ -20,7 +20,6 @@ class AccountTest(unittest.TestCase):
         records = account.usage_records.list()
         self.assertEquals(len(records), 2)
 
-
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_usage_triggers_subresource(self, request):
         resp = create_mock_json("tests/resources/usage_triggers_list.json")
