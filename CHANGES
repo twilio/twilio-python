@@ -3,6 +3,14 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.4.5
+-------------
+
+Released on April 1, 2013
+
+Allow the Account object to access usage records and usage trigger data, in
+addition to the client. Reporter: Trenton McManus
+
 Version 3.4.4
 -------------
 
