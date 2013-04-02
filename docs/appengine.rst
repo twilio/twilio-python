@@ -35,16 +35,17 @@ The key is to lay out your project in a way that makes sense.
 
 #.  Now let's install the ``twilio-python`` library in our Virtualenv. If your
     current working directory is ``twilio-demo``, we want to source the
-    ``activate`` file in the ``bin`` folder.
+    ``activate`` file in the ``bin`` folder, then install the library with
+    ``pip``.
 
     .. code-block:: bash
 
         source bin/activate     # Activate our virtual environment
         pip install twilio      # Install the twilio-python library
 
-#.  Now let's add a new folder called ``src``. This is the folder that contains your
-    ``app.yaml`` and your other Google App Engine files. You can add this at the
-    command line. If your current directory is ``twilio-demo``:
+#.  Now let's add a new folder called ``src``. This is the folder that contains
+    your ``app.yaml`` and your other Google App Engine files. You can add this 
+    at the command line. If your current directory is ``twilio-demo``:
 
     .. code-block:: bash
 

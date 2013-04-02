@@ -116,6 +116,17 @@ so only use when you really need to dive deep into the library.
     api
 
 
+Deploying to Google App Engine
+==============================
+
+Want to run your app on Google App Engine? We've got a full guide to getting
+started here:
+
+.. toctree::
+    :maxdepth: 1
+
+    appengine
+
 Frequently Asked Questions
 ==========================
 
