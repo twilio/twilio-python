@@ -4,7 +4,8 @@
 
 From the root directory of this repository:
 
-    $ pip install -r requirements.txt 
+    $ python setup.py develop
+    $ pip install -r tests/requirements.txt 
 
 ## Running the tests
 
