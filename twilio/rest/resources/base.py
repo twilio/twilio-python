@@ -40,12 +40,10 @@ def make_request(method, url, params=None, data=None, headers=None,
         udata = {}
         for k, v in iteritems(data):
             key = k.encode('utf-8')
-            if isinstance(v, text_type):
-                udata[key] = v.encode('utf-8')
-            elif isinstance(v, binary_type):
+            if isinstance(v, int):
                 udata[key] = v
             else:
-                raise ValueError('data should be either a binary or a string')
+                udata[key] = v.encode('utf-8')
         data = urlencode(udata)
 
     if params is not None:
