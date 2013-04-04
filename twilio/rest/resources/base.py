@@ -1,5 +1,5 @@
 import logging
-from six import text_type, iteritems, binary_type
+from six import integer_types, string_types, binary_type, iteritems
 from twilio.compat import urlparse
 from twilio.compat import urlencode
 
@@ -40,10 +40,12 @@ def make_request(method, url, params=None, data=None, headers=None,
         udata = {}
         for k, v in iteritems(data):
             key = k.encode('utf-8')
-            if isinstance(v, int):
+            if isinstance(v,(integer_types, binary_type)):
                 udata[key] = v
-            else:
+            elif isinstance(v, string_types):
                 udata[key] = v.encode('utf-8')
+            else:
+                raise ValueError('data should be either an integer, binary, or string')
         data = urlencode(udata)
 
     if params is not None:
