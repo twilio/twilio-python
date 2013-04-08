@@ -5,6 +5,7 @@ from hashlib import sha1
 
 from twilio import jwt
 from twilio.compat import urlencode
+from six import iteritems
 
 
 class RequestValidator(object):
@@ -138,6 +139,10 @@ class ScopeURI(object):
         self.params = params
 
     def __str__(self):
-        params = urlencode(self.params) if self.params else None
-        param_string = "?%s" % params if params else ''
+        if self.params:
+            sorted_params = sorted([(k, v) for k, v in iteritems(self.params)])
+            encoded_params = urlencode(sorted_params)
+            param_string = '?%s' % encoded_params
+        else:
+            param_string = ''
         return "scope:%s:%s%s" % (self.service, self.privilege, param_string)
