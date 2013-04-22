@@ -69,14 +69,16 @@ The key is to lay out your project in a way that makes sense.
             ├── app.yaml
             └── helloworld.py
 
-#.  Link the twilio-python library into your ``src`` directory. We are going to
-    use a symbolic link. Google will pick this up and import the library into
-    the correct place. In the terminal, run this from the ``src`` directory
-    inside ``twilio-demo``:
+#. Link the twilio-python library into your ``src`` directory. We are going
+to use a symbolic link. Google will pick this up and import the library into
+the correct place. In the terminal, run these three commands from the ``src``
+directory inside ``twilio-demo``:
 
     .. code-block:: bash
 
         ln -s ../lib/python2.7/site-packages/twilio .
+        ln -s ../lib/python2.7/site-packages/httplib2 .
+        ln -s ../lib/python2.7/site-packages/six.py .
 
     This should create a ``link`` inside the src directory to the
     ``twilio-python`` module. You can test the link as follows. Inside the
