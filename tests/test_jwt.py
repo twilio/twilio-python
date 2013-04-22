@@ -46,7 +46,7 @@ class JwtTest(unittest.TestCase):
         token.allow_client_outgoing("AP123", foobar=3)
         payload = token.payload()
 
-        eurl = "scope:client:outgoing?appSid=AP123&appParams=foobar%3D3"
+        eurl = "scope:client:outgoing?appParams=foobar%3D3&appSid=AP123"
         self.assertEquals(payload["scope"], eurl)
 
     def test_events(self):
@@ -62,7 +62,7 @@ class JwtTest(unittest.TestCase):
         token.allow_event_stream(foobar="hey")
         payload = token.payload()
 
-        event_uri = "scope:stream:subscribe?path=%2F2010-04-01%2FEvents&params=foobar%3Dhey"
+        event_uri = "scope:stream:subscribe?params=foobar%3Dhey&path=%2F2010-04-01%2FEvents"
         self.assertEquals(payload["scope"], event_uri)
 
     def test_decode(self):
@@ -71,7 +71,7 @@ class JwtTest(unittest.TestCase):
         token.allow_client_incoming("andy")
         token.allow_event_stream()
 
-        outgoing_uri = "scope:client:outgoing?appSid=AP123&appParams=foobar%3D3&clientName=andy"
+        outgoing_uri = "scope:client:outgoing?appParams=foobar%3D3&appSid=AP123&clientName=andy"
         incoming_uri = "scope:client:incoming?clientName=andy"
         event_uri = "scope:stream:subscribe?path=%2F2010-04-01%2FEvents"
 
