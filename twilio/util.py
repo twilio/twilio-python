@@ -1,11 +1,10 @@
 import base64
 import hmac
-import itertools
 import time
 from hashlib import sha1
 
 from twilio import jwt
-from twilio.compat import urlencode
+from twilio.compat import izip, urlencode
 from six import iteritems
 
 
@@ -58,7 +57,7 @@ def secure_compare(string1, string2):
     if len(string1) != len(string2):
         return False
     result = True
-    for c1, c2 in itertools.izip(string1, string2):
+    for c1, c2 in izip(string1, string2):
         result &= c1 == c2
     return result
 
