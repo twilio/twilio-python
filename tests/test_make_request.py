@@ -11,6 +11,7 @@ from twilio.rest.resources.base import make_request, make_twilio_request
 
 get_headers = {
     "User-Agent": "twilio-python/%s" % (twilio.__version__),
+    "Accept-Charset": "utf-8",
     "Accept": "application/json",
     }
 
