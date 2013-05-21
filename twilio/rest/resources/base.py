@@ -45,7 +45,8 @@ def make_request(method, url, params=None, data=None, headers=None,
             elif isinstance(v, string_types):
                 udata[key] = v.encode('utf-8')
             else:
-                raise ValueError('data should be an integer, binary, or string')
+                raise ValueError('data should be an integer, '
+                                 'binary, or string')
         data = urlencode(udata)
 
     if params is not None:
