@@ -67,6 +67,7 @@ def make_twilio_request(method, uri, **kwargs):
     """
     headers = kwargs.get("headers", {})
     headers["User-Agent"] = "twilio-python/%s" % twilio.__version__
+    headers["Accept-Charset"] = "utf-8"
 
     if method == "POST" and "Content-Type" not in headers:
         headers["Content-Type"] = "application/x-www-form-urlencoded"
