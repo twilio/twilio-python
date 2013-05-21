@@ -7,7 +7,7 @@ else:
     import unittest2 as unittest
 
 from mock import Mock
-from nose.tools import assert_equals
+from nose.tools import assert_equal, assert_true
 from twilio.rest.resources import Resource
 from twilio.rest.resources import ListResource
 from twilio.rest.resources import InstanceResource
@@ -22,16 +22,16 @@ def test_resource_init():
     r = Resource(base_uri, auth)
     uri = "%s/%s" % (base_uri, r.name)
 
-    assert_equals(r.base_uri, base_uri)
-    assert_equals(r.auth, auth)
-    assert_equals(r.uri, uri)
+    assert_equal(r.base_uri, base_uri)
+    assert_equal(r.auth, auth)
+    assert_equal(r.uri, uri)
 
 
 def test_equivalence():
     p = ListResource(base_uri, auth)
     r1 = p.load_instance({"sid": "AC123"})
     r2 = p.load_instance({"sid": "AC123"})
-    assert_equals(r1, r2)
+    assert_equal(r1, r2)
 
 
 class ListResourceTest(unittest.TestCase):
@@ -105,6 +105,15 @@ class testInstanceResourceInit(unittest.TestCase):
         self.r.load({"hey": "you", "uri": "foobar"})
         self.assertEquals(self.r.hey, "you")
         self.assertEquals(self.r.uri, self.uri)
+
+    def testLoadDateCreated(self):
+        self.r.load({"date_created": "Sat, 29 Sep 2012 12:47:54 +0000",
+                     "uri": "foobar"})
+        try:
+            assert_true(hasattr(self.r.date_created, "day"))
+            assert_equal(self.r.date_created.day, 29)
+        except AttributeError:
+            pass
 
     def testLoadWithFrom(self):
         self.r.load({"from": "foo"})
