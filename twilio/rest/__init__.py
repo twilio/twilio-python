@@ -77,6 +77,7 @@ class TwilioRestClient(object):
 
         headers = {
             "User-Agent": "twilio-python",
+            "Accept-Charset": "utf-8",
         }
 
         resp = make_request(method, uri, auth=self.auth, data=data,

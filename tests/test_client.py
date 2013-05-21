@@ -20,8 +20,9 @@ class RestClientTest(unittest.TestCase):
     def test_request(self, mock):
         self.client.request("2010-04-01", method="GET")
         mock.assert_called_with("GET", "https://api.twilio.com/2010-04-01",
-            headers={"User-Agent": 'twilio-python'}, params={},
-            auth=AUTH, data=None)
+                                headers={"User-Agent": 'twilio-python',
+                                         'Accept-Charset': 'utf-8'},
+                                params={}, auth=AUTH, data=None)
 
     def test_connect_apps(self):
         self.assertIsInstance(self.client.connect_apps,

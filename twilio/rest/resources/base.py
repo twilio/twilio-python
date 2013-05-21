@@ -58,7 +58,7 @@ def make_request(method, url, params=None, data=None, headers=None,
     resp, content = http.request(url, method, headers=headers, body=data)
 
     # Format httplib2 request as requests object
-    return Response(resp, content, url)
+    return Response(resp, content.decode('utf-8'), url)
 
 
 def make_twilio_request(method, uri, **kwargs):
@@ -67,6 +67,7 @@ def make_twilio_request(method, uri, **kwargs):
     """
     headers = kwargs.get("headers", {})
     headers["User-Agent"] = "twilio-python/%s" % twilio.__version__
+    headers["Accept-Charset"] = "utf-8"
 
     if method == "POST" and "Content-Type" not in headers:
         headers["Content-Type"] = "application/x-www-form-urlencoded"
