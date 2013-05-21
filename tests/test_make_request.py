@@ -3,11 +3,6 @@ Test that make+request is making correct HTTP requests
 
 Uses the awesome httpbin.org to validate responses
 """
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
 import twilio
 from nose.tools import raises
 from mock import patch, Mock
@@ -36,7 +31,7 @@ def test_get_params(http_mock, response_mock):
 
 @patch('twilio.rest.resources.base.Response')
 @patch('httplib2.Http')
-def test_get_extra_paranms(http_mock, response_mock):
+def test_get_extra_params(http_mock, response_mock):
     http = Mock()
     http.request.return_value = (Mock(), Mock())
     http_mock.return_value = http

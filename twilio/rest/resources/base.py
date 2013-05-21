@@ -1,6 +1,7 @@
 import logging
-from urlparse import urlparse
-from urllib import urlencode
+from six import integer_types, string_types, binary_type, iteritems
+from twilio.compat import urlparse
+from twilio.compat import urlencode
 
 import twilio
 from twilio import TwilioException, TwilioRestException
@@ -20,9 +21,9 @@ class Response(object):
         self.url = url
 
 
-def make_request(method, url,
-    params=None, data=None, headers=None, cookies=None, files=None,
-    auth=None, timeout=None, allow_redirects=False, proxies=None):
+def make_request(method, url, params=None, data=None, headers=None,
+                 cookies=None, files=None, auth=None, timeout=None,
+                 allow_redirects=False, proxies=None):
     """Sends an HTTP request Returns :class:`Response <models.Response>`
 
     See the requests documentation for explanation of all these parameters
@@ -37,11 +38,14 @@ def make_request(method, url,
 
     if data is not None:
         udata = {}
-        for k, v in data.iteritems():
-            try:
-                udata[k.encode('utf-8')] = unicode(v).encode('utf-8')
-            except UnicodeDecodeError:
-                udata[k.encode('utf-8')] = unicode(v, 'utf-8').encode('utf-8')
+        for k, v in iteritems(data):
+            key = k.encode('utf-8')
+            if isinstance(v, (integer_types, binary_type)):
+                udata[key] = v
+            elif isinstance(v, string_types):
+                udata[key] = v.encode('utf-8')
+            else:
+                raise ValueError('data should be an integer, binary, or string')
         data = urlencode(udata)
 
     if params is not None:
@@ -71,18 +75,20 @@ def make_twilio_request(method, uri, **kwargs):
 
     if "Accept" not in headers:
         headers["Accept"] = "application/json"
-        uri = uri + ".json"
+        uri += ".json"
 
     resp = make_request(method, uri, **kwargs)
 
     if not resp.ok:
         try:
             error = json.loads(resp.content)
-            message = "%s: %s" % (error["code"], error["message"])
+            code = error["code"]
+            message = "%s: %s" % (code, error["message"])
         except:
+            code = None
             message = resp.content
 
-        raise TwilioRestException(resp.status_code, resp.url, message)
+        raise TwilioRestException(resp.status_code, resp.url, message, code)
 
     return resp
 
@@ -99,6 +105,9 @@ class Resource(object):
     def __eq__(self, other):
         return (isinstance(other, self.__class__)
                 and self.__dict__ == other.__dict__)
+
+    def __hash__(self):
+        return hash(frozenset(self.__dict__))
 
     def __ne__(self, other):
         return not self.__eq__(other)
@@ -132,8 +141,7 @@ class InstanceResource(Resource):
     def __init__(self, parent, sid):
         self.parent = parent
         self.name = sid
-        super(InstanceResource, self).__init__(parent.uri,
-            parent.auth)
+        super(InstanceResource, self).__init__(parent.uri, parent.auth)
 
     def load(self, entries):
         if "from" in entries.keys():

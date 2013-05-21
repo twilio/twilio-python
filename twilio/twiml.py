@@ -1,8 +1,8 @@
 """
 Make sure to check out the TwiML overview and tutorial
 """
-
 import xml.etree.ElementTree as ET
+from six import iteritems
 
 
 class TwimlException(Exception):
@@ -52,10 +52,10 @@ class Verb(object):
         :param bool xml_declaration: Include the XML declaration. Defaults to
                                      True
         """
-        xml = ET.tostring(self.xml()).encode("utf-8")
+        xml = ET.tostring(self.xml()).decode('utf-8')
 
         if xml_declaration:
-            return u'<?xml version="1.0" encoding="UTF-8"?>' + xml
+            return '<?xml version="1.0" encoding="UTF-8"?>' + xml
         else:
             return xml
 
@@ -63,7 +63,7 @@ class Verb(object):
         el = ET.Element(self.name)
 
         keys = self.attrs.keys()
-        keys.sort()
+        keys = sorted(keys)
         for a in keys:
             value = self.attrs[a]
 
@@ -83,7 +83,7 @@ class Verb(object):
     def append(self, verb):
         if not self.nestables or verb.name not in self.nestables:
             raise TwimlException("%s is not nestable inside %s" %
-                (verb.name, self.name))
+                                 (verb.name, self.name))
         self.verbs.append(verb)
         return verb
 
@@ -103,7 +103,7 @@ class Response(Verb):
         'Sms',
         'Enqueue',
         'Leave'
-        ]
+    ]
 
     def __init__(self, **kwargs):
         """Version: Twilio API version e.g. 2008-08-01 """
@@ -389,7 +389,7 @@ class Dial(Verb):
     """
     GET = 'GET'
     POST = 'POST'
-    nestables = ['Number', 'Conference', 'Client', 'Queue']
+    nestables = ['Number', 'Conference', 'Client', 'Queue', 'Sip']
 
     def __init__(self, number=None, **kwargs):
         super(Dial, self).__init__(**kwargs)
@@ -410,6 +410,9 @@ class Dial(Verb):
 
     def queue(self, name, **kwargs):
         return self.append(Queue(name, **kwargs))
+
+    def sip(self, sip_address=None, **kwargs):
+        return self.append(Sip(sip_address, **kwargs))
 
     def addNumber(self, *args, **kwargs):
         return self.number(*args, **kwargs)
@@ -471,3 +474,29 @@ class Record(Verb):
     """
     GET = 'GET'
     POST = 'POST'
+
+
+class Sip(Verb):
+    """Dial out to a SIP endpoint
+
+    :param url: call screening URL none
+    :param method: call screening method POST
+    :param username: Username for SIP authentication
+    :param password: Password for SIP authentication
+    """
+    nestables = ['Headers', 'Uri']
+
+    def __init__(self, sip_address=None, **kwargs):
+        super(Sip, self).__init__(**kwargs)
+        if sip_address:
+            self.body = sip_address
+
+    def uri(self, uri, **kwargs):
+        return self.append(Uri(uri, **kwargs))
+
+
+class Uri(Verb):
+    """A uniform resource indentifier"""
+    def __init__(self, uri, **kwargs):
+        super(Uri, self).__init__(**kwargs)
+        self.body = uri

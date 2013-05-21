@@ -4,15 +4,19 @@
 Accounts
 ===========
 
-Managing Twilio accounts is straightforward. Update your own account information or create and manage multiple subaccounts.
+Managing Twilio accounts is straightforward.
+Update your own account information or create and manage multiple subaccounts.
 
-For more information, see the `Account REST Resource <http://www.twilio.com/docs/api/rest/account>`_ documentation.
+For more information, see the
+`Account REST Resource <http://www.twilio.com/docs/api/rest/account>`_
+documentation.
 
 
 Updating Account Information
 ----------------------------
 
-Use the :meth:`Account.update` to modify one of your accounts. Right now the only valid attribute is `FriendlyName`.
+Use the :meth:`Account.update` to modify one of your accounts.
+Right now the only valid attribute is `FriendlyName`.
 
 .. code-block:: python
 
@@ -25,6 +29,7 @@ Use the :meth:`Account.update` to modify one of your accounts. Right now the onl
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     account = client.accounts.get(ACCOUNT_SID)
     account.update(friendly_name="My Awesome Account")
+
 
 Creating Subaccounts
 ----------------------
@@ -41,6 +46,7 @@ Subaccounts are easy to make.
 
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     subaccount = client.accounts.create(name="My Awesome SubAccount")
+
 
 Managing Subaccounts
 -------------------------

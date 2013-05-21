@@ -3,6 +3,37 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.4.5
+-------------
+
+Released on April 1, 2013
+
+Allow the Account object to access usage records and usage trigger data, in
+addition to the client. Reporter: Trenton McManus
+
+Version 3.4.4
+-------------
+
+Adds support for Sip
+
+Version 3.4.3
+-------------
+
+Adds correct dependencies to the `setup.py` file.
+
+Version 3.4.2
+-------------
+
+Released on January 2, 2013
+
+Adds a convenience function to retrieve the members of a queue by running 
+client.members("QU123").
+
+Version 3.4.1
+-------------
+
+Python3 support!
+
 Version 3.3.11
 --------------
 

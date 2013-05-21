@@ -4,7 +4,8 @@
 Accessing REST Resources
 =========================
 
-To access Twilio REST resources, you'll first need to instantiate a :class:`TwilioRestClient`.
+To access Twilio REST resources, you'll first need to instantiate a
+:class:`TwilioRestClient`.
 
 Authentication
 --------------------------
@@ -14,7 +15,8 @@ passed in directly to the constructor, we suggest storing your credentials as
 environment variables. Why? You'll never have to worry about committing your
 credentials and accidentally posting them somewhere public.
 
-The :class:`TwilioRestClient` looks for :const:`TWILIO_ACCOUNT_SID` and :const:`TWILIO_AUTH_TOKEN` inside the current environment.
+The :class:`TwilioRestClient` looks for :const:`TWILIO_ACCOUNT_SID` and
+:const:`TWILIO_AUTH_TOKEN` inside the current environment.
 
 With those two values set, create a new :class:`TwilioClient`.
 
@@ -39,7 +41,9 @@ directly to the the constructor.
 Listing Resources
 -------------------
 
-The :class:`TwilioRestClient` gives you access to various list resources. :meth:`ListResource.list`, by default, returns the most recent 50 instance resources.
+The :class:`TwilioRestClient` gives you access to various list resources.
+:meth:`ListResource.list`, by default, returns the most recent 50 instance
+resources.
 
 .. code-block:: python
 
@@ -52,7 +56,8 @@ The :class:`TwilioRestClient` gives you access to various list resources. :meth:
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     resources = client.calls.list()
 
-:meth:`resource.ListResource.list` accepts paging arguments. The following will return page 3 with page size of 25.
+:meth:`resource.ListResource.list` accepts paging arguments.
+The following will return page 3 with page size of 25.
 
 .. code-block:: python
 
@@ -69,7 +74,11 @@ The :class:`TwilioRestClient` gives you access to various list resources. :meth:
 Listing All Resources
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-Sometimes you'd like to retrieve all records from a list resource. Instead of manually paging over the resource, the :class:`resources.ListResource.iter` method returns a generator. After exhausting the current page, the generator will request the next page of results.
+Sometimes you'd like to retrieve all records from a list resource.
+Instead of manually paging over the resource,
+the :class:`resources.ListResource.iter` method returns a generator.
+After exhausting the current page,
+the generator will request the next page of results.
 
 .. warning:: Accessing all your records can be slow. We suggest only doing so when you absolutely need all the records.
 
@@ -89,7 +98,9 @@ Sometimes you'd like to retrieve all records from a list resource. Instead of ma
 Get an Individual Resource
 -----------------------------
 
-To get an individual instance resource, use :class:`resources.ListResource.get`. Provide the :attr:`sid` of the resource you'd like to get.
+To get an individual instance resource, use
+:meth:`resources.ListResource.get`.
+Provide the :attr:`sid` of the resource you'd like to get.
 
 .. code-block:: python
 

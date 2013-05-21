@@ -1,7 +1,7 @@
 import re
 
 from twilio import TwilioException
-from twilio.rest.resources.util import transform_params
+from twilio.rest.resources.util import change_dict_key, transform_params
 from twilio.rest.resources import InstanceResource, ListResource
 
 
@@ -64,7 +64,7 @@ class PhoneNumber(InstanceResource):
         if "account_sid" in entries:
             # Parse the parent's uri to get the scheme and base
             uri = re.sub(r'AC(.*)', entries["account_sid"],
-                self.parent.base_uri)
+                         self.parent.base_uri)
 
             self.parent = PhoneNumbers(uri, self.parent.auth)
             self.base_uri = self.parent.uri
@@ -83,7 +83,11 @@ class PhoneNumber(InstanceResource):
         """
         Update this phone number instance.
         """
-        a = self.parent.update(self.name, **kwargs)
+        kwargs_copy = dict(kwargs)
+        change_dict_key(kwargs_copy, from_key="status_callback_url",
+                        to_key="status_callback")
+
+        a = self.parent.update(self.name, **kwargs_copy)
         self.load(a.__dict__)
 
     def delete(self):
@@ -147,7 +151,7 @@ class PhoneNumbers(ListResource):
     def search(self, **kwargs):
         """
         :param type: The type of phone number to search for.
-        :param string country: Either "US" or "CA". Defaults to "US"
+        :param string country: Only show numbers for this country (iso2)
         :param string region: When searching the US, show numbers in this state
         :param string postal_code: Only show numbers in this area code
         :param string rate_center: US only.
@@ -167,9 +171,13 @@ class PhoneNumbers(ListResource):
         """
         Update this phone number instance
         """
-        if "application_sid" in kwargs:
+        kwargs_copy = dict(kwargs)
+        change_dict_key(kwargs_copy, from_key="status_callback_url",
+                        to_key="status_callback")
+
+        if "application_sid" in kwargs_copy:
             for sid_type in ["voice_application_sid", "sms_application_sid"]:
-                if sid_type not in kwargs:
-                    kwargs[sid_type] = kwargs["application_sid"]
-            del kwargs["application_sid"]
-        return self.update_instance(sid, kwargs)
+                if sid_type not in kwargs_copy:
+                    kwargs_copy[sid_type] = kwargs_copy["application_sid"]
+            del kwargs_copy["application_sid"]
+        return self.update_instance(sid, kwargs_copy)

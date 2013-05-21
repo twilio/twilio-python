@@ -5,6 +5,7 @@ Frequently Asked Questions
 Hopefully you can find an answer here to one of your questions. If not, please
 contact `help@twilio.com <mailto:help@twilio.com>`_.
 
+
 ImportError messages
 --------------------
 
@@ -15,13 +16,13 @@ If you get an error that looks like this:
     Traceback (most recent call last):
       File "twilio.py", line 1, in <module>
         from twilio.rest import TwilioRestClient
-      File "/Users/kevin/code/twilio-python/docs/twilio.py", line 1, in <module>
+      File "/.../twilio-python/docs/twilio.py", line 1, in <module>
         from twilio.rest import TwilioRestClient
     ImportError: No module named rest
 
-Check to make sure that you don't have a file named ``twilio.py``; Python will try to
-load the Twilio library from your ``twilio.py`` file instead of from the Twilio
-library.
+Check to make sure that you don't have a file named ``twilio.py``;
+Python will try to load the Twilio library from your ``twilio.py`` file
+instead of from the Twilio library.
 
 If you get an error that looks like this:
 
@@ -49,8 +50,8 @@ grep pip`` (works with Bash on \*nix machines). There can also be more than one
 version of Python, especially if you have Macports or homebrew.
 
 You also may be using an outdated version of the twilio-python library, which
-did not use a ``twilio.rest.TwilioRestClient`` object. Check which version of the
-twilio library you have installed by running this command:
+did not use a ``twilio.rest.TwilioRestClient`` object. Check which version of
+the twilio library you have installed by running this command:
 
 .. code-block:: bash
 
@@ -65,6 +66,7 @@ version, you can upgrade with this command:
 
 Note that if you have code that uses the older version of the library, it may
 break when you upgrade your site.
+
 
 Formatting phone numbers
 ------------------------
@@ -99,7 +101,7 @@ Then you can convert user input to phone numbers like this:
             # Phone number may already be in E.164 format.
             parse_type = None
         else:
-            # If no country code information is present, assume it's a US number
+            # If no country code information present, assume it's a US number
             parse_type = "US"
 
         phone_representation = phonenumbers.parse(raw_phone, parse_type)
@@ -107,5 +109,4 @@ Then you can convert user input to phone numbers like this:
             phonenumbers.PhoneNumberFormat.E164)
 
     print convert_to_e164('212 555 1234')   # prints +12125551234
-
 

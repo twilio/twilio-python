@@ -1,5 +1,6 @@
 from twilio.rest.resources import InstanceResource, ListResource
 
+
 class UsageTrigger(InstanceResource):
     """ A usage trigger resource """
 
@@ -63,6 +64,9 @@ class UsageTriggers(ListResource):
         """
         return self.create_instance(kwargs)
 
+    def update(self, sid, **kwargs):
+        """ Update the UsageTrigger with the given sid to have the kwargs """
+        return self.update_instance(sid, kwargs)
 
     def delete(self, sid):
         """
@@ -82,6 +86,7 @@ class UsageRecord(InstanceResource):
     @property
     def uri(self):
         return self.__dict__.get('uri')
+
 
 class BaseUsageRecords(ListResource):
     name = "Usage/Records"
@@ -113,6 +118,7 @@ class BaseUsageRecords(ListResource):
 
 
 class UsageRecords(BaseUsageRecords):
+
     def __init__(self, base_uri, auth):
         super(UsageRecords, self).__init__(base_uri, auth)
         self.daily = UsageRecordsDaily(base_uri, auth)
@@ -160,6 +166,7 @@ UsageRecord.subresources = [
     UsageRecordsThisMonth,
     UsageRecordsLastMonth
 ]
+
 
 class Usage(object):
     """

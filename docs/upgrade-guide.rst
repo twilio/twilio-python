@@ -2,12 +2,18 @@
 Upgrade Guide
 ==============
 
-Porting your application from **twilio-python** 2.0 to 3.0 is straightforward. All the same methods are still offered. Only their location has changed.
+Porting your application from **twilio-python** 2.0 to 3.0 is straightforward.
+All the same methods are still offered. Only their location has changed.
+
 
 Making API Requests
 ====================
 
-:class:`twilio.Account` has been moved to :class:`twilio.rest.TwilioRestClient`. The rest client offers a greatly improved API; however, the old :meth:`request` method still exists (in a deprecated state). We suggest you migrate your code to use the new API.
+:class:`twilio.Account` has been moved to
+:class:`twilio.rest.TwilioRestClient`.
+The rest client offers a greatly improved API;
+however, the old :meth:`request` method still exists (in a deprecated state).
+We suggest you migrate your code to use the new API.
 
 Here is how you would place an outgoing call with the older version.
 
@@ -29,15 +35,16 @@ Here is how you would place an outgoing call with the older version.
     account = twilio.Account(ACCOUNT_SID, ACCOUNT_TOKEN)
 
     d = {
-        'From' : CALLER_ID,
-        'To' : '415-555-1212',
-        'Url' : 'http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient',
+        'From': CALLER_ID,
+        'To': '415-555-1212',
+        'Url': 'http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient',
     }
 
-    print account.request('/%s/Accounts/%s/Calls' % \
+    print account.request('/%s/Accounts/%s/Calls' %
                          (API_VERSION, ACCOUNT_SID), 'POST', d)
 
-The same code, updated to work with the new version (albeit using deprecated methods).
+The same code, updated to work with the new version
+(albeit using deprecated methods).
 
 .. code-block:: python
 
@@ -51,12 +58,12 @@ The same code, updated to work with the new version (albeit using deprecated met
     client = TwilioRestClient(ACCOUNT_SID, ACCOUNT_TOKEN)
 
     d = {
-        'From' : CALLER_ID,
-        'To' : '415-555-1212',
-        'Url' : 'http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient',
+        'From': CALLER_ID,
+        'To': '415-555-1212',
+        'Url': 'http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient',
     }
 
-    print client.request('/%s/Accounts/%s/Calls' % \
+    print client.request('/%s/Accounts/%s/Calls' %
                         (API_VERSION, ACCOUNT_SID), 'POST', d)
 
 A final version using the new interface.
@@ -70,7 +77,7 @@ A final version using the new interface.
 
     client = TwilioRestClient(ACCOUNT_SID, ACCOUNT_TOKEN)
     call = client.calls.create(from_='NNNNNNNNNN', to='415-555-1212',
-                               url='http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient')
+        url='http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient')
 
     print call
 

@@ -28,7 +28,7 @@ class Recording(InstanceResource):
         self.formats = {
             "mp3": self.uri + ".mp3",
             "wav": self.uri + ".wav",
-            }
+        }
 
     def delete(self):
         """

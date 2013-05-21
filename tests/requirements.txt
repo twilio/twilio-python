@@ -1,0 +1,6 @@
+sphinx
+mock==0.8.0
+nose
+coverage
+nosexcover
+flake8

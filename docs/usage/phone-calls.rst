@@ -7,6 +7,7 @@ Phone Calls
 The :class:`Calls` resource manages all interaction with Twilio phone calls,
 including the creation and termination of phone calls.
 
+
 Making a Phone Call
 -------------------
 
@@ -28,10 +29,12 @@ outputs valid `TwiML <http://www.twilio.com/docs/api/twiml/>`_.
     print call.length
     print call.sid
 
+
 Retrieve a Call Record
 -------------------------
 
-If you already have a :class:`Call` sid, you can use the client to retrieve that record.
+If you already have a :class:`Call` sid,
+you can use the client to retrieve that record.
 
 .. code-block:: python
 
@@ -45,10 +48,14 @@ If you already have a :class:`Call` sid, you can use the client to retrieve that
     sid = "CA12341234"
     call = client.calls.get(sid)
 
-Accessing Specific Call Resources
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-Each :class:`Call` resource also has access to its `notifications`, `recordings`, and `transcriptions`. These attributes are :class:`ListResources`, just like the :class:`Calls` resource itself.
+Accessing Specific Call Resources
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Each :class:`Call` resource also has access to its `notifications`,
+`recordings`, and `transcriptions`.
+These attributes are :class:`ListResources`,
+just like the :class:`Calls` resource itself.
 
 .. code-block:: python
 
@@ -67,7 +74,7 @@ Each :class:`Call` resource also has access to its `notifications`, `recordings`
     print call.transcriptions.list()
 
 However, what if you only have a `CallSid`, and not the actual
-:class:`Resource`? No worries, as :meth:`list` can be filtered based on a given
+:class:`Resource`? No worries, as :meth:`list` can be filter based on a given
 `CallSid`.
 
 .. code-block:: python
@@ -88,7 +95,8 @@ However, what if you only have a `CallSid`, and not the actual
 Modifying Live Calls
 --------------------
 
-The :class:`Call` resource makes it easy to find current live calls and redirect them as necessary
+The :class:`Call` resource makes it easy to find current live calls and
+redirect them as necessary
 
 .. code-block:: python
 
@@ -102,8 +110,10 @@ The :class:`Call` resource makes it easy to find current live calls and redirect
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     calls = client.calls.list(status=Call.IN_PROGRESS)
     for c in calls:
-        c.route("http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient", 
-                method="POST")
+        c.route(
+            "http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient",
+            method="POST"
+        )
 
 Ending all live calls is also possible
 
@@ -136,9 +146,8 @@ resource to update the record without having to use :meth:`get` first.
 
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     sid = "CA12341234"
-    client.calls.update(sid, 
-                        url="http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient", 
-                        method="POST")
+    client.calls.update(sid, method="POST",
+        url="http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient")
 
 Hanging up the call also works.
 
@@ -153,3 +162,4 @@ Hanging up the call also works.
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     sid = "CA12341234"
     client.calls.hangup(sid)
+
