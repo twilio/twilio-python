@@ -15,6 +15,7 @@ Released on May 21, 2013
   with Python 3.
 - You can pass integers to Twiml arguments. (via [@jvankoten](/jvankoten))
 - Ensuring the tests always pass on Python 3. (via [@ftobia](/ftobia))
+- Add the list of AUTHORS
 - Fixes a timing attack vector in signature validation. (via [@zacharyvoase](/zacharyvoase))
 
 Version 3.4.5
