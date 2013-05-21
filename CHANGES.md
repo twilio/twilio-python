@@ -3,6 +3,20 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.5.0
+-------------
+
+Released on May 21, 2013
+
+- `date_created` and `date_updated` objects are now returned as Python
+  `datetime.datetime` objects instead of as RFC 2822 formatted strings. This is
+  a backwards incompatible change. (via [@abrinsmead](/abrinsmead))
+- The library will not throw a UnicodeDecodeError when parsing API responses
+  with Python 3.
+- You can pass integers to Twiml arguments. (via [@jvankoten](/jvankoten))
+- Ensuring the tests always pass on Python 3. (via [@ftobia](/ftobia))
+- Fixes a timing attack vector in signature validation. (via [@zacharyvoase](/zacharyvoase))
+
 Version 3.4.5
 -------------
 
