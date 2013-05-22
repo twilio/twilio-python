@@ -51,7 +51,7 @@ def parse_rfc2822_date(s):
     date_tuple = parsedate(s)
     if date_tuple is None:
         return None
-    return datetime.datetime(date_tuple[:6])
+    return datetime.datetime(*date_tuple[:6])
 
 
 def convert_boolean(boolean):
