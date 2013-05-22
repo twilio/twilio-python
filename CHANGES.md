@@ -3,6 +3,14 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.5.1
+-------------
+
+Released on May 21, 2013
+
+- Fixes an issue in the 3.5.0 release where null dates would cause the library
+  to raise a TypeError.
+
 Version 3.5.0
 -------------
 
