@@ -46,9 +46,12 @@ def parse_date(d):
 def parse_rfc2822_date(s):
     """
     Parses an RFC 2822 date string and returns a time zone naive datetime
-    object. It is assumed that all dates returned from Twilio are UTC.
+    object. All dates returned from Twilio are UTC.
     """
-    return datetime.datetime(*parsedate(s)[:6])
+    date_tuple = parsedate(s)
+    if date_tuple is None:
+        return None
+    return datetime.datetime(date_tuple[:6])
 
 
 def convert_boolean(boolean):

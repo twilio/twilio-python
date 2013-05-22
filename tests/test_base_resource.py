@@ -7,7 +7,7 @@ else:
     import unittest2 as unittest
 
 from mock import Mock
-from nose.tools import assert_equal, assert_true
+from nose.tools import assert_equal, assert_true, assert_is_none
 from twilio.rest.resources import Resource
 from twilio.rest.resources import ListResource
 from twilio.rest.resources import InstanceResource
@@ -114,6 +114,10 @@ class testInstanceResourceInit(unittest.TestCase):
             assert_equal(self.r.date_created.day, 29)
         except AttributeError:
             pass
+
+    def testLoadNullDate(self):
+        self.r.load({"date_created": None, "uri": "foobar"})
+        assert_is_none(self.r.date_created)
 
     def testLoadWithFrom(self):
         self.r.load({"from": "foo"})
