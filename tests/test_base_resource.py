@@ -117,7 +117,7 @@ class testInstanceResourceInit(unittest.TestCase):
 
     def testLoadNullDate(self):
         self.r.load({"date_created": None, "uri": "foobar"})
-        assert_is_none(self.r.date_created)
+        assert self.r.date_created is None
 
     def testLoadWithFrom(self):
         self.r.load({"from": "foo"})
