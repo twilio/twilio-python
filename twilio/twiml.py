@@ -238,7 +238,7 @@ class Play(Verb):
                 correctly.
 
     :param loop: specifies how many times you'd like the text repeated.
-                 Specifying '0' will cause the the :class:`Say` verb to loop
+                 Specifying '0' will cause the the :class:`Play` verb to loop
                  until the call is hung up. Defaults to 1.
     """
     def __init__(self, url, **kwargs):
