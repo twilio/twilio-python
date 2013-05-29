@@ -215,7 +215,7 @@ class Say(Verb):
 
     :param loop: specifies how many times you'd like the text repeated.
                  Specifying '0' will cause the the :class:`Say` verb to loop
-                 until the call is hung up.
+                 until the call is hung up. Defaults to 1.
     """
     MAN = 'man'
     WOMAN = 'woman'
