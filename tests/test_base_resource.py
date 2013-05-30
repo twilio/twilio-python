@@ -7,7 +7,7 @@ else:
     import unittest2 as unittest
 
 from mock import Mock
-from nose.tools import assert_equal, assert_true, assert_is_none
+from nose.tools import assert_equal, assert_true
 from twilio.rest.resources import Resource
 from twilio.rest.resources import ListResource
 from twilio.rest.resources import InstanceResource
