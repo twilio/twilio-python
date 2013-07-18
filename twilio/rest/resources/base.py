@@ -174,6 +174,9 @@ class InstanceResource(Resource):
     def delete_instance(self):
         return self.parent.delete(self.name)
 
+    def __str__(self):
+        return "<{} {}>".format(self.__class__.__name__, self.name[0:5])
+
 
 class ListResource(Resource):
 
@@ -289,3 +292,6 @@ class ListResource(Resource):
         instance.load(data)
         instance.load_subresources()
         return instance
+
+    def __str__(self):
+        return '<{} ({})>'.format(self.__class__.__name__, self.count())
