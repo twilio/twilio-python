@@ -155,7 +155,7 @@ class InstanceResource(Resource):
 
         for key in entries.keys():
             if key.startswith("date_") and isinstance(entries[key], str):
-                    entries[key] = parse_rfc2822_date(entries[key])
+                entries[key] = parse_rfc2822_date(entries[key])
 
         self.__dict__.update(entries)
 
