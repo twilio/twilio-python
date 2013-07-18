@@ -154,8 +154,8 @@ class InstanceResource(Resource):
             del entries["uri"]
 
         for key in entries.keys():
-            if key.startswith("date_"):
-                entries[key] = parse_rfc2822_date(entries[key])
+            if key.startswith("date_") and isinstance(entries[key], str):
+                    entries[key] = parse_rfc2822_date(entries[key])
 
         self.__dict__.update(entries)
 
