@@ -11,6 +11,7 @@ from twilio import TwilioException
 from twilio.rest.resources import AvailablePhoneNumber
 from twilio.rest.resources import AvailablePhoneNumbers
 from twilio.rest.resources import PhoneNumbers
+from twilio.rest.resources import UNSET_TIMEOUT
 
 
 class AvailablePhoneNumberTest(unittest.TestCase):
@@ -35,7 +36,7 @@ class AvailabePhoneNumbersTest(unittest.TestCase):
 
     def setUp(self):
         self.resource = AvailablePhoneNumbers("http://api.twilio.com",
-                                              ("user", "pass"), Mock())
+                                              ("user", "pass"), UNSET_TIMEOUT, Mock())
 
     def test_get(self):
         with self.assertRaises(TwilioException):

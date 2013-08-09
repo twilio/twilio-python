@@ -1,4 +1,5 @@
 from twilio.rest.resources import InstanceResource, ListResource
+from twilio.rest.resources.util import UNSET_TIMEOUT
 
 
 class UsageTrigger(InstanceResource):
@@ -119,15 +120,15 @@ class BaseUsageRecords(ListResource):
 
 class UsageRecords(BaseUsageRecords):
 
-    def __init__(self, base_uri, auth):
-        super(UsageRecords, self).__init__(base_uri, auth)
-        self.daily = UsageRecordsDaily(base_uri, auth)
-        self.monthly = UsageRecordsMonthly(base_uri, auth)
-        self.yearly = UsageRecordsYearly(base_uri, auth)
-        self.today = UsageRecordsToday(base_uri, auth)
-        self.yesterday = UsageRecordsYesterday(base_uri, auth)
-        self.this_month = UsageRecordsThisMonth(base_uri, auth)
-        self.last_month = UsageRecordsLastMonth(base_uri, auth)
+    def __init__(self, base_uri, auth, timeout=UNSET_TIMEOUT):
+        super(UsageRecords, self).__init__(base_uri, auth, timeout)
+        self.daily = UsageRecordsDaily(base_uri, auth, timeout)
+        self.monthly = UsageRecordsMonthly(base_uri, auth, timeout)
+        self.yearly = UsageRecordsYearly(base_uri, auth, timeout)
+        self.today = UsageRecordsToday(base_uri, auth, timeout)
+        self.yesterday = UsageRecordsYesterday(base_uri, auth, timeout)
+        self.this_month = UsageRecordsThisMonth(base_uri, auth, timeout)
+        self.last_month = UsageRecordsLastMonth(base_uri, auth, timeout)
 
 
 class UsageRecordsDaily(BaseUsageRecords):
@@ -173,6 +174,7 @@ class Usage(object):
     Holds all the specific Usage list resources
     """
 
-    def __init__(self, base_uri, auth):
-        self.records = UsageRecords(base_uri, auth)
-        self.triggers = UsageTriggers(base_uri, auth)
+    def __init__(self, base_uri, auth, timeout=UNSET_TIMEOUT):
+        self.records = UsageRecords(base_uri, auth, timeout=timeout)
+        self.triggers = UsageTriggers(base_uri, auth, timeout=timeout)
+        self.timeout = timeout

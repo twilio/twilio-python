@@ -6,8 +6,9 @@ if six.PY3:
 else:
     import unittest2 as unittest
 
-from mock import Mock
+from mock import Mock, sentinel, patch, ANY
 from nose.tools import assert_equal, assert_true
+from twilio.rest.resources.imports import json
 from twilio.rest.resources import Resource
 from twilio.rest.resources import ListResource
 from twilio.rest.resources import InstanceResource
@@ -127,4 +128,29 @@ class testInstanceResourceInit(unittest.TestCase):
         m = Mock()
         self.r.subresources = [m]
         self.r.load_subresources()
-        m.assert_called_with(self.r.uri, self.r.auth)
+        m.assert_called_with(self.r.uri, self.r.auth, self.r.timeout)
+
+
+class testTimeoutPropagation(unittest.TestCase):
+    def setUp(self):
+        self.parent = ListResource(base_uri, auth, timeout=sentinel.timeout)
+        self.r = InstanceResource(self.parent, "123")
+        self.uri = "%s/%s" % (self.parent.uri, "123")
+
+    @patch('twilio.rest.resources.base.make_request')
+    def testPassThrough(self, mock_request):
+        mock_response = Mock()
+        mock_response.ok = True,
+        mock_response.content = json.dumps({'key': 'value'})
+        mock_request.return_value = mock_response
+
+        self.assertEquals(self.r.timeout, sentinel.timeout)
+        self.assertEquals((mock_response, {'key': 'value'}), self.r.request('GET', base_uri))
+
+        mock_request.assert_called_once_with(
+            'GET',
+            base_uri + '.json',
+            headers=ANY,
+            timeout=sentinel.timeout,
+            auth=ANY
+        )
