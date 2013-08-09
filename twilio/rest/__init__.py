@@ -119,7 +119,11 @@ values from your Twilio Account at https://www.twilio.com/user/account.
 
         self.accounts = Accounts(version_uri, auth, timeout)
         self.applications = Applications(account_uri, auth, timeout)
-        self.authorized_connect_apps = AuthorizedConnectApps(account_uri, auth, timeout)
+        self.authorized_connect_apps = AuthorizedConnectApps(
+            account_uri,
+            auth,
+            timeout
+        )
         self.calls = Calls(account_uri, auth, timeout)
         self.caller_ids = CallerIds(account_uri, auth, timeout)
         self.connect_apps = ConnectApps(account_uri, auth, timeout)
