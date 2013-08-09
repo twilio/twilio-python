@@ -147,7 +147,11 @@ class InstanceResource(Resource):
     def __init__(self, parent, sid):
         self.parent = parent
         self.name = sid
-        super(InstanceResource, self).__init__(parent.uri, parent.auth, parent.timeout)
+        super(InstanceResource, self).__init__(
+            parent.uri,
+            parent.auth,
+            parent.timeout
+        )
 
     def load(self, entries):
         if "from" in entries.keys():
@@ -168,7 +172,11 @@ class InstanceResource(Resource):
         Load all subresources
         """
         for resource in self.subresources:
-            list_resource = resource(self.uri, self.parent.auth, self.parent.timeout)
+            list_resource = resource(
+                self.uri,
+                self.parent.auth,
+                self.parent.timeout
+            )
             self.__dict__[list_resource.key] = list_resource
 
     def update_instance(self, **kwargs):

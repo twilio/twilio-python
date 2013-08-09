@@ -1,7 +1,8 @@
 import re
 
 from twilio import TwilioException
-from twilio.rest.resources.util import change_dict_key, transform_params, UNSET_TIMEOUT
+from twilio.rest.resources.util import change_dict_key, transform_params
+from twilio.rest.resources.util import UNSET_TIMEOUT
 from twilio.rest.resources import InstanceResource, ListResource
 
 
@@ -66,7 +67,11 @@ class PhoneNumber(InstanceResource):
             uri = re.sub(r'AC(.*)', entries["account_sid"],
                          self.parent.base_uri)
 
-            self.parent = PhoneNumbers(uri, self.parent.auth, self.parent.timeout)
+            self.parent = PhoneNumbers(
+                uri,
+                self.parent.auth,
+                self.parent.timeout
+            )
             self.base_uri = self.parent.uri
 
         super(PhoneNumber, self).load(entries)
