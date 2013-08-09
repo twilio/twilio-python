@@ -127,4 +127,4 @@ class testInstanceResourceInit(unittest.TestCase):
         m = Mock()
         self.r.subresources = [m]
         self.r.load_subresources()
-        m.assert_called_with(self.r.uri, self.r.auth)
+        m.assert_called_with(self.r.uri, self.r.auth, self.r.timeout)

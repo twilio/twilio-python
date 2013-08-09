@@ -121,3 +121,13 @@ def change_dict_key(d, from_key, to_key):
         d[to_key] = d.pop(from_key)
     except KeyError:
         pass
+
+
+class _UnsetTimeoutKls(object):
+    def __repr__(self):
+        return u'<Timeout Unset>'
+
+
+# None has special meaning for timeouts, so we use this sigil to indicate
+# that we don't care
+UNSET_TIMEOUT = _UnsetTimeoutKls()
