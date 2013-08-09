@@ -1,7 +1,7 @@
 import re
 
 from twilio import TwilioException
-from twilio.rest.resources.util import change_dict_key, transform_params
+from twilio.rest.resources.util import change_dict_key, transform_params, UNSET_TIMEOUT
 from twilio.rest.resources import InstanceResource, ListResource
 
 
@@ -25,8 +25,8 @@ class AvailablePhoneNumbers(ListResource):
 
     types = {"local": "Local", "tollfree": "TollFree"}
 
-    def __init__(self, base_uri, auth, phone_numbers):
-        super(AvailablePhoneNumbers, self).__init__(base_uri, auth)
+    def __init__(self, base_uri, auth, timeout, phone_numbers):
+        super(AvailablePhoneNumbers, self).__init__(base_uri, auth, timeout)
         self.phone_numbers = phone_numbers
 
     def get(self, sid):
@@ -66,7 +66,7 @@ class PhoneNumber(InstanceResource):
             uri = re.sub(r'AC(.*)', entries["account_sid"],
                          self.parent.base_uri)
 
-            self.parent = PhoneNumbers(uri, self.parent.auth)
+            self.parent = PhoneNumbers(uri, self.parent.auth, self.parent.timeout)
             self.base_uri = self.parent.uri
 
         super(PhoneNumber, self).load(entries)
@@ -107,10 +107,10 @@ class PhoneNumbers(ListResource):
     key = "incoming_phone_numbers"
     instance = PhoneNumber
 
-    def __init__(self, base_uri, auth):
-        super(PhoneNumbers, self).__init__(base_uri, auth)
+    def __init__(self, base_uri, auth, timeout=UNSET_TIMEOUT):
+        super(PhoneNumbers, self).__init__(base_uri, auth, timeout)
         self.available_phone_numbers = \
-            AvailablePhoneNumbers(base_uri, auth, self)
+            AvailablePhoneNumbers(base_uri, auth, timeout, self)
 
     def delete(self, sid):
         """

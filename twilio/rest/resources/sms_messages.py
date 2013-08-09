@@ -61,10 +61,10 @@ class Sms(object):
     name = "SMS"
     key = "sms"
 
-    def __init__(self, base_uri, auth):
+    def __init__(self, base_uri, auth, timeout):
         self.uri = "%s/SMS" % base_uri
-        self.messages = SmsMessages(self.uri, auth)
-        self.short_codes = ShortCodes(self.uri, auth)
+        self.messages = SmsMessages(self.uri, auth, timeout)
+        self.short_codes = ShortCodes(self.uri, auth, timeout)
 
 
 class SmsMessage(InstanceResource):
