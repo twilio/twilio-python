@@ -1,6 +1,8 @@
 import logging
 import os
+import platform
 from twilio import TwilioException
+from twilio import __version__ as LIBRARY_VERSION
 from twilio.rest.resources import make_request
 from twilio.rest.resources import Accounts
 from twilio.rest.resources import Applications
@@ -76,8 +78,13 @@ class TwilioRestClient(object):
         elif method == "POST" or method == "PUT":
             data = vars
 
+        user_agent = "twilio-python {} (python-{})".format(
+            LIBRARY_VERSION,
+            platform.python_version(),
+        )
+
         headers = {
-            "User-Agent": "twilio-python",
+            "User-Agent": user_agent,
             "Accept-Charset": "utf-8",
         }
 
