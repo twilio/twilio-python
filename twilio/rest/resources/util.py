@@ -125,7 +125,7 @@ def change_dict_key(d, from_key, to_key):
 
 class _UnsetTimeoutKls(object):
     def __repr__(self):
-        return u'<Timeout Unset>'
+        return '<Timeout Unset>'
 
 
 # None has special meaning for timeouts, so we use this sigil to indicate
