@@ -19,6 +19,7 @@ from twilio.rest.resources import PhoneNumbers
 from twilio.rest.resources import Conferences
 from twilio.rest.resources import Sandboxes
 from twilio.rest.resources import Usage
+from twilio.rest.resources import UNSET_TIMEOUT
 
 
 def find_credentials():
@@ -86,7 +87,7 @@ class TwilioRestClient(object):
         return resp.content
 
     def __init__(self, account=None, token=None, base="https://api.twilio.com",
-                 version="2010-04-01", client=None):
+                 version="2010-04-01", client=None, timeout=UNSET_TIMEOUT):
         """
         Create a Twilio REST API client.
         """
@@ -116,24 +117,29 @@ values from your Twilio Account at https://www.twilio.com/user/account.
         version_uri = "%s/%s" % (base, version)
         account_uri = "%s/%s/Accounts/%s" % (base, version, account)
 
-        self.accounts = Accounts(version_uri, auth)
-        self.applications = Applications(account_uri, auth)
-        self.authorized_connect_apps = AuthorizedConnectApps(account_uri, auth)
-        self.calls = Calls(account_uri, auth)
-        self.caller_ids = CallerIds(account_uri, auth)
-        self.connect_apps = ConnectApps(account_uri, auth)
-        self.notifications = Notifications(account_uri, auth)
-        self.recordings = Recordings(account_uri, auth)
-        self.transcriptions = Transcriptions(account_uri, auth)
-        self.sms = Sms(account_uri, auth)
-        self.phone_numbers = PhoneNumbers(account_uri, auth)
-        self.conferences = Conferences(account_uri, auth)
-        self.queues = Queues(account_uri, auth)
-        self.sandboxes = Sandboxes(account_uri, auth)
-        self.usage = Usage(account_uri, auth)
+        self.accounts = Accounts(version_uri, auth, timeout)
+        self.applications = Applications(account_uri, auth, timeout)
+        self.authorized_connect_apps = AuthorizedConnectApps(
+            account_uri,
+            auth,
+            timeout
+        )
+        self.calls = Calls(account_uri, auth, timeout)
+        self.caller_ids = CallerIds(account_uri, auth, timeout)
+        self.connect_apps = ConnectApps(account_uri, auth, timeout)
+        self.notifications = Notifications(account_uri, auth, timeout)
+        self.recordings = Recordings(account_uri, auth, timeout)
+        self.transcriptions = Transcriptions(account_uri, auth, timeout)
+        self.sms = Sms(account_uri, auth, timeout)
+        self.phone_numbers = PhoneNumbers(account_uri, auth, timeout)
+        self.conferences = Conferences(account_uri, auth, timeout)
+        self.queues = Queues(account_uri, auth, timeout)
+        self.sandboxes = Sandboxes(account_uri, auth, timeout)
+        self.usage = Usage(account_uri, auth, timeout)
 
         self.auth = auth
         self.account_uri = account_uri
+        self.timeout = timeout
 
     def participants(self, conference_sid):
         """
@@ -141,7 +147,7 @@ values from your Twilio Account at https://www.twilio.com/user/account.
         with the given conference_sid
         """
         base_uri = "%s/Conferences/%s" % (self.account_uri, conference_sid)
-        return Participants(base_uri, self.auth)
+        return Participants(base_uri, self.auth, self.timeout)
 
     def members(self, queue_sid):
         """
@@ -149,4 +155,4 @@ values from your Twilio Account at https://www.twilio.com/user/account.
         with the given queue_sid
         """
         base_uri = "%s/Queues/%s" % (self.account_uri, queue_sid)
-        return Members(base_uri, self.auth)
+        return Members(base_uri, self.auth, self.timeout)

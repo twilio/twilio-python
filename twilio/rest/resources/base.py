@@ -5,6 +5,7 @@ from twilio.compat import urlencode
 
 import twilio
 from twilio import TwilioException, TwilioRestException
+from twilio.rest.resources import UNSET_TIMEOUT
 from twilio.rest.resources.imports import parse_qs, httplib2, json
 from twilio.rest.resources.util import transform_params, parse_rfc2822_date
 
@@ -100,9 +101,10 @@ class Resource(object):
 
     name = "Resource"
 
-    def __init__(self, base_uri, auth):
+    def __init__(self, base_uri, auth, timeout=UNSET_TIMEOUT):
         self.base_uri = base_uri
         self.auth = auth
+        self.timeout = timeout
 
     def __eq__(self, other):
         return (isinstance(other, self.__class__)
@@ -120,6 +122,8 @@ class Resource(object):
 
         Raise a TwilioRestException
         """
+        if 'timeout' not in kwargs and self.timeout is not UNSET_TIMEOUT:
+            kwargs['timeout'] = self.timeout
         resp = make_twilio_request(method, uri, auth=self.auth, **kwargs)
 
         logging.debug(resp.content)
@@ -143,7 +147,11 @@ class InstanceResource(Resource):
     def __init__(self, parent, sid):
         self.parent = parent
         self.name = sid
-        super(InstanceResource, self).__init__(parent.uri, parent.auth)
+        super(InstanceResource, self).__init__(
+            parent.uri,
+            parent.auth,
+            parent.timeout
+        )
 
     def load(self, entries):
         if "from" in entries.keys():
@@ -164,7 +172,11 @@ class InstanceResource(Resource):
         Load all subresources
         """
         for resource in self.subresources:
-            list_resource = resource(self.uri, self.parent.auth)
+            list_resource = resource(
+                self.uri,
+                self.parent.auth,
+                self.parent.timeout
+            )
             self.__dict__[list_resource.key] = list_resource
 
     def update_instance(self, **kwargs):

@@ -4,8 +4,9 @@ if six.PY3:
 else:
     import unittest2 as unittest
 
+from twilio.rest.resources.imports import json
 from twilio.rest import TwilioRestClient, resources
-from mock import patch, Mock
+from mock import patch, Mock, sentinel, ANY
 from tools import create_mock_json
 
 AUTH = ("ACCOUNT_SID", "AUTH_TOKEN")
@@ -46,3 +47,24 @@ class RestClientTest(unittest.TestCase):
         self.client.members("QU123").list()
         uri = "https://api.twilio.com/2010-04-01/Accounts/ACCOUNT_SID/Queues/QU123/Members"
         mock.assert_called_with("GET", uri, params={}, auth=AUTH)
+
+
+class RestClientTimeoutTest(unittest.TestCase):
+    def setUp(self):
+        self.client = TwilioRestClient("ACCOUNT_SID", "AUTH_TOKEN", timeout=sentinel.timeout)
+
+    @patch("twilio.rest.resources.base.make_twilio_request")
+    def test_members(self, mock_request):
+        resp = create_mock_json("tests/resources/members_list.json")
+        mock_request.return_value = resp
+        self.client.members("QU123").list()
+        mock_request.assert_called_with("GET", ANY, params=ANY, auth=AUTH, timeout=sentinel.timeout)
+
+    @patch("twilio.rest.resources.base.make_twilio_request")
+    def test_arbitrary_member(self, mock_request):
+        mock_response = Mock()
+        mock_response.ok = True
+        mock_response.content = json.dumps({"short_codes": []})
+        mock_request.return_value = mock_response
+        self.assertEqual([], self.client.sms.short_codes.list())
+        mock_request.assert_called_once_with("GET", ANY, params=ANY, auth=AUTH, timeout=sentinel.timeout)
