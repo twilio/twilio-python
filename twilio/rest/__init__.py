@@ -78,7 +78,7 @@ class TwilioRestClient(object):
         elif method == "POST" or method == "PUT":
             data = vars
 
-        user_agent = "twilio-python {} (python-{})".format(
+        user_agent = "twilio-python %s (python-%s)" % (
             LIBRARY_VERSION,
             platform.python_version(),
         )
