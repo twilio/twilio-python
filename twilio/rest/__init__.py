@@ -5,19 +5,20 @@ from twilio.rest.resources import make_request
 from twilio.rest.resources import Accounts
 from twilio.rest.resources import Applications
 from twilio.rest.resources import AuthorizedConnectApps
-from twilio.rest.resources import Calls
 from twilio.rest.resources import CallerIds
-from twilio.rest.resources import Queues
-from twilio.rest.resources import Members
+from twilio.rest.resources import Calls
+from twilio.rest.resources import Conferences
 from twilio.rest.resources import ConnectApps
+from twilio.rest.resources import Members
+from twilio.rest.resources import Messages
 from twilio.rest.resources import Notifications
-from twilio.rest.resources import Recordings
-from twilio.rest.resources import Transcriptions
-from twilio.rest.resources import Sms
 from twilio.rest.resources import Participants
 from twilio.rest.resources import PhoneNumbers
-from twilio.rest.resources import Conferences
+from twilio.rest.resources import Queues
+from twilio.rest.resources import Recordings
 from twilio.rest.resources import Sandboxes
+from twilio.rest.resources import Sms
+from twilio.rest.resources import Transcriptions
 from twilio.rest.resources import Usage
 from twilio.rest.resources import UNSET_TIMEOUT
 
@@ -136,6 +137,7 @@ values from your Twilio Account at https://www.twilio.com/user/account.
         self.queues = Queues(account_uri, auth, timeout)
         self.sandboxes = Sandboxes(account_uri, auth, timeout)
         self.usage = Usage(account_uri, auth, timeout)
+        self.messages = Messages(account_uri, auth, timeout)
 
         self.auth = auth
         self.account_uri = account_uri

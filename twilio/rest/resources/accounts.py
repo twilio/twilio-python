@@ -12,6 +12,7 @@ from twilio.rest.resources.connect_apps import (
 )
 from twilio.rest.resources.queues import Queues
 from twilio.rest.resources.usage import UsageRecords, UsageTriggers
+from twilio.rest.resources.messages import Messages
 
 
 class Account(InstanceResource):

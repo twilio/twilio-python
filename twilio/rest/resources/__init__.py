@@ -45,3 +45,5 @@ from twilio.rest.resources.applications import (
 from twilio.rest.resources.accounts import Account, Accounts
 
 from twilio.rest.resources.usage import Usage
+
+from twilio.rest.resources.messages import Message, Messages

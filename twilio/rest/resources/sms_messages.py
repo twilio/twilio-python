@@ -98,7 +98,7 @@ class SmsMessages(ListResource):
     def list(self, from_=None, before=None, after=None, date_sent=None, **kw):
         """
         Returns a page of :class:`SMSMessage` resources as a list. For
-        paging informtion see :class:`ListResource`.
+        paging information see :class:`ListResource`.
 
         :param to: Only show SMS messages to this phone number.
         :param from_: Only show SMS messages from this phone number.
@@ -106,8 +106,8 @@ class SmsMessages(ListResource):
         :param date before: Only list SMS message sent before this date.
         :param date date_sent: Only list SMS message sent on this date.
         :param `from_`: Only show SMS messages from this phone number.
-        :param date after: Only list recordings logged after this datetime
-        :param date before: Only list recordings logged before this datetime
+        :param date after: Only list SMS messages logged after this datetime
+        :param date before: Only list SMS messages logged before this datetime
         """
         kw["From"] = from_
         kw["DateSent<"] = before
