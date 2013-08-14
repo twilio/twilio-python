@@ -13,7 +13,7 @@ get_headers = {
     "User-Agent": "twilio-python/%s" % (twilio.__version__),
     "Accept-Charset": "utf-8",
     "Accept": "application/json",
-    }
+}
 
 post_headers = get_headers.copy()
 post_headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -27,7 +27,7 @@ def test_get_params(http_mock, response_mock):
     http_mock.return_value = http
     make_request("GET", "http://httpbin.org/get", params={"hey": "you"})
     http.request.assert_called_with("http://httpbin.org/get?hey=you", "GET",
-            body=None, headers=None)
+                                    body=None, headers=None)
 
 
 @patch('twilio.rest.resources.base.Response')
@@ -38,7 +38,7 @@ def test_get_extra_params(http_mock, response_mock):
     http_mock.return_value = http
     make_request("GET", "http://httpbin.org/get?foo=bar", params={"hey": "you"})
     http.request.assert_called_with("http://httpbin.org/get?foo=bar&hey=you", "GET",
-            body=None, headers=None)
+                                    body=None, headers=None)
 
 
 @patch('twilio.rest.resources.base.Response')
@@ -49,7 +49,26 @@ def test_resp_uri(http_mock, response_mock):
     http_mock.return_value = http
     make_request("GET", "http://httpbin.org/get")
     http.request.assert_called_with("http://httpbin.org/get", "GET",
-            body=None, headers=None)
+                                    body=None, headers=None)
+
+
+@patch('twilio.rest.resources.base.Response')
+@patch('httplib2.Http')
+def test_sequence_data(http_mock, response_mock):
+    http = Mock()
+    http.request.return_value = (Mock(), Mock())
+    http_mock.return_value = http
+    make_request(
+        "POST",
+        "http://httpbin.org/post",
+        data={"a_list": ["here", "is", "some", "stuff"]},
+    )
+    http.request.assert_called_with(
+        "http://httpbin.org/post",
+        "POST",
+        body="a_list=here&a_list=is&a_list=some&a_list=stuff",
+        headers=None,
+    )
 
 
 @patch('twilio.rest.resources.base.make_request')

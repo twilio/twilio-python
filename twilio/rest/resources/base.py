@@ -37,18 +37,27 @@ def make_request(method, url, params=None, data=None, headers=None,
     if auth is not None:
         http.add_credentials(auth[0], auth[1])
 
+    def encode_atom(atom):
+            if isinstance(atom, (integer_types, binary_type)):
+                return atom
+            elif isinstance(atom, string_types):
+                return atom.encode('utf-8')
+            else:
+                raise ValueError('list elements should be an integer, '
+                                 'binary, or string')
+
     if data is not None:
         udata = {}
         for k, v in iteritems(data):
             key = k.encode('utf-8')
-            if isinstance(v, (integer_types, binary_type)):
-                udata[key] = v
-            elif isinstance(v, string_types):
-                udata[key] = v.encode('utf-8')
+            if isinstance(v, (list, tuple, set)):
+                udata[key] = [encode_atom(x) for x in v]
+            elif isinstance(v, (integer_types, binary_type, string_types)):
+                udata[key] = encode_atom(v)
             else:
                 raise ValueError('data should be an integer, '
-                                 'binary, or string')
-        data = urlencode(udata)
+                                 'binary, or string, or sequence ')
+        data = urlencode(udata, doseq=True)
 
     if params is not None:
         enc_params = urlencode(params, doseq=True)
