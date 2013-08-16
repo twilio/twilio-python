@@ -13,6 +13,7 @@ from twilio.rest.resources.connect_apps import (
 from twilio.rest.resources.queues import Queues
 from twilio.rest.resources.usage import UsageRecords, UsageTriggers
 from twilio.rest.resources.messages import Messages
+from twilio.rest.resources.media import MediaList
 
 
 class Account(InstanceResource):
@@ -37,6 +38,8 @@ class Account(InstanceResource):
         AuthorizedConnectApps,
         UsageRecords,
         UsageTriggers,
+        MediaList,
+        Messages,
     ]
 
     def update(self, **kwargs):

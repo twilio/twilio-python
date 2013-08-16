@@ -9,6 +9,7 @@ from twilio.rest.resources import CallerIds
 from twilio.rest.resources import Calls
 from twilio.rest.resources import Conferences
 from twilio.rest.resources import ConnectApps
+from twilio.rest.resources import MediaList
 from twilio.rest.resources import Members
 from twilio.rest.resources import Messages
 from twilio.rest.resources import Notifications
@@ -138,6 +139,7 @@ values from your Twilio Account at https://www.twilio.com/user/account.
         self.sandboxes = Sandboxes(account_uri, auth, timeout)
         self.usage = Usage(account_uri, auth, timeout)
         self.messages = Messages(account_uri, auth, timeout)
+        self.media = MediaList(account_uri, auth, timeout)
 
         self.auth = auth
         self.account_uri = account_uri

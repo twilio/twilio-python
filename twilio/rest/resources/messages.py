@@ -1,22 +1,10 @@
-from twilio.rest.resources.util import normalize_dates, parse_date
 from twilio.rest.resources import InstanceResource, ListResource
-
-
-class MessageMediaImages(ListResource):
-    pass
-
-
-class MessageMedia(InstanceResource):
-    subresources = [MessageMediaImages]
-    pass
-
-
-class MessageMediaList(ListResource):
-    instance = MessageMedia
+from twilio.rest.resources.media import MediaList
+from twilio.rest.resources.util import normalize_dates, parse_date
 
 
 class Message(InstanceResource):
-    subresources = [MessageMediaList]
+    subresources = [MediaList]
 
 
 class Messages(ListResource):
