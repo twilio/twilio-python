@@ -2,16 +2,21 @@ from twilio.rest.resources.util import normalize_dates, parse_date
 from twilio.rest.resources import InstanceResource, ListResource
 
 
-class Image(InstanceResource):
+class MessageMediaImages(ListResource):
     pass
 
 
-class Images(ListResource):
+class MessageMedia(InstanceResource):
+    subresources = [MessageMediaImages]
     pass
+
+
+class MessageMediaList(ListResource):
+    instance = MessageMedia
 
 
 class Message(InstanceResource):
-    subresources = [Images]
+    subresources = [MessageMediaList]
 
 
 class Messages(ListResource):
@@ -28,7 +33,7 @@ class Messages(ListResource):
             (must be a verified Twilio number)
         :param string body: The message you want to send,
             limited to 1600 characters.
-        :param list content_urls: A list of URLs of images to include in the
+        :param list media_urls: A list of URLs of images to include in the
             message.
         :param status_callback: A URL that Twilio will POST to when
             your message is processed.
