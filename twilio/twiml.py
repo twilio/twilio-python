@@ -102,7 +102,8 @@ class Response(Verb):
         'Reject',
         'Sms',
         'Enqueue',
-        'Leave'
+        'Leave',
+        'Message',
     ]
 
     def __init__(self, **kwargs):
@@ -168,6 +169,11 @@ class Response(Verb):
         """Return a newly created :class:`Sms` verb, nested inside this
         :class:`Response` """
         return self.append(Sms(msg, **kwargs))
+
+    def message(self, msg=None, **kwargs):
+        """Return a newly created :class:`Message` verb, nested inside this
+        :class:`Response`"""
+        return self.append(Message(msg, **kwargs))
 
     # All add* methods are deprecated
     def addSay(self, *args, **kwargs):
@@ -353,6 +359,58 @@ class Sms(Verb):
     def __init__(self, msg, **kwargs):
         super(Sms, self).__init__(**kwargs)
         self.body = msg
+
+
+class Message(Verb):
+    """ Send an MMS Message to a phone number.
+
+    :param to: whom to send message to
+    :param sender: whom to send message from.
+    :param action: url to request after the message is queued
+    :param method: submit to 'action' url using GET or POST
+    :param statusCallback: url to hit when the message is actually sent
+    """
+
+    GET = 'GET'
+    POST = 'POST'
+
+    nestables = ['Media', 'Body']
+
+    def __init__(self, msg=None, **kwargs):
+        super(Message, self).__init__(**kwargs)
+        if msg is not None:
+            self.append(Body(msg))
+
+    def media(self, media_url, **kwargs):
+        return self.append(Media(media_url, **kwargs))
+
+
+class Body(Verb):
+    """ Specify a text body for a Message.
+
+    :param msg: the text to use in the body.
+    """
+
+    GET = 'GET'
+    POST = 'POST'
+
+    def __init__(self, msg, **kwargs):
+        super(Body, self).__init__(**kwargs)
+        self.body = msg
+
+
+class Media(Verb):
+    """Specify media to include in a Message.
+
+    :param url: The URL of the media to include.
+    """
+
+    GET = 'GET'
+    POST = 'POST'
+
+    def __init__(self, url, **kwargs):
+        super(Media, self).__init__(**kwargs)
+        self.body = url
 
 
 class Conference(Verb):
