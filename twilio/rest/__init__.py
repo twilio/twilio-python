@@ -9,6 +9,7 @@ from twilio.rest.resources import Applications
 from twilio.rest.resources import AuthorizedConnectApps
 from twilio.rest.resources import Calls
 from twilio.rest.resources import CallerIds
+from twilio.rest.resources import Connection
 from twilio.rest.resources import Queues
 from twilio.rest.resources import Members
 from twilio.rest.resources import ConnectApps
@@ -34,6 +35,10 @@ def find_credentials():
         return account, token
     except KeyError:
         return None, None
+
+
+def set_twilio_proxy(proxy_url, proxy_port):
+    Connection.set_proxy_info(proxy_url, proxy_port)
 
 
 class TwilioRestClient(object):

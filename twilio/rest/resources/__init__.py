@@ -30,6 +30,7 @@ from twilio.rest.resources.connect_apps import (
 )
 from twilio.rest.resources.calls import Call, Calls
 from twilio.rest.resources.caller_ids import CallerIds, CallerId
+from twilio.rest.resources.connection import Connection
 from twilio.rest.resources.sandboxes import Sandbox, Sandboxes
 from twilio.rest.resources.sms_messages import (
     Sms, SmsMessage, SmsMessages, ShortCode, ShortCodes)
