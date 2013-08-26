@@ -1,22 +1,10 @@
 from twilio.rest.resources.util import normalize_dates
 
-from twilio.rest.resources import InstanceResource, ListResource
-
-
-class Transcription(InstanceResource):
-    pass
-
-
-class Transcriptions(ListResource):
-
-    name = "Transcriptions"
-    instance = Transcription
-
-    def list(self, **kwargs):
-        """
-        Return a list of :class:`Transcription` resources
-        """
-        return self.get_instances(kwargs)
+from twilio.rest.resources import (
+    InstanceResource,
+    ListResource,
+    Transcriptions,
+)
 
 
 class Recording(InstanceResource):
