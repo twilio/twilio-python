@@ -1,10 +1,7 @@
 from twilio.rest.resources.util import normalize_dates
 
-from twilio.rest.resources import (
-    InstanceResource,
-    ListResource,
-    Transcriptions,
-)
+from twilio.rest.resources.transcriptions import Transcriptions
+from twilio.rest.resources.base import InstanceResource, ListResource
 
 
 class Recording(InstanceResource):
