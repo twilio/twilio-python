@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.5.2
+-------------
+
+Released on August 26, 2013
+
+- You can now delete transcriptions
+
 Version 3.5.1
 -------------
 
@@ -49,7 +56,7 @@ Version 3.4.2
 
 Released on January 2, 2013
 
-Adds a convenience function to retrieve the members of a queue by running 
+Adds a convenience function to retrieve the members of a queue by running
 client.members("QU123").
 
 Version 3.4.1
@@ -107,7 +114,7 @@ Version 3.3.4
 Released on December 16, 2011
 
 - Allow both unicode strings and encoded byte strings in request data
-- Add support for SMS and Voice application sids to phone number updating 
+- Add support for SMS and Voice application sids to phone number updating
 - Fix documentation error relating to phone number purchasing
 - Include doc string information for decorated functions
 
@@ -118,7 +125,7 @@ Released on November 3, 2011
 
 - Support unicode characters when validating requests
 - Add support for Great Britain language on the Say verb
-- Set Sms Application, Voice Application, and/or a Friendly 
+- Set Sms Application, Voice Application, and/or a Friendly
   Name when purchasing a number
 - Add missing parameters for resource creation and update
 
