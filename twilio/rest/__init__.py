@@ -150,7 +150,7 @@ values from your Twilio Account at https://www.twilio.com/user/account.
         Return a :class:`Participants` instance for the :class:`Conference`
         with the given conference_sid
         """
-        base_uri = "%s/Conferences/%s" % (self.account_uri, conference_sid)
+        base_uri = "{}/Conferences/{}".format(self.account_uri, conference_sid)
         return Participants(base_uri, self.auth, self.timeout)
 
     def members(self, queue_sid):
@@ -158,5 +158,13 @@ values from your Twilio Account at https://www.twilio.com/user/account.
         Return a :class:`Members` instance for the :class:`Queue`
         with the given queue_sid
         """
-        base_uri = "%s/Queues/%s" % (self.account_uri, queue_sid)
+        base_uri = "{}/Queues/{}".format(self.account_uri, queue_sid)
         return Members(base_uri, self.auth, self.timeout)
+
+    #def media(self, message_sid):
+    #    """
+    #    Return a :class:`Media` instance for the :class:`Message`
+    #    with the given with the given message_sid
+    #    """
+    #    base_uri = "{}/Messages/{}".format(self.account_uri, queue_sid)
+    #    return MediaList(base_uri, self.auth, self.timeout)

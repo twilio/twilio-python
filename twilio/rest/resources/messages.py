@@ -51,3 +51,8 @@ class Messages(ListResource):
         kw["DateSent>"] = after
         kw["DateSent"] = parse_date(date_sent)
         return self.get_instances(kw)
+
+    def update(self, sid, **kwargs):
+        """ Update the MediaList with the given sid to have the kwargs """
+        return self.update_instance(sid, kwargs)
+
