@@ -7,7 +7,7 @@ class Transcription(InstanceResource):
         """
         Delete this transcription
         """
-        return self.delete_instance()
+        return self.parent.delete(self.sid)
 
 
 class Transcriptions(ListResource):
@@ -20,3 +20,9 @@ class Transcriptions(ListResource):
         Return a list of :class:`Transcription` resources
         """
         return self.get_instances(kwargs)
+
+    def delete(self, sid):
+        """
+        Delete the given transcription
+        """
+        return self.delete_instance(sid)
