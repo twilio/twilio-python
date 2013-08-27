@@ -1,6 +1,3 @@
-import re
-import datetime
-import logging
 import twilio
 from twilio import TwilioException, TwilioRestException
 
@@ -19,12 +16,10 @@ from twilio.rest.resources.base import (
 from twilio.rest.resources.phone_numbers import (
     AvailablePhoneNumber, AvailablePhoneNumbers, PhoneNumber, PhoneNumbers
 )
-from twilio.rest.resources.recordings import (
-    Recording, Recordings, Transcription, Transcriptions
-)
-from twilio.rest.resources.notifications import (
-    Notification, Notifications
-)
+from twilio.rest.resources.recordings import Recording, Recordings
+from twilio.rest.resources.transcriptions import Transcription, Transcriptions
+
+from twilio.rest.resources.notifications import Notification, Notifications
 from twilio.rest.resources.connect_apps import (
     ConnectApp, ConnectApps, AuthorizedConnectApp, AuthorizedConnectApps
 )
