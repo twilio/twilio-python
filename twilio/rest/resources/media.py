@@ -50,7 +50,7 @@ class MediaList(ListResource):
         # `client.media('message_sid')` needs to return a MediaList
         # for a given message.
 
-        base_uri = "{}/Messages/{}".format(self.base_uri, message_sid)
+        base_uri = "%s/Messages/%s" % (self.base_uri, message_sid)
         return MediaList(base_uri, self.auth, self.timeout)
 
     def __init__(self, *args, **kwargs):
