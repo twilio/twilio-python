@@ -9,7 +9,7 @@ from setuptools import setup, find_packages
 #
 # You need to have the setuptools module installed. Try reading the setuptools
 # documentation: http://pypi.python.org/pypi/setuptools
-REQUIRES = ["httplib2 >= 0.7", "six"]
+REQUIRES = ["httplib2 >= 0.7", "six", "Werkzeug"]
 
 if sys.version_info < (2, 6):
     REQUIRES.append('simplejson')

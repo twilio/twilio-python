@@ -167,11 +167,3 @@ values from your Twilio Account at https://www.twilio.com/user/account.
         """
         base_uri = "{}/Queues/{}".format(self.account_uri, queue_sid)
         return Members(base_uri, self.auth, self.timeout)
-
-    #def media(self, message_sid):
-    #    """
-    #    Return a :class:`Media` instance for the :class:`Message`
-    #    with the given with the given message_sid
-    #    """
-    #    base_uri = "{}/Messages/{}".format(self.account_uri, queue_sid)
-    #    return MediaList(base_uri, self.auth, self.timeout)

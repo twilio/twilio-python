@@ -1,6 +1,7 @@
 import datetime
 from email.utils import parsedate
 from six import iteritems
+from werkzeug.datastructures import MultiDict
 
 
 def transform_params(parameters):
@@ -14,11 +15,14 @@ def transform_params(parameters):
     becomes:
     {"Record": "true", "DateCreated": "2012-01-02"}
     """
-    transformed_parameters = {}
+    transformed_parameters = MultiDict()
 
     for key, value in iteritems(parameters):
+        if value is list or value is tuple:
+            for param in value:
+                transformed_parameters.add(format_name(key)], convert_boolean(value))
         if value is not None:
-            transformed_parameters[format_name(key)] = convert_boolean(value)
+            transformed_parameters.add(format_name(key), convert_boolean(value))
 
     return transformed_parameters
 
