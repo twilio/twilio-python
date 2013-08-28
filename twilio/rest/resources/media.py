@@ -3,33 +3,7 @@ from twilio.rest.resources.util import normalize_dates, parse_date
 import re
 
 
-class Image(InstanceResource):
-    pass
-
-
-class Images(ListResource):
-    name = "Images"
-    key = "images"
-    instance = Image
-
-    @normalize_dates
-    def list(self, before=None, after=None, date_created=None, **kw):
-        """
-        Returns a page of :class:`Image` resources as a list. For
-        paging information see :class:`ListResource`.
-
-        :param date after: Only list image created after this date.
-        :param date before: Only list image created before this date.
-        :param date date_created: Only list image created on this date.
-        """
-        kw["DateCreated<"] = before
-        kw["DateCreated>"] = after
-        kw["DateCreated"] = parse_date(date_created)
-        return self.get_instances(kw)
-
-
 class Media(InstanceResource):
-    subresources = [Images]
 
     def delete(self):
         """
@@ -55,8 +29,6 @@ class MediaList(ListResource):
 
     def __init__(self, *args, **kwargs):
         super(MediaList, self).__init__(*args, **kwargs)
-
-        self.images = Images(self.uri, self.auth, self.timeout)
 
     @normalize_dates
     def list(self, before=None, after=None, date_created=None, **kw):

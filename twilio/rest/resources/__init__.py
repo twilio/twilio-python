@@ -43,4 +43,4 @@ from twilio.rest.resources.usage import Usage
 
 from twilio.rest.resources.messages import Message, Messages
 
-from twilio.rest.resources.media import Media, MediaList, Image, Images
+from twilio.rest.resources.media import Media, MediaList

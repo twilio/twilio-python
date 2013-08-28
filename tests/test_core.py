@@ -11,6 +11,7 @@ from twilio.rest.resources import convert_keys
 from twilio.rest.resources import convert_case
 from twilio.rest.resources import convert_boolean
 from twilio.rest.resources import normalize_dates
+from werkzeug.datastructures import MultiDict
 
 
 class CoreTest(unittest.TestCase):
@@ -37,13 +38,20 @@ class CoreTest(unittest.TestCase):
 
     def test_fparam(self):
         d = {"HEY": None, "YOU": 3}
-        ed = {"YOU": 3}
-        self.assertEquals(transform_params(d), ed)
+        ed = MultiDict({"YOU": 3})
+        self.assertEquals(transform_params(d).to_dict(flat=False), ed.to_dict(flat=False))
+
+    def test_multi_param(self):
+        d = {"Normal": 3, "Multiple": ["One", "Two"]}
+        ed = MultiDict({"Normal": 3})
+        ed.add('Multiple', 'One')
+        ed.add('Multiple', 'Two')
+        self.assertEquals(transform_params(d).to_dict(flat=False), ed.to_dict(flat=False))
 
     def test_fparam_booleans(self):
         d = {"HEY": None, "YOU": 3, "Activated": False}
-        ed = {"YOU": 3, "Activated": "false"}
-        self.assertEquals(transform_params(d), ed)
+        ed = MultiDict({"YOU": 3, "Activated": "false"})
+        self.assertEquals(transform_params(d).to_dict(flat=False), ed.to_dict(flat=False))
 
     def test_normalize_dates(self):
 
@@ -53,7 +61,7 @@ class CoreTest(unittest.TestCase):
                 "on": on,
                 "before": before,
                 "after": after,
-                }
+            }
 
         d = foo(on="2009-10-10", before=date(2009, 10, 10),
                 after=datetime(2009, 10, 10))
@@ -78,13 +86,13 @@ class CoreTest(unittest.TestCase):
             "to": 0,
             "friendly_name": 0,
             "ended": 0,
-            }
+        }
 
         ed = {
             "From": 0,
             "To": 0,
             "FriendlyName": 0,
             "EndTime": 0,
-            }
+        }
 
         self.assertEquals(ed, convert_keys(d))

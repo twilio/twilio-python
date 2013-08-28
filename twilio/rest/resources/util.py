@@ -18,10 +18,10 @@ def transform_params(parameters):
     transformed_parameters = MultiDict()
 
     for key, value in iteritems(parameters):
-        if value is list or value is tuple:
+        if type(value) is list or type(value) is tuple:
             for param in value:
-                transformed_parameters.add(format_name(key)], convert_boolean(value))
-        if value is not None:
+                transformed_parameters.add(format_name(key), convert_boolean(param))
+        elif value is not None:
             transformed_parameters.add(format_name(key), convert_boolean(value))
 
     return transformed_parameters
