@@ -280,12 +280,12 @@ class ListResource(Resource):
 
     def total_pages(self):
         """
-        Return the number of pages of instance resources contained in this 
+        Return the number of pages of instance resources contained in this
         list resource
         """
         resp, page = self.request("GET", self.uri)
         return page['num_pages']
-        
+
     def iter(self, **kwargs):
         """
         Return all instance resources using an iterator
