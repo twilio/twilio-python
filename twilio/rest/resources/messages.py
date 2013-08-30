@@ -21,7 +21,7 @@ class Messages(ListResource):
             (must be a verified Twilio number)
         :param string body: The message you want to send,
             limited to 1600 characters.
-        :param list media_urls: A list of URLs of images to include in the
+        :param list media_url: A list of URLs of images to include in the
             message.
         :param status_callback: A URL that Twilio will POST to when
             your message is processed.

@@ -15,14 +15,14 @@ def transform_params(parameters):
     becomes:
     {"Record": "true", "DateCreated": "2012-01-02"}
     """
-    transformed_parameters = MultiDict()
+    transformed_parameters = {}
 
     for key, value in iteritems(parameters):
-        if type(value) is list or type(value) is tuple:
-            for param in value:
-                transformed_parameters.add(format_name(key), convert_boolean(param))
+        if isinstance(value, (list, tuple, set)):
+            value = [convert_boolean(param) for param in value]
+            transformed_parameters[format_name(key)] = value
         elif value is not None:
-            transformed_parameters.add(format_name(key), convert_boolean(value))
+            transformed_parameters[format_name(key)] = convert_boolean(value)
 
     return transformed_parameters
 
