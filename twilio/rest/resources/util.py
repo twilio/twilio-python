@@ -1,7 +1,6 @@
 import datetime
 from email.utils import parsedate
 from six import iteritems
-from werkzeug.datastructures import MultiDict
 
 
 def transform_params(parameters):
