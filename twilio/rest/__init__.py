@@ -20,6 +20,7 @@ from twilio.rest.resources import PhoneNumbers
 from twilio.rest.resources import Queues
 from twilio.rest.resources import Recordings
 from twilio.rest.resources import Sandboxes
+from twilio.rest.resources import Sip
 from twilio.rest.resources import Sms
 from twilio.rest.resources import Transcriptions
 from twilio.rest.resources import Usage
@@ -101,6 +102,7 @@ values from your Twilio Account at https://www.twilio.com/user/account.
         self.usage = Usage(account_uri, auth, timeout)
         self.messages = Messages(account_uri, auth, timeout)
         self.media = MediaList(account_uri, auth, timeout)
+        self.sip = Sip(account_uri, auth, timeout)
 
         self.auth = auth
         self.account_uri = account_uri

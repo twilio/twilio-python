@@ -382,3 +382,11 @@ class ListResource(Resource):
 
     def __str__(self):
         return '<{} ({})>'.format(self.__class__.__name__, self.count())
+
+    def list(self, **kw):
+        """Query the list resource for a list of InstanceResources.
+
+        :param int page: The page of results to retrieve (most recent at 0)
+        :param int page_size: The number of results to be returned.
+        """
+        return self.get_instances(kw)

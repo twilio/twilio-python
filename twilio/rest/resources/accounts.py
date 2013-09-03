@@ -14,6 +14,7 @@ from twilio.rest.resources.queues import Queues
 from twilio.rest.resources.usage import UsageRecords, UsageTriggers
 from twilio.rest.resources.messages import Messages
 from twilio.rest.resources.media import MediaList
+from twilio.rest.resources.sip import Sip
 
 
 class Account(InstanceResource):
@@ -42,6 +43,7 @@ class Account(InstanceResource):
         UsageTriggers,
         MediaList,
         Messages,
+        Sip,
     ]
 
     def update(self, **kwargs):
