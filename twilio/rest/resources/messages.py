@@ -53,6 +53,8 @@ class Messages(ListResource):
         return self.get_instances(kw)
 
     def update(self, sid, **kwargs):
-        """ Update the MediaList with the given sid to have the kwargs """
+        """ Updates the message for the given sid
+        :param sid: The sid of the message to update.
+        """
         return self.update_instance(sid, kwargs)
 
