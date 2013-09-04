@@ -68,6 +68,65 @@ class Sms(object):
 
 
 class SmsMessage(InstanceResource):
+    """ An instance of an SMS Message
+
+   .. attribute:: sid
+
+      A 34 character string that uniquely identifies this resource.
+
+   .. attribute:: date_created
+
+      The date that this resource was created, given in RFC 2822 format.
+
+   .. attribute:: date_updated
+
+      The date that this resource was last updated, given in RFC 2822 format.
+
+   .. attribute:: date_sent
+
+      The date that the SMS was sent, given in RFC 2822 format.
+
+   .. attribute:: account_sid
+
+      The unique id of the Account that sent this SMS message.
+
+   .. attribute:: from
+
+      The phone number that initiated the message in E.164 format. For incoming messages, this will be the remote phone. For outgoing messages, this will be one of your Twilio phone numbers.
+
+   .. attribute:: to
+
+      The phone number that received the message in E.164 format. For incoming messages, this will be one of your Twilio phone numbers. For outgoing messages, this will be the remote phone.
+
+   .. attribute:: body
+
+      The text body of the SMS message.
+
+   .. attribute:: status
+
+      The status of this SMS message. Either queued, sending, sent, or failed.
+
+   .. attribute:: direction
+
+        The direction of this SMS message. ``incoming`` for incoming
+        messages, ``outbound-api`` for messages initiated via the REST
+        API, ``outbound-call`` for messages initiated during a call or
+        ``outbound-reply`` for messages initiated in response to an incoming
+        SMS.
+
+   .. attribute:: price
+
+      The amount billed for the message.
+
+   .. attribute:: api_version
+
+      The version of the Twilio API used to process the SMS message.
+
+   .. attribute:: uri
+
+      The URI for this resource, relative to https://api.twilio.com
+    """
+
     pass
 
 
@@ -90,6 +149,15 @@ class SmsMessages(ListResource):
             your message is processed.
         :param string application_sid: The 34 character sid of the application
             Twilio should use to handle this phone call.
+
+        Usage:
+
+        .. code-block::python
+
+            message = client.sms.messages.create(to="+12316851234",
+                from_="+15555555555",
+                body="Hello there!")
+
         """
         kwargs["from"] = from_
         return self.create_instance(kwargs)
@@ -97,8 +165,8 @@ class SmsMessages(ListResource):
     @normalize_dates
     def list(self, from_=None, before=None, after=None, date_sent=None, **kw):
         """
-        Returns a page of :class:`SMSMessage` resources as a list. For
-        paging information see :class:`ListResource`.
+        Returns a page of :class:`~twilio.rest.resources.SmsMessage` resources
+        as a list. For paging information see :class:`ListResource`.
 
         :param to: Only show SMS messages to this phone number.
         :param from_: Only show SMS messages from this phone number.

@@ -2,6 +2,30 @@ from twilio.rest.resources import InstanceResource, ListResource
 
 
 class Member(InstanceResource):
+    """ A Member of a queue
+
+   .. attribute:: call_sid
+
+      A 34 character string that uniquely identifies the call that is enqueued.
+
+   .. attribute:: date_enqueued
+
+      The date that the member was enqueued, given in RFC 2822 format.
+
+   .. attribute:: wait_time
+
+      The number of seconds the member has been in the queue.
+
+   .. attribute:: position
+
+      This member's current position in the queue.
+
+   .. attribute:: uri
+
+      The URI for this resource, relative to https://api.twilio.com.
+    """
+
+
     id_key = "call_sid"
 
 
@@ -33,6 +57,35 @@ class Members(ListResource):
 
 
 class Queue(InstanceResource):
+    """ An instance of a Queue
+
+   .. attribute:: sid
+
+      A 34 character string that uniquely identifies this queue.
+
+   .. attribute:: friendly_name
+
+      A user-provided string that identifies this queue.
+
+   .. attribute:: current_size
+
+      The count of calls currently in the queue.
+
+   .. attribute:: max_size
+
+      The upper limit of calls allowed to be in the queue.
+      `unlimited` is an option. The default is 100.
+
+   .. attribute:: average_wait_time
+
+      The average wait time of the members of this queue in seconds.
+      This is calculated at the time of the request.
+
+   .. attribute:: uri
+
+      The URI for this resource, relative to https://api.twilio.com.
+    """
+
 
     subresources = [
         Members

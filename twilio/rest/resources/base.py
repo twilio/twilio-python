@@ -139,7 +139,7 @@ class Resource(object):
         """
         Send an HTTP request to the resource.
 
-        Raise a TwilioRestException
+        :raises: a :exc:`~twilio.TwilioRestException`
         """
         if 'timeout' not in kwargs and self.timeout is not UNSET_TIMEOUT:
             kwargs['timeout'] = self.timeout
@@ -251,7 +251,7 @@ class ListResource(Resource):
             print message.body
 
         :rtype: :class:`~twilio.rest.resources.InstanceResource`
-        :raises: a :class:`~twilio.rest.RestException` if a resource with that
+        :raises: a :exc:`~twilio.TwilioRestException` if a resource with that
             sid does not exist, or the request fails
         """
         return self.get_instance(sid)
@@ -266,8 +266,8 @@ class ListResource(Resource):
         """
         Query the list resource for a list of InstanceResources.
 
-        Raises a TwilioRestException if requesting a page of results that does
-        not exist.
+        Raises a :exc:`~twilio.TwilioRestException` if requesting a page of
+        results that does not exist.
 
         :param dict params: List of URL parameters to be included in request
         :param int page: The page of results to retrieve (most recent at 0)
@@ -327,6 +327,7 @@ class ListResource(Resource):
 
         :return: the total number of instances
         :rtype: int
+        :raises: a :exc:`~twilio.TwilioRestException` if the request fails
 
         Example usage:
 

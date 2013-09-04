@@ -434,7 +434,7 @@ Notifications
 
       The URI for this resource, relative to https://api.twilio.com
 
-Participlants
+Participants
 >>>>>>>>>>>>>>
 
 .. autoclass:: twilio.rest.resources.Participants
@@ -491,118 +491,8 @@ Phone Numbers
 .. autoclass:: twilio.rest.resources.PhoneNumber
    :members:
 
-   .. attribute:: sid
-
-      A 34 character string that uniquely idetifies this resource.
-
-   .. attribute:: date_created
-
-      The date that this resource was created, given as GMT RFC 2822 format.
-
-   .. attribute:: date_updated
-
-      The date that this resource was last updated, given as GMT RFC 2822 format.
-
-   .. attribute:: friendly_name
-
-      A human readable descriptive text for this resource, up to 64 characters long. By default, the FriendlyName is a nicely formatted version of the phone number.
-
-   .. attribute:: account_sid
-
-      The unique id of the Account responsible for this phone number.
-
-   .. attribute:: phone_number
-
-      The incoming phone number. e.g., +16175551212 (E.164 format)
-
-   .. attribute:: api_version
-
-      Calls to this phone number will start a new TwiML session with this API version.
-
-   .. attribute:: voice_caller_id_lookup
-
-      Look up the caller's caller-ID name from the CNAM database (additional charges apply). Either true or false.
-
-   .. attribute:: voice_url
-
-      The URL Twilio will request when this phone number receives a call.
-
-   .. attribute:: voice_method
-
-      The HTTP method Twilio will use when requesting the above Url. Either GET or POST.
-
-   .. attribute:: voice_fallback_url
-
-      The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by Url.
-
-   .. attribute:: voice_fallback_method
-
-      The HTTP method Twilio will use when requesting the VoiceFallbackUrl. Either GET or POST.
-
-   .. attribute:: status_callback
-
-      The URL that Twilio will request to pass status parameters (such as call ended) to your application.
-
-   .. attribute:: status_callback_method
-
-      The HTTP method Twilio will use to make requests to the StatusCallback URL. Either GET or POST.
-
-   .. attribute:: sms_url
-
-      The URL Twilio will request when receiving an incoming SMS message to this number.
-
-   .. attribute:: sms_method
-
-      The HTTP method Twilio will use when making requests to the SmsUrl. Either GET or POST.
-
-   .. attribute:: sms_fallback_url
-
-      The URL that Twilio will request if an error occurs retrieving or executing the TwiML from SmsUrl.
-
-   .. attribute:: sms_fallback_method
-
-      The HTTP method Twilio will use when requesting the above URL. Either GET or POST.
-
-   .. attribute:: uri
-
-      The URI for this resource, relative to https://api.twilio.com.
-
 .. autoclass:: twilio.rest.resources.AvailablePhoneNumber
    :members:
-
-   .. attribute:: friendly_name
-
-      A nicely-formatted version of the phone number.
-
-   .. attribute:: phone_number
-
-      The phone number, in E.164 (i.e. "+1") format.
-
-   .. attribute:: lata
-
-      The LATA of this phone number.
-
-   .. attribute:: rate_center
-
-      The rate center of this phone number.
-
-   .. attribute:: latitude
-
-      The latitude coordinate of this phone number.
-
-   .. attribute:: longitude
-
-      The longitude coordinate of this phone number.
-
-   .. attribute:: region
-
-      The two-letter state or province abbreviation of this phone number.
-
-   .. attribute:: postal_code
-
-      The postal (zip) code of this phone number.
-
-   .. attribute:: iso_country
 
 
 Queues
@@ -615,32 +505,6 @@ Queues
 .. autoclass:: twilio.rest.resources.Queue
    :members:
 
-   .. attribute:: sid
-
-      A 34 character string that uniquely identifies this queue.
-
-   .. attribute:: friendly_name
-
-      A user-provided string that identifies this queue.
-
-   .. attribute:: current_size
-
-      The count of calls currently in the queue.
-
-   .. attribute:: max_size
-
-      The upper limit of calls allowed to be in the queue. 
-      `unlimited` is an option. The default is 100.
-
-   .. attribute:: average_wait_time
-
-      The average wait time of the members of this queue in seconds.
-      This is calculated at the time of the request.
-
-   .. attribute:: uri
-
-      The URI for this resource, relative to https://api.twilio.com.
-
 
 Queue Members
 >>>>>>>>>>>>>>
@@ -651,27 +515,6 @@ Queue Members
 
 .. autoclass:: twilio.rest.resources.Member
    :members:
-
-   .. attribute:: call_sid
-
-      A 34 character string that uniquely identifies the call that is enqueued.
-
-   .. attribute:: date_enqueued
-
-      The date that the member was enqueued, given in RFC 2822 format.
-
-   .. attribute:: wait_time
-
-      The number of seconds the member has been in the queue.
-
-   .. attribute:: position
-
-      This member’s current position in the queue.
-
-   .. attribute:: uri
-
-      The URI for this resource, relative to https://api.twilio.com.
-
 
 Recordings
 >>>>>>>>>>>
@@ -847,59 +690,6 @@ SMS Messages
 
 .. autoclass:: twilio.rest.resources.SmsMessage
    :members:
-
-   .. attribute:: sid
-
-      A 34 character string that uniquely identifies this resource.
-
-   .. attribute:: date_created
-
-      The date that this resource was created, given in RFC 2822 format.
-
-   .. attribute:: date_updated
-
-      The date that this resource was last updated, given in RFC 2822 format.
-
-   .. attribute:: date_sent
-
-      The date that the SMS was sent, given in RFC 2822 format.
-
-   .. attribute:: account_sid
-
-      The unique id of the Account that sent this SMS message.
-
-   .. attribute:: from
-
-      The phone number that initiated the message in E.164 format. For incoming messages, this will be the remote phone. For outgoing messages, this will be one of your Twilio phone numbers.
-
-   .. attribute:: to
-
-      The phone number that received the message in E.164 format. For incoming messages, this will be one of your Twilio phone numbers. For outgoing messages, this will be the remote phone.
-
-   .. attribute:: body
-
-      The text body of the SMS message.
-
-   .. attribute:: status
-
-      The status of this SMS message. Either queued, sending, sent, or failed.
-
-   .. attribute:: direction
-
-      The direction of this SMS message. incoming for incoming messages, outbound-api for messages initiated via the REST API, outbound-call for messages initiated during a call or outbound-reply for messages initiated in response to an incoming SMS.
-
-   .. attribute:: price
-
-      The amount billed for the message.
-
-   .. attribute:: api_version
-
-      The version of the Twilio API used to process the SMS message.
-
-   .. attribute:: uri
-
-      The URI for this resource, relative to https://api.twilio.com
-
 
 Transcriptions
 >>>>>>>>>>>>>>>
