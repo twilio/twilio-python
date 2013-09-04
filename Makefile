@@ -1,4 +1,4 @@
-.PHONY: clean venv install analysis test test-install docs
+.PHONY: clean venv install analysis test test-install docs docs-install
 
 venv:
 	virtualenv venv
@@ -15,6 +15,9 @@ analysis:
 
 test: analysis
 	. venv/bin/activate; nosetests
+
+docs-install:
+	. venv/bin/activate; pip install -r docs/requirements.txt
 
 docs:
 	. venv/bin/activate; cd docs && make html
