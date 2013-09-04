@@ -12,24 +12,24 @@ package manager for Python.
 
 .. code-block:: bash
 
-    $ pip install twilio
+    pip install twilio
 
 Don't have pip installed? Try installing it, by running this from the command
 line:
 
 .. code-block:: bash
 
-    $ curl https://raw.github.com/pypa/pip/master/contrib/get-pip.py | python
+    curl https://raw.github.com/pypa/pip/master/contrib/get-pip.py | python
 
 Or, install the library by downloading
 `the source <https://github.com/twilio/twilio-python/zipball/master>`_,
-installing :data:`setuptools`,
+installing `setuptools <http://pythonhosted.org/setuptools/>`_,
 navigating in the Terminal to the folder containing the **twilio-python**
 library, and then running:
 
 .. code-block:: bash
 
-    $ python setup.py install
+    python setup.py install
 
 
 Getting Started
@@ -146,7 +146,7 @@ All development occurs over on
 
 .. code-block:: bash
 
-    $ git clone git@github.com:twilio/twilio-python.git
+    git clone git@github.com:twilio/twilio-python.git
 
 
 Report bugs using the Github

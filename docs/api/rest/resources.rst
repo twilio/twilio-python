@@ -7,6 +7,8 @@
 .. autoclass:: ListResource
    :members: count, get, iter
 
+.. autoclass:: InstanceResource
+
 Accounts
 >>>>>>>>>
 
@@ -876,7 +878,7 @@ SMS Messages
 
    .. attribute:: body
 
-      The text body of the SMS message. Up to 160 characters long.
+      The text body of the SMS message.
 
    .. attribute:: status
 

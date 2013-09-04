@@ -6,6 +6,7 @@ class Member(InstanceResource):
 
 
 class Members(ListResource):
+    """ A list of :class:`Member` objects """
     name = "Members"
     instance = Member
     key = "queue_members"
@@ -14,7 +15,7 @@ class Members(ListResource):
         """
         Returns a list of :class:`Member` resources in the given queue
 
-        :param queue_sid: Queue this participant is part of
+        :param queue_sid: :class:`Queue` this participant is part of
         """
         return self.get_instances(kwargs)
 

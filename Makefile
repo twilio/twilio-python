@@ -1,4 +1,4 @@
-.PHONY: clean venv install analysis test test-install
+.PHONY: clean venv install analysis test test-install docs
 
 venv:
 	virtualenv venv
@@ -15,6 +15,9 @@ analysis:
 
 test: analysis
 	. venv/bin/activate; nosetests
+
+docs:
+	. venv/bin/activate; cd docs && make html
 
 clean:
 	rm -rf venv

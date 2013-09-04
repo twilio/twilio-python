@@ -28,7 +28,7 @@ from twilio.rest.resources import UNSET_TIMEOUT
 
 def find_credentials():
     """
-    Look in the current environment for Twilio credentails
+    Look in the current environment for Twilio credentials
     """
     try:
         account = os.environ["TWILIO_ACCOUNT_SID"]
@@ -41,59 +41,13 @@ def find_credentials():
 class TwilioRestClient(object):
     """
     A client for accessing the Twilio REST API
+
+    :param str account: Your Account SID from `your dashboard
+        <https://twilio.com/user/account>`_
+    :param str token: Your Auth Token from `your dashboard
+        <https://twilio.com/user/account>`_
+    :param float timeout: The socket and read timeout for making requests to Twilio
     """
-
-    def request(self, path, method=None, vars=None):
-        """sends a request and gets a response from the Twilio REST API
-
-        .. deprecated:: 3.0
-
-        :param path: the URL (relative to the endpoint URL, after the /v1
-        :param url: the HTTP method to use, defaults to POST
-        :param vars: for POST or PUT, a dict of data to send
-
-        :returns: Twilio response in XML or raises an exception on error
-
-        This method is only included for backwards compatability reasons.
-        It will be removed in a future version
-        """
-        logging.warning(":meth:`TwilioRestClient.request` is deprecated and "
-                        "will be removed in a future version")
-
-        vars = vars or {}
-        params = None
-        data = None
-
-        if not path or len(path) < 1:
-            raise ValueError('Invalid path parameter')
-        if method and method not in ['GET', 'POST', 'DELETE', 'PUT']:
-            raise NotImplementedError(
-                'HTTP %s method not implemented' % method)
-
-        if path[0] == '/':
-            uri = self.base + path
-        else:
-            uri = self.base + '/' + path
-
-        if method == "GET":
-            params = vars
-        elif method == "POST" or method == "PUT":
-            data = vars
-
-        user_agent = "twilio-python %s (python-%s)" % (
-            LIBRARY_VERSION,
-            platform.python_version(),
-        )
-
-        headers = {
-            "User-Agent": user_agent,
-            "Accept-Charset": "utf-8",
-        }
-
-        resp = make_request(method, uri, auth=self.auth, data=data,
-                            params=params, headers=headers)
-
-        return resp.content
 
     def __init__(self, account=None, token=None, base="https://api.twilio.com",
                  version="2010-04-01", client=None, timeout=UNSET_TIMEOUT):
@@ -154,16 +108,70 @@ values from your Twilio Account at https://www.twilio.com/user/account.
 
     def participants(self, conference_sid):
         """
-        Return a :class:`Participants` instance for the :class:`Conference`
-        with the given conference_sid
+        Return a :class:`~twilio.rest.resources.Participants` instance for the
+        :class:`~twilio.rest.resources.Conference` with the given conference_sid
         """
         base_uri = "{}/Conferences/{}".format(self.account_uri, conference_sid)
         return Participants(base_uri, self.auth, self.timeout)
 
     def members(self, queue_sid):
         """
-        Return a :class:`Members` instance for the :class:`Queue`
-        with the given queue_sid
+        Return a :class:`Members <twilio.rest.resources.Members>` instance for
+        the :class:`Queue <twilio.rest.resources.Queue>` with the given queue_sid
         """
         base_uri = "{}/Queues/{}".format(self.account_uri, queue_sid)
         return Members(base_uri, self.auth, self.timeout)
+
+
+    def request(self, path, method=None, vars=None):
+        """sends a request and gets a response from the Twilio REST API
+
+        .. deprecated:: 3.0
+
+        :param path: the URL (relative to the endpoint URL, after the /v1
+        :param url: the HTTP method to use, defaults to POST
+        :param vars: for POST or PUT, a dict of data to send
+
+        :returns: Twilio response in XML or raises an exception on error
+
+        This method is only included for backwards compatability reasons.
+        It will be removed in a future version
+        """
+        logging.warning(":meth:`TwilioRestClient.request` is deprecated and "
+                        "will be removed in a future version")
+
+        vars = vars or {}
+        params = None
+        data = None
+
+        if not path or len(path) < 1:
+            raise ValueError('Invalid path parameter')
+        if method and method not in ['GET', 'POST', 'DELETE', 'PUT']:
+            raise NotImplementedError(
+                'HTTP %s method not implemented' % method)
+
+        if path[0] == '/':
+            uri = self.base + path
+        else:
+            uri = self.base + '/' + path
+
+        if method == "GET":
+            params = vars
+        elif method == "POST" or method == "PUT":
+            data = vars
+
+        user_agent = "twilio-python %s (python-%s)" % (
+            LIBRARY_VERSION,
+            platform.python_version(),
+        )
+
+        headers = {
+            "User-Agent": user_agent,
+            "Accept-Charset": "utf-8",
+        }
+
+        resp = make_request(method, uri, auth=self.auth, data=data,
+                            params=params, headers=headers)
+
+        return resp.content
+

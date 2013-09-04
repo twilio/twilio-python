@@ -17,11 +17,13 @@ from twilio.rest.resources.media import MediaList
 
 
 class Account(InstanceResource):
-    """ An Account resource """
+    """ An Account resource
 
-    ACTIVE = "active"
-    SUSPENDED = "suspended"
-    CLOSED = "closed"
+    """
+
+    ACTIVE = "active"        #: A constant representing an active account
+    SUSPENDED = "suspended"  #: A constant representing a suspended account
+    CLOSED = "closed"        #: A constant representing a closed account
 
     subresources = [
         Applications,
@@ -44,11 +46,13 @@ class Account(InstanceResource):
 
     def update(self, **kwargs):
         """
+        Update the status of an account.
+
         :param friendly_name: Update the description of this account.
         :param status: Alter the status of this account
 
-        Use :data:`CLOSED` to irreversibly close this account,
-        :data:`SUSPENDED` to temporarily suspend it, or :data:`ACTIVE`
+        Use :const:`CLOSED` to irreversibly close this account,
+        :const:`SUSPENDED` to temporarily suspend it, or :const:`ACTIVE`
         to reactivate it.
         """
         self.update_instance(**kwargs)

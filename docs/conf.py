@@ -232,7 +232,7 @@ man_pages = [
 epub_title = u'twilio-python'
 epub_author = u'kyle@twilio.com'
 epub_publisher = u'Twilio Inc.'
-epub_copyright = u'2010, Twilio Inc.'
+epub_copyright = u'2013, Twilio Inc.'
 
 # The language of the text. It defaults to the language option
 # or en if the language is not set.

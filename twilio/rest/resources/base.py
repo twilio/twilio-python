@@ -25,7 +25,17 @@ class Response(object):
 def make_request(method, url, params=None, data=None, headers=None,
                  cookies=None, files=None, auth=None, timeout=None,
                  allow_redirects=False, proxies=None):
-    """Sends an HTTP request Returns :class:`Response <models.Response>`
+    """Sends an HTTP request
+
+    :param str method: The HTTP method to use
+    :param str url: The URL to request
+    :param dict params: Query parameters to append to the URL
+    :param dict data: Parameters to go in the body of the HTTP request
+    :param dict headers: HTTP Headers to send with the request
+    :param float timeout: Socket/Read timeout for the request
+
+    :return: An http response
+    :rtype: A :class:`Response <models.Response>` object
 
     See the requests documentation for explanation of all these parameters
 
@@ -149,6 +159,14 @@ class Resource(object):
 
 
 class InstanceResource(Resource):
+    """ The object representation of an instance response from the Twilio API
+
+    :param parent: The parent list class for this instance resource.
+        For example, the parent for a :class:`~twilio.rest.resources.Call` would
+        be a :class:`~twilio.rest.resources.Calls` object.
+    :type parent: :class:`~twilio.rest.resources.ListResource`
+    :param str sid: The 34-character unique identifier for this instance
+    """
 
     subresources = []
     id_key = "sid"
@@ -189,10 +207,20 @@ class InstanceResource(Resource):
             self.__dict__[list_resource.key] = list_resource
 
     def update_instance(self, **kwargs):
+        """ Make a POST request to the API to update an object's properties
+
+        :return: None, this is purely side effecting
+        :raises: a :class:`~twilio.rest.RestException` on failure
+        """
         a = self.parent.update(self.name, **kwargs)
         self.load(a.__dict__)
 
     def delete_instance(self):
+        """ Make a DELETE request to the API to delete the object
+
+        :return: None, this is purely side effecting
+        :raises: a :class:`~twilio.rest.RestException` on failure
+        """
         return self.parent.delete(self.name)
 
     def __str__(self):
@@ -213,7 +241,19 @@ class ListResource(Resource):
             self.key = self.name.lower()
 
     def get(self, sid):
-        """Return an instance resource"""
+        """ Get an instance resource by its sid
+
+        Usage:
+
+        .. code-block:: python
+
+            message = client.messages.get("SM1234")
+            print message.body
+
+        :rtype: :class:`~twilio.rest.resources.InstanceResource`
+        :raises: a :class:`~twilio.rest.RestException` if a resource with that
+            sid does not exist, or the request fails
+        """
         return self.get_instance(sid)
 
     def get_instance(self, sid):
@@ -281,15 +321,40 @@ class ListResource(Resource):
         return self.load_instance(entry)
 
     def count(self):
+        """ Get the total number of instances for this resource
+
+        Note: this query can be slow if you have many instances.
+
+        :return: the total number of instances
+        :rtype: int
+
+        Example usage:
+
+        .. code-block:: python
+
+            print client.calls.count() # prints 323
         """
-        Return the number of instance resources contained in this list resource
-        """
+        # XXX: this should make a request with PageSize=1 to return as quickly
+        # as possible
         resp, page = self.request("GET", self.uri)
         return page["total"]
 
     def iter(self, **kwargs):
-        """
-        Return all instance resources using an iterator
+        """ Return all instance resources using an iterator
+
+        This will fetch a page of resources from the API and yield them in
+        turn. When the page is exhausted, this will make a request to the API
+        to retrieve the next page. Hence you may notice a pattern - the library
+        will loop through 50 objects very quickly, but there will be a delay
+        retrieving the 51st as the library must make another request to the API
+        for resources.
+
+        Example usage:
+
+        .. code-block:: python
+
+            for message in client.messages:
+                print message.sid
         """
         params = transform_params(kwargs)
 

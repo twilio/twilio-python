@@ -29,8 +29,6 @@ Send a text message in only a few lines of code.
                                          body="Hello!")
 
 
-.. note:: The message body must be less than 160 characters in length
-
 If you want to send a message from a `short code
 <http://www.twilio.com/api/sms/short-codes>`_ on Twilio, just set :attr:`from_`
 to your short code's number.
