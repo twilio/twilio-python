@@ -31,8 +31,8 @@ Listing Queues
 Listing Queue Members
 ----------------------
 
-Each :class:`Queue` has a :attr:`queue_members` instance which
-represents all current calls in the queue.
+Each :class:`Queue` has a :attr:`~Queue.queue_members` instance which represents
+all current calls in the queue.
 
 .. code-block:: python
 
@@ -53,12 +53,11 @@ Getting a specific Queue Member
 -------------------------------
 
 To retrieve information about a specific member in the queue, each
-:class:`Members` has a :attr:`get` method. :attr:`get` accepts one
-argument. The argument can either be a `call_sid` thats in the queue,
-in which case :attr:`get` will return a :class:`Member` instance
-representing that call, or the argument can be 'Front', in which case
-:attr:`Get` will return a :class:`Member` instance representing the
-first call in the queue.
+:class:`Members` has a :meth:`Members.get` method. :meth:`Members.get` accepts
+one argument. The argument can either be a `call_sid` thats in the queue, in
+which case :meth:`get` will return a :class:`Member` instance representing that
+call, or the argument can be ``Front``, in which case :meth:`Get` will return a
+:class:`Member` instance representing the first call in the queue.
 
 .. code-block:: python
 
@@ -82,12 +81,11 @@ first call in the queue.
 Dequeueing Queue Members
 ------------------------
 
-To dequeue a specific member from the queue, each
-:class:`Members` has a :attr:`dequeue` method. :attr:`dequeue` accepts an
-argument and two optional keyword arguments. The first argument is the
-url of the twiml document to be executed when the member is
-dequeued. The other two are :attr:`call_sid` and :attr:`method`, their
-default values are 'Front' and 'GET'
+To dequeue a specific member from the queue, each :class:`Members` has a
+:meth:`~Members.dequeue` method. :meth:`~Members.dequeue` accepts an argument
+and two optional keyword arguments. The first argument is the url of the
+twiml document to be executed when the member is dequeued. The other two are
+:attr:`call_sid` and :attr:`method`, their default values are 'Front' and 'GET'
 
 .. code-block:: python
 

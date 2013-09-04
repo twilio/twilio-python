@@ -137,6 +137,7 @@ Calls
 .. autoclass:: twilio.rest.resources.Calls
    :members:
    :exclude-members: instance
+   :inherited-members:
 
 .. autoclass:: twilio.rest.resources.Call
    :members:

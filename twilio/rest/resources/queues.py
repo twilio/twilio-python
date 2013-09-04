@@ -84,6 +84,11 @@ class Queue(InstanceResource):
    .. attribute:: uri
 
       The URI for this resource, relative to https://api.twilio.com.
+
+   .. attribute:: queue_members
+
+      A :class:`Members` object holding the :class:`Member` objects in this
+      queue.
     """
 
 

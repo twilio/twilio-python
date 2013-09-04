@@ -1,4 +1,4 @@
-.. module:: twilio.rest
+.. module:: twilio.rest.resources
 
 =====================
 Phone Calls
@@ -52,10 +52,10 @@ you can use the client to retrieve that record.
 Accessing Specific Call Resources
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Each :class:`Call` resource also has access to its `notifications`,
-`recordings`, and `transcriptions`.
-These attributes are :class:`ListResources`,
-just like the :class:`Calls` resource itself.
+Each :class:`Call` resource also has access to its ``notifications``,
+``recordings``, and ``transcriptions``. These attributes are
+:class:`ListResources <ListResource>`, just like the :class:`Calls` resource
+itself.
 
 .. code-block:: python
 
@@ -73,9 +73,9 @@ just like the :class:`Calls` resource itself.
     print call.recordings.list()
     print call.transcriptions.list()
 
-However, what if you only have a `CallSid`, and not the actual
-:class:`Resource`? No worries, as :meth:`list` can be filter based on a given
-`CallSid`.
+However, what if you only have a ``call_sid``, and not the actual
+:class:`Resource <InstanceResource>`? No worries, as :meth:`Calls.list` can be
+filtered based on a given ``call_sid``.
 
 .. code-block:: python
 
@@ -131,10 +131,10 @@ Ending all live calls is also possible
     for c in calls:
         c.hangup()
 
-Note that :meth:`hangup` will also cancel calls currently queued.
+Note that :meth:`~Call.hangup` will also cancel calls currently queued.
 
 If you already have a :class:`Call` sid, you can use the :class:`Calls`
-resource to update the record without having to use :meth:`get` first.
+resource to update the record without having to use :meth:`~Calls.get` first.
 
 .. code-block:: python
 

@@ -18,7 +18,7 @@ credentials and accidentally posting them somewhere public.
 The :class:`TwilioRestClient` looks for :const:`TWILIO_ACCOUNT_SID` and
 :const:`TWILIO_AUTH_TOKEN` inside the current environment.
 
-With those two values set, create a new :class:`TwilioClient`.
+With those two values set, create a new :class:`TwilioRestClient`.
 
 .. code-block:: python
 
@@ -42,8 +42,8 @@ Listing Resources
 -------------------
 
 The :class:`TwilioRestClient` gives you access to various list resources.
-:meth:`ListResource.list`, by default, returns the most recent 50 instance
-resources.
+:meth:`ListResource.list <twilio.rest.resources.ListResource.list>`, by default,
+returns the most recent 50 instance resources.
 
 .. code-block:: python
 
