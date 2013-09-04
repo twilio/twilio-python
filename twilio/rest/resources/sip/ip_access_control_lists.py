@@ -14,8 +14,8 @@ class IpAddress(InstanceResource):
 
 
 class IpAddresses(ListResource):
-    name = "Addresses"
-    key = "addresses"
+    name = "IpAddresses"
+    key = "ip_addresses"
     instance = IpAddress
 
     def create(self, friendly_name, ip_address, **kwargs):
