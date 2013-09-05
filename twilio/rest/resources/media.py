@@ -1,9 +1,40 @@
 from twilio.rest.resources import InstanceResource, ListResource
 from twilio.rest.resources.util import normalize_dates, parse_date
-import re
 
 
 class Media(InstanceResource):
+    """ Represents media associated with a :class:`Message`.
+
+    .. attribute:: sid
+
+        A 34 character string that uniquely identifies this resource.
+
+    .. attribute:: account_sid
+
+        The unique id of the Account responsible for this media.
+
+    .. attribute:: date_created
+
+        The date that this resource was created, given in RFC 2822 format.
+
+    .. attribute:: date_updated
+
+        The date that this resource was last updated, given in RFC 2822 format.
+
+    .. attribute:: parent_sid
+
+        The MessageSid of the message that created the media.
+
+    .. attribute:: content_type
+
+        The default content-type of the media, for example image/jpeg,
+        image/png, or image/gif.
+
+    .. attribute:: uri
+
+        The URI for this resource, relative to https://api.twilio.com
+
+    """
 
     def delete(self):
         """
@@ -53,4 +84,3 @@ class MediaList(ListResource):
         :param sid: String identifier for a Media resource
         """
         return self.delete_instance(sid)
-

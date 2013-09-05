@@ -71,6 +71,7 @@ Query the Twilio REST API to create phone calls, send SMS messages and more!
     usage/transcriptions
     usage/caller-ids
     usage/queues
+    usage/sip
 
 
 TwiML

@@ -49,22 +49,22 @@ class IpAddresses(ListResource):
     def create(self, friendly_name, ip_address, **kwargs):
         """Add an IP address to a SipIpAccessControlList.
 
-        :param friendly_name: A human-readable name for this address.
-        :param ip_address: A dotted-decimal IPv4 address
+        :param str friendly_name: A human-readable name for this address.
+        :param str ip_address: A dotted-decimal IPv4 address
         """
         kwargs['friendly_name'] = friendly_name
         kwargs['ip_address'] = ip_address
         return self.create_instance(kwargs)
 
     def update(self, sid, **kwargs):
-        """Update a :class:`Address`.
+        """Update an :class:`IpAddress`.
 
         :param sid: String identifier for an address
         """
         return self.update_instance(sid, kwargs)
 
     def delete(self, sid):
-        """Remove an IP address entry from an ACL.
+        """Remove an :class:`IpAddress` from a :class:`SipIpAccessControlList`.
 
         :param sid: String identifier for an address
         """
@@ -116,16 +116,17 @@ class SipIpAccessControlLists(ListResource):
     def create(self, friendly_name, **kwargs):
         """ Create a :class:`SipIpAccessControlList`.
 
-        :param domain_name: A human-readable name for this ACL.
+        :param str friendly_name: A human-readable name for this ACL.
         """
         kwargs['friendly_name'] = friendly_name
         return self.create_instance(kwargs)
 
     def update(self, sid, **kwargs):
-        """
-        Update a :class:`SipIpAccessControlList`
+        """ Change the name of a :class:`SipIpAccessControlList`.
 
-        :param sid: String identifier for a SipIpAccessControlList resource
+        :param str sid: String identifier for a SipIpAccessControlList resource
+
+        :param str friendly_name: A human-readable name for the ACL.
         """
         return self.update_instance(sid, kwargs)
 

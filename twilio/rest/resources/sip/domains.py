@@ -128,6 +128,9 @@ class SipDomain(InstanceResource):
     def update(self, **kwargs):
         """
         Update this :class:`SipDomain`
+
+        Available attributes to update are described above as instance
+        attributes.
         """
         return self.parent.update_instance(self.name, kwargs)
 
@@ -146,7 +149,25 @@ class SipDomains(ListResource):
     def create(self, domain_name, **kwargs):
         """ Create a :class:`SipDomain`.
 
-        :param domain_name: A unique domain name ending in '.sip.twilio.com'
+        :param str domain_name: A unique domain name ending in
+        '.sip.twilio.com'
+        :param str friendly_name: A human-readable name for this domain.
+        :param str voice_url: The URL Twilio will request when this domain
+        receives a call.
+        :param voice_method: The HTTP method Twilio should use to request
+            voice_url.
+        :type voice_method: None (defaults to 'POST'), 'GET', or 'POST'
+        :param str voice_fallback_url: A URL that Twilio will request if an
+            error occurs requesting or executing the TwiML at voice_url
+        :param str voice_fallback_method: The HTTP method that Twilio should use
+            to request the fallback_url
+        :type voice_fallback_method: None (defaults to 'POST'),
+            'GET', or 'POST'
+        :param str voice_status_callback: A URL that Twilio will request when
+            the call ends to notify your app.
+        :param str voice_status_method: The HTTP method Twilio should use when
+            requesting the above URL.
+
         """
         kwargs['domain_name'] = domain_name
         return self.create_instance(kwargs)
@@ -154,6 +175,8 @@ class SipDomains(ListResource):
     def update(self, sid, **kwargs):
         """
         Update a :class:`SipDomain`
+
+        Available attributes to update are described above in :meth:`create`.
 
         :param sid: String identifier for a SipDomain resource
         """
