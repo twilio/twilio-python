@@ -24,9 +24,16 @@ Send a text message in only a few lines of code.
 
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
 
-    message = client.sms.messages.create(to="+13216851234",
-                                         from_="+15555555555",
-                                         body="Hello!")
+    message = client.messages.create(
+        body="Hello Monkey!",  # Message body, if any
+        to="+12125551234",
+        from_="+15105551234",
+        media_url=[  # List of media URLs, if any
+            "http://example.com/image1.jpg",
+            "http://example.com/image2.jpg",
+        ],
+    )
+    print message.sid
 
 
 If you want to send a message from a `short code
@@ -47,7 +54,7 @@ Retrieving Sent Messages
 
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
 
-    for message in client.sms.messages.list():
+    for message in client.messages.list():
         print message.body
 
 
@@ -69,8 +76,10 @@ The following will only show messages to "+5466758723" on January 1st, 2011.
 
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
 
-    messages = client.sms.messages.list(to="+5466758723",
-                                        date_sent=date(2011,1,1))
+    messages = client.messages.list(
+        to="+5466758723",
+        date_sent=date(2011,1,1),
+    )
 
     for message in messages:
         print message.body
