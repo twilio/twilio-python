@@ -2,6 +2,33 @@ from twilio.rest.resources import InstanceResource, ListResource
 
 
 class Credential(InstanceResource):
+    """ A username/password entry in a CredentialList.
+
+    .. attribute:: sid
+
+        A 34 character string that uniquely identifies this resource.
+
+    .. attribute:: account_sid
+
+        The unique id of the Account responsible for this Credential.
+
+    .. attribute:: friendly_name
+
+        A human-readable name for this resource.
+
+    .. attribute:: username
+
+        The username for this credential
+
+    .. attribute:: date_created
+
+        The date that this resource was created.
+
+    .. attribute:: date_updated
+
+        The date that this resource was last updated.
+
+    """
     def update(self, **kwargs):
         """Update this credential."""
         return self.parent.update_instance(self.name, **kwargs)
@@ -43,6 +70,31 @@ class Credentials(ListResource):
 
 
 class SipCredentialList(InstanceResource):
+    """ A list of username/password credentials used to control access to
+    SipDomains.
+
+    .. attribute:: sid
+
+        A 34 character string that uniquely identifies this resource.
+
+    .. attribute:: account_sid
+
+        The unique id of the Account responsible for this CredentialList.
+
+    .. attribute:: friendly_name
+
+        A human-readable name for this CredentialList.
+
+    .. attribute:: date_created
+
+        The date that this resource was created.
+
+    .. attribute:: date_updated
+
+        The date that this resource was last updated.
+
+    """
+
     subresources = [Credentials]
 
     def update(self, **kwargs):

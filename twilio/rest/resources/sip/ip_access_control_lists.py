@@ -2,6 +2,34 @@ from twilio.rest.resources import InstanceResource, ListResource
 
 
 class IpAddress(InstanceResource):
+    """ An IP address entry in an Access Control List.
+
+    .. attribute:: sid
+
+        A 34 character string that uniquely identifies this resource.
+
+    .. attribute:: account_sid
+
+        The unique id of the Account responsible for this IpAddress.
+
+    .. attribute:: friendly_name
+
+        A human-readable name for this IP address.
+
+    .. attribute:: ip_address
+
+        The IP address in dotted-decimal IPv4 notation.
+
+    .. attribute:: date_created
+
+        The date that this resource was created.
+
+    .. attribute:: date_updated
+
+        The date that this resource was last updated.
+
+    """
+
     def update(self, **kwargs):
         """Update this address."""
         return self.parent.update_instance(self.name, **kwargs)
@@ -44,6 +72,29 @@ class IpAddresses(ListResource):
 
 
 class SipIpAccessControlList(InstanceResource):
+    """ A list of IP addresses for controlling access to a SIP Domain.
+
+    .. attribute:: sid
+
+        A 34 character string that uniquely identifies this resource.
+
+    .. attribute:: account_sid
+
+        The unique id of the Account responsible for this ACL.
+
+    .. attribute:: friendly_name
+
+        A human-readable name for this SipIpAccessControlList.
+
+    .. attribute:: date_created
+
+        The date that this resource was created.
+
+    .. attribute:: date_updated
+
+        The date that this resource was last updated.
+
+    """
     subresources = [IpAddresses]
 
     def update(self, **kwargs):
