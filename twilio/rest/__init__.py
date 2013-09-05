@@ -135,6 +135,8 @@ values from your Twilio Account at https://www.twilio.com/user/account.
         :param vars: for POST or PUT, a dict of data to send
 
         :returns: Twilio response in XML or raises an exception on error
+        :raises: a :exc:`ValueError` if the path is invalid
+        :raises: a :exc:`NotImplementedError` if the method is unknown
 
         This method is only included for backwards compatability reasons.
         It will be removed in a future version

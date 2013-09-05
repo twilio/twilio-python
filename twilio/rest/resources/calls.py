@@ -76,33 +76,33 @@ class Calls(ListResource):
         """
         Make a phone call to a number.
 
-        :param string to: The phone number to call
-        :param string `from_`: The caller ID (must be a verified Twilio number)
-        :param string url: The URL to read TwiML from when the call connects
+        :param str to: The phone number to call
+        :param str `from_`: The caller ID (must be a verified Twilio number)
+        :param str url: The URL to read TwiML from when the call connects
         :param method: The HTTP method Twilio should use to request the url
         :type method: None (defaults to 'POST'), 'GET', or 'POST'
-        :param string fallback_url: A URL that Twilio will request if an error
+        :param str fallback_url: A URL that Twilio will request if an error
             occurs requesting or executing the TwiML at url
-        :param string fallback_method: The HTTP method that Twilio should use
+        :param str fallback_method: The HTTP method that Twilio should use
             to request the fallback_url
         :type fallback_method: None (will make 'POST' request),
                                'GET', or 'POST'
-        :param string status_callback: A URL that Twilio will request when the
+        :param str status_callback: A URL that Twilio will request when the
             call ends to notify your app.
-        :param string status_method: The HTTP method Twilio should use when
+        :param str status_method: The HTTP method Twilio should use when
             requesting the above URL.
-        :param string if_machine: Tell Twilio to try and determine if a machine
+        :param str if_machine: Tell Twilio to try and determine if a machine
             (like voicemail) or a human has answered the call.
             See more in our `answering machine documentation
             <http://www.twilio.com/docs/api/rest/making_calls>`_.
         :type if_machine: None, 'Continue', or 'Hangup'
-        :param string send_digits: A string of keys to dial after
+        :param str send_digits: A string of keys to dial after
             connecting to the number.
         :type send_digits: None or any combination of
             (0-9), '#', '*' or 'w' (to insert a half second pause).
         :param int timeout: The integer number of seconds that Twilio should
             allow the phone to ring before assuming there is no answer.
-        :param string application_sid: The 34 character sid of the application
+        :param str application_sid: The 34 character sid of the application
             Twilio should use to handle this phone call.
             Should not be used in conjunction with the url parameter.
 

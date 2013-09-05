@@ -262,6 +262,7 @@ class PhoneNumbers(ListResource):
 
         :returns: Returns a :class:`PhoneNumber` instance on success,
                   :data:`False` on failure
+        :raises: A :exc:`TypeError` if phone_number or area_code is not specified.
         """
         kwargs["StatusCallback"] = kwargs.get("status_callback",
                                               status_callback_url)
@@ -274,10 +275,10 @@ class PhoneNumbers(ListResource):
     def search(self, **kwargs):
         """
         :param type: The type of phone number to search for.
-        :param string country: Only show numbers for this country (iso2)
-        :param string region: When searching the US, show numbers in this state
-        :param string postal_code: Only show numbers in this area code
-        :param string rate_center: US only.
+        :param str country: Only show numbers for this country (iso2)
+        :param str region: When searching the US, show numbers in this state
+        :param str postal_code: Only show numbers in this area code
+        :param str rate_center: US only.
         :param tuple near_lat_long: Find close numbers within Distance miles.
         :param integer distance: Search radius for a Near- query in miles.
         """

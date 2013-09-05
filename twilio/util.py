@@ -49,10 +49,11 @@ class RequestValidator(object):
 def secure_compare(string1, string2):
     """Compare two strings while protecting against timing attacks
 
-    :param string1: the first string
-    :param string2: the second string
+    :param str string1: the first string
+    :param str string2: the second string
 
     :returns: True if the strings are equal, False if not
+    :rtype: :obj:`bool`
     """
     if len(string1) != len(string2):
         return False
@@ -66,9 +67,9 @@ class TwilioCapability(object):
     """
     A token to control permissions with Twilio Client
 
-    :param string account_sid: the account sid to which this token
+    :param str account_sid: the account sid to which this token
                                is granted access
-    :param string auth_token: the secret key used to sign the token.
+    :param str auth_token: the secret key used to sign the token.
                               Note, this auth token is not visible to the
                               user of the token.
 
@@ -111,7 +112,7 @@ class TwilioCapability(object):
 
         Keyword arguments are passed to the application.
 
-        :param string application_sid: Application to contact
+        :param str application_sid: Application to contact
         """
         scope_params = {
             "appSid": application_sid,
@@ -127,7 +128,7 @@ class TwilioCapability(object):
         connections then configure the TwilioCapability through this method and
         specify the client name.
 
-        :param string client_name: Client name to accept calls from
+        :param str client_name: Client name to accept calls from
 
         """
         self.client_name = client_name

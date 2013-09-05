@@ -16,16 +16,16 @@ class Messages(ListResource):
         """
         Create and send a Message.
 
-        :param string to: The destination phone number.
-        :param string `from_`: The phone number sending this message
+        :param str to: The destination phone number.
+        :param str `from_`: The phone number sending this message
             (must be a verified Twilio number)
-        :param string body: The message you want to send,
+        :param str body: The message you want to send,
             limited to 1600 characters.
         :param list media_url: A list of URLs of images to include in the
             message.
         :param status_callback: A URL that Twilio will POST to when
             your message is processed.
-        :param string application_sid: The 34 character sid of the application
+        :param str application_sid: The 34 character sid of the application
             Twilio should use to handle this phone call.
         """
         kwargs["from"] = from_

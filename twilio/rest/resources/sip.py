@@ -23,16 +23,16 @@ class Sip(object):
 
     def ip_access_control_list_mappings(self, domain_sid):
         """
-        Return a :class:`IpAccessControlListMappings` instance for the :class:`SipDomain`
-        with the given domain_sid
+        Return a :class:`IpAccessControlListMappings` instance for the
+        :class:`SipDomain` with the given domain_sid
         """
         base_uri = "{}/Domains/{}".format(self.uri, domain_sid)
         return IpAccessControlListMappings(base_uri, self.auth, self.timeout)
 
     def credential_list_mappings(self, domain_sid):
         """
-        Return a :class:`CredentialListMappings` instance for the :class:`SipDomain`
-        with the given domain_sid
+        Return a :class:`CredentialListMappings` instance for the
+        :class:`SipDomain` with the given domain_sid
         """
         base_uri = "{}/Domains/{}".format(self.uri, domain_sid)
         return CredentialListMappings(base_uri, self.auth, self.timeout)

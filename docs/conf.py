@@ -28,11 +28,13 @@ from datetime import datetime
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.intersphinx',
 ]
 
 # Load the source for autodoc
 sys.path.insert(0, os.path.abspath(os.path.join(os.getcwd(), '..')))
 
+intersphinx_mapping = {'python': ('http://docs.python.org/3', None)}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

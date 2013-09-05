@@ -85,6 +85,11 @@ def make_request(method, url, params=None, data=None, headers=None,
 def make_twilio_request(method, uri, **kwargs):
     """
     Make a request to Twilio. Throws an error
+
+    :return: a requests-like HTTP response
+    :rtype: :class:`RequestsResponse`
+    :raises: :exc:`~twilio.TwilioRestException` if the response is a 400 or
+        500-level response.
     """
     headers = kwargs.get("headers", {})
     headers["User-Agent"] = "twilio-python/%s" % twilio.__version__
