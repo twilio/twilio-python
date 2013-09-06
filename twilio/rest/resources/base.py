@@ -299,7 +299,7 @@ class ListResource(Resource):
                                       data=transform_params(body))
 
         if resp.status_code != 201:
-            raise TwilioRestException(resp.status,
+            raise TwilioRestException(resp.status_code,
                                       self.uri, "Resource not created")
 
         return self.load_instance(instance)
