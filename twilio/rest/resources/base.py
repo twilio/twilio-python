@@ -1,4 +1,6 @@
 import logging
+import sys
+
 from six import integer_types, string_types, binary_type, iteritems
 from twilio.compat import urlparse
 from twilio.compat import urlencode
@@ -88,8 +90,7 @@ def make_twilio_request(method, uri, **kwargs):
 
     :return: a requests-like HTTP response
     :rtype: :class:`RequestsResponse`
-    :raises: :exc:`~twilio.TwilioRestException` if the response is a 400 or
-        500-level response.
+    :raises TwilioRestException: if the response is a 400 or 500-level response.
     """
     headers = kwargs.get("headers", {})
     headers["User-Agent"] = "twilio-python/%s" % twilio.__version__
@@ -115,7 +116,28 @@ def make_twilio_request(method, uri, **kwargs):
             code = None
             message = resp.content
 
-        raise TwilioRestException(resp.status_code, resp.url, message, code)
+        def red(msg):
+            return "\033[91m%s\033[0m" % msg
+
+        def blue(msg):
+            return "\033[95m%s\033[0m" % msg
+
+        # If it makes sense to print a human readable error message, try to do
+        # it. The one problem is that someone might catch this error and try to
+        # display the message from it to an end user.
+        if sys.stderr.isatty():
+            msg = red("\nError making a request to the Twilio API. ")
+            msg += red("Your request was:\n\n")
+            msg += blue("%s %s" % (method, uri))
+            msg += red("\n\nTwilio returned the following error message:")
+            msg += blue("\n\n" + message)
+            if code:
+                msg += red("\n\nMore information may be available here:\n\n")
+                msg += blue("https://www.twilio.com/docs/errors/%s\n\n" % code)
+        else:
+            msg = message
+
+        raise TwilioRestException(resp.status_code, resp.url, msg, code)
 
     return resp
 
