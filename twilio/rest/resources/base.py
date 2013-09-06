@@ -298,7 +298,7 @@ class ListResource(Resource):
         resp, instance = self.request("POST", self.uri,
                                       data=transform_params(body))
 
-        if resp.status_code != 201:
+        if resp.status_code not in (200, 201):
             raise TwilioRestException(resp.status_code,
                                       self.uri, "Resource not created")
 
