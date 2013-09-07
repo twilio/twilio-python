@@ -9,6 +9,9 @@ from twilio.rest.resources.sip.ip_access_control_lists import SipIpAccessControl
 
 class Sip(object):
     """Holds all the SIP resources."""
+    name = "SIP"
+    key = "sip"
+
     def __init__(self, base_uri, auth, timeout):
         self.uri = "%s/SIP" % base_uri
         self.auth = auth

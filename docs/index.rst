@@ -139,6 +139,11 @@ phone numbers.
 
     faq
 
+Changelog
+=========
+
+See the :doc:`/changelog` for version history.
+
 
 Support and Development
 ==========================
@@ -155,6 +160,3 @@ Report bugs using the Github
 
 If you have questions that aren't answered by this documentation,
 ask the `#twilio IRC channel <irc://irc.freenode.net/#twilio>`_
-
-See the :doc:`/changelog` for version history.
-
