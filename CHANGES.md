@@ -3,6 +3,14 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.5.3, 3.5.4
+--------------------
+
+Released on September 6, 2013
+
+- twilio-python now includes an SSL certfication file to ensure that
+connections to api.twilio.com don't fail with SSLError.
+
 Version 3.5.2
 -------------
 
