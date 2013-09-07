@@ -1,4 +1,5 @@
 import logging
+import os
 import sys
 
 from six import integer_types, string_types, binary_type, iteritems
@@ -24,6 +25,20 @@ class Response(object):
         self.url = url
 
 
+def get_cert_file():
+    """ Get the cert file location or bail """
+    try:
+        # Apparently __file__ is not available in all places so wrapping this
+        # in a try/catch
+        current_path = os.path.realpath(__file__)
+        ca_cert_path = os.path.join(current_path, "..", "..", "..",
+                                    "conf", "cacert.pem")
+        return os.path.abspath(ca_cert_path)
+    except Exception:
+        # None means use the default system file
+        return None
+
+
 def make_request(method, url, params=None, data=None, headers=None,
                  cookies=None, files=None, auth=None, timeout=None,
                  allow_redirects=False, proxies=None):
@@ -43,7 +58,7 @@ def make_request(method, url, params=None, data=None, headers=None,
 
     Currently proxies, files, and cookies are all ignored
     """
-    http = httplib2.Http(timeout=timeout)
+    http = httplib2.Http(timeout=timeout, ca_certs=get_cert_file())
     http.follow_redirects = allow_redirects
 
     if auth is not None:
@@ -320,8 +335,8 @@ class ListResource(Resource):
         resp, instance = self.request("POST", self.uri,
                                       data=transform_params(body))
 
-        if resp.status_code != 201:
-            raise TwilioRestException(resp.status,
+        if resp.status_code not in (200, 201):
+            raise TwilioRestException(resp.status_code,
                                       self.uri, "Resource not created")
 
         return self.load_instance(instance)

@@ -87,6 +87,23 @@ class ListResourceTest(unittest.TestCase):
         self.assertIsInstance(instance, InstanceResource)
         self.assertEquals(instance.sid, "foo")
 
+    def testListResourceCreateResponse200(self):
+        """We should accept 200 OK in response to a POST creating a resource."""
+        self.r.request = Mock()
+        return_value = Mock()
+        return_value.status_code = 200
+        self.r.request.return_value = return_value, {'sid': 'foo'}
+        self.r.create_instance({})
+        self.r.request.assert_called_with("POST", "https://api.twilio.com/2010-04-01/Resources", data={})
+
+    def testListResourceCreateResponse201(self):
+        """We should accept 201 Created in response to a POST creating a resource."""
+        self.r.request = Mock()
+        return_value = Mock()
+        return_value.status_code = 201
+        self.r.request.return_value = return_value, {'sid': 'foo'}
+        self.r.create_instance({})
+        self.r.request.assert_called_with("POST", "https://api.twilio.com/2010-04-01/Resources", data={})
 
 class testInstanceResourceInit(unittest.TestCase):
 
