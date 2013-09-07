@@ -4,6 +4,85 @@ from twilio.rest.resources.util import normalize_dates, parse_date
 
 
 class Message(InstanceResource):
+    """ A Message instance.
+
+    .. attribute:: sid
+
+        A 34 character string that uniquely identifies this resource.
+
+    .. attribute:: account_sid
+
+        The unique id of the Account that sent or received this message.
+
+    .. attribute:: from
+
+        The phone number that initiated this message in E.164 format. For
+        incoming messages, this will be the remote phone. For outgoing
+        messages, this will be one of your Twilio phone numbers.
+
+    .. attribute:: to
+
+        The phone number that received the message in E.164 format. For
+        incoming messages, this will be one of your Twilio phone numbers.
+        For outgoing messages, this will be the remote phone.
+
+    .. attribute:: date_created
+
+        The date that this resource was created, given in RFC 2822 format.
+
+    .. attribute:: date_updated
+
+        The date that this resource was last updated, given in RFC 2822 format.
+
+    .. attribute:: date_sent
+
+        The date that the SMS was sent, given in RFC 2822 format.
+
+    .. attribute:: body
+
+        The text body of the message, as a unicode string.
+
+    .. attribute:: num_segments
+
+        The number of SMS messages used to deliver the
+        body specified.
+
+    .. attribute:: num_media
+
+        The number of media that are associated with the message. If num_media
+        is 0, then the media and image subresource will not contain any images.
+
+    .. attribute:: status
+
+        The status of this message. Either queued, sending, sent,failed,
+        or received.
+
+    .. attribute:: direction
+
+        The direction of this message. inbound for incoming messages,
+        outbound-api for messages initiated via the REST API, outbound-call
+        for messages initiated during a call or outbound-reply for messages
+        initiated in response to an incoming message.
+
+    .. attribute:: price
+
+        The amount billed for the message, in the currency associated with
+        the account.
+
+    .. attribute:: price_unit
+
+        The currency in which price is measured, in ISO 4127 format (e.g. USD,EUR, JPY).
+
+    .. attribute:: api_version
+
+        The version of the Twilio API used to process the message.
+
+    .. attribute:: uri
+
+        The URI for this resource, relative to https://api.twilio.com
+
+    """
+
     subresources = [MediaList]
 
 
@@ -57,4 +136,3 @@ class Messages(ListResource):
         :param sid: The sid of the message to update.
         """
         return self.update_instance(sid, kwargs)
-
