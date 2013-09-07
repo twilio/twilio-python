@@ -22,11 +22,12 @@ class Response(object):
         self.ok = self.status_code < 400
         self.url = url
 
+
 def get_cert_file():
     """ Get the cert file location or bail """
     try:
-        # Apparently __file__ is not available in all places so wrapping this in
-        # a try/catch
+        # Apparently __file__ is not available in all places so wrapping this
+        # in a try/catch
         current_path = os.path.realpath(__file__)
         ca_cert_path = os.path.join(current_path, "..", "..", "..",
                                     "conf", "cacert.pem")
