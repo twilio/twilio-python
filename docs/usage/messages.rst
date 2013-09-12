@@ -1,7 +1,7 @@
 .. module:: twilio.rest.resources.sms_messages
 
 ============
-SMS Messages
+Messages
 ============
 
 For more information, see the
@@ -28,10 +28,6 @@ Send a text message in only a few lines of code.
         body="Hello Monkey!",  # Message body, if any
         to="+12125551234",
         from_="+15105551234",
-        media_url=[  # List of media URLs, if any
-            "http://example.com/image1.jpg",
-            "http://example.com/image2.jpg",
-        ],
     )
     print message.sid
 
@@ -39,6 +35,44 @@ Send a text message in only a few lines of code.
 If you want to send a message from a `short code
 <http://www.twilio.com/api/sms/short-codes>`_ on Twilio, just set :attr:`from_`
 to your short code's number.
+
+
+Sending a Picture Message
+-------------------------
+
+To send a picture, set :attr:`media_url` to the url of the picture you wish to send.
+
+.. code-block:: python
+
+    from twilio.rest import TwilioRestClient
+
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
+
+    message = client.messages.create(
+        body="Hello Monkey!",  # Message body, if any
+        to="+12125551234",
+        from_="+15105551234",
+        media_url="http://example.com/image1.jpg"
+    )
+
+You can send multiple pictures in the same message by setting :attr:`media_url` to
+a list of urls.
+
+.. code-block:: python
+
+    message = client.messages.create(
+        body="Hello Monkey!",  # Message body, if any
+        to="+12125551234",
+        from_="+15105551234",
+        media_url=[  # List of media URLs, if any
+            "http://example.com/image1.jpg",
+            "http://example.com/image2.jpg",
+        ],
+    )
 
 
 Retrieving Sent Messages

@@ -6,7 +6,7 @@ Applications
 
 An application inside of Twilio is just a set of URLs and other configuration
 data that tells Twilio how to behave when one of your Twilio numbers receives
-a call or SMS message.
+a call or message.
 
 For more information, see the `Application REST Resource
 <http://www.twilio.com/docs/api/rest/applications>`_ documentation.
