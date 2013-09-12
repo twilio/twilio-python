@@ -143,7 +143,7 @@ class SipDomain(InstanceResource):
 
 class SipDomains(ListResource):
     name = "Domains"
-    key = "sip_domains"
+    key = "domains"
     instance = SipDomain
 
     def create(self, domain_name, **kwargs):
