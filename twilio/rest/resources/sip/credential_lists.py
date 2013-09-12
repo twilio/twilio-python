@@ -42,7 +42,7 @@ class Credential(InstanceResource):
 
 class Credentials(ListResource):
     name = "Credentials"
-    key = "credential_lists"
+    key = "credentials"
     instance = Credential
 
     def create(self, username, password, **kwargs):
