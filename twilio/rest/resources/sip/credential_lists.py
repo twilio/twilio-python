@@ -71,7 +71,7 @@ class Credentials(ListResource):
 
 class SipCredentialList(InstanceResource):
     """ A list of username/password credentials used to control access to
-    SipDomains.
+    Domains.
 
     .. attribute:: sid
 

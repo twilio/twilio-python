@@ -61,12 +61,12 @@ class CredentialListMappings(ListResource):
         return self.delete_instance(sid)
 
 
-class SipDomain(InstanceResource):
+class Domain(InstanceResource):
     subresources = [IpAccessControlListMappings, CredentialListMappings]
 
     def update(self, **kwargs):
         """
-        Update this :class:`SipDomain`
+        Update this :class:`Domain`
         """
         return self.parent.update_instance(self.name, kwargs)
 
@@ -77,13 +77,13 @@ class SipDomain(InstanceResource):
         return self.parent.delete_instance(self.name)
 
 
-class SipDomains(ListResource):
+class Domains(ListResource):
     name = "Domains"
     key = "sip_domains"
-    instance = SipDomain
+    instance = Domain
 
     def create(self, domain_name, **kwargs):
-        """ Create a :class:`SipDomain`.
+        """ Create a :class:`Domain`.
 
         :param domain_name: A unique domain name ending in '.sip.twilio.com'
         """
@@ -92,16 +92,16 @@ class SipDomains(ListResource):
 
     def update(self, sid, **kwargs):
         """
-        Update a :class:`SipDomain`
+        Update a :class:`Domain`
 
-        :param sid: String identifier for a SipDomain resource
+        :param sid: String identifier for a Domain resource
         """
         return self.update_instance(sid, kwargs)
 
     def delete(self, sid):
         """
-        Delete a :class:`SipDomain`.
+        Delete a :class:`Domain`.
 
-        :param sid: String identifier for a SipDomain resource
+        :param sid: String identifier for a Domain resource
         """
         return self.delete_instance(sid)

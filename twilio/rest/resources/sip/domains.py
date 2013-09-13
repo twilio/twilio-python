@@ -61,7 +61,7 @@ class CredentialListMappings(ListResource):
         return self.delete_instance(sid)
 
 
-class SipDomain(InstanceResource):
+class Domain(InstanceResource):
     """An inbound SIP Domain.
 
     .. attribute:: sid
@@ -127,7 +127,7 @@ class SipDomain(InstanceResource):
 
     def update(self, **kwargs):
         """
-        Update this :class:`SipDomain`
+        Update this :class:`Domain`
 
         Available attributes to update are described above as instance
         attributes.
@@ -141,13 +141,13 @@ class SipDomain(InstanceResource):
         return self.parent.delete_instance(self.name)
 
 
-class SipDomains(ListResource):
+class Domains(ListResource):
     name = "Domains"
-    key = "sip_domains"
-    instance = SipDomain
+    key = "domains"
+    instance = Domain
 
     def create(self, domain_name, **kwargs):
-        """ Create a :class:`SipDomain`.
+        """ Create a :class:`Domain`.
 
         :param str domain_name: A unique domain name ending in
         '.sip.twilio.com'
@@ -174,18 +174,18 @@ class SipDomains(ListResource):
 
     def update(self, sid, **kwargs):
         """
-        Update a :class:`SipDomain`
+        Update a :class:`Domain`
 
         Available attributes to update are described above in :meth:`create`.
 
-        :param sid: String identifier for a SipDomain resource
+        :param sid: String identifier for a Domain resource
         """
         return self.update_instance(sid, kwargs)
 
     def delete(self, sid):
         """
-        Delete a :class:`SipDomain`.
+        Delete a :class:`Domain`.
 
-        :param sid: String identifier for a SipDomain resource
+        :param sid: String identifier for a Domain resource
         """
         return self.delete_instance(sid)

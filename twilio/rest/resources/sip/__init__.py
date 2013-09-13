@@ -2,7 +2,7 @@ from twilio.rest.resources.sip.credential_lists import Credentials
 from twilio.rest.resources.sip.credential_lists import SipCredentialLists
 from twilio.rest.resources.sip.domains import CredentialListMappings
 from twilio.rest.resources.sip.domains import IpAccessControlListMappings
-from twilio.rest.resources.sip.domains import SipDomains
+from twilio.rest.resources.sip.domains import Domains
 from twilio.rest.resources.sip.ip_access_control_lists import IpAddresses
 from twilio.rest.resources.sip.ip_access_control_lists import SipIpAccessControlLists
 
@@ -16,7 +16,7 @@ class Sip(object):
         self.uri = "%s/SIP" % base_uri
         self.auth = auth
         self.timeout = timeout
-        self.domains = SipDomains(self.uri, auth, timeout)
+        self.domains = Domains(self.uri, auth, timeout)
         self.credential_lists = SipCredentialLists(self.uri, auth, timeout)
         self.ip_access_control_lists = SipIpAccessControlLists(
             self.uri,
@@ -26,7 +26,7 @@ class Sip(object):
 
     def ip_access_control_list_mappings(self, domain_sid):
         """
-        Return a :class:`IpAccessControlListMappings` instance for the :class:`SipDomain`
+        Return a :class:`IpAccessControlListMappings` instance for the :class:`Domain`
         with the given domain_sid
         """
         base_uri = "{}/Domains/{}".format(self.uri, domain_sid)
@@ -34,7 +34,7 @@ class Sip(object):
 
     def credential_list_mappings(self, domain_sid):
         """
-        Return a :class:`CredentialListMappings` instance for the :class:`SipDomain`
+        Return a :class:`CredentialListMappings` instance for the :class:`Domain`
         with the given domain_sid
         """
         base_uri = "{}/Domains/{}".format(self.uri, domain_sid)
