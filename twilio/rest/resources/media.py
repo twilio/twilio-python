@@ -45,7 +45,7 @@ class Media(InstanceResource):
 
 class MediaList(ListResource):
     name = "Media"
-    key = "media"
+    key = "media_list"
     instance = Media
 
     def __call__(self, message_sid):
