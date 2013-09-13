@@ -13,7 +13,7 @@ Creating a Sip Domain
 
 The :class:`Domains` resource allows you to create a new domain. To
 create a new domain, you'll need to choose a unique domain that lives
-under sip.twilio.com. For example, doug.sip.twilio.com.
+under sip.twilio.com. For example, dunder-mifflin-scranton.sip.twilio.com.
 
 .. code-block:: python
 
@@ -25,9 +25,9 @@ under sip.twilio.com. For example, doug.sip.twilio.com.
     client = TwilioRestClient(account_sid, auth_token)
 
     domain = client.sip.domains.create(
-        friendly_name="Sam's Domain",
+        friendly_name="The Office Domain",
         voice_url="http://example.com/voice",
-        domain_name="sam.sip.twilio.com",
+        domain_name="dunder-mifflin-scranton.sip.twilio.com",
     )
     print domain.sid
 
@@ -36,7 +36,7 @@ Creating a new IpAccessControlList
 
 To control access to your new domain, you'll need to explicitly grant access
 to individual ip addresses. To do this, you'll first need to create an
-:class:`IpAccessControlList` to hold the ip addresses you wish to allow. 
+:class:`IpAccessControlList` to hold the ip addresses you wish to allow.
 
 .. code-block:: python
 
@@ -48,7 +48,7 @@ to individual ip addresses. To do this, you'll first need to create an
     client = TwilioRestClient(account_sid, auth_token)
 
     ip_acl = client.sip.ip_access_control_lists.create(
-        friendly_name="My IpAccessControlList",
+        friendly_name="The Office IpAccessControlList",
     )
     print ip_acl.sid
 
@@ -69,7 +69,7 @@ Now it's time to add an :class:`IpAddress` to your new :class:`IpAccessControlLi
     ip_address = client.sip.ip_addresses(
         "AL456",  # IpAccessControlList sid
     ).create(
-        friendly_name="Sam's Computer",
+        friendly_name="Dwight's Computer",
         ip_address="192.168.1.42",
     )
     print ip_address.sid
