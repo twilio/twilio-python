@@ -503,9 +503,9 @@ class Enqueue(Verb):
                    leaves the queue. When dequeued via a <Dial> verb,
                    this url is executed after the bridged parties disconnect
     :param method: HTTP method for action GET/POST
-    :param wait_url: url to a twiml document that executes
+    :param waitUrl: url to a twiml document that executes
                      while the call is on the queue
-    :param wait_url_method: HTTP method for wait_url GET/POST
+    :param waitUrlMethod: HTTP method for waitUrl GET/POST
     """
     GET = 'GET'
     POST = 'POST'
