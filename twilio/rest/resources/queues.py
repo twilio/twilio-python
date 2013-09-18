@@ -25,7 +25,6 @@ class Member(InstanceResource):
       The URI for this resource, relative to https://api.twilio.com.
     """
 
-
     id_key = "call_sid"
 
 
@@ -90,7 +89,6 @@ class Queue(InstanceResource):
       A :class:`Members` object holding the :class:`Member` objects in this
       queue.
     """
-
 
     subresources = [
         Members

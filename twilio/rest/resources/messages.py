@@ -71,7 +71,8 @@ class Message(InstanceResource):
 
     .. attribute:: price_unit
 
-        The currency in which price is measured, in ISO 4127 format (e.g. USD,EUR, JPY).
+        The currency in which price is measured, in ISO 4127 format
+        (e.g. USD,EUR, JPY).
 
     .. attribute:: api_version
 

@@ -182,8 +182,8 @@ class InstanceResource(Resource):
     """ The object representation of an instance response from the Twilio API
 
     :param parent: The parent list class for this instance resource.
-        For example, the parent for a :class:`~twilio.rest.resources.Call` would
-        be a :class:`~twilio.rest.resources.Calls` object.
+        For example, the parent for a :class:`~twilio.rest.resources.Call`
+        would be a :class:`~twilio.rest.resources.Calls` object.
     :type parent: :class:`~twilio.rest.resources.ListResource`
     :param str sid: The 34-character unique identifier for this instance
     """

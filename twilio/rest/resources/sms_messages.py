@@ -92,11 +92,15 @@ class SmsMessage(InstanceResource):
 
    .. attribute:: from
 
-      The phone number that initiated the message in E.164 format. For incoming messages, this will be the remote phone. For outgoing messages, this will be one of your Twilio phone numbers.
+      The phone number that initiated the message in E.164 format.
+      For incoming messages, this will be the remote phone.
+      For outgoing messages, this will be one of your Twilio phone numbers.
 
    .. attribute:: to
 
-      The phone number that received the message in E.164 format. For incoming messages, this will be one of your Twilio phone numbers. For outgoing messages, this will be the remote phone.
+      The phone number that received the message in E.164 format.
+      For incoming messages, this will be one of your Twilio phone numbers.
+      For outgoing messages, this will be the remote phone.
 
    .. attribute:: body
 
