@@ -29,7 +29,7 @@ class Sip(object):
         Return a :class:`IpAccessControlListMappings` instance for the :class:`Domain`
         with the given domain_sid
         """
-        base_uri = "{}/Domains/{}".format(self.uri, domain_sid)
+        base_uri = "%s/Domains/%s" % (self.uri, domain_sid)
         return IpAccessControlListMappings(base_uri, self.auth, self.timeout)
 
     def credential_list_mappings(self, domain_sid):
@@ -37,7 +37,7 @@ class Sip(object):
         Return a :class:`CredentialListMappings` instance for the :class:`Domain`
         with the given domain_sid
         """
-        base_uri = "{}/Domains/{}".format(self.uri, domain_sid)
+        base_uri = "%s/Domains/%s" % (self.uri, domain_sid)
         return CredentialListMappings(base_uri, self.auth, self.timeout)
 
     def ip_addresses(self, ip_access_control_list_sid):
@@ -45,7 +45,7 @@ class Sip(object):
         Return a :class:`IpAddresses` instance for the
         :class:`IpAccessControlList` with the given ip_access_control_list_sid
         """
-        base_uri = "{}/IpAccessControlLists/{}".format(
+        base_uri = "%s/IpAccessControlLists/%s" % (
             self.uri,
             ip_access_control_list_sid,
         )
@@ -56,7 +56,7 @@ class Sip(object):
         Return a :class:`Credentials` instance for the
         :class:`CredentialList` with the given credential_list_sid
         """
-        base_uri = "{}/CredentialLists/{}".format(
+        base_uri = "%s/CredentialLists/%s" % (
             self.uri,
             credential_list_sid,
         )

@@ -244,7 +244,7 @@ class InstanceResource(Resource):
         return self.parent.delete(self.name)
 
     def __str__(self):
-        return "<{0} {1}>".format(self.__class__.__name__, self.name[0:5])
+        return "<%s %s>" % (self.__class__.__name__, self.name[0:5])
 
 
 class ListResource(Resource):
@@ -401,8 +401,8 @@ class ListResource(Resource):
         return instance
 
     def __str__(self):
-        return '<{} ({})>'.format(self.__class__.__name__, self.count())
-        return '<{0} ({1})>'.format(self.__class__.__name__, self.count())
+        return '<%s (%s)>' % (self.__class__.__name__, self.count())
+        return '<%s (%s)>' % (self.__class__.__name__, self.count())
 
     def list(self, **kw):
         """Query the list resource for a list of InstanceResources.
