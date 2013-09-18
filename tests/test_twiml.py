@@ -376,7 +376,7 @@ class TestEnqueue(TwilioTest):
     def setUp(self):
         r = Response()
         r.enqueue("TestEnqueueAttribute", action="act", method='GET',
-                  wait_url='wait', wait_url_method='POST')
+                  waitUrl='wait', waitUrlMethod='POST')
         xml = r.toxml()
 
         #parse twiml XML string with Element Tree and inspect
@@ -388,7 +388,7 @@ class TestEnqueue(TwilioTest):
         self.assertEqual(self.conf.text.strip(), "TestEnqueueAttribute")
 
     def test_conf_waiturl(self):
-        self.assertEqual(self.conf.get('wait_url'), "wait")
+        self.assertEqual(self.conf.get('waitUrl'), "wait")
 
     def test_conf_method(self):
         self.assertEqual(self.conf.get('method'), "GET")
@@ -397,7 +397,7 @@ class TestEnqueue(TwilioTest):
         self.assertEqual(self.conf.get('action'), "act")
 
     def test_conf_waitmethod(self):
-        self.assertEqual(self.conf.get('wait_url_method'), "POST")
+        self.assertEqual(self.conf.get('waitUrlMethod'), "POST")
 
 
 class TestDial(TwilioTest):
