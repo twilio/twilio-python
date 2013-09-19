@@ -5,4 +5,3 @@ coverage
 nosexcover
 flake8
 mccabe
-unittest2
