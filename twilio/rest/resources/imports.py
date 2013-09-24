@@ -20,12 +20,10 @@ import httplib2
 try:
     from httplib2 import socks
     from httplib2.socks import PROXY_TYPE_HTTP
-    from httplib2.socks import PROXY_TYPE_HTTP_NO_TUNNEL
     from httplib2.socks import PROXY_TYPE_SOCKS4
     from httplib2.socks import PROXY_TYPE_SOCKS5
 except ImportError:
     import socks
     from socks import PROXY_TYPE_HTTP
-    from socks import PROXY_TYPE_HTTP_NO_TUNNEL
     from socks import PROXY_TYPE_SOCKS4
     from socks import PROXY_TYPE_SOCKS5
