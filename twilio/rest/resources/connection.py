@@ -1,7 +1,6 @@
 from twilio.rest.resources.imports import httplib2
 from twilio.rest.resources.imports import socks
 from twilio.rest.resources.imports import PROXY_TYPE_HTTP
-from twilio.rest.resources.imports import PROXY_TYPE_HTTP_NO_TUNNEL
 from twilio.rest.resources.imports import PROXY_TYPE_SOCKS4
 from twilio.rest.resources.imports import PROXY_TYPE_SOCKS5
 
@@ -29,7 +28,6 @@ class Connection(object):
 
 _hush_pyflakes = [
     socks,
-    PROXY_TYPE_HTTP_NO_TUNNEL,
     PROXY_TYPE_SOCKS4,
     PROXY_TYPE_SOCKS5
 ]
