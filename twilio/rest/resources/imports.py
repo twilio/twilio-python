@@ -15,3 +15,9 @@ except ImportError:
 
 # httplib2
 import httplib2
+
+# socks
+try:
+    from httplib2 import socks
+except ImportError:
+    import socks

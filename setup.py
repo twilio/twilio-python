@@ -15,6 +15,7 @@ if sys.version_info < (2, 6):
     REQUIRES.append('simplejson')
 if sys.version_info >= (3,0):
     REQUIRES.append('unittest2py3k')
+    REQUIRES.append('socksipy-branch')
 else:
     REQUIRES.append('unittest2')
 
