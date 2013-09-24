@@ -11,6 +11,7 @@ from twilio.rest.resources import CallerIds
 from twilio.rest.resources import Calls
 from twilio.rest.resources import Conferences
 from twilio.rest.resources import ConnectApps
+from twilio.rest.resources import Connection
 from twilio.rest.resources import MediaList
 from twilio.rest.resources import Members
 from twilio.rest.resources import Messages
@@ -23,8 +24,8 @@ from twilio.rest.resources import Sandboxes
 from twilio.rest.resources import Sip
 from twilio.rest.resources import Sms
 from twilio.rest.resources import Transcriptions
-from twilio.rest.resources import Usage
 from twilio.rest.resources import UNSET_TIMEOUT
+from twilio.rest.resources import Usage
 
 
 def find_credentials():
@@ -37,6 +38,10 @@ def find_credentials():
         return account, token
     except KeyError:
         return None, None
+
+
+def set_twilio_proxy(proxy_url, proxy_port):
+    Connection.set_proxy_info(proxy_url, proxy_port)
 
 
 class TwilioRestClient(object):

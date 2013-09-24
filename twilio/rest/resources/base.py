@@ -7,6 +7,7 @@ from twilio.compat import urlencode
 import twilio
 from twilio import TwilioException, TwilioRestException
 from twilio.rest.resources import UNSET_TIMEOUT
+from twilio.rest.resources.connection import Connection
 from twilio.rest.resources.imports import parse_qs, httplib2, json
 from twilio.rest.resources.util import transform_params, parse_rfc2822_date
 
@@ -56,7 +57,11 @@ def make_request(method, url, params=None, data=None, headers=None,
 
     Currently proxies, files, and cookies are all ignored
     """
-    http = httplib2.Http(timeout=timeout, ca_certs=get_cert_file())
+    http = httplib2.Http(
+        timeout=timeout,
+        ca_certs=get_cert_file(),
+        proxy_info=Connection.proxy_info(),
+    )
     http.follow_redirects = allow_redirects
 
     if auth is not None:
