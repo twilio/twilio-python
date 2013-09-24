@@ -3,6 +3,24 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.6.2
+------------
+
+Released on September 24, 2013
+
+- Adds support for HTTP and SOCKS4/5 proxies to the REST client.
+
+
+Version 3.6.0, 3.6.1
+--------------------
+
+Released on September 18, 2013
+
+- Adds support for the new Message and SIP resources to the REST
+API client.
+- Adds support for the new Message verb to the TwiML generator.
+
+
 Version 3.5.3, 3.5.4
 --------------------
 
