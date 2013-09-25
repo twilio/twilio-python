@@ -27,8 +27,10 @@ class TwilioRestException(TwilioException):
     def __str__(self):
         if self.code:
             error_message = "HTTP ERROR %s: %s \n\n    " \
-            "Please see: https://api.twilio.com/docs/errors/%s for more information. \n\n" \
-            "Requested URI: %s" % (self.status, self.msg, str(self.code), self.uri)
+                "Please see: https://api.twilio.com/docs/errors/%s " \
+                "for more information. \n\n" "Requested URI: %s" % (
+                    self.status, self.msg, str(self.code), self.uri
+                )
         else:
             error_message = "HTTP ERROR %s: %s \n %s" % (self.status, self.msg, self.uri)
 
