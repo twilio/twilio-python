@@ -69,6 +69,7 @@ Query the Twilio REST API to create phone calls, send messages and more!
     usage/notifications
     usage/recordings
     usage/transcriptions
+    usage/usage
     usage/caller-ids
     usage/queues
     usage/sip
