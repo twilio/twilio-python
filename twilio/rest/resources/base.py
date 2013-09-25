@@ -160,7 +160,7 @@ def make_twilio_request(method, uri, **kwargs):
             msg += white("Your request was:\n\n")
             msg += teal("%s %s" % (method, uri))
             msg += white("\n\nTwilio returned the following information:")
-            msg += blue("\n\n" + message + "\n")
+            msg += blue("\n\n" + str(message) + "\n")
             if code:
                 msg += white("\nMore information may be available here:\n\n")
                 msg += blue("https://www.twilio.com/docs/errors/%s" % code)
