@@ -32,6 +32,7 @@ class TwilioRestException(TwilioException):
                     self.status, self.msg, str(self.code), self.uri
                 )
         else:
-            error_message = "HTTP ERROR %s: %s \n %s" % (self.status, self.msg, self.uri)
+            error_message = "HTTP ERROR %s: %s \n %s" % (self.status,
+                                                         self.msg, self.uri)
 
         return error_message
