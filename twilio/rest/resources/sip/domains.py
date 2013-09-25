@@ -159,8 +159,8 @@ class Domains(ListResource):
         :type voice_method: None (defaults to 'POST'), 'GET', or 'POST'
         :param str voice_fallback_url: A URL that Twilio will request if an
             error occurs requesting or executing the TwiML at voice_url
-        :param str voice_fallback_method: The HTTP method that Twilio should use
-            to request the fallback_url
+        :param str voice_fallback_method: The HTTP method that Twilio should
+            use to request the fallback_url
         :type voice_fallback_method: None (defaults to 'POST'),
             'GET', or 'POST'
         :param str voice_status_callback: A URL that Twilio will request when

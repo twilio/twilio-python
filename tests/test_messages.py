@@ -6,6 +6,7 @@ else:
 
 from datetime import date
 from mock import Mock
+from six import u
 from twilio.rest.resources import Messages
 
 DEFAULT = {
@@ -45,12 +46,12 @@ class MessageTest(unittest.TestCase):
         self.resource.create(
             from_='+14155551234',
             to='+14155556789',
-            body=u'ahoy hoy',
+            body=u('ahoy hoy'),
         )
         self.resource.create_instance.assert_called_with(
             {
                 'from': '+14155551234',
                 'to': '+14155556789',
-                'body': u'ahoy hoy',
+                'body': u('ahoy hoy'),
             },
         )

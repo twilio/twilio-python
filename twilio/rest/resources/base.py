@@ -7,6 +7,7 @@ from twilio.compat import urlencode
 import twilio
 from twilio import TwilioException, TwilioRestException
 from twilio.rest.resources import UNSET_TIMEOUT
+from twilio.rest.resources.connection import Connection
 from twilio.rest.resources.imports import parse_qs, httplib2, json
 from twilio.rest.resources.util import transform_params, parse_rfc2822_date
 
@@ -56,7 +57,11 @@ def make_request(method, url, params=None, data=None, headers=None,
 
     Currently proxies, files, and cookies are all ignored
     """
-    http = httplib2.Http(timeout=timeout, ca_certs=get_cert_file())
+    http = httplib2.Http(
+        timeout=timeout,
+        ca_certs=get_cert_file(),
+        proxy_info=Connection.proxy_info(),
+    )
     http.follow_redirects = allow_redirects
 
     if auth is not None:
@@ -182,8 +187,8 @@ class InstanceResource(Resource):
     """ The object representation of an instance response from the Twilio API
 
     :param parent: The parent list class for this instance resource.
-        For example, the parent for a :class:`~twilio.rest.resources.Call` would
-        be a :class:`~twilio.rest.resources.Calls` object.
+        For example, the parent for a :class:`~twilio.rest.resources.Call`
+        would be a :class:`~twilio.rest.resources.Calls` object.
     :type parent: :class:`~twilio.rest.resources.ListResource`
     :param str sid: The 34-character unique identifier for this instance
     """
@@ -244,7 +249,7 @@ class InstanceResource(Resource):
         return self.parent.delete(self.name)
 
     def __str__(self):
-        return "<{0} {1}>".format(self.__class__.__name__, self.name[0:5])
+        return "<%s %s>" % (self.__class__.__name__, self.name[0:5])
 
 
 class ListResource(Resource):
@@ -401,8 +406,8 @@ class ListResource(Resource):
         return instance
 
     def __str__(self):
-        return '<{} ({})>'.format(self.__class__.__name__, self.count())
-        return '<{0} ({1})>'.format(self.__class__.__name__, self.count())
+        return '<%s (%s)>' % (self.__class__.__name__, self.count())
+        return '<%s (%s)>' % (self.__class__.__name__, self.count())
 
     def list(self, **kw):
         """Query the list resource for a list of InstanceResources.

@@ -4,10 +4,12 @@ Test that make+request is making correct HTTP requests
 Uses the awesome httpbin.org to validate responses
 """
 import twilio
-from nose.tools import raises
-from mock import patch, Mock
+from nose.tools import assert_equal, raises
+from mock import patch, Mock, ANY
 from twilio import TwilioRestException
 from twilio.rest.resources.base import make_request, make_twilio_request
+from twilio.rest.resources.connection import Connection
+from twilio.rest.resources.connection import PROXY_TYPE_SOCKS5
 
 get_headers = {
     "User-Agent": "twilio-python/%s" % (twilio.__version__),
@@ -90,3 +92,24 @@ def test_make_twilio_request_bad_data(mock):
     make_twilio_request("POST", url)
     mock.assert_called_with("POST", "http://random/url.json",
                             headers=post_headers)
+
+
+@patch('twilio.rest.resources.base.Response')
+@patch('httplib2.Http')
+def test_proxy_info(http_mock, resp_mock):
+    http = Mock()
+    http.request.return_value = (Mock(), Mock())
+    http_mock.return_value = http
+    Connection.set_proxy_info(
+        'example.com',
+        8080,
+        proxy_type=PROXY_TYPE_SOCKS5,
+    )
+    make_request("GET", "http://httpbin.org/get")
+    http_mock.assert_called_with(timeout=None, ca_certs=ANY, proxy_info=ANY)
+    http.request.assert_called_with("http://httpbin.org/get", "GET",
+                                    body=None, headers=None)
+    proxy_info = http_mock.call_args[1]['proxy_info']
+    assert_equal(proxy_info.proxy_host, 'example.com')
+    assert_equal(proxy_info.proxy_port, 8080)
+    assert_equal(proxy_info.proxy_type, PROXY_TYPE_SOCKS5)

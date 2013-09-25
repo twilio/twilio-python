@@ -11,6 +11,7 @@ from twilio.rest.resources import CallerIds
 from twilio.rest.resources import Calls
 from twilio.rest.resources import Conferences
 from twilio.rest.resources import ConnectApps
+from twilio.rest.resources import Connection
 from twilio.rest.resources import MediaList
 from twilio.rest.resources import Members
 from twilio.rest.resources import Messages
@@ -23,8 +24,8 @@ from twilio.rest.resources import Sandboxes
 from twilio.rest.resources import Sip
 from twilio.rest.resources import Sms
 from twilio.rest.resources import Transcriptions
-from twilio.rest.resources import Usage
 from twilio.rest.resources import UNSET_TIMEOUT
+from twilio.rest.resources import Usage
 
 
 def find_credentials():
@@ -39,6 +40,10 @@ def find_credentials():
         return None, None
 
 
+def set_twilio_proxy(proxy_url, proxy_port):
+    Connection.set_proxy_info(proxy_url, proxy_port)
+
+
 class TwilioRestClient(object):
     """
     A client for accessing the Twilio REST API
@@ -47,7 +52,7 @@ class TwilioRestClient(object):
         <https://twilio.com/user/account>`_
     :param str token: Your Auth Token from `your dashboard
         <https://twilio.com/user/account>`_
-    :param float timeout: The socket and read timeout for making requests to Twilio
+    :param float timeout: The socket and read timeout for requests to Twilio
     """
 
     def __init__(self, account=None, token=None, base="https://api.twilio.com",
@@ -111,19 +116,19 @@ values from your Twilio Account at https://www.twilio.com/user/account.
     def participants(self, conference_sid):
         """
         Return a :class:`~twilio.rest.resources.Participants` instance for the
-        :class:`~twilio.rest.resources.Conference` with the given conference_sid
+        :class:`~twilio.rest.resources.Conference` with given conference_sid
         """
-        base_uri = "{}/Conferences/{}".format(self.account_uri, conference_sid)
+        base_uri = "%s/Conferences/%s" % (self.account_uri, conference_sid)
         return Participants(base_uri, self.auth, self.timeout)
 
     def members(self, queue_sid):
         """
         Return a :class:`Members <twilio.rest.resources.Members>` instance for
-        the :class:`Queue <twilio.rest.resources.Queue>` with the given queue_sid
+        the :class:`Queue <twilio.rest.resources.Queue>` with the
+        given queue_sid
         """
-        base_uri = "{}/Queues/{}".format(self.account_uri, queue_sid)
+        base_uri = "%s/Queues/%s" % (self.account_uri, queue_sid)
         return Members(base_uri, self.auth, self.timeout)
-
 
     def request(self, path, method=None, vars=None):
         """sends a request and gets a response from the Twilio REST API
@@ -178,4 +183,3 @@ values from your Twilio Account at https://www.twilio.com/user/account.
                             params=params, headers=headers)
 
         return resp.content
-

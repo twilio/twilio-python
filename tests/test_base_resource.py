@@ -105,6 +105,7 @@ class ListResourceTest(unittest.TestCase):
         self.r.create_instance({})
         self.r.request.assert_called_with("POST", "https://api.twilio.com/2010-04-01/Resources", data={})
 
+
 class testInstanceResourceInit(unittest.TestCase):
 
     def setUp(self):
