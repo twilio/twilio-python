@@ -2,7 +2,7 @@ import logging
 import os
 import sys
 
-from six import integer_types, string_types, binary_type, iteritems
+from six import integer_types, string_types, binary_type, iteritems, u
 from twilio.compat import urlparse
 from twilio.compat import urlencode
 
@@ -138,19 +138,19 @@ def make_twilio_request(method, uri, **kwargs):
             message = resp.content
 
         def red(msg):
-            return u"\033[31m\033[49m%s\033[0m" % msg
+            return u("\033[31m\033[49m%s\033[0m") % msg
 
         def white(msg):
-            return u"\033[37m\033[49m%s\033[0m" % msg
+            return u("\033[37m\033[49m%s\033[0m") % msg
 
         def blue(msg):
-            return u"\033[34m\033[49m%s\033[0m" % msg
+            return u("\033[34m\033[49m%s\033[0m") % msg
 
         def orange(msg):
-            return u"\033[33m\033[49m%s\033[0m" % msg
+            return u("\033[33m\033[49m%s\033[0m") % msg
 
         def teal(msg):
-            return u"\033[36m\033[49m%s\033[0m" % msg
+            return u("\033[36m\033[49m%s\033[0m") % msg
 
         # If it makes sense to print a human readable error message, try to do
         # it. The one problem is that someone might catch this error and try to
