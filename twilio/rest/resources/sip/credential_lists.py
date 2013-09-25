@@ -42,7 +42,7 @@ class Credential(InstanceResource):
 
 class Credentials(ListResource):
     name = "Credentials"
-    key = "credential_lists"
+    key = "credentials"
     instance = Credential
 
     def create(self, username, password, **kwargs):
@@ -71,7 +71,7 @@ class Credentials(ListResource):
 
 class SipCredentialList(InstanceResource):
     """ A list of username/password credentials used to control access to
-    SipDomains.
+    Domains.
 
     .. attribute:: sid
 

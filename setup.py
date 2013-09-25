@@ -9,12 +9,13 @@ from setuptools import setup, find_packages
 #
 # You need to have the setuptools module installed. Try reading the setuptools
 # documentation: http://pypi.python.org/pypi/setuptools
-REQUIRES = ["httplib2 >= 0.7", "six", "Werkzeug"]
+REQUIRES = ["httplib2 >= 0.7", "six"]
 
 if sys.version_info < (2, 6):
     REQUIRES.append('simplejson')
 if sys.version_info >= (3,0):
     REQUIRES.append('unittest2py3k')
+    REQUIRES.append('socksipy-branch')
 else:
     REQUIRES.append('unittest2')
 

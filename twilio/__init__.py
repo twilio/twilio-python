@@ -1,4 +1,4 @@
-__version_info__ = ('3', '5', '4')
+__version_info__ = ('3', '6', '2')
 __version__ = '.'.join(__version_info__)
 
 
@@ -12,8 +12,8 @@ class TwilioRestException(TwilioException):
     :param int status: the HTTP status that was returned for the exception
     :param str uri: The URI that caused the exception
     :param str msg: A human-readable message for the error
-    :param int|None code: A Twilio-specific error code for the error. This is not
-        available for all errors.
+    :param int|None code: A Twilio-specific error code for the error. This is
+         not available for all errors.
     """
 
     # XXX: Move this to the twilio.rest folder

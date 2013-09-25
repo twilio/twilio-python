@@ -11,6 +11,7 @@ We'd like to thank the following people who have contributed to the
 - Comrade DOS <dos@hidevlab.com>
 - Dan Yang <dsyang92@gmail.com>
 - Dennis Pilarinos <dennispi@gmail.com>
+- Doug Black <dblack@gmail.com>
 - Fabian Topfstedt <topfstedt@schneevonmorgen.com>
 - Florian Le Goff <florian@9h37.fr>
 - Frank Tobia <frank.tobia@gmail.com>
@@ -25,6 +26,7 @@ We'd like to thank the following people who have contributed to the
 - Michael Parker <michael.g.parker@gmail.com>
 - Moses Palmér <moses@blockmastersecurity.com>
 - Ryan Horn <ryanhorn@twilio.com>
+- Sam Kimbrel <skimbrel@twilio.com>
 - Skylar Saveland <skylar.saveland@gmail.com>
 - Tiberiu Ana <tiberiu@tiberiuana.com>
 - Zachary Voase <z@zacharyvoase.com>
@@ -32,4 +34,4 @@ We'd like to thank the following people who have contributed to the
 - dnathe4th <dnathe4th@gmail.com>
 - isbo <jrandh@gmail.com>
 - negeorge <negeorge@gmail.com>
-- Evan Cooke 
+- Evan Cooke

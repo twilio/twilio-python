@@ -77,7 +77,7 @@ def test_unicode_sequence_form_value(resp_mock, mock):
     http.request.return_value = (Mock(), Mock())
 
     data = {
-        "body": [u'å', u'ç'],
+        "body": [u('\xe5'), u('\xe7')],
     }
 
     resources.make_request("POST", "http://www.example.com", data=data)

@@ -108,11 +108,13 @@ class PhoneNumber(InstanceResource):
 
    .. attribute:: date_updated
 
-      The date that this resource was last updated, given as GMT RFC 2822 format.
+      The date that this resource was last updated, in GMT RFC 2822 format.
 
    .. attribute:: friendly_name
 
-      A human readable descriptive text for this resource, up to 64 characters long. By default, the FriendlyName is a nicely formatted version of the phone number.
+      A human readable descriptive text for this resource, up to 64 characters
+      long. By default, the FriendlyName is a nicely formatted version of
+      the phone number.
 
    .. attribute:: account_sid
 
@@ -124,11 +126,13 @@ class PhoneNumber(InstanceResource):
 
    .. attribute:: api_version
 
-      Calls to this phone number will start a new TwiML session with this API version.
+      Calls to this phone number will start a new TwiML session with this
+      API version.
 
    .. attribute:: voice_caller_id_lookup
 
-      Look up the caller's caller-ID name from the CNAM database (additional charges apply). Either true or false.
+      Look up the caller's caller-ID name from the CNAM database (additional
+      charges apply). Either true or false.
 
    .. attribute:: voice_url
 
@@ -136,45 +140,53 @@ class PhoneNumber(InstanceResource):
 
    .. attribute:: voice_method
 
-      The HTTP method Twilio will use when requesting the above Url. Either GET or POST.
+      The HTTP method Twilio will use when requesting the above Url.
+      Either GET or POST.
 
    .. attribute:: voice_fallback_url
 
-      The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by Url.
+      The URL that Twilio will request if an error occurs retrieving or
+      executing the TwiML requested by Url.
 
    .. attribute:: voice_fallback_method
 
-      The HTTP method Twilio will use when requesting the VoiceFallbackUrl. Either GET or POST.
+      The HTTP method Twilio will use when requesting the VoiceFallbackUrl.
+      Either GET or POST.
 
    .. attribute:: status_callback
 
-      The URL that Twilio will request to pass status parameters (such as call ended) to your application.
+      The URL that Twilio will request to pass status parameters (such as
+      call ended) to your application.
 
    .. attribute:: status_callback_method
 
-      The HTTP method Twilio will use to make requests to the StatusCallback URL. Either GET or POST.
+      The HTTP method Twilio will use to make requests to the
+      StatusCallback URL. Either GET or POST.
 
    .. attribute:: sms_url
 
-      The URL Twilio will request when receiving an incoming SMS message to this number.
+      The URL Twilio will request when receiving an incoming SMS message
+      to this number.
 
    .. attribute:: sms_method
 
-      The HTTP method Twilio will use when making requests to the SmsUrl. Either GET or POST.
+      The HTTP method Twilio will use when making requests to the SmsUrl.
+      Either GET or POST.
 
    .. attribute:: sms_fallback_url
 
-      The URL that Twilio will request if an error occurs retrieving or executing the TwiML from SmsUrl.
+      The URL that Twilio will request if an error occurs retrieving or
+      executing the TwiML from SmsUrl.
 
    .. attribute:: sms_fallback_method
 
-      The HTTP method Twilio will use when requesting the above URL. Either GET or POST.
+      The HTTP method Twilio will use when requesting the above URL.
+      Either GET or POST.
 
    .. attribute:: uri
 
       The URI for this resource, relative to https://api.twilio.com.
     """
-
 
     def load(self, entries):
         """ Set the proper Account owner of this phone number """
@@ -262,7 +274,8 @@ class PhoneNumbers(ListResource):
 
         :returns: Returns a :class:`PhoneNumber` instance on success,
                   :data:`False` on failure
-        :raises: A :exc:`TypeError` if phone_number or area_code is not specified.
+        :raises: A :exc:`TypeError` if neither phone_number or area_code
+        is specified.
         """
         kwargs["StatusCallback"] = kwargs.get("status_callback",
                                               status_callback_url)

@@ -8,7 +8,7 @@ Twilio REST API.
 
 
 Make a Call
-===============
+===========
 
 .. code-block:: python
 
@@ -26,7 +26,7 @@ Make a Call
 
 
 Send an SMS
-================
+===========
 
 .. code-block:: python
 
@@ -40,9 +40,24 @@ Send an SMS
                                          from_="+15555555555",
                                          body="Hello there!")
 
+Send an MMS
+===========
+
+.. code-block:: python
+
+    message = client.messages.create(
+        body="Hello Monkey!",  # Message body, if any
+        to="+12125551234",
+        from_="+15105551234",
+        media_url=[  # List of media URLs, if any
+            "http://example.com/image1.jpg",
+            "http://example.com/image2.jpg",
+        ],
+    )
+
 
 Generating TwiML
-=================
+================
 
 To control phone calls, your application needs to output `TwiML
 <http://www.twilio.com/docs/api/twiml/>`_. Use :class:`twilio.twiml.Response`

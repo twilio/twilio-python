@@ -43,9 +43,9 @@ class UsageTriggers(ListResource):
 
     def create(self, **kwargs):
         """
-        Create an :class:`Application` with any of these optional parameters.
+        Create an :class:`UsageTrigger` with any of these optional parameters.
 
-        :param friendly_name: A human readable description of the application,
+        :param friendly_name: A human readable description of the UsageTrigger,
                               with maximum length 64 characters.
         :param usage_category: The trigger will watch this usage category.
         :param trigger_value: The trigger will fire when usage reaches this

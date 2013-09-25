@@ -69,8 +69,8 @@ account = "ACXXXXXXXXXXXXXXXXX"
 token = "YYYYYYYYYYYYYYYYYY"
 client = TwilioRestClient(account, token)
 
-call = client.calls.create(to="9991231234", 
-                           from_="9991231234", 
+call = client.calls.create(to="9991231234",
+                           from_="9991231234",
                            url="http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient")
 print call.sid
 ```
@@ -84,8 +84,8 @@ account = "ACXXXXXXXXXXXXXXXXX"
 token = "YYYYYYYYYYYYYYYYYY"
 client = TwilioRestClient(account, token)
 
-message = client.sms.messages.create(to="+12316851234", from_="+15555555555",
-                                     body="Hello there!")
+message = client.messages.create(to="+12316851234", from_="+15555555555",
+                                 body="Hello there!")
 ```
 
 ### Handling a call using TwiML
@@ -115,7 +115,7 @@ Python library documentation") explains all the awesome features available to
 use.
 
 * [Retrieve Call Records][calls]
-* [Retrieve SMS Message Records][sms-messages]
+* [Retrieve Message Records][messages]
 * [Search for a Phone Number][number]
 * [Buy a Number][number]
 * [Validate a Phone Number][validate]
@@ -124,5 +124,5 @@ use.
 [number]: http://twilio-python.readthedocs.org/en/latest/usage/phone-numbers.html#searching-and-buying-a-number
 [validate]: http://twilio-python.readthedocs.org/en/latest/usage/caller-ids.html
 [recordings]: http://twilio-python.readthedocs.org/en/latest/usage/recordings.html#listing-your-recordings
-[sms-messages]: http://twilio-python.readthedocs.org/en/latest/usage/messages.html#retrieving-sent-messages
+[messages]: http://twilio-python.readthedocs.org/en/latest/usage/messages.html#retrieving-sent-messages
 [calls]: http://twilio-python.readthedocs.org/en/latest/usage/phone-calls.html#retrieve-a-call-record
