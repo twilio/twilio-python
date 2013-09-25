@@ -86,6 +86,7 @@ def test_make_twilio_request_headers(mock):
 def test_make_twilio_request_bad_data(mock):
     resp = Mock()
     resp.ok = False
+    resp.return_value = "error"
     mock.return_value = resp
 
     url = "http://random/url"
