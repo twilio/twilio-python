@@ -67,6 +67,16 @@ class AvailabePhoneNumbersTest(unittest.TestCase):
         uri = "http://api.twilio.com/AvailablePhoneNumbers/US/Local"
         request.assert_called_with("GET", uri, params={})
 
+    def test_mobile(self):
+        request = Mock()
+        request.return_value = (Mock(), {"available_phone_numbers": []})
+        self.resource.request = request
+
+        self.resource.list(type='mobile', country='GB')
+
+        uri = "http://api.twilio.com/AvailablePhoneNumbers/GB/Mobile"
+        request.assert_called_with("GET", uri, params={})
+
 
 class PhoneNumbersTest(unittest.TestCase):
 

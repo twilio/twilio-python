@@ -63,7 +63,7 @@ class AvailablePhoneNumbers(ListResource):
     key = "available_phone_numbers"
     instance = AvailablePhoneNumber
 
-    types = {"local": "Local", "tollfree": "TollFree"}
+    types = {"local": "Local", "tollfree": "TollFree", "mobile": "Mobile"}
 
     def __init__(self, base_uri, auth, timeout, phone_numbers):
         super(AvailablePhoneNumbers, self).__init__(base_uri, auth, timeout)
