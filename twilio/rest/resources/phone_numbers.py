@@ -6,6 +6,9 @@ from twilio.rest.resources.util import UNSET_TIMEOUT
 from twilio.rest.resources import InstanceResource, ListResource
 
 
+TYPES = {"local": "Local", "tollfree": "TollFree", "mobile": "Mobile"}
+
+
 class AvailablePhoneNumber(InstanceResource):
     """ An available phone number resource
 
@@ -63,8 +66,6 @@ class AvailablePhoneNumbers(ListResource):
     key = "available_phone_numbers"
     instance = AvailablePhoneNumber
 
-    types = {"local": "Local", "tollfree": "TollFree", "mobile": "Mobile"}
-
     def __init__(self, base_uri, auth, timeout, phone_numbers):
         super(AvailablePhoneNumbers, self).__init__(base_uri, auth, timeout)
         self.phone_numbers = phone_numbers
@@ -83,7 +84,7 @@ class AvailablePhoneNumbers(ListResource):
         kwargs["in_rate_center"] = kwargs.get("in_rate_center", rate_center)
         params = transform_params(kwargs)
 
-        uri = "%s/%s/%s" % (self.uri, country, self.types[type])
+        uri = "%s/%s/%s" % (self.uri, country, TYPES[type])
         resp, page = self.request("GET", uri, params=params)
 
         return [self.load_instance(i) for i in page[self.key]]
@@ -262,10 +263,20 @@ class PhoneNumbers(ListResource):
         """
         :param phone_number: Show phone numbers that match this pattern.
         :param friendly_name: Show phone numbers with this friendly name
+        :param type: Filter numbers by type. Available types are
+            'local', 'mobile', or 'toll_free'
 
         You can specify partial numbers and use '*' as a wildcard.
         """
-        return self.get_instances(kwargs)
+
+        type = kwargs.get("type", None)
+        if type:
+            uri = "%s/%s" % (self.uri, TYPES[type])
+
+        params = transform_params(kwargs)
+        resp, page = self.request("GET", uri, params=params)
+
+        return [self.load_instance(i) for i in page[self.key]]
 
     def purchase(self, status_callback_url=None, **kwargs):
         """
