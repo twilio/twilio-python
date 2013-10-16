@@ -259,17 +259,16 @@ class PhoneNumbers(ListResource):
         """
         return self.delete_instance(sid)
 
-    def list(self, **kwargs):
+    def list(self, type=None, **kwargs):
         """
         :param phone_number: Show phone numbers that match this pattern.
         :param friendly_name: Show phone numbers with this friendly name
         :param type: Filter numbers by type. Available types are
-            'local', 'mobile', or 'toll_free'
+            'local', 'mobile', or 'tollfree'
 
         You can specify partial numbers and use '*' as a wildcard.
         """
 
-        type = kwargs.get("type", None)
         if type:
             uri = "%s/%s" % (self.uri, TYPES[type])
 

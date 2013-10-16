@@ -87,3 +87,37 @@ class PhoneNumberTest(unittest.TestCase):
         self.assertEquals(resource.parent.base_uri,
             ("https://api.twilio.com/2010-04-01/Accounts/AC4bf2dafbed59a573"
              "3d2c1c1c69a83a28"))
+
+
+class IncomingPhoneNumbersTest(unittest.TestCase):
+
+    def setUp(self):
+        self.resource = PhoneNumbers("http://api.twilio.com",
+                                     ("user", "pass"))
+
+    def test_mobile(self):
+        request = Mock()
+        request.return_value = (Mock(), {"incoming_phone_numbers": []})
+        self.resource.request = request
+        self.resource.list(type='mobile')
+
+        uri = "http://api.twilio.com/IncomingPhoneNumbers/Mobile"
+        request.assert_called_with("GET", uri, params={})
+
+    def test_local(self):
+        request = Mock()
+        request.return_value = (Mock(), {"incoming_phone_numbers": []})
+        self.resource.request = request
+        self.resource.list(type='local')
+
+        uri = "http://api.twilio.com/IncomingPhoneNumbers/Local"
+        request.assert_called_with("GET", uri, params={})
+
+    def test_toll_free(self):
+        request = Mock()
+        request.return_value = (Mock(), {"incoming_phone_numbers": []})
+        self.resource.request = request
+        self.resource.list(type='tollfree')
+
+        uri = "http://api.twilio.com/IncomingPhoneNumbers/TollFree"
+        request.assert_called_with("GET", uri, params={})
