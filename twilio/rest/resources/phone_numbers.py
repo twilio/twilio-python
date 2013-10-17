@@ -293,7 +293,15 @@ class PhoneNumbers(ListResource):
         if 'phone_number' not in kwargs and 'area_code' not in kwargs:
             raise TypeError("phone_number or area_code is required")
 
-        return self.create_instance(kwargs)
+        number_type = kwargs.pop('type', False)
+        uri = self.uri
+        if number_type:
+            uri = "%s/%s" % (self.uri, TYPES[number_type])
+
+        params = transform_params(kwargs)
+        resp, instance = self.request('POST', uri, data=params)
+
+        return self.load_instance(instance)
 
     def search(self, **kwargs):
         """

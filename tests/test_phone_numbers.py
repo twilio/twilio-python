@@ -88,6 +88,18 @@ class PhoneNumberTest(unittest.TestCase):
             ("https://api.twilio.com/2010-04-01/Accounts/AC4bf2dafbed59a573"
              "3d2c1c1c69a83a28"))
 
+    def test_purchase_type(self):
+
+        types = {'local': 'Local', 'mobile': 'Mobile', 'tollfree': 'TollFree'}
+        for type in ('local', 'mobile', 'tollfree'):
+            resource = PhoneNumbers(self.uri, self.auth)
+            resource.request = Mock()
+            resource.request.return_value = (None, None)
+            resource.load_instance = Mock()
+            resource.purchase(type=type, phone_number='888')
+            resource.request.assert_called_with('POST', self.uri + '/IncomingPhoneNumbers/' + types[type],
+                                                data={'PhoneNumber': '888'})
+
 
 class IncomingPhoneNumbersTest(unittest.TestCase):
 
