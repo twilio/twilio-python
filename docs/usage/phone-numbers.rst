@@ -35,16 +35,42 @@ Once we find one, we'll purchase it for our account.
         print "No numbers in 530 available"
 
 
-Toll Free Numbers
-^^^^^^^^^^^^^^^^^^^^^^^^
+Local, Toll Free, and Mobile Numbers
+------------------------------------
 
-By default, :meth:`PhoneNumbers.search` looks for local phone numbers. Add a
-:data:`type` : ``tollfree`` parameter to search toll-free numbers instead.
+By default, :meth:`PhoneNumbers.search` looks for local phone numbers. To
+search for numbers for a given type, include the desired type in the
+:attr:`type` paramter.
+
+Available types are:
+- `local`
+- `tollfree`
+- `mobile`
 
 .. code-block:: python
 
+    # Local
+    numbers = client.phone_numbers.search(type="local")
+
+    # Toll Free
     numbers = client.phone_numbers.search(type="tollfree")
 
+    # Mobile
+    numbers = client.phone_numbers.search(type="mobile")
+
+Similarly, you can purchase numbers of a given type. You must still include
+the :attr:`phone_number` or :attr:`area_code` parameters.
+
+.. code-block:: python
+
+    # Local
+    numbers = client.phone_numbers.purchase(type='local', phone_number'(919) 123-4567')
+
+    # Toll Free
+    numbers = client.phone_numbers.purchase(type='tollfree', phone_number'(919) 123-4567')
+
+    # Mobile
+    numbers = client.phone_numbers.purchase(type='mobile', phone_number'(919) 123-4567')
 
 Numbers Containing Words
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
