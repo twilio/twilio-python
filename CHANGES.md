@@ -3,6 +3,16 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.6.4
+-------------
+
+Released October 21, 2013
+
+- Adds support for filtering by type to IncomingPhoneNumbers.
+- Adds support for filtering for mobile numbers to both
+IncomingPhoneNumbers and AvailablePhoneNumbers.
+
+
 Version 3.6.2
 ------------
 
