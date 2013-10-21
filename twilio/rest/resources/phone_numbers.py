@@ -269,6 +269,7 @@ class PhoneNumbers(ListResource):
         You can specify partial numbers and use '*' as a wildcard.
         """
 
+        uri = self.uri
         if type:
             uri = "%s/%s" % (self.uri, TYPES[type])
 
