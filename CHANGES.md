@@ -3,7 +3,7 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
-Version 3.6.4
+Version 3.6.3
 -------------
 
 Released October 21, 2013
