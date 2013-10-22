@@ -155,7 +155,7 @@ def make_twilio_request(method, uri, **kwargs):
         # If it makes sense to print a human readable error message, try to do
         # it. The one problem is that someone might catch this error and try to
         # display the message from it to an end user.
-        if sys.stderr.isatty():
+        if hasattr(sys.stderr, 'isatty') and sys.stderr.isatty():
             msg = red("\nHTTP Error. ")
             msg += white("Your request was:\n\n")
             msg += teal("%s %s" % (method, uri))
