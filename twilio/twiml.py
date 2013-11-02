@@ -240,12 +240,12 @@ class Say(Verb):
 class Play(Verb):
     """Play DTMF digits or audio from a URL.
 
-    :param str url: point to af audio file. The MIME type on the file must be set
-                correctly. Either `url` or `digits` must be specified.
+    :param str url: point to af audio file. The MIME type on the file must be
+                    set correctly. Either `url` or `digits` must be specified.
 
-    :param str digits: a string of digits to play. To pause before playing digits,
-                   use leading 'w' characters. Each 'w' will cause Twilio to
-                   wait 0.5 seconds instead of playing a digit.
+    :param str digits: a string of digits to play. To pause before playing
+                   digits, use leading 'w' characters. Each 'w' will cause
+                   Twilio to wait 0.5 seconds instead of playing a digit.
                    Either `url` or `digits` must be specified.
 
     :param int loop: specifies how many times you'd like the text repeated.
