@@ -115,10 +115,10 @@ class Response(Verb):
         :class:`Response` """
         return self.append(Say(text, **kwargs))
 
-    def play(self, url, **kwargs):
+    def play(self, url=None, digits=None, **kwargs):
         """Return a newly created :class:`Play` verb, nested inside this
         :class:`Response` """
-        return self.append(Play(url, **kwargs))
+        return self.append(Play(url=url, digits=digits, **kwargs))
 
     def pause(self, **kwargs):
         """Return a newly created :class:`Pause` verb, nested inside this
@@ -238,18 +238,33 @@ class Say(Verb):
 
 
 class Play(Verb):
-    """Play an audio file at a URL
+    """Play DTMF digits or audio from a URL.
 
-    :param url: point to af audio file. The MIME type on the file must be set
-                correctly.
+    :param str url: point to af audio file. The MIME type on the file must be set
+                correctly. Either `url` or `digits` must be specified.
 
-    :param loop: specifies how many times you'd like the text repeated.
+    :param str digits: a string of digits to play. To pause before playing digits,
+                   use leading 'w' characters. Each 'w' will cause Twilio to
+                   wait 0.5 seconds instead of playing a digit.
+                   Either `url` or `digits` must be specified.
+
+    :param int loop: specifies how many times you'd like the text repeated.
                  Specifying '0' will cause the the :class:`Play` verb to loop
                  until the call is hung up. Defaults to 1.
     """
-    def __init__(self, url, **kwargs):
+    def __init__(self, url=None, digits=None, **kwargs):
+        if url is None and digits is None:
+            raise TwimlException(
+                "Please specify either a url or digits to play.",
+            )
+        if url is not None and digits is not None:
+            raise TwimlException("Please specify only one of: (url, digits).")
+
+        if digits is not None:
+            kwargs['digits'] = digits
         super(Play, self).__init__(**kwargs)
-        self.body = url
+        if url is not None:
+            self.body = url
 
 
 class Pause(Verb):

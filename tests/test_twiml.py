@@ -147,6 +147,19 @@ class TestPlay(TwilioTest):
         """ should raise exceptions for wrong appending"""
         self.improperAppend(twiml.Play(""))
 
+    def testPlayDigits(self):
+        """should play digits"""
+        r = Response()
+        r.append(twiml.Play(digits='w123'))
+        r = self.strip(r)
+        self.assertEqual(r, '<?xml version="1.0" encoding="UTF-8"?><Response><Play digits="w123" /></Response>')
+
+    def testUrlOrDigitsRequired(self):
+        self.assertRaises(TwimlException, twiml.Play)
+
+    def testEitherUrlOrDigits(self):
+        self.assertRaises(TwimlException, twiml.Play, url='http://example.com', digits='1')
+
 
 class TestRecord(TwilioTest):
 
