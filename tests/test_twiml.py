@@ -157,9 +157,6 @@ class TestPlay(TwilioTest):
     def testUrlOrDigitsRequired(self):
         self.assertRaises(TwimlException, twiml.Play)
 
-    def testEitherUrlOrDigits(self):
-        self.assertRaises(TwimlException, twiml.Play, url='http://example.com', digits='1')
-
 
 class TestRecord(TwilioTest):
 

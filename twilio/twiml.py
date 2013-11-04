@@ -2,7 +2,6 @@
 Make sure to check out the TwiML overview and tutorial
 """
 import xml.etree.ElementTree as ET
-from six import iteritems
 
 
 class TwimlException(Exception):
@@ -240,13 +239,16 @@ class Say(Verb):
 class Play(Verb):
     """Play DTMF digits or audio from a URL.
 
-    :param str url: point to af audio file. The MIME type on the file must be
-                    set correctly. Either `url` or `digits` must be specified.
+    :param str url: point to an audio file. The MIME type on the file must be
+                    set correctly. At least one of `url` and `digits` must be
+                    specified. If both are given, the digits will play prior
+                    to the audio from the URL.
 
     :param str digits: a string of digits to play. To pause before playing
                    digits, use leading 'w' characters. Each 'w' will cause
                    Twilio to wait 0.5 seconds instead of playing a digit.
-                   Either `url` or `digits` must be specified.
+                   At least one of `url` and `digits` must be specified.
+                   If both are given, the digits will play first.
 
     :param int loop: specifies how many times you'd like the text repeated.
                  Specifying '0' will cause the the :class:`Play` verb to loop
@@ -257,8 +259,6 @@ class Play(Verb):
             raise TwimlException(
                 "Please specify either a url or digits to play.",
             )
-        if url is not None and digits is not None:
-            raise TwimlException("Please specify only one of: (url, digits).")
 
         if digits is not None:
             kwargs['digits'] = digits
