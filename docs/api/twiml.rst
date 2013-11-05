@@ -42,7 +42,7 @@ Secondary Verbs
 .. autoclass:: twilio.twiml.Pause
    :members:
 
-.. autoclass:: twilio.twiml.Sms
+.. autoclass:: twilio.twiml.Message
    :members:
 
 .. autoclass:: twilio.twiml.Enqueue

@@ -45,6 +45,25 @@ All attributes are keyword arguments.
         <Play loop="3">https://api.twilio.com/cowbell.mp3</Play>
     <Response>
 
+The Message and Sms verbs are slightly special: because :const:`from` is a
+Python keyword, use the :const:`sender` parameter to specify the number
+the message should come from:
+
+.. code-block:: python
+
+    from twilio import twiml
+
+    r = twiml.Response()
+    m = r.message("Hello MMS Monkey!", sender="+14155551234")
+    print str(r)
+
+.. code-block:: xml
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <Response>
+        <Message from="+14155551234">Hello MMS Monkey!</Message>
+    <Response>
+
 Python 2.6+ added the :const:`with` statement for context management.
 Using :const:`with`, the module can *almost* emulate Ruby blocks.
 
