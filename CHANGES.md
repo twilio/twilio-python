@@ -3,6 +3,15 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.6.4
+-------------
+
+Released November 5, 2013
+
+- Adds support for the 'digits' attribute of Play verbs in TwiML creation.
+- Updates documentation for Message TwiML verb
+- Bugfix for tty detection in error formatting
+
 Version 3.6.3
 -------------
 
