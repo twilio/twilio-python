@@ -1,11 +1,9 @@
-import six
-if six.PY3:
-    import unittest
-else:
-    import unittest2 as unittest
-
 from datetime import date
+import unittest
+
 from mock import Mock
+from nose.tools import assert_equal
+
 from twilio.rest.resources import MediaList
 
 DEFAULT = {
@@ -42,4 +40,4 @@ class MediaTest(unittest.TestCase):
     def test_call(self):
         base_uri = self.resource.base_uri
         message_media = self.resource('MM123')
-        self.assertEquals(message_media.base_uri, "%s/Messages/%s" % (base_uri, 'MM123'))
+        assert_equal(message_media.base_uri, "%s/Messages/%s" % (base_uri, 'MM123'))

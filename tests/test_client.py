@@ -1,12 +1,10 @@
-import six
-if six.PY3:
-    import unittest
-else:
-    import unittest2 as unittest
+import unittest
+
+from mock import patch, Mock, sentinel, ANY
+from nose.tools import assert_equal
 
 from twilio.rest.resources.imports import json
 from twilio.rest import TwilioRestClient, resources
-from mock import patch, Mock, sentinel, ANY
 from tools import create_mock_json
 
 AUTH = ("ACCOUNT_SID", "AUTH_TOKEN")
@@ -70,5 +68,5 @@ class RestClientTimeoutTest(unittest.TestCase):
         mock_response.ok = True
         mock_response.content = json.dumps({"short_codes": []})
         mock_request.return_value = mock_response
-        self.assertEqual([], self.client.sms.short_codes.list())
+        assert_equal([], self.client.sms.short_codes.list())
         mock_request.assert_called_once_with("GET", ANY, params=ANY, auth=AUTH, timeout=sentinel.timeout)

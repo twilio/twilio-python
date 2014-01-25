@@ -1,10 +1,6 @@
-import six
-if six.PY3:
-    import unittest
-else:
-    import unittest2 as unittest
-
 from datetime import date
+import unittest
+
 from mock import Mock
 from twilio.rest.resources import Conferences
 
@@ -15,7 +11,7 @@ DEFAULT = {
     'DateCreated<': None,
     'DateCreated>': None,
     'DateCreated': None,
-    }
+}
 
 
 class ConferenceTest(unittest.TestCase):

@@ -1,11 +1,8 @@
-import six
-if six.PY3:
-    import unittest
-else:
-    import unittest2 as unittest
-
 from datetime import date
+import unittest
+
 from mock import Mock
+
 from twilio.rest.resources import SmsMessages
 
 DEFAULT = {
@@ -13,7 +10,7 @@ DEFAULT = {
     'DateSent<': None,
     'DateSent>': None,
     'DateSent': None,
-    }
+}
 
 
 class SmsTest(unittest.TestCase):

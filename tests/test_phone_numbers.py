@@ -1,14 +1,8 @@
-from __future__ import with_statement
-try:
-    import json
-except ImportError:
-    import simplejson as json
-import six
-if six.PY3:
-    import unittest
-else:
-    import unittest2 as unittest
+import json
+import unittest
+
 from mock import Mock
+
 from twilio.rest.resources import PhoneNumbers
 from twilio.rest.resources import PhoneNumber
 

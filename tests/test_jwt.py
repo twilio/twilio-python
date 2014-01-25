@@ -1,11 +1,9 @@
 import time
-from twilio import jwt
-import six
-if six.PY3:
-    import unittest
-else:
-    import unittest2 as unittest
+import unittest
 
+from nose.tools import assert_true, assert_equal
+
+from twilio import jwt
 from twilio.util import TwilioCapability
 
 
@@ -13,14 +11,14 @@ class JwtTest(unittest.TestCase):
 
     def assertIn(self, foo, bar, msg=None):
         """backport for 2.6"""
-        return self.assertTrue(foo in bar, msg=(msg or "%s not found in %s"
+        return assert_true(foo in bar, msg=(msg or "%s not found in %s"
             % (foo, bar)))
 
     def test_no_permissions(self):
         token = TwilioCapability("AC123", "XXXXX")
         payload = token.payload()
-        self.assertEquals(len(payload), 1)
-        self.assertEquals(payload["scope"], '')
+        assert_equal(len(payload), 1)
+        assert_equal(payload["scope"], '')
 
     def test_inbound_permissions(self):
         token = TwilioCapability("AC123", "XXXXX")
@@ -28,8 +26,8 @@ class JwtTest(unittest.TestCase):
         payload = token.payload()
 
         eurl = "scope:client:incoming?clientName=andy"
-        self.assertEquals(len(payload), 1)
-        self.assertEquals(payload['scope'], eurl)
+        assert_equal(len(payload), 1)
+        assert_equal(payload['scope'], eurl)
 
     def test_outbound_permissions(self):
         token = TwilioCapability("AC123", "XXXXX")
@@ -38,7 +36,7 @@ class JwtTest(unittest.TestCase):
 
         eurl = "scope:client:outgoing?appSid=AP123"
 
-        self.assertEquals(len(payload), 1)
+        assert_equal(len(payload), 1)
         self.assertIn(eurl, payload['scope'])
 
     def test_outbound_permissions_params(self):
@@ -47,7 +45,7 @@ class JwtTest(unittest.TestCase):
         payload = token.payload()
 
         eurl = "scope:client:outgoing?appParams=foobar%3D3&appSid=AP123"
-        self.assertEquals(payload["scope"], eurl)
+        assert_equal(payload["scope"], eurl)
 
     def test_events(self):
         token = TwilioCapability("AC123", "XXXXX")
@@ -55,7 +53,7 @@ class JwtTest(unittest.TestCase):
         payload = token.payload()
 
         event_uri = "scope:stream:subscribe?path=%2F2010-04-01%2FEvents"
-        self.assertEquals(payload["scope"], event_uri)
+        assert_equal(payload["scope"], event_uri)
 
     def test_events_with_filters(self):
         token = TwilioCapability("AC123", "XXXXX")
@@ -63,7 +61,7 @@ class JwtTest(unittest.TestCase):
         payload = token.payload()
 
         event_uri = "scope:stream:subscribe?params=foobar%3Dhey&path=%2F2010-04-01%2FEvents"
-        self.assertEquals(payload["scope"], event_uri)
+        assert_equal(payload["scope"], event_uri)
 
     def test_decode(self):
         token = TwilioCapability("AC123", "XXXXX")

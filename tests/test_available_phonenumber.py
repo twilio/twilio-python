@@ -1,12 +1,8 @@
-from __future__ import with_statement
-
-import six
-if six.PY3:
-    import unittest
-else:
-    import unittest2 as unittest
+import unittest
 
 from mock import Mock
+from nose.tools import assert_equal
+
 from twilio import TwilioException
 from twilio.rest.resources import AvailablePhoneNumber
 from twilio.rest.resources import AvailablePhoneNumbers
@@ -21,7 +17,7 @@ class AvailablePhoneNumberTest(unittest.TestCase):
         self.instance = AvailablePhoneNumber(self.parent)
 
     def test_init(self):
-        self.assertEquals(self.instance.name, "")
+        assert_equal(self.instance.name, "")
 
     def test_purchase(self):
         self.instance.phone_number = "+123"
@@ -55,7 +51,7 @@ class AvailabePhoneNumbersTest(unittest.TestCase):
     def test_load_instance(self):
         instance = self.resource.load_instance({"hey": "you"})
         self.assertIsInstance(instance.parent, Mock)
-        self.assertEquals(instance.hey, "you")
+        assert_equal(instance.hey, "you")
 
     def test_purchase_status_callback(self):
         request = Mock()
@@ -85,8 +81,8 @@ class PhoneNumbersTest(unittest.TestCase):
                                      ("user", "pass"))
 
     def test_reference(self):
-        self.assertEquals(self.resource.available_phone_numbers.phone_numbers,
-                          self.resource)
+        assert_equal(self.resource.available_phone_numbers.phone_numbers,
+                     self.resource)
 
     def test_purchase_status_callback(self):
         request = Mock()

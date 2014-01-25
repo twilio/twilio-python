@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
+import unittest
+
+from nose.tools import assert_equal, assert_true
 from six import b
 
-import six
-if six.PY3:
-    import unittest
-else:
-    import unittest2 as unittest
 from twilio.util import RequestValidator
 
 
@@ -47,5 +45,5 @@ class ValidationTest(unittest.TestCase):
 
         expected = b("fF+xx6dTinOaCdZ0aIeNkHr/ZAA=")
 
-        self.assertEquals(validator.compute_signature(uri, params), expected)
-        self.assertTrue(validator.validate(uri, params, expected))
+        assert_equal(validator.compute_signature(uri, params), expected)
+        assert_true(validator.validate(uri, params, expected))

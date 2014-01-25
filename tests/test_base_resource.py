@@ -1,18 +1,14 @@
 # -*- coding: utf-8 -*-
-from __future__ import with_statement
-import six
-if six.PY3:
-    import unittest
-else:
-    import unittest2 as unittest
+import unittest
 
 from mock import Mock, sentinel, patch, ANY
 from nose.tools import assert_equal, assert_true
+from six import advance_iterator
+
 from twilio.rest.resources.imports import json
 from twilio.rest.resources import Resource
 from twilio.rest.resources import ListResource
 from twilio.rest.resources import InstanceResource
-from six import advance_iterator
 
 base_uri = "https://api.twilio.com/2010-04-01"
 account_sid = "AC123"
@@ -42,10 +38,10 @@ class ListResourceTest(unittest.TestCase):
 
     def testListResourceInit(self):
         uri = "%s/%s" % (base_uri, self.r.name)
-        self.assertEquals(self.r.uri, uri)
+        assert_equal(self.r.uri, uri)
 
     def testKeyValueLower(self):
-        self.assertEquals(self.r.key, self.r.name.lower())
+        assert_equal(self.r.key, self.r.name.lower())
 
     def testIterNoKey(self):
         self.r.request = Mock()
@@ -79,13 +75,13 @@ class ListResourceTest(unittest.TestCase):
 
     def testKeyValue(self):
         self.r.key = "Hey"
-        self.assertEquals(self.r.key, "Hey")
+        assert_equal(self.r.key, "Hey")
 
     def testInstanceLoading(self):
         instance = self.r.load_instance({"sid": "foo"})
 
         self.assertIsInstance(instance, InstanceResource)
-        self.assertEquals(instance.sid, "foo")
+        assert_equal(instance.sid, "foo")
 
     def testListResourceCreateResponse200(self):
         """We should accept 200 OK in response to a POST creating a resource."""
@@ -114,16 +110,16 @@ class testInstanceResourceInit(unittest.TestCase):
         self.uri = "%s/%s" % (self.parent.uri, "123")
 
     def testInit(self):
-        self.assertEquals(self.r.uri, self.uri)
+        assert_equal(self.r.uri, self.uri)
 
     def testLoad(self):
         self.r.load({"hey": "you"})
-        self.assertEquals(self.r.hey, "you")
+        assert_equal(self.r.hey, "you")
 
     def testLoadWithUri(self):
         self.r.load({"hey": "you", "uri": "foobar"})
-        self.assertEquals(self.r.hey, "you")
-        self.assertEquals(self.r.uri, self.uri)
+        assert_equal(self.r.hey, "you")
+        assert_equal(self.r.uri, self.uri)
 
     def testLoadDateCreated(self):
         self.r.load({"date_created": "Sat, 29 Sep 2012 12:47:54 +0000",
@@ -140,7 +136,7 @@ class testInstanceResourceInit(unittest.TestCase):
 
     def testLoadWithFrom(self):
         self.r.load({"from": "foo"})
-        self.assertEquals(self.r.from_, "foo")
+        assert_equal(self.r.from_, "foo")
 
     def testLoadSubresources(self):
         m = Mock()
@@ -162,8 +158,8 @@ class testTimeoutPropagation(unittest.TestCase):
         mock_response.content = json.dumps({'key': 'value'})
         mock_request.return_value = mock_response
 
-        self.assertEquals(self.r.timeout, sentinel.timeout)
-        self.assertEquals((mock_response, {'key': 'value'}), self.r.request('GET', base_uri))
+        assert_equal(self.r.timeout, sentinel.timeout)
+        assert_equal((mock_response, {'key': 'value'}), self.r.request('GET', base_uri))
 
         mock_request.assert_called_once_with(
             'GET',
