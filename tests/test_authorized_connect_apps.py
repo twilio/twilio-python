@@ -1,11 +1,9 @@
 from __future__ import with_statement
-import six
-if six.PY3:
-    import unittest
-else:
-    import unittest2 as unittest
+import unittest
 
 from mock import Mock, patch
+from nose.tools import assert_equal
+
 from twilio.rest.resources import AuthorizedConnectApps
 from twilio.rest.resources import AuthorizedConnectApp
 
@@ -49,12 +47,12 @@ class AuthorizedConnectAppTest(unittest.TestCase):
             "uri": "/2010-04-01/Accounts/",
         })
 
-        self.assertEquals(instance.permissions, ["get-all"])
-        self.assertEquals(instance.sid, "SID")
-        self.assertEquals(instance.friendly_name, "foo")
-        self.assertEquals(instance.description, "bat")
-        self.assertEquals(instance.homepage_url, "http://www.google.com")
-        self.assertEquals(instance.company_name, "bar")
+        assert_equal(instance.permissions, ["get-all"])
+        assert_equal(instance.sid, "SID")
+        assert_equal(instance.friendly_name, "foo")
+        assert_equal(instance.description, "bat")
+        assert_equal(instance.homepage_url, "http://www.google.com")
+        assert_equal(instance.company_name, "bar")
 
     def test_delete(self):
         with self.assertRaises(AttributeError):

@@ -1,8 +1,4 @@
-import six
-if six.PY3:
-    import unittest  # noqa
-else:  # noqa
-    import unittest2 as unittest  # noqa
+import unittest
 
 from mock import Mock
 from twilio.rest.resources import Applications
