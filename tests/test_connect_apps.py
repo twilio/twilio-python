@@ -41,13 +41,10 @@ class ConnectAppTest(unittest.TestCase):
             params={}, auth=self.auth)
 
     def test_create(self):
-        with self.assertRaises(AttributeError):
-            self.resource.create()
+        self.assertRaises(AttributeError, getattr, self.resource, 'create')
 
     def test_delete(self):
-        with self.assertRaises(AttributeError):
-            self.resource.delete()
+        self.assertRaises(AttributeError, getattr, self.resource, 'delete')
 
     def test_update(self):
-        with self.assertRaises(AttributeError):
-            self.resource.update()
+        self.assertRaises(AttributeError, getattr, self.resource, 'update')

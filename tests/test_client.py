@@ -1,7 +1,7 @@
 import unittest
 
 from mock import patch, Mock, sentinel, ANY
-from nose.tools import assert_equal
+from nose.tools import assert_equal, assert_true
 
 from twilio.rest.resources.imports import json
 from twilio.rest import TwilioRestClient, resources
@@ -28,12 +28,11 @@ class RestClientTest(unittest.TestCase):
         )
 
     def test_connect_apps(self):
-        self.assertIsInstance(self.client.connect_apps,
-            resources.ConnectApps)
+        assert_true(isinstance(self.client.connect_apps, resources.ConnectApps))
 
     def test_authorized_apps(self):
-        self.assertIsInstance(self.client.authorized_connect_apps,
-            resources.AuthorizedConnectApps)
+        assert_true(isinstance(self.client.authorized_connect_apps,
+                    resources.AuthorizedConnectApps))
 
     @patch("twilio.rest.resources.base.make_request")
     def test_conferences(self, mock):

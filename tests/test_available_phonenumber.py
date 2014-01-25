@@ -1,7 +1,7 @@
 import unittest
 
 from mock import Mock
-from nose.tools import assert_equal
+from nose.tools import assert_equal, assert_true
 
 from twilio import TwilioException
 from twilio.rest.resources import AvailablePhoneNumber
@@ -28,15 +28,14 @@ class AvailablePhoneNumberTest(unittest.TestCase):
             phone_number="+123")
 
 
-class AvailabePhoneNumbersTest(unittest.TestCase):
+class AvailablePhoneNumbersTest(unittest.TestCase):
 
     def setUp(self):
         self.resource = AvailablePhoneNumbers("http://api.twilio.com",
                                               ("user", "pass"), UNSET_TIMEOUT, Mock())
 
     def test_get(self):
-        with self.assertRaises(TwilioException):
-            self.resource.get("PN123")
+        self.assertRaises(TwilioException, self.resource.get, "PN123")
 
     def test_list(self):
         request = Mock()
@@ -50,7 +49,7 @@ class AvailabePhoneNumbersTest(unittest.TestCase):
 
     def test_load_instance(self):
         instance = self.resource.load_instance({"hey": "you"})
-        self.assertIsInstance(instance.parent, Mock)
+        assert_true(isinstance(instance.parent, Mock))
         assert_equal(instance.hey, "you")
 
     def test_purchase_status_callback(self):

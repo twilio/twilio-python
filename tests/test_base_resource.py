@@ -47,8 +47,7 @@ class ListResourceTest(unittest.TestCase):
         self.r.request = Mock()
         self.r.request.return_value = Mock(), {}
 
-        with self.assertRaises(StopIteration):
-            advance_iterator(self.r.iter())
+        self.assertRaises(StopIteration, advance_iterator, self.r.iter())
 
     def testRequest(self):
         self.r.request = Mock()
@@ -63,15 +62,13 @@ class ListResourceTest(unittest.TestCase):
         items = self.r.iter()
         advance_iterator(items)
 
-        with self.assertRaises(StopIteration):
-            advance_iterator(items)
+        self.assertRaises(StopIteration, advance_iterator, items)
 
     def testIterNoNextPage(self):
         self.r.request = Mock()
         self.r.request.return_value = Mock(), {self.r.key: []}
 
-        with self.assertRaises(StopIteration):
-            advance_iterator(self.r.iter())
+        self.assertRaises(StopIteration, advance_iterator, self.r.iter())
 
     def testKeyValue(self):
         self.r.key = "Hey"
@@ -80,7 +77,7 @@ class ListResourceTest(unittest.TestCase):
     def testInstanceLoading(self):
         instance = self.r.load_instance({"sid": "foo"})
 
-        self.assertIsInstance(instance, InstanceResource)
+        assert_true(isinstance(instance, InstanceResource))
         assert_equal(instance.sid, "foo")
 
     def testListResourceCreateResponse200(self):
