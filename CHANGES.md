@@ -3,6 +3,11 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Develop Branch
+--------------
+
+- Remove unittest2 dependency.
+
 Version 3.6.4
 -------------
 
