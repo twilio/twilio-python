@@ -55,13 +55,10 @@ class AuthorizedConnectAppTest(unittest.TestCase):
         assert_equal(instance.company_name, "bar")
 
     def test_delete(self):
-        with self.assertRaises(AttributeError):
-            self.resource.delete()
+        self.assertRaises(AttributeError, getattr, self.resource, 'delete')
 
     def test_create(self):
-        with self.assertRaises(AttributeError):
-            self.resource.create()
+        self.assertRaises(AttributeError, getattr, self.resource, 'create')
 
     def test_update(self):
-        with self.assertRaises(AttributeError):
-            self.resource.update()
+        self.assertRaises(AttributeError, getattr, self.resource, 'update')
