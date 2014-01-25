@@ -13,7 +13,7 @@ Python library documentation")
 Install from PyPi using [pip](http://www.pip-installer.org/en/latest/), a
 package manager for Python.
 
-    $ pip install twilio
+    pip install twilio
 
 Don't have pip installed? Try installing it, by running this from the command
 line:
@@ -24,7 +24,7 @@ Or, you can [download the source code
 (ZIP)](https://github.com/twilio/twilio-python/zipball/master "twilio-python
 source code") for `twilio-python`, and then run:
 
-    $ python setup.py install
+    python setup.py install
 
 You may need to run the above commands with `sudo`.
 
