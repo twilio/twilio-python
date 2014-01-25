@@ -7,6 +7,7 @@ Develop Branch
 --------------
 
 - Remove unittest2 dependency.
+- Tests no longer run against Python 2.5.
 
 Version 3.6.4
 -------------

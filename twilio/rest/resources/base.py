@@ -1,5 +1,6 @@
 import logging
 import os
+import platform
 import sys
 
 from six import integer_types, string_types, binary_type, iteritems, u
@@ -114,7 +115,12 @@ def make_twilio_request(method, uri, **kwargs):
         or 500-level response.
     """
     headers = kwargs.get("headers", {})
-    headers["User-Agent"] = "twilio-python/%s" % twilio.__version__
+
+    user_agent = "twilio-python/%s (Python %s)" % (
+        twilio.__version__,
+        platform.python_version(),
+    )
+    headers["User-Agent"] = user_agent
     headers["Accept-Charset"] = "utf-8"
 
     if method == "POST" and "Content-Type" not in headers:
