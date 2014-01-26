@@ -28,13 +28,16 @@ from twilio.rest.resources import UNSET_TIMEOUT
 from twilio.rest.resources import Usage
 
 
-def find_credentials():
+def find_credentials(environ=None):
     """
     Look in the current environment for Twilio credentials
+
+    :param environ: the environment to check
     """
+    environment = environ or os.environ
     try:
-        account = os.environ["TWILIO_ACCOUNT_SID"]
-        token = os.environ["TWILIO_AUTH_TOKEN"]
+        account = environment["TWILIO_ACCOUNT_SID"]
+        token = environment["TWILIO_AUTH_TOKEN"]
         return account, token
     except KeyError:
         return None, None
