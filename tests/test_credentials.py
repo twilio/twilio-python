@@ -24,4 +24,3 @@ def test_find_creds():
 def test_creds_error(creds):
     creds.return_value = (None, None)
     assert_raises(TwilioException, TwilioRestClient)
-
