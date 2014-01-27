@@ -16,6 +16,9 @@ analysis:
 test: analysis
 	. venv/bin/activate; nosetests
 
+cover:
+	. venv/bin/activate; nosetests --with-coverage --cover-package=twilio
+
 docs-install:
 	. venv/bin/activate; pip install -r docs/requirements.txt
 

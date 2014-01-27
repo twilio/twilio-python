@@ -1,8 +1,9 @@
 from datetime import date
 from mock import patch
 from nose.tools import raises, assert_equals, assert_true
-from twilio.rest.resources import Recordings
+
 from tools import create_mock_json
+from twilio.rest.resources import Recordings, Recording
 
 BASE_URI = "https://api.twilio.com/2010-04-01/Accounts/AC123"
 ACCOUNT_SID = "AC123"
@@ -40,13 +41,27 @@ def test_get(mock):
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
-def test_get2(mock):
+def test_delete_list(mock):
     resp = create_mock_json("tests/resources/recordings_instance.json")
     resp.status_code = 204
     mock.return_value = resp
 
     uri = "%s/Recordings/%s" % (BASE_URI, RE_SID)
     r = recordings.delete(RE_SID)
+
+    mock.assert_called_with("DELETE", uri, auth=AUTH)
+    assert_true(r)
+
+
+@patch("twilio.rest.resources.base.make_twilio_request")
+def test_delete_instance(mock):
+    resp = create_mock_json("tests/resources/recordings_instance.json")
+    resp.status_code = 204
+    mock.return_value = resp
+
+    uri = "%s/Recordings/%s" % (BASE_URI, RE_SID)
+    rec = Recording(recordings, RE_SID)
+    r = rec.delete()
 
     mock.assert_called_with("DELETE", uri, auth=AUTH)
     assert_true(r)
