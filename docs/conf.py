@@ -34,7 +34,8 @@ extensions = [
 # Load the source for autodoc
 sys.path.insert(0, os.path.abspath(os.path.join(os.getcwd(), '..')))
 
-intersphinx_mapping = {'python': ('http://docs.python.org/3', None)}
+# So links to Python default docs work
+intersphinx_mapping = {'python': ('http://docs.python.org/2.7', None)}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -101,8 +102,8 @@ pygments_style = 'sphinx'
 # a list of builtin themes.
 
 sys.path.append(os.path.abspath('_themes'))
-html_theme_path = ['_themes']
-html_theme = 'kr'
+#html_theme_path = ['_themes']
+#html_theme = 'kr'
 
 
 # Theme options are theme-specific and customize the look and feel of a theme

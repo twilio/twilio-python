@@ -388,7 +388,9 @@ class ListResource(Resource):
         return self.load_instance(entry)
 
     def count(self):
-        """ Get the total number of instances for this resource
+        """ .. deprecated:: 3.6.5
+
+        Get the total number of instances for this resource
 
         Note: this query can be slow if you have many instances.
 
@@ -396,7 +398,6 @@ class ListResource(Resource):
         :rtype: int
         :raises: a :exc:`~twilio.TwilioRestException` if the request fails
 
-        .. deprecated: 3.6.5
 
         Example usage:
 
