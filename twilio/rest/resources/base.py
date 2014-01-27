@@ -396,6 +396,8 @@ class ListResource(Resource):
         :rtype: int
         :raises: a :exc:`~twilio.TwilioRestException` if the request fails
 
+        .. deprecated: 3.6.5
+
         Example usage:
 
         .. code-block:: python
@@ -448,7 +450,6 @@ class ListResource(Resource):
         return instance
 
     def __str__(self):
-        return '<%s (%s)>' % (self.__class__.__name__, self.count())
         return '<%s (%s)>' % (self.__class__.__name__, self.count())
 
     def list(self, **kw):
