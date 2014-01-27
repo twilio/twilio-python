@@ -8,13 +8,13 @@ class Application(InstanceResource):
         """
         Update this application
         """
-        return self.parent.update(self.sid, **kwargs)
+        return self.parent.update(self.name, **kwargs)
 
     def delete(self):
         """
         Delete this application
         """
-        return self.parent.delete(self.sid)
+        return self.parent.delete(self.name)
 
 
 class Applications(ListResource):

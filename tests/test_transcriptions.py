@@ -1,6 +1,6 @@
-from mock import patch
+from mock import patch, Mock
 from nose.tools import raises
-from twilio.rest.resources import Transcriptions
+from twilio.rest.resources import Transcriptions, Transcription
 from tools import create_mock_json
 
 BASE_URI = "https://api.twilio.com/2010-04-01/Accounts/AC123"
@@ -30,6 +30,20 @@ def test_get(mock):
     transcriptions.get("TR123")
 
     mock.assert_called_with("GET", uri, auth=AUTH)
+
+
+@patch("twilio.rest.resources.base.Resource.request")
+def test_delete_transcription(req):
+    """ Deleting a transcription should work """
+    resp = Mock()
+    resp.content = ""
+    resp.status_code = 204
+    req.return_value = resp, {}
+
+    app = Transcription(transcriptions, "TR123")
+    app.delete()
+    uri = "https://api.twilio.com/2010-04-01/Accounts/AC123/Transcriptions/TR123"
+    req.assert_called_with("DELETE", uri)
 
 
 @raises(AttributeError)

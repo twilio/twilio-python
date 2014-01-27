@@ -29,6 +29,9 @@ class Response(object):
 
 def get_cert_file():
     """ Get the cert file location or bail """
+    # XXX - this currently fails test coverage because we don't actually go
+    # over the network anywhere. Might be good to have a test that stands up a
+    # local server and authenticates against it.
     try:
         # Apparently __file__ is not available in all places so wrapping this
         # in a try/catch

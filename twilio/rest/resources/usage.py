@@ -9,13 +9,13 @@ class UsageTrigger(InstanceResource):
         """
         Update this usage trigger
         """
-        return self.parent.update(self.sid, **kwargs)
+        return self.parent.update(self.name, **kwargs)
 
     def delete(self):
         """
         Delete this usage trigger
         """
-        return self.parent.delete(self.sid)
+        return self.parent.delete(self.name)
 
 
 class UsageTriggers(ListResource):
