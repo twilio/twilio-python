@@ -7,7 +7,7 @@ class Transcription(InstanceResource):
         """
         Delete this transcription
         """
-        return self.parent.delete(self.sid)
+        return self.parent.delete(self.name)
 
 
 class Transcriptions(ListResource):
