@@ -8,6 +8,8 @@ Develop Branch
 
 - Remove unittest2 dependency.
 - Tests no longer run against Python 2.5.
+- update(), delete() work on Application, Transcription and UsageTrigger
+instance classes.
 
 Version 3.6.4
 -------------
