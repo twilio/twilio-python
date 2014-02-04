@@ -3,13 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
-Develop Branch
+Version 3.6.5
 --------------
 
 - Remove unittest2 dependency.
 - Tests no longer run against Python 2.5.
 - update(), delete() work on Application, Transcription and UsageTrigger
-instance classes.
+  instance classes.
 
 Version 3.6.4
 -------------
@@ -26,12 +26,13 @@ Version 3.6.3
 Released October 21, 2013
 
 - Adds support for filtering by type to IncomingPhoneNumbers.
-- Adds support for filtering for mobile numbers to both
-IncomingPhoneNumbers and AvailablePhoneNumbers.
+
+- Adds support for filtering for mobile numbers to both IncomingPhoneNumbers
+  and AvailablePhoneNumbers.
 
 
 Version 3.6.2
-------------
+-------------
 
 Released on September 24, 2013
 
@@ -43,8 +44,7 @@ Version 3.6.0, 3.6.1
 
 Released on September 18, 2013
 
-- Adds support for the new Message and SIP resources to the REST
-API client.
+- Adds support for the new Message and SIP resources to the REST API client.
 - Adds support for the new Message verb to the TwiML generator.
 
 
@@ -54,7 +54,7 @@ Version 3.5.3, 3.5.4
 Released on September 6, 2013
 
 - twilio-python now includes an SSL certfication file to ensure that
-connections to api.twilio.com don't fail with SSLError.
+  connections to api.twilio.com don't fail with SSLError.
 
 Version 3.5.2
 -------------
