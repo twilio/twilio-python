@@ -3,17 +3,16 @@ Test that make+request is making correct HTTP requests
 
 Uses the awesome httpbin.org to validate responses
 """
-import httplib2
-
 import platform
 
 import twilio
-from nose.tools import assert_equal, assert_in, raises
+from nose.tools import assert_equal, raises
 from mock import patch, Mock, ANY
 from twilio import TwilioRestException
 from twilio.rest.resources.base import make_request, make_twilio_request
 from twilio.rest.resources.connection import Connection
 from twilio.rest.resources.connection import PROXY_TYPE_SOCKS5
+from twilio.rest.resources.imports import NotSupportedOnThisPlatform
 
 get_headers = {
     "User-Agent": "twilio-python/{version} (Python {python_version})".format(
@@ -134,7 +133,7 @@ def test_not_supported_here(http_mock, resp_mock):
     def _conditional_raise(*args, **kwargs):
         if not called[0]:
             called[0] = True
-            raise httplib2.NotSupportedOnThisPlatform()
+            raise NotSupportedOnThisPlatform()
 
         http = Mock()
         http.request.return_value = (Mock(), Mock())
@@ -145,5 +144,5 @@ def test_not_supported_here(http_mock, resp_mock):
 
     first, second = http_mock.mock_calls[:2]
 
-    assert_in('ca_certs', first[2])
+    assert 'ca_certs' in first[2]
     assert_equal(second[2], {'timeout': None})

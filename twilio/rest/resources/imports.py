@@ -21,7 +21,8 @@ try:
     from httplib2 import NotSupportedOnThisPlatform
 except ImportError:
     # If anything throws None I will be very surprised.
-    NotSupportedOnThisPlatform = None
+    class NotSupportedOnThisPlatform(Exception):
+        pass
 
 # socks
 try:
