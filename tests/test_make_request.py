@@ -3,10 +3,12 @@ Test that make+request is making correct HTTP requests
 
 Uses the awesome httpbin.org to validate responses
 """
+import httplib2
+
 import platform
 
 import twilio
-from nose.tools import assert_equal, raises
+from nose.tools import assert_equal, assert_in, raises
 from mock import patch, Mock, ANY
 from twilio import TwilioRestException
 from twilio.rest.resources.base import make_request, make_twilio_request
@@ -43,9 +45,12 @@ def test_get_extra_params(http_mock, response_mock):
     http = Mock()
     http.request.return_value = (Mock(), Mock())
     http_mock.return_value = http
-    make_request("GET", "http://httpbin.org/get?foo=bar", params={"hey": "you"})
-    http.request.assert_called_with("http://httpbin.org/get?foo=bar&hey=you", "GET",
-                                    body=None, headers=None)
+    make_request("GET", "http://httpbin.org/get?foo=bar",
+                 params={"hey": "you"})
+    http.request.assert_called_with(
+        "http://httpbin.org/get?foo=bar&hey=you", "GET",
+        body=None, headers=None,
+    )
 
 
 @patch('twilio.rest.resources.base.Response')
@@ -119,3 +124,26 @@ def test_proxy_info(http_mock, resp_mock):
     assert_equal(proxy_info.proxy_host, 'example.com')
     assert_equal(proxy_info.proxy_port, 8080)
     assert_equal(proxy_info.proxy_type, PROXY_TYPE_SOCKS5)
+
+
+@patch('twilio.rest.resources.base.Response')
+@patch('httplib2.Http')
+def test_not_supported_here(http_mock, resp_mock):
+    called = [False]
+
+    def _conditional_raise(*args, **kwargs):
+        if not called[0]:
+            called[0] = True
+            raise httplib2.NotSupportedOnThisPlatform()
+
+        http = Mock()
+        http.request.return_value = (Mock(), Mock())
+        return http
+
+    http_mock.side_effect = _conditional_raise
+    make_request("GET", "http://httpbin.org/get")
+
+    first, second = http_mock.mock_calls[:2]
+
+    assert_in('ca_certs', first[2])
+    assert_equal(second[2], {'timeout': None})
