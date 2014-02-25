@@ -16,6 +16,13 @@ except ImportError:
 # httplib2
 import httplib2
 
+try:
+    # This only exists in python2.x's httplib2, since GAE doesn't do py3.
+    from httplib2 import NotSupportedOnThisPlatform
+except ImportError:
+    # If anything throws None I will be very surprised.
+    NotSupportedOnThisPlatform = None
+
 # socks
 try:
     from httplib2 import socks
