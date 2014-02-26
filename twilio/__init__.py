@@ -2,9 +2,8 @@ import sys
 
 from six import u
 
-__version_info__ = ('3', '6', '5')
-__version__ = '.'.join(__version_info__)
-
+# Backwards compatibility.
+from .version import __version__, __version_info__
 
 class TwilioException(Exception):
     pass

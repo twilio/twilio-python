@@ -1,9 +1,8 @@
 import logging
 import os
 import platform
-import sys
 
-from six import integer_types, string_types, binary_type, iteritems, u
+from six import integer_types, string_types, binary_type, iteritems
 from twilio.compat import urlparse
 from twilio.compat import urlencode
 
