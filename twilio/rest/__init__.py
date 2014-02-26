@@ -1,31 +1,31 @@
 import logging
 import os
 import platform
-from twilio import TwilioException
-from twilio import __version__ as LIBRARY_VERSION
-from twilio.rest.resources import make_request
-from twilio.rest.resources import Accounts
-from twilio.rest.resources import Applications
-from twilio.rest.resources import AuthorizedConnectApps
-from twilio.rest.resources import CallerIds
-from twilio.rest.resources import Calls
-from twilio.rest.resources import Conferences
-from twilio.rest.resources import ConnectApps
-from twilio.rest.resources import Connection
-from twilio.rest.resources import MediaList
-from twilio.rest.resources import Members
-from twilio.rest.resources import Messages
-from twilio.rest.resources import Notifications
-from twilio.rest.resources import Participants
-from twilio.rest.resources import PhoneNumbers
-from twilio.rest.resources import Queues
-from twilio.rest.resources import Recordings
-from twilio.rest.resources import Sandboxes
-from twilio.rest.resources import Sip
-from twilio.rest.resources import Sms
-from twilio.rest.resources import Transcriptions
-from twilio.rest.resources import UNSET_TIMEOUT
-from twilio.rest.resources import Usage
+from .. import TwilioException
+from .. import __version__ as LIBRARY_VERSION
+from .resources import make_request
+from .resources import Accounts
+from .resources import Applications
+from .resources import AuthorizedConnectApps
+from .resources import CallerIds
+from .resources import Calls
+from .resources import Conferences
+from .resources import ConnectApps
+from .resources import Connection
+from .resources import MediaList
+from .resources import Members
+from .resources import Messages
+from .resources import Notifications
+from .resources import Participants
+from .resources import PhoneNumbers
+from .resources import Queues
+from .resources import Recordings
+from .resources import Sandboxes
+from .resources import Sip
+from .resources import Sms
+from .resources import Transcriptions
+from .resources import UNSET_TIMEOUT
+from .resources import Usage
 
 
 def find_credentials(environ=None):

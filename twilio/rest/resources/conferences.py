@@ -1,5 +1,5 @@
-from twilio.rest.resources.util import parse_date, normalize_dates
-from twilio.rest.resources import InstanceResource, ListResource
+from .util import parse_date, normalize_dates
+from . import InstanceResource, ListResource
 
 
 class Participant(InstanceResource):

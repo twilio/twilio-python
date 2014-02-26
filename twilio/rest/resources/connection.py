@@ -1,8 +1,8 @@
-from twilio.rest.resources.imports import httplib2
-from twilio.rest.resources.imports import socks
-from twilio.rest.resources.imports import PROXY_TYPE_HTTP
-from twilio.rest.resources.imports import PROXY_TYPE_SOCKS4
-from twilio.rest.resources.imports import PROXY_TYPE_SOCKS5
+from .imports import httplib2
+from .imports import socks
+from .imports import PROXY_TYPE_HTTP
+from .imports import PROXY_TYPE_SOCKS4
+from .imports import PROXY_TYPE_SOCKS5
 
 
 class Connection(object):
