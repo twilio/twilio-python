@@ -12,7 +12,7 @@ from twilio import TwilioException, TwilioRestException
 from . import UNSET_TIMEOUT
 from twilio.rest.resources.connection import Connection
 from twilio.rest.resources.imports import parse_qs, httplib2, json
-from twilio.rest.resources.util import transform_params, parse_rfc2822_date
+from .util import transform_params, parse_rfc2822_date
 
 
 class Response(object):

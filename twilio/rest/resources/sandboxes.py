@@ -1,4 +1,4 @@
-from twilio.rest.resources.util import transform_params
+from .util import transform_params
 from . import InstanceResource, ListResource
 
 

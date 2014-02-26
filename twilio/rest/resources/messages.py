@@ -1,6 +1,6 @@
 from . import InstanceResource, ListResource
 from twilio.rest.resources.media import MediaList
-from twilio.rest.resources.util import normalize_dates, parse_date
+from .util import normalize_dates, parse_date
 
 
 class Message(InstanceResource):

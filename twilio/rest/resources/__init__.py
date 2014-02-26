@@ -5,7 +5,7 @@ from twilio.rest.resources.imports import (
     parse_qs, json, httplib2
 )
 
-from twilio.rest.resources.util import (
+from .util import (
     transform_params, format_name, parse_date, convert_boolean, convert_case,
     convert_keys, normalize_dates, UNSET_TIMEOUT
 )

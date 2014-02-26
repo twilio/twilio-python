@@ -1,4 +1,4 @@
-from twilio.rest.resources.util import parse_date, normalize_dates
+from .util import parse_date, normalize_dates
 from . import InstanceResource, ListResource
 
 
