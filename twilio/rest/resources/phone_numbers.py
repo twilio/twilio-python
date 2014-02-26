@@ -1,6 +1,6 @@
 import re
 
-from twilio import TwilioException
+from .. import TwilioException
 from .util import change_dict_key, transform_params
 from .util import UNSET_TIMEOUT
 from . import InstanceResource, ListResource

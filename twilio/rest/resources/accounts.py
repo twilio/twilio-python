@@ -1,20 +1,18 @@
 from . import InstanceResource, ListResource
-from twilio.rest.resources.applications import Applications
-from twilio.rest.resources.notifications import Notifications
-from twilio.rest.resources.recordings import Transcriptions, Recordings
-from twilio.rest.resources.calls import Calls
-from twilio.rest.resources.sms_messages import Sms
-from twilio.rest.resources.caller_ids import CallerIds
-from twilio.rest.resources.phone_numbers import PhoneNumbers
-from twilio.rest.resources.conferences import Conferences
-from twilio.rest.resources.connect_apps import (
-    ConnectApps, AuthorizedConnectApps
-)
-from twilio.rest.resources.queues import Queues
-from twilio.rest.resources.usage import UsageRecords, UsageTriggers
-from twilio.rest.resources.messages import Messages
-from twilio.rest.resources.media import MediaList
-from twilio.rest.resources.sip import Sip
+from .applications import Applications
+from .notifications import Notifications
+from .recordings import Transcriptions, Recordings
+from .calls import Calls
+from .sms_messages import Sms
+from .caller_ids import CallerIds
+from .phone_numbers import PhoneNumbers
+from .conferences import Conferences
+from .connect_apps import ConnectApps, AuthorizedConnectApps
+from .queues import Queues
+from .usage import UsageRecords, UsageTriggers
+from .messages import Messages
+from .media import MediaList
+from .sip import Sip
 
 
 class Account(InstanceResource):

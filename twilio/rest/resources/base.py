@@ -4,15 +4,13 @@ import platform
 import sys
 
 from six import integer_types, string_types, binary_type, iteritems, u
-from twilio.compat import urlparse
-from twilio.compat import urlencode
+from ...compat import urlparse
+from ...compat import urlencode
 
-import twilio
-from twilio import TwilioException, TwilioRestException
-from . import UNSET_TIMEOUT
-from twilio.rest.resources.connection import Connection
-from twilio.rest.resources.imports import parse_qs, httplib2, json
-from .util import transform_params, parse_rfc2822_date
+from ... import __version__, TwilioException, TwilioRestException
+from .connection import Connection
+from .imports import parse_qs, httplib2, json
+from .util import transform_params, parse_rfc2822_date, UNSET_TIMEOUT
 
 
 class Response(object):
@@ -120,7 +118,7 @@ def make_twilio_request(method, uri, **kwargs):
     headers = kwargs.get("headers", {})
 
     user_agent = "twilio-python/%s (Python %s)" % (
-        twilio.__version__,
+        __version__,
         platform.python_version(),
     )
     headers["User-Agent"] = user_agent

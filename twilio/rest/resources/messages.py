@@ -1,5 +1,5 @@
 from . import InstanceResource, ListResource
-from twilio.rest.resources.media import MediaList
+from .media import MediaList
 from .util import normalize_dates, parse_date
 
 
