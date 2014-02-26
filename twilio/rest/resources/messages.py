@@ -1,4 +1,4 @@
-from twilio.rest.resources import InstanceResource, ListResource
+from . import InstanceResource, ListResource
 from twilio.rest.resources.media import MediaList
 from twilio.rest.resources.util import normalize_dates, parse_date
 

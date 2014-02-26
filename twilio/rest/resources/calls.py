@@ -1,7 +1,7 @@
 from twilio.rest.resources.notifications import Notifications
 from twilio.rest.resources.recordings import Recordings
 from twilio.rest.resources.util import normalize_dates, parse_date
-from twilio.rest.resources import InstanceResource, ListResource
+from . import InstanceResource, ListResource
 
 
 class Call(InstanceResource):

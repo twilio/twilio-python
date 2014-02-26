@@ -3,7 +3,7 @@ import re
 from twilio import TwilioException
 from twilio.rest.resources.util import change_dict_key, transform_params
 from twilio.rest.resources.util import UNSET_TIMEOUT
-from twilio.rest.resources import InstanceResource, ListResource
+from . import InstanceResource, ListResource
 
 
 TYPES = {"local": "Local", "tollfree": "TollFree", "mobile": "Mobile"}

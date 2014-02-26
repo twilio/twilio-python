@@ -1,5 +1,5 @@
-from twilio.rest.resources import InstanceResource, ListResource
-from twilio.rest.resources.util import UNSET_TIMEOUT
+from . import InstanceResource, ListResource
+from .util import UNSET_TIMEOUT
 
 
 class UsageTrigger(InstanceResource):

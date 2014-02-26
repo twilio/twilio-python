@@ -1,5 +1,5 @@
-from twilio.rest.resources import transform_params
-from twilio.rest.resources import InstanceResource, ListResource
+from . import transform_params
+from . import InstanceResource, ListResource
 
 
 class CallerId(InstanceResource):

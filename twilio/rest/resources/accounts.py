@@ -1,4 +1,4 @@
-from twilio.rest.resources import InstanceResource, ListResource
+from . import InstanceResource, ListResource
 from twilio.rest.resources.applications import Applications
 from twilio.rest.resources.notifications import Notifications
 from twilio.rest.resources.recordings import Transcriptions, Recordings

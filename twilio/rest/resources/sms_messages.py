@@ -1,5 +1,5 @@
 from twilio.rest.resources.util import normalize_dates, parse_date
-from twilio.rest.resources import InstanceResource, ListResource
+from . import InstanceResource, ListResource
 
 
 class ShortCode(InstanceResource):
