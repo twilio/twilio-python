@@ -33,6 +33,8 @@ extensions = [
     'sphinx.ext.intersphinx',
 ]
 
+RTD_NEW_THEME = True
+
 # Load the source for autodoc
 sys.path.insert(0, os.path.abspath(os.path.join(os.getcwd(), '..')))
 
