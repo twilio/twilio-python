@@ -3,6 +3,17 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.6.6
+--------------
+
+Released on February 27, 2014
+
+- Previously the error message was set based on the `tty` value; instead now we
+  detect `tty` when you try to print the error message. The `msg` property of
+  the exception is set to a decent value.
+- `twilio-python` now uses entirely relative imports, so it may be easier to
+  include it as a part of another package.
+
 Version 3.6.5
 --------------
 
