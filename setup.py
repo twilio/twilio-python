@@ -1,6 +1,9 @@
 import sys
-from twilio.version import __version__
 from setuptools import setup, find_packages
+
+__version__ = None
+with open('twilio/version.py') as f:
+    exec(f.read())
 
 # To install the twilio-python library, open a Terminal shell, then run this
 # file by typing:

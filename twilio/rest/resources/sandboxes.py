@@ -1,5 +1,5 @@
-from twilio.rest.resources.util import transform_params
-from twilio.rest.resources import InstanceResource, ListResource
+from .util import transform_params
+from . import InstanceResource, ListResource
 
 
 class Sandbox(InstanceResource):

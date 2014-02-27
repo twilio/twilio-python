@@ -3,8 +3,8 @@ import hmac
 import time
 from hashlib import sha1
 
-from twilio import jwt
-from twilio.compat import izip, urlencode
+from . import jwt
+from .compat import izip, urlencode
 from six import iteritems
 
 

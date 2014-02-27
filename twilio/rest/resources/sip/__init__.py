@@ -1,11 +1,10 @@
-from twilio.rest.resources.sip.credential_lists import Credentials
-from twilio.rest.resources.sip.credential_lists import SipCredentialLists
-from twilio.rest.resources.sip.domains import CredentialListMappings
-from twilio.rest.resources.sip.domains import IpAccessControlListMappings
-from twilio.rest.resources.sip.domains import Domains
-from twilio.rest.resources.sip.ip_access_control_lists import IpAddresses
-from twilio.rest.resources.sip.ip_access_control_lists import \
-    SipIpAccessControlLists
+from .credential_lists import Credentials
+from .credential_lists import SipCredentialLists
+from .domains import CredentialListMappings
+from .domains import IpAccessControlListMappings
+from .domains import Domains
+from .ip_access_control_lists import IpAddresses
+from .ip_access_control_lists import SipIpAccessControlLists
 
 
 class Sip(object):
