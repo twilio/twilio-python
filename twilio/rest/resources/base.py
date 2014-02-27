@@ -1,9 +1,8 @@
 import logging
 import os
 import platform
-import sys
 
-from six import integer_types, string_types, binary_type, iteritems, u
+from six import integer_types, string_types, binary_type, iteritems
 from ...compat import urlparse
 from ...compat import urlencode
 
@@ -144,38 +143,8 @@ def make_twilio_request(method, uri, **kwargs):
             code = None
             message = resp.content
 
-        def red(msg):
-            return u("\033[31m\033[49m%s\033[0m") % msg
-
-        def white(msg):
-            return u("\033[37m\033[49m%s\033[0m") % msg
-
-        def blue(msg):
-            return u("\033[34m\033[49m%s\033[0m") % msg
-
-        def orange(msg):
-            return u("\033[33m\033[49m%s\033[0m") % msg
-
-        def teal(msg):
-            return u("\033[36m\033[49m%s\033[0m") % msg
-
-        # If it makes sense to print a human readable error message, try to do
-        # it. The one problem is that someone might catch this error and try to
-        # display the message from it to an end user.
-        if hasattr(sys.stderr, 'isatty') and sys.stderr.isatty():
-            msg = red("\nHTTP Error. ")
-            msg += white("Your request was:\n\n")
-            msg += teal("%s %s" % (method, uri))
-            msg += white("\n\nTwilio returned the following information:")
-            msg += blue("\n\n" + str(message) + "\n")
-            if code:
-                msg += white("\nMore information may be available here:\n\n")
-                msg += blue("https://www.twilio.com/docs/errors/%s" % code)
-                msg += "\n\n"
-        else:
-            msg = message
-
-        raise TwilioRestException(resp.status_code, resp.url, msg, code)
+        raise TwilioRestException(status=resp.status_code, method=method,
+                                  uri=resp.url, msg=message, code=code)
 
     return resp
 
