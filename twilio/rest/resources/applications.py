@@ -25,7 +25,7 @@ class Applications(ListResource):
     def list(self, **kwargs):
         """
         Returns a page of :class:`Application` resources as a list. For paging
-        informtion see :class:`ListResource`
+        information see :class:`ListResource`
 
         :param date friendly_name: List applications with this friendly name
         """

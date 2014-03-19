@@ -1,5 +1,6 @@
 from .notifications import Notifications
 from .recordings import Recordings
+from twilio.rest.resources.call_feedback import CallFeedbackFactory
 from .util import normalize_dates, parse_date
 from . import InstanceResource, ListResource
 
@@ -19,6 +20,7 @@ class Call(InstanceResource):
     subresources = [
         Notifications,
         Recordings,
+        CallFeedbackFactory,
     ]
 
     def hangup(self):
