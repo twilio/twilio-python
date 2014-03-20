@@ -59,7 +59,6 @@ class Calls(ListResource):
 
     def __init__(self, *args, **kwargs):
         super(Calls, self).__init__(*args, **kwargs)
-
         self.summary = CallFeedbackSummary(self, *args, **kwargs)
 
     @normalize_dates
