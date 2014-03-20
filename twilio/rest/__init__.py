@@ -26,6 +26,8 @@ from .resources import Sms
 from .resources import Transcriptions
 from .resources import UNSET_TIMEOUT
 from .resources import Usage
+from .resources import CallFeedbackFactory
+from .resources import CallFeedback
 
 
 def find_credentials(environ=None):
@@ -132,6 +134,20 @@ values from your Twilio Account at https://www.twilio.com/user/account.
         """
         base_uri = "%s/Queues/%s" % (self.account_uri, queue_sid)
         return Members(base_uri, self.auth, self.timeout)
+
+    def feedback(self, call_sid):
+        """
+        Return a :class:`CallFeedback <twilio.rest.resources.CallFeedback>`
+        instance for the :class:`Call <twilio.rest.resources.calls.Call>`
+        with the given call_sid
+        """
+        base_uri = "%s/Calls/%s/Feedback" % (self.account_uri, call_sid)
+        call_feedback_list = CallFeedbackFactory(
+            base_uri,
+            self.auth,
+            self.timeout
+        )
+        return CallFeedback(call_feedback_list)
 
     def request(self, path, method=None, vars=None):
         """sends a request and gets a response from the Twilio REST API

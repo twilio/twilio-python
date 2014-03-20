@@ -24,6 +24,10 @@ from .connect_apps import (
 )
 from .calls import Call, Calls
 from .caller_ids import CallerIds, CallerId
+from .call_feedback import (
+    CallFeedbackFactory, CallFeedback, CallFeedbackSummary,
+    CallFeedbackSummaryInstance
+)
 from .connection import Connection
 from .sandboxes import Sandbox, Sandboxes
 from .sms_messages import (

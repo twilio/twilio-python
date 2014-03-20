@@ -51,6 +51,35 @@ class CallFeedbackTest(unittest.TestCase):
             timeout=ANY,
         )
 
+    @patch('twilio.rest.resources.base.make_twilio_request')
+    def test_create_call_feedback_one_request(self, request):
+        resp = create_mock_json('tests/resources/call_feedback.json')
+        resp.status_code = 201
+        request.return_value = resp
+
+        base_uri = 'https://api.twilio.com/2010-04-01/Accounts/AC123'
+        account_sid = 'AC123'
+        auth = (account_sid, "token")
+
+        calls = Calls(base_uri, auth)
+        uri = "%s/Calls/CA123/Feedback" % base_uri
+        feedback = calls.feedback(
+            'CA123',
+            quality_score=5,
+            issue=['imperfect-audio', 'post-dial-delay']
+        )
+
+        exp_data = {
+            'QualityScore': 5,
+            'Issue': ['imperfect-audio', 'post-dial-delay'],
+        }
+
+        assert_equal(['imperfect-audio', 'post-dial-delay'], feedback.issues)
+        request.assert_called_with(
+            "POST", uri,
+            data=exp_data, auth=auth,
+        )
+
 
 class CallFeedbackSummaryTest(unittest.TestCase):
 
