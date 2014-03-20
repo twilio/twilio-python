@@ -1,0 +1,17 @@
+{
+    "start_date": "2014-01-01",
+    "end_date": "2014-01-31",
+    "account_sid": "AC7b659acc64804bd8bc01a2d9d54248e1",
+    "call_count": 10200,
+    "call_feedback_count": 729,
+    "quality_score_average": 4.5,
+    "quality_score_median": 4,
+    "quality_score_standard_deviation": 1,
+    "issues": [
+        {
+            "description": "imperfect-audio",
+            "count": 45,
+            "percentage_of_total_calls": "0.04%"
+        }
+    ]
+}

@@ -1,6 +1,9 @@
 from .notifications import Notifications
 from .recordings import Recordings
-from twilio.rest.resources.call_feedback import CallFeedbackFactory
+from twilio.rest.resources.call_feedback import (
+    CallFeedbackFactory,
+    CallFeedbackSummary,
+)
 from .util import normalize_dates, parse_date
 from . import InstanceResource, ListResource
 
@@ -53,6 +56,11 @@ class Calls(ListResource):
 
     name = "Calls"
     instance = Call
+
+    def __init__(self, *args, **kwargs):
+        super(Calls, self).__init__(*args, **kwargs)
+
+        self.summary = CallFeedbackSummary(self, *args, **kwargs)
 
     @normalize_dates
     def list(self, from_=None, ended_after=None,

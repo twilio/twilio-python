@@ -3,7 +3,7 @@ import unittest
 from nose.tools import assert_equal
 from mock import Mock, patch, ANY
 from tools import create_mock_json
-from twilio.rest.resources import Call
+from twilio.rest.resources import Call, Calls
 
 AUTH = ('foo', 'bar')
 
@@ -50,3 +50,23 @@ class CallFeedbackTest(unittest.TestCase):
             data=exp_data, auth=AUTH,
             timeout=ANY,
         )
+
+
+class CallFeedbackSummaryTest(unittest.TestCase):
+
+    @patch('twilio.rest.resources.base.make_twilio_request')
+    def test_get_call_feedback_summary(self, request):
+        resp = create_mock_json('tests/resources/call_feedback_summary.json')
+        request.return_value = resp
+
+        base_uri = 'https://api.twilio.com/2010-04-01/Accounts/AC123'
+        account_sid = 'AC123'
+        auth = (account_sid, "token")
+
+        calls = Calls(base_uri, auth)
+        uri = "%s/Calls/Summary" % base_uri
+        feedback = calls.summary.get()
+        assert_equal(10200, feedback.call_count)
+        assert_equal(729, feedback.call_feedback_count)
+
+        request.assert_called_with('GET', uri, params={}, auth=auth)

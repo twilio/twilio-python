@@ -9,10 +9,9 @@ class CallFeedback(InstanceResource):
 
     def __init__(self, parent):
         self.parent = parent
-        super(InstanceResource, self).__init__(
-            parent.uri,
-            parent.auth,
-            parent.timeout,
+        super(CallFeedback, self).__init__(
+            parent,
+            None,
         )
 
 
@@ -42,9 +41,10 @@ class CallFeedbackFactory(ListResource):
     def get(self, **kwargs):
         """ Get the feedback for this call
 
-         Usage:
+        Usage:
 
-         .. code-block:: python
+        .. code-block:: python
+
             feedback = client.calls.get("CA123").feedback
             print feedback.issues
 
@@ -57,7 +57,52 @@ class CallFeedbackFactory(ListResource):
 
     def load_instance(self, data):
         # Overridden because CallFeedback instances
-        # don't contain sids :(
+        # don't contain sids
+        instance = self.instance(self)
+        instance.load(data)
+        return instance
+
+
+class CallFeedbackSummaryInstance(InstanceResource):
+
+    def __init__(self, parent):
+        self.parent = parent
+        super(CallFeedbackSummaryInstance, self).__init__(
+            parent,
+            None,
+        )
+
+
+class CallFeedbackSummary(ListResource):
+
+    name = "Summary"
+    key = "Feedback"
+    instance = CallFeedbackSummaryInstance
+
+    def __init__(self, parent, *args, **kwargs):
+        super(CallFeedbackSummary, self).__init__(*args, **kwargs)
+        self.base_uri = parent.uri
+
+    def get(self, **kwargs):
+        """ Get the feedback summary for calls on this account
+
+        Usage:
+
+        .. code-block:: python
+
+            summary = client.calls.summary.get()
+            print summary.quality_score_average
+
+        :rtype: :class:`~twilio.rest.resources.InstanceResource`
+        :raises: a :exc:`~twilio.TwilioRestException` if the request fails
+        """
+        params = transform_params(kwargs)
+        _, data = self.request('GET', self.uri, params=params)
+        return self.load_instance(data)
+
+    def load_instance(self, data):
+        # Overridden because CallFeedback summaries
+        # do not contain sids
         instance = self.instance(self)
         instance.load(data)
         return instance
