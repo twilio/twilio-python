@@ -1,6 +1,6 @@
 {
     "quality_score": 5,
-     "issues": [
+    "issues": [
         "imperfect-audio",
         "post-dial-delay"
     ]
