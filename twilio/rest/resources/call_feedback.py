@@ -1,4 +1,19 @@
-from twilio.rest.resources import ListResource, InstanceResource, transform_params
+from twilio.rest.resources import (
+    ListResource,
+    InstanceResource,
+    transform_params,
+)
+
+
+class CallFeedback(InstanceResource):
+
+    def __init__(self, parent):
+        self.parent = parent
+        super(InstanceResource, self).__init__(
+            parent.uri,
+            parent.auth,
+            parent.timeout,
+        )
 
 
 class CallFeedbackFactory(ListResource):
@@ -37,8 +52,8 @@ class CallFeedbackFactory(ListResource):
         :raises: a :exc:`~twilio.TwilioRestException` if the request fails
         """
         params = transform_params(kwargs)
-        resp, _ = self.request("GET", self.uri, params=params)
-        return self.load_instance(resp)
+        _, data = self.request("GET", self.uri, params=params)
+        return self.load_instance(data)
 
     def load_instance(self, data):
         # Overridden because CallFeedback instances
@@ -46,7 +61,3 @@ class CallFeedbackFactory(ListResource):
         instance = self.instance(self)
         instance.load(data)
         return instance
-
-
-class CallFeedback(InstanceResource):
-    pass

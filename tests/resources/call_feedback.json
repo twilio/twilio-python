@@ -1,0 +1,7 @@
+{
+    "quality_score": 5,
+     "issues": [
+        "imperfect-audio",
+        "post-dial-delay"
+    ]
+}
