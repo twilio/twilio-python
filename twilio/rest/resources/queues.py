@@ -27,6 +27,16 @@ class Member(InstanceResource):
 
     id_key = "call_sid"
 
+    def dequeue(self, url, **kwargs):
+        """
+        Dequeues this member from the queue and have the member's call
+        begin executing the TwiML document at the url.
+
+        :param url: url of the TwiML document to be executed.
+        """
+        kwargs['url'] = url
+        return self.parent.update_instance(self.name, kwargs)
+
 
 class Members(ListResource):
     """ A list of :class:`Member` objects """
