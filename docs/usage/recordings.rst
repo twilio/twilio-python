@@ -78,7 +78,7 @@ The :class:`Recordings` resource allows you to delete unnecessary recordings.
     client.recordings.delete("RC123")
 
 
-Accessing Related Transcptions
+Accessing Related Transcriptions
 -------------------------------
 
 The :class:`Recordings` allows you to retrieve associated transcriptions.
