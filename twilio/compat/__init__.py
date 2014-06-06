@@ -7,9 +7,9 @@ try:
     from urllib.parse import urlencode, urlparse, urljoin
 except ImportError:
     # python 2 backward compatibility
-    #noinspection PyUnresolvedReferences
+    # noinspection PyUnresolvedReferences
     from urllib import urlencode
-    #noinspection PyUnresolvedReferences
+    # noinspection PyUnresolvedReferences
     from urlparse import urlparse, urljoin
 
 try:
