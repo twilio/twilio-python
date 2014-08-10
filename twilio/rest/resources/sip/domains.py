@@ -104,7 +104,7 @@ class Domain(InstanceResource):
         The HTTP method Twilio will use when requesting the voice_fallback_url.
         Either GET or POST.
 
-    .. attribute:: voice_status_callback_url
+    .. attribute:: voice_status_callback
 
         The URL that Twilio will request to pass status parameters (such as
         call ended) to your application.
