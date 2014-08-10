@@ -3,7 +3,7 @@ Make sure to check out the TwiML overview and tutorial
 """
 import xml.etree.ElementTree as ET
 
-from exceptions import TwimlException
+from .exceptions import TwimlException
 
 
 class Verb(object):
