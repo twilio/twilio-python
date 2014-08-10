@@ -30,3 +30,6 @@ cover
 
 # PyCharm/IntelliJ
 .idea
+
+#htmlcov
+*htmlcov*

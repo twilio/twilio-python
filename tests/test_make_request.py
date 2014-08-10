@@ -8,7 +8,7 @@ import platform
 import twilio
 from nose.tools import assert_equal, raises
 from mock import patch, Mock, ANY
-from twilio import TwilioRestException
+from twilio.rest.exceptions import TwilioRestException
 from twilio.rest.resources.base import make_request, make_twilio_request
 from twilio.rest.resources.connection import Connection
 from twilio.rest.resources.connection import PROXY_TYPE_SOCKS5

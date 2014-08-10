@@ -1,7 +1,7 @@
 from nose.tools import assert_equal, assert_raises
 from mock import patch
 
-from twilio import TwilioException
+from twilio.rest.exceptions import TwilioException
 from twilio.rest import TwilioRestClient, find_credentials
 
 
