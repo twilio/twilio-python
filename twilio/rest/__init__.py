@@ -3,29 +3,12 @@ import os
 import platform
 from .. import TwilioException
 from .. import __version__ as LIBRARY_VERSION
-from .resources import make_request
-from .resources import Accounts
-from .resources import Applications
-from .resources import AuthorizedConnectApps
-from .resources import CallerIds
-from .resources import Calls
-from .resources import Conferences
-from .resources import ConnectApps
-from .resources import Connection
-from .resources import MediaList
-from .resources import Members
-from .resources import Messages
-from .resources import Notifications
-from .resources import Participants
-from .resources import PhoneNumbers
-from .resources import Queues
-from .resources import Recordings
-from .resources import Sandboxes
-from .resources import Sip
-from .resources import Sms
-from .resources import Transcriptions
-from .resources import UNSET_TIMEOUT
-from .resources import Usage
+from .resources import (
+    make_request, Accounts, Applications, AuthorizedConnectApps,
+    CallerIds, Calls, Conferences, ConnectApps, Connection, MediaList,
+    Members, Messages, Notifications, Participants, PhoneNumbers, Queues,
+    Recordings, Sandboxes, Sip, Sms, Transcriptions, UNSET_TIMEOUT, Usage
+)
 
 
 def find_credentials(environ=None):

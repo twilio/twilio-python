@@ -1,8 +1,7 @@
-from .imports import httplib2
-from .imports import socks
-from .imports import PROXY_TYPE_HTTP
-from .imports import PROXY_TYPE_SOCKS4
-from .imports import PROXY_TYPE_SOCKS5
+from .imports import (
+    httplib2, socks, PROXY_TYPE_HTTP, PROXY_TYPE_SOCKS4,
+    PROXY_TYPE_SOCKS5
+)
 
 
 class Connection(object):
