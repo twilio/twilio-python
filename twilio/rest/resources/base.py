@@ -6,7 +6,9 @@ from six import integer_types, string_types, binary_type, iteritems
 from ...compat import urlparse
 from ...compat import urlencode
 
-from ... import __version__, TwilioException, TwilioRestException
+from ... import __version__
+from ...exceptions import TwilioException
+from ..exceptions import TwilioRestException
 from .connection import Connection
 from .imports import parse_qs, httplib2, json
 from .util import transform_params, parse_rfc2822_date, UNSET_TIMEOUT
