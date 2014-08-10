@@ -4,7 +4,7 @@
 Phone Numbers
 =================
 
-With Twilio you can search and buy real phone numbers, just using the API.
+With Twilio you can search and buy real phone numbers using the API.
 
 For more information, see the
 `IncomingPhoneNumbers REST Resource
@@ -15,7 +15,7 @@ Searching and Buying a Number
 --------------------------------
 
 Finding numbers to buy couldn't be easier.
-We first search for a number in area code 530.
+The example below searches for a number with US area code '530'.
 Once we find one, we'll purchase it for our account.
 
 .. code-block:: python
@@ -137,7 +137,7 @@ shown in the first example).
 Updating Properties on a Number
 -------------------------------
 
-To update the properties on a phone number, call :meth:`update`
+To update the properties on a phone number, such as the Voice URL, call :meth:`update`
 on the phone number object, with any of the parameters
 listed in the `IncomingPhoneNumbers Resource documentation
 <http://www.twilio.com/docs/api/rest/incoming-phone-numbers>`_
@@ -152,8 +152,8 @@ listed in the `IncomingPhoneNumbers Resource documentation
 
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     for number in client.phone_numbers.list(api_version="2010-04-01"):
-        number.update(voice_url="http://twimlets.com/holdmusic?" + 
-            "Bucket=com.twilio.music.ambient", 
+        number.update(voice_url="http://twimlets.com/holdmusic?" +
+            "Bucket=com.twilio.music.ambient",
             status_callback="http://example.com/callback")
 
 

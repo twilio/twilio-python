@@ -4,15 +4,15 @@
 Messages
 ============
 
-For more information, see the
-`SMS Message REST Resource <http://www.twilio.com/docs/api/rest/sms>`_
+The :class:`Messages` resource manages all interaction with Twilio SMS and MMS messages. For more information, see the
+`Message REST Resource <http://www.twilio.com/docs/api/rest/message>`_
 documentation.
 
 
 Sending a Text Message
 ----------------------
 
-Send a text message in only a few lines of code.
+The :class:`Message` resource allows you to send an SMS message in a few lines of code.
 
 .. code-block:: python
 
@@ -40,7 +40,7 @@ to your short code's number.
 Sending a Picture Message
 -------------------------
 
-To send a picture, set :attr:`media_url` to the url of the picture you wish to send.
+To send a picture message (MMS), set :attr:`media_url` to the url of the picture you wish to send.
 
 .. code-block:: python
 

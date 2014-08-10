@@ -5,8 +5,7 @@ Sip In
 Getting started with Sip
 ==========================
 
-If you're unfamiliar with SIP, please see the `SIP API Documentation
-<https://www.twilio.com/docs/api/rest/sip>`_ on our website.
+Connect your SIP endpoints to Twilio and start building voice apps with Twilio’s APIs and application stack. If you're unfamiliar with SIP, please see the `SIP API Documentation <https://www.twilio.com/docs/api/rest/sip>`_ on our website.
 
 Creating a Sip Domain
 =========================
@@ -14,6 +13,7 @@ Creating a Sip Domain
 The :class:`Domains` resource allows you to create a new domain. To
 create a new domain, you'll need to choose a unique domain that lives
 under sip.twilio.com. For example, dunder-mifflin-scranton.sip.twilio.com.
+For more information, see the `Domains resource documentation <https://www.twilio.com/docs/api/rest/domain>`_ on our website.
 
 .. code-block:: python
 

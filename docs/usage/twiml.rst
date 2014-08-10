@@ -13,6 +13,10 @@ These methods return the verbs they create to ease creation of nested TwiML.
 To finish, call the :meth:`toxml` method on the :class:`Response`,
 which returns raw TwiML.
 
+To get started with TwiML, read the `TwiML documentation <https://www.twilio.com/docs/api/twiml>`_ on our website.
+
+The following code block creates a simple TwiML Response.
+
 .. code-block:: python
 
     from twilio import twiml
@@ -20,6 +24,8 @@ which returns raw TwiML.
     r = twiml.Response()
     r.say("Hello")
     print str(r)
+
+The output is perfectly formatted XML:
 
 .. code-block:: xml
 
