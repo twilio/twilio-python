@@ -3,7 +3,7 @@ import unittest
 from mock import Mock
 from nose.tools import assert_equal, assert_true
 
-from twilio import TwilioException
+from twilio.rest.exceptions import TwilioException
 from twilio.rest.resources import AvailablePhoneNumber
 from twilio.rest.resources import AvailablePhoneNumbers
 from twilio.rest.resources import PhoneNumbers

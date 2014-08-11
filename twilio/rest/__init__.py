@@ -1,7 +1,7 @@
 import logging
 import os
 import platform
-from .. import TwilioException
+from ..exceptions import TwilioException
 from .. import __version__ as LIBRARY_VERSION
 from .resources import make_request
 from .resources import Accounts
