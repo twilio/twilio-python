@@ -42,6 +42,8 @@ Sending a Picture Message
 
 To send a picture message (MMS), set :attr:`media_url` to the url of the picture you wish to send.
 
+Don't forget to check the `availability of MMS in your area <https://www.twilio.com/mms>`_ before using this functionality.
+
 .. code-block:: python
 
     from twilio.rest import TwilioRestClient

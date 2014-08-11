@@ -8,7 +8,9 @@ Caller Ids
 Validate a Phone Number
 -----------------------
 
-Validating a phone number can be done with the Python helper library, the code block below provides a simple example.
+Validating a phone number can be done with the Python helper library.
+
+The code block below provides a simple example.
 
 .. code-block:: python
 
