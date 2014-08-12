@@ -4,6 +4,7 @@
 Transcriptions
 ================
 
+A :class:`Transcription` resource represents a transcription of a recording. The transcription text itself is the result of converting an audio recording to readable text.
 Transcriptions are generated from recordings via the
 `TwiML <Record> verb <http://www.twilio.com/docs/api/twiml/record>`_.
 Using the API, you can only read your transcription records.
@@ -15,7 +16,7 @@ For more information, see the `Transcriptions REST Resource
 Listing Your Transcriptions
 ----------------------------
 
-The following code will print out the length of each :class:`Transcription`.
+The following code will print out the transcription text of each :class:`Transcription`.
 
 .. code-block:: python
 
@@ -27,5 +28,5 @@ The following code will print out the length of each :class:`Transcription`.
 
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     for transcription in client.transcriptions.list():
-        print transcription.duration
+        print transcription.transcriptiontext
 

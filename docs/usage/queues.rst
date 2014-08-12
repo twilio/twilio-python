@@ -4,10 +4,9 @@
 Queues and Members
 ==============================
 
-For more information, see the
-`Queue REST Resource <http://www.twilio.com/docs/api/rest/queue>`_
-and `Member REST Resource <http://www.twilio.com/docs/api/rest/member>`_
-documentation.
+The :class:`Queue` resource allows you to query and manage the state of individual call queues.For more information, see the `Queue REST Resource <http://www.twilio.com/docs/api/rest/queue>`_.
+
+The :class:`Members` resource is a subresource of a Queue resource. It represents the set of members currently in a queue. See the `Member REST Resource <http://www.twilio.com/docs/api/rest/member>`_ documentation for more information.
 
 
 Listing Queues

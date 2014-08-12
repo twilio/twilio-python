@@ -3,7 +3,7 @@
 ================
 Recordings
 ================
-
+A :class:`Recording` resource represents an individually recorded call. Recordings are generated when you use the `Record <https://www.twilio.com/docs/api/twiml/record>`_ TwiML verb.
 For more information, see the
 `Recordings REST Resource <http://www.twilio.com/docs/api/rest/recording>`_
 documentation.
