@@ -1,4 +1,5 @@
 import logging
+logger = logging.getLogger('twilio')
 import os
 import platform
 
@@ -181,7 +182,7 @@ class Resource(object):
             kwargs['timeout'] = self.timeout
         resp = make_twilio_request(method, uri, auth=self.auth, **kwargs)
 
-        logging.debug(resp.content)
+        logger.debug(resp.content)
 
         if method == "DELETE":
             return resp, {}
