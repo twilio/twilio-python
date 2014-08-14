@@ -1,5 +1,4 @@
 import logging
-logger = logging.getLogger('twilio')
 import os
 import platform
 
@@ -14,6 +13,7 @@ from .connection import Connection
 from .imports import parse_qs, httplib2, json
 from .util import transform_params, parse_rfc2822_date, UNSET_TIMEOUT
 
+logger = logging.getLogger('twilio')
 
 class Response(object):
     """
