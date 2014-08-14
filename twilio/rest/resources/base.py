@@ -15,6 +15,7 @@ from .util import transform_params, parse_rfc2822_date, UNSET_TIMEOUT
 
 logger = logging.getLogger('twilio')
 
+
 class Response(object):
     """
     Take a httplib2 response and turn it into a requests response
