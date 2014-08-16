@@ -1,6 +1,8 @@
 from .credential_lists import Credentials, SipCredentialLists
 from .domains import (
-    CredentialListMappings, IpAccessControlListMappings, Domains
+    CredentialListMappings,
+    IpAccessControlListMappings,
+    Domains
 )
 from .ip_access_control_lists import IpAddresses, SipIpAccessControlLists
 

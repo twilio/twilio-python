@@ -1,5 +1,8 @@
 from .imports import (
-    httplib2, socks, PROXY_TYPE_HTTP, PROXY_TYPE_SOCKS4,
+    httplib2,
+    socks,
+    PROXY_TYPE_HTTP,
+    PROXY_TYPE_SOCKS4,
     PROXY_TYPE_SOCKS5
 )
 
