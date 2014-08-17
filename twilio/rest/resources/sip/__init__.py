@@ -1,10 +1,10 @@
-from .credential_lists import Credentials
-from .credential_lists import SipCredentialLists
-from .domains import CredentialListMappings
-from .domains import IpAccessControlListMappings
-from .domains import Domains
-from .ip_access_control_lists import IpAddresses
-from .ip_access_control_lists import SipIpAccessControlLists
+from .credential_lists import Credentials, SipCredentialLists
+from .domains import (
+    CredentialListMappings,
+    IpAccessControlListMappings,
+    Domains
+)
+from .ip_access_control_lists import IpAddresses, SipIpAccessControlLists
 
 
 class Sip(object):
