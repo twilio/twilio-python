@@ -4,6 +4,7 @@
 Notifications
 ====================
 
+A :class:`Notification` resource represents a single log entry made by Twilio in the course of handling your calls or your use of the REST API.
 For more information, see the `Notifications REST Resource
 <http://www.twilio.com/docs/api/rest/notification>`_ documentation.
 

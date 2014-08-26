@@ -1,4 +1,5 @@
-from ... import TwilioException, TwilioRestException
+from ...exceptions import TwilioException
+from ..exceptions import TwilioRestException
 
 from .imports import (
     parse_qs, json, httplib2

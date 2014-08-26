@@ -1,11 +1,10 @@
 """
-Make sure to check out the TwiML overview and tutorial
+Make sure to check out the TwiML overview and tutorial at
+https://www.twilio.com/docs/api/twiml
 """
 import xml.etree.ElementTree as ET
 
-
-class TwimlException(Exception):
-    pass
+from .exceptions import TwimlException
 
 
 class Verb(object):

@@ -2,14 +2,27 @@ import logging
 import os
 import platform
 
-from six import integer_types, string_types, binary_type, iteritems
+from six import (
+    integer_types,
+    string_types,
+    binary_type,
+    iteritems
+)
 from ...compat import urlparse
 from ...compat import urlencode
 
-from ... import __version__, TwilioException, TwilioRestException
+from ... import __version__
+from ...exceptions import TwilioException
+from ..exceptions import TwilioRestException
 from .connection import Connection
 from .imports import parse_qs, httplib2, json
-from .util import transform_params, parse_rfc2822_date, UNSET_TIMEOUT
+from .util import (
+    transform_params,
+    parse_rfc2822_date,
+    UNSET_TIMEOUT
+)
+
+logger = logging.getLogger('twilio')
 
 
 class Response(object):
@@ -179,7 +192,7 @@ class Resource(object):
             kwargs['timeout'] = self.timeout
         resp = make_twilio_request(method, uri, auth=self.auth, **kwargs)
 
-        logging.debug(resp.content)
+        logger.debug(resp.content)
 
         if method == "DELETE":
             return resp, {}

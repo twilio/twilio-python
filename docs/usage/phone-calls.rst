@@ -5,7 +5,8 @@ Phone Calls
 =====================
 
 The :class:`Calls` resource manages all interaction with Twilio phone calls,
-including the creation and termination of phone calls.
+including the creation and termination of phone calls. For more information, see the `Calls REST Resource <http://www.twilio.com/docs/api/rest/call>`_
+documentation.
 
 
 Making a Phone Call
@@ -13,7 +14,7 @@ Making a Phone Call
 
 The :class:`Calls` resource allows you to make outgoing calls. Before a call
 can be successfully started, you'll need a to set up a url endpoint which
-outputs valid `TwiML <http://www.twilio.com/docs/api/twiml/>`_.
+outputs valid `TwiML <http://www.twilio.com/docs/api/twiml/>`_. This can be done with the :class: `twiml.Response` class, `get started here <http://twilio-python.readthedocs.org/en/latest/usage/twiml.html#twiml-creation>`_.
 
 .. code-block:: python
 

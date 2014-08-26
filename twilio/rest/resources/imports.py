@@ -19,11 +19,15 @@ import httplib2
 # socks
 try:
     from httplib2 import socks
-    from httplib2.socks import PROXY_TYPE_HTTP
-    from httplib2.socks import PROXY_TYPE_SOCKS4
-    from httplib2.socks import PROXY_TYPE_SOCKS5
+    from httplib2.socks import (
+        PROXY_TYPE_HTTP,
+        PROXY_TYPE_SOCKS4,
+        PROXY_TYPE_SOCKS5
+    )
 except ImportError:
     import socks
-    from socks import PROXY_TYPE_HTTP
-    from socks import PROXY_TYPE_SOCKS4
-    from socks import PROXY_TYPE_SOCKS5
+    from socks import (
+        PROXY_TYPE_HTTP,
+        PROXY_TYPE_SOCKS4,
+        PROXY_TYPE_SOCKS5
+    )

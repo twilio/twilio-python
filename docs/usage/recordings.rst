@@ -3,7 +3,7 @@
 ================
 Recordings
 ================
-
+A :class:`Recording` resource represents an individually recorded call. Recordings are generated when you use the `Record <https://www.twilio.com/docs/api/twiml/record>`_ TwiML verb.
 For more information, see the
 `Recordings REST Resource <http://www.twilio.com/docs/api/rest/recording>`_
 documentation.
@@ -78,7 +78,7 @@ The :class:`Recordings` resource allows you to delete unnecessary recordings.
     client.recordings.delete("RC123")
 
 
-Accessing Related Transcptions
+Accessing Related Transcriptions
 -------------------------------
 
 The :class:`Recordings` allows you to retrieve associated transcriptions.

@@ -4,6 +4,7 @@
 Conferences and Participants
 ==============================
 
+The :class:`Conference` resource manages all interaction with Twilio conferences, such as listing and managing participants.
 For more information, see the `Conference REST Resource <http://www.twilio.com/docs/api/rest/conference>`_ and `Participant REST Resource <http://www.twilio.com/docs/api/rest/participant>`_ documentation.
 
 
