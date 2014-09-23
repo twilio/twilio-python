@@ -48,6 +48,12 @@ class AvailablePhoneNumber(InstanceResource):
 
         The country for this number
 
+   .. attribute:: address_requirements
+
+        Whether the phone number requires you or your customer to have an
+        Address registered with Twilio. Possible values are 'none', 'any',
+        'local', or 'foreign'.
+
     """
 
     def __init__(self, parent):
