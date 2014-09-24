@@ -1,5 +1,5 @@
-from twilio.rest.resources import InstanceResource, ListResource
 from twilio.exceptions import TwilioException
+from twilio.rest.resources import InstanceResource, ListResource
 
 
 class DependentPhoneNumber(InstanceResource):
