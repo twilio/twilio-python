@@ -1,11 +1,13 @@
 import logging
 import os
 import platform
+
 from ..exceptions import TwilioException
 from .. import __version__ as LIBRARY_VERSION
 from .resources import (
     make_request,
     Accounts,
+    Activities,
     Applications,
     AuthorizedConnectApps,
     CallerIds,
@@ -29,6 +31,7 @@ from .resources import (
     Usage,
     CallFeedbackFactory,
     CallFeedback,
+    Workspaces
 )
 
 
@@ -51,21 +54,11 @@ def set_twilio_proxy(proxy_url, proxy_port):
     Connection.set_proxy_info(proxy_url, proxy_port)
 
 
-class TwilioRestClient(object):
-    """
-    A client for accessing the Twilio REST API
-
-    :param str account: Your Account SID from `your dashboard
-        <https://twilio.com/user/account>`_
-    :param str token: Your Auth Token from `your dashboard
-        <https://twilio.com/user/account>`_
-    :param float timeout: The socket and read timeout for requests to Twilio
-    """
-
-    def __init__(self, account=None, token=None, base="https://api.twilio.com",
-                 version="2010-04-01", client=None, timeout=UNSET_TIMEOUT):
+class TwilioClient(object):
+    def __init__(self, account=None, token=None, base="https://api.twilio.com", version="2010-04-01",
+                 timeout=UNSET_TIMEOUT):
         """
-        Create a Twilio REST API client.
+        Create a Twilio API client.
         """
 
         # Get account credentials
@@ -89,67 +82,9 @@ values from your Twilio Account at https://www.twilio.com/user/account.
 """)
 
         self.base = base
-        auth = (account, token)
-        version_uri = "%s/%s" % (base, version)
-        account_uri = "%s/%s/Accounts/%s" % (base, version, account)
-
-        self.accounts = Accounts(version_uri, auth, timeout)
-        self.applications = Applications(account_uri, auth, timeout)
-        self.authorized_connect_apps = AuthorizedConnectApps(
-            account_uri,
-            auth,
-            timeout
-        )
-        self.calls = Calls(account_uri, auth, timeout)
-        self.caller_ids = CallerIds(account_uri, auth, timeout)
-        self.connect_apps = ConnectApps(account_uri, auth, timeout)
-        self.notifications = Notifications(account_uri, auth, timeout)
-        self.recordings = Recordings(account_uri, auth, timeout)
-        self.transcriptions = Transcriptions(account_uri, auth, timeout)
-        self.sms = Sms(account_uri, auth, timeout)
-        self.phone_numbers = PhoneNumbers(account_uri, auth, timeout)
-        self.conferences = Conferences(account_uri, auth, timeout)
-        self.queues = Queues(account_uri, auth, timeout)
-        self.sandboxes = Sandboxes(account_uri, auth, timeout)
-        self.usage = Usage(account_uri, auth, timeout)
-        self.messages = Messages(account_uri, auth, timeout)
-        self.media = MediaList(account_uri, auth, timeout)
-        self.sip = Sip(account_uri, auth, timeout)
-
-        self.auth = auth
-        self.account_uri = account_uri
+        self.auth = (account, token)
         self.timeout = timeout
-
-    def participants(self, conference_sid):
-        """
-        Return a :class:`~twilio.rest.resources.Participants` instance for the
-        :class:`~twilio.rest.resources.Conference` with given conference_sid
-        """
-        base_uri = "%s/Conferences/%s" % (self.account_uri, conference_sid)
-        return Participants(base_uri, self.auth, self.timeout)
-
-    def members(self, queue_sid):
-        """
-        Return a :class:`Members <twilio.rest.resources.Members>` instance for
-        the :class:`Queue <twilio.rest.resources.Queue>` with the
-        given queue_sid
-        """
-        base_uri = "%s/Queues/%s" % (self.account_uri, queue_sid)
-        return Members(base_uri, self.auth, self.timeout)
-
-    def feedback(self, call_sid):
-        """
-        Return a :class:`CallFeedback <twilio.rest.resources.CallFeedback>`
-        instance for the :class:`Call <twilio.rest.resources.calls.Call>`
-        with the given call_sid
-        """
-        base_uri = "%s/Calls/%s/Feedback" % (self.account_uri, call_sid)
-        call_feedback_list = CallFeedbackFactory(
-            base_uri,
-            self.auth,
-            self.timeout
-        )
-        return CallFeedback(call_feedback_list)
+        self.account_uri = "{}/{}/Accounts/{}".format(base, version, account)
 
     def request(self, path, method=None, vars=None):
         """sends a request and gets a response from the Twilio REST API
@@ -204,3 +139,110 @@ values from your Twilio Account at https://www.twilio.com/user/account.
                             params=params, headers=headers)
 
         return resp.content
+
+
+class TwilioRestClient(TwilioClient):
+    """
+    A client for accessing the Twilio REST API
+
+    :param str account: Your Account SID from `your dashboard
+        <https://twilio.com/user/account>`_
+    :param str token: Your Auth Token from `your dashboard
+        <https://twilio.com/user/account>`_
+    :param float timeout: The socket and read timeout for requests to Twilio
+    """
+
+    def __init__(self, account=None, token=None, base="https://api.twilio.com", version="2010-04-01",
+                 timeout=UNSET_TIMEOUT):
+        """
+        Create a Twilio REST API client.
+        """
+        super(TwilioRestClient, self).__init__(account, token, base, version, timeout)
+
+        version_uri = "%s/%s" % (base, version)
+
+        self.accounts = Accounts(version_uri, self.auth, timeout)
+        self.applications = Applications(self.account_uri, self.auth, timeout)
+        self.authorized_connect_apps = AuthorizedConnectApps(
+            self.account_uri,
+            self.auth,
+            timeout
+        )
+        self.calls = Calls(self.account_uri, self.auth, timeout)
+        self.caller_ids = CallerIds(self.account_uri, self.auth, timeout)
+        self.connect_apps = ConnectApps(self.account_uri, self.auth, timeout)
+        self.notifications = Notifications(self.account_uri, self.auth, timeout)
+        self.recordings = Recordings(self.account_uri, self.auth, timeout)
+        self.transcriptions = Transcriptions(self.account_uri, self.auth, timeout)
+        self.sms = Sms(self.account_uri, self.auth, timeout)
+        self.phone_numbers = PhoneNumbers(self.account_uri, self.auth, timeout)
+        self.conferences = Conferences(self.account_uri, self.auth, timeout)
+        self.queues = Queues(self.account_uri, self.auth, timeout)
+        self.sandboxes = Sandboxes(self.account_uri, self.auth, timeout)
+        self.usage = Usage(self.account_uri, self.auth, timeout)
+        self.messages = Messages(self.account_uri, self.auth, timeout)
+        self.media = MediaList(self.account_uri, self.auth, timeout)
+        self.sip = Sip(self.account_uri, self.auth, timeout)
+
+    def participants(self, conference_sid):
+        """
+        Return a :class:`~twilio.rest.resources.Participants` instance for the
+        :class:`~twilio.rest.resources.Conference` with given conference_sid
+        """
+        base_uri = "%s/Conferences/%s" % (self.account_uri, conference_sid)
+        return Participants(base_uri, self.auth, self.timeout)
+
+    def members(self, queue_sid):
+        """
+        Return a :class:`Members <twilio.rest.resources.Members>` instance for
+        the :class:`Queue <twilio.rest.resources.Queue>` with the
+        given queue_sid
+        """
+        base_uri = "%s/Queues/%s" % (self.account_uri, queue_sid)
+        return Members(base_uri, self.auth, self.timeout)
+
+    def feedback(self, call_sid):
+        """
+        Return a :class:`CallFeedback <twilio.rest.resources.CallFeedback>`
+        instance for the :class:`Call <twilio.rest.resources.calls.Call>`
+        with the given call_sid
+        """
+        base_uri = "%s/Calls/%s/Feedback" % (self.account_uri, call_sid)
+        call_feedback_list = CallFeedbackFactory(
+            base_uri,
+            self.auth,
+            self.timeout
+        )
+        return CallFeedback(call_feedback_list)
+
+
+class TwilioWdsClient(TwilioClient):
+    """
+    A client for accessing the Twilio WDS API
+
+    :param str account: Your Account SID from `your dashboard
+        <https://twilio.com/user/account>`_
+    :param str token: Your Auth Token from `your dashboard
+        <https://twilio.com/user/account>`_
+    :param float timeout: The socket and read timeout for requests to Twilio
+    """
+
+    def __init__(self, account=None, token=None, base="https://wds.twilio.com", version="v1",
+                 timeout=UNSET_TIMEOUT):
+        """
+        Create a Twilio REST API client.
+        """
+        super(TwilioRestClient, self).__init__(account, token, base, version, timeout)
+
+        self.workspaces = Workspaces(self.account_uri, self.auth, timeout)
+
+        self.workspace_uri = "{}/{}/Accounts/{}/Workspaces".format(base, version, account)
+
+    def activities(self, workspace_sid):
+        """
+        Return a :class:`Activities <twilio.rest.resources.wds.Activities>` instance for
+        the :class:`Activity <twilio.rest.resources.wds.Activity>` with the
+        given workspace_sid
+        """
+        base_uri = "{}/{}".format(self.workspace_uri, workspace_sid)
+        return Activities(base_uri, self.auth, self.timeout)

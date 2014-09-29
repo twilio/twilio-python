@@ -1,0 +1,10 @@
+{
+    "sid": "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "friendly_name": "New Activity",
+    "available": true,
+    "date_created": "Wed, 14 May 2014 10:50:02 +0000",
+    "date_updated": "Wed, 14 May 2014 23:26:06 +0000",
+    "uri": "/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Activities/WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}
