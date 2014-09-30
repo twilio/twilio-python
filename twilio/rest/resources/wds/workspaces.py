@@ -31,7 +31,7 @@ class Workspaces(ListResource):
 
         :param friendly_name: Human readable description of this workspace (for
             example "Customer Support" or "2014 Election Campaign").
-        :param event_callback_uri: If provided, the Workspace will publish
+        :param event_callback_url: If provided, the Workspace will publish
             events to this URL. You can use this to gather data for reporting.
             See Workspace Events for more information.
         :param template: One of the available template names. Will

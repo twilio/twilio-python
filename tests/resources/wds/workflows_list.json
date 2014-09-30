@@ -1,0 +1,29 @@
+{
+    "workflows": [
+        {
+            "date_created": "Wed, 14 May 2014 10:50:02 +0000",
+            "date_updated": "Thu, 15 May 2014 16:47:51 +0000",
+            "friendly_name": "Default Fifo Workflow",
+            "assignment_callback_url": "http://example.com",
+            "fallback_assignment_callback_url": null,
+            "document_content_type": "application/json",
+            "configuration": "task-routing:\\n  - filter: \\n      - 1 == 1\\n    target:\\n      - queue: WQ6cea7d9a599fadac8511e9fd2d1b7d10\\n        set-priority: 0\\n",
+            "task_reservation_timeout": 120,
+            "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "sid": "WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "uri": "/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows/WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+    ],
+    "end": 0,
+    "first_page_uri": "/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows?PageSize=50&Page=0",
+    "last_page_uri": "/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows?PageSize=50&Page=0",
+    "next_page_uri": null,
+    "num_pages": 1,
+    "page": 0,
+    "page_size": 50,
+    "previous_page_uri": null,
+    "start": 0,
+    "total": 1,
+    "uri": "/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows?PageSize=50&Page=0"
+}
