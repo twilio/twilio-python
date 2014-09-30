@@ -1,0 +1,14 @@
+{
+    "date_created": "Wed, 14 May 2014 14:26:54 +0000",
+    "date_updated": "Thu, 15 May 2014 16:03:42 +0000",
+    "attributes": "{\"body\": \"hello\"}",
+    "assignment_status": "pending",
+    "priority": 0,
+    "age": 25200,
+    "workflow_sid": "WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "task_queue_sid": "WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "sid": "WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "uri": "/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}

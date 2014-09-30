@@ -3,6 +3,11 @@ from .activities import (
     Activities
 )
 
+from .tasks import (
+    Task,
+    Tasks
+)
+
 from .workers import (
     Worker,
     Workers
