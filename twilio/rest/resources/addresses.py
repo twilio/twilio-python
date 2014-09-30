@@ -3,17 +3,41 @@ from twilio.rest.resources import InstanceResource, ListResource
 
 
 class DependentPhoneNumber(InstanceResource):
+    """A purchased phone number that depends on a particular
+    :class:`Address`.
+
+    Attributes are the same as :class:`PhoneNumber`.
+
+    DependentPhoneNumbers are a read-only resource and cannot
+    be updated or deleted.
+    """
     pass
 
 
 class DependentPhoneNumbers(ListResource):
+    """A list of purchased phone numbers that depend on a particular
+    :class:`Address`.
+
+    Included numbers are those that require an
+    address on file and have no other candidate addresses of the appropriate
+    type (local, foreign) associated with the owning account.
+
+    If this list has entries for a given Address, that address cannot be
+    deleted until the numbers are released from your account or alternate
+    addresses are provided to satisfy the requirements.
+
+    This resource is read-only and cannot be updated or deleted, but will
+    reflect the current state of the owning account's addresses (i.e. if
+    you add another address that satisfies a number's requirements, it will
+    not appear in subsequent requests to this list resource).
+    """
     name = "DependentPhoneNumbers"
     key = "dependent_phone_numbers"
     instance = DependentPhoneNumber
 
 
 class Address(InstanceResource):
-    """An Address resource. See [url].
+    """An Address resource. See https://www.twilio.com/docs/api/rest/address
 
     .. attribute:: friendly_name
 
@@ -70,6 +94,16 @@ class Addresses(ListResource):
 
     def create(self, customer_name, street, city, region, postal_code,
                iso_country, friendly_name=None):
+        """Create an :class:`Address`.
+
+        :param str customer_name: Your customer's name
+        :param str street: The number and street of your address
+        :param str city: The city of you or your customer's address
+        :param str region: The region or state
+        :param str postal_code: The postal code of you or your customer's address
+        :param str iso_country: The ISO 3166-1 alpha-2 (two-character) country code, e.g. 'US' or 'AU'
+        :param str friendly_name: A user-defined name for this address (optional; up to 64 characters)
+        """
         kwargs = {
             'customer_name': customer_name,
             'street': street,
@@ -95,3 +129,10 @@ class Addresses(ListResource):
             raise TwilioException("Cannot update iso_country on an existing Address")
 
         return self.update_instance(sid, kwargs)
+
+    def delete(self, sid):
+        """Delete an :class:`Address`.
+
+        :param str sid: The sid of the Address to delete.
+        """
+        return self.delete_instance(sid)

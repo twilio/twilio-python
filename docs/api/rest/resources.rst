@@ -43,6 +43,27 @@ Accounts
 
       The authorization token for this account. This token should be kept a secret, so no sharing.
 
+Addresses
+>>>>>>>>>
+
+.. autoclass:: Addresses
+   :members:
+   :exclude-members: instance
+
+.. autoclass:: Address
+   :members:
+
+
+DependentPhoneNumbers
+>>>>>>>>>>>>>>>>>>>>>
+
+.. autoclass:: DependentPhoneNumbers
+   :members:
+   :exclude-members: instance
+
+.. autoclass:: DependentPhoneNumber
+   :members:
+
 
 Applications
 >>>>>>>>>>>>>>>
@@ -129,7 +150,7 @@ Applications
    .. attribute:: uri
 
       The URI for this resource, relative to https://api.twilio.com
-      
+
 
 Calls
 >>>>>>
