@@ -1,0 +1,14 @@
+{
+    "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "sid": "WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "friendly_name": "Test TaskQueue",
+    "target_workers": "['worker.support > 5', 'worker.language == spanish']",
+    "reservation_activity_sid": "WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "reservation_activity_name": "Reserved",
+    "assignment_activity_sid": "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "date_created": "Wed, 14 May 2014 10:50:02 +0000",
+    "date_updated": "Thu, 15 May 2014 16:47:51 +0000",
+    "assignment_activity_name": "Working on Task",
+    "uri": "/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}

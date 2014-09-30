@@ -3,6 +3,11 @@ from .activities import (
     Activities
 )
 
+from .task_queues import (
+    TaskQueue,
+    TaskQueues
+)
+
 from .tasks import (
     Task,
     Tasks

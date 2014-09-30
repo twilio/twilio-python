@@ -46,5 +46,16 @@ from .media import Media, MediaList
 from .sip import Sip
 
 from .wds import (
-    Activity, Activities, Task, Tasks, Worker, Workers, Workflow, Workflows, Workspace, Workspaces
+    Activity,
+    Activities,
+    Task,
+    Tasks,
+    TaskQueue,
+    TaskQueues,
+    Worker,
+    Workers,
+    Workflow,
+    Workflows,
+    Workspace,
+    Workspaces
 )

@@ -31,6 +31,7 @@ from .resources import (
     Usage,
     CallFeedbackFactory,
     CallFeedback,
+    TaskQueues,
     Tasks,
     Workers,
     Workflows,
@@ -249,6 +250,15 @@ class TwilioWdsClient(TwilioClient):
         """
         base_uri = "{}/{}".format(self.workspace_uri, workspace_sid)
         return Activities(base_uri, self.auth, self.timeout)
+
+    def task_queues(self, workspace_sid):
+        """
+        Return a :class:`TaskQueues <twilio.rest.resources.wds.TaskQueues>` instance for
+        the :class:`TaskQueue <twilio.rest.resources.wds.TaskQueue>` with the
+        given workspace_sid
+        """
+        base_uri = "{}/{}".format(self.workspace_uri, workspace_sid)
+        return TaskQueues(base_uri, self.auth, self.timeout)
 
     def tasks(self, workspace_sid):
         """
