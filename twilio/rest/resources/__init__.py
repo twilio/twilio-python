@@ -48,6 +48,8 @@ from .sip import Sip
 from .wds import (
     Activity,
     Activities,
+    Reservation,
+    Reservations,
     Task,
     Tasks,
     TaskQueue,

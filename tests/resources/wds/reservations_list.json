@@ -1,0 +1,28 @@
+{
+    "reservations": [
+        {
+            "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "sid": "WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "reservation_status": "reserved",
+            "task_sid": "WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "worker_name": "Doug",
+            "worker_sid": "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "worker_activity_sid": "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "date_created": "Wed, 14 May 2014 10:50:02 +0000",
+            "date_updated": "Thu, 15 May 2014 16:03:42 +0000",
+            "uri": "/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+    ],
+    "end": 0,
+    "first_page_uri": "/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations?PageSize=50&Page=0",
+    "last_page_uri": "/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations?PageSize=50&Page=0",
+    "next_page_uri": null,
+    "num_pages": 1,
+    "page": 0,
+    "page_size": 50,
+    "previous_page_uri": null,
+    "start": 0,
+    "total": 1,
+    "uri": "/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations?PageSize=50&Page=0"
+}

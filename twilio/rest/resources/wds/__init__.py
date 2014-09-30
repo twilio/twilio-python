@@ -3,6 +3,11 @@ from .activities import (
     Activities
 )
 
+from .reservations import (
+    Reservation,
+    Reservations
+)
+
 from .task_queues import (
     TaskQueue,
     TaskQueues
