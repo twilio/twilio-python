@@ -1,0 +1,14 @@
+{
+    "sid": "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "friendly_name": "Test Worker",
+    "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "activity_sid": "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "attributes": "{\"email\": \"test@twilio.com\", \"phone\": \"8675309\"}",
+    "available": true,
+    "activity_name": "available",
+    "date_created": "Wed, 14 May 2014 16:29:17 +0000",
+    "date_updated": "Thu, 15 May 2014 16:03:42 +0000",
+    "date_status_changed": "Wed, 14 May 2014 16:29:17 +0000",
+    "uri": "/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}

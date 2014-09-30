@@ -3,6 +3,11 @@ from .activities import (
     Activities
 )
 
+from .workers import (
+    Worker,
+    Workers
+)
+
 from .workflows import (
     Workflow,
     Workflows

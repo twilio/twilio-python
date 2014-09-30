@@ -57,7 +57,7 @@ class Workflows(ListResource):
 
     def update(self, sid, **kwargs):
         """
-        Update an :class:`Workflow` with the given parameters.
+        Update a :class:`Workflow` with the given parameters.
 
         All the parameters are describe above in :meth:`create`
         """

@@ -45,4 +45,4 @@ from .media import Media, MediaList
 
 from .sip import Sip
 
-from .wds import Activity, Activities, Workflow, Workflows, Workspace, Workspaces
+from .wds import Activity, Activities, Worker, Workers, Workflow, Workflows, Workspace, Workspaces
