@@ -33,10 +33,19 @@ from .resources import (
     CallFeedback,
     Reservations,
     TaskQueues,
+    TaskQueuesStatistics,
     Tasks,
     Workers,
+    WorkersStatistics,
+    WorkersStatisticsFactory,
+    WorkerStatistics,
+    WorkerStatisticsFactory,
     Workflows,
-    Workspaces
+    WorkflowStatistics,
+    WorkflowStatisticsFactory,
+    Workspaces,
+    WorkspaceStatistics,
+    WorkspaceStatisticsFactory
 )
 
 
@@ -237,7 +246,7 @@ class TwilioWdsClient(TwilioClient):
         """
         Create a Twilio REST API client.
         """
-        super(TwilioRestClient, self).__init__(account, token, base, version, timeout)
+        super(TwilioWdsClient, self).__init__(account, token, base, version, timeout)
 
         self.workspaces = Workspaces(self.account_uri, self.auth, timeout)
 
@@ -270,6 +279,15 @@ class TwilioWdsClient(TwilioClient):
         base_uri = "{}/{}".format(self.workspace_uri, workspace_sid)
         return TaskQueues(base_uri, self.auth, self.timeout)
 
+    def task_queues_statistics(self, workspace_sid):
+        """
+        Return a :class:`TaskQueuesStatistics <twilio.rest.resources.wds.TaskQueuesStatistics>` instance for
+        the :class:`TaskQueueStatistics <twilio.rest.resources.wds.TaskQueueStatistics>` with the
+        given workspace_sid
+        """
+        base_uri = "{}/{}/Statistics".format(self.workspace_uri, workspace_sid)
+        return TaskQueuesStatistics(base_uri, self.auth, self.timeout)
+
     def tasks(self, workspace_sid):
         """
         Return a :class:`Tasks <twilio.rest.resources.wds.Tasks>` instance for
@@ -278,6 +296,19 @@ class TwilioWdsClient(TwilioClient):
         """
         base_uri = "{}/{}".format(self.workspace_uri, workspace_sid)
         return Tasks(base_uri, self.auth, self.timeout)
+
+    def worker_statistics(self, workspace_sid):
+        """
+        Return a :class:`WorkerStatistics <twilio.rest.resources.wds.WorkerStatistics>`
+        instance.
+        """
+        base_uri = "{}/{}/Statistics".format(self.workspace_uri, workspace_sid)
+        worker_statistics_factory = WorkerStatisticsFactory(
+            base_uri,
+            self.auth,
+            self.timeout
+        )
+        return WorkerStatistics(worker_statistics_factory)
 
     def workers(self, workspace_sid):
         """
@@ -288,6 +319,19 @@ class TwilioWdsClient(TwilioClient):
         base_uri = "{}/{}".format(self.workspace_uri, workspace_sid)
         return Workers(base_uri, self.auth, self.timeout)
 
+    def workers_statistics(self, workspace_sid):
+        """
+        Return a :class:`WorkersStatistics <twilio.rest.resources.wds.WorkerStatistics>`
+        instance.
+        """
+        base_uri = "{}/{}/Statistics".format(self.workspace_uri, workspace_sid)
+        workers_statistics_factory = WorkersStatisticsFactory(
+            base_uri,
+            self.auth,
+            self.timeout
+        )
+        return WorkersStatistics(workers_statistics_factory)
+
     def workflows(self, workspace_sid):
         """
         Return a :class:`Workflows <twilio.rest.resources.wds.Workflows>` instance for
@@ -296,3 +340,29 @@ class TwilioWdsClient(TwilioClient):
         """
         base_uri = "{}/{}".format(self.workspace_uri, workspace_sid)
         return Workflows(base_uri, self.auth, self.timeout)
+
+    def workflow_statistics(self, workspace_sid):
+        """
+        Return a :class:`WorkflowStatistics <twilio.rest.resources.wds.WorkflowStatistics>`
+        instance.
+        """
+        base_uri = "{}/{}/Statistics".format(self.workspace_uri, workspace_sid)
+        workflow_statistics_factory = WorkflowStatisticsFactory(
+            base_uri,
+            self.auth,
+            self.timeout
+        )
+        return WorkflowStatistics(workflow_statistics_factory)
+
+    def workspace_statistics(self):
+        """
+        Return a :class:`WorkspaceStatistics <twilio.rest.resources.wds.WorkspaceStatistics>`
+        instance.
+        """
+        base_uri = self.workspace_uri
+        workspace_statistics_factory = WorkspaceStatisticsFactory(
+            base_uri,
+            self.auth,
+            self.timeout
+        )
+        return WorkspaceStatistics(workspace_statistics_factory)

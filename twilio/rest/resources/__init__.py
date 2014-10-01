@@ -54,10 +54,20 @@ from .wds import (
     Tasks,
     TaskQueue,
     TaskQueues,
+    TaskQueueStatistics,
+    TaskQueuesStatistics,
     Worker,
     Workers,
+    WorkersStatistics,
+    WorkersStatisticsFactory,
+    WorkerStatistics,
+    WorkerStatisticsFactory,
     Workflow,
     Workflows,
+    WorkflowStatistics,
+    WorkflowStatisticsFactory,
     Workspace,
-    Workspaces
+    Workspaces,
+    WorkspaceStatistics,
+    WorkspaceStatisticsFactory
 )

@@ -1,19 +1,19 @@
 import unittest
 
 from mock import patch, Mock, sentinel, ANY
-from nose.tools import assert_equal, assert_true
+from nose.tools import assert_equal, assert_true, assert_is_not_none
 
 from twilio.rest.resources.imports import json
-from twilio.rest import TwilioRestClient, resources
+from twilio.rest import TwilioRestClient, resources, TwilioWdsClient
 from tools import create_mock_json
 
 AUTH = ("ACCOUNT_SID", "AUTH_TOKEN")
 
 
 class RestClientTest(unittest.TestCase):
-
     def setUp(self):
         self.client = TwilioRestClient("ACCOUNT_SID", "AUTH_TOKEN")
+        self.wds_client = TwilioWdsClient("ACCOUNT_SID", "AUTH_TOKEN")
 
     @patch("twilio.rest.make_request")
     def test_request(self, mock):
@@ -32,7 +32,7 @@ class RestClientTest(unittest.TestCase):
 
     def test_authorized_apps(self):
         assert_true(isinstance(self.client.authorized_connect_apps,
-                    resources.AuthorizedConnectApps))
+                               resources.AuthorizedConnectApps))
 
     @patch("twilio.rest.resources.base.make_request")
     def test_conferences(self, mock):
@@ -48,6 +48,36 @@ class RestClientTest(unittest.TestCase):
         self.client.members("QU123").list()
         uri = "https://api.twilio.com/2010-04-01/Accounts/ACCOUNT_SID/Queues/QU123/Members"
         mock.assert_called_with("GET", uri, params={}, auth=AUTH)
+
+    @patch("twilio.rest.resources.base.make_request")
+    def test_workflows(self, request):
+        resp = create_mock_json("tests/resources/wds/workflows_list.json")
+        request.return_value = resp
+        workflows = self.wds_client.workflows("WS123")
+        workflows = workflows.list()
+        assert_is_not_none(workflows[0].sid)
+        uri = "https://wds.twilio.com/v1/Accounts/ACCOUNT_SID/Workspaces/WS123/Workflows.json"
+        request.assert_called_with("GET", uri, headers=ANY, params={}, auth=AUTH)
+
+    @patch("twilio.rest.resources.base.make_request")
+    def test_workflow_statistics(self, request):
+        resp = create_mock_json("tests/resources/wds/workflows_statistics_instance.json")
+        request.return_value = resp
+        workflow_statistics = self.wds_client.workflow_statistics("WS123")
+        workflow_statistics = workflow_statistics.get("WF123")
+        assert_is_not_none(workflow_statistics.cumulative)
+        uri = "https://wds.twilio.com/v1/Accounts/ACCOUNT_SID/Workspaces/WS123/Statistics/Workflows/WF123.json"
+        request.assert_called_with("GET", uri, headers=ANY, params={}, auth=AUTH)
+
+    @patch("twilio.rest.resources.base.make_request")
+    def test_workspace_statistics(self, request):
+        resp = create_mock_json("tests/resources/wds/workspaces_statistics_instance.json")
+        request.return_value = resp
+        workspace_statistics = self.wds_client.workspace_statistics()
+        workspace_statistics = workspace_statistics.get("WS123")
+        assert_is_not_none(workspace_statistics.cumulative)
+        uri = "https://wds.twilio.com/v1/Accounts/ACCOUNT_SID/Workspaces/WS123/Statistics.json"
+        request.assert_called_with("GET", uri, headers=ANY, params={}, auth=AUTH)
 
 
 class RestClientTimeoutTest(unittest.TestCase):
