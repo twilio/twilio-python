@@ -6,6 +6,7 @@ from .. import __version__ as LIBRARY_VERSION
 from .resources import (
     make_request,
     Accounts,
+    Addresses,
     Applications,
     AuthorizedConnectApps,
     CallerIds,
@@ -94,6 +95,7 @@ values from your Twilio Account at https://www.twilio.com/user/account.
         account_uri = "%s/%s/Accounts/%s" % (base, version, account)
 
         self.accounts = Accounts(version_uri, auth, timeout)
+        self.addresses = Addresses(account_uri, auth, timeout)
         self.applications = Applications(account_uri, auth, timeout)
         self.authorized_connect_apps = AuthorizedConnectApps(
             account_uri,
