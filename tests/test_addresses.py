@@ -27,11 +27,26 @@ class AddressesTest(unittest.TestCase):
         self.resource.update("123", iso_country="CA")
 
     def test_dependent_phone_numbers(self):
-        pn_list = DependentPhoneNumbers('http://api.twilio.com/mock', ('user', 'pass'))
+        pn_list = DependentPhoneNumbers(
+            'http://api.twilio.com/mock',
+            ('user', 'pass'),
+        )
         request = Mock()
-        request.return_value = (Mock(), {"dependent_phone_numbers": [{"sid": "PN123"}], "total": 1, "page": 0, "page_size": 50})
+        request.return_value = (
+            Mock(),
+            {
+                "dependent_phone_numbers": [{"sid": "PN123"}],
+                "total": 1,
+                "page": 0,
+                "page_size": 50,
+            },
+        )
         pn_list.request = request
 
         result = pn_list.list()
-        request.assert_called_with("GET", "http://api.twilio.com/mock/DependentPhoneNumbers", params={})
+        request.assert_called_with(
+            "GET",
+            "http://api.twilio.com/mock/DependentPhoneNumbers",
+            params={},
+        )
         assert_equal(result[0].sid, 'PN123')
