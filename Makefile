@@ -25,5 +25,13 @@ docs-install:
 docs:
 	. venv/bin/activate; cd docs && make html
 
+release: venv
+	. venv/bin/activate; python setup.py sdist upload
+	. venv/bin/activate; python setup.py bdist_wheel upload
+
+build: venv
+	. venv/bin/activate; python setup.py sdist
+	. venv/bin/activate; python setup.py bdist_wheel
+
 clean:
 	rm -rf venv
