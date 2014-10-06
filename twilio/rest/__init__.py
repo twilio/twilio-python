@@ -153,6 +153,14 @@ values from your Twilio Account at https://www.twilio.com/user/account.
         )
         return CallFeedback(call_feedback_list)
 
+    def dependent_phone_numbers(self, address_sid):
+        """
+        Return a :class:`DependentPhoneNumbers <twilio.rest.resources.DependentPhoneNumbers>` instance for
+        the :class:`Address <twilio.rest.resources.Address>` with the given address_sid
+        """
+        base_uri = "%s/Addresses/%s" % (self.account_uri, address_sid)
+        return DependentPhoneNumbers(base_uri, self.auth, self.timeout)
+
     def request(self, path, method=None, vars=None):
         """sends a request and gets a response from the Twilio REST API
 
