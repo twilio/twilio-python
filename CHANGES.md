@@ -3,6 +3,25 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.6.8
+-------------
+
+Released October 9, 2014
+
+- Remove unneeded unittest2py3k dependency.
+- Restore backwards-compatible exception import paths.
+
+Version 3.6.7
+-------------
+
+Released August 6, 2014
+
+- Fix Python 2.5 compatibility.
+- Add CallFeedback resources.
+- Typo fixes and formatting cleanup.
+- Refactor exception hierarchy and imports.
+- Documentation improvements.
+
 Version 3.6.6
 --------------
 
