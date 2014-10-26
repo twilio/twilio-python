@@ -43,7 +43,7 @@ class TwilioRestException(TwilioException):
             return u("\033[36m\033[49m%s\033[0m") % words
 
         def get_uri(code):
-            return "https://www.twilio.com/docs/errors/{}".format(code)
+            return "https://www.twilio.com/docs/errors/{0}".format(code)
 
         # If it makes sense to print a human readable error message, try to
         # do it. The one problem is that someone might catch this error and
