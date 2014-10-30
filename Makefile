@@ -6,7 +6,7 @@ venv:
 install: venv
 	. venv/bin/activate; pip install . --use-mirrors
 
-test-install:
+test-install: install
 	. venv/bin/activate; pip install -r tests/requirements.txt
 
 analysis:
