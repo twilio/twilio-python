@@ -50,6 +50,25 @@ you can use the client to retrieve that record.
     call = client.calls.get(sid)
 
 
+
+Delete a Call Record
+--------------------
+
+You can delete your :class:`Call` resources from Twilio's storage
+to protect your users' privacy and/or comply with legal requirements.
+
+.. code-block:: python
+
+    from twilio.rest import TwilioRestClient
+
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
+    sid = "CA12341234"
+    client.calls.delete(sid)
+
 Accessing Specific Call Resources
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
