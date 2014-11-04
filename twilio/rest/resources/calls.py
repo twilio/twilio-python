@@ -50,6 +50,10 @@ class Call(InstanceResource):
         a = self.parent.route(self.name, **kwargs)
         self.load(a.__dict__)
 
+    def delete(self):
+        """Delete the specified :class:`Call` record from Twilio."""
+        return self.parent.delete(self.name)
+
 
 class Calls(ListResource):
     """ A list of Call resources """
@@ -169,3 +173,7 @@ class Calls(ListResource):
         return call_feedback_factory.create(
             quality_score=quality_score, issue=issue
         )
+
+    def delete(self, sid):
+        """Delete the given Call record from Twilio."""
+        return self.delete_instance(sid)
