@@ -86,6 +86,16 @@ class Message(InstanceResource):
 
     subresources = [MediaList]
 
+    def delete(self):
+        """Delete this Message record from Twilio."""
+        return self.parent.delete(self.sid)
+
+    def redact(self):
+        """Redact this Message's `body` field from Twilio while preserving
+        the record itself and related metadata.
+        """
+        return self.parent.redact(self.sid)
+
 
 class Messages(ListResource):
     name = "Messages"
@@ -137,3 +147,11 @@ class Messages(ListResource):
         :param sid: The sid of the message to update.
         """
         return self.update_instance(sid, kwargs)
+
+    def delete(self, sid):
+        """Delete the specified Message record from Twilio."""
+        return self.delete_instance(sid)
+
+    def redact(self, sid):
+        """Redact the specified Message record's Body field."""
+        return self.update_instance(sid, {'Body': ''})
