@@ -3,6 +3,23 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.6.10
+--------------
+
+Released November 13, 2014
+
+- Add support for DELETE to Call and Message records
+- Add support for redacting Message body fields
+
+Version 3.6.9
+-------------
+
+Released October 30, 2014
+
+- Add Python 3.4 support
+- Add wheel packaging
+- Fix compatibility with earlier Python 2 releases
+
 Version 3.6.8
 -------------
 

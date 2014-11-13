@@ -1,6 +1,6 @@
 from datetime import date
 from mock import patch, Mock
-from nose.tools import raises, assert_true
+from nose.tools import assert_true
 from twilio.rest.resources import Calls, Call
 from tools import create_mock_json
 

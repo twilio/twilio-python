@@ -1,7 +1,7 @@
 from datetime import date
 import unittest
 
-from mock import Mock, patch
+from mock import patch
 from six import u
 
 from twilio.rest.resources import Messages
@@ -52,7 +52,7 @@ class MessageTest(unittest.TestCase):
                     'body': u('ahoy hoy'),
                 },
             )
-            
+
     def test_delete(self):
         with patch.object(self.resource, 'delete_instance') as mock:
             self.resource.delete('MM123')
