@@ -72,7 +72,7 @@ client = TwilioRestClient(account, token)
 call = client.calls.create(to="9991231234",
                            from_="9991231234",
                            url="http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient")
-print call.sid
+print(call.sid)
 ```
 
 ### Send an SMS
@@ -99,7 +99,7 @@ from twilio import twiml
 
 r = twiml.Response()
 r.say("Welcome to twilio!")
-print str(r)
+print(str(r))
 ```
 
 ```xml
