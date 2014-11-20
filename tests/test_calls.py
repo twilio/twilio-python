@@ -49,7 +49,7 @@ def test_paging_iter(mock):
     mock.return_value = resp
 
     uri = "%s/Calls" % (BASE_URI)
-    list_resource.iter(started_before=date(2010, 12, 5)).next()
+    next(list_resource.iter(started_before=date(2010, 12, 5)))
     exp_params = {'StartTime<': '2010-12-05'}
 
     mock.assert_called_with("GET", uri, params=exp_params, auth=AUTH)
