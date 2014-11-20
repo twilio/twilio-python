@@ -18,7 +18,7 @@ REQUIRES = ["httplib2 >= 0.7", "six"]
 if sys.version_info < (2, 6):
     REQUIRES.append('simplejson')
 if sys.version_info >= (3,0):
-    REQUIRES.append('socksipy-branch')
+    REQUIRES.append('pysocks')
 
 setup(
     name = "twilio",
