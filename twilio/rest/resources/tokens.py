@@ -10,11 +10,13 @@ class Token(InstanceResource):
 
     .. attribute:: password
 
-       The temporary password that the username will use when authenticating with Twilio.
+       The temporary password that the username will use when
+       authenticating with Twilio.
 
     .. attribute:: ttl
 
-       The duration in seconds for which the username and password are valid, the default value is 86,400 (24 hours).
+       The duration in seconds for which the username and password
+       are valid, the default value is 86,400 (24 hours).
 
     .. attribute:: account_sid
 
@@ -22,7 +24,8 @@ class Token(InstanceResource):
 
     .. attribute:: ice_servers
 
-       An array representing the ephemeral credentials and the STUN and TURN server URIs.
+       An array representing the ephemeral credentials and the
+       STUN and TURN server URIs.
 
     .. attribute:: date_created
 
