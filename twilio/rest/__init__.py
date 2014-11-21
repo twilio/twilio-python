@@ -29,6 +29,7 @@ from .resources import (
     Usage,
     CallFeedbackFactory,
     CallFeedback,
+    Tokens,
 )
 
 
@@ -115,6 +116,7 @@ values from your Twilio Account at https://www.twilio.com/user/account.
         self.messages = Messages(account_uri, auth, timeout)
         self.media = MediaList(account_uri, auth, timeout)
         self.sip = Sip(account_uri, auth, timeout)
+        self.tokens = Tokens(account_uri, auth, timeout)
 
         self.auth = auth
         self.account_uri = account_uri
