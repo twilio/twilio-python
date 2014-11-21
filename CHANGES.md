@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.6.11
+--------------
+
+Released November 21, 2014
+
+- Add support for the new Tokens endpoint
+
 Version 3.6.10
 --------------
 
