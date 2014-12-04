@@ -53,3 +53,10 @@ from .media import Media, MediaList
 from .sip import Sip
 
 from .tokens import Token, Tokens
+
+from .addresses import (
+    Address,
+    Addresses,
+    DependentPhoneNumber,
+    DependentPhoneNumbers,
+)
