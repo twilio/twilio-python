@@ -14,6 +14,7 @@ from .resources import (
     Conferences,
     ConnectApps,
     Connection,
+    DependentPhoneNumbers,
     MediaList,
     Members,
     Messages,
