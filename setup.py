@@ -29,6 +29,12 @@ setup(
     url = "https://github.com/twilio/twilio-python/",
     keywords = ["twilio","twiml"],
     install_requires = REQUIRES,
+    # bdist conditional requirements support
+    extras_require={
+        ':python_version=="3.2"': ['pysocks'],
+        ':python_version=="3.3"': ['pysocks'],
+        ':python_version=="3.4"': ['pysocks'],
+    },
     packages = find_packages(),
     include_package_data=True,
     classifiers = [
