@@ -1,6 +1,6 @@
 {
-    "uri": "pricing.twilio.com/v1/PhoneNumbers/Countries/EE"
-    "country” : "Estonia"
+    "uri": "pricing.twilio.com/v1/PhoneNumbers/Countries/EE",
+    "country" : "Estonia",
     "iso_country": "EE",
     "phone_number_prices": [
         {
