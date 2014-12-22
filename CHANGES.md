@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.6.14
+--------------
+
+Released December 22, 2014
+
+- Specify Python 3 dependencies in wheel package
+
 Version 3.6.12
 --------------
 
