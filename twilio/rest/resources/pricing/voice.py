@@ -71,7 +71,6 @@ class VoiceCountries(ListResource):
 
     def list(self):
         """Retrieve the list of countries in which Twilio Voice is available."""
-
         resp, page = self.request("GET", self.uri)
 
         return [self.load_instance(i) for i in page[self.key]]
@@ -112,7 +111,7 @@ class VoiceNumber(InstanceResource):
             discounts, etc.) to receive a call to this number
     """
 
-    id_key = "phone_number"
+    id_key = "number"
 
 
 class VoiceNumbers(ListResource):
