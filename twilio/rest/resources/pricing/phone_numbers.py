@@ -15,13 +15,17 @@ class PhoneNumbers(object):
 class PhoneNumberCountry(InstanceResource):
     """Pricing information for Twilio Phone Numbers in a specific country.
 
+    Twilio numbers are billed monthly, and the prices returned reflect
+    current Twilio list pricing before and after any discounts available for
+    the requesting account are applied.
+
     .. attribute:: country
 
         The full name of the country.
 
     .. attribute:: iso_country
 
-        The country's 2-character ISO code.
+        The country's 2-character ISO 3166-1 code.
 
     .. attribute:: price_unit
 
@@ -41,13 +45,19 @@ class PhoneNumberCountry(InstanceResource):
 
 
 class PhoneNumberCountries(ListResource):
+    """A list of countries where Twilio Phone Numbers are available.
+
+    The returned list of PhoneNumberCountry objects will not have pricing
+    information populated. To get pricing information for a specific country,
+    retrieve it with the :meth:`get` method.
+    """
 
     instance = PhoneNumberCountry
     key = "countries"
     name = "Countries"
 
     def get(self, iso_country):
-        """Retrieve pricing information for Twilio Number in the specified
+        """Retrieve pricing information for Twilio Numbers in the specified
         country.
 
         :param iso_country: The two-letter ISO code for the country
