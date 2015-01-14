@@ -1,7 +1,7 @@
 import unittest
 from nose.tools import assert_equal
 
-from mock import patch, ANY
+from mock import patch
 from tests.tools import create_mock_json
 
 from twilio.rest.resources.pricing.phone_numbers import PhoneNumberCountries
