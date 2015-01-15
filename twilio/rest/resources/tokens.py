@@ -35,10 +35,13 @@ class Token(InstanceResource):
 
        The date that this resource was last updated, given in RFC 2822 format.
     """
-    pass
+    id_key = "username"
 
 
 class Tokens(ListResource):
+    name = "Tokens"
+    key = "tokens"
+    instance = Token
 
     def create(self, ttl=None, **kwargs):
         """
