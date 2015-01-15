@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.6.15
+--------------
+
+Released January 14, 2014
+
+- Update request construction for Tokens
+
 Version 3.6.14
 --------------
 
