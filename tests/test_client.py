@@ -59,26 +59,6 @@ class RestClientTest(unittest.TestCase):
         uri = "https://wds.twilio.com/v1/Accounts/ACCOUNT_SID/Workspaces/WS123/Workflows.json"
         request.assert_called_with("GET", uri, headers=ANY, params={}, auth=AUTH)
 
-    @patch("twilio.rest.resources.base.make_request")
-    def test_workflow_statistics(self, request):
-        resp = create_mock_json("tests/resources/wds/workflows_statistics_instance.json")
-        request.return_value = resp
-        workflow_statistics = self.wds_client.workflow_statistics("WS123")
-        workflow_statistics = workflow_statistics.get("WF123")
-        assert_is_not_none(workflow_statistics.cumulative)
-        uri = "https://wds.twilio.com/v1/Accounts/ACCOUNT_SID/Workspaces/WS123/Statistics/Workflows/WF123.json"
-        request.assert_called_with("GET", uri, headers=ANY, params={}, auth=AUTH)
-
-    @patch("twilio.rest.resources.base.make_request")
-    def test_workspace_statistics(self, request):
-        resp = create_mock_json("tests/resources/wds/workspaces_statistics_instance.json")
-        request.return_value = resp
-        workspace_statistics = self.wds_client.workspace_statistics()
-        workspace_statistics = workspace_statistics.get("WS123")
-        assert_is_not_none(workspace_statistics.cumulative)
-        uri = "https://wds.twilio.com/v1/Accounts/ACCOUNT_SID/Workspaces/WS123/Statistics.json"
-        request.assert_called_with("GET", uri, headers=ANY, params={}, auth=AUTH)
-
 
 class RestClientTimeoutTest(unittest.TestCase):
     def setUp(self):

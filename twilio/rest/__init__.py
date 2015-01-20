@@ -33,19 +33,10 @@ from .resources import (
     CallFeedback,
     Reservations,
     TaskQueues,
-    TaskQueuesStatistics,
     Tasks,
     Workers,
-    WorkersStatistics,
-    WorkersStatisticsFactory,
-    WorkerStatistics,
-    WorkerStatisticsFactory,
     Workflows,
-    WorkflowStatistics,
-    WorkflowStatisticsFactory,
     Workspaces,
-    WorkspaceStatistics,
-    WorkspaceStatisticsFactory
 )
 
 
@@ -69,7 +60,8 @@ def set_twilio_proxy(proxy_url, proxy_port):
 
 
 class TwilioClient(object):
-    def __init__(self, account=None, token=None, base="https://api.twilio.com", version="2010-04-01",
+    def __init__(self, account=None, token=None, base="https://api.twilio.com",
+                 version="2010-04-01",
                  timeout=UNSET_TIMEOUT):
         """
         Create a Twilio API client.
@@ -166,12 +158,13 @@ class TwilioRestClient(TwilioClient):
     :param float timeout: The socket and read timeout for requests to Twilio
     """
 
-    def __init__(self, account=None, token=None, base="https://api.twilio.com", version="2010-04-01",
-                 timeout=UNSET_TIMEOUT):
+    def __init__(self, account=None, token=None, base="https://api.twilio.com",
+                 version="2010-04-01", timeout=UNSET_TIMEOUT):
         """
         Create a Twilio REST API client.
         """
-        super(TwilioRestClient, self).__init__(account, token, base, version, timeout)
+        super(TwilioRestClient, self).__init__(account, token, base, version,
+                                               timeout)
 
         version_uri = "%s/%s" % (base, version)
 
@@ -185,9 +178,11 @@ class TwilioRestClient(TwilioClient):
         self.calls = Calls(self.account_uri, self.auth, timeout)
         self.caller_ids = CallerIds(self.account_uri, self.auth, timeout)
         self.connect_apps = ConnectApps(self.account_uri, self.auth, timeout)
-        self.notifications = Notifications(self.account_uri, self.auth, timeout)
+        self.notifications = Notifications(self.account_uri, self.auth,
+                                           timeout)
         self.recordings = Recordings(self.account_uri, self.auth, timeout)
-        self.transcriptions = Transcriptions(self.account_uri, self.auth, timeout)
+        self.transcriptions = Transcriptions(self.account_uri, self.auth,
+                                             timeout)
         self.sms = Sms(self.account_uri, self.auth, timeout)
         self.phone_numbers = PhoneNumbers(self.account_uri, self.auth, timeout)
         self.conferences = Conferences(self.account_uri, self.auth, timeout)
@@ -241,128 +236,66 @@ class TwilioWdsClient(TwilioClient):
     :param float timeout: The socket and read timeout for requests to Twilio
     """
 
-    def __init__(self, account=None, token=None, base="https://wds.twilio.com", version="v1",
+    def __init__(self, account=None, token=None, base="https://wds.twilio.com",
+                 version="v1",
                  timeout=UNSET_TIMEOUT):
         """
         Create a Twilio REST API client.
         """
-        super(TwilioWdsClient, self).__init__(account, token, base, version, timeout)
+        super(TwilioWdsClient, self).__init__(account, token, base, version,
+                                              timeout)
 
         self.workspaces = Workspaces(self.account_uri, self.auth, timeout)
 
-        self.workspace_uri = "{}/{}/Accounts/{}/Workspaces".format(base, version, account)
+        self.workspace_uri = "{}/{}/Accounts/{}/Workspaces".format(
+            base, version, account
+        )
 
     def activities(self, workspace_sid):
         """
-        Return a :class:`Activities <twilio.rest.resources.wds.Activities>` instance for
-        the :class:`Activity <twilio.rest.resources.wds.Activity>` with the
-        given workspace_sid
+        Return a :class:`Activities` instance for the :class:`Activity`
+        with the given workspace_sid
         """
         base_uri = "{}/{}".format(self.workspace_uri, workspace_sid)
         return Activities(base_uri, self.auth, self.timeout)
 
     def reservations(self, workspace_sid, task_sid):
         """
-        Return a :class:`Reservations <twilio.rest.resources.wds.Reservations>` instance for
-        the :class:`Reservation <twilio.rest.resources.wds.Reservation>` with the
-        given workspace_sid ans task_sid
+        Return a :class:`Reservations` instance for the :class:`Reservation`
+        with the given workspace_sid ans task_sid
         """
-        base_uri = "{}/{}/Tasks/{}".format(self.workspace_uri, workspace_sid, task_sid)
+        base_uri = "{}/{}/Tasks/{}".format(self.workspace_uri, workspace_sid,
+                                           task_sid)
         return Reservations(base_uri, self.auth, self.timeout)
 
     def task_queues(self, workspace_sid):
         """
-        Return a :class:`TaskQueues <twilio.rest.resources.wds.TaskQueues>` instance for
-        the :class:`TaskQueue <twilio.rest.resources.wds.TaskQueue>` with the
-        given workspace_sid
+        Return a :class:`TaskQueues` instance for the :class:`TaskQueue` with
+        the given workspace_sid
         """
         base_uri = "{}/{}".format(self.workspace_uri, workspace_sid)
         return TaskQueues(base_uri, self.auth, self.timeout)
 
-    def task_queues_statistics(self, workspace_sid):
-        """
-        Return a :class:`TaskQueuesStatistics <twilio.rest.resources.wds.TaskQueuesStatistics>` instance for
-        the :class:`TaskQueueStatistics <twilio.rest.resources.wds.TaskQueueStatistics>` with the
-        given workspace_sid
-        """
-        base_uri = "{}/{}/Statistics".format(self.workspace_uri, workspace_sid)
-        return TaskQueuesStatistics(base_uri, self.auth, self.timeout)
-
     def tasks(self, workspace_sid):
         """
-        Return a :class:`Tasks <twilio.rest.resources.wds.Tasks>` instance for
-        the :class:`Task <twilio.rest.resources.wds.Task>` with the
-        given workspace_sid
+        Return a :class:`Tasks` instance for the :class:`Task` with the given
+        workspace_sid
         """
         base_uri = "{}/{}".format(self.workspace_uri, workspace_sid)
         return Tasks(base_uri, self.auth, self.timeout)
 
-    def worker_statistics(self, workspace_sid):
-        """
-        Return a :class:`WorkerStatistics <twilio.rest.resources.wds.WorkerStatistics>`
-        instance.
-        """
-        base_uri = "{}/{}/Statistics".format(self.workspace_uri, workspace_sid)
-        worker_statistics_factory = WorkerStatisticsFactory(
-            base_uri,
-            self.auth,
-            self.timeout
-        )
-        return WorkerStatistics(worker_statistics_factory)
-
     def workers(self, workspace_sid):
         """
-        Return a :class:`Workers <twilio.rest.resources.wds.Workers>` instance for
-        the :class:`Worker <twilio.rest.resources.wds.Worker>` with the
+        Return a :class:`Workers` instance for the :class:`Worker` with the
         given workspace_sid
         """
         base_uri = "{}/{}".format(self.workspace_uri, workspace_sid)
         return Workers(base_uri, self.auth, self.timeout)
 
-    def workers_statistics(self, workspace_sid):
-        """
-        Return a :class:`WorkersStatistics <twilio.rest.resources.wds.WorkerStatistics>`
-        instance.
-        """
-        base_uri = "{}/{}/Statistics".format(self.workspace_uri, workspace_sid)
-        workers_statistics_factory = WorkersStatisticsFactory(
-            base_uri,
-            self.auth,
-            self.timeout
-        )
-        return WorkersStatistics(workers_statistics_factory)
-
     def workflows(self, workspace_sid):
         """
-        Return a :class:`Workflows <twilio.rest.resources.wds.Workflows>` instance for
-        the :class:`Workflow <twilio.rest.resources.wds.Workflow>` with the
+        Return a :class:`Workflows` instance for the :class:`Workflow` with the
         given workspace_sid
         """
         base_uri = "{}/{}".format(self.workspace_uri, workspace_sid)
         return Workflows(base_uri, self.auth, self.timeout)
-
-    def workflow_statistics(self, workspace_sid):
-        """
-        Return a :class:`WorkflowStatistics <twilio.rest.resources.wds.WorkflowStatistics>`
-        instance.
-        """
-        base_uri = "{}/{}/Statistics".format(self.workspace_uri, workspace_sid)
-        workflow_statistics_factory = WorkflowStatisticsFactory(
-            base_uri,
-            self.auth,
-            self.timeout
-        )
-        return WorkflowStatistics(workflow_statistics_factory)
-
-    def workspace_statistics(self):
-        """
-        Return a :class:`WorkspaceStatistics <twilio.rest.resources.wds.WorkspaceStatistics>`
-        instance.
-        """
-        base_uri = self.workspace_uri
-        workspace_statistics_factory = WorkspaceStatisticsFactory(
-            base_uri,
-            self.auth,
-            self.timeout
-        )
-        return WorkspaceStatistics(workspace_statistics_factory)

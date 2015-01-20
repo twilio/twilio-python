@@ -1,10 +1,14 @@
 from .. import InstanceResource, ListResource
+from .statistics import Statistics
 
 
 class TaskQueue(InstanceResource):
     """
     A TaskQueue resource
     """
+    subresources = [
+        Statistics,
+    ]
 
     def delete(self):
         """
@@ -26,7 +30,12 @@ class TaskQueues(ListResource):
     instance = TaskQueue
     key = "task_queues"
 
-    def create(self, friendly_name, assignment_activity_sid, reservation_activity_sid, **kwargs):
+    def __init__(self, *args, **kwargs):
+        super(TaskQueues, self).__init__(*args, **kwargs)
+        self.statistics = Statistics(self, *args, **kwargs)
+
+    def create(self, friendly_name, assignment_activity_sid,
+               reservation_activity_sid, **kwargs):
         """
         Create a TaskQueue.
 

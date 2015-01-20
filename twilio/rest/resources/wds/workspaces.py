@@ -1,10 +1,14 @@
 from .. import InstanceResource, ListResource
+from .statistics import Statistics
 
 
 class Workspace(InstanceResource):
     """
     A Workspace resource
     """
+    subresources = [
+        Statistics,
+    ]
 
     def delete(self):
         """

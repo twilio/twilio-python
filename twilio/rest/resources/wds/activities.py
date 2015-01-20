@@ -39,7 +39,8 @@ class Activities(ListResource):
             example, a call center might have an activity named 'On Call' with
             an availability set to 'false'.
         """
-        return self.create_instance({'friendly_name': friendly_name, 'available': available})
+        return self.create_instance({'friendly_name': friendly_name,
+                                     'available': available})
 
     def delete(self, sid):
         """

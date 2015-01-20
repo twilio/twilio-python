@@ -1,10 +1,14 @@
 from .. import InstanceResource, ListResource
+from .statistics import Statistics
 
 
 class Worker(InstanceResource):
     """
     A Worker resource
     """
+    subresources = [
+        Statistics
+    ]
 
     def delete(self):
         """
@@ -24,6 +28,10 @@ class Workers(ListResource):
 
     name = "Workers"
     instance = Worker
+
+    def __init__(self, *args, **kwargs):
+        super(Workers, self).__init__(*args, **kwargs)
+        self.statistics = Statistics(self, *args, **kwargs)
 
     def create(self, friendly_name, **kwargs):
         """

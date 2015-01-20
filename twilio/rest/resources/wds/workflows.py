@@ -1,10 +1,14 @@
 from .. import InstanceResource, ListResource
+from .statistics import Statistics
 
 
 class Workflow(InstanceResource):
     """
     A Workflow resource
     """
+    subresources = [
+        Statistics,
+    ]
 
     def delete(self):
         """
@@ -25,7 +29,8 @@ class Workflows(ListResource):
     name = "Workflows"
     instance = Workflow
 
-    def create(self, friendly_name, configuration, assignment_callback_url, **kwargs):
+    def create(self, friendly_name, configuration, assignment_callback_url,
+               **kwargs):
         """
         Create a Workflow.
 

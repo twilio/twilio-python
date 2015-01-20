@@ -37,7 +37,8 @@ class Tasks(ListResource):
         :param workflow_sid: The workflow_sid for the Workflow that you would
             like to handle routing for this Task.
         """
-        return self.create_instance({'attributes': attributes, 'workflow_sid': workflow_sid})
+        return self.create_instance({'attributes': attributes,
+                                     'workflow_sid': workflow_sid})
 
     def delete(self, sid):
         """
