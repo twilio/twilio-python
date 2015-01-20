@@ -18,8 +18,7 @@ REQUIRES = ["httplib2 >= 0.7", "six"]
 if sys.version_info < (2, 6):
     REQUIRES.append('simplejson')
 if sys.version_info >= (3,0):
-    REQUIRES.append('unittest2py3k')
-    REQUIRES.append('socksipy-branch')
+    REQUIRES.append('pysocks')
 
 setup(
     name = "twilio",
@@ -30,6 +29,12 @@ setup(
     url = "https://github.com/twilio/twilio-python/",
     keywords = ["twilio","twiml"],
     install_requires = REQUIRES,
+    # bdist conditional requirements support
+    extras_require={
+        ':python_version=="3.2"': ['pysocks'],
+        ':python_version=="3.3"': ['pysocks'],
+        ':python_version=="3.4"': ['pysocks'],
+    },
     packages = find_packages(),
     include_package_data=True,
     classifiers = [
@@ -43,6 +48,7 @@ setup(
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3.2",
         "Programming Language :: Python :: 3.3",
+        "Programming Language :: Python :: 3.4",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Communications :: Telephony",
         ],

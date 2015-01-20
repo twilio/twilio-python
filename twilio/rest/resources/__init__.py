@@ -61,3 +61,12 @@ from .wds import (
     Workspace,
     Workspaces,
 )
+
+from .tokens import Token, Tokens
+
+from .addresses import (
+    Address,
+    Addresses,
+    DependentPhoneNumber,
+    DependentPhoneNumbers,
+)

@@ -120,3 +120,27 @@ The following will only show messages to "+5466758723" on January 1st, 2011.
     for message in messages:
         print message.body
 
+Redacting or Deleting Message Records
+-------------------------------------
+
+To protect your users' privacy and/or comply with legal requirements,
+Twilio allows you to redact your :class:`Message` bodies or delete the records
+outright.
+
+.. code-block:: python
+
+    from twilio.rest import TwilioRestClient
+
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
+    message_sid = "MM123"
+
+    client.messages.redact(message_sid)
+    message = client.messages.get(message_sid)
+    print message.body  # Will be an empty string
+
+    client.messages.delete(message_sid)  # Deletes record entirely, subsequent requests will return 404
+

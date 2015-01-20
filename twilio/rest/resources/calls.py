@@ -50,6 +50,10 @@ class Call(InstanceResource):
         a = self.parent.route(self.name, **kwargs)
         self.load(a.__dict__)
 
+    def delete(self):
+        """Delete the specified :class:`Call` record from Twilio."""
+        return self.parent.delete(self.name)
+
 
 class Calls(ListResource):
     """ A list of Call resources """
@@ -80,6 +84,25 @@ class Calls(ListResource):
         kwargs["EndTime>"] = ended_after
         kwargs["EndTime"] = parse_date(ended)
         return self.get_instances(kwargs)
+
+    @normalize_dates
+    def iter(self, from_=None, ended_after=None,
+             ended_before=None, ended=None, started_before=None,
+             started_after=None, started=None, **kwargs):
+        """
+        Returns an iterator of :class:`Call` resources.
+
+        :param date after: Only list calls started after this datetime
+        :param date before: Only list calls started before this datetime
+        """
+        kwargs["from"] = from_
+        kwargs["StartTime<"] = started_before
+        kwargs["StartTime>"] = started_after
+        kwargs["StartTime"] = parse_date(started)
+        kwargs["EndTime<"] = ended_before
+        kwargs["EndTime>"] = ended_after
+        kwargs["EndTime"] = parse_date(ended)
+        return super(Calls, self).iter(**kwargs)
 
     def create(self, to, from_, url, status_method=None, **kwargs):
         """
@@ -169,3 +192,7 @@ class Calls(ListResource):
         return call_feedback_factory.create(
             quality_score=quality_score, issue=issue
         )
+
+    def delete(self, sid):
+        """Delete the given Call record from Twilio."""
+        return self.delete_instance(sid)

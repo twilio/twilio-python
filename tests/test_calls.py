@@ -1,7 +1,7 @@
 from datetime import date
-from mock import patch
-from nose.tools import raises, assert_true
-from twilio.rest.resources import Calls
+from mock import patch, Mock
+from nose.tools import assert_true
+from twilio.rest.resources import Calls, Call
 from tools import create_mock_json
 
 BASE_URI = "https://api.twilio.com/2010-04-01/Accounts/AC123"
@@ -38,6 +38,18 @@ def test_paging(mock):
 
     uri = "%s/Calls" % (BASE_URI)
     list_resource.list(started_before=date(2010, 12, 5))
+    exp_params = {'StartTime<': '2010-12-05'}
+
+    mock.assert_called_with("GET", uri, params=exp_params, auth=AUTH)
+
+
+@patch("twilio.rest.resources.base.make_twilio_request")
+def test_paging_iter(mock):
+    resp = create_mock_json("tests/resources/calls_list.json")
+    mock.return_value = resp
+
+    uri = "%s/Calls" % (BASE_URI)
+    next(list_resource.iter(started_before=date(2010, 12, 5)))
     exp_params = {'StartTime<': '2010-12-05'}
 
     mock.assert_called_with("GET", uri, params=exp_params, auth=AUTH)
@@ -82,6 +94,15 @@ def test_cancel(mock):
     assert_true(r)
 
 
-@raises(AttributeError)
-def test_create():
-    list_resource.delete
+@patch("twilio.rest.resources.base.Resource.request")
+def test_delete(req):
+    """ Deleting a call should work """
+    resp = Mock()
+    resp.content = ""
+    resp.status_code = 204
+    req.return_value = resp, {}
+
+    app = Call(list_resource, "CA123")
+    app.delete()
+    uri = "https://api.twilio.com/2010-04-01/Accounts/AC123/Calls/CA123"
+    req.assert_called_with("DELETE", uri)

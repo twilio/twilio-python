@@ -8,6 +8,7 @@ from .resources import (
     make_request,
     Accounts,
     Activities,
+    Addresses,
     Applications,
     AuthorizedConnectApps,
     CallerIds,
@@ -15,6 +16,7 @@ from .resources import (
     Conferences,
     ConnectApps,
     Connection,
+    DependentPhoneNumbers,
     MediaList,
     Members,
     Messages,
@@ -37,6 +39,7 @@ from .resources import (
     Workers,
     Workflows,
     Workspaces,
+    Tokens,
 )
 
 
@@ -91,6 +94,16 @@ values from your Twilio Account at https://www.twilio.com/user/account.
         self.auth = (account, token)
         self.timeout = timeout
         self.account_uri = "{}/{}/Accounts/{}".format(base, version, account)
+
+    def dependent_phone_numbers(self, address_sid):
+        """
+        Return a :class:`DependentPhoneNumbers
+        <twilio.rest.resources.DependentPhoneNumbers>` instance for the
+        :class:`Address <twilio.rest.resources.Address>` with the given
+        address_sid
+        """
+        base_uri = "%s/Addresses/%s" % (self.account_uri, address_sid)
+        return DependentPhoneNumbers(base_uri, self.auth, self.timeout)
 
     def request(self, path, method=None, vars=None):
         """sends a request and gets a response from the Twilio REST API

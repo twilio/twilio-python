@@ -6,7 +6,7 @@ venv:
 install: venv
 	. venv/bin/activate; pip install . --use-mirrors
 
-test-install:
+test-install: install
 	. venv/bin/activate; pip install -r tests/requirements.txt
 
 analysis:
@@ -24,6 +24,14 @@ docs-install:
 
 docs:
 	. venv/bin/activate; cd docs && make html
+
+release: test-install
+	. venv/bin/activate; python setup.py sdist upload
+	. venv/bin/activate; python setup.py bdist_wheel upload
+
+build: test-install
+	. venv/bin/activate; python setup.py sdist
+	. venv/bin/activate; python setup.py bdist_wheel
 
 clean:
 	rm -rf venv
