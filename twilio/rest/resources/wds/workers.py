@@ -29,9 +29,9 @@ class Workers(ListResource):
     name = "Workers"
     instance = Worker
 
-    def __init__(self, *args, **kwargs):
-        super(Workers, self).__init__(*args, **kwargs)
-        self.statistics = Statistics(self, *args, **kwargs)
+    def __init__(self, base_uri, auth, **kwargs):
+        super(Workers, self).__init__(base_uri, auth, **kwargs)
+        self.statistics = Statistics(self.uri, auth, **kwargs)
 
     def create(self, friendly_name, **kwargs):
         """

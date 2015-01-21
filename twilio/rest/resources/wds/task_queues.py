@@ -30,9 +30,9 @@ class TaskQueues(ListResource):
     instance = TaskQueue
     key = "task_queues"
 
-    def __init__(self, *args, **kwargs):
-        super(TaskQueues, self).__init__(*args, **kwargs)
-        self.statistics = Statistics(self, *args, **kwargs)
+    def __init__(self, base_uri, auth, **kwargs):
+        super(TaskQueues, self).__init__(base_uri, auth, **kwargs)
+        self.statistics = Statistics(self.uri, auth, **kwargs)
 
     def create(self, friendly_name, assignment_activity_sid,
                reservation_activity_sid, **kwargs):
