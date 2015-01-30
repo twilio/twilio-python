@@ -8,7 +8,6 @@ from .resources import (
     make_request,
     Accounts,
     Activities,
-    Addresses,
     Applications,
     AuthorizedConnectApps,
     CallerIds,
@@ -39,7 +38,6 @@ from .resources import (
     Workers,
     Workflows,
     Workspaces,
-    Tokens,
 )
 
 
@@ -238,9 +236,9 @@ class TwilioRestClient(TwilioClient):
         return CallFeedback(call_feedback_list)
 
 
-class TwilioWdsClient(TwilioClient):
+class TwilioTaskRouterClient(TwilioClient):
     """
-    A client for accessing the Twilio WDS API
+    A client for accessing the Twilio TaskRouter API
 
     :param str account: Your Account SID from `your dashboard
         <https://twilio.com/user/account>`_
@@ -249,14 +247,14 @@ class TwilioWdsClient(TwilioClient):
     :param float timeout: The socket and read timeout for requests to Twilio
     """
 
-    def __init__(self, account=None, token=None, base="https://wds.twilio.com",
-                 version="v1",
+    def __init__(self, account=None, token=None,
+                 base="https://taskrouter.twilio.com", version="v1",
                  timeout=UNSET_TIMEOUT):
         """
         Create a Twilio REST API client.
         """
-        super(TwilioWdsClient, self).__init__(account, token, base, version,
-                                              timeout)
+        super(TwilioTaskRouterClient, self).__init__(account, token, base,
+                                                     version, timeout)
 
         self.workspaces = Workspaces(self.account_uri, self.auth, timeout)
 

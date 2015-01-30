@@ -4,7 +4,7 @@ from mock import patch, Mock, sentinel, ANY
 from nose.tools import assert_equal, assert_true, assert_is_not_none
 
 from twilio.rest.resources.imports import json
-from twilio.rest import TwilioRestClient, resources, TwilioWdsClient
+from twilio.rest import TwilioRestClient, resources, TwilioTaskRouterClient
 from tools import create_mock_json
 
 AUTH = ("ACCOUNT_SID", "AUTH_TOKEN")
@@ -13,7 +13,7 @@ AUTH = ("ACCOUNT_SID", "AUTH_TOKEN")
 class RestClientTest(unittest.TestCase):
     def setUp(self):
         self.client = TwilioRestClient("ACCOUNT_SID", "AUTH_TOKEN")
-        self.wds_client = TwilioWdsClient("ACCOUNT_SID", "AUTH_TOKEN")
+        self.task_router_client = TwilioTaskRouterClient("ACCOUNT_SID", "AUTH_TOKEN")
 
     @patch("twilio.rest.make_request")
     def test_request(self, mock):
@@ -51,12 +51,12 @@ class RestClientTest(unittest.TestCase):
 
     @patch("twilio.rest.resources.base.make_request")
     def test_workflows(self, request):
-        resp = create_mock_json("tests/resources/wds/workflows_list.json")
+        resp = create_mock_json("tests/resources/task_router/workflows_list.json")
         request.return_value = resp
-        workflows = self.wds_client.workflows("WS123")
+        workflows = self.task_router_client.workflows("WS123")
         workflows = workflows.list()
         assert_is_not_none(workflows[0].sid)
-        uri = "https://wds.twilio.com/v1/Accounts/ACCOUNT_SID/Workspaces/WS123/Workflows.json"
+        uri = "https://taskrouter.twilio.com/v1/Accounts/ACCOUNT_SID/Workspaces/WS123/Workflows.json"
         request.assert_called_with("GET", uri, headers=ANY, params={}, auth=AUTH)
 
 

@@ -45,7 +45,7 @@ from .media import Media, MediaList
 
 from .sip import Sip
 
-from .wds import (
+from .task_router import (
     Activity,
     Activities,
     Reservation,

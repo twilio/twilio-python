@@ -1,18 +1,18 @@
 from mock import patch
 from tests.tools import create_mock_json
 
-from twilio.rest.resources.wds.workers import Workers, Worker
-from twilio.rest.resources.wds.task_queues import TaskQueues, TaskQueue
-from twilio.rest.resources.wds.workflows import Workflows, Workflow
+from twilio.rest.resources.task_router.workers import Workers, Worker
+from twilio.rest.resources.task_router.task_queues import TaskQueues, TaskQueue
+from twilio.rest.resources.task_router.workflows import Workflows, Workflow
 
 AUTH = ("AC123", "token")
-BASE_URI = "https://wds.twilio.com/v1/Accounts/AC123/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+BASE_URI = "https://taskrouter.twilio.com/v1/Accounts/AC123/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 WORKER_SID = "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
 def test_fetch_worker_statistics(request):
-    resp = create_mock_json('tests/resources/wds/workers_statistics_instance.json')
+    resp = create_mock_json('tests/resources/task_router/workers_statistics_instance.json')
     resp.status_code = 200
     request.return_value = resp
 
@@ -25,7 +25,7 @@ def test_fetch_worker_statistics(request):
 
 @patch("twilio.rest.resources.base.make_twilio_request")
 def test_fetch_workers_statistics(request):
-    resp = create_mock_json('tests/resources/wds/workers_statistics_instance.json')
+    resp = create_mock_json('tests/resources/task_router/workers_statistics_instance.json')
     resp.status_code = 200
     request.return_value = resp
 
@@ -36,7 +36,7 @@ def test_fetch_workers_statistics(request):
 
 @patch("twilio.rest.resources.base.make_twilio_request")
 def test_fetch_task_queue_statistics(request):
-    resp = create_mock_json('tests/resources/wds/task_queues_instance.json')
+    resp = create_mock_json('tests/resources/task_router/task_queues_instance.json')
     resp.status_code = 200
     request.return_value = resp
 
@@ -49,7 +49,7 @@ def test_fetch_task_queue_statistics(request):
 
 @patch("twilio.rest.resources.base.make_twilio_request")
 def test_fetch_task_queues_statistics(request):
-    resp = create_mock_json('tests/resources/wds/task_queues_instance.json')
+    resp = create_mock_json('tests/resources/task_router/task_queues_instance.json')
     resp.status_code = 200
     request.return_value = resp
 
@@ -60,7 +60,7 @@ def test_fetch_task_queues_statistics(request):
 
 @patch("twilio.rest.resources.base.make_twilio_request")
 def test_fetch_task_workflow_statistics(request):
-    resp = create_mock_json('tests/resources/wds/workflows_instance.json')
+    resp = create_mock_json('tests/resources/task_router/workflows_instance.json')
     resp.status_code = 200
     request.return_value = resp
 

@@ -3,18 +3,18 @@ import unittest
 from mock import patch
 
 from tests.tools import create_mock_json
-from twilio.rest.resources.wds.reservations import Reservations, Reservation
+from twilio.rest.resources.task_router.reservations import Reservations, Reservation
 
 
 AUTH = ("AC123", "token")
-BASE_URI = "https://wds.twilio.com/v1/Accounts/AC123/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+BASE_URI = "https://taskrouter.twilio.com/v1/Accounts/AC123/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 RESERVATION_SID = "WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
 
 class TaskQueueTest(unittest.TestCase):
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_get(self, request):
-        resp = create_mock_json('tests/resources/wds/reservations_instance.json')
+        resp = create_mock_json('tests/resources/task_router/reservations_instance.json')
         resp.status_code = 200
         request.return_value = resp
 
@@ -25,7 +25,7 @@ class TaskQueueTest(unittest.TestCase):
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_list(self, request):
-        resp = create_mock_json('tests/resources/wds/reservations_list.json')
+        resp = create_mock_json('tests/resources/task_router/reservations_list.json')
         resp.status_code = 200
         request.return_value = resp
 
@@ -36,7 +36,7 @@ class TaskQueueTest(unittest.TestCase):
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_update_instance(self, request):
-        resp = create_mock_json('tests/resources/wds/reservations_instance.json')
+        resp = create_mock_json('tests/resources/task_router/reservations_instance.json')
         resp.status_code = 201
         request.return_value = resp
 
@@ -53,7 +53,7 @@ class TaskQueueTest(unittest.TestCase):
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_update_list(self, request):
-        resp = create_mock_json('tests/resources/wds/reservations_instance.json')
+        resp = create_mock_json('tests/resources/task_router/reservations_instance.json')
         resp.status_code = 201
         request.return_value = resp
 
