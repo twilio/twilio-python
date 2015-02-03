@@ -39,7 +39,7 @@ class TaskRouterCapability(object):
 
     @property
     def workspace_url(self):
-        return '%s/Workspaces/%s' % (self.base_url, self.workspace_sid)
+        return '%s/Accounts/%s/Workspaces/%s' % (self.base_url, self.account_sid, self.workspace_sid)
 
     @property
     def worker_url(self):
