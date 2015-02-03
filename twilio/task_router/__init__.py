@@ -93,7 +93,7 @@ class TaskRouterCapability(object):
                 'account_sid': self.account_sid,
                 'channel': self.worker_sid,
                 'worker_sid': self.worker_sid,
-                'workspace_sid': self.worker_sid,
+                'workspace_sid': self.workspace_sid,
             }
         )
 
