@@ -46,7 +46,7 @@ class TaskRouterCapability(object):
         return '%s/Workers/%s' % (self.workspace_url, self.worker_sid)
 
     def _allow_worker_websocket_urls(self):
-        worker_event_url = '%s/%s/%s' % (self.base_ws_url, self.account_sid, self.worker_sid),
+        worker_event_url = '%s/%s/%s' % (self.base_ws_url, self.account_sid, self.worker_sid)
         self.policies.append(make_policy(
             worker_event_url,
             'GET',
