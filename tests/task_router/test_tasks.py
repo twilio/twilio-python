@@ -19,10 +19,11 @@ class TaskTest(unittest.TestCase):
         request.return_value = resp
 
         tasks = Tasks(BASE_URI, AUTH)
-        tasks.create("attributes", "WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        tasks.create("attributes", "WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", timeout=60)
         exp_params = {
             'Attributes': "attributes",
-            'WorkflowSid': "WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            'WorkflowSid': "WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            'Timeout': 60
         }
 
         request.assert_called_with("POST", "{}/Tasks".format(BASE_URI), data=exp_params, auth=AUTH)

@@ -7,6 +7,7 @@
             "assignment_status": "pending",
             "priority": 0,
             "age": 25200,
+            "timeout": 60,
             "workflow_sid": "WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
             "task_queue_sid": "WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
             "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",

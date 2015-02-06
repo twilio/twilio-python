@@ -25,7 +25,7 @@ class Tasks(ListResource):
     name = "Tasks"
     instance = Task
 
-    def create(self, attributes, workflow_sid):
+    def create(self, attributes, workflow_sid, **kwargs):
         """
         Create a Task.
 
@@ -36,9 +36,12 @@ class Tasks(ListResource):
             'customer_ticket_number': '12345' }.
         :param workflow_sid: The workflow_sid for the Workflow that you would
             like to handle routing for this Task.
+        :param timeout: If provided, time-to-live for the task in seconds,
+            before it is automatically canceled
         """
-        return self.create_instance({'attributes': attributes,
-                                     'workflow_sid': workflow_sid})
+        kwargs['attributes'] = attributes
+        kwargs['workflow_sid'] = workflow_sid
+        return self.create_instance(kwargs)
 
     def delete(self, sid):
         """
