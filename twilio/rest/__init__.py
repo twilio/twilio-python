@@ -285,7 +285,7 @@ class TwilioTaskRouterClient(TwilioClient):
         the given workspace_sid
         """
         base_uri = "{}/{}".format(self.workspace_uri, workspace_sid)
-        return TaskQueues(base_uri, self.auth)
+        return TaskQueues(base_uri, self.auth, self.timeout)
 
     def tasks(self, workspace_sid):
         """
