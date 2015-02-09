@@ -1,15 +1,14 @@
 {
-    "page": 0,
-    "num_pages": 1,
-    "page_size": 50,
-    "total": 2,
-    "start": 0,
-    "end": 1,
-    "uri": "/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Statistics/TaskQueues?PageSize=50&Page=0",
-    "first_page_uri": "/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Statistics/TaskQueues?PageSize=50&Page=0",
-    "previous_page_uri": null,
-    "next_page_uri": null,
-    "last_page_uri": "/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Statistics/TaskQueues?PageSize=50&Page=0",
+    "meta": {
+        "key": "task_queues_statistics",
+        "url": "https://taskrouter.twilio.com/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Statistics/TaskQueues?PageSize=50&Page=0",
+        "first_page_url": "https://taskrouter.twilio.com/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Statistics/TaskQueues?PageSize=50&Page=0",
+        "previous_page_url": null,
+        "next_page_url": null,
+        "last_page_url": "https://taskrouter.twilio.com/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Statistics/TaskQueues?PageSize=50&Page=0",
+        "page": 0,
+        "page_size": 50
+    },
     "task_queues_statistics": [
         {
             "cumulative": {
@@ -20,8 +19,8 @@
                 "tasks_canceled": 0,
                 "tasks_moved": 0,
                 "avg_task_acceptance_time": 0.0,
-                "start_time": "Fri, 19 Sep 2014 19:07:00 +0000",
-                "end_time": "Fri, 19 Sep 2014 19:22:00 +0000"
+                "start_time": "2014-09-19T19:07:00Z",
+                "end_time": "2014-09-19T19:22:00Z"
             },
             "realtime": {
                 "longest_task_waiting_sid": null,
@@ -70,8 +69,8 @@
                 "tasks_canceled": 0,
                 "tasks_moved": 0,
                 "avg_task_acceptance_time": 0.0,
-                "start_time": "Fri, 19 Sep 2014 19:07:00 +0000",
-                "end_time": "Fri, 19 Sep 2014 19:22:00 +0000"
+                "start_time": "2014-09-19T19:07:00Z",
+                "end_time": "2014-09-19T19:22:00Z"
             },
             "realtime": {
                 "longest_task_waiting_sid": null,

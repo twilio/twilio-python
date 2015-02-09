@@ -1,8 +1,8 @@
-from .. import InstanceResource, ListResource
+from .. import NextGenInstanceResource, NextGenListResource
 from .statistics import Statistics
 
 
-class Workspace(InstanceResource):
+class Workspace(NextGenInstanceResource):
     """
     A Workspace resource
     """
@@ -23,7 +23,7 @@ class Workspace(InstanceResource):
         return self.parent.update_instance(self.name, kwargs)
 
 
-class Workspaces(ListResource):
+class Workspaces(NextGenListResource):
     """ A list of Workspace resources """
 
     name = "Workspaces"

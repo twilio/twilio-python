@@ -1,4 +1,5 @@
 import logging
+from urlparse import urlunparse
 import os
 import platform
 
@@ -17,9 +18,10 @@ from ..exceptions import TwilioRestException
 from .connection import Connection
 from .imports import parse_qs, httplib2, json
 from .util import (
-    transform_params,
+    parse_iso_date,
     parse_rfc2822_date,
-    UNSET_TIMEOUT
+    transform_params,
+    UNSET_TIMEOUT,
 )
 
 logger = logging.getLogger('twilio')
@@ -236,8 +238,9 @@ class InstanceResource(Resource):
             del entries["uri"]
 
         for key in entries.keys():
-            if key.startswith("date_") and isinstance(entries[key], str):
-                entries[key] = parse_rfc2822_date(entries[key])
+            if (key.startswith("date_")
+                    and isinstance(entries[key], string_types)):
+                entries[key] = self._parse_date(entries[key])
 
         self.__dict__.update(entries)
 
@@ -270,8 +273,20 @@ class InstanceResource(Resource):
         """
         return self.parent.delete(self.name)
 
+    def _parse_date(self, s):
+        return parse_rfc2822_date(s)
+
     def __str__(self):
         return "<%s %s>" % (self.__class__.__name__, self.name[0:5])
+
+
+class NextGenInstanceResource(InstanceResource):
+
+    def __init__(self, *args, **kwargs):
+        super(NextGenInstanceResource, self).__init__(*args, **kwargs)
+
+    def _parse_date(self, s):
+        return parse_iso_date(s)
 
 
 class ListResource(Resource):
@@ -440,3 +455,43 @@ class ListResource(Resource):
         :param int page_size: The number of results to be returned.
         """
         return self.get_instances(kw)
+
+
+class NextGenListResource(ListResource):
+
+    def __init__(self, *args, **kwargs):
+        super(NextGenListResource, self).__init__(*args, **kwargs)
+
+    def iter(self, **kwargs):
+        """ Return all instance resources using an iterator
+
+        This will fetch a page of resources from the API and yield them in
+        turn. When the page is exhausted, this will make a request to the API
+        to retrieve the next page. Hence you may notice a pattern - the library
+        will loop through 50 objects very quickly, but there will be a delay
+        retrieving the 51st as the library must make another request to the API
+        for resources.
+
+        Example usage:
+
+        .. code-block:: python
+
+            for message in client.messages:
+                print message.sid
+        """
+        params = urlencode(transform_params(kwargs))
+        parsed = urlparse(self.uri)
+        url = urlunparse(parsed[:4] + (params, ) + (parsed[5], ))
+
+        while True:
+            resp, page = self.request("GET", url)
+
+            if self.key not in page:
+                raise StopIteration()
+
+            for ir in page[self.key]:
+                yield self.load_instance(ir)
+
+            url = page.get('meta', {}).get('next_page_url')
+            if not url:
+                raise StopIteration()

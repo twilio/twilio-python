@@ -1,6 +1,8 @@
+from datetime import datetime
 import unittest
 
 from mock import patch, Mock
+import pytz
 
 from tests.tools import create_mock_json
 from twilio.rest.resources.task_router.activities import Activities, Activity
@@ -18,7 +20,9 @@ class ActivityTest(unittest.TestCase):
         request.return_value = resp
 
         activities = Activities(BASE_URI, AUTH)
-        activities.create("Test Activity", True)
+        activity = activities.create("Test Activity", True)
+        self.assertIsNotNone(activity)
+        self.assertEqual(activity.date_created, datetime(2014, 5, 14, 10, 50, 2, tzinfo=pytz.utc))
         exp_params = {
             'FriendlyName': "Test Activity",
             'Available': "true"

@@ -1,7 +1,7 @@
 {
     "cumulative": {
-        "start_time": "Wed, 06 Aug 2014 22:22:00 +0000",
-        "end_time": "Wed, 06 Aug 2014 22:37:00 +0000",
+        "start_time": "2014-08-06T22:22:00Z",
+        "end_time": "2014-08-06T22:37:00Z",
         "reservations_accepted": 0,
         "reservations_rejected": 0,
         "reservations_timed_out": 0,
