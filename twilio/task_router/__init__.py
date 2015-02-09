@@ -39,14 +39,22 @@ class TaskRouterCapability(object):
 
     @property
     def workspace_url(self):
-        return '%s/Accounts/%s/Workspaces/%s' % (self.base_url, self.account_sid, self.workspace_sid)
+        return '%s/Accounts/%s/Workspaces/%s' % (
+            self.base_url,
+            self.account_sid,
+            self.workspace_sid,
+        )
 
     @property
     def worker_url(self):
         return '%s/Workers/%s' % (self.workspace_url, self.worker_sid)
 
     def _allow_worker_websocket_urls(self):
-        worker_event_url = '%s/%s/%s' % (self.base_ws_url, self.account_sid, self.worker_sid)
+        worker_event_url = '%s/%s/%s' % (
+            self.base_ws_url,
+            self.account_sid,
+            self.worker_sid,
+        )
         self.policies.append(make_policy(
             worker_event_url,
             'GET',
@@ -112,7 +120,8 @@ class TaskRouterCapability(object):
         return jwt.encode(payload, self.auth_token, 'HS256')
 
 
-def make_policy(url, method, query_filter=None, post_filter=None, allowed=True):
+def make_policy(url, method, query_filter=None, post_filter=None,
+                allowed=True):
     """
     Create a policy dictionary for the given resource and method.
 
