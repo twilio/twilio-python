@@ -37,7 +37,7 @@ class Workflows(ListResource):
         :param friendly_name: A string representing a human readable name for
             this Workflow. Examples include 'Inbound Call Workflow' or '2014
             Outbound Campaign'.
-        :param configuration: YAML document configuring the rules for this
+        :param configuration: JSON document configuring the rules for this
             Workflow.
         :param assignment_callback_url: A valid URL for the application that
             will process task assignment events.
