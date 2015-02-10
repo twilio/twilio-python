@@ -459,6 +459,9 @@ class ListResource(Resource):
 
 class NextGenListResource(ListResource):
 
+    name = "Resources"
+    instance = NextGenInstanceResource
+
     def __init__(self, *args, **kwargs):
         super(NextGenListResource, self).__init__(*args, **kwargs)
 
@@ -486,12 +489,42 @@ class NextGenListResource(ListResource):
         while True:
             resp, page = self.request("GET", url)
 
-            if self.key not in page:
+            key = page.get('meta', {}).get('key')
+
+            if key is None or key not in page:
                 raise StopIteration()
 
-            for ir in page[self.key]:
+            for ir in page[key]:
                 yield self.load_instance(ir)
 
             url = page.get('meta', {}).get('next_page_url')
             if not url:
                 raise StopIteration()
+
+    def get_instances(self, params):
+        """
+        Query the list resource for a list of InstanceResources.
+
+        Raises a :exc:`~twilio.TwilioRestException` if requesting a page of
+        results that does not exist.
+
+        :param dict params: List of URL parameters to be included in request
+        :param int page: The page of results to retrieve (most recent at 0)
+        :param int page_size: The number of results to be returned.
+
+        :returns: -- the list of resources
+        """
+        params = transform_params(params)
+
+        resp, page = self.request("GET", self.uri, params=params)
+        key = page.get('meta', {}).get('key')
+
+        if key is None:
+            raise TwilioException(
+                "Unable to determine resource key from response"
+            )
+
+        if key not in page:
+            raise TwilioException("Key %s not present in response" % key)
+
+        return [self.load_instance(ir) for ir in page[key]]
