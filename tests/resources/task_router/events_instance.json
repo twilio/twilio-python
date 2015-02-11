@@ -1,0 +1,26 @@
+{
+    "sid": "EVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "description": "Worker JustinWorker updated to Idle Activity",
+    "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "event_type": "worker.activity",
+    "resource_type": "worker",
+    "resource_sid": "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "resource_url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "event_date": "2015-02-07T00:32:41Z",
+    "source": "twilio",
+    "source_ip_address": "1.2.3.4",
+    "actor_type": "workspace",
+    "actor_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "actor_url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Events/EVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "event_data": {
+        "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "workspace_name": "WorkspaceName",
+        "worker_sid": "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "worker_name": "JustinWorker",
+        "worker_attributes": "{}",
+        "worker_activity_sid": "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "worker_activity_name": "Offline",
+        "worker_time_in_previous_activity": "26"
+    }
+}

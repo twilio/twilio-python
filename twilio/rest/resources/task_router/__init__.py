@@ -3,6 +3,11 @@ from .activities import (
     Activities
 )
 
+from .events import (
+    Event,
+    Events
+)
+
 from .reservations import (
     Reservation,
     Reservations

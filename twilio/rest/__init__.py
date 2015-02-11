@@ -8,6 +8,7 @@ from .resources import (
     make_request,
     Accounts,
     Activities,
+    Events,
     Applications,
     AuthorizedConnectApps,
     CallerIds,
@@ -269,6 +270,14 @@ class TwilioTaskRouterClient(TwilioClient):
         """
         base_uri = "{}/{}".format(self.workspace_uri, workspace_sid)
         return Activities(base_uri, self.auth, self.timeout)
+
+    def events(self, workspace_sid):
+        """
+        Return a :class:`Events` instance for the :class:`Event` with the given
+        workspace_sid
+        """
+        base_uri = "{}/{}".format(self.workspace_uri, workspace_sid)
+        return Events(base_uri, self.auth, self.timeout)
 
     def reservations(self, workspace_sid, task_sid):
         """

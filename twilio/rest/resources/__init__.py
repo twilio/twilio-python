@@ -49,6 +49,8 @@ from .sip import Sip
 from .task_router import (
     Activity,
     Activities,
+    Event,
+    Events,
     Reservation,
     Reservations,
     Task,
