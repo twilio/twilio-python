@@ -29,7 +29,7 @@ class Workers(NextGenListResource):
     name = "Workers"
     instance = Worker
 
-    def __init__(self, base_uri, auth, **kwargs):
+    def __init__(self, base_uri, auth, timeout, **kwargs):
         super(Workers, self).__init__(base_uri, auth, **kwargs)
         self.statistics = Statistics(self.uri, auth, **kwargs)
 
