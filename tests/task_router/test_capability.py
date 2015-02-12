@@ -49,12 +49,15 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         self.assertIsNotNone(decoded)
         self.assertEqual(int(time.time()) + 10000, decoded['exp'])
 
-    def test_websockets_allowed(self):
+    def test_defaults(self):
         token = self.cap.generate_token()
         decoded = jwt.decode(token, self.auth_token)
 
         self.assertIsNotNone(decoded)
-        websocket_url = 'https://event-bridge.twilio.com/v1/wschannels/%s/%s' % (self.account_sid, self.worker_sid)
+        websocket_url = (
+            'https://event-bridge.twilio.com/v1/wschannels/%s/%s' %
+            (self.account_sid, self.worker_sid)
+        )
         expected = [
             {
                 'url': websocket_url,
@@ -70,6 +73,14 @@ class TaskRouterCapabilityTest(unittest.TestCase):
                 'query_filter': {},
                 'post_filter': {},
             },
+            {
+                'url':
+                'https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities',
+                'method': 'GET',
+                'allow': True,
+                'query_filter': {},
+                'post_filter': {},
+            },
         ]
         self.assertEqual(expected, decoded['policies'])
 
@@ -79,8 +90,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         decoded = jwt.decode(token, self.auth_token)
 
         self.assertIsNotNone(decoded)
-        url = 'https://taskrouter.twilio.com/v1/Accounts/%s/Workspaces/%s/Workers/%s' % (
-            self.account_sid,
+        url = 'https://taskrouter.twilio.com/v1/Workspaces/%s/Workers/%s' % (
             self.workspace_sid,
             self.worker_sid,
         )
@@ -92,7 +102,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
             'query_filter': {},
             'post_filter': {'ActivitySid': {'required': True}},
         }
-        self.assertEqual(expected, decoded['policies'][2])
+        self.assertEqual(expected, decoded['policies'][-1])
 
     def test_allow_worker_fetch_attributes(self):
         self.cap.allow_worker_fetch_attributes()
@@ -100,8 +110,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         decoded = jwt.decode(token, self.auth_token)
 
         self.assertIsNotNone(decoded)
-        url = 'https://taskrouter.twilio.com/v1/Accounts/%s/Workspaces/%s/Workers/%s' % (
-            self.account_sid,
+        url = 'https://taskrouter.twilio.com/v1/Workspaces/%s/Workers/%s' % (
             self.workspace_sid,
             self.worker_sid,
         )
@@ -114,7 +123,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
             'post_filter': {},
         }
 
-        self.assertEqual(expected, decoded['policies'][2])
+        self.assertEqual(expected, decoded['policies'][-1])
 
     def test_allow_task_reservation_updates(self):
         self.cap.allow_task_reservation_updates()
@@ -122,8 +131,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         decoded = jwt.decode(token, self.auth_token)
 
         self.assertIsNotNone(decoded)
-        url = 'https://taskrouter.twilio.com/v1/Accounts/%s/Workspaces/%s/Tasks/**' % (
-            self.account_sid,
+        url = 'https://taskrouter.twilio.com/v1/Workspaces/%s/Tasks/**' % (
             self.workspace_sid,
         )
 
@@ -134,4 +142,4 @@ class TaskRouterCapabilityTest(unittest.TestCase):
             'query_filter': {},
             'post_filter': {'ReservationStatus': {'required': True}},
         }
-        self.assertEqual(expected, decoded['policies'][2])
+        self.assertEqual(expected, decoded['policies'][-1])
