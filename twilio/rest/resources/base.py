@@ -151,7 +151,7 @@ def make_twilio_request(method, uri, **kwargs):
         try:
             error = json.loads(resp.content)
             code = error["code"]
-            message = "%s: %s" % (code, error["message"])
+            message = error["message"]
         except:
             code = None
             message = resp.content
