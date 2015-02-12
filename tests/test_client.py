@@ -56,7 +56,7 @@ class RestClientTest(unittest.TestCase):
         workflows = self.task_router_client.workflows("WS123")
         workflows = workflows.list()
         assert_is_not_none(workflows[0].sid)
-        uri = "https://taskrouter.twilio.com/v1/Accounts/ACCOUNT_SID/Workspaces/WS123/Workflows.json"
+        uri = "https://taskrouter.twilio.com/v1/Workspaces/WS123/Workflows.json"
         request.assert_called_with("GET", uri, headers=ANY, params={}, auth=AUTH)
 
 

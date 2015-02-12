@@ -255,12 +255,10 @@ class TwilioTaskRouterClient(TwilioClient):
         """
         super(TwilioTaskRouterClient, self).__init__(account, token, base,
                                                      version, timeout)
+        self.base_uri = "{}/{}".format(base, version)
+        self.workspace_uri = "{}/Workspaces".format(self.base_uri)
 
-        self.workspaces = Workspaces(self.account_uri, self.auth, timeout)
-
-        self.workspace_uri = "{}/{}/Accounts/{}/Workspaces".format(
-            base, version, account
-        )
+        self.workspaces = Workspaces(self.base_uri, self.auth, timeout)
 
     def activities(self, workspace_sid):
         """

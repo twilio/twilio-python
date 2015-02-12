@@ -6,7 +6,7 @@ from tests.tools import create_mock_json
 from twilio.rest.resources.task_router.activities import Activities, Activity
 
 AUTH = ("AC123", "token")
-BASE_URI = "https://taskrouter.twilio.com/v1/Accounts/AC123/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+BASE_URI = "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 ACTIVITY_SID = "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
 
