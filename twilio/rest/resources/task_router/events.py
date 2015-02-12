@@ -1,4 +1,7 @@
-from twilio.rest.resources.base import NextGenInstanceResource, NextGenListResource
+from twilio.rest.resources.base import (
+    NextGenInstanceResource,
+    NextGenListResource,
+)
 
 
 class Event(NextGenInstanceResource):

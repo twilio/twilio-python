@@ -7,7 +7,7 @@ from twilio.rest.resources.task_router.events import Events
 
 
 AUTH = ("AC123", "token")
-BASE_URI = "https://taskrouter.twilio.com/v1/Accounts/AC123/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+BASE_URI = "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 EVENT_SID = "EVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
 
