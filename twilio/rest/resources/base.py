@@ -143,7 +143,7 @@ def make_twilio_request(method, uri, **kwargs):
 
     kwargs["headers"] = headers
 
-    if "Accept" not in headers:
+    if "Accept" not in headers and not kwargs.pop('use_json_extension', False):
         headers["Accept"] = "application/json"
         uri += ".json"
 
@@ -168,6 +168,7 @@ class Resource(object):
     """A REST Resource"""
 
     name = "Resource"
+    use_json_extension = False
 
     def __init__(self, base_uri, auth, timeout=UNSET_TIMEOUT):
         self.base_uri = base_uri
@@ -192,6 +193,8 @@ class Resource(object):
         """
         if 'timeout' not in kwargs and self.timeout is not UNSET_TIMEOUT:
             kwargs['timeout'] = self.timeout
+
+        kwargs['use_json_extension'] = self.use_json_extension
         resp = make_twilio_request(method, uri, auth=self.auth, **kwargs)
 
         logger.debug(resp.content)
@@ -219,6 +222,7 @@ class InstanceResource(Resource):
 
     subresources = []
     id_key = "sid"
+    use_json_extension = True
 
     def __init__(self, parent, sid):
         self.parent = parent
@@ -293,6 +297,7 @@ class ListResource(Resource):
 
     name = "Resources"
     instance = InstanceResource
+    use_json_extension = True
 
     def __init__(self, *args, **kwargs):
         super(ListResource, self).__init__(*args, **kwargs)
