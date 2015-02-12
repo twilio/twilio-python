@@ -30,8 +30,8 @@ class Workers(NextGenListResource):
     instance = Worker
 
     def __init__(self, base_uri, auth, timeout, **kwargs):
-        super(Workers, self).__init__(base_uri, auth, **kwargs)
-        self.statistics = Statistics(self.uri, auth, **kwargs)
+        super(Workers, self).__init__(base_uri, auth, timeout, **kwargs)
+        self.statistics = Statistics(self.uri, auth, timeout, **kwargs)
 
     def create(self, friendly_name, **kwargs):
         """
