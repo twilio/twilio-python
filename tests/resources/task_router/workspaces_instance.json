@@ -1,6 +1,6 @@
 {
-    "date_created": "Wed, 14 May 2014 10:50:02 +0000",
-    "date_updated": "Thu, 15 May 2014 16:03:42 +0000",
+    "date_created": "2014-05-14T10:50:02Z",
+    "date_updated": "2014-05-14T23:26:06Z",
     "friendly_name": "Test Workspace",
     "event_callback_url": "",
     "default_activity_name": "Offline",
@@ -9,7 +9,7 @@
     "timeout_activity_sid": "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
     "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
     "sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "subresource_uris": {
+    "subresource_urls": {
         "activities": "/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Activities",
         "queues": "/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues",
         "tasks": "/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks",

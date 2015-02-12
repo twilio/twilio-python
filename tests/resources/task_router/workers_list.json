@@ -9,21 +9,20 @@
             "attributes": "{\"email\": \"test@twilio.com\", \"phone\": \"8675309\"}",
             "available": true,
             "activity_name": "available",
-            "date_created": "Wed, 14 May 2014 16:29:17 +0000",
-            "date_updated": "Thu, 15 May 2014 16:03:42 +0000",
+            "date_created": "2014-05-14T16:29:17Z",
+            "date_updated": "2014-05-15T16:03:42Z",
             "date_status_changed": "Wed, 14 May 2014 16:29:17 +0000",
-            "uri": "/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            "url": "https://taskrouter.twilio.com/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         }
     ],
-    "end": 0,
-    "first_page_uri": "/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers?PageSize=50&Page=0",
-    "last_page_uri": "/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers?PageSize=50&Page=0",
-    "next_page_uri": null,
-    "num_pages": 1,
-    "page": 0,
-    "page_size": 50,
-    "previous_page_uri": null,
-    "start": 0,
-    "total": 1,
-    "uri": "/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers?PageSize=50&Page=0"
+    "meta": {
+        "key": "workers",
+        "first_page_url": "https://taskrouter.twilio.com/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers?PageSize=50&Page=0",
+        "last_page_url": "https://taskrouter.twilio.com/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers?PageSize=50&Page=0",
+        "next_page_url": null,
+        "page": 0,
+        "page_size": 50,
+        "previous_page_url": null,
+        "url": "https://taskrouter.twilio.com/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers?PageSize=50&Page=0"
+    }
 }

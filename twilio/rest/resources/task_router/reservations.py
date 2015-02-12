@@ -1,7 +1,7 @@
-from .. import InstanceResource, ListResource
+from .. import NextGenInstanceResource, NextGenListResource
 
 
-class Reservation(InstanceResource):
+class Reservation(NextGenInstanceResource):
     """
     A Reservation resource
     """
@@ -25,7 +25,7 @@ class Reservation(InstanceResource):
         return self.parent.update_instance(self.name, kwargs)
 
 
-class Reservations(ListResource):
+class Reservations(NextGenListResource):
     """ A list of Reservation resources """
 
     name = "Reservations"

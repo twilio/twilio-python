@@ -1,8 +1,8 @@
-from .. import InstanceResource, ListResource
+from .. import NextGenInstanceResource, NextGenListResource
 from .statistics import Statistics
 
 
-class Worker(InstanceResource):
+class Worker(NextGenInstanceResource):
     """
     A Worker resource
     """
@@ -23,7 +23,7 @@ class Worker(InstanceResource):
         return self.parent.update_instance(self.name, kwargs)
 
 
-class Workers(ListResource):
+class Workers(NextGenListResource):
     """ A list of Worker resources """
 
     name = "Workers"

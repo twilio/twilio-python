@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
 import unittest
 
 from mock import Mock, sentinel, patch, ANY
 from nose.tools import assert_equal, assert_true
+import pytz
 from six import advance_iterator
 
 from twilio.rest.resources.imports import json
-from twilio.rest.resources import Resource
+from twilio.rest.resources import Resource, NextGenListResource, NextGenInstanceResource
 from twilio.rest.resources import ListResource
 from twilio.rest.resources import InstanceResource
 
@@ -99,6 +101,48 @@ class ListResourceTest(unittest.TestCase):
         self.r.request.assert_called_with("POST", "https://api.twilio.com/2010-04-01/Resources", data={})
 
 
+class NextGenListResourceTest(unittest.TestCase):
+
+    def setUp(self):
+        self.r = NextGenListResource(base_uri, auth)
+
+    def test_list_resource_init(self):
+        uri = "%s/%s" % (base_uri, self.r.name)
+        assert_equal(self.r.uri, uri)
+
+    def test_iter_no_key(self):
+        self.r.request = Mock()
+        self.r.request.return_value = Mock(), {}
+
+        self.assertRaises(StopIteration, advance_iterator, self.r.iter())
+
+    def test_iter_key_not_present(self):
+        self.r.request = Mock()
+        self.r.request.return_value = Mock(), {'meta': {'key': 'foobars'}}
+
+    def test_iter_request(self):
+        self.r.request = Mock()
+        self.r.request.return_value = Mock(), {'meta': {'key': 'foos'}, 'foos': [{'sid': '123'}]}
+        item = advance_iterator(self.r.iter())
+        self.r.request.assert_called_with("GET", "https://api.twilio.com/2010-04-01/Resources")
+        assert_equal(item.sid, '123')
+
+    def test_iter_one_item(self):
+        self.r.request = Mock()
+        self.r.request.return_value = Mock(), {'meta': {'key': 'foos', 'next_page_url': None}, 'foos': [{'sid': '123'}]}
+
+        items = self.r.iter()
+        advance_iterator(items)
+
+        self.assertRaises(StopIteration, advance_iterator, items)
+
+    def test_instance_loading(self):
+        instance = self.r.load_instance({"sid": "foo"})
+
+        assert_true(isinstance(instance, NextGenInstanceResource))
+        assert_equal(instance.sid, "foo")
+
+
 class testInstanceResourceInit(unittest.TestCase):
 
     def setUp(self):
@@ -140,6 +184,23 @@ class testInstanceResourceInit(unittest.TestCase):
         self.r.subresources = [m]
         self.r.load_subresources()
         m.assert_called_with(self.r.uri, self.r.auth, self.r.timeout)
+
+
+class NextGenInstanceResourceTest(unittest.TestCase):
+    def setUp(self):
+        self.parent = NextGenListResource(base_uri, auth)
+        self.r = NextGenInstanceResource(self.parent, "123")
+
+    def test_load(self):
+        self.r.load({"hey": "you"})
+        assert_equal(self.r.hey, "you")
+
+    def test_iso_date_parser(self):
+        self.r.load({"date_created": "2015-01-01T00:00:00Z"})
+        assert_equal(
+            self.r.date_created,
+            datetime(2015, 1, 1, 0, 0, 0, tzinfo=pytz.utc),
+        )
 
 
 class testTimeoutPropagation(unittest.TestCase):

@@ -7,8 +7,8 @@
     "attributes": "{\"email\": \"test@twilio.com\", \"phone\": \"8675309\"}",
     "available": true,
     "activity_name": "available",
-    "date_created": "Wed, 14 May 2014 16:29:17 +0000",
-    "date_updated": "Thu, 15 May 2014 16:03:42 +0000",
-    "date_status_changed": "Wed, 14 May 2014 16:29:17 +0000",
-    "uri": "/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    "date_created": "2014-05-14T10:50:02Z",
+    "date_updated": "2014-05-14T23:26:06Z",
+    "date_status_changed": "2014-05-14T23:26:06Z",
+    "url": "https://taskrouter.twilio.com/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 }

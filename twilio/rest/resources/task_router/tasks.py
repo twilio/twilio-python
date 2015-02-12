@@ -1,7 +1,7 @@
-from .. import InstanceResource, ListResource
+from .. import NextGenInstanceResource, NextGenListResource
 
 
-class Task(InstanceResource):
+class Task(NextGenInstanceResource):
     """
     A Task resource
     """
@@ -19,7 +19,7 @@ class Task(InstanceResource):
         return self.parent.update_instance(self.name, kwargs)
 
 
-class Tasks(ListResource):
+class Tasks(NextGenListResource):
     """ A list of Task resources """
 
     name = "Tasks"

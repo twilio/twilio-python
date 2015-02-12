@@ -1,8 +1,8 @@
-from .. import InstanceResource, ListResource
+from .. import NextGenInstanceResource, NextGenListResource
 from .statistics import Statistics
 
 
-class TaskQueue(InstanceResource):
+class TaskQueue(NextGenInstanceResource):
     """
     A TaskQueue resource
     """
@@ -23,7 +23,7 @@ class TaskQueue(InstanceResource):
         return self.parent.update_instance(self.name, kwargs)
 
 
-class TaskQueues(ListResource):
+class TaskQueues(NextGenListResource):
     """ A list of TaskQueue resources """
 
     name = "TaskQueues"

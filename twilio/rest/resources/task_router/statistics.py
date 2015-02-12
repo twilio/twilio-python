@@ -1,7 +1,7 @@
-from .. import InstanceResource, ListResource, transform_params
+from .. import NextGenInstanceResource, NextGenListResource, transform_params
 
 
-class StatisticsInstance(InstanceResource):
+class StatisticsInstance(NextGenInstanceResource):
     def __init__(self, parent):
         self.parent = parent
         super(StatisticsInstance, self).__init__(
@@ -10,7 +10,7 @@ class StatisticsInstance(InstanceResource):
         )
 
 
-class Statistics(ListResource):
+class Statistics(NextGenListResource):
     name = 'Statistics'
     key = 'statistics'
     instance = StatisticsInstance
