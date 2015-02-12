@@ -40,11 +40,11 @@ def test_fetch_task_queue_statistics(request):
     resp.status_code = 200
     request.return_value = resp
 
-    tqs = TaskQueues(BASE_URI, AUTH)
+    tqs = TaskQueues(BASE_URI, AUTH, 30)
     tq = TaskQueue(tqs, 'TQ123')
     tq.load_subresources()
     tq.statistics.get()
-    request.assert_called_with('GET', '{}/TaskQueues/TQ123/Statistics'.format(BASE_URI), params={}, auth=AUTH)
+    request.assert_called_with('GET', '{}/TaskQueues/TQ123/Statistics'.format(BASE_URI), params={}, auth=AUTH, timeout=30)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -53,7 +53,7 @@ def test_fetch_task_queues_statistics(request):
     resp.status_code = 200
     request.return_value = resp
 
-    tqs = TaskQueues(BASE_URI, AUTH)
+    tqs = TaskQueues(BASE_URI, AUTH, 30)
     tqs.statistics.get()
     request.assert_called_with('GET', '{}/TaskQueues/Statistics'.format(BASE_URI), params={}, auth=AUTH)
 
