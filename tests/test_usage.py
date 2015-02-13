@@ -37,7 +37,7 @@ def test_triggers_create(request):
         "TriggerValue": "10.00",
         "CallbackUrl": "http://www.example.com",
         "CallbackMethod": "POST"
-    }, auth=AUTH)
+    }, auth=AUTH, use_json_extension=True)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -55,7 +55,7 @@ def test_triggers_paging(request):
         "Recurring": "daily",
         "UsageCategory": "sms",
         "TriggerBy": "count"
-    }, auth=AUTH)
+    }, auth=AUTH, use_json_extension=True)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -73,7 +73,7 @@ def test_records_paging(request):
         "StartDate": "2012-10-12",
         "EndDate": "2012-10-13",
         "Category": "sms"
-    }, auth=AUTH)
+    }, auth=AUTH, use_json_extension=True)
 
 
 @patch("twilio.rest.resources.base.Resource.request")

@@ -28,7 +28,8 @@ def test_create_call(mock):
         'ApplicationSid': 'APPSID',
         }
 
-    mock.assert_called_with("POST", uri, data=exp_params, auth=AUTH)
+    mock.assert_called_with("POST", uri, data=exp_params, auth=AUTH,
+                            use_json_extension=True)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -40,7 +41,8 @@ def test_paging(mock):
     list_resource.list(started_before=date(2010, 12, 5))
     exp_params = {'StartTime<': '2010-12-05'}
 
-    mock.assert_called_with("GET", uri, params=exp_params, auth=AUTH)
+    mock.assert_called_with("GET", uri, params=exp_params, auth=AUTH,
+                            use_json_extension=True)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -52,7 +54,8 @@ def test_paging_iter(mock):
     next(list_resource.iter(started_before=date(2010, 12, 5)))
     exp_params = {'StartTime<': '2010-12-05'}
 
-    mock.assert_called_with("GET", uri, params=exp_params, auth=AUTH)
+    mock.assert_called_with("GET", uri, params=exp_params, auth=AUTH,
+                            use_json_extension=True)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -63,7 +66,8 @@ def test_get(mock):
     uri = "%s/Calls/%s" % (BASE_URI, CALL_SID)
     list_resource.get(CALL_SID)
 
-    mock.assert_called_with("GET", uri, auth=AUTH)
+    mock.assert_called_with("GET", uri, auth=AUTH,
+                            use_json_extension=True)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -76,7 +80,8 @@ def test_hangup(mock):
     r = list_resource.hangup(CALL_SID)
     exp_data = {"Status": "completed"}
 
-    mock.assert_called_with("POST", uri, data=exp_data, auth=AUTH)
+    mock.assert_called_with("POST", uri, data=exp_data, auth=AUTH,
+                            use_json_extension=True)
     assert_true(r)
 
 
@@ -90,7 +95,8 @@ def test_cancel(mock):
     r = list_resource.cancel(CALL_SID)
     exp_data = {"Status": "canceled"}
 
-    mock.assert_called_with("POST", uri, data=exp_data, auth=AUTH)
+    mock.assert_called_with("POST", uri, data=exp_data, auth=AUTH,
+                            use_json_extension=True)
     assert_true(r)
 
 

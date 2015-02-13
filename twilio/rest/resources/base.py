@@ -143,8 +143,10 @@ def make_twilio_request(method, uri, **kwargs):
 
     kwargs["headers"] = headers
 
-    if "Accept" not in headers and kwargs.pop('use_json_extension', False):
+    if "Accept" not in headers:
         headers["Accept"] = "application/json"
+
+    if kwargs.pop('use_json_extension', False):
         uri += ".json"
 
     resp = make_request(method, uri, **kwargs)

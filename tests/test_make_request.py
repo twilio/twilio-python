@@ -81,7 +81,7 @@ def test_sequence_data(http_mock, response_mock):
 @patch('twilio.rest.resources.base.make_request')
 def test_make_twilio_request_headers(mock):
     url = "http://random/url"
-    make_twilio_request("POST", url)
+    make_twilio_request("POST", url, use_json_extension=True)
     mock.assert_called_with("POST", "http://random/url.json",
                             headers=post_headers)
 

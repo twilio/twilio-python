@@ -20,7 +20,7 @@ class ConnectAppTest(unittest.TestCase):
 
         self.resource.get("SID")
         mock.assert_called_with("GET", "/base/ConnectApps/SID",
-            auth=self.auth)
+            auth=self.auth, use_json_extension=True)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_list_with_paging(self, mock):
@@ -29,7 +29,9 @@ class ConnectAppTest(unittest.TestCase):
 
         self.resource.list(page=1, page_size=50)
         mock.assert_called_with("GET", "/base/ConnectApps",
-                params={"Page": 1, "PageSize": 50}, auth=self.auth)
+                                params={"Page": 1, "PageSize": 50},
+                                auth=self.auth,
+                                use_json_extension=True)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_list(self, mock):
@@ -38,7 +40,8 @@ class ConnectAppTest(unittest.TestCase):
 
         self.resource.list()
         mock.assert_called_with("GET", "/base/ConnectApps",
-            params={}, auth=self.auth)
+                                params={}, auth=self.auth,
+                                use_json_extension=True)
 
     def test_create(self):
         self.assertRaises(AttributeError, getattr, self.resource, 'create')

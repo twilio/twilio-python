@@ -23,7 +23,7 @@ class AuthorizedConnectAppTest(unittest.TestCase):
 
         self.resource.get("SID")
         mock.assert_called_with("GET", "/base/AuthorizedConnectApps/SID",
-                                auth=self.auth)
+                                auth=self.auth, use_json_extension=True)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_list(self, mock):
@@ -32,7 +32,8 @@ class AuthorizedConnectAppTest(unittest.TestCase):
 
         self.resource.list()
         mock.assert_called_with("GET", "/base/AuthorizedConnectApps",
-                                params={}, auth=self.auth)
+                                params={}, auth=self.auth,
+                                use_json_extension=True)
 
     def test_load(self):
         instance = AuthorizedConnectApp(Mock(), "sid")

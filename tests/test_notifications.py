@@ -22,7 +22,8 @@ def test_paging(mock):
     list_resource.list(before=date(2010, 12, 5))
     exp_params = {'MessageDate<': '2010-12-05'}
 
-    mock.assert_called_with("GET", uri, params=exp_params, auth=AUTH)
+    mock.assert_called_with("GET", uri, params=exp_params, auth=AUTH,
+                            use_json_extension=True)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -33,7 +34,8 @@ def test_get(mock):
     uri = "%s/Notifications/%s" % (BASE_URI, RE_SID)
     list_resource.get(RE_SID)
 
-    mock.assert_called_with("GET", uri, auth=AUTH)
+    mock.assert_called_with("GET", uri, auth=AUTH,
+                            use_json_extension=True)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -45,7 +47,8 @@ def test_get2(mock):
     uri = "%s/Notifications/%s" % (BASE_URI, RE_SID)
     r = list_resource.delete(RE_SID)
 
-    mock.assert_called_with("DELETE", uri, auth=AUTH)
+    mock.assert_called_with("DELETE", uri, auth=AUTH,
+                            use_json_extension=True)
     assert_true(r)
 
 
