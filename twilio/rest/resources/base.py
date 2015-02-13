@@ -143,7 +143,7 @@ def make_twilio_request(method, uri, **kwargs):
 
     kwargs["headers"] = headers
 
-    if "Accept" not in headers and not kwargs.pop('use_json_extension', False):
+    if "Accept" not in headers and kwargs.pop('use_json_extension', False):
         headers["Accept"] = "application/json"
         uri += ".json"
 
@@ -285,6 +285,8 @@ class InstanceResource(Resource):
 
 
 class NextGenInstanceResource(InstanceResource):
+
+    use_json_extension = False
 
     def __init__(self, *args, **kwargs):
         super(NextGenInstanceResource, self).__init__(*args, **kwargs)
@@ -466,6 +468,7 @@ class NextGenListResource(ListResource):
 
     name = "Resources"
     instance = NextGenInstanceResource
+    use_json_extension = False
 
     def __init__(self, *args, **kwargs):
         super(NextGenListResource, self).__init__(*args, **kwargs)
