@@ -100,4 +100,4 @@ class CallFeedbackSummaryTest(unittest.TestCase):
         assert_equal(729, feedback.call_feedback_count)
 
         request.assert_called_with('GET', uri, params={}, auth=auth,
-                                    use_json_extension=True)
+                                   use_json_extension=True)
