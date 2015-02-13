@@ -27,7 +27,10 @@ class TaskQueueTest(unittest.TestCase):
             'ReservationActivitySid': 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
         }
 
-        request.assert_called_with("POST", "{}/TaskQueues".format(BASE_URI), data=exp_params, auth=AUTH, timeout=TIMEOUT)
+        request.assert_called_with("POST",
+                                   "{}/TaskQueues".format(BASE_URI),
+                                   data=exp_params, auth=AUTH, timeout=TIMEOUT,
+                                   use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_delete_instance(self, request):
@@ -40,7 +43,8 @@ class TaskQueueTest(unittest.TestCase):
         list_resource = TaskQueues(BASE_URI, AUTH, TIMEOUT)
         task_queue = TaskQueue(list_resource, TASK_QUEUE_SID)
         task_queue.delete()
-        request.assert_called_with("DELETE", uri, auth=AUTH, timeout=TIMEOUT)
+        request.assert_called_with("DELETE", uri, auth=AUTH, timeout=TIMEOUT,
+                                   use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_delete_list(self, request):
@@ -52,7 +56,8 @@ class TaskQueueTest(unittest.TestCase):
         uri = "{}/TaskQueues/{}".format(BASE_URI, TASK_QUEUE_SID)
         list_resource = TaskQueues(BASE_URI, AUTH, TIMEOUT)
         list_resource.delete(TASK_QUEUE_SID)
-        request.assert_called_with("DELETE", uri, auth=AUTH, timeout=TIMEOUT)
+        request.assert_called_with("DELETE", uri, auth=AUTH, timeout=TIMEOUT,
+                                   use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_get(self, request):
@@ -63,7 +68,8 @@ class TaskQueueTest(unittest.TestCase):
         uri = "{}/TaskQueues/{}".format(BASE_URI, TASK_QUEUE_SID)
         list_resource = TaskQueues(BASE_URI, AUTH, TIMEOUT)
         list_resource.get(TASK_QUEUE_SID)
-        request.assert_called_with("GET", uri, auth=AUTH, timeout=TIMEOUT)
+        request.assert_called_with("GET", uri, auth=AUTH, timeout=TIMEOUT,
+                                   use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_list(self, request):
@@ -74,7 +80,8 @@ class TaskQueueTest(unittest.TestCase):
         uri = "{}/TaskQueues".format(BASE_URI)
         list_resource = TaskQueues(BASE_URI, AUTH, TIMEOUT)
         list_resource.list()
-        request.assert_called_with("GET", uri, params={}, auth=AUTH, timeout=TIMEOUT)
+        request.assert_called_with("GET", uri, params={}, auth=AUTH, timeout=TIMEOUT,
+                                   use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_update_instance(self, request):
@@ -93,7 +100,9 @@ class TaskQueueTest(unittest.TestCase):
             'ReservationActivitySid': 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
         }
 
-        request.assert_called_with("POST", uri, data=exp_params, auth=AUTH, timeout=TIMEOUT)
+        request.assert_called_with("POST", uri, data=exp_params,
+                                   auth=AUTH, timeout=TIMEOUT,
+                                   use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_update_list(self, request):
@@ -112,4 +121,5 @@ class TaskQueueTest(unittest.TestCase):
             'ReservationActivitySid': 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
         }
 
-        request.assert_called_with("POST", uri, data=exp_params, auth=AUTH, timeout=TIMEOUT)
+        request.assert_called_with("POST", uri, data=exp_params, auth=AUTH,
+                                   timeout=TIMEOUT, use_json_extension=False)

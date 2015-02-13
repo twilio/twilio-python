@@ -21,7 +21,8 @@ class TaskQueueTest(unittest.TestCase):
         uri = "{}/Reservations/{}".format(BASE_URI, RESERVATION_SID)
         list_resource = Reservations(BASE_URI, AUTH)
         list_resource.get(RESERVATION_SID)
-        request.assert_called_with("GET", uri, auth=AUTH)
+        request.assert_called_with("GET", uri, auth=AUTH,
+                                   use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_list(self, request):
@@ -32,7 +33,8 @@ class TaskQueueTest(unittest.TestCase):
         uri = "{}/Reservations".format(BASE_URI)
         list_resource = Reservations(BASE_URI, AUTH)
         list_resource.list()
-        request.assert_called_with("GET", uri, params={}, auth=AUTH)
+        request.assert_called_with("GET", uri, params={}, auth=AUTH,
+                                   use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_update_instance(self, request):
@@ -49,7 +51,8 @@ class TaskQueueTest(unittest.TestCase):
             'ReservationStatus': "rejected"
         }
 
-        request.assert_called_with("POST", uri, data=exp_params, auth=AUTH)
+        request.assert_called_with("POST", uri, data=exp_params, auth=AUTH,
+                                   use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_update_list(self, request):
@@ -66,4 +69,5 @@ class TaskQueueTest(unittest.TestCase):
             'ReservationStatus': "rejected"
         }
 
-        request.assert_called_with("POST", uri, data=exp_params, auth=AUTH)
+        request.assert_called_with("POST", uri, data=exp_params, auth=AUTH,
+                                   use_json_extension=False)

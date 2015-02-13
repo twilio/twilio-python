@@ -27,7 +27,8 @@ class WorkspaceTest(unittest.TestCase):
             'Template': "FIFO"
         }
 
-        request.assert_called_with("POST", uri, data=exp_params, auth=AUTH)
+        request.assert_called_with("POST", uri, data=exp_params, auth=AUTH,
+                                   use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_delete_instance(self, request):
@@ -40,7 +41,8 @@ class WorkspaceTest(unittest.TestCase):
         list_resource = Workspaces(BASE_URI, AUTH)
         workspace = Workspace(list_resource, WORKSPACE_SID)
         workspace.delete()
-        request.assert_called_with("DELETE", uri, auth=AUTH)
+        request.assert_called_with("DELETE", uri, auth=AUTH,
+                                   use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_delete_list(self, request):
@@ -52,7 +54,8 @@ class WorkspaceTest(unittest.TestCase):
         uri = "{}/Workspaces/{}".format(BASE_URI, WORKSPACE_SID)
         list_resource = Workspaces(BASE_URI, AUTH)
         list_resource.delete(WORKSPACE_SID)
-        request.assert_called_with("DELETE", uri, auth=AUTH)
+        request.assert_called_with("DELETE", uri, auth=AUTH,
+                                   use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_get(self, request):
@@ -63,7 +66,8 @@ class WorkspaceTest(unittest.TestCase):
         uri = "{}/Workspaces/{}".format(BASE_URI, WORKSPACE_SID)
         list_resource = Workspaces(BASE_URI, AUTH)
         list_resource.get(WORKSPACE_SID)
-        request.assert_called_with("GET", uri, auth=AUTH)
+        request.assert_called_with("GET", uri, auth=AUTH,
+                                   use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_list(self, request):
@@ -74,7 +78,8 @@ class WorkspaceTest(unittest.TestCase):
         uri = "{}/Workspaces".format(BASE_URI)
         list_resource = Workspaces(BASE_URI, AUTH)
         list_resource.list()
-        request.assert_called_with("GET", uri, params={}, auth=AUTH)
+        request.assert_called_with("GET", uri, params={}, auth=AUTH,
+                                   use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_update_instance(self, request):
@@ -92,7 +97,8 @@ class WorkspaceTest(unittest.TestCase):
             'Template': "FIFO"
         }
 
-        request.assert_called_with("POST", uri, data=exp_params, auth=AUTH)
+        request.assert_called_with("POST", uri, data=exp_params, auth=AUTH,
+                                   use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_update_list(self, request):
@@ -110,4 +116,5 @@ class WorkspaceTest(unittest.TestCase):
             'Template': "FIFO"
         }
 
-        request.assert_called_with("POST", uri, data=exp_params, auth=AUTH)
+        request.assert_called_with("POST", uri, data=exp_params, auth=AUTH,
+                                   use_json_extension=False)

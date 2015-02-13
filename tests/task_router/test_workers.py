@@ -24,7 +24,8 @@ class WorkerTest(unittest.TestCase):
             'FriendlyName': "Test Worker"
         }
 
-        request.assert_called_with("POST", "{}/Workers".format(BASE_URI), data=exp_params, auth=AUTH)
+        request.assert_called_with("POST", "{}/Workers".format(BASE_URI), data=exp_params, auth=AUTH,
+                                   use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_delete_instance(self, request):
@@ -37,7 +38,8 @@ class WorkerTest(unittest.TestCase):
         list_resource = Workers(BASE_URI, AUTH)
         worker = Worker(list_resource, WORKER_SID)
         worker.delete()
-        request.assert_called_with("DELETE", uri, auth=AUTH)
+        request.assert_called_with("DELETE", uri, auth=AUTH,
+                                   use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_delete_list(self, request):
@@ -60,7 +62,8 @@ class WorkerTest(unittest.TestCase):
         uri = "{}/Workers/{}".format(BASE_URI, WORKER_SID)
         list_resource = Workers(BASE_URI, AUTH)
         list_resource.get(WORKER_SID)
-        request.assert_called_with("GET", uri, auth=AUTH)
+        request.assert_called_with("GET", uri, auth=AUTH,
+                                   use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_list(self, request):
@@ -87,7 +90,8 @@ class WorkerTest(unittest.TestCase):
             'FriendlyName': "Test Worker"
         }
 
-        request.assert_called_with("POST", uri, data=exp_params, auth=AUTH)
+        request.assert_called_with("POST", uri, data=exp_params, auth=AUTH,
+                                   use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_update_list(self, request):
@@ -102,4 +106,5 @@ class WorkerTest(unittest.TestCase):
             'FriendlyName': "Test Worker"
         }
 
-        request.assert_called_with("POST", uri, data=exp_params, auth=AUTH)
+        request.assert_called_with("POST", uri, data=exp_params, auth=AUTH,
+                                   use_json_extension=False)

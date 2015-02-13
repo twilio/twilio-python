@@ -21,7 +21,8 @@ class EventTest(unittest.TestCase):
         uri = "{}/Events/{}".format(BASE_URI, EVENT_SID)
         list_resource = Events(BASE_URI, AUTH)
         list_resource.get(EVENT_SID)
-        request.assert_called_with("GET", uri, auth=AUTH)
+        request.assert_called_with("GET", uri, auth=AUTH,
+                                   use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_list(self, request):
@@ -32,4 +33,5 @@ class EventTest(unittest.TestCase):
         uri = "{}/Events".format(BASE_URI)
         list_resource = Events(BASE_URI, AUTH)
         list_resource.list()
-        request.assert_called_with("GET", uri, params={}, auth=AUTH)
+        request.assert_called_with("GET", uri, params={}, auth=AUTH,
+                                   use_json_extension=False)
