@@ -7,8 +7,9 @@ from twilio.rest.resources.task_router.workers import Workers, Worker
 
 
 AUTH = ("AC123", "token")
-BASE_URI = "https://taskrouter.twilio.com/v1/Accounts/AC123/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+BASE_URI = "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 WORKER_SID = "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+TIMEOUT = 30
 
 
 class WorkerTest(unittest.TestCase):
@@ -18,14 +19,14 @@ class WorkerTest(unittest.TestCase):
         resp.status_code = 201
         request.return_value = resp
 
-        workers = Workers(BASE_URI, AUTH)
+        workers = Workers(BASE_URI, AUTH, TIMEOUT)
         workers.create("Test Worker")
         exp_params = {
             'FriendlyName': "Test Worker"
         }
 
         request.assert_called_with("POST", "{}/Workers".format(BASE_URI), data=exp_params, auth=AUTH,
-                                   use_json_extension=False)
+                                   timeout=TIMEOUT, use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_delete_instance(self, request):
@@ -35,11 +36,11 @@ class WorkerTest(unittest.TestCase):
         request.return_value = resp
 
         uri = "{}/Workers/{}".format(BASE_URI, WORKER_SID)
-        list_resource = Workers(BASE_URI, AUTH)
+        list_resource = Workers(BASE_URI, AUTH, TIMEOUT)
         worker = Worker(list_resource, WORKER_SID)
         worker.delete()
         request.assert_called_with("DELETE", uri, auth=AUTH,
-                                   use_json_extension=False)
+                                   timeout=TIMEOUT, use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_delete_list(self, request):
@@ -49,9 +50,10 @@ class WorkerTest(unittest.TestCase):
         request.return_value = resp
 
         uri = "{}/Workers/{}".format(BASE_URI, WORKER_SID)
-        list_resource = Workers(BASE_URI, AUTH)
+        list_resource = Workers(BASE_URI, AUTH, TIMEOUT)
         list_resource.delete(WORKER_SID)
-        request.assert_called_with("DELETE", uri, auth=AUTH)
+        request.assert_called_with("DELETE", uri, auth=AUTH, timeout=TIMEOUT,
+                                   use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_get(self, request):
@@ -60,10 +62,10 @@ class WorkerTest(unittest.TestCase):
         request.return_value = resp
 
         uri = "{}/Workers/{}".format(BASE_URI, WORKER_SID)
-        list_resource = Workers(BASE_URI, AUTH)
+        list_resource = Workers(BASE_URI, AUTH, TIMEOUT)
         list_resource.get(WORKER_SID)
         request.assert_called_with("GET", uri, auth=AUTH,
-                                   use_json_extension=False)
+                                   timeout=TIMEOUT, use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_list(self, request):
@@ -72,9 +74,10 @@ class WorkerTest(unittest.TestCase):
         request.return_value = resp
 
         uri = "{}/Workers".format(BASE_URI)
-        list_resource = Workers(BASE_URI, AUTH)
+        list_resource = Workers(BASE_URI, AUTH, TIMEOUT)
         list_resource.list()
-        request.assert_called_with("GET", uri, params={}, auth=AUTH)
+        request.assert_called_with("GET", uri, params={}, auth=AUTH,
+                                   timeout=TIMEOUT, use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_update_instance(self, request):
@@ -83,7 +86,7 @@ class WorkerTest(unittest.TestCase):
         request.return_value = resp
 
         uri = "{}/Workers/{}".format(BASE_URI, WORKER_SID)
-        list_resource = Workers(BASE_URI, AUTH)
+        list_resource = Workers(BASE_URI, AUTH, TIMEOUT)
         worker = Worker(list_resource, WORKER_SID)
         worker.update(friendly_name='Test Worker')
         exp_params = {
@@ -91,7 +94,7 @@ class WorkerTest(unittest.TestCase):
         }
 
         request.assert_called_with("POST", uri, data=exp_params, auth=AUTH,
-                                   use_json_extension=False)
+                                   timeout=TIMEOUT, use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_update_list(self, request):
@@ -100,11 +103,11 @@ class WorkerTest(unittest.TestCase):
         request.return_value = resp
 
         uri = "{}/Workers/{}".format(BASE_URI, WORKER_SID)
-        list_resource = Workers(BASE_URI, AUTH)
+        list_resource = Workers(BASE_URI, AUTH, TIMEOUT)
         list_resource.update(WORKER_SID, friendly_name='Test Worker')
         exp_params = {
             'FriendlyName': "Test Worker"
         }
 
         request.assert_called_with("POST", uri, data=exp_params, auth=AUTH,
-                                   use_json_extension=False)
+                                   timeout=TIMEOUT, use_json_extension=False)

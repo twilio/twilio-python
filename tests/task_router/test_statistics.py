@@ -8,6 +8,7 @@ from twilio.rest.resources.task_router.workflows import Workflows, Workflow
 AUTH = ("AC123", "token")
 BASE_URI = "https://taskrouter.twilio.com/v1/Accounts/AC123/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 WORKER_SID = "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+TIMEOUT = 30
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -16,7 +17,7 @@ def test_fetch_worker_statistics(request):
     resp.status_code = 200
     request.return_value = resp
 
-    workers = Workers(BASE_URI, AUTH)
+    workers = Workers(BASE_URI, AUTH, TIMEOUT)
     worker = Worker(workers, 'WK123')
     worker.load_subresources()
     worker.statistics.get()
@@ -25,6 +26,7 @@ def test_fetch_worker_statistics(request):
         '{}/Workers/WK123/Statistics'.format(BASE_URI),
         params={},
         auth=AUTH,
+        timeout=TIMEOUT,
         use_json_extension=False,
     )
 
@@ -35,11 +37,11 @@ def test_fetch_workers_statistics(request):
     resp.status_code = 200
     request.return_value = resp
 
-    workers = Workers(BASE_URI, AUTH)
+    workers = Workers(BASE_URI, AUTH, TIMEOUT)
     workers.statistics.get()
     request.assert_called_with('GET',
                                '{}/Workers/Statistics'.format(BASE_URI),
-                               params={}, auth=AUTH,
+                               params={}, auth=AUTH, timeout=TIMEOUT,
                                use_json_extension=False)
 
 
