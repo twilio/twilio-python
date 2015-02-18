@@ -3,10 +3,18 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.7.0
+-------------
+
+Released February 18, 2015:
+
+- Add TaskRouterClient and resources to support the new TaskRouter API
+- Stop prepending numeric error code to exception error messages
+
 Version 3.6.15
 --------------
 
-Released January 14, 2014
+Released January 14, 2015
 
 - Update request construction for Tokens
 
