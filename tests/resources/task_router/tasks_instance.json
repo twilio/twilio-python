@@ -1,0 +1,15 @@
+{
+    "date_created": "2014-05-14T10:50:02Z",
+    "date_updated": "2014-05-14T23:26:06Z",
+    "attributes": "{\"body\": \"hello\"}",
+    "assignment_status": "pending",
+    "priority": 0,
+    "age": 25200,
+    "timeout": 60,
+    "workflow_sid": "WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "task_queue_sid": "WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "sid": "WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "url": "https://taskrouter.twilio.com/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}

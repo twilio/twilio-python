@@ -1,19 +1,19 @@
 import unittest
 
 from mock import patch, Mock, sentinel, ANY
-from nose.tools import assert_equal, assert_true
+from nose.tools import assert_equal, assert_true, assert_is_not_none
 
 from twilio.rest.resources.imports import json
-from twilio.rest import TwilioRestClient, resources
+from twilio.rest import TwilioRestClient, resources, TwilioTaskRouterClient
 from tools import create_mock_json
 
 AUTH = ("ACCOUNT_SID", "AUTH_TOKEN")
 
 
 class RestClientTest(unittest.TestCase):
-
     def setUp(self):
         self.client = TwilioRestClient("ACCOUNT_SID", "AUTH_TOKEN")
+        self.task_router_client = TwilioTaskRouterClient("ACCOUNT_SID", "AUTH_TOKEN")
 
     @patch("twilio.rest.make_request")
     def test_request(self, mock):
@@ -32,7 +32,7 @@ class RestClientTest(unittest.TestCase):
 
     def test_authorized_apps(self):
         assert_true(isinstance(self.client.authorized_connect_apps,
-                    resources.AuthorizedConnectApps))
+                               resources.AuthorizedConnectApps))
 
     @patch("twilio.rest.resources.base.make_request")
     def test_conferences(self, mock):
@@ -47,7 +47,18 @@ class RestClientTest(unittest.TestCase):
         mock.return_value = resp
         self.client.members("QU123").list()
         uri = "https://api.twilio.com/2010-04-01/Accounts/ACCOUNT_SID/Queues/QU123/Members"
-        mock.assert_called_with("GET", uri, params={}, auth=AUTH)
+        mock.assert_called_with("GET", uri, params={}, auth=AUTH,
+                                use_json_extension=True)
+
+    @patch("twilio.rest.resources.base.make_request")
+    def test_workflows(self, request):
+        resp = create_mock_json("tests/resources/task_router/workflows_list.json")
+        request.return_value = resp
+        workflows = self.task_router_client.workflows("WS123")
+        workflows = workflows.list()
+        assert_is_not_none(workflows[0].sid)
+        uri = "https://taskrouter.twilio.com/v1/Workspaces/WS123/Workflows"
+        request.assert_called_with("GET", uri, headers=ANY, params={}, auth=AUTH)
 
 
 class RestClientTimeoutTest(unittest.TestCase):
@@ -59,7 +70,9 @@ class RestClientTimeoutTest(unittest.TestCase):
         resp = create_mock_json("tests/resources/members_list.json")
         mock_request.return_value = resp
         self.client.members("QU123").list()
-        mock_request.assert_called_with("GET", ANY, params=ANY, auth=AUTH, timeout=sentinel.timeout)
+        mock_request.assert_called_with("GET", ANY, params=ANY, auth=AUTH,
+                                        timeout=sentinel.timeout,
+                                        use_json_extension=True)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_arbitrary_member(self, mock_request):
@@ -68,4 +81,6 @@ class RestClientTimeoutTest(unittest.TestCase):
         mock_response.content = json.dumps({"short_codes": []})
         mock_request.return_value = mock_response
         assert_equal([], self.client.sms.short_codes.list())
-        mock_request.assert_called_once_with("GET", ANY, params=ANY, auth=AUTH, timeout=sentinel.timeout)
+        mock_request.assert_called_once_with("GET", ANY, params=ANY, auth=AUTH,
+                                             timeout=sentinel.timeout,
+                                             use_json_extension=True)

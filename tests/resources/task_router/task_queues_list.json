@@ -1,0 +1,28 @@
+{
+    "task_queues": [
+        {
+            "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "sid": "WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "friendly_name": "Test TaskQueue",
+            "target_workers": "['worker.support > 5', 'worker.language == spanish']",
+            "reservation_activity_sid": "WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "reservation_activity_name": "Reserved",
+            "assignment_activity_sid": "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "assignment_activity_name": "Working on Task",
+            "date_created": "Wed, 14 May 2014 10:50:02 +0000",
+            "date_updated": "Thu, 15 May 2014 16:47:51 +0000",
+            "url": "https://taskrouter.twilio.comhttps://taskrouter.twilio.com/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+    ],
+    "meta": {
+        "key": "task_queues",
+        "first_page_url": "https://taskrouter.twilio.comhttps://taskrouter.twilio.com/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues?PageSize=50&Page=0",
+        "last_page_url": "https://taskrouter.twilio.comhttps://taskrouter.twilio.com/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues?PageSize=50&Page=0",
+        "next_page_url": null,
+        "page": 0,
+        "page_size": 50,
+        "previous_page_url": null,
+        "url": "https://taskrouter.twilio.com/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues?PageSize=50&Page=0"
+    }
+}

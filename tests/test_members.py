@@ -21,7 +21,8 @@ def test_members_list(mock):
     uri = "%s/Members" % (BASE_URI)
     list_resource.list()
 
-    mock.assert_called_with("GET", uri, params={}, auth=AUTH)
+    mock.assert_called_with("GET", uri, params={}, auth=AUTH,
+                            use_json_extension=True)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -32,7 +33,8 @@ def test_members_dequeue_front(mock):
     uri = "%s/Members/Front" % (BASE_URI)
     list_resource.dequeue(TWIML_URL)
 
-    mock.assert_called_with("POST", uri, data={"Url": TWIML_URL}, auth=AUTH)
+    mock.assert_called_with("POST", uri, data={"Url": TWIML_URL}, auth=AUTH,
+                            use_json_extension=True)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -43,4 +45,5 @@ def test_members_dequeue_call(mock):
     uri = "%s/Members/%s" % (BASE_URI, CALL_SID)
     list_resource.dequeue(TWIML_URL, call_sid=CALL_SID)
 
-    mock.assert_called_with("POST", uri, data={"Url": TWIML_URL}, auth=AUTH)
+    mock.assert_called_with("POST", uri, data={"Url": TWIML_URL}, auth=AUTH,
+                            use_json_extension=True)

@@ -1,0 +1,28 @@
+{
+    "workers": [
+        {
+            "sid": "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "friendly_name": "Test Worker",
+            "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "activity_sid": "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "attributes": "{\"email\": \"test@twilio.com\", \"phone\": \"8675309\"}",
+            "available": true,
+            "activity_name": "available",
+            "date_created": "2014-05-14T16:29:17Z",
+            "date_updated": "2014-05-15T16:03:42Z",
+            "date_status_changed": "Wed, 14 May 2014 16:29:17 +0000",
+            "url": "https://taskrouter.twilio.com/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+    ],
+    "meta": {
+        "key": "workers",
+        "first_page_url": "https://taskrouter.twilio.com/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers?PageSize=50&Page=0",
+        "last_page_url": "https://taskrouter.twilio.com/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers?PageSize=50&Page=0",
+        "next_page_url": null,
+        "page": 0,
+        "page_size": 50,
+        "previous_page_url": null,
+        "url": "https://taskrouter.twilio.com/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers?PageSize=50&Page=0"
+    }
+}

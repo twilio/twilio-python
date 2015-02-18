@@ -1,16 +1,10 @@
-from ...exceptions import TwilioException
-from ..exceptions import TwilioRestException
-
-from .imports import (
-    parse_qs, json, httplib2
-)
-
 from .util import (
     transform_params, format_name, parse_date, convert_boolean, convert_case,
     convert_keys, normalize_dates, UNSET_TIMEOUT
 )
 from .base import (
     Response, Resource, InstanceResource, ListResource,
+    NextGenInstanceResource, NextGenListResource,
     make_request, make_twilio_request
 )
 from .phone_numbers import (
@@ -51,6 +45,25 @@ from .messages import Message, Messages
 from .media import Media, MediaList
 
 from .sip import Sip
+
+from .task_router import (
+    Activity,
+    Activities,
+    Event,
+    Events,
+    Reservation,
+    Reservations,
+    Task,
+    Tasks,
+    TaskQueue,
+    TaskQueues,
+    Worker,
+    Workers,
+    Workflow,
+    Workflows,
+    Workspace,
+    Workspaces,
+)
 
 from .tokens import Token, Tokens
 

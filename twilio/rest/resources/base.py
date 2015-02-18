@@ -1,4 +1,5 @@
 import logging
+from urlparse import urlunparse
 import os
 import platform
 
@@ -17,9 +18,10 @@ from ..exceptions import TwilioRestException
 from .connection import Connection
 from .imports import parse_qs, httplib2, json
 from .util import (
-    transform_params,
+    parse_iso_date,
     parse_rfc2822_date,
-    UNSET_TIMEOUT
+    transform_params,
+    UNSET_TIMEOUT,
 )
 
 logger = logging.getLogger('twilio')
@@ -143,6 +145,8 @@ def make_twilio_request(method, uri, **kwargs):
 
     if "Accept" not in headers:
         headers["Accept"] = "application/json"
+
+    if kwargs.pop('use_json_extension', False):
         uri += ".json"
 
     resp = make_request(method, uri, **kwargs)
@@ -166,6 +170,7 @@ class Resource(object):
     """A REST Resource"""
 
     name = "Resource"
+    use_json_extension = False
 
     def __init__(self, base_uri, auth, timeout=UNSET_TIMEOUT):
         self.base_uri = base_uri
@@ -190,6 +195,8 @@ class Resource(object):
         """
         if 'timeout' not in kwargs and self.timeout is not UNSET_TIMEOUT:
             kwargs['timeout'] = self.timeout
+
+        kwargs['use_json_extension'] = self.use_json_extension
         resp = make_twilio_request(method, uri, auth=self.auth, **kwargs)
 
         logger.debug(resp.content)
@@ -217,6 +224,7 @@ class InstanceResource(Resource):
 
     subresources = []
     id_key = "sid"
+    use_json_extension = True
 
     def __init__(self, parent, sid):
         self.parent = parent
@@ -236,8 +244,9 @@ class InstanceResource(Resource):
             del entries["uri"]
 
         for key in entries.keys():
-            if key.startswith("date_") and isinstance(entries[key], str):
-                entries[key] = parse_rfc2822_date(entries[key])
+            if (key.startswith("date_")
+                    and isinstance(entries[key], string_types)):
+                entries[key] = self._parse_date(entries[key])
 
         self.__dict__.update(entries)
 
@@ -270,14 +279,29 @@ class InstanceResource(Resource):
         """
         return self.parent.delete(self.name)
 
+    def _parse_date(self, s):
+        return parse_rfc2822_date(s)
+
     def __str__(self):
         return "<%s %s>" % (self.__class__.__name__, self.name[0:5])
+
+
+class NextGenInstanceResource(InstanceResource):
+
+    use_json_extension = False
+
+    def __init__(self, *args, **kwargs):
+        super(NextGenInstanceResource, self).__init__(*args, **kwargs)
+
+    def _parse_date(self, s):
+        return parse_iso_date(s)
 
 
 class ListResource(Resource):
 
     name = "Resources"
     instance = InstanceResource
+    use_json_extension = True
 
     def __init__(self, *args, **kwargs):
         super(ListResource, self).__init__(*args, **kwargs)
@@ -440,3 +464,77 @@ class ListResource(Resource):
         :param int page_size: The number of results to be returned.
         """
         return self.get_instances(kw)
+
+
+class NextGenListResource(ListResource):
+
+    name = "Resources"
+    instance = NextGenInstanceResource
+    use_json_extension = False
+
+    def __init__(self, *args, **kwargs):
+        super(NextGenListResource, self).__init__(*args, **kwargs)
+
+    def iter(self, **kwargs):
+        """ Return all instance resources using an iterator
+
+        This will fetch a page of resources from the API and yield them in
+        turn. When the page is exhausted, this will make a request to the API
+        to retrieve the next page. Hence you may notice a pattern - the library
+        will loop through 50 objects very quickly, but there will be a delay
+        retrieving the 51st as the library must make another request to the API
+        for resources.
+
+        Example usage:
+
+        .. code-block:: python
+
+            for message in client.messages:
+                print message.sid
+        """
+        params = urlencode(transform_params(kwargs))
+        parsed = urlparse(self.uri)
+        url = urlunparse(parsed[:4] + (params, ) + (parsed[5], ))
+
+        while True:
+            resp, page = self.request("GET", url)
+
+            key = page.get('meta', {}).get('key')
+
+            if key is None or key not in page:
+                raise StopIteration()
+
+            for ir in page[key]:
+                yield self.load_instance(ir)
+
+            url = page.get('meta', {}).get('next_page_url')
+            if not url:
+                raise StopIteration()
+
+    def get_instances(self, params):
+        """
+        Query the list resource for a list of InstanceResources.
+
+        Raises a :exc:`~twilio.TwilioRestException` if requesting a page of
+        results that does not exist.
+
+        :param dict params: List of URL parameters to be included in request
+        :param int page: The page of results to retrieve (most recent at 0)
+        :param int page_size: The number of results to be returned.
+
+        :returns: -- the list of resources
+        """
+        params = transform_params(params)
+
+        resp, page = self.request("GET", self.uri, params=params)
+        key = page.get('meta', {}).get('key')
+
+        if key is None:
+            raise TwilioException(
+                "Unable to determine resource key from response"
+            )
+
+        if key not in page:
+            raise TwilioException("Key %s not present in response" % key)
+
+        return [self.load_instance(ir) for ir in page[key]]

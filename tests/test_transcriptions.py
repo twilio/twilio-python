@@ -18,7 +18,8 @@ def test_paging(mock):
     uri = "%s/Transcriptions" % (BASE_URI)
     transcriptions.list(page=2)
 
-    mock.assert_called_with("GET", uri, params={"Page": 2}, auth=AUTH)
+    mock.assert_called_with("GET", uri, params={"Page": 2}, auth=AUTH,
+                            use_json_extension=True)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -29,7 +30,8 @@ def test_get(mock):
     uri = "%s/Transcriptions/TR123" % (BASE_URI)
     transcriptions.get("TR123")
 
-    mock.assert_called_with("GET", uri, auth=AUTH)
+    mock.assert_called_with("GET", uri, auth=AUTH,
+                            use_json_extension=True)
 
 
 @patch("twilio.rest.resources.base.Resource.request")

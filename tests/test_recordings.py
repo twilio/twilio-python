@@ -23,7 +23,8 @@ def test_paging(mock):
     recordings.list(call_sid="CA123", before=date(2010, 12, 5))
     exp_params = {'CallSid': 'CA123', 'DateCreated<': '2010-12-05'}
 
-    mock.assert_called_with("GET", uri, params=exp_params, auth=AUTH)
+    mock.assert_called_with("GET", uri, params=exp_params, auth=AUTH,
+                            use_json_extension=True)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -34,7 +35,8 @@ def test_get(mock):
     uri = "%s/Recordings/%s" % (BASE_URI, RE_SID)
     r = recordings.get(RE_SID)
 
-    mock.assert_called_with("GET", uri, auth=AUTH)
+    mock.assert_called_with("GET", uri, auth=AUTH,
+                            use_json_extension=True)
 
     truri = "%s/Recordings/%s/Transcriptions" % (BASE_URI, RE_SID)
     assert_equals(r.transcriptions.uri, truri)
@@ -49,7 +51,7 @@ def test_delete_list(mock):
     uri = "%s/Recordings/%s" % (BASE_URI, RE_SID)
     r = recordings.delete(RE_SID)
 
-    mock.assert_called_with("DELETE", uri, auth=AUTH)
+    mock.assert_called_with("DELETE", uri, auth=AUTH, use_json_extension=True)
     assert_true(r)
 
 
@@ -63,7 +65,8 @@ def test_delete_instance(mock):
     rec = Recording(recordings, RE_SID)
     r = rec.delete()
 
-    mock.assert_called_with("DELETE", uri, auth=AUTH)
+    mock.assert_called_with("DELETE", uri, auth=AUTH,
+                            use_json_extension=True)
     assert_true(r)
 
 

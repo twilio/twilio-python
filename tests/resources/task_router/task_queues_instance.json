@@ -1,0 +1,14 @@
+{
+    "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "sid": "WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "friendly_name": "Test TaskQueue",
+    "target_workers": "['worker.support > 5', 'worker.language == spanish']",
+    "reservation_activity_sid": "WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "reservation_activity_name": "Reserved",
+    "assignment_activity_sid": "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "date_created": "2014-05-14T10:50:02Z",
+    "date_updated": "2014-05-14T23:26:06Z",
+    "assignment_activity_name": "Working on Task",
+    "url": "https://taskrouter.twilio.com/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}

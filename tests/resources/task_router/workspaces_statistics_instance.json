@@ -1,0 +1,49 @@
+{
+    "cumulative": {
+        "start_time": "2014-08-06T22:22:00Z",
+        "end_time": "2014-08-06T22:37:00Z",
+        "reservations_accepted": 0,
+        "reservations_rejected": 0,
+        "reservations_timed_out": 0,
+        "tasks_created": 0,
+        "tasks_canceled": 0,
+        "tasks_moved": 0,
+        "tasks_timed_out_in_workflow": 0,
+        "avg_task_acceptance_time": 0.0
+    },
+    "realtime": {
+        "longest_task_waiting_sid": null,
+        "longest_task_waiting_age": 0,
+        "total_tasks": 1,
+        "total_workers": 3,
+        "tasks_by_status": {
+            "pending": 0,
+            "assigned": 1,
+            "reserved": 0
+        },
+        "activity_statistics": [
+            {
+                "sid": "WA36da5e4272ecadef27920fa475617394",
+                "friendly_name": "Ready",
+                "workers": 1
+            },
+            {
+                "sid": "WA7bace730cef6eb1d1e9861874d040f8e",
+                "friendly_name": "Offline",
+                "workers": 0
+            },
+            {
+                "sid": "WAaab092792e5297899a99c20eb39a7442",
+                "friendly_name": "Working",
+                "workers": 0
+            },
+            {
+                "sid": "WAcf6268404d75a25337253e18129d37ed",
+                "friendly_name": "Reserved",
+                "workers": 59
+            }
+        ]
+    },
+    "account_sid": "ACe0228445f532b79547997ce0a552cc7a",
+    "workspace_sid": "WSd6e0d090f90bba4edbcd1e6d7795266f"
+}

@@ -48,7 +48,7 @@ class CallFeedbackTest(unittest.TestCase):
         request.assert_called_with(
             "POST", "/base/CA123/Feedback",
             data=exp_data, auth=AUTH,
-            timeout=ANY,
+            timeout=ANY, use_json_extension=True,
         )
 
     @patch('twilio.rest.resources.base.make_twilio_request')
@@ -78,6 +78,7 @@ class CallFeedbackTest(unittest.TestCase):
         request.assert_called_with(
             "POST", uri,
             data=exp_data, auth=auth,
+            use_json_extension=True,
         )
 
 
@@ -98,4 +99,5 @@ class CallFeedbackSummaryTest(unittest.TestCase):
         assert_equal(10200, feedback.call_count)
         assert_equal(729, feedback.call_feedback_count)
 
-        request.assert_called_with('GET', uri, params={}, auth=auth)
+        request.assert_called_with('GET', uri, params={}, auth=auth,
+                                   use_json_extension=True)

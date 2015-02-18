@@ -1,0 +1,14 @@
+{
+    "date_created": "2014-05-14T10:50:02Z",
+    "date_updated": "2014-05-14T23:26:06Z",
+    "friendly_name": "Default Fifo Workflow",
+    "assignment_callback_url": "http://example.com",
+    "fallback_assignment_callback_url": null,
+    "document_content_type": "application/json",
+    "configuration": "task-routing:\\n  - filter: \\n      - 1 == 1\\n    target:\\n      - queue: WQ6cea7d9a599fadac8511e9fd2d1b7d10\\n        set-priority: 0\\n",
+    "task_reservation_timeout": 120,
+    "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "sid": "WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "url": "https://taskrouter.twilio.com/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows/WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}

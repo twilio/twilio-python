@@ -1,0 +1,43 @@
+{
+    "cumulative": {
+        "start_time": "2014-08-06T22:20:00Z",
+        "end_time": "2014-08-06T22:35:00Z",
+        "reservations_accepted": 0,
+        "reservations_rejected": 0,
+        "reservations_timed_out": 0,
+        "tasks_assigned": 0,
+        "activity_durations": [
+            {
+                "sid": "WA9843334d72887cf31b7b47e84d7028eb",
+                "friendly_name": "Busy",
+                "min": 0,
+                "max": 0,
+                "avg": 0.0
+            },
+            {
+                "sid": "WA79bcc984ca4fe04a31f2f91807a53ca0",
+                "friendly_name": "Idle",
+                "min": 0,
+                "max": 0,
+                "avg": 0.0
+            },
+            {
+                "sid": "WAfd46acd050a4b54144c9071ae149f852",
+                "friendly_name": "Offline",
+                "min": 0,
+                "max": 0,
+                "avg": 0.0
+            },
+            {
+                "sid": "WAa09279eceb3b8afdd4c8accb5a65ebdd",
+                "friendly_name": "Reserved",
+                "min": 0,
+                "max": 0,
+                "avg": 0.0
+            }
+        ]
+    },
+    "account_sid": "ACe0228445f532b79547997ce0a552cc7a",
+    "worker_sid": "WK4ad861856e32bfdf7e11277617366351",
+    "workspace_sid": "WSd6e0d090f90bba4edbcd1e6d7795266f"
+}

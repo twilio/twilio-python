@@ -1,0 +1,14 @@
+{
+    "sid": "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "friendly_name": "Test Worker",
+    "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "activity_sid": "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "attributes": "{\"email\": \"test@twilio.com\", \"phone\": \"8675309\"}",
+    "available": true,
+    "activity_name": "available",
+    "date_created": "2014-05-14T10:50:02Z",
+    "date_updated": "2014-05-14T23:26:06Z",
+    "date_status_changed": "2014-05-14T23:26:06Z",
+    "url": "https://taskrouter.twilio.com/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}

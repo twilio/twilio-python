@@ -1,0 +1,114 @@
+{
+    "meta": {
+        "key": "task_queues_statistics",
+        "url": "https://taskrouter.twilio.com/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Statistics/TaskQueues?PageSize=50&Page=0",
+        "first_page_url": "https://taskrouter.twilio.com/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Statistics/TaskQueues?PageSize=50&Page=0",
+        "previous_page_url": null,
+        "next_page_url": null,
+        "last_page_url": "https://taskrouter.twilio.com/v1/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Statistics/TaskQueues?PageSize=50&Page=0",
+        "page": 0,
+        "page_size": 50
+    },
+    "task_queues_statistics": [
+        {
+            "cumulative": {
+                "reservations_accepted": 0,
+                "reservations_rejected": 0,
+                "reservations_timed_out": 0,
+                "tasks_entered": 0,
+                "tasks_canceled": 0,
+                "tasks_moved": 0,
+                "avg_task_acceptance_time": 0.0,
+                "start_time": "2014-09-19T19:07:00Z",
+                "end_time": "2014-09-19T19:22:00Z"
+            },
+            "realtime": {
+                "longest_task_waiting_sid": null,
+                "longest_task_waiting_age": 0,
+                "total_tasks": 0,
+                "total_eligible_workers": 1,
+                "total_available_workers": 0,
+                "tasks_by_status": {
+                    "pending": 0,
+                    "assigned": 0,
+                    "reserved": 0
+                },
+                "activity_statistics": [
+                    {
+                        "sid": "WA79bcc984ca4fe04a31f2f91807a53ca0",
+                        "friendly_name": "Idle",
+                        "workers": 0
+                    },
+                    {
+                        "sid": "WA9843334d72887cf31b7b47e84d7028eb",
+                        "friendly_name": "Busy",
+                        "workers": 0
+                    },
+                    {
+                        "sid": "WAa09279eceb3b8afdd4c8accb5a65ebdd",
+                        "friendly_name": "Reserved",
+                        "workers": 0
+                    },
+                    {
+                        "sid": "WAfd46acd050a4b54144c9071ae149f852",
+                        "friendly_name": "Offline",
+                        "workers": 1
+                    }
+                ]
+            },
+            "workspace_sid": "WSd6e0d090f90bba4edbcd1e6d7795266f",
+            "account_sid": "ACe0228445f532b79547997ce0a552cc7a",
+            "task_queue_sid": "WQf4cc33f256d080c6cd3995e806592040"
+        },
+        {
+            "cumulative": {
+                "reservations_accepted": 0,
+                "reservations_rejected": 0,
+                "reservations_timed_out": 0,
+                "tasks_entered": 0,
+                "tasks_canceled": 0,
+                "tasks_moved": 0,
+                "avg_task_acceptance_time": 0.0,
+                "start_time": "2014-09-19T19:07:00Z",
+                "end_time": "2014-09-19T19:22:00Z"
+            },
+            "realtime": {
+                "longest_task_waiting_sid": null,
+                "longest_task_waiting_age": 0,
+                "total_tasks": 0,
+                "total_eligible_workers": 1,
+                "total_available_workers": 0,
+                "tasks_by_status": {
+                    "pending": 0,
+                    "assigned": 0,
+                    "reserved": 0
+                },
+                "activity_statistics": [
+                    {
+                        "sid": "WA79bcc984ca4fe04a31f2f91807a53ca0",
+                        "friendly_name": "Idle",
+                        "workers": 0
+                    },
+                    {
+                        "sid": "WA9843334d72887cf31b7b47e84d7028eb",
+                        "friendly_name": "Busy",
+                        "workers": 0
+                    },
+                    {
+                        "sid": "WAa09279eceb3b8afdd4c8accb5a65ebdd",
+                        "friendly_name": "Reserved",
+                        "workers": 0
+                    },
+                    {
+                        "sid": "WAfd46acd050a4b54144c9071ae149f852",
+                        "friendly_name": "Offline",
+                        "workers": 1
+                    }
+                ]
+            },
+            "workspace_sid": "WSd6e0d090f90bba4edbcd1e6d7795266f",
+            "account_sid": "ACe0228445f532b79547997ce0a552cc7a",
+            "task_queue_sid": "WQcec80939c76fef41c9f6938f3a3a9dca"
+        }
+    ]
+}

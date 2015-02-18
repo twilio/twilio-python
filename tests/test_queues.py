@@ -20,7 +20,8 @@ def test_queues_list(mock):
     uri = "%s/Queues" % (BASE_URI)
     list_resource.list()
 
-    mock.assert_called_with("GET", uri, params={}, auth=AUTH)
+    mock.assert_called_with("GET", uri, params={}, auth=AUTH,
+                            use_json_extension=True)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -34,7 +35,8 @@ def test_queues_create(mock):
 
     mock.assert_called_with("POST", uri,
                             data={'FriendlyName': 'test', 'MaxSize': 9001},
-                            auth=AUTH)
+                            auth=AUTH,
+                            use_json_extension=True)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -44,7 +46,8 @@ def test_queues_get(mock):
 
     uri = "%s/Queues/%s" % (BASE_URI, QUEUE_SID)
     list_resource.get(QUEUE_SID)
-    mock.assert_called_with("GET", uri, auth=AUTH)
+    mock.assert_called_with("GET", uri, auth=AUTH,
+                            use_json_extension=True)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -56,7 +59,8 @@ def test_queue_update(mock):
     instance_resource.update(friendly_name='QQ')
 
     mock.assert_called_with("POST", uri,
-        data={'FriendlyName': 'QQ'}, auth=AUTH)
+                            data={'FriendlyName': 'QQ'}, auth=AUTH,
+                            use_json_extension=True)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -67,4 +71,4 @@ def test_queue_delete(mock):
     uri = "%s/Queues/%s" % (BASE_URI, QUEUE_SID)
     instance_resource.delete()
 
-    mock.assert_called_with("DELETE", uri, auth=AUTH)
+    mock.assert_called_with("DELETE", uri, auth=AUTH, use_json_extension=True)
