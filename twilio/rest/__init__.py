@@ -92,7 +92,8 @@ values from your Twilio Account at https://www.twilio.com/user/account.
         self.base = base
         self.auth = (account, token)
         self.timeout = timeout
-        self.account_uri = "{0}/{1}/Accounts/{2}".format(base, version, account)
+        self.account_uri = "{0}/{1}/Accounts/{2}".format(base,
+                                                         version, account)
 
     def dependent_phone_numbers(self, address_sid):
         """
@@ -282,8 +283,8 @@ class TwilioTaskRouterClient(TwilioClient):
         Return a :class:`Reservations` instance for the :class:`Reservation`
         with the given workspace_sid ans task_sid
         """
-        base_uri = "{0}/{1}/Tasks/{2}".format(self.workspace_uri, workspace_sid,
-                                           task_sid)
+        base_uri = "{0}/{1}/Tasks/{2}".format(self.workspace_uri,
+                                              workspace_sid, task_sid)
         return Reservations(base_uri, self.auth, self.timeout)
 
     def task_queues(self, workspace_sid):
