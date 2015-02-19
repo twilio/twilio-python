@@ -25,7 +25,7 @@ class WorkerTest(unittest.TestCase):
             'FriendlyName': "Test Worker"
         }
 
-        request.assert_called_with("POST", "{}/Workers".format(BASE_URI), data=exp_params, auth=AUTH,
+        request.assert_called_with("POST", "{0}/Workers".format(BASE_URI), data=exp_params, auth=AUTH,
                                    timeout=TIMEOUT, use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
@@ -35,7 +35,7 @@ class WorkerTest(unittest.TestCase):
         resp.status_code = 204
         request.return_value = resp
 
-        uri = "{}/Workers/{}".format(BASE_URI, WORKER_SID)
+        uri = "{0}/Workers/{1}".format(BASE_URI, WORKER_SID)
         list_resource = Workers(BASE_URI, AUTH, TIMEOUT)
         worker = Worker(list_resource, WORKER_SID)
         worker.delete()
@@ -49,7 +49,7 @@ class WorkerTest(unittest.TestCase):
         resp.status_code = 204
         request.return_value = resp
 
-        uri = "{}/Workers/{}".format(BASE_URI, WORKER_SID)
+        uri = "{0}/Workers/{1}".format(BASE_URI, WORKER_SID)
         list_resource = Workers(BASE_URI, AUTH, TIMEOUT)
         list_resource.delete(WORKER_SID)
         request.assert_called_with("DELETE", uri, auth=AUTH, timeout=TIMEOUT,
@@ -61,7 +61,7 @@ class WorkerTest(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        uri = "{}/Workers/{}".format(BASE_URI, WORKER_SID)
+        uri = "{0}/Workers/{1}".format(BASE_URI, WORKER_SID)
         list_resource = Workers(BASE_URI, AUTH, TIMEOUT)
         list_resource.get(WORKER_SID)
         request.assert_called_with("GET", uri, auth=AUTH,
@@ -73,7 +73,7 @@ class WorkerTest(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        uri = "{}/Workers".format(BASE_URI)
+        uri = "{0}/Workers".format(BASE_URI)
         list_resource = Workers(BASE_URI, AUTH, TIMEOUT)
         list_resource.list()
         request.assert_called_with("GET", uri, params={}, auth=AUTH,
@@ -85,7 +85,7 @@ class WorkerTest(unittest.TestCase):
         resp.status_code = 201
         request.return_value = resp
 
-        uri = "{}/Workers/{}".format(BASE_URI, WORKER_SID)
+        uri = "{0}/Workers/{1}".format(BASE_URI, WORKER_SID)
         list_resource = Workers(BASE_URI, AUTH, TIMEOUT)
         worker = Worker(list_resource, WORKER_SID)
         worker.update(friendly_name='Test Worker')
@@ -102,7 +102,7 @@ class WorkerTest(unittest.TestCase):
         resp.status_code = 201
         request.return_value = resp
 
-        uri = "{}/Workers/{}".format(BASE_URI, WORKER_SID)
+        uri = "{0}/Workers/{1}".format(BASE_URI, WORKER_SID)
         list_resource = Workers(BASE_URI, AUTH, TIMEOUT)
         list_resource.update(WORKER_SID, friendly_name='Test Worker')
         exp_params = {

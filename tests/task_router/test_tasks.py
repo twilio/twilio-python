@@ -26,7 +26,7 @@ class TaskTest(unittest.TestCase):
             'Timeout': 60
         }
 
-        request.assert_called_with("POST", "{}/Tasks".format(BASE_URI),
+        request.assert_called_with("POST", "{0}/Tasks".format(BASE_URI),
                                    data=exp_params, auth=AUTH,
                                    use_json_extension=False)
 
@@ -37,7 +37,7 @@ class TaskTest(unittest.TestCase):
         resp.status_code = 204
         request.return_value = resp
 
-        uri = "{}/Tasks/{}".format(BASE_URI, TASK_SID)
+        uri = "{0}/Tasks/{1}".format(BASE_URI, TASK_SID)
         list_resource = Tasks(BASE_URI, AUTH)
         task = Task(list_resource, TASK_SID)
         task.delete()
@@ -51,7 +51,7 @@ class TaskTest(unittest.TestCase):
         resp.status_code = 204
         request.return_value = resp
 
-        uri = "{}/Tasks/{}".format(BASE_URI, TASK_SID)
+        uri = "{0}/Tasks/{1}".format(BASE_URI, TASK_SID)
         list_resource = Tasks(BASE_URI, AUTH)
         list_resource.delete(TASK_SID)
         request.assert_called_with("DELETE", uri, auth=AUTH,
@@ -63,7 +63,7 @@ class TaskTest(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        uri = "{}/Tasks/{}".format(BASE_URI, TASK_SID)
+        uri = "{0}/Tasks/{1}".format(BASE_URI, TASK_SID)
         list_resource = Tasks(BASE_URI, AUTH)
         list_resource.get(TASK_SID)
         request.assert_called_with("GET", uri, auth=AUTH,
@@ -75,7 +75,7 @@ class TaskTest(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        uri = "{}/Tasks".format(BASE_URI)
+        uri = "{0}/Tasks".format(BASE_URI)
         list_resource = Tasks(BASE_URI, AUTH)
         list_resource.list()
         request.assert_called_with("GET", uri, params={}, auth=AUTH,
@@ -87,7 +87,7 @@ class TaskTest(unittest.TestCase):
         resp.status_code = 201
         request.return_value = resp
 
-        uri = "{}/Tasks/{}".format(BASE_URI, TASK_SID)
+        uri = "{0}/Tasks/{1}".format(BASE_URI, TASK_SID)
         list_resource = Tasks(BASE_URI, AUTH)
         workflow = Task(list_resource, TASK_SID)
         workflow.update(attributes='attributes', workflow_sid='WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
@@ -105,7 +105,7 @@ class TaskTest(unittest.TestCase):
         resp.status_code = 201
         request.return_value = resp
 
-        uri = "{}/Tasks/{}".format(BASE_URI, TASK_SID)
+        uri = "{0}/Tasks/{1}".format(BASE_URI, TASK_SID)
         list_resource = Tasks(BASE_URI, AUTH)
         list_resource.update(TASK_SID, attributes='attributes', workflow_sid='WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
         exp_params = {

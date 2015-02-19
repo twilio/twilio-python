@@ -66,4 +66,4 @@ class TwilioRestException(TwilioException):
                 ])
             return msg
         else:
-            return "HTTP {} error: {}".format(self.status, self.msg)
+            return "HTTP {0} error: {1}".format(self.status, self.msg)

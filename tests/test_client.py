@@ -1,7 +1,7 @@
 import unittest
 
 from mock import patch, Mock, sentinel, ANY
-from nose.tools import assert_equal, assert_true, assert_is_not_none
+from nose.tools import assert_equal, assert_true
 
 from twilio.rest.resources.imports import json
 from twilio.rest import TwilioRestClient, resources, TwilioTaskRouterClient
@@ -56,7 +56,7 @@ class RestClientTest(unittest.TestCase):
         request.return_value = resp
         workflows = self.task_router_client.workflows("WS123")
         workflows = workflows.list()
-        assert_is_not_none(workflows[0].sid)
+        assert_true(workflows[0].sid is not None)
         uri = "https://taskrouter.twilio.com/v1/Workspaces/WS123/Workflows"
         request.assert_called_with("GET", uri, headers=ANY, params={}, auth=AUTH)
 

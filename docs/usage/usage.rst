@@ -19,7 +19,7 @@ over the last day.
     
     todays_usage = client.usage.records.today
     for category in todays_usage:
-        print '{}: {}'.format(category.description, category.price)
+        print '{0}: {1}'.format(category.description, category.price)
 
 This will print out the amount spent for each usage category over the
 last day. To see all of the possible usage categories, as well as all of the 
