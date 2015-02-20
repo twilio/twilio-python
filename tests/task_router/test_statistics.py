@@ -23,7 +23,7 @@ def test_fetch_worker_statistics(request):
     worker.statistics.get()
     request.assert_called_with(
         'GET',
-        '{}/Workers/WK123/Statistics'.format(BASE_URI),
+        '{0}/Workers/WK123/Statistics'.format(BASE_URI),
         params={},
         auth=AUTH,
         timeout=TIMEOUT,
@@ -40,7 +40,7 @@ def test_fetch_workers_statistics(request):
     workers = Workers(BASE_URI, AUTH, TIMEOUT)
     workers.statistics.get()
     request.assert_called_with('GET',
-                               '{}/Workers/Statistics'.format(BASE_URI),
+                               '{0}/Workers/Statistics'.format(BASE_URI),
                                params={}, auth=AUTH, timeout=TIMEOUT,
                                use_json_extension=False)
 
@@ -56,7 +56,7 @@ def test_fetch_task_queue_statistics(request):
     tq.load_subresources()
     tq.statistics.get()
     request.assert_called_with('GET',
-                               '{}/TaskQueues/TQ123/Statistics'.format(BASE_URI),
+                               '{0}/TaskQueues/TQ123/Statistics'.format(BASE_URI),
                                params={}, auth=AUTH, timeout=30,
                                use_json_extension=False)
 
@@ -70,7 +70,7 @@ def test_fetch_task_queues_statistics(request):
     tqs = TaskQueues(BASE_URI, AUTH, 30)
     tqs.statistics.get()
     request.assert_called_with('GET',
-                               '{}/TaskQueues/Statistics'.format(BASE_URI),
+                               '{0}/TaskQueues/Statistics'.format(BASE_URI),
                                params={}, auth=AUTH, use_json_extension=False)
 
 
@@ -85,5 +85,5 @@ def test_fetch_task_workflow_statistics(request):
     workflow.load_subresources()
     workflow.statistics.get()
     request.assert_called_with('GET',
-                               '{}/Workflows/WF123/Statistics'.format(BASE_URI),
+                               '{0}/Workflows/WF123/Statistics'.format(BASE_URI),
                                params={}, auth=AUTH, use_json_extension=False)

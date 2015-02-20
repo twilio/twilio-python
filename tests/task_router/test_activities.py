@@ -21,14 +21,14 @@ class ActivityTest(unittest.TestCase):
 
         activities = Activities(BASE_URI, AUTH)
         activity = activities.create("Test Activity", True)
-        self.assertIsNotNone(activity)
+        self.assertTrue(activity is not None)
         self.assertEqual(activity.date_created, datetime(2014, 5, 14, 10, 50, 2, tzinfo=pytz.utc))
         exp_params = {
             'FriendlyName': "Test Activity",
             'Available': "true"
         }
 
-        request.assert_called_with("POST", "{}/Activities".format(BASE_URI),
+        request.assert_called_with("POST", "{0}/Activities".format(BASE_URI),
                                    data=exp_params, auth=AUTH,
                                    use_json_extension=False)
 
@@ -39,7 +39,7 @@ class ActivityTest(unittest.TestCase):
         resp.status_code = 204
         request.return_value = resp
 
-        uri = "{}/Activities/{}".format(BASE_URI, ACTIVITY_SID)
+        uri = "{0}/Activities/{1}".format(BASE_URI, ACTIVITY_SID)
         list_resource = Activities(BASE_URI, AUTH)
         activity = Activity(list_resource, ACTIVITY_SID)
         activity.delete()
@@ -53,7 +53,7 @@ class ActivityTest(unittest.TestCase):
         resp.status_code = 204
         request.return_value = resp
 
-        uri = "{}/Activities/{}".format(BASE_URI, ACTIVITY_SID)
+        uri = "{0}/Activities/{1}".format(BASE_URI, ACTIVITY_SID)
         list_resource = Activities(BASE_URI, AUTH)
         list_resource.delete(ACTIVITY_SID)
         request.assert_called_with("DELETE", uri, auth=AUTH,
@@ -65,7 +65,7 @@ class ActivityTest(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        uri = "{}/Activities/{}".format(BASE_URI, ACTIVITY_SID)
+        uri = "{0}/Activities/{1}".format(BASE_URI, ACTIVITY_SID)
         list_resource = Activities(BASE_URI, AUTH)
         list_resource.get(ACTIVITY_SID)
         request.assert_called_with("GET", uri, auth=AUTH,
@@ -77,7 +77,7 @@ class ActivityTest(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        uri = "{}/Activities".format(BASE_URI)
+        uri = "{0}/Activities".format(BASE_URI)
         list_resource = Activities(BASE_URI, AUTH)
         list_resource.list()
         request.assert_called_with("GET", uri, params={}, auth=AUTH,
@@ -89,7 +89,7 @@ class ActivityTest(unittest.TestCase):
         resp.status_code = 201
         request.return_value = resp
 
-        uri = "{}/Activities/{}".format(BASE_URI, ACTIVITY_SID)
+        uri = "{0}/Activities/{1}".format(BASE_URI, ACTIVITY_SID)
         list_resource = Activities(BASE_URI, AUTH)
         activity = Activity(list_resource, ACTIVITY_SID)
         activity.update(friendly_name='Test Activity', available=True)
@@ -107,7 +107,7 @@ class ActivityTest(unittest.TestCase):
         resp.status_code = 201
         request.return_value = resp
 
-        uri = "{}/Activities/{}".format(BASE_URI, ACTIVITY_SID)
+        uri = "{0}/Activities/{1}".format(BASE_URI, ACTIVITY_SID)
         list_resource = Activities(BASE_URI, AUTH)
         list_resource.update(ACTIVITY_SID, friendly_name='Test Activity', available="true")
         exp_params = {

@@ -18,7 +18,7 @@ class TaskQueueTest(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        uri = "{}/Reservations/{}".format(BASE_URI, RESERVATION_SID)
+        uri = "{0}/Reservations/{1}".format(BASE_URI, RESERVATION_SID)
         list_resource = Reservations(BASE_URI, AUTH)
         list_resource.get(RESERVATION_SID)
         request.assert_called_with("GET", uri, auth=AUTH,
@@ -30,7 +30,7 @@ class TaskQueueTest(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        uri = "{}/Reservations".format(BASE_URI)
+        uri = "{0}/Reservations".format(BASE_URI)
         list_resource = Reservations(BASE_URI, AUTH)
         list_resource.list()
         request.assert_called_with("GET", uri, params={}, auth=AUTH,
@@ -42,7 +42,7 @@ class TaskQueueTest(unittest.TestCase):
         resp.status_code = 201
         request.return_value = resp
 
-        uri = "{}/Reservations/{}".format(BASE_URI, RESERVATION_SID)
+        uri = "{0}/Reservations/{1}".format(BASE_URI, RESERVATION_SID)
         list_resource = Reservations(BASE_URI, AUTH)
         workflow = Reservation(list_resource, RESERVATION_SID)
         workflow.update(worker_activity_sid='WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', reservation_status='rejected')
@@ -60,7 +60,7 @@ class TaskQueueTest(unittest.TestCase):
         resp.status_code = 201
         request.return_value = resp
 
-        uri = "{}/Reservations/{}".format(BASE_URI, RESERVATION_SID)
+        uri = "{0}/Reservations/{1}".format(BASE_URI, RESERVATION_SID)
         list_resource = Reservations(BASE_URI, AUTH)
         list_resource.update(RESERVATION_SID, worker_activity_sid='WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                              reservation_status='rejected')

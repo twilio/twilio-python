@@ -178,8 +178,8 @@ class Resource(object):
         self.timeout = timeout
 
     def __eq__(self, other):
-        return (isinstance(other, self.__class__)
-                and self.__dict__ == other.__dict__)
+        return (isinstance(other, self.__class__) and
+                self.__dict__ == other.__dict__)
 
     def __hash__(self):
         return hash(frozenset(self.__dict__))
@@ -244,8 +244,8 @@ class InstanceResource(Resource):
             del entries["uri"]
 
         for key in entries.keys():
-            if (key.startswith("date_")
-                    and isinstance(entries[key], string_types)):
+            if (key.startswith("date_") and
+                    isinstance(entries[key], string_types)):
                 entries[key] = self._parse_date(entries[key])
 
         self.__dict__.update(entries)

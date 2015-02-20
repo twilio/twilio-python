@@ -18,7 +18,7 @@ class EventTest(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        uri = "{}/Events/{}".format(BASE_URI, EVENT_SID)
+        uri = "{0}/Events/{1}".format(BASE_URI, EVENT_SID)
         list_resource = Events(BASE_URI, AUTH)
         list_resource.get(EVENT_SID)
         request.assert_called_with("GET", uri, auth=AUTH,
@@ -30,7 +30,7 @@ class EventTest(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        uri = "{}/Events".format(BASE_URI)
+        uri = "{0}/Events".format(BASE_URI)
         list_resource = Events(BASE_URI, AUTH)
         list_resource.list()
         request.assert_called_with("GET", uri, params={}, auth=AUTH,

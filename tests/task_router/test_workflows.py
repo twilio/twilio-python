@@ -26,7 +26,7 @@ class WorkflowTest(unittest.TestCase):
             'AssignmentCallbackUrl': 'http://www.example.com'
         }
 
-        request.assert_called_with("POST", "{}/Workflows".format(BASE_URI), data=exp_params, auth=AUTH,
+        request.assert_called_with("POST", "{0}/Workflows".format(BASE_URI), data=exp_params, auth=AUTH,
                                    use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
@@ -36,7 +36,7 @@ class WorkflowTest(unittest.TestCase):
         resp.status_code = 204
         request.return_value = resp
 
-        uri = "{}/Workflows/{}".format(BASE_URI, WORKFLOW_SID)
+        uri = "{0}/Workflows/{1}".format(BASE_URI, WORKFLOW_SID)
         list_resource = Workflows(BASE_URI, AUTH)
         workflow = Workflow(list_resource, WORKFLOW_SID)
         workflow.delete()
@@ -50,7 +50,7 @@ class WorkflowTest(unittest.TestCase):
         resp.status_code = 204
         request.return_value = resp
 
-        uri = "{}/Workflows/{}".format(BASE_URI, WORKFLOW_SID)
+        uri = "{0}/Workflows/{1}".format(BASE_URI, WORKFLOW_SID)
         list_resource = Workflows(BASE_URI, AUTH)
         list_resource.delete(WORKFLOW_SID)
         request.assert_called_with("DELETE", uri, auth=AUTH,
@@ -62,7 +62,7 @@ class WorkflowTest(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        uri = "{}/Workflows/{}".format(BASE_URI, WORKFLOW_SID)
+        uri = "{0}/Workflows/{1}".format(BASE_URI, WORKFLOW_SID)
         list_resource = Workflows(BASE_URI, AUTH)
         list_resource.get(WORKFLOW_SID)
         request.assert_called_with("GET", uri, auth=AUTH,
@@ -74,7 +74,7 @@ class WorkflowTest(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        uri = "{}/Workflows".format(BASE_URI)
+        uri = "{0}/Workflows".format(BASE_URI)
         list_resource = Workflows(BASE_URI, AUTH)
         list_resource.list()
         request.assert_called_with("GET", uri, params={}, auth=AUTH,
@@ -86,7 +86,7 @@ class WorkflowTest(unittest.TestCase):
         resp.status_code = 201
         request.return_value = resp
 
-        uri = "{}/Workflows/{}".format(BASE_URI, WORKFLOW_SID)
+        uri = "{0}/Workflows/{1}".format(BASE_URI, WORKFLOW_SID)
         list_resource = Workflows(BASE_URI, AUTH)
         workflow = Workflow(list_resource, WORKFLOW_SID)
         workflow.update(friendly_name='Test Workflow', configuration='configuration',
@@ -106,7 +106,7 @@ class WorkflowTest(unittest.TestCase):
         resp.status_code = 201
         request.return_value = resp
 
-        uri = "{}/Workflows/{}".format(BASE_URI, WORKFLOW_SID)
+        uri = "{0}/Workflows/{1}".format(BASE_URI, WORKFLOW_SID)
         list_resource = Workflows(BASE_URI, AUTH)
         list_resource.update(WORKFLOW_SID, friendly_name='Test Workflow', configuration='configuration',
                              assignment_callback_url='http://www.example.com')
