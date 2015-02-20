@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.7.1
+-------------
+
+Released February 20, 2015:
+
+- Restore Python 2.6 and 3.x support
+
 Version 3.7.0
 -------------
 
