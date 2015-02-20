@@ -1,5 +1,4 @@
 import logging
-from urlparse import urlunparse
 import os
 import platform
 
@@ -9,8 +8,9 @@ from six import (
     binary_type,
     iteritems
 )
-from ...compat import urlparse
 from ...compat import urlencode
+from ...compat import urlparse
+from ...compat import urlunparse
 
 from ... import __version__
 from ...exceptions import TwilioException
