@@ -1,7 +1,7 @@
 from mock import patch, Mock
 from nose.tools import raises
 from twilio.rest.resources import Transcriptions, Transcription
-from tools import create_mock_json
+from tests.tools import create_mock_json
 
 BASE_URI = "https://api.twilio.com/2010-04-01/Accounts/AC123"
 ACCOUNT_SID = "AC123"

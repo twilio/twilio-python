@@ -2,7 +2,7 @@ from datetime import date
 from mock import patch
 from nose.tools import raises, assert_equals, assert_true
 
-from tools import create_mock_json
+from tests.tools import create_mock_json
 from twilio.rest.resources import Recordings, Recording
 
 BASE_URI = "https://api.twilio.com/2010-04-01/Accounts/AC123"

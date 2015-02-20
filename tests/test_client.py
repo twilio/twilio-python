@@ -5,7 +5,7 @@ from nose.tools import assert_equal, assert_true
 
 from twilio.rest.resources.imports import json
 from twilio.rest import TwilioRestClient, resources, TwilioTaskRouterClient
-from tools import create_mock_json
+from tests.tools import create_mock_json
 
 AUTH = ("ACCOUNT_SID", "AUTH_TOKEN")
 

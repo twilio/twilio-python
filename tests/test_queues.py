@@ -1,5 +1,5 @@
 from mock import patch
-from tools import create_mock_json
+from tests.tools import create_mock_json
 from twilio.rest.resources import Queues, Queue
 
 BASE_URI = "https://api.twilio.com/2010-04-01/Accounts/AC123"

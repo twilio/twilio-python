@@ -2,7 +2,7 @@ import unittest
 
 from nose.tools import assert_equal
 from mock import Mock, patch, ANY
-from tools import create_mock_json
+from tests.tools import create_mock_json
 from twilio.rest.resources import Call, Calls
 
 AUTH = ('foo', 'bar')

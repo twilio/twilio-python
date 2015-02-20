@@ -1,5 +1,5 @@
 from mock import patch
-from tools import create_mock_json
+from tests.tools import create_mock_json
 from twilio.rest.resources import Members
 
 QUEUE_SID = "QU1b9faddec3d54ec18488f86c83019bf0"

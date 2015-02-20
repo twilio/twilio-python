@@ -2,7 +2,7 @@ from datetime import date
 from mock import patch
 from nose.tools import raises, assert_true
 from twilio.rest.resources import Notifications
-from tools import create_mock_json
+from tests.tools import create_mock_json
 
 BASE_URI = "https://api.twilio.com/2010-04-01/Accounts/AC123"
 ACCOUNT_SID = "AC123"

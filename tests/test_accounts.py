@@ -2,7 +2,7 @@ import unittest
 
 from mock import Mock, patch
 
-from tools import create_mock_json
+from tests.tools import create_mock_json
 from twilio.rest.resources import Account
 
 

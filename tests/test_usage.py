@@ -1,7 +1,7 @@
 from mock import patch, Mock
 from nose.tools import raises
 
-from tools import create_mock_json
+from tests.tools import create_mock_json
 from twilio.rest.resources import Usage
 from twilio.rest.resources.usage import UsageTriggers, UsageTrigger
 
