@@ -28,6 +28,7 @@ from .resources import (
     Sandboxes,
     Sip,
     Sms,
+    Tokens,
     Transcriptions,
     UNSET_TIMEOUT,
     Usage,
@@ -205,6 +206,7 @@ class TwilioRestClient(TwilioClient):
         self.messages = Messages(self.account_uri, self.auth, timeout)
         self.media = MediaList(self.account_uri, self.auth, timeout)
         self.sip = Sip(self.account_uri, self.auth, timeout)
+        self.tokens = Tokens(self.account_uri, self.auth, timeout)
 
     def participants(self, conference_sid):
         """
