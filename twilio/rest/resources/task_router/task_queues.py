@@ -4,7 +4,43 @@ from .statistics import Statistics
 
 class TaskQueue(NextGenInstanceResource):
     """
-    A TaskQueue resource
+    A TaskQueue resource.
+
+    See the `TaskRouter API reference
+    <https://www.twilio.com/docs/taskrouter/taskqueues>_`
+    for more information.
+
+    .. attribute:: sid
+
+        The unique ID of this TaskQueue.
+
+    .. attribute:: account_sid
+
+        The unique ID of the account that owns this TaskQueue.
+
+    .. attribute:: workspace_sid
+
+        The unique ID of the :class:`Workspace` that contains this TaskQueue.
+
+    .. attribute:: friendly_name
+
+        Human-readable description of this TaskQueue (e.g. "Customer Support"
+        or "Sales").
+
+    .. attribute:: target_workers
+
+        The worker selection expressions associated with this TaskQueue.
+
+    .. attribute:: reservation_activity_sid
+
+        The :class:`Activity` to assign a :class:`Worker` when they are
+        reserved for a :class:`Task` from this TaskQueue. Defaults to
+        'Reserved for Task'.
+
+    .. attribute:: assignment_activity_sid
+
+        The Activity to assign a Worker when they accept a Task from this
+        Taskqueue. Defaults to 'Unavailable for Assignment'.
     """
     subresources = [
         Statistics,

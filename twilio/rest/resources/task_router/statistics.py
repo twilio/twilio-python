@@ -2,6 +2,14 @@ from .. import NextGenInstanceResource, NextGenListResource, transform_params
 
 
 class StatisticsInstance(NextGenInstanceResource):
+    """
+    A resource representing collected statistics about TaskRouter
+    resources.
+
+    See the `TaskRouter API reference
+    <https://www.twilio.com/docs/taskrouter/statistics>_`
+    for more information.
+    """
     def __init__(self, parent):
         self.parent = parent
         super(StatisticsInstance, self).__init__(

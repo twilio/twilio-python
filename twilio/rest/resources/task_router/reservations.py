@@ -3,7 +3,41 @@ from .. import NextGenInstanceResource, NextGenListResource
 
 class Reservation(NextGenInstanceResource):
     """
-    A Reservation resource
+    A Reservation resource.
+
+    See the `TaskRouter API reference
+    <https://www.twilio.com/docs/taskrouter/tasks#reservation>_`
+    for more information.
+
+    .. attribute:: sid
+
+        The unique ID of this Reservation.
+
+    .. attribute:: account_Sid
+
+        The unique ID of the Account that owns this :class:`Task`.
+
+    .. attribute:: workspace_sid
+
+        The unique ID of the :class:`Workspace` that contains this
+        :class:`Task`.
+
+    .. attribute:: task_sid
+
+        The unique ID of the reserved :class:`Task`.
+
+    .. attribute:: worker_sid
+
+        The unique ID of the reserved :class:`Worker`.
+
+    .. attribute:: worker_name
+
+        Human-readable description of the reserved Worker.
+
+    .. attribute:: reservation_status
+
+        The current status of the reservation. One of 'pending',
+        'accepted', 'rejected', or 'timeout'.
     """
 
     def update(self, **kwargs):
