@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.7.2
+-------------
+
+Released February 24, 2015:
+
+- Restore Tokens resource to TwilioRestClient
+
 Version 3.7.1
 -------------
 
