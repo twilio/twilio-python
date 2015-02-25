@@ -85,8 +85,8 @@ state.
 .. toctree::
     :maxdepth: 1
 
-    usage/task-router
-    usage/task-router-tokens
+    usage/taskrouter
+    usage/taskrouter-tokens
 
 
 TwiML
