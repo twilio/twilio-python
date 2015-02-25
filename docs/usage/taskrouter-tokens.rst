@@ -6,7 +6,7 @@ TaskRouter Capability Tokens
 
 
 TaskRouter's Worker.js library lets you add
-`TaskRouter<https://www.twilio.com/docs/taskrouter>`_ Worker Activity controls
+`TaskRouter<https://www.twilio.com/docs/taskrouter>_` Worker Activity controls
 and event notifications to your web applications. Worker.js uses a Websocket
 connection to TaskRouter to receive realtime notifications of Worker
 Reservations and Task details, and provides a simple API for modifying a

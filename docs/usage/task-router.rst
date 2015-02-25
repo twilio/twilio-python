@@ -64,26 +64,26 @@ unique ID:
     # Some JSON to configure the Workflow. See the documentation at
     # http://www.twilio.com/docs/taskrouter for more details.
     CONFIG = """
-{
-   "task_routing":{
-      "filters":[
-         {
-            "friendly_name":"Gold Tickets",
-            "expression":"customer_value == 'Gold' AND type == 'ticket'",
-            "targets":[
-               {
-                  "task_queue_sid":"WQ0123456789abcdef0123456789abcdef",
-                  "priority":"2"
-               }
-            ]
-         }
-      ],
-      "default_filter":{
-         "task_queue_sid":"WQabcdef01234567890123456789abcdef"
-      }
-   }
-}
-"""
+    {
+       "task_routing":{
+          "filters":[
+             {
+                "friendly_name":"Gold Tickets",
+                "expression":"customer_value == 'Gold' AND type == 'ticket'",
+                "targets":[
+                   {
+                      "task_queue_sid":"WQ0123456789abcdef0123456789abcdef",
+                      "priority":"2"
+                   }
+                ]
+             }
+          ],
+          "default_filter":{
+             "task_queue_sid":"WQabcdef01234567890123456789abcdef"
+          }
+       }
+    }
+    """
 
     client = TwilioTaskRouterClient(ACCOUNT_SID, AUTH_TOKEN)
 
@@ -146,10 +146,10 @@ To create a new :class:`Worker`:
     worker = client.workers(WORKSPACE_SID).create(
         friendly_name="Jamie",
         attributes="""{
-    "phone": "+14155551234",
-    "languages": ["EN", "ES"]
-}
-"""
+        "phone": "+14155551234",
+        "languages": ["EN", "ES"]
+    }
+    """
     )
     print worker.sid
 
@@ -207,12 +207,12 @@ To create a new :class:`Task` via the REST API:
     WORKSPACE_SID = "WSZZZZZZZZZZZZZZ"
     # Some JSON containing attributes for this task. User-defined.
     TASK_ATTRIBUTES = """{
-     "type": "call",
-     "contact": "+15558675309",
-     "customer-value": "gold",
-     "task-reason": "support",
-     "callSid": "CA42ed11..."
-}"""
+         "type": "call",
+         "contact": "+15558675309",
+         "customer-value": "gold",
+         "task-reason": "support",
+         "callSid": "CA42ed11..."
+    }"""
 
 
     client = TwilioTaskRouterClient(ACCOUNT_SID, AUTH_TOKEN)
