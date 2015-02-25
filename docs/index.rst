@@ -75,6 +75,20 @@ Query the Twilio REST API to create phone calls, send messages and more!
     usage/sip
 
 
+TaskRouter
+---------
+
+Query the Twilio TaskRouter API to set up workspaces and task routing, and
+create capability tokens to authorize your client-side code to safely update
+state.
+
+.. toctree::
+    :maxdepth: 1
+
+    usage/task-router
+    usage/task-router-tokens
+
+
 TwiML
 ---------
 
