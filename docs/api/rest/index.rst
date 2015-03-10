@@ -18,3 +18,6 @@
    :members:
    :inherited-members:
 
+.. autoclass:: TwilioTaskRouterClient
+   :members:
+   :inherited-members:

@@ -4,7 +4,68 @@ from .statistics import Statistics
 
 class Worker(NextGenInstanceResource):
     """
-    A Worker resource
+    A Worker resource.
+
+    See the `TaskRouter API reference
+    <https://www.twilio.com/docs/taskrouter/workers>_`
+    for more information.
+
+    .. attribute:: sid
+
+        The unique ID of this Worker.
+
+    .. attribute:: account_sid
+
+        The unique ID of the account that owns this worker.
+
+    .. attribute:: workspace_sid
+
+        The unique ID of the :class:`Workspace` that contains this worker.
+
+    .. attribute:: friendly_name
+
+        A human-readable name for this worker.
+
+    .. attribute:: attributes
+
+        A JSON object describing this worker. For example, for a Worker that
+        handles English language phone calls:
+            '{"language":"english","task-type":"phone"}'
+        These attributes determine which :class:`TaskQueue` this worker will
+        subscribe to. These attributes will also be passed to the Assignment
+        Callback URL whenever TaskRouter assigns a :class:`Task` to this
+        worker, so you can also use this as a place to store information that
+        you'll need when routing a Task to the Worker (for example, the
+        Worker's phone number or Twilio Client name).
+
+    .. attribute:: available
+
+        A Boolean value indicating whether the worker can be assigned another
+        task. When true, the worker can be assigned a new task; when false,
+        the worker will not be assigned any tasks.
+
+    .. attribute:: activity_sid
+
+        The unique ID of the :class:`Activity` this Worker is currently
+        performing.
+
+    .. attribute:: activity_name
+
+        A string describing the worker's current activity. Workers may only
+        perform Activities that exist in this Workspace.
+
+    .. attribute:: date_created
+
+        The time this worker was created, given in UTC ISO 8601 format.
+
+    .. attribute:: date_updated
+
+        The time this worker was last updated, given in UTC ISO 8601 format.
+
+    .. attribute:: date_status_changed
+
+        The time of the last change to this worker's activity. Used to
+        calculate :class: `Workflow` statistics.
     """
     subresources = [
         Statistics

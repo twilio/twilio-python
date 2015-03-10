@@ -3,7 +3,65 @@ from .. import NextGenInstanceResource, NextGenListResource
 
 class Task(NextGenInstanceResource):
     """
-    A Task resource
+    A Task resource.
+
+    See the `TaskRouter API reference
+    <https://www.twilio.com/docs/taskrouter/tasks>_`
+    for more information.
+
+    .. attribute:: sid
+
+        The unique ID for this Task.
+
+    .. attribute:: account_sid
+
+        The ID of the account that owns this Task.
+
+    .. attribute:: workspace_sid
+
+        The ID of the :class:`Workspace` that contains this Task.
+
+    .. attribute:: workflow_sid
+
+        The ID of the :class:`Workflow` that is responsible for routing
+        this Task.
+
+    .. attribute:: attributes
+
+        The user-defined JSON string describing the custom attributes of
+        this work.
+
+    .. attribute:: age
+
+        The number of seconds since this Task was created.
+
+    .. attribute:: priority
+
+        The current priority score of the task, as assigned by the Workflow.
+        Tasks with higher values will be assigned before tasks with lower
+        values.
+
+    .. attribute:: task_queue_sid
+
+        The ID of the current TaskQueue this task occupies, controlled by the
+        Workflow.
+
+    .. attribute:: assignment_status
+
+        A string representing the assignment state of the task. May be
+        'pending', 'reserved', 'assigned', or 'canceled'.
+
+    .. attribute:: reason
+
+        The reason the task was canceled (if applicable).
+
+    .. attribute:: date_created
+
+        The date this task was created, as UTC in ISO 8601 format.
+
+    .. attribute:: date_updated
+
+        The date this task was last updated, as UTC in ISO 8601 format.
     """
 
     def delete(self):
