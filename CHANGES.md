@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.7.3
+-------------
+
+Released March 10, 2015:
+
+- Add missing docstrings and examples for TaskRouter
+
 Version 3.7.2
 -------------
 
