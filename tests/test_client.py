@@ -15,7 +15,7 @@ class RestClientTest(unittest.TestCase):
         self.client = TwilioRestClient("ACCOUNT_SID", "AUTH_TOKEN")
         self.task_router_client = TwilioTaskRouterClient("ACCOUNT_SID", "AUTH_TOKEN")
 
-    @patch("twilio.rest.make_request")
+    @patch("twilio.rest.base.make_request")
     def test_request(self, mock):
         self.client.request("2010-04-01", method="GET")
         mock.assert_called_with("GET", "https://api.twilio.com/2010-04-01",
