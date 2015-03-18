@@ -1,8 +1,9 @@
 from nose.tools import assert_equal, assert_raises
 from mock import patch
 
-from twilio.rest.exceptions import TwilioException
-from twilio.rest import TwilioRestClient, find_credentials
+from twilio.exceptions import TwilioException
+from twilio.rest import TwilioRestClient
+from twilio.rest.base import find_credentials
 
 
 def test_creds_not_found():
@@ -20,7 +21,7 @@ def test_find_creds():
     assert_equal(find_credentials(env), ('AC123', '456'))
 
 
-@patch("twilio.rest.find_credentials")
+@patch("twilio.rest.base.find_credentials")
 def test_creds_error(creds):
     creds.return_value = (None, None)
     assert_raises(TwilioException, TwilioRestClient)
