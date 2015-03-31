@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 3.8.0
+-------------
+
+Released March 31, 2015:
+
+- Support for the new Twilio Lookups API
+
 Version 3.7.3
 -------------
 
