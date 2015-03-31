@@ -1,4 +1,8 @@
-from twilio.rest.resources import NextGenInstanceResource, NextGenListResource, transform_params
+from twilio.rest.resources import (
+    NextGenInstanceResource,
+    NextGenListResource,
+    transform_params,
+)
 
 
 class PhoneNumber(NextGenInstanceResource):

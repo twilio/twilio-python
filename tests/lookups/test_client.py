@@ -1,4 +1,3 @@
-import unittest
 from mock import patch
 from tests.tools import create_mock_json
 from twilio.rest import TwilioLookupsClient

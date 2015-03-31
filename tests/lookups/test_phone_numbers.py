@@ -1,4 +1,4 @@
-from mock import Mock, patch
+from mock import patch
 
 from nose.tools import assert_equal
 
@@ -9,9 +9,12 @@ from twilio.rest.resources.lookups.phone_numbers import PhoneNumbers
 AUTH = ('AC123', 'foobar')
 TIMEOUT = 30
 
+
 @patch("twilio.rest.resources.base.make_twilio_request")
 def test_get_phone_number(request):
-    resp = create_mock_json("tests/resources/lookups/phone_number_instance.json")
+    resp = create_mock_json(
+        "tests/resources/lookups/phone_number_instance.json",
+    )
     request.return_value = resp
 
     phone_numbers = PhoneNumbers('/v1', AUTH, TIMEOUT)
@@ -24,7 +27,9 @@ def test_get_phone_number(request):
 
 @patch("twilio.rest.resources.base.make_twilio_request")
 def test_get_carrier_info(request):
-    resp = create_mock_json("tests/resources/lookups/phone_number_instance.json")
+    resp = create_mock_json(
+        "tests/resources/lookups/phone_number_instance.json",
+    )
     request.return_value = resp
 
     phone_numbers = PhoneNumbers('/v1', AUTH, TIMEOUT)
@@ -38,7 +43,9 @@ def test_get_carrier_info(request):
 
 @patch("twilio.rest.resources.base.make_twilio_request")
 def test_get_with_country_code(request):
-    resp = create_mock_json("tests/resources/lookups/phone_number_instance.json")
+    resp = create_mock_json(
+        "tests/resources/lookups/phone_number_instance.json",
+    )
     request.return_value = resp
 
     phone_numbers = PhoneNumbers('/v1', AUTH, TIMEOUT)

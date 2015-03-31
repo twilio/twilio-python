@@ -19,8 +19,8 @@ class TwilioLookupsClient(TwilioClient):
     """
 
     def __init__(self, account=None, token=None,
-               base="https://lookups.twilio.com", version="v1",
-               timeout=UNSET_TIMEOUT):
+                 base="https://lookups.twilio.com", version="v1",
+                 timeout=UNSET_TIMEOUT):
 
         super(TwilioLookupsClient, self).__init__(account, token, base,
                                                   version, timeout)
