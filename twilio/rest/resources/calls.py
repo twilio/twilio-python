@@ -104,7 +104,8 @@ class Calls(ListResource):
         kwargs["EndTime"] = parse_date(ended)
         return super(Calls, self).iter(**kwargs)
 
-    def create(self, to, from_, url, status_method=None, **kwargs):
+    def create(self, to, from_, url, status_method=None, status_events=None,
+               **kwargs):
         """
         Make a phone call to a number.
 
@@ -123,6 +124,11 @@ class Calls(ListResource):
             call ends to notify your app.
         :param str status_method: The HTTP method Twilio should use when
             requesting the above URL.
+        :param list status_events: A list of call progress events Twilio
+            should send status callback requests on. One or more of:
+            'initiated', 'ringing', 'answered', 'completed'. Defaults to
+            ['completed'] if not provided. 'completed' events are sent
+            free of charge; see twilio.com for current pricing on others.
         :param str if_machine: Tell Twilio to try and determine if a machine
             (like voicemail) or a human has answered the call.
             See more in our `answering machine documentation
@@ -144,6 +150,7 @@ class Calls(ListResource):
         kwargs["to"] = to
         kwargs["url"] = url
         kwargs["status_callback_method"] = status_method
+        kwargs["status_callback_event"] = status_events
         return self.create_instance(kwargs)
 
     def update(self, sid, **kwargs):
