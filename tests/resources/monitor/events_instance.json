@@ -1,0 +1,22 @@
+{
+    "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "actor_sid": "ACbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "actor_type": "account",
+    "actor_url": "https://api.twilio.com/2010-04-01/Accounts/ACbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "description": null,
+    "event_date": "2014-10-03T16:48:25Z",
+    "event_type": "account.updated",
+    "resource_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "resource_type": "account",
+    "resource_url": "https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "sid": "AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "url": "https://monitor.twilio.com/v1/Events/AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "source": "api",
+    "source_ip_address": "10.86.6.250",
+    "event_data": {
+        "friendly_name": {
+            "previous": "SubAccount Created at 2014-10-03 09:48am",
+            "updated": "Mr. Friendly"
+        }
+    }
+}
