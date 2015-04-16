@@ -391,29 +391,6 @@ class ListResource(Resource):
         resp, entry = self.request("POST", uri, data=transform_params(body))
         return self.load_instance(entry)
 
-    def count(self):
-        """ .. deprecated:: 3.6.5
-
-        Get the total number of instances for this resource
-
-        Note: this query can be slow if you have many instances.
-
-        :return: the total number of instances
-        :rtype: int
-        :raises: a :exc:`~twilio.TwilioRestException` if the request fails
-
-
-        Example usage:
-
-        .. code-block:: python
-
-            print client.calls.count() # prints 323
-        """
-        # XXX: this should make a request with PageSize=1 to return as quickly
-        # as possible
-        resp, page = self.request("GET", self.uri)
-        return page["total"]
-
     def iter(self, **kwargs):
         """ Return all instance resources using an iterator
 
