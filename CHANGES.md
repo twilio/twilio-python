@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 4.0.0
+-------------
+
+Released April 16, 2015:
+
+- Remove the deprecated count function from ListResource
+
 Version 3.8.0
 -------------
 
