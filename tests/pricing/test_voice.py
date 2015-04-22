@@ -32,6 +32,7 @@ class VoiceTest(unittest.TestCase):
             "GET",
             "{}/Voice/Countries".format(BASE_URI),
             auth=AUTH,
+            use_json_extension=False,
         )
 
     @patch('twilio.rest.resources.base.make_twilio_request')
@@ -57,6 +58,7 @@ class VoiceTest(unittest.TestCase):
             "GET",
             "{}/Voice/Countries/EE".format(BASE_URI),
             auth=AUTH,
+            use_json_extension=False,
         )
 
     @patch('twilio.rest.resources.base.make_twilio_request')
@@ -75,4 +77,5 @@ class VoiceTest(unittest.TestCase):
             "GET",
             "{}/Voice/Numbers/+14089673429".format(BASE_URI),
             auth=AUTH,
+            use_json_extension=False,
         )

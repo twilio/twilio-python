@@ -1,4 +1,4 @@
-from .. import InstanceResource, ListResource
+from .. import NextGenInstanceResource, NextGenListResource
 
 
 class PhoneNumbers(object):
@@ -12,7 +12,7 @@ class PhoneNumbers(object):
         self.countries = PhoneNumberCountries(self.uri, auth, timeout)
 
 
-class PhoneNumberCountry(InstanceResource):
+class PhoneNumberCountry(NextGenInstanceResource):
     """Pricing information for Twilio Phone Numbers in a specific country.
 
     Twilio numbers are billed monthly, and the prices returned reflect
@@ -44,7 +44,7 @@ class PhoneNumberCountry(InstanceResource):
     id_key = "iso_country"
 
 
-class PhoneNumberCountries(ListResource):
+class PhoneNumberCountries(NextGenListResource):
     """A list of countries where Twilio Phone Numbers are available.
 
     The returned list of PhoneNumberCountry objects will not have pricing
@@ -65,7 +65,8 @@ class PhoneNumberCountries(ListResource):
         return self.get_instance(iso_country)
 
     def list(self):
-        """Retrieve the list of countries in which Twilio Number is available."""
+        """Retrieve the list of countries in which Twilio Numbers are
+        available."""
 
         resp, page = self.request("GET", self.uri)
 

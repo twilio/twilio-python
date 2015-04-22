@@ -1,4 +1,4 @@
-from .. import InstanceResource, ListResource
+from .. import NextGenInstanceResource, NextGenListResource
 
 
 class Voice(object):
@@ -13,7 +13,7 @@ class Voice(object):
         self.numbers = VoiceNumbers(self.uri, auth, timeout)
 
 
-class VoiceCountry(InstanceResource):
+class VoiceCountry(NextGenInstanceResource):
     """Pricing information for Twilio Voice services in a specific country.
 
     .. attribute:: country
@@ -55,7 +55,7 @@ class VoiceCountry(InstanceResource):
     id_key = "iso_country"
 
 
-class VoiceCountries(ListResource):
+class VoiceCountries(NextGenListResource):
 
     instance = VoiceCountry
     key = "countries"
@@ -70,13 +70,14 @@ class VoiceCountries(ListResource):
         return self.get_instance(iso_country)
 
     def list(self):
-        """Retrieve the list of countries in which Twilio Voice is available."""
+        """Retrieve the list of countries in which Twilio Voice is
+        available."""
         resp, page = self.request("GET", self.uri)
 
         return [self.load_instance(i) for i in page[self.key]]
 
 
-class VoiceNumber(InstanceResource):
+class VoiceNumber(NextGenInstanceResource):
     """Pricing information for Twilio Voice services to and from a given
     phone number.
 
@@ -94,7 +95,8 @@ class VoiceNumber(InstanceResource):
 
     .. attribute:: outbound_call_price
 
-        A dict containing pricing information for outbound calls to this number:
+        A dict containing pricing information for outbound calls to this
+        number:
             - base_price: the base price per minute for a call to this number
             - current_price: the current price per minute (including discounts,
             etc.) for a call to this number
@@ -114,7 +116,7 @@ class VoiceNumber(InstanceResource):
     id_key = "number"
 
 
-class VoiceNumbers(ListResource):
+class VoiceNumbers(NextGenListResource):
 
     instance = VoiceNumber
     key = "numbers"

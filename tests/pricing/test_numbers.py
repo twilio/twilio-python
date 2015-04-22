@@ -29,6 +29,7 @@ class NumbersTest(unittest.TestCase):
             "GET",
             "{}/PhoneNumbers/Countries".format(BASE_URI),
             auth=AUTH,
+            use_json_extension=False,
         )
 
     @patch('twilio.rest.resources.base.make_twilio_request')
@@ -61,4 +62,5 @@ class NumbersTest(unittest.TestCase):
             "GET",
             "{}/PhoneNumbers/Countries/EE".format(BASE_URI),
             auth=AUTH,
+            use_json_extension=False,
         )
