@@ -8,21 +8,24 @@ from six import (
     binary_type,
     iteritems
 )
+
 from ...compat import urlencode
 from ...compat import urlparse
 from ...compat import urlunparse
-
 from ... import __version__
 from ...exceptions import TwilioException
 from ..exceptions import TwilioRestException
 from .connection import Connection
 from .imports import parse_qs, httplib2, json
+from twilio import jwt
+from twilio.jwt import DecodeError
 from .util import (
     parse_iso_date,
     parse_rfc2822_date,
     transform_params,
     UNSET_TIMEOUT,
 )
+
 
 logger = logging.getLogger('twilio')
 
@@ -83,7 +86,11 @@ def make_request(method, url, params=None, data=None, headers=None,
     http.follow_redirects = allow_redirects
 
     if auth is not None:
-        http.add_credentials(auth[0], auth[1])
+        try:
+            jwt.decode(auth[1], verify=False)
+            http.add_credentials('Token', auth[1])
+        except DecodeError:
+            http.add_credentials(auth[0], auth[1])
 
     def encode_atom(atom):
             if isinstance(atom, (integer_types, binary_type)):
