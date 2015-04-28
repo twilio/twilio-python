@@ -10,7 +10,6 @@ import hmac
 from six import b
 
 
-
 # default text to binary representation conversion
 def binary(txt):
     return txt.encode('utf-8')

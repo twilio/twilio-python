@@ -3,7 +3,7 @@ import time
 import jwt
 
 
-class ScopedAuthenticationToken:
+class ScopedAuthenticationToken(object):
     ACTION_ALL = '*'
     ACTION_DELETE = 'DELETE'
     ACTION_GET = 'GET'
@@ -42,7 +42,7 @@ class ScopedAuthenticationToken:
         return jwt.encode(payload, secret, headers={"cty": "twilio-sat;v=1"})
 
 
-class Grant:
+class Grant(object):
     def __init__(self, resource, action=ScopedAuthenticationToken.ACTION_ALL):
         self.res = resource
         self.act = action
