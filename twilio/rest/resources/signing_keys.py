@@ -2,7 +2,31 @@ from twilio.rest.resources.base import InstanceResource, ListResource
 
 
 class SigningKey(InstanceResource):
-    """ A signing key resource """
+    """
+    A signing key resource.
+    See https://www.twilio.com/docs/api/rest/signing-keys
+
+    .. attribute:: sid
+
+        The unique ID for this signing key.
+
+    .. attribute:: friendly_name
+
+        A human-readable description of this signing key.
+
+    .. attribute:: secret
+
+        This signing key's secret.
+
+    .. attribute:: date_created
+
+        The date this signing key was created, given as UTC in ISO 8601 format.
+
+    .. attribute:: date_updated
+
+        The date this singing key was last updated, given as UTC in ISO 8601
+        format.
+    """
 
     def update(self, **kwargs):
         """
