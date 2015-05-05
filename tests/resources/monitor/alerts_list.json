@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "key": "alerts",
+    "end": 1,
+    "first_page_uri": "/v1/Alerts?PageSize=2&Page=0",
+    "next_page_uri": "/v1/Alerts?PageSize=2&Page=1&PageToken=PANO7bd5bf2efbdf0500dc321b3a772e9229",
+    "page": 0,
+    "page_size": 2,
+    "previous_page_uri": null,
+    "start": 0,
+    "uri": "/v1/Alerts?PageSize=2&Page=0"
+  },
+  "alerts": [
+    {
+      "uri": "https://monitor.twilio.com/v1/Alerts/NOf9a8decd348f123d17b716658e7b3932",
+      "date_generated": "2015-03-02T20:33:18Z",
+      "date_updated": "2015-03-02T20:33:18Z",
+      "api_version": null,
+      "date_created": "2015-03-02T20:33:18Z",
+      "request_url": null,
+      "sid": "NOf9a8decd348f123d17b716658e7b3932",
+      "account_sid": "AC23d17b716658e7b326b77cdb692b437e",
+      "call_sid": null,
+      "log_level": "notice",
+      "error_code": null,
+      "more_info": null,
+      "alert_text": "The balance of test@example.com&#039;s Account fell below $10.00 and according to the auto-recharge settings, we charged the payment method ...",
+      "request_method": null
+    },
+    {
+      "uri": "https://monitor.twilio.com/v1/Alerts/NO7bd5bf2efbdf0500dc321b3a772e9229",
+      "date_generated": "2015-03-02T20:33:18Z",
+      "date_updated": "2015-03-02T20:33:18Z",
+      "api_version": null,
+      "date_created": "2015-03-02T20:33:18Z",
+      "request_url": null,
+      "sid": "NO7bd5bf2efbdf0500dc321b3a772e9229",
+      "account_sid": "AC23d17b716658e7b326b77cdb692b437e",
+      "call_sid": null,
+      "log_level": "notice",
+      "error_code": null,
+      "more_info": null,
+      "alert_text": "The balance of test@example.com&#039;s Account fell below $10.00 and according to the auto-recharge settings, we charged the payment method ...",
+      "request_method": null
+    }
+  ]
+}

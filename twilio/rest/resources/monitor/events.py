@@ -1,4 +1,7 @@
-from twilio.rest.resources.base import NextGenInstanceResource, NextGenListResource
+from twilio.rest.resources.base import (
+    NextGenInstanceResource,
+    NextGenListResource,
+)
 
 
 class Event(NextGenInstanceResource):
@@ -74,7 +77,8 @@ class Events(NextGenListResource):
         :param end_date: (Optional) Filter events by an end date.
         :param resource_sid: (Optional) Sid of the event resource.
         :param event_type: (Optional) The type of event to filter by.
-        :param source_ip_address: (Optional) The IP address of the event's source.
+        :param source_ip_address: (Optional) The IP address of the event's
+            source.
         """
         return super(Events, self).list(**kwargs)
 

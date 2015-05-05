@@ -1,5 +1,6 @@
 from twilio.rest.base import TwilioClient
 from twilio.rest.resources import UNSET_TIMEOUT
+from twilio.rest.resources.monitor.alerts import Alerts
 from twilio.rest.resources.monitor.events import Events
 
 
@@ -22,7 +23,9 @@ class TwilioMonitorClient(TwilioClient):
                  base="https://monitor.twilio.com", version="v1",
                  timeout=UNSET_TIMEOUT):
 
-        super(TwilioMonitorClient, self).__init__(account, token, base, version, timeout)
+        super(TwilioMonitorClient, self).__init__(account, token, base,
+                                                  version, timeout)
 
         self.version_uri = "%s/%s" % (base, version)
         self.events = Events(self.version_uri, self.auth, timeout)
+        self.alerts = Alerts(self.version_uri, self.auth, timeout)
