@@ -1,0 +1,16 @@
+{
+    "uri": "pricing.twilio.com/v1/Voice/Numbers/+14089673429",
+    "number": "+14089673429",
+    "country": "United States",
+    "iso_country" : "US",
+    "outbound_call_price": {
+        "call_base_price": 0.015,
+        "call_current_price": 0.015
+    },
+    "inbound_call_price": {
+        "number_type" : "local",
+        "call_base_price": 0.0075,
+        "call_current_price": 0.0070
+    },
+    "price_unit": "usd"
+}

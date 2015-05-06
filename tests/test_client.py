@@ -13,7 +13,8 @@ AUTH = ("ACCOUNT_SID", "AUTH_TOKEN")
 class RestClientTest(unittest.TestCase):
     def setUp(self):
         self.client = TwilioRestClient("ACCOUNT_SID", "AUTH_TOKEN")
-        self.task_router_client = TwilioTaskRouterClient("ACCOUNT_SID", "AUTH_TOKEN")
+        self.task_router_client = TwilioTaskRouterClient("ACCOUNT_SID",
+                                                         "AUTH_TOKEN")
 
     @patch("twilio.rest.base.make_request")
     def test_request(self, mock):
@@ -28,7 +29,8 @@ class RestClientTest(unittest.TestCase):
         )
 
     def test_connect_apps(self):
-        assert_true(isinstance(self.client.connect_apps, resources.ConnectApps))
+        assert_true(isinstance(self.client.connect_apps,
+                               resources.ConnectApps))
 
     def test_authorized_apps(self):
         assert_true(isinstance(self.client.authorized_connect_apps,
@@ -46,24 +48,29 @@ class RestClientTest(unittest.TestCase):
         resp = create_mock_json("tests/resources/members_list.json")
         mock.return_value = resp
         self.client.members("QU123").list()
-        uri = "https://api.twilio.com/2010-04-01/Accounts/ACCOUNT_SID/Queues/QU123/Members"
+        uri = "https://api.twilio.com/2010-04-01/Accounts/ACCOUNT_SID" \
+              "/Queues/QU123/Members"
         mock.assert_called_with("GET", uri, params={}, auth=AUTH,
                                 use_json_extension=True)
 
     @patch("twilio.rest.resources.base.make_request")
     def test_workflows(self, request):
-        resp = create_mock_json("tests/resources/task_router/workflows_list.json")
+        resp = create_mock_json(
+            "tests/resources/task_router/workflows_list.json"
+        )
         request.return_value = resp
         workflows = self.task_router_client.workflows("WS123")
         workflows = workflows.list()
         assert_true(workflows[0].sid is not None)
         uri = "https://taskrouter.twilio.com/v1/Workspaces/WS123/Workflows"
-        request.assert_called_with("GET", uri, headers=ANY, params={}, auth=AUTH)
+        request.assert_called_with("GET", uri, headers=ANY, params={},
+                                   auth=AUTH)
 
 
 class RestClientTimeoutTest(unittest.TestCase):
     def setUp(self):
-        self.client = TwilioRestClient("ACCOUNT_SID", "AUTH_TOKEN", timeout=sentinel.timeout)
+        self.client = TwilioRestClient("ACCOUNT_SID", "AUTH_TOKEN",
+                                       timeout=sentinel.timeout)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_members(self, mock_request):

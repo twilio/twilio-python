@@ -1,0 +1,20 @@
+{
+    "uri": "pricing.twilio.com/v1/PhoneNumbers/Countries",
+    "countries": [
+        {
+            "country": "Ascension",
+            "iso_country": "AC",
+            "uri": "pricing.twilio.com/v1/PhoneNumbers/Countries/AC"
+        },
+        {
+            "country": "Andorra",
+            "iso_country": "AD",
+            "uri": "pricing.twilio.com/v1/PhoneNumbers/Countries/AD"
+        },
+        {
+            "country": "United States",
+            "iso_country": "US",
+            "uri": "pricing.twilio.com/v1/PhoneNumbers/Countries/US"
+        }
+    ]
+}
