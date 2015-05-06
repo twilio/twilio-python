@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 4.1.0
+-------------
+
+Released May 6, 2015:
+
+- Add support for the Twilio Pricing API
+
 Version 4.0.0
 -------------
 
