@@ -1,0 +1,19 @@
+{
+  "url": "https://monitor.twilio.com/v1/Alerts/NO70839f875fe15a2c74612eee1c02d2f3",
+  "response_body": "",
+  "alert_text": "LogLevel=ERROR&sourceComponent=12000&Msg&httpResponse=404&ErrorCode=11200&url=https%3A%2F%2F674d331e.ngrok.com%2Fdie",
+  "more_info": "https://www.twilio.com/docs/errors/11200",
+  "error_code": "11200",
+  "log_level": "error",
+  "resource_sid": "CA6f58741ed5bc70b2476902a8e9e628cc",
+  "account_sid": "AC70839f875fe15a2c74612eee1c02d2f3",
+  "sid": "NO6f58741ed5bc73fc74612eee1c02d2f3",
+  "request_method": "GET",
+  "request_url": "https://674d331e.ngrok.com/die",
+  "request_variables": "AccountSid=AC70839f875fe15a2c74612eee1c02d2f3&ToZip=94111&FromState=CA&Called=%2B14154187474&FromCountry=US&CallerCountry=US&CalledZip=94111&Direction=inbound",
+  "response_headers": "Date=Tue%2C+17+Mar+2015+22%3A40%3A19+GMT&Content-Length=36&Server=nginx%2F1.6.2",
+  "date_created": "2015-03-17T22:40:19Z",
+  "api_version": "2008-08-01",
+  "date_updated": "2015-03-17T22:40:21Z",
+  "date_generated": "2015-03-17T22:40:19Z"
+}
