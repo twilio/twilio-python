@@ -60,7 +60,7 @@ class NumbersTest(unittest.TestCase):
 
         request.assert_called_with(
             "GET",
-            "{}/PhoneNumbers/Countries/EE".format(BASE_URI),
+            "{0}/PhoneNumbers/Countries/EE".format(BASE_URI),
             auth=AUTH,
             use_json_extension=False,
         )

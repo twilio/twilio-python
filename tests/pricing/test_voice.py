@@ -30,7 +30,7 @@ class VoiceTest(unittest.TestCase):
 
         request.assert_called_with(
             "GET",
-            "{}/Voice/Countries".format(BASE_URI),
+            "{0}/Voice/Countries".format(BASE_URI),
             auth=AUTH,
             use_json_extension=False,
         )
@@ -56,7 +56,7 @@ class VoiceTest(unittest.TestCase):
 
         request.assert_called_with(
             "GET",
-            "{}/Voice/Countries/EE".format(BASE_URI),
+            "{0}/Voice/Countries/EE".format(BASE_URI),
             auth=AUTH,
             use_json_extension=False,
         )
@@ -75,7 +75,7 @@ class VoiceTest(unittest.TestCase):
 
         request.assert_called_with(
             "GET",
-            "{}/Voice/Numbers/+14089673429".format(BASE_URI),
+            "{0}/Voice/Numbers/+14089673429".format(BASE_URI),
             auth=AUTH,
             use_json_extension=False,
         )
