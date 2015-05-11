@@ -2,47 +2,49 @@ import time
 
 import jwt
 
+ALL = '*'
+
+# HTTP Actions
+HTTP_DELETE = 'DELETE'
+HTTP_GET = 'GET'
+HTTP_POST = 'POST'
+HTTP_PUT = 'PUT'
+
+# Client Actions
+CLIENT_LISTEN = 'listen'
+CLIENT_INVITE = 'invite'
 
 class ScopedAuthenticationToken(object):
-    ACTION_ALL = '*'
-    ACTION_DELETE = 'DELETE'
-    ACTION_GET = 'GET'
-    ACTION_POST = 'POST'
-    ACTION_PUT = 'PUT'
-
-    def __init__(self, signing_key_sid, account_sid, token_id=None, ttl=3600, grants=[]):
+    def __init__(self, signing_key_sid, account_sid, ttl=3600):
         self.signing_key_sid = signing_key_sid
         self.account_sid = account_sid
-        if token_id:
-            self.token_id = token_id
-        else:
-            self.token_id = '{}-{}'.format(signing_key_sid, time.time())
         self.ttl = ttl
-        self.grants = grants
+        self.grants = []
 
-    def add_grant(self, grant):
-        self.grants.append(grant)
+    def add_grant(self, resource, actions=ALL):
+        if not isinstance(actions, list):
+            actions = [actions]
 
-    def generate_token(self, secret):
+        self.grants.append({
+            'res': resource,
+            'act': actions,
+        })
+
+    def add_endpoint_grant(self, endpoint, actions=None):
+        actions = actions or [CLIENT_LISTEN, CLIENT_INVITE]
+        resource = 'sip:{}@{}.endpoint.twilio.com'.format(endpoint,
+                                                          self.account_sid)
+        self.add_grant(resource, actions)
+
+    def encode(self, secret):
+        now = int(time.time())
         payload = {
-            "jti": self.token_id,
+            "jti": '{}-{}'.format(self.signing_key_sid, now),
             "iss": self.signing_key_sid,
             "sub": self.account_sid,
-            "nbf": time.time(),
-            "exp": time.time() + self.ttl,
-            "grants": []
+            "nbf": now,
+            "exp": now + self.ttl,
+            "grants": self.grants
         }
 
-        for grant in self.grants:
-            payload['grants'].append({
-                'res': grant.res,
-                'act': grant.act
-            })
-
         return jwt.encode(payload, secret, headers={"cty": "twilio-sat;v=1"})
-
-
-class Grant(object):
-    def __init__(self, resource, action=ScopedAuthenticationToken.ACTION_ALL):
-        self.res = resource
-        self.act = action
