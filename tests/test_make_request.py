@@ -16,7 +16,6 @@ from twilio.rest.exceptions import TwilioRestException
 from twilio.rest.resources.base import make_request, make_twilio_request
 from twilio.rest.resources.connection import Connection
 from twilio.rest.resources.connection import PROXY_TYPE_SOCKS5
-from twilio.scoped_authentication_token import ScopedAuthenticationToken
 
 
 get_headers = {
@@ -100,31 +99,6 @@ class MakeRequestTest(unittest.TestCase):
                 'accept-encoding': 'gzip, deflate',
                 'authorization': 'Basic {}'.format(
                     base64.b64encode("{}:{}".format('AC123', 'AuthToken'))
-                ),
-                'user-agent': 'Python-httplib2/0.8 (gzip)'
-            }
-        )
-
-    @patch('twilio.rest.resources.base.Response')
-    @patch('httplib2.Http._conn_request')
-    def test_make_request_token_auth(self, mock_request, mock_response):
-        scoped_authentication_token = ScopedAuthenticationToken('SK123', 'AC123')
-        jwt = scoped_authentication_token.encode('secret')
-        response = Response({
-            'status': '401',
-            'WWW-Authenticate': 'Basic realm="Twilio API"'
-        })
-        mock_request.side_effect = [(response, Mock()), (Mock(), Mock())]
-        make_request('GET', 'http://httpbin.org/get', auth=('AC123', jwt))
-        mock_request.assert_called_with(
-            ANY,
-            '/get',
-            'GET',
-            None,
-            {
-                'accept-encoding': 'gzip, deflate',
-                'authorization': 'Basic {}'.format(
-                    base64.b64encode("{}:{}".format('Token', jwt))
                 ),
                 'user-agent': 'Python-httplib2/0.8 (gzip)'
             }

@@ -21,17 +21,17 @@ class ScopedAuthenticationTokenTest(unittest.TestCase):
         assert_is_not_none(payload['grants'])
 
     def test_empty_grants(self):
-        scat = ScopedAuthenticationToken(SIGNING_KEY_SID, ACCOUNT_SID)
-        token = scat.encode('secret')
+        scat = ScopedAuthenticationToken(SIGNING_KEY_SID, ACCOUNT_SID, 'secret')
+        token = str(scat)
         assert_is_not_none(token)
         payload = decode(token, 'secret')
         self._validate_claims(payload)
         assert_equal([], payload['grants'])
 
     def test_single_grant(self):
-        scat = ScopedAuthenticationToken(SIGNING_KEY_SID, ACCOUNT_SID)
+        scat = ScopedAuthenticationToken(SIGNING_KEY_SID, ACCOUNT_SID, 'secret')
         scat.add_grant('https://api.twilio.com/**')
-        token = scat.encode('secret')
+        token = str(scat)
         assert_is_not_none(token)
         payload = decode(token, 'secret')
         self._validate_claims(payload)
@@ -40,9 +40,9 @@ class ScopedAuthenticationTokenTest(unittest.TestCase):
         assert_equal(['*'], payload['grants'][0]['act'])
 
     def test_endpoint_grant(self):
-        scat = ScopedAuthenticationToken(SIGNING_KEY_SID, ACCOUNT_SID)
+        scat = ScopedAuthenticationToken(SIGNING_KEY_SID, ACCOUNT_SID, 'secret')
         scat.add_endpoint_grant('bob')
-        token = scat.encode('secret')
+        token = str(scat)
         assert_is_not_none(token)
         payload = decode(token, 'secret')
         self._validate_claims(payload)

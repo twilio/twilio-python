@@ -14,10 +14,12 @@ HTTP_PUT = 'PUT'
 CLIENT_LISTEN = 'listen'
 CLIENT_INVITE = 'invite'
 
+
 class ScopedAuthenticationToken(object):
-    def __init__(self, signing_key_sid, account_sid, ttl=3600):
+    def __init__(self, signing_key_sid, account_sid, secret, ttl=3600):
         self.signing_key_sid = signing_key_sid
         self.account_sid = account_sid
+        self.secret = secret
         self.ttl = ttl
         self.grants = []
 
@@ -36,8 +38,11 @@ class ScopedAuthenticationToken(object):
                                                           self.account_sid)
         self.add_grant(resource, actions)
 
-    def encode(self, secret):
+    def to_jwt(self):
         now = int(time.time())
+        headers = {
+            "cty": "twilio-sat;v=1"
+        }
         payload = {
             "jti": '{}-{}'.format(self.signing_key_sid, now),
             "iss": self.signing_key_sid,
@@ -47,4 +52,7 @@ class ScopedAuthenticationToken(object):
             "grants": self.grants
         }
 
-        return jwt.encode(payload, secret, headers={"cty": "twilio-sat;v=1"})
+        return jwt.encode(payload, self.secret, headers=headers)
+
+    def __str__(self):
+        return self.to_jwt()
