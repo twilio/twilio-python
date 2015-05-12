@@ -15,7 +15,7 @@ CLIENT_LISTEN = 'listen'
 CLIENT_INVITE = 'invite'
 
 
-class ScopedAuthenticationToken(object):
+class AccessToken(object):
     def __init__(self, signing_key_sid, account_sid, secret, ttl=3600):
         self.signing_key_sid = signing_key_sid
         self.account_sid = account_sid

@@ -2,13 +2,13 @@ import unittest
 
 from nose.tools import assert_equal, assert_is_not_none
 from twilio.jwt import decode
-from twilio.scoped_authentication_token import ScopedAuthenticationToken
+from twilio.access_token import AccessToken
 
 ACCOUNT_SID = 'AC123'
 SIGNING_KEY_SID = 'SK123'
 
 
-class ScopedAuthenticationTokenTest(unittest.TestCase):
+class AccessTokenTest(unittest.TestCase):
     def _validate_claims(self, payload):
         assert_equal(SIGNING_KEY_SID, payload['iss'])
         assert_equal(ACCOUNT_SID, payload['sub'])
@@ -21,7 +21,7 @@ class ScopedAuthenticationTokenTest(unittest.TestCase):
         assert_is_not_none(payload['grants'])
 
     def test_empty_grants(self):
-        scat = ScopedAuthenticationToken(SIGNING_KEY_SID, ACCOUNT_SID, 'secret')
+        scat = AccessToken(SIGNING_KEY_SID, ACCOUNT_SID, 'secret')
         token = str(scat)
         assert_is_not_none(token)
         payload = decode(token, 'secret')
@@ -29,7 +29,7 @@ class ScopedAuthenticationTokenTest(unittest.TestCase):
         assert_equal([], payload['grants'])
 
     def test_single_grant(self):
-        scat = ScopedAuthenticationToken(SIGNING_KEY_SID, ACCOUNT_SID, 'secret')
+        scat = AccessToken(SIGNING_KEY_SID, ACCOUNT_SID, 'secret')
         scat.add_grant('https://api.twilio.com/**')
         token = str(scat)
         assert_is_not_none(token)
@@ -40,7 +40,7 @@ class ScopedAuthenticationTokenTest(unittest.TestCase):
         assert_equal(['*'], payload['grants'][0]['act'])
 
     def test_endpoint_grant(self):
-        scat = ScopedAuthenticationToken(SIGNING_KEY_SID, ACCOUNT_SID, 'secret')
+        scat = AccessToken(SIGNING_KEY_SID, ACCOUNT_SID, 'secret')
         scat.add_endpoint_grant('bob')
         token = str(scat)
         assert_is_not_none(token)
