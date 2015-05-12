@@ -5,7 +5,7 @@ from twilio.rest.conversations import TwilioConversationsClient
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
-def test_events(mock):
+def test_conversations(mock):
     client = TwilioConversationsClient("ACCOUNT_SID", "AUTH_TOKEN")
     resp = create_mock_json("tests/resources/conversations/conversation_instance.json")
     mock.return_value = resp
