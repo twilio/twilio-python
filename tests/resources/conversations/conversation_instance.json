@@ -1,0 +1,13 @@
+{
+  "links": {
+    "participants": "https://conversations.stage.twilio.com/v1/Conversations/CV4bbc4afc943cd2a5d29f0ce01c5656db/Participants"
+  },
+  "sid": "CV4bbc4afc943cd2a5d29f0ce01c5656db",
+  "status": "created",
+  "account_sid": "AC998c10b68cbfda9f67277f7d8f4439c9",
+  "date_created": "2015-05-12T21:13:15Z",
+  "start_time": "2015-05-12T21:13:15Z",
+  "end_time": "2015-05-12T21:14:15Z",
+  "duration": 60,
+  "url": "https://conversations.stage.twilio.com/v1/Conversations/CV4bbc4afc943cd2a5d29f0ce01c5656db"
+}
