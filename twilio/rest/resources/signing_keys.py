@@ -67,3 +67,12 @@ class SigningKeys(ListResource):
         Delete a :class:`SigningKey`
         """
         return self.delete_instance(sid)
+
+    def list(self, **kw):
+        """
+        List is not supported, hence raises an Error
+        """
+        raise AttributeError("SigningKeys do not support lists()")
+
+    def add(x, y):
+        return x + y
