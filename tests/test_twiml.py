@@ -458,13 +458,30 @@ class TestDial(TwilioTest):
         r = self.strip(r)
         assert_equal(r, '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Number>1231231234</Number></Dial></Response>')
 
-    def testAddNumberConvience(self):
+    def testAddNumberStatusCallbackEvent(self):
+        """ add a number to a dial with status callback events"""
+        r = Response()
+        d = twiml.Dial()
+        d.append(twiml.Number("1231231234", statusCallback="http://example.com", statusCallbackEvent="initiated completed"))
+        r.append(d)
+        r = self.strip(r)
+        assert_equal(r, '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Number statusCallback="http://example.com" statusCallbackEvent="initiated completed">1231231234</Number></Dial></Response>')
+
+    def testAddNumberConvenience(self):
         """ add a number to a dial, convience method """
         r = Response()
         d = r.addDial()
         d.addNumber("1231231234")
         r = self.strip(r)
         assert_equal(r, '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Number>1231231234</Number></Dial></Response>')
+
+    def testAddNumberConvenienceStatusCallbackEvent(self):
+        """ add a number to a dial, convience method """
+        r = Response()
+        d = r.addDial()
+        d.addNumber("1231231234", statusCallback="http://example.com", statusCallbackEvent="initiated completed")
+        r = self.strip(r)
+        assert_equal(r, '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Number statusCallback="http://example.com" statusCallbackEvent="initiated completed">1231231234</Number></Dial></Response>')
 
     def testAddConference(self):
         """ add a conference to a dial """

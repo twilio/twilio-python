@@ -33,6 +33,48 @@ def test_create_call(mock):
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
+def test_create_call_status_events(mock):
+    resp = create_mock_json("tests/resources/calls_instance.json")
+    resp.status_code = 201
+    mock.return_value = resp
+
+    uri = "%s/Calls" % (BASE_URI)
+    list_resource.create("TO", "FROM", "url",
+                         status_callback="http://example.com",
+                         status_events=['initiated', 'completed'])
+    exp_params = {
+        'To': "TO",
+        'From': "FROM",
+        'Url': "url",
+        'StatusCallbackEvent': ['initiated', 'completed'],
+        'StatusCallback': 'http://example.com',
+        }
+
+    mock.assert_called_with("POST", uri, data=exp_params, auth=AUTH,
+                            use_json_extension=True)
+
+
+@patch("twilio.rest.resources.base.make_twilio_request")
+def test_create_call_status_events_none(mock):
+    resp = create_mock_json("tests/resources/calls_instance.json")
+    resp.status_code = 201
+    mock.return_value = resp
+
+    uri = "%s/Calls" % (BASE_URI)
+    list_resource.create("TO", "FROM", "url",
+                         status_callback="http://example.com")
+    exp_params = {
+        'To': "TO",
+        'From': "FROM",
+        'Url': "url",
+        'StatusCallback': 'http://example.com',
+        }
+
+    mock.assert_called_with("POST", uri, data=exp_params, auth=AUTH,
+                            use_json_extension=True)
+
+
+@patch("twilio.rest.resources.base.make_twilio_request")
 def test_paging(mock):
     resp = create_mock_json("tests/resources/calls_list.json")
     mock.return_value = resp
