@@ -13,6 +13,7 @@ from .usage import UsageRecords, UsageTriggers
 from .messages import Messages
 from .media import MediaList
 from .sip import Sip
+from .signing_keys import SigningKeys
 
 
 class Account(InstanceResource):
@@ -41,6 +42,7 @@ class Account(InstanceResource):
         UsageTriggers,
         MediaList,
         Messages,
+        SigningKeys,
         Sip,
     ]
 
