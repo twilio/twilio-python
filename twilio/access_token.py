@@ -32,11 +32,21 @@ class AccessToken(object):
             'act': actions,
         })
 
+    def add_rest_grant(self, uri, actions=ALL):
+        resource = 'https://api.twilio.com/2010-04-01/Accounts/{}/{}'.format(
+            self.account_sid,
+            uri.lstrip('/'),
+        )
+        self.add_grant(resource, actions)
+
     def add_endpoint_grant(self, endpoint, actions=None):
         actions = actions or [CLIENT_LISTEN, CLIENT_INVITE]
         resource = 'sip:{}@{}.endpoint.twilio.com'.format(endpoint,
                                                           self.account_sid)
         self.add_grant(resource, actions)
+
+    def enable_nts(self):
+        self.add_rest_grant('/Tokens', HTTP_POST)
 
     def to_jwt(self):
         now = int(time.time())
