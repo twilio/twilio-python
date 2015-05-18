@@ -1,0 +1,12 @@
+{
+  "url": "https://conversations.stage.twilio.com/v1/Conversations/CVe42fecfaefadbb03cbe27d94e4cef8c2/Participants/PA97239ce0bff1491fa82986a543bcd9c9",
+  "account_sid": "AC998c10b68cbfda9f67277f7d8f4439c9",
+  "sid": "PA97239ce0bff1491fa82986a543bcd9c9",
+  "address": "torkel2@AC998c10b68cbfda9f67277f7d8f4439c9.endpoint.twilio.com",
+  "status": "disconnected",
+  "conversation_sid": "CVe42fecfaefadbb03cbe27d94e4cef8c2",
+  "date_created": "2015-05-13T23:03:12Z",
+  "start_time": "2015-05-13T23:03:15Z",
+  "end_time": "2015-05-13T23:14:40Z",
+  "duration": 685
+}
