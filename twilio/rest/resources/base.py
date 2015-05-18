@@ -8,10 +8,10 @@ from six import (
     binary_type,
     iteritems
 )
+
 from ...compat import urlencode
 from ...compat import urlparse
 from ...compat import urlunparse
-
 from ... import __version__
 from ...exceptions import TwilioException
 from ..exceptions import TwilioRestException
@@ -23,6 +23,7 @@ from .util import (
     transform_params,
     UNSET_TIMEOUT,
 )
+
 
 logger = logging.getLogger('twilio')
 
