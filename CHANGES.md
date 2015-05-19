@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 4.3.0
+-------------
+
+Released May 14, 2015:
+
+- Add support for Call Status Events in TwiML
+
 Version 4.2.0
 -------------
 

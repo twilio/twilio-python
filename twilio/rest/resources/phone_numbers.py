@@ -54,6 +54,10 @@ class AvailablePhoneNumber(InstanceResource):
         Address registered with Twilio. Possible values are 'none', 'any',
         'local', or 'foreign'.
 
+   .. attribute:: beta
+
+        (boolean) Phone numbers new to the Twilio platform are marked as beta.
+
     """
 
     def __init__(self, parent):
@@ -193,6 +197,10 @@ class PhoneNumber(InstanceResource):
    .. attribute:: uri
 
       The URI for this resource, relative to https://api.twilio.com.
+
+   .. attribute:: beta
+
+      (boolean) Phone numbers new to the Twilio platform are marked as beta.
     """
 
     def load(self, entries):
@@ -319,6 +327,8 @@ class PhoneNumbers(ListResource):
         :param str rate_center: US only.
         :param tuple near_lat_long: Find close numbers within Distance miles.
         :param integer distance: Search radius for a Near- query in miles.
+        :param boolean beta: Whether to include numbers new to the Twilio
+            platform.
         """
         return self.available_phone_numbers.list(**kwargs)
 
