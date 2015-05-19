@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 4.4.0
+-------------
+
+Released May 19, 2015:
+
+- Add support for the beta field to IncomingPhoneNumbers and AvailablePhoneNumbers
+
 Version 4.3.0
 -------------
 
