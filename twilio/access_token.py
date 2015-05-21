@@ -47,7 +47,7 @@ class AccessToken(object):
         return self.add_grant(resource, actions)
 
     def enable_nts(self):
-        return self.add_rest_grant('/Tokens', HTTP_POST)
+        return self.add_rest_grant('/Tokens.json', HTTP_POST)
 
     def to_jwt(self):
         now = int(time.time())

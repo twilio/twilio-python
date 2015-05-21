@@ -19,7 +19,8 @@ class ConversationsRoot(object):
 
 
 class Conversation(NextGenInstanceResource):
-    """A Conversation instance representing a call between two or more participants.
+    """A Conversation instance representing a call between two or more
+    participants.
 
     .. attribute:: sid
 

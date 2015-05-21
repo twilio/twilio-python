@@ -71,6 +71,6 @@ class AccessTokenTest(unittest.TestCase):
         payload = decode(token, 'secret')
         self._validate_claims(payload)
         assert_equal(1, len(payload['grants']))
-        assert_equal('https://api.twilio.com/2010-04-01/Accounts/AC123/Tokens',
+        assert_equal('https://api.twilio.com/2010-04-01/Accounts/AC123/Tokens.json',
                      payload['grants'][0]['res'])
         assert_equal(['POST'], payload['grants'][0]['act'])

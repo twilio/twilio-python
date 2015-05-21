@@ -100,7 +100,7 @@ class MakeRequestTest(unittest.TestCase):
                 'authorization': 'Basic {}'.format(
                     base64.b64encode("{}:{}".format('AC123', 'AuthToken'))
                 ),
-                'user-agent': 'Python-httplib2/0.8 (gzip)'
+                'user-agent': ANY,
             }
         )
 
