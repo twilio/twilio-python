@@ -336,7 +336,7 @@ class TestConference(TwilioTest):
                 startConferenceOnEnter=True, endConferenceOnExit=True)
         xml = r.toxml()
 
-        #parse twiml XML string with Element Tree and inspect structure
+        # parse twiml XML string with Element Tree and inspect structure
         tree = ET.fromstring(xml)
         self.conf = tree.find(".//Conference")
 
@@ -364,8 +364,8 @@ class TestQueue(TwilioTest):
             dial.queue("TestQueueAttribute", url="", method='GET')
             xml = r.toxml()
 
-        #parse twiml XML string with Element Tree and inspect
-            #structure
+        # parse twiml XML string with Element Tree and inspect
+            # structure
             tree = ET.fromstring(xml)
             self.conf = tree.find(".//Queue")
 
@@ -387,8 +387,8 @@ class TestEnqueue(TwilioTest):
                   waitUrl='wait', waitUrlMethod='POST')
         xml = r.toxml()
 
-        #parse twiml XML string with Element Tree and inspect
-        #structure
+        # parse twiml XML string with Element Tree and inspect
+        # structure
         tree = ET.fromstring(xml)
         self.conf = tree.find("./Enqueue")
 
