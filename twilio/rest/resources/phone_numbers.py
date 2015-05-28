@@ -92,6 +92,11 @@ class AvailablePhoneNumbers(ListResource):
         kwargs["in_postal_code"] = kwargs.get("in_postal_code", postal_code)
         kwargs["in_lata"] = kwargs.get("in_lata", lata)
         kwargs["in_rate_center"] = kwargs.get("in_rate_center", rate_center)
+
+        if "near_lat_long" in kwargs:
+            coord_strings = [str(coord) for coord in kwargs["near_lat_long"]]
+            kwargs["near_lat_long"] = ",".join(coord_strings)
+
         params = transform_params(kwargs)
 
         uri = "%s/%s/%s" % (self.uri, country, TYPES[type])
