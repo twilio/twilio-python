@@ -23,6 +23,7 @@ from .util import (
     transform_params,
     UNSET_TIMEOUT,
     normalize_dates,
+    normalize_next_gen_dates,
 )
 
 logger = logging.getLogger('twilio')
@@ -454,6 +455,7 @@ class NextGenListResource(ListResource):
     def __init__(self, *args, **kwargs):
         super(NextGenListResource, self).__init__(*args, **kwargs)
 
+    @normalize_next_gen_dates
     def iter(self, **kwargs):
         """ Return all instance resources using an iterator
 
