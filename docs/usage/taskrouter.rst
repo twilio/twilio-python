@@ -205,6 +205,7 @@ To create a new :class:`Task` via the REST API:
 
     # See previous examples to create a Workspace
     WORKSPACE_SID = "WSZZZZZZZZZZZZZZ"
+    WORKFLOW_SID = "WWXXXXXXXXXXXXXX"
     # Some JSON containing attributes for this task. User-defined.
     TASK_ATTRIBUTES = """{
          "type": "call",
@@ -219,5 +220,6 @@ To create a new :class:`Task` via the REST API:
     task = client.tasks(WORKSPACE_SID).create(
         attributes=TASK_ATTRIBUTES,
         assignment_status='pending',
+        workflow_sid=WORKFLOW_SID
     )
     print task.sid
