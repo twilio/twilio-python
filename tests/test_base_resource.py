@@ -41,6 +41,7 @@ class ListResourceTest(unittest.TestCase):
     def testListResourceInit(self):
         uri = "%s/%s" % (base_uri, self.r.name)
         assert_equal(self.r.uri, uri)
+        assert_equal(str(self.r), "<ListResource>")
 
     def testKeyValueLower(self):
         assert_equal(self.r.key, self.r.name.lower())
