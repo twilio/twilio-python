@@ -132,7 +132,7 @@ class TaskRouterWorkerCapabilityTest(unittest.TestCase):
     self.assertTrue(policy["allowed"])
     self.assertIsNotNone(policy['post_filter'])
     self.assertEqual({}, policy['query_filter'])
-    self.assertTrue(policy['post_filter']['ActivitySid'])
+    self.assertEqual({}, policy['post_filter'])
 
   def test_allow_reservation_updates(self): 
     # allow reservation updates
@@ -156,7 +156,7 @@ class TaskRouterWorkerCapabilityTest(unittest.TestCase):
     self.assertTrue(policy["allowed"])
     self.assertIsNotNone(policy["post_filter"])
     self.assertEqual({}, policy["query_filter"])
-    self.assertTrue(policy["post_filter"]["ReservationStatus"])
+    self.assertEqual({}, policy['post_filter'])
 
 if __name__ == "__main__":
   unittest.main()
