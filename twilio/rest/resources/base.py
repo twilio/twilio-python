@@ -432,7 +432,7 @@ class ListResource(Resource):
         return instance
 
     def __str__(self):
-        return '<%s (%s)>' % (self.__class__.__name__, self.count())
+        return '<%s>' % (self.__class__.__name__)
 
     def list(self, **kw):
         """Query the list resource for a list of InstanceResources.
