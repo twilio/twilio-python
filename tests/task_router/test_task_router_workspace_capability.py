@@ -1,7 +1,4 @@
 import sys
-sys.path.append('/Users/wli/Projects/twilio-python/')
-sys.path.append('/Library/Python/2.7/site-packages')
-sys.path.append('/Users/wli/Projects/twilio-python/twilio/task_router/capability')
 
 import time
 import unittest
