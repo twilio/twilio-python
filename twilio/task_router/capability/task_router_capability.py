@@ -113,7 +113,6 @@ class TaskRouterCapability(CapabilityAPI):
 				tasks_url, 
 				'POST',
 				True,
-				post_filter = {'ReservationStatus': REQUIRED},
 				)
 			)
 		else:
@@ -153,7 +152,8 @@ class TaskRouterWorkerCapability(TaskRouterCapability):
     		self.policies.append(self.make_policy(
 		        self.resource_url,
 		        'POST',
-		        True
+		        True,
+		        post_filter = {'ActivitySid': REQUIRED}
 	    		)	
     		)
    	def allow_reservation_updates(self):
