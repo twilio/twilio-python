@@ -1,5 +1,4 @@
 import sys
-
 import time
 import unittest
 import warnings
@@ -132,7 +131,7 @@ class TaskRouterWorkerCapabilityTest(unittest.TestCase):
     self.assertTrue(policy["allowed"])
     self.assertIsNotNone(policy['post_filter'])
     self.assertEqual({}, policy['query_filter'])
-    self.assertEqual({}, policy['post_filter'])
+    self.assertTrue(policy['post_filter']['ActivitySid'])
 
   def test_allow_reservation_updates(self): 
     # allow reservation updates

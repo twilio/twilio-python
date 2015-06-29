@@ -43,8 +43,13 @@ class TaskRouterCapability(CapabilityAPI):
 			self.resource_url = self.base_url
 		elif self.channel_id[0:2] == "WK":
 			self.resource_url = self.base_url + "/Workers/" + self.channel_id
+
 			activity_url = self.base_url + "/Activities"
 			self.allow(activity_url, "GET")
+
+			reservations_url = self.base_url + "/Tasks/**"
+			self.allow(reservations_url, "GET")
+			
 		elif self.channel_id[0:2] == "WQ":
 			self.resource_url = self.base_url + "/TaskQueues/" + self.channel_id
 

@@ -9,7 +9,7 @@ from twilio.task_router.capability import TaskRouterCapability
 
 class TaskRouterCapabilityTest(unittest.TestCase):
 
-    def test_workspace_default(self): 
+    def test_workspace_default(self):
         account_sid = "AC123"
         auth_token = "foobar"
         workspace_sid = "WS456"
@@ -58,7 +58,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         self.assertEqual({}, fetch_policy['query_filter'])
         self.assertEqual({}, fetch_policy['post_filter'])
 
-    def test_worker_default(self): 
+    def test_worker_default(self):
         account_sid = "AC123"
         auth_token = "foobar"
         workspace_sid = "WS456"
@@ -82,7 +82,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         self.assertEqual(decoded["friendly_name"], worker_sid)
 
         policies = decoded['policies']
-        self.assertEqual(len(policies), 4)
+        self.assertEqual(len(policies), 5)
 
         # activity GET
         fetch_activity = policies[0]
@@ -92,8 +92,16 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         self.assertEqual({}, fetch_activity['query_filter'])
         self.assertEqual({}, fetch_activity['post_filter'])
 
+        # reservation GET
+        fetch_reservation = policies[1]
+        self.assertEqual("https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", fetch_reservation['url'])
+        self.assertEqual("GET", fetch_reservation['method'])
+        self.assertTrue(fetch_reservation['allowed'])
+        self.assertEqual({}, fetch_reservation['query_filter'])
+        self.assertEqual({}, fetch_reservation['post_filter'])
+
         # websocket GET
-        get_policy = policies[1]
+        get_policy = policies[2]
         self.assertEqual("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", get_policy['url'])
         self.assertEqual("GET", get_policy['method'])
         self.assertTrue(get_policy['allowed'])
@@ -101,7 +109,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         self.assertEqual({}, get_policy['post_filter'])
 
         # websocket POST
-        post_policy = policies[2]
+        post_policy = policies[3]
         self.assertEqual("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", post_policy['url'])
         self.assertEqual("POST", post_policy['method'])
         self.assertTrue(post_policy['allowed'])
@@ -109,14 +117,14 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         self.assertEqual({}, post_policy['post_filter'])
 
         # fetch GET
-        fetch_policy = policies[3]
+        fetch_policy = policies[4]
         self.assertEqual("https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", fetch_policy['url'])
         self.assertEqual("GET", fetch_policy['method'])
         self.assertTrue(fetch_policy['allowed'])
         self.assertEqual({}, fetch_policy['query_filter'])
         self.assertEqual({}, fetch_policy['post_filter'])
 
-    def test_task_queue_default(self): 
+    def test_task_queue_default(self):
         account_sid = "AC123"
         auth_token = "foobar"
         workspace_sid = "WS456"
@@ -190,9 +198,9 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         self.assertEqual(decoded["friendly_name"], worker_sid)
 
         policies = decoded['policies']
-        self.assertEqual(len(policies), 4)
+        self.assertEqual(len(policies), 5)
 
-        # should expect 4 policies 
+        # should expect 5 policies
 
         # activity GET
         fetch_activity = policies[0]
@@ -202,8 +210,16 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         self.assertEqual({}, fetch_activity['query_filter'])
         self.assertEqual({}, fetch_activity['post_filter'])
 
+        # reservation GET
+        fetch_reservation = policies[1]
+        self.assertEqual("https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", fetch_reservation['url'])
+        self.assertEqual("GET", fetch_reservation['method'])
+        self.assertTrue(fetch_reservation['allowed'])
+        self.assertEqual({}, fetch_reservation['query_filter'])
+        self.assertEqual({}, fetch_reservation['post_filter'])
+
         # websocket GET
-        get_policy = policies[1]
+        get_policy = policies[2]
         self.assertEqual("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", get_policy['url'])
         self.assertEqual("GET", get_policy['method'])
         self.assertTrue(get_policy['allowed'])
@@ -211,7 +227,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         self.assertEqual({}, get_policy['post_filter'])
 
         # websocket POST
-        post_policy = policies[2]
+        post_policy = policies[3]
         self.assertEqual("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", post_policy['url'])
         self.assertEqual("POST", post_policy['method'])
         self.assertTrue(post_policy['allowed'])
@@ -219,7 +235,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         self.assertEqual({}, post_policy['post_filter'])
 
         # fetch GET
-        fetch_policy = policies[3]
+        fetch_policy = policies[4]
         self.assertEqual("https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", fetch_policy['url'])
         self.assertEqual("GET", fetch_policy['method'])
         self.assertTrue(fetch_policy['allowed'])
