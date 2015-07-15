@@ -1,131 +1,130 @@
-import sys
-
 import time
 import unittest
 
 from twilio import jwt
-from twilio.task_router.capability import TaskRouterWorkspaceCapability
+from twilio.task_router import TaskRouterWorkspaceCapability
+
 
 class TaskRouterWorkspaceCapabilityTest(unittest.TestCase):
 
-	def setUp(self):
-		self.account_sid = "AC123"
-		self.auth_token = "foobar"
-		self.workspace_sid = "WS456"
-		self.capability = TaskRouterWorkspaceCapability(self.account_sid, self.auth_token, self.workspace_sid)
+    def setUp(self):
+        self.account_sid = "AC123"
+        self.auth_token = "foobar"
+        self.workspace_sid = "WS456"
+        self.capability = TaskRouterWorkspaceCapability(self.account_sid, self.auth_token, self.workspace_sid)
 
-	def test_generate_token(self):
+    def test_generate_token(self):
 
-		token = self.capability.generate_token()
-		self.assertIsNotNone(token)
+        token = self.capability.generate_token()
+        self.assertIsNotNone(token)
 
-		decoded = jwt.decode(token, self.auth_token)
-		self.assertIsNotNone(decoded)
+        decoded = jwt.decode(token, self.auth_token)
+        self.assertIsNotNone(decoded)
 
-		self.assertEqual(decoded["iss"], self.account_sid)
-		self.assertEqual(decoded["account_sid"], self.account_sid)
-		self.assertEqual(decoded["workspace_sid"], self.workspace_sid)
-		self.assertEqual(decoded["channel"], self.workspace_sid)
-		self.assertEqual(decoded["version"], "v1")
-		self.assertEqual(decoded["friendly_name"], self.workspace_sid)
+        self.assertEqual(decoded["iss"], self.account_sid)
+        self.assertEqual(decoded["account_sid"], self.account_sid)
+        self.assertEqual(decoded["workspace_sid"], self.workspace_sid)
+        self.assertEqual(decoded["channel"], self.workspace_sid)
+        self.assertEqual(decoded["version"], "v1")
+        self.assertEqual(decoded["friendly_name"], self.workspace_sid)
 
-	def test_generate_token_with_default_ttl(self): 
-		token = self.capability.generate_token()
-		self.assertIsNotNone(token)
+    def test_generate_token_with_default_ttl(self):
+        token = self.capability.generate_token()
+        self.assertIsNotNone(token)
 
-		decoded = jwt.decode(token, self.auth_token)
-		self.assertIsNotNone(decoded)
+        decoded = jwt.decode(token, self.auth_token)
+        self.assertIsNotNone(decoded)
 
-		self.assertEqual(int(time.time()) + 3600, decoded["exp"])
+        self.assertEqual(int(time.time()) + 3600, decoded["exp"])
 
-	def test_generate_token_with_custom_ttl(self): 
-		ttl = 10000
+    def test_generate_token_with_custom_ttl(self):
+        ttl = 10000
 
-		token = self.capability.generate_token(ttl)
-		self.assertIsNotNone(token)
+        token = self.capability.generate_token(ttl)
+        self.assertIsNotNone(token)
 
-		decoded = jwt.decode(token, self.auth_token)
-		self.assertIsNotNone(decoded)
+        decoded = jwt.decode(token, self.auth_token)
+        self.assertIsNotNone(decoded)
 
-		self.assertEqual(int(time.time()) + 10000, decoded["exp"])
+        self.assertEqual(int(time.time()) + 10000, decoded["exp"])
 
-	def test_default(self): 
-		token = self.capability.generate_token()
-		self.assertIsNotNone(token)
+    def test_default(self):
+        token = self.capability.generate_token()
+        self.assertIsNotNone(token)
 
-		decoded = jwt.decode(token, self.auth_token)
-		self.assertIsNotNone(decoded)
+        decoded = jwt.decode(token, self.auth_token)
+        self.assertIsNotNone(decoded)
 
-		policies = decoded['policies']
-		self.assertEqual(len(policies), 3)
+        policies = decoded['policies']
+        self.assertEqual(len(policies), 3)
 
-		# websocket GET
-		get_policy = policies[0]
-		self.assertEqual("https://event-bridge.twilio.com/v1/wschannels/AC123/WS456", get_policy['url'])
-		self.assertEqual("GET", get_policy['method'])
-		self.assertTrue(get_policy['allowed'])
-		self.assertEqual({}, get_policy['query_filter'])
-		self.assertEqual({}, get_policy['post_filter'])
+        # websocket GET
+        get_policy = policies[0]
+        self.assertEqual("https://event-bridge.twilio.com/v1/wschannels/AC123/WS456", get_policy['url'])
+        self.assertEqual("GET", get_policy['method'])
+        self.assertTrue(get_policy['allow'])
+        self.assertEqual({}, get_policy['query_filter'])
+        self.assertEqual({}, get_policy['post_filter'])
 
-		# websocket POST
-		post_policy = policies[1]
-		self.assertEqual("https://event-bridge.twilio.com/v1/wschannels/AC123/WS456", post_policy['url'])
-		self.assertEqual("POST", post_policy['method'])
-		self.assertTrue(post_policy['allowed'])
-		self.assertEqual({}, post_policy['query_filter'])
-		self.assertEqual({}, post_policy['post_filter'])
+        # websocket POST
+        post_policy = policies[1]
+        self.assertEqual("https://event-bridge.twilio.com/v1/wschannels/AC123/WS456", post_policy['url'])
+        self.assertEqual("POST", post_policy['method'])
+        self.assertTrue(post_policy['allow'])
+        self.assertEqual({}, post_policy['query_filter'])
+        self.assertEqual({}, post_policy['post_filter'])
 
-		# fetch GET
-		fetch_policy = policies[2]
-		self.assertEqual("https://taskrouter.twilio.com/v1/Workspaces/WS456", fetch_policy['url'])
-		self.assertEqual("GET", fetch_policy['method'])
-		self.assertTrue(fetch_policy['allowed'])
-		self.assertEqual({}, fetch_policy['query_filter'])
-		self.assertEqual({}, fetch_policy['post_filter'])
+        # fetch GET
+        fetch_policy = policies[2]
+        self.assertEqual("https://taskrouter.twilio.com/v1/Workspaces/WS456", fetch_policy['url'])
+        self.assertEqual("GET", fetch_policy['method'])
+        self.assertTrue(fetch_policy['allow'])
+        self.assertEqual({}, fetch_policy['query_filter'])
+        self.assertEqual({}, fetch_policy['post_filter'])
 
-	def test_allow_fetch_subresources(self): 
-		self.capability.allow_fetch_subresources()
+    def test_allow_fetch_subresources(self):
+        self.capability.allow_fetch_subresources()
 
-		token = self.capability.generate_token()
-		self.assertIsNotNone(token)
+        token = self.capability.generate_token()
+        self.assertIsNotNone(token)
 
-		decoded = jwt.decode(token, self.auth_token)
-		self.assertIsNotNone(decoded)
+        decoded = jwt.decode(token, self.auth_token)
+        self.assertIsNotNone(decoded)
 
-		policies = decoded['policies']
-		self.assertEqual(len(policies), 4)
+        policies = decoded['policies']
+        self.assertEqual(len(policies), 4)
 
-		# confirm the additional policy generated with allow_fetch_subresources()
+        # confirm the additional policy generated with allow_fetch_subresources()
 
-		policy = policies[3]
+        policy = policies[3]
 
-		self.assertEqual(policy['url'], "https://taskrouter.twilio.com/v1/Workspaces/WS456/**")
-		self.assertEqual(policy['method'], "GET")
-		self.assertTrue(policy['allowed'])
-		self.assertEqual({}, policy['query_filter'])
-		self.assertEqual({}, policy['post_filter'])
+        self.assertEqual(policy['url'], "https://taskrouter.twilio.com/v1/Workspaces/WS456/**")
+        self.assertEqual(policy['method'], "GET")
+        self.assertTrue(policy['allow'])
+        self.assertEqual({}, policy['query_filter'])
+        self.assertEqual({}, policy['post_filter'])
 
-	def test_allow_updates_subresources(self):
-		self.capability.allow_updates_subresources()
+    def test_allow_updates_subresources(self):
+        self.capability.allow_updates_subresources()
 
-		token = self.capability.generate_token()
-		self.assertIsNotNone(token)
+        token = self.capability.generate_token()
+        self.assertIsNotNone(token)
 
-		decoded = jwt.decode(token, self.auth_token)
-		self.assertIsNotNone(decoded)
+        decoded = jwt.decode(token, self.auth_token)
+        self.assertIsNotNone(decoded)
 
-		policies = decoded['policies']
-		self.assertEqual(len(policies), 4)
+        policies = decoded['policies']
+        self.assertEqual(len(policies), 4)
 
-		# confirm the additional policy generated with allow_updates_subresources()
+        # confirm the additional policy generated with allow_updates_subresources()
 
-		policy = policies[3]
+        policy = policies[3]
 
-		self.assertEqual(policy['url'], "https://taskrouter.twilio.com/v1/Workspaces/WS456/**")
-		self.assertEqual(policy['method'], "POST")
-		self.assertTrue(policy['allowed'])
-		self.assertEqual({}, policy['query_filter'])
-		self.assertEqual({}, policy['post_filter'])
+        self.assertEqual(policy['url'], "https://taskrouter.twilio.com/v1/Workspaces/WS456/**")
+        self.assertEqual(policy['method'], "POST")
+        self.assertTrue(policy['allow'])
+        self.assertEqual({}, policy['query_filter'])
+        self.assertEqual({}, policy['post_filter'])
 
 if __name__ == "__main__":
-	unittest.main()
+    unittest.main()
