@@ -1,11 +1,9 @@
-import sys
-
-import time
 import unittest
 import warnings
 
 from twilio import jwt
-from twilio.task_router.capability import TaskRouterCapability
+from twilio.task_router import TaskRouterCapability
+
 
 class TaskRouterCapabilityTest(unittest.TestCase):
 
@@ -38,7 +36,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         get_policy = policies[0]
         self.assertEqual("https://event-bridge.twilio.com/v1/wschannels/AC123/WS456", get_policy['url'])
         self.assertEqual("GET", get_policy['method'])
-        self.assertTrue(get_policy['allowed'])
+        self.assertTrue(get_policy['allow'])
         self.assertEqual({}, get_policy['query_filter'])
         self.assertEqual({}, get_policy['post_filter'])
 
@@ -46,7 +44,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         post_policy = policies[1]
         self.assertEqual("https://event-bridge.twilio.com/v1/wschannels/AC123/WS456", post_policy['url'])
         self.assertEqual("POST", post_policy['method'])
-        self.assertTrue(post_policy['allowed'])
+        self.assertTrue(post_policy['allow'])
         self.assertEqual({}, post_policy['query_filter'])
         self.assertEqual({}, post_policy['post_filter'])
 
@@ -54,7 +52,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         fetch_policy = policies[2]
         self.assertEqual("https://taskrouter.twilio.com/v1/Workspaces/WS456", fetch_policy['url'])
         self.assertEqual("GET", fetch_policy['method'])
-        self.assertTrue(fetch_policy['allowed'])
+        self.assertTrue(fetch_policy['allow'])
         self.assertEqual({}, fetch_policy['query_filter'])
         self.assertEqual({}, fetch_policy['post_filter'])
 
@@ -88,7 +86,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         fetch_activity = policies[0]
         self.assertEqual("https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities", fetch_activity['url'])
         self.assertEqual("GET", fetch_activity['method'])
-        self.assertTrue(fetch_activity['allowed'])
+        self.assertTrue(fetch_activity['allow'])
         self.assertEqual({}, fetch_activity['query_filter'])
         self.assertEqual({}, fetch_activity['post_filter'])
 
@@ -96,7 +94,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         fetch_reservation = policies[1]
         self.assertEqual("https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", fetch_reservation['url'])
         self.assertEqual("GET", fetch_reservation['method'])
-        self.assertTrue(fetch_reservation['allowed'])
+        self.assertTrue(fetch_reservation['allow'])
         self.assertEqual({}, fetch_reservation['query_filter'])
         self.assertEqual({}, fetch_reservation['post_filter'])
 
@@ -104,7 +102,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         get_policy = policies[2]
         self.assertEqual("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", get_policy['url'])
         self.assertEqual("GET", get_policy['method'])
-        self.assertTrue(get_policy['allowed'])
+        self.assertTrue(get_policy['allow'])
         self.assertEqual({}, get_policy['query_filter'])
         self.assertEqual({}, get_policy['post_filter'])
 
@@ -112,7 +110,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         post_policy = policies[3]
         self.assertEqual("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", post_policy['url'])
         self.assertEqual("POST", post_policy['method'])
-        self.assertTrue(post_policy['allowed'])
+        self.assertTrue(post_policy['allow'])
         self.assertEqual({}, post_policy['query_filter'])
         self.assertEqual({}, post_policy['post_filter'])
 
@@ -120,7 +118,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         fetch_policy = policies[4]
         self.assertEqual("https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", fetch_policy['url'])
         self.assertEqual("GET", fetch_policy['method'])
-        self.assertTrue(fetch_policy['allowed'])
+        self.assertTrue(fetch_policy['allow'])
         self.assertEqual({}, fetch_policy['query_filter'])
         self.assertEqual({}, fetch_policy['post_filter'])
 
@@ -154,7 +152,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         get_policy = policies[0]
         self.assertEqual("https://event-bridge.twilio.com/v1/wschannels/AC123/WQ789", get_policy['url'])
         self.assertEqual("GET", get_policy['method'])
-        self.assertTrue(get_policy['allowed'])
+        self.assertTrue(get_policy['allow'])
         self.assertEqual({}, get_policy['query_filter'])
         self.assertEqual({}, get_policy['post_filter'])
 
@@ -162,7 +160,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         post_policy = policies[1]
         self.assertEqual("https://event-bridge.twilio.com/v1/wschannels/AC123/WQ789", post_policy['url'])
         self.assertEqual("POST", post_policy['method'])
-        self.assertTrue(post_policy['allowed'])
+        self.assertTrue(post_policy['allow'])
         self.assertEqual({}, post_policy['query_filter'])
         self.assertEqual({}, post_policy['post_filter'])
 
@@ -170,7 +168,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         fetch_policy = policies[2]
         self.assertEqual("https://taskrouter.twilio.com/v1/Workspaces/WS456/TaskQueues/WQ789", fetch_policy['url'])
         self.assertEqual("GET", fetch_policy['method'])
-        self.assertTrue(fetch_policy['allowed'])
+        self.assertTrue(fetch_policy['allow'])
         self.assertEqual({}, fetch_policy['query_filter'])
         self.assertEqual({}, fetch_policy['post_filter'])
 
@@ -206,7 +204,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         fetch_activity = policies[0]
         self.assertEqual("https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities", fetch_activity['url'])
         self.assertEqual("GET", fetch_activity['method'])
-        self.assertTrue(fetch_activity['allowed'])
+        self.assertTrue(fetch_activity['allow'])
         self.assertEqual({}, fetch_activity['query_filter'])
         self.assertEqual({}, fetch_activity['post_filter'])
 
@@ -214,7 +212,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         fetch_reservation = policies[1]
         self.assertEqual("https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", fetch_reservation['url'])
         self.assertEqual("GET", fetch_reservation['method'])
-        self.assertTrue(fetch_reservation['allowed'])
+        self.assertTrue(fetch_reservation['allow'])
         self.assertEqual({}, fetch_reservation['query_filter'])
         self.assertEqual({}, fetch_reservation['post_filter'])
 
@@ -222,7 +220,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         get_policy = policies[2]
         self.assertEqual("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", get_policy['url'])
         self.assertEqual("GET", get_policy['method'])
-        self.assertTrue(get_policy['allowed'])
+        self.assertTrue(get_policy['allow'])
         self.assertEqual({}, get_policy['query_filter'])
         self.assertEqual({}, get_policy['post_filter'])
 
@@ -230,7 +228,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         post_policy = policies[3]
         self.assertEqual("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", post_policy['url'])
         self.assertEqual("POST", post_policy['method'])
-        self.assertTrue(post_policy['allowed'])
+        self.assertTrue(post_policy['allow'])
         self.assertEqual({}, post_policy['query_filter'])
         self.assertEqual({}, post_policy['post_filter'])
 
@@ -238,7 +236,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         fetch_policy = policies[4]
         self.assertEqual("https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", fetch_policy['url'])
         self.assertEqual("GET", fetch_policy['method'])
-        self.assertTrue(fetch_policy['allowed'])
+        self.assertTrue(fetch_policy['allow'])
         self.assertEqual({}, fetch_policy['query_filter'])
         self.assertEqual({}, fetch_policy['post_filter'])
 
@@ -263,7 +261,6 @@ class TaskRouterCapabilityTest(unittest.TestCase):
             assert len(w) == 1
             assert issubclass(w[-1].category, DeprecationWarning)
             assert "deprecated" in str(w[-1].message)
-
 
 if __name__ == "__main__":
     unittest.main()

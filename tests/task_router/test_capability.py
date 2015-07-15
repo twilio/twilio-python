@@ -60,6 +60,22 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         )
         expected = [
             {
+                'url':
+                'https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities',
+                'method': 'GET',
+                'allow': True,
+                'query_filter': {},
+                'post_filter': {},
+            },
+            {
+                'url': 'https://taskrouter.twilio.com/v1/Workspaces/%s/Tasks/**' %
+                       (self.workspace_sid),
+                'method': 'GET',
+                'allow': True,
+                'query_filter': {},
+                'post_filter': {},
+            },
+            {
                 'url': websocket_url,
                 'method': 'GET',
                 'allow': True,
@@ -74,13 +90,13 @@ class TaskRouterCapabilityTest(unittest.TestCase):
                 'post_filter': {},
             },
             {
-                'url':
-                'https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities',
+                'url': 'https://taskrouter.twilio.com/v1/Workspaces/%s/Workers/%s' %
+                       (self.workspace_sid, self.worker_sid),
                 'method': 'GET',
                 'allow': True,
                 'query_filter': {},
                 'post_filter': {},
-            },
+            }
         ]
         self.assertEqual(expected, decoded['policies'])
 
@@ -140,6 +156,6 @@ class TaskRouterCapabilityTest(unittest.TestCase):
             'method': 'POST',
             'allow': True,
             'query_filter': {},
-            'post_filter': {'ReservationStatus': {'required': True}},
+            'post_filter': {},
         }
         self.assertEqual(expected, decoded['policies'][-1])
