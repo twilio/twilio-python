@@ -31,7 +31,7 @@ class Credential(InstanceResource):
     """
     def update(self, **kwargs):
         """Update this credential."""
-        return self.parent.update_instance(self.name, **kwargs)
+        return self.parent.update_instance(self.name, kwargs)
 
     def delete(self):
         """
@@ -99,7 +99,7 @@ class SipCredentialList(InstanceResource):
 
     def update(self, **kwargs):
         """Update this credential list."""
-        return self.parent.update_instance(self.name, **kwargs)
+        return self.parent.update_instance(self.name, kwargs)
 
     def delete(self):
         """
