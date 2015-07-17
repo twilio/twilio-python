@@ -27,7 +27,6 @@ class QueueTest(unittest.TestCase):
         mock.assert_called_with("GET", uri, params={}, auth=AUTH,
                                 use_json_extension=True)
 
-
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_queues_create(self, mock):
         resp = create_mock_json("tests/resources/queues_instance.json")
@@ -42,7 +41,6 @@ class QueueTest(unittest.TestCase):
                                 auth=AUTH,
                                 use_json_extension=True)
 
-
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_queues_get(self, mock):
         resp = create_mock_json("tests/resources/queues_instance.json")
@@ -52,7 +50,6 @@ class QueueTest(unittest.TestCase):
         self.list_resource.get(QUEUE_SID)
         mock.assert_called_with("GET", uri, auth=AUTH,
                                 use_json_extension=True)
-
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_queue_update(self, mock):
@@ -65,7 +62,6 @@ class QueueTest(unittest.TestCase):
         mock.assert_called_with("POST", uri,
                                 data={'FriendlyName': 'QQ'}, auth=AUTH,
                                 use_json_extension=True)
-
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_queue_delete(self, mock):
