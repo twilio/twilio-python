@@ -1,0 +1,21 @@
+{
+    "auth_type": "IP_ACL",
+    "voice_status_callback_method": "POST",
+    "subresource_uris": {
+        "ip_access_control_list_mappings": "/2010-04-01/Accounts/ACba8bc05eacf94afdae398e642c9cc32d/SIP/Domains/SD27f0288630a668bdfbf177f8e22f5ccc/IpAccessControlListMappings.json",
+        "credential_list_mappings": "/2010-04-01/Accounts/ACba8bc05eacf94afdae398e642c9cc32d/SIP/Domains/SD27f0288630a668bdfbf177f8e22f5ccc/CredentialListMappings.json"
+    },
+    "date_updated": "Fri, 06 Sep 2013 19:18:30 -0000",
+    "voice_status_callback_url": null,
+    "uri": "/2010-04-01/Accounts/ACba8bc05eacf94afdae398e642c9cc32d/SIP/Domains/SD27f0288630a668bdfbf177f8e22f5ccc.json",
+    "friendly_name": "Scranton Office",
+    "domain_name": "dunder-mifflin-scranton.sip.twilio.com",
+    "account_sid": "ACba8bc05eacf94afdae398e642c9cc32d",
+    "voice_url": "https://dundermifflin.example.com/twilio/app.php",
+    "voice_method": "POST",
+    "sid": "SD27f0288630a668bdfbf177f8e22f5ccc",
+    "date_created": "Fri, 06 Sep 2013 19:18:30 -0000",
+    "voice_fallback_method": "POST",
+    "api_version": "2010-04-01",
+    "voice_fallback_url": null
+}
