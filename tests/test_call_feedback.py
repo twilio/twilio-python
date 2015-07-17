@@ -94,7 +94,7 @@ class CallFeedbackSummaryTest(unittest.TestCase):
         auth = (account_sid, "token")
 
         calls = Calls(base_uri, auth)
-        uri = "%s/Calls/Summary" % base_uri
+        uri = "%s/Calls/FeedbackSummary" % base_uri
         feedback = calls.summary.get()
         assert_equal(10200, feedback.call_count)
         assert_equal(729, feedback.call_feedback_count)
