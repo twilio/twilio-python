@@ -1,0 +1,26 @@
+{
+  "first_page_uri": "/2010-04-01/Accounts/ACasdfafadsfdsf/SIP/Domains/SDdsfdfsd/IpAccessControlListMappings.json?SipDomainSid=SDdsfdfsd&PageSize=50&Page=0",
+  "end": 0,
+  "previous_page_uri": null,
+  "uri": "/2010-04-01/Accounts/ACasdfafadsfdsf/SIP/Domains/SDdsfdfsd/IpAccessControlListMappings.json?SipDomainSid=SDdsfdfsd&PageSize=50&Page=0",
+  "page_size": 50,
+  "start": 0,
+  "ip_access_control_list_mappings": [
+    {
+      "sid": "ALasdfasfasdf",
+      "account_sid": "ACasdfafadsfdsf",
+      "friendly_name": "aaaa",
+      "date_created": "Fri, 17 Jul 2015 21:25:15 +0000",
+      "date_updated": "Fri, 17 Jul 2015 21:25:15 +0000",
+      "uri": "/2010-04-01/Accounts/ACasdfafadsfdsf/SIP/IpAccessControlLists/ALasdfasfasdf.json",
+      "subresource_uris": {
+        "ip_addresses": "/2010-04-01/Accounts/ACasdfafadsfdsf/SIP/IpAccessControlLists/ALasdfasfasdf/IpAddresses.json"
+      }
+    }
+  ],
+  "next_page_uri": null,
+  "num_pages": 1,
+  "total": 1,
+  "last_page_uri": "/2010-04-01/Accounts/ACasdfafadsfdsf/SIP/Domains/SDdsfdfsd/IpAccessControlListMappings.json?SipDomainSid=SDdsfdfsd&PageSize=50&Page=0",
+  "page": 0
+}
