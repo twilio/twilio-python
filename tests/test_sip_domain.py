@@ -2,6 +2,7 @@ import unittest
 from mock import patch, Mock
 
 from tests.tools import create_mock_json
+from twilio.rest.resources.sip import Sip
 from twilio.rest.resources.sip.domains import Domains, Domain
 from twilio.rest.resources.util import UNSET_TIMEOUT
 
@@ -11,10 +12,11 @@ class SipDomainTest(unittest.TestCase):
     AUTH = (ACCOUNT_SID, 'token')
     API_URI = 'https://api.twilio.com/2010-04-01'
     SID = 'SD27f0288630a668bdfbf177f8e22f5ccc'
-    BASE_URI = '%s/Accounts/%s/SIP/Domains' % (API_URI, ACCOUNT_SID)
+    BASE_URI = '%s/Accounts/%s' % (API_URI, ACCOUNT_SID)
 
     def setUp(self):
-        self.list_resource = Domains(self.BASE_URI, self.AUTH, UNSET_TIMEOUT)
+        self.sip = Sip(self.BASE_URI, self.AUTH, UNSET_TIMEOUT)
+        self.list_resource = self.sip.domains
         self.instance_resource = Domain(self.list_resource, self.SID)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
@@ -23,7 +25,7 @@ class SipDomainTest(unittest.TestCase):
         resp.status_code = 201
         mock.return_value = resp
 
-        uri = '%s/Domains' % (self.BASE_URI)
+        uri = '%s/SIP/Domains' % (self.BASE_URI)
         self.list_resource.list()
 
         mock.assert_called_with("GET", uri, params={}, auth=self.AUTH,
@@ -35,7 +37,7 @@ class SipDomainTest(unittest.TestCase):
         resp.status_code = 201
         mock.return_value = resp
 
-        uri = '%s/Domains' % (self.BASE_URI)
+        uri = '%s/SIP/Domains' % (self.BASE_URI)
         self.list_resource.create('domain')
 
         data = {
@@ -50,7 +52,7 @@ class SipDomainTest(unittest.TestCase):
         resp.status_code = 201
         mock.return_value = resp
 
-        uri = '%s/Domains/%s' % (self.BASE_URI, self.SID)
+        uri = '%s/SIP/Domains/%s' % (self.BASE_URI, self.SID)
         self.list_resource.get(self.SID)
 
         mock.assert_called_with("GET", uri, auth=self.AUTH,
@@ -62,7 +64,7 @@ class SipDomainTest(unittest.TestCase):
         resp.status_code = 204
         mock.return_value = resp
 
-        uri = '%s/Domains/%s' % (self.BASE_URI, self.SID)
+        uri = '%s/SIP/Domains/%s' % (self.BASE_URI, self.SID)
         self.list_resource.delete(self.SID)
 
         mock.assert_called_with("DELETE", uri, auth=self.AUTH,
@@ -74,7 +76,7 @@ class SipDomainTest(unittest.TestCase):
         resp.status_code = 201
         mock.return_value = resp
 
-        uri = '%s/Domains/%s' % (self.BASE_URI, self.SID)
+        uri = '%s/SIP/Domains/%s' % (self.BASE_URI, self.SID)
         self.list_resource.update(self.SID, domain_name='domain')
 
         data = {
@@ -91,7 +93,7 @@ class SipDomainTest(unittest.TestCase):
         resp.status_code = 201
         mock.return_value = resp
 
-        uri = '%s/Domains/%s' % (self.BASE_URI, self.SID)
+        uri = '%s/SIP/Domains/%s' % (self.BASE_URI, self.SID)
         self.instance_resource.update(domain_name='domain')
 
         data = {
@@ -107,7 +109,7 @@ class SipDomainTest(unittest.TestCase):
         resp.status_code = 204
         mock.return_value = resp
 
-        uri = '%s/Domains/%s' % (self.BASE_URI, self.SID)
+        uri = '%s/SIP/Domains/%s' % (self.BASE_URI, self.SID)
         self.instance_resource.delete()
 
         mock.assert_called_with("DELETE", uri,

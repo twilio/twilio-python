@@ -2,6 +2,7 @@ import unittest
 from mock import patch, Mock
 
 from tests.tools import create_mock_json
+from twilio.rest.resources.sip import Sip
 from twilio.rest.resources.sip.ip_access_control_lists import (
     SipIpAccessControlList,
     SipIpAccessControlLists,
@@ -13,13 +14,12 @@ class SipIpAccessControlListTest(unittest.TestCase):
     ACCOUNT_SID = 'AC123'
     AUTH = (ACCOUNT_SID, 'token')
     API_URI = 'https://api.twilio.com/2010-04-01/Accounts'
-    BASE_URI = '%s/%s/SIP' % (API_URI, ACCOUNT_SID)
+    BASE_URI = '%s/%s' % (API_URI, ACCOUNT_SID)
     SID = 'AL123'
 
     def setUp(self):
-        self.list_resource = SipIpAccessControlLists(self.BASE_URI,
-                                                     self.AUTH,
-                                                     UNSET_TIMEOUT)
+        self.sip = Sip(self.BASE_URI, self.AUTH, UNSET_TIMEOUT)
+        self.list_resource = self.sip.ip_access_control_lists
         self.instance_resource = SipIpAccessControlList(
             self.list_resource, self.SID)
 
@@ -30,7 +30,7 @@ class SipIpAccessControlListTest(unittest.TestCase):
         resp.status_code = 201
         mock.return_value = resp
 
-        uri = '%s/IpAccessControlLists' % (self.BASE_URI)
+        uri = '%s/SIP/IpAccessControlLists' % (self.BASE_URI)
         self.list_resource.list()
 
         mock.assert_called_with("GET", uri, params={}, auth=self.AUTH,
@@ -43,7 +43,7 @@ class SipIpAccessControlListTest(unittest.TestCase):
         resp.status_code = 201
         mock.return_value = resp
 
-        uri = '%s/IpAccessControlLists' % (self.BASE_URI)
+        uri = '%s/SIP/IpAccessControlLists' % (self.BASE_URI)
         self.list_resource.create('cred')
 
         mock.assert_called_with("POST", uri, data={'FriendlyName': 'cred'},
@@ -56,7 +56,7 @@ class SipIpAccessControlListTest(unittest.TestCase):
         resp.status_code = 201
         mock.return_value = resp
 
-        uri = '%s/IpAccessControlLists/%s' % (self.BASE_URI, self.SID)
+        uri = '%s/SIP/IpAccessControlLists/%s' % (self.BASE_URI, self.SID)
         self.list_resource.get(self.SID)
 
         mock.assert_called_with("GET", uri, auth=self.AUTH,
@@ -68,7 +68,7 @@ class SipIpAccessControlListTest(unittest.TestCase):
         resp.status_code = 204
         mock.return_value = resp
 
-        uri = '%s/IpAccessControlLists/%s' % (self.BASE_URI, self.SID)
+        uri = '%s/SIP/IpAccessControlLists/%s' % (self.BASE_URI, self.SID)
         self.list_resource.delete(self.SID)
 
         mock.assert_called_with("DELETE", uri, auth=self.AUTH,
@@ -81,7 +81,7 @@ class SipIpAccessControlListTest(unittest.TestCase):
         resp.status_code = 201
         mock.return_value = resp
 
-        uri = '%s/IpAccessControlLists/%s' % (self.BASE_URI, self.SID)
+        uri = '%s/SIP/IpAccessControlLists/%s' % (self.BASE_URI, self.SID)
         self.list_resource.update(self.SID, friendly_name='cred')
 
         mock.assert_called_with("POST", uri,
@@ -96,7 +96,7 @@ class SipIpAccessControlListTest(unittest.TestCase):
         resp.status_code = 201
         mock.return_value = resp
 
-        uri = '%s/IpAccessControlLists/%s' % (self.BASE_URI, self.SID)
+        uri = '%s/SIP/IpAccessControlLists/%s' % (self.BASE_URI, self.SID)
         self.instance_resource.update(friendly_name='cred')
 
         mock.assert_called_with("POST", uri, data={'FriendlyName': 'cred'},
@@ -109,7 +109,7 @@ class SipIpAccessControlListTest(unittest.TestCase):
         resp.status_code = 204
         mock.return_value = resp
 
-        uri = '%s/IpAccessControlLists/%s' % (self.BASE_URI, self.SID)
+        uri = '%s/SIP/IpAccessControlLists/%s' % (self.BASE_URI, self.SID)
         self.instance_resource.delete()
 
         mock.assert_called_with("DELETE", uri,
