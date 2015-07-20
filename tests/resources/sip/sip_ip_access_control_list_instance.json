@@ -1,0 +1,11 @@
+{
+  "sid": "AL123",
+  "account_sid": "AC123",
+  "friendly_name": "aaaa",
+  "date_created": "Fri, 17 Jul 2015 21:25:15 +0000",
+  "date_updated": "Fri, 17 Jul 2015 21:25:15 +0000",
+  "uri": "/2010-04-01/Accounts/AC123/SIP/IpAccessControlLists/AL123.json",
+  "subresource_uris": {
+    "ip_addresses": "/2010-04-01/Accounts/AC123/SIP/IpAccessControlLists/AL123/IpAddresses.json"
+  }
+}
