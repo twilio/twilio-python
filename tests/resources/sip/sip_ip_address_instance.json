@@ -1,0 +1,10 @@
+{
+  "sid": "IP123",
+  "account_sid": "AC123",
+  "ip_access_control_list_sid": "AL123",
+  "friendly_name": "aaa",
+  "ip_address": "192.1.1.2",
+  "date_created": "Mon, 20 Jul 2015 17:27:10 +0000",
+  "date_updated": "Mon, 20 Jul 2015 17:27:10 +0000",
+  "uri": "/2010-04-01/Accounts/AC123/SIP/IpAccessControlLists/AL123/IpAddresses/IP123.json"
+}

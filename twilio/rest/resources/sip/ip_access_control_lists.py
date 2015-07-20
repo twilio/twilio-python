@@ -32,7 +32,7 @@ class IpAddress(InstanceResource):
 
     def update(self, **kwargs):
         """Update this address."""
-        return self.parent.update_instance(self.name, **kwargs)
+        return self.parent.update_instance(self.name, kwargs)
 
     def delete(self):
         """
