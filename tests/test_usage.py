@@ -1,8 +1,3 @@
-'''
-# TODO
-1. Usage trigger update DONE
-2. Usage record components (daily, monthly, yearly, etc)
-'''
 import unittest
 
 from mock import patch, Mock
