@@ -22,7 +22,7 @@ class TestUsage(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        uri = '{}/Usage/Record/Daily'.format(self.base_uri)
+        uri = '{}/Usage/Records/Daily'.format(self.base_uri)
 
         self.usage.records.daily.list()
 
@@ -34,7 +34,7 @@ class TestUsage(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        uri = '{}/Usage/Record/Monthly'.format(self.base_uri)
+        uri = '{}/Usage/Records/Monthly'.format(self.base_uri)
 
         self.usage.records.monthly.list()
 
@@ -46,7 +46,7 @@ class TestUsage(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        uri = '{}/Usage/Record/Yearly'.format(self.base_uri)
+        uri = '{}/Usage/Records/Yearly'.format(self.base_uri)
 
         self.usage.records.yearly.list()
 
@@ -58,7 +58,7 @@ class TestUsage(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        uri = '{}/Usage/Record/Today'.format(self.base_uri)
+        uri = '{}/Usage/Records/Today'.format(self.base_uri)
 
         self.usage.records.today.list()
 
@@ -70,7 +70,7 @@ class TestUsage(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        uri = '{}/Usage/Record/Yesterday'.format(self.base_uri)
+        uri = '{}/Usage/Records/Yesterday'.format(self.base_uri)
 
         self.usage.records.yesterday.list()
 
@@ -82,7 +82,7 @@ class TestUsage(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        uri = '{}/Usage/Record/LastMonth'.format(self.base_uri)
+        uri = '{}/Usage/Records/LastMonth'.format(self.base_uri)
 
         self.usage.records.last_month.list()
 
@@ -94,7 +94,7 @@ class TestUsage(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        uri = '{}/Usage/Record/ThisMonth'.format(self.base_uri)
+        uri = '{}/Usage/Records/ThisMonth'.format(self.base_uri)
 
         self.usage.records.this_month.list()
 
