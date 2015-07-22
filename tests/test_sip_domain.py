@@ -3,7 +3,7 @@ from mock import patch, Mock
 
 from tests.tools import create_mock_json
 from twilio.rest.resources.sip import Sip
-from twilio.rest.resources.sip.domains import Domains, Domain
+from twilio.rest.resources.sip.domains import Domain
 from twilio.rest.resources.util import UNSET_TIMEOUT
 
 
