@@ -1,5 +1,4 @@
 from __future__ import with_statement
-import json
 import unittest
 
 from mock import patch, Mock
@@ -31,11 +30,12 @@ class PhoneNumberTest(unittest.TestCase):
 
         uri = '%s/IncomingPhoneNumbers/%s' % (self.base_uri, self.sid)
 
+        data = {
+            'StatusCallback': 'http://www.example.com'
+        }
         mock.assert_called_with("POST",
                                 uri,
-                                data = {
-                                    'StatusCallback': 'http://www.example.com'
-                                },
+                                data=data,
                                 auth=self.auth,
                                 use_json_extension=True)
 
@@ -94,7 +94,7 @@ class PhoneNumberTest(unittest.TestCase):
                                 use_json_extension=True)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
-    def test_list_transfer(self, mock):
+    def test_instance_transfer(self, mock):
         resp = create_mock_json('tests/resources/'
                                 'incoming_phone_numbers_instance.json')
         resp.status_code = 201

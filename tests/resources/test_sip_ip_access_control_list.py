@@ -5,7 +5,6 @@ from tests.tools import create_mock_json
 from twilio.rest.resources.sip import Sip
 from twilio.rest.resources.sip.ip_access_control_lists import (
     SipIpAccessControlList,
-    SipIpAccessControlLists,
 )
 from twilio.rest.resources.util import UNSET_TIMEOUT
 

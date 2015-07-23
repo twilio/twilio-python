@@ -1,7 +1,7 @@
 import unittest
 
 from mock import Mock
-from nose.tools import assert_equal, assert_true
+from nose.tools import assert_equal, assert_true, assert_false
 
 from twilio.rest.exceptions import TwilioException
 from twilio.rest.resources import AvailablePhoneNumber
@@ -17,7 +17,7 @@ class AvailablePhoneNumberTest(unittest.TestCase):
         self.instance = AvailablePhoneNumber(self.parent)
 
     def test_init(self):
-        assert_equal(self.instance.name, "")
+        assert_false(self.instance.name)
 
     def test_purchase(self):
         self.instance.phone_number = "+123"
