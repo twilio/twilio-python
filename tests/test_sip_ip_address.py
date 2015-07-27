@@ -43,7 +43,7 @@ class SipIpAddressTest(unittest.TestCase):
         mock.return_value = resp
 
         uri = '%s/IpAddresses' % (self.BASE_URI)
-        self.list_resource.create('cred', 'ip')
+        self.list_resource.create(friendly_name='cred', ip_address='ip')
 
         data = {
             'FriendlyName': 'cred',
