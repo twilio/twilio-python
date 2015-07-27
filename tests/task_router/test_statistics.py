@@ -67,7 +67,7 @@ class TestStatistics(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        tqs = TaskQueues(BASE_URI, AUTH, 30)
+        tqs = TaskQueues(BASE_URI, AUTH)
         tqs.statistics.get()
         request.assert_called_with('GET',
                                    '{0}/TaskQueues/Statistics'.format(BASE_URI),
