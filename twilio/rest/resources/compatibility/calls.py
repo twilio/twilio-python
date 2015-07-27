@@ -1,6 +1,10 @@
-from twilio.rest.resources.base import ListResource
+from twilio.rest.resources.base import ListResource, InstanceResource
 from twilio.rest.resources.call_feedback import CallFeedbackFactory
 from twilio.rest.resources.call_feedback_summary import CallFeedbackSummary
+
+
+class Call(InstanceResource):
+    pass
 
 
 class Calls(ListResource):
