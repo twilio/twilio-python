@@ -71,7 +71,6 @@ class TwilioRestClient(TwilioClient):
         self.sandboxes = Sandboxes(self.account_uri, self.auth, timeout)
         self.usage = Usage(self.account_uri, self.auth, timeout)
         self.messages = Messages(self.account_uri, self.auth, timeout)
-        self.media = MediaList(self.account_uri, self.auth, timeout)
         self.sip = Sip(self.account_uri, self.auth, timeout)
         self.tokens = Tokens(self.account_uri, self.auth, timeout)
 
