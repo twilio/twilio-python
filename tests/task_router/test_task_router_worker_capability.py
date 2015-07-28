@@ -13,7 +13,7 @@ class TaskRouterWorkerCapabilityTest(unittest.TestCase):
         self.assertEqual({}, policy['query_filter'])
         self.assertEqual({}, policy['post_filter'])
 
-    def check_decoded(self, decoded, account_sid, workspace_sid, channel_id, channel_sid=None): 
+    def check_decoded(self, decoded, account_sid, workspace_sid, channel_id, channel_sid=None):
         self.assertEqual(decoded["iss"], account_sid)
         self.assertEqual(decoded["account_sid"], account_sid)
         self.assertEqual(decoded["workspace_sid"], workspace_sid)
@@ -21,7 +21,7 @@ class TaskRouterWorkerCapabilityTest(unittest.TestCase):
         self.assertEqual(decoded["version"], "v1")
         self.assertEqual(decoded["friendly_name"], channel_id)
 
-        if 'worker_sid' in decoded.keys(): 
+        if 'worker_sid' in decoded.keys():
             self.assertEqual(decoded['worker_sid'], channel_sid)
         if 'taskqueue_sid' in decoded.keys():
             self.assertEqual(decoded['taskqueue_sid'], channel_sid)
