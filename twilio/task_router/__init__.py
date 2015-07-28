@@ -62,12 +62,10 @@ class TaskRouterCapability(object):
             self.allow(reservations_url, "GET")
 
         elif self.channel_prefix == "WQ":
-            self.resource_url = self.base_url + \
-                "/TaskQueues/" + self.channel_id
+            self.resource_url = "{}/TaskQueues/{}".format(self.base_url, self.channel_id)
 
     def allow_web_sockets(self, channel_id):
-        web_socket_url = TASK_ROUTER_BASE_EVENTS_URL + "/" + \
-            self.account_sid + "/" + self.channel_id
+        web_socket_url = "{}/{}/{}".format(TASK_ROUTER_BASE_EVENTS_URL, self.account_sid, self.channel_id)
 
         self.policies.append(self.make_policy(web_socket_url, "GET", True))
         self.policies.append(self.make_policy(web_socket_url, "POST", True))
@@ -230,22 +228,10 @@ class TaskRouterWorkerCapability(TaskRouterCapability):
 
 
 class TaskRouterTaskQueueCapability(TaskRouterCapability):
-    def __init__(self, account_sid, auth_token, workspace_sid, taskqueue_sid):
-        super(TaskRouterTaskQueueCapability, self).__init__(account_sid,
-                                                            auth_token,
-                                                            workspace_sid,
-                                                            taskqueue_sid)
-
     def setup_resource(self):
         self.resource_url = self.base_url + "/TaskQueues/" + self.channel_id
 
 
 class TaskRouterWorkspaceCapability(TaskRouterCapability):
-    def __init__(self, account_sid, auth_token, workspace_sid):
-        super(TaskRouterWorkspaceCapability, self).__init__(account_sid,
-                                                            auth_token,
-                                                            workspace_sid,
-                                                            workspace_sid)
-
     def setup_resource(self):
         self.resource_url = self.base_url
