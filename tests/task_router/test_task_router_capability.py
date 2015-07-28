@@ -1,3 +1,6 @@
+import sys
+sys.path.append('/Users/wli/Projects/python-private/twilio/')
+
 import unittest
 import warnings
 
@@ -6,6 +9,14 @@ from twilio.task_router import TaskRouterCapability
 
 
 class TaskRouterCapabilityTest(unittest.TestCase):
+
+    def check_policy(self, method, url, policy):
+        print policy
+        self.assertEqual(url, policy['url'])
+        self.assertEqual(method, policy['method'])
+        self.assertTrue(policy['allow'])
+        self.assertEqual({}, policy['query_filter'])
+        self.assertEqual({}, policy['post_filter'])
 
     def test_workspace_default(self):
         account_sid = "AC123"
@@ -32,29 +43,12 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         policies = decoded['policies']
         self.assertEqual(len(policies), 3)
 
-        # websocket GET
-        get_policy = policies[0]
-        self.assertEqual("https://event-bridge.twilio.com/v1/wschannels/AC123/WS456", get_policy['url'])
-        self.assertEqual("GET", get_policy['method'])
-        self.assertTrue(get_policy['allow'])
-        self.assertEqual({}, get_policy['query_filter'])
-        self.assertEqual({}, get_policy['post_filter'])
-
-        # websocket POST
-        post_policy = policies[1]
-        self.assertEqual("https://event-bridge.twilio.com/v1/wschannels/AC123/WS456", post_policy['url'])
-        self.assertEqual("POST", post_policy['method'])
-        self.assertTrue(post_policy['allow'])
-        self.assertEqual({}, post_policy['query_filter'])
-        self.assertEqual({}, post_policy['post_filter'])
-
-        # fetch GET
-        fetch_policy = policies[2]
-        self.assertEqual("https://taskrouter.twilio.com/v1/Workspaces/WS456", fetch_policy['url'])
-        self.assertEqual("GET", fetch_policy['method'])
-        self.assertTrue(fetch_policy['allow'])
-        self.assertEqual({}, fetch_policy['query_filter'])
-        self.assertEqual({}, fetch_policy['post_filter'])
+        for method, url, policy in [
+            ('GET', "https://event-bridge.twilio.com/v1/wschannels/AC123/WS456", policies[0]),
+            ('POST', "https://event-bridge.twilio.com/v1/wschannels/AC123/WS456", policies[1]),
+            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456", policies[2]),
+        ]:
+            yield self.check_policy, method, url, policy
 
     def test_worker_default(self):
         account_sid = "AC123"
@@ -82,45 +76,14 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         policies = decoded['policies']
         self.assertEqual(len(policies), 5)
 
-        # activity GET
-        fetch_activity = policies[0]
-        self.assertEqual("https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities", fetch_activity['url'])
-        self.assertEqual("GET", fetch_activity['method'])
-        self.assertTrue(fetch_activity['allow'])
-        self.assertEqual({}, fetch_activity['query_filter'])
-        self.assertEqual({}, fetch_activity['post_filter'])
-
-        # reservation GET
-        fetch_reservation = policies[1]
-        self.assertEqual("https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", fetch_reservation['url'])
-        self.assertEqual("GET", fetch_reservation['method'])
-        self.assertTrue(fetch_reservation['allow'])
-        self.assertEqual({}, fetch_reservation['query_filter'])
-        self.assertEqual({}, fetch_reservation['post_filter'])
-
-        # websocket GET
-        get_policy = policies[2]
-        self.assertEqual("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", get_policy['url'])
-        self.assertEqual("GET", get_policy['method'])
-        self.assertTrue(get_policy['allow'])
-        self.assertEqual({}, get_policy['query_filter'])
-        self.assertEqual({}, get_policy['post_filter'])
-
-        # websocket POST
-        post_policy = policies[3]
-        self.assertEqual("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", post_policy['url'])
-        self.assertEqual("POST", post_policy['method'])
-        self.assertTrue(post_policy['allow'])
-        self.assertEqual({}, post_policy['query_filter'])
-        self.assertEqual({}, post_policy['post_filter'])
-
-        # fetch GET
-        fetch_policy = policies[4]
-        self.assertEqual("https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", fetch_policy['url'])
-        self.assertEqual("GET", fetch_policy['method'])
-        self.assertTrue(fetch_policy['allow'])
-        self.assertEqual({}, fetch_policy['query_filter'])
-        self.assertEqual({}, fetch_policy['post_filter'])
+        for method, url, policy in [
+            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities", policies[0]),
+            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", policies[1]),
+            ('GET', "https://taskrouter.twilio.com/v1/wschannels/AC123/WK789", policies[2]),
+            ('POST', "https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", policies[3]),
+            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", policies[4])
+        ]:
+            yield self.check_policy, method, url, policy
 
     def test_task_queue_default(self):
         account_sid = "AC123"
@@ -148,29 +111,12 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         policies = decoded['policies']
         self.assertEqual(len(policies), 3)
 
-        # websocket GET
-        get_policy = policies[0]
-        self.assertEqual("https://event-bridge.twilio.com/v1/wschannels/AC123/WQ789", get_policy['url'])
-        self.assertEqual("GET", get_policy['method'])
-        self.assertTrue(get_policy['allow'])
-        self.assertEqual({}, get_policy['query_filter'])
-        self.assertEqual({}, get_policy['post_filter'])
-
-        # websocket POST
-        post_policy = policies[1]
-        self.assertEqual("https://event-bridge.twilio.com/v1/wschannels/AC123/WQ789", post_policy['url'])
-        self.assertEqual("POST", post_policy['method'])
-        self.assertTrue(post_policy['allow'])
-        self.assertEqual({}, post_policy['query_filter'])
-        self.assertEqual({}, post_policy['post_filter'])
-
-        # fetch GET
-        fetch_policy = policies[2]
-        self.assertEqual("https://taskrouter.twilio.com/v1/Workspaces/WS456/TaskQueues/WQ789", fetch_policy['url'])
-        self.assertEqual("GET", fetch_policy['method'])
-        self.assertTrue(fetch_policy['allow'])
-        self.assertEqual({}, fetch_policy['query_filter'])
-        self.assertEqual({}, fetch_policy['post_filter'])
+        for method, url, policy in [
+            ('GET', "https://event-bridge.twilio.com/v1/wschannels/AC123/WQ789", policies[0]),
+            ('POST', "https://event-bridge.twilio.com/v1/wschannels/AC123/WQ789", policies[1])
+            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/TaskQueues/WQ789", policies[2])
+        ]:
+            yield self.check_policy, method, url, policy
 
     def test_deprecated_worker(self):
         account_sid = "AC123"
@@ -199,46 +145,14 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         self.assertEqual(len(policies), 5)
 
         # should expect 5 policies
-
-        # activity GET
-        fetch_activity = policies[0]
-        self.assertEqual("https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities", fetch_activity['url'])
-        self.assertEqual("GET", fetch_activity['method'])
-        self.assertTrue(fetch_activity['allow'])
-        self.assertEqual({}, fetch_activity['query_filter'])
-        self.assertEqual({}, fetch_activity['post_filter'])
-
-        # reservation GET
-        fetch_reservation = policies[1]
-        self.assertEqual("https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", fetch_reservation['url'])
-        self.assertEqual("GET", fetch_reservation['method'])
-        self.assertTrue(fetch_reservation['allow'])
-        self.assertEqual({}, fetch_reservation['query_filter'])
-        self.assertEqual({}, fetch_reservation['post_filter'])
-
-        # websocket GET
-        get_policy = policies[2]
-        self.assertEqual("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", get_policy['url'])
-        self.assertEqual("GET", get_policy['method'])
-        self.assertTrue(get_policy['allow'])
-        self.assertEqual({}, get_policy['query_filter'])
-        self.assertEqual({}, get_policy['post_filter'])
-
-        # websocket POST
-        post_policy = policies[3]
-        self.assertEqual("https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", post_policy['url'])
-        self.assertEqual("POST", post_policy['method'])
-        self.assertTrue(post_policy['allow'])
-        self.assertEqual({}, post_policy['query_filter'])
-        self.assertEqual({}, post_policy['post_filter'])
-
-        # fetch GET
-        fetch_policy = policies[4]
-        self.assertEqual("https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", fetch_policy['url'])
-        self.assertEqual("GET", fetch_policy['method'])
-        self.assertTrue(fetch_policy['allow'])
-        self.assertEqual({}, fetch_policy['query_filter'])
-        self.assertEqual({}, fetch_policy['post_filter'])
+        for method, url, policy in [
+            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities", policies[0]),
+            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", policies[1]),
+            ('GET', "https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", policies[2]),
+            ('POST', "https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", policies[3]),
+            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", policies[4])
+        ]:
+            yield self.check_policy, method, url, policy
 
         # check deprecated warnings
         with warnings.catch_warnings(record=True) as w:
