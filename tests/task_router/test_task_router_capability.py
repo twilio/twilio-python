@@ -1,5 +1,6 @@
 import sys
-sys.path.append('/Users/wli/Projects/python-private/twilio/')
+sys.path.append('../../')
+sys.path.append('/Library/Python/2.7/site-packages')
 
 import unittest
 import warnings
@@ -11,12 +12,24 @@ from twilio.task_router import TaskRouterCapability
 class TaskRouterCapabilityTest(unittest.TestCase):
 
     def check_policy(self, method, url, policy):
-        print policy
         self.assertEqual(url, policy['url'])
         self.assertEqual(method, policy['method'])
         self.assertTrue(policy['allow'])
         self.assertEqual({}, policy['query_filter'])
         self.assertEqual({}, policy['post_filter'])
+
+    def check_decoded(self, decoded, account_sid, workspace_sid, channel_id, channel_sid=None): 
+        self.assertEqual(decoded["iss"], account_sid)
+        self.assertEqual(decoded["account_sid"], account_sid)
+        self.assertEqual(decoded["workspace_sid"], workspace_sid)
+        self.assertEqual(decoded["channel"], channel_id)
+        self.assertEqual(decoded["version"], "v1")
+        self.assertEqual(decoded["friendly_name"], channel_id)
+
+        if 'worker_sid' in decoded.keys(): 
+            self.assertEqual(decoded['worker_sid'], channel_sid)
+        if 'taskqueue_sid' in decoded.keys():
+            self.assertEqual(decoded['taskqueue_sid'], channel_sid)
 
     def test_workspace_default(self):
         account_sid = "AC123"
@@ -33,12 +46,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         decoded = jwt.decode(token, auth_token)
         self.assertIsNotNone(decoded)
 
-        self.assertEqual(decoded["iss"], account_sid)
-        self.assertEqual(decoded["account_sid"], account_sid)
-        self.assertEqual(decoded["workspace_sid"], workspace_sid)
-        self.assertEqual(decoded["channel"], channel_id)
-        self.assertEqual(decoded["version"], "v1")
-        self.assertEqual(decoded["friendly_name"], channel_id)
+        self.check_decoded(decoded, account_sid, workspace_sid, channel_id)
 
         policies = decoded['policies']
         self.assertEqual(len(policies), 3)
@@ -65,13 +73,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         decoded = jwt.decode(token, auth_token)
         self.assertIsNotNone(decoded)
 
-        self.assertEqual(decoded["iss"], account_sid)
-        self.assertEqual(decoded["account_sid"], account_sid)
-        self.assertEqual(decoded["workspace_sid"], workspace_sid)
-        self.assertEqual(decoded["worker_sid"], worker_sid)
-        self.assertEqual(decoded["channel"], worker_sid)
-        self.assertEqual(decoded["version"], "v1")
-        self.assertEqual(decoded["friendly_name"], worker_sid)
+        self.check_decoded(decoded, account_sid, workspace_sid, channel_id, worker_sid)
 
         policies = decoded['policies']
         self.assertEqual(len(policies), 5)
@@ -100,13 +102,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         decoded = jwt.decode(token, auth_token)
         self.assertIsNotNone(decoded)
 
-        self.assertEqual(decoded["iss"], account_sid)
-        self.assertEqual(decoded["account_sid"], account_sid)
-        self.assertEqual(decoded["workspace_sid"], workspace_sid)
-        self.assertEqual(decoded["taskqueue_sid"], taskqueue_sid)
-        self.assertEqual(decoded["channel"], taskqueue_sid)
-        self.assertEqual(decoded["version"], "v1")
-        self.assertEqual(decoded["friendly_name"], taskqueue_sid)
+        self.check_decoded(decoded, account_sid, workspace_sid, channel_id, taskqueue_sid)
 
         policies = decoded['policies']
         self.assertEqual(len(policies), 3)
@@ -133,13 +129,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         decoded = jwt.decode(token, auth_token)
         self.assertIsNotNone(decoded)
 
-        self.assertEqual(decoded["iss"], account_sid)
-        self.assertEqual(decoded["account_sid"], account_sid)
-        self.assertEqual(decoded["workspace_sid"], workspace_sid)
-        self.assertEqual(decoded["worker_sid"], worker_sid)
-        self.assertEqual(decoded["channel"], worker_sid)
-        self.assertEqual(decoded["version"], "v1")
-        self.assertEqual(decoded["friendly_name"], worker_sid)
+        self.check_decoded(decoded, account_sid, workspace_sid, channel_id, worker_sid)
 
         policies = decoded['policies']
         self.assertEqual(len(policies), 5)

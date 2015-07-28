@@ -11,7 +11,6 @@ TASK_ROUTER_VERSION = "v1"
 REQUIRED = {'required': True}
 OPTIONAL = {'required': False}
 
-
 def deprecated(func):
     def log_warning(*args, **kwargs):
         # stacklevel = 2 makes the warning refer to the caller of the
@@ -32,9 +31,7 @@ class TaskRouterCapability(object):
 
         self.workspace_sid = workspace_sid
         self.channel_id = channel_id
-        self.base_url = (TASK_ROUTER_BASE_URL + "/" +
-                         TASK_ROUTER_VERSION +
-                         "/Workspaces/" + workspace_sid)
+        self.base_url = "{}/{}/Workspaces/{}".format(TASK_ROUTER_BASE_URL, TASK_ROUTER_VERSION, workspace_sid)
 
         # validate the JWT
         self.validate_jwt()
@@ -48,10 +45,14 @@ class TaskRouterCapability(object):
         # add permissions to fetch the instance resource
         self.add_policy(self.resource_url, "GET", True)
 
+    @property
+    def channel_prefix(self):
+        return self.channel_id[0:2]
+
     def setup_resource(self):
-        if self.channel_id[0:2] == "WS":
+        if self.channel_prefix == "WS":
             self.resource_url = self.base_url
-        elif self.channel_id[0:2] == "WK":
+        elif self.channel_prefix == "WK":
             self.resource_url = self.base_url + "/Workers/" + self.channel_id
 
             activity_url = self.base_url + "/Activities"
@@ -60,7 +61,7 @@ class TaskRouterCapability(object):
             reservations_url = self.base_url + "/Tasks/**"
             self.allow(reservations_url, "GET")
 
-        elif self.channel_id[0:2] == "WQ":
+        elif self.channel_prefix == "WQ":
             self.resource_url = self.base_url + \
                 "/TaskQueues/" + self.channel_id
 
@@ -81,8 +82,7 @@ class TaskRouterCapability(object):
         if self.channel_id is None:
             raise ValueError('ChannelId not provided')
 
-        prefix = self.channel_id[0:2]
-        if prefix != "WS" and prefix != "WK" and prefix != "WQ":
+        if self.channel_prefix != "WS" and self.channel_prefix != "WK" and self.channel_prefix != "WQ":
             raise ValueError('Invalid ChannelId provided: ' + self.channel_id)
 
     def allow_fetch_subresources(self):
@@ -102,16 +102,16 @@ class TaskRouterCapability(object):
 
     @deprecated
     def allow_worker_fetch_attributes(self):
-        if self.channel_id[0:2] == "WK":
+        if self.channel_prefix != "WK":
+            raise ValueError("Deprecated func not applicable to non Worker")
+        else:
             self.policies.append(self.make_policy(
                 self.resource_url,
                 'GET'))
-        else:
-            raise ValueError("Deprecated func not applicable to non Worker")
 
     @deprecated
     def allow_worker_activity_updates(self):
-        if self.channel_id[0:2] == "WK":
+        if self.channel_prefix == "WK":
             self.policies.append(self.make_policy(
                 self.resource_url,
                 'POST',
@@ -122,7 +122,7 @@ class TaskRouterCapability(object):
 
     @deprecated
     def allow_task_reservation_updates(self):
-        if self.channel_id[0:2] == "WK":
+        if self.channel_prefix == "WK":
             tasks_url = self.base_url + "/Tasks/**"
             self.policies.append(self.make_policy(
                 tasks_url,
@@ -147,14 +147,15 @@ class TaskRouterCapability(object):
     def make_policy(self, url, method,
                     allowed=True, query_filter=None, post_filter=None):
 
-        # Create a policy dictionary for the given resource and method.
-        # :param str url: the resource URL to grant or deny access to
-        # :param str method: the HTTP method to allow or deny
-        # :param allowed bool: whether this request is allowed
-        # :param dict query_filter: specific GET parameter names
-        #     to require or allow
-        # :param dict post_filter: POST parameter names
-        #     to require or allow
+        """Create a policy dictionary for the given resource and method.
+        :param str url: the resource URL to grant or deny access to
+        :param str method: the HTTP method to allow or deny
+        :param allowed bool: whether this request is allowed
+        :param dict query_filter: specific GET parameter names
+            to require or allow
+        :param dict post_filter: POST parameter names
+            to require or allow
+        """
 
         return {
             'url': url,
@@ -168,14 +169,15 @@ class TaskRouterCapability(object):
         return self.resource_url
 
     def generate_token(self, ttl=3600):
-        task_router_attributes = {}
-        task_router_attributes["account_sid"] = self.account_sid
-        task_router_attributes["workspace_sid"] = self.workspace_sid
-        task_router_attributes["channel"] = self.channel_id
+        task_router_attributes = {
+            'account_sid': self.account_sid,
+            'workspace_sid': self.workspace_sid,
+            'channel': self.channel_id
+        }
 
-        if self.channel_id[0:2] == "WK":
+        if self.channel_prefix == "WK":
             task_router_attributes["worker_sid"] = self.channel_id
-        elif self.channel_id[0:2] == "WQ":
+        elif self.channel_prefix == "WQ":
             task_router_attributes["taskqueue_sid"] = self.channel_id
 
         return self._generate_token(ttl, task_router_attributes)

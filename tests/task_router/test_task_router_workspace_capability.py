@@ -1,3 +1,7 @@
+import sys
+sys.path.append('../../')
+sys.path.append('/Library/Python/2.7/site-packages')
+
 import time
 import unittest
 
@@ -6,6 +10,25 @@ from twilio.task_router import TaskRouterWorkspaceCapability
 
 
 class TaskRouterWorkspaceCapabilityTest(unittest.TestCase):
+    def check_policy(self, method, url, policy):
+        self.assertEqual(url, policy['url'])
+        self.assertEqual(method, policy['method'])
+        self.assertTrue(policy['allow'])
+        self.assertEqual({}, policy['query_filter'])
+        self.assertEqual({}, policy['post_filter'])
+
+    def check_decoded(self, decoded, account_sid, workspace_sid, channel_id, channel_sid=None): 
+        self.assertEqual(decoded["iss"], account_sid)
+        self.assertEqual(decoded["account_sid"], account_sid)
+        self.assertEqual(decoded["workspace_sid"], workspace_sid)
+        self.assertEqual(decoded["channel"], channel_id)
+        self.assertEqual(decoded["version"], "v1")
+        self.assertEqual(decoded["friendly_name"], channel_id)
+
+        if 'worker_sid' in decoded.keys(): 
+            self.assertEqual(decoded['worker_sid'], channel_sid)
+        if 'taskqueue_sid' in decoded.keys():
+            self.assertEqual(decoded['taskqueue_sid'], channel_sid)
 
     def setUp(self):
         self.account_sid = "AC123"
@@ -21,12 +44,7 @@ class TaskRouterWorkspaceCapabilityTest(unittest.TestCase):
         decoded = jwt.decode(token, self.auth_token)
         self.assertIsNotNone(decoded)
 
-        self.assertEqual(decoded["iss"], self.account_sid)
-        self.assertEqual(decoded["account_sid"], self.account_sid)
-        self.assertEqual(decoded["workspace_sid"], self.workspace_sid)
-        self.assertEqual(decoded["channel"], self.workspace_sid)
-        self.assertEqual(decoded["version"], "v1")
-        self.assertEqual(decoded["friendly_name"], self.workspace_sid)
+        self.check_decoded(decoded, self.account_sid, self.workspace_sid, self.workspace_sid)
 
     def test_generate_token_with_default_ttl(self):
         token = self.capability.generate_token()
@@ -58,29 +76,12 @@ class TaskRouterWorkspaceCapabilityTest(unittest.TestCase):
         policies = decoded['policies']
         self.assertEqual(len(policies), 3)
 
-        # websocket GET
-        get_policy = policies[0]
-        self.assertEqual("https://event-bridge.twilio.com/v1/wschannels/AC123/WS456", get_policy['url'])
-        self.assertEqual("GET", get_policy['method'])
-        self.assertTrue(get_policy['allow'])
-        self.assertEqual({}, get_policy['query_filter'])
-        self.assertEqual({}, get_policy['post_filter'])
-
-        # websocket POST
-        post_policy = policies[1]
-        self.assertEqual("https://event-bridge.twilio.com/v1/wschannels/AC123/WS456", post_policy['url'])
-        self.assertEqual("POST", post_policy['method'])
-        self.assertTrue(post_policy['allow'])
-        self.assertEqual({}, post_policy['query_filter'])
-        self.assertEqual({}, post_policy['post_filter'])
-
-        # fetch GET
-        fetch_policy = policies[2]
-        self.assertEqual("https://taskrouter.twilio.com/v1/Workspaces/WS456", fetch_policy['url'])
-        self.assertEqual("GET", fetch_policy['method'])
-        self.assertTrue(fetch_policy['allow'])
-        self.assertEqual({}, fetch_policy['query_filter'])
-        self.assertEqual({}, fetch_policy['post_filter'])
+        for method, url, policy in [
+            ('GET', "https://event-bridge.twilio.com/v1/wschannels/AC123/WS456", policies[0]),
+            ('POST', "https://event-bridge.twilio.com/v1/wschannels/AC123/WS456", policies[1]),
+            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456", policies[2])
+        ]:
+            yield self.check_policy, method, url, policy
 
     def test_allow_fetch_subresources(self):
         self.capability.allow_fetch_subresources()
@@ -95,14 +96,9 @@ class TaskRouterWorkspaceCapabilityTest(unittest.TestCase):
         self.assertEqual(len(policies), 4)
 
         # confirm the additional policy generated with allow_fetch_subresources()
-
         policy = policies[3]
 
-        self.assertEqual(policy['url'], "https://taskrouter.twilio.com/v1/Workspaces/WS456/**")
-        self.assertEqual(policy['method'], "GET")
-        self.assertTrue(policy['allow'])
-        self.assertEqual({}, policy['query_filter'])
-        self.assertEqual({}, policy['post_filter'])
+        self.check_policy('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/**", policy)
 
     def test_allow_updates_subresources(self):
         self.capability.allow_updates_subresources()
@@ -117,14 +113,9 @@ class TaskRouterWorkspaceCapabilityTest(unittest.TestCase):
         self.assertEqual(len(policies), 4)
 
         # confirm the additional policy generated with allow_updates_subresources()
-
         policy = policies[3]
 
-        self.assertEqual(policy['url'], "https://taskrouter.twilio.com/v1/Workspaces/WS456/**")
-        self.assertEqual(policy['method'], "POST")
-        self.assertTrue(policy['allow'])
-        self.assertEqual({}, policy['query_filter'])
-        self.assertEqual({}, policy['post_filter'])
+        self.check_policy('POST', "https://taskrouter.twilio.com/v1/Workspaces/WS456/**", policy)
 
 if __name__ == "__main__":
     unittest.main()
