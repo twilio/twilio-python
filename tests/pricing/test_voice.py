@@ -25,8 +25,8 @@ class VoiceTest(unittest.TestCase):
         countries = VoiceCountries(BASE_URI + "/Voice", AUTH)
         result = countries.list()
 
-        assert_equal(result[0].iso_country, "AC")
-        assert_equal(len(result), 3)
+        assert_equal(result[0].iso_country, "AD")
+        assert_equal(len(result), 50)
 
         request.assert_called_with(
             "GET",
