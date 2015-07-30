@@ -12,6 +12,7 @@ BASE_URI = "https://taskrouter.twilio.com/v1/Accounts/AC123/Workspaces/WSaaaaaaa
 WORKER_SID = "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 TIMEOUT = 30
 
+
 class TestStatistics(unittest.TestCase):
 
     @patch("twilio.rest.resources.base.make_twilio_request")

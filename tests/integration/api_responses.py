@@ -43,9 +43,15 @@ class GETRequestHandler(RequestHandler):
 
 class POSTRequestHandler(RequestHandler):
     def __init__(self, uri, response_file,
-                 data={}, auth=(config.account_sid, config.auth_token)):
+                 data={}, auth=(config.post_account_sid, config.auth_token)):
         super(POSTRequestHandler, self).__init__('POST', uri, data=data, auth=auth,
                                                  response_data=self.load_file(response_file))
+
+
+class DELETERequestHandler(RequestHandler):
+    def __init__(self, uri, auth=(config.post_account_sid, config.auth_token)):
+        super(DELETERequestHandler, self).__init__('DELETE', uri, auth=auth,
+                                                   status=204, response_data=None)
 
 
 class TwilioRequest(object):

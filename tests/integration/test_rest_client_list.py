@@ -81,8 +81,6 @@ RESPONSE_HANDLERS = [
         'available_phone_numbers_us_tollfree.json'),
     GRH('/Accounts/AC4bf2dafbed59a5733d2c1c1c69a83a28/AvailablePhoneNumbers/CA/Local',
         'available_phone_numbers_ca_local.json'),
-    PRH('/Accounts/AC4bf2dafbed59a5733d2c1c1c69a83a28/Tokens',
-        'tokens.json', {'Ttl': 30})
 ]
 
 
@@ -141,7 +139,6 @@ class TwilioRestClientTest(BaseIntegrationTest):
         self.client.sip.ip_access_control_lists.list()
         self.client.sms.messages.list()
         self.client.sms.short_codes.list()
-        self.client.tokens.create(ttl=30)
         self.client.transcriptions.list()
         self.client.usage.records.list()
         self.client.usage.triggers.list()

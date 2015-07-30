@@ -1,9 +1,8 @@
 import unittest
 
 from mock import Mock
-from nose.tools import assert_equal, raises
+from nose.tools import assert_equal
 
-from twilio.exceptions import TwilioException
 from twilio.rest.resources import Addresses, DependentPhoneNumbers
 
 
