@@ -1,4 +1,4 @@
-from .voice import (
+from twilio.rest.pricing.voice import (
     Voice,
     VoiceCountry,
     VoiceCountries,
@@ -6,8 +6,8 @@ from .voice import (
     VoiceNumbers,
 )
 
-from .phone_numbers import (
+from twilio.rest.pricing.phone_number import (
     PhoneNumberCountries,
     PhoneNumberCountry,
-    PhoneNumbers,
+    PhoneNumber,
 )
