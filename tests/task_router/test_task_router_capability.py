@@ -69,7 +69,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         decoded = jwt.decode(token, auth_token)
         self.assertIsNotNone(decoded)
 
-        self.check_decoded(decoded, account_sid, workspace_sid, channel_id, worker_sid)
+        self.check_decoded(decoded, account_sid, workspace_sid, worker_sid, worker_sid)
 
         policies = decoded['policies']
         self.assertEqual(len(policies), 5)
@@ -98,7 +98,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         decoded = jwt.decode(token, auth_token)
         self.assertIsNotNone(decoded)
 
-        self.check_decoded(decoded, account_sid, workspace_sid, channel_id, taskqueue_sid)
+        self.check_decoded(decoded, account_sid, workspace_sid, taskqueue_sid, taskqueue_sid)
 
         policies = decoded['policies']
         self.assertEqual(len(policies), 3)
@@ -125,7 +125,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         decoded = jwt.decode(token, auth_token)
         self.assertIsNotNone(decoded)
 
-        self.check_decoded(decoded, account_sid, workspace_sid, channel_id, worker_sid)
+        self.check_decoded(decoded, account_sid, workspace_sid, worker_sid, worker_sid)
 
         policies = decoded['policies']
         self.assertEqual(len(policies), 5)

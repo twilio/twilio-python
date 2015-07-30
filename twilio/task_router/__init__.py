@@ -11,6 +11,7 @@ TASK_ROUTER_VERSION = "v1"
 REQUIRED = {'required': True}
 OPTIONAL = {'required': False}
 
+
 def deprecated(func):
     def log_warning(*args, **kwargs):
         # stacklevel = 2 makes the warning refer to the caller of the
@@ -31,7 +32,9 @@ class TaskRouterCapability(object):
 
         self.workspace_sid = workspace_sid
         self.channel_id = channel_id
-        self.base_url = "{}/{}/Workspaces/{}".format(TASK_ROUTER_BASE_URL, TASK_ROUTER_VERSION, workspace_sid)
+        self.base_url = "{}/{}/Workspaces/{}".format(TASK_ROUTER_BASE_URL,
+                                                     TASK_ROUTER_VERSION,
+                                                     workspace_sid)
 
         # validate the JWT
         self.validate_jwt()
@@ -62,10 +65,12 @@ class TaskRouterCapability(object):
             self.allow(reservations_url, "GET")
 
         elif self.channel_prefix == "WQ":
-            self.resource_url = "{}/TaskQueues/{}".format(self.base_url, self.channel_id)
+            self.resource_url = "{}/TaskQueues/{}".format(
+                self.base_url, self.channel_id)
 
     def allow_web_sockets(self, channel_id):
-        web_socket_url = "{}/{}/{}".format(TASK_ROUTER_BASE_EVENTS_URL, self.account_sid, self.channel_id)
+        web_socket_url = "{}/{}/{}".format(TASK_ROUTER_BASE_EVENTS_URL,
+                                           self.account_sid, self.channel_id)
 
         self.policies.append(self.make_policy(web_socket_url, "GET", True))
         self.policies.append(self.make_policy(web_socket_url, "POST", True))
@@ -80,7 +85,8 @@ class TaskRouterCapability(object):
         if self.channel_id is None:
             raise ValueError('ChannelId not provided')
 
-        if self.channel_prefix != "WS" and self.channel_prefix != "WK" and self.channel_prefix != "WQ":
+        if self.channel_prefix != "WS" and self.channel_prefix != "WK" \
+                and self.channel_prefix != "WQ":
             raise ValueError('Invalid ChannelId provided: ' + self.channel_id)
 
     def allow_fetch_subresources(self):
@@ -233,5 +239,11 @@ class TaskRouterTaskQueueCapability(TaskRouterCapability):
 
 
 class TaskRouterWorkspaceCapability(TaskRouterCapability):
+    def __init__(self, account_sid, auth_token, workspace_sid):
+        super(TaskRouterWorkspaceCapability, self).__init__(account_sid,
+                                                            auth_token,
+                                                            workspace_sid,
+                                                            workspace_sid)
+
     def setup_resource(self):
         self.resource_url = self.base_url
