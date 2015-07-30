@@ -2,7 +2,6 @@ import os
 from tests.integration import config
 from tests.integration.api_responses import (
     GETRequestHandler as GRH,
-    POSTRequestHandler as PRH,
 )
 from tests.integration.base_integration_test import BaseIntegrationTest
 from twilio.rest.client import TwilioRestClient

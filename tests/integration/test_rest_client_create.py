@@ -81,3 +81,9 @@ class TwilioRestClientTest(BaseIntegrationTest):
                 'tokens.json', {'Ttl': 30})
         ]
         self.client.tokens.create(ttl=30)
+
+    def test_accounts(self):
+        account = self.client.accounts.create(friendly_name='test_sub_account')
+        account.suspend()
+        account.activate()
+        account.close()

@@ -1,3 +1,4 @@
+import logging
 import unittest
 from mock import Mock
 from tests.integration.api_responses import TwilioRequest
@@ -26,4 +27,6 @@ class BaseIntegrationTest(unittest.TestCase):
             if handler.can_respond_to(request):
                 return handler.response
 
+        logging.error('Could not match the following request:')
+        logging.error(request)
         return Response(Mock(status=404), request.url, request.url)
