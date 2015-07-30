@@ -1,12 +1,11 @@
 from .util import normalize_dates
+from v2010.account.recording import (
+    Recording as BaseRecording,
+    Recordings as BaseRecordings,
+)
 
-from .transcriptions import Transcriptions
-from .base import InstanceResource, ListResource
 
-
-class Recording(InstanceResource):
-
-    subresources = [Transcriptions]
+class Recording(BaseRecording):
 
     def __init__(self, *args, **kwargs):
         super(Recording, self).__init__(*args, **kwargs)
@@ -15,16 +14,9 @@ class Recording(InstanceResource):
             "wav": self.uri + ".wav",
         }
 
-    def delete(self):
-        """
-        Delete this recording
-        """
-        return self.delete_instance()
 
+class Recordings(BaseRecordings):
 
-class Recordings(ListResource):
-
-    name = "Recordings"
     instance = Recording
 
     @normalize_dates
@@ -40,9 +32,3 @@ class Recordings(ListResource):
         kwargs["DateCreated<"] = before
         kwargs["DateCreated>"] = after
         return self.get_instances(kwargs)
-
-    def delete(self, sid):
-        """
-        Delete the given recording
-        """
-        return self.delete_instance(sid)

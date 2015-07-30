@@ -1,31 +1,23 @@
-from . import InstanceResource, ListResource
 from six import iteritems
 
+from v2010.account.connect_app import (
+    ConnectApp,
+    ConnectApps as BaseConnectApps,
+)
 
-class ConnectApp(InstanceResource):
-    """ An authorized connect app """
-    pass
-
-
-class ConnectApps(ListResource):
-    """ A list of Connect App resources """
-
-    name = "ConnectApps"
-    instance = ConnectApp
-    key = "connect_apps"
-
-    def list(self, **kwargs):
-        """
-        Returns a page of :class:`ConnectApp` resources as a list. For paging
-        informtion see :class:`ListResource`
-        """
-        return self.get_instances(kwargs)
+from v2010.account.authorized_connect_app import (
+    AuthorizedConnectApp as BaseAuthorizedConnectApp,
+    AuthorizedConnectApps as BaseAuthorizedConnectApps
+)
 
 
-class AuthorizedConnectApp(ConnectApp):
-    """ An authorized connect app """
+class ConnectApps(BaseConnectApps):
 
-    id_key = "connect_app_sid"
+    def update(self, sid, **kwargs):
+        raise AttributeError('Update is not allowed on connect apps')
+
+
+class AuthorizedConnectApp(BaseAuthorizedConnectApp):
 
     def load(self, entries):
         """ Translate certain parameters into others"""
@@ -38,9 +30,5 @@ class AuthorizedConnectApp(ConnectApp):
         super(AuthorizedConnectApp, self).load(result)
 
 
-class AuthorizedConnectApps(ConnectApps):
-    """ A list of Authorized Connect App resources """
-
-    name = "AuthorizedConnectApps"
+class AuthorizedConnectApps(BaseAuthorizedConnectApps):
     instance = AuthorizedConnectApp
-    key = "authorized_connect_apps"

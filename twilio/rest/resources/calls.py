@@ -1,30 +1,15 @@
-from .notifications import Notifications
-from .recordings import Recordings
 from twilio.rest.resources.call_feedback import (
     CallFeedbackFactory,
     CallFeedbackSummary,
 )
-from .util import normalize_dates, parse_date, transform_params
-from . import InstanceResource, ListResource
+from twilio.rest.resources.util import normalize_dates, parse_date
 
+from v2010.account.call import (
+    Call as BaseCall,
+    Calls as BaseCalls,
+)
 
-class Call(InstanceResource):
-    """ A call resource """
-
-    BUSY = "busy"
-    CANCELED = "canceled"
-    COMPLETED = "completed"
-    FAILED = "failed"
-    IN_PROGRESS = "in-progress"
-    NO_ANSWER = "no-answer"
-    QUEUED = "queued"
-    RINGING = "ringing"
-
-    subresources = [
-        Notifications,
-        Recordings,
-        CallFeedbackFactory,
-    ]
+class Call(BaseCall):
 
     def hangup(self):
         """ If this call is currenlty active, hang up the call.
@@ -50,20 +35,13 @@ class Call(InstanceResource):
         a = self.parent.route(self.name, **kwargs)
         self.load(a.__dict__)
 
-    def delete(self):
-        """Delete the specified :class:`Call` record from Twilio."""
-        return self.parent.delete(self.name)
+class Calls(BaseCalls):
 
-
-class Calls(ListResource):
-    """ A list of Call resources """
-
-    name = "Calls"
     instance = Call
 
     def __init__(self, *args, **kwargs):
         super(Calls, self).__init__(*args, **kwargs)
-        self.summary = CallFeedbackSummary(self, *args, **kwargs)
+        self.summary = CallFeedbackSummary(*args, **kwargs)
 
     @normalize_dates
     def list(self, from_=None, ended_after=None,
@@ -200,6 +178,3 @@ class Calls(ListResource):
             quality_score=quality_score, issue=issue
         )
 
-    def delete(self, sid):
-        """Delete the given Call record from Twilio."""
-        return self.delete_instance(sid)

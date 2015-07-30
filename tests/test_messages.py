@@ -47,7 +47,7 @@ class MessageTest(unittest.TestCase):
             )
             mock.assert_called_with(
                 {
-                    'From': '+14155551234',
+                    'from': '+14155551234',
                     'to': '+14155556789',
                     'body': u('ahoy hoy'),
                 },
@@ -61,4 +61,4 @@ class MessageTest(unittest.TestCase):
     def test_redact(self):
         with patch.object(self.resource, 'update_instance') as mock:
             self.resource.redact('MM123')
-            mock.assert_called_with(sid='MM123', body={'Body': ''})
+            mock.assert_called_with('MM123', {'Body': ''})

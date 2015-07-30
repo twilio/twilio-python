@@ -1,10 +1,16 @@
 from .util import parse_date, normalize_dates
 from . import InstanceResource, ListResource
 
+from v2010.account.conference.participant import (
+    Participant as BaseParticipant,
+    Participants as BaseParticipants,
+)
+from v2010.account.conference import (
+    Conference,
+    Conferences as BaseConferences,
+)
 
-class Participant(InstanceResource):
-
-    id_key = "call_sid"
+class Participant(BaseParticipant):
 
     def mute(self):
         """
@@ -25,20 +31,9 @@ class Participant(InstanceResource):
         self.delete_instance()
 
 
-class Participants(ListResource):
+class Participants(BaseParticipants):
 
-    name = "Participants"
     instance = Participant
-
-    def list(self, **kwargs):
-        """
-        Returns a list of :class:`Participant` resources in the given
-        conference
-
-        :param conference_sid: Conference this participant is part of
-        :param boolean muted: If True, only show participants who are muted
-        """
-        return self.get_instances(kwargs)
 
     def mute(self, call_sid):
         """
@@ -58,31 +53,8 @@ class Participants(ListResource):
         """
         return self.delete(call_sid)
 
-    def delete(self, call_sid):
-        """
-        Remove the participant from the given conference
-        """
-        return self.delete_instance(call_sid)
 
-    def update(self, sid, **kwargs):
-        """
-        :param sid: Participant identifier
-        :param boolean muted: If true, mute this participant
-        """
-        return self.update_instance(sid, kwargs)
-
-
-class Conference(InstanceResource):
-
-    subresources = [
-        Participants
-    ]
-
-
-class Conferences(ListResource):
-
-    name = "Conferences"
-    instance = Conference
+class Conferences(BaseConferences):
 
     @normalize_dates
     def list(self, updated_before=None, updated_after=None, created_after=None,

@@ -1,20 +1,12 @@
 from .util import normalize_dates
-from . import InstanceResource, ListResource
+
+from v2010.account.notification import (
+    Notification,
+    Notifications as BaseNotifications
+)
 
 
-class Notification(InstanceResource):
-
-    def delete(self):
-        """
-        Delete this notification
-        """
-        return self.delete_instance()
-
-
-class Notifications(ListResource):
-
-    name = "Notifications"
-    instance = Notification
+class Notifications(BaseNotifications):
 
     @normalize_dates
     def list(self, before=None, after=None, **kwargs):
@@ -33,9 +25,3 @@ class Notifications(ListResource):
         kwargs["MessageDate<"] = before
         kwargs["MessageDate>"] = after
         return self.get_instances(kwargs)
-
-    def delete(self, sid):
-        """
-        Delete a given Notificiation
-        """
-        return self.delete_instance(sid)

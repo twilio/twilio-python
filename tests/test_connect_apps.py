@@ -48,6 +48,3 @@ class ConnectAppTest(unittest.TestCase):
 
     def test_delete(self):
         self.assertRaises(AttributeError, getattr, self.resource, 'delete')
-
-    def test_update(self):
-        self.assertRaises(AttributeError, getattr, self.resource, 'update')
