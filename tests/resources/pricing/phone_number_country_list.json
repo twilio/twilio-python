@@ -1,4 +1,13 @@
 {
+    "meta": {
+        "page": 0,
+        "page_size": 50,
+        "first_page_url": "https://pricing.twilio.com/v1/PhoneNumbers/Countries?PageSize=50&Page=0",
+        "previous_page_url": null,
+        "url": "https://pricing.twilio.com/v1/PhoneNumbers/Countries?PageSize=50&Page=0",
+        "next_page_url": null,
+        "key": "countries"
+    },
     "uri": "pricing.twilio.com/v1/PhoneNumbers/Countries",
     "countries": [
         {
@@ -15,6 +24,11 @@
             "country": "United States",
             "iso_country": "US",
             "uri": "pricing.twilio.com/v1/PhoneNumbers/Countries/US"
+        },
+        {
+            "country": "Estonia",
+            "iso_country": "EE",
+            "uri": "pricing.twilio.com/v1/PhoneNumbers/Countries/EE"
         }
     ]
 }

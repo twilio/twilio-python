@@ -22,11 +22,18 @@ class TwilioPricingClientTest(BaseIntegrationTest):
         self.response_handlers = [
             GRH('/Voice/Countries', 'pricing/voice_countries_list.json'),
             GRH('/Voice/Countries/AU', 'pricing/voice_country_instance.json', params=None),
+            GRH('/Voice/Numbers/14089673429', 'pricing/voice_number_instance.json', params=None),
         ]
+
         self.client.voice.countries.list()
         self.client.voice.countries.get('AU')
         self.client.voice.numbers.get('14089673429')
 
     def test_phone_numbers_list(self):
+        self.response_handlers = [
+            GRH('/PhoneNumbers/Countries', 'pricing/phone_number_country_list.json'),
+            GRH('/PhoneNumbers/Countries/EE', 'pricing/phone_number_country_instance.json', params=None)
+        ]
+
         self.client.phone_numbers.countries.list()
-        self.client.phone_numbers.countries.get('AU')
+        self.client.phone_numbers.countries.get('EE')
