@@ -1,20 +1,18 @@
 from . import InstanceResource, ListResource
+from twilio.rest.resources.applications import Applications
 from twilio.rest.resources.caller_ids import CallerIds
+from twilio.rest.resources.calls import Calls
 from twilio.rest.resources.conferences import Conferences
 from twilio.rest.resources.connect_apps import ConnectApps, AuthorizedConnectApps
-from twilio.rest.resources.media import MediaList
 from twilio.rest.resources.messages import Messages
+from twilio.rest.resources.notifications import Notifications
 from twilio.rest.resources.phone_numbers import PhoneNumbers
 from twilio.rest.resources.queues import Queues
+from twilio.rest.resources.recordings import Recordings
 from twilio.rest.resources.sip import Sip
-from twilio.rest.resources.usage_records import UsageRecords
-from twilio.rest.resources.usage_triggers import UsageTriggers
-from twilio.rest.resources.v2010.account.application import Applications
-from twilio.rest.resources.v2010.account.call import Calls
-from twilio.rest.resources.v2010.account.notification import Notifications
-from twilio.rest.resources.v2010.account.recording import Recordings
-from twilio.rest.resources.v2010.account.sms import Sms
-from twilio.rest.resources.v2010.account.transcription import Transcriptions
+from twilio.rest.resources.sms_messages import Sms
+from twilio.rest.resources.v2010.account.usage.usage_record import UsageRecords
+from twilio.rest.resources.v2010.account.usage.usage_trigger import UsageTriggers
 
 from v2010.account import (
     Account as BaseAccount,
@@ -23,10 +21,9 @@ from v2010.account import (
 
 
 class Account(BaseAccount):
-    subresources = [
+    override_subresources = [
         Applications,
         Notifications,
-        Transcriptions,
         Recordings,
         Calls,
         Sms,
@@ -38,10 +35,23 @@ class Account(BaseAccount):
         AuthorizedConnectApps,
         UsageRecords,
         UsageTriggers,
-        MediaList,
         Messages,
         Sip,
     ]
+
+    def load_subresources(self):
+        """
+        Override existing subresources with backwards compatible versions
+        """
+        super(Account, self).load_subresources()
+
+        for resource in self.override_subresources:
+            list_resource = resource(
+                self.uri,
+                self.parent.auth,
+                self.parent.timeout
+            )
+            self.__dict__[list_resource.key] = list_resource
 
     def close(self):
         """

@@ -1,5 +1,4 @@
 from .util import parse_date, normalize_dates
-from . import InstanceResource, ListResource
 
 from v2010.account.conference.participant import (
     Participant as BaseParticipant,

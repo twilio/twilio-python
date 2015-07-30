@@ -5,6 +5,10 @@ from .util import change_dict_key, transform_params
 from .util import UNSET_TIMEOUT
 from . import InstanceResource, ListResource
 
+from v2010.account.incoming_phone_number import (
+    IncomingPhoneNumber,
+    IncomingPhoneNumbers
+)
 
 TYPES = {"local": "Local", "tollfree": "TollFree", "mobile": "Mobile"}
 
@@ -106,7 +110,7 @@ class AvailablePhoneNumbers(ListResource):
         return instance
 
 
-class PhoneNumber(InstanceResource):
+class PhoneNumber(IncomingPhoneNumber):
     """ An IncomingPhoneNumber object
 
    .. attribute:: sid
@@ -240,38 +244,15 @@ class PhoneNumber(InstanceResource):
         a = self.parent.update(self.name, **kwargs_copy)
         self.load(a.__dict__)
 
-    def delete(self):
-        """
-        Release this phone number from your account. Twilio will no longer
-        answer calls to this number, and you will stop being billed the monthly
-        phone number fees. The phone number will eventually be recycled and
-        potentially given to another customer, so use with care. If you make a
-        mistake, contact us... we may be able to give you the number back.
-        """
-        return self.parent.delete(self.name)
 
+class PhoneNumbers(IncomingPhoneNumbers):
 
-class PhoneNumbers(ListResource):
-
-    name = "IncomingPhoneNumbers"
-    key = "incoming_phone_numbers"
     instance = PhoneNumber
 
     def __init__(self, base_uri, auth, timeout=UNSET_TIMEOUT):
         super(PhoneNumbers, self).__init__(base_uri, auth, timeout)
         self.available_phone_numbers = \
             AvailablePhoneNumbers(base_uri, auth, timeout, self)
-
-    def delete(self, sid):
-        """
-        Release this phone number from your account. Twilio will no longer
-        answer calls to this number, and you will stop being billed the
-        monthly phone number fees. The phone number will eventually be
-        recycled and potentially given to another customer, so use with care.
-        If you make a mistake, contact us... we may be able to give you the
-        number back.
-        """
-        return self.delete_instance(sid)
 
     def list(self, type=None, **kwargs):
         """
@@ -352,4 +333,5 @@ class PhoneNumbers(ListResource):
                 if sid_type not in kwargs_copy:
                     kwargs_copy[sid_type] = kwargs_copy["application_sid"]
             del kwargs_copy["application_sid"]
+
         return self.update_instance(sid, kwargs_copy)

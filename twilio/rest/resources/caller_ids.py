@@ -1,5 +1,4 @@
 from . import transform_params
-from . import InstanceResource, ListResource
 
 from v2010.account.outgoing_caller_id import (
     OutgoingCallerId as CallerId,
