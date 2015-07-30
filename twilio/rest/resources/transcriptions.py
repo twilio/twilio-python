@@ -1,4 +1,4 @@
-from v2010.account.transcription import (
+from twilio.rest.v2010.account.transcription import (
     Transcription,
     Transcriptions,
 )

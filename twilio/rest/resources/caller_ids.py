@@ -1,6 +1,6 @@
 from . import transform_params
 
-from v2010.account.outgoing_caller_id import (
+from twilio.rest.v2010.account.outgoing_caller_id import (
     OutgoingCallerId as CallerId,
     OutgoingCallerIds as BaseCallerIds,
 )

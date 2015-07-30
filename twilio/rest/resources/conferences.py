@@ -1,10 +1,10 @@
 from .util import parse_date, normalize_dates
 
-from v2010.account.conference.participant import (
+from twilio.rest.v2010.account.conference.participant import (
     Participant as BaseParticipant,
     Participants as BaseParticipants,
 )
-from v2010.account.conference import (
+from twilio.rest.v2010.account.conference import (
     Conference,
     Conferences as BaseConferences,
 )

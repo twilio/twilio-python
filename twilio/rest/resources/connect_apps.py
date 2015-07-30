@@ -1,11 +1,11 @@
 from six import iteritems
 
-from v2010.account.connect_app import (
+from twilio.rest.v2010.account.connect_app import (
     ConnectApp,
     ConnectApps as BaseConnectApps,
 )
 
-from v2010.account.authorized_connect_app import (
+from twilio.rest.v2010.account.authorized_connect_app import (
     AuthorizedConnectApp as BaseAuthorizedConnectApp,
     AuthorizedConnectApps as BaseAuthorizedConnectApps
 )

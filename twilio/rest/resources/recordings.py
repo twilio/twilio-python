@@ -1,5 +1,5 @@
 from .util import normalize_dates
-from v2010.account.recording import (
+from twilio.rest.v2010.account.recording import (
     Recording as BaseRecording,
     Recordings as BaseRecordings,
 )

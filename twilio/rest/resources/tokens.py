@@ -1,4 +1,4 @@
-from v2010.account.token import (
+from twilio.rest.v2010.account.token import (
     Token,
     Tokens as BaseTokens,
 )

@@ -1,4 +1,4 @@
-from v2010.account.application import (
+from twilio.rest.v2010.account.application import (
     Application,
     Applications as BaseApplications,
 )

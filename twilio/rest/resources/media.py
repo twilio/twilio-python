@@ -1,6 +1,6 @@
 from .util import normalize_dates, parse_date
 
-from v2010.account.message.media import (
+from twilio.rest.v2010.account.message.media import (
     Media,
     MediaList as BaseMediaList,
 )

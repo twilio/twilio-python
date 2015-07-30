@@ -1,6 +1,6 @@
 from .util import normalize_dates
 
-from v2010.account.notification import (
+from twilio.rest.v2010.account.notification import (
     Notification,
     Notifications as BaseNotifications
 )

@@ -22,10 +22,6 @@ class AddressesTest(unittest.TestCase):
         uri = "http://api.twilio.com/Addresses/123"
         request.assert_called_with("POST", uri, data={"FriendlyName": "hi"})
 
-    @raises(TwilioException)
-    def test_update_rejects_iso_country(self):
-        self.resource.update("123", iso_country="CA")
-
     def test_dependent_phone_numbers(self):
         pn_list = DependentPhoneNumbers(
             'http://api.twilio.com/mock',

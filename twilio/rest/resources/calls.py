@@ -4,7 +4,7 @@ from twilio.rest.resources.call_feedback import (
 )
 from twilio.rest.resources.util import normalize_dates, parse_date
 
-from v2010.account.call import (
+from twilio.rest.v2010.account.call import (
     Call as BaseCall,
     Calls as BaseCalls,
 )

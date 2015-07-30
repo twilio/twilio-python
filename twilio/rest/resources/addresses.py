@@ -1,8 +1,8 @@
-from v2010.account.address.dependent_phone_number import (
+from twilio.rest.v2010.account.address.dependent_phone_number import (
     DependentPhoneNumber,
     DependentPhoneNumbers,
 )
-from v2010.account.address import (
+from twilio.rest.v2010.account.address import (
     Address,
     Addresses as BaseAddresses
 )

@@ -5,7 +5,7 @@ from .util import change_dict_key, transform_params
 from .util import UNSET_TIMEOUT
 from . import InstanceResource, ListResource
 
-from v2010.account.incoming_phone_number import (
+from twilio.rest.v2010.account.incoming_phone_number import (
     IncomingPhoneNumber,
     IncomingPhoneNumbers
 )

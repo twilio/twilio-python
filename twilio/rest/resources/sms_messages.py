@@ -1,11 +1,11 @@
 from .util import normalize_dates, parse_date
 
-from v2010.account.sms.short_code import (
+from twilio.rest.v2010.account.sms.short_code import (
     ShortCode,
     ShortCodes as BaseShortCodes,
 )
-from v2010.account.sms import Sms as BaseSms
-from v2010.account.sms.sms_message import (
+from twilio.rest.v2010.account.sms import Sms as BaseSms
+from twilio.rest.v2010.account.sms.sms_message import (
     SmsMessage,
     SmsMessages as BaseSmsMessages,
 )

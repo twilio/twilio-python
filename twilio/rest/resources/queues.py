@@ -1,8 +1,8 @@
-from v2010.account.queue import (
+from twilio.rest.v2010.account.queue import (
     Queue,
     Queues as BaseQueues,
 )
-from v2010.account.queue.member import (
+from twilio.rest.v2010.account.queue.member import (
     Member,
     Members as BaseMembers,
 )
