@@ -1,6 +1,7 @@
 base_uri = 'dev'
 version = '2010-04-01'
 pricing_uri = 'dev'
+monitor_uri = 'dev'
 domain_version = 'v1'
 
 account_sid = u"AC4bf2dafbed59a5733d2c1c1c69a83a28"
