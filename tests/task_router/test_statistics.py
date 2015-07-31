@@ -72,7 +72,7 @@ class TestStatistics(unittest.TestCase):
         tqs.statistics.get()
         request.assert_called_with('GET',
                                    '{0}/TaskQueues/Statistics'.format(BASE_URI),
-                                   params={}, auth=AUTH, use_json_extension=False)
+                                   timeout=30, params={}, auth=AUTH, use_json_extension=False)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_fetch_task_workflow_statistics(self, request):
