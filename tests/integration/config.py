@@ -4,6 +4,7 @@ version = '2010-04-01'
 pricing_uri = 'dev'
 monitor_uri = 'dev'
 lookups_uri = 'dev'
+taskrouter_uri = 'dev'
 
 domain_version = 'v1'
 
