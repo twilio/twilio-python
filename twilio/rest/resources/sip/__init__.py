@@ -6,23 +6,17 @@ from .domains import (
 )
 from .ip_access_control_lists import IpAddresses, SipIpAccessControlLists
 
+from twilio.rest.v2010.account.sip import (
+    Sip as BaseSip
+)
 
-class Sip(object):
+
+class Sip(BaseSip):
     """Holds all the SIP resources."""
-    name = "SIP"
-    key = "sip"
-
     def __init__(self, base_uri, auth, timeout):
+        super(Sip, self).__init__(base_uri, auth, timeout)
         self.uri = "%s/SIP" % base_uri
         self.auth = auth
-        self.timeout = timeout
-        self.domains = Domains(self.uri, auth, timeout)
-        self.credential_lists = SipCredentialLists(self.uri, auth, timeout)
-        self.ip_access_control_lists = SipIpAccessControlLists(
-            self.uri,
-            auth,
-            timeout,
-        )
 
     def ip_access_control_list_mappings(self, domain_sid):
         """
