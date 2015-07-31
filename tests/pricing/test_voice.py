@@ -22,7 +22,7 @@ class VoiceTest(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        countries = VoiceCountries(BASE_URI + "/Voice", AUTH)
+        countries = VoiceCountries(BASE_URI, AUTH)
         result = countries.list()
 
         assert_equal(result[0].iso_country, "AD")
@@ -33,6 +33,7 @@ class VoiceTest(unittest.TestCase):
             "{0}/Voice/Countries".format(BASE_URI),
             auth=AUTH,
             use_json_extension=False,
+            params={},
         )
 
     @patch('twilio.rest.resources.base.make_twilio_request')
@@ -41,22 +42,22 @@ class VoiceTest(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        countries = VoiceCountries(BASE_URI + "/Voice", AUTH)
-        country = countries.get('EE')
+        countries = VoiceCountries(BASE_URI, AUTH)
+        country = countries.get('AU')
 
-        assert_equal(country.country, "Estonia")
+        assert_equal(country.country, "Australia")
         assert_equal(
             country.inbound_call_prices[0],
             {
-                'number_type': 'mobile',
-                'call_base_price': 0.0075,
-                'call_current_price': 0.0070
+                'number_type': 'local',
+                'current_price': '0.0075',
+                'base_price': '0.0075'
             },
         )
 
         request.assert_called_with(
             "GET",
-            "{0}/Voice/Countries/EE".format(BASE_URI),
+            "{0}/Voice/Countries/AU".format(BASE_URI),
             auth=AUTH,
             use_json_extension=False,
         )
@@ -67,7 +68,7 @@ class VoiceTest(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        numbers = VoiceNumbers(BASE_URI + "/Voice", AUTH)
+        numbers = VoiceNumbers(BASE_URI, AUTH)
         result = numbers.get('+14089673429')
 
         assert_equal(result.number, '+14089673429')

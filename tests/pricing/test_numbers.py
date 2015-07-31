@@ -19,17 +19,18 @@ class NumbersTest(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        countries = PhoneNumberCountries(BASE_URI + "/PhoneNumbers", AUTH)
+        countries = PhoneNumberCountries(BASE_URI, AUTH)
         result = countries.list()
 
         assert_equal(result[0].iso_country, "AC")
-        assert_equal(len(result), 3)
+        assert_equal(len(result), 4)
 
         request.assert_called_with(
             "GET",
             "{0}/PhoneNumbers/Countries".format(BASE_URI),
             auth=AUTH,
             use_json_extension=False,
+            params={},
         )
 
     @patch('twilio.rest.resources.base.make_twilio_request')
@@ -38,7 +39,7 @@ class NumbersTest(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        countries = PhoneNumberCountries(BASE_URI + "/PhoneNumbers", AUTH)
+        countries = PhoneNumberCountries(BASE_URI, AUTH)
         country = countries.get('EE')
 
         assert_equal(country.country, "Estonia")
