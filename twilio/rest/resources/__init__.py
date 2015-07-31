@@ -46,25 +46,6 @@ from .media import Media, MediaList
 
 from .sip import Sip
 
-from .task_router import (
-    Activity,
-    Activities,
-    Event,
-    Events,
-    Reservation,
-    Reservations,
-    Task,
-    Tasks,
-    TaskQueue,
-    TaskQueues,
-    Worker,
-    Workers,
-    Workflow,
-    Workflows,
-    Workspace,
-    Workspaces,
-)
-
 from .tokens import Token, Tokens
 
 from .addresses import (

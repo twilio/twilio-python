@@ -1,6 +1,5 @@
 from twilio.rest.base import TwilioClient
-from twilio.rest.resources import (
-    UNSET_TIMEOUT,
+from twilio.rest.resources.task_router import (
     Activities,
     Events,
     Reservations,
@@ -10,6 +9,7 @@ from twilio.rest.resources import (
     Workflows,
     Workspaces,
 )
+from twilio.rest.resources.util import UNSET_TIMEOUT
 
 
 class TwilioTaskRouterClient(TwilioClient):
