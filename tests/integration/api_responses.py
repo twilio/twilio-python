@@ -42,6 +42,7 @@ class GETRequestHandler(RequestHandler):
         super(GETRequestHandler, self).__init__('GET', uri + '.json', params=params, auth=auth,
                                                 response_data=self.load_file(response_file))
 
+
 class NextGenGETRequestHandler(RequestHandler):
     def __init__(self, uri,
                  response_file,
