@@ -64,8 +64,7 @@ class SmsMessages(BaseSmsMessages):
                 body="Hello there!")
 
         """
-        kwargs["from"] = from_
-        return self.create_instance(kwargs)
+        return super(SmsMessages, self).create(from_=from_,**kwargs)
 
     @normalize_dates
     def list(self, from_=None, before=None, after=None, date_sent=None, **kw):
@@ -82,11 +81,10 @@ class SmsMessages(BaseSmsMessages):
         :param date after: Only list SMS messages logged after this datetime
         :param date before: Only list SMS messages logged before this datetime
         """
-        kw["From"] = from_
-        kw["DateSent<"] = before
-        kw["DateSent>"] = after
-        kw["DateSent"] = parse_date(date_sent)
-        return self.get_instances(kw)
+        return super(SmsMessages, self).list(from_=from_,
+                                             date_sent=date_sent,
+                                             date_sent_before=before,
+                                             date_sent_after=after)
 
 
 class Sms(BaseSms):
