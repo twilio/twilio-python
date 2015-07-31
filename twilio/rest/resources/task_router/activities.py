@@ -1,6 +1,6 @@
-from twilio.rest.taskrouter.taskrouter_activity import (
-    TaskrouterActivities as BaseActivities,
-    TaskrouterActivity as Activity,
+from twilio.rest.taskrouter.activity import (
+    Activity,
+    Activities as BaseActivities,
 )
 
 class Activities(BaseActivities):

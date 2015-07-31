@@ -1,4 +1,4 @@
-from twilio.rest.taskrouter.taskrouter_workspace import (
-    TaskrouterWorkspace as Workspace,
-    TaskrouterWorkspaces as Workspaces,
+from twilio.rest.taskrouter.workspace import (
+    Workspace,
+    Workspaces,
 )

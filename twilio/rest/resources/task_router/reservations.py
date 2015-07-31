@@ -1,4 +1,4 @@
-from twilio.rest.taskrouter.taskrouter_reservation import (
-    TaskrouterReservation as Reservation,
-    TaskrouterReservations as Reservations,
+from twilio.rest.taskrouter.reservation import (
+    Reservation,
+    Reservations,
 )
