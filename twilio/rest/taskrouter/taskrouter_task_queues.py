@@ -43,6 +43,10 @@ class TaskrouterTaskQueues(NextGenInstanceResource):
         """ Update the instance """
         return self.update_instance(**kwargs)
 
+    def delete(self):
+        """ Delete the instance """
+        return self.delete_instance()
+
 
 class TaskrouterTaskQueuesList(NextGenListResource):
     name = "TaskQueues"
@@ -89,6 +93,14 @@ class TaskrouterTaskQueuesList(NextGenListResource):
         kwargs["ReservationActivitySid"] = reservation_activity_sid
         kwargs["AssignmentActivitySid"] = assignment_activity_sid
         return self.create_instance(kwargs)
+
+    def delete(self, sid):
+        """
+        Delete the :class:`TaskrouterTaskQueues`
+        
+        :param str sid: The sid
+        """
+        return self.delete_instance(sid)
 
     def iter(self, **kwargs):
         """
