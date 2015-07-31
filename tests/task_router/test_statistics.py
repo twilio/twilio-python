@@ -1,7 +1,7 @@
 import unittest
 from mock import patch
 from tests.tools import create_mock_json
-from twilio.rest.resources import Workspace, Workspaces
+from twilio.rest.resources.task_router import Workspace, Workspaces
 
 from twilio.rest.resources.task_router.workers import Workers, Worker
 from twilio.rest.resources.task_router.task_queues import TaskQueues, TaskQueue

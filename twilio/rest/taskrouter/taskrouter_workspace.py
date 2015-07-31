@@ -51,6 +51,10 @@ class TaskrouterWorkspace(NextGenInstanceResource):
         """ Update the instance """
         return self.update_instance(**kwargs)
 
+    def delete(self):
+        """ Delete the instance """
+        return self.delete_instance()
+
 
 class TaskrouterWorkspaces(NextGenListResource):
     name = "Workspaces"
@@ -89,6 +93,14 @@ class TaskrouterWorkspaces(NextGenListResource):
         """
         kwargs["FriendlyName"] = friendly_name
         return self.create_instance(kwargs)
+
+    def delete(self, sid):
+        """
+        Delete the :class:`TaskrouterWorkspace`
+        
+        :param str sid: The sid
+        """
+        return self.delete_instance(sid)
 
     def iter(self, **kwargs):
         """
