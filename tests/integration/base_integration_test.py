@@ -22,11 +22,20 @@ class BaseIntegrationTest(unittest.TestCase):
 
     def _generate_response(self, *args, **kwargs):
         request = TwilioRequest(*args, **kwargs)
+        nearest_matches = []
 
         for handler in self.response_handlers:
             if handler.can_respond_to(request):
                 return handler.response
 
+            if handler.url == request.url:
+                nearest_matches.append(handler)
+
         logging.error('Could not match the following request:')
         logging.error(request)
+
+        if nearest_matches:
+            logging.error('These are the nearest matching handlers:')
+            logging.error(nearest_matches)
+
         return Response(Mock(status=404), request.url, request.url)
