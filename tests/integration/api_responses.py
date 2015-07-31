@@ -61,7 +61,7 @@ class POSTRequestHandler(RequestHandler):
 
 class DELETERequestHandler(RequestHandler):
     def __init__(self, uri, auth=(config.post_account_sid, config.auth_token)):
-        super(DELETERequestHandler, self).__init__('DELETE', uri, auth=auth,
+        super(DELETERequestHandler, self).__init__('DELETE', uri + '.json', auth=auth,
                                                    status=204, response_data=None)
 
 
