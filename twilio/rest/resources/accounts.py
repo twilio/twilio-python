@@ -3,7 +3,10 @@ from twilio.rest.resources.applications import Applications
 from twilio.rest.resources.caller_ids import CallerIds
 from twilio.rest.resources.calls import Calls
 from twilio.rest.resources.conferences import Conferences
-from twilio.rest.resources.connect_apps import ConnectApps, AuthorizedConnectApps
+from twilio.rest.resources.connect_apps import (
+    ConnectApps,
+    AuthorizedConnectApps
+)
 from twilio.rest.resources.messages import Messages
 from twilio.rest.resources.notifications import Notifications
 from twilio.rest.resources.phone_numbers import PhoneNumbers

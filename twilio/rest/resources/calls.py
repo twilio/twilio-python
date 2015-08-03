@@ -9,6 +9,7 @@ from twilio.rest.v2010.account.call import (
     Calls as BaseCalls,
 )
 
+
 class Call(BaseCall):
 
     def hangup(self):
@@ -34,6 +35,7 @@ class Call(BaseCall):
         """
         a = self.parent.route(self.name, **kwargs)
         self.load(a.__dict__)
+
 
 class Calls(BaseCalls):
 
@@ -177,4 +179,3 @@ class Calls(BaseCalls):
         return call_feedback_factory.create(
             quality_score=quality_score, issue=issue
         )
-

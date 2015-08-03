@@ -3,6 +3,7 @@ from twilio.rest.taskrouter.activity import (
     Activities as BaseActivities,
 )
 
+
 class Activities(BaseActivities):
 
     def create(self, friendly_name, available):
@@ -21,4 +22,3 @@ class Activities(BaseActivities):
 
         return self.create_instance({'friendly_name': friendly_name,
                                      'available': available})
-

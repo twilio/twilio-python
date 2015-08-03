@@ -9,6 +9,7 @@ from twilio.rest.v2010.account.conference import (
     Conferences as BaseConferences,
 )
 
+
 class Participant(BaseParticipant):
 
     def mute(self):
