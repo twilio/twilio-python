@@ -4,14 +4,12 @@ version = '2010-04-01'
 pricing_uri = 'dev'
 monitor_uri = 'dev'
 lookups_uri = 'dev'
-taskrouter_uri = 'https://taskrouter.stage.twilio.com'
+taskrouter_uri = 'dev'
 
 domain_version = 'v1'
 
 account_sid = u"AC4bf2dafbed59a5733d2c1c1c69a83a28"
 auth_token = u"foobar"
-
-taskrouter_account_sid = 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
 
 post_account_sid = u"ACbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
 post_auth = (post_account_sid, auth_token)

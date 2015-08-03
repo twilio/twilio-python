@@ -33,6 +33,18 @@ class RequestHandler(object):
         with open(os.path.join('tests', 'resources', filename)) as f:
             return f.read()
 
+    def __str__(self):
+        return json.dumps({
+            'method': self.method,
+            'url': self.url,
+            'auth': self.auth,
+            'data': self.data,
+            'params': self.params
+        }, indent=4)
+
+    def __repr__(self):
+        return str(self)
+
 
 class GETRequestHandler(RequestHandler):
     def __init__(self, uri,
@@ -53,6 +65,14 @@ class NextGenGETRequestHandler(RequestHandler):
                                                        response_data=self.load_file(response_file))
 
 
+class NextGenPOSTRequestHandler(RequestHandler):
+    def __init__(self, uri, response_file,
+                 data={}, auth=(config.post_account_sid, config.auth_token)):
+        super(NextGenPOSTRequestHandler, self).__init__('POST', uri, data=data, auth=auth,
+                                                        version=config.domain_version,
+                                                        response_data=self.load_file(response_file))
+
+
 class POSTRequestHandler(RequestHandler):
     def __init__(self, uri, response_file,
                  data={}, auth=(config.post_account_sid, config.auth_token)):
@@ -64,6 +84,13 @@ class DELETERequestHandler(RequestHandler):
     def __init__(self, uri, auth=(config.post_account_sid, config.auth_token)):
         super(DELETERequestHandler, self).__init__('DELETE', uri + '.json', auth=auth,
                                                    status=204, response_data=None)
+
+
+class NextGenDELETERequestHandler(RequestHandler):
+    def __init__(self, uri, auth=(config.post_account_sid, config.auth_token)):
+        super(NextGenDELETERequestHandler, self).__init__('DELETE', uri, auth=auth,
+                                                          version=config.domain_version,
+                                                          status=204, response_data=None)
 
 
 class TwilioRequest(object):

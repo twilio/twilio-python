@@ -3,14 +3,12 @@ from tests.integration.api_responses import (
     NextGenGETRequestHandler as GRH,
 )
 from tests.integration.base_integration_test import BaseIntegrationTest
-from tests.integration.test_rest_client_list import RESPONSE_HANDLERS
 from twilio.rest import TwilioLookupsClient
 
 
 class TwilioLookupsClientTest(BaseIntegrationTest):
 
-    def setUp(self, base_uri=config.lookups_uri,
-              response_handlers=RESPONSE_HANDLERS):
+    def setUp(self, base_uri=config.lookups_uri, response_handlers=[]):
         super(TwilioLookupsClientTest, self).setUp(
             base_uri=base_uri, response_handlers=response_handlers)
 

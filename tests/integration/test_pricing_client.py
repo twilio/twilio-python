@@ -5,13 +5,10 @@ from tests.integration.api_responses import (
 from tests.integration.base_integration_test import BaseIntegrationTest
 from twilio.rest.pricing import TwilioPricingClient
 
-RESPONSE_HANDLERS = []
-
 
 class TwilioPricingClientTest(BaseIntegrationTest):
 
-    def setUp(self, base_uri=config.pricing_uri,
-              response_handlers=RESPONSE_HANDLERS):
+    def setUp(self, base_uri=config.pricing_uri, response_handlers=[]):
         super(TwilioPricingClientTest, self).setUp(
             base_uri=base_uri, response_handlers=response_handlers)
         self.client = TwilioPricingClient(config.account_sid,
