@@ -1,8 +1,8 @@
-from twilio.rest.taskrouter.task_queue import (
+from twilio.rest.taskrouter.workspace.task_queue import (
     TaskQueue as BaseTaskQueue,
     TaskQueues as BaseTaskQueues,
 )
-from twilio.rest.taskrouter.task_queue.\
+from twilio.rest.taskrouter.workspace.task_queue.\
     task_queue_statistics import TaskQueueStatisticsList
 
 

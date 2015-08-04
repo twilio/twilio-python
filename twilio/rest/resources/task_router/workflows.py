@@ -1,4 +1,4 @@
-from twilio.rest.taskrouter.workflow import (
+from twilio.rest.taskrouter.workspace.workflow import (
     Workflow,
     Workflows
 )

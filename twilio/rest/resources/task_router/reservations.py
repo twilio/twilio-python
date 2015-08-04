@@ -1,4 +1,4 @@
-from twilio.rest.taskrouter.reservation import (
+from twilio.rest.taskrouter.workspace.task.reservation import (
     Reservation,
     Reservations,
 )

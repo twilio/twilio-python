@@ -1,4 +1,4 @@
-from twilio.rest.taskrouter.task import (
+from twilio.rest.taskrouter.workspace.task import (
     Task,
     Tasks,
 )

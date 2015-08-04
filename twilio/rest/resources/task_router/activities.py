@@ -1,4 +1,4 @@
-from twilio.rest.taskrouter.activity import (
+from twilio.rest.taskrouter.workspace.activity import (
     Activity,
     Activities as BaseActivities,
 )

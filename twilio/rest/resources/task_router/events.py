@@ -1,4 +1,4 @@
-from twilio.rest.taskrouter.event import (
+from twilio.rest.taskrouter.workspace.event import (
     Event,
     Events,
 )

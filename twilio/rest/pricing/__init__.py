@@ -1,6 +1,6 @@
 from twilio.rest.base import TwilioClient
 from twilio.rest.resources import UNSET_TIMEOUT
-from .phone_numbers import PhoneNumbers
+from .phone_number import PhoneNumber
 from .voice import Voice
 
 
@@ -25,4 +25,4 @@ class TwilioPricingClient(TwilioClient):
         uri_base = "{}/{}".format(base, version)
 
         self.voice = Voice(uri_base, self.auth, self.timeout)
-        self.phone_numbers = PhoneNumbers(uri_base, self.auth, self.timeout)
+        self.phone_numbers = PhoneNumber(uri_base, self.auth, self.timeout)

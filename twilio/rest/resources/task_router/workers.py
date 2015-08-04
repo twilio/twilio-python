@@ -1,8 +1,8 @@
-from twilio.rest.taskrouter.worker import (
+from twilio.rest.taskrouter.workspace.worker import (
     Worker as BaseWorker,
     Workers as BaseWorkers,
 )
-from twilio.rest.taskrouter.worker.worker_statistics import (
+from twilio.rest.taskrouter.workspace.worker.worker_statistics import (
     WorkerStatistics,
     WorkerStatisticsList
 )
