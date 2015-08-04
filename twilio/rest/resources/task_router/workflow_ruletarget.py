@@ -26,18 +26,3 @@ class WorkflowRuleTarget:
         self.priority = priority
         self.timeout = timeout
 
-    @property
-    def queue(self):
-        return self.queue
-
-    @property
-    def expression(self):
-        return self.expression
-
-    @property
-    def priority(self):
-        return self.priority
-
-    @property
-    def timeout(self):
-        return self.timeout
