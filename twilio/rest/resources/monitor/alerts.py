@@ -1,4 +1,4 @@
-from twilio.rest.monitor.monitor_alert import (
-    MonitorAlert as Alert,
-    MonitorAlerts as Alerts,
+from twilio.rest.monitor.alert import (
+    Alert,
+    Alerts
 )

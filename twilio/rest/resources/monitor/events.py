@@ -1,4 +1,4 @@
-from twilio.rest.monitor.monitor_event import (
-    MonitorEvent as Event,
-    MonitorEvents as Events,
+from twilio.rest.monitor.event import (
+    Event,
+    Events
 )

@@ -1,7 +1,7 @@
 from twilio.rest.base import TwilioClient
 from twilio.rest.resources import UNSET_TIMEOUT
-from monitor_alert import MonitorAlerts as Alerts
-from monitor_event import MonitorEvents as Events
+from .alert import Alerts
+from .event import Events
 
 
 class TwilioMonitorClient(TwilioClient):
