@@ -812,18 +812,18 @@ Using Workflow builder helper classes to create a :class:`Workflow` resource.
     WORKSPACE_SID = "WSZZZZZZZZZZZZZZ"
 
     rules =[]
-    ruleTargets=[]
-    anotherRuleTargets=[]
-    ruleTarget = WorkflowRuleTarget("WQeae4fc2f4db7f377c5d3758fb08b79b7","1==1",1,20)
-    anotherRuleTarget= WorkflowRuleTarget("WQ19ebe92fb33522f018b5a31d805d94da","1==1",1,210)
-    ruleTargets.append(ruleTarget);
-    anotherRuleTargets.append(anotherRuleTarget);
-    rule = WorkflowRule("1==1",ruleTargets,"SomeQ")
+    rule_targets=[]
+    another_rule_targets=[]
+    rule_target = WorkflowRuleTarget("WQeae4fc2f4db7f377c5d3758fb08b79b7", "1==1", 1, 20)
+    another_rule_target= WorkflowRuleTarget("WQ19ebe92fb33522f018b5a31d805d94da", "1==1", 1, 210)
+    rule_targets.append(rule_target);
+    another_rule_targets.append(another_rule_target);
+    rule = WorkflowRule("1==1", rule_targets, "SomeQ")
     rules.append(rule)
-    anotherRule =  WorkflowRule("1==1",ruleTargets1,"SomeOtherQ")
-    rules.append(anotherRule);
-    defaultTarget = WorkflowRuleTarget("WQ9963154bf3122d0a0558f3763951d916","1==1",None,None)
-    config = WorkflowConfig(rules,defaultTarget)
+    another_rule =  WorkflowRule("1==1", rule_targets1, "SomeOtherQ")
+    rules.append(another_rule);
+    default_target = WorkflowRuleTarget("WQ9963154bf3122d0a0558f3763951d916", "1==1", None, None)
+    config = WorkflowConfig(rules, default_target)
     print config.to_json()
 
     workflow = client.workflows(WORKSPACE_SID).create(
