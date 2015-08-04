@@ -17,11 +17,12 @@ class WorkflowRule:
        The name of the filter
     """
     _targets = list()
-    def __init__(self, expression, targets, friendlyName):
+
+    def __init__(self, expression, targets, friendly_name):
 
         self.expression = expression
         self.targets = targets
-        self.friendly_name = friendlyName
+        self.friendly_name = friendly_name
 
     @property
     def expression(self):
@@ -32,12 +33,13 @@ class WorkflowRule:
         return self.targets
 
     @property
-    def friendlyName(self):
+    def friendly_name(self):
         return self.friendly_name
 
     def __repr__(self):
-        out = dict()
-        out['expression'] = self.expression
-        out['friendlyName'] = self.friendly_name
-        out['target'] = self.targets
-        return str(out)
+        return str({
+            'expression': self.expression,
+            'friendly_name': self.friendly_name,
+            'target': self.target,
+        })
+

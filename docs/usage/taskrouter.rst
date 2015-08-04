@@ -40,6 +40,36 @@ its unique ID.
 
 ..
 
+The following code will get an instance of an existing :class:`workspace` resource
+
+.. code-block:: python
+
+    from twilio.rest import TwilioTaskRouterClient
+
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioTaskRouterClient(ACCOUNT_SID, AUTH_TOKEN)
+    workspace = client.workspaces.get(WORKSPACE_SID)
+    print workspace.friendly_name
+..
+
+The following code will get the list of all existing :class:`workspace` resources
+
+.. code-block:: python
+
+    from twilio.rest import TwilioTaskRouterClient
+
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    client = TwilioTaskRouterClient(ACCOUNT_SID, AUTH_TOKEN)
+    for workspace in  client.workspaces.list()
+        print workspace.friendly_name
+..
+
 The following code will create a update an existing :class:`Workspace` resource
 
 .. code-block:: python
@@ -71,6 +101,8 @@ The following code will delete an existing :class:`workspace` resource
     client = TwilioTaskRouterClient(ACCOUNT_SID, AUTH_TOKEN)
     client.workspaces.delete(WORKSPACE_SID)
 ..
+
+
 
 Workflows
 ---------
@@ -127,6 +159,48 @@ unique ID:
         configuration=CONFIG
     )
     print workflow.sid
+
+..
+
+The following code will get a instance of an existing :class:`workflow` resource
+
+.. code-block:: python
+
+    from twilio.rest import TwilioTaskRouterClient
+
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    # See previous examples to create a Workspace
+    WORKSPACE_SID = "WSZZZZZZZZZZZZZZ"
+
+    client = TwilioTaskRouterClient(ACCOUNT_SID, AUTH_TOKEN)
+
+    workflow = client.workflows(WORKSPACE_SID).get(WORKFLOW_SID)
+    print workflow.friendly_name
+
+..
+
+
+
+The following code will get a list of all existing :class:`workflow` resources
+
+.. code-block:: python
+
+    from twilio.rest import TwilioTaskRouterClient
+
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    # See previous examples to create a Workspace
+    WORKSPACE_SID = "WSZZZZZZZZZZZZZZ"
+
+    client = TwilioTaskRouterClient(ACCOUNT_SID, AUTH_TOKEN)
+
+    for workflow in client.workflows(WORKSPACE_SID).list()
+        print workflow.friendly_name
 
 ..
 
@@ -241,6 +315,44 @@ To create a new :class:`Activity`:
 
 ..
 
+To get an existing :class:`activity` resource
+
+.. code-block:: python
+
+    from twilio.rest import TwilioTaskRouterClient
+
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    # See previous examples to create a Workspace
+    WORKSPACE_SID = "WSZZZZZZZZZZZZZZ"
+
+    client = TwilioTaskRouterClient(ACCOUNT_SID, AUTH_TOKEN)
+    activity = client.activities(WORKSPACE_SID).get(ACTIVITY_SID)
+    print activity.friendly_name
+
+..
+
+To get a list of existing :class:`activity` resources
+
+.. code-block:: python
+
+    from twilio.rest import TwilioTaskRouterClient
+
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    # See previous examples to create a Workspace
+    WORKSPACE_SID = "WSZZZZZZZZZZZZZZ"
+
+    client = TwilioTaskRouterClient(ACCOUNT_SID, AUTH_TOKEN)
+    for activity in client.activities(WORKSPACE_SID).list()
+        print activity.friendly_name
+
+..
+
 To update an existing :class:`Activity`
 
 .. code-block:: python
@@ -315,6 +427,44 @@ To create a new :class:`Worker`:
 
 ..
 
+To get an existing :class:`worker` instance
+
+.. code-block:: python
+
+    from twilio.rest import TwilioTaskRouterClient
+
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    # See previous examples to create a Workspace
+    WORKSPACE_SID = "WSZZZZZZZZZZZZZZ"
+
+    client = TwilioTaskRouterClient(ACCOUNT_SID, AUTH_TOKEN)
+    worker = client.workers(WORKSPACE_SID).get(WORKER_SID)
+    print worker_friendly_name;
+..
+
+
+To get an existing :class:`worker` list
+
+.. code-block:: python
+
+    from twilio.rest import TwilioTaskRouterClient
+
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    # See previous examples to create a Workspace
+    WORKSPACE_SID = "WSZZZZZZZZZZZZZZ"
+
+    client = TwilioTaskRouterClient(ACCOUNT_SID, AUTH_TOKEN)
+    for worker in client.workers(WORKSPACE_SID).list()
+        print worker_friendly_name;
+..
+
+
 To update an existing :class:`Worker`
 
 .. code-block:: python
@@ -342,7 +492,7 @@ To update an existing :class:`Worker`
 
 ..
 
-To delete an exisitng :class:`Worker`
+To delete an existing :class:`Worker`
 
 .. code-block:: python
 
@@ -395,6 +545,49 @@ To create a new :class:`TaskQueue`:
     print queue.sid
 
 ..
+
+To get an existing :class`TaskQueue` instance
+
+.. code-block:: python
+
+    from twilio.rest import TwilioTaskRouterClient
+
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    # See previous examples to create a Workspace
+    WORKSPACE_SID = "WSZZZZZZZZZZZZZZ"
+
+    client = TwilioTaskRouterClient(ACCOUNT_SID, AUTH_TOKEN)
+
+    queue = client.task_queues(WORKSPACE_SID).get(TASKQUEUE_SID)
+    print queue.sid
+
+..
+
+
+
+To get an existing :class`TaskQueue` list
+
+.. code-block:: python
+
+    from twilio.rest import TwilioTaskRouterClient
+
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    # See previous examples to create a Workspace
+    WORKSPACE_SID = "WSZZZZZZZZZZZZZZ"
+
+    client = TwilioTaskRouterClient(ACCOUNT_SID, AUTH_TOKEN)
+
+    for queue in client.task_queues(WORKSPACE_SID).list()
+        print queue.sid
+
+..
+
 
 To update an existing :class:`TaskQueue`
 
@@ -484,7 +677,64 @@ To create a new :class:`Task` via the REST API:
     print task.sid
 ..
 
-To update an exisiting :class:`Task`
+To get an existing :class:`Task` instance
+
+.. code-block:: python
+
+    from twilio.rest import TwilioTaskRouterClient
+
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    # See previous examples to create a Workspace
+    WORKSPACE_SID = "WSZZZZZZZZZZZZZZ"
+    WORKFLOW_SID = "WWXXXXXXXXXXXXXX"
+    # Some JSON containing attributes for this task. User-defined.
+    TASK_ATTRIBUTES = """{
+         "type": "call",
+         "contact": "+2014068777",
+         "customer-value": "gold",
+         "task-reason": "support",
+         "callSid": "CA42ed11..."
+    }"""
+
+
+    client = TwilioTaskRouterClient(ACCOUNT_SID, AUTH_TOKEN)
+    task = client.tasks(WORKSPACE_SID).delete(TASK_SID)
+    print task.attributes
+..
+
+
+To get an existing :class:`Task` list
+
+.. code-block:: python
+
+    from twilio.rest import TwilioTaskRouterClient
+
+    # To find these visit https://www.twilio.com/user/account
+    ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
+    AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
+
+    # See previous examples to create a Workspace
+    WORKSPACE_SID = "WSZZZZZZZZZZZZZZ"
+    WORKFLOW_SID = "WWXXXXXXXXXXXXXX"
+    # Some JSON containing attributes for this task. User-defined.
+    TASK_ATTRIBUTES = """{
+         "type": "call",
+         "contact": "+2014068777",
+         "customer-value": "gold",
+         "task-reason": "support",
+         "callSid": "CA42ed11..."
+    }"""
+
+
+    client = TwilioTaskRouterClient(ACCOUNT_SID, AUTH_TOKEN)
+    for task in client.tasks(WORKSPACE_SID).list()
+        print task.attributes
+..
+
+To update an existing  :class:`Task`
 
 .. code-block:: python
 
@@ -517,7 +767,7 @@ To update an exisiting :class:`Task`
     print task.sid
 ..
 
-To delete an exisitng :class:`Task`
+To delete an existing :class:`Task`
 
 .. code-block:: python
 
@@ -574,13 +824,13 @@ Using Workflow builder helper classes to create a :class:`Workflow` resource.
     rules.append(anotherRule);
     defaultTarget = WorkflowRuleTarget("WQ9963154bf3122d0a0558f3763951d916","1==1",None,None)
     config = WorkflowConfig(rules,defaultTarget)
-    print config.toJson()
+    print config.to_json()
 
     workflow = client.workflows(WORKSPACE_SID).create(
-        friendly_name="Incoming Call Flow",
-        assignment_callback_url="https://example.com/callback",
-        fallback_assignment_callback_url="https://example.com/callback2",
-        configuration=config.toJson()
+        friendly_name= "Incoming Call Flow",
+        assignment_callback_url= "https://example.com/callback",
+        fallback_assignment_callback_url= "https://example.com/callback2",
+        configuration= config.to_json()
     )
 
     print workflow.sid
