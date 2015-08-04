@@ -1,5 +1,8 @@
 from .workflow_ruletarget import WorkflowRuleTarget
+
+
 class WorkflowRule:
+
     """
     WorkflowRule represents the top level filter
     which contains a 1 or more targets

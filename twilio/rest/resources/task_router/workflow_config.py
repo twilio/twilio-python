@@ -1,8 +1,5 @@
 from .taskrouter_config import TaskRouterConfig
 import json
-from collections import namedtuple, Iterable, OrderedDict
-import numpy as np
-from twilio.rest.resources.task_router.workflow_rule import WorkflowRule
 
 
 class WorkflowConfig:
@@ -15,7 +12,6 @@ class WorkflowConfig:
     def __init__(self, workflow_rules, default_target):
         # filters and default_filters
         self.task_routing = TaskRouterConfig(workflow_rules, default_target)
-
 
     @property
     def taskrouter_config(self):
