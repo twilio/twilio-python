@@ -524,9 +524,24 @@ class Enqueue(Verb):
     GET = 'GET'
     POST = 'POST'
 
+    nestables = ['Task']
+
     def __init__(self, name, **kwargs):
         super(Enqueue, self).__init__(**kwargs)
         self.body = name
+
+    def task(self, attributes, **kwargs):
+        return self.append(Task(attributes, **kwargs))
+
+
+class Task(Verb):
+    """Specify the task attributes when enqueuing a call
+
+    :param attributes: Attributes for a task
+    """
+    def __init__(self, attributes, **kwargs):
+        super(Task, self).__init__(**kwargs)
+        self.body = attributes
 
 
 class Leave(Verb):
