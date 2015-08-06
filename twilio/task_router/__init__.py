@@ -142,3 +142,18 @@ def make_policy(url, method, query_filter=None, post_filter=None,
         'query_filter': query_filter or {},
         'post_filter': post_filter or {},
     }
+
+from .taskrouter_config import (
+    TaskRouterConfig
+)
+
+from .workflow_config import (
+    WorkflowConfig
+)
+
+from .workflow_ruletarget import (
+    WorkflowRuleTarget
+)
+from .workflow_rule import (
+    WorkflowRule
+)

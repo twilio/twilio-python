@@ -811,20 +811,15 @@ Using Workflow builder helper classes to create a :class:`Workflow` resource.
     # See previous examples to create a Workspace
     WORKSPACE_SID = "WSZZZZZZZZZZZZZZ"
 
-    rules =[]
-    rule_targets=[]
-    another_rule_targets=[]
-    rule_target = WorkflowRuleTarget("WQeae4fc2f4db7f377c5d3758fb08b79b7", "1==1", 1, 20)
-    another_rule_target= WorkflowRuleTarget("WQ19ebe92fb33522f018b5a31d805d94da", "1==1", 1, 210)
-    rule_targets.append(rule_target);
-    another_rule_targets.append(another_rule_target);
-    rule = WorkflowRule("1==1", rule_targets, "SomeQ")
-    rules.append(rule)
-    another_rule =  WorkflowRule("1==1", rule_targets1, "SomeOtherQ")
-    rules.append(another_rule);
+    rules = [
+         WorkflowRule("1==1", [WorkflowRuleTarget("WQeae4fc2f4db7f377c5d3758fb08b79b7", "1==1", 1, 20)],"SomeQ"),
+         WorkflowRule("1==1", [WorkflowRuleTarget("WQ19ebe92fb33522f018b5a31d805d94da", "1==1", 1, 210)], "SomeOtherQ")
+    ]
     default_target = WorkflowRuleTarget("WQ9963154bf3122d0a0558f3763951d916", "1==1", None, None)
     config = WorkflowConfig(rules, default_target)
     print config.to_json()
+
+    client = TwilioTaskRouterClient(ACCOUNT_SID, AUTH_TOKEN)
 
     workflow = client.workflows(WORKSPACE_SID).create(
         friendly_name= "Incoming Call Flow",
