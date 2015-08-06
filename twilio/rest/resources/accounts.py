@@ -14,8 +14,8 @@ from twilio.rest.resources.queues import Queues
 from twilio.rest.resources.recordings import Recordings
 from twilio.rest.resources.sip import Sip
 from twilio.rest.resources.sms_messages import Sms
-from twilio.rest.v2010.account.usage.usage_record import UsageRecords
-from twilio.rest.v2010.account.usage.usage_trigger import UsageTriggers
+from twilio.rest.v2010.account.usage.record import Records as UsageRecords
+from twilio.rest.v2010.account.usage.trigger import Triggers as UsageTriggers
 
 from twilio.rest.v2010.account import (
     Account as BaseAccount,

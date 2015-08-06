@@ -3,14 +3,14 @@ from twilio.rest.taskrouter.workspace.task_queue import (
     TaskQueues as BaseTaskQueues,
 )
 from twilio.rest.taskrouter.workspace.task_queue.\
-    task_queue_statistics import TaskQueueStatisticsList
+    instance_statistics import StatisticsList
 
 
 class TaskQueue(BaseTaskQueue):
 
     def load_subresources(self):
         super(TaskQueue, self).load_subresources()
-        self.statistics = TaskQueueStatisticsList(
+        self.statistics = StatisticsList(
             self.uri,
             self.parent.auth,
             self.parent.timeout
