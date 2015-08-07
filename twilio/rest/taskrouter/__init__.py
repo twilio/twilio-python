@@ -1,4 +1,4 @@
-from twilio.rest.taskrouter.client import TwilioTaskrouterClient as TwilioTaskrouterClientBase
+from twilio.rest.taskrouter.client import RestClient as TwilioTaskrouterClientBase
 from twilio.rest.resources.task_router import (
     Activities,
     Events,

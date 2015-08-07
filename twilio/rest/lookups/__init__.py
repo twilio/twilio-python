@@ -1,5 +1,5 @@
 from twilio.rest.resources.lookups.phone_numbers import PhoneNumbers
-from twilio.rest.lookups.client import TwilioLookupsClient as TwilioLookupsClientBase
+from twilio.rest.lookups.client import RestClient as TwilioLookupsClientBase
 
 
 class TwilioLookupsClient(TwilioLookupsClientBase):
