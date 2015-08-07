@@ -1,9 +1,8 @@
-from twilio.rest.base import TwilioClient
-from twilio.rest.resources import UNSET_TIMEOUT
 from twilio.rest.resources.lookups.phone_numbers import PhoneNumbers
+from twilio.rest.lookups.client import TwilioLookupsClient as TwilioLookupsClientBase
 
 
-class TwilioLookupsClient(TwilioClient):
+class TwilioLookupsClient(TwilioLookupsClientBase):
     """
     A client for accessing the Twilio Lookups API.
 
@@ -18,12 +17,7 @@ class TwilioLookupsClient(TwilioClient):
     :param float timeout: The socket and read timeout for requests to Twilio
     """
 
-    def __init__(self, account=None, token=None,
-                 base="https://lookups.twilio.com", version="v1",
-                 timeout=UNSET_TIMEOUT):
+    def __init__(self, *args, **kwargs):
+        super(TwilioLookupsClient, self).__init__(*args, **kwargs)
 
-        super(TwilioLookupsClient, self).__init__(account, token, base,
-                                                  version, timeout)
-
-        self.version_uri = "%s/%s" % (base, version)
-        self.phone_numbers = PhoneNumbers(self.version_uri, self.auth, timeout)
+        self.phone_numbers = PhoneNumbers(self.version_uri, self.auth, self.timeout)

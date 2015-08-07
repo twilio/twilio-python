@@ -1,4 +1,4 @@
-from twilio.rest.base import TwilioClient
+from twilio.rest.taskrouter.client import TwilioTaskrouterClient as TwilioTaskrouterClientBase
 from twilio.rest.resources.task_router import (
     Activities,
     Events,
@@ -9,10 +9,9 @@ from twilio.rest.resources.task_router import (
     Workflows,
     Workspaces,
 )
-from twilio.rest.resources.util import UNSET_TIMEOUT
 
 
-class TwilioTaskRouterClient(TwilioClient):
+class TwilioTaskRouterClient(TwilioTaskrouterClientBase):
     """
     A client for accessing the Twilio TaskRouter API
 
@@ -23,18 +22,15 @@ class TwilioTaskRouterClient(TwilioClient):
     :param float timeout: The socket and read timeout for requests to Twilio
     """
 
-    def __init__(self, account=None, token=None,
-                 base="https://taskrouter.twilio.com", version="v1",
-                 timeout=UNSET_TIMEOUT):
+    def __init__(self, *args, **kwargs):
         """
         Create a Twilio REST API client.
         """
-        super(TwilioTaskRouterClient, self).__init__(account, token, base,
-                                                     version, timeout)
-        self.base_uri = "{0}/{1}".format(base, version)
+        super(TwilioTaskRouterClient, self).__init__(*args, **kwargs)
+        self.base_uri = self.version_uri
         self.workspace_uri = "{0}/Workspaces".format(self.base_uri)
 
-        self.workspaces = Workspaces(self.base_uri, self.auth, timeout)
+        self.workspaces = Workspaces(self.base_uri, self.auth, self.timeout)
 
     def activities(self, workspace_sid):
         """
