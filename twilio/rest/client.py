@@ -1,4 +1,4 @@
-from twilio.rest.base import TwilioClient
+from twilio.rest.v2010.client import V2010Client
 from twilio.rest.resources import (
     UNSET_TIMEOUT,
     Accounts,
@@ -11,7 +11,6 @@ from twilio.rest.resources import (
     Conferences,
     ConnectApps,
     DependentPhoneNumbers,
-    MediaList,
     Members,
     Messages,
     Notifications,
@@ -28,7 +27,7 @@ from twilio.rest.resources import (
 )
 
 
-class TwilioRestClient(TwilioClient):
+class TwilioRestClient(V2010Client):
     """
     A client for accessing the Twilio REST API
 
@@ -47,9 +46,7 @@ class TwilioRestClient(TwilioClient):
         super(TwilioRestClient, self).__init__(account, token, base, version,
                                                timeout)
 
-        version_uri = "%s/%s" % (base, version)
-
-        self.accounts = Accounts(version_uri, self.auth, timeout)
+        self.accounts = Accounts(self.version_uri, self.auth, timeout)
         self.applications = Applications(self.account_uri, self.auth, timeout)
         self.authorized_connect_apps = AuthorizedConnectApps(
             self.account_uri,

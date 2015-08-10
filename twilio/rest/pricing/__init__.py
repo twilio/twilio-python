@@ -1,1 +1,1 @@
-from twilio.rest.pricing.client import RestClient as TwilioPricingClient
+from twilio.rest.pricing.client import PricingClient as TwilioPricingClient

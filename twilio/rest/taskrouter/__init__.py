@@ -1,4 +1,4 @@
-from twilio.rest.taskrouter.client import RestClient as TwilioTaskrouterClientBase
+from twilio.rest.taskrouter.client import TaskrouterClient
 from twilio.rest.resources.task_router import (
     Activities,
     Events,
@@ -11,7 +11,7 @@ from twilio.rest.resources.task_router import (
 )
 
 
-class TwilioTaskRouterClient(TwilioTaskrouterClientBase):
+class TwilioTaskRouterClient(TaskrouterClient):
     """
     A client for accessing the Twilio TaskRouter API
 
@@ -24,13 +24,11 @@ class TwilioTaskRouterClient(TwilioTaskrouterClientBase):
 
     def __init__(self, *args, **kwargs):
         """
-        Create a Twilio REST API client.
+        Create a Twilio REST API client for task router.
         """
         super(TwilioTaskRouterClient, self).__init__(*args, **kwargs)
         self.base_uri = self.version_uri
         self.workspace_uri = "{0}/Workspaces".format(self.base_uri)
-
-        self.workspaces = Workspaces(self.base_uri, self.auth, self.timeout)
 
     def activities(self, workspace_sid):
         """

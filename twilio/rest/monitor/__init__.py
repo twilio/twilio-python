@@ -1,1 +1,1 @@
-from twilio.rest.monitor.client import RestClient as TwilioMonitorClient
+from twilio.rest.monitor.client import MonitorClient as TwilioMonitorClient
