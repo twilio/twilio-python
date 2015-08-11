@@ -3,6 +3,16 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 4.5.0
+-------------
+
+Released August 11, 2015:
+
+- Add support for new Taskrouter JWT Functionality, JWTs now grant access to
+  - Workspace
+  - Worker
+  - TaskQueue
+
 Version 4.4.0
 -------------
 
