@@ -20,7 +20,7 @@ class EventTest(unittest.TestCase):
 
         uri = "{0}/Events/{1}".format(BASE_URI, EVENT_SID)
         list_resource = Events(BASE_URI, AUTH)
-        list_resource.get(EVENT_SID)
+        list_resource.get(EVENT_SID).execute()
         request.assert_called_with("GET", uri, auth=AUTH,
                                    use_json_extension=False)
 
@@ -32,6 +32,6 @@ class EventTest(unittest.TestCase):
 
         uri = "{0}/Events".format(BASE_URI)
         list_resource = Events(BASE_URI, AUTH)
-        list_resource.list()
+        list_resource.list().execute()
         request.assert_called_with("GET", uri, params={}, auth=AUTH,
                                    use_json_extension=False)

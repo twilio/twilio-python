@@ -20,7 +20,7 @@ class SmsTest(unittest.TestCase):
         resp.status_code = 201
         mock.return_value = resp
 
-        self.resource.list(date_sent=date(2011, 1, 1))
+        self.resource.list(date_sent=date(2011, 1, 1)).execute()
 
         self.params['DateSent'] = '2011-01-01'
         mock.assert_called_with("GET", 'foo/SMS/Messages',
@@ -34,7 +34,7 @@ class SmsTest(unittest.TestCase):
         resp.status_code = 201
         mock.return_value = resp
 
-        self.resource.list(after=date(2011, 1, 1))
+        self.resource.list(after=date(2011, 1, 1)).execute()
 
         self.params['DateSent>'] = '2011-01-01'
         mock.assert_called_with("GET", 'foo/SMS/Messages',
@@ -48,7 +48,7 @@ class SmsTest(unittest.TestCase):
         resp.status_code = 201
         mock.return_value = resp
 
-        self.resource.list(before=date(2011, 1, 1))
+        self.resource.list(before=date(2011, 1, 1)).execute()
 
         self.params['DateSent<'] = '2011-01-01'
         mock.assert_called_with("GET", 'foo/SMS/Messages',

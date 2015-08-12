@@ -22,7 +22,7 @@ class QueueTest(unittest.TestCase):
         mock.return_value = resp
 
         uri = "%s/Queues" % (BASE_URI)
-        self.list_resource.list()
+        self.list_resource.list().execute()
 
         mock.assert_called_with("GET", uri, params={}, auth=AUTH,
                                 use_json_extension=True)
@@ -34,7 +34,7 @@ class QueueTest(unittest.TestCase):
         mock.return_value = resp
 
         uri = "%s/Queues" % (BASE_URI)
-        self.list_resource.create('test', max_size=9001)
+        self.list_resource.create('test', max_size=9001).execute()
 
         mock.assert_called_with("POST", uri,
                                 data={'FriendlyName': 'test', 'MaxSize': 9001},
@@ -44,20 +44,22 @@ class QueueTest(unittest.TestCase):
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_queues_get(self, mock):
         resp = create_mock_json("tests/resources/queues_instance.json")
+        resp.status_code = 200
         mock.return_value = resp
 
         uri = "%s/Queues/%s" % (BASE_URI, QUEUE_SID)
-        self.list_resource.get(QUEUE_SID)
+        self.list_resource.get(QUEUE_SID).execute()
         mock.assert_called_with("GET", uri, auth=AUTH,
                                 use_json_extension=True)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_queue_update(self, mock):
         resp = create_mock_json("tests/resources/queues_instance.json")
+        resp.status_code = 201
         mock.return_value = resp
 
         uri = "%s/Queues/%s" % (BASE_URI, QUEUE_SID)
-        self.instance_resource.update(friendly_name='QQ')
+        self.instance_resource.update(friendly_name='QQ').execute()
 
         mock.assert_called_with("POST", uri,
                                 data={'FriendlyName': 'QQ'}, auth=AUTH,
@@ -69,6 +71,6 @@ class QueueTest(unittest.TestCase):
         mock.return_value = resp
 
         uri = "%s/Queues/%s" % (BASE_URI, QUEUE_SID)
-        self.instance_resource.delete()
+        self.instance_resource.delete().execute()
 
         mock.assert_called_with("DELETE", uri, auth=AUTH, use_json_extension=True)

@@ -24,7 +24,7 @@ class TestUsage(unittest.TestCase):
 
         uri = '{}/Usage/Records/Daily'.format(self.base_uri)
 
-        self.usage.records.daily.list()
+        self.usage.records.daily.list().execute()
 
         request.assert_called_with('GET', uri, params={}, use_json_extension=True, auth=self.auth)
 
@@ -36,7 +36,7 @@ class TestUsage(unittest.TestCase):
 
         uri = '{}/Usage/Records/Monthly'.format(self.base_uri)
 
-        self.usage.records.monthly.list()
+        self.usage.records.monthly.list().execute()
 
         request.assert_called_with('GET', uri, params={}, use_json_extension=True, auth=self.auth)
 
@@ -48,7 +48,7 @@ class TestUsage(unittest.TestCase):
 
         uri = '{}/Usage/Records/Yearly'.format(self.base_uri)
 
-        self.usage.records.yearly.list()
+        self.usage.records.yearly.list().execute()
 
         request.assert_called_with('GET', uri, params={}, use_json_extension=True, auth=self.auth)
 
@@ -60,7 +60,7 @@ class TestUsage(unittest.TestCase):
 
         uri = '{}/Usage/Records/Today'.format(self.base_uri)
 
-        self.usage.records.today.list()
+        self.usage.records.today.list().execute()
 
         request.assert_called_with('GET', uri, params={}, use_json_extension=True, auth=self.auth)
 
@@ -72,7 +72,7 @@ class TestUsage(unittest.TestCase):
 
         uri = '{}/Usage/Records/Yesterday'.format(self.base_uri)
 
-        self.usage.records.yesterday.list()
+        self.usage.records.yesterday.list().execute()
 
         request.assert_called_with('GET', uri, params={}, use_json_extension=True, auth=self.auth)
 
@@ -84,7 +84,7 @@ class TestUsage(unittest.TestCase):
 
         uri = '{}/Usage/Records/LastMonth'.format(self.base_uri)
 
-        self.usage.records.last_month.list()
+        self.usage.records.last_month.list().execute()
 
         request.assert_called_with('GET', uri, params={}, use_json_extension=True, auth=self.auth)
 
@@ -96,7 +96,7 @@ class TestUsage(unittest.TestCase):
 
         uri = '{}/Usage/Records/ThisMonth'.format(self.base_uri)
 
-        self.usage.records.this_month.list()
+        self.usage.records.this_month.list().execute()
 
         request.assert_called_with('GET', uri, params={}, use_json_extension=True, auth=self.auth)
 
@@ -111,7 +111,7 @@ class TestUsage(unittest.TestCase):
             callback_method="GET",
             callback_url="http://",
             friendly_name="new_friendly_name",
-        )
+        ).execute()
 
         uri = "{}/Usage/Triggers/{}".format(self.base_uri, "UT123")
 
@@ -135,7 +135,7 @@ class TestUsage(unittest.TestCase):
             trigger_value="10.00",
             callback_url="http://www.example.com",
             callback_method="POST"
-        )
+        ).execute()
 
         uri = "%s/Usage/Triggers" % self.base_uri
         request.assert_called_with("POST", uri, data={
@@ -157,7 +157,8 @@ class TestUsage(unittest.TestCase):
         self.usage.triggers.list(
             recurring="daily",
             usage_category="sms",
-            trigger_by="count")
+            trigger_by="count"
+        ).execute()
 
         request.assert_called_with("GET", uri, params={
             "Recurring": "daily",
@@ -174,7 +175,8 @@ class TestUsage(unittest.TestCase):
         self.usage.records.list(
             start_date="2012-10-12",
             end_date="2012-10-13",
-            category="sms")
+            category="sms"
+        ).execute()
 
         request.assert_called_with("GET", uri, params={
             "StartDate": "2012-10-12",
@@ -182,18 +184,21 @@ class TestUsage(unittest.TestCase):
             "Category": "sms"
         }, auth=self.auth, use_json_extension=True)
 
-    @patch("twilio.rest.resources.base.Resource.request")
+    @patch("twilio.rest.resources.base.make_twilio_request")
     def test_delete_trigger(self, req):
         resp = Mock()
         resp.content = ""
         resp.status_code = 204
-        req.return_value = resp, {}
+        req.return_value = resp
 
-        triggers = UsageTriggers("https://api.twilio.com", None)
+        triggers = UsageTriggers("https://api.twilio.com", self.auth)
         trigger = UsageTrigger(triggers, "UT123")
-        trigger.delete()
+        trigger.delete().execute()
+
         uri = "https://api.twilio.com/Usage/Triggers/UT123"
-        req.assert_called_with("DELETE", uri)
+        req.assert_called_with("DELETE", uri,
+                               auth=self.auth,
+                               use_json_extension=True)
 
     @raises(AttributeError)
     def test_records_create(self):

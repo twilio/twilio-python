@@ -30,7 +30,7 @@ class SipIpAddressTest(unittest.TestCase):
         mock.return_value = resp
 
         uri = '%s/IpAddresses' % (self.BASE_URI)
-        self.list_resource.list()
+        self.list_resource.list().execute()
 
         mock.assert_called_with("GET", uri, params={}, auth=self.AUTH,
                                 use_json_extension=True)
@@ -43,7 +43,7 @@ class SipIpAddressTest(unittest.TestCase):
         mock.return_value = resp
 
         uri = '%s/IpAddresses' % (self.BASE_URI)
-        self.list_resource.create(friendly_name='cred', ip_address='ip')
+        self.list_resource.create(friendly_name='cred', ip_address='ip').execute()
 
         data = {
             'FriendlyName': 'cred',
@@ -60,7 +60,7 @@ class SipIpAddressTest(unittest.TestCase):
         mock.return_value = resp
 
         uri = '%s/IpAddresses/%s' % (self.BASE_URI, self.SID)
-        self.list_resource.get(self.SID)
+        self.list_resource.get(self.SID).execute()
 
         mock.assert_called_with("GET", uri, auth=self.AUTH,
                                 use_json_extension=True)
@@ -72,7 +72,7 @@ class SipIpAddressTest(unittest.TestCase):
         mock.return_value = resp
 
         uri = '%s/IpAddresses/%s' % (self.BASE_URI, self.SID)
-        self.list_resource.delete(self.SID)
+        self.list_resource.delete(self.SID).execute()
 
         mock.assert_called_with("DELETE", uri, auth=self.AUTH,
                                 use_json_extension=True)
@@ -85,7 +85,7 @@ class SipIpAddressTest(unittest.TestCase):
         mock.return_value = resp
 
         uri = '%s/IpAddresses/%s' % (self.BASE_URI, self.SID)
-        self.list_resource.update(self.SID, friendly_name='cred')
+        self.list_resource.update(self.SID, friendly_name='cred').execute()
 
         mock.assert_called_with("POST", uri,
                                 data={'FriendlyName': 'cred'},
@@ -100,7 +100,7 @@ class SipIpAddressTest(unittest.TestCase):
         mock.return_value = resp
 
         uri = '%s/IpAddresses/%s' % (self.BASE_URI, self.SID)
-        self.instance_resource.update(friendly_name='cred')
+        self.instance_resource.update(friendly_name='cred').execute()
 
         mock.assert_called_with("POST", uri, data={'FriendlyName': 'cred'},
                                 auth=self.AUTH,
@@ -113,7 +113,7 @@ class SipIpAddressTest(unittest.TestCase):
         mock.return_value = resp
 
         uri = '%s/IpAddresses/%s' % (self.BASE_URI, self.SID)
-        self.instance_resource.delete()
+        self.instance_resource.delete().execute()
 
         mock.assert_called_with("DELETE", uri,
                                 auth=self.AUTH,

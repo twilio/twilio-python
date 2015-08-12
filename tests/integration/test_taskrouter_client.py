@@ -26,13 +26,13 @@ class TwilioTaskRouterClientTest(BaseIntegrationTest):
             })
         ]
 
-        self.workspace = self.client.workspaces.create(self.workspace_name)
+        self.workspace = self.client.workspaces.create(self.workspace_name).execute()
 
     def tearDown(self):
         self.response_handlers = [
             DRH('/Workspaces/{}'.format(self.workspace.sid))
         ]
-        self.workspace.delete()
+        self.workspace.delete().execute()
 
     def test_workspace(self):
         self.response_handlers = [
@@ -48,9 +48,10 @@ class TwilioTaskRouterClientTest(BaseIntegrationTest):
                 })
         ]
 
-        self.client.workspaces.list()
-        self.client.workspaces.get(self.workspace.sid)
-        self.workspace.update(friendly_name=self.workspace.friendly_name + 'a')
+        self.client.workspaces.list().execute()
+        self.client.workspaces.get(self.workspace.sid).execute()
+        self.workspace.update(friendly_name=self.workspace.friendly_name + 'a')\
+            .execute()
 
     def test_events(self):
         self.response_handlers = [
@@ -63,9 +64,9 @@ class TwilioTaskRouterClientTest(BaseIntegrationTest):
                 auth=(config.post_account_sid, config.auth_token)),
         ]
 
-        events = self.client.events(self.workspace.sid).list()
+        events = self.client.events(self.workspace.sid).list().execute()
         if len(events) > 0:
-            self.client.events(self.workspace.sid).get(events[0].sid)
+            self.client.events(self.workspace.sid).get(events[0].sid).execute()
 
     def test_tasks(self):
         base_uri = '/Workspaces/{}'.format(self.workspace.sid)
@@ -102,15 +103,17 @@ class TwilioTaskRouterClientTest(BaseIntegrationTest):
                 }),
         ]
 
-        reservation_activity = self.workspace.activity.create(reservation_activity_name, False)
-        reservation_activity.update(friendly_name=reservation_activity_name + 'a')
+        reservation_activity = self.workspace.activities.create(reservation_activity_name,
+                                                                False).execute()
+        reservation_activity.update(friendly_name=reservation_activity_name + 'a').execute()
 
-        assignment_activity = self.workspace.activity.create(assignment_activity_name, False)
-        assignment_activity.update(friendly_name=assignment_activity_name + 'a')
+        assignment_activity = self.workspace.activities.create(assignment_activity_name,
+                                                               False).execute()
+        assignment_activity.update(friendly_name=assignment_activity_name + 'a').execute()
 
         queue = self.workspace.task_queues.create(queue_name, reservation_activity.sid,
-                                                  assignment_activity.sid)
-        queue.update(friendly_name=queue_name + 'a')
+                                                  assignment_activity.sid).execute()
+        queue.update(friendly_name=queue_name + 'a').execute()
 
         workflow_config = {
             "task_routing": {
@@ -141,8 +144,8 @@ class TwilioTaskRouterClientTest(BaseIntegrationTest):
         ])
 
         workflow = self.workspace.workflows.create(workflow_name, json.dumps(workflow_config),
-                                                   'http://www.example.com')
-        workflow.update(friendly_name=workflow_name + 'a')
+                                                   'http://www.example.com').execute()
+        workflow.update(friendly_name=workflow_name + 'a').execute()
 
         self.response_handlers.extend([
             PRH('{}/Tasks'.format(base_uri), 'task_router/tasks_instance.json', {
@@ -160,10 +163,10 @@ class TwilioTaskRouterClientTest(BaseIntegrationTest):
                 params=None,
                 auth=(config.post_account_sid, config.auth_token)),
         ])
-        task = self.workspace.tasks.create("{}", workflow.sid)
-        task.update(reason='reason')
-        self.workspace.tasks.list()
-        self.workspace.tasks.get(task.sid)
+        task = self.workspace.tasks.create("{}", workflow.sid).execute()
+        task.update(reason='reason').execute()
+        self.workspace.tasks.list().execute()
+        self.workspace.tasks.get(task.sid).execute()
 
         self.response_handlers.extend([
             DRH('{}/Tasks/{}'.format(base_uri, 'WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')),
@@ -172,11 +175,11 @@ class TwilioTaskRouterClientTest(BaseIntegrationTest):
             DRH('{}/Activities/{}'.format(base_uri, 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'))
         ])
 
-        task.delete()
-        workflow.delete()
-        queue.delete()
-        assignment_activity.delete()
-        reservation_activity.delete()
+        task.delete().execute()
+        workflow.delete().execute()
+        queue.delete().execute()
+        assignment_activity.delete().execute()
+        reservation_activity.delete().execute()
 
     def test_worker(self):
         base_uri = '/Workspaces/{}'.format(self.workspace.sid)
@@ -198,8 +201,8 @@ class TwilioTaskRouterClientTest(BaseIntegrationTest):
             DRH('{}/Workers/{}'.format(base_uri, 'WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'))
         ]
 
-        worker = self.workspace.workers.create(worker_name)
-        self.workspace.workers.get(worker.sid)
-        self.workspace.workers.list()
-        worker.update(friendly_name=worker_name + 'a')
-        worker.delete()
+        worker = self.workspace.workers.create(worker_name).execute()
+        self.workspace.workers.get(worker.sid).execute()
+        self.workspace.workers.list().execute()
+        worker.update(friendly_name=worker_name + 'a').execute()
+        worker.delete().execute()

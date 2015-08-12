@@ -20,7 +20,9 @@ class WorkspaceTest(unittest.TestCase):
 
         uri = "{0}/Workspaces".format(BASE_URI)
         list_resource = Workspaces(BASE_URI, AUTH)
-        list_resource.create("Test Workspace", event_callback_uri="http://www.example.com", template='FIFO')
+        list_resource.create("Test Workspace",
+                             event_callback_uri="http://www.example.com",
+                             template='FIFO').execute()
         exp_params = {
             'FriendlyName': "Test Workspace",
             'EventCallbackUri': "http://www.example.com",
@@ -40,7 +42,7 @@ class WorkspaceTest(unittest.TestCase):
         uri = "{0}/Workspaces/{1}".format(BASE_URI, WORKSPACE_SID)
         list_resource = Workspaces(BASE_URI, AUTH)
         workspace = Workspace(list_resource, WORKSPACE_SID)
-        workspace.delete()
+        workspace.delete().execute()
         request.assert_called_with("DELETE", uri, auth=AUTH,
                                    use_json_extension=False)
 
@@ -53,7 +55,7 @@ class WorkspaceTest(unittest.TestCase):
 
         uri = "{0}/Workspaces/{1}".format(BASE_URI, WORKSPACE_SID)
         list_resource = Workspaces(BASE_URI, AUTH)
-        list_resource.delete(WORKSPACE_SID)
+        list_resource.delete(WORKSPACE_SID).execute()
         request.assert_called_with("DELETE", uri, auth=AUTH,
                                    use_json_extension=False)
 
@@ -65,7 +67,7 @@ class WorkspaceTest(unittest.TestCase):
 
         uri = "{0}/Workspaces/{1}".format(BASE_URI, WORKSPACE_SID)
         list_resource = Workspaces(BASE_URI, AUTH)
-        list_resource.get(WORKSPACE_SID)
+        list_resource.get(WORKSPACE_SID).execute()
         request.assert_called_with("GET", uri, auth=AUTH,
                                    use_json_extension=False)
 
@@ -77,7 +79,7 @@ class WorkspaceTest(unittest.TestCase):
 
         uri = "{0}/Workspaces".format(BASE_URI)
         list_resource = Workspaces(BASE_URI, AUTH)
-        list_resource.list()
+        list_resource.list().execute()
         request.assert_called_with("GET", uri, params={}, auth=AUTH,
                                    use_json_extension=False)
 
@@ -90,7 +92,9 @@ class WorkspaceTest(unittest.TestCase):
         uri = "{0}/Workspaces/{1}".format(BASE_URI, WORKSPACE_SID)
         list_resource = Workspaces(BASE_URI, AUTH)
         workspace = Workspace(list_resource, WORKSPACE_SID)
-        workspace.update(friendly_name='Test Workspace', event_callback_uri="http://www.example.com", template='FIFO')
+        workspace.update(friendly_name='Test Workspace',
+                         event_callback_uri="http://www.example.com",
+                         template='FIFO').execute()
         exp_params = {
             'FriendlyName': "Test Workspace",
             'EventCallbackUri': "http://www.example.com",
@@ -108,8 +112,9 @@ class WorkspaceTest(unittest.TestCase):
 
         uri = "{0}/Workspaces/{1}".format(BASE_URI, WORKSPACE_SID)
         list_resource = Workspaces(BASE_URI, AUTH)
-        list_resource.update(WORKSPACE_SID, friendly_name='Test Workspace', event_callback_uri="http://www.example.com",
-                             template='FIFO')
+        list_resource.update(WORKSPACE_SID, friendly_name='Test Workspace',
+                             event_callback_uri="http://www.example.com",
+                             template='FIFO').execute()
         exp_params = {
             'FriendlyName': "Test Workspace",
             'EventCallbackUri': "http://www.example.com",

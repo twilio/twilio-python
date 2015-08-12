@@ -24,11 +24,10 @@ class TestStatistics(unittest.TestCase):
         workers = Workers(BASE_URI, AUTH, TIMEOUT)
         worker = Worker(workers, 'WK123')
         worker.load_subresources()
-        worker.statistics.get()
+        worker.statistics.get().execute()
         request.assert_called_with(
             'GET',
             '{0}/Workers/WK123/Statistics'.format(BASE_URI),
-            params={},
             auth=AUTH,
             timeout=TIMEOUT,
             use_json_extension=False,
@@ -41,10 +40,10 @@ class TestStatistics(unittest.TestCase):
         request.return_value = resp
 
         workers = Workers(BASE_URI, AUTH, TIMEOUT)
-        workers.statistics.get()
+        workers.statistics.get().execute()
         request.assert_called_with('GET',
                                    '{0}/Workers/Statistics'.format(BASE_URI),
-                                   params={}, auth=AUTH, timeout=TIMEOUT,
+                                   auth=AUTH, timeout=TIMEOUT,
                                    use_json_extension=False)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
@@ -56,10 +55,10 @@ class TestStatistics(unittest.TestCase):
         tqs = TaskQueues(BASE_URI, AUTH, 30)
         tq = TaskQueue(tqs, 'TQ123')
         tq.load_subresources()
-        tq.statistics.get()
+        tq.statistics.get().execute()
         request.assert_called_with('GET',
                                    '{0}/TaskQueues/TQ123/Statistics'.format(BASE_URI),
-                                   params={}, auth=AUTH, timeout=30,
+                                   auth=AUTH, timeout=30,
                                    use_json_extension=False)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
@@ -69,10 +68,10 @@ class TestStatistics(unittest.TestCase):
         request.return_value = resp
 
         tqs = TaskQueues(BASE_URI, AUTH, 30)
-        tqs.statistics.get()
+        tqs.statistics.get().execute()
         request.assert_called_with('GET',
                                    '{0}/TaskQueues/Statistics'.format(BASE_URI),
-                                   timeout=30, params={}, auth=AUTH, use_json_extension=False)
+                                   timeout=30, auth=AUTH, use_json_extension=False)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_fetch_task_workflow_statistics(self, request):
@@ -83,10 +82,10 @@ class TestStatistics(unittest.TestCase):
         workflows = Workflows(BASE_URI, AUTH)
         workflow = Workflow(workflows, 'WF123')
         workflow.load_subresources()
-        workflow.statistics.get()
+        workflow.statistics.get().execute()
         request.assert_called_with('GET',
                                    '{0}/Workflows/WF123/Statistics'.format(BASE_URI),
-                                   params={}, auth=AUTH, use_json_extension=False)
+                                   auth=AUTH, use_json_extension=False)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_fetch_workspace_statistics(self, request):
@@ -97,7 +96,7 @@ class TestStatistics(unittest.TestCase):
         workspaces = Workspaces(BASE_URI, AUTH)
         workspace = Workspace(workspaces, 'WS123')
         workspace.load_subresources()
-        workspace.statistics.get()
+        workspace.statistics.get().execute()
         request.assert_called_witH('GET',
                                    '{}/Workspaces/WS123/Statistics'.format(BASE_URI),
-                                   params={}, auth=AUTH, use_json_extensions=False)
+                                   auth=AUTH, use_json_extensions=False)

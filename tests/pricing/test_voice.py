@@ -23,7 +23,7 @@ class VoiceTest(unittest.TestCase):
         request.return_value = resp
 
         countries = VoiceCountries(BASE_URI, AUTH)
-        result = countries.list()
+        result = countries.list().execute()
 
         assert_equal(result[0].iso_country, "AD")
         assert_equal(len(result), 50)
@@ -43,7 +43,7 @@ class VoiceTest(unittest.TestCase):
         request.return_value = resp
 
         countries = VoiceCountries(BASE_URI, AUTH)
-        country = countries.get('AU')
+        country = countries.get('AU').execute()
 
         assert_equal(country.country, "Australia")
         assert_equal(
@@ -69,7 +69,7 @@ class VoiceTest(unittest.TestCase):
         request.return_value = resp
 
         numbers = VoiceNumbers(BASE_URI, AUTH)
-        result = numbers.get('+14089673429')
+        result = numbers.get('+14089673429').execute()
 
         assert_equal(result.number, '+14089673429')
         assert_equal(result.price_unit, 'usd')

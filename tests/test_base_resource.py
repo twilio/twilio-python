@@ -2,7 +2,7 @@
 from datetime import datetime
 import unittest
 
-from mock import Mock, sentinel, patch, ANY
+from mock import Mock, patch
 from nose.tools import assert_equal, assert_true
 import pytz
 from six import advance_iterator
@@ -26,13 +26,6 @@ def test_resource_init():
     assert_equal(r.uri, uri)
 
 
-def test_equivalence():
-    p = ListResource(base_uri, auth)
-    r1 = p.load_instance({"sid": "AC123"})
-    r2 = p.load_instance({"sid": "AC123"})
-    assert_equal(r1, r2)
-
-
 class ListResourceTest(unittest.TestCase):
 
     def setUp(self):
@@ -46,30 +39,46 @@ class ListResourceTest(unittest.TestCase):
     def testKeyValueLower(self):
         assert_equal(self.r.key, self.r.name.lower())
 
-    def testIterNoKey(self):
-        self.r.request = Mock()
-        self.r.request.return_value = Mock(), {}
+    @patch('twilio.rest.resources.base.make_twilio_request')
+    def testIterNoKey(self, mock):
+        resp = Mock()
+        resp.status_code = 200
+        resp.content = "{}"
+        mock.return_value = resp
 
         self.assertRaises(StopIteration, advance_iterator, self.r.iter())
 
-    def testRequest(self):
-        self.r.request = Mock()
-        self.r.request.return_value = Mock(), {self.r.key: [{'sid': 'foo'}]}
-        advance_iterator(self.r.iter())
-        self.r.request.assert_called_with("GET", "https://api.twilio.com/2010-04-01/Resources", params={})
+    @patch('twilio.rest.resources.base.make_twilio_request')
+    def testRequest(self, mock):
+        resp = Mock()
+        resp.status_code = 200
+        resp.content = json.dumps({self.r.key: [{'sid': 'foo'}]})
+        mock.return_value = resp
 
-    def testIterOneItem(self):
-        self.r.request = Mock()
-        self.r.request.return_value = Mock(), {self.r.key: [{'sid': 'foo'}]}
+        advance_iterator(self.r.iter())
+
+        mock.assert_called_with("GET", "https://api.twilio.com/2010-04-01/Resources",
+                                params={},
+                                auth=auth, use_json_extension=True)
+
+    @patch('twilio.rest.resources.base.make_twilio_request')
+    def testIterOneItem(self, mock):
+        resp = Mock()
+        resp.status_code = 200
+        resp.content = json.dumps({self.r.key: [{'sid': 'foo'}]})
+        mock.return_value = resp
 
         items = self.r.iter()
         advance_iterator(items)
 
         self.assertRaises(StopIteration, advance_iterator, items)
 
-    def testIterNoNextPage(self):
-        self.r.request = Mock()
-        self.r.request.return_value = Mock(), {self.r.key: []}
+    @patch('twilio.rest.resources.base.make_twilio_request')
+    def testIterNoNextPage(self, mock):
+        resp = Mock()
+        resp.status_code = 200
+        resp.content = json.dumps({self.r.key: []})
+        mock.return_value = resp
 
         self.assertRaises(StopIteration, advance_iterator, self.r.iter())
 
@@ -83,23 +92,36 @@ class ListResourceTest(unittest.TestCase):
         assert_true(isinstance(instance, InstanceResource))
         assert_equal(instance.sid, "foo")
 
-    def testListResourceCreateResponse200(self):
+    def test_equivalence(self):
+        r1 = self.r.load_instance({"sid": "AC123"})
+        r2 = self.r.load_instance({"sid": "AC123"})
+        assert_equal(r1, r2)
+
+    @patch('twilio.rest.resources.base.make_twilio_request')
+    def testListResourceCreateResponse200(self, mock):
         """We should accept 200 OK in response to a POST creating a resource."""
-        self.r.request = Mock()
         return_value = Mock()
         return_value.status_code = 200
-        self.r.request.return_value = return_value, {'sid': 'foo'}
-        self.r.create_instance({})
-        self.r.request.assert_called_with("POST", "https://api.twilio.com/2010-04-01/Resources", data={})
+        return_value.content = json.dumps({'sid': 'foo'})
+        mock.return_value = return_value
 
-    def testListResourceCreateResponse201(self):
+        self.r.create_instance({}).execute()
+
+        mock.assert_called_with("POST", "https://api.twilio.com/2010-04-01/Resources", data={},
+                                auth=auth, use_json_extension=True)
+
+    @patch('twilio.rest.resources.base.make_twilio_request')
+    def testListResourceCreateResponse201(self, mock):
         """We should accept 201 Created in response to a POST creating a resource."""
-        self.r.request = Mock()
         return_value = Mock()
-        return_value.status_code = 201
-        self.r.request.return_value = return_value, {'sid': 'foo'}
-        self.r.create_instance({})
-        self.r.request.assert_called_with("POST", "https://api.twilio.com/2010-04-01/Resources", data={})
+        return_value.status_code = 200
+        return_value.content = json.dumps({'sid': 'foo'})
+        mock.return_value = return_value
+
+        self.r.create_instance({}).execute()
+
+        mock.assert_called_with("POST", "https://api.twilio.com/2010-04-01/Resources", data={},
+                                auth=auth, use_json_extension=True)
 
 
 class NextGenListResourceTest(unittest.TestCase):
@@ -111,26 +133,34 @@ class NextGenListResourceTest(unittest.TestCase):
         uri = "%s/%s" % (base_uri, self.r.name)
         assert_equal(self.r.uri, uri)
 
-    def test_iter_no_key(self):
-        self.r.request = Mock()
-        self.r.request.return_value = Mock(), {}
+    @patch('twilio.rest.resources.base.make_twilio_request')
+    def test_iter_key_not_present(self, mock):
+        resp = Mock()
+        resp.status_code = 200
+        resp.content = "{}"
+        mock.return_value = resp
 
         self.assertRaises(StopIteration, advance_iterator, self.r.iter())
 
-    def test_iter_key_not_present(self):
-        self.r.request = Mock()
-        self.r.request.return_value = Mock(), {'meta': {'key': 'foobars'}}
+    @patch('twilio.rest.resources.base.make_twilio_request')
+    def test_iter_request(self, mock):
+        resp = Mock()
+        resp.status_code = 200
+        resp.content = json.dumps({'meta': {'key': 'foos'}, 'foos': [{'sid': '123'}]})
+        mock.return_value = resp
 
-    def test_iter_request(self):
-        self.r.request = Mock()
-        self.r.request.return_value = Mock(), {'meta': {'key': 'foos'}, 'foos': [{'sid': '123'}]}
         item = advance_iterator(self.r.iter())
-        self.r.request.assert_called_with("GET", "https://api.twilio.com/2010-04-01/Resources")
+
+        mock.assert_called_with("GET", "https://api.twilio.com/2010-04-01/Resources",
+                                auth=auth, use_json_extension=False)
         assert_equal(item.sid, '123')
 
-    def test_iter_one_item(self):
-        self.r.request = Mock()
-        self.r.request.return_value = Mock(), {'meta': {'key': 'foos', 'next_page_url': None}, 'foos': [{'sid': '123'}]}
+    @patch('twilio.rest.resources.base.make_twilio_request')
+    def test_iter_next_page_not_present(self, mock):
+        resp = Mock()
+        resp.status_code = 200
+        resp.content = json.dumps({'meta': {'key': 'foos', 'next_page_url': None}, 'foos': [{'sid': '123'}]})
+        mock.return_value = resp
 
         items = self.r.iter()
         advance_iterator(items)
@@ -201,29 +231,4 @@ class NextGenInstanceResourceTest(unittest.TestCase):
         assert_equal(
             self.r.date_created,
             datetime(2015, 1, 1, 0, 0, 0, tzinfo=pytz.utc),
-        )
-
-
-class testTimeoutPropagation(unittest.TestCase):
-    def setUp(self):
-        self.parent = ListResource(base_uri, auth, timeout=sentinel.timeout)
-        self.r = InstanceResource(self.parent, "123")
-        self.uri = "%s/%s" % (self.parent.uri, "123")
-
-    @patch('twilio.rest.resources.base.make_request')
-    def testPassThrough(self, mock_request):
-        mock_response = Mock()
-        mock_response.ok = True,
-        mock_response.content = json.dumps({'key': 'value'})
-        mock_request.return_value = mock_response
-
-        assert_equal(self.r.timeout, sentinel.timeout)
-        assert_equal((mock_response, {'key': 'value'}), self.r.request('GET', base_uri))
-
-        mock_request.assert_called_once_with(
-            'GET',
-            base_uri + '.json',
-            headers=ANY,
-            timeout=sentinel.timeout,
-            auth=ANY
         )

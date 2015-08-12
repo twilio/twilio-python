@@ -20,7 +20,9 @@ class TaskQueueTest(unittest.TestCase):
         request.return_value = resp
 
         task_queues = TaskQueues(BASE_URI, AUTH, TIMEOUT)
-        task_queues.create("Test TaskQueue", "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        task_queues.create("Test TaskQueue",
+                           "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                           "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute()
         exp_params = {
             'FriendlyName': "Test TaskQueue",
             'AssignmentActivitySid': "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -42,7 +44,7 @@ class TaskQueueTest(unittest.TestCase):
         uri = "{0}/TaskQueues/{1}".format(BASE_URI, TASK_QUEUE_SID)
         list_resource = TaskQueues(BASE_URI, AUTH, TIMEOUT)
         task_queue = TaskQueue(list_resource, TASK_QUEUE_SID)
-        task_queue.delete()
+        task_queue.delete().execute()
         request.assert_called_with("DELETE", uri, auth=AUTH, timeout=TIMEOUT,
                                    use_json_extension=False)
 
@@ -55,7 +57,7 @@ class TaskQueueTest(unittest.TestCase):
 
         uri = "{0}/TaskQueues/{1}".format(BASE_URI, TASK_QUEUE_SID)
         list_resource = TaskQueues(BASE_URI, AUTH, TIMEOUT)
-        list_resource.delete(TASK_QUEUE_SID)
+        list_resource.delete(TASK_QUEUE_SID).execute()
         request.assert_called_with("DELETE", uri, auth=AUTH, timeout=TIMEOUT,
                                    use_json_extension=False)
 
@@ -67,7 +69,7 @@ class TaskQueueTest(unittest.TestCase):
 
         uri = "{0}/TaskQueues/{1}".format(BASE_URI, TASK_QUEUE_SID)
         list_resource = TaskQueues(BASE_URI, AUTH, TIMEOUT)
-        list_resource.get(TASK_QUEUE_SID)
+        list_resource.get(TASK_QUEUE_SID).execute()
         request.assert_called_with("GET", uri, auth=AUTH, timeout=TIMEOUT,
                                    use_json_extension=False)
 
@@ -79,7 +81,7 @@ class TaskQueueTest(unittest.TestCase):
 
         uri = "{0}/TaskQueues".format(BASE_URI)
         list_resource = TaskQueues(BASE_URI, AUTH, TIMEOUT)
-        list_resource.list()
+        list_resource.list().execute()
         request.assert_called_with("GET", uri, params={}, auth=AUTH, timeout=TIMEOUT,
                                    use_json_extension=False)
 
@@ -92,8 +94,9 @@ class TaskQueueTest(unittest.TestCase):
         uri = "{0}/TaskQueues/{1}".format(BASE_URI, TASK_QUEUE_SID)
         list_resource = TaskQueues(BASE_URI, AUTH, TIMEOUT)
         task_queue = TaskQueue(list_resource, TASK_QUEUE_SID)
-        task_queue.update(friendly_name='Test TaskQueue', assignment_activity_sid='WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                          reservation_activity_sid='WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+        task_queue.update(friendly_name='Test TaskQueue',
+                          assignment_activity_sid='WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                          reservation_activity_sid='WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').execute()
         exp_params = {
             'FriendlyName': "Test TaskQueue",
             'AssignmentActivitySid': "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -114,7 +117,7 @@ class TaskQueueTest(unittest.TestCase):
         list_resource = TaskQueues(BASE_URI, AUTH, TIMEOUT)
         list_resource.update(TASK_QUEUE_SID, friendly_name='Test TaskQueue',
                              assignment_activity_sid='WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                             reservation_activity_sid='WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                             reservation_activity_sid='WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').execute()
         exp_params = {
             'FriendlyName': "Test TaskQueue",
             'AssignmentActivitySid': "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",

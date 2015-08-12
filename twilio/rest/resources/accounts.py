@@ -60,19 +60,19 @@ class Account(BaseAccount):
         """
         Permenently deactivate this account
         """
-        return self.update_instance(status=Account.CLOSED)
+        return self.update(status=Account.CLOSED)
 
     def suspend(self):
         """
         Temporarily suspend this account
         """
-        return self.update_instance(status=Account.SUSPENDED)
+        return self.update(status=Account.SUSPENDED)
 
     def activate(self):
         """
         Reactivate this account
         """
-        return self.update_instance(status=Account.ACTIVE)
+        return self.update(status=Account.ACTIVE)
 
 
 class Accounts(BaseAccounts):

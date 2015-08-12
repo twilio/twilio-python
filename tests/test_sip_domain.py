@@ -26,7 +26,7 @@ class SipDomainTest(unittest.TestCase):
         mock.return_value = resp
 
         uri = '%s/SIP/Domains' % (self.BASE_URI)
-        self.list_resource.list()
+        self.list_resource.list().execute()
 
         mock.assert_called_with("GET", uri, params={}, auth=self.AUTH,
                                 use_json_extension=True)
@@ -38,7 +38,7 @@ class SipDomainTest(unittest.TestCase):
         mock.return_value = resp
 
         uri = '%s/SIP/Domains' % (self.BASE_URI)
-        self.list_resource.create('domain')
+        self.list_resource.create('domain').execute()
 
         data = {
             'DomainName': 'domain'
@@ -53,7 +53,7 @@ class SipDomainTest(unittest.TestCase):
         mock.return_value = resp
 
         uri = '%s/SIP/Domains/%s' % (self.BASE_URI, self.SID)
-        self.list_resource.get(self.SID)
+        self.list_resource.get(self.SID).execute()
 
         mock.assert_called_with("GET", uri, auth=self.AUTH,
                                 use_json_extension=True)
@@ -65,7 +65,7 @@ class SipDomainTest(unittest.TestCase):
         mock.return_value = resp
 
         uri = '%s/SIP/Domains/%s' % (self.BASE_URI, self.SID)
-        self.list_resource.delete(self.SID)
+        self.list_resource.delete(self.SID).execute()
 
         mock.assert_called_with("DELETE", uri, auth=self.AUTH,
                                 use_json_extension=True)
@@ -77,7 +77,7 @@ class SipDomainTest(unittest.TestCase):
         mock.return_value = resp
 
         uri = '%s/SIP/Domains/%s' % (self.BASE_URI, self.SID)
-        self.list_resource.update(self.SID, domain_name='domain')
+        self.list_resource.update(self.SID, domain_name='domain').execute()
 
         data = {
             'DomainName': 'domain',
@@ -94,7 +94,7 @@ class SipDomainTest(unittest.TestCase):
         mock.return_value = resp
 
         uri = '%s/SIP/Domains/%s' % (self.BASE_URI, self.SID)
-        self.instance_resource.update(domain_name='domain')
+        self.instance_resource.update(domain_name='domain').execute()
 
         data = {
             'DomainName': 'domain',
@@ -110,7 +110,7 @@ class SipDomainTest(unittest.TestCase):
         mock.return_value = resp
 
         uri = '%s/SIP/Domains/%s' % (self.BASE_URI, self.SID)
-        self.instance_resource.delete()
+        self.instance_resource.delete().execute()
 
         mock.assert_called_with("DELETE", uri,
                                 auth=self.AUTH,

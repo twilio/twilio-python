@@ -21,7 +21,7 @@ class AuthorizedConnectAppTest(unittest.TestCase):
         mock.return_value = Mock()
         mock.return_value.content = '{"connect_app_sid": "SID"}'
 
-        self.resource.get("SID")
+        self.resource.get("SID").execute()
         mock.assert_called_with("GET", "/base/AuthorizedConnectApps/SID",
                                 auth=self.auth, use_json_extension=True)
 
@@ -30,7 +30,7 @@ class AuthorizedConnectAppTest(unittest.TestCase):
         mock.return_value = Mock()
         mock.return_value.content = '{"authorized_connect_apps": []}'
 
-        self.resource.list()
+        self.resource.list().execute()
         mock.assert_called_with("GET", "/base/AuthorizedConnectApps",
                                 params={}, auth=self.auth,
                                 use_json_extension=True)

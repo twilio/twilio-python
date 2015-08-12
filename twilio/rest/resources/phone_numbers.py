@@ -1,6 +1,7 @@
 import re
 
 from twilio.exceptions import TwilioException
+from twilio.rest.resources.base import CreateQuery, ListQuery
 from .util import change_dict_key, transform_params
 from .util import UNSET_TIMEOUT
 from . import InstanceResource, ListResource
@@ -96,12 +97,11 @@ class AvailablePhoneNumbers(ListResource):
         kwargs["in_postal_code"] = kwargs.get("in_postal_code", postal_code)
         kwargs["in_lata"] = kwargs.get("in_lata", lata)
         kwargs["in_rate_center"] = kwargs.get("in_rate_center", rate_center)
-        params = transform_params(kwargs)
 
         uri = "%s/%s/%s" % (self.uri, country, TYPES[type])
-        resp, page = self.request("GET", uri, params=params)
 
-        return [self.load_instance(i) for i in page[self.key]]
+        return ListQuery(self, uri, kwargs,
+                         self.use_json_extension)
 
     def load_instance(self, data):
         instance = self.instance(self.phone_numbers)
@@ -230,8 +230,7 @@ class PhoneNumber(IncomingPhoneNumber):
         Transfer the phone number with sid from the current account to another
         identified by account_sid
         """
-        a = self.parent.transfer(self.name, account_sid)
-        self.load(a.__dict__)
+        return self.parent.transfer(self.name, account_sid)
 
     def update(self, **kwargs):
         """
@@ -241,8 +240,7 @@ class PhoneNumber(IncomingPhoneNumber):
         change_dict_key(kwargs_copy, from_key="status_callback_url",
                         to_key="status_callback")
 
-        a = self.parent.update(self.name, **kwargs_copy)
-        self.load(a.__dict__)
+        return self.parent.update(self.name, **kwargs_copy)
 
 
 class PhoneNumbers(IncomingPhoneNumbers):
@@ -263,15 +261,11 @@ class PhoneNumbers(IncomingPhoneNumbers):
 
         You can specify partial numbers and use '*' as a wildcard.
         """
-
         uri = self.uri
         if type:
             uri = "%s/%s" % (self.uri, TYPES[type])
 
-        params = transform_params(kwargs)
-        resp, page = self.request("GET", uri, params=params)
-
-        return [self.load_instance(i) for i in page[self.key]]
+        return ListQuery(self, uri, kwargs, self.use_json_extension)
 
     def purchase(self, status_callback_url=None, **kwargs):
         """
@@ -294,10 +288,7 @@ class PhoneNumbers(IncomingPhoneNumbers):
         if number_type:
             uri = "%s/%s" % (self.uri, TYPES[number_type])
 
-        params = transform_params(kwargs)
-        resp, instance = self.request('POST', uri, data=params)
-
-        return self.load_instance(instance)
+        return CreateQuery(self, uri, kwargs, self.use_json_extension)
 
     def search(self, **kwargs):
         """

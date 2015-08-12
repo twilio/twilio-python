@@ -20,4 +20,5 @@ class TwilioLookupsClient(LookupsClient):
     def __init__(self, *args, **kwargs):
         super(TwilioLookupsClient, self).__init__(*args, **kwargs)
 
-        self.phone_numbers = PhoneNumbers(self.version_uri, self.auth, self.timeout)
+        self.phone_numbers = PhoneNumbers(self.version_uri,
+                                          self.auth, self.timeout)

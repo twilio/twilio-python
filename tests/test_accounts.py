@@ -17,7 +17,7 @@ class AccountTest(unittest.TestCase):
         mock.uri = "/base"
         account = Account(mock, 'AC123')
         account.load_subresources()
-        records = account.usage_records.list()
+        records = account.usage_records.list().execute()
         self.assertEquals(len(records), 2)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
@@ -29,5 +29,5 @@ class AccountTest(unittest.TestCase):
         mock.uri = "/base"
         account = Account(mock, 'AC123')
         account.load_subresources()
-        triggers = account.usage_triggers.list()
+        triggers = account.usage_triggers.list().execute()
         self.assertEquals(len(triggers), 2)

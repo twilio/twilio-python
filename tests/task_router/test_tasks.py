@@ -19,7 +19,9 @@ class TaskTest(unittest.TestCase):
         request.return_value = resp
 
         tasks = Tasks(BASE_URI, AUTH)
-        tasks.create("attributes", "WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", timeout=60)
+        tasks.create("attributes",
+                     "WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                     timeout=60).execute()
         exp_params = {
             'Attributes': "attributes",
             'WorkflowSid': "WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -40,7 +42,7 @@ class TaskTest(unittest.TestCase):
         uri = "{0}/Tasks/{1}".format(BASE_URI, TASK_SID)
         list_resource = Tasks(BASE_URI, AUTH)
         task = Task(list_resource, TASK_SID)
-        task.delete()
+        task.delete().execute()
         request.assert_called_with("DELETE", uri, auth=AUTH,
                                    use_json_extension=False)
 
@@ -53,7 +55,7 @@ class TaskTest(unittest.TestCase):
 
         uri = "{0}/Tasks/{1}".format(BASE_URI, TASK_SID)
         list_resource = Tasks(BASE_URI, AUTH)
-        list_resource.delete(TASK_SID)
+        list_resource.delete(TASK_SID).execute()
         request.assert_called_with("DELETE", uri, auth=AUTH,
                                    use_json_extension=False)
 
@@ -65,7 +67,7 @@ class TaskTest(unittest.TestCase):
 
         uri = "{0}/Tasks/{1}".format(BASE_URI, TASK_SID)
         list_resource = Tasks(BASE_URI, AUTH)
-        list_resource.get(TASK_SID)
+        list_resource.get(TASK_SID).execute()
         request.assert_called_with("GET", uri, auth=AUTH,
                                    use_json_extension=False)
 
@@ -77,7 +79,7 @@ class TaskTest(unittest.TestCase):
 
         uri = "{0}/Tasks".format(BASE_URI)
         list_resource = Tasks(BASE_URI, AUTH)
-        list_resource.list()
+        list_resource.list().execute()
         request.assert_called_with("GET", uri, params={}, auth=AUTH,
                                    use_json_extension=False)
 
@@ -90,7 +92,8 @@ class TaskTest(unittest.TestCase):
         uri = "{0}/Tasks/{1}".format(BASE_URI, TASK_SID)
         list_resource = Tasks(BASE_URI, AUTH)
         workflow = Task(list_resource, TASK_SID)
-        workflow.update(attributes='attributes', workflow_sid='WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+        workflow.update(attributes='attributes',
+                        workflow_sid='WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').execute()
         exp_params = {
             'Attributes': "attributes",
             'WorkflowSid': "WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -107,7 +110,9 @@ class TaskTest(unittest.TestCase):
 
         uri = "{0}/Tasks/{1}".format(BASE_URI, TASK_SID)
         list_resource = Tasks(BASE_URI, AUTH)
-        list_resource.update(TASK_SID, attributes='attributes', workflow_sid='WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+        list_resource.update(TASK_SID,
+                             attributes='attributes',
+                             workflow_sid='WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').execute()
         exp_params = {
             'Attributes': "attributes",
             'WorkflowSid': "WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"

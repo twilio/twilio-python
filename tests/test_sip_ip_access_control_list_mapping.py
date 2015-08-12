@@ -32,7 +32,7 @@ class SipIPAccessControlListMappingTest(unittest.TestCase):
         mock.return_value = resp
 
         uri = '%s/IpAccessControlListMappings' % (self.BASE_URI)
-        self.list_resource.list()
+        self.list_resource.list().execute()
 
         mock.assert_called_with("GET", uri, params={}, auth=self.AUTH,
                                 use_json_extension=True)
@@ -45,7 +45,7 @@ class SipIPAccessControlListMappingTest(unittest.TestCase):
         mock.return_value = resp
 
         uri = '%s/IpAccessControlListMappings' % (self.BASE_URI)
-        self.list_resource.create('cred_sid')
+        self.list_resource.create('cred_sid').execute()
 
         data = {
             'IpAccessControlListSid': 'cred_sid'
@@ -61,7 +61,7 @@ class SipIPAccessControlListMappingTest(unittest.TestCase):
         mock.return_value = resp
 
         uri = '%s/IpAccessControlListMappings/%s' % (self.BASE_URI, self.SID)
-        self.list_resource.get(self.SID)
+        self.list_resource.get(self.SID).execute()
 
         mock.assert_called_with("GET", uri, auth=self.AUTH,
                                 use_json_extension=True)
@@ -73,7 +73,7 @@ class SipIPAccessControlListMappingTest(unittest.TestCase):
         mock.return_value = resp
 
         uri = '%s/IpAccessControlListMappings/%s' % (self.BASE_URI, self.SID)
-        self.list_resource.delete(self.SID)
+        self.list_resource.delete(self.SID).execute()
 
         mock.assert_called_with("DELETE", uri, auth=self.AUTH,
                                 use_json_extension=True)
@@ -85,7 +85,7 @@ class SipIPAccessControlListMappingTest(unittest.TestCase):
         mock.return_value = resp
 
         uri = '%s/IpAccessControlListMappings/%s' % (self.BASE_URI, self.SID)
-        self.instance_resource.delete()
+        self.instance_resource.delete().execute()
 
         mock.assert_called_with("DELETE", uri,
                                 auth=self.AUTH,

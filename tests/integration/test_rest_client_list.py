@@ -94,16 +94,16 @@ class TwilioRestClientTest(BaseIntegrationTest):
                                        base_uri)
 
     def test_list_top_level(self):
-        for conference in self.client.conferences.list()[0:1]:
-            conference.participants.list()
+        for conference in self.client.conferences.list().execute()[0:1]:
+            conference.participants.list().execute()
 
-        self.client.authorized_connect_apps.list()
-        self.client.applications.list()
-        self.client.caller_ids.list()
+        self.client.authorized_connect_apps.list().execute()
+        self.client.applications.list().execute()
+        self.client.caller_ids.list().execute()
 
-        for call in self.client.calls.list()[0:1]:
-            call.notifications.list()
-            call.recordings.list()
+        for call in self.client.calls.list().execute()[0:1]:
+            call.notifications.list().execute()
+            call.recordings.list().execute()
 
             try:
                 call.feedback.get()
@@ -111,58 +111,58 @@ class TwilioRestClientTest(BaseIntegrationTest):
                 if e.status != 404:
                     raise e
 
-        self.client.connect_apps.list()
-        for message in self.client.messages.list()[0:1]:
-            message.media_list.list()
+        self.client.connect_apps.list().execute()
+        for message in self.client.messages.list().execute()[0:1]:
+            message.media_list.list().execute()
 
-        self.client.notifications.list()
-        self.client.phone_numbers.list()
-        self.client.phone_numbers.available_phone_numbers.list()
-        self.client.phone_numbers.available_phone_numbers.list(type='mobile')
-        self.client.phone_numbers.available_phone_numbers.list(type='tollfree')
-        self.client.phone_numbers.available_phone_numbers.list(country='CA')
+        self.client.notifications.list().execute()
+        self.client.phone_numbers.list().execute()
+        self.client.phone_numbers.available_phone_numbers.list().execute()
+        self.client.phone_numbers.available_phone_numbers.list(type='mobile').execute()
+        self.client.phone_numbers.available_phone_numbers.list(type='tollfree').execute()
+        self.client.phone_numbers.available_phone_numbers.list(country='CA').execute()
 
-        for queue in self.client.queues.list()[0:1]:
-            queue.queue_members.list()
+        for queue in self.client.queues.list().execute()[0:1]:
+            queue.queue_members.list().execute()
 
-        self.client.recordings.list()
+        self.client.recordings.list().execute()
 
-        for domain in self.client.sip.domains.list()[0:1]:
+        for domain in self.client.sip.domains.list().execute()[0:1]:
             self.client.sip.ip_access_control_list_mappings(domain.name)
             self.client.sip.credential_list_mappings(domain.name)
 
-        for cred_list in self.client.sip.credential_lists.list()[0:1]:
+        for cred_list in self.client.sip.credential_lists.list().execute()[0:1]:
             self.client.sip.credentials(cred_list.name)
-            cred_list.credentials.list()
+            cred_list.credentials.list().execute()
 
-        self.client.sip.ip_access_control_lists.list()
-        self.client.sms.messages.list()
-        self.client.sms.short_codes.list()
-        self.client.transcriptions.list()
-        self.client.usage.records.list()
-        self.client.usage.triggers.list()
+        self.client.sip.ip_access_control_lists.list().execute()
+        self.client.sms.messages.list().execute()
+        self.client.sms.short_codes.list().execute()
+        self.client.transcriptions.list().execute()
+        self.client.usage.records.list().execute()
+        self.client.usage.triggers.list().execute()
 
     def test_list_accounts(self):
-        accounts = self.client.accounts.list()
+        accounts = self.client.accounts.list().execute()
         for account in accounts[-1:]:
-            account.calls.list()
-            account.conferences.list()
-            account.incoming_phone_numbers.list()
-            account.messages.list()
-            account.notifications.list()
-            account.outgoing_caller_ids.list()
-            account.queues.list()
-            account.recordings.list()
-            account.sip.credential_lists.list()
-            account.sip.domains.list()
-            account.sip.ip_access_control_lists.list()
-            account.sms.messages.list()
-            account.sms.short_codes.list()
-            account.transcriptions.list()
-            account.usage_records.list()
-            account.usage_records.daily.list()
-            account.usage_records.last_month.list()
-            account.usage_records.monthly.list()
-            account.usage_records.this_month.list()
-            account.usage_records.today.list()
-            account.usage_triggers.list()
+            account.calls.list().execute()
+            account.conferences.list().execute()
+            account.incoming_phone_numbers.list().execute()
+            account.messages.list().execute()
+            account.notifications.list().execute()
+            account.outgoing_caller_ids.list().execute()
+            account.queues.list().execute()
+            account.recordings.list().execute()
+            account.sip.credential_lists.list().execute()
+            account.sip.domains.list().execute()
+            account.sip.ip_access_control_lists.list().execute()
+            account.sms.messages.list().execute()
+            account.sms.short_codes.list().execute()
+            account.transcriptions.list().execute()
+            account.usage_records.list().execute()
+            account.usage_records.daily.list().execute()
+            account.usage_records.last_month.list().execute()
+            account.usage_records.monthly.list().execute()
+            account.usage_records.this_month.list().execute()
+            account.usage_records.today.list().execute()
+            account.usage_triggers.list().execute()

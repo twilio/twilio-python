@@ -20,7 +20,7 @@ class ActivityTest(unittest.TestCase):
         request.return_value = resp
 
         activities = Activities(BASE_URI, AUTH)
-        activity = activities.create("Test Activity", True)
+        activity = activities.create("Test Activity", True).execute()
         self.assertTrue(activity is not None)
         self.assertEqual(activity.date_created, datetime(2014, 5, 14, 10, 50, 2, tzinfo=pytz.utc))
         exp_params = {
@@ -42,7 +42,7 @@ class ActivityTest(unittest.TestCase):
         uri = "{0}/Activities/{1}".format(BASE_URI, ACTIVITY_SID)
         list_resource = Activities(BASE_URI, AUTH)
         activity = Activity(list_resource, ACTIVITY_SID)
-        activity.delete()
+        activity.delete().execute()
         request.assert_called_with("DELETE", uri, auth=AUTH,
                                    use_json_extension=False)
 
@@ -55,7 +55,7 @@ class ActivityTest(unittest.TestCase):
 
         uri = "{0}/Activities/{1}".format(BASE_URI, ACTIVITY_SID)
         list_resource = Activities(BASE_URI, AUTH)
-        list_resource.delete(ACTIVITY_SID)
+        list_resource.delete(ACTIVITY_SID).execute()
         request.assert_called_with("DELETE", uri, auth=AUTH,
                                    use_json_extension=False)
 
@@ -67,7 +67,7 @@ class ActivityTest(unittest.TestCase):
 
         uri = "{0}/Activities/{1}".format(BASE_URI, ACTIVITY_SID)
         list_resource = Activities(BASE_URI, AUTH)
-        list_resource.get(ACTIVITY_SID)
+        list_resource.get(ACTIVITY_SID).execute()
         request.assert_called_with("GET", uri, auth=AUTH,
                                    use_json_extension=False)
 
@@ -79,7 +79,7 @@ class ActivityTest(unittest.TestCase):
 
         uri = "{0}/Activities".format(BASE_URI)
         list_resource = Activities(BASE_URI, AUTH)
-        list_resource.list()
+        list_resource.list().execute()
         request.assert_called_with("GET", uri, params={}, auth=AUTH,
                                    use_json_extension=False)
 
@@ -92,7 +92,7 @@ class ActivityTest(unittest.TestCase):
         uri = "{0}/Activities/{1}".format(BASE_URI, ACTIVITY_SID)
         list_resource = Activities(BASE_URI, AUTH)
         activity = Activity(list_resource, ACTIVITY_SID)
-        activity.update(friendly_name='Test Activity', available=True)
+        activity.update(friendly_name='Test Activity', available=True).execute()
         exp_params = {
             'FriendlyName': "Test Activity",
             'Available': "true"
@@ -109,7 +109,8 @@ class ActivityTest(unittest.TestCase):
 
         uri = "{0}/Activities/{1}".format(BASE_URI, ACTIVITY_SID)
         list_resource = Activities(BASE_URI, AUTH)
-        list_resource.update(ACTIVITY_SID, friendly_name='Test Activity', available="true")
+        list_resource.update(ACTIVITY_SID, friendly_name='Test Activity',
+                             available="true").execute()
         exp_params = {
             'FriendlyName': "Test Activity",
             'Available': "true"

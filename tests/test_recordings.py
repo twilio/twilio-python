@@ -20,7 +20,7 @@ def test_paging(mock):
     mock.return_value = resp
 
     uri = "%s/Recordings" % (BASE_URI)
-    recordings.list(call_sid="CA123", before=date(2010, 12, 5))
+    recordings.list(call_sid="CA123", before=date(2010, 12, 5)).execute()
     exp_params = {'CallSid': 'CA123', 'DateCreated<': '2010-12-05'}
 
     mock.assert_called_with("GET", uri, params=exp_params, auth=AUTH,
@@ -33,7 +33,7 @@ def test_get(mock):
     mock.return_value = resp
 
     uri = "%s/Recordings/%s" % (BASE_URI, RE_SID)
-    r = recordings.get(RE_SID)
+    r = recordings.get(RE_SID).execute()
 
     mock.assert_called_with("GET", uri, auth=AUTH,
                             use_json_extension=True)
@@ -49,7 +49,7 @@ def test_delete_list(mock):
     mock.return_value = resp
 
     uri = "%s/Recordings/%s" % (BASE_URI, RE_SID)
-    r = recordings.delete(RE_SID)
+    r = recordings.delete(RE_SID).execute()
 
     mock.assert_called_with("DELETE", uri, auth=AUTH, use_json_extension=True)
     assert_true(r)
@@ -63,7 +63,7 @@ def test_delete_instance(mock):
 
     uri = "%s/Recordings/%s" % (BASE_URI, RE_SID)
     rec = Recording(recordings, RE_SID)
-    r = rec.delete()
+    r = rec.delete().execute()
 
     mock.assert_called_with("DELETE", uri, auth=AUTH,
                             use_json_extension=True)

@@ -18,10 +18,10 @@ def test_get_phone_number(request):
     request.return_value = resp
 
     phone_numbers = PhoneNumbers('/v1', AUTH, TIMEOUT)
-    pn = phone_numbers.get('+15108675309')
+    pn = phone_numbers.get('+15108675309').execute()
     assert_equal(pn.phone_number, '+15108675309')
     request.assert_called_with('GET', '/v1/PhoneNumbers/+15108675309',
-                               auth=AUTH, timeout=TIMEOUT, params={},
+                               auth=AUTH, timeout=TIMEOUT,
                                use_json_extension=False)
 
 
@@ -33,7 +33,7 @@ def test_get_carrier_info(request):
     request.return_value = resp
 
     phone_numbers = PhoneNumbers('/v1', AUTH, TIMEOUT)
-    pn = phone_numbers.get('+15108675309', include_carrier_info=True)
+    pn = phone_numbers.get('+15108675309', include_carrier_info=True).execute()
     assert_equal(pn.phone_number, '+15108675309')
     request.assert_called_with('GET', '/v1/PhoneNumbers/+15108675309',
                                auth=AUTH, timeout=TIMEOUT,
@@ -49,7 +49,7 @@ def test_get_with_country_code(request):
     request.return_value = resp
 
     phone_numbers = PhoneNumbers('/v1', AUTH, TIMEOUT)
-    pn = phone_numbers.get('510-867-5309', country_code='US')
+    pn = phone_numbers.get('510-867-5309', country_code='US').execute()
     assert_equal(pn.phone_number, '+15108675309')
     request.assert_called_with('GET', '/v1/PhoneNumbers/510-867-5309',
                                auth=AUTH, timeout=TIMEOUT,

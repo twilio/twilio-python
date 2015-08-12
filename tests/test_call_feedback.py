@@ -19,7 +19,7 @@ class CallFeedbackTest(unittest.TestCase):
         mock.uri = '/base'
         call = Call(mock, 'CA123')
         call.load_subresources()
-        feedback = call.feedback.get()
+        feedback = call.feedback.get().execute()
         assert_equal(5, feedback.quality_score, 5)
         assert_equal(['imperfect-audio', 'post-dial-delay'], feedback.issues)
 
@@ -37,7 +37,7 @@ class CallFeedbackTest(unittest.TestCase):
         feedback = call.feedback.create(
             quality_score=5,
             issues=['imperfect-audio', 'post-dial-delay'],
-        )
+        ).execute()
 
         exp_data = {
             'QualityScore': 5,
@@ -67,7 +67,7 @@ class CallFeedbackTest(unittest.TestCase):
             'CA123',
             quality_score=5,
             issue=['imperfect-audio', 'post-dial-delay']
-        )
+        ).execute()
 
         exp_data = {
             'QualityScore': 5,
@@ -94,10 +94,10 @@ class CallFeedbackSummaryTest(unittest.TestCase):
         auth = (account_sid, "token")
 
         calls = Calls(base_uri, auth)
-        uri = "%s/Calls/FeedbackSummary" % base_uri
-        feedback = calls.summary.get()
+        uri = "%s/Calls/FeedbackSummary/sid" % base_uri
+        feedback = calls.summary.get('sid').execute()
         assert_equal(10200, feedback.call_count)
         assert_equal(729, feedback.call_feedback_count)
 
-        request.assert_called_with('GET', uri, params={}, auth=auth,
+        request.assert_called_with('GET', uri, auth=auth,
                                    use_json_extension=True)

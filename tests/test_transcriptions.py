@@ -16,7 +16,7 @@ def test_paging(mock):
     mock.return_value = resp
 
     uri = "%s/Transcriptions" % (BASE_URI)
-    transcriptions.list(page=2)
+    transcriptions.list(page=2).execute()
 
     mock.assert_called_with("GET", uri, params={"Page": 2}, auth=AUTH,
                             use_json_extension=True)
@@ -28,24 +28,25 @@ def test_get(mock):
     mock.return_value = resp
 
     uri = "%s/Transcriptions/TR123" % (BASE_URI)
-    transcriptions.get("TR123")
+    transcriptions.get("TR123").execute()
 
     mock.assert_called_with("GET", uri, auth=AUTH,
                             use_json_extension=True)
 
 
-@patch("twilio.rest.resources.base.Resource.request")
+@patch("twilio.rest.resources.base.make_twilio_request")
 def test_delete_transcription(req):
     """ Deleting a transcription should work """
     resp = Mock()
     resp.content = ""
     resp.status_code = 204
-    req.return_value = resp, {}
+    req.return_value = resp
 
     app = Transcription(transcriptions, "TR123")
-    app.delete()
+    app.delete().execute()
+
     uri = "https://api.twilio.com/2010-04-01/Accounts/AC123/Transcriptions/TR123"
-    req.assert_called_with("DELETE", uri)
+    req.assert_called_with("DELETE", uri, auth=AUTH, use_json_extension=True)
 
 
 @raises(AttributeError)

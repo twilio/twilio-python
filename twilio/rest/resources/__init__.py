@@ -5,7 +5,8 @@ from .util import (
 from .base import (
     Response, Resource, InstanceResource, ListResource,
     NextGenInstanceResource, NextGenListResource,
-    make_request, make_twilio_request
+    make_request, make_twilio_request,
+    GetQuery, UpdateQuery, CreateQuery, ListQuery, Query, DeleteQuery
 )
 from .phone_numbers import (
     AvailablePhoneNumber, AvailablePhoneNumbers, PhoneNumber, PhoneNumbers

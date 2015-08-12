@@ -1,6 +1,7 @@
+import json
 import unittest
 
-from mock import Mock
+from mock import Mock, patch
 from nose.tools import assert_equal, assert_true, assert_false
 
 from twilio.rest.exceptions import TwilioException
@@ -21,7 +22,7 @@ class AvailablePhoneNumberTest(unittest.TestCase):
 
     def test_purchase(self):
         self.instance.phone_number = "+123"
-        self.instance.purchase(voice_url="http://www.google.com")
+        self.instance.purchase(voice_url="http://www.google.com").execute()
 
         self.parent.purchase.assert_called_with(
             voice_url="http://www.google.com",
@@ -31,46 +32,42 @@ class AvailablePhoneNumberTest(unittest.TestCase):
 class AvailablePhoneNumbersTest(unittest.TestCase):
 
     def setUp(self):
+        self.auth = ("user", "pass")
         self.resource = AvailablePhoneNumbers("http://api.twilio.com",
-                                              ("user", "pass"), UNSET_TIMEOUT, Mock())
+                                              self.auth, UNSET_TIMEOUT, Mock())
 
     def test_get(self):
         self.assertRaises(TwilioException, self.resource.get, "PN123")
 
-    def test_list(self):
-        request = Mock()
-        request.return_value = (Mock(), {"available_phone_numbers": []})
-        self.resource.request = request
+    @patch('twilio.rest.resources.base.make_twilio_request')
+    def test_list(self, mock):
+        response = Mock()
+        response.status_code = 201
+        response.content = json.dumps({"available_phone_numbers": []})
+        mock.return_value = response
 
-        self.resource.list()
+        self.resource.list().execute()
 
         uri = "http://api.twilio.com/AvailablePhoneNumbers/US/Local"
-        request.assert_called_with("GET", uri, params={})
+        mock.assert_called_with("GET", uri, params={},
+                                auth=self.auth, use_json_extension=True)
 
     def test_load_instance(self):
         instance = self.resource.load_instance({"hey": "you"})
         assert_true(isinstance(instance.parent, Mock))
         assert_equal(instance.hey, "you")
 
-    def test_purchase_status_callback(self):
-        request = Mock()
-        request.return_value = (Mock(), {"available_phone_numbers": []})
-        self.resource.request = request
+    @patch('twilio.rest.resources.base.make_twilio_request')
+    def test_mobile(self, mock):
+        response = Mock()
+        response.status_code = 201
+        response.content = json.dumps({"available_phone_numbers": []})
+        mock.return_value = response
 
-        self.resource.list()
-
-        uri = "http://api.twilio.com/AvailablePhoneNumbers/US/Local"
-        request.assert_called_with("GET", uri, params={})
-
-    def test_mobile(self):
-        request = Mock()
-        request.return_value = (Mock(), {"available_phone_numbers": []})
-        self.resource.request = request
-
-        self.resource.list(type='mobile', country='GB')
-
+        self.resource.list(type='mobile', country='GB').execute()
         uri = "http://api.twilio.com/AvailablePhoneNumbers/GB/Mobile"
-        request.assert_called_with("GET", uri, params={})
+        mock.assert_called_with("GET", uri, params={},
+                                auth=self.auth, use_json_extension=True)
 
 
 class PhoneNumbersTest(unittest.TestCase):
@@ -83,15 +80,15 @@ class PhoneNumbersTest(unittest.TestCase):
         assert_equal(self.resource.available_phone_numbers.phone_numbers,
                      self.resource)
 
-    def test_purchase_status_callback(self):
-        request = Mock()
+    @patch('twilio.rest.resources.base.make_twilio_request')
+    def test_purchase_status_callback(self, mock):
         response = Mock()
         response.status_code = 201
-        request.return_value = (response, {"sid": ""})
-        self.resource.request = request
+        response.content = json.dumps({"sid": ""})
+        mock.return_value = response
 
         self.resource.purchase(area_code="530", status_callback_url="http://",
-                               status_callback_method="POST")
+                               status_callback_method="POST").execute()
 
         uri = "http://api.twilio.com/IncomingPhoneNumbers"
 
@@ -99,6 +96,8 @@ class PhoneNumbersTest(unittest.TestCase):
             "AreaCode": "530",
             "StatusCallback": "http://",
             "StatusCallbackMethod": "POST",
-            }
+        }
 
-        request.assert_called_with("POST", uri, data=data)
+        mock.assert_called_with("POST", uri, data=data,
+                                auth=("user", "pass"),
+                                use_json_extension=True)

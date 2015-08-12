@@ -18,7 +18,7 @@ class ConnectAppTest(unittest.TestCase):
         mock.return_value = Mock()
         mock.return_value.content = '{"sid": "SID"}'
 
-        self.resource.get("SID")
+        self.resource.get("SID").execute()
         mock.assert_called_with("GET", "/base/ConnectApps/SID",
             auth=self.auth, use_json_extension=True)
 
@@ -27,7 +27,7 @@ class ConnectAppTest(unittest.TestCase):
         mock.return_value = Mock()
         mock.return_value.content = '{"connect_apps": []}'
 
-        self.resource.list(page=1, page_size=50)
+        self.resource.list(page=1, page_size=50).execute()
         mock.assert_called_with("GET", "/base/ConnectApps",
                                 params={"Page": 1, "PageSize": 50},
                                 auth=self.auth,
@@ -38,7 +38,7 @@ class ConnectAppTest(unittest.TestCase):
         mock.return_value = Mock()
         mock.return_value.content = '{"connect_apps": []}'
 
-        self.resource.list()
+        self.resource.list().execute()
         mock.assert_called_with("GET", "/base/ConnectApps",
                                 params={}, auth=self.auth,
                                 use_json_extension=True)

@@ -41,13 +41,13 @@ class RestClientTest(unittest.TestCase):
         mock.return_value = Mock()
         mock.return_value.ok = True
         mock.return_value.content = '{"conferences": []}'
-        self.client.conferences.list()
+        self.client.conferences.list().execute()
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_members(self, mock):
         resp = create_mock_json("tests/resources/members_list.json")
         mock.return_value = resp
-        self.client.members("QU123").list()
+        self.client.members("QU123").list().execute()
         uri = "https://api.twilio.com/2010-04-01/Accounts/ACCOUNT_SID" \
               "/Queues/QU123/Members"
         mock.assert_called_with("GET", uri, params={}, auth=AUTH,
@@ -60,7 +60,7 @@ class RestClientTest(unittest.TestCase):
         )
         request.return_value = resp
         workflows = self.task_router_client.workflows("WS123")
-        workflows = workflows.list()
+        workflows = workflows.list().execute()
         assert_true(workflows[0].sid is not None)
         uri = "https://taskrouter.twilio.com/v1/Workspaces/WS123/Workflows"
         request.assert_called_with("GET", uri, headers=ANY, params={},
@@ -76,7 +76,7 @@ class RestClientTimeoutTest(unittest.TestCase):
     def test_members(self, mock_request):
         resp = create_mock_json("tests/resources/members_list.json")
         mock_request.return_value = resp
-        self.client.members("QU123").list()
+        self.client.members("QU123").list().execute()
         mock_request.assert_called_with("GET", ANY, params=ANY, auth=AUTH,
                                         timeout=sentinel.timeout,
                                         use_json_extension=True)
@@ -87,7 +87,7 @@ class RestClientTimeoutTest(unittest.TestCase):
         mock_response.ok = True
         mock_response.content = json.dumps({"short_codes": []})
         mock_request.return_value = mock_response
-        assert_equal([], self.client.sms.short_codes.list())
+        assert_equal([], self.client.sms.short_codes.list().execute())
         mock_request.assert_called_once_with("GET", ANY, params=ANY, auth=AUTH,
                                              timeout=sentinel.timeout,
                                              use_json_extension=True)

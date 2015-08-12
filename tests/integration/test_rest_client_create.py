@@ -36,10 +36,10 @@ class TwilioRestClientTest(BaseIntegrationTest):
         ]
         call = self.client.calls.create('+14105551234',
                                         config.post_account_outgoing_pn,
-                                        'http://example.com/foo.xml')
-        call.cancel()
-        call.hangup()
-        call.delete()
+                                        'http://example.com/foo.xml').execute()
+        call.cancel().execute()
+        call.hangup().execute()
+        call.delete().execute()
 
     def test_message(self):
         self.response_handlers = [
@@ -57,9 +57,9 @@ class TwilioRestClientTest(BaseIntegrationTest):
         ]
         message = self.client.messages.create(config.post_account_outgoing_pn,
                                               to=config.post_account_outgoing_pn,
-                                              body='a')
-        message.redact()
-        message.delete()
+                                              body='a').execute()
+        message.redact().execute()
+        message.delete().execute()
 
     def test_sms(self):
         self.response_handlers = [
@@ -73,15 +73,15 @@ class TwilioRestClientTest(BaseIntegrationTest):
         ]
         sms = self.client.sms.messages.create(config.post_account_outgoing_pn,
                                               to=config.post_account_outgoing_pn,
-                                              body='a')
-        sms.delete()
+                                              body='a').execute()
+        sms.delete().execute()
 
     def test_tokens(self):
         self.response_handlers = [
             PRH('/Accounts/ACbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/Tokens',
                 'tokens.json', {'Ttl': 30})
         ]
-        self.client.tokens.create(ttl=30)
+        self.client.tokens.create(ttl=30).execute()
 
     def test_accounts(self):
         self.response_handlers = [
@@ -98,10 +98,10 @@ class TwilioRestClientTest(BaseIntegrationTest):
                 'Status': "closed"
             }),
         ]
-        account = self.client.accounts.create(friendly_name='test_sub_account')
-        account.suspend()
-        account.activate()
-        account.close()
+        account = self.client.accounts.create(friendly_name='test_sub_account').execute()
+        account.suspend().execute()
+        account.activate().execute()
+        account.close().execute()
 
     def test_available_phone_numbers(self):
         self.response_handlers = [
@@ -113,8 +113,9 @@ class TwilioRestClientTest(BaseIntegrationTest):
                     'PhoneNumber': '+141586753092'
                 })
         ]
-        phone_numbers = self.client.phone_numbers.available_phone_numbers.list()
-        phone_numbers[0].purchase()
+        phone_numbers = self.client.phone_numbers.available_phone_numbers\
+            .list().execute()
+        phone_numbers[0].purchase().execute()
 
     def test_sip_domain(self):
         self.response_handlers = [
@@ -141,21 +142,22 @@ class TwilioRestClientTest(BaseIntegrationTest):
                 '/IpAccessControlListMappings/ALasdfasfasdf'),
         ]
 
-        domain = self.client.sip.domains.create('domain')
-        domain.update()
+        domain = self.client.sip.domains.create('domain').execute()
+        domain.update().execute()
 
-        cred = domain.credential_list_mappings.create('credsid')
-        cred.delete()
-        cred = self.client.sip.credential_list_mappings('SD27f0288630a668bdfbf177f8e22f5ccc').create('credsid')
-        cred.delete()
+        cred = domain.credential_list_mappings.create('credsid').execute()
+        cred.delete().execute()
+        cred = self.client.sip.credential_list_mappings(
+            'SD27f0288630a668bdfbf177f8e22f5ccc').create('credsid').execute()
+        cred.delete().execute()
 
-        control = domain.ip_access_control_list_mappings.create('listsid')
-        control.delete()
+        control = domain.ip_access_control_list_mappings.create('listsid').execute()
+        control.delete().execute()
         control = self.client.sip.ip_access_control_list_mappings(
-            'SD27f0288630a668bdfbf177f8e22f5ccc').create('listsid')
-        control.delete()
+            'SD27f0288630a668bdfbf177f8e22f5ccc').create('listsid').execute()
+        control.delete().execute()
 
-        domain.delete()
+        domain.delete().execute()
 
     def test_sip_credential_lists(self):
         self.response_handlers = [
@@ -189,19 +191,19 @@ class TwilioRestClientTest(BaseIntegrationTest):
                 '/Credentials/SC9dc76ca0b355dd39f0f52788b2e008c6')
         ]
 
-        cred_list = self.client.sip.credential_lists.create('friendlyname')
-        cred_list.update(friendly_name='blah')
+        cred_list = self.client.sip.credential_lists.create('friendlyname').execute()
+        cred_list.update(friendly_name='blah').execute()
 
-        credentials = cred_list.credentials.create('username', 'password')
-        credentials.update(username='blah', password='foo')
-        credentials.delete()
+        credentials = cred_list.credentials.create('username', 'password').execute()
+        credentials.update(username='blah', password='foo').execute()
+        credentials.delete().execute()
 
         credentials = self.client.sip.credentials(
-            'CL1e9949149f055138a8c215fb7ccd5b64').create('username', 'password')
-        credentials.update(username='blah', password='foo')
-        credentials.delete()
+            'CL1e9949149f055138a8c215fb7ccd5b64').create('username', 'password').execute()
+        credentials.update(username='blah', password='foo').execute()
+        credentials.delete().execute()
 
-        cred_list.delete()
+        cred_list.delete().execute()
 
     def test_sip_control_list(self):
         self.response_handlers = [
@@ -232,15 +234,15 @@ class TwilioRestClientTest(BaseIntegrationTest):
             DRH('/Accounts/ACbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/SIP'
                 '/IpAccessControlLists/AL123/IpAddresses/AL123'),
         ]
-        control = self.client.sip.ip_access_control_lists.create('friendlyname')
-        control.update(friendly_name='blah')
+        control = self.client.sip.ip_access_control_lists.create('friendlyname').execute()
+        control.update(friendly_name='blah').execute()
 
-        ip = control.ip_addresses.create('friendlyname', '127.0.0.1')
-        ip.update(friendly_name='blah', ip_address='localhost')
-        ip.delete()
+        ip = control.ip_addresses.create('friendlyname', '127.0.0.1').execute()
+        ip.update(friendly_name='blah', ip_address='localhost').execute()
+        ip.delete().execute()
 
-        ip = self.client.sip.ip_addresses('AL123').create('friendlyname', '127.0.0.1')
-        ip.update(friendly_name='blah', ip_address='localhost')
-        ip.delete()
+        ip = self.client.sip.ip_addresses('AL123').create('friendlyname', '127.0.0.1').execute()
+        ip.update(friendly_name='blah', ip_address='localhost').execute()
+        ip.delete().execute()
 
-        control.delete()
+        control.delete().execute()

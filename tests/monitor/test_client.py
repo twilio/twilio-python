@@ -9,6 +9,6 @@ def test_events(mock):
     client = TwilioMonitorClient("ACCOUNT_SID", "AUTH_TOKEN")
     resp = create_mock_json("tests/resources/monitor/events_instance.json")
     mock.return_value = resp
-    client.events.get("AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    client.events.get("AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").execute()
     uri = "https://monitor.twilio.com/v1/Events/AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
     mock.assert_called_with("GET", uri, auth=("ACCOUNT_SID", "AUTH_TOKEN"), use_json_extension=False)

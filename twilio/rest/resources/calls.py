@@ -5,41 +5,12 @@ from twilio.rest.resources.call_feedback import (
 from twilio.rest.resources.util import normalize_dates, parse_date
 
 from twilio.rest.v2010.account.call import (
-    Call as BaseCall,
+    Call,
     Calls as BaseCalls,
 )
 
 
-class Call(BaseCall):
-
-    def hangup(self):
-        """ If this call is currenlty active, hang up the call.
-        If this call is scheduled to be made, remove the call
-        from the queue
-        """
-        a = self.parent.hangup(self.name)
-        self.load(a.__dict__)
-
-    def cancel(self):
-        """ If the called is queued or rining, cancel the calls.
-        Will not affect in progress calls
-        """
-        a = self.parent.cancel(self.name)
-        self.load(a.__dict__)
-
-    def route(self, **kwargs):
-        """Route the specified :class:`Call` to another url.
-
-        :param url: A valid URL that returns TwiML.
-        :param method: HTTP method Twilio uses when requesting the above URL.
-        """
-        a = self.parent.route(self.name, **kwargs)
-        self.load(a.__dict__)
-
-
 class Calls(BaseCalls):
-
-    instance = Call
 
     def __init__(self, *args, **kwargs):
         super(Calls, self).__init__(*args, **kwargs)
@@ -132,27 +103,6 @@ class Calls(BaseCalls):
         kwargs["status_callback_method"] = status_method
         kwargs["status_callback_event"] = status_events
         return self.create_instance(kwargs)
-
-    def update(self, sid, **kwargs):
-        return self.update_instance(sid, kwargs)
-
-    def cancel(self, sid):
-        """ If this call is queued or ringing, cancel the call.
-        Will not affect in-progress calls.
-
-        :param sid: A Call Sid for a specific call
-        :returns: Updated :class:`Call` resource
-        """
-        return self.update(sid, status=Call.CANCELED)
-
-    def hangup(self, sid):
-        """ If this call is currently active, hang up the call. If this call is
-        scheduled to be made, remove the call from the queue.
-
-        :param sid: A Call Sid for a specific call
-        :returns: Updated :class:`Call` resource
-        """
-        return self.update(sid, status=Call.COMPLETED)
 
     def route(self, sid, url, method="POST"):
         """Route the specified :class:`Call` to another url.

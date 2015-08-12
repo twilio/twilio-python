@@ -166,6 +166,183 @@ def make_twilio_request(method, uri, **kwargs):
     return resp
 
 
+class Query(object):
+
+    def __init__(self, auth, timeout):
+        self.auth = auth
+        self.timeout = timeout
+
+    def request(self, method, uri,
+                use_json_extension=False, **kwargs):
+        """
+        Send an HTTP request to the resource.
+
+        :raises: a :exc:`~twilio.TwilioRestException`
+        """
+        if 'timeout' not in kwargs and self.timeout is not UNSET_TIMEOUT:
+            kwargs['timeout'] = self.timeout
+
+        kwargs['use_json_extension'] = use_json_extension
+        resp = make_twilio_request(method, uri, auth=self.auth, **kwargs)
+
+        if method == "DELETE":
+            return resp, {}
+        else:
+            return resp, json.loads(resp.content)
+
+
+class CreateQuery(Query):
+
+    def __init__(self, list_instance, uri, body,
+                 use_json_extension=False):
+        super(CreateQuery, self).__init__(list_instance.auth,
+                                          list_instance.timeout)
+        self.uri = uri
+        self.body = body
+        self.list_instance = list_instance
+        self.use_json_extension = use_json_extension
+
+    def execute(self):
+        """
+        Trigger a server request to create an instance.
+
+        :return: An instance representing the created resource
+        """
+        resp, instance_json = self.request(
+            "POST", self.uri,
+            data=transform_params(self.body),
+            use_json_extension=self.use_json_extension)
+
+        if resp.status_code not in (200, 201):
+            raise TwilioRestException(resp.status_code,
+                                      self.uri, "Resource not created")
+
+        return self.list_instance.load_instance(instance_json)
+
+
+class UpdateQuery(Query):
+
+    def __init__(self, list_instance, uri, body,
+                 use_json_extension=False):
+        super(UpdateQuery, self).__init__(list_instance.auth,
+                                          list_instance.timeout)
+        self.uri = uri
+        self.body = body
+        self.list_instance = list_instance
+        self.use_json_extension = use_json_extension
+
+    def execute(self):
+        """
+        Trigger a server request to update an instance resource
+
+        :raises: a :class:`~twilio.rest.RestException` on failure
+        :return: A new instance representing the updated resource
+        """
+        resp, entry = self.request("POST", self.uri,
+                                   data=transform_params(self.body),
+                                   use_json_extension=self.use_json_extension)
+
+        if resp.status_code not in (200, 201):
+            raise TwilioRestException(resp.status_code,
+                                      self.uri, "Resource not updated")
+
+        return self.list_instance.load_instance(entry)
+
+
+class DeleteQuery(Query):
+
+    def __init__(self, list_instance, uri, use_json_extension=False):
+        super(DeleteQuery, self).__init__(list_instance.auth,
+                                          list_instance.timeout)
+        self.uri = uri
+        self.use_json_extension = use_json_extension
+
+    def execute(self):
+        """
+        Trigger a server request to delete an instance resource
+
+        :raises: a :class:`~twilio.rest.RestException` on failure
+        :return: True iff delete was successful. False otherwise
+        """
+        resp, instance = self.request(
+            "DELETE", self.uri,
+            use_json_extension=self.use_json_extension)
+        return resp.status_code == 204
+
+
+class GetQuery(Query):
+
+    def __init__(self, list_instance, uri, use_json_extension=False,
+                 params=None):
+        super(GetQuery, self).__init__(list_instance.auth,
+                                       list_instance.timeout)
+        self.uri = uri
+        self.list_instance = list_instance
+        self.use_json_extension = use_json_extension
+        self.params = params
+
+    def execute(self):
+        """
+        Trigger a server request to fetch an instance resource
+
+        :raises: a :class:`~twilio.rest.RestException` on failure
+        :return: The instance resource
+        """
+        resp = None
+        response_json = None
+
+        if self.params:
+            resp, response_json = self.request(
+                'GET', self.uri, params=transform_params(self.params),
+                use_json_extension=self.use_json_extension)
+        else:
+            resp, response_json = self.request(
+                'GET', self.uri, use_json_extension=self.use_json_extension)
+
+        return self.list_instance.load_instance(response_json)
+
+
+class ListQuery(Query):
+
+    def __init__(self, list_instance, uri,
+                 params, use_json_extension=False):
+        super(ListQuery, self).__init__(list_instance.auth,
+                                        list_instance.timeout)
+        self.uri = uri
+        self.params = params
+        self.list_instance = list_instance
+        self.use_json_extension = use_json_extension
+
+    def execute(self):
+        """
+        Trigger a server request to fetch a list of instances
+
+        Raises a :exc:`~twilio.TwilioRestException` if requesting a page of
+        results that does not exist.
+
+        :return: -- A list of instances
+        """
+        params = transform_params(self.params)
+
+        resp, page = self.request("GET", self.uri, params=params,
+                                  use_json_extension=self.use_json_extension)
+
+        key = self.list_instance.key
+
+        if not key:
+            # next gen resource, try and determine key from meta property
+            key = page.get('meta', {}).get('key')
+
+            if key is None:
+                raise TwilioException(
+                    "Unable to determine resource key from response")
+
+        if key not in page:
+            raise TwilioException("Key %s not present in response" % key)
+
+        return [self.list_instance.load_instance(ir) for ir in page[key]]
+
+
 class Resource(object):
     """A REST Resource"""
 
@@ -186,25 +363,6 @@ class Resource(object):
 
     def __ne__(self, other):
         return not self.__eq__(other)
-
-    def request(self, method, uri, **kwargs):
-        """
-        Send an HTTP request to the resource.
-
-        :raises: a :exc:`~twilio.TwilioRestException`
-        """
-        if 'timeout' not in kwargs and self.timeout is not UNSET_TIMEOUT:
-            kwargs['timeout'] = self.timeout
-
-        kwargs['use_json_extension'] = self.use_json_extension
-        resp = make_twilio_request(method, uri, auth=self.auth, **kwargs)
-
-        logger.debug(resp.content)
-
-        if method == "DELETE":
-            return resp, {}
-        else:
-            return resp, json.loads(resp.content)
 
     @property
     def uri(self):
@@ -262,22 +420,50 @@ class InstanceResource(Resource):
             )
             self.__dict__[list_resource.key] = list_resource
 
-    def update_instance(self, **kwargs):
-        """ Make a POST request to the API to update an object's properties
-
-        :return: None, this is purely side effecting
-        :raises: a :class:`~twilio.rest.RestException` on failure
+    def update_instance(self, data):
         """
-        a = self.parent.update(self.name, **kwargs)
-        self.load(a.__dict__)
+        Update an InstanceResource via a POST
+
+        Usage:
+
+        .. code-block:: python
+
+            deleted = client.messages.get('message_sid')
+                .update_instance({'body': ''}).execute()
+            print deleted
+
+        :param data: dictionary -- Dict of items to POST
+        """
+        return self.parent.update_instance(self.name, data)
 
     def delete_instance(self):
-        """ Make a DELETE request to the API to delete the object
-
-        :return: None, this is purely side effecting
-        :raises: a :class:`~twilio.rest.RestException` on failure
         """
-        return self.parent.delete(self.name)
+        Delete an InstanceResource via DELETE
+
+        Usage:
+
+        .. code-block:: python
+
+            deleted = client.messages.get('message_sid')
+                .delete_instance().execute()
+            print deleted
+
+        :rtype: :class:`~twilio.rest.resources.DeleteQuery`
+        :returns: A query object that be executed to trigger a server request
+        """
+        return self.parent.delete_instance(self.name)
+
+    def execute(self):
+        """
+        Trigger a server request to fetch the instance data
+
+        Raises a :exc:`~twilio.TwilioRestException` if the requested
+        instance does not exist
+
+        :return: -- A new instance with its attributes populated
+        """
+        return GetQuery(self.parent, self.uri,
+                        self.use_json_extension).execute()
 
     def _parse_date(self, s):
         return parse_rfc2822_date(s)
@@ -311,31 +497,37 @@ class ListResource(Resource):
         except AttributeError:
             self.key = self.name.lower()
 
-    def get(self, sid):
-        """ Get an instance resource by its sid
+    def get_instance(self, sid):
+        """
+        Create a placeholder for an instance resource.
+
+        To retrieve properties on the instance resource, you must explicitly
+        call execute() on the instance.
 
         Usage:
 
         .. code-block:: python
 
-            message = client.messages.get("SM1234")
+            message = client.messages.get_instance("SM1234").execute()
             print message.body
 
         :rtype: :class:`~twilio.rest.resources.InstanceResource`
-        :raises: a :exc:`~twilio.TwilioRestException` if a resource with that
-            sid does not exist, or the request fails
+        :returns: A shell for an instance resource
         """
-        return self.get_instance(sid)
-
-    def get_instance(self, sid):
-        """Request the specified instance resource"""
-        uri = "%s/%s" % (self.uri, sid)
-        resp, item = self.request("GET", uri)
-        return self.load_instance(item)
+        instance = self.instance(self, sid)
+        instance.load_subresources()
+        return instance
 
     def get_instances(self, params):
         """
         Query the list resource for a list of InstanceResources.
+
+        Usage:
+
+        .. code-block:: python
+
+            messages = client.messages.get_instances().execute()
+            print messages
 
         Raises a :exc:`~twilio.TwilioRestException` if requesting a page of
         results that does not exist.
@@ -344,52 +536,63 @@ class ListResource(Resource):
         :param int page: The page of results to retrieve (most recent at 0)
         :param int page_size: The number of results to be returned.
 
-        :returns: -- the list of resources
+        :rtype: :class:`~twilio.rest.resources.ListQuery`
+        :returns: A query object that can be executed
+            to trigger a server request
         """
-        params = transform_params(params)
-
-        resp, page = self.request("GET", self.uri, params=params)
-
-        if self.key not in page:
-            raise TwilioException("Key %s not present in response" % self.key)
-
-        return [self.load_instance(ir) for ir in page[self.key]]
+        return ListQuery(self, self.uri, params,
+                         self.use_json_extension)
 
     def create_instance(self, body):
         """
         Create an InstanceResource via a POST to the List Resource
 
+        Usage:
+
+        .. code-block:: python
+
+            message = client.messages.create_instance({
+                'to': '+123',
+                'from': '+321',
+                'body': 'hi'
+            }).execute()
+            print message
+
         :param dict body: Dictionary of POST data
+        :rtype: :class:`~twilio.rest.resources.CreateQuery`
+        :returns: A query object that can be executed to
+            trigger a server request
         """
-        resp, instance = self.request("POST", self.uri,
-                                      data=transform_params(body))
-
-        if resp.status_code not in (200, 201):
-            raise TwilioRestException(resp.status_code,
-                                      self.uri, "Resource not created")
-
-        return self.load_instance(instance)
+        return CreateQuery(self, self.uri, body,
+                           self.use_json_extension)
 
     def delete_instance(self, sid):
         """
         Delete an InstanceResource via DELETE
 
-        body: string -- HTTP Body for the quest
+        Usage:
+
+        .. code-block:: python
+
+            deleted = client.messages.delete_instance('message_sid').execute()
+            print deleted
+
+        :rtype: :class:`~twilio.rest.resources.DeleteQuery`
+        :returns: A query object that be executed to trigger a server request
         """
         uri = "%s/%s" % (self.uri, sid)
-        resp, instance = self.request("DELETE", uri)
-        return resp.status_code == 204
+        return DeleteQuery(self, uri, self.use_json_extension)
 
     def update_instance(self, sid, body):
         """
         Update an InstanceResource via a POST
 
-        sid: string -- String identifier for the list resource
-        body: dictionary -- Dict of items to POST
+        :param sid: string -- String identifier for the list resource
+        :param body: dictionary -- Dict of items to POST
         """
         uri = "%s/%s" % (self.uri, sid)
-        resp, entry = self.request("POST", uri, data=transform_params(body))
-        return self.load_instance(entry)
+        return UpdateQuery(self, uri, body,
+                           self.use_json_extension)
 
     def iter(self, **kwargs):
         """ Return all instance resources using an iterator
@@ -409,9 +612,12 @@ class ListResource(Resource):
                 print message.sid
         """
         params = transform_params(kwargs)
+        query = Query(self.auth, self.timeout)
 
         while True:
-            resp, page = self.request("GET", self.uri, params=params)
+            resp, page = query.request(
+                "GET", self.uri, params=params,
+                use_json_extension=self.use_json_extension)
 
             if self.key not in page:
                 raise StopIteration()
@@ -425,22 +631,14 @@ class ListResource(Resource):
             o = urlparse(page['next_page_uri'])
             params.update(parse_qs(o.query))
 
-    def load_instance(self, data):
-        instance = self.instance(self, data[self.instance.id_key])
-        instance.load(data)
+    def load_instance(self, instance_json):
+        instance = self.instance(self, instance_json[self.instance.id_key])
+        instance.load(instance_json)
         instance.load_subresources()
         return instance
 
     def __str__(self):
         return '<%s>' % (self.__class__.__name__)
-
-    def list(self, **kw):
-        """Query the list resource for a list of InstanceResources.
-
-        :param int page: The page of results to retrieve (most recent at 0)
-        :param int page_size: The number of results to be returned.
-        """
-        return self.get_instances(kw)
 
 
 class NextGenListResource(ListResource):
@@ -473,8 +671,11 @@ class NextGenListResource(ListResource):
         parsed = urlparse(self.uri)
         url = urlunparse(parsed[:4] + (params, ) + (parsed[5], ))
 
+        query = Query(self.auth, self.timeout)
         while True:
-            resp, page = self.request("GET", url)
+            resp, page = query.request(
+                "GET", url,
+                use_json_extension=self.use_json_extension)
 
             key = page.get('meta', {}).get('key')
 
@@ -487,31 +688,3 @@ class NextGenListResource(ListResource):
             url = page.get('meta', {}).get('next_page_url')
             if not url:
                 raise StopIteration()
-
-    def get_instances(self, params):
-        """
-        Query the list resource for a list of InstanceResources.
-
-        Raises a :exc:`~twilio.TwilioRestException` if requesting a page of
-        results that does not exist.
-
-        :param dict params: List of URL parameters to be included in request
-        :param int page: The page of results to retrieve (most recent at 0)
-        :param int page_size: The number of results to be returned.
-
-        :returns: -- the list of resources
-        """
-        params = transform_params(params)
-
-        resp, page = self.request("GET", self.uri, params=params)
-        key = page.get('meta', {}).get('key')
-
-        if key is None:
-            raise TwilioException(
-                "Unable to determine resource key from response"
-            )
-
-        if key not in page:
-            raise TwilioException("Key %s not present in response" % key)
-
-        return [self.load_instance(ir) for ir in page[key]]

@@ -20,7 +20,7 @@ class NumbersTest(unittest.TestCase):
         request.return_value = resp
 
         countries = PhoneNumberCountries(BASE_URI, AUTH)
-        result = countries.list()
+        result = countries.list().execute()
 
         assert_equal(result[0].iso_country, "AC")
         assert_equal(len(result), 4)
@@ -40,7 +40,7 @@ class NumbersTest(unittest.TestCase):
         request.return_value = resp
 
         countries = PhoneNumberCountries(BASE_URI, AUTH)
-        country = countries.get('EE')
+        country = countries.get('EE').execute()
 
         assert_equal(country.country, "Estonia")
         assert_equal(

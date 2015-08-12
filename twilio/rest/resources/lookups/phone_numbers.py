@@ -3,6 +3,7 @@ from twilio.rest.lookups.phone_number import (
     PhoneNumber,
     PhoneNumbers as BasePhoneNumbers
 )
+from twilio.rest.resources.base import GetQuery
 
 
 class PhoneNumbers(BasePhoneNumbers):
@@ -15,8 +16,5 @@ class PhoneNumbers(BasePhoneNumbers):
         if include_carrier_info:
             params['type'] = 'carrier'
 
-        params = transform_params(params)
         uri = '%s/%s' % (self.uri, number)
-        _, item = self.request('GET', uri, params=params)
-
-        return self.load_instance(item)
+        return GetQuery(self, uri, self.use_json_extension, params=params)

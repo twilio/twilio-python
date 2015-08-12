@@ -20,7 +20,7 @@ class WorkerTest(unittest.TestCase):
         request.return_value = resp
 
         workers = Workers(BASE_URI, AUTH, TIMEOUT)
-        workers.create("Test Worker")
+        workers.create("Test Worker").execute()
         exp_params = {
             'FriendlyName': "Test Worker"
         }
@@ -38,7 +38,7 @@ class WorkerTest(unittest.TestCase):
         uri = "{0}/Workers/{1}".format(BASE_URI, WORKER_SID)
         list_resource = Workers(BASE_URI, AUTH, TIMEOUT)
         worker = Worker(list_resource, WORKER_SID)
-        worker.delete()
+        worker.delete().execute()
         request.assert_called_with("DELETE", uri, auth=AUTH,
                                    timeout=TIMEOUT, use_json_extension=False)
 
@@ -51,7 +51,7 @@ class WorkerTest(unittest.TestCase):
 
         uri = "{0}/Workers/{1}".format(BASE_URI, WORKER_SID)
         list_resource = Workers(BASE_URI, AUTH, TIMEOUT)
-        list_resource.delete(WORKER_SID)
+        list_resource.delete(WORKER_SID).execute()
         request.assert_called_with("DELETE", uri, auth=AUTH, timeout=TIMEOUT,
                                    use_json_extension=False)
 
@@ -63,7 +63,7 @@ class WorkerTest(unittest.TestCase):
 
         uri = "{0}/Workers/{1}".format(BASE_URI, WORKER_SID)
         list_resource = Workers(BASE_URI, AUTH, TIMEOUT)
-        list_resource.get(WORKER_SID)
+        list_resource.get(WORKER_SID).execute()
         request.assert_called_with("GET", uri, auth=AUTH,
                                    timeout=TIMEOUT, use_json_extension=False)
 
@@ -75,7 +75,7 @@ class WorkerTest(unittest.TestCase):
 
         uri = "{0}/Workers".format(BASE_URI)
         list_resource = Workers(BASE_URI, AUTH, TIMEOUT)
-        list_resource.list()
+        list_resource.list().execute()
         request.assert_called_with("GET", uri, params={}, auth=AUTH,
                                    timeout=TIMEOUT, use_json_extension=False)
 
@@ -88,7 +88,7 @@ class WorkerTest(unittest.TestCase):
         uri = "{0}/Workers/{1}".format(BASE_URI, WORKER_SID)
         list_resource = Workers(BASE_URI, AUTH, TIMEOUT)
         worker = Worker(list_resource, WORKER_SID)
-        worker.update(friendly_name='Test Worker')
+        worker.update(friendly_name='Test Worker').execute()
         exp_params = {
             'FriendlyName': "Test Worker"
         }
@@ -104,7 +104,7 @@ class WorkerTest(unittest.TestCase):
 
         uri = "{0}/Workers/{1}".format(BASE_URI, WORKER_SID)
         list_resource = Workers(BASE_URI, AUTH, TIMEOUT)
-        list_resource.update(WORKER_SID, friendly_name='Test Worker')
+        list_resource.update(WORKER_SID, friendly_name='Test Worker').execute()
         exp_params = {
             'FriendlyName': "Test Worker"
         }
