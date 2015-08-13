@@ -1,5 +1,3 @@
-from . import transform_params
-
 from twilio.rest.v2010.account.outgoing_caller_id import (
     OutgoingCallerId as CallerId,
     OutgoingCallerIds as BaseCallerIds,
@@ -31,7 +29,4 @@ class CallerIds(BaseCallerIds):
         :param extension: Digits to dial after connecting the validation call.
         :returns: A response dictionary
         """
-        kwargs["phone_number"] = phone_number
-        params = transform_params(kwargs)
-        resp, validation = self.request("POST", self.uri, data=params)
-        return validation
+        return self.verify(phone_number, **kwargs)

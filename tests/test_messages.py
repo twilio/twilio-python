@@ -61,4 +61,4 @@ class MessageTest(unittest.TestCase):
     def test_redact(self):
         with patch.object(self.resource, 'update_instance') as mock:
             self.resource.redact('MM123')
-            mock.assert_called_with('MM123', {'Body': ''})
+            mock.assert_called_with('MM123', {'body': ''})

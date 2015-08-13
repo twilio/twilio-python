@@ -1,57 +1,13 @@
 from .util import parse_date, normalize_dates
 
 from twilio.rest.v2010.account.conference.participant import (
-    Participant as BaseParticipant,
-    Participants as BaseParticipants,
+    Participant,
+    Participants,
 )
 from twilio.rest.v2010.account.conference import (
     Conference,
     Conferences as BaseConferences,
 )
-
-
-class Participant(BaseParticipant):
-
-    def mute(self):
-        """
-        Mute the participant
-        """
-        self.update_instance(muted="true")
-
-    def unmute(self):
-        """
-        Unmute the participant
-        """
-        self.update_instance(muted="false")
-
-    def kick(self):
-        """
-        Remove the participant from the given conference
-        """
-        self.delete_instance()
-
-
-class Participants(BaseParticipants):
-
-    instance = Participant
-
-    def mute(self, call_sid):
-        """
-        Mute the given participant
-        """
-        return self.update(call_sid, muted=True)
-
-    def unmute(self, call_sid):
-        """
-        Unmute the given participant
-        """
-        return self.update(call_sid, muted=False)
-
-    def kick(self, call_sid):
-        """
-        Remove the participant from the given conference
-        """
-        return self.delete(call_sid)
 
 
 class Conferences(BaseConferences):

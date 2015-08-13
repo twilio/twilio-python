@@ -8,14 +8,7 @@ from twilio.rest.v2010.account.message import (
 
 
 class Message(BaseMessage):
-
     subresources = [MediaList]
-
-    def redact(self):
-        """Redact this Message's `body` field from Twilio while preserving
-        the record itself and related metadata.
-        """
-        return self.parent.redact(self.sid)
 
 
 class Messages(BaseMessages):
@@ -60,7 +53,3 @@ class Messages(BaseMessages):
         kw["DateSent>"] = after
         kw["DateSent"] = parse_date(date_sent)
         return self.get_instances(kw)
-
-    def redact(self, sid):
-        """Redact the specified Message record's Body field."""
-        return self.update_instance(sid, {'Body': ''})
