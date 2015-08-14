@@ -1,6 +1,44 @@
 import hashlib
 import json
-import os
+import logging
+from mock import Mock
+from twilio.rest.resources import base
+from twilio.rest.resources.imports import httplib2
+
+
+class HolodeckResource(object):
+
+    DEFAULT_HEADERS = {
+        "Accept": "application/json",
+        "Accept-Charset": "utf-8",
+        "User-Agent": "twilio-python/4.4.0 (Python 2.7.6)"
+    }
+    handlers = []
+    sub_resources = []
+    mount_point = None
+
+    def __init__(self, holodeck):
+        self.holodeck = holodeck
+
+        for sub_resource in self.sub_resources:
+            if not sub_resource.mount_point:
+                raise AttributeError('mount_point is required')
+
+            self.__dict__[sub_resource.mount_point] = sub_resource(holodeck)
+
+    def activate(self):
+        for handler in self.handlers:
+            self.holodeck.add(handler)
+
+        for sub_resource in self.sub_resources:
+            self.__dict__[sub_resource.mount_point].activate()
+
+    def deactivate(self):
+        for handler in self.handlers:
+            self.holodeck.remove(handler)
+
+        for sub_resource in self.sub_resources:
+            self.__dict__[sub_resource.mount_point].deactivate()
 
 
 class Request(object):
@@ -61,7 +99,7 @@ class RequestHandler(object):
             return json.dumps(self._content)
 
         if not self._content:
-            with open(os.path.join('tests', 'resources', self.content_file)) as f:
+            with open(self.content_file) as f:
                 self._content = f.read()
 
         return self._content
@@ -123,3 +161,73 @@ class RequestHandler(object):
             return False
         return str(self) == str(other)
 
+
+class EmptyHolodeck(object):
+
+    sub_resources = []
+
+    def __init__(self):
+        self._orig_method = base.make_request
+        self._request_handlers = []
+        self._active = False
+
+        for sub_resource in self.sub_resources:
+            if not sub_resource.mount_point:
+                raise AttributeError('mount_point is required')
+
+            self.__dict__[sub_resource.mount_point] = sub_resource(self)
+
+    def activate(self):
+        if isinstance(self._orig_method, Mock):
+            raise Exception('Another instance of Holodeck is already active')
+        self._activate = True
+
+        base.make_request = Mock()
+        base.make_request.side_effect = self._handle_request
+
+    def deactivate(self):
+        if not self._active:
+            return
+
+        base.make_request = self._orig_method
+
+    def add(self, request_handler):
+        self._request_handlers.append(request_handler)
+
+    def remove(self, request_handler):
+        self._request_handlers.remove(request_handler)
+
+    def _handle_request(self, method, url, params=None,
+                        data=None, headers=None,
+                        cookies=None, files=None,
+                        auth=None, timeout=None,
+                        allow_redirects=False, proxies=None):
+
+        request = Request(url, method, auth, params or data, headers)
+
+        similarity = 0
+        closest_handler = None
+
+        # serve using the most recent matching handler
+        for handler in reversed(self._request_handlers):
+            if handler.can_serve(request):
+                return base.Response(httplib2.Response({
+                    'status': str(handler.status_code)
+                }), handler.content, url)
+
+            else:
+                handler_similarity = handler.similarity(request)
+                if handler_similarity > similarity:
+                    similarity = handler_similarity
+                    closest_handler = handler
+
+        logging.debug('Holodeck could not find handler '
+                      'for request :\n%s' % request)
+
+        if closest_handler:
+            logging.debug('Did you incorrectly configure '
+                          'this handler :\n%s' % closest_handler)
+
+        return base.Response(httplib2.Response({
+            'status': '404'
+        }), 'Not found - did you forget to configure Holodeck?', url)

@@ -1,1 +1,1 @@
-from holodeck import Holodeck
+from .resource import Twiliodeck as Holodeck
