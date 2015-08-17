@@ -173,7 +173,7 @@ class EmptyHolodeck(object):
 
         for sub_resource in self.sub_resources:
             if not sub_resource.mount_point:
-                raise AttributeError('mount_point is required')
+                raise AttributeError('%s requires a mount_point' % sub_resource)
 
             self.__dict__[sub_resource.mount_point] = sub_resource(self)
 
@@ -182,12 +182,18 @@ class EmptyHolodeck(object):
             raise Exception('Another instance of Holodeck is already active')
         self._activate = True
 
+        for sub_resource in self.sub_resources:
+            self.__dict__[sub_resource.mount_point].activate()
+
         base.make_request = Mock()
         base.make_request.side_effect = self._handle_request
 
     def deactivate(self):
         if not self._active:
             return
+
+        for sub_resource in self.sub_resources:
+            self.__dict__[sub_resource.mount_point].deactivate()
 
         base.make_request = self._orig_method
 
@@ -221,8 +227,9 @@ class EmptyHolodeck(object):
                     similarity = handler_similarity
                     closest_handler = handler
 
-        logging.debug('Holodeck could not find handler '
-                      'for request :\n%s' % request)
+        logging.debug('Holodeck has %s endpoints but could not find handler '
+                      'for request :\n%s' % (len(self._request_handlers),
+                                             request))
 
         if closest_handler:
             logging.debug('Did you incorrectly configure '
