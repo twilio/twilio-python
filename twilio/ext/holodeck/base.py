@@ -105,17 +105,29 @@ class RequestHandler(object):
         return self._content
 
     def can_serve(self, request):
-        return 1 - self.similarity(request) < 1e-9
+        return self.url == request.url \
+               and self.method == request.method \
+               and self.auth == request.auth \
+               and self.headers == request.headers \
+               and self.body == request.body
 
     def similarity(self, request):
         total = 0
-        total += 1 if self.url == request.url else 0
-        total += 1 if self.method == request.method else 0
-        total += 1 if self.auth == request.auth else 0
-        total += self._similarity_of_dicts(self.body, request.body)
-        total += self._similarity_of_dicts(self.headers, request.headers)
+        total += 5 * self._similarity_of_uri(request.url, self.url)
+        total += 4 if self.method == request.method else 0
+        total += 3 if self.auth == request.auth else 0
+        total += 2 * self._similarity_of_dicts(self.body, request.body)
+        total += 1 * self._similarity_of_dicts(self.headers, request.headers)
 
-        return float(total) / 5
+        return float(total) / 15
+
+    def _similarity_of_uri(self, a, b):
+        parts = a.split('/')
+        total = 0
+        for part in parts:
+            total += 1 if part in b else 0
+
+        return float(total) / len(parts)
 
     def _similarity_of_dicts(self, a, b):
         if a == b:
@@ -180,7 +192,7 @@ class EmptyHolodeck(object):
     def activate(self):
         if isinstance(self._orig_method, Mock):
             raise Exception('Another instance of Holodeck is already active')
-        self._activate = True
+        self._active = True
 
         for sub_resource in self.sub_resources:
             self.__dict__[sub_resource.mount_point].activate()
