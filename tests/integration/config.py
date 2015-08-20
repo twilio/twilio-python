@@ -1,4 +1,4 @@
-base_uri = 'dev'
+base_uri = 'https://api.twilio.com'
 version = '2010-04-01'
 
 pricing_uri = 'dev'

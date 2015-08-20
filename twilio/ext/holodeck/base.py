@@ -1,18 +1,32 @@
 import hashlib
 import json
 import logging
+import platform
 from mock import Mock
+from twilio.version import __version__
 from twilio.rest.resources import base
 from twilio.rest.resources.imports import httplib2
 
 
 class HolodeckResource(object):
+    user_agent = "twilio-python/%s (Python %s)" % (
+        __version__,
+        platform.python_version(),
+    )
 
-    DEFAULT_HEADERS = {
+    DEFAULT_GET_HEADERS = {
         "Accept": "application/json",
         "Accept-Charset": "utf-8",
-        "User-Agent": "twilio-python/4.4.0 (Python 2.7.6)"
+        "User-Agent": user_agent
     }
+    DEFAULT_DELETE_HEADERS = DEFAULT_GET_HEADERS
+    DEFAULT_POST_HEADERS = {
+        "Accept": "application/json",
+        "Accept-Charset": "utf-8",
+        "User-Agent": user_agent,
+        "Content-Type": "application/x-www-form-urlencoded"
+    }
+
     handlers = []
     sub_resources = []
     mount_point = None
@@ -122,12 +136,15 @@ class RequestHandler(object):
         return float(total) / 15
 
     def _similarity_of_uri(self, a, b):
+        a = a.replace('.json', '')
+        b = b.replace('.json', '')
+
         parts = a.split('/')
         total = 0
         for part in parts:
             total += 1 if part in b else 0
 
-        return float(total) / len(parts)
+        return float(total) / max(len(b.split('/')), len(parts))
 
     def _similarity_of_dicts(self, a, b):
         if a == b:
@@ -153,7 +170,7 @@ class RequestHandler(object):
             'auth': self.auth,
             'body': self.body,
             'headers': self.headers,
-            'content': self._content,
+            'content': None if self.content_file else self._content,
             'content_file': self.content_file
         }
 

@@ -1,1 +1,3 @@
-from .resource import Twiliodeck as Holodeck
+from twilio.ext.holodeck.resource import Twiliodeck
+
+holodeck = Twiliodeck()

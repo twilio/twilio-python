@@ -1,24 +1,21 @@
+import unittest
 from tests.integration import config
 from tests.integration.api_responses import (
     NextGenGETRequestHandler as GRH,
 )
-from tests.integration.base_integration_test import BaseIntegrationTest
+from twilio.ext.holodeck import holodeck
 from twilio.rest import TwilioLookupsClient
 
 
-class TwilioLookupsClientTest(BaseIntegrationTest):
+class TwilioLookupsClientTest(unittest.TestCase):
 
-    def setUp(self, base_uri=config.lookups_uri, response_handlers=[]):
-        super(TwilioLookupsClientTest, self).setUp(
-            base_uri=base_uri, response_handlers=response_handlers)
-
+    def setUp(self):
         self.client = TwilioLookupsClient(config.account_sid,
-                                          config.auth_token,
-                                          base_uri)
+                                          config.auth_token)
+        holodeck.activate()
+
+    def tearDown(self):
+        holodeck.deactivate()
 
     def test_lookups_phone_number(self):
-        self.response_handlers = [
-            GRH('/PhoneNumbers/+15108675309', 'lookups/phone_number_instance.json')
-        ]
-
         self.client.phone_numbers.get('+15108675309')
