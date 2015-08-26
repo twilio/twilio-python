@@ -1,120 +1,198 @@
 import time
-
 from .. import jwt
 
+import warnings
+warnings.simplefilter('always', DeprecationWarning)
 
 TASK_ROUTER_BASE_URL = 'https://taskrouter.twilio.com'
-TASK_ROUTER_BASE_WS_URL = 'https://event-bridge.twilio.com/v1/wschannels'
+TASK_ROUTER_BASE_EVENTS_URL = 'https://event-bridge.twilio.com/v1/wschannels'
+TASK_ROUTER_VERSION = "v1"
 
 REQUIRED = {'required': True}
 OPTIONAL = {'required': False}
 
 
-class TaskRouterCapability(object):
-    """
-    A token to control permissions for the TaskRouter service.
+def deprecated(func):
+    def log_warning(*args, **kwargs):
+        # stacklevel = 2 makes the warning refer to the caller of the
+        # deprecation rather than the source of deprecation itself
+        warnings.warn("Call to deprecated function {}.".
+                      format(func.__name__),
+                      stacklevel=2,
+                      category=DeprecationWarning)
+        return func(*args, **kwargs)
+    return log_warning
 
-    :param str account_sid: The account to generate a token for
-    :param str auth_token: The auth token for the account. Used to sign the
-        token and will not be included in generated output.
-    :param str workspace_sid: The workspace to grant capabilities over
-    :param str worker_sid: The worker sid to grant capabilities over
-    :param str base_url: The base TaskRouter API URL
-    :param str base_ws_url: The base TaskRouter event stream URL
-    """
-    def __init__(self, account_sid, auth_token, workspace_sid, worker_sid,
-                 base_url=TASK_ROUTER_BASE_URL,
-                 version='v1',
-                 base_ws_url=TASK_ROUTER_BASE_WS_URL):
+
+class TaskRouterCapability(object):
+    def __init__(self, account_sid, auth_token, workspace_sid, channel_id):
         self.account_sid = account_sid
         self.auth_token = auth_token
-        self.workspace_sid = workspace_sid
-        self.worker_sid = worker_sid
-        self.version = version
-        self.base_url = '%s/%s' % (base_url, self.version)
-        self.base_ws_url = base_ws_url
         self.policies = []
 
-        self._allow_worker_websocket_urls()
-        self._allow_activity_list_fetch()
+        self.workspace_sid = workspace_sid
+        self.channel_id = channel_id
+        self.base_url = "{}/{}/Workspaces/{}".format(TASK_ROUTER_BASE_URL,
+                                                     TASK_ROUTER_VERSION,
+                                                     workspace_sid)
+
+        # validate the JWT
+        self.validate_jwt()
+
+        # set up resources
+        self.setup_resource()
+
+        # add permissions to GET and POST to the event-bridge channel
+        self.allow_web_sockets(channel_id)
+
+        # add permissions to fetch the instance resource
+        self.add_policy(self.resource_url, "GET", True)
 
     @property
-    def workspace_url(self):
-        return '%s/Workspaces/%s' % (self.base_url, self.workspace_sid)
+    def channel_prefix(self):
+        return self.channel_id[0:2]
 
-    @property
-    def worker_url(self):
-        return '%s/Workers/%s' % (self.workspace_url, self.worker_sid)
+    def setup_resource(self):
+        if self.channel_prefix == "WS":
+            self.resource_url = self.base_url
+        elif self.channel_prefix == "WK":
+            self.resource_url = self.base_url + "/Workers/" + self.channel_id
 
-    def _allow_worker_websocket_urls(self):
-        worker_event_url = '%s/%s/%s' % (
-            self.base_ws_url,
-            self.account_sid,
-            self.worker_sid,
-        )
-        self.policies.append(make_policy(
-            worker_event_url,
-            'GET',
-        ))
-        self.policies.append(make_policy(
-            worker_event_url,
-            'POST',
-        ))
+            activity_url = self.base_url + "/Activities"
+            self.allow(activity_url, "GET")
 
-    def _allow_activity_list_fetch(self):
-        self.policies.append(make_policy(
-            '%s/Activities' % self.workspace_url,
-            'GET',
-        ))
+            reservations_url = self.base_url + "/Tasks/**"
+            self.allow(reservations_url, "GET")
 
-    def allow_worker_activity_updates(self):
-        self.policies.append(make_policy(
-            self.worker_url,
-            'POST',
-            post_filter={'ActivitySid': REQUIRED},
-        ))
+        elif self.channel_prefix == "WQ":
+            self.resource_url = "{}/TaskQueues/{}".format(
+                self.base_url, self.channel_id)
 
+    def allow_web_sockets(self, channel_id):
+        web_socket_url = "{}/{}/{}".format(TASK_ROUTER_BASE_EVENTS_URL,
+                                           self.account_sid, self.channel_id)
+
+        self.policies.append(self.make_policy(web_socket_url, "GET", True))
+        self.policies.append(self.make_policy(web_socket_url, "POST", True))
+
+    def validate_jwt(self):
+        if self.account_sid is None or self.account_sid[0:2] != "AC":
+            raise ValueError('Invalid AccountSid provided: ' +
+                             self.account_sid)
+        if self.workspace_sid is None or self.workspace_sid[0:2] != "WS":
+            raise ValueError('Invalid WorkspaceSid provided: ' +
+                             self.workspace_sid)
+        if self.channel_id is None:
+            raise ValueError('ChannelId not provided')
+
+        if self.channel_prefix != "WS" and self.channel_prefix != "WK" \
+                and self.channel_prefix != "WQ":
+            raise ValueError('Invalid ChannelId provided: ' + self.channel_id)
+
+    def allow_fetch_subresources(self):
+        self.allow(self.resource_url + "/**", "GET")
+
+    def allow_updates(self):
+        self.allow(self.resource_url, "POST")
+
+    def allow_updates_subresources(self):
+        self.allow(self.resource_url + "/**", "POST")
+
+    def allow_delete(self):
+        self.allow(self.resource_url, "DELETE")
+
+    def allow_delete_subresources(self):
+        self.allow(self.resource_url + "/**", "DELETE")
+
+    @deprecated
     def allow_worker_fetch_attributes(self):
-        self.policies.append(make_policy(
-            self.worker_url,
-            'GET',
-        ))
+        if self.channel_prefix != "WK":
+            raise ValueError("Deprecated func not applicable to non Worker")
+        else:
+            self.policies.append(self.make_policy(
+                self.resource_url,
+                'GET'))
 
+    @deprecated
+    def allow_worker_activity_updates(self):
+        if self.channel_prefix == "WK":
+            self.policies.append(self.make_policy(
+                self.resource_url,
+                'POST',
+                True,
+                post_filter={'ActivitySid': REQUIRED}))
+        else:
+            raise ValueError("Deprecated func not applicable to non Worker")
+
+    @deprecated
     def allow_task_reservation_updates(self):
-        tasks_url = '%s/Tasks/**' % self.workspace_url
-        self.policies.append(make_policy(
-            tasks_url,
-            'POST',
-            post_filter={'ReservationStatus': REQUIRED},
-        ))
+        if self.channel_prefix == "WK":
+            tasks_url = self.base_url + "/Tasks/**"
+            self.policies.append(self.make_policy(
+                tasks_url,
+                'POST',
+                True))
+        else:
+            raise ValueError("Deprecated func not applicable to non Worker")
 
-    def generate_token(self, ttl=3600, attributes=None):
+    def add_policy(self, url, method,
+                   allowed, query_filter=None, post_filter=None):
+
+        policy = self.make_policy(url, method,
+                                  allowed, query_filter, post_filter)
+        self.policies.append(policy)
+
+    def allow(self, url, method, query_filter=None, post_filter=None):
+        self.add_policy(url, method, True, query_filter, post_filter)
+
+    def deny(self, url, method, query_filter=None, post_filter=None):
+        self.add_policy(url, method, False, query_filter, post_filter)
+
+    def make_policy(self, url, method,
+                    allowed=True, query_filter=None, post_filter=None):
+
+        """Create a policy dictionary for the given resource and method.
+        :param str url: the resource URL to grant or deny access to
+        :param str method: the HTTP method to allow or deny
+        :param allowed bool: whether this request is allowed
+        :param dict query_filter: specific GET parameter names
+            to require or allow
+        :param dict post_filter: POST parameter names
+            to require or allow
         """
-        Generate a token string based on the credentials and permissions
-        previously configured on this object.
 
-        :param int ttl: Expiration time in seconds of the token. Defaults to
-            3600 seconds (1 hour).
-        :param dict attributes: Extra attributes to pass into the token.
-        """
+        return {
+            'url': url,
+            'method': method,
+            'allow': allowed,
+            'query_filter': query_filter or {},
+            'post_filter': post_filter or {}
+        }
 
-        return self._generate_token(
-            ttl,
-            {
-                'account_sid': self.account_sid,
-                'channel': self.worker_sid,
-                'worker_sid': self.worker_sid,
-                'workspace_sid': self.workspace_sid,
-            }
-        )
+    def get_resource_url(self):
+        return self.resource_url
+
+    def generate_token(self, ttl=3600):
+        task_router_attributes = {
+            'account_sid': self.account_sid,
+            'workspace_sid': self.workspace_sid,
+            'channel': self.channel_id
+        }
+
+        if self.channel_prefix == "WK":
+            task_router_attributes["worker_sid"] = self.channel_id
+        elif self.channel_prefix == "WQ":
+            task_router_attributes["taskqueue_sid"] = self.channel_id
+
+        return self._generate_token(ttl, task_router_attributes)
 
     def _generate_token(self, ttl, attributes=None):
         payload = {
-            'version': self.version,
-            'friendly_name': self.worker_sid,
-            'policies': self.policies,
             'iss': self.account_sid,
             'exp': int(time.time()) + ttl,
+            'version': TASK_ROUTER_VERSION,
+            'friendly_name': self.channel_id,
+            'policies': self.policies,
         }
 
         if attributes is not None:
@@ -123,22 +201,49 @@ class TaskRouterCapability(object):
         return jwt.encode(payload, self.auth_token, 'HS256')
 
 
-def make_policy(url, method, query_filter=None, post_filter=None,
-                allowed=True):
-    """
-    Create a policy dictionary for the given resource and method.
+class TaskRouterWorkerCapability(TaskRouterCapability):
+    def __init__(self, account_sid, auth_token, workspace_sid, worker_sid):
+        super(TaskRouterWorkerCapability, self).__init__(account_sid,
+                                                         auth_token,
+                                                         workspace_sid,
+                                                         worker_sid)
 
-    :param str url: the resource URL to grant or deny access to
-    :param str method: the HTTP method to allow or deny
-    :param dict query_filter: specific GET parameter names to require or allow
-    :param dict post_filter: POST parameter names to require or allow
-    :param allowed bool: whether this request is allowed
-    """
+        self.reservations_url = self.base_url + "/Tasks/**"
+        self.activity_url = self.base_url + "/Activities"
 
-    return {
-        'url': url,
-        'method': method,
-        'allow': allowed,
-        'query_filter': query_filter or {},
-        'post_filter': post_filter or {},
-    }
+        # add permissions to fetch the list of activities and
+        # list of worker reservations
+        self.allow(self.reservations_url, "GET")
+        self.allow(self.activity_url, "GET")
+
+    def setup_resource(self):
+        self.resource_url = self.base_url + "/Workers/" + self.channel_id
+
+    def allow_activity_updates(self):
+        self.policies.append(self.make_policy(
+            self.resource_url,
+            'POST',
+            True,
+            post_filter={'ActivitySid': REQUIRED}))
+
+    def allow_reservation_updates(self):
+        self.policies.append(self.make_policy(
+            self.reservations_url,
+            'POST',
+            True))
+
+
+class TaskRouterTaskQueueCapability(TaskRouterCapability):
+    def setup_resource(self):
+        self.resource_url = self.base_url + "/TaskQueues/" + self.channel_id
+
+
+class TaskRouterWorkspaceCapability(TaskRouterCapability):
+    def __init__(self, account_sid, auth_token, workspace_sid):
+        super(TaskRouterWorkspaceCapability, self).__init__(account_sid,
+                                                            auth_token,
+                                                            workspace_sid,
+                                                            workspace_sid)
+
+    def setup_resource(self):
+        self.resource_url = self.base_url
