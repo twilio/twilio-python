@@ -27,7 +27,7 @@ class HolodeckResource(object):
         "Content-Type": "application/x-www-form-urlencoded"
     }
 
-    handlers = []
+    holograms = []
     sub_resources = []
     mount_point = None
 
@@ -41,14 +41,14 @@ class HolodeckResource(object):
             self.__dict__[sub_resource.mount_point] = sub_resource(holodeck)
 
     def activate(self):
-        for handler in self.handlers:
+        for handler in self.holograms:
             self.holodeck.add(handler)
 
         for sub_resource in self.sub_resources:
             self.__dict__[sub_resource.mount_point].activate()
 
     def deactivate(self):
-        for handler in self.handlers:
+        for handler in self.holograms:
             self.holodeck.remove(handler)
 
         for sub_resource in self.sub_resources:
@@ -85,7 +85,7 @@ class Request(object):
         return str(self)
 
 
-class RequestHandler(object):
+class Hologram(object):
 
     def __init__(self, method, url, auth, status_code,
                  content=None,
@@ -186,7 +186,7 @@ class RequestHandler(object):
         return hash_code
 
     def __eq__(self, other):
-        if not isinstance(other, RequestHandler):
+        if not isinstance(other, Hologram):
             return False
         return str(self) == str(other)
 
@@ -197,7 +197,7 @@ class EmptyHolodeck(object):
 
     def __init__(self):
         self._orig_method = base.make_request
-        self._request_handlers = []
+        self._holograms = []
         self._active = False
 
         for sub_resource in self.sub_resources:
@@ -226,11 +226,11 @@ class EmptyHolodeck(object):
 
         base.make_request = self._orig_method
 
-    def add(self, request_handler):
-        self._request_handlers.append(request_handler)
+    def add(self, hologram):
+        self._holograms.append(hologram)
 
-    def remove(self, request_handler):
-        self._request_handlers.remove(request_handler)
+    def remove(self, hologram):
+        self._holograms.remove(hologram)
 
     def _handle_request(self, method, url, params=None,
                         data=None, headers=None,
@@ -244,7 +244,7 @@ class EmptyHolodeck(object):
         closest_handler = None
 
         # serve using the most recent matching handler
-        for handler in reversed(self._request_handlers):
+        for handler in reversed(self._holograms):
             if handler.can_serve(request):
                 return base.Response(httplib2.Response({
                     'status': str(handler.status_code)
@@ -257,7 +257,7 @@ class EmptyHolodeck(object):
                     closest_handler = handler
 
         logging.debug('Holodeck has %s endpoints but could not find handler '
-                      'for request :\n%s' % (len(self._request_handlers),
+                      'for request :\n%s' % (len(self._holograms),
                                              request))
 
         if closest_handler:
