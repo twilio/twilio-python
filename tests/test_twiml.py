@@ -421,7 +421,7 @@ class TestEnqueueTask(TwilioTest):
         # structure
         tree = ET.fromstring(xml)
         self.enqueue = tree.find("./Enqueue")
-        self.task = self.enqueue.find("./Task")
+        self.task = self.enqueue.find(".//Task")
 
     def test_found_task(self):
         self.assertIsNotNone(self.task)
