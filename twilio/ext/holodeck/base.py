@@ -2,6 +2,7 @@ import hashlib
 import json
 import logging
 import platform
+import urlparse
 from mock import Mock
 from twilio.version import __version__
 from twilio.rest.resources import base
@@ -56,25 +57,29 @@ class HolodeckResource(object):
 
 
 class Request(object):
-    def __init__(self, url, method, auth, body, headers=None):
+    def __init__(self, url, method, auth, params, data, headers=None):
         self.url = url
         self.method = method
-        self.body = body
+        self.params = params
+        self.data = data
         self.auth = auth
         self.headers = headers
 
         # Normalize body to account for empty dictionaries.
         # We want empty dictionaries to be the same as
         # not passing in a body
-        if not self.body:
-            self.body = None
+        if not self.params:
+            self.params = None
+        if not self.data:
+            self.data = None
 
     def _to_dict(self):
         return {
             'auth': self.auth,
             'url': self.url,
             'method': self.method,
-            'body': self.body,
+            'params': self.params,
+            'data': self.data,
             'headers': self.headers
         }
 
@@ -94,7 +99,8 @@ class Hologram(object):
                  params=None, data=None):
         self.method = method
         self.url = url
-        self.body = params or data
+        self.params = params
+        self.data = data
         self.auth = auth
         self.headers = headers
         self.status_code = status_code
@@ -104,8 +110,10 @@ class Hologram(object):
         # Normalize body to account for empty dictionaries.
         # We want empty dictionaries to be the same as
         # not passing in a body
-        if not self.body:
-            self.body = None
+        if not self.params:
+            self.params = None
+        if not self.data:
+            self.data = None
 
     @property
     def content(self):
@@ -123,17 +131,19 @@ class Hologram(object):
                and self.method == request.method \
                and self.auth == request.auth \
                and self.headers == request.headers \
-               and self.body == request.body
+               and self.params == request.params \
+               and self.data == request.data
 
     def similarity(self, request):
         total = 0
         total += 5 * self._similarity_of_uri(request.url, self.url)
         total += 4 if self.method == request.method else 0
         total += 3 if self.auth == request.auth else 0
-        total += 2 * self._similarity_of_dicts(self.body, request.body)
+        total += 2 * self._similarity_of_dicts(self.params, request.params)
+        total += 2 * self._similarity_of_dicts(self.data, request.data)
         total += 1 * self._similarity_of_dicts(self.headers, request.headers)
 
-        return float(total) / 15
+        return float(total) / 17
 
     def _similarity_of_uri(self, a, b):
         a = a.replace('.json', '')
@@ -168,7 +178,8 @@ class Hologram(object):
             'url': self.url,
             'method': self.method,
             'auth': self.auth,
-            'body': self.body,
+            'params': self.params,
+            'data': self.data,
             'headers': self.headers,
             'content': None if self.content_file else self._content,
             'content_file': self.content_file
@@ -196,7 +207,7 @@ class EmptyHolodeck(object):
     sub_resources = []
 
     def __init__(self):
-        self._orig_method = base.make_request
+        self._orig_method = base.make_http_request
         self._holograms = []
         self._active = False
 
@@ -214,8 +225,8 @@ class EmptyHolodeck(object):
         for sub_resource in self.sub_resources:
             self.__dict__[sub_resource.mount_point].activate()
 
-        base.make_request = Mock()
-        base.make_request.side_effect = self._handle_request
+        base.make_http_request = Mock()
+        base.make_http_request.side_effect = self._handle_request
 
     def deactivate(self):
         if not self._active:
@@ -224,7 +235,7 @@ class EmptyHolodeck(object):
         for sub_resource in self.sub_resources:
             self.__dict__[sub_resource.mount_point].deactivate()
 
-        base.make_request = self._orig_method
+        base.make_http_request = self._orig_method
 
     def add(self, hologram):
         self._holograms.append(hologram)
@@ -232,13 +243,16 @@ class EmptyHolodeck(object):
     def remove(self, hologram):
         self._holograms.remove(hologram)
 
-    def _handle_request(self, method, url, params=None,
-                        data=None, headers=None,
-                        cookies=None, files=None,
-                        auth=None, timeout=None,
-                        allow_redirects=False, proxies=None):
+    def _handle_request(self, http_client, url, method, headers, data):
+        parsed_url = urlparse.urlparse(url)
 
-        request = Request(url, method, auth, params or data, headers)
+        auth = http_client.credentials.credentials[0]
+        auth = (auth[1], auth[2])
+
+        url = parsed_url.geturl()
+        params = urlparse.parse_qs(parsed_url.query)
+
+        request = Request(url, method, auth, params, data, headers)
 
         similarity = 0
         closest_handler = None
@@ -246,9 +260,10 @@ class EmptyHolodeck(object):
         # serve using the most recent matching handler
         for handler in reversed(self._holograms):
             if handler.can_serve(request):
-                return base.Response(httplib2.Response({
+                response = httplib2.Response({
                     'status': str(handler.status_code)
-                }), handler.content, url)
+                })
+                return (response, handler.content)
 
             else:
                 handler_similarity = handler.similarity(request)
@@ -264,6 +279,7 @@ class EmptyHolodeck(object):
             logging.debug('Did you incorrectly configure '
                           'this handler :\n%s' % closest_handler)
 
-        return base.Response(httplib2.Response({
+        response = httplib2.Response({
             'status': '404'
-        }), 'Not found - did you forget to configure Holodeck?', url)
+        })
+        return (response, 'Not found - did you forget to configure Holodeck?')

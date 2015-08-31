@@ -56,6 +56,13 @@ def get_cert_file():
         return None
 
 
+def make_http_request(http_client, url, method, headers, data):
+    """
+    A proxy for integration test without patching urllib http client
+    """
+    return http_client.request(url, method, headers=headers, body=data)
+
+
 def make_request(method, url, params=None, data=None, headers=None,
                  cookies=None, files=None, auth=None, timeout=None,
                  allow_redirects=False, proxies=None):
@@ -114,7 +121,7 @@ def make_request(method, url, params=None, data=None, headers=None,
         else:
             url = '%s?%s' % (url, enc_params)
 
-    resp, content = http.request(url, method, headers=headers, body=data)
+    resp, content = make_http_request(http, url, method, headers, data)
 
     # Format httplib2 request as requests object
     return Response(resp, content.decode('utf-8'), url)
