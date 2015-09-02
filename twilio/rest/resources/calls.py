@@ -124,7 +124,7 @@ class Calls(BaseCalls):
         """
         uri = "%s/%s" % (self.uri, sid)
         call_feedback_factory = CallFeedbackFactory(
-            uri, self.auth, self.timeout
+            self.client, uri, self.auth, self.timeout
         )
         return call_feedback_factory.create(
             quality_score=quality_score, issue=issue

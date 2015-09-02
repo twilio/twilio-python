@@ -3,6 +3,7 @@ from nose.tools import assert_equal
 
 from mock import patch
 from tests.tools import create_mock_json
+from twilio.rest.http import HttpClient
 
 from twilio.rest.resources.pricing.voice import (
     VoiceCountries,
@@ -16,13 +17,16 @@ BASE_URI = "https://pricing.twilio.com/v1"
 
 class VoiceTest(unittest.TestCase):
 
+    def setUp(self):
+        self.client = HttpClient()
+
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_voice_countries(self, request):
         resp = create_mock_json('tests/resources/pricing/voice_countries_list.json')
         resp.status_code = 200
         request.return_value = resp
 
-        countries = VoiceCountries(BASE_URI, AUTH)
+        countries = VoiceCountries(self.client, BASE_URI, AUTH)
         result = countries.list().execute()
 
         assert_equal(result[0].iso_country, "AD")
@@ -34,6 +38,7 @@ class VoiceTest(unittest.TestCase):
             auth=AUTH,
             use_json_extension=False,
             params={},
+            client=self.client
         )
 
     @patch('twilio.rest.resources.base.make_twilio_request')
@@ -42,7 +47,7 @@ class VoiceTest(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        countries = VoiceCountries(BASE_URI, AUTH)
+        countries = VoiceCountries(self.client, BASE_URI, AUTH)
         country = countries.get('AU').execute()
 
         assert_equal(country.country, "Australia")
@@ -60,6 +65,7 @@ class VoiceTest(unittest.TestCase):
             "{0}/Voice/Countries/AU".format(BASE_URI),
             auth=AUTH,
             use_json_extension=False,
+            client=self.client
         )
 
     @patch('twilio.rest.resources.base.make_twilio_request')
@@ -68,7 +74,7 @@ class VoiceTest(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        numbers = VoiceNumbers(BASE_URI, AUTH)
+        numbers = VoiceNumbers(self.client, BASE_URI, AUTH)
         result = numbers.get('+14089673429').execute()
 
         assert_equal(result.number, '+14089673429')
@@ -79,4 +85,5 @@ class VoiceTest(unittest.TestCase):
             "{0}/Voice/Numbers/+14089673429".format(BASE_URI),
             auth=AUTH,
             use_json_extension=False,
+            client=self.client
         )

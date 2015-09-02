@@ -2,6 +2,7 @@ import unittest
 from mock import patch, Mock
 
 from tests.tools import create_mock_json
+from twilio.rest.http import HttpClient
 from twilio.rest.resources.sip.credential_lists import Credential, Credentials
 from twilio.rest.resources.util import UNSET_TIMEOUT
 
@@ -17,7 +18,8 @@ class SipCredentialTest(unittest.TestCase):
                                                           CRED_SID)
 
     def setUp(self):
-        self.list_resource = Credentials(self.BASE_URI, self.AUTH, UNSET_TIMEOUT)
+        self.client = HttpClient()
+        self.list_resource = Credentials(self.client, self.BASE_URI, self.AUTH, UNSET_TIMEOUT)
         self.instance_resource = Credential(self.list_resource, self.SID)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
@@ -30,7 +32,8 @@ class SipCredentialTest(unittest.TestCase):
         self.list_resource.list().execute()
 
         mock.assert_called_with("GET", uri, params={}, auth=self.AUTH,
-                                use_json_extension=True)
+                                use_json_extension=True,
+                                client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_list_create(self, mock):
@@ -47,7 +50,8 @@ class SipCredentialTest(unittest.TestCase):
             'Password': 'password'
         }
         mock.assert_called_with("POST", uri, data=data,
-                                auth=self.AUTH, use_json_extension=True)
+                                auth=self.AUTH, use_json_extension=True,
+                                client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_list_fetch(self, mock):
@@ -59,7 +63,8 @@ class SipCredentialTest(unittest.TestCase):
         self.list_resource.get(self.SID).execute()
 
         mock.assert_called_with("GET", uri, auth=self.AUTH,
-                                use_json_extension=True)
+                                use_json_extension=True,
+                                client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_list_delete(self, mock):
@@ -71,7 +76,8 @@ class SipCredentialTest(unittest.TestCase):
         self.list_resource.delete(self.SID).execute()
 
         mock.assert_called_with("DELETE", uri, auth=self.AUTH,
-                                use_json_extension=True)
+                                use_json_extension=True,
+                                client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_list_update(self, mock):
@@ -90,7 +96,8 @@ class SipCredentialTest(unittest.TestCase):
         mock.assert_called_with("POST", uri,
                                 data=data,
                                 auth=self.AUTH,
-                                use_json_extension=True)
+                                use_json_extension=True,
+                                client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_instance_update(self, mock):
@@ -108,7 +115,8 @@ class SipCredentialTest(unittest.TestCase):
         }
         mock.assert_called_with("POST", uri, data=data,
                                 auth=self.AUTH,
-                                use_json_extension=True)
+                                use_json_extension=True,
+                                client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_instance_delete(self, mock):
@@ -121,4 +129,5 @@ class SipCredentialTest(unittest.TestCase):
 
         mock.assert_called_with("DELETE", uri,
                                 auth=self.AUTH,
-                                use_json_extension=True)
+                                use_json_extension=True,
+                                client=self.client)

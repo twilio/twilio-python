@@ -3,6 +3,7 @@ from nose.tools import assert_equal
 
 from mock import patch
 from tests.tools import create_mock_json
+from twilio.rest.http import HttpClient
 
 from twilio.rest.resources.pricing.phone_numbers import PhoneNumberCountries
 
@@ -13,13 +14,16 @@ BASE_URI = "https://pricing.twilio.com/v1"
 
 class NumbersTest(unittest.TestCase):
 
+    def setUp(self):
+        self.client = HttpClient()
+
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_number_countries(self, request):
         resp = create_mock_json('tests/resources/pricing/phone_number_country_list.json')
         resp.status_code = 200
         request.return_value = resp
 
-        countries = PhoneNumberCountries(BASE_URI, AUTH)
+        countries = PhoneNumberCountries(self.client, BASE_URI, AUTH)
         result = countries.list().execute()
 
         assert_equal(result[0].iso_country, "AC")
@@ -31,6 +35,7 @@ class NumbersTest(unittest.TestCase):
             auth=AUTH,
             use_json_extension=False,
             params={},
+            client=self.client
         )
 
     @patch('twilio.rest.resources.base.make_twilio_request')
@@ -39,7 +44,7 @@ class NumbersTest(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        countries = PhoneNumberCountries(BASE_URI, AUTH)
+        countries = PhoneNumberCountries(self.client, BASE_URI, AUTH)
         country = countries.get('EE').execute()
 
         assert_equal(country.country, "Estonia")
@@ -64,4 +69,5 @@ class NumbersTest(unittest.TestCase):
             "{0}/PhoneNumbers/Countries/EE".format(BASE_URI),
             auth=AUTH,
             use_json_extension=False,
+            client=self.client
         )

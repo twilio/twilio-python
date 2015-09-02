@@ -3,12 +3,16 @@ import unittest
 from nose.tools import assert_equal
 from mock import Mock, patch, ANY
 from tests.tools import create_mock_json
+from twilio.rest.http import HttpClient
 from twilio.rest.resources import Call, Calls
 
 AUTH = ('foo', 'bar')
 
 
 class CallFeedbackTest(unittest.TestCase):
+
+    def setUp(self):
+        self.client = HttpClient()
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_get_call_feedback(self, request):
@@ -17,6 +21,7 @@ class CallFeedbackTest(unittest.TestCase):
 
         mock = Mock()
         mock.uri = '/base'
+        mock.client = self.client
         call = Call(mock, 'CA123')
         call.load_subresources()
         feedback = call.feedback.get().execute()
@@ -32,6 +37,8 @@ class CallFeedbackTest(unittest.TestCase):
         mock = Mock()
         mock.uri = '/base'
         mock.auth = AUTH
+        mock.client = self.client
+
         call = Call(mock, 'CA123')
         call.load_subresources()
         feedback = call.feedback.create(
@@ -49,6 +56,7 @@ class CallFeedbackTest(unittest.TestCase):
             "POST", "/base/CA123/Feedback",
             data=exp_data, auth=AUTH,
             timeout=ANY, use_json_extension=True,
+            client=self.client
         )
 
     @patch('twilio.rest.resources.base.make_twilio_request')
@@ -61,7 +69,7 @@ class CallFeedbackTest(unittest.TestCase):
         account_sid = 'AC123'
         auth = (account_sid, "token")
 
-        calls = Calls(base_uri, auth)
+        calls = Calls(self.client, base_uri, auth)
         uri = "%s/Calls/CA123/Feedback" % base_uri
         feedback = calls.feedback(
             'CA123',
@@ -79,6 +87,7 @@ class CallFeedbackTest(unittest.TestCase):
             "POST", uri,
             data=exp_data, auth=auth,
             use_json_extension=True,
+            client=self.client
         )
 
 
@@ -92,12 +101,14 @@ class CallFeedbackSummaryTest(unittest.TestCase):
         base_uri = 'https://api.twilio.com/2010-04-01/Accounts/AC123'
         account_sid = 'AC123'
         auth = (account_sid, "token")
+        client = HttpClient()
 
-        calls = Calls(base_uri, auth)
+        calls = Calls(client, base_uri, auth)
         uri = "%s/Calls/FeedbackSummary/sid" % base_uri
         feedback = calls.summary.get('sid').execute()
         assert_equal(10200, feedback.call_count)
         assert_equal(729, feedback.call_feedback_count)
 
         request.assert_called_with('GET', uri, auth=auth,
-                                   use_json_extension=True)
+                                   use_json_extension=True,
+                                   client=client)

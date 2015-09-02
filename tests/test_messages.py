@@ -3,6 +3,7 @@ import unittest
 
 from mock import patch
 from six import u
+from twilio.rest.http import HttpClient
 
 from twilio.rest.resources import Messages
 
@@ -17,7 +18,8 @@ DEFAULT = {
 class MessageTest(unittest.TestCase):
 
     def setUp(self):
-        self.resource = Messages("foo", ("sid", "token"))
+        self.client = HttpClient()
+        self.resource = Messages(self.client, "foo", ("sid", "token"))
         self.params = DEFAULT.copy()
 
     def test_list_on(self):

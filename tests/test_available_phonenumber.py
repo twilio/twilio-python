@@ -5,6 +5,7 @@ from mock import Mock, patch
 from nose.tools import assert_equal, assert_true, assert_false
 
 from twilio.rest.exceptions import TwilioException
+from twilio.rest.http import HttpClient
 from twilio.rest.resources import AvailablePhoneNumber
 from twilio.rest.resources import AvailablePhoneNumbers
 from twilio.rest.resources import PhoneNumbers
@@ -14,7 +15,9 @@ from twilio.rest.resources import UNSET_TIMEOUT
 class AvailablePhoneNumberTest(unittest.TestCase):
 
     def setUp(self):
+        self.client = HttpClient()
         self.parent = Mock()
+        self.parent.client = self.client
         self.instance = AvailablePhoneNumber(self.parent)
 
     def test_init(self):
@@ -32,8 +35,10 @@ class AvailablePhoneNumberTest(unittest.TestCase):
 class AvailablePhoneNumbersTest(unittest.TestCase):
 
     def setUp(self):
+        self.client = HttpClient()
         self.auth = ("user", "pass")
-        self.resource = AvailablePhoneNumbers("http://api.twilio.com",
+        self.resource = AvailablePhoneNumbers(self.client,
+                                              "http://api.twilio.com",
                                               self.auth, UNSET_TIMEOUT, Mock())
 
     def test_get(self):
@@ -50,7 +55,8 @@ class AvailablePhoneNumbersTest(unittest.TestCase):
 
         uri = "http://api.twilio.com/AvailablePhoneNumbers/US/Local"
         mock.assert_called_with("GET", uri, params={},
-                                auth=self.auth, use_json_extension=True)
+                                auth=self.auth, use_json_extension=True,
+                                client=self.client)
 
     def test_load_instance(self):
         instance = self.resource.load_instance({"hey": "you"})
@@ -67,13 +73,15 @@ class AvailablePhoneNumbersTest(unittest.TestCase):
         self.resource.list(type='mobile', country='GB').execute()
         uri = "http://api.twilio.com/AvailablePhoneNumbers/GB/Mobile"
         mock.assert_called_with("GET", uri, params={},
-                                auth=self.auth, use_json_extension=True)
+                                auth=self.auth, use_json_extension=True,
+                                client=self.client)
 
 
 class PhoneNumbersTest(unittest.TestCase):
 
     def setUp(self):
-        self.resource = PhoneNumbers("http://api.twilio.com",
+        self.client = HttpClient()
+        self.resource = PhoneNumbers(self.client, "http://api.twilio.com",
                                      ("user", "pass"))
 
     def test_reference(self):
@@ -100,4 +108,5 @@ class PhoneNumbersTest(unittest.TestCase):
 
         mock.assert_called_with("POST", uri, data=data,
                                 auth=("user", "pass"),
-                                use_json_extension=True)
+                                use_json_extension=True,
+                                client=self.client)

@@ -1,6 +1,7 @@
 import unittest
 
 from mock import Mock, patch
+from twilio.rest.http import HttpClient
 
 from twilio.rest.resources import ConnectApps
 
@@ -8,10 +9,12 @@ from twilio.rest.resources import ConnectApps
 class ConnectAppTest(unittest.TestCase):
 
     def setUp(self):
+        self.client = HttpClient()
         self.parent = Mock()
+        self.parent.client = self.client
         self.uri = "/base"
         self.auth = ("AC123", "token")
-        self.resource = ConnectApps(self.uri, self.auth)
+        self.resource = ConnectApps(self.client, self.uri, self.auth)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_get(self, mock):
@@ -19,8 +22,11 @@ class ConnectAppTest(unittest.TestCase):
         mock.return_value.content = '{"sid": "SID"}'
 
         self.resource.get("SID").execute()
-        mock.assert_called_with("GET", "/base/ConnectApps/SID",
-            auth=self.auth, use_json_extension=True)
+        mock.assert_called_with(
+            "GET", "/base/ConnectApps/SID",
+            auth=self.auth, use_json_extension=True,
+            client=self.client
+        )
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_list_with_paging(self, mock):
@@ -31,7 +37,8 @@ class ConnectAppTest(unittest.TestCase):
         mock.assert_called_with("GET", "/base/ConnectApps",
                                 params={"Page": 1, "PageSize": 50},
                                 auth=self.auth,
-                                use_json_extension=True)
+                                use_json_extension=True,
+                                client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_list(self, mock):
@@ -41,7 +48,8 @@ class ConnectAppTest(unittest.TestCase):
         self.resource.list().execute()
         mock.assert_called_with("GET", "/base/ConnectApps",
                                 params={}, auth=self.auth,
-                                use_json_extension=True)
+                                use_json_extension=True,
+                                client=self.client)
 
     def test_create(self):
         self.assertRaises(AttributeError, getattr, self.resource, 'create')

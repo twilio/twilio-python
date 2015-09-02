@@ -1,5 +1,6 @@
 from mock import patch, Mock
 from nose.tools import raises
+from twilio.rest.http import HttpClient
 from twilio.rest.resources import Transcriptions, Transcription
 from tests.tools import create_mock_json
 
@@ -7,7 +8,8 @@ BASE_URI = "https://api.twilio.com/2010-04-01/Accounts/AC123"
 ACCOUNT_SID = "AC123"
 AUTH = (ACCOUNT_SID, "token")
 
-transcriptions = Transcriptions(BASE_URI, AUTH)
+client = HttpClient()
+transcriptions = Transcriptions(client, BASE_URI, AUTH)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -19,7 +21,8 @@ def test_paging(mock):
     transcriptions.list(page=2).execute()
 
     mock.assert_called_with("GET", uri, params={"Page": 2}, auth=AUTH,
-                            use_json_extension=True)
+                            use_json_extension=True,
+                            client=client)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -31,7 +34,8 @@ def test_get(mock):
     transcriptions.get("TR123").execute()
 
     mock.assert_called_with("GET", uri, auth=AUTH,
-                            use_json_extension=True)
+                            use_json_extension=True,
+                            client=client)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -46,7 +50,8 @@ def test_delete_transcription(req):
     app.delete().execute()
 
     uri = "https://api.twilio.com/2010-04-01/Accounts/AC123/Transcriptions/TR123"
-    req.assert_called_with("DELETE", uri, auth=AUTH, use_json_extension=True)
+    req.assert_called_with("DELETE", uri, auth=AUTH, use_json_extension=True,
+                           client=client)
 
 
 @raises(AttributeError)

@@ -2,6 +2,7 @@ from datetime import date
 import unittest
 
 from mock import Mock
+from twilio.rest.http import HttpClient
 from twilio.rest.resources import Conferences
 
 DEFAULT = {
@@ -17,7 +18,8 @@ DEFAULT = {
 class ConferenceTest(unittest.TestCase):
 
     def setUp(self):
-        self.resource = Conferences("foo", ("sid", "token"))
+        self.client = HttpClient()
+        self.resource = Conferences(self.client, "foo", ("sid", "token"))
         self.params = DEFAULT.copy()
 
     def test_list(self):

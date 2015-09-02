@@ -3,6 +3,7 @@ import unittest
 
 from mock import patch
 from tests.tools import create_mock_json
+from twilio.rest.http import HttpClient
 
 from twilio.rest.resources import SmsMessages
 
@@ -10,8 +11,9 @@ from twilio.rest.resources import SmsMessages
 class SmsTest(unittest.TestCase):
 
     def setUp(self):
+        self.client = HttpClient()
         self.auth = ("sid", "token")
-        self.resource = SmsMessages("foo", self.auth)
+        self.resource = SmsMessages(self.client, "foo", self.auth)
         self.params = {}
 
     @patch("twilio.rest.resources.base.make_twilio_request")
@@ -26,7 +28,8 @@ class SmsTest(unittest.TestCase):
         mock.assert_called_with("GET", 'foo/SMS/Messages',
                                 params=self.params,
                                 auth=self.auth,
-                                use_json_extension=True)
+                                use_json_extension=True,
+                                client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_list_after(self, mock):
@@ -40,7 +43,8 @@ class SmsTest(unittest.TestCase):
         mock.assert_called_with("GET", 'foo/SMS/Messages',
                                 params=self.params,
                                 auth=self.auth,
-                                use_json_extension=True)
+                                use_json_extension=True,
+                                client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_list_before(self, mock):
@@ -54,4 +58,5 @@ class SmsTest(unittest.TestCase):
         mock.assert_called_with("GET", 'foo/SMS/Messages',
                                 params=self.params,
                                 auth=self.auth,
-                                use_json_extension=True)
+                                use_json_extension=True,
+                                client=self.client)

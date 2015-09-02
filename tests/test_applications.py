@@ -8,9 +8,11 @@ from twilio.rest.resources import Applications, Application
 
 class ApplicationsTest(unittest.TestCase):
     def setUp(self):
+        self.client = Mock()
         self.parent = Mock()
+        self.parent.client = self.client
         self.auth = ("user", "pass")
-        self.resource = Applications("http://api.twilio.com", self.auth)
+        self.resource = Applications(self.client, "http://api.twilio.com", self.auth)
 
     def test_create_application_sms_url_method(self):
         self.resource.create_instance = Mock()
@@ -45,7 +47,8 @@ class ApplicationsTest(unittest.TestCase):
 
         uri = "http://api.twilio.com/Applications/123"
         mock.assert_called_with("POST", uri, data={"VoiceUrl": "hey"},
-                                auth=self.auth, use_json_extension=True)
+                                auth=self.auth, use_json_extension=True,
+                                client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_create(self, mock):
@@ -58,7 +61,8 @@ class ApplicationsTest(unittest.TestCase):
 
         uri = "http://api.twilio.com/Applications"
         mock.assert_called_with("POST", uri, data={"FriendlyName": "hey"},
-                                auth=self.auth, use_json_extension=True)
+                                auth=self.auth, use_json_extension=True,
+                                client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_delete(self, mock):
@@ -72,4 +76,5 @@ class ApplicationsTest(unittest.TestCase):
         app.delete().execute()
         uri = "http://api.twilio.com/Applications/AP123"
         mock.assert_called_with("DELETE", uri,
-                                auth=self.auth, use_json_extension=True)
+                                auth=self.auth, use_json_extension=True,
+                                client=self.client)

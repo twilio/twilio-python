@@ -1,6 +1,7 @@
 from datetime import date
 from mock import patch
 from nose.tools import raises, assert_true
+from twilio.rest.http import HttpClient
 from twilio.rest.resources import Notifications
 from tests.tools import create_mock_json
 
@@ -10,7 +11,8 @@ AUTH = (ACCOUNT_SID, "token")
 
 RE_SID = "RE19e96a31ed59a5733d2c1c1c69a83a28"
 
-list_resource = Notifications(BASE_URI, AUTH)
+client = HttpClient()
+list_resource = Notifications(client, BASE_URI, AUTH)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -23,7 +25,8 @@ def test_paging(mock):
     exp_params = {'MessageDate<': '2010-12-05'}
 
     mock.assert_called_with("GET", uri, params=exp_params, auth=AUTH,
-                            use_json_extension=True)
+                            use_json_extension=True,
+                            client=client)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -35,7 +38,8 @@ def test_get(mock):
     list_resource.get(RE_SID).execute()
 
     mock.assert_called_with("GET", uri, auth=AUTH,
-                            use_json_extension=True)
+                            use_json_extension=True,
+                            client=client)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -48,7 +52,8 @@ def test_get2(mock):
     r = list_resource.delete(RE_SID).execute()
 
     mock.assert_called_with("DELETE", uri, auth=AUTH,
-                            use_json_extension=True)
+                            use_json_extension=True,
+                            client=client)
     assert_true(r)
 
 

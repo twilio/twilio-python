@@ -1,6 +1,7 @@
 import unittest
 from mock import patch
 from tests.tools import create_mock_json
+from twilio.rest.http import HttpClient
 from twilio.rest.resources.task_router import Workspace, Workspaces
 
 from twilio.rest.resources.task_router.workers import Workers, Worker
@@ -15,13 +16,16 @@ TIMEOUT = 30
 
 class TestStatistics(unittest.TestCase):
 
+    def setUp(self):
+        self.client = HttpClient()
+
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_fetch_worker_statistics(self, request):
         resp = create_mock_json('tests/resources/task_router/workers_statistics_instance.json')
         resp.status_code = 200
         request.return_value = resp
 
-        workers = Workers(BASE_URI, AUTH, TIMEOUT)
+        workers = Workers(self.client, BASE_URI, AUTH, TIMEOUT)
         worker = Worker(workers, 'WK123')
         worker.load_subresources()
         worker.statistics.get().execute()
@@ -31,6 +35,7 @@ class TestStatistics(unittest.TestCase):
             auth=AUTH,
             timeout=TIMEOUT,
             use_json_extension=False,
+            client=self.client
         )
 
     @patch("twilio.rest.resources.base.make_twilio_request")
@@ -39,12 +44,13 @@ class TestStatistics(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        workers = Workers(BASE_URI, AUTH, TIMEOUT)
+        workers = Workers(self.client, BASE_URI, AUTH, TIMEOUT)
         workers.statistics.get().execute()
         request.assert_called_with('GET',
                                    '{0}/Workers/Statistics'.format(BASE_URI),
                                    auth=AUTH, timeout=TIMEOUT,
-                                   use_json_extension=False)
+                                   use_json_extension=False,
+                                   client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_fetch_task_queue_statistics(self, request):
@@ -52,14 +58,15 @@ class TestStatistics(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        tqs = TaskQueues(BASE_URI, AUTH, 30)
+        tqs = TaskQueues(self.client, BASE_URI, AUTH, 30)
         tq = TaskQueue(tqs, 'TQ123')
         tq.load_subresources()
         tq.statistics.get().execute()
         request.assert_called_with('GET',
                                    '{0}/TaskQueues/TQ123/Statistics'.format(BASE_URI),
                                    auth=AUTH, timeout=30,
-                                   use_json_extension=False)
+                                   use_json_extension=False,
+                                   client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_fetch_task_queues_statistics(self, request):
@@ -67,11 +74,12 @@ class TestStatistics(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        tqs = TaskQueues(BASE_URI, AUTH, 30)
+        tqs = TaskQueues(self.client, BASE_URI, AUTH, 30)
         tqs.statistics.get().execute()
         request.assert_called_with('GET',
                                    '{0}/TaskQueues/Statistics'.format(BASE_URI),
-                                   timeout=30, auth=AUTH, use_json_extension=False)
+                                   timeout=30, auth=AUTH, use_json_extension=False,
+                                   client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_fetch_task_workflow_statistics(self, request):
@@ -79,13 +87,14 @@ class TestStatistics(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        workflows = Workflows(BASE_URI, AUTH)
+        workflows = Workflows(self.client, BASE_URI, AUTH)
         workflow = Workflow(workflows, 'WF123')
         workflow.load_subresources()
         workflow.statistics.get().execute()
         request.assert_called_with('GET',
                                    '{0}/Workflows/WF123/Statistics'.format(BASE_URI),
-                                   auth=AUTH, use_json_extension=False)
+                                   auth=AUTH, use_json_extension=False,
+                                   client=self.client)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_fetch_workspace_statistics(self, request):
@@ -93,10 +102,11 @@ class TestStatistics(unittest.TestCase):
         resp.status_code = 200
         request.return_value = resp
 
-        workspaces = Workspaces(BASE_URI, AUTH)
+        workspaces = Workspaces(self.client, BASE_URI, AUTH)
         workspace = Workspace(workspaces, 'WS123')
         workspace.load_subresources()
         workspace.statistics.get().execute()
         request.assert_called_witH('GET',
                                    '{}/Workspaces/WS123/Statistics'.format(BASE_URI),
-                                   auth=AUTH, use_json_extensions=False)
+                                   auth=AUTH, use_json_extensions=False,
+                                   client=self.client)

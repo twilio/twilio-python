@@ -50,6 +50,7 @@ class Account(BaseAccount):
 
         for resource in self.override_subresources:
             list_resource = resource(
+                self.client,
                 self.uri,
                 self.parent.auth,
                 self.parent.timeout

@@ -4,6 +4,7 @@ from mock import patch, Mock
 from nose.tools import raises
 
 from tests.tools import create_mock_json
+from twilio.rest.http import HttpClient
 from twilio.rest.resources import Usage
 from twilio.rest.resources.usage import UsageTriggers, UsageTrigger
 
@@ -11,10 +12,11 @@ from twilio.rest.resources.usage import UsageTriggers, UsageTrigger
 class TestUsage(unittest.TestCase):
 
     def setUp(self):
+        self.client = HttpClient()
         self.base_uri = "https://api.twilio.com/2010-04-01/Accounts/AC123"
         self.account_sid = "AC123"
         self.auth = (self.account_sid, "token")
-        self.usage = Usage(self.base_uri, self.auth)
+        self.usage = Usage(self.client, self.base_uri, self.auth)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_records_daily_subresource(self, request):
@@ -26,7 +28,10 @@ class TestUsage(unittest.TestCase):
 
         self.usage.records.daily.list().execute()
 
-        request.assert_called_with('GET', uri, params={}, use_json_extension=True, auth=self.auth)
+        request.assert_called_with('GET', uri, params={},
+                                   use_json_extension=True,
+                                   auth=self.auth,
+                                   client=self.client)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_records_monthly_subresource(self, request):
@@ -38,7 +43,10 @@ class TestUsage(unittest.TestCase):
 
         self.usage.records.monthly.list().execute()
 
-        request.assert_called_with('GET', uri, params={}, use_json_extension=True, auth=self.auth)
+        request.assert_called_with('GET', uri, params={},
+                                   use_json_extension=True,
+                                   auth=self.auth,
+                                   client=self.client)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_records_yearly_subresource(self, request):
@@ -50,7 +58,10 @@ class TestUsage(unittest.TestCase):
 
         self.usage.records.yearly.list().execute()
 
-        request.assert_called_with('GET', uri, params={}, use_json_extension=True, auth=self.auth)
+        request.assert_called_with('GET', uri, params={},
+                                   use_json_extension=True,
+                                   auth=self.auth,
+                                   client=self.client)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_records_today_subresource(self, request):
@@ -62,7 +73,10 @@ class TestUsage(unittest.TestCase):
 
         self.usage.records.today.list().execute()
 
-        request.assert_called_with('GET', uri, params={}, use_json_extension=True, auth=self.auth)
+        request.assert_called_with('GET', uri, params={},
+                                   use_json_extension=True,
+                                   auth=self.auth,
+                                   client=self.client)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_records_yesterday_subresource(self, request):
@@ -74,7 +88,10 @@ class TestUsage(unittest.TestCase):
 
         self.usage.records.yesterday.list().execute()
 
-        request.assert_called_with('GET', uri, params={}, use_json_extension=True, auth=self.auth)
+        request.assert_called_with('GET', uri, params={},
+                                   use_json_extension=True,
+                                   auth=self.auth,
+                                   client=self.client)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_records_last_month_subresource(self, request):
@@ -86,7 +103,10 @@ class TestUsage(unittest.TestCase):
 
         self.usage.records.last_month.list().execute()
 
-        request.assert_called_with('GET', uri, params={}, use_json_extension=True, auth=self.auth)
+        request.assert_called_with('GET', uri, params={},
+                                   use_json_extension=True,
+                                   auth=self.auth,
+                                   client=self.client)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_records_this_month_subresource(self, request):
@@ -98,7 +118,10 @@ class TestUsage(unittest.TestCase):
 
         self.usage.records.this_month.list().execute()
 
-        request.assert_called_with('GET', uri, params={}, use_json_extension=True, auth=self.auth)
+        request.assert_called_with('GET', uri, params={},
+                                   use_json_extension=True,
+                                   auth=self.auth,
+                                   client=self.client)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_triggers_update(self, request):
@@ -119,7 +142,7 @@ class TestUsage(unittest.TestCase):
             "FriendlyName": "new_friendly_name",
             "CallbackUrl": "http://",
             "CallbackMethod": "GET"
-        }, auth=self.auth, use_json_extension=True)
+        }, auth=self.auth, use_json_extension=True, client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_triggers_create(self, request):
@@ -146,7 +169,7 @@ class TestUsage(unittest.TestCase):
             "TriggerValue": "10.00",
             "CallbackUrl": "http://www.example.com",
             "CallbackMethod": "POST"
-        }, auth=self.auth, use_json_extension=True)
+        }, auth=self.auth, use_json_extension=True, client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_triggers_paging(self, request):
@@ -164,7 +187,7 @@ class TestUsage(unittest.TestCase):
             "Recurring": "daily",
             "UsageCategory": "sms",
             "TriggerBy": "count"
-        }, auth=self.auth, use_json_extension=True)
+        }, auth=self.auth, use_json_extension=True, client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_records_paging(self, request):
@@ -182,7 +205,7 @@ class TestUsage(unittest.TestCase):
             "StartDate": "2012-10-12",
             "EndDate": "2012-10-13",
             "Category": "sms"
-        }, auth=self.auth, use_json_extension=True)
+        }, auth=self.auth, use_json_extension=True, client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_delete_trigger(self, req):
@@ -191,14 +214,15 @@ class TestUsage(unittest.TestCase):
         resp.status_code = 204
         req.return_value = resp
 
-        triggers = UsageTriggers("https://api.twilio.com", self.auth)
+        triggers = UsageTriggers(self.client, "https://api.twilio.com", self.auth)
         trigger = UsageTrigger(triggers, "UT123")
         trigger.delete().execute()
 
         uri = "https://api.twilio.com/Usage/Triggers/UT123"
         req.assert_called_with("DELETE", uri,
                                auth=self.auth,
-                               use_json_extension=True)
+                               use_json_extension=True,
+                               client=self.client)
 
     @raises(AttributeError)
     def test_records_create(self):

@@ -1,5 +1,6 @@
 from mock import patch
 from tests.tools import create_mock_json
+from twilio.rest.http import HttpClient
 from twilio.rest.resources import Members
 
 QUEUE_SID = "QU1b9faddec3d54ec18488f86c83019bf0"
@@ -10,7 +11,8 @@ BASE_URI = "https://api.twilio.com/2010-04-01/Accounts/AC123/Queues/%s" % (
     QUEUE_SID)
 TWIML_URL = "example_twiml_url"
 
-list_resource = Members(BASE_URI, AUTH)
+client = HttpClient()
+list_resource = Members(client, BASE_URI, AUTH)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -23,7 +25,8 @@ def test_members_list(mock):
     list_resource.list().execute()
 
     mock.assert_called_with("GET", uri, params={}, auth=AUTH,
-                            use_json_extension=True)
+                            use_json_extension=True,
+                            client=client)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -36,7 +39,8 @@ def test_members_dequeue_front(mock):
     list_resource.dequeue(TWIML_URL).execute()
 
     mock.assert_called_with("POST", uri, data={"Url": TWIML_URL}, auth=AUTH,
-                            use_json_extension=True)
+                            use_json_extension=True,
+                            client=client)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -49,4 +53,5 @@ def test_members_dequeue_call(mock):
     list_resource.dequeue(TWIML_URL, call_sid=CALL_SID).execute()
 
     mock.assert_called_with("POST", uri, data={"Url": TWIML_URL}, auth=AUTH,
-                            use_json_extension=True)
+                            use_json_extension=True,
+                            client=client)

@@ -9,9 +9,11 @@ from twilio.rest.resources import Addresses, DependentPhoneNumbers
 
 class AddressesTest(unittest.TestCase):
     def setUp(self):
+        self.client = Mock()
         self.parent = Mock()
+        self.parent.client = self.client
         self.auth = ("user", "pass")
-        self.resource = Addresses("http://api.twilio.com", self.auth)
+        self.resource = Addresses(self.client, "http://api.twilio.com", self.auth)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_update(self, mock):
@@ -24,11 +26,13 @@ class AddressesTest(unittest.TestCase):
 
         uri = "http://api.twilio.com/Addresses/123"
         mock.assert_called_with("POST", uri, data={"FriendlyName": "hi"},
-                                auth=self.auth, use_json_extension=True)
+                                auth=self.auth, use_json_extension=True,
+                                client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_dependent_phone_numbers(self, mock):
         pn_list = DependentPhoneNumbers(
+            self.client,
             'http://api.twilio.com/mock',
             ('user', 'pass'),
         )
@@ -49,6 +53,7 @@ class AddressesTest(unittest.TestCase):
             "http://api.twilio.com/mock/DependentPhoneNumbers",
             params={},
             auth=self.auth,
-            use_json_extension=True
+            use_json_extension=True,
+            client=self.client
         )
         assert_equal(result[0].sid, 'PN123')

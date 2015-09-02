@@ -2,6 +2,7 @@ import unittest
 from mock import patch, Mock
 
 from tests.tools import create_mock_json
+from twilio.rest.http import HttpClient
 from twilio.rest.resources.sip import Sip
 from twilio.rest.resources.sip.credential_lists import SipCredentialList
 from twilio.rest.resources.util import UNSET_TIMEOUT
@@ -14,7 +15,8 @@ class SipCredentialListTest(unittest.TestCase):
     SID = 'CL1e9949149f055138a8c215fb7ccd5b64'
 
     def setUp(self):
-        self.sip = Sip(self.BASE_URI, self.AUTH, UNSET_TIMEOUT)
+        self.client = HttpClient()
+        self.sip = Sip(self.client, self.BASE_URI, self.AUTH, UNSET_TIMEOUT)
         self.list_resource = self.sip.credential_lists
         self.instance_resource = SipCredentialList(
             self.list_resource, self.SID)
@@ -29,7 +31,8 @@ class SipCredentialListTest(unittest.TestCase):
         self.list_resource.list().execute()
 
         mock.assert_called_with("GET", uri, params={}, auth=self.AUTH,
-                                use_json_extension=True)
+                                use_json_extension=True,
+                                client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_list_create(self, mock):
@@ -41,7 +44,8 @@ class SipCredentialListTest(unittest.TestCase):
         self.list_resource.create('cred').execute()
 
         mock.assert_called_with("POST", uri, data={'FriendlyName': 'cred'},
-                                auth=self.AUTH, use_json_extension=True)
+                                auth=self.AUTH, use_json_extension=True,
+                                client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_list_fetch(self, mock):
@@ -53,7 +57,8 @@ class SipCredentialListTest(unittest.TestCase):
         self.list_resource.get(self.SID).execute()
 
         mock.assert_called_with("GET", uri, auth=self.AUTH,
-                                use_json_extension=True)
+                                use_json_extension=True,
+                                client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_list_delete(self, mock):
@@ -65,7 +70,8 @@ class SipCredentialListTest(unittest.TestCase):
         self.list_resource.delete(self.SID).execute()
 
         mock.assert_called_with("DELETE", uri, auth=self.AUTH,
-                                use_json_extension=True)
+                                use_json_extension=True,
+                                client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_list_update(self, mock):
@@ -79,7 +85,8 @@ class SipCredentialListTest(unittest.TestCase):
         mock.assert_called_with("POST", uri,
                                 data={'FriendlyName': 'cred'},
                                 auth=self.AUTH,
-                                use_json_extension=True)
+                                use_json_extension=True,
+                                client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_instance_update(self, mock):
@@ -92,7 +99,8 @@ class SipCredentialListTest(unittest.TestCase):
 
         mock.assert_called_with("POST", uri, data={'FriendlyName': 'cred'},
                                 auth=self.AUTH,
-                                use_json_extension=True)
+                                use_json_extension=True,
+                                client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_instance_delete(self, mock):
@@ -105,4 +113,5 @@ class SipCredentialListTest(unittest.TestCase):
 
         mock.assert_called_with("DELETE", uri,
                                 auth=self.AUTH,
-                                use_json_extension=True)
+                                use_json_extension=True,
+                                client=self.client)

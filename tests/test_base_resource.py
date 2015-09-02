@@ -18,7 +18,7 @@ auth = (account_sid, "token")
 
 
 def test_resource_init():
-    r = Resource(base_uri, auth)
+    r = Resource(Mock(), base_uri, auth)
     uri = "%s/%s" % (base_uri, r.name)
 
     assert_equal(r.base_uri, base_uri)
@@ -29,7 +29,8 @@ def test_resource_init():
 class ListResourceTest(unittest.TestCase):
 
     def setUp(self):
-        self.r = ListResource(base_uri, auth)
+        self.client = Mock()
+        self.r = ListResource(self.client, base_uri, auth)
 
     def testListResourceInit(self):
         uri = "%s/%s" % (base_uri, self.r.name)
@@ -59,7 +60,8 @@ class ListResourceTest(unittest.TestCase):
 
         mock.assert_called_with("GET", "https://api.twilio.com/2010-04-01/Resources",
                                 params={},
-                                auth=auth, use_json_extension=True)
+                                auth=auth, use_json_extension=True,
+                                client=self.client)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def testIterOneItem(self, mock):
@@ -108,7 +110,8 @@ class ListResourceTest(unittest.TestCase):
         self.r.create_instance({}).execute()
 
         mock.assert_called_with("POST", "https://api.twilio.com/2010-04-01/Resources", data={},
-                                auth=auth, use_json_extension=True)
+                                auth=auth, use_json_extension=True,
+                                client=self.client)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def testListResourceCreateResponse201(self, mock):
@@ -121,13 +124,15 @@ class ListResourceTest(unittest.TestCase):
         self.r.create_instance({}).execute()
 
         mock.assert_called_with("POST", "https://api.twilio.com/2010-04-01/Resources", data={},
-                                auth=auth, use_json_extension=True)
+                                auth=auth, use_json_extension=True,
+                                client=self.client)
 
 
 class NextGenListResourceTest(unittest.TestCase):
 
     def setUp(self):
-        self.r = NextGenListResource(base_uri, auth)
+        self.client = Mock()
+        self.r = NextGenListResource(self.client, base_uri, auth)
 
     def test_list_resource_init(self):
         uri = "%s/%s" % (base_uri, self.r.name)
@@ -152,7 +157,8 @@ class NextGenListResourceTest(unittest.TestCase):
         item = advance_iterator(self.r.iter())
 
         mock.assert_called_with("GET", "https://api.twilio.com/2010-04-01/Resources",
-                                auth=auth, use_json_extension=False)
+                                auth=auth, use_json_extension=False,
+                                client=self.client)
         assert_equal(item.sid, '123')
 
     @patch('twilio.rest.resources.base.make_twilio_request')
@@ -177,7 +183,8 @@ class NextGenListResourceTest(unittest.TestCase):
 class testInstanceResourceInit(unittest.TestCase):
 
     def setUp(self):
-        self.parent = ListResource(base_uri, auth)
+        self.client = Mock()
+        self.parent = ListResource(self.client, base_uri, auth)
         self.r = InstanceResource(self.parent, "123")
         self.uri = "%s/%s" % (self.parent.uri, "123")
 
@@ -214,12 +221,13 @@ class testInstanceResourceInit(unittest.TestCase):
         m = Mock()
         self.r.subresources = [m]
         self.r.load_subresources()
-        m.assert_called_with(self.r.uri, self.r.auth, self.r.timeout)
+        m.assert_called_with(self.client, self.r.uri, self.r.auth, self.r.timeout)
 
 
 class NextGenInstanceResourceTest(unittest.TestCase):
     def setUp(self):
-        self.parent = NextGenListResource(base_uri, auth)
+        self.client = Mock(0)
+        self.parent = NextGenListResource(self.client, base_uri, auth)
         self.r = NextGenInstanceResource(self.parent, "123")
 
     def test_load(self):

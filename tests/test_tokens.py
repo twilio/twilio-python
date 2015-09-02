@@ -1,6 +1,7 @@
 import unittest
 
 from mock import patch
+from twilio.rest.http import HttpClient
 
 from twilio.rest.resources import Tokens
 
@@ -13,7 +14,8 @@ DEFAULT = {
 class TokensTest(unittest.TestCase):
 
     def setUp(self):
-        self.resource = Tokens('foo', ('sid', 'token'))
+        self.client = HttpClient()
+        self.resource = Tokens(self.client, 'foo', ('sid', 'token'))
         self.params = DEFAULT.copy()
 
     def test_create(self):

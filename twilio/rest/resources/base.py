@@ -1,12 +1,8 @@
 import logging
-import os
 import platform
 
 from six import (
-    integer_types,
     string_types,
-    binary_type,
-    iteritems
 )
 from ...compat import urlencode
 from ...compat import urlparse
@@ -15,8 +11,7 @@ from ...compat import urlunparse
 from ... import __version__
 from ...exceptions import TwilioException
 from ..exceptions import TwilioRestException
-from .connection import Connection
-from .imports import parse_qs, httplib2, json
+from .imports import parse_qs, json
 from .util import (
     parse_iso_date,
     parse_rfc2822_date,
@@ -27,107 +22,7 @@ from .util import (
 logger = logging.getLogger('twilio')
 
 
-class Response(object):
-    """
-    Take a httplib2 response and turn it into a requests response
-    """
-    def __init__(self, httplib_resp, content, url):
-        self.content = content
-        self.cached = False
-        self.status_code = int(httplib_resp.status)
-        self.ok = self.status_code < 400
-        self.url = url
-
-
-def get_cert_file():
-    """ Get the cert file location or bail """
-    # XXX - this currently fails test coverage because we don't actually go
-    # over the network anywhere. Might be good to have a test that stands up a
-    # local server and authenticates against it.
-    try:
-        # Apparently __file__ is not available in all places so wrapping this
-        # in a try/catch
-        current_path = os.path.realpath(__file__)
-        ca_cert_path = os.path.join(current_path, "..", "..", "..",
-                                    "conf", "cacert.pem")
-        return os.path.abspath(ca_cert_path)
-    except Exception:
-        # None means use the default system file
-        return None
-
-
-def make_http_request(http_client, url, method, headers, data):
-    """
-    A proxy for integration test without patching urllib http client
-    """
-    return http_client.request(url, method, headers=headers, body=data)
-
-
-def make_request(method, url, params=None, data=None, headers=None,
-                 cookies=None, files=None, auth=None, timeout=None,
-                 allow_redirects=False, proxies=None):
-    """Sends an HTTP request
-
-    :param str method: The HTTP method to use
-    :param str url: The URL to request
-    :param dict params: Query parameters to append to the URL
-    :param dict data: Parameters to go in the body of the HTTP request
-    :param dict headers: HTTP Headers to send with the request
-    :param float timeout: Socket/Read timeout for the request
-
-    :return: An http response
-    :rtype: A :class:`Response <models.Response>` object
-
-    See the requests documentation for explanation of all these parameters
-
-    Currently proxies, files, and cookies are all ignored
-    """
-    http = httplib2.Http(
-        timeout=timeout,
-        ca_certs=get_cert_file(),
-        proxy_info=Connection.proxy_info(),
-    )
-    http.follow_redirects = allow_redirects
-
-    if auth is not None:
-        http.add_credentials(auth[0], auth[1])
-
-    def encode_atom(atom):
-            if isinstance(atom, (integer_types, binary_type)):
-                return atom
-            elif isinstance(atom, string_types):
-                return atom.encode('utf-8')
-            else:
-                raise ValueError('list elements should be an integer, '
-                                 'binary, or string')
-
-    if data is not None:
-        udata = {}
-        for k, v in iteritems(data):
-            key = k.encode('utf-8')
-            if isinstance(v, (list, tuple, set)):
-                udata[key] = [encode_atom(x) for x in v]
-            elif isinstance(v, (integer_types, binary_type, string_types)):
-                udata[key] = encode_atom(v)
-            else:
-                raise ValueError('data should be an integer, '
-                                 'binary, or string, or sequence ')
-        data = urlencode(udata, doseq=True)
-
-    if params is not None:
-        enc_params = urlencode(params, doseq=True)
-        if urlparse(url).query:
-            url = '%s&%s' % (url, enc_params)
-        else:
-            url = '%s?%s' % (url, enc_params)
-
-    resp, content = make_http_request(http, url, method, headers, data)
-
-    # Format httplib2 request as requests object
-    return Response(resp, content.decode('utf-8'), url)
-
-
-def make_twilio_request(method, uri, **kwargs):
+def make_twilio_request(method, uri, client=None, **kwargs):
     """
     Make a request to Twilio. Throws an error
 
@@ -156,7 +51,7 @@ def make_twilio_request(method, uri, **kwargs):
     if kwargs.pop('use_json_extension', False):
         uri += ".json"
 
-    resp = make_request(method, uri, **kwargs)
+    resp = client.make_request(method, uri, **kwargs)
 
     if not resp.ok:
         try:
@@ -175,7 +70,8 @@ def make_twilio_request(method, uri, **kwargs):
 
 class Query(object):
 
-    def __init__(self, auth, timeout):
+    def __init__(self, client, auth, timeout):
+        self.client = client
         self.auth = auth
         self.timeout = timeout
 
@@ -190,7 +86,8 @@ class Query(object):
             kwargs['timeout'] = self.timeout
 
         kwargs['use_json_extension'] = use_json_extension
-        resp = make_twilio_request(method, uri, auth=self.auth, **kwargs)
+        resp = make_twilio_request(method, uri, auth=self.auth,
+                                   client=self.client, **kwargs)
 
         if method == "DELETE":
             return resp, {}
@@ -202,7 +99,8 @@ class CreateQuery(Query):
 
     def __init__(self, list_instance, uri, body,
                  use_json_extension=False):
-        super(CreateQuery, self).__init__(list_instance.auth,
+        super(CreateQuery, self).__init__(list_instance.client,
+                                          list_instance.auth,
                                           list_instance.timeout)
         self.uri = uri
         self.body = body
@@ -231,7 +129,8 @@ class UpdateQuery(Query):
 
     def __init__(self, list_instance, uri, body,
                  use_json_extension=False):
-        super(UpdateQuery, self).__init__(list_instance.auth,
+        super(UpdateQuery, self).__init__(list_instance.client,
+                                          list_instance.auth,
                                           list_instance.timeout)
         self.uri = uri
         self.body = body
@@ -259,7 +158,8 @@ class UpdateQuery(Query):
 class DeleteQuery(Query):
 
     def __init__(self, list_instance, uri, use_json_extension=False):
-        super(DeleteQuery, self).__init__(list_instance.auth,
+        super(DeleteQuery, self).__init__(list_instance.client,
+                                          list_instance.auth,
                                           list_instance.timeout)
         self.uri = uri
         self.use_json_extension = use_json_extension
@@ -281,7 +181,8 @@ class GetQuery(Query):
 
     def __init__(self, list_instance, uri, use_json_extension=False,
                  params=None):
-        super(GetQuery, self).__init__(list_instance.auth,
+        super(GetQuery, self).__init__(list_instance.client,
+                                       list_instance.auth,
                                        list_instance.timeout)
         self.uri = uri
         self.list_instance = list_instance
@@ -313,7 +214,8 @@ class ListQuery(Query):
 
     def __init__(self, list_instance, uri,
                  params, use_json_extension=False):
-        super(ListQuery, self).__init__(list_instance.auth,
+        super(ListQuery, self).__init__(list_instance.client,
+                                        list_instance.auth,
                                         list_instance.timeout)
         self.uri = uri
         self.params = params
@@ -356,7 +258,8 @@ class Resource(object):
     name = "Resource"
     use_json_extension = False
 
-    def __init__(self, base_uri, auth, timeout=UNSET_TIMEOUT):
+    def __init__(self, client, base_uri, auth, timeout=UNSET_TIMEOUT):
+        self.client = client
         self.base_uri = base_uri
         self.auth = auth
         self.timeout = timeout
@@ -395,6 +298,7 @@ class InstanceResource(Resource):
         self.parent = parent
         self.name = sid
         super(InstanceResource, self).__init__(
+            parent.client,
             parent.uri,
             parent.auth,
             parent.timeout
@@ -421,6 +325,7 @@ class InstanceResource(Resource):
         """
         for resource in self.subresources:
             list_resource = resource(
+                self.client,
                 self.uri,
                 self.parent.auth,
                 self.parent.timeout
@@ -619,7 +524,7 @@ class ListResource(Resource):
                 print message.sid
         """
         params = transform_params(kwargs)
-        query = Query(self.auth, self.timeout)
+        query = Query(self.client, self.auth, self.timeout)
 
         while True:
             resp, page = query.request(
@@ -678,7 +583,7 @@ class NextGenListResource(ListResource):
         parsed = urlparse(self.uri)
         url = urlunparse(parsed[:4] + (params, ) + (parsed[5], ))
 
-        query = Query(self.auth, self.timeout)
+        query = Query(self.client, self.auth, self.timeout)
         while True:
             resp, page = query.request(
                 "GET", url,

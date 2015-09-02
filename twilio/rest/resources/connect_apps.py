@@ -2,19 +2,13 @@ from six import iteritems
 
 from twilio.rest.v2010.account.connect_app import (
     ConnectApp,
-    ConnectApps as BaseConnectApps,
+    ConnectApps,
 )
 
 from twilio.rest.v2010.account.authorized_connect_app import (
     AuthorizedConnectApp as BaseAuthorizedConnectApp,
     AuthorizedConnectApps as BaseAuthorizedConnectApps
 )
-
-
-class ConnectApps(BaseConnectApps):
-
-    def update(self, sid, **kwargs):
-        raise AttributeError('Update is not allowed on connect apps')
 
 
 class AuthorizedConnectApp(BaseAuthorizedConnectApp):

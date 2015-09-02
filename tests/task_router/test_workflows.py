@@ -12,13 +12,17 @@ WORKFLOW_SID = "WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
 
 class WorkflowTest(unittest.TestCase):
+
+    def setUp(self):
+        self.client = Mock()
+
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_create(self, request):
         resp = create_mock_json('tests/resources/task_router/workflows_instance.json')
         resp.status_code = 201
         request.return_value = resp
 
-        workflows = Workflows(BASE_URI, AUTH)
+        workflows = Workflows(self.client, BASE_URI, AUTH)
         workflows.create("Test Workflow", "configuration",
                          "http://www.example.com").execute()
         exp_params = {
@@ -27,8 +31,10 @@ class WorkflowTest(unittest.TestCase):
             'AssignmentCallbackUrl': 'http://www.example.com'
         }
 
-        request.assert_called_with("POST", "{0}/Workflows".format(BASE_URI), data=exp_params, auth=AUTH,
-                                   use_json_extension=False)
+        request.assert_called_with("POST", "{0}/Workflows".format(BASE_URI),
+                                   data=exp_params, auth=AUTH,
+                                   use_json_extension=False,
+                                   client=self.client)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_delete_instance(self, request):
@@ -38,11 +44,12 @@ class WorkflowTest(unittest.TestCase):
         request.return_value = resp
 
         uri = "{0}/Workflows/{1}".format(BASE_URI, WORKFLOW_SID)
-        list_resource = Workflows(BASE_URI, AUTH)
+        list_resource = Workflows(self.client, BASE_URI, AUTH)
         workflow = Workflow(list_resource, WORKFLOW_SID)
         workflow.delete().execute()
         request.assert_called_with("DELETE", uri, auth=AUTH,
-                                   use_json_extension=False)
+                                   use_json_extension=False,
+                                   client=self.client)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_delete_list(self, request):
@@ -52,10 +59,11 @@ class WorkflowTest(unittest.TestCase):
         request.return_value = resp
 
         uri = "{0}/Workflows/{1}".format(BASE_URI, WORKFLOW_SID)
-        list_resource = Workflows(BASE_URI, AUTH)
+        list_resource = Workflows(self.client, BASE_URI, AUTH)
         list_resource.delete(WORKFLOW_SID).execute()
         request.assert_called_with("DELETE", uri, auth=AUTH,
-                                   use_json_extension=False)
+                                   use_json_extension=False,
+                                   client=self.client)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_get(self, request):
@@ -64,10 +72,11 @@ class WorkflowTest(unittest.TestCase):
         request.return_value = resp
 
         uri = "{0}/Workflows/{1}".format(BASE_URI, WORKFLOW_SID)
-        list_resource = Workflows(BASE_URI, AUTH)
+        list_resource = Workflows(self.client, BASE_URI, AUTH)
         list_resource.get(WORKFLOW_SID).execute()
         request.assert_called_with("GET", uri, auth=AUTH,
-                                   use_json_extension=False)
+                                   use_json_extension=False,
+                                   client=self.client)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_list(self, request):
@@ -76,10 +85,11 @@ class WorkflowTest(unittest.TestCase):
         request.return_value = resp
 
         uri = "{0}/Workflows".format(BASE_URI)
-        list_resource = Workflows(BASE_URI, AUTH)
+        list_resource = Workflows(self.client, BASE_URI, AUTH)
         list_resource.list().execute()
         request.assert_called_with("GET", uri, params={}, auth=AUTH,
-                                   use_json_extension=False)
+                                   use_json_extension=False,
+                                   client=self.client)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_update_instance(self, request):
@@ -88,7 +98,7 @@ class WorkflowTest(unittest.TestCase):
         request.return_value = resp
 
         uri = "{0}/Workflows/{1}".format(BASE_URI, WORKFLOW_SID)
-        list_resource = Workflows(BASE_URI, AUTH)
+        list_resource = Workflows(self.client, BASE_URI, AUTH)
         workflow = Workflow(list_resource, WORKFLOW_SID)
         workflow.update(friendly_name='Test Workflow', configuration='configuration',
                         assignment_callback_url='http://www.example.com').execute()
@@ -99,7 +109,8 @@ class WorkflowTest(unittest.TestCase):
         }
 
         request.assert_called_with("POST", uri, data=exp_params, auth=AUTH,
-                                   use_json_extension=False)
+                                   use_json_extension=False,
+                                   client=self.client)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_update_list(self, request):
@@ -108,7 +119,7 @@ class WorkflowTest(unittest.TestCase):
         request.return_value = resp
 
         uri = "{0}/Workflows/{1}".format(BASE_URI, WORKFLOW_SID)
-        list_resource = Workflows(BASE_URI, AUTH)
+        list_resource = Workflows(self.client, BASE_URI, AUTH)
         list_resource.update(WORKFLOW_SID, friendly_name='Test Workflow', configuration='configuration',
                              assignment_callback_url='http://www.example.com').execute()
         exp_params = {
@@ -118,4 +129,5 @@ class WorkflowTest(unittest.TestCase):
         }
 
         request.assert_called_with("POST", uri, data=exp_params, auth=AUTH,
-                                   use_json_extension=False)
+                                   use_json_extension=False,
+                                   client=self.client)

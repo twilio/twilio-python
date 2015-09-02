@@ -36,7 +36,7 @@ class TwilioTaskRouterClient(TaskrouterClient):
         with the given workspace_sid
         """
         base_uri = "{0}/{1}".format(self.workspace_uri, workspace_sid)
-        return Activities(base_uri, self.auth, self.timeout)
+        return Activities(self.client, base_uri, self.auth, self.timeout)
 
     def events(self, workspace_sid):
         """
@@ -44,7 +44,7 @@ class TwilioTaskRouterClient(TaskrouterClient):
         workspace_sid
         """
         base_uri = "{0}/{1}".format(self.workspace_uri, workspace_sid)
-        return Events(base_uri, self.auth, self.timeout)
+        return Events(self.client, base_uri, self.auth, self.timeout)
 
     def reservations(self, workspace_sid, task_sid):
         """
@@ -53,7 +53,7 @@ class TwilioTaskRouterClient(TaskrouterClient):
         """
         base_uri = "{0}/{1}/Tasks/{2}".format(self.workspace_uri,
                                               workspace_sid, task_sid)
-        return Reservations(base_uri, self.auth, self.timeout)
+        return Reservations(self.client, base_uri, self.auth, self.timeout)
 
     def task_queues(self, workspace_sid):
         """
@@ -61,7 +61,7 @@ class TwilioTaskRouterClient(TaskrouterClient):
         the given workspace_sid
         """
         base_uri = "{0}/{1}".format(self.workspace_uri, workspace_sid)
-        return TaskQueues(base_uri, self.auth, self.timeout)
+        return TaskQueues(self.client, base_uri, self.auth, self.timeout)
 
     def tasks(self, workspace_sid):
         """
@@ -69,7 +69,7 @@ class TwilioTaskRouterClient(TaskrouterClient):
         workspace_sid
         """
         base_uri = "{0}/{1}".format(self.workspace_uri, workspace_sid)
-        return Tasks(base_uri, self.auth, self.timeout)
+        return Tasks(self.client, base_uri, self.auth, self.timeout)
 
     def workers(self, workspace_sid):
         """
@@ -77,7 +77,7 @@ class TwilioTaskRouterClient(TaskrouterClient):
         given workspace_sid
         """
         base_uri = "{0}/{1}".format(self.workspace_uri, workspace_sid)
-        return Workers(base_uri, self.auth, self.timeout)
+        return Workers(self.client, base_uri, self.auth, self.timeout)
 
     def workflows(self, workspace_sid):
         """
@@ -85,4 +85,4 @@ class TwilioTaskRouterClient(TaskrouterClient):
         given workspace_sid
         """
         base_uri = "{0}/{1}".format(self.workspace_uri, workspace_sid)
-        return Workflows(base_uri, self.auth, self.timeout)
+        return Workflows(self.client, base_uri, self.auth, self.timeout)

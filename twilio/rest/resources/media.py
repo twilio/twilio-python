@@ -8,16 +8,6 @@ from twilio.rest.v2010.account.message.media import (
 
 class MediaList(BaseMediaList):
 
-    def __call__(self, message_sid):
-        # `Media` is a word of ambiguous plurality. This causes issues.
-        # To match the rest of the library:
-        # `client.media` needs to return a new MediaList.
-        # `client.media('message_sid')` needs to return a MediaList
-        # for a given message.
-
-        base_uri = "%s/Messages/%s" % (self.base_uri, message_sid)
-        return MediaList(base_uri, self.auth, self.timeout)
-
     @normalize_dates
     def list(self, before=None, after=None, date_created=None, **kw):
         """

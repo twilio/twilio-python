@@ -3,6 +3,7 @@ import unittest
 
 from mock import Mock
 from nose.tools import assert_equal
+from twilio.rest.http import HttpClient
 
 from twilio.rest.resources import MediaList
 
@@ -16,7 +17,8 @@ DEFAULT = {
 class MediaTest(unittest.TestCase):
 
     def setUp(self):
-        self.resource = MediaList("foo", ("sid", "token"))
+        self.client = HttpClient()
+        self.resource = MediaList(self.client, "foo", ("sid", "token"))
         self.params = DEFAULT.copy()
 
     def test_list_on(self):
@@ -36,8 +38,3 @@ class MediaTest(unittest.TestCase):
         self.resource.list(before=date(2011, 1, 1))
         self.params['DateCreated<'] = "2011-01-01"
         self.resource.get_instances.assert_called_with(self.params)
-
-    def test_call(self):
-        base_uri = self.resource.base_uri
-        message_media = self.resource('MM123')
-        assert_equal(message_media.base_uri, "%s/Messages/%s" % (base_uri, 'MM123'))

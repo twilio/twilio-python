@@ -11,10 +11,12 @@ from twilio.rest.resources import AuthorizedConnectApp
 class AuthorizedConnectAppTest(unittest.TestCase):
 
     def setUp(self):
+        self.client = Mock()
         self.parent = Mock()
+        self.parent.client = self.client
         self.uri = "/base"
         self.auth = ("AC123", "token")
-        self.resource = AuthorizedConnectApps(self.uri, self.auth)
+        self.resource = AuthorizedConnectApps(self.client, self.uri, self.auth)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_get(self, mock):
@@ -23,7 +25,8 @@ class AuthorizedConnectAppTest(unittest.TestCase):
 
         self.resource.get("SID").execute()
         mock.assert_called_with("GET", "/base/AuthorizedConnectApps/SID",
-                                auth=self.auth, use_json_extension=True)
+                                auth=self.auth, use_json_extension=True,
+                                client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_list(self, mock):
@@ -33,7 +36,8 @@ class AuthorizedConnectAppTest(unittest.TestCase):
         self.resource.list().execute()
         mock.assert_called_with("GET", "/base/AuthorizedConnectApps",
                                 params={}, auth=self.auth,
-                                use_json_extension=True)
+                                use_json_extension=True,
+                                client=self.client)
 
     def test_load(self):
         instance = AuthorizedConnectApp(Mock(), "sid")

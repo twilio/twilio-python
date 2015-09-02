@@ -71,8 +71,7 @@ class AvailablePhoneNumber(InstanceResource):
         self.name = ""
 
     def purchase(self, **kwargs):
-        return self.parent.purchase(phone_number=self.phone_number,
-                                    **kwargs)
+        return self.parent.purchase(phone_number=self.phone_number, **kwargs)
 
 
 class AvailablePhoneNumbers(ListResource):
@@ -81,8 +80,9 @@ class AvailablePhoneNumbers(ListResource):
     key = "available_phone_numbers"
     instance = AvailablePhoneNumber
 
-    def __init__(self, base_uri, auth, timeout, phone_numbers):
-        super(AvailablePhoneNumbers, self).__init__(base_uri, auth, timeout)
+    def __init__(self, client, base_uri, auth, timeout, phone_numbers):
+        super(AvailablePhoneNumbers, self).__init__(client, base_uri,
+                                                    auth, timeout)
         self.phone_numbers = phone_numbers
 
     def get(self, sid):
@@ -247,10 +247,10 @@ class PhoneNumbers(IncomingPhoneNumbers):
 
     instance = PhoneNumber
 
-    def __init__(self, base_uri, auth, timeout=UNSET_TIMEOUT):
-        super(PhoneNumbers, self).__init__(base_uri, auth, timeout)
+    def __init__(self, client, base_uri, auth, timeout=UNSET_TIMEOUT):
+        super(PhoneNumbers, self).__init__(client, base_uri, auth, timeout)
         self.available_phone_numbers = \
-            AvailablePhoneNumbers(base_uri, auth, timeout, self)
+            AvailablePhoneNumbers(client, base_uri, auth, timeout, self)
 
     def list(self, type=None, **kwargs):
         """

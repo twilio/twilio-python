@@ -12,9 +12,10 @@ from twilio.rest.v2010.account.sip import (
 
 
 class Sip(BaseSip):
+
     """Holds all the SIP resources."""
-    def __init__(self, base_uri, auth, timeout):
-        super(Sip, self).__init__(base_uri, auth, timeout)
+    def __init__(self, client, base_uri, auth, timeout):
+        super(Sip, self).__init__(client, base_uri, auth, timeout)
         self.uri = "%s/SIP" % base_uri
         self.auth = auth
 

@@ -5,6 +5,7 @@ from mock import patch, Mock
 import pytz
 
 from tests.tools import create_mock_json
+from twilio.rest.http import HttpClient
 from twilio.rest.resources.task_router.activities import Activities, Activity
 
 AUTH = ("AC123", "token")
@@ -13,13 +14,17 @@ ACTIVITY_SID = "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
 
 class ActivityTest(unittest.TestCase):
+
+    def setUp(self):
+        self.client = HttpClient()
+
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_create(self, request):
         resp = create_mock_json('tests/resources/task_router/activities_instance.json')
         resp.status_code = 201
         request.return_value = resp
 
-        activities = Activities(BASE_URI, AUTH)
+        activities = Activities(self.client, BASE_URI, AUTH)
         activity = activities.create("Test Activity", True).execute()
         self.assertTrue(activity is not None)
         self.assertEqual(activity.date_created, datetime(2014, 5, 14, 10, 50, 2, tzinfo=pytz.utc))
@@ -30,7 +35,8 @@ class ActivityTest(unittest.TestCase):
 
         request.assert_called_with("POST", "{0}/Activities".format(BASE_URI),
                                    data=exp_params, auth=AUTH,
-                                   use_json_extension=False)
+                                   use_json_extension=False,
+                                   client=self.client)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_delete_instance(self, request):
@@ -40,11 +46,12 @@ class ActivityTest(unittest.TestCase):
         request.return_value = resp
 
         uri = "{0}/Activities/{1}".format(BASE_URI, ACTIVITY_SID)
-        list_resource = Activities(BASE_URI, AUTH)
+        list_resource = Activities(self.client, BASE_URI, AUTH)
         activity = Activity(list_resource, ACTIVITY_SID)
         activity.delete().execute()
         request.assert_called_with("DELETE", uri, auth=AUTH,
-                                   use_json_extension=False)
+                                   use_json_extension=False,
+                                   client=self.client)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_delete_list(self, request):
@@ -54,10 +61,11 @@ class ActivityTest(unittest.TestCase):
         request.return_value = resp
 
         uri = "{0}/Activities/{1}".format(BASE_URI, ACTIVITY_SID)
-        list_resource = Activities(BASE_URI, AUTH)
+        list_resource = Activities(self.client, BASE_URI, AUTH)
         list_resource.delete(ACTIVITY_SID).execute()
         request.assert_called_with("DELETE", uri, auth=AUTH,
-                                   use_json_extension=False)
+                                   use_json_extension=False,
+                                   client=self.client)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_get(self, request):
@@ -66,10 +74,11 @@ class ActivityTest(unittest.TestCase):
         request.return_value = resp
 
         uri = "{0}/Activities/{1}".format(BASE_URI, ACTIVITY_SID)
-        list_resource = Activities(BASE_URI, AUTH)
+        list_resource = Activities(self.client, BASE_URI, AUTH)
         list_resource.get(ACTIVITY_SID).execute()
         request.assert_called_with("GET", uri, auth=AUTH,
-                                   use_json_extension=False)
+                                   use_json_extension=False,
+                                   client=self.client)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_list(self, request):
@@ -78,10 +87,11 @@ class ActivityTest(unittest.TestCase):
         request.return_value = resp
 
         uri = "{0}/Activities".format(BASE_URI)
-        list_resource = Activities(BASE_URI, AUTH)
+        list_resource = Activities(self.client, BASE_URI, AUTH)
         list_resource.list().execute()
         request.assert_called_with("GET", uri, params={}, auth=AUTH,
-                                   use_json_extension=False)
+                                   use_json_extension=False,
+                                   client=self.client)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_update_instance(self, request):
@@ -90,7 +100,7 @@ class ActivityTest(unittest.TestCase):
         request.return_value = resp
 
         uri = "{0}/Activities/{1}".format(BASE_URI, ACTIVITY_SID)
-        list_resource = Activities(BASE_URI, AUTH)
+        list_resource = Activities(self.client, BASE_URI, AUTH)
         activity = Activity(list_resource, ACTIVITY_SID)
         activity.update(friendly_name='Test Activity', available=True).execute()
         exp_params = {
@@ -99,7 +109,8 @@ class ActivityTest(unittest.TestCase):
         }
 
         request.assert_called_with("POST", uri, data=exp_params, auth=AUTH,
-                                   use_json_extension=False)
+                                   use_json_extension=False,
+                                   client=self.client)
 
     @patch('twilio.rest.resources.base.make_twilio_request')
     def test_update_list(self, request):
@@ -108,7 +119,7 @@ class ActivityTest(unittest.TestCase):
         request.return_value = resp
 
         uri = "{0}/Activities/{1}".format(BASE_URI, ACTIVITY_SID)
-        list_resource = Activities(BASE_URI, AUTH)
+        list_resource = Activities(self.client, BASE_URI, AUTH)
         list_resource.update(ACTIVITY_SID, friendly_name='Test Activity',
                              available="true").execute()
         exp_params = {
@@ -117,4 +128,5 @@ class ActivityTest(unittest.TestCase):
         }
 
         request.assert_called_with("POST", uri, data=exp_params, auth=AUTH,
-                                   use_json_extension=False)
+                                   use_json_extension=False,
+                                   client=self.client)

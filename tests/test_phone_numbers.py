@@ -3,6 +3,7 @@ import unittest
 
 from mock import patch, Mock
 from tests.tools import create_mock_json
+from twilio.rest.http import HttpClient
 
 from twilio.rest.resources import PhoneNumbers
 from twilio.rest.resources import PhoneNumber
@@ -11,12 +12,14 @@ from twilio.rest.resources import PhoneNumber
 class PhoneNumberTest(unittest.TestCase):
 
     def setUp(self):
+        self.client = HttpClient()
         self.parent = Mock()
+        self.parent.client = self.client
         self.base_uri = 'http://api.twilio.com/Accounts/ac1'
         self.auth = ("AC123", "token")
         self.sid = 'phone_sid'
 
-        self.list = PhoneNumbers(self.base_uri, self.auth)
+        self.list = PhoneNumbers(self.client, self.base_uri, self.auth)
         self.instance = PhoneNumber(self.list, self.sid)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
@@ -38,7 +41,8 @@ class PhoneNumberTest(unittest.TestCase):
                                 uri,
                                 data=data,
                                 auth=self.auth,
-                                use_json_extension=True)
+                                use_json_extension=True,
+                                client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_application_sid(self, mock):
@@ -55,7 +59,8 @@ class PhoneNumberTest(unittest.TestCase):
             "SmsApplicationSid": "foo"
         }
         mock.assert_called_with("POST", uri, data=data, auth=self.auth,
-                                use_json_extension=True)
+                                use_json_extension=True,
+                                client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_update_with_multiple_params(self, mock):
@@ -76,7 +81,8 @@ class PhoneNumberTest(unittest.TestCase):
             "StatusCallback": "c"
         }
         mock.assert_called_with("POST", uri, data=data, auth=self.auth,
-                                use_json_extension=True)
+                                use_json_extension=True,
+                                client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_list_transfer(self, mock):
@@ -92,7 +98,8 @@ class PhoneNumberTest(unittest.TestCase):
             "AccountSid": "other_account"
         }
         mock.assert_called_with("POST", uri, data=data, auth=self.auth,
-                                use_json_extension=True)
+                                use_json_extension=True,
+                                client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_instance_transfer(self, mock):
@@ -108,7 +115,8 @@ class PhoneNumberTest(unittest.TestCase):
             "AccountSid": "other_account"
         }
         mock.assert_called_with("POST", uri, data=data, auth=self.auth,
-                                use_json_extension=True)
+                                use_json_extension=True,
+                                client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_purchase_type(self, mock):
@@ -126,15 +134,18 @@ class PhoneNumberTest(unittest.TestCase):
                 'PhoneNumber': '888'
             }
             mock.assert_called_with("POST", uri, data=data, auth=self.auth,
-                                    use_json_extension=True)
+                                    use_json_extension=True,
+                                    client=self.client)
 
 
 class IncomingPhoneNumbersTest(unittest.TestCase):
 
     def setUp(self):
+        self.client = HttpClient()
         self.auth = ("user", "pass")
-        self.resource = PhoneNumbers("http://api.twilio.com",
-                                     self.auth)
+        self.resource = PhoneNumbers(
+            self.client, "http://api.twilio.com", self.auth
+        )
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_mobile(self, mock):
@@ -148,7 +159,8 @@ class IncomingPhoneNumbersTest(unittest.TestCase):
         uri = "http://api.twilio.com/IncomingPhoneNumbers/Mobile"
         mock.assert_called_with("GET", uri, params={},
                                 auth=self.auth,
-                                use_json_extension=True)
+                                use_json_extension=True,
+                                client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_local(self, mock):
@@ -162,7 +174,8 @@ class IncomingPhoneNumbersTest(unittest.TestCase):
         uri = "http://api.twilio.com/IncomingPhoneNumbers/Local"
         mock.assert_called_with("GET", uri, params={},
                                 auth=self.auth,
-                                use_json_extension=True)
+                                use_json_extension=True,
+                                client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_toll_free(self, mock):
@@ -176,4 +189,5 @@ class IncomingPhoneNumbersTest(unittest.TestCase):
         uri = "http://api.twilio.com/IncomingPhoneNumbers/TollFree"
         mock.assert_called_with("GET", uri, params={},
                                 auth=self.auth,
-                                use_json_extension=True)
+                                use_json_extension=True,
+                                client=self.client)

@@ -1,6 +1,7 @@
 from datetime import date
 from mock import patch, Mock
 from nose.tools import assert_true
+from twilio.rest.http import HttpClient
 from twilio.rest.resources import Calls, Call
 from tests.tools import create_mock_json
 
@@ -9,7 +10,8 @@ ACCOUNT_SID = "AC123"
 AUTH = (ACCOUNT_SID, "token")
 CALL_SID = "CA47e13748ed59a5733d2c1c1c69a83a28"
 
-list_resource = Calls(BASE_URI, AUTH)
+client = HttpClient()
+list_resource = Calls(client, BASE_URI, AUTH)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -30,7 +32,8 @@ def test_create_call(mock):
         }
 
     mock.assert_called_with("POST", uri, data=exp_params, auth=AUTH,
-                            use_json_extension=True)
+                            use_json_extension=True,
+                            client=client)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -51,7 +54,8 @@ def test_make_call_alias_(mock):
     }
 
     mock.assert_called_with("POST", uri, data=exp_params, auth=AUTH,
-                            use_json_extension=True)
+                            use_json_extension=True,
+                            client=client)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -73,7 +77,8 @@ def test_create_call_status_events(mock):
         }
 
     mock.assert_called_with("POST", uri, data=exp_params, auth=AUTH,
-                            use_json_extension=True)
+                            use_json_extension=True,
+                            client=client)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -93,7 +98,8 @@ def test_create_call_status_events_none(mock):
         }
 
     mock.assert_called_with("POST", uri, data=exp_params, auth=AUTH,
-                            use_json_extension=True)
+                            use_json_extension=True,
+                            client=client)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -106,7 +112,8 @@ def test_paging(mock):
     exp_params = {'StartTime<': '2010-12-05'}
 
     mock.assert_called_with("GET", uri, params=exp_params, auth=AUTH,
-                            use_json_extension=True)
+                            use_json_extension=True,
+                            client=client)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -119,7 +126,8 @@ def test_paging_iter(mock):
     exp_params = {'StartTime<': '2010-12-05'}
 
     mock.assert_called_with("GET", uri, params=exp_params, auth=AUTH,
-                            use_json_extension=True)
+                            use_json_extension=True,
+                            client=client)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -131,7 +139,8 @@ def test_get(mock):
     list_resource.get(CALL_SID).execute()
 
     mock.assert_called_with("GET", uri, auth=AUTH,
-                            use_json_extension=True)
+                            use_json_extension=True,
+                            client=client)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
@@ -145,7 +154,8 @@ def test_hangup(mock):
     exp_data = {"Status": "completed"}
 
     mock.assert_called_with("POST", uri, data=exp_data, auth=AUTH,
-                            use_json_extension=True)
+                            use_json_extension=True,
+                            client=client)
     assert_true(r)
 
 
@@ -160,7 +170,8 @@ def test_cancel(mock):
     exp_data = {"Status": "canceled"}
 
     mock.assert_called_with("POST", uri, data=exp_data, auth=AUTH,
-                            use_json_extension=True)
+                            use_json_extension=True,
+                            client=client)
     assert_true(r)
 
 
@@ -177,4 +188,5 @@ def test_delete(req):
 
     uri = "https://api.twilio.com/2010-04-01/Accounts/AC123/Calls/CA123"
     req.assert_called_with("DELETE", uri, auth=AUTH,
-                           use_json_extension=True)
+                           use_json_extension=True,
+                           client=client)

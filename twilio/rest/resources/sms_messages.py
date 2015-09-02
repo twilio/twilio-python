@@ -88,6 +88,6 @@ class SmsMessages(BaseSmsMessages):
 
 
 class Sms(BaseSms):
-    def __init__(self, base_uri, auth, timeout):
-        self.messages = SmsMessages(base_uri, auth, timeout)
-        self.short_codes = ShortCodes(base_uri, auth, timeout)
+    def __init__(self, client, base_uri, auth, timeout):
+        self.messages = SmsMessages(client, base_uri, auth, timeout)
+        self.short_codes = ShortCodes(client, base_uri, auth, timeout)
