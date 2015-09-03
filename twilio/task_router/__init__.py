@@ -247,13 +247,6 @@ class TaskRouterWorkspaceCapability(TaskRouterCapability):
 
     def setup_resource(self):
         self.resource_url = self.base_url
-    return {
-        'url': url,
-        'method': method,
-        'allow': allowed,
-        'query_filter': query_filter or {},
-        'post_filter': post_filter or {},
-    }
 
 from .taskrouter_config import (
     TaskRouterConfig
