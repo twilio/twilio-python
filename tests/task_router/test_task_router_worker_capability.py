@@ -1,0 +1,133 @@
+import time
+import unittest
+
+from twilio import jwt
+from twilio.task_router import TaskRouterWorkerCapability
+
+
+class TaskRouterWorkerCapabilityTest(unittest.TestCase):
+    def check_policy(self, method, url, policy):
+        self.assertEqual(url, policy['url'])
+        self.assertEqual(method, policy['method'])
+        self.assertTrue(policy['allow'])
+        self.assertEqual({}, policy['query_filter'])
+        self.assertEqual({}, policy['post_filter'])
+
+    def check_decoded(self, decoded, account_sid, workspace_sid, channel_id, channel_sid=None):
+        self.assertEqual(decoded["iss"], account_sid)
+        self.assertEqual(decoded["account_sid"], account_sid)
+        self.assertEqual(decoded["workspace_sid"], workspace_sid)
+        self.assertEqual(decoded["channel"], channel_id)
+        self.assertEqual(decoded["version"], "v1")
+        self.assertEqual(decoded["friendly_name"], channel_id)
+
+        if 'worker_sid' in decoded.keys():
+            self.assertEqual(decoded['worker_sid'], channel_sid)
+        if 'taskqueue_sid' in decoded.keys():
+            self.assertEqual(decoded['taskqueue_sid'], channel_sid)
+
+    def setUp(self):
+        self.account_sid = "AC123"
+        self.auth_token = "foobar"
+        self.workspace_sid = "WS456"
+        self.worker_sid = "WK789"
+        self.capability = TaskRouterWorkerCapability(self.account_sid, self.auth_token, self.workspace_sid, self.worker_sid)
+
+    def test_generate_token(self):
+
+        token = self.capability.generate_token()
+        self.assertIsNotNone(token)
+
+        decoded = jwt.decode(token, self.auth_token)
+        self.assertIsNotNone(decoded)
+
+        self.check_decoded(decoded, self.account_sid, self.workspace_sid, self.worker_sid, self.worker_sid)
+
+    def test_generate_token_with_default_ttl(self):
+        token = self.capability.generate_token()
+        self.assertIsNotNone(token)
+
+        decoded = jwt.decode(token, self.auth_token)
+        self.assertIsNotNone(decoded)
+
+        self.assertEqual(int(time.time()) + 3600, decoded["exp"])
+
+    def test_generate_token_with_custom_ttl(self):
+        ttl = 10000
+
+        token = self.capability.generate_token(ttl)
+        self.assertIsNotNone(token)
+
+        decoded = jwt.decode(token, self.auth_token)
+        self.assertIsNotNone(decoded)
+
+        self.assertEqual(int(time.time()) + 10000, decoded["exp"])
+
+    def test_defaults(self):
+        token = self.capability.generate_token()
+        self.assertIsNotNone(token)
+
+        decoded = jwt.decode(token, self.auth_token)
+        self.assertIsNotNone(decoded)
+
+        websocket_url = 'https://event-bridge.twilio.com/v1/wschannels/{}/{}'.format(self.account_sid, self.worker_sid)
+
+        # expect 5 policies
+        policies = decoded['policies']
+        self.assertEqual(len(policies), 5)
+
+        # should expect 5 policies
+        for method, url, policy in [
+            ('GET', websocket_url, policies[0]),
+            ('POST', websocket_url, policies[1]),
+            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", policies[2]),
+            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", policies[3]),
+            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities", policies[4])
+        ]:
+            yield self.check_policy, method, url, policy
+
+    def test_allow_activity_updates(self):
+
+        # allow activity updates to the worker
+        self.capability.allow_activity_updates()
+
+        token = self.capability.generate_token()
+        self.assertIsNotNone(token)
+
+        decoded = jwt.decode(token, self.auth_token)
+        self.assertIsNotNone(decoded)
+
+        policies = decoded['policies']
+        self.assertEqual(len(policies), 6)
+        policy = policies[5]
+
+        url = "https://taskrouter.twilio.com/v1/Workspaces/{}/Workers/{}".format(self.workspace_sid, self.worker_sid)
+
+        self.assertEqual(url, policy["url"])
+        self.assertEqual("POST", policy["method"])
+        self.assertTrue(policy["allow"])
+        self.assertIsNotNone(policy['post_filter'])
+        self.assertEqual({}, policy['query_filter'])
+        self.assertTrue(policy['post_filter']['ActivitySid'])
+
+    def test_allow_reservation_updates(self):
+        # allow reservation updates
+        self.capability.allow_reservation_updates()
+
+        token = self.capability.generate_token()
+        self.assertIsNotNone(token)
+
+        decoded = jwt.decode(token, self.auth_token)
+        self.assertIsNotNone(decoded)
+
+        policies = decoded['policies']
+        self.assertEqual(len(policies), 6)
+
+        policy = policies[5]
+
+        url = "https://taskrouter.twilio.com/v1/Workspaces/{}/Tasks/**".format(self.workspace_sid)
+
+        self.check_policy('POST', url, policy)
+
+if __name__ == "__main__":
+    unittest.main()
