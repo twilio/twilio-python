@@ -32,4 +32,3 @@ class WorkflowRule:
             'friendly_name': self.friendly_name,
             'target': self.target,
         })
-

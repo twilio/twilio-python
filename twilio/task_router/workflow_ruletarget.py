@@ -25,4 +25,3 @@ class WorkflowRuleTarget:
         self.expression = expression
         self.priority = priority
         self.timeout = timeout
-
