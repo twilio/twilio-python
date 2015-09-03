@@ -1,3 +1,1 @@
-from twilio.ext.holodeck.resource import Twiliodeck
-
-holodeck = Twiliodeck()
+from .base import Holodeck

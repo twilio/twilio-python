@@ -9,12 +9,11 @@ class Response(object):
     """
     A wrapper to describe a generic response object
     """
-    def __init__(self, status_code, content, url):
+    def __init__(self, status_code, content):
         self.content = content
         self.cached = False
         self.status_code = status_code
         self.ok = self.status_code < 400
-        self.url = url
 
 
 def get_cert_file():
