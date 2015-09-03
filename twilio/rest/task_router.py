@@ -61,6 +61,15 @@ class TwilioTaskRouterClient(TwilioClient):
                                               workspace_sid, task_sid)
         return Reservations(base_uri, self.auth, self.timeout)
 
+    def worker_reservations(self, workspace_sid, worker_sid):
+        """
+        Return a :class:`Reservations` instance for the :class:`Reservation`
+        with the given workspace_sid ans worker_sid
+        """
+        base_uri = "{0}/{1}/Workers/{2}".format(self.workspace_uri,
+                                              workspace_sid, worker_sid)
+        return Reservations(base_uri, self.auth, self.timeout)
+
     def task_queues(self, workspace_sid):
         """
         Return a :class:`TaskQueues` instance for the :class:`TaskQueue` with
