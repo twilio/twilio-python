@@ -14,7 +14,7 @@ class WorkflowConfigTest(unittest.TestCase):
             ]
             def_target = WorkflowRuleTarget("WQ9963154bf3122d0a0558f3763951d916", "1==1", None, None)
             config = WorkflowConfig(rules , def_target)
-            self.assertEqual(self.is_json(config.to_json()), True)
+            self.assertEqual(True, self.is_json(config.to_json()))
 
         def test_from_json(self):
 
@@ -37,8 +37,8 @@ class WorkflowConfigTest(unittest.TestCase):
                      }
 
             config = WorkflowConfig.json2obj(json.dumps(data))
-            self.assertEqual(len(config.task_routing.filters), 3)
-            self.assertEqual(len(config.task_routing.default_filter), 1)
+            self.assertEqual(3, len(config.task_routing.filters))
+            self.assertEqual(1, len(config.task_routing.default_filter))
 
         def test_from_json2(self):
 
@@ -51,8 +51,8 @@ class WorkflowConfigTest(unittest.TestCase):
                                       'default_filter': {'priority': None, 'queue': 'WQYYYYY', 'expression': None,
                                                          'timeout': None}}}
             config = WorkflowConfig.json2obj(json.dumps(data))
-            self.assertEqual(len(config.task_routing.filters), 2)
-            self.assertEqual(len(config.task_routing.default_filter), 4)
+            self.assertEqual(2, len(config.task_routing.filters))
+            self.assertEqual(4, len(config.task_routing.default_filter))
 
         def is_json(self, myjson):
             try:
