@@ -52,17 +52,13 @@ class TwilioTaskRouterClient(TwilioClient):
         base_uri = "{0}/{1}".format(self.workspace_uri, workspace_sid)
         return Events(base_uri, self.auth, self.timeout)
 
-    def reservations(self, workspace_sid, sid):
+    def reservations(self, workspace_sid, task_sid):
         """
         Return a :class:`Reservations` instance for the :class:`Reservation`
-        with the given workspace_sid and an task_sid or worker_sid
+        with the given workspace_sid ans task_sid
         """
-        if sid.startswith('WT'):
-            base_uri = "{0}/{1}/Tasks/{2}".format(self.workspace_uri,
-                                                  workspace_sid, sid)
-        elif sid.startswith('WK'):
-            base_uri = "{0}/{1}/Workers/{2}".format(self.workspace_uri,
-                                                    workspace_sid, sid)
+        base_uri = "{0}/{1}/Tasks/{2}".format(self.workspace_uri,
+                                              workspace_sid, task_sid)
 
         return Reservations(base_uri, self.auth, self.timeout)
 
