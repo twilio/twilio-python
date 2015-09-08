@@ -328,7 +328,12 @@ class InstanceResource(Resource):
                 self.parent.auth,
                 self.parent.timeout
             )
-            self.__dict__[list_resource.key] = list_resource
+
+            mount_name = list_resource.key
+            if hasattr(list_resource, 'mount_name') and list_resource.mount_name:
+                mount_name = list_resource.mount_name
+
+            self.__dict__[mount_name] = list_resource
 
     def update_instance(self, data):
         """

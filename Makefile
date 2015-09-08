@@ -14,10 +14,10 @@ analysis:
 	. venv/bin/activate; flake8 --ignore=F401 twilio
 
 test: analysis
-	. venv/bin/activate; nosetests
+	. venv/bin/activate; nosetests -w . tests tests/integration/*
 
 cover:
-	. venv/bin/activate; nosetests --with-coverage --cover-package=twilio
+	. venv/bin/activate; nosetests --with-coverage --cover-package=twilio -w . tests tests/integration/*
 
 docs-install:
 	. venv/bin/activate; pip install -r docs/requirements.txt
