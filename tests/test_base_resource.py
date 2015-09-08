@@ -199,15 +199,6 @@ class testInstanceResourceInit(unittest.TestCase):
         assert_equal(self.r.hey, "you")
         assert_equal(self.r.uri, self.uri)
 
-    def testLoadDateCreated(self):
-        self.r.load({"date_created": "Sat, 29 Sep 2012 12:47:54 +0000",
-                     "uri": "foobar"})
-        try:
-            assert_true(hasattr(self.r.date_created, "day"))
-            assert_equal(self.r.date_created.day, 29)
-        except AttributeError:
-            pass
-
     def testLoadNullDate(self):
         self.r.load({"date_created": None, "uri": "foobar"})
         assert self.r.date_created is None
@@ -232,10 +223,3 @@ class NextGenInstanceResourceTest(unittest.TestCase):
     def test_load(self):
         self.r.load({"hey": "you"})
         assert_equal(self.r.hey, "you")
-
-    def test_iso_date_parser(self):
-        self.r.load({"date_created": "2015-01-01T00:00:00Z"})
-        assert_equal(
-            self.r.date_created,
-            datetime(2015, 1, 1, 0, 0, 0, tzinfo=pytz.utc),
-        )

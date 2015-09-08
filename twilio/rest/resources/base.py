@@ -1,9 +1,6 @@
 import logging
 import platform
 
-from six import (
-    string_types,
-)
 from ...compat import urlencode
 from ...compat import urlparse
 from ...compat import urlunparse
@@ -14,7 +11,6 @@ from ..exceptions import TwilioRestException
 from .imports import parse_qs, json
 from .util import (
     parse_iso_date,
-    parse_rfc2822_date,
     transform_params,
     UNSET_TIMEOUT,
 )
@@ -378,6 +374,7 @@ class InstanceResource(Resource):
         """
         return GetQuery(self.parent, self.uri,
                         self.use_json_extension).execute()
+
 
     def __str__(self):
         return "<%s %s>" % (self.__class__.__name__, self.name[0:5])

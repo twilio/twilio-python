@@ -26,7 +26,8 @@ class ActivityTest(unittest.TestCase):
 
         activities = Activities(self.client, BASE_URI, AUTH)
         activity = activities.create("Test Activity", True).execute()
-        self.assertTrue(activity is not None)
+        self.assertIsNotNone(activity)
+        self.assertIsNotNone(activity.date_created)
         self.assertEqual(activity.date_created, datetime(2014, 5, 14, 10, 50, 2, tzinfo=pytz.utc))
         exp_params = {
             'FriendlyName': "Test Activity",
