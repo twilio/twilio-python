@@ -36,7 +36,7 @@ class SipIPAccessControlListMappingTest(unittest.TestCase):
         uri = '%s/IpAccessControlListMappings' % (self.BASE_URI)
         self.list_resource.list().execute()
 
-        mock.assert_called_with("GET", uri, params={}, auth=self.AUTH,
+        mock.assert_called_with("GET", uri, auth=self.AUTH,
                                 use_json_extension=True,
                                 client=self.client)
 

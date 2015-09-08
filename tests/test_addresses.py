@@ -51,7 +51,6 @@ class AddressesTest(unittest.TestCase):
         mock.assert_called_with(
             "GET",
             "http://api.twilio.com/mock/DependentPhoneNumbers",
-            params={},
             auth=self.auth,
             use_json_extension=True,
             client=self.client

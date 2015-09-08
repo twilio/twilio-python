@@ -59,7 +59,6 @@ class ListResourceTest(unittest.TestCase):
         advance_iterator(self.r.iter())
 
         mock.assert_called_with("GET", "https://api.twilio.com/2010-04-01/Resources",
-                                params={},
                                 auth=auth, use_json_extension=True,
                                 client=self.client)
 
@@ -109,7 +108,7 @@ class ListResourceTest(unittest.TestCase):
 
         self.r.create_instance({}).execute()
 
-        mock.assert_called_with("POST", "https://api.twilio.com/2010-04-01/Resources", data={},
+        mock.assert_called_with("POST", "https://api.twilio.com/2010-04-01/Resources",
                                 auth=auth, use_json_extension=True,
                                 client=self.client)
 
@@ -123,7 +122,7 @@ class ListResourceTest(unittest.TestCase):
 
         self.r.create_instance({}).execute()
 
-        mock.assert_called_with("POST", "https://api.twilio.com/2010-04-01/Resources", data={},
+        mock.assert_called_with("POST", "https://api.twilio.com/2010-04-01/Resources",
                                 auth=auth, use_json_extension=True,
                                 client=self.client)
 

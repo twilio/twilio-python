@@ -24,7 +24,7 @@ def test_members_list(mock):
     uri = "%s/Members" % (BASE_URI)
     list_resource.list().execute()
 
-    mock.assert_called_with("GET", uri, params={}, auth=AUTH,
+    mock.assert_called_with("GET", uri, auth=AUTH,
                             use_json_extension=True,
                             client=client)
 

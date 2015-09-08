@@ -35,7 +35,7 @@ class AuthorizedConnectAppTest(unittest.TestCase):
 
         self.resource.list().execute()
         mock.assert_called_with("GET", "/base/AuthorizedConnectApps",
-                                params={}, auth=self.auth,
+                                auth=self.auth,
                                 use_json_extension=True,
                                 client=self.client)
 

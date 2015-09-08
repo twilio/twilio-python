@@ -86,7 +86,7 @@ class WorkerTest(unittest.TestCase):
         uri = "{0}/Workers".format(BASE_URI)
         list_resource = Workers(self.client, BASE_URI, AUTH, TIMEOUT)
         list_resource.list().execute()
-        request.assert_called_with("GET", uri, params={}, auth=AUTH,
+        request.assert_called_with("GET", uri, auth=AUTH,
                                    timeout=TIMEOUT, use_json_extension=False,
                                    client=self.client)
 

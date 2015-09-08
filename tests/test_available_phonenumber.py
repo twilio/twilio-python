@@ -54,7 +54,7 @@ class AvailablePhoneNumbersTest(unittest.TestCase):
         self.resource.list().execute()
 
         uri = "http://api.twilio.com/AvailablePhoneNumbers/US/Local"
-        mock.assert_called_with("GET", uri, params={},
+        mock.assert_called_with("GET", uri,
                                 auth=self.auth, use_json_extension=True,
                                 client=self.client)
 
@@ -72,7 +72,7 @@ class AvailablePhoneNumbersTest(unittest.TestCase):
 
         self.resource.list(type='mobile', country='GB').execute()
         uri = "http://api.twilio.com/AvailablePhoneNumbers/GB/Mobile"
-        mock.assert_called_with("GET", uri, params={},
+        mock.assert_called_with("GET", uri,
                                 auth=self.auth, use_json_extension=True,
                                 client=self.client)
 

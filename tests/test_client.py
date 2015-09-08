@@ -44,7 +44,7 @@ class RestClientTest(unittest.TestCase):
         self.client.members("QU123").list().execute()
         uri = "https://api.twilio.com/2010-04-01/Accounts/ACCOUNT_SID" \
               "/Queues/QU123/Members"
-        mock.assert_called_with("GET", uri, params={}, auth=AUTH,
+        mock.assert_called_with("GET", uri, auth=AUTH,
                                 use_json_extension=True,
                                 client=self.http_client)
 
@@ -58,7 +58,7 @@ class RestClientTest(unittest.TestCase):
         workflows = workflows.list().execute()
         assert_true(workflows[0].sid is not None)
         uri = "https://taskrouter.twilio.com/v1/Workspaces/WS123/Workflows"
-        request.assert_called_with("GET", uri, headers=ANY, params={},
+        request.assert_called_with("GET", uri, headers=ANY,
                                    auth=AUTH)
 
 
@@ -74,7 +74,7 @@ class RestClientTimeoutTest(unittest.TestCase):
         resp = create_mock_json("tests/resources/members_list.json")
         mock_request.return_value = resp
         self.client.members("QU123").list().execute()
-        mock_request.assert_called_with("GET", ANY, params=ANY, auth=AUTH,
+        mock_request.assert_called_with("GET", ANY, auth=AUTH,
                                         timeout=sentinel.timeout,
                                         use_json_extension=True,
                                         client=self.http_client)
@@ -86,7 +86,7 @@ class RestClientTimeoutTest(unittest.TestCase):
         mock_response.content = json.dumps({"short_codes": []})
         mock_request.return_value = mock_response
         assert_equal([], self.client.sms.short_codes.list().execute())
-        mock_request.assert_called_once_with("GET", ANY, params=ANY, auth=AUTH,
+        mock_request.assert_called_once_with("GET", ANY, auth=AUTH,
                                              timeout=sentinel.timeout,
                                              use_json_extension=True,
                                              client=self.http_client)

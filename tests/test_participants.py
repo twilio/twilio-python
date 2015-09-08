@@ -26,7 +26,7 @@ class ParticipantsTest(unittest.TestCase):
 
         uri = "%s/Participants" % (self.base_uri)
         self.resource.list().execute()
-        mock.assert_called_with("GET", uri, params={}, auth=self.auth,
+        mock.assert_called_with("GET", uri, auth=self.auth,
                                 use_json_extension=True,
                                 client=self.client)
 

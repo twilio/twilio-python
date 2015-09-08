@@ -86,6 +86,13 @@ class Query(object):
             kwargs['timeout'] = self.timeout
 
         kwargs['use_json_extension'] = use_json_extension
+
+        # normalize params and data
+        if 'params' in kwargs and not kwargs['params']:
+            del kwargs['params']
+        if 'data' in kwargs and not kwargs['data']:
+            del kwargs['data']
+
         resp = make_twilio_request(method, uri, auth=self.auth,
                                    client=self.client, **kwargs)
 

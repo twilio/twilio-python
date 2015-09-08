@@ -91,7 +91,7 @@ class TaskQueueTest(unittest.TestCase):
         uri = "{0}/TaskQueues".format(BASE_URI)
         list_resource = TaskQueues(self.client, BASE_URI, AUTH, TIMEOUT)
         list_resource.list().execute()
-        request.assert_called_with("GET", uri, params={}, auth=AUTH, timeout=TIMEOUT,
+        request.assert_called_with("GET", uri, auth=AUTH, timeout=TIMEOUT,
                                    use_json_extension=False,
                                    client=self.client)
 

@@ -1,6 +1,9 @@
 import json
 import logging
+import platform
+from mock import Mock
 from twilio.rest.http import HttpClient
+from twilio import __version__
 
 
 class Request(object):
@@ -68,14 +71,80 @@ class Hologram(object):
 
 class Holodeck(HttpClient):
 
+    DEFAULT_GET_HEADERS = {
+        'Accept-Charset': 'utf-8',
+        'Accept': 'application/json',
+        'User-Agent': "twilio-python/%s (Python %s)" % (
+            __version__,
+            platform.python_version(),
+        )
+    }
+    DEFAULT_POST_HEADERS = {
+        'Accept-Charset': 'utf-8',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Accept': 'application/json',
+        'User-Agent': "twilio-python/%s (Python %s)" % (
+            __version__,
+            platform.python_version(),
+        )
+    }
+
     def __init__(self):
         self._holograms = []
+        self.make_request = Mock()
+        self.make_request.side_effect = self._make_request
 
     def mock(self, response, request=None):
         request = request or AnyRequest()
         self._holograms.append(Hologram(request, response))
 
-    def make_request(self, method, url,
+    def assert_called_once_with(self, method, url, auth,
+                                query_params=None, form_params=None,
+                                headers=None,
+                                timeout=None,
+                                allow_redirects=None):
+        if not headers:
+            if method in ['GET', 'DELETE']:
+                headers = self.DEFAULT_GET_HEADERS
+            else:
+                headers = self.DEFAULT_POST_HEADERS
+
+        kwargs = {}
+        kwargs['auth'] = auth
+        kwargs['headers'] = headers
+        if query_params:
+            kwargs['params'] = query_params
+        if form_params:
+            kwargs['data'] = form_params
+        if timeout:
+            kwargs['timeout'] = timeout
+
+        self.make_request.assert_called_once_with(method, url, **kwargs)
+
+    def assert_called_with(self, method, url, auth,
+                           query_params=None, form_params=None,
+                           headers=None,
+                           timeout=None,
+                           allow_redirects=None):
+        if not headers:
+            if method in ['GET', 'DELETE']:
+                headers = self.DEFAULT_GET_HEADERS
+            else:
+                headers = self.DEFAULT_POST_HEADERS
+
+        kwargs = {}
+        kwargs['auth'] = auth
+        kwargs['headers'] = headers
+        if query_params:
+            kwargs['params'] = query_params
+        if form_params:
+            kwargs['data'] = form_params
+        if timeout:
+            kwargs['timeout'] = timeout
+
+        self.make_request.assert_called_with(method, url, **kwargs)
+
+    def _make_request(self, method, url,
                      params=None, data=None,
                      headers=None,
                      auth=None, timeout=None,
@@ -89,3 +158,5 @@ class Holodeck(HttpClient):
 
         logging.debug('Holodeck has %s endpoints but could not find handler '
                       'for request :\n%s' % (len(self._holograms), request))
+        logging.debug('Holodeck has the following holograms:\n%s', self._holograms)
+        raise Exception('Holodeck could not match request')

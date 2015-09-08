@@ -157,7 +157,7 @@ class IncomingPhoneNumbersTest(unittest.TestCase):
         self.resource.list(type='mobile').execute()
 
         uri = "http://api.twilio.com/IncomingPhoneNumbers/Mobile"
-        mock.assert_called_with("GET", uri, params={},
+        mock.assert_called_with("GET", uri,
                                 auth=self.auth,
                                 use_json_extension=True,
                                 client=self.client)
@@ -172,7 +172,7 @@ class IncomingPhoneNumbersTest(unittest.TestCase):
         self.resource.list(type='local').execute()
 
         uri = "http://api.twilio.com/IncomingPhoneNumbers/Local"
-        mock.assert_called_with("GET", uri, params={},
+        mock.assert_called_with("GET", uri,
                                 auth=self.auth,
                                 use_json_extension=True,
                                 client=self.client)
@@ -187,7 +187,7 @@ class IncomingPhoneNumbersTest(unittest.TestCase):
         self.resource.list(type='tollfree').execute()
 
         uri = "http://api.twilio.com/IncomingPhoneNumbers/TollFree"
-        mock.assert_called_with("GET", uri, params={},
+        mock.assert_called_with("GET", uri,
                                 auth=self.auth,
                                 use_json_extension=True,
                                 client=self.client)

@@ -34,7 +34,6 @@ class NumbersTest(unittest.TestCase):
             "{0}/PhoneNumbers/Countries".format(BASE_URI),
             auth=AUTH,
             use_json_extension=False,
-            params={},
             client=self.client
         )
 

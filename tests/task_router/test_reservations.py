@@ -39,7 +39,7 @@ class TaskQueueTest(unittest.TestCase):
         uri = "{0}/Reservations".format(BASE_URI)
         list_resource = Reservations(self.client, BASE_URI, AUTH)
         list_resource.list().execute()
-        request.assert_called_with("GET", uri, params={}, auth=AUTH,
+        request.assert_called_with("GET", uri, auth=AUTH,
                                    use_json_extension=False,
                                    client=self.client)
 

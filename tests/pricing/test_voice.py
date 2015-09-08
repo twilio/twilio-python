@@ -37,7 +37,6 @@ class VoiceTest(unittest.TestCase):
             "{0}/Voice/Countries".format(BASE_URI),
             auth=AUTH,
             use_json_extension=False,
-            params={},
             client=self.client
         )
 

@@ -26,7 +26,7 @@ class QueueTest(unittest.TestCase):
         uri = "%s/Queues" % (BASE_URI)
         self.list_resource.list().execute()
 
-        mock.assert_called_with("GET", uri, params={}, auth=AUTH,
+        mock.assert_called_with("GET", uri, auth=AUTH,
                                 use_json_extension=True,
                                 client=self.client)
 

@@ -38,5 +38,5 @@ class AlertTest(unittest.TestCase):
         uri = "{0}/Alerts".format(BASE_URI)
         list_resource = Alerts(self.client, BASE_URI, AUTH)
         list_resource.list().execute()
-        request.assert_called_with("GET", uri, params={}, auth=AUTH, use_json_extension=False,
+        request.assert_called_with("GET", uri, auth=AUTH, use_json_extension=False,
                                    client=self.client)

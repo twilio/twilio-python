@@ -28,7 +28,7 @@ class TestUsage(unittest.TestCase):
 
         self.usage.records.daily.list().execute()
 
-        request.assert_called_with('GET', uri, params={},
+        request.assert_called_with('GET', uri,
                                    use_json_extension=True,
                                    auth=self.auth,
                                    client=self.client)
@@ -43,7 +43,7 @@ class TestUsage(unittest.TestCase):
 
         self.usage.records.monthly.list().execute()
 
-        request.assert_called_with('GET', uri, params={},
+        request.assert_called_with('GET', uri,
                                    use_json_extension=True,
                                    auth=self.auth,
                                    client=self.client)
@@ -58,7 +58,7 @@ class TestUsage(unittest.TestCase):
 
         self.usage.records.yearly.list().execute()
 
-        request.assert_called_with('GET', uri, params={},
+        request.assert_called_with('GET', uri,
                                    use_json_extension=True,
                                    auth=self.auth,
                                    client=self.client)
@@ -73,7 +73,7 @@ class TestUsage(unittest.TestCase):
 
         self.usage.records.today.list().execute()
 
-        request.assert_called_with('GET', uri, params={},
+        request.assert_called_with('GET', uri,
                                    use_json_extension=True,
                                    auth=self.auth,
                                    client=self.client)
@@ -88,7 +88,7 @@ class TestUsage(unittest.TestCase):
 
         self.usage.records.yesterday.list().execute()
 
-        request.assert_called_with('GET', uri, params={},
+        request.assert_called_with('GET', uri,
                                    use_json_extension=True,
                                    auth=self.auth,
                                    client=self.client)
@@ -103,7 +103,7 @@ class TestUsage(unittest.TestCase):
 
         self.usage.records.last_month.list().execute()
 
-        request.assert_called_with('GET', uri, params={},
+        request.assert_called_with('GET', uri,
                                    use_json_extension=True,
                                    auth=self.auth,
                                    client=self.client)
@@ -118,7 +118,7 @@ class TestUsage(unittest.TestCase):
 
         self.usage.records.this_month.list().execute()
 
-        request.assert_called_with('GET', uri, params={},
+        request.assert_called_with('GET', uri,
                                    use_json_extension=True,
                                    auth=self.auth,
                                    client=self.client)

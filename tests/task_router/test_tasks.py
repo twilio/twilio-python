@@ -89,7 +89,7 @@ class TaskTest(unittest.TestCase):
         uri = "{0}/Tasks".format(BASE_URI)
         list_resource = Tasks(self.client, BASE_URI, AUTH)
         list_resource.list().execute()
-        request.assert_called_with("GET", uri, params={}, auth=AUTH,
+        request.assert_called_with("GET", uri, auth=AUTH,
                                    use_json_extension=False,
                                    client=self.client)
 
