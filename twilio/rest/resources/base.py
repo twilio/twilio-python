@@ -319,11 +319,6 @@ class InstanceResource(Resource):
         if "uri" in entries.keys():
             del entries["uri"]
 
-        for key in entries.keys():
-            if (key.startswith("date_") and
-                    isinstance(entries[key], string_types)):
-                entries[key] = self._parse_date(entries[key])
-
         self.__dict__.update(entries)
 
     def load_subresources(self):
@@ -383,9 +378,6 @@ class InstanceResource(Resource):
         """
         return GetQuery(self.parent, self.uri,
                         self.use_json_extension).execute()
-
-    def _parse_date(self, s):
-        return parse_rfc2822_date(s)
 
     def __str__(self):
         return "<%s %s>" % (self.__class__.__name__, self.name[0:5])
