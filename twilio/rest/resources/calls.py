@@ -22,7 +22,7 @@ class Calls(BaseCalls):
              started_after=None, started=None, **kwargs):
         """
         Returns a page of :class:`Call` resources as a list. For paging
-        informtion see :class:`ListResource`
+        information see :class:`ListResource`
 
         :param date after: Only list calls started after this datetime
         :param date before: Only list calls started before this datetime

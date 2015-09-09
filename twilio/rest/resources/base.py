@@ -521,7 +521,7 @@ class ListResource(Resource):
 
         .. code-block:: python
 
-            for message in client.messages:
+            for message in client.messages.iter():
                 print message.sid
         """
         params = transform_params(kwargs)
@@ -577,7 +577,7 @@ class NextGenListResource(ListResource):
 
         .. code-block:: python
 
-            for message in client.messages:
+            for message in client.messages.iter():
                 print message.sid
         """
         params = urlencode(transform_params(kwargs))
