@@ -92,10 +92,15 @@ class SipIpAddressTest(unittest.TestCase):
         mock.return_value = resp
 
         uri = '%s/IpAddresses/%s' % (self.BASE_URI, self.SID)
-        self.list_resource.update(self.SID, friendly_name='cred').execute()
+        self.list_resource.update(self.SID,
+                                  friendly_name='cred',
+                                  ip_address='localhost').execute()
 
         mock.assert_called_with("POST", uri,
-                                data={'FriendlyName': 'cred'},
+                                data={
+                                    'FriendlyName': 'cred',
+                                    'IpAddress': 'localhost'
+                                },
                                 auth=self.AUTH,
                                 use_json_extension=True,
                                 client=self.client)

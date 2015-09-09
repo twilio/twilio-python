@@ -69,19 +69,6 @@ class TestStatistics(unittest.TestCase):
                                    client=self.client)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
-    def test_fetch_task_queues_statistics(self, request):
-        resp = create_mock_json('tests/resources/task_router/task_queues_instance.json')
-        resp.status_code = 200
-        request.return_value = resp
-
-        tqs = TaskQueues(self.client, BASE_URI, AUTH, 30)
-        tqs.statistics.get().execute()
-        request.assert_called_with('GET',
-                                   '{0}/TaskQueues/Statistics'.format(BASE_URI),
-                                   timeout=30, auth=AUTH, use_json_extension=False,
-                                   client=self.client)
-
-    @patch("twilio.rest.resources.base.make_twilio_request")
     def test_fetch_task_workflow_statistics(self, request):
         resp = create_mock_json('tests/resources/task_router/workflows_instance.json')
         resp.status_code = 200
