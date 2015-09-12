@@ -37,7 +37,7 @@ class ParticipantIntegrationTest(unittest.TestCase):
         query = client \
             .accounts.get("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
             .conferences.get("CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-            .participants.get()
+            .participants.get("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         
         query.execute()
         
@@ -70,7 +70,7 @@ class ParticipantIntegrationTest(unittest.TestCase):
         query = client \
             .accounts.get("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
             .conferences.get("CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-            .participants.get()
+            .participants.get("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         
         instance = query.execute()
         
@@ -112,7 +112,10 @@ class ParticipantIntegrationTest(unittest.TestCase):
         query = client \
             .accounts.get("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
             .conferences.get("CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-            .participants.update(True)
+            .participants.update(
+                "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                True
+            )
         
         query.execute()
         
@@ -147,7 +150,10 @@ class ParticipantIntegrationTest(unittest.TestCase):
         query = client \
             .accounts.get("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
             .conferences.get("CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-            .participants.update(True)
+            .participants.update(
+                "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                True
+            )
         
         instance = query.execute()
         
@@ -177,7 +183,7 @@ class ParticipantIntegrationTest(unittest.TestCase):
         query = client \
             .accounts.get("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
             .conferences.get("CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-            .participants.delete()
+            .participants.delete("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         
         query.execute()
         
@@ -198,7 +204,7 @@ class ParticipantIntegrationTest(unittest.TestCase):
         query = client \
             .accounts.get("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
             .conferences.get("CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-            .participants.delete()
+            .participants.delete("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         
         self.assertTrue(query.execute())
 

@@ -121,22 +121,25 @@ class Participants(ListResource):
     def __init__(self, *args, **kwargs):
         super(Participants, self).__init__(*args, **kwargs)
 
-    def get(self):
+    def get(self, call_sid):
         """
         Fetch an instance of a participant
+        
+        :param str call_sid: The call_sid
         
         :raises TwilioRestException: when the request fails on execute
         
         :rtype: :class:`Participant`
         :returns: A placeholder for a :class:`Participant` resource
         """
-        return self.get_instance()
+        return self.get_instance(call_sid)
 
-    def update(self, muted, **kwargs):
+    def update(self, call_sid, muted, **kwargs):
         """
         Update the properties of this participant
         
         :param bool muted: Indicates if the participant should be muted
+        :param str call_sid: The call_sid
         
         :raises TwilioRestException: when the request fails on execute
         
@@ -144,18 +147,20 @@ class Participants(ListResource):
         :returns: An UpdateQuery when executed returns an instance of the updated :class:`Participant`
         """
         kwargs["Muted"] = muted
-        return self.update_instance(, kwargs)
+        return self.update_instance(call_sid, kwargs)
 
-    def delete(self):
+    def delete(self, call_sid):
         """
         Kick a participant from a given conference
+        
+        :param str call_sid: The call_sid
         
         :raises TwilioRestException: when the request fails on execute
         
         :rtype: :class:`DeleteQuery`
         :returns: A DeleteQuery when executed returns True iff the deletion is successful
         """
-        return self.delete_instance()
+        return self.delete_instance(call_sid)
 
     def list(self, **kwargs):
         """
