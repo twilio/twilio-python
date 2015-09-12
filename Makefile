@@ -9,6 +9,9 @@ install: venv
 test-install: install
 	. venv/bin/activate; pip install -r tests/requirements.txt
 
+develop: venv
+	. venv/bin/activate; pip install . -e --use-mirrors
+
 analysis:
 	. venv/bin/activate; flake8 --ignore=E123,E126,E128,E501 tests
 	. venv/bin/activate; flake8 --ignore=F401 twilio

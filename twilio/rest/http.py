@@ -25,7 +25,7 @@ def get_cert_file():
         # Apparently __file__ is not available in all places so wrapping this
         # in a try/catch
         current_path = os.path.realpath(__file__)
-        ca_cert_path = os.path.join(current_path, "..", "..", "..",
+        ca_cert_path = os.path.join(current_path, "..", "..",
                                     "conf", "cacert.pem")
         return os.path.abspath(ca_cert_path)
     except Exception:
@@ -95,4 +95,4 @@ class HttpClient(object):
 
         resp, content = http.request(url, method, headers=headers, body=data)
 
-        return Response(int(resp.status), content.decode('utf-8'), url)
+        return Response(int(resp.status), content.decode('utf-8'))

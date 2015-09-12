@@ -85,21 +85,24 @@ class Members(ListResource):
     def __init__(self, *args, **kwargs):
         super(Members, self).__init__(*args, **kwargs)
 
-    def get(self):
+    def get(self, call_sid):
         """
         Fetch a specific members of the queue
+        
+        :param str call_sid: The call_sid
         
         :raises TwilioRestException: when the request fails on execute
         
         :rtype: :class:`Member`
         :returns: A placeholder for a :class:`Member` resource
         """
-        return self.get_instance()
+        return self.get_instance(call_sid)
 
-    def update(self, url, method, **kwargs):
+    def update(self, call_sid, url, method, **kwargs):
         """
         Dequeue a member from a queue and have the member's call begin executing the TwiML document at that URL
         
+        :param str call_sid: The call_sid
         :param str method: The method
         :param str url: The url
         
@@ -110,7 +113,7 @@ class Members(ListResource):
         """
         kwargs["Url"] = url
         kwargs["Method"] = method
-        return self.update_instance(, kwargs)
+        return self.update_instance(call_sid, kwargs)
 
     def list(self, **kwargs):
         """

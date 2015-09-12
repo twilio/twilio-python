@@ -33,7 +33,7 @@ class MemberIntegrationTest(unittest.TestCase):
         query = client \
             .accounts.get("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
             .queues.get("QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-            .members.get()
+            .members.get("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         
         query.execute()
         
@@ -62,7 +62,7 @@ class MemberIntegrationTest(unittest.TestCase):
         query = client \
             .accounts.get("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
             .queues.get("QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-            .members.get()
+            .members.get("CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         
         instance = query.execute()
         
@@ -93,6 +93,7 @@ class MemberIntegrationTest(unittest.TestCase):
             .accounts.get("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
             .queues.get("QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
             .members.update(
+                "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "https://example.com",
                 "GET"
             )
@@ -128,6 +129,7 @@ class MemberIntegrationTest(unittest.TestCase):
             .accounts.get("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
             .queues.get("QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
             .members.update(
+                "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "https://example.com",
                 "GET"
             )
