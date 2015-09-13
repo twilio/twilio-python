@@ -254,6 +254,8 @@ class ListQuery(Query):
 
         return [self.list_instance.load_instance(ir) for ir in page[key]]
 
+    def __iter__(self):
+        return iter(self.execute())
 
 class Resource(object):
     """A REST Resource"""
