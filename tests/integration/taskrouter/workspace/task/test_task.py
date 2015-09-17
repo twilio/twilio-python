@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.taskrouter.client import TaskrouterClient
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class TaskIntegrationTest(unittest.TestCase):
@@ -89,9 +92,9 @@ class TaskIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.attributes)
         self.assertEqual(u"{\"body\": \"hello\"}", instance.attributes)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("2014-05-14T10:50:02Z"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T10:50:02Z'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("2014-05-14T23:26:06Z"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T23:26:06Z'), instance.date_updated)
         self.assertIsNotNone(instance.priority)
         self.assertEqual(0, instance.priority)
         self.assertIsNotNone(instance.sid)
@@ -195,9 +198,9 @@ class TaskIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.attributes)
         self.assertEqual(u"{\"body\": \"hello\"}", instance.attributes)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("2014-05-14T10:50:02Z"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T10:50:02Z'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("2014-05-14T23:26:06Z"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T23:26:06Z'), instance.date_updated)
         self.assertIsNotNone(instance.priority)
         self.assertEqual(0, instance.priority)
         self.assertIsNotNone(instance.sid)
@@ -303,9 +306,9 @@ class TaskIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instances[0].attributes)
         self.assertEqual(u"{\"body\": \"hello\"}", instances[0].attributes)
         self.assertIsNotNone(instances[0].date_created)
-        self.assertEqual(parse_iso_date("2014-05-14T14:26:54Z"), instances[0].date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T14:26:54Z'), instances[0].date_created)
         self.assertIsNotNone(instances[0].date_updated)
-        self.assertEqual(parse_iso_date("2014-05-15T16:03:42Z"), instances[0].date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-15T16:03:42Z'), instances[0].date_updated)
         self.assertIsNotNone(instances[0].priority)
         self.assertEqual(0, instances[0].priority)
         self.assertIsNotNone(instances[0].sid)
@@ -554,9 +557,9 @@ class TaskIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.attributes)
         self.assertEqual(u"{\"body\": \"hello\"}", instance.attributes)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("2014-05-14T10:50:02Z"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T10:50:02Z'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("2014-05-14T23:26:06Z"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T23:26:06Z'), instance.date_updated)
         self.assertIsNotNone(instance.priority)
         self.assertEqual(0, instance.priority)
         self.assertIsNotNone(instance.sid)

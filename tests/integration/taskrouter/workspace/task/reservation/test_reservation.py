@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.taskrouter.client import TaskrouterClient
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class ReservationIntegrationTest(unittest.TestCase):
@@ -65,9 +68,9 @@ class ReservationIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instances[0].account_sid)
         self.assertEqual(u"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instances[0].account_sid)
         self.assertIsNotNone(instances[0].date_created)
-        self.assertEqual(parse_iso_date("2014-05-14T10:50:02Z"), instances[0].date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T10:50:02Z'), instances[0].date_created)
         self.assertIsNotNone(instances[0].date_updated)
-        self.assertEqual(parse_iso_date("2014-05-15T16:03:42Z"), instances[0].date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-15T16:03:42Z'), instances[0].date_updated)
         self.assertIsNotNone(instances[0].reservation_status)
         self.assertEqual(u"reserved", instances[0].reservation_status)
         self.assertIsNotNone(instances[0].sid)
@@ -268,9 +271,9 @@ class ReservationIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.account_sid)
         self.assertEqual(u"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.account_sid)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("2014-05-14T10:50:02Z"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T10:50:02Z'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("2014-05-15T16:03:42Z"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-15T16:03:42Z'), instance.date_updated)
         self.assertIsNotNone(instance.reservation_status)
         self.assertEqual(u"reserved", instance.reservation_status)
         self.assertIsNotNone(instance.sid)
@@ -368,9 +371,9 @@ class ReservationIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.account_sid)
         self.assertEqual(u"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.account_sid)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("2014-05-14T10:50:02Z"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T10:50:02Z'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("2014-05-15T16:03:42Z"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-15T16:03:42Z'), instance.date_updated)
         self.assertIsNotNone(instance.reservation_status)
         self.assertEqual(u"reserved", instance.reservation_status)
         self.assertIsNotNone(instance.sid)

@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.v2010.client import V2010Client
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class DailyIntegrationTest(unittest.TestCase):
@@ -86,13 +89,13 @@ class DailyIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instances[0].description)
         self.assertEqual(u"Short Code Inbound SMS", instances[0].description)
         self.assertIsNotNone(instances[0].end_date)
-        self.assertEqual(parse_iso_date("2015-09-06"), instances[0].end_date)
+        self.assertEqual(deserialize.iso8601_datetime('2015-09-06'), instances[0].end_date)
         self.assertIsNotNone(instances[0].price)
         self.assertEqual(u"0", instances[0].price)
         self.assertIsNotNone(instances[0].price_unit)
         self.assertEqual(u"usd", instances[0].price_unit)
         self.assertIsNotNone(instances[0].start_date)
-        self.assertEqual(parse_iso_date("2015-09-06"), instances[0].start_date)
+        self.assertEqual(deserialize.iso8601_datetime('2015-09-06'), instances[0].start_date)
         self.assertIsNotNone(instances[0].usage)
         self.assertEqual(u"0", instances[0].usage)
         self.assertIsNotNone(instances[0].usage_unit)

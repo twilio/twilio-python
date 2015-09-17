@@ -1,4 +1,4 @@
-.PHONY: clean venv install analysis test test-install docs docs-install
+.PHONY: clean venv install analysis test test-install develop docs docs-install
 
 venv:
 	virtualenv venv
@@ -10,7 +10,8 @@ test-install: install
 	. venv/bin/activate; pip install -r tests/requirements.txt
 
 develop: venv
-	. venv/bin/activate; pip install . -e --use-mirrors
+	. venv/bin/activate; pip install -e . --use-mirrors
+	. venv/bin/activate; pip install -r tests/requirements.txt
 
 analysis:
 	. venv/bin/activate; flake8 --ignore=E123,E126,E128,E501 tests

@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.v2010.client import V2010Client
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class DomainIntegrationTest(unittest.TestCase):
@@ -70,9 +73,9 @@ class DomainIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instances[0].auth_type)
         self.assertEqual(u"", instances[0].auth_type)
         self.assertIsNotNone(instances[0].date_created)
-        self.assertEqual(parse_iso_date("Fri, 06 Sep 2013 18:48:50 -0000"), instances[0].date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Fri, 06 Sep 2013 18:48:50 -0000'), instances[0].date_created)
         self.assertIsNotNone(instances[0].date_updated)
-        self.assertEqual(parse_iso_date("Fri, 06 Sep 2013 18:48:50 -0000"), instances[0].date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Fri, 06 Sep 2013 18:48:50 -0000'), instances[0].date_updated)
         self.assertIsNotNone(instances[0].domain_name)
         self.assertEqual(u"dunder-mifflin-scranton.api.twilio.com", instances[0].domain_name)
         self.assertIsNotNone(instances[0].friendly_name)
@@ -311,9 +314,9 @@ class DomainIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.auth_type)
         self.assertEqual(u"IP_ACL", instance.auth_type)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Fri, 06 Sep 2013 19:18:30 -0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Fri, 06 Sep 2013 19:18:30 -0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Fri, 06 Sep 2013 19:18:30 -0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Fri, 06 Sep 2013 19:18:30 -0000'), instance.date_updated)
         self.assertIsNotNone(instance.domain_name)
         self.assertEqual(u"dunder-mifflin-scranton.sip.twilio.com", instance.domain_name)
         self.assertIsNotNone(instance.friendly_name)
@@ -416,9 +419,9 @@ class DomainIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.auth_type)
         self.assertEqual(u"IP_ACL", instance.auth_type)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Fri, 06 Sep 2013 19:18:30 -0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Fri, 06 Sep 2013 19:18:30 -0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Fri, 06 Sep 2013 19:18:30 -0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Fri, 06 Sep 2013 19:18:30 -0000'), instance.date_updated)
         self.assertIsNotNone(instance.domain_name)
         self.assertEqual(u"dunder-mifflin-scranton.sip.twilio.com", instance.domain_name)
         self.assertIsNotNone(instance.friendly_name)
@@ -550,9 +553,9 @@ class DomainIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.auth_type)
         self.assertEqual(u"IP_ACL", instance.auth_type)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Fri, 06 Sep 2013 19:18:30 -0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Fri, 06 Sep 2013 19:18:30 -0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Fri, 06 Sep 2013 19:18:30 -0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Fri, 06 Sep 2013 19:18:30 -0000'), instance.date_updated)
         self.assertIsNotNone(instance.domain_name)
         self.assertEqual(u"dunder-mifflin-scranton.sip.twilio.com", instance.domain_name)
         self.assertIsNotNone(instance.friendly_name)

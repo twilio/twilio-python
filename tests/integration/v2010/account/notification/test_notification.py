@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.v2010.client import V2010Client
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class NotificationIntegrationTest(unittest.TestCase):
@@ -95,15 +98,15 @@ class NotificationIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.call_sid)
         self.assertEqual(u"CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.call_sid)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Mon, 13 Sep 2010 20:02:01 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Mon, 13 Sep 2010 20:02:01 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Mon, 13 Sep 2010 20:02:01 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Mon, 13 Sep 2010 20:02:01 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.error_code)
         self.assertEqual(u"11200", instance.error_code)
         self.assertIsNotNone(instance.log)
         self.assertEqual(u"0", instance.log)
         self.assertIsNotNone(instance.message_date)
-        self.assertEqual(parse_iso_date("Mon, 13 Sep 2010 20:02:00 +0000"), instance.message_date)
+        self.assertEqual(deserialize.iso8601_datetime('Mon, 13 Sep 2010 20:02:00 +0000'), instance.message_date)
         self.assertIsNotNone(instance.message_text)
         self.assertEqual(u"EmailNotification=false&LogLevel=ERROR&sourceComponent=12000&Msg=&httpResponse=500&ErrorCode=11200&url=http%3A%2F%2Fvoiceforms4000.appspot.com%2Ftwiml", instance.message_text)
         self.assertIsNotNone(instance.more_info)
@@ -211,15 +214,15 @@ class NotificationIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instances[0].call_sid)
         self.assertEqual(u"CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instances[0].call_sid)
         self.assertIsNotNone(instances[0].date_created)
-        self.assertEqual(parse_iso_date("Thu, 30 Apr 2015 16:47:33 +0000"), instances[0].date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Thu, 30 Apr 2015 16:47:33 +0000'), instances[0].date_created)
         self.assertIsNotNone(instances[0].date_updated)
-        self.assertEqual(parse_iso_date("Thu, 30 Apr 2015 16:47:35 +0000"), instances[0].date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Thu, 30 Apr 2015 16:47:35 +0000'), instances[0].date_updated)
         self.assertIsNotNone(instances[0].error_code)
         self.assertEqual(u"21609", instances[0].error_code)
         self.assertIsNotNone(instances[0].log)
         self.assertEqual(u"1", instances[0].log)
         self.assertIsNotNone(instances[0].message_date)
-        self.assertEqual(parse_iso_date("Thu, 30 Apr 2015 16:47:32 +0000"), instances[0].message_date)
+        self.assertEqual(deserialize.iso8601_datetime('Thu, 30 Apr 2015 16:47:32 +0000'), instances[0].message_date)
         self.assertIsNotNone(instances[0].message_text)
         self.assertEqual(u"LogLevel=WARN&invalidStatusCallbackUrl=&Msg=Invalid+Url+for+callSid%3A+CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa+invalid+statusCallbackUrl%3A+&ErrorCode=21609", instances[0].message_text)
         self.assertIsNotNone(instances[0].more_info)

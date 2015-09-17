@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.v2010.client import V2010Client
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class NotificationIntegrationTest(unittest.TestCase):
@@ -97,15 +100,15 @@ class NotificationIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.call_sid)
         self.assertEqual(u"CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.call_sid)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Tue, 18 Aug 2015 08:46:56 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 18 Aug 2015 08:46:56 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Tue, 18 Aug 2015 08:46:57 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 18 Aug 2015 08:46:57 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.error_code)
         self.assertEqual(u"15003", instance.error_code)
         self.assertIsNotNone(instance.log)
         self.assertEqual(u"1", instance.log)
         self.assertIsNotNone(instance.message_date)
-        self.assertEqual(parse_iso_date("Tue, 18 Aug 2015 08:46:56 +0000"), instance.message_date)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 18 Aug 2015 08:46:56 +0000'), instance.message_date)
         self.assertIsNotNone(instance.message_text)
         self.assertEqual(u"statusCallback=http%3A%2F%2Fexample.com%2Ffoo.xml&ErrorCode=15003&LogLevel=WARN&Msg=Got+HTTP+404+response+to+http%3A%2F%2Fexample.com%2Ffoo.xml", instance.message_text)
         self.assertIsNotNone(instance.more_info)
@@ -215,15 +218,15 @@ class NotificationIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instances[0].call_sid)
         self.assertEqual(u"CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instances[0].call_sid)
         self.assertIsNotNone(instances[0].date_created)
-        self.assertEqual(parse_iso_date("Tue, 18 Aug 2015 08:46:56 +0000"), instances[0].date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 18 Aug 2015 08:46:56 +0000'), instances[0].date_created)
         self.assertIsNotNone(instances[0].date_updated)
-        self.assertEqual(parse_iso_date("Tue, 18 Aug 2015 08:46:57 +0000"), instances[0].date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 18 Aug 2015 08:46:57 +0000'), instances[0].date_updated)
         self.assertIsNotNone(instances[0].error_code)
         self.assertEqual(u"15003", instances[0].error_code)
         self.assertIsNotNone(instances[0].log)
         self.assertEqual(u"1", instances[0].log)
         self.assertIsNotNone(instances[0].message_date)
-        self.assertEqual(parse_iso_date("Tue, 18 Aug 2015 08:46:56 +0000"), instances[0].message_date)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 18 Aug 2015 08:46:56 +0000'), instances[0].message_date)
         self.assertIsNotNone(instances[0].message_text)
         self.assertEqual(u"statusCallback=http%3A%2F%2Fexample.com%2Ffoo.xml&ErrorCode=15003&LogLevel=WARN&Msg=Got+HTTP+404+response+to+http%3A%2F%2Fexample.com%2Ffoo.xml", instances[0].message_text)
         self.assertIsNotNone(instances[0].more_info)

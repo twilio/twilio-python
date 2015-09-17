@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.conversations.client import ConversationsClient
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class ConversationIntegrationTest(unittest.TestCase):
@@ -77,14 +80,14 @@ class ConversationIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.account_sid)
         self.assertEqual(u"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.account_sid)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("2015-05-12T21:13:15Z"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2015-05-12T21:13:15Z'), instance.date_created)
         self.assertIsNotNone(instance.duration)
         self.assertEqual(60, instance.duration)
         self.assertIsNotNone(instance.end_time)
-        self.assertEqual(parse_iso_date("2015-05-12T21:14:15Z"), instance.end_time)
+        self.assertEqual(deserialize.iso8601_datetime('2015-05-12T21:14:15Z'), instance.end_time)
         self.assertIsNotNone(instance.sid)
         self.assertEqual(u"CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.sid)
         self.assertIsNotNone(instance.start_time)
-        self.assertEqual(parse_iso_date("2015-05-12T21:13:15Z"), instance.start_time)
+        self.assertEqual(deserialize.iso8601_datetime('2015-05-12T21:13:15Z'), instance.start_time)
         self.assertIsNotNone(instance.status)
         self.assertEqual(u"created", instance.status)

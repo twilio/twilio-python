@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.v2010.client import V2010Client
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class SandboxIntegrationTest(unittest.TestCase):
@@ -85,13 +88,13 @@ class SandboxIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.api_version)
         self.assertEqual(u"2008-08-01", instance.api_version)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Sun, 15 Mar 2009 02:08:47 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Sun, 15 Mar 2009 02:08:47 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Fri, 18 Feb 2011 17:37:18 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Fri, 18 Feb 2011 17:37:18 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.phone_number)
         self.assertEqual(u"4155992671", instance.phone_number)
         self.assertIsNotNone(instance.pin)
-        self.assertEqual(u"66528411", instance.pin)
+        self.assertEqual(66528411, instance.pin)
         self.assertIsNotNone(instance.sms_method)
         self.assertEqual(u"POST", instance.sms_method)
         self.assertIsNotNone(instance.sms_url)
@@ -193,13 +196,13 @@ class SandboxIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.api_version)
         self.assertEqual(u"2008-08-01", instance.api_version)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Sun, 15 Mar 2009 02:08:47 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Sun, 15 Mar 2009 02:08:47 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Fri, 18 Feb 2011 17:37:18 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Fri, 18 Feb 2011 17:37:18 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.phone_number)
         self.assertEqual(u"4155992671", instance.phone_number)
         self.assertIsNotNone(instance.pin)
-        self.assertEqual(u"66528411", instance.pin)
+        self.assertEqual(66528411, instance.pin)
         self.assertIsNotNone(instance.sms_method)
         self.assertEqual(u"POST", instance.sms_method)
         self.assertIsNotNone(instance.sms_url)

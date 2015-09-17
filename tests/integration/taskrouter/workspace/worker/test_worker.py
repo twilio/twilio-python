@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.taskrouter.client import TaskrouterClient
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class WorkerIntegrationTest(unittest.TestCase):
@@ -81,11 +84,11 @@ class WorkerIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instances[0].available)
         self.assertEqual(False, instances[0].available)
         self.assertIsNotNone(instances[0].date_created)
-        self.assertEqual(parse_iso_date("2015-08-03T17:34:12Z"), instances[0].date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2015-08-03T17:34:12Z'), instances[0].date_created)
         self.assertIsNotNone(instances[0].date_status_changed)
-        self.assertEqual(parse_iso_date("2015-08-03T17:34:12Z"), instances[0].date_status_changed)
+        self.assertEqual(deserialize.iso8601_datetime('2015-08-03T17:34:12Z'), instances[0].date_status_changed)
         self.assertIsNotNone(instances[0].date_updated)
-        self.assertEqual(parse_iso_date("2015-08-03T17:34:12Z"), instances[0].date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('2015-08-03T17:34:12Z'), instances[0].date_updated)
         self.assertIsNotNone(instances[0].friendly_name)
         self.assertEqual(u"dc7d5461-3a05-11e5-a889-98e0d9a1eb73", instances[0].friendly_name)
         self.assertIsNotNone(instances[0].sid)
@@ -330,11 +333,11 @@ class WorkerIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.available)
         self.assertEqual(True, instance.available)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("2014-05-14T10:50:02Z"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T10:50:02Z'), instance.date_created)
         self.assertIsNotNone(instance.date_status_changed)
-        self.assertEqual(parse_iso_date("2014-05-14T23:26:06Z"), instance.date_status_changed)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T23:26:06Z'), instance.date_status_changed)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("2014-05-14T23:26:06Z"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T23:26:06Z'), instance.date_updated)
         self.assertIsNotNone(instance.friendly_name)
         self.assertEqual(u"Test Worker", instance.friendly_name)
         self.assertIsNotNone(instance.sid)
@@ -415,11 +418,11 @@ class WorkerIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.available)
         self.assertEqual(True, instance.available)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("2014-05-14T10:50:02Z"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T10:50:02Z'), instance.date_created)
         self.assertIsNotNone(instance.date_status_changed)
-        self.assertEqual(parse_iso_date("2014-05-14T23:26:06Z"), instance.date_status_changed)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T23:26:06Z'), instance.date_status_changed)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("2014-05-14T23:26:06Z"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T23:26:06Z'), instance.date_updated)
         self.assertIsNotNone(instance.friendly_name)
         self.assertEqual(u"Test Worker", instance.friendly_name)
         self.assertIsNotNone(instance.sid)
@@ -514,11 +517,11 @@ class WorkerIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.available)
         self.assertEqual(True, instance.available)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("2014-05-14T10:50:02Z"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T10:50:02Z'), instance.date_created)
         self.assertIsNotNone(instance.date_status_changed)
-        self.assertEqual(parse_iso_date("2014-05-14T23:26:06Z"), instance.date_status_changed)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T23:26:06Z'), instance.date_status_changed)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("2014-05-14T23:26:06Z"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T23:26:06Z'), instance.date_updated)
         self.assertIsNotNone(instance.friendly_name)
         self.assertEqual(u"Test Worker", instance.friendly_name)
         self.assertIsNotNone(instance.sid)

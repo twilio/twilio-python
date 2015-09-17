@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.monitor.client import MonitorClient
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class AlertIntegrationTest(unittest.TestCase):
@@ -93,11 +96,11 @@ class AlertIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.api_version)
         self.assertEqual(u"2008-08-01", instance.api_version)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("2015-08-29T17:20:16Z"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2015-08-29T17:20:16Z'), instance.date_created)
         self.assertIsNotNone(instance.date_generated)
-        self.assertEqual(parse_iso_date("2015-08-29T17:20:14Z"), instance.date_generated)
+        self.assertEqual(deserialize.iso8601_datetime('2015-08-29T17:20:14Z'), instance.date_generated)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("2015-08-29T17:20:16Z"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('2015-08-29T17:20:16Z'), instance.date_updated)
         self.assertIsNotNone(instance.error_code)
         self.assertEqual(u"11200", instance.error_code)
         self.assertIsNotNone(instance.log_level)
@@ -207,11 +210,11 @@ class AlertIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instances[0].api_version)
         self.assertEqual(u"2008-08-01", instances[0].api_version)
         self.assertIsNotNone(instances[0].date_created)
-        self.assertEqual(parse_iso_date("2015-08-29T17:20:16Z"), instances[0].date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2015-08-29T17:20:16Z'), instances[0].date_created)
         self.assertIsNotNone(instances[0].date_generated)
-        self.assertEqual(parse_iso_date("2015-08-29T17:20:14Z"), instances[0].date_generated)
+        self.assertEqual(deserialize.iso8601_datetime('2015-08-29T17:20:14Z'), instances[0].date_generated)
         self.assertIsNotNone(instances[0].date_updated)
-        self.assertEqual(parse_iso_date("2015-08-29T17:20:16Z"), instances[0].date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('2015-08-29T17:20:16Z'), instances[0].date_updated)
         self.assertIsNotNone(instances[0].error_code)
         self.assertEqual(u"11200", instances[0].error_code)
         self.assertIsNotNone(instances[0].log_level)

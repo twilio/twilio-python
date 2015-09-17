@@ -76,7 +76,7 @@ class Mobiles(ListResource):
     def __init__(self, *args, **kwargs):
         super(Mobiles, self).__init__(*args, **kwargs)
 
-    def list(self, **kwargs):
+    def list(self, beta=None, **kwargs):
         """
         Retrieve a collection of :class:`Mobile`
         
@@ -87,9 +87,10 @@ class Mobiles(ListResource):
         :rtype: :class:`ListQuery`
         :returns: A ListQuery when executed returns a list of :class:`Mobile`
         """
+        kwargs['Beta'] = beta
         return self.get_instances(kwargs)
 
-    def iter(self, **kwargs):
+    def iter(self, beta=None, **kwargs):
         """
         Return all instances of :class:`Mobile` using an iterator
         
@@ -99,6 +100,7 @@ class Mobiles(ListResource):
         
         :returns: An iterator to fetch all :class:`Mobile`
         """
+        kwargs['Beta'] = beta
         return super(Mobiles, self).iter(**kwargs)
 
     def load_instance(self, data):

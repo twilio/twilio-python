@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.taskrouter.client import TaskrouterClient
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class WorkflowIntegrationTest(unittest.TestCase):
@@ -85,9 +88,9 @@ class WorkflowIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.configuration)
         self.assertEqual(u"task-routing:\n  - filter: \n      - 1 == 1\n    target:\n      - queue: WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n        set-priority: 0\n", instance.configuration)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("2014-05-14T10:50:02Z"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T10:50:02Z'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("2014-05-14T23:26:06Z"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T23:26:06Z'), instance.date_updated)
         self.assertIsNotNone(instance.document_content_type)
         self.assertEqual(u"application/json", instance.document_content_type)
         self.assertIsNone(instance.fallback_assignment_callback_url)
@@ -189,9 +192,9 @@ class WorkflowIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.configuration)
         self.assertEqual(u"task-routing:\n  - filter: \n      - 1 == 1\n    target:\n      - queue: WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n        set-priority: 0\n", instance.configuration)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("2014-05-14T10:50:02Z"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T10:50:02Z'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("2014-05-14T23:26:06Z"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T23:26:06Z'), instance.date_updated)
         self.assertIsNotNone(instance.document_content_type)
         self.assertEqual(u"application/json", instance.document_content_type)
         self.assertIsNone(instance.fallback_assignment_callback_url)
@@ -286,9 +289,9 @@ class WorkflowIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instances[0].configuration)
         self.assertEqual(u"task-routing:\n  - filter: \n      - 1 == 1\n    target:\n      - queue: WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n        set-priority: 0\n", instances[0].configuration)
         self.assertIsNotNone(instances[0].date_created)
-        self.assertEqual(parse_iso_date("2014-05-14T10:50:02Z"), instances[0].date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T10:50:02Z'), instances[0].date_created)
         self.assertIsNotNone(instances[0].date_updated)
-        self.assertEqual(parse_iso_date("2014-05-15T16:47:51Z"), instances[0].date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-15T16:47:51Z'), instances[0].date_updated)
         self.assertIsNotNone(instances[0].document_content_type)
         self.assertEqual(u"application/json", instances[0].document_content_type)
         self.assertIsNone(instances[0].fallback_assignment_callback_url)
@@ -503,9 +506,9 @@ class WorkflowIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.configuration)
         self.assertEqual(u"task-routing:\n  - filter: \n      - 1 == 1\n    target:\n      - queue: WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n        set-priority: 0\n", instance.configuration)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("2014-05-14T10:50:02Z"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T10:50:02Z'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("2014-05-14T23:26:06Z"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T23:26:06Z'), instance.date_updated)
         self.assertIsNotNone(instance.document_content_type)
         self.assertEqual(u"application/json", instance.document_content_type)
         self.assertIsNone(instance.fallback_assignment_callback_url)

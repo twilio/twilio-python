@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.conversations.client import ConversationsClient
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class ParticipantIntegrationTest(unittest.TestCase):
@@ -63,15 +66,15 @@ class ParticipantIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instances[0].conversation_sid)
         self.assertEqual(u"CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instances[0].conversation_sid)
         self.assertIsNotNone(instances[0].date_created)
-        self.assertEqual(parse_iso_date("2015-05-13T23:03:12Z"), instances[0].date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2015-05-13T23:03:12Z'), instances[0].date_created)
         self.assertIsNotNone(instances[0].duration)
         self.assertEqual(685, instances[0].duration)
         self.assertIsNotNone(instances[0].end_time)
-        self.assertEqual(parse_iso_date("2015-05-13T23:14:40Z"), instances[0].end_time)
+        self.assertEqual(deserialize.iso8601_datetime('2015-05-13T23:14:40Z'), instances[0].end_time)
         self.assertIsNotNone(instances[0].sid)
         self.assertEqual(u"PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instances[0].sid)
         self.assertIsNotNone(instances[0].start_time)
-        self.assertEqual(parse_iso_date("2015-05-13T23:03:15Z"), instances[0].start_time)
+        self.assertEqual(deserialize.iso8601_datetime('2015-05-13T23:03:15Z'), instances[0].start_time)
         self.assertIsNotNone(instances[0].status)
         self.assertEqual(u"disconnected", instances[0].status)
 
@@ -255,15 +258,15 @@ class ParticipantIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.conversation_sid)
         self.assertEqual(u"CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.conversation_sid)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("2015-05-13T23:03:12Z"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2015-05-13T23:03:12Z'), instance.date_created)
         self.assertIsNotNone(instance.duration)
         self.assertEqual(685, instance.duration)
         self.assertIsNotNone(instance.end_time)
-        self.assertEqual(parse_iso_date("2015-05-13T23:14:40Z"), instance.end_time)
+        self.assertEqual(deserialize.iso8601_datetime('2015-05-13T23:14:40Z'), instance.end_time)
         self.assertIsNotNone(instance.sid)
         self.assertEqual(u"PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.sid)
         self.assertIsNotNone(instance.start_time)
-        self.assertEqual(parse_iso_date("2015-05-13T23:03:15Z"), instance.start_time)
+        self.assertEqual(deserialize.iso8601_datetime('2015-05-13T23:03:15Z'), instance.start_time)
         self.assertIsNotNone(instance.status)
         self.assertEqual(u"disconnected", instance.status)
 
@@ -332,14 +335,14 @@ class ParticipantIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.conversation_sid)
         self.assertEqual(u"CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.conversation_sid)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("2015-05-13T23:03:12Z"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2015-05-13T23:03:12Z'), instance.date_created)
         self.assertIsNotNone(instance.duration)
         self.assertEqual(685, instance.duration)
         self.assertIsNotNone(instance.end_time)
-        self.assertEqual(parse_iso_date("2015-05-13T23:14:40Z"), instance.end_time)
+        self.assertEqual(deserialize.iso8601_datetime('2015-05-13T23:14:40Z'), instance.end_time)
         self.assertIsNotNone(instance.sid)
         self.assertEqual(u"PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.sid)
         self.assertIsNotNone(instance.start_time)
-        self.assertEqual(parse_iso_date("2015-05-13T23:03:15Z"), instance.start_time)
+        self.assertEqual(deserialize.iso8601_datetime('2015-05-13T23:03:15Z'), instance.start_time)
         self.assertIsNotNone(instance.status)
         self.assertEqual(u"disconnected", instance.status)

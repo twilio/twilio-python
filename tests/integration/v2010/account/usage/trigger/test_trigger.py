@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.v2010.client import V2010Client
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class TriggerIntegrationTest(unittest.TestCase):
@@ -99,10 +102,10 @@ class TriggerIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.current_value)
         self.assertEqual(u"0", instance.current_value)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Sun, 06 Sep 2015 12:58:45 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Sun, 06 Sep 2015 12:58:45 +0000'), instance.date_created)
         self.assertIsNone(instance.date_fired)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Sun, 06 Sep 2015 12:58:45 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Sun, 06 Sep 2015 12:58:45 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.friendly_name)
         self.assertEqual(u"raphael-cluster-1441544325.86", instance.friendly_name)
         self.assertIsNotNone(instance.recurring)
@@ -215,10 +218,10 @@ class TriggerIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.current_value)
         self.assertEqual(u"0", instance.current_value)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Sun, 06 Sep 2015 12:58:45 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Sun, 06 Sep 2015 12:58:45 +0000'), instance.date_created)
         self.assertIsNone(instance.date_fired)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Sun, 06 Sep 2015 12:58:45 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Sun, 06 Sep 2015 12:58:45 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.friendly_name)
         self.assertEqual(u"raphael-cluster-1441544325.86", instance.friendly_name)
         self.assertIsNotNone(instance.recurring)
@@ -375,10 +378,10 @@ class TriggerIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.current_value)
         self.assertEqual(u"0", instance.current_value)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Sun, 06 Sep 2015 12:58:45 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Sun, 06 Sep 2015 12:58:45 +0000'), instance.date_created)
         self.assertIsNone(instance.date_fired)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Sun, 06 Sep 2015 12:58:45 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Sun, 06 Sep 2015 12:58:45 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.friendly_name)
         self.assertEqual(u"raphael-cluster-1441544325.86", instance.friendly_name)
         self.assertIsNotNone(instance.recurring)
@@ -458,10 +461,10 @@ class TriggerIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instances[0].current_value)
         self.assertEqual(u"0", instances[0].current_value)
         self.assertIsNotNone(instances[0].date_created)
-        self.assertEqual(parse_iso_date("Sun, 06 Sep 2015 12:58:45 +0000"), instances[0].date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Sun, 06 Sep 2015 12:58:45 +0000'), instances[0].date_created)
         self.assertIsNone(instances[0].date_fired)
         self.assertIsNotNone(instances[0].date_updated)
-        self.assertEqual(parse_iso_date("Sun, 06 Sep 2015 12:58:45 +0000"), instances[0].date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Sun, 06 Sep 2015 12:58:45 +0000'), instances[0].date_updated)
         self.assertIsNotNone(instances[0].friendly_name)
         self.assertEqual(u"raphael-cluster-1441544325.86", instances[0].friendly_name)
         self.assertIsNotNone(instances[0].recurring)

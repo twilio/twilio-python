@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.v2010.client import V2010Client
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class MemberIntegrationTest(unittest.TestCase):
@@ -69,7 +72,7 @@ class MemberIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.call_sid)
         self.assertEqual(u"CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.call_sid)
         self.assertIsNotNone(instance.date_enqueued)
-        self.assertEqual(parse_iso_date("Tue, 07 Aug 2012 22:57:41 +0000"), instance.date_enqueued)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 07 Aug 2012 22:57:41 +0000'), instance.date_enqueued)
         self.assertIsNotNone(instance.position)
         self.assertEqual(1, instance.position)
         self.assertIsNotNone(instance.wait_time)
@@ -139,7 +142,7 @@ class MemberIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.call_sid)
         self.assertEqual(u"CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.call_sid)
         self.assertIsNotNone(instance.date_enqueued)
-        self.assertEqual(parse_iso_date("Tue, 07 Aug 2012 22:57:41 +0000"), instance.date_enqueued)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 07 Aug 2012 22:57:41 +0000'), instance.date_enqueued)
         self.assertIsNotNone(instance.position)
         self.assertEqual(1, instance.position)
         self.assertIsNotNone(instance.wait_time)
@@ -186,7 +189,7 @@ class MemberIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instances[0].call_sid)
         self.assertEqual(u"CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instances[0].call_sid)
         self.assertIsNotNone(instances[0].date_enqueued)
-        self.assertEqual(parse_iso_date("Tue, 07 Aug 2012 22:57:41 +0000"), instances[0].date_enqueued)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 07 Aug 2012 22:57:41 +0000'), instances[0].date_enqueued)
         self.assertIsNotNone(instances[0].position)
         self.assertEqual(1, instances[0].position)
         self.assertIsNotNone(instances[0].wait_time)

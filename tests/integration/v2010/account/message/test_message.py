@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.v2010.client import V2010Client
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class MessageIntegrationTest(unittest.TestCase):
@@ -126,11 +129,11 @@ class MessageIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.body)
         self.assertEqual(u"O Slash: Ø, PoP: 💩", instance.body)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Thu, 30 Jul 2015 20:12:31 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Thu, 30 Jul 2015 20:12:31 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_sent)
-        self.assertEqual(parse_iso_date("Thu, 30 Jul 2015 20:12:33 +0000"), instance.date_sent)
+        self.assertEqual(deserialize.iso8601_datetime('Thu, 30 Jul 2015 20:12:33 +0000'), instance.date_sent)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Thu, 30 Jul 2015 20:12:33 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Thu, 30 Jul 2015 20:12:33 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.direction)
         self.assertEqual(u"outbound-api", instance.direction)
         self.assertIsNone(instance.error_code)
@@ -160,7 +163,7 @@ class MessageIntegrationTest(unittest.TestCase):
         
         query = client \
             .accounts.get("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-            .messages.delete("SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+            .messages.delete("MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         
         query.execute()
         
@@ -180,7 +183,7 @@ class MessageIntegrationTest(unittest.TestCase):
         
         query = client \
             .accounts.get("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-            .messages.delete("SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+            .messages.delete("MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         
         self.assertTrue(query.execute())
 
@@ -216,7 +219,7 @@ class MessageIntegrationTest(unittest.TestCase):
         
         query = client \
             .accounts.get("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-            .messages.get("SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+            .messages.get("MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         
         query.execute()
         
@@ -260,7 +263,7 @@ class MessageIntegrationTest(unittest.TestCase):
         
         query = client \
             .accounts.get("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-            .messages.get("SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+            .messages.get("MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         
         instance = query.execute()
         
@@ -271,11 +274,11 @@ class MessageIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.body)
         self.assertEqual(u"O Slash: Ø, PoP: 💩", instance.body)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Thu, 30 Jul 2015 20:12:31 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Thu, 30 Jul 2015 20:12:31 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_sent)
-        self.assertEqual(parse_iso_date("Thu, 30 Jul 2015 20:12:33 +0000"), instance.date_sent)
+        self.assertEqual(deserialize.iso8601_datetime('Thu, 30 Jul 2015 20:12:33 +0000'), instance.date_sent)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Thu, 30 Jul 2015 20:12:33 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Thu, 30 Jul 2015 20:12:33 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.direction)
         self.assertEqual(u"outbound-api", instance.direction)
         self.assertIsNone(instance.error_code)
@@ -363,11 +366,11 @@ class MessageIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instances[0].body)
         self.assertEqual(u"O Slash: Ø, PoP: 💩", instances[0].body)
         self.assertIsNotNone(instances[0].date_created)
-        self.assertEqual(parse_iso_date("Fri, 04 Sep 2015 22:54:39 +0000"), instances[0].date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Fri, 04 Sep 2015 22:54:39 +0000'), instances[0].date_created)
         self.assertIsNotNone(instances[0].date_sent)
-        self.assertEqual(parse_iso_date("Fri, 04 Sep 2015 22:54:41 +0000"), instances[0].date_sent)
+        self.assertEqual(deserialize.iso8601_datetime('Fri, 04 Sep 2015 22:54:41 +0000'), instances[0].date_sent)
         self.assertIsNotNone(instances[0].date_updated)
-        self.assertEqual(parse_iso_date("Fri, 04 Sep 2015 22:54:41 +0000"), instances[0].date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Fri, 04 Sep 2015 22:54:41 +0000'), instances[0].date_updated)
         self.assertIsNotNone(instances[0].direction)
         self.assertEqual(u"outbound-api", instances[0].direction)
         self.assertIsNone(instances[0].error_code)
@@ -575,7 +578,7 @@ class MessageIntegrationTest(unittest.TestCase):
         query = client \
             .accounts.get("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
             .messages.update(
-                "SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 body="body"
             )
         
@@ -624,7 +627,7 @@ class MessageIntegrationTest(unittest.TestCase):
         query = client \
             .accounts.get("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
             .messages.update(
-                "SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 body="body"
             )
         
@@ -637,11 +640,11 @@ class MessageIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.body)
         self.assertEqual(u"O Slash: Ø, PoP: 💩", instance.body)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Thu, 30 Jul 2015 20:12:31 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Thu, 30 Jul 2015 20:12:31 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_sent)
-        self.assertEqual(parse_iso_date("Thu, 30 Jul 2015 20:12:33 +0000"), instance.date_sent)
+        self.assertEqual(deserialize.iso8601_datetime('Thu, 30 Jul 2015 20:12:33 +0000'), instance.date_sent)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Thu, 30 Jul 2015 20:12:33 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Thu, 30 Jul 2015 20:12:33 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.direction)
         self.assertEqual(u"outbound-api", instance.direction)
         self.assertIsNone(instance.error_code)

@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.monitor.client import MonitorClient
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class EventIntegrationTest(unittest.TestCase):
@@ -104,7 +107,7 @@ class EventIntegrationTest(unittest.TestCase):
         self.assertEqual(u"account", instance.actor_type)
         self.assertIsNone(instance.description)
         self.assertIsNotNone(instance.event_date)
-        self.assertEqual(parse_iso_date("2014-10-03T16:48:25Z"), instance.event_date)
+        self.assertEqual(deserialize.iso8601_datetime('2014-10-03T16:48:25Z'), instance.event_date)
         self.assertIsNotNone(instance.event_type)
         self.assertEqual(u"account.updated", instance.event_type)
         self.assertIsNotNone(instance.resource_sid)
@@ -188,7 +191,7 @@ class EventIntegrationTest(unittest.TestCase):
         self.assertEqual(u"account", instances[0].actor_type)
         self.assertIsNone(instances[0].description)
         self.assertIsNotNone(instances[0].event_date)
-        self.assertEqual(parse_iso_date("2014-10-03T16:48:25Z"), instances[0].event_date)
+        self.assertEqual(deserialize.iso8601_datetime('2014-10-03T16:48:25Z'), instances[0].event_date)
         self.assertIsNotNone(instances[0].event_type)
         self.assertEqual(u"account.updated", instances[0].event_type)
         self.assertIsNotNone(instances[0].resource_sid)

@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.v2010.client import V2010Client
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class FeedbackIntegrationTest(unittest.TestCase):
@@ -88,9 +91,9 @@ class FeedbackIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.account_sid)
         self.assertEqual(u"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.account_sid)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Thu, 20 Aug 2015 21:45:46 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Thu, 20 Aug 2015 21:45:46 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Thu, 20 Aug 2015 21:45:46 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Thu, 20 Aug 2015 21:45:46 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.quality_score)
         self.assertEqual(5, instance.quality_score)
         self.assertIsNotNone(instance.sid)
@@ -157,9 +160,9 @@ class FeedbackIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.account_sid)
         self.assertEqual(u"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.account_sid)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Thu, 20 Aug 2015 21:45:46 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Thu, 20 Aug 2015 21:45:46 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Thu, 20 Aug 2015 21:45:46 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Thu, 20 Aug 2015 21:45:46 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.quality_score)
         self.assertEqual(5, instance.quality_score)
         self.assertIsNotNone(instance.sid)
@@ -237,9 +240,9 @@ class FeedbackIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.account_sid)
         self.assertEqual(u"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.account_sid)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Thu, 20 Aug 2015 21:45:46 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Thu, 20 Aug 2015 21:45:46 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Thu, 20 Aug 2015 21:45:46 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Thu, 20 Aug 2015 21:45:46 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.quality_score)
         self.assertEqual(5, instance.quality_score)
         self.assertIsNotNone(instance.sid)

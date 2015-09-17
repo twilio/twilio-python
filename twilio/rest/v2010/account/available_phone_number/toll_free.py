@@ -76,7 +76,7 @@ class TollFrees(ListResource):
     def __init__(self, *args, **kwargs):
         super(TollFrees, self).__init__(*args, **kwargs)
 
-    def list(self, **kwargs):
+    def list(self, beta=None, **kwargs):
         """
         Retrieve a collection of :class:`TollFree`
         
@@ -87,9 +87,10 @@ class TollFrees(ListResource):
         :rtype: :class:`ListQuery`
         :returns: A ListQuery when executed returns a list of :class:`TollFree`
         """
+        kwargs['Beta'] = beta
         return self.get_instances(kwargs)
 
-    def iter(self, **kwargs):
+    def iter(self, beta=None, **kwargs):
         """
         Return all instances of :class:`TollFree` using an iterator
         
@@ -99,6 +100,7 @@ class TollFrees(ListResource):
         
         :returns: An iterator to fetch all :class:`TollFree`
         """
+        kwargs['Beta'] = beta
         return super(TollFrees, self).iter(**kwargs)
 
     def load_instance(self, data):

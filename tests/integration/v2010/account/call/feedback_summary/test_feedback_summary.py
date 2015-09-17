@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.v2010.client import V2010Client
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class FeedbackSummaryIntegrationTest(unittest.TestCase):
@@ -113,11 +116,11 @@ class FeedbackSummaryIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.call_feedback_count)
         self.assertEqual(729, instance.call_feedback_count)
         self.assertIsNotNone(instance.end_date)
-        self.assertEqual(parse_iso_date("2014-01-31"), instance.end_date)
+        self.assertEqual(deserialize.iso8601_datetime('2014-01-31'), instance.end_date)
         self.assertIsNotNone(instance.sid)
         self.assertEqual(u"FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.sid)
         self.assertIsNotNone(instance.start_date)
-        self.assertEqual(parse_iso_date("2014-01-01"), instance.start_date)
+        self.assertEqual(deserialize.iso8601_datetime('2014-01-01'), instance.start_date)
 
     def test_fetch_request_validation(self):
         holodeck = Holodeck()
@@ -198,11 +201,11 @@ class FeedbackSummaryIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.call_feedback_count)
         self.assertEqual(729, instance.call_feedback_count)
         self.assertIsNotNone(instance.end_date)
-        self.assertEqual(parse_iso_date("2014-01-31"), instance.end_date)
+        self.assertEqual(deserialize.iso8601_datetime('2014-01-31'), instance.end_date)
         self.assertIsNotNone(instance.sid)
         self.assertEqual(u"FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.sid)
         self.assertIsNotNone(instance.start_date)
-        self.assertEqual(parse_iso_date("2014-01-01"), instance.start_date)
+        self.assertEqual(deserialize.iso8601_datetime('2014-01-01'), instance.start_date)
 
     def test_delete_request_validation(self):
         holodeck = Holodeck()

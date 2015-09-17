@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.v2010.client import V2010Client
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class TranscriptionIntegrationTest(unittest.TestCase):
@@ -87,9 +90,9 @@ class TranscriptionIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.api_version)
         self.assertEqual(u"2008-08-01", instance.api_version)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Mon, 22 Aug 2011 20:58:44 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Mon, 22 Aug 2011 20:58:44 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Mon, 22 Aug 2011 20:58:44 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Mon, 22 Aug 2011 20:58:44 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.duration)
         self.assertEqual(u"10", instance.duration)
         self.assertIsNotNone(instance.price)
@@ -192,9 +195,9 @@ class TranscriptionIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instances[0].api_version)
         self.assertEqual(u"2008-08-01", instances[0].api_version)
         self.assertIsNotNone(instances[0].date_created)
-        self.assertEqual(parse_iso_date("Mon, 22 Aug 2011 20:58:44 +0000"), instances[0].date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Mon, 22 Aug 2011 20:58:44 +0000'), instances[0].date_created)
         self.assertIsNotNone(instances[0].date_updated)
-        self.assertEqual(parse_iso_date("Mon, 22 Aug 2011 20:58:44 +0000"), instances[0].date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Mon, 22 Aug 2011 20:58:44 +0000'), instances[0].date_updated)
         self.assertIsNotNone(instances[0].duration)
         self.assertEqual(u"10", instances[0].duration)
         self.assertIsNotNone(instances[0].price)

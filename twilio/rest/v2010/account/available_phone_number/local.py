@@ -76,7 +76,7 @@ class Locals(ListResource):
     def __init__(self, *args, **kwargs):
         super(Locals, self).__init__(*args, **kwargs)
 
-    def list(self, **kwargs):
+    def list(self, beta=None, **kwargs):
         """
         Retrieve a collection of :class:`Local`
         
@@ -87,9 +87,10 @@ class Locals(ListResource):
         :rtype: :class:`ListQuery`
         :returns: A ListQuery when executed returns a list of :class:`Local`
         """
+        kwargs['Beta'] = beta
         return self.get_instances(kwargs)
 
-    def iter(self, **kwargs):
+    def iter(self, beta=None, **kwargs):
         """
         Return all instances of :class:`Local` using an iterator
         
@@ -99,6 +100,7 @@ class Locals(ListResource):
         
         :returns: An iterator to fetch all :class:`Local`
         """
+        kwargs['Beta'] = beta
         return super(Locals, self).iter(**kwargs)
 
     def load_instance(self, data):

@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.v2010.client import V2010Client
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class ConferenceIntegrationTest(unittest.TestCase):
@@ -81,9 +84,9 @@ class ConferenceIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.api_version)
         self.assertEqual(u"2008-08-01", instance.api_version)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Fri, 18 Feb 2011 19:26:50 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Fri, 18 Feb 2011 19:26:50 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Fri, 18 Feb 2011 19:27:33 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Fri, 18 Feb 2011 19:27:33 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.friendly_name)
         self.assertEqual(u"AHH YEAH", instance.friendly_name)
         self.assertIsNotNone(instance.sid)
@@ -148,9 +151,9 @@ class ConferenceIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instances[0].api_version)
         self.assertEqual(u"2010-04-01", instances[0].api_version)
         self.assertIsNotNone(instances[0].date_created)
-        self.assertEqual(parse_iso_date("Mon, 22 Aug 2011 20:58:45 +0000"), instances[0].date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Mon, 22 Aug 2011 20:58:45 +0000'), instances[0].date_created)
         self.assertIsNotNone(instances[0].date_updated)
-        self.assertEqual(parse_iso_date("Mon, 22 Aug 2011 20:58:46 +0000"), instances[0].date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Mon, 22 Aug 2011 20:58:46 +0000'), instances[0].date_updated)
         self.assertIsNone(instances[0].friendly_name)
         self.assertIsNotNone(instances[0].sid)
         self.assertEqual(u"CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instances[0].sid)

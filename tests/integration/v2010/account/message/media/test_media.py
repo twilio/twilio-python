@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.v2010.client import V2010Client
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class MediaIntegrationTest(unittest.TestCase):
@@ -24,7 +27,7 @@ class MediaIntegrationTest(unittest.TestCase):
         
         query = client \
             .accounts.get("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-            .messages.get("SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            .messages.get("MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
             .media.delete("MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         
         query.execute()
@@ -45,7 +48,7 @@ class MediaIntegrationTest(unittest.TestCase):
         
         query = client \
             .accounts.get("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-            .messages.get("SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            .messages.get("MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
             .media.delete("MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         
         self.assertTrue(query.execute())
@@ -68,7 +71,7 @@ class MediaIntegrationTest(unittest.TestCase):
         
         query = client \
             .accounts.get("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-            .messages.get("SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            .messages.get("MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
             .media.get("MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         
         query.execute()
@@ -99,7 +102,7 @@ class MediaIntegrationTest(unittest.TestCase):
         
         query = client \
             .accounts.get("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-            .messages.get("SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            .messages.get("MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
             .media.get("MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         
         instance = query.execute()
@@ -109,9 +112,9 @@ class MediaIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.content_type)
         self.assertEqual(u"image/jpeg", instance.content_type)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Sun, 16 Aug 2015 15:53:54 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Sun, 16 Aug 2015 15:53:54 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Sun, 16 Aug 2015 15:53:55 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Sun, 16 Aug 2015 15:53:55 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.parent_sid)
         self.assertEqual(u"SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.parent_sid)
         self.assertIsNotNone(instance.sid)
@@ -150,7 +153,7 @@ class MediaIntegrationTest(unittest.TestCase):
         
         query = client \
             .accounts.get("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-            .messages.get("SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            .messages.get("MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
             .media.list(
                 date_created=datetime(2008, 1, 2, 0, 0),
                 date_created_before=datetime(2008, 1, 1, 0, 0),
@@ -166,9 +169,9 @@ class MediaIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instances[0].content_type)
         self.assertEqual(u"image/jpeg", instances[0].content_type)
         self.assertIsNotNone(instances[0].date_created)
-        self.assertEqual(parse_iso_date("Sun, 16 Aug 2015 15:53:54 +0000"), instances[0].date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Sun, 16 Aug 2015 15:53:54 +0000'), instances[0].date_created)
         self.assertIsNotNone(instances[0].date_updated)
-        self.assertEqual(parse_iso_date("Sun, 16 Aug 2015 15:53:55 +0000"), instances[0].date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Sun, 16 Aug 2015 15:53:55 +0000'), instances[0].date_updated)
         self.assertIsNotNone(instances[0].parent_sid)
         self.assertEqual(u"SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instances[0].parent_sid)
         self.assertIsNotNone(instances[0].sid)
@@ -207,7 +210,7 @@ class MediaIntegrationTest(unittest.TestCase):
         
         query = client \
             .accounts.get("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-            .messages.get("SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            .messages.get("MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
             .media.list(
                 date_created=datetime(2008, 1, 2, 0, 0),
                 date_created_before=datetime(2008, 1, 1, 0, 0),
@@ -251,7 +254,7 @@ class MediaIntegrationTest(unittest.TestCase):
         
         query = client \
             .accounts.get("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-            .messages.get("SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            .messages.get("MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
             .media.list(
                 date_created=datetime(2008, 1, 2, 0, 0),
                 date_created_before=datetime(2008, 1, 1, 0, 0),
@@ -285,7 +288,7 @@ class MediaIntegrationTest(unittest.TestCase):
         
         query = client \
             .accounts.get("ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-            .messages.get("SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            .messages.get("MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
             .media.list(
                 date_created=datetime(2008, 1, 2, 0, 0),
                 date_created_before=datetime(2008, 1, 1, 0, 0),

@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.taskrouter.client import TaskrouterClient
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class WorkspaceIntegrationTest(unittest.TestCase):
@@ -93,9 +96,9 @@ class WorkspaceIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.account_sid)
         self.assertEqual(u"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.account_sid)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("2015-08-03T17:31:38Z"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2015-08-03T17:31:38Z'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("2015-08-03T17:31:38Z"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('2015-08-03T17:31:38Z'), instance.date_updated)
         self.assertIsNotNone(instance.default_activity_name)
         self.assertEqual(u"Offline", instance.default_activity_name)
         self.assertIsNotNone(instance.default_activity_sid)
@@ -205,9 +208,9 @@ class WorkspaceIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.account_sid)
         self.assertEqual(u"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.account_sid)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("2015-08-03T17:31:38Z"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2015-08-03T17:31:38Z'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("2015-08-03T17:31:38Z"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('2015-08-03T17:31:38Z'), instance.date_updated)
         self.assertIsNotNone(instance.default_activity_name)
         self.assertEqual(u"Offline", instance.default_activity_name)
         self.assertIsNotNone(instance.default_activity_sid)
@@ -274,9 +277,9 @@ class WorkspaceIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instances[0].account_sid)
         self.assertEqual(u"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instances[0].account_sid)
         self.assertIsNotNone(instances[0].date_created)
-        self.assertEqual(parse_iso_date("2015-05-27T00:48:50Z"), instances[0].date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2015-05-27T00:48:50Z'), instances[0].date_created)
         self.assertIsNotNone(instances[0].date_updated)
-        self.assertEqual(parse_iso_date("2015-05-27T00:48:50Z"), instances[0].date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('2015-05-27T00:48:50Z'), instances[0].date_updated)
         self.assertIsNotNone(instances[0].default_activity_name)
         self.assertEqual(u"Offline", instances[0].default_activity_name)
         self.assertIsNotNone(instances[0].default_activity_sid)
@@ -497,9 +500,9 @@ class WorkspaceIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.account_sid)
         self.assertEqual(u"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.account_sid)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("2015-08-03T17:31:38Z"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2015-08-03T17:31:38Z'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("2015-08-03T17:31:38Z"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('2015-08-03T17:31:38Z'), instance.date_updated)
         self.assertIsNotNone(instance.default_activity_name)
         self.assertEqual(u"Offline", instance.default_activity_name)
         self.assertIsNotNone(instance.default_activity_sid)

@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.v2010.client import V2010Client
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class CredentialIntegrationTest(unittest.TestCase):
@@ -62,9 +65,9 @@ class CredentialIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instances[0].credential_list_sid)
         self.assertEqual(u"CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instances[0].credential_list_sid)
         self.assertIsNotNone(instances[0].date_created)
-        self.assertEqual(parse_iso_date("Wed, 19 Aug 2015 19:48:45 +0000"), instances[0].date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Wed, 19 Aug 2015 19:48:45 +0000'), instances[0].date_created)
         self.assertIsNotNone(instances[0].date_updated)
-        self.assertEqual(parse_iso_date("Wed, 19 Aug 2015 19:48:45 +0000"), instances[0].date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Wed, 19 Aug 2015 19:48:45 +0000'), instances[0].date_updated)
         self.assertIsNotNone(instances[0].sid)
         self.assertEqual(u"CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instances[0].sid)
         self.assertIsNotNone(instances[0].username)
@@ -255,9 +258,9 @@ class CredentialIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.credential_list_sid)
         self.assertEqual(u"CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.credential_list_sid)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Wed, 19 Aug 2015 19:48:45 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Wed, 19 Aug 2015 19:48:45 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Wed, 19 Aug 2015 19:48:45 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Wed, 19 Aug 2015 19:48:45 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.sid)
         self.assertEqual(u"CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.sid)
         self.assertIsNotNone(instance.username)
@@ -324,9 +327,9 @@ class CredentialIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.credential_list_sid)
         self.assertEqual(u"CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.credential_list_sid)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Wed, 19 Aug 2015 19:48:45 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Wed, 19 Aug 2015 19:48:45 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Wed, 19 Aug 2015 19:48:45 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Wed, 19 Aug 2015 19:48:45 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.sid)
         self.assertEqual(u"CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.sid)
         self.assertIsNotNone(instance.username)
@@ -404,9 +407,9 @@ class CredentialIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.credential_list_sid)
         self.assertEqual(u"CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.credential_list_sid)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Wed, 19 Aug 2015 19:48:45 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Wed, 19 Aug 2015 19:48:45 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Wed, 19 Aug 2015 19:48:45 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Wed, 19 Aug 2015 19:48:45 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.sid)
         self.assertEqual(u"CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.sid)
         self.assertIsNotNone(instance.username)

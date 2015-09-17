@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.v2010.client import V2010Client
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class IncomingPhoneNumberIntegrationTest(unittest.TestCase):
@@ -180,9 +183,9 @@ class IncomingPhoneNumberIntegrationTest(unittest.TestCase):
             "voice": True
         }, instance.capabilities)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Thu, 30 Jul 2015 23:19:04 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Thu, 30 Jul 2015 23:19:04 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Thu, 30 Jul 2015 23:19:04 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Thu, 30 Jul 2015 23:19:04 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.friendly_name)
         self.assertEqual(u"(808) 925-5327", instance.friendly_name)
         self.assertIsNotNone(instance.phone_number)
@@ -326,9 +329,9 @@ class IncomingPhoneNumberIntegrationTest(unittest.TestCase):
             "voice": True
         }, instance.capabilities)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Thu, 30 Jul 2015 23:19:04 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Thu, 30 Jul 2015 23:19:04 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Thu, 30 Jul 2015 23:19:04 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Thu, 30 Jul 2015 23:19:04 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.friendly_name)
         self.assertEqual(u"(808) 925-5327", instance.friendly_name)
         self.assertIsNotNone(instance.phone_number)
@@ -472,9 +475,9 @@ class IncomingPhoneNumberIntegrationTest(unittest.TestCase):
             "voice": True
         }, instances[0].capabilities)
         self.assertIsNotNone(instances[0].date_created)
-        self.assertEqual(parse_iso_date("Thu, 30 Jul 2015 23:19:04 +0000"), instances[0].date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Thu, 30 Jul 2015 23:19:04 +0000'), instances[0].date_created)
         self.assertIsNotNone(instances[0].date_updated)
-        self.assertEqual(parse_iso_date("Thu, 30 Jul 2015 23:19:04 +0000"), instances[0].date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Thu, 30 Jul 2015 23:19:04 +0000'), instances[0].date_updated)
         self.assertIsNotNone(instances[0].friendly_name)
         self.assertEqual(u"(808) 925-5327", instances[0].friendly_name)
         self.assertIsNotNone(instances[0].phone_number)
@@ -823,9 +826,9 @@ class IncomingPhoneNumberIntegrationTest(unittest.TestCase):
             "voice": True
         }, instance.capabilities)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Thu, 30 Jul 2015 23:19:04 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Thu, 30 Jul 2015 23:19:04 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Thu, 30 Jul 2015 23:19:04 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Thu, 30 Jul 2015 23:19:04 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.friendly_name)
         self.assertEqual(u"(808) 925-5327", instance.friendly_name)
         self.assertIsNotNone(instance.phone_number)

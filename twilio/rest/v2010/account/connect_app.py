@@ -114,7 +114,10 @@ class ConnectApps(ListResource):
         """
         return self.get_instance(sid)
 
-    def update(self, sid, **kwargs):
+    def update(self, sid, authorize_redirect_url=None, company_name=None,
+               deauthorize_callback_method=None, deauthorize_callback_url=None,
+               description=None, friendly_name=None, homepage_url=None,
+               permissions=None, **kwargs):
         """
         Update a connect-app with the specified parameters
         
@@ -140,6 +143,14 @@ class ConnectApps(ListResource):
         :rtype: :class:`UpdateQuery`
         :returns: An UpdateQuery when executed returns an instance of the updated :class:`ConnectApp`
         """
+        kwargs['AuthorizeRedirectUrl'] = authorize_redirect_url
+        kwargs['CompanyName'] = company_name
+        kwargs['DeauthorizeCallbackMethod'] = deauthorize_callback_method
+        kwargs['DeauthorizeCallbackUrl'] = deauthorize_callback_url
+        kwargs['Description'] = description
+        kwargs['FriendlyName'] = friendly_name
+        kwargs['HomepageUrl'] = homepage_url
+        kwargs['Permissions'] = permissions
         return self.update_instance(sid, kwargs)
 
     def list(self, **kwargs):

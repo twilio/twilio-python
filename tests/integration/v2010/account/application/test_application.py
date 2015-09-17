@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.v2010.client import V2010Client
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class ApplicationIntegrationTest(unittest.TestCase):
@@ -147,9 +150,9 @@ class ApplicationIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.api_version)
         self.assertEqual(u"2010-04-01", instance.api_version)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Mon, 22 Aug 2011 20:59:45 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Mon, 22 Aug 2011 20:59:45 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Tue, 18 Aug 2015 16:48:57 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 18 Aug 2015 16:48:57 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.friendly_name)
         self.assertEqual(u"Application Friendly Name", instance.friendly_name)
         self.assertIsNotNone(instance.message_status_callback)
@@ -296,9 +299,9 @@ class ApplicationIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.api_version)
         self.assertEqual(u"2010-04-01", instance.api_version)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Mon, 22 Aug 2011 20:59:45 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Mon, 22 Aug 2011 20:59:45 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Tue, 18 Aug 2015 16:48:57 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 18 Aug 2015 16:48:57 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.friendly_name)
         self.assertEqual(u"Application Friendly Name", instance.friendly_name)
         self.assertIsNotNone(instance.message_status_callback)
@@ -387,9 +390,9 @@ class ApplicationIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instances[0].api_version)
         self.assertEqual(u"2010-04-01", instances[0].api_version)
         self.assertIsNotNone(instances[0].date_created)
-        self.assertEqual(parse_iso_date("Fri, 21 Aug 2015 00:07:25 +0000"), instances[0].date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Fri, 21 Aug 2015 00:07:25 +0000'), instances[0].date_created)
         self.assertIsNotNone(instances[0].date_updated)
-        self.assertEqual(parse_iso_date("Fri, 21 Aug 2015 00:07:25 +0000"), instances[0].date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Fri, 21 Aug 2015 00:07:25 +0000'), instances[0].date_updated)
         self.assertIsNotNone(instances[0].friendly_name)
         self.assertEqual(u"d8821fb7-4d01-48b2-bdc5-34e46252b90b", instances[0].friendly_name)
         self.assertIsNone(instances[0].message_status_callback)
@@ -673,9 +676,9 @@ class ApplicationIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.api_version)
         self.assertEqual(u"2010-04-01", instance.api_version)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Mon, 22 Aug 2011 20:59:45 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Mon, 22 Aug 2011 20:59:45 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Tue, 18 Aug 2015 16:48:57 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 18 Aug 2015 16:48:57 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.friendly_name)
         self.assertEqual(u"Application Friendly Name", instance.friendly_name)
         self.assertIsNotNone(instance.message_status_callback)

@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.v2010.client import V2010Client
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class AccountIntegrationTest(unittest.TestCase):
@@ -97,9 +100,9 @@ class AccountIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.auth_token)
         self.assertEqual(u"AUTHTOKEN", instance.auth_token)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Sun, 15 Mar 2009 02:08:47 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Sun, 15 Mar 2009 02:08:47 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Wed, 25 Aug 2010 01:30:09 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Wed, 25 Aug 2010 01:30:09 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.friendly_name)
         self.assertEqual(u"Test Account", instance.friendly_name)
         self.assertIsNotNone(instance.sid)
@@ -188,9 +191,9 @@ class AccountIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.auth_token)
         self.assertEqual(u"AUTHTOKEN", instance.auth_token)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Sun, 15 Mar 2009 02:08:47 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Sun, 15 Mar 2009 02:08:47 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Wed, 25 Aug 2010 01:30:09 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Wed, 25 Aug 2010 01:30:09 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.friendly_name)
         self.assertEqual(u"Test Account", instance.friendly_name)
         self.assertIsNotNone(instance.sid)
@@ -254,7 +257,10 @@ class AccountIntegrationTest(unittest.TestCase):
         """))
         
         query = client \
-            .accounts.list()
+            .accounts.list(
+                friendly_name="friendly_name",
+                status="active"
+            )
         
         instances = query.execute()
         
@@ -263,9 +269,9 @@ class AccountIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instances[0].auth_token)
         self.assertEqual(u"foobar", instances[0].auth_token)
         self.assertIsNotNone(instances[0].date_created)
-        self.assertEqual(parse_iso_date("Tue, 23 Aug 2011 20:58:45 +0000"), instances[0].date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 23 Aug 2011 20:58:45 +0000'), instances[0].date_created)
         self.assertIsNotNone(instances[0].date_updated)
-        self.assertEqual(parse_iso_date("Fri, 04 Sep 2015 22:53:32 +0000"), instances[0].date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Fri, 04 Sep 2015 22:53:32 +0000'), instances[0].date_updated)
         self.assertIsNotNone(instances[0].friendly_name)
         self.assertEqual(u"Sub account for testing requests authed with parent account", instances[0].friendly_name)
         self.assertIsNotNone(instances[0].owner_account_sid)
@@ -331,7 +337,10 @@ class AccountIntegrationTest(unittest.TestCase):
         """))
         
         query = client \
-            .accounts.list()
+            .accounts.list(
+                friendly_name="friendly_name",
+                status="active"
+            )
         
         query.execute()
         
@@ -365,7 +374,10 @@ class AccountIntegrationTest(unittest.TestCase):
         """))
         
         query = client \
-            .accounts.list()
+            .accounts.list(
+                friendly_name="friendly_name",
+                status="active"
+            )
         
         instances = query.execute()
         
@@ -393,7 +405,10 @@ class AccountIntegrationTest(unittest.TestCase):
         """))
         
         query = client \
-            .accounts.list()
+            .accounts.list(
+                friendly_name="friendly_name",
+                status="active"
+            )
         
         query.execute()
         
@@ -495,9 +510,9 @@ class AccountIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.auth_token)
         self.assertEqual(u"AUTHTOKEN", instance.auth_token)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Sun, 15 Mar 2009 02:08:47 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Sun, 15 Mar 2009 02:08:47 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Wed, 25 Aug 2010 01:30:09 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Wed, 25 Aug 2010 01:30:09 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.friendly_name)
         self.assertEqual(u"Test Account", instance.friendly_name)
         self.assertIsNotNone(instance.sid)

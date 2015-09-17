@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.v2010.client import V2010Client
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class AddressIntegrationTest(unittest.TestCase):
@@ -109,9 +112,9 @@ class AddressIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.customer_name)
         self.assertEqual(u"name", instance.customer_name)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Tue, 18 Aug 2015 17:07:30 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 18 Aug 2015 17:07:30 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Tue, 18 Aug 2015 17:07:30 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 18 Aug 2015 17:07:30 +0000'), instance.date_updated)
         self.assertIsNone(instance.friendly_name)
         self.assertIsNotNone(instance.iso_country)
         self.assertEqual(u"US", instance.iso_country)
@@ -225,9 +228,9 @@ class AddressIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.customer_name)
         self.assertEqual(u"name", instance.customer_name)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Tue, 18 Aug 2015 17:07:30 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 18 Aug 2015 17:07:30 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Tue, 18 Aug 2015 17:07:30 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 18 Aug 2015 17:07:30 +0000'), instance.date_updated)
         self.assertIsNone(instance.friendly_name)
         self.assertIsNotNone(instance.iso_country)
         self.assertEqual(u"US", instance.iso_country)
@@ -332,9 +335,9 @@ class AddressIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.customer_name)
         self.assertEqual(u"name", instance.customer_name)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Tue, 18 Aug 2015 17:07:30 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 18 Aug 2015 17:07:30 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Tue, 18 Aug 2015 17:07:30 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 18 Aug 2015 17:07:30 +0000'), instance.date_updated)
         self.assertIsNone(instance.friendly_name)
         self.assertIsNotNone(instance.iso_country)
         self.assertEqual(u"US", instance.iso_country)
@@ -402,9 +405,9 @@ class AddressIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instances[0].customer_name)
         self.assertEqual(u"name", instances[0].customer_name)
         self.assertIsNotNone(instances[0].date_created)
-        self.assertEqual(parse_iso_date("Tue, 18 Aug 2015 17:07:30 +0000"), instances[0].date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 18 Aug 2015 17:07:30 +0000'), instances[0].date_created)
         self.assertIsNotNone(instances[0].date_updated)
-        self.assertEqual(parse_iso_date("Tue, 18 Aug 2015 17:07:30 +0000"), instances[0].date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 18 Aug 2015 17:07:30 +0000'), instances[0].date_updated)
         self.assertIsNone(instances[0].friendly_name)
         self.assertIsNotNone(instances[0].iso_country)
         self.assertEqual(u"US", instances[0].iso_country)

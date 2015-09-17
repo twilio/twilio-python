@@ -46,6 +46,9 @@ class PhoneNumber(NextGenInstanceResource):
         The carrier
     """
     id_key = "phone_number"
+    LANDLINE = "landline"
+    MOBILE = "mobile"
+    VOIP = "voip"
 
     def __init__(self, parent, *args, **kwargs):
         self.parent = parent
@@ -61,7 +64,7 @@ class PhoneNumbers(NextGenListResource):
     def __init__(self, *args, **kwargs):
         super(PhoneNumbers, self).__init__(*args, **kwargs)
 
-    def get(self, phone_number, **kwargs):
+    def get(self, phone_number, country_code=None, type=None, **kwargs):
         """
         Get the PhoneNumber
         
@@ -71,6 +74,9 @@ class PhoneNumbers(NextGenListResource):
         
         :raises TwilioRestException: when the request fails on execute
         """
+        kwargs['CountryCode'] = country_code
+        kwargs['Type'] = type
+        
         uri = "%s/%s" % (self.uri, phone_number)
         return GetQuery(self, uri, self.use_json_extension,
                         params=kwargs)

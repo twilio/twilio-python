@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.v2010.client import V2010Client
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class ParticipantIntegrationTest(unittest.TestCase):
@@ -81,9 +84,9 @@ class ParticipantIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.conference_sid)
         self.assertEqual(u"CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.conference_sid)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Fri, 18 Feb 2011 21:07:19 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Fri, 18 Feb 2011 21:07:19 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Fri, 18 Feb 2011 21:07:19 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Fri, 18 Feb 2011 21:07:19 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.end_conference_on_exit)
         self.assertEqual(False, instance.end_conference_on_exit)
         self.assertIsNotNone(instance.muted)
@@ -164,9 +167,9 @@ class ParticipantIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.conference_sid)
         self.assertEqual(u"CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.conference_sid)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Fri, 18 Feb 2011 21:07:19 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Fri, 18 Feb 2011 21:07:19 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Fri, 18 Feb 2011 21:07:19 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Fri, 18 Feb 2011 21:07:19 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.end_conference_on_exit)
         self.assertEqual(False, instance.end_conference_on_exit)
         self.assertIsNotNone(instance.muted)
@@ -257,9 +260,9 @@ class ParticipantIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instances[0].conference_sid)
         self.assertEqual(u"CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instances[0].conference_sid)
         self.assertIsNotNone(instances[0].date_created)
-        self.assertEqual(parse_iso_date("Fri, 18 Feb 2011 21:07:19 +0000"), instances[0].date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Fri, 18 Feb 2011 21:07:19 +0000'), instances[0].date_created)
         self.assertIsNotNone(instances[0].date_updated)
-        self.assertEqual(parse_iso_date("Fri, 18 Feb 2011 21:07:19 +0000"), instances[0].date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Fri, 18 Feb 2011 21:07:19 +0000'), instances[0].date_updated)
         self.assertIsNotNone(instances[0].end_conference_on_exit)
         self.assertEqual(False, instances[0].end_conference_on_exit)
         self.assertIsNotNone(instances[0].muted)

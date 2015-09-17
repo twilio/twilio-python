@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.v2010.client import V2010Client
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class IpAddressIntegrationTest(unittest.TestCase):
@@ -61,9 +64,9 @@ class IpAddressIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instances[0].account_sid)
         self.assertEqual(u"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instances[0].account_sid)
         self.assertIsNotNone(instances[0].date_created)
-        self.assertEqual(parse_iso_date("Mon, 20 Jul 2015 17:27:10 +0000"), instances[0].date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Mon, 20 Jul 2015 17:27:10 +0000'), instances[0].date_created)
         self.assertIsNotNone(instances[0].date_updated)
-        self.assertEqual(parse_iso_date("Mon, 20 Jul 2015 17:27:10 +0000"), instances[0].date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Mon, 20 Jul 2015 17:27:10 +0000'), instances[0].date_updated)
         self.assertIsNotNone(instances[0].friendly_name)
         self.assertEqual(u"aaa", instances[0].friendly_name)
         self.assertIsNotNone(instances[0].ip_access_control_list_sid)
@@ -259,9 +262,9 @@ class IpAddressIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.account_sid)
         self.assertEqual(u"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.account_sid)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Mon, 20 Jul 2015 17:27:10 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Mon, 20 Jul 2015 17:27:10 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Mon, 20 Jul 2015 17:27:10 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Mon, 20 Jul 2015 17:27:10 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.friendly_name)
         self.assertEqual(u"aaa", instance.friendly_name)
         self.assertIsNotNone(instance.ip_access_control_list_sid)
@@ -332,9 +335,9 @@ class IpAddressIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.account_sid)
         self.assertEqual(u"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.account_sid)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Mon, 20 Jul 2015 17:27:10 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Mon, 20 Jul 2015 17:27:10 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Mon, 20 Jul 2015 17:27:10 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Mon, 20 Jul 2015 17:27:10 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.friendly_name)
         self.assertEqual(u"aaa", instance.friendly_name)
         self.assertIsNotNone(instance.ip_access_control_list_sid)
@@ -416,9 +419,9 @@ class IpAddressIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.account_sid)
         self.assertEqual(u"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.account_sid)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Mon, 20 Jul 2015 17:27:10 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Mon, 20 Jul 2015 17:27:10 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Mon, 20 Jul 2015 17:27:10 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Mon, 20 Jul 2015 17:27:10 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.friendly_name)
         self.assertEqual(u"aaa", instance.friendly_name)
         self.assertIsNotNone(instance.ip_access_control_list_sid)

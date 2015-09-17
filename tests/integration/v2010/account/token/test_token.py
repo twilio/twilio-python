@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.v2010.client import V2010Client
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class TokenIntegrationTest(unittest.TestCase):
@@ -91,9 +94,9 @@ class TokenIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.account_sid)
         self.assertEqual(u"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.account_sid)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Fri, 24 Jul 2015 18:43:58 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Fri, 24 Jul 2015 18:43:58 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Fri, 24 Jul 2015 18:43:58 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Fri, 24 Jul 2015 18:43:58 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.password)
         self.assertEqual(u"5SR2x8mZK1lTFJW3NVgLGw6UM9C0dja4jI/Hdw3xr+w=", instance.password)
         self.assertIsNotNone(instance.ttl)

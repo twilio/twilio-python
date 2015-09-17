@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.taskrouter.client import TaskrouterClient
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class EventIntegrationTest(unittest.TestCase):
@@ -124,7 +127,7 @@ class EventIntegrationTest(unittest.TestCase):
             "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         }, instance.event_data)
         self.assertIsNotNone(instance.event_date)
-        self.assertEqual(parse_iso_date("2015-02-07T00:32:41Z"), instance.event_date)
+        self.assertEqual(deserialize.iso8601_datetime('2015-02-07T00:32:41Z'), instance.event_date)
         self.assertIsNotNone(instance.event_type)
         self.assertEqual(u"worker.activity", instance.event_type)
         self.assertIsNotNone(instance.resource_sid)
@@ -226,7 +229,7 @@ class EventIntegrationTest(unittest.TestCase):
             "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         }, instances[0].event_data)
         self.assertIsNotNone(instances[0].event_date)
-        self.assertEqual(parse_iso_date("2015-02-07T00:32:41Z"), instances[0].event_date)
+        self.assertEqual(deserialize.iso8601_datetime('2015-02-07T00:32:41Z'), instances[0].event_date)
         self.assertIsNotNone(instances[0].event_type)
         self.assertEqual(u"worker.activity", instances[0].event_type)
         self.assertIsNotNone(instances[0].resource_sid)

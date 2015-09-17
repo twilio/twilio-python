@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.v2010.client import V2010Client
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class QueueIntegrationTest(unittest.TestCase):
@@ -75,9 +78,9 @@ class QueueIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.current_size)
         self.assertEqual(0, instance.current_size)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Tue, 04 Aug 2015 18:39:09 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 04 Aug 2015 18:39:09 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Tue, 04 Aug 2015 18:39:09 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 04 Aug 2015 18:39:09 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.friendly_name)
         self.assertEqual(u"0.361280134646222", instance.friendly_name)
         self.assertIsNotNone(instance.max_size)
@@ -155,9 +158,9 @@ class QueueIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.current_size)
         self.assertEqual(0, instance.current_size)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Tue, 04 Aug 2015 18:39:09 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 04 Aug 2015 18:39:09 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Tue, 04 Aug 2015 18:39:09 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 04 Aug 2015 18:39:09 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.friendly_name)
         self.assertEqual(u"0.361280134646222", instance.friendly_name)
         self.assertIsNotNone(instance.max_size)
@@ -242,9 +245,9 @@ class QueueIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instances[0].current_size)
         self.assertEqual(0, instances[0].current_size)
         self.assertIsNotNone(instances[0].date_created)
-        self.assertEqual(parse_iso_date("Tue, 04 Aug 2015 18:39:09 +0000"), instances[0].date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 04 Aug 2015 18:39:09 +0000'), instances[0].date_created)
         self.assertIsNotNone(instances[0].date_updated)
-        self.assertEqual(parse_iso_date("Tue, 04 Aug 2015 18:39:09 +0000"), instances[0].date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 04 Aug 2015 18:39:09 +0000'), instances[0].date_updated)
         self.assertIsNotNone(instances[0].friendly_name)
         self.assertEqual(u"0.361280134646222", instances[0].friendly_name)
         self.assertIsNotNone(instances[0].max_size)
@@ -430,9 +433,9 @@ class QueueIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.current_size)
         self.assertEqual(0, instance.current_size)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Tue, 04 Aug 2015 18:39:09 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 04 Aug 2015 18:39:09 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Tue, 04 Aug 2015 18:39:09 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Tue, 04 Aug 2015 18:39:09 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.friendly_name)
         self.assertEqual(u"0.361280134646222", instance.friendly_name)
         self.assertIsNotNone(instance.max_size)

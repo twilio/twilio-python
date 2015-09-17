@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.v2010.client import V2010Client
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class RecordingIntegrationTest(unittest.TestCase):
@@ -81,9 +84,9 @@ class RecordingIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.call_sid)
         self.assertEqual(u"CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instance.call_sid)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("Mon, 22 Aug 2011 20:58:45 +0000"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Mon, 22 Aug 2011 20:58:45 +0000'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("Mon, 22 Aug 2011 20:58:45 +0000"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Mon, 22 Aug 2011 20:58:45 +0000'), instance.date_updated)
         self.assertIsNotNone(instance.duration)
         self.assertEqual(u"6", instance.duration)
         self.assertIsNone(instance.price)
@@ -177,9 +180,9 @@ class RecordingIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instances[0].call_sid)
         self.assertEqual(u"CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", instances[0].call_sid)
         self.assertIsNotNone(instances[0].date_created)
-        self.assertEqual(parse_iso_date("Mon, 22 Aug 2011 20:58:45 +0000"), instances[0].date_created)
+        self.assertEqual(deserialize.iso8601_datetime('Mon, 22 Aug 2011 20:58:45 +0000'), instances[0].date_created)
         self.assertIsNotNone(instances[0].date_updated)
-        self.assertEqual(parse_iso_date("Mon, 22 Aug 2011 20:58:45 +0000"), instances[0].date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('Mon, 22 Aug 2011 20:58:45 +0000'), instances[0].date_updated)
         self.assertIsNotNone(instances[0].duration)
         self.assertEqual(u"6", instances[0].duration)
         self.assertIsNone(instances[0].price)

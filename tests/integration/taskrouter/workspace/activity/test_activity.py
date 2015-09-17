@@ -11,7 +11,10 @@ from datetime import datetime
 from twilio.ext.holodeck import Holodeck
 from twilio.rest.taskrouter.client import TaskrouterClient
 from twilio.rest.http import Response
-from twilio.rest.resources.util import parse_iso_date
+from twilio.rest import (
+    deserialize,
+    serialize,
+)
 
 
 class ActivityIntegrationTest(unittest.TestCase):
@@ -75,9 +78,9 @@ class ActivityIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.available)
         self.assertEqual(True, instance.available)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("2014-05-14T10:50:02Z"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T10:50:02Z'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("2014-05-14T23:26:06Z"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T23:26:06Z'), instance.date_updated)
         self.assertIsNotNone(instance.friendly_name)
         self.assertEqual(u"New Activity", instance.friendly_name)
         self.assertIsNotNone(instance.sid)
@@ -152,9 +155,9 @@ class ActivityIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.available)
         self.assertEqual(True, instance.available)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("2014-05-14T10:50:02Z"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T10:50:02Z'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("2014-05-14T23:26:06Z"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T23:26:06Z'), instance.date_updated)
         self.assertIsNotNone(instance.friendly_name)
         self.assertEqual(u"New Activity", instance.friendly_name)
         self.assertIsNotNone(instance.sid)
@@ -241,9 +244,9 @@ class ActivityIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instances[0].available)
         self.assertEqual(True, instances[0].available)
         self.assertIsNotNone(instances[0].date_created)
-        self.assertEqual(parse_iso_date("2014-05-14T10:50:02Z"), instances[0].date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T10:50:02Z'), instances[0].date_created)
         self.assertIsNotNone(instances[0].date_updated)
-        self.assertEqual(parse_iso_date("2014-05-14T23:26:06Z"), instances[0].date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T23:26:06Z'), instances[0].date_updated)
         self.assertIsNotNone(instances[0].friendly_name)
         self.assertEqual(u"New Activity", instances[0].friendly_name)
         self.assertIsNotNone(instances[0].sid)
@@ -441,9 +444,9 @@ class ActivityIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(instance.available)
         self.assertEqual(True, instance.available)
         self.assertIsNotNone(instance.date_created)
-        self.assertEqual(parse_iso_date("2014-05-14T10:50:02Z"), instance.date_created)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T10:50:02Z'), instance.date_created)
         self.assertIsNotNone(instance.date_updated)
-        self.assertEqual(parse_iso_date("2014-05-14T23:26:06Z"), instance.date_updated)
+        self.assertEqual(deserialize.iso8601_datetime('2014-05-14T23:26:06Z'), instance.date_updated)
         self.assertIsNotNone(instance.friendly_name)
         self.assertEqual(u"New Activity", instance.friendly_name)
         self.assertIsNotNone(instance.sid)
