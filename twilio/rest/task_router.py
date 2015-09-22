@@ -67,7 +67,7 @@ class TwilioTaskRouterClient(TwilioClient):
         with the given workspace_sid ans worker_sid
         """
         base_uri = "{0}/{1}/Workers/{2}".format(self.workspace_uri,
-                                              workspace_sid, worker_sid)
+                                                workspace_sid, worker_sid)
         return Reservations(base_uri, self.auth, self.timeout)
 
     def task_queues(self, workspace_sid):
