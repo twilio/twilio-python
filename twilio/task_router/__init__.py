@@ -247,3 +247,18 @@ class TaskRouterWorkspaceCapability(TaskRouterCapability):
 
     def setup_resource(self):
         self.resource_url = self.base_url
+
+from .taskrouter_config import (
+    TaskRouterConfig
+)
+
+from .workflow_config import (
+    WorkflowConfig
+)
+
+from .workflow_ruletarget import (
+    WorkflowRuleTarget
+)
+from .workflow_rule import (
+    WorkflowRule
+)
