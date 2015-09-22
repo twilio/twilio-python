@@ -22,8 +22,10 @@ class StatisticsContext(InstanceContext):
         }
         self._uri = "/Workspaces/{workspace_sid}/Statistics".format(**self._instance_kwargs)
 
-    def fetch(self, minutes=values.unset, start_date=values.unset,
-              end_date=values.unset):
+    def fetch(self, minutes=values.unset, start_date_before=values.unset,
+              start_date=values.unset, start_date_after=values.unset,
+              end_date_before=values.unset, end_date=values.unset,
+              end_date_after=values.unset):
         return self._domain.fetch(
             StatisticsInstance,
             self._instance_kwargs,
@@ -76,10 +78,16 @@ class StatisticsInstance(InstanceResource):
         """ The workspace_sid """
         return self._workspace_sid
 
-    def fetch(self, minutes=values.unset, start_date=values.unset,
-              end_date=values.unset):
+    def fetch(self, minutes=values.unset, start_date_before=values.unset,
+              start_date=values.unset, start_date_after=values.unset,
+              end_date_before=values.unset, end_date=values.unset,
+              end_date_after=values.unset):
         self._context.fetch(
             minutes=minutes,
+            start_date_before=start_date_before,
             start_date=start_date,
+            start_date_after=start_date_after,
+            end_date_before=end_date_before,
             end_date=end_date,
+            end_date_after=end_date_after,
         )

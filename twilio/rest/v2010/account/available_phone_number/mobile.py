@@ -45,7 +45,9 @@ class MobileList(ListResource):
 
     def page(self, beta=values.unset, page_token=None, page=None, page_size=None,
              **kwargs):
-        params = values.of({})
+        params = values.of({
+            "Beta": beta,
+        })
         params.update(kwargs)
         
         return self._domain.page(

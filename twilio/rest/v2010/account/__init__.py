@@ -79,6 +79,7 @@ class AccountList(ListResource):
              page=None, page_size=None, **kwargs):
         params = values.of({
             "FriendlyName": friendly_name,
+            "Status": status,
         })
         params.update(kwargs)
         

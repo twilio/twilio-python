@@ -26,11 +26,14 @@ class RecordingList(ListResource):
         }
         self._uri = "/Accounts/{account_sid}/Recordings.json".format(**self._instance_kwargs)
 
-    def read(self, date_created=values.unset, limit=None, page_size=None, **kwargs):
+    def read(self, date_created_before=values.unset, date_created=values.unset,
+             date_created_after=values.unset, limit=None, page_size=None, **kwargs):
         limits = self._domain.read_limits(limit, page_size)
         
         params = values.of({
+            "DateCreated<": serialize.iso8601_date(date_created_before),
             "DateCreated": serialize.iso8601_date(date_created),
+            "DateCreated>": serialize.iso8601_date(date_created_after),
         })
         params.update(kwargs)
         
@@ -45,9 +48,14 @@ class RecordingList(ListResource):
             params=params,
         )
 
-    def page(self, date_created=values.unset, page_token=None, page=None,
+    def page(self, date_created_before=values.unset, date_created=values.unset,
+             date_created_after=values.unset, page_token=None, page=None,
              page_size=None, **kwargs):
-        params = values.of({})
+        params = values.of({
+            "DateCreated<": serialize.iso8601_date(date_created_before),
+            "DateCreated": serialize.iso8601_date(date_created),
+            "DateCreated>": serialize.iso8601_date(date_created_after),
+        })
         params.update(kwargs)
         
         return self._domain.page(

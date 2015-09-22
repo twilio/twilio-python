@@ -69,6 +69,7 @@ class WorkerList(ListResource):
             "FriendlyName": friendly_name,
             "TargetWorkersExpression": target_workers_expression,
             "TaskQueueName": task_queue_name,
+            "TaskQueueSid": task_queue_sid,
         })
         params.update(kwargs)
         

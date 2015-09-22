@@ -46,7 +46,9 @@ class CredentialList(ListResource):
 
     def page(self, sip_credential_list_sid, page_token=None, page=None,
              page_size=None, **kwargs):
-        params = values.of({})
+        params = values.of({
+            "SipCredentialListSid": sip_credential_list_sid,
+        })
         params.update(kwargs)
         
         return self._domain.page(

@@ -55,6 +55,7 @@ class StatisticsList(ListResource):
             "EndDate": serialize.iso8601_date(end_date),
             "FriendlyName": friendly_name,
             "Minutes": minutes,
+            "StartDate": serialize.iso8601_date(start_date),
         })
         params.update(kwargs)
         

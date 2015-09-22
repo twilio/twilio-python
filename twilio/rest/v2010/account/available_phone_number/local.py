@@ -49,6 +49,7 @@ class LocalList(ListResource):
              page_size=None, **kwargs):
         params = values.of({
             "NumberType": number_type,
+            "Beta": beta,
         })
         params.update(kwargs)
         

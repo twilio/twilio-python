@@ -60,6 +60,7 @@ class IncomingPhoneNumberList(ListResource):
         params = values.of({
             "Beta": beta,
             "FriendlyName": friendly_name,
+            "PhoneNumber": phone_number,
         })
         params.update(kwargs)
         

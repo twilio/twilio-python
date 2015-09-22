@@ -49,6 +49,7 @@ class OutgoingCallerIdList(ListResource):
              page_token=None, page=None, page_size=None, **kwargs):
         params = values.of({
             "PhoneNumber": phone_number,
+            "FriendlyName": friendly_name,
         })
         params.update(kwargs)
         

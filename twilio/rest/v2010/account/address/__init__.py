@@ -73,6 +73,7 @@ class AddressList(ListResource):
         params = values.of({
             "CustomerName": customer_name,
             "FriendlyName": friendly_name,
+            "IsoCountry": iso_country,
         })
         params.update(kwargs)
         

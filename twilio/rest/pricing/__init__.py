@@ -15,17 +15,17 @@ class Pricing(Domain):
 
     def __init__(self, twilio):
         super(Pricing, self).__init__(twilio)
-        self._phone_numbers = None
         self._voice = None
-
-    @property
-    def phone_numbers(self):
-        if self._phone_numbers is None:
-            self._phone_numbers = PhoneNumberList(self)
-        return self._phone_numbers
+        self._phone_numbers = None
 
     @property
     def voice(self):
         if self._voice is None:
             self._voice = VoiceList(self)
         return self._voice
+
+    @property
+    def phone_numbers(self):
+        if self._phone_numbers is None:
+            self._phone_numbers = PhoneNumberList(self)
+        return self._phone_numbers

@@ -46,7 +46,9 @@ class ParticipantList(ListResource):
 
     def page(self, muted=values.unset, page_token=None, page=None, page_size=None,
              **kwargs):
-        params = values.of({})
+        params = values.of({
+            "Muted": muted,
+        })
         params.update(kwargs)
         
         return self._domain.page(

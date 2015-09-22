@@ -63,7 +63,9 @@ class CallList(ListResource):
 
     def read(self, to=values.unset, from_=values.unset,
              parent_call_sid=values.unset, status=values.unset,
-             start_time=values.unset, end_time=values.unset, limit=None,
+             start_time_before=values.unset, start_time=values.unset,
+             start_time_after=values.unset, end_time_before=values.unset,
+             end_time=values.unset, end_time_after=values.unset, limit=None,
              page_size=None, **kwargs):
         limits = self._domain.read_limits(limit, page_size)
         
@@ -72,8 +74,12 @@ class CallList(ListResource):
             "From": from_,
             "ParentCallSid": parent_call_sid,
             "Status": status,
+            "StartTime<": serialize.iso8601_date(start_time_before),
             "StartTime": serialize.iso8601_date(start_time),
+            "StartTime>": serialize.iso8601_date(start_time_after),
+            "EndTime<": serialize.iso8601_date(end_time_before),
             "EndTime": serialize.iso8601_date(end_time),
+            "EndTime>": serialize.iso8601_date(end_time_after),
         })
         params.update(kwargs)
         
@@ -90,14 +96,21 @@ class CallList(ListResource):
 
     def page(self, to=values.unset, from_=values.unset,
              parent_call_sid=values.unset, status=values.unset,
-             start_time=values.unset, end_time=values.unset, page_token=None,
+             start_time_before=values.unset, start_time=values.unset,
+             start_time_after=values.unset, end_time_before=values.unset,
+             end_time=values.unset, end_time_after=values.unset, page_token=None,
              page=None, page_size=None, **kwargs):
         params = values.of({
             "To": to,
             "From": from_,
             "ParentCallSid": parent_call_sid,
             "Status": status,
+            "StartTime<": serialize.iso8601_date(start_time_before),
             "StartTime": serialize.iso8601_date(start_time),
+            "StartTime>": serialize.iso8601_date(start_time_after),
+            "EndTime<": serialize.iso8601_date(end_time_before),
+            "EndTime": serialize.iso8601_date(end_time),
+            "EndTime>": serialize.iso8601_date(end_time_after),
         })
         params.update(kwargs)
         

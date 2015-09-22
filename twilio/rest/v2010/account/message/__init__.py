@@ -46,14 +46,17 @@ class MessageList(ListResource):
             data=data,
         )
 
-    def read(self, to=values.unset, from_=values.unset, date_sent=values.unset,
-             limit=None, page_size=None, **kwargs):
+    def read(self, to=values.unset, from_=values.unset,
+             date_sent_before=values.unset, date_sent=values.unset,
+             date_sent_after=values.unset, limit=None, page_size=None, **kwargs):
         limits = self._domain.read_limits(limit, page_size)
         
         params = values.of({
             "To": to,
             "From": from_,
+            "DateSent<": serialize.iso8601_date(date_sent_before),
             "DateSent": serialize.iso8601_date(date_sent),
+            "DateSent>": serialize.iso8601_date(date_sent_after),
         })
         params.update(kwargs)
         
@@ -68,11 +71,16 @@ class MessageList(ListResource):
             params=params,
         )
 
-    def page(self, to=values.unset, from_=values.unset, date_sent=values.unset,
-             page_token=None, page=None, page_size=None, **kwargs):
+    def page(self, to=values.unset, from_=values.unset,
+             date_sent_before=values.unset, date_sent=values.unset,
+             date_sent_after=values.unset, page_token=None, page=None,
+             page_size=None, **kwargs):
         params = values.of({
             "To": to,
             "From": from_,
+            "DateSent<": serialize.iso8601_date(date_sent_before),
+            "DateSent": serialize.iso8601_date(date_sent),
+            "DateSent>": serialize.iso8601_date(date_sent_after),
         })
         params.update(kwargs)
         

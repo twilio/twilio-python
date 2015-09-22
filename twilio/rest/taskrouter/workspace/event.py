@@ -71,6 +71,7 @@ class EventList(ListResource):
             "TaskQueueSid": task_queue_sid,
             "TaskSid": task_sid,
             "WorkerSid": worker_sid,
+            "WorkflowSid": workflow_sid,
         })
         params.update(kwargs)
         

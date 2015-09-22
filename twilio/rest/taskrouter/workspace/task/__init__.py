@@ -62,6 +62,7 @@ class TaskList(ListResource):
             "WorkflowSid": workflow_sid,
             "WorkflowName": workflow_name,
             "TaskQueueSid": task_queue_sid,
+            "TaskQueueName": task_queue_name,
         })
         params.update(kwargs)
         

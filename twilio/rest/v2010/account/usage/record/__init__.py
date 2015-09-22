@@ -43,14 +43,20 @@ class RecordList(ListResource):
         self._yearly = None
         self._yesterday = None
 
-    def read(self, category=values.unset, start_date=values.unset,
-             end_date=values.unset, limit=None, page_size=None, **kwargs):
+    def read(self, category=values.unset, start_date_before=values.unset,
+             start_date=values.unset, start_date_after=values.unset,
+             end_date_before=values.unset, end_date=values.unset,
+             end_date_after=values.unset, limit=None, page_size=None, **kwargs):
         limits = self._domain.read_limits(limit, page_size)
         
         params = values.of({
             "Category": category,
+            "StartDate<": serialize.iso8601_date(start_date_before),
             "StartDate": serialize.iso8601_date(start_date),
+            "StartDate>": serialize.iso8601_date(start_date_after),
+            "EndDate<": serialize.iso8601_date(end_date_before),
             "EndDate": serialize.iso8601_date(end_date),
+            "EndDate>": serialize.iso8601_date(end_date_after),
         })
         params.update(kwargs)
         
@@ -65,12 +71,19 @@ class RecordList(ListResource):
             params=params,
         )
 
-    def page(self, category=values.unset, start_date=values.unset,
-             end_date=values.unset, page_token=None, page=None, page_size=None,
-             **kwargs):
+    def page(self, category=values.unset, start_date_before=values.unset,
+             start_date=values.unset, start_date_after=values.unset,
+             end_date_before=values.unset, end_date=values.unset,
+             end_date_after=values.unset, page_token=None, page=None,
+             page_size=None, **kwargs):
         params = values.of({
             "Category": category,
+            "StartDate<": serialize.iso8601_date(start_date_before),
             "StartDate": serialize.iso8601_date(start_date),
+            "StartDate>": serialize.iso8601_date(start_date_after),
+            "EndDate<": serialize.iso8601_date(end_date_before),
+            "EndDate": serialize.iso8601_date(end_date),
+            "EndDate>": serialize.iso8601_date(end_date_after),
         })
         params.update(kwargs)
         

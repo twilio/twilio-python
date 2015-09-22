@@ -25,13 +25,16 @@ class NotificationList(ListResource):
         }
         self._uri = "/Accounts/{account_sid}/Notifications".format(**self._instance_kwargs)
 
-    def read(self, log=values.unset, message_date=values.unset, limit=None,
+    def read(self, log=values.unset, message_date_before=values.unset,
+             message_date=values.unset, message_date_after=values.unset, limit=None,
              page_size=None, **kwargs):
         limits = self._domain.read_limits(limit, page_size)
         
         params = values.of({
             "Log": log,
+            "MessageDate<": serialize.iso8601_date(message_date_before),
             "MessageDate": serialize.iso8601_date(message_date),
+            "MessageDate>": serialize.iso8601_date(message_date_after),
         })
         params.update(kwargs)
         
@@ -46,10 +49,14 @@ class NotificationList(ListResource):
             params=params,
         )
 
-    def page(self, log=values.unset, message_date=values.unset, page_token=None,
-             page=None, page_size=None, **kwargs):
+    def page(self, log=values.unset, message_date_before=values.unset,
+             message_date=values.unset, message_date_after=values.unset,
+             page_token=None, page=None, page_size=None, **kwargs):
         params = values.of({
             "Log": log,
+            "MessageDate<": serialize.iso8601_date(message_date_before),
+            "MessageDate": serialize.iso8601_date(message_date),
+            "MessageDate>": serialize.iso8601_date(message_date_after),
         })
         params.update(kwargs)
         

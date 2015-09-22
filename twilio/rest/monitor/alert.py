@@ -23,14 +23,20 @@ class AlertList(ListResource):
         self._instance_kwargs = {}
         self._uri = "/Alerts".format(**self._instance_kwargs)
 
-    def read(self, log_level=values.unset, start_date=values.unset,
-             end_date=values.unset, limit=None, page_size=None, **kwargs):
+    def read(self, log_level=values.unset, start_date_before=values.unset,
+             start_date=values.unset, start_date_after=values.unset,
+             end_date_before=values.unset, end_date=values.unset,
+             end_date_after=values.unset, limit=None, page_size=None, **kwargs):
         limits = self._domain.read_limits(limit, page_size)
         
         params = values.of({
             "LogLevel": log_level,
+            "StartDate<": serialize.iso8601_date(start_date_before),
             "StartDate": serialize.iso8601_date(start_date),
+            "StartDate>": serialize.iso8601_date(start_date_after),
+            "EndDate<": serialize.iso8601_date(end_date_before),
             "EndDate": serialize.iso8601_date(end_date),
+            "EndDate>": serialize.iso8601_date(end_date_after),
         })
         params.update(kwargs)
         
@@ -45,12 +51,19 @@ class AlertList(ListResource):
             params=params,
         )
 
-    def page(self, log_level=values.unset, start_date=values.unset,
-             end_date=values.unset, page_token=None, page=None, page_size=None,
-             **kwargs):
+    def page(self, log_level=values.unset, start_date_before=values.unset,
+             start_date=values.unset, start_date_after=values.unset,
+             end_date_before=values.unset, end_date=values.unset,
+             end_date_after=values.unset, page_token=None, page=None,
+             page_size=None, **kwargs):
         params = values.of({
             "LogLevel": log_level,
+            "StartDate<": serialize.iso8601_date(start_date_before),
             "StartDate": serialize.iso8601_date(start_date),
+            "StartDate>": serialize.iso8601_date(start_date_after),
+            "EndDate<": serialize.iso8601_date(end_date_before),
+            "EndDate": serialize.iso8601_date(end_date),
+            "EndDate>": serialize.iso8601_date(end_date_after),
         })
         params.update(kwargs)
         

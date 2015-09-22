@@ -26,14 +26,20 @@ class ConferenceList(ListResource):
         }
         self._uri = "/Accounts/{account_sid}/Conferences.json".format(**self._instance_kwargs)
 
-    def read(self, date_created=values.unset, date_updated=values.unset,
+    def read(self, date_created_before=values.unset, date_created=values.unset,
+             date_created_after=values.unset, date_updated_before=values.unset,
+             date_updated=values.unset, date_updated_after=values.unset,
              friendly_name=values.unset, status=values.unset, limit=None,
              page_size=None, **kwargs):
         limits = self._domain.read_limits(limit, page_size)
         
         params = values.of({
+            "DateCreated<": serialize.iso8601_date(date_created_before),
             "DateCreated": serialize.iso8601_date(date_created),
+            "DateCreated>": serialize.iso8601_date(date_created_after),
+            "DateUpdated<": serialize.iso8601_date(date_updated_before),
             "DateUpdated": serialize.iso8601_date(date_updated),
+            "DateUpdated>": serialize.iso8601_date(date_updated_after),
             "FriendlyName": friendly_name,
             "Status": status,
         })
@@ -50,13 +56,20 @@ class ConferenceList(ListResource):
             params=params,
         )
 
-    def page(self, date_created=values.unset, date_updated=values.unset,
+    def page(self, date_created_before=values.unset, date_created=values.unset,
+             date_created_after=values.unset, date_updated_before=values.unset,
+             date_updated=values.unset, date_updated_after=values.unset,
              friendly_name=values.unset, status=values.unset, page_token=None,
              page=None, page_size=None, **kwargs):
         params = values.of({
+            "DateCreated<": serialize.iso8601_date(date_created_before),
             "DateCreated": serialize.iso8601_date(date_created),
+            "DateCreated>": serialize.iso8601_date(date_created_after),
+            "DateUpdated<": serialize.iso8601_date(date_updated_before),
             "DateUpdated": serialize.iso8601_date(date_updated),
+            "DateUpdated>": serialize.iso8601_date(date_updated_after),
             "FriendlyName": friendly_name,
+            "Status": status,
         })
         params.update(kwargs)
         

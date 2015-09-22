@@ -73,6 +73,7 @@ class TriggerList(ListResource):
         params = values.of({
             "Recurring": recurring,
             "TriggerBy": trigger_by,
+            "UsageCategory": usage_category,
         })
         params.update(kwargs)
         
