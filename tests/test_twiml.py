@@ -367,16 +367,16 @@ class TestQueue(TwilioTest):
             # parse twiml XML string with Element Tree and inspect
             # structure
             tree = ET.fromstring(xml)
-            self.conf = tree.find(".//Queue")
+            self.queue = tree.find(".//Queue")
 
-    def test_conf_text(self):
-        self.assertEqual(self.conf.text.strip(), "TestQueueAttribute")
+    def test_queue_text(self):
+        self.assertEqual(self.queue.text.strip(), "TestQueueAttribute")
 
-    def test_conf_waiturl(self):
-        self.assertEqual(self.conf.get('url'), "")
+    def test_queue_waiturl(self):
+        self.assertEqual(self.queue.get('url'), "")
 
-    def test_conf_method(self):
-        self.assertEqual(self.conf.get('method'), "GET")
+    def test_queue_method(self):
+        self.assertEqual(self.queue.get('method'), "GET")
 
 
 class TestEnqueue(TwilioTest):
@@ -390,22 +390,53 @@ class TestEnqueue(TwilioTest):
         # parse twiml XML string with Element Tree and inspect
         # structure
         tree = ET.fromstring(xml)
-        self.conf = tree.find("./Enqueue")
+        self.enqueue = tree.find("./Enqueue")
 
-    def test_conf_text(self):
-        self.assertEqual(self.conf.text.strip(), "TestEnqueueAttribute")
+    def test_enqueue_text(self):
+        self.assertEqual(self.enqueue.text.strip(), "TestEnqueueAttribute")
 
-    def test_conf_waiturl(self):
-        self.assertEqual(self.conf.get('waitUrl'), "wait")
+    def test_enqueue_waiturl(self):
+        self.assertEqual(self.enqueue.get('waitUrl'), "wait")
 
-    def test_conf_method(self):
-        self.assertEqual(self.conf.get('method'), "GET")
+    def test_enqueue_method(self):
+        self.assertEqual(self.enqueue.get('method'), "GET")
 
-    def test_conf_action(self):
-        self.assertEqual(self.conf.get('action'), "act")
+    def test_enqueue_action(self):
+        self.assertEqual(self.enqueue.get('action'), "act")
 
-    def test_conf_waitmethod(self):
-        self.assertEqual(self.conf.get('waitUrlMethod'), "POST")
+    def test_enqueue_waitmethod(self):
+        self.assertEqual(self.enqueue.get('waitUrlMethod'), "POST")
+
+
+class TestEnqueueTask(TwilioTest):
+
+    def setUp(self):
+        r = Response()
+        with r.enqueue(None, workflowSid="Workflow1") as e:
+            e.task('{"selected_language":"en"}', priority="10", timeout="50")
+
+        xml = r.toxml()
+
+        # parse twiml XML string with Element Tree and inspect
+        # structure
+        tree = ET.fromstring(xml)
+        self.enqueue = tree.find("./Enqueue")
+        self.task = self.enqueue.find(".//Task")
+
+    def test_found_task(self):
+        self.assertIsNotNone(self.task)
+
+    def test_enqueue_workflow_sid(self):
+        self.assertEqual(self.enqueue.get('workflowSid'), "Workflow1")
+
+    def test_enqueue_task_attributes(self):
+        self.assertEqual(self.task.text.strip(), '{"selected_language":"en"}')
+
+    def test_enqueue_task_priority(self):
+        self.assertEqual(self.task.get('priority'), "10")
+
+    def test_enqueue_task_timeout(self):
+        self.assertEqual(self.task.get('timeout'), "50")
 
 
 class TestDial(TwilioTest):
