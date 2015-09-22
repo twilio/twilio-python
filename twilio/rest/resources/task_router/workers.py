@@ -1,5 +1,6 @@
 from .. import NextGenInstanceResource, NextGenListResource
 from .statistics import Statistics
+from .reservations import Reservations
 
 
 class Worker(NextGenInstanceResource):
@@ -68,7 +69,8 @@ class Worker(NextGenInstanceResource):
         calculate :class: `Workflow` statistics.
     """
     subresources = [
-        Statistics
+        Statistics,
+        Reservations
     ]
 
     def delete(self):
