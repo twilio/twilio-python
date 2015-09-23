@@ -19,6 +19,5 @@ notifications:
     on_success: change
     on_failure: change
     rooms:
-      secure:
-      - TcDlBcKXtqmMdVsa3Lsofdqc1uVjqhZouwNETC260rByRb74gTHGZ1Da7PRkv+AZIFUq7S1uWTZXTXJTm154hi4aQb9SE2UowVwTJMjIKyy4P79s1eoyADP92cFEcpqSs4iVpU3t5srTj8cg2fVks8EsV5pDVJut1oBH4qYJEZw=
-      - qqtcwaS0y5e2SVm5g/zSRMgo7FcZ8Oa44bxQUDvJh/84/DHMD3zZoAv/A4+Vlbs0tCjnSKxMDuLxTzpiPgru4KPH7yj4fEXf7+sfwiLD//WBVWpGMYLa+PNCGS6hhnAuFkA2psZCmmzkbJbX0N03EdWiWFzV79WPgNI+WzpYIVQ=
+      - secure: TcDlBcKXtqmMdVsa3Lsofdqc1uVjqhZouwNETC260rByRb74gTHGZ1Da7PRkv+AZIFUq7S1uWTZXTXJTm154hi4aQb9SE2UowVwTJMjIKyy4P79s1eoyADP92cFEcpqSs4iVpU3t5srTj8cg2fVks8EsV5pDVJut1oBH4qYJEZw=
+      - secure: qqtcwaS0y5e2SVm5g/zSRMgo7FcZ8Oa44bxQUDvJh/84/DHMD3zZoAv/A4+Vlbs0tCjnSKxMDuLxTzpiPgru4KPH7yj4fEXf7+sfwiLD//WBVWpGMYLa+PNCGS6hhnAuFkA2psZCmmzkbJbX0N03EdWiWFzV79WPgNI+WzpYIVQ=
