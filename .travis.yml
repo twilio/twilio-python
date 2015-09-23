@@ -16,4 +16,9 @@ script:
 sudo: false
 notifications:
   slack:
-    secure: Axcfefsnbvly090AqDg3IL87fRzPEf9SXIc9JG5D1qiNekqMJaFz6CoLciSY1ydJKSKLygqB2TCKwPzZGwsIIxcelx2SVodFsjDjjbyHsUE2V9K7hET5eS9BX/aPgT/zoMq/0LBK+U3/9ssg07cCtck7wc+4mBd76UJ5sc37uQY=
+    on_success: change
+    on_failure: change
+    rooms:
+      secure:
+      - TcDlBcKXtqmMdVsa3Lsofdqc1uVjqhZouwNETC260rByRb74gTHGZ1Da7PRkv+AZIFUq7S1uWTZXTXJTm154hi4aQb9SE2UowVwTJMjIKyy4P79s1eoyADP92cFEcpqSs4iVpU3t5srTj8cg2fVks8EsV5pDVJut1oBH4qYJEZw=
+      - qqtcwaS0y5e2SVm5g/zSRMgo7FcZ8Oa44bxQUDvJh/84/DHMD3zZoAv/A4+Vlbs0tCjnSKxMDuLxTzpiPgru4KPH7yj4fEXf7+sfwiLD//WBVWpGMYLa+PNCGS6hhnAuFkA2psZCmmzkbJbX0N03EdWiWFzV79WPgNI+WzpYIVQ=
