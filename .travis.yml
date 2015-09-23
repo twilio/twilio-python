@@ -13,3 +13,4 @@ script:
   - flake8 --ignore=F401 twilio
   - flake8 --ignore=E123,E126,E128,E501 tests
   - nosetests
+sudo: false
