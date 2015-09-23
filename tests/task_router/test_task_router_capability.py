@@ -37,10 +37,10 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         capability.generate_token()
 
         token = capability.generate_token()
-        self.assertIsNotNone(token)
+        self.assertNotEqual(None, token)
 
         decoded = jwt.decode(token, auth_token)
-        self.assertIsNotNone(decoded)
+        self.assertNotEqual(None, decoded)
 
         self.check_decoded(decoded, account_sid, workspace_sid, channel_id)
 
@@ -64,10 +64,10 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         capability.generate_token()
 
         token = capability.generate_token()
-        self.assertIsNotNone(token)
+        self.assertNotEqual(None, token)
 
         decoded = jwt.decode(token, auth_token)
-        self.assertIsNotNone(decoded)
+        self.assertNotEqual(None, decoded)
 
         self.check_decoded(decoded, account_sid, workspace_sid, worker_sid, worker_sid)
 
@@ -93,10 +93,10 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         capability.generate_token()
 
         token = capability.generate_token()
-        self.assertIsNotNone(token)
+        self.assertNotEqual(None, token)
 
         decoded = jwt.decode(token, auth_token)
-        self.assertIsNotNone(decoded)
+        self.assertNotEqual(None, decoded)
 
         self.check_decoded(decoded, account_sid, workspace_sid, taskqueue_sid, taskqueue_sid)
 
@@ -120,10 +120,10 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         capability.generate_token()
 
         token = capability.generate_token()
-        self.assertIsNotNone(token)
+        self.assertNotEqual(None, token)
 
         decoded = jwt.decode(token, auth_token)
-        self.assertIsNotNone(decoded)
+        self.assertNotEqual(None, decoded)
 
         self.check_decoded(decoded, account_sid, workspace_sid, worker_sid, worker_sid)
 
