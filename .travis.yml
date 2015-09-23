@@ -14,9 +14,6 @@ script:
   - flake8 --ignore=E123,E126,E128,E501 tests
   - nosetests
 sudo: false
-branches:
-  only:
-    -master
 notifications:
   slack:
     secure: Axcfefsnbvly090AqDg3IL87fRzPEf9SXIc9JG5D1qiNekqMJaFz6CoLciSY1ydJKSKLygqB2TCKwPzZGwsIIxcelx2SVodFsjDjjbyHsUE2V9K7hET5eS9BX/aPgT/zoMq/0LBK+U3/9ssg07cCtck7wc+4mBd76UJ5sc37uQY=
