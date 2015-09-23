@@ -70,7 +70,7 @@ class TaskRouterWorkerCapabilityTest(unittest.TestCase):
         decoded = jwt.decode(token, self.auth_token)
         self.assertNotEqual(None, decoded)
 
-        websocket_url = 'https://event-bridge.twilio.com/v1/wschannels/{}/{}'.format(self.account_sid, self.worker_sid)
+        websocket_url = 'https://event-bridge.twilio.com/v1/wschannels/{0}/{1}'.format(self.account_sid, self.worker_sid)
 
         # expect 5 policies
         policies = decoded['policies']
@@ -101,7 +101,7 @@ class TaskRouterWorkerCapabilityTest(unittest.TestCase):
         self.assertEqual(len(policies), 6)
         policy = policies[5]
 
-        url = "https://taskrouter.twilio.com/v1/Workspaces/{}/Workers/{}".format(self.workspace_sid, self.worker_sid)
+        url = "https://taskrouter.twilio.com/v1/Workspaces/{0}/Workers/{1}".format(self.workspace_sid, self.worker_sid)
 
         self.assertEqual(url, policy["url"])
         self.assertEqual("POST", policy["method"])
@@ -125,7 +125,7 @@ class TaskRouterWorkerCapabilityTest(unittest.TestCase):
 
         policy = policies[5]
 
-        url = "https://taskrouter.twilio.com/v1/Workspaces/{}/Tasks/**".format(self.workspace_sid)
+        url = "https://taskrouter.twilio.com/v1/Workspaces/{0}/Tasks/**".format(self.workspace_sid)
 
         self.check_policy('POST', url, policy)
 
