@@ -102,7 +102,7 @@ The key is to lay out your project in a way that makes sense.
     the settings you want in Google App Engine - Note the folder path ends with
     ``twilio-demo/src``.
 
-    .. image:: https://www.evernote.com/shard/s265/sh/1b9407b0-c89b-464d-b352-dbf8fc7a7f41/f536b8e79747f43220fc12e0e0026ee2/res/5b2f83af-8a7f-451f-afba-db092c55aa44/skitch.png
+    .. image:: http://howtodocs.s3.amazonaws.com/helpers/appengine.png
 
     Once App Engine is running locally, in your browser, you should be able to
     navigate to ``http://localhost`` + the provided Port and view the twilio
