@@ -17,10 +17,10 @@ class TaskRouterTaskQueueCapabilityTest(unittest.TestCase):
     def test_generate_token(self):
 
         token = self.capability.generate_token()
-        self.assertIsNotNone(token)
+        self.assertNotEqual(None, token)
 
         decoded = jwt.decode(token, self.auth_token)
-        self.assertIsNotNone(decoded)
+        self.assertNotEqual(None, decoded)
 
         self.assertEqual(decoded["iss"], self.account_sid)
         self.assertEqual(decoded["account_sid"], self.account_sid)
@@ -32,10 +32,10 @@ class TaskRouterTaskQueueCapabilityTest(unittest.TestCase):
 
     def test_generate_token_with_default_ttl(self):
         token = self.capability.generate_token()
-        self.assertIsNotNone(token)
+        self.assertNotEqual(None, token)
 
         decoded = jwt.decode(token, self.auth_token)
-        self.assertIsNotNone(decoded)
+        self.assertNotEqual(None, decoded)
 
         self.assertEqual(int(time.time()) + 3600, decoded["exp"])
 
@@ -43,19 +43,19 @@ class TaskRouterTaskQueueCapabilityTest(unittest.TestCase):
         ttl = 10000
 
         token = self.capability.generate_token(ttl)
-        self.assertIsNotNone(token)
+        self.assertNotEqual(None, token)
 
         decoded = jwt.decode(token, self.auth_token)
-        self.assertIsNotNone(decoded)
+        self.assertNotEqual(None, decoded)
 
         self.assertEqual(int(time.time()) + 10000, decoded["exp"])
 
     def test_default(self):
         token = self.capability.generate_token()
-        self.assertIsNotNone(token)
+        self.assertNotEqual(None, token)
 
         decoded = jwt.decode(token, self.auth_token)
-        self.assertIsNotNone(decoded)
+        self.assertNotEqual(None, decoded)
 
         policies = decoded['policies']
         self.assertEqual(len(policies), 3)
@@ -88,10 +88,10 @@ class TaskRouterTaskQueueCapabilityTest(unittest.TestCase):
         self.capability.allow_fetch_subresources()
 
         token = self.capability.generate_token()
-        self.assertIsNotNone(token)
+        self.assertNotEqual(None, token)
 
         decoded = jwt.decode(token, self.auth_token)
-        self.assertIsNotNone(decoded)
+        self.assertNotEqual(None, decoded)
 
         policies = decoded['policies']
         self.assertEqual(len(policies), 4)
@@ -110,10 +110,10 @@ class TaskRouterTaskQueueCapabilityTest(unittest.TestCase):
         self.capability.allow_updates_subresources()
 
         token = self.capability.generate_token()
-        self.assertIsNotNone(token)
+        self.assertNotEqual(None, token)
 
         decoded = jwt.decode(token, self.auth_token)
-        self.assertIsNotNone(decoded)
+        self.assertNotEqual(None, decoded)
 
         policies = decoded['policies']
         self.assertEqual(len(policies), 4)

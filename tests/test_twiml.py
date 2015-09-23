@@ -424,7 +424,7 @@ class TestEnqueueTask(TwilioTest):
         self.task = self.enqueue.find(".//Task")
 
     def test_found_task(self):
-        self.assertIsNotNone(self.task)
+        self.assertNotEqual(None, self.task)
 
     def test_enqueue_workflow_sid(self):
         self.assertEqual(self.enqueue.get('workflowSid'), "Workflow1")

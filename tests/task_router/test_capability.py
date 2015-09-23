@@ -55,7 +55,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
 
         self.assertTrue(decoded is not None)
         websocket_url = (
-            'https://event-bridge.twilio.com/v1/wschannels/{}/{}'.format(self.account_sid, self.worker_sid)
+            'https://event-bridge.twilio.com/v1/wschannels/{0}/{1}'.format(self.account_sid, self.worker_sid)
         )
         expected = [
             {
@@ -66,7 +66,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
                 'post_filter': {},
             },
             {
-                'url': 'https://taskrouter.twilio.com/v1/Workspaces/{}/Tasks/**'.format(self.workspace_sid),
+                'url': 'https://taskrouter.twilio.com/v1/Workspaces/{0}/Tasks/**'.format(self.workspace_sid),
                 'method': 'GET',
                 'allow': True,
                 'query_filter': {},
@@ -87,7 +87,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
                 'post_filter': {},
             },
             {
-                'url': 'https://taskrouter.twilio.com/v1/Workspaces/{}/Workers/{}'.format(self.workspace_sid, self.worker_sid),
+                'url': 'https://taskrouter.twilio.com/v1/Workspaces/{0}/Workers/{1}'.format(self.workspace_sid, self.worker_sid),
                 'method': 'GET',
                 'allow': True,
                 'query_filter': {},
@@ -102,7 +102,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         decoded = jwt.decode(token, self.auth_token)
 
         self.assertTrue(decoded is not None)
-        url = 'https://taskrouter.twilio.com/v1/Workspaces/{}/Workers/{}'.format(
+        url = 'https://taskrouter.twilio.com/v1/Workspaces/{0}/Workers/{1}'.format(
             self.workspace_sid,
             self.worker_sid,
         )
@@ -122,7 +122,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         decoded = jwt.decode(token, self.auth_token)
 
         self.assertTrue(decoded is not None)
-        url = 'https://taskrouter.twilio.com/v1/Workspaces/{}/Workers/{}'.format(
+        url = 'https://taskrouter.twilio.com/v1/Workspaces/{0}/Workers/{1}'.format(
             self.workspace_sid,
             self.worker_sid,
         )
@@ -143,7 +143,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         decoded = jwt.decode(token, self.auth_token)
 
         self.assertTrue(decoded is not None)
-        url = 'https://taskrouter.twilio.com/v1/Workspaces/{}/Tasks/**'.format(
+        url = 'https://taskrouter.twilio.com/v1/Workspaces/{0}/Tasks/**'.format(
             self.workspace_sid,
         )
 
