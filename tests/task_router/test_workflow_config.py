@@ -82,6 +82,6 @@ class WorkflowConfigTest(unittest.TestCase):
             try:
                 json.loads(myjson)
             except ValueError as e:
-                print e
+                print(e)
                 return False
             return True
