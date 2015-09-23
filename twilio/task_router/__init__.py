@@ -16,7 +16,7 @@ def deprecated(func):
     def log_warning(*args, **kwargs):
         # stacklevel = 2 makes the warning refer to the caller of the
         # deprecation rather than the source of deprecation itself
-        warnings.warn("Call to deprecated function {}.".
+        warnings.warn("Call to deprecated function {0}.".
                       format(func.__name__),
                       stacklevel=2,
                       category=DeprecationWarning)
@@ -32,9 +32,9 @@ class TaskRouterCapability(object):
 
         self.workspace_sid = workspace_sid
         self.channel_id = channel_id
-        self.base_url = "{}/{}/Workspaces/{}".format(TASK_ROUTER_BASE_URL,
-                                                     TASK_ROUTER_VERSION,
-                                                     workspace_sid)
+        self.base_url = "{0}/{1}/Workspaces/{2}".format(TASK_ROUTER_BASE_URL,
+                                                        TASK_ROUTER_VERSION,
+                                                        workspace_sid)
 
         # validate the JWT
         self.validate_jwt()
@@ -65,12 +65,13 @@ class TaskRouterCapability(object):
             self.allow(reservations_url, "GET")
 
         elif self.channel_prefix == "WQ":
-            self.resource_url = "{}/TaskQueues/{}".format(
+            self.resource_url = "{0}/TaskQueues/{1}".format(
                 self.base_url, self.channel_id)
 
     def allow_web_sockets(self, channel_id):
-        web_socket_url = "{}/{}/{}".format(TASK_ROUTER_BASE_EVENTS_URL,
-                                           self.account_sid, self.channel_id)
+        web_socket_url = "{0}/{1}/{2}".format(TASK_ROUTER_BASE_EVENTS_URL,
+                                              self.account_sid,
+                                              self.channel_id)
 
         self.policies.append(self.make_policy(web_socket_url, "GET", True))
         self.policies.append(self.make_policy(web_socket_url, "POST", True))
