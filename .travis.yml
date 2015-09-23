@@ -1,16 +1,19 @@
 language: python
 python:
-  - "2.6"
-  - "2.7"
-  - "3.2"
-  - "3.3"
-  - "3.4"
+  - '2.6'
+  - '2.7'
+  - '3.2'
+  - '3.3'
+  - '3.4'
 install:
   - pip install . --use-mirrors
   - pip install -r requirements.txt --use-mirrors
   - pip install -r tests/requirements.txt --use-mirrors
-script: 
+script:
   - flake8 --ignore=F401 twilio
   - flake8 --ignore=E123,E126,E128,E501 tests
   - nosetests
 sudo: false
+notifications:
+  slack:
+    secure: Axcfefsnbvly090AqDg3IL87fRzPEf9SXIc9JG5D1qiNekqMJaFz6CoLciSY1ydJKSKLygqB2TCKwPzZGwsIIxcelx2SVodFsjDjjbyHsUE2V9K7hET5eS9BX/aPgT/zoMq/0LBK+U3/9ssg07cCtck7wc+4mBd76UJ5sc37uQY=
