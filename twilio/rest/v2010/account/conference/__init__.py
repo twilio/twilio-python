@@ -60,7 +60,7 @@ class ConferenceList(ListResource):
              date_created_after=values.unset, date_updated_before=values.unset,
              date_updated=values.unset, date_updated_after=values.unset,
              friendly_name=values.unset, status=values.unset, page_token=None,
-             page=None, page_size=None, **kwargs):
+             page_number=None, page_size=None, **kwargs):
         params = values.of({
             "DateCreated<": serialize.iso8601_date(date_created_before),
             "DateCreated": serialize.iso8601_date(date_created),
@@ -70,6 +70,9 @@ class ConferenceList(ListResource):
             "DateUpdated>": serialize.iso8601_date(date_updated_after),
             "FriendlyName": friendly_name,
             "Status": status,
+            "PageToken": page_token,
+            "Page": page_number,
+            "PageSize": page_size,
         })
         params.update(kwargs)
         
@@ -99,11 +102,14 @@ class ConferenceContext(InstanceContext):
         self._participants = None
 
     def fetch(self):
+        params = values.of({})
+        
         return self._domain.fetch(
             ConferenceInstance,
             self._instance_kwargs,
             'GET',
             self._uri,
+            params=params,
         )
 
     @property

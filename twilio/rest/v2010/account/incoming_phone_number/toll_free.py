@@ -47,12 +47,15 @@ class TollFreeList(ListResource):
         )
 
     def page(self, beta=values.unset, friendly_name=values.unset,
-             phone_number=values.unset, page_token=None, page=None, page_size=None,
-             **kwargs):
+             phone_number=values.unset, page_token=None, page_number=None,
+             page_size=None, **kwargs):
         params = values.of({
             "Beta": beta,
             "FriendlyName": friendly_name,
             "PhoneNumber": phone_number,
+            "PageToken": page_token,
+            "Page": page_number,
+            "PageSize": page_size,
         })
         params.update(kwargs)
         

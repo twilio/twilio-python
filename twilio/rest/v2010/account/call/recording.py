@@ -49,12 +49,15 @@ class RecordingList(ListResource):
         )
 
     def page(self, date_created_before=values.unset, date_created=values.unset,
-             date_created_after=values.unset, page_token=None, page=None,
+             date_created_after=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
         params = values.of({
             "DateCreated<": serialize.iso8601_date(date_created_before),
             "DateCreated": serialize.iso8601_date(date_created),
             "DateCreated>": serialize.iso8601_date(date_created_after),
+            "PageToken": page_token,
+            "Page": page_number,
+            "PageSize": page_size,
         })
         params.update(kwargs)
         
@@ -82,11 +85,14 @@ class RecordingContext(InstanceContext):
         self._uri = "/Accounts/{account_sid}/Calls/{call_sid}/Recordings/{sid}.json".format(**self._instance_kwargs)
 
     def fetch(self):
+        params = values.of({})
+        
         return self._domain.fetch(
             RecordingInstance,
             self._instance_kwargs,
             'GET',
             self._uri,
+            params=params,
         )
 
     def delete(self):

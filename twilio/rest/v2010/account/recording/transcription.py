@@ -42,8 +42,12 @@ class TranscriptionList(ListResource):
             params=params,
         )
 
-    def page(self, page_token=None, page=None, page_size=None, **kwargs):
-        params = values.of({})
+    def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
+        params = values.of({
+            "PageToken": page_token,
+            "Page": page_number,
+            "PageSize": page_size,
+        })
         params.update(kwargs)
         
         return self._domain.page(
@@ -70,11 +74,14 @@ class TranscriptionContext(InstanceContext):
         self._uri = "/Accounts/{account_sid}/Recordings/{recording_sid}/Transcriptions/{sid}.json".format(**self._instance_kwargs)
 
     def fetch(self):
+        params = values.of({})
+        
         return self._domain.fetch(
             TranscriptionInstance,
             self._instance_kwargs,
             'GET',
             self._uri,
+            params=params,
         )
 
     def delete(self):

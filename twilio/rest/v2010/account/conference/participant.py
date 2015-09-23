@@ -44,10 +44,13 @@ class ParticipantList(ListResource):
             params=params,
         )
 
-    def page(self, muted=values.unset, page_token=None, page=None, page_size=None,
-             **kwargs):
+    def page(self, muted=values.unset, page_token=None, page_number=None,
+             page_size=None, **kwargs):
         params = values.of({
             "Muted": muted,
+            "PageToken": page_token,
+            "Page": page_number,
+            "PageSize": page_size,
         })
         params.update(kwargs)
         
@@ -75,11 +78,14 @@ class ParticipantContext(InstanceContext):
         self._uri = "/Accounts/{account_sid}/Conferences/{conference_sid}/Participants/{call_sid}.json".format(**self._instance_kwargs)
 
     def fetch(self):
+        params = values.of({})
+        
         return self._domain.fetch(
             ParticipantInstance,
             self._instance_kwargs,
             'GET',
             self._uri,
+            params=params,
         )
 
     def update(self, muted):

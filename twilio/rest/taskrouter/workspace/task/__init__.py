@@ -55,7 +55,7 @@ class TaskList(ListResource):
     def page(self, priority=values.unset, assignment_status=values.unset,
              workflow_sid=values.unset, workflow_name=values.unset,
              task_queue_sid=values.unset, task_queue_name=values.unset,
-             page_token=None, page=None, page_size=None, **kwargs):
+             page_token=None, page_number=None, page_size=None, **kwargs):
         params = values.of({
             "Priority": priority,
             "AssignmentStatus": assignment_status,
@@ -63,6 +63,9 @@ class TaskList(ListResource):
             "WorkflowName": workflow_name,
             "TaskQueueSid": task_queue_sid,
             "TaskQueueName": task_queue_name,
+            "PageToken": page_token,
+            "Page": page_number,
+            "PageSize": page_size,
         })
         params.update(kwargs)
         
@@ -109,11 +112,14 @@ class TaskContext(InstanceContext):
         self._reservations = None
 
     def fetch(self):
+        params = values.of({})
+        
         return self._domain.fetch(
             TaskInstance,
             self._instance_kwargs,
             'GET',
             self._uri,
+            params=params,
         )
 
     def update(self, attributes=values.unset, assignment_status=values.unset,

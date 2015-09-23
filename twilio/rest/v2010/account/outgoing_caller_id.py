@@ -46,10 +46,13 @@ class OutgoingCallerIdList(ListResource):
         )
 
     def page(self, phone_number=values.unset, friendly_name=values.unset,
-             page_token=None, page=None, page_size=None, **kwargs):
+             page_token=None, page_number=None, page_size=None, **kwargs):
         params = values.of({
             "PhoneNumber": phone_number,
             "FriendlyName": friendly_name,
+            "PageToken": page_token,
+            "Page": page_number,
+            "PageSize": page_size,
         })
         params.update(kwargs)
         
@@ -96,11 +99,14 @@ class OutgoingCallerIdContext(InstanceContext):
         self._uri = "/Accounts/{account_sid}/OutgoingCallerIds/{sid}.json".format(**self._instance_kwargs)
 
     def fetch(self):
+        params = values.of({})
+        
         return self._domain.fetch(
             OutgoingCallerIdInstance,
             self._instance_kwargs,
             'GET',
             self._uri,
+            params=params,
         )
 
     def update(self, friendly_name=values.unset):

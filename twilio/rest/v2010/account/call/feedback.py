@@ -39,11 +39,14 @@ class FeedbackContext(InstanceContext):
         )
 
     def fetch(self):
+        params = values.of({})
+        
         return self._domain.fetch(
             FeedbackInstance,
             self._instance_kwargs,
             'GET',
             self._uri,
+            params=params,
         )
 
     def update(self, quality_score, issue=values.unset):

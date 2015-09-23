@@ -78,10 +78,13 @@ class ApplicationList(ListResource):
             params=params,
         )
 
-    def page(self, friendly_name=values.unset, page_token=None, page=None,
+    def page(self, friendly_name=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
         params = values.of({
             "FriendlyName": friendly_name,
+            "PageToken": page_token,
+            "Page": page_number,
+            "PageSize": page_size,
         })
         params.update(kwargs)
         
@@ -111,11 +114,14 @@ class ApplicationContext(InstanceContext):
         return self._domain.delete("delete", self._uri)
 
     def fetch(self):
+        params = values.of({})
+        
         return self._domain.fetch(
             ApplicationInstance,
             self._instance_kwargs,
             'GET',
             self._uri,
+            params=params,
         )
 
     def update(self, friendly_name=values.unset, api_version=values.unset,

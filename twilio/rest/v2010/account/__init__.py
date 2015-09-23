@@ -76,10 +76,13 @@ class AccountList(ListResource):
         )
 
     def page(self, friendly_name=values.unset, status=values.unset, page_token=None,
-             page=None, page_size=None, **kwargs):
+             page_number=None, page_size=None, **kwargs):
         params = values.of({
             "FriendlyName": friendly_name,
             "Status": status,
+            "PageToken": page_token,
+            "Page": page_number,
+            "PageSize": page_size,
         })
         params.update(kwargs)
         
@@ -126,11 +129,14 @@ class AccountContext(InstanceContext):
         self._usage = None
 
     def fetch(self):
+        params = values.of({})
+        
         return self._domain.fetch(
             AccountInstance,
             self._instance_kwargs,
             'GET',
             self._uri,
+            params=params,
         )
 
     def update(self, friendly_name=values.unset, status=values.unset):

@@ -44,10 +44,13 @@ class CredentialList(ListResource):
             params=params,
         )
 
-    def page(self, sip_credential_list_sid, page_token=None, page=None,
+    def page(self, sip_credential_list_sid, page_token=None, page_number=None,
              page_size=None, **kwargs):
         params = values.of({
             "SipCredentialListSid": sip_credential_list_sid,
+            "PageToken": page_token,
+            "Page": page_number,
+            "PageSize": page_size,
         })
         params.update(kwargs)
         
@@ -90,11 +93,16 @@ class CredentialContext(InstanceContext):
         self._uri = "/Accounts/{account_sid}/SIP/CredentialLists/{credential_list_sid}/Credentials/{sid}.json".format(**self._instance_kwargs)
 
     def fetch(self, sip_credential_list_sid):
+        params = values.of({
+            "SipCredentialListSid": sip_credential_list_sid,
+        })
+        
         return self._domain.fetch(
             CredentialInstance,
             self._instance_kwargs,
             'GET',
             self._uri,
+            params=params,
         )
 
     def update(self, sip_credential_list_sid, username, password):

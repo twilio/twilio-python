@@ -99,7 +99,7 @@ class CallList(ListResource):
              start_time_before=values.unset, start_time=values.unset,
              start_time_after=values.unset, end_time_before=values.unset,
              end_time=values.unset, end_time_after=values.unset, page_token=None,
-             page=None, page_size=None, **kwargs):
+             page_number=None, page_size=None, **kwargs):
         params = values.of({
             "To": to,
             "From": from_,
@@ -111,6 +111,9 @@ class CallList(ListResource):
             "EndTime<": serialize.iso8601_date(end_time_before),
             "EndTime": serialize.iso8601_date(end_time),
             "EndTime>": serialize.iso8601_date(end_time_after),
+            "PageToken": page_token,
+            "Page": page_number,
+            "PageSize": page_size,
         })
         params.update(kwargs)
         
@@ -151,11 +154,14 @@ class CallContext(InstanceContext):
         return self._domain.delete("delete", self._uri)
 
     def fetch(self):
+        params = values.of({})
+        
         return self._domain.fetch(
             CallInstance,
             self._instance_kwargs,
             'GET',
             self._uri,
+            params=params,
         )
 
     def update(self, url=values.unset, method=values.unset, status=values.unset,

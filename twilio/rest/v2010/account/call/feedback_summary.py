@@ -57,11 +57,14 @@ class FeedbackSummaryContext(InstanceContext):
         self._uri = "/Accounts/{account_sid}/Calls/FeedbackSummary/{sid}.json".format(**self._instance_kwargs)
 
     def fetch(self):
+        params = values.of({})
+        
         return self._domain.fetch(
             FeedbackSummaryInstance,
             self._instance_kwargs,
             'GET',
             self._uri,
+            params=params,
         )
 
     def delete(self):

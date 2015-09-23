@@ -73,7 +73,7 @@ class MessageList(ListResource):
 
     def page(self, to=values.unset, from_=values.unset,
              date_sent_before=values.unset, date_sent=values.unset,
-             date_sent_after=values.unset, page_token=None, page=None,
+             date_sent_after=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
         params = values.of({
             "To": to,
@@ -81,6 +81,9 @@ class MessageList(ListResource):
             "DateSent<": serialize.iso8601_date(date_sent_before),
             "DateSent": serialize.iso8601_date(date_sent),
             "DateSent>": serialize.iso8601_date(date_sent_after),
+            "PageToken": page_token,
+            "Page": page_number,
+            "PageSize": page_size,
         })
         params.update(kwargs)
         
@@ -113,11 +116,14 @@ class MessageContext(InstanceContext):
         return self._domain.delete("delete", self._uri)
 
     def fetch(self):
+        params = values.of({})
+        
         return self._domain.fetch(
             MessageInstance,
             self._instance_kwargs,
             'GET',
             self._uri,
+            params=params,
         )
 
     def update(self, body=values.unset):

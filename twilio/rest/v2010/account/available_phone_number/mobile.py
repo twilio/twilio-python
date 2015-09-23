@@ -43,10 +43,13 @@ class MobileList(ListResource):
             params=params,
         )
 
-    def page(self, beta=values.unset, page_token=None, page=None, page_size=None,
-             **kwargs):
+    def page(self, beta=values.unset, page_token=None, page_number=None,
+             page_size=None, **kwargs):
         params = values.of({
             "Beta": beta,
+            "PageToken": page_token,
+            "Page": page_number,
+            "PageSize": page_size,
         })
         params.update(kwargs)
         

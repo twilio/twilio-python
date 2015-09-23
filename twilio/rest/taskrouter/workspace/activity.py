@@ -46,10 +46,13 @@ class ActivityList(ListResource):
         )
 
     def page(self, friendly_name=values.unset, available=values.unset,
-             page_token=None, page=None, page_size=None, **kwargs):
+             page_token=None, page_number=None, page_size=None, **kwargs):
         params = values.of({
             "FriendlyName": friendly_name,
             "Available": available,
+            "PageToken": page_token,
+            "Page": page_number,
+            "PageSize": page_size,
         })
         params.update(kwargs)
         
@@ -90,11 +93,14 @@ class ActivityContext(InstanceContext):
         self._uri = "/Workspaces/{workspace_sid}/Activities/{sid}".format(**self._instance_kwargs)
 
     def fetch(self):
+        params = values.of({})
+        
         return self._domain.fetch(
             ActivityInstance,
             self._instance_kwargs,
             'GET',
             self._uri,
+            params=params,
         )
 
     def update(self, friendly_name):

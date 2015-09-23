@@ -68,12 +68,15 @@ class AddressList(ListResource):
         )
 
     def page(self, customer_name=values.unset, friendly_name=values.unset,
-             iso_country=values.unset, page_token=None, page=None, page_size=None,
-             **kwargs):
+             iso_country=values.unset, page_token=None, page_number=None,
+             page_size=None, **kwargs):
         params = values.of({
             "CustomerName": customer_name,
             "FriendlyName": friendly_name,
             "IsoCountry": iso_country,
+            "PageToken": page_token,
+            "Page": page_number,
+            "PageSize": page_size,
         })
         params.update(kwargs)
         
@@ -106,11 +109,14 @@ class AddressContext(InstanceContext):
         return self._domain.delete("delete", self._uri)
 
     def fetch(self):
+        params = values.of({})
+        
         return self._domain.fetch(
             AddressInstance,
             self._instance_kwargs,
             'GET',
             self._uri,
+            params=params,
         )
 
     def update(self, friendly_name=values.unset, customer_name=values.unset,

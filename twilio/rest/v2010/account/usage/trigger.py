@@ -68,12 +68,15 @@ class TriggerList(ListResource):
         )
 
     def page(self, recurring=values.unset, trigger_by=values.unset,
-             usage_category=values.unset, page_token=None, page=None,
+             usage_category=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
         params = values.of({
             "Recurring": recurring,
             "TriggerBy": trigger_by,
             "UsageCategory": usage_category,
+            "PageToken": page_token,
+            "Page": page_number,
+            "PageSize": page_size,
         })
         params.update(kwargs)
         
@@ -100,11 +103,14 @@ class TriggerContext(InstanceContext):
         self._uri = "/Accounts/{account_sid}/Usage/Triggers/{sid}.json".format(**self._instance_kwargs)
 
     def fetch(self):
+        params = values.of({})
+        
         return self._domain.fetch(
             TriggerInstance,
             self._instance_kwargs,
             'GET',
             self._uri,
+            params=params,
         )
 
     def update(self, callback_method=values.unset, callback_url=values.unset,

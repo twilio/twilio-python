@@ -23,11 +23,17 @@ class PhoneNumberContext(InstanceContext):
         self._uri = "/PhoneNumbers/{phone_number}".format(**self._instance_kwargs)
 
     def fetch(self, country_code=values.unset, type=values.unset):
+        params = values.of({
+            "CountryCode": country_code,
+            "Type": type,
+        })
+        
         return self._domain.fetch(
             PhoneNumberInstance,
             self._instance_kwargs,
             'GET',
             self._uri,
+            params=params,
         )
 
 

@@ -50,12 +50,15 @@ class StatisticsList(ListResource):
 
     def page(self, end_date=values.unset, friendly_name=values.unset,
              minutes=values.unset, start_date=values.unset, page_token=None,
-             page=None, page_size=None, **kwargs):
+             page_number=None, page_size=None, **kwargs):
         params = values.of({
             "EndDate": serialize.iso8601_date(end_date),
             "FriendlyName": friendly_name,
             "Minutes": minutes,
             "StartDate": serialize.iso8601_date(start_date),
+            "PageToken": page_token,
+            "Page": page_number,
+            "PageSize": page_size,
         })
         params.update(kwargs)
         

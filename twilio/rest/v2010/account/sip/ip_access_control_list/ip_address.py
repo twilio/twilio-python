@@ -42,8 +42,12 @@ class IpAddressList(ListResource):
             params=params,
         )
 
-    def page(self, page_token=None, page=None, page_size=None, **kwargs):
-        params = values.of({})
+    def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
+        params = values.of({
+            "PageToken": page_token,
+            "Page": page_number,
+            "PageSize": page_size,
+        })
         params.update(kwargs)
         
         return self._domain.page(
@@ -84,11 +88,14 @@ class IpAddressContext(InstanceContext):
         self._uri = "/Accounts/{account_sid}/SIP/IpAccessControlLists/{ip_access_control_list_sid}/IpAddresses/{sid}.json".format(**self._instance_kwargs)
 
     def fetch(self):
+        params = values.of({})
+        
         return self._domain.fetch(
             IpAddressInstance,
             self._instance_kwargs,
             'GET',
             self._uri,
+            params=params,
         )
 
     def update(self, ip_address, friendly_name):

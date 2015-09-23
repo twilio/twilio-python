@@ -40,8 +40,12 @@ class InProgressList(ListResource):
             params=params,
         )
 
-    def page(self, page_token=None, page=None, page_size=None, **kwargs):
-        params = values.of({})
+    def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
+        params = values.of({
+            "PageToken": page_token,
+            "Page": page_number,
+            "PageSize": page_size,
+        })
         params.update(kwargs)
         
         return self._domain.page(

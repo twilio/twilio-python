@@ -49,10 +49,13 @@ class WorkspaceList(ListResource):
             params=params,
         )
 
-    def page(self, friendly_name=values.unset, page_token=None, page=None,
+    def page(self, friendly_name=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
         params = values.of({
             "FriendlyName": friendly_name,
+            "PageToken": page_token,
+            "Page": page_number,
+            "PageSize": page_size,
         })
         params.update(kwargs)
         
@@ -103,11 +106,14 @@ class WorkspaceContext(InstanceContext):
         self._statistics = None
 
     def fetch(self):
+        params = values.of({})
+        
         return self._domain.fetch(
             WorkspaceInstance,
             self._instance_kwargs,
             'GET',
             self._uri,
+            params=params,
         )
 
     def update(self, default_activity_sid=values.unset,

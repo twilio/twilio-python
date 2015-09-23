@@ -60,7 +60,7 @@ class WorkerList(ListResource):
     def page(self, activity_name=values.unset, activity_sid=values.unset,
              available=values.unset, friendly_name=values.unset,
              target_workers_expression=values.unset, task_queue_name=values.unset,
-             task_queue_sid=values.unset, page_token=None, page=None,
+             task_queue_sid=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
         params = values.of({
             "ActivityName": activity_name,
@@ -70,6 +70,9 @@ class WorkerList(ListResource):
             "TargetWorkersExpression": target_workers_expression,
             "TaskQueueName": task_queue_name,
             "TaskQueueSid": task_queue_sid,
+            "PageToken": page_token,
+            "Page": page_number,
+            "PageSize": page_size,
         })
         params.update(kwargs)
         
@@ -121,11 +124,14 @@ class WorkerContext(InstanceContext):
         self._statistics = None
 
     def fetch(self):
+        params = values.of({})
+        
         return self._domain.fetch(
             WorkerInstance,
             self._instance_kwargs,
             'GET',
             self._uri,
+            params=params,
         )
 
     def update(self, activity_sid=values.unset, attributes=values.unset,

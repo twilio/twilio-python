@@ -74,7 +74,7 @@ class RecordList(ListResource):
     def page(self, category=values.unset, start_date_before=values.unset,
              start_date=values.unset, start_date_after=values.unset,
              end_date_before=values.unset, end_date=values.unset,
-             end_date_after=values.unset, page_token=None, page=None,
+             end_date_after=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
         params = values.of({
             "Category": category,
@@ -84,6 +84,9 @@ class RecordList(ListResource):
             "EndDate<": serialize.iso8601_date(end_date_before),
             "EndDate": serialize.iso8601_date(end_date),
             "EndDate>": serialize.iso8601_date(end_date_after),
+            "PageToken": page_token,
+            "Page": page_number,
+            "PageSize": page_size,
         })
         params.update(kwargs)
         

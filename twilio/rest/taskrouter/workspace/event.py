@@ -60,8 +60,8 @@ class EventList(ListResource):
              minutes=values.unset, reservation_sid=values.unset,
              start_date=values.unset, task_queue_sid=values.unset,
              task_sid=values.unset, worker_sid=values.unset,
-             workflow_sid=values.unset, page_token=None, page=None, page_size=None,
-             **kwargs):
+             workflow_sid=values.unset, page_token=None, page_number=None,
+             page_size=None, **kwargs):
         params = values.of({
             "EndDate": serialize.iso8601_date(end_date),
             "EventType": event_type,
@@ -72,6 +72,9 @@ class EventList(ListResource):
             "TaskSid": task_sid,
             "WorkerSid": worker_sid,
             "WorkflowSid": workflow_sid,
+            "PageToken": page_token,
+            "Page": page_number,
+            "PageSize": page_size,
         })
         params.update(kwargs)
         
@@ -98,11 +101,14 @@ class EventContext(InstanceContext):
         self._uri = "/Workspaces/{workspace_sid}/Events/{sid}".format(**self._instance_kwargs)
 
     def fetch(self):
+        params = values.of({})
+        
         return self._domain.fetch(
             EventInstance,
             self._instance_kwargs,
             'GET',
             self._uri,
+            params=params,
         )
 
 

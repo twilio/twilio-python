@@ -24,11 +24,14 @@ class SandboxContext(InstanceContext):
         self._uri = "/Accounts/{account_sid}/Sandbox.json".format(**self._instance_kwargs)
 
     def fetch(self):
+        params = values.of({})
+        
         return self._domain.fetch(
             SandboxInstance,
             self._instance_kwargs,
             'GET',
             self._uri,
+            params=params,
         )
 
     def update(self, voice_url=values.unset, voice_method=values.unset,

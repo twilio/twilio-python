@@ -51,12 +51,15 @@ class NotificationList(ListResource):
 
     def page(self, log=values.unset, message_date_before=values.unset,
              message_date=values.unset, message_date_after=values.unset,
-             page_token=None, page=None, page_size=None, **kwargs):
+             page_token=None, page_number=None, page_size=None, **kwargs):
         params = values.of({
             "Log": log,
             "MessageDate<": serialize.iso8601_date(message_date_before),
             "MessageDate": serialize.iso8601_date(message_date),
             "MessageDate>": serialize.iso8601_date(message_date_after),
+            "PageToken": page_token,
+            "Page": page_number,
+            "PageSize": page_size,
         })
         params.update(kwargs)
         
@@ -83,11 +86,14 @@ class NotificationContext(InstanceContext):
         self._uri = "/Accounts/{account_sid}/Notifications/{sid}.json".format(**self._instance_kwargs)
 
     def fetch(self):
+        params = values.of({})
+        
         return self._domain.fetch(
             NotificationInstance,
             self._instance_kwargs,
             'GET',
             self._uri,
+            params=params,
         )
 
     def delete(self):

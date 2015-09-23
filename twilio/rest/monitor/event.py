@@ -61,7 +61,7 @@ class EventList(ListResource):
              event_type=values.unset, resource_sid=values.unset,
              source_ip_address=values.unset, start_date_before=values.unset,
              start_date=values.unset, start_date_after=values.unset,
-             page_token=None, page=None, page_size=None, **kwargs):
+             page_token=None, page_number=None, page_size=None, **kwargs):
         params = values.of({
             "ActorSid": actor_sid,
             "EndDate<": serialize.iso8601_date(end_date_before),
@@ -73,6 +73,9 @@ class EventList(ListResource):
             "StartDate<": serialize.iso8601_date(start_date_before),
             "StartDate": serialize.iso8601_date(start_date),
             "StartDate>": serialize.iso8601_date(start_date_after),
+            "PageToken": page_token,
+            "Page": page_number,
+            "PageSize": page_size,
         })
         params.update(kwargs)
         
@@ -98,11 +101,14 @@ class EventContext(InstanceContext):
         self._uri = "/Events/{sid}".format(**self._instance_kwargs)
 
     def fetch(self):
+        params = values.of({})
+        
         return self._domain.fetch(
             EventInstance,
             self._instance_kwargs,
             'GET',
             self._uri,
+            params=params,
         )
 
 

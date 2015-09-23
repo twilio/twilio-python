@@ -46,10 +46,13 @@ class ShortCodeList(ListResource):
         )
 
     def page(self, friendly_name=values.unset, short_code=values.unset,
-             page_token=None, page=None, page_size=None, **kwargs):
+             page_token=None, page_number=None, page_size=None, **kwargs):
         params = values.of({
             "FriendlyName": friendly_name,
             "ShortCode": short_code,
+            "PageToken": page_token,
+            "Page": page_number,
+            "PageSize": page_size,
         })
         params.update(kwargs)
         
@@ -76,11 +79,14 @@ class ShortCodeContext(InstanceContext):
         self._uri = "/Accounts/{account_sid}/SMS/ShortCodes/{sid}.json".format(**self._instance_kwargs)
 
     def fetch(self):
+        params = values.of({})
+        
         return self._domain.fetch(
             ShortCodeInstance,
             self._instance_kwargs,
             'GET',
             self._uri,
+            params=params,
         )
 
     def update(self, friendly_name=values.unset, api_version=values.unset,
