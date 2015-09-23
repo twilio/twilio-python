@@ -3,6 +3,15 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 4.6.0
+-------------
+
+Released September 23, 2015:
+
+- Allow fetching TaskRouter reservations by Worker
+- Add missing Enqueue->Task TwiML generation
+- Add Worflow construction
+
 Version 4.5.0
 -------------
 
