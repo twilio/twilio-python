@@ -10,7 +10,7 @@ def get_cert_file():
         # Apparently __file__ is not available in all places so wrapping this
         # in a try/catch
         current_path = os.path.realpath(__file__)
-        ca_cert_path = os.path.join(current_path, "..", "conf", "cacert.pem")
+        ca_cert_path = os.path.join(current_path, '..', '..', 'conf', 'cacert.pem')
         return os.path.abspath(ca_cert_path)
     except Exception:
         # None means use the default system file

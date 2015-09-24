@@ -5,6 +5,30 @@ from twilio.rest.page import Page
 
 
 class Domain(object):
+    def __init__(self, twilio):
+        """
+        :param Twilio twilio:
+        :return:
+        """
+        self.twilio = twilio
+        self.base_url = None
+
+    def request(self, method, uri, params=None, data=None, headers=None,
+                auth=None, timeout=None, allow_redirects=False):
+        url = '{}/{}'.format(self.base_url.strip('/'), uri.strip('/'))
+        return self.twilio.request(
+            method,
+            url,
+            params=params,
+            data=data,
+            headers=headers,
+            auth=auth,
+            timeout=timeout,
+            allow_redirects=allow_redirects
+        )
+
+
+class Version(object):
     MAX_PAGE_SIZE = 1000
 
     META_KEYS = {
@@ -21,18 +45,18 @@ class Domain(object):
         'uri'
     }
 
-    def __init__(self, twilio):
+    def __init__(self, domain):
         """
-        :param Twilio twilio:
+        :param Domain domain:
         :return:
         """
-        self.twilio = twilio
-        self.base_url = None
+        self.domain = domain
+        self.version = None
 
     def request(self, method, uri, params=None, data=None, headers=None,
                 auth=None, timeout=None, allow_redirects=False):
-        url = '{}/{}'.format(self.base_url.rstrip('/'), uri.lstrip('/'))
-        return self.twilio.request(
+        url = '{}/{}'.format(self.version.strip('/'), uri.strip('/'))
+        return self.domain.request(
             method,
             url,
             params=params,
@@ -64,7 +88,7 @@ class Domain(object):
         return instance(self, payload, **instance_kwargs)
 
     def update(self, instance, instance_kwargs, method, uri, params=None, data=None, headers=None,
-              auth=None, timeout=None, allow_redirects=False):
+               auth=None, timeout=None, allow_redirects=False):
         response = self.request(
             method,
             uri,
@@ -197,27 +221,27 @@ class Domain(object):
 
 
 class ListResource(object):
-    def __init__(self, domain):
+    def __init__(self, version):
         """
-        :param Domain domain:
+        :param Version version:
         """
-        self._domain = domain
-        """ :type: Domain """
+        self._version = version
+        """ :type: Version """
 
 
 class InstanceContext(object):
-    def __init__(self, domain):
+    def __init__(self, version):
         """
-        :param Domain domain:
+        :param Version version:
         """
-        self._domain = domain
-        """ :type: Domain """
+        self._version = version
+        """ :type: Version """
 
 
 class InstanceResource(object):
-    def __init__(self, domain):
+    def __init__(self, version):
         """
-        :param Domain domain:
+        :param Version version:
         """
-        self._domain = domain
-        """ :type: Domain """
+        self._version = version
+        """ :type: Version """
