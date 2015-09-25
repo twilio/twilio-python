@@ -32,13 +32,13 @@ class MobileList(ListResource):
             'account_sid': account_sid,
             'country_code': country_code,
         }
-        self._uri = "/Accounts/{account_sid}/AvailablePhoneNumbers/{country_code}/Mobile.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/AvailablePhoneNumbers/{country_code}/Mobile.json'.format(**self._kwargs)
 
     def read(self, beta=values.unset, limit=None, page_size=None, **kwargs):
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
-            "Beta": beta,
+            'Beta': beta,
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
@@ -57,7 +57,7 @@ class MobileList(ListResource):
     def page(self, beta=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
         params = values.of({
-            "Beta": beta,
+            'Beta': beta,
             "PageToken": page_token,
             "Page": page_number,
             "PageSize": page_size,

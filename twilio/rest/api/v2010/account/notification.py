@@ -32,15 +32,15 @@ class NotificationList(ListResource):
         self._kwargs = {
             'account_sid': account_sid,
         }
-        self._uri = "/Accounts/{account_sid}/Notifications".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Notifications'.format(**self._kwargs)
 
     def read(self, log=values.unset, message_date=values.unset, limit=None,
              page_size=None, **kwargs):
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
-            "Log": log,
-            "MessageDate": serialize.iso8601_date(message_date),
+            'Log': log,
+            'MessageDate': serialize.iso8601_date(message_date),
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
@@ -59,8 +59,8 @@ class NotificationList(ListResource):
     def page(self, log=values.unset, message_date=values.unset, page_token=None,
              page_number=None, page_size=None, **kwargs):
         params = values.of({
-            "Log": log,
-            "MessageDate": serialize.iso8601_date(message_date),
+            'Log': log,
+            'MessageDate': serialize.iso8601_date(message_date),
             "PageToken": page_token,
             "Page": page_number,
             "PageSize": page_size,

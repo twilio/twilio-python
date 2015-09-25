@@ -31,19 +31,19 @@ class TriggerList(ListResource):
         self._kwargs = {
             'account_sid': account_sid,
         }
-        self._uri = "/Accounts/{account_sid}/Usage/Triggers.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Usage/Triggers.json'.format(**self._kwargs)
 
     def create(self, callback_url, trigger_value, usage_category,
                callback_method=values.unset, friendly_name=values.unset,
                recurring=values.unset, trigger_by=values.unset):
         data = values.of({
-            "CallbackUrl": callback_url,
-            "TriggerValue": trigger_value,
-            "UsageCategory": usage_category,
-            "CallbackMethod": callback_method,
-            "FriendlyName": friendly_name,
-            "Recurring": recurring,
-            "TriggerBy": trigger_by,
+            'CallbackUrl': callback_url,
+            'TriggerValue': trigger_value,
+            'UsageCategory': usage_category,
+            'CallbackMethod': callback_method,
+            'FriendlyName': friendly_name,
+            'Recurring': recurring,
+            'TriggerBy': trigger_by,
         })
         
         return self._version.create(
@@ -59,9 +59,9 @@ class TriggerList(ListResource):
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
-            "Recurring": recurring,
-            "TriggerBy": trigger_by,
-            "UsageCategory": usage_category,
+            'Recurring': recurring,
+            'TriggerBy': trigger_by,
+            'UsageCategory': usage_category,
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
@@ -81,9 +81,9 @@ class TriggerList(ListResource):
              usage_category=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
         params = values.of({
-            "Recurring": recurring,
-            "TriggerBy": trigger_by,
-            "UsageCategory": usage_category,
+            'Recurring': recurring,
+            'TriggerBy': trigger_by,
+            'UsageCategory': usage_category,
             "PageToken": page_token,
             "Page": page_number,
             "PageSize": page_size,
@@ -146,9 +146,9 @@ class TriggerContext(InstanceContext):
     def update(self, callback_method=values.unset, callback_url=values.unset,
                friendly_name=values.unset):
         data = values.of({
-            "CallbackMethod": callback_method,
-            "CallbackUrl": callback_url,
-            "FriendlyName": friendly_name,
+            'CallbackMethod': callback_method,
+            'CallbackUrl': callback_url,
+            'FriendlyName': friendly_name,
         })
         
         return self._version.update(

@@ -30,7 +30,7 @@ class StatisticsList(ListResource):
         self._kwargs = {
             'workspace_sid': workspace_sid,
         }
-        self._uri = "/Workspaces/{workspace_sid}/TaskQueues/Statistics".format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/TaskQueues/Statistics'.format(**self._kwargs)
 
     def read(self, end_date=values.unset, friendly_name=values.unset,
              minutes=values.unset, start_date=values.unset, limit=None,
@@ -38,10 +38,10 @@ class StatisticsList(ListResource):
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
-            "EndDate": end_date,
-            "FriendlyName": friendly_name,
-            "Minutes": minutes,
-            "StartDate": start_date,
+            'EndDate': end_date,
+            'FriendlyName': friendly_name,
+            'Minutes': minutes,
+            'StartDate': start_date,
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
@@ -61,10 +61,10 @@ class StatisticsList(ListResource):
              minutes=values.unset, start_date=values.unset, page_token=None,
              page_number=None, page_size=None, **kwargs):
         params = values.of({
-            "EndDate": end_date,
-            "FriendlyName": friendly_name,
-            "Minutes": minutes,
-            "StartDate": start_date,
+            'EndDate': end_date,
+            'FriendlyName': friendly_name,
+            'Minutes': minutes,
+            'StartDate': start_date,
             "PageToken": page_token,
             "Page": page_number,
             "PageSize": page_size,

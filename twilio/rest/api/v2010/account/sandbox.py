@@ -38,12 +38,12 @@ class SandboxContext(InstanceContext):
                sms_url=values.unset, sms_method=values.unset,
                status_callback=values.unset, status_callback_method=values.unset):
         data = values.of({
-            "VoiceUrl": voice_url,
-            "VoiceMethod": voice_method,
-            "SmsUrl": sms_url,
-            "SmsMethod": sms_method,
-            "StatusCallback": status_callback,
-            "StatusCallbackMethod": status_callback_method,
+            'VoiceUrl': voice_url,
+            'VoiceMethod': voice_method,
+            'SmsUrl': sms_url,
+            'SmsMethod': sms_method,
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
         })
         
         return self._version.update(

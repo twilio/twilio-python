@@ -30,7 +30,7 @@ class ConnectAppList(ListResource):
         self._kwargs = {
             'account_sid': account_sid,
         }
-        self._uri = "/Accounts/{account_sid}/ConnectApps.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/ConnectApps.json'.format(**self._kwargs)
 
     def read(self, limit=None, page_size=None, **kwargs):
         limits = self._version.read_limits(limit, page_size)
@@ -118,14 +118,14 @@ class ConnectAppContext(InstanceContext):
                friendly_name=values.unset, homepage_url=values.unset,
                permissions=values.unset):
         data = values.of({
-            "AuthorizeRedirectUrl": authorize_redirect_url,
-            "CompanyName": company_name,
-            "DeauthorizeCallbackMethod": deauthorize_callback_method,
-            "DeauthorizeCallbackUrl": deauthorize_callback_url,
-            "Description": description,
-            "FriendlyName": friendly_name,
-            "HomepageUrl": homepage_url,
-            "Permissions": permissions,
+            'AuthorizeRedirectUrl': authorize_redirect_url,
+            'CompanyName': company_name,
+            'DeauthorizeCallbackMethod': deauthorize_callback_method,
+            'DeauthorizeCallbackUrl': deauthorize_callback_url,
+            'Description': description,
+            'FriendlyName': friendly_name,
+            'HomepageUrl': homepage_url,
+            'Permissions': permissions,
         })
         
         return self._version.update(

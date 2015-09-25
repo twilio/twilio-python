@@ -33,7 +33,7 @@ class MemberList(ListResource):
             'account_sid': account_sid,
             'queue_sid': queue_sid,
         }
-        self._uri = "/Accounts/{account_sid}/Queues/{queue_sid}/Members.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Queues/{queue_sid}/Members.json'.format(**self._kwargs)
 
     def read(self, limit=None, page_size=None, **kwargs):
         limits = self._version.read_limits(limit, page_size)
@@ -118,8 +118,8 @@ class MemberContext(InstanceContext):
 
     def update(self, url, method):
         data = values.of({
-            "Url": url,
-            "Method": method,
+            'Url': url,
+            'Method': method,
         })
         
         return self._version.update(

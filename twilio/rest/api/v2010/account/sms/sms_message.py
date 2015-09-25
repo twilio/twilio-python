@@ -32,18 +32,18 @@ class SmsMessageList(ListResource):
         self._kwargs = {
             'account_sid': account_sid,
         }
-        self._uri = "/Accounts/{account_sid}/SMS/Messages.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/SMS/Messages.json'.format(**self._kwargs)
 
     def create(self, to, from_, status_callback=values.unset,
                application_sid=values.unset, body=values.unset,
                media_url=values.unset):
         data = values.of({
-            "To": to,
-            "From": from_,
-            "Body": body,
-            "MediaUrl": media_url,
-            "StatusCallback": status_callback,
-            "ApplicationSid": application_sid,
+            'To': to,
+            'From': from_,
+            'Body': body,
+            'MediaUrl': media_url,
+            'StatusCallback': status_callback,
+            'ApplicationSid': application_sid,
         })
         
         return self._version.create(
@@ -59,9 +59,9 @@ class SmsMessageList(ListResource):
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
-            "To": to,
-            "From": from_,
-            "DateSent": serialize.iso8601_date(date_sent),
+            'To': to,
+            'From': from_,
+            'DateSent': serialize.iso8601_date(date_sent),
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
@@ -80,9 +80,9 @@ class SmsMessageList(ListResource):
     def page(self, to=values.unset, from_=values.unset, date_sent=values.unset,
              page_token=None, page_number=None, page_size=None, **kwargs):
         params = values.of({
-            "To": to,
-            "From": from_,
-            "DateSent": serialize.iso8601_date(date_sent),
+            'To': to,
+            'From': from_,
+            'DateSent': serialize.iso8601_date(date_sent),
             "PageToken": page_token,
             "Page": page_number,
             "PageSize": page_size,
@@ -147,7 +147,7 @@ class SmsMessageContext(InstanceContext):
 
     def update(self, body=values.unset):
         data = values.of({
-            "Body": body,
+            'Body': body,
         })
         
         return self._version.update(

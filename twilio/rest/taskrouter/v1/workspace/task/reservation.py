@@ -33,7 +33,7 @@ class ReservationList(ListResource):
             'workspace_sid': workspace_sid,
             'task_sid': task_sid,
         }
-        self._uri = "/Workspaces/{workspace_sid}/Tasks/{task_sid}/Reservations".format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/Tasks/{task_sid}/Reservations'.format(**self._kwargs)
 
     def read(self, limit=None, page_size=None, **kwargs):
         limits = self._version.read_limits(limit, page_size)
@@ -118,8 +118,8 @@ class ReservationContext(InstanceContext):
 
     def update(self, reservation_status, worker_activity_sid=values.unset):
         data = values.of({
-            "ReservationStatus": reservation_status,
-            "WorkerActivitySid": worker_activity_sid,
+            'ReservationStatus': reservation_status,
+            'WorkerActivitySid': worker_activity_sid,
         })
         
         return self._version.update(

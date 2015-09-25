@@ -33,13 +33,13 @@ class CredentialList(ListResource):
             'account_sid': account_sid,
             'credential_list_sid': credential_list_sid,
         }
-        self._uri = "/Accounts/{account_sid}/SIP/CredentialLists/{credential_list_sid}/Credentials.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/SIP/CredentialLists/{credential_list_sid}/Credentials.json'.format(**self._kwargs)
 
     def read(self, sip_credential_list_sid, limit=None, page_size=None, **kwargs):
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
-            "SipCredentialListSid": sip_credential_list_sid,
+            'SipCredentialListSid': sip_credential_list_sid,
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
@@ -58,7 +58,7 @@ class CredentialList(ListResource):
     def page(self, sip_credential_list_sid, page_token=None, page_number=None,
              page_size=None, **kwargs):
         params = values.of({
-            "SipCredentialListSid": sip_credential_list_sid,
+            'SipCredentialListSid': sip_credential_list_sid,
             "PageToken": page_token,
             "Page": page_number,
             "PageSize": page_size,
@@ -76,9 +76,9 @@ class CredentialList(ListResource):
 
     def create(self, sip_credential_list_sid, username, password):
         data = values.of({
-            "SipCredentialListSid": sip_credential_list_sid,
-            "Username": username,
-            "Password": password,
+            'SipCredentialListSid': sip_credential_list_sid,
+            'Username': username,
+            'Password': password,
         })
         
         return self._version.create(
@@ -125,7 +125,7 @@ class CredentialContext(InstanceContext):
 
     def fetch(self, sip_credential_list_sid):
         params = values.of({
-            "SipCredentialListSid": sip_credential_list_sid,
+            'SipCredentialListSid': sip_credential_list_sid,
         })
         
         return self._version.fetch(
@@ -138,9 +138,9 @@ class CredentialContext(InstanceContext):
 
     def update(self, sip_credential_list_sid, username, password):
         data = values.of({
-            "SipCredentialListSid": sip_credential_list_sid,
-            "Username": username,
-            "Password": password,
+            'SipCredentialListSid': sip_credential_list_sid,
+            'Username': username,
+            'Password': password,
         })
         
         return self._version.update(

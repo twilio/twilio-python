@@ -29,16 +29,16 @@ class AlertList(ListResource):
         
         # Path Solution
         self._kwargs = {}
-        self._uri = "/Alerts".format(**self._kwargs)
+        self._uri = '/Alerts'.format(**self._kwargs)
 
     def read(self, log_level=values.unset, start_date=values.unset,
              end_date=values.unset, limit=None, page_size=None, **kwargs):
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
-            "LogLevel": log_level,
-            "StartDate": serialize.iso8601_date(start_date),
-            "EndDate": serialize.iso8601_date(end_date),
+            'LogLevel': log_level,
+            'StartDate': serialize.iso8601_date(start_date),
+            'EndDate': serialize.iso8601_date(end_date),
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
@@ -58,9 +58,9 @@ class AlertList(ListResource):
              end_date=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
         params = values.of({
-            "LogLevel": log_level,
-            "StartDate": serialize.iso8601_date(start_date),
-            "EndDate": serialize.iso8601_date(end_date),
+            'LogLevel': log_level,
+            'StartDate': serialize.iso8601_date(start_date),
+            'EndDate': serialize.iso8601_date(end_date),
             "PageToken": page_token,
             "Page": page_number,
             "PageSize": page_size,

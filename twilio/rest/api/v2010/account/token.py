@@ -31,11 +31,11 @@ class TokenList(ListResource):
         self._kwargs = {
             'account_sid': account_sid,
         }
-        self._uri = "/Accounts/{account_sid}/Tokens.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Tokens.json'.format(**self._kwargs)
 
     def create(self, ttl=values.unset):
         data = values.of({
-            "Ttl": ttl,
+            'Ttl': ttl,
         })
         
         return self._version.create(

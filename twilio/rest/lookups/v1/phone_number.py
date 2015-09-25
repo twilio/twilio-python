@@ -24,8 +24,8 @@ class PhoneNumberContext(InstanceContext):
 
     def fetch(self, country_code=values.unset, type=values.unset):
         params = values.of({
-            "CountryCode": country_code,
-            "Type": type,
+            'CountryCode': country_code,
+            'Type': type,
         })
         
         return self._version.fetch(

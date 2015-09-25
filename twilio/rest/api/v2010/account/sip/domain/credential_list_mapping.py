@@ -33,11 +33,11 @@ class CredentialListMappingList(ListResource):
             'account_sid': account_sid,
             'domain_sid': domain_sid,
         }
-        self._uri = "/Accounts/{account_sid}/SIP/Domains/{domain_sid}/CredentialListMappings.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/SIP/Domains/{domain_sid}/CredentialListMappings.json'.format(**self._kwargs)
 
     def create(self, credential_list_sid):
         data = values.of({
-            "CredentialListSid": credential_list_sid,
+            'CredentialListSid': credential_list_sid,
         })
         
         return self._version.create(

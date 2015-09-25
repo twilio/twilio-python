@@ -33,7 +33,7 @@ class TaskQueueList(ListResource):
         self._kwargs = {
             'workspace_sid': workspace_sid,
         }
-        self._uri = "/Workspaces/{workspace_sid}/TaskQueues".format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/TaskQueues'.format(**self._kwargs)
         
         # Components
         self._statistics = None
@@ -44,8 +44,8 @@ class TaskQueueList(ListResource):
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
-            "FriendlyName": friendly_name,
-            "EvaluateWorkerAttributes": evaluate_worker_attributes,
+            'FriendlyName': friendly_name,
+            'EvaluateWorkerAttributes': evaluate_worker_attributes,
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
@@ -65,8 +65,8 @@ class TaskQueueList(ListResource):
              evaluate_worker_attributes=values.unset, page_token=None,
              page_number=None, page_size=None, **kwargs):
         params = values.of({
-            "FriendlyName": friendly_name,
-            "EvaluateWorkerAttributes": evaluate_worker_attributes,
+            'FriendlyName': friendly_name,
+            'EvaluateWorkerAttributes': evaluate_worker_attributes,
             "PageToken": page_token,
             "Page": page_number,
             "PageSize": page_size,
@@ -86,11 +86,11 @@ class TaskQueueList(ListResource):
                assignment_activity_sid, target_workers=values.unset,
                max_reserved_workers=values.unset):
         data = values.of({
-            "FriendlyName": friendly_name,
-            "ReservationActivitySid": reservation_activity_sid,
-            "AssignmentActivitySid": assignment_activity_sid,
-            "TargetWorkers": target_workers,
-            "MaxReservedWorkers": max_reserved_workers,
+            'FriendlyName': friendly_name,
+            'ReservationActivitySid': reservation_activity_sid,
+            'AssignmentActivitySid': assignment_activity_sid,
+            'TargetWorkers': target_workers,
+            'MaxReservedWorkers': max_reserved_workers,
         })
         
         return self._version.create(
@@ -159,11 +159,11 @@ class TaskQueueContext(InstanceContext):
                assignment_activity_sid=values.unset,
                max_reserved_workers=values.unset):
         data = values.of({
-            "FriendlyName": friendly_name,
-            "TargetWorkers": target_workers,
-            "ReservationActivitySid": reservation_activity_sid,
-            "AssignmentActivitySid": assignment_activity_sid,
-            "MaxReservedWorkers": max_reserved_workers,
+            'FriendlyName': friendly_name,
+            'TargetWorkers': target_workers,
+            'ReservationActivitySid': reservation_activity_sid,
+            'AssignmentActivitySid': assignment_activity_sid,
+            'MaxReservedWorkers': max_reserved_workers,
         })
         
         return self._version.update(

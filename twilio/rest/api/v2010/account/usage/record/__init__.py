@@ -40,7 +40,7 @@ class RecordList(ListResource):
         self._kwargs = {
             'account_sid': account_sid,
         }
-        self._uri = "/Accounts/{account_sid}/Usage/Records".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Usage/Records'.format(**self._kwargs)
         
         # Components
         self._all_time = None
@@ -57,9 +57,9 @@ class RecordList(ListResource):
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
-            "Category": category,
-            "StartDate": serialize.iso8601_date(start_date),
-            "EndDate": serialize.iso8601_date(end_date),
+            'Category': category,
+            'StartDate': serialize.iso8601_date(start_date),
+            'EndDate': serialize.iso8601_date(end_date),
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
@@ -79,9 +79,9 @@ class RecordList(ListResource):
              end_date=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
         params = values.of({
-            "Category": category,
-            "StartDate": serialize.iso8601_date(start_date),
-            "EndDate": serialize.iso8601_date(end_date),
+            'Category': category,
+            'StartDate': serialize.iso8601_date(start_date),
+            'EndDate': serialize.iso8601_date(end_date),
             "PageToken": page_token,
             "Page": page_number,
             "PageSize": page_size,

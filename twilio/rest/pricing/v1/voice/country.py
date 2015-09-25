@@ -27,7 +27,7 @@ class CountryList(ListResource):
         
         # Path Solution
         self._kwargs = {}
-        self._uri = "/Voice/Countries".format(**self._kwargs)
+        self._uri = '/Voice/Countries'.format(**self._kwargs)
 
     def read(self, limit=None, page_size=None, **kwargs):
         limits = self._version.read_limits(limit, page_size)

@@ -26,9 +26,9 @@ class StatisticsContext(InstanceContext):
     def fetch(self, minutes=values.unset, start_date=values.unset,
               end_date=values.unset):
         params = values.of({
-            "Minutes": minutes,
-            "StartDate": start_date,
-            "EndDate": end_date,
+            'Minutes': minutes,
+            'StartDate': start_date,
+            'EndDate': end_date,
         })
         
         return self._version.fetch(

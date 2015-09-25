@@ -36,7 +36,7 @@ class CallList(ListResource):
         self._kwargs = {
             'account_sid': account_sid,
         }
-        self._uri = "/Accounts/{account_sid}/Calls.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Calls.json'.format(**self._kwargs)
         
         # Components
         self._feedback_summaries = None
@@ -47,19 +47,19 @@ class CallList(ListResource):
                if_machine=values.unset, timeout=values.unset, record=values.unset,
                url=values.unset, application_sid=values.unset):
         data = values.of({
-            "To": to,
-            "From": from_,
-            "Url": url,
-            "ApplicationSid": application_sid,
-            "Method": method,
-            "FallbackUrl": fallback_url,
-            "FallbackMethod": fallback_method,
-            "StatusCallback": status_callback,
-            "StatusCallbackMethod": status_callback_method,
-            "SendDigits": send_digits,
-            "IfMachine": if_machine,
-            "Timeout": timeout,
-            "Record": record,
+            'To': to,
+            'From': from_,
+            'Url': url,
+            'ApplicationSid': application_sid,
+            'Method': method,
+            'FallbackUrl': fallback_url,
+            'FallbackMethod': fallback_method,
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
+            'SendDigits': send_digits,
+            'IfMachine': if_machine,
+            'Timeout': timeout,
+            'Record': record,
         })
         
         return self._version.create(
@@ -77,12 +77,12 @@ class CallList(ListResource):
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
-            "To": to,
-            "From": from_,
-            "ParentCallSid": parent_call_sid,
-            "Status": status,
-            "StartTime": serialize.iso8601_date(start_time),
-            "EndTime": serialize.iso8601_date(end_time),
+            'To': to,
+            'From': from_,
+            'ParentCallSid': parent_call_sid,
+            'Status': status,
+            'StartTime': serialize.iso8601_date(start_time),
+            'EndTime': serialize.iso8601_date(end_time),
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
@@ -103,12 +103,12 @@ class CallList(ListResource):
              start_time=values.unset, end_time=values.unset, page_token=None,
              page_number=None, page_size=None, **kwargs):
         params = values.of({
-            "To": to,
-            "From": from_,
-            "ParentCallSid": parent_call_sid,
-            "Status": status,
-            "StartTime": serialize.iso8601_date(start_time),
-            "EndTime": serialize.iso8601_date(end_time),
+            'To': to,
+            'From': from_,
+            'ParentCallSid': parent_call_sid,
+            'Status': status,
+            'StartTime': serialize.iso8601_date(start_time),
+            'EndTime': serialize.iso8601_date(end_time),
             "PageToken": page_token,
             "Page": page_number,
             "PageSize": page_size,
@@ -186,13 +186,13 @@ class CallContext(InstanceContext):
                fallback_url=values.unset, fallback_method=values.unset,
                status_callback=values.unset, status_callback_method=values.unset):
         data = values.of({
-            "Url": url,
-            "Method": method,
-            "Status": status,
-            "FallbackUrl": fallback_url,
-            "FallbackMethod": fallback_method,
-            "StatusCallback": status_callback,
-            "StatusCallbackMethod": status_callback_method,
+            'Url': url,
+            'Method': method,
+            'Status': status,
+            'FallbackUrl': fallback_url,
+            'FallbackMethod': fallback_method,
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
         })
         
         return self._version.update(

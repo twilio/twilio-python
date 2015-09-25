@@ -26,8 +26,8 @@ class FeedbackContext(InstanceContext):
 
     def create(self, quality_score, issue=values.unset):
         data = values.of({
-            "QualityScore": quality_score,
-            "Issue": issue,
+            'QualityScore': quality_score,
+            'Issue': issue,
         })
         
         return self._version.create(
@@ -51,8 +51,8 @@ class FeedbackContext(InstanceContext):
 
     def update(self, quality_score, issue=values.unset):
         data = values.of({
-            "QualityScore": quality_score,
-            "Issue": issue,
+            'QualityScore': quality_score,
+            'Issue': issue,
         })
         
         return self._version.update(

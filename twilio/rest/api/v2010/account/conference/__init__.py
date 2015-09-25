@@ -33,7 +33,7 @@ class ConferenceList(ListResource):
         self._kwargs = {
             'account_sid': account_sid,
         }
-        self._uri = "/Accounts/{account_sid}/Conferences.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Conferences.json'.format(**self._kwargs)
 
     def read(self, date_created=values.unset, date_updated=values.unset,
              friendly_name=values.unset, status=values.unset, limit=None,
@@ -41,10 +41,10 @@ class ConferenceList(ListResource):
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
-            "DateCreated": serialize.iso8601_date(date_created),
-            "DateUpdated": serialize.iso8601_date(date_updated),
-            "FriendlyName": friendly_name,
-            "Status": status,
+            'DateCreated': serialize.iso8601_date(date_created),
+            'DateUpdated': serialize.iso8601_date(date_updated),
+            'FriendlyName': friendly_name,
+            'Status': status,
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
@@ -64,10 +64,10 @@ class ConferenceList(ListResource):
              friendly_name=values.unset, status=values.unset, page_token=None,
              page_number=None, page_size=None, **kwargs):
         params = values.of({
-            "DateCreated": serialize.iso8601_date(date_created),
-            "DateUpdated": serialize.iso8601_date(date_updated),
-            "FriendlyName": friendly_name,
-            "Status": status,
+            'DateCreated': serialize.iso8601_date(date_created),
+            'DateUpdated': serialize.iso8601_date(date_updated),
+            'FriendlyName': friendly_name,
+            'Status': status,
             "PageToken": page_token,
             "Page": page_number,
             "PageSize": page_size,

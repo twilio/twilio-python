@@ -26,12 +26,12 @@ class StatisticsContext(InstanceContext):
               end_date=values.unset, task_queue_sid=values.unset,
               task_queue_name=values.unset, friendly_name=values.unset):
         params = values.of({
-            "Minutes": minutes,
-            "StartDate": start_date,
-            "EndDate": end_date,
-            "TaskQueueSid": task_queue_sid,
-            "TaskQueueName": task_queue_name,
-            "FriendlyName": friendly_name,
+            'Minutes': minutes,
+            'StartDate': start_date,
+            'EndDate': end_date,
+            'TaskQueueSid': task_queue_sid,
+            'TaskQueueName': task_queue_name,
+            'FriendlyName': friendly_name,
         })
         
         return self._version.fetch(

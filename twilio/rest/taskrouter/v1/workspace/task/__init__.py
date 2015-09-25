@@ -32,7 +32,7 @@ class TaskList(ListResource):
         self._kwargs = {
             'workspace_sid': workspace_sid,
         }
-        self._uri = "/Workspaces/{workspace_sid}/Tasks".format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/Tasks'.format(**self._kwargs)
 
     def read(self, priority=values.unset, assignment_status=values.unset,
              workflow_sid=values.unset, workflow_name=values.unset,
@@ -41,12 +41,12 @@ class TaskList(ListResource):
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
-            "Priority": priority,
-            "AssignmentStatus": assignment_status,
-            "WorkflowSid": workflow_sid,
-            "WorkflowName": workflow_name,
-            "TaskQueueSid": task_queue_sid,
-            "TaskQueueName": task_queue_name,
+            'Priority': priority,
+            'AssignmentStatus': assignment_status,
+            'WorkflowSid': workflow_sid,
+            'WorkflowName': workflow_name,
+            'TaskQueueSid': task_queue_sid,
+            'TaskQueueName': task_queue_name,
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
@@ -67,12 +67,12 @@ class TaskList(ListResource):
              task_queue_sid=values.unset, task_queue_name=values.unset,
              page_token=None, page_number=None, page_size=None, **kwargs):
         params = values.of({
-            "Priority": priority,
-            "AssignmentStatus": assignment_status,
-            "WorkflowSid": workflow_sid,
-            "WorkflowName": workflow_name,
-            "TaskQueueSid": task_queue_sid,
-            "TaskQueueName": task_queue_name,
+            'Priority': priority,
+            'AssignmentStatus': assignment_status,
+            'WorkflowSid': workflow_sid,
+            'WorkflowName': workflow_name,
+            'TaskQueueSid': task_queue_sid,
+            'TaskQueueName': task_queue_name,
             "PageToken": page_token,
             "Page": page_number,
             "PageSize": page_size,
@@ -91,10 +91,10 @@ class TaskList(ListResource):
     def create(self, attributes, workflow_sid, timeout=values.unset,
                priority=values.unset):
         data = values.of({
-            "Attributes": attributes,
-            "WorkflowSid": workflow_sid,
-            "Timeout": timeout,
-            "Priority": priority,
+            'Attributes': attributes,
+            'WorkflowSid': workflow_sid,
+            'Timeout': timeout,
+            'Priority': priority,
         })
         
         return self._version.create(
@@ -155,10 +155,10 @@ class TaskContext(InstanceContext):
     def update(self, attributes=values.unset, assignment_status=values.unset,
                reason=values.unset, priority=values.unset):
         data = values.of({
-            "Attributes": attributes,
-            "AssignmentStatus": assignment_status,
-            "Reason": reason,
-            "Priority": priority,
+            'Attributes': attributes,
+            'AssignmentStatus': assignment_status,
+            'Reason': reason,
+            'Priority': priority,
         })
         
         return self._version.update(

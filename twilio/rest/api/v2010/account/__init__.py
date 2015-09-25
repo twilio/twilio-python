@@ -47,11 +47,11 @@ class AccountList(ListResource):
         
         # Path Solution
         self._kwargs = {}
-        self._uri = "/Accounts.json".format(**self._kwargs)
+        self._uri = '/Accounts.json'.format(**self._kwargs)
 
     def create(self, friendly_name=values.unset):
         data = values.of({
-            "FriendlyName": friendly_name,
+            'FriendlyName': friendly_name,
         })
         
         return self._version.create(
@@ -67,8 +67,8 @@ class AccountList(ListResource):
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
-            "FriendlyName": friendly_name,
-            "Status": status,
+            'FriendlyName': friendly_name,
+            'Status': status,
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
@@ -87,8 +87,8 @@ class AccountList(ListResource):
     def page(self, friendly_name=values.unset, status=values.unset, page_token=None,
              page_number=None, page_size=None, **kwargs):
         params = values.of({
-            "FriendlyName": friendly_name,
-            "Status": status,
+            'FriendlyName': friendly_name,
+            'Status': status,
             "PageToken": page_token,
             "Page": page_number,
             "PageSize": page_size,
@@ -170,8 +170,8 @@ class AccountContext(InstanceContext):
 
     def update(self, friendly_name=values.unset, status=values.unset):
         data = values.of({
-            "FriendlyName": friendly_name,
-            "Status": status,
+            'FriendlyName': friendly_name,
+            'Status': status,
         })
         
         return self._version.update(

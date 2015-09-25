@@ -33,7 +33,7 @@ class DomainList(ListResource):
         self._kwargs = {
             'account_sid': account_sid,
         }
-        self._uri = "/Accounts/{account_sid}/SIP/Domains.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/SIP/Domains.json'.format(**self._kwargs)
 
     def read(self, limit=None, page_size=None, **kwargs):
         limits = self._version.read_limits(limit, page_size)
@@ -77,14 +77,14 @@ class DomainList(ListResource):
                voice_status_callback_url=values.unset,
                voice_status_callback_method=values.unset):
         data = values.of({
-            "DomainName": domain_name,
-            "FriendlyName": friendly_name,
-            "VoiceUrl": voice_url,
-            "VoiceMethod": voice_method,
-            "VoiceFallbackUrl": voice_fallback_url,
-            "VoiceFallbackMethod": voice_fallback_method,
-            "VoiceStatusCallbackUrl": voice_status_callback_url,
-            "VoiceStatusCallbackMethod": voice_status_callback_method,
+            'DomainName': domain_name,
+            'FriendlyName': friendly_name,
+            'VoiceUrl': voice_url,
+            'VoiceMethod': voice_method,
+            'VoiceFallbackUrl': voice_fallback_url,
+            'VoiceFallbackMethod': voice_fallback_method,
+            'VoiceStatusCallbackUrl': voice_status_callback_url,
+            'VoiceStatusCallbackMethod': voice_status_callback_method,
         })
         
         return self._version.create(
@@ -148,14 +148,14 @@ class DomainContext(InstanceContext):
                voice_method=values.unset, voice_status_callback_method=values.unset,
                voice_status_callback_url=values.unset, voice_url=values.unset):
         data = values.of({
-            "ApiVersion": api_version,
-            "FriendlyName": friendly_name,
-            "VoiceFallbackMethod": voice_fallback_method,
-            "VoiceFallbackUrl": voice_fallback_url,
-            "VoiceMethod": voice_method,
-            "VoiceStatusCallbackMethod": voice_status_callback_method,
-            "VoiceStatusCallbackUrl": voice_status_callback_url,
-            "VoiceUrl": voice_url,
+            'ApiVersion': api_version,
+            'FriendlyName': friendly_name,
+            'VoiceFallbackMethod': voice_fallback_method,
+            'VoiceFallbackUrl': voice_fallback_url,
+            'VoiceMethod': voice_method,
+            'VoiceStatusCallbackMethod': voice_status_callback_method,
+            'VoiceStatusCallbackUrl': voice_status_callback_url,
+            'VoiceUrl': voice_url,
         })
         
         return self._version.update(

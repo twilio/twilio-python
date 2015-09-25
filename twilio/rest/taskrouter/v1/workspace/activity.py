@@ -31,15 +31,15 @@ class ActivityList(ListResource):
         self._kwargs = {
             'workspace_sid': workspace_sid,
         }
-        self._uri = "/Workspaces/{workspace_sid}/Activities".format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/Activities'.format(**self._kwargs)
 
     def read(self, friendly_name=values.unset, available=values.unset, limit=None,
              page_size=None, **kwargs):
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
-            "FriendlyName": friendly_name,
-            "Available": available,
+            'FriendlyName': friendly_name,
+            'Available': available,
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
@@ -58,8 +58,8 @@ class ActivityList(ListResource):
     def page(self, friendly_name=values.unset, available=values.unset,
              page_token=None, page_number=None, page_size=None, **kwargs):
         params = values.of({
-            "FriendlyName": friendly_name,
-            "Available": available,
+            'FriendlyName': friendly_name,
+            'Available': available,
             "PageToken": page_token,
             "Page": page_number,
             "PageSize": page_size,
@@ -77,8 +77,8 @@ class ActivityList(ListResource):
 
     def create(self, friendly_name, available):
         data = values.of({
-            "FriendlyName": friendly_name,
-            "Available": available,
+            'FriendlyName': friendly_name,
+            'Available': available,
         })
         
         return self._version.create(
@@ -135,7 +135,7 @@ class ActivityContext(InstanceContext):
 
     def update(self, friendly_name):
         data = values.of({
-            "FriendlyName": friendly_name,
+            'FriendlyName': friendly_name,
         })
         
         return self._version.update(

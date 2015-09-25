@@ -32,18 +32,18 @@ class AddressList(ListResource):
         self._kwargs = {
             'account_sid': account_sid,
         }
-        self._uri = "/Accounts/{account_sid}/Addresses.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Addresses.json'.format(**self._kwargs)
 
     def create(self, customer_name, street, city, region, postal_code, iso_country,
                friendly_name=values.unset):
         data = values.of({
-            "CustomerName": customer_name,
-            "Street": street,
-            "City": city,
-            "Region": region,
-            "PostalCode": postal_code,
-            "IsoCountry": iso_country,
-            "FriendlyName": friendly_name,
+            'CustomerName': customer_name,
+            'Street': street,
+            'City': city,
+            'Region': region,
+            'PostalCode': postal_code,
+            'IsoCountry': iso_country,
+            'FriendlyName': friendly_name,
         })
         
         return self._version.create(
@@ -59,9 +59,9 @@ class AddressList(ListResource):
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
-            "CustomerName": customer_name,
-            "FriendlyName": friendly_name,
-            "IsoCountry": iso_country,
+            'CustomerName': customer_name,
+            'FriendlyName': friendly_name,
+            'IsoCountry': iso_country,
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
@@ -81,9 +81,9 @@ class AddressList(ListResource):
              iso_country=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
         params = values.of({
-            "CustomerName": customer_name,
-            "FriendlyName": friendly_name,
-            "IsoCountry": iso_country,
+            'CustomerName': customer_name,
+            'FriendlyName': friendly_name,
+            'IsoCountry': iso_country,
             "PageToken": page_token,
             "Page": page_number,
             "PageSize": page_size,
@@ -153,12 +153,12 @@ class AddressContext(InstanceContext):
                street=values.unset, city=values.unset, region=values.unset,
                postal_code=values.unset):
         data = values.of({
-            "FriendlyName": friendly_name,
-            "CustomerName": customer_name,
-            "Street": street,
-            "City": city,
-            "Region": region,
-            "PostalCode": postal_code,
+            'FriendlyName': friendly_name,
+            'CustomerName': customer_name,
+            'Street': street,
+            'City': city,
+            'Region': region,
+            'PostalCode': postal_code,
         })
         
         return self._version.update(

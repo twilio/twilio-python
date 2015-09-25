@@ -31,15 +31,15 @@ class ShortCodeList(ListResource):
         self._kwargs = {
             'account_sid': account_sid,
         }
-        self._uri = "/Accounts/{account_sid}/SMS/ShortCodes".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/SMS/ShortCodes'.format(**self._kwargs)
 
     def read(self, friendly_name=values.unset, short_code=values.unset, limit=None,
              page_size=None, **kwargs):
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
-            "FriendlyName": friendly_name,
-            "ShortCode": short_code,
+            'FriendlyName': friendly_name,
+            'ShortCode': short_code,
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
@@ -58,8 +58,8 @@ class ShortCodeList(ListResource):
     def page(self, friendly_name=values.unset, short_code=values.unset,
              page_token=None, page_number=None, page_size=None, **kwargs):
         params = values.of({
-            "FriendlyName": friendly_name,
-            "ShortCode": short_code,
+            'FriendlyName': friendly_name,
+            'ShortCode': short_code,
             "PageToken": page_token,
             "Page": page_number,
             "PageSize": page_size,
@@ -123,12 +123,12 @@ class ShortCodeContext(InstanceContext):
                sms_url=values.unset, sms_method=values.unset,
                sms_fallback_url=values.unset, sms_fallback_method=values.unset):
         data = values.of({
-            "FriendlyName": friendly_name,
-            "ApiVersion": api_version,
-            "SmsUrl": sms_url,
-            "SmsMethod": sms_method,
-            "SmsFallbackUrl": sms_fallback_url,
-            "SmsFallbackMethod": sms_fallback_method,
+            'FriendlyName': friendly_name,
+            'ApiVersion': api_version,
+            'SmsUrl': sms_url,
+            'SmsMethod': sms_method,
+            'SmsFallbackUrl': sms_fallback_url,
+            'SmsFallbackMethod': sms_fallback_method,
         })
         
         return self._version.update(

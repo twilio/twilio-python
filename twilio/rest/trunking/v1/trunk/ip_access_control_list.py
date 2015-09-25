@@ -31,11 +31,11 @@ class IpAccessControlListList(ListResource):
         self._kwargs = {
             'trunk_sid': trunk_sid,
         }
-        self._uri = "/Trunks/{trunk_sid}/IpAccessControlLists".format(**self._kwargs)
+        self._uri = '/Trunks/{trunk_sid}/IpAccessControlLists'.format(**self._kwargs)
 
     def create(self, ip_access_control_list_sid):
         data = values.of({
-            "IpAccessControlListSid": ip_access_control_list_sid,
+            'IpAccessControlListSid': ip_access_control_list_sid,
         })
         
         return self._version.create(

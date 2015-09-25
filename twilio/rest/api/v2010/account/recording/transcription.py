@@ -33,7 +33,7 @@ class TranscriptionList(ListResource):
             'account_sid': account_sid,
             'recording_sid': recording_sid,
         }
-        self._uri = "/Accounts/{account_sid}/Recordings/{recording_sid}/Transcriptions.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Recordings/{recording_sid}/Transcriptions.json'.format(**self._kwargs)
 
     def read(self, limit=None, page_size=None, **kwargs):
         limits = self._version.read_limits(limit, page_size)

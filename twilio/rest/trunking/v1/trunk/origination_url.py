@@ -31,15 +31,15 @@ class OriginationUrlList(ListResource):
         self._kwargs = {
             'trunk_sid': trunk_sid,
         }
-        self._uri = "/Trunks/{trunk_sid}/OriginationUrls".format(**self._kwargs)
+        self._uri = '/Trunks/{trunk_sid}/OriginationUrls'.format(**self._kwargs)
 
     def create(self, weight, priority, enabled, friendly_name, sip_url):
         data = values.of({
-            "Weight": weight,
-            "Priority": priority,
-            "Enabled": enabled,
-            "FriendlyName": friendly_name,
-            "SipUrl": sip_url,
+            'Weight': weight,
+            'Priority': priority,
+            'Enabled': enabled,
+            'FriendlyName': friendly_name,
+            'SipUrl': sip_url,
         })
         
         return self._version.create(
@@ -137,11 +137,11 @@ class OriginationUrlContext(InstanceContext):
                enabled=values.unset, friendly_name=values.unset,
                sip_url=values.unset):
         data = values.of({
-            "Weight": weight,
-            "Priority": priority,
-            "Enabled": enabled,
-            "FriendlyName": friendly_name,
-            "SipUrl": sip_url,
+            'Weight': weight,
+            'Priority': priority,
+            'Enabled': enabled,
+            'FriendlyName': friendly_name,
+            'SipUrl': sip_url,
         })
         
         return self._version.update(

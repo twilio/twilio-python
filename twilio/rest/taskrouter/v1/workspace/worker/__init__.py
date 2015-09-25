@@ -33,7 +33,7 @@ class WorkerList(ListResource):
         self._kwargs = {
             'workspace_sid': workspace_sid,
         }
-        self._uri = "/Workspaces/{workspace_sid}/Workers".format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/Workers'.format(**self._kwargs)
         
         # Components
         self._statistics = None
@@ -45,13 +45,13 @@ class WorkerList(ListResource):
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
-            "ActivityName": activity_name,
-            "ActivitySid": activity_sid,
-            "Available": available,
-            "FriendlyName": friendly_name,
-            "TargetWorkersExpression": target_workers_expression,
-            "TaskQueueName": task_queue_name,
-            "TaskQueueSid": task_queue_sid,
+            'ActivityName': activity_name,
+            'ActivitySid': activity_sid,
+            'Available': available,
+            'FriendlyName': friendly_name,
+            'TargetWorkersExpression': target_workers_expression,
+            'TaskQueueName': task_queue_name,
+            'TaskQueueSid': task_queue_sid,
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
@@ -73,13 +73,13 @@ class WorkerList(ListResource):
              task_queue_sid=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
         params = values.of({
-            "ActivityName": activity_name,
-            "ActivitySid": activity_sid,
-            "Available": available,
-            "FriendlyName": friendly_name,
-            "TargetWorkersExpression": target_workers_expression,
-            "TaskQueueName": task_queue_name,
-            "TaskQueueSid": task_queue_sid,
+            'ActivityName': activity_name,
+            'ActivitySid': activity_sid,
+            'Available': available,
+            'FriendlyName': friendly_name,
+            'TargetWorkersExpression': target_workers_expression,
+            'TaskQueueName': task_queue_name,
+            'TaskQueueSid': task_queue_sid,
             "PageToken": page_token,
             "Page": page_number,
             "PageSize": page_size,
@@ -98,9 +98,9 @@ class WorkerList(ListResource):
     def create(self, friendly_name, activity_sid=values.unset,
                attributes=values.unset):
         data = values.of({
-            "FriendlyName": friendly_name,
-            "ActivitySid": activity_sid,
-            "Attributes": attributes,
+            'FriendlyName': friendly_name,
+            'ActivitySid': activity_sid,
+            'Attributes': attributes,
         })
         
         return self._version.create(
@@ -167,9 +167,9 @@ class WorkerContext(InstanceContext):
     def update(self, activity_sid=values.unset, attributes=values.unset,
                friendly_name=values.unset):
         data = values.of({
-            "ActivitySid": activity_sid,
-            "Attributes": attributes,
-            "FriendlyName": friendly_name,
+            'ActivitySid': activity_sid,
+            'Attributes': attributes,
+            'FriendlyName': friendly_name,
         })
         
         return self._version.update(

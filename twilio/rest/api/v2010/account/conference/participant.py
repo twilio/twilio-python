@@ -33,13 +33,13 @@ class ParticipantList(ListResource):
             'account_sid': account_sid,
             'conference_sid': conference_sid,
         }
-        self._uri = "/Accounts/{account_sid}/Conferences/{conference_sid}/Participants.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Conferences/{conference_sid}/Participants.json'.format(**self._kwargs)
 
     def read(self, muted=values.unset, limit=None, page_size=None, **kwargs):
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
-            "Muted": muted,
+            'Muted': muted,
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
@@ -58,7 +58,7 @@ class ParticipantList(ListResource):
     def page(self, muted=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
         params = values.of({
-            "Muted": muted,
+            'Muted': muted,
             "PageToken": page_token,
             "Page": page_number,
             "PageSize": page_size,
@@ -121,7 +121,7 @@ class ParticipantContext(InstanceContext):
 
     def update(self, muted):
         data = values.of({
-            "Muted": muted,
+            'Muted': muted,
         })
         
         return self._version.update(

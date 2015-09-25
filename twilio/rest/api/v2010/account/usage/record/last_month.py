@@ -31,7 +31,7 @@ class LastMonthList(ListResource):
         self._kwargs = {
             'account_sid': account_sid,
         }
-        self._uri = "/Accounts/{account_sid}/Usage/Records/LastMonth".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Usage/Records/LastMonth'.format(**self._kwargs)
 
     def read(self, limit=None, page_size=None, **kwargs):
         limits = self._version.read_limits(limit, page_size)

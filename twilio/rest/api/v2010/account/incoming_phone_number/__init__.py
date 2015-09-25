@@ -34,7 +34,7 @@ class IncomingPhoneNumberList(ListResource):
         self._kwargs = {
             'owner_account_sid': owner_account_sid,
         }
-        self._uri = "/Accounts/{owner_account_sid}/IncomingPhoneNumbers.json".format(**self._kwargs)
+        self._uri = '/Accounts/{owner_account_sid}/IncomingPhoneNumbers.json'.format(**self._kwargs)
         
         # Components
         self._local = None
@@ -46,9 +46,9 @@ class IncomingPhoneNumberList(ListResource):
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
-            "Beta": beta,
-            "FriendlyName": friendly_name,
-            "PhoneNumber": phone_number,
+            'Beta': beta,
+            'FriendlyName': friendly_name,
+            'PhoneNumber': phone_number,
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
@@ -68,9 +68,9 @@ class IncomingPhoneNumberList(ListResource):
              phone_number=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
         params = values.of({
-            "Beta": beta,
-            "FriendlyName": friendly_name,
-            "PhoneNumber": phone_number,
+            'Beta': beta,
+            'FriendlyName': friendly_name,
+            'PhoneNumber': phone_number,
             "PageToken": page_token,
             "Page": page_number,
             "PageSize": page_size,
@@ -97,23 +97,23 @@ class IncomingPhoneNumberList(ListResource):
                voice_method=values.unset, voice_url=values.unset,
                phone_number=values.unset, area_code=values.unset):
         data = values.of({
-            "PhoneNumber": phone_number,
-            "AreaCode": area_code,
-            "ApiVersion": api_version,
-            "FriendlyName": friendly_name,
-            "SmsApplicationSid": sms_application_sid,
-            "SmsFallbackMethod": sms_fallback_method,
-            "SmsFallbackUrl": sms_fallback_url,
-            "SmsMethod": sms_method,
-            "SmsUrl": sms_url,
-            "StatusCallback": status_callback,
-            "StatusCallbackMethod": status_callback_method,
-            "VoiceApplicationSid": voice_application_sid,
-            "VoiceCallerIdLookup": voice_caller_id_lookup,
-            "VoiceFallbackMethod": voice_fallback_method,
-            "VoiceFallbackUrl": voice_fallback_url,
-            "VoiceMethod": voice_method,
-            "VoiceUrl": voice_url,
+            'PhoneNumber': phone_number,
+            'AreaCode': area_code,
+            'ApiVersion': api_version,
+            'FriendlyName': friendly_name,
+            'SmsApplicationSid': sms_application_sid,
+            'SmsFallbackMethod': sms_fallback_method,
+            'SmsFallbackUrl': sms_fallback_url,
+            'SmsMethod': sms_method,
+            'SmsUrl': sms_url,
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
+            'VoiceApplicationSid': voice_application_sid,
+            'VoiceCallerIdLookup': voice_caller_id_lookup,
+            'VoiceFallbackMethod': voice_fallback_method,
+            'VoiceFallbackUrl': voice_fallback_url,
+            'VoiceMethod': voice_method,
+            'VoiceUrl': voice_url,
         })
         
         return self._version.create(
@@ -185,22 +185,22 @@ class IncomingPhoneNumberContext(InstanceContext):
                voice_fallback_method=values.unset, voice_fallback_url=values.unset,
                voice_method=values.unset, voice_url=values.unset):
         data = values.of({
-            "AccountSid": account_sid,
-            "ApiVersion": api_version,
-            "FriendlyName": friendly_name,
-            "SmsApplicationSid": sms_application_sid,
-            "SmsFallbackMethod": sms_fallback_method,
-            "SmsFallbackUrl": sms_fallback_url,
-            "SmsMethod": sms_method,
-            "SmsUrl": sms_url,
-            "StatusCallback": status_callback,
-            "StatusCallbackMethod": status_callback_method,
-            "VoiceApplicationSid": voice_application_sid,
-            "VoiceCallerIdLookup": voice_caller_id_lookup,
-            "VoiceFallbackMethod": voice_fallback_method,
-            "VoiceFallbackUrl": voice_fallback_url,
-            "VoiceMethod": voice_method,
-            "VoiceUrl": voice_url,
+            'AccountSid': account_sid,
+            'ApiVersion': api_version,
+            'FriendlyName': friendly_name,
+            'SmsApplicationSid': sms_application_sid,
+            'SmsFallbackMethod': sms_fallback_method,
+            'SmsFallbackUrl': sms_fallback_url,
+            'SmsMethod': sms_method,
+            'SmsUrl': sms_url,
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
+            'VoiceApplicationSid': voice_application_sid,
+            'VoiceCallerIdLookup': voice_caller_id_lookup,
+            'VoiceFallbackMethod': voice_fallback_method,
+            'VoiceFallbackUrl': voice_fallback_url,
+            'VoiceMethod': voice_method,
+            'VoiceUrl': voice_url,
         })
         
         return self._version.update(

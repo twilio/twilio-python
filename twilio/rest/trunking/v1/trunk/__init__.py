@@ -32,19 +32,19 @@ class TrunkList(ListResource):
         
         # Path Solution
         self._kwargs = {}
-        self._uri = "/Trunks".format(**self._kwargs)
+        self._uri = '/Trunks'.format(**self._kwargs)
 
     def create(self, friendly_name=values.unset, domain_name=values.unset,
                disaster_recovery_url=values.unset,
                disaster_recovery_method=values.unset, recording=values.unset,
                secure=values.unset):
         data = values.of({
-            "FriendlyName": friendly_name,
-            "DomainName": domain_name,
-            "DisasterRecoveryUrl": disaster_recovery_url,
-            "DisasterRecoveryMethod": disaster_recovery_method,
-            "Recording": recording,
-            "Secure": secure,
+            'FriendlyName': friendly_name,
+            'DomainName': domain_name,
+            'DisasterRecoveryUrl': disaster_recovery_url,
+            'DisasterRecoveryMethod': disaster_recovery_method,
+            'Recording': recording,
+            'Secure': secure,
         })
         
         return self._version.create(
@@ -148,12 +148,12 @@ class TrunkContext(InstanceContext):
                disaster_recovery_method=values.unset, recording=values.unset,
                secure=values.unset):
         data = values.of({
-            "FriendlyName": friendly_name,
-            "DomainName": domain_name,
-            "DisasterRecoveryUrl": disaster_recovery_url,
-            "DisasterRecoveryMethod": disaster_recovery_method,
-            "Recording": recording,
-            "Secure": secure,
+            'FriendlyName': friendly_name,
+            'DomainName': domain_name,
+            'DisasterRecoveryUrl': disaster_recovery_url,
+            'DisasterRecoveryMethod': disaster_recovery_method,
+            'Recording': recording,
+            'Secure': secure,
         })
         
         return self._version.update(

@@ -31,16 +31,16 @@ class FeedbackSummaryList(ListResource):
         self._kwargs = {
             'account_sid': account_sid,
         }
-        self._uri = "/Accounts/{account_sid}/Calls/FeedbackSummary.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Calls/FeedbackSummary.json'.format(**self._kwargs)
 
     def create(self, start_date, end_date, include_subaccounts=values.unset,
                status_callback=values.unset, status_callback_method=values.unset):
         data = values.of({
-            "StartDate": start_date,
-            "EndDate": end_date,
-            "IncludeSubaccounts": include_subaccounts,
-            "StatusCallback": status_callback,
-            "StatusCallbackMethod": status_callback_method,
+            'StartDate': start_date,
+            'EndDate': end_date,
+            'IncludeSubaccounts': include_subaccounts,
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
         })
         
         return self._version.create(

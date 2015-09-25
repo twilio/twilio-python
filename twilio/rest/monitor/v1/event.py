@@ -29,7 +29,7 @@ class EventList(ListResource):
         
         # Path Solution
         self._kwargs = {}
-        self._uri = "/Events".format(**self._kwargs)
+        self._uri = '/Events'.format(**self._kwargs)
 
     def read(self, actor_sid=values.unset, end_date=values.unset,
              event_type=values.unset, resource_sid=values.unset,
@@ -38,12 +38,12 @@ class EventList(ListResource):
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
-            "ActorSid": actor_sid,
-            "EndDate": serialize.iso8601_date(end_date),
-            "EventType": event_type,
-            "ResourceSid": resource_sid,
-            "SourceIpAddress": source_ip_address,
-            "StartDate": serialize.iso8601_date(start_date),
+            'ActorSid': actor_sid,
+            'EndDate': serialize.iso8601_date(end_date),
+            'EventType': event_type,
+            'ResourceSid': resource_sid,
+            'SourceIpAddress': source_ip_address,
+            'StartDate': serialize.iso8601_date(start_date),
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
@@ -64,12 +64,12 @@ class EventList(ListResource):
              source_ip_address=values.unset, start_date=values.unset,
              page_token=None, page_number=None, page_size=None, **kwargs):
         params = values.of({
-            "ActorSid": actor_sid,
-            "EndDate": serialize.iso8601_date(end_date),
-            "EventType": event_type,
-            "ResourceSid": resource_sid,
-            "SourceIpAddress": source_ip_address,
-            "StartDate": serialize.iso8601_date(start_date),
+            'ActorSid': actor_sid,
+            'EndDate': serialize.iso8601_date(end_date),
+            'EventType': event_type,
+            'ResourceSid': resource_sid,
+            'SourceIpAddress': source_ip_address,
+            'StartDate': serialize.iso8601_date(start_date),
             "PageToken": page_token,
             "Page": page_number,
             "PageSize": page_size,

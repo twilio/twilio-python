@@ -31,7 +31,7 @@ class ParticipantList(ListResource):
         self._kwargs = {
             'conversation_sid': conversation_sid,
         }
-        self._uri = "/Conversations/{conversation_sid}/Participants".format(**self._kwargs)
+        self._uri = '/Conversations/{conversation_sid}/Participants'.format(**self._kwargs)
 
     def read(self, limit=None, page_size=None, **kwargs):
         limits = self._version.read_limits(limit, page_size)
@@ -71,8 +71,8 @@ class ParticipantList(ListResource):
 
     def create(self, to, from_):
         data = values.of({
-            "To": to,
-            "From": from_,
+            'To': to,
+            'From': from_,
         })
         
         return self._version.create(

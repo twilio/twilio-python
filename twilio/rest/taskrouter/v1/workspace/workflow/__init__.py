@@ -32,14 +32,14 @@ class WorkflowList(ListResource):
         self._kwargs = {
             'workspace_sid': workspace_sid,
         }
-        self._uri = "/Workspaces/{workspace_sid}/Workflows".format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/Workflows'.format(**self._kwargs)
 
     def read(self, friendly_name=values.unset, limit=None, page_size=None,
              **kwargs):
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
-            "FriendlyName": friendly_name,
+            'FriendlyName': friendly_name,
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
@@ -58,7 +58,7 @@ class WorkflowList(ListResource):
     def page(self, friendly_name=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
         params = values.of({
-            "FriendlyName": friendly_name,
+            'FriendlyName': friendly_name,
             "PageToken": page_token,
             "Page": page_number,
             "PageSize": page_size,
@@ -78,11 +78,11 @@ class WorkflowList(ListResource):
                fallback_assignment_callback_url=values.unset,
                task_reservation_timeout=values.unset):
         data = values.of({
-            "FriendlyName": friendly_name,
-            "Configuration": configuration,
-            "AssignmentCallbackUrl": assignment_callback_url,
-            "FallbackAssignmentCallbackUrl": fallback_assignment_callback_url,
-            "TaskReservationTimeout": task_reservation_timeout,
+            'FriendlyName': friendly_name,
+            'Configuration': configuration,
+            'AssignmentCallbackUrl': assignment_callback_url,
+            'FallbackAssignmentCallbackUrl': fallback_assignment_callback_url,
+            'TaskReservationTimeout': task_reservation_timeout,
         })
         
         return self._version.create(
@@ -145,11 +145,11 @@ class WorkflowContext(InstanceContext):
                fallback_assignment_callback_url=values.unset,
                configuration=values.unset, task_reservation_timeout=values.unset):
         data = values.of({
-            "FriendlyName": friendly_name,
-            "AssignmentCallbackUrl": assignment_callback_url,
-            "FallbackAssignmentCallbackUrl": fallback_assignment_callback_url,
-            "Configuration": configuration,
-            "TaskReservationTimeout": task_reservation_timeout,
+            'FriendlyName': friendly_name,
+            'AssignmentCallbackUrl': assignment_callback_url,
+            'FallbackAssignmentCallbackUrl': fallback_assignment_callback_url,
+            'Configuration': configuration,
+            'TaskReservationTimeout': task_reservation_timeout,
         })
         
         return self._version.update(

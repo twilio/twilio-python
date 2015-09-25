@@ -35,14 +35,14 @@ class WorkspaceList(ListResource):
         
         # Path Solution
         self._kwargs = {}
-        self._uri = "/Workspaces".format(**self._kwargs)
+        self._uri = '/Workspaces'.format(**self._kwargs)
 
     def read(self, friendly_name=values.unset, limit=None, page_size=None,
              **kwargs):
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
-            "FriendlyName": friendly_name,
+            'FriendlyName': friendly_name,
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
@@ -61,7 +61,7 @@ class WorkspaceList(ListResource):
     def page(self, friendly_name=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
         params = values.of({
-            "FriendlyName": friendly_name,
+            'FriendlyName': friendly_name,
             "PageToken": page_token,
             "Page": page_number,
             "PageSize": page_size,
@@ -80,9 +80,9 @@ class WorkspaceList(ListResource):
     def create(self, friendly_name, event_callback_url=values.unset,
                template=values.unset):
         data = values.of({
-            "FriendlyName": friendly_name,
-            "EventCallbackUrl": event_callback_url,
-            "Template": template,
+            'FriendlyName': friendly_name,
+            'EventCallbackUrl': event_callback_url,
+            'Template': template,
         })
         
         return self._version.create(
@@ -149,10 +149,10 @@ class WorkspaceContext(InstanceContext):
                event_callback_url=values.unset, friendly_name=values.unset,
                timeout_activity_sid=values.unset):
         data = values.of({
-            "DefaultActivitySid": default_activity_sid,
-            "EventCallbackUrl": event_callback_url,
-            "FriendlyName": friendly_name,
-            "TimeoutActivitySid": timeout_activity_sid,
+            'DefaultActivitySid': default_activity_sid,
+            'EventCallbackUrl': event_callback_url,
+            'FriendlyName': friendly_name,
+            'TimeoutActivitySid': timeout_activity_sid,
         })
         
         return self._version.update(

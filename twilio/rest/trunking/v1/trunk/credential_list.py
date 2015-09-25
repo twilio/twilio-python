@@ -31,11 +31,11 @@ class CredentialListList(ListResource):
         self._kwargs = {
             'trunk_sid': trunk_sid,
         }
-        self._uri = "/Trunks/{trunk_sid}/CredentialLists".format(**self._kwargs)
+        self._uri = '/Trunks/{trunk_sid}/CredentialLists'.format(**self._kwargs)
 
     def create(self, credential_list_sid):
         data = values.of({
-            "CredentialListSid": credential_list_sid,
+            'CredentialListSid': credential_list_sid,
         })
         
         return self._version.create(

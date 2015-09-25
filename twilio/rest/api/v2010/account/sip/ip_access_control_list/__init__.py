@@ -32,7 +32,7 @@ class IpAccessControlListList(ListResource):
         self._kwargs = {
             'account_sid': account_sid,
         }
-        self._uri = "/Accounts/{account_sid}/SIP/IpAccessControlLists.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/SIP/IpAccessControlLists.json'.format(**self._kwargs)
 
     def read(self, limit=None, page_size=None, **kwargs):
         limits = self._version.read_limits(limit, page_size)
@@ -72,7 +72,7 @@ class IpAccessControlListList(ListResource):
 
     def create(self, friendly_name):
         data = values.of({
-            "FriendlyName": friendly_name,
+            'FriendlyName': friendly_name,
         })
         
         return self._version.create(
@@ -132,7 +132,7 @@ class IpAccessControlListContext(InstanceContext):
 
     def update(self, friendly_name):
         data = values.of({
-            "FriendlyName": friendly_name,
+            'FriendlyName': friendly_name,
         })
         
         return self._version.update(

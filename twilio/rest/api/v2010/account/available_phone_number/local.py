@@ -32,15 +32,15 @@ class LocalList(ListResource):
             'account_sid': account_sid,
             'country_code': country_code,
         }
-        self._uri = "/Accounts/{account_sid}/AvailablePhoneNumbers/{country_code}/Local.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/AvailablePhoneNumbers/{country_code}/Local.json'.format(**self._kwargs)
 
     def read(self, number_type, beta=values.unset, limit=None, page_size=None,
              **kwargs):
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
-            "NumberType": number_type,
-            "Beta": beta,
+            'NumberType': number_type,
+            'Beta': beta,
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
@@ -59,8 +59,8 @@ class LocalList(ListResource):
     def page(self, number_type, beta=values.unset, page_token=None,
              page_number=None, page_size=None, **kwargs):
         params = values.of({
-            "NumberType": number_type,
-            "Beta": beta,
+            'NumberType': number_type,
+            'Beta': beta,
             "PageToken": page_token,
             "Page": page_number,
             "PageSize": page_size,

@@ -31,7 +31,7 @@ class ApplicationList(ListResource):
         self._kwargs = {
             'account_sid': account_sid,
         }
-        self._uri = "/Accounts/{account_sid}/Applications.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Applications.json'.format(**self._kwargs)
 
     def create(self, friendly_name, api_version=values.unset,
                voice_url=values.unset, voice_method=values.unset,
@@ -42,21 +42,21 @@ class ApplicationList(ListResource):
                sms_fallback_method=values.unset, sms_status_callback=values.unset,
                message_status_callback=values.unset):
         data = values.of({
-            "FriendlyName": friendly_name,
-            "ApiVersion": api_version,
-            "VoiceUrl": voice_url,
-            "VoiceMethod": voice_method,
-            "VoiceFallbackUrl": voice_fallback_url,
-            "VoiceFallbackMethod": voice_fallback_method,
-            "StatusCallback": status_callback,
-            "StatusCallbackMethod": status_callback_method,
-            "VoiceCallerIdLookup": voice_caller_id_lookup,
-            "SmsUrl": sms_url,
-            "SmsMethod": sms_method,
-            "SmsFallbackUrl": sms_fallback_url,
-            "SmsFallbackMethod": sms_fallback_method,
-            "SmsStatusCallback": sms_status_callback,
-            "MessageStatusCallback": message_status_callback,
+            'FriendlyName': friendly_name,
+            'ApiVersion': api_version,
+            'VoiceUrl': voice_url,
+            'VoiceMethod': voice_method,
+            'VoiceFallbackUrl': voice_fallback_url,
+            'VoiceFallbackMethod': voice_fallback_method,
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
+            'VoiceCallerIdLookup': voice_caller_id_lookup,
+            'SmsUrl': sms_url,
+            'SmsMethod': sms_method,
+            'SmsFallbackUrl': sms_fallback_url,
+            'SmsFallbackMethod': sms_fallback_method,
+            'SmsStatusCallback': sms_status_callback,
+            'MessageStatusCallback': message_status_callback,
         })
         
         return self._version.create(
@@ -72,7 +72,7 @@ class ApplicationList(ListResource):
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
-            "FriendlyName": friendly_name,
+            'FriendlyName': friendly_name,
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
@@ -91,7 +91,7 @@ class ApplicationList(ListResource):
     def page(self, friendly_name=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
         params = values.of({
-            "FriendlyName": friendly_name,
+            'FriendlyName': friendly_name,
             "PageToken": page_token,
             "Page": page_number,
             "PageSize": page_size,
@@ -163,21 +163,21 @@ class ApplicationContext(InstanceContext):
                sms_fallback_method=values.unset, sms_status_callback=values.unset,
                message_status_callback=values.unset):
         data = values.of({
-            "FriendlyName": friendly_name,
-            "ApiVersion": api_version,
-            "VoiceUrl": voice_url,
-            "VoiceMethod": voice_method,
-            "VoiceFallbackUrl": voice_fallback_url,
-            "VoiceFallbackMethod": voice_fallback_method,
-            "StatusCallback": status_callback,
-            "StatusCallbackMethod": status_callback_method,
-            "VoiceCallerIdLookup": voice_caller_id_lookup,
-            "SmsUrl": sms_url,
-            "SmsMethod": sms_method,
-            "SmsFallbackUrl": sms_fallback_url,
-            "SmsFallbackMethod": sms_fallback_method,
-            "SmsStatusCallback": sms_status_callback,
-            "MessageStatusCallback": message_status_callback,
+            'FriendlyName': friendly_name,
+            'ApiVersion': api_version,
+            'VoiceUrl': voice_url,
+            'VoiceMethod': voice_method,
+            'VoiceFallbackUrl': voice_fallback_url,
+            'VoiceFallbackMethod': voice_fallback_method,
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
+            'VoiceCallerIdLookup': voice_caller_id_lookup,
+            'SmsUrl': sms_url,
+            'SmsMethod': sms_method,
+            'SmsFallbackUrl': sms_fallback_url,
+            'SmsFallbackMethod': sms_fallback_method,
+            'SmsStatusCallback': sms_status_callback,
+            'MessageStatusCallback': message_status_callback,
         })
         
         return self._version.update(

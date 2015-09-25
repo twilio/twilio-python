@@ -31,15 +31,15 @@ class OutgoingCallerIdList(ListResource):
         self._kwargs = {
             'account_sid': account_sid,
         }
-        self._uri = "/Accounts/{account_sid}/OutgoingCallerIds.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/OutgoingCallerIds.json'.format(**self._kwargs)
 
     def read(self, phone_number=values.unset, friendly_name=values.unset,
              limit=None, page_size=None, **kwargs):
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
-            "PhoneNumber": phone_number,
-            "FriendlyName": friendly_name,
+            'PhoneNumber': phone_number,
+            'FriendlyName': friendly_name,
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
@@ -58,8 +58,8 @@ class OutgoingCallerIdList(ListResource):
     def page(self, phone_number=values.unset, friendly_name=values.unset,
              page_token=None, page_number=None, page_size=None, **kwargs):
         params = values.of({
-            "PhoneNumber": phone_number,
-            "FriendlyName": friendly_name,
+            'PhoneNumber': phone_number,
+            'FriendlyName': friendly_name,
             "PageToken": page_token,
             "Page": page_number,
             "PageSize": page_size,
@@ -79,12 +79,12 @@ class OutgoingCallerIdList(ListResource):
                call_delay=values.unset, extension=values.unset,
                status_callback=values.unset, status_callback_method=values.unset):
         data = values.of({
-            "PhoneNumber": phone_number,
-            "FriendlyName": friendly_name,
-            "CallDelay": call_delay,
-            "Extension": extension,
-            "StatusCallback": status_callback,
-            "StatusCallbackMethod": status_callback_method,
+            'PhoneNumber': phone_number,
+            'FriendlyName': friendly_name,
+            'CallDelay': call_delay,
+            'Extension': extension,
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
         })
         
         return self._version.create(
@@ -141,7 +141,7 @@ class OutgoingCallerIdContext(InstanceContext):
 
     def update(self, friendly_name=values.unset):
         data = values.of({
-            "FriendlyName": friendly_name,
+            'FriendlyName': friendly_name,
         })
         
         return self._version.update(

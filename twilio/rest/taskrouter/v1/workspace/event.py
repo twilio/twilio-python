@@ -31,7 +31,7 @@ class EventList(ListResource):
         self._kwargs = {
             'workspace_sid': workspace_sid,
         }
-        self._uri = "/Workspaces/{workspace_sid}/Events".format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/Events'.format(**self._kwargs)
 
     def read(self, end_date=values.unset, event_type=values.unset,
              minutes=values.unset, reservation_sid=values.unset,
@@ -41,15 +41,15 @@ class EventList(ListResource):
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
-            "EndDate": end_date,
-            "EventType": event_type,
-            "Minutes": minutes,
-            "ReservationSid": reservation_sid,
-            "StartDate": start_date,
-            "TaskQueueSid": task_queue_sid,
-            "TaskSid": task_sid,
-            "WorkerSid": worker_sid,
-            "WorkflowSid": workflow_sid,
+            'EndDate': end_date,
+            'EventType': event_type,
+            'Minutes': minutes,
+            'ReservationSid': reservation_sid,
+            'StartDate': start_date,
+            'TaskQueueSid': task_queue_sid,
+            'TaskSid': task_sid,
+            'WorkerSid': worker_sid,
+            'WorkflowSid': workflow_sid,
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
@@ -72,15 +72,15 @@ class EventList(ListResource):
              workflow_sid=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
         params = values.of({
-            "EndDate": end_date,
-            "EventType": event_type,
-            "Minutes": minutes,
-            "ReservationSid": reservation_sid,
-            "StartDate": start_date,
-            "TaskQueueSid": task_queue_sid,
-            "TaskSid": task_sid,
-            "WorkerSid": worker_sid,
-            "WorkflowSid": workflow_sid,
+            'EndDate': end_date,
+            'EventType': event_type,
+            'Minutes': minutes,
+            'ReservationSid': reservation_sid,
+            'StartDate': start_date,
+            'TaskQueueSid': task_queue_sid,
+            'TaskSid': task_sid,
+            'WorkerSid': worker_sid,
+            'WorkflowSid': workflow_sid,
             "PageToken": page_token,
             "Page": page_number,
             "PageSize": page_size,

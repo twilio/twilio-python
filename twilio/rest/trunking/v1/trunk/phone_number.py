@@ -31,11 +31,11 @@ class PhoneNumberList(ListResource):
         self._kwargs = {
             'trunk_sid': trunk_sid,
         }
-        self._uri = "/Trunks/{trunk_sid}/PhoneNumbers".format(**self._kwargs)
+        self._uri = '/Trunks/{trunk_sid}/PhoneNumbers'.format(**self._kwargs)
 
     def create(self, phone_number_sid):
         data = values.of({
-            "PhoneNumberSid": phone_number_sid,
+            'PhoneNumberSid': phone_number_sid,
         })
         
         return self._version.create(

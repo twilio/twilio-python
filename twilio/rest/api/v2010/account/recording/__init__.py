@@ -33,13 +33,13 @@ class RecordingList(ListResource):
         self._kwargs = {
             'account_sid': account_sid,
         }
-        self._uri = "/Accounts/{account_sid}/Recordings.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Recordings.json'.format(**self._kwargs)
 
     def read(self, date_created=values.unset, limit=None, page_size=None, **kwargs):
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
-            "DateCreated": serialize.iso8601_date(date_created),
+            'DateCreated': serialize.iso8601_date(date_created),
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
@@ -58,7 +58,7 @@ class RecordingList(ListResource):
     def page(self, date_created=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
         params = values.of({
-            "DateCreated": serialize.iso8601_date(date_created),
+            'DateCreated': serialize.iso8601_date(date_created),
             "PageToken": page_token,
             "Page": page_number,
             "PageSize": page_size,

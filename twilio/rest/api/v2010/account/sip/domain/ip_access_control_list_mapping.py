@@ -33,11 +33,11 @@ class IpAccessControlListMappingList(ListResource):
             'account_sid': account_sid,
             'domain_sid': domain_sid,
         }
-        self._uri = "/Accounts/{account_sid}/SIP/Domains/{domain_sid}/IpAccessControlListMappings.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/SIP/Domains/{domain_sid}/IpAccessControlListMappings.json'.format(**self._kwargs)
 
     def create(self, ip_access_control_list_sid):
         data = values.of({
-            "IpAccessControlListSid": ip_access_control_list_sid,
+            'IpAccessControlListSid': ip_access_control_list_sid,
         })
         
         return self._version.create(
