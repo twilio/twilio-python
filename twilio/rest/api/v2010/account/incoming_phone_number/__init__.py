@@ -40,6 +40,7 @@ class IncomingPhoneNumberList(ListResource):
             "Beta": beta,
             "FriendlyName": friendly_name,
             "PhoneNumber": phone_number,
+            'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         

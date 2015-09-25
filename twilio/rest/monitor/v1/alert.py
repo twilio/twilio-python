@@ -31,6 +31,7 @@ class AlertList(ListResource):
             "LogLevel": log_level,
             "StartDate": serialize.iso8601_date(start_date),
             "EndDate": serialize.iso8601_date(end_date),
+            'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         

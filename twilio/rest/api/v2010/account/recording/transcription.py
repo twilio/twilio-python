@@ -28,7 +28,9 @@ class TranscriptionList(ListResource):
     def read(self, limit=None, page_size=None, **kwargs):
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({})
+        params = values.of({
+            'PageSize': limits['page_size'],
+        })
         params.update(kwargs)
         
         return self._version.read(

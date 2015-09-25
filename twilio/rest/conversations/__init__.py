@@ -13,6 +13,12 @@ from twilio.rest.conversations.v1 import V1
 class Conversations(Domain):
 
     def __init__(self, twilio):
+        """
+        Initialize the Conversations Domain
+        
+        :returns: Domain for Conversations
+        :rtype: twilio.rest.conversations.Conversations
+        """
         super(Conversations, self).__init__(twilio)
         
         self.base_url = 'https://conversations.twilio.com'
@@ -38,4 +44,10 @@ class Conversations(Domain):
         return self.v1.conversations
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Conversations>'

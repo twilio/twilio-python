@@ -53,6 +53,7 @@ class SmsMessageList(ListResource):
             "To": to,
             "From": from_,
             "DateSent": serialize.iso8601_date(date_sent),
+            'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         

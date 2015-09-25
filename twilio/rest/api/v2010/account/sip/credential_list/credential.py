@@ -30,6 +30,7 @@ class CredentialList(ListResource):
         
         params = values.of({
             "SipCredentialListSid": sip_credential_list_sid,
+            'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         

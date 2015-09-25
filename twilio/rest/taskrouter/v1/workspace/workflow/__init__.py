@@ -31,6 +31,7 @@ class WorkflowList(ListResource):
         
         params = values.of({
             "FriendlyName": friendly_name,
+            'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         

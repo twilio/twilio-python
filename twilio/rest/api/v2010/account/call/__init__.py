@@ -74,6 +74,7 @@ class CallList(ListResource):
             "Status": status,
             "StartTime": serialize.iso8601_date(start_time),
             "EndTime": serialize.iso8601_date(end_time),
+            'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         

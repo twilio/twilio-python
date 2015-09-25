@@ -33,6 +33,7 @@ class StatisticsList(ListResource):
             "FriendlyName": friendly_name,
             "Minutes": minutes,
             "StartDate": start_date,
+            'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         

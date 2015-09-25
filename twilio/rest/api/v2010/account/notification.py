@@ -32,6 +32,7 @@ class NotificationList(ListResource):
         params = values.of({
             "Log": log,
             "MessageDate": serialize.iso8601_date(message_date),
+            'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         

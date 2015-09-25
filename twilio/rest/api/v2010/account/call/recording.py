@@ -31,6 +31,7 @@ class RecordingList(ListResource):
         
         params = values.of({
             "DateCreated": serialize.iso8601_date(date_created),
+            'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         

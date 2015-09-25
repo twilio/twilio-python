@@ -13,6 +13,12 @@ from twilio.rest.monitor.v1 import V1
 class Monitor(Domain):
 
     def __init__(self, twilio):
+        """
+        Initialize the Monitor Domain
+        
+        :returns: Domain for Monitor
+        :rtype: twilio.rest.monitor.Monitor
+        """
         super(Monitor, self).__init__(twilio)
         
         self.base_url = 'https://monitor.twilio.com'
@@ -45,4 +51,10 @@ class Monitor(Domain):
         return self.v1.events
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Monitor>'

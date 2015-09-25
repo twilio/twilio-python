@@ -31,6 +31,7 @@ class ShortCodeList(ListResource):
         params = values.of({
             "FriendlyName": friendly_name,
             "ShortCode": short_code,
+            'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         

@@ -41,6 +41,7 @@ class EventList(ListResource):
             "TaskSid": task_sid,
             "WorkerSid": worker_sid,
             "WorkflowSid": workflow_sid,
+            'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         

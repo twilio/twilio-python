@@ -13,6 +13,12 @@ from twilio.rest.pricing.v1 import V1
 class Pricing(Domain):
 
     def __init__(self, twilio):
+        """
+        Initialize the Pricing Domain
+        
+        :returns: Domain for Pricing
+        :rtype: twilio.rest.pricing.Pricing
+        """
         super(Pricing, self).__init__(twilio)
         
         self.base_url = 'https://pricing.twilio.com'
@@ -45,4 +51,10 @@ class Pricing(Domain):
         return self.v1.voice
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Pricing>'

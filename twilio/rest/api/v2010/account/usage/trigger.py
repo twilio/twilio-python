@@ -53,6 +53,7 @@ class TriggerList(ListResource):
             "Recurring": recurring,
             "TriggerBy": trigger_by,
             "UsageCategory": usage_category,
+            'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         

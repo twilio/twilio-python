@@ -38,6 +38,7 @@ class TaskList(ListResource):
             "WorkflowName": workflow_name,
             "TaskQueueSid": task_queue_sid,
             "TaskQueueName": task_queue_name,
+            'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         

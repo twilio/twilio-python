@@ -36,6 +36,7 @@ class ConferenceList(ListResource):
             "DateUpdated": serialize.iso8601_date(date_updated),
             "FriendlyName": friendly_name,
             "Status": status,
+            'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         

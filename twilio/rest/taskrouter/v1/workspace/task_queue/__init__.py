@@ -37,6 +37,7 @@ class TaskQueueList(ListResource):
         params = values.of({
             "FriendlyName": friendly_name,
             "EvaluateWorkerAttributes": evaluate_worker_attributes,
+            'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         

@@ -31,6 +31,7 @@ class ActivityList(ListResource):
         params = values.of({
             "FriendlyName": friendly_name,
             "Available": available,
+            'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         

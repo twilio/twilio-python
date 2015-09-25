@@ -36,6 +36,7 @@ class EventList(ListResource):
             "ResourceSid": resource_sid,
             "SourceIpAddress": source_ip_address,
             "StartDate": serialize.iso8601_date(start_date),
+            'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         

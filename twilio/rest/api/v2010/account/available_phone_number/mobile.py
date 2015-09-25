@@ -29,6 +29,7 @@ class MobileList(ListResource):
         
         params = values.of({
             "Beta": beta,
+            'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         

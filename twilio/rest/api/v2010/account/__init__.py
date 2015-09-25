@@ -61,6 +61,7 @@ class AccountList(ListResource):
         params = values.of({
             "FriendlyName": friendly_name,
             "Status": status,
+            'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         

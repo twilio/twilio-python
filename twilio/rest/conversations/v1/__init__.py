@@ -13,15 +13,30 @@ from twilio.rest.conversations.v1.conversation import ConversationContext
 class V1(Version):
 
     def __init__(self, domain):
+        """
+        Initialize the V1 version of Conversations
+        
+        :returns: V1 version of Conversations
+        :rtype: twilio.rest.conversations.v1.V1
+        """
         super(V1, self).__init__(domain)
         self.version = 'v1'
         self._conversations = None
 
     @property
     def conversations(self):
+        """
+        :rtype: ConversationContext
+        """
         if self._conversations is None:
             self._conversations = ConversationContext(self)
         return self._conversations
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Conversations.V1>'

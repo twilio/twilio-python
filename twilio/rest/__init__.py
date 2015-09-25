@@ -23,27 +23,65 @@ class Twilio(object):
 
     def __init__(self, account_sid=None, auth_token=None, http_client=None,
                  environment=None):
+        """
+        Initializes the Twilio Client
+        
+        :param HttpClient http_client: HttpClient, defaults to Httplib2Client
+        :param dict environment: Environment to look for auth details, defaults to os.environ
+        :param str account_sid: Account Sid to authenticate with
+        :param str auth_token: Auth Token to authenticate with
+        
+        :returns: Twilio Client
+        :rtype: twilio.rest.Twilio
+        """
         environment = environment or os.environ
         
         self.account_sid = account_sid or environment.get('TWILIO_ACCOUNT_SID')
+        """ :type : str """
         self.auth_token = auth_token or environment.get('TWILIO_AUTH_TOKEN')
+        """ :type : str """
         
         if not self.account_sid or not self.auth_token:
             raise TwilioException("Credentials are required to create a TwilioClient")
         
         self.auth = (self.account_sid, self.auth_token)
+        """ :type : tuple(str, str) """
         self.http_client = http_client or Httplib2Client()
+        """ :type : HttpClient """
         
         self._api = None
+        """ :type : twilio.rest.api.Api"""
         self._conversations = None
+        """ :type : twilio.rest.conversations.Conversations"""
         self._lookups = None
+        """ :type : twilio.rest.lookups.Lookups"""
         self._monitor = None
+        """ :type : twilio.rest.monitor.Monitor"""
         self._pricing = None
+        """ :type : twilio.rest.pricing.Pricing"""
         self._taskrouter = None
+        """ :type : twilio.rest.taskrouter.Taskrouter"""
         self._trunking = None
+        """ :type : twilio.rest.trunking.Trunking"""
 
     def request(self, method, uri, params=None, data=None, headers=None, auth=None,
                 timeout=None, allow_redirects=False):
+        """
+        Makes a request to the Twilio API using the configured http client
+        Authentication information is automatically added if none is provided
+        
+        :param bool allow_redirects: Should the client follow redirects
+        :param dict[str, str] data: POST body data
+        :param dict[str, str] headers: HTTP Headers
+        :param dict[str, str] params: Query string parameters
+        :param int timeout: Timeout in seconds
+        :param str method: HTTP Method
+        :param str uri: Fully qualified url
+        :param tuple(str, str) auth: Authentication
+        
+        :returns: Response from the Twilio API
+        :rtype: twilio.http.response.Response
+        """
         auth = auth or self.auth
         return self.http_client.request(
             method,
@@ -141,4 +179,10 @@ class Twilio(object):
         return self._trunking
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio {}>'.format(self.account_sid)

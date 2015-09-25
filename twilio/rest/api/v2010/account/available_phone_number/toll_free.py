@@ -31,6 +31,7 @@ class TollFreeList(ListResource):
         params = values.of({
             "NumberType": number_type,
             "Beta": beta,
+            'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         

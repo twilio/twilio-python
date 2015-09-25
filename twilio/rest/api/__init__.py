@@ -13,6 +13,12 @@ from twilio.rest.base import Domain
 class Api(Domain):
 
     def __init__(self, twilio):
+        """
+        Initialize the Api Domain
+        
+        :returns: Domain for Api
+        :rtype: twilio.rest.api.Api
+        """
         super(Api, self).__init__(twilio)
         
         self.base_url = 'https://api.twilio.com'
@@ -33,6 +39,7 @@ class Api(Domain):
     @property
     def account(self):
         """
+        :returns: Account provided as the authenticating account
         :rtype: twilio.rest.api.v2010.account.AccountContext
         """
         return self.v2010.account
@@ -178,4 +185,10 @@ class Api(Domain):
         return self.account.usage
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Api>'

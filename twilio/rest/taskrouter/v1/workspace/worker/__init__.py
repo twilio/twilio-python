@@ -43,6 +43,7 @@ class WorkerList(ListResource):
             "TargetWorkersExpression": target_workers_expression,
             "TaskQueueName": task_queue_name,
             "TaskQueueSid": task_queue_sid,
+            'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         

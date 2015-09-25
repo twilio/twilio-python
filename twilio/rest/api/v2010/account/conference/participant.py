@@ -30,6 +30,7 @@ class ParticipantList(ListResource):
         
         params = values.of({
             "Muted": muted,
+            'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         

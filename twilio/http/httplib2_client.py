@@ -3,11 +3,11 @@ from urlparse import urlparse
 import httplib2
 from six import integer_types, string_types, iteritems
 from six import binary_type
-from twilio.http import get_cert_file
+from twilio.http import get_cert_file, HttpClient
 from twilio.http.response import Response
 
 
-class Httplib2Client(object):
+class Httplib2Client(HttpClient):
 
     def __init__(self, proxy_info=httplib2.proxy_info_from_environment):
         self.proxy_info = proxy_info
@@ -67,6 +67,7 @@ class Httplib2Client(object):
             else:
                 url = '%s?%s' % (url, enc_params)
 
+        print "{} {}".format(method, url)
         resp, content = http.request(url, method, headers=headers, body=data)
 
         return Response(int(resp.status), content.decode('utf-8'))

@@ -14,6 +14,12 @@ from twilio.rest.pricing.v1.voice import VoiceContext
 class V1(Version):
 
     def __init__(self, domain):
+        """
+        Initialize the V1 version of Pricing
+        
+        :returns: V1 version of Pricing
+        :rtype: twilio.rest.pricing.v1.V1
+        """
         super(V1, self).__init__(domain)
         self.version = 'v1'
         self._phone_numbers = None
@@ -21,15 +27,27 @@ class V1(Version):
 
     @property
     def phone_numbers(self):
+        """
+        :rtype: PhoneNumberContext
+        """
         if self._phone_numbers is None:
             self._phone_numbers = PhoneNumberContext(self)
         return self._phone_numbers
 
     @property
     def voice(self):
+        """
+        :rtype: VoiceContext
+        """
         if self._voice is None:
             self._voice = VoiceContext(self)
         return self._voice
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Pricing.V1>'

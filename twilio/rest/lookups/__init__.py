@@ -13,6 +13,12 @@ from twilio.rest.lookups.v1 import V1
 class Lookups(Domain):
 
     def __init__(self, twilio):
+        """
+        Initialize the Lookups Domain
+        
+        :returns: Domain for Lookups
+        :rtype: twilio.rest.lookups.Lookups
+        """
         super(Lookups, self).__init__(twilio)
         
         self.base_url = 'https://lookups.twilio.com'
@@ -38,4 +44,10 @@ class Lookups(Domain):
         return self.v1.phone_numbers
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Lookups>'

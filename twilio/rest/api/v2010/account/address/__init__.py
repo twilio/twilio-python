@@ -53,6 +53,7 @@ class AddressList(ListResource):
             "CustomerName": customer_name,
             "FriendlyName": friendly_name,
             "IsoCountry": iso_country,
+            'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         

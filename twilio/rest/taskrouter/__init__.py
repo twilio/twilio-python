@@ -13,6 +13,12 @@ from twilio.rest.taskrouter.v1 import V1
 class Taskrouter(Domain):
 
     def __init__(self, twilio):
+        """
+        Initialize the Taskrouter Domain
+        
+        :returns: Domain for Taskrouter
+        :rtype: twilio.rest.taskrouter.Taskrouter
+        """
         super(Taskrouter, self).__init__(twilio)
         
         self.base_url = 'https://taskrouter.twilio.com'
@@ -38,4 +44,10 @@ class Taskrouter(Domain):
         return self.v1.workspaces
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Taskrouter>'

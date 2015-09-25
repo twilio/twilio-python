@@ -1,4 +1,5 @@
 import os
+from twilio.exceptions import TwilioException
 
 
 def get_cert_file():
@@ -16,3 +17,15 @@ def get_cert_file():
         # None means use the default system file
         return None
 
+
+class HttpClient(object):
+    def request(self,
+                method,
+                url,
+                params=None,
+                data=None,
+                headers=None,
+                auth=None,
+                timeout=None,
+                allow_redirects=False):
+        raise TwilioException('HttpClient is an abstract class')

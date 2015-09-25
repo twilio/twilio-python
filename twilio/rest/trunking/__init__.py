@@ -13,6 +13,12 @@ from twilio.rest.trunking.v1 import V1
 class Trunking(Domain):
 
     def __init__(self, twilio):
+        """
+        Initialize the Trunking Domain
+        
+        :returns: Domain for Trunking
+        :rtype: twilio.rest.trunking.Trunking
+        """
         super(Trunking, self).__init__(twilio)
         
         self.base_url = 'https://trunking.twilio.com'
@@ -38,4 +44,10 @@ class Trunking(Domain):
         return self.v1.trunks
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Trunking>'
