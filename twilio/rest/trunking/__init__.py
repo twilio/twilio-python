@@ -14,14 +14,28 @@ class Trunking(Domain):
 
     def __init__(self, twilio):
         super(Trunking, self).__init__(twilio)
+        
         self.base_url = 'https://trunking.twilio.com'
+        """ :type : str """
         self._v1 = None
+        """ :type : twilio.rest.trunking.v1.V1 """
 
     @property
     def v1(self):
+        """
+        :returns: Version v1 of trunking
+        :rtype: twilio.rest.trunking.v1.V1
+        """
         if self._v1 is None:
             self._v1 = V1(self)
         return self._v1
+
+    @property
+    def trunks(self):
+        """
+        :rtype: twilio.rest.trunking.v1.trunk.TrunkList
+        """
+        return self.v1.trunks
 
     def __repr__(self):
         return '<Twilio.Trunking>'
