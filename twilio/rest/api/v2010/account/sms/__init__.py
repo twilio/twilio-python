@@ -13,11 +13,29 @@ from twilio.rest.base import InstanceResource
 class SmsContext(InstanceContext):
 
     def __init__(self, version):
+        """
+        Initialize the SmsContext
+        
+        :param Version version
+        
+        :returns: SmsContext
+        :rtype: SmsContext
+        """
         super(SmsContext, self).__init__(version)
         
         # Path Solution
         self._kwargs = {}
         self._uri = 'None'.format(**self._kwargs)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.SmsContext {}>'.format(context)
 
 
 class SmsInstance(InstanceResource):

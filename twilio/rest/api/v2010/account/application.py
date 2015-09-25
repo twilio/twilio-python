@@ -131,6 +131,16 @@ class ApplicationList(ListResource):
 class ApplicationContext(InstanceContext):
 
     def __init__(self, version, account_sid, sid):
+        """
+        Initialize the ApplicationContext
+        
+        :param Version version
+        :param account_sid: Contextual account_sid
+        :param sid: Contextual sid
+        
+        :returns: ApplicationContext
+        :rtype: ApplicationContext
+        """
         super(ApplicationContext, self).__init__(version)
         
         # Path Solution
@@ -187,6 +197,16 @@ class ApplicationContext(InstanceContext):
             self._uri,
             data=data,
         )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.ApplicationContext {}>'.format(context)
 
 
 class ApplicationInstance(InstanceResource):

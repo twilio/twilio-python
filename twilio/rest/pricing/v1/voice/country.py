@@ -89,6 +89,15 @@ class CountryList(ListResource):
 class CountryContext(InstanceContext):
 
     def __init__(self, version, iso_country):
+        """
+        Initialize the CountryContext
+        
+        :param Version version
+        :param iso_country: Contextual iso_country
+        
+        :returns: CountryContext
+        :rtype: CountryContext
+        """
         super(CountryContext, self).__init__(version)
         
         # Path Solution
@@ -107,6 +116,16 @@ class CountryContext(InstanceContext):
             self._uri,
             params=params,
         )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Pricing.V1.CountryContext {}>'.format(context)
 
 
 class CountryInstance(InstanceResource):

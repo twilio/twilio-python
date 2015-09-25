@@ -106,6 +106,16 @@ class CredentialListList(ListResource):
 class CredentialListContext(InstanceContext):
 
     def __init__(self, version, trunk_sid, sid):
+        """
+        Initialize the CredentialListContext
+        
+        :param Version version
+        :param sid: Contextual sid
+        :param trunk_sid: Contextual trunk_sid
+        
+        :returns: CredentialListContext
+        :rtype: CredentialListContext
+        """
         super(CredentialListContext, self).__init__(version)
         
         # Path Solution
@@ -128,6 +138,16 @@ class CredentialListContext(InstanceContext):
 
     def delete(self):
         return self._version.delete('delete', self._uri)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Trunking.V1.CredentialListContext {}>'.format(context)
 
 
 class CredentialListInstance(InstanceResource):

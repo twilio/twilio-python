@@ -123,6 +123,16 @@ class MessageList(ListResource):
 class MessageContext(InstanceContext):
 
     def __init__(self, version, account_sid, sid):
+        """
+        Initialize the MessageContext
+        
+        :param Version version
+        :param account_sid: Contextual account_sid
+        :param sid: Contextual sid
+        
+        :returns: MessageContext
+        :rtype: MessageContext
+        """
         super(MessageContext, self).__init__(version)
         
         # Path Solution
@@ -164,6 +174,12 @@ class MessageContext(InstanceContext):
 
     @property
     def media(self):
+        """
+        Access the media
+        
+        :returns: MediaList
+        :rtype: MediaList
+        """
         if self._media is None:
             self._media = MediaList(
                 self._version,
@@ -171,6 +187,16 @@ class MessageContext(InstanceContext):
                 message_sid=self._kwargs['sid'],
             )
         return self._media
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.MessageContext {}>'.format(context)
 
 
 class MessageInstance(InstanceResource):

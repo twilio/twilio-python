@@ -99,48 +99,96 @@ class RecordList(ListResource):
 
     @property
     def all_time(self):
+        """
+        Access the all_time
+        
+        :returns: AllTimeList
+        :rtype: AllTimeList
+        """
         if self._all_time is None:
             self._all_time = AllTimeList(self._version, **self._kwargs)
         return self._all_time
 
     @property
     def daily(self):
+        """
+        Access the daily
+        
+        :returns: DailyList
+        :rtype: DailyList
+        """
         if self._daily is None:
             self._daily = DailyList(self._version, **self._kwargs)
         return self._daily
 
     @property
     def last_month(self):
+        """
+        Access the last_month
+        
+        :returns: LastMonthList
+        :rtype: LastMonthList
+        """
         if self._last_month is None:
             self._last_month = LastMonthList(self._version, **self._kwargs)
         return self._last_month
 
     @property
     def monthly(self):
+        """
+        Access the monthly
+        
+        :returns: MonthlyList
+        :rtype: MonthlyList
+        """
         if self._monthly is None:
             self._monthly = MonthlyList(self._version, **self._kwargs)
         return self._monthly
 
     @property
     def this_month(self):
+        """
+        Access the this_month
+        
+        :returns: ThisMonthList
+        :rtype: ThisMonthList
+        """
         if self._this_month is None:
             self._this_month = ThisMonthList(self._version, **self._kwargs)
         return self._this_month
 
     @property
     def today(self):
+        """
+        Access the today
+        
+        :returns: TodayList
+        :rtype: TodayList
+        """
         if self._today is None:
             self._today = TodayList(self._version, **self._kwargs)
         return self._today
 
     @property
     def yearly(self):
+        """
+        Access the yearly
+        
+        :returns: YearlyList
+        :rtype: YearlyList
+        """
         if self._yearly is None:
             self._yearly = YearlyList(self._version, **self._kwargs)
         return self._yearly
 
     @property
     def yesterday(self):
+        """
+        Access the yesterday
+        
+        :returns: YesterdayList
+        :rtype: YesterdayList
+        """
         if self._yesterday is None:
             self._yesterday = YesterdayList(self._version, **self._kwargs)
         return self._yesterday
@@ -167,11 +215,29 @@ class RecordList(ListResource):
 class RecordContext(InstanceContext):
 
     def __init__(self, version):
+        """
+        Initialize the RecordContext
+        
+        :param Version version
+        
+        :returns: RecordContext
+        :rtype: RecordContext
+        """
         super(RecordContext, self).__init__(version)
         
         # Path Solution
         self._kwargs = {}
         self._uri = 'None'.format(**self._kwargs)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.RecordContext {}>'.format(context)
 
 
 class RecordInstance(InstanceResource):

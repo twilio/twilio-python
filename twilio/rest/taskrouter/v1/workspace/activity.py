@@ -113,6 +113,16 @@ class ActivityList(ListResource):
 class ActivityContext(InstanceContext):
 
     def __init__(self, version, workspace_sid, sid):
+        """
+        Initialize the ActivityContext
+        
+        :param Version version
+        :param sid: Contextual sid
+        :param workspace_sid: Contextual workspace_sid
+        
+        :returns: ActivityContext
+        :rtype: ActivityContext
+        """
         super(ActivityContext, self).__init__(version)
         
         # Path Solution
@@ -148,6 +158,16 @@ class ActivityContext(InstanceContext):
 
     def delete(self):
         return self._version.delete('delete', self._uri)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Taskrouter.V1.ActivityContext {}>'.format(context)
 
 
 class ActivityInstance(InstanceResource):

@@ -14,6 +14,15 @@ from twilio.rest.base import InstanceResource
 class PhoneNumberContext(InstanceContext):
 
     def __init__(self, version, phone_number):
+        """
+        Initialize the PhoneNumberContext
+        
+        :param Version version
+        :param phone_number: Contextual phone_number
+        
+        :returns: PhoneNumberContext
+        :rtype: PhoneNumberContext
+        """
         super(PhoneNumberContext, self).__init__(version)
         
         # Path Solution
@@ -35,6 +44,16 @@ class PhoneNumberContext(InstanceContext):
             self._uri,
             params=params,
         )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Lookups.V1.PhoneNumberContext {}>'.format(context)
 
 
 class PhoneNumberInstance(InstanceResource):

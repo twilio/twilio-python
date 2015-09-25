@@ -99,6 +99,17 @@ class MediaList(ListResource):
 class MediaContext(InstanceContext):
 
     def __init__(self, version, account_sid, message_sid, sid):
+        """
+        Initialize the MediaContext
+        
+        :param Version version
+        :param account_sid: Contextual account_sid
+        :param message_sid: Contextual message_sid
+        :param sid: Contextual sid
+        
+        :returns: MediaContext
+        :rtype: MediaContext
+        """
         super(MediaContext, self).__init__(version)
         
         # Path Solution
@@ -122,6 +133,16 @@ class MediaContext(InstanceContext):
             self._uri,
             params=params,
         )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.MediaContext {}>'.format(context)
 
 
 class MediaInstance(InstanceResource):

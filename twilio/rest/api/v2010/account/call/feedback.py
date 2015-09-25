@@ -15,6 +15,16 @@ from twilio.rest.base import InstanceResource
 class FeedbackContext(InstanceContext):
 
     def __init__(self, version, account_sid, call_sid):
+        """
+        Initialize the FeedbackContext
+        
+        :param Version version
+        :param account_sid: Contextual account_sid
+        :param call_sid: Contextual call_sid
+        
+        :returns: FeedbackContext
+        :rtype: FeedbackContext
+        """
         super(FeedbackContext, self).__init__(version)
         
         # Path Solution
@@ -62,6 +72,16 @@ class FeedbackContext(InstanceContext):
             self._uri,
             data=data,
         )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.FeedbackContext {}>'.format(context)
 
 
 class FeedbackInstance(InstanceResource):

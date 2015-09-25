@@ -91,11 +91,29 @@ class YesterdayList(ListResource):
 class YesterdayContext(InstanceContext):
 
     def __init__(self, version):
+        """
+        Initialize the YesterdayContext
+        
+        :param Version version
+        
+        :returns: YesterdayContext
+        :rtype: YesterdayContext
+        """
         super(YesterdayContext, self).__init__(version)
         
         # Path Solution
         self._kwargs = {}
         self._uri = 'None'.format(**self._kwargs)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.YesterdayContext {}>'.format(context)
 
 
 class YesterdayInstance(InstanceResource):

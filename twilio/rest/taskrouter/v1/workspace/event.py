@@ -120,6 +120,16 @@ class EventList(ListResource):
 class EventContext(InstanceContext):
 
     def __init__(self, version, workspace_sid, sid):
+        """
+        Initialize the EventContext
+        
+        :param Version version
+        :param sid: Contextual sid
+        :param workspace_sid: Contextual workspace_sid
+        
+        :returns: EventContext
+        :rtype: EventContext
+        """
         super(EventContext, self).__init__(version)
         
         # Path Solution
@@ -139,6 +149,16 @@ class EventContext(InstanceContext):
             self._uri,
             params=params,
         )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Taskrouter.V1.EventContext {}>'.format(context)
 
 
 class EventInstance(InstanceResource):

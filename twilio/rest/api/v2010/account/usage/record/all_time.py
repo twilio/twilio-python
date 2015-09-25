@@ -91,11 +91,29 @@ class AllTimeList(ListResource):
 class AllTimeContext(InstanceContext):
 
     def __init__(self, version):
+        """
+        Initialize the AllTimeContext
+        
+        :param Version version
+        
+        :returns: AllTimeContext
+        :rtype: AllTimeContext
+        """
         super(AllTimeContext, self).__init__(version)
         
         # Path Solution
         self._kwargs = {}
         self._uri = 'None'.format(**self._kwargs)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.AllTimeContext {}>'.format(context)
 
 
 class AllTimeInstance(InstanceResource):

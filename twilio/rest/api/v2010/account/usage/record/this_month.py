@@ -91,11 +91,29 @@ class ThisMonthList(ListResource):
 class ThisMonthContext(InstanceContext):
 
     def __init__(self, version):
+        """
+        Initialize the ThisMonthContext
+        
+        :param Version version
+        
+        :returns: ThisMonthContext
+        :rtype: ThisMonthContext
+        """
         super(ThisMonthContext, self).__init__(version)
         
         # Path Solution
         self._kwargs = {}
         self._uri = 'None'.format(**self._kwargs)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.ThisMonthContext {}>'.format(context)
 
 
 class ThisMonthInstance(InstanceResource):

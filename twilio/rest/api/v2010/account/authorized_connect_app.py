@@ -93,6 +93,16 @@ class AuthorizedConnectAppList(ListResource):
 class AuthorizedConnectAppContext(InstanceContext):
 
     def __init__(self, version, account_sid, sid):
+        """
+        Initialize the AuthorizedConnectAppContext
+        
+        :param Version version
+        :param account_sid: Contextual account_sid
+        :param sid: Contextual sid
+        
+        :returns: AuthorizedConnectAppContext
+        :rtype: AuthorizedConnectAppContext
+        """
         super(AuthorizedConnectAppContext, self).__init__(version)
         
         # Path Solution
@@ -112,6 +122,16 @@ class AuthorizedConnectAppContext(InstanceContext):
             self._uri,
             params=params,
         )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.AuthorizedConnectAppContext {}>'.format(context)
 
 
 class AuthorizedConnectAppInstance(InstanceResource):

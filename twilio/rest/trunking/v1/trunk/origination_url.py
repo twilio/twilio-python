@@ -110,6 +110,16 @@ class OriginationUrlList(ListResource):
 class OriginationUrlContext(InstanceContext):
 
     def __init__(self, version, trunk_sid, sid):
+        """
+        Initialize the OriginationUrlContext
+        
+        :param Version version
+        :param sid: Contextual sid
+        :param trunk_sid: Contextual trunk_sid
+        
+        :returns: OriginationUrlContext
+        :rtype: OriginationUrlContext
+        """
         super(OriginationUrlContext, self).__init__(version)
         
         # Path Solution
@@ -151,6 +161,16 @@ class OriginationUrlContext(InstanceContext):
             self._uri,
             data=data,
         )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Trunking.V1.OriginationUrlContext {}>'.format(context)
 
 
 class OriginationUrlInstance(InstanceResource):

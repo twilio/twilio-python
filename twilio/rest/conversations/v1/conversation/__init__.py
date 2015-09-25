@@ -16,6 +16,15 @@ from twilio.rest.conversations.v1.conversation.participant import ParticipantLis
 class ConversationContext(InstanceContext):
 
     def __init__(self, version, sid):
+        """
+        Initialize the ConversationContext
+        
+        :param Version version
+        :param sid: Contextual sid
+        
+        :returns: ConversationContext
+        :rtype: ConversationContext
+        """
         super(ConversationContext, self).__init__(version)
         
         # Path Solution
@@ -40,12 +49,28 @@ class ConversationContext(InstanceContext):
 
     @property
     def participants(self):
+        """
+        Access the participants
+        
+        :returns: ParticipantList
+        :rtype: ParticipantList
+        """
         if self._participants is None:
             self._participants = ParticipantList(
                 self._version,
                 conversation_sid=self._kwargs['sid'],
             )
         return self._participants
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Conversations.V1.ConversationContext {}>'.format(context)
 
 
 class ConversationInstance(InstanceResource):

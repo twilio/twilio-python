@@ -103,6 +103,12 @@ class TaskQueueList(ListResource):
 
     @property
     def statistics(self):
+        """
+        Access the statistics
+        
+        :returns: StatisticsList
+        :rtype: StatisticsList
+        """
         if self._statistics is None:
             self._statistics = StatisticsList(self._version, **self._kwargs)
         return self._statistics
@@ -131,6 +137,16 @@ class TaskQueueList(ListResource):
 class TaskQueueContext(InstanceContext):
 
     def __init__(self, version, workspace_sid, sid):
+        """
+        Initialize the TaskQueueContext
+        
+        :param Version version
+        :param sid: Contextual sid
+        :param workspace_sid: Contextual workspace_sid
+        
+        :returns: TaskQueueContext
+        :rtype: TaskQueueContext
+        """
         super(TaskQueueContext, self).__init__(version)
         
         # Path Solution
@@ -179,6 +195,12 @@ class TaskQueueContext(InstanceContext):
 
     @property
     def statistics(self):
+        """
+        Access the statistics
+        
+        :returns: StatisticsContext
+        :rtype: StatisticsContext
+        """
         if self._statistics is None:
             self._statistics = StatisticsContext(
                 self._version,
@@ -186,6 +208,16 @@ class TaskQueueContext(InstanceContext):
                 task_queue_sid=self._kwargs['sid'],
             )
         return self._statistics
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Taskrouter.V1.TaskQueueContext {}>'.format(context)
 
 
 class TaskQueueInstance(InstanceResource):

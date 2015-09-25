@@ -107,6 +107,16 @@ class IpAccessControlListList(ListResource):
 class IpAccessControlListContext(InstanceContext):
 
     def __init__(self, version, account_sid, sid):
+        """
+        Initialize the IpAccessControlListContext
+        
+        :param Version version
+        :param account_sid: Contextual account_sid
+        :param sid: Contextual sid
+        
+        :returns: IpAccessControlListContext
+        :rtype: IpAccessControlListContext
+        """
         super(IpAccessControlListContext, self).__init__(version)
         
         # Path Solution
@@ -148,6 +158,12 @@ class IpAccessControlListContext(InstanceContext):
 
     @property
     def ip_addresses(self):
+        """
+        Access the ip_addresses
+        
+        :returns: IpAddressList
+        :rtype: IpAddressList
+        """
         if self._ip_addresses is None:
             self._ip_addresses = IpAddressList(
                 self._version,
@@ -155,6 +171,16 @@ class IpAccessControlListContext(InstanceContext):
                 ip_access_control_list_sid=self._kwargs['sid'],
             )
         return self._ip_addresses
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.IpAccessControlListContext {}>'.format(context)
 
 
 class IpAccessControlListInstance(InstanceResource):

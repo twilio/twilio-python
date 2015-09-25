@@ -95,6 +95,16 @@ class AvailablePhoneNumberCountryList(ListResource):
 class AvailablePhoneNumberCountryContext(InstanceContext):
 
     def __init__(self, version, account_sid, country_code):
+        """
+        Initialize the AvailablePhoneNumberCountryContext
+        
+        :param Version version
+        :param account_sid: Contextual account_sid
+        :param country_code: Contextual country_code
+        
+        :returns: AvailablePhoneNumberCountryContext
+        :rtype: AvailablePhoneNumberCountryContext
+        """
         super(AvailablePhoneNumberCountryContext, self).__init__(version)
         
         # Path Solution
@@ -122,6 +132,12 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
 
     @property
     def local(self):
+        """
+        Access the local
+        
+        :returns: LocalList
+        :rtype: LocalList
+        """
         if self._local is None:
             self._local = LocalList(
                 self._version,
@@ -131,6 +147,12 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
 
     @property
     def toll_free(self):
+        """
+        Access the toll_free
+        
+        :returns: TollFreeList
+        :rtype: TollFreeList
+        """
         if self._toll_free is None:
             self._toll_free = TollFreeList(
                 self._version,
@@ -140,12 +162,28 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
 
     @property
     def mobile(self):
+        """
+        Access the mobile
+        
+        :returns: MobileList
+        :rtype: MobileList
+        """
         if self._mobile is None:
             self._mobile = MobileList(
                 self._version,
                 country_code=self._kwargs['country_code'],
             )
         return self._mobile
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.AvailablePhoneNumberCountryContext {}>'.format(context)
 
 
 class AvailablePhoneNumberCountryInstance(InstanceResource):

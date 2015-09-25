@@ -123,6 +123,16 @@ class AddressList(ListResource):
 class AddressContext(InstanceContext):
 
     def __init__(self, version, account_sid, sid):
+        """
+        Initialize the AddressContext
+        
+        :param Version version
+        :param account_sid: Contextual account_sid
+        :param sid: Contextual sid
+        
+        :returns: AddressContext
+        :rtype: AddressContext
+        """
         super(AddressContext, self).__init__(version)
         
         # Path Solution
@@ -171,6 +181,12 @@ class AddressContext(InstanceContext):
 
     @property
     def dependent_phone_numbers(self):
+        """
+        Access the dependent_phone_numbers
+        
+        :returns: DependentPhoneNumberList
+        :rtype: DependentPhoneNumberList
+        """
         if self._dependent_phone_numbers is None:
             self._dependent_phone_numbers = DependentPhoneNumberList(
                 self._version,
@@ -178,6 +194,16 @@ class AddressContext(InstanceContext):
                 address_sid=self._kwargs['sid'],
             )
         return self._dependent_phone_numbers
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.AddressContext {}>'.format(context)
 
 
 class AddressInstance(InstanceResource):

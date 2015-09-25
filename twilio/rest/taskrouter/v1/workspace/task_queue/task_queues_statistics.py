@@ -102,11 +102,29 @@ class StatisticsList(ListResource):
 class StatisticsContext(InstanceContext):
 
     def __init__(self, version):
+        """
+        Initialize the StatisticsContext
+        
+        :param Version version
+        
+        :returns: StatisticsContext
+        :rtype: StatisticsContext
+        """
         super(StatisticsContext, self).__init__(version)
         
         # Path Solution
         self._kwargs = {}
         self._uri = 'None'.format(**self._kwargs)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Taskrouter.V1.StatisticsContext {}>'.format(context)
 
 
 class StatisticsInstance(InstanceResource):

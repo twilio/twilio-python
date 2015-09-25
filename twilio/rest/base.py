@@ -1,6 +1,7 @@
 import json
 from math import ceil
 from twilio import TwilioException
+from twilio import values
 from twilio.rest.page import Page
 
 
@@ -122,7 +123,7 @@ class Version(object):
         return response.status_code == 204
 
     def read_limits(self, limit=None, page_size=None):
-        page_limit = None
+        page_limit = values.unset
 
         if limit is not None:
 
@@ -130,11 +131,11 @@ class Version(object):
                 # If there is no user-specified page_size, pick the most network efficient size
                 page_size = min(limit, self.MAX_PAGE_SIZE)
 
-            page_limit = ceil(limit / float(page_size))
+            page_limit = int(ceil(limit / float(page_size)))
 
         return {
-            'limit': limit,
-            'page_size': page_size,
+            'limit': limit or values.unset,
+            'page_size': page_size or values.unset,
             'page_limit': page_limit,
         }
 

@@ -129,6 +129,16 @@ class TaskList(ListResource):
 class TaskContext(InstanceContext):
 
     def __init__(self, version, workspace_sid, sid):
+        """
+        Initialize the TaskContext
+        
+        :param Version version
+        :param sid: Contextual sid
+        :param workspace_sid: Contextual workspace_sid
+        
+        :returns: TaskContext
+        :rtype: TaskContext
+        """
         super(TaskContext, self).__init__(version)
         
         # Path Solution
@@ -174,6 +184,12 @@ class TaskContext(InstanceContext):
 
     @property
     def reservations(self):
+        """
+        Access the reservations
+        
+        :returns: ReservationList
+        :rtype: ReservationList
+        """
         if self._reservations is None:
             self._reservations = ReservationList(
                 self._version,
@@ -181,6 +197,16 @@ class TaskContext(InstanceContext):
                 task_sid=self._kwargs['sid'],
             )
         return self._reservations
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Taskrouter.V1.TaskContext {}>'.format(context)
 
 
 class TaskInstance(InstanceResource):

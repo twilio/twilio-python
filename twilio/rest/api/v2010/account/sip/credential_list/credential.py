@@ -113,6 +113,17 @@ class CredentialList(ListResource):
 class CredentialContext(InstanceContext):
 
     def __init__(self, version, account_sid, credential_list_sid, sid):
+        """
+        Initialize the CredentialContext
+        
+        :param Version version
+        :param account_sid: Contextual account_sid
+        :param credential_list_sid: Contextual credential_list_sid
+        :param sid: Contextual sid
+        
+        :returns: CredentialContext
+        :rtype: CredentialContext
+        """
         super(CredentialContext, self).__init__(version)
         
         # Path Solution
@@ -153,6 +164,16 @@ class CredentialContext(InstanceContext):
 
     def delete(self, sip_credential_list_sid):
         return self._version.delete('delete', self._uri)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.CredentialContext {}>'.format(context)
 
 
 class CredentialInstance(InstanceResource):

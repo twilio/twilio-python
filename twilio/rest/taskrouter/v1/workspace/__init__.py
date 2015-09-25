@@ -117,6 +117,15 @@ class WorkspaceList(ListResource):
 class WorkspaceContext(InstanceContext):
 
     def __init__(self, version, sid):
+        """
+        Initialize the WorkspaceContext
+        
+        :param Version version
+        :param sid: Contextual sid
+        
+        :returns: WorkspaceContext
+        :rtype: WorkspaceContext
+        """
         super(WorkspaceContext, self).__init__(version)
         
         # Path Solution
@@ -168,6 +177,12 @@ class WorkspaceContext(InstanceContext):
 
     @property
     def activities(self):
+        """
+        Access the activities
+        
+        :returns: ActivityList
+        :rtype: ActivityList
+        """
         if self._activities is None:
             self._activities = ActivityList(
                 self._version,
@@ -177,6 +192,12 @@ class WorkspaceContext(InstanceContext):
 
     @property
     def events(self):
+        """
+        Access the events
+        
+        :returns: EventList
+        :rtype: EventList
+        """
         if self._events is None:
             self._events = EventList(
                 self._version,
@@ -186,6 +207,12 @@ class WorkspaceContext(InstanceContext):
 
     @property
     def tasks(self):
+        """
+        Access the tasks
+        
+        :returns: TaskList
+        :rtype: TaskList
+        """
         if self._tasks is None:
             self._tasks = TaskList(
                 self._version,
@@ -195,6 +222,12 @@ class WorkspaceContext(InstanceContext):
 
     @property
     def task_queues(self):
+        """
+        Access the task_queues
+        
+        :returns: TaskQueueList
+        :rtype: TaskQueueList
+        """
         if self._task_queues is None:
             self._task_queues = TaskQueueList(
                 self._version,
@@ -204,6 +237,12 @@ class WorkspaceContext(InstanceContext):
 
     @property
     def workers(self):
+        """
+        Access the workers
+        
+        :returns: WorkerList
+        :rtype: WorkerList
+        """
         if self._workers is None:
             self._workers = WorkerList(
                 self._version,
@@ -213,6 +252,12 @@ class WorkspaceContext(InstanceContext):
 
     @property
     def workflows(self):
+        """
+        Access the workflows
+        
+        :returns: WorkflowList
+        :rtype: WorkflowList
+        """
         if self._workflows is None:
             self._workflows = WorkflowList(
                 self._version,
@@ -222,12 +267,28 @@ class WorkspaceContext(InstanceContext):
 
     @property
     def statistics(self):
+        """
+        Access the statistics
+        
+        :returns: StatisticsContext
+        :rtype: StatisticsContext
+        """
         if self._statistics is None:
             self._statistics = StatisticsContext(
                 self._version,
                 workspace_sid=self._kwargs['sid'],
             )
         return self._statistics
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Taskrouter.V1.WorkspaceContext {}>'.format(context)
 
 
 class WorkspaceInstance(InstanceResource):

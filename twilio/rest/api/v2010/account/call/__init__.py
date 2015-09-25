@@ -126,6 +126,12 @@ class CallList(ListResource):
 
     @property
     def feedback_summaries(self):
+        """
+        Access the feedback_summaries
+        
+        :returns: FeedbackSummaryList
+        :rtype: FeedbackSummaryList
+        """
         if self._feedback_summaries is None:
             self._feedback_summaries = FeedbackSummaryList(self._version, **self._kwargs)
         return self._feedback_summaries
@@ -154,6 +160,16 @@ class CallList(ListResource):
 class CallContext(InstanceContext):
 
     def __init__(self, version, account_sid, sid):
+        """
+        Initialize the CallContext
+        
+        :param Version version
+        :param account_sid: Contextual account_sid
+        :param sid: Contextual sid
+        
+        :returns: CallContext
+        :rtype: CallContext
+        """
         super(CallContext, self).__init__(version)
         
         # Path Solution
@@ -205,6 +221,12 @@ class CallContext(InstanceContext):
 
     @property
     def recordings(self):
+        """
+        Access the recordings
+        
+        :returns: RecordingList
+        :rtype: RecordingList
+        """
         if self._recordings is None:
             self._recordings = RecordingList(
                 self._version,
@@ -215,6 +237,12 @@ class CallContext(InstanceContext):
 
     @property
     def notifications(self):
+        """
+        Access the notifications
+        
+        :returns: NotificationList
+        :rtype: NotificationList
+        """
         if self._notifications is None:
             self._notifications = NotificationList(
                 self._version,
@@ -225,6 +253,12 @@ class CallContext(InstanceContext):
 
     @property
     def feedback(self):
+        """
+        Access the feedback
+        
+        :returns: FeedbackContext
+        :rtype: FeedbackContext
+        """
         if self._feedback is None:
             self._feedback = FeedbackContext(
                 self._version,
@@ -232,6 +266,16 @@ class CallContext(InstanceContext):
                 call_sid=self._kwargs['sid'],
             )
         return self._feedback
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.CallContext {}>'.format(context)
 
 
 class CallInstance(InstanceResource):

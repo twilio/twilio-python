@@ -107,6 +107,16 @@ class ConferenceList(ListResource):
 class ConferenceContext(InstanceContext):
 
     def __init__(self, version, account_sid, sid):
+        """
+        Initialize the ConferenceContext
+        
+        :param Version version
+        :param account_sid: Contextual account_sid
+        :param sid: Contextual sid
+        
+        :returns: ConferenceContext
+        :rtype: ConferenceContext
+        """
         super(ConferenceContext, self).__init__(version)
         
         # Path Solution
@@ -132,6 +142,12 @@ class ConferenceContext(InstanceContext):
 
     @property
     def participants(self):
+        """
+        Access the participants
+        
+        :returns: ParticipantList
+        :rtype: ParticipantList
+        """
         if self._participants is None:
             self._participants = ParticipantList(
                 self._version,
@@ -139,6 +155,16 @@ class ConferenceContext(InstanceContext):
                 conference_sid=self._kwargs['sid'],
             )
         return self._participants
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.ConferenceContext {}>'.format(context)
 
 
 class ConferenceInstance(InstanceResource):

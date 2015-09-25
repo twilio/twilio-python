@@ -123,6 +123,16 @@ class TriggerList(ListResource):
 class TriggerContext(InstanceContext):
 
     def __init__(self, version, account_sid, sid):
+        """
+        Initialize the TriggerContext
+        
+        :param Version version
+        :param account_sid: Contextual account_sid
+        :param sid: Contextual sid
+        
+        :returns: TriggerContext
+        :rtype: TriggerContext
+        """
         super(TriggerContext, self).__init__(version)
         
         # Path Solution
@@ -161,6 +171,16 @@ class TriggerContext(InstanceContext):
 
     def delete(self):
         return self._version.delete('delete', self._uri)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.TriggerContext {}>'.format(context)
 
 
 class TriggerInstance(InstanceResource):

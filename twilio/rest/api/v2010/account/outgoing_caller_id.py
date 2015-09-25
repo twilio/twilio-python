@@ -119,6 +119,16 @@ class OutgoingCallerIdList(ListResource):
 class OutgoingCallerIdContext(InstanceContext):
 
     def __init__(self, version, account_sid, sid):
+        """
+        Initialize the OutgoingCallerIdContext
+        
+        :param Version version
+        :param account_sid: Contextual account_sid
+        :param sid: Contextual sid
+        
+        :returns: OutgoingCallerIdContext
+        :rtype: OutgoingCallerIdContext
+        """
         super(OutgoingCallerIdContext, self).__init__(version)
         
         # Path Solution
@@ -154,6 +164,16 @@ class OutgoingCallerIdContext(InstanceContext):
 
     def delete(self):
         return self._version.delete('delete', self._uri)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.OutgoingCallerIdContext {}>'.format(context)
 
 
 class OutgoingCallerIdInstance(InstanceResource):

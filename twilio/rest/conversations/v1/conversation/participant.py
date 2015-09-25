@@ -107,6 +107,16 @@ class ParticipantList(ListResource):
 class ParticipantContext(InstanceContext):
 
     def __init__(self, version, conversation_sid, sid):
+        """
+        Initialize the ParticipantContext
+        
+        :param Version version
+        :param conversation_sid: Contextual conversation_sid
+        :param sid: Contextual sid
+        
+        :returns: ParticipantContext
+        :rtype: ParticipantContext
+        """
         super(ParticipantContext, self).__init__(version)
         
         # Path Solution
@@ -126,6 +136,16 @@ class ParticipantContext(InstanceContext):
             self._uri,
             params=params,
         )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Conversations.V1.ParticipantContext {}>'.format(context)
 
 
 class ParticipantInstance(InstanceResource):

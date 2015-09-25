@@ -115,6 +115,15 @@ class TrunkList(ListResource):
 class TrunkContext(InstanceContext):
 
     def __init__(self, version, sid):
+        """
+        Initialize the TrunkContext
+        
+        :param Version version
+        :param sid: Contextual sid
+        
+        :returns: TrunkContext
+        :rtype: TrunkContext
+        """
         super(TrunkContext, self).__init__(version)
         
         # Path Solution
@@ -166,6 +175,12 @@ class TrunkContext(InstanceContext):
 
     @property
     def origination_urls(self):
+        """
+        Access the origination_urls
+        
+        :returns: OriginationUrlList
+        :rtype: OriginationUrlList
+        """
         if self._origination_urls is None:
             self._origination_urls = OriginationUrlList(
                 self._version,
@@ -175,6 +190,12 @@ class TrunkContext(InstanceContext):
 
     @property
     def credentials_lists(self):
+        """
+        Access the credentials_lists
+        
+        :returns: CredentialListList
+        :rtype: CredentialListList
+        """
         if self._credentials_lists is None:
             self._credentials_lists = CredentialListList(
                 self._version,
@@ -184,6 +205,12 @@ class TrunkContext(InstanceContext):
 
     @property
     def ip_access_control_lists(self):
+        """
+        Access the ip_access_control_lists
+        
+        :returns: IpAccessControlListList
+        :rtype: IpAccessControlListList
+        """
         if self._ip_access_control_lists is None:
             self._ip_access_control_lists = IpAccessControlListList(
                 self._version,
@@ -193,12 +220,28 @@ class TrunkContext(InstanceContext):
 
     @property
     def phone_numbers(self):
+        """
+        Access the phone_numbers
+        
+        :returns: PhoneNumberList
+        :rtype: PhoneNumberList
+        """
         if self._phone_numbers is None:
             self._phone_numbers = PhoneNumberList(
                 self._version,
                 trunk_sid=self._kwargs['sid'],
             )
         return self._phone_numbers
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Trunking.V1.TrunkContext {}>'.format(context)
 
 
 class TrunkInstance(InstanceResource):

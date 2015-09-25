@@ -34,7 +34,7 @@ class NotificationList(ListResource):
             'account_sid': account_sid,
             'call_sid': call_sid,
         }
-        self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Notifications'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Notifications.json'.format(**self._kwargs)
 
     def read(self, log=values.unset, message_date=values.unset, limit=None,
              page_size=None, **kwargs):
@@ -102,6 +102,17 @@ class NotificationList(ListResource):
 class NotificationContext(InstanceContext):
 
     def __init__(self, version, account_sid, call_sid, sid):
+        """
+        Initialize the NotificationContext
+        
+        :param Version version
+        :param account_sid: Contextual account_sid
+        :param call_sid: Contextual call_sid
+        :param sid: Contextual sid
+        
+        :returns: NotificationContext
+        :rtype: NotificationContext
+        """
         super(NotificationContext, self).__init__(version)
         
         # Path Solution
@@ -125,6 +136,16 @@ class NotificationContext(InstanceContext):
 
     def delete(self):
         return self._version.delete('delete', self._uri)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.NotificationContext {}>'.format(context)
 
 
 class NotificationInstance(InstanceResource):

@@ -107,6 +107,16 @@ class CredentialListList(ListResource):
 class CredentialListContext(InstanceContext):
 
     def __init__(self, version, account_sid, sid):
+        """
+        Initialize the CredentialListContext
+        
+        :param Version version
+        :param account_sid: Contextual account_sid
+        :param sid: Contextual sid
+        
+        :returns: CredentialListContext
+        :rtype: CredentialListContext
+        """
         super(CredentialListContext, self).__init__(version)
         
         # Path Solution
@@ -148,6 +158,12 @@ class CredentialListContext(InstanceContext):
 
     @property
     def credentials(self):
+        """
+        Access the credentials
+        
+        :returns: CredentialList
+        :rtype: CredentialList
+        """
         if self._credentials is None:
             self._credentials = CredentialList(
                 self._version,
@@ -155,6 +171,16 @@ class CredentialListContext(InstanceContext):
                 sip_credential_list_sid=self._kwargs['sid'],
             )
         return self._credentials
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.CredentialListContext {}>'.format(context)
 
 
 class CredentialListInstance(InstanceResource):

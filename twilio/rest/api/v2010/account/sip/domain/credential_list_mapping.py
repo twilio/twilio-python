@@ -108,6 +108,17 @@ class CredentialListMappingList(ListResource):
 class CredentialListMappingContext(InstanceContext):
 
     def __init__(self, version, account_sid, domain_sid, sid):
+        """
+        Initialize the CredentialListMappingContext
+        
+        :param Version version
+        :param account_sid: Contextual account_sid
+        :param domain_sid: Contextual domain_sid
+        :param sid: Contextual sid
+        
+        :returns: CredentialListMappingContext
+        :rtype: CredentialListMappingContext
+        """
         super(CredentialListMappingContext, self).__init__(version)
         
         # Path Solution
@@ -131,6 +142,16 @@ class CredentialListMappingContext(InstanceContext):
 
     def delete(self):
         return self._version.delete('delete', self._uri)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.CredentialListMappingContext {}>'.format(context)
 
 
 class CredentialListMappingInstance(InstanceResource):

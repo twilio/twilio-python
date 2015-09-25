@@ -126,18 +126,36 @@ class IncomingPhoneNumberList(ListResource):
 
     @property
     def local(self):
+        """
+        Access the local
+        
+        :returns: LocalList
+        :rtype: LocalList
+        """
         if self._local is None:
             self._local = LocalList(self._version, **self._kwargs)
         return self._local
 
     @property
     def mobile(self):
+        """
+        Access the mobile
+        
+        :returns: MobileList
+        :rtype: MobileList
+        """
         if self._mobile is None:
             self._mobile = MobileList(self._version, **self._kwargs)
         return self._mobile
 
     @property
     def toll_free(self):
+        """
+        Access the toll_free
+        
+        :returns: TollFreeList
+        :rtype: TollFreeList
+        """
         if self._toll_free is None:
             self._toll_free = TollFreeList(self._version, **self._kwargs)
         return self._toll_free
@@ -166,6 +184,16 @@ class IncomingPhoneNumberList(ListResource):
 class IncomingPhoneNumberContext(InstanceContext):
 
     def __init__(self, version, owner_account_sid, sid):
+        """
+        Initialize the IncomingPhoneNumberContext
+        
+        :param Version version
+        :param owner_account_sid: Contextual owner_account_sid
+        :param sid: Contextual sid
+        
+        :returns: IncomingPhoneNumberContext
+        :rtype: IncomingPhoneNumberContext
+        """
         super(IncomingPhoneNumberContext, self).__init__(version)
         
         # Path Solution
@@ -224,6 +252,16 @@ class IncomingPhoneNumberContext(InstanceContext):
 
     def delete(self):
         return self._version.delete('delete', self._uri)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.IncomingPhoneNumberContext {}>'.format(context)
 
 
 class IncomingPhoneNumberInstance(InstanceResource):

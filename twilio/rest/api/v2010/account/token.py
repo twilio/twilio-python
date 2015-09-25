@@ -68,11 +68,29 @@ class TokenList(ListResource):
 class TokenContext(InstanceContext):
 
     def __init__(self, version):
+        """
+        Initialize the TokenContext
+        
+        :param Version version
+        
+        :returns: TokenContext
+        :rtype: TokenContext
+        """
         super(TokenContext, self).__init__(version)
         
         # Path Solution
         self._kwargs = {}
         self._uri = 'None'.format(**self._kwargs)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.TokenContext {}>'.format(context)
 
 
 class TokenInstance(InstanceResource):

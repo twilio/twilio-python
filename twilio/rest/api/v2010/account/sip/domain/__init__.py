@@ -119,6 +119,16 @@ class DomainList(ListResource):
 class DomainContext(InstanceContext):
 
     def __init__(self, version, account_sid, sid):
+        """
+        Initialize the DomainContext
+        
+        :param Version version
+        :param account_sid: Contextual account_sid
+        :param sid: Contextual sid
+        
+        :returns: DomainContext
+        :rtype: DomainContext
+        """
         super(DomainContext, self).__init__(version)
         
         # Path Solution
@@ -171,6 +181,12 @@ class DomainContext(InstanceContext):
 
     @property
     def ip_access_control_list_mappings(self):
+        """
+        Access the ip_access_control_list_mappings
+        
+        :returns: IpAccessControlListMappingList
+        :rtype: IpAccessControlListMappingList
+        """
         if self._ip_access_control_list_mappings is None:
             self._ip_access_control_list_mappings = IpAccessControlListMappingList(
                 self._version,
@@ -181,6 +197,12 @@ class DomainContext(InstanceContext):
 
     @property
     def credential_list_mappings(self):
+        """
+        Access the credential_list_mappings
+        
+        :returns: CredentialListMappingList
+        :rtype: CredentialListMappingList
+        """
         if self._credential_list_mappings is None:
             self._credential_list_mappings = CredentialListMappingList(
                 self._version,
@@ -188,6 +210,16 @@ class DomainContext(InstanceContext):
                 domain_sid=self._kwargs['sid'],
             )
         return self._credential_list_mappings
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.DomainContext {}>'.format(context)
 
 
 class DomainInstance(InstanceResource):

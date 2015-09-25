@@ -139,6 +139,16 @@ class LocalList(ListResource):
 class LocalContext(InstanceContext):
 
     def __init__(self, version, owner_account_sid, sid):
+        """
+        Initialize the LocalContext
+        
+        :param Version version
+        :param owner_account_sid: Contextual owner_account_sid
+        :param sid: Contextual sid
+        
+        :returns: LocalContext
+        :rtype: LocalContext
+        """
         super(LocalContext, self).__init__(version)
         
         # Path Solution
@@ -147,6 +157,16 @@ class LocalContext(InstanceContext):
             'sid': sid,
         }
         self._uri = '/Accounts/{owner_account_sid}/IncomingPhoneNumbers/{sid}.json'.format(**self._kwargs)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.LocalContext {}>'.format(context)
 
 
 class LocalInstance(InstanceResource):

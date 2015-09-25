@@ -106,6 +106,16 @@ class PhoneNumberList(ListResource):
 class PhoneNumberContext(InstanceContext):
 
     def __init__(self, version, trunk_sid, sid):
+        """
+        Initialize the PhoneNumberContext
+        
+        :param Version version
+        :param sid: Contextual sid
+        :param trunk_sid: Contextual trunk_sid
+        
+        :returns: PhoneNumberContext
+        :rtype: PhoneNumberContext
+        """
         super(PhoneNumberContext, self).__init__(version)
         
         # Path Solution
@@ -128,6 +138,16 @@ class PhoneNumberContext(InstanceContext):
 
     def delete(self):
         return self._version.delete('delete', self._uri)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Trunking.V1.PhoneNumberContext {}>'.format(context)
 
 
 class PhoneNumberInstance(InstanceResource):

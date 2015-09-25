@@ -108,6 +108,16 @@ class QueueList(ListResource):
 class QueueContext(InstanceContext):
 
     def __init__(self, version, account_sid, sid):
+        """
+        Initialize the QueueContext
+        
+        :param Version version
+        :param account_sid: Contextual account_sid
+        :param sid: Contextual sid
+        
+        :returns: QueueContext
+        :rtype: QueueContext
+        """
         super(QueueContext, self).__init__(version)
         
         # Path Solution
@@ -150,6 +160,12 @@ class QueueContext(InstanceContext):
 
     @property
     def members(self):
+        """
+        Access the members
+        
+        :returns: MemberList
+        :rtype: MemberList
+        """
         if self._members is None:
             self._members = MemberList(
                 self._version,
@@ -157,6 +173,16 @@ class QueueContext(InstanceContext):
                 queue_sid=self._kwargs['sid'],
             )
         return self._members
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.QueueContext {}>'.format(context)
 
 
 class QueueInstance(InstanceResource):

@@ -92,6 +92,16 @@ class ConnectAppList(ListResource):
 class ConnectAppContext(InstanceContext):
 
     def __init__(self, version, account_sid, sid):
+        """
+        Initialize the ConnectAppContext
+        
+        :param Version version
+        :param account_sid: Contextual account_sid
+        :param sid: Contextual sid
+        
+        :returns: ConnectAppContext
+        :rtype: ConnectAppContext
+        """
         super(ConnectAppContext, self).__init__(version)
         
         # Path Solution
@@ -135,6 +145,16 @@ class ConnectAppContext(InstanceContext):
             self._uri,
             data=data,
         )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.ConnectAppContext {}>'.format(context)
 
 
 class ConnectAppInstance(InstanceResource):

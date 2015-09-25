@@ -117,6 +117,16 @@ class WorkflowList(ListResource):
 class WorkflowContext(InstanceContext):
 
     def __init__(self, version, workspace_sid, sid):
+        """
+        Initialize the WorkflowContext
+        
+        :param Version version
+        :param sid: Contextual sid
+        :param workspace_sid: Contextual workspace_sid
+        
+        :returns: WorkflowContext
+        :rtype: WorkflowContext
+        """
         super(WorkflowContext, self).__init__(version)
         
         # Path Solution
@@ -165,6 +175,12 @@ class WorkflowContext(InstanceContext):
 
     @property
     def statistics(self):
+        """
+        Access the statistics
+        
+        :returns: StatisticsContext
+        :rtype: StatisticsContext
+        """
         if self._statistics is None:
             self._statistics = StatisticsContext(
                 self._version,
@@ -172,6 +188,16 @@ class WorkflowContext(InstanceContext):
                 workflow_sid=self._kwargs['sid'],
             )
         return self._statistics
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Taskrouter.V1.WorkflowContext {}>'.format(context)
 
 
 class WorkflowInstance(InstanceResource):

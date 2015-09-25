@@ -109,6 +109,17 @@ class IpAddressList(ListResource):
 class IpAddressContext(InstanceContext):
 
     def __init__(self, version, account_sid, ip_access_control_list_sid, sid):
+        """
+        Initialize the IpAddressContext
+        
+        :param Version version
+        :param account_sid: Contextual account_sid
+        :param ip_access_control_list_sid: Contextual ip_access_control_list_sid
+        :param sid: Contextual sid
+        
+        :returns: IpAddressContext
+        :rtype: IpAddressContext
+        """
         super(IpAddressContext, self).__init__(version)
         
         # Path Solution
@@ -146,6 +157,16 @@ class IpAddressContext(InstanceContext):
 
     def delete(self):
         return self._version.delete('delete', self._uri)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.IpAddressContext {}>'.format(context)
 
 
 class IpAddressInstance(InstanceResource):

@@ -13,11 +13,29 @@ from twilio.rest.base import InstanceResource
 class VoiceContext(InstanceContext):
 
     def __init__(self, version):
+        """
+        Initialize the VoiceContext
+        
+        :param Version version
+        
+        :returns: VoiceContext
+        :rtype: VoiceContext
+        """
         super(VoiceContext, self).__init__(version)
         
         # Path Solution
         self._kwargs = {}
         self._uri = '/Voice'.format(**self._kwargs)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Pricing.V1.VoiceContext {}>'.format(context)
 
 
 class VoiceInstance(InstanceResource):

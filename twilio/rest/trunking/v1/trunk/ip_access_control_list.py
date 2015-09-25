@@ -106,6 +106,16 @@ class IpAccessControlListList(ListResource):
 class IpAccessControlListContext(InstanceContext):
 
     def __init__(self, version, trunk_sid, sid):
+        """
+        Initialize the IpAccessControlListContext
+        
+        :param Version version
+        :param sid: Contextual sid
+        :param trunk_sid: Contextual trunk_sid
+        
+        :returns: IpAccessControlListContext
+        :rtype: IpAccessControlListContext
+        """
         super(IpAccessControlListContext, self).__init__(version)
         
         # Path Solution
@@ -128,6 +138,16 @@ class IpAccessControlListContext(InstanceContext):
 
     def delete(self):
         return self._version.delete('delete', self._uri)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Trunking.V1.IpAccessControlListContext {}>'.format(context)
 
 
 class IpAccessControlListInstance(InstanceResource):

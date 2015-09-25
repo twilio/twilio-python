@@ -75,6 +75,16 @@ class FeedbackSummaryList(ListResource):
 class FeedbackSummaryContext(InstanceContext):
 
     def __init__(self, version, account_sid, sid):
+        """
+        Initialize the FeedbackSummaryContext
+        
+        :param Version version
+        :param account_sid: Contextual account_sid
+        :param sid: Contextual sid
+        
+        :returns: FeedbackSummaryContext
+        :rtype: FeedbackSummaryContext
+        """
         super(FeedbackSummaryContext, self).__init__(version)
         
         # Path Solution
@@ -97,6 +107,16 @@ class FeedbackSummaryContext(InstanceContext):
 
     def delete(self):
         return self._version.delete('delete', self._uri)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.FeedbackSummaryContext {}>'.format(context)
 
 
 class FeedbackSummaryInstance(InstanceResource):

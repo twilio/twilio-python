@@ -15,6 +15,15 @@ from twilio.rest.base import InstanceResource
 class SandboxContext(InstanceContext):
 
     def __init__(self, version, account_sid):
+        """
+        Initialize the SandboxContext
+        
+        :param Version version
+        :param account_sid: Contextual account_sid
+        
+        :returns: SandboxContext
+        :rtype: SandboxContext
+        """
         super(SandboxContext, self).__init__(version)
         
         # Path Solution
@@ -53,6 +62,16 @@ class SandboxContext(InstanceContext):
             self._uri,
             data=data,
         )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.SandboxContext {}>'.format(context)
 
 
 class SandboxInstance(InstanceResource):

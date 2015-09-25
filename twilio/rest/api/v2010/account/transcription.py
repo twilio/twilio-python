@@ -93,6 +93,16 @@ class TranscriptionList(ListResource):
 class TranscriptionContext(InstanceContext):
 
     def __init__(self, version, account_sid, sid):
+        """
+        Initialize the TranscriptionContext
+        
+        :param Version version
+        :param account_sid: Contextual account_sid
+        :param sid: Contextual sid
+        
+        :returns: TranscriptionContext
+        :rtype: TranscriptionContext
+        """
         super(TranscriptionContext, self).__init__(version)
         
         # Path Solution
@@ -115,6 +125,16 @@ class TranscriptionContext(InstanceContext):
 
     def delete(self):
         return self._version.delete('delete', self._uri)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.TranscriptionContext {}>'.format(context)
 
 
 class TranscriptionInstance(InstanceResource):

@@ -14,6 +14,15 @@ from twilio.rest.base import InstanceResource
 class NumberContext(InstanceContext):
 
     def __init__(self, version, number):
+        """
+        Initialize the NumberContext
+        
+        :param Version version
+        :param number: Contextual number
+        
+        :returns: NumberContext
+        :rtype: NumberContext
+        """
         super(NumberContext, self).__init__(version)
         
         # Path Solution
@@ -32,6 +41,16 @@ class NumberContext(InstanceContext):
             self._uri,
             params=params,
         )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Pricing.V1.NumberContext {}>'.format(context)
 
 
 class NumberInstance(InstanceResource):

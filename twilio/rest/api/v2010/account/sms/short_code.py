@@ -99,6 +99,16 @@ class ShortCodeList(ListResource):
 class ShortCodeContext(InstanceContext):
 
     def __init__(self, version, account_sid, sid):
+        """
+        Initialize the ShortCodeContext
+        
+        :param Version version
+        :param account_sid: Contextual account_sid
+        :param sid: Contextual sid
+        
+        :returns: ShortCodeContext
+        :rtype: ShortCodeContext
+        """
         super(ShortCodeContext, self).__init__(version)
         
         # Path Solution
@@ -138,6 +148,16 @@ class ShortCodeContext(InstanceContext):
             self._uri,
             data=data,
         )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.ShortCodeContext {}>'.format(context)
 
 
 class ShortCodeInstance(InstanceResource):

@@ -95,6 +95,17 @@ class ReservationList(ListResource):
 class ReservationContext(InstanceContext):
 
     def __init__(self, version, workspace_sid, task_sid, sid):
+        """
+        Initialize the ReservationContext
+        
+        :param Version version
+        :param sid: Contextual sid
+        :param task_sid: Contextual task_sid
+        :param workspace_sid: Contextual workspace_sid
+        
+        :returns: ReservationContext
+        :rtype: ReservationContext
+        """
         super(ReservationContext, self).__init__(version)
         
         # Path Solution
@@ -129,6 +140,16 @@ class ReservationContext(InstanceContext):
             self._uri,
             data=data,
         )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Taskrouter.V1.ReservationContext {}>'.format(context)
 
 
 class ReservationInstance(InstanceResource):

@@ -113,6 +113,12 @@ class WorkerList(ListResource):
 
     @property
     def statistics(self):
+        """
+        Access the statistics
+        
+        :returns: StatisticsContext
+        :rtype: StatisticsContext
+        """
         if self._statistics is None:
             self._statistics = StatisticsContext(self._version, **self._kwargs)
         return self._statistics
@@ -141,6 +147,16 @@ class WorkerList(ListResource):
 class WorkerContext(InstanceContext):
 
     def __init__(self, version, workspace_sid, sid):
+        """
+        Initialize the WorkerContext
+        
+        :param Version version
+        :param sid: Contextual sid
+        :param workspace_sid: Contextual workspace_sid
+        
+        :returns: WorkerContext
+        :rtype: WorkerContext
+        """
         super(WorkerContext, self).__init__(version)
         
         # Path Solution
@@ -185,6 +201,12 @@ class WorkerContext(InstanceContext):
 
     @property
     def statistics(self):
+        """
+        Access the statistics
+        
+        :returns: StatisticsContext
+        :rtype: StatisticsContext
+        """
         if self._statistics is None:
             self._statistics = StatisticsContext(
                 self._version,
@@ -192,6 +214,16 @@ class WorkerContext(InstanceContext):
                 worker_sid=self._kwargs['sid'],
             )
         return self._statistics
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Taskrouter.V1.WorkerContext {}>'.format(context)
 
 
 class WorkerInstance(InstanceResource):

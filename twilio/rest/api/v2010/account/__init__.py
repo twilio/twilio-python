@@ -128,6 +128,15 @@ class AccountList(ListResource):
 class AccountContext(InstanceContext):
 
     def __init__(self, version, sid):
+        """
+        Initialize the AccountContext
+        
+        :param Version version
+        :param sid: Contextual sid
+        
+        :returns: AccountContext
+        :rtype: AccountContext
+        """
         super(AccountContext, self).__init__(version)
         
         # Path Solution
@@ -184,6 +193,12 @@ class AccountContext(InstanceContext):
 
     @property
     def addresses(self):
+        """
+        Access the addresses
+        
+        :returns: AddressList
+        :rtype: AddressList
+        """
         if self._addresses is None:
             self._addresses = AddressList(
                 self._version,
@@ -193,6 +208,12 @@ class AccountContext(InstanceContext):
 
     @property
     def applications(self):
+        """
+        Access the applications
+        
+        :returns: ApplicationList
+        :rtype: ApplicationList
+        """
         if self._applications is None:
             self._applications = ApplicationList(
                 self._version,
@@ -202,6 +223,12 @@ class AccountContext(InstanceContext):
 
     @property
     def authorized_connect_apps(self):
+        """
+        Access the authorized_connect_apps
+        
+        :returns: AuthorizedConnectAppList
+        :rtype: AuthorizedConnectAppList
+        """
         if self._authorized_connect_apps is None:
             self._authorized_connect_apps = AuthorizedConnectAppList(
                 self._version,
@@ -211,6 +238,12 @@ class AccountContext(InstanceContext):
 
     @property
     def available_phone_numbers(self):
+        """
+        Access the available_phone_numbers
+        
+        :returns: AvailablePhoneNumberCountryList
+        :rtype: AvailablePhoneNumberCountryList
+        """
         if self._available_phone_numbers is None:
             self._available_phone_numbers = AvailablePhoneNumberCountryList(
                 self._version,
@@ -220,6 +253,12 @@ class AccountContext(InstanceContext):
 
     @property
     def calls(self):
+        """
+        Access the calls
+        
+        :returns: CallList
+        :rtype: CallList
+        """
         if self._calls is None:
             self._calls = CallList(
                 self._version,
@@ -229,6 +268,12 @@ class AccountContext(InstanceContext):
 
     @property
     def conferences(self):
+        """
+        Access the conferences
+        
+        :returns: ConferenceList
+        :rtype: ConferenceList
+        """
         if self._conferences is None:
             self._conferences = ConferenceList(
                 self._version,
@@ -238,6 +283,12 @@ class AccountContext(InstanceContext):
 
     @property
     def connect_apps(self):
+        """
+        Access the connect_apps
+        
+        :returns: ConnectAppList
+        :rtype: ConnectAppList
+        """
         if self._connect_apps is None:
             self._connect_apps = ConnectAppList(
                 self._version,
@@ -247,6 +298,12 @@ class AccountContext(InstanceContext):
 
     @property
     def incoming_phone_numbers(self):
+        """
+        Access the incoming_phone_numbers
+        
+        :returns: IncomingPhoneNumberList
+        :rtype: IncomingPhoneNumberList
+        """
         if self._incoming_phone_numbers is None:
             self._incoming_phone_numbers = IncomingPhoneNumberList(
                 self._version,
@@ -256,6 +313,12 @@ class AccountContext(InstanceContext):
 
     @property
     def messages(self):
+        """
+        Access the messages
+        
+        :returns: MessageList
+        :rtype: MessageList
+        """
         if self._messages is None:
             self._messages = MessageList(
                 self._version,
@@ -265,6 +328,12 @@ class AccountContext(InstanceContext):
 
     @property
     def notifications(self):
+        """
+        Access the notifications
+        
+        :returns: NotificationList
+        :rtype: NotificationList
+        """
         if self._notifications is None:
             self._notifications = NotificationList(
                 self._version,
@@ -274,6 +343,12 @@ class AccountContext(InstanceContext):
 
     @property
     def outgoing_caller_ids(self):
+        """
+        Access the outgoing_caller_ids
+        
+        :returns: OutgoingCallerIdList
+        :rtype: OutgoingCallerIdList
+        """
         if self._outgoing_caller_ids is None:
             self._outgoing_caller_ids = OutgoingCallerIdList(
                 self._version,
@@ -283,6 +358,12 @@ class AccountContext(InstanceContext):
 
     @property
     def queues(self):
+        """
+        Access the queues
+        
+        :returns: QueueList
+        :rtype: QueueList
+        """
         if self._queues is None:
             self._queues = QueueList(
                 self._version,
@@ -292,6 +373,12 @@ class AccountContext(InstanceContext):
 
     @property
     def recordings(self):
+        """
+        Access the recordings
+        
+        :returns: RecordingList
+        :rtype: RecordingList
+        """
         if self._recordings is None:
             self._recordings = RecordingList(
                 self._version,
@@ -301,6 +388,12 @@ class AccountContext(InstanceContext):
 
     @property
     def sandbox(self):
+        """
+        Access the sandbox
+        
+        :returns: SandboxContext
+        :rtype: SandboxContext
+        """
         if self._sandbox is None:
             self._sandbox = SandboxContext(
                 self._version,
@@ -310,6 +403,12 @@ class AccountContext(InstanceContext):
 
     @property
     def sip(self):
+        """
+        Access the sip
+        
+        :returns: SipContext
+        :rtype: SipContext
+        """
         if self._sip is None:
             self._sip = SipContext(
                 self._version,
@@ -319,6 +418,12 @@ class AccountContext(InstanceContext):
 
     @property
     def sms(self):
+        """
+        Access the sms
+        
+        :returns: SmsContext
+        :rtype: SmsContext
+        """
         if self._sms is None:
             self._sms = SmsContext(
                 self._version,
@@ -328,6 +433,12 @@ class AccountContext(InstanceContext):
 
     @property
     def tokens(self):
+        """
+        Access the tokens
+        
+        :returns: TokenList
+        :rtype: TokenList
+        """
         if self._tokens is None:
             self._tokens = TokenList(
                 self._version,
@@ -337,6 +448,12 @@ class AccountContext(InstanceContext):
 
     @property
     def transcriptions(self):
+        """
+        Access the transcriptions
+        
+        :returns: TranscriptionList
+        :rtype: TranscriptionList
+        """
         if self._transcriptions is None:
             self._transcriptions = TranscriptionList(
                 self._version,
@@ -346,12 +463,28 @@ class AccountContext(InstanceContext):
 
     @property
     def usage(self):
+        """
+        Access the usage
+        
+        :returns: UsageContext
+        :rtype: UsageContext
+        """
         if self._usage is None:
             self._usage = UsageContext(
                 self._version,
                 account_sid=self._kwargs['sid'],
             )
         return self._usage
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.AccountContext {}>'.format(context)
 
 
 class AccountInstance(InstanceResource):

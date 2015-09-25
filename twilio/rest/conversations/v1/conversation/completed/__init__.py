@@ -91,6 +91,15 @@ class CompletedList(ListResource):
 class CompletedContext(InstanceContext):
 
     def __init__(self, version, sid):
+        """
+        Initialize the CompletedContext
+        
+        :param Version version
+        :param sid: Contextual sid
+        
+        :returns: CompletedContext
+        :rtype: CompletedContext
+        """
         super(CompletedContext, self).__init__(version)
         
         # Path Solution
@@ -104,11 +113,27 @@ class CompletedContext(InstanceContext):
 
     @property
     def participants(self):
+        """
+        Access the participants
+        
+        :returns: ParticipantList
+        :rtype: ParticipantList
+        """
         if self._participants is None:
             self._participants = ParticipantList(
                 self._version,
             )
         return self._participants
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Conversations.V1.CompletedContext {}>'.format(context)
 
 
 class CompletedInstance(InstanceResource):

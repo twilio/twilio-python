@@ -98,6 +98,16 @@ class RecordingList(ListResource):
 class RecordingContext(InstanceContext):
 
     def __init__(self, version, account_sid, sid):
+        """
+        Initialize the RecordingContext
+        
+        :param Version version
+        :param account_sid: Contextual account_sid
+        :param sid: Contextual sid
+        
+        :returns: RecordingContext
+        :rtype: RecordingContext
+        """
         super(RecordingContext, self).__init__(version)
         
         # Path Solution
@@ -126,6 +136,12 @@ class RecordingContext(InstanceContext):
 
     @property
     def transcriptions(self):
+        """
+        Access the transcriptions
+        
+        :returns: TranscriptionList
+        :rtype: TranscriptionList
+        """
         if self._transcriptions is None:
             self._transcriptions = TranscriptionList(
                 self._version,
@@ -133,6 +149,16 @@ class RecordingContext(InstanceContext):
                 recording_sid=self._kwargs['sid'],
             )
         return self._transcriptions
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.RecordingContext {}>'.format(context)
 
 
 class RecordingInstance(InstanceResource):
