@@ -62,9 +62,9 @@ class WorkspaceList(ListResource):
              page_size=None, **kwargs):
         params = values.of({
             'FriendlyName': friendly_name,
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -123,7 +123,7 @@ class WorkspaceContext(InstanceContext):
         self._kwargs = {
             'sid': sid,
         }
-        self._uri = "/Workspaces/{sid}".format(**self._kwargs)
+        self._uri = '/Workspaces/{sid}'.format(**self._kwargs)
         
         # Dependents
         self._activities = None
@@ -164,7 +164,7 @@ class WorkspaceContext(InstanceContext):
         )
 
     def delete(self):
-        return self._version.delete("delete", self._uri)
+        return self._version.delete('delete', self._uri)
 
     @property
     def activities(self):

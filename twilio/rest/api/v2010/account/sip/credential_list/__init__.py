@@ -55,9 +55,9 @@ class CredentialListList(ListResource):
 
     def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
         params = values.of({
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -114,7 +114,7 @@ class CredentialListContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = "/Accounts/{account_sid}/SIP/CredentialLists/{sid}.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/SIP/CredentialLists/{sid}.json'.format(**self._kwargs)
         
         # Dependents
         self._credentials = None
@@ -144,7 +144,7 @@ class CredentialListContext(InstanceContext):
         )
 
     def delete(self):
-        return self._version.delete("delete", self._uri)
+        return self._version.delete('delete', self._uri)
 
     @property
     def credentials(self):

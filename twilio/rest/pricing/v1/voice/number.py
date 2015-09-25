@@ -20,7 +20,7 @@ class NumberContext(InstanceContext):
         self._kwargs = {
             'number': number,
         }
-        self._uri = "/Voice/Numbers/{number}".format(**self._kwargs)
+        self._uri = '/Voice/Numbers/{number}'.format(**self._kwargs)
 
     def fetch(self):
         params = values.of({})

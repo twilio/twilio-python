@@ -83,9 +83,9 @@ class SmsMessageList(ListResource):
             'To': to,
             'From': from_,
             'DateSent': serialize.iso8601_date(date_sent),
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -129,10 +129,10 @@ class SmsMessageContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = "/Accounts/{account_sid}/SMS/Messages/{sid}.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/SMS/Messages/{sid}.json'.format(**self._kwargs)
 
     def delete(self):
-        return self._version.delete("delete", self._uri)
+        return self._version.delete('delete', self._uri)
 
     def fetch(self):
         params = values.of({})

@@ -76,9 +76,9 @@ class TrunkList(ListResource):
 
     def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
         params = values.of({
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -121,7 +121,7 @@ class TrunkContext(InstanceContext):
         self._kwargs = {
             'sid': sid,
         }
-        self._uri = "/Trunks/{sid}".format(**self._kwargs)
+        self._uri = '/Trunks/{sid}'.format(**self._kwargs)
         
         # Dependents
         self._origination_urls = None
@@ -141,7 +141,7 @@ class TrunkContext(InstanceContext):
         )
 
     def delete(self):
-        return self._version.delete("delete", self._uri)
+        return self._version.delete('delete', self._uri)
 
     def update(self, friendly_name=values.unset, domain_name=values.unset,
                disaster_recovery_url=values.unset,

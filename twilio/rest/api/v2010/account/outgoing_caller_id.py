@@ -60,9 +60,9 @@ class OutgoingCallerIdList(ListResource):
         params = values.of({
             'PhoneNumber': phone_number,
             'FriendlyName': friendly_name,
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -126,7 +126,7 @@ class OutgoingCallerIdContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = "/Accounts/{account_sid}/OutgoingCallerIds/{sid}.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/OutgoingCallerIds/{sid}.json'.format(**self._kwargs)
 
     def fetch(self):
         params = values.of({})
@@ -153,7 +153,7 @@ class OutgoingCallerIdContext(InstanceContext):
         )
 
     def delete(self):
-        return self._version.delete("delete", self._uri)
+        return self._version.delete('delete', self._uri)
 
 
 class OutgoingCallerIdInstance(InstanceResource):

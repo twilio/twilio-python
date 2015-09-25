@@ -109,9 +109,9 @@ class CallList(ListResource):
             'Status': status,
             'StartTime': serialize.iso8601_date(start_time),
             'EndTime': serialize.iso8601_date(end_time),
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -161,7 +161,7 @@ class CallContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = "/Accounts/{account_sid}/Calls/{sid}.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Calls/{sid}.json'.format(**self._kwargs)
         
         # Dependents
         self._recordings = None
@@ -169,7 +169,7 @@ class CallContext(InstanceContext):
         self._feedback = None
 
     def delete(self):
-        return self._version.delete("delete", self._uri)
+        return self._version.delete('delete', self._uri)
 
     def fetch(self):
         params = values.of({})

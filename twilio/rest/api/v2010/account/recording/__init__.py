@@ -59,9 +59,9 @@ class RecordingList(ListResource):
              page_size=None, **kwargs):
         params = values.of({
             'DateCreated': serialize.iso8601_date(date_created),
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -105,7 +105,7 @@ class RecordingContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = "/Accounts/{account_sid}/Recordings/{sid}.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Recordings/{sid}.json'.format(**self._kwargs)
         
         # Dependents
         self._transcriptions = None
@@ -122,7 +122,7 @@ class RecordingContext(InstanceContext):
         )
 
     def delete(self):
-        return self._version.delete("delete", self._uri)
+        return self._version.delete('delete', self._uri)
 
     @property
     def transcriptions(self):

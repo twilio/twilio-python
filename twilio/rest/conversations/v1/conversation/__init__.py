@@ -22,7 +22,7 @@ class ConversationContext(InstanceContext):
         self._kwargs = {
             'sid': sid,
         }
-        self._uri = "/Conversations/{sid}".format(**self._kwargs)
+        self._uri = '/Conversations/{sid}'.format(**self._kwargs)
         
         # Dependents
         self._participants = None

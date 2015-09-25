@@ -60,9 +60,9 @@ class RecordingList(ListResource):
              page_size=None, **kwargs):
         params = values.of({
             'DateCreated': serialize.iso8601_date(date_created),
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -107,7 +107,7 @@ class RecordingContext(InstanceContext):
             'call_sid': call_sid,
             'sid': sid,
         }
-        self._uri = "/Accounts/{account_sid}/Calls/{call_sid}/Recordings/{sid}.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Recordings/{sid}.json'.format(**self._kwargs)
 
     def fetch(self):
         params = values.of({})
@@ -121,7 +121,7 @@ class RecordingContext(InstanceContext):
         )
 
     def delete(self):
-        return self._version.delete("delete", self._uri)
+        return self._version.delete('delete', self._uri)
 
 
 class RecordingInstance(InstanceResource):

@@ -67,9 +67,9 @@ class TaskQueueList(ListResource):
         params = values.of({
             'FriendlyName': friendly_name,
             'EvaluateWorkerAttributes': evaluate_worker_attributes,
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -138,7 +138,7 @@ class TaskQueueContext(InstanceContext):
             'workspace_sid': workspace_sid,
             'sid': sid,
         }
-        self._uri = "/Workspaces/{workspace_sid}/TaskQueues/{sid}".format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/TaskQueues/{sid}'.format(**self._kwargs)
         
         # Dependents
         self._statistics = None
@@ -175,7 +175,7 @@ class TaskQueueContext(InstanceContext):
         )
 
     def delete(self):
-        return self._version.delete("delete", self._uri)
+        return self._version.delete('delete', self._uri)
 
     @property
     def statistics(self):

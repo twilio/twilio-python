@@ -58,9 +58,9 @@ class MobileList(ListResource):
              page_size=None, **kwargs):
         params = values.of({
             'Beta': beta,
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -99,7 +99,7 @@ class MobileContext(InstanceContext):
         
         # Path Solution
         self._kwargs = {}
-        self._uri = "None".format(**self._kwargs)
+        self._uri = 'None'.format(**self._kwargs)
 
 
 class MobileInstance(InstanceResource):

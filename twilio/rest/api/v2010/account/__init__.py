@@ -89,9 +89,9 @@ class AccountList(ListResource):
         params = values.of({
             'FriendlyName': friendly_name,
             'Status': status,
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -134,7 +134,7 @@ class AccountContext(InstanceContext):
         self._kwargs = {
             'sid': sid,
         }
-        self._uri = "/Accounts/{sid}.json".format(**self._kwargs)
+        self._uri = '/Accounts/{sid}.json'.format(**self._kwargs)
         
         # Dependents
         self._addresses = None

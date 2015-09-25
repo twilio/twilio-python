@@ -56,9 +56,9 @@ class DomainList(ListResource):
 
     def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
         params = values.of({
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -126,7 +126,7 @@ class DomainContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = "/Accounts/{account_sid}/SIP/Domains/{sid}.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/SIP/Domains/{sid}.json'.format(**self._kwargs)
         
         # Dependents
         self._ip_access_control_list_mappings = None
@@ -167,7 +167,7 @@ class DomainContext(InstanceContext):
         )
 
     def delete(self):
-        return self._version.delete("delete", self._uri)
+        return self._version.delete('delete', self._uri)
 
     @property
     def ip_access_control_list_mappings(self):

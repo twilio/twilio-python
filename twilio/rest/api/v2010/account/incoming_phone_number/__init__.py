@@ -71,9 +71,9 @@ class IncomingPhoneNumberList(ListResource):
             'Beta': beta,
             'FriendlyName': friendly_name,
             'PhoneNumber': phone_number,
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -173,7 +173,7 @@ class IncomingPhoneNumberContext(InstanceContext):
             'owner_account_sid': owner_account_sid,
             'sid': sid,
         }
-        self._uri = "/Accounts/{owner_account_sid}/IncomingPhoneNumbers/{sid}.json".format(**self._kwargs)
+        self._uri = '/Accounts/{owner_account_sid}/IncomingPhoneNumbers/{sid}.json'.format(**self._kwargs)
 
     def update(self, account_sid=values.unset, api_version=values.unset,
                friendly_name=values.unset, sms_application_sid=values.unset,
@@ -223,7 +223,7 @@ class IncomingPhoneNumberContext(InstanceContext):
         )
 
     def delete(self):
-        return self._version.delete("delete", self._uri)
+        return self._version.delete('delete', self._uri)
 
 
 class IncomingPhoneNumberInstance(InstanceResource):

@@ -80,9 +80,9 @@ class WorkerList(ListResource):
             'TargetWorkersExpression': target_workers_expression,
             'TaskQueueName': task_queue_name,
             'TaskQueueSid': task_queue_sid,
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -148,7 +148,7 @@ class WorkerContext(InstanceContext):
             'workspace_sid': workspace_sid,
             'sid': sid,
         }
-        self._uri = "/Workspaces/{workspace_sid}/Workers/{sid}".format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/Workers/{sid}'.format(**self._kwargs)
         
         # Dependents
         self._statistics = None
@@ -181,7 +181,7 @@ class WorkerContext(InstanceContext):
         )
 
     def delete(self):
-        return self._version.delete("delete", self._uri)
+        return self._version.delete('delete', self._uri)
 
     @property
     def statistics(self):

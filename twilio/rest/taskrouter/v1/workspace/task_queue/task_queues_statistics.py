@@ -65,9 +65,9 @@ class StatisticsList(ListResource):
             'FriendlyName': friendly_name,
             'Minutes': minutes,
             'StartDate': start_date,
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -106,7 +106,7 @@ class StatisticsContext(InstanceContext):
         
         # Path Solution
         self._kwargs = {}
-        self._uri = "None".format(**self._kwargs)
+        self._uri = 'None'.format(**self._kwargs)
 
 
 class StatisticsInstance(InstanceResource):

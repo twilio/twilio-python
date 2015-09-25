@@ -59,9 +59,9 @@ class CredentialList(ListResource):
              page_size=None, **kwargs):
         params = values.of({
             'SipCredentialListSid': sip_credential_list_sid,
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -121,7 +121,7 @@ class CredentialContext(InstanceContext):
             'credential_list_sid': credential_list_sid,
             'sid': sid,
         }
-        self._uri = "/Accounts/{account_sid}/SIP/CredentialLists/{credential_list_sid}/Credentials/{sid}.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/SIP/CredentialLists/{credential_list_sid}/Credentials/{sid}.json'.format(**self._kwargs)
 
     def fetch(self, sip_credential_list_sid):
         params = values.of({
@@ -152,7 +152,7 @@ class CredentialContext(InstanceContext):
         )
 
     def delete(self, sip_credential_list_sid):
-        return self._version.delete("delete", self._uri)
+        return self._version.delete('delete', self._uri)
 
 
 class CredentialInstance(InstanceResource):

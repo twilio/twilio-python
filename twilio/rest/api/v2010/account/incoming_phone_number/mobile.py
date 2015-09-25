@@ -63,9 +63,9 @@ class MobileList(ListResource):
             'Beta': beta,
             'FriendlyName': friendly_name,
             'PhoneNumber': phone_number,
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -146,7 +146,7 @@ class MobileContext(InstanceContext):
             'owner_account_sid': owner_account_sid,
             'sid': sid,
         }
-        self._uri = "/Accounts/{owner_account_sid}/IncomingPhoneNumbers/{sid}.json".format(**self._kwargs)
+        self._uri = '/Accounts/{owner_account_sid}/IncomingPhoneNumbers/{sid}.json'.format(**self._kwargs)
 
 
 class MobileInstance(InstanceResource):

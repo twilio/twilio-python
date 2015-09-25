@@ -68,9 +68,9 @@ class ConferenceList(ListResource):
             'DateUpdated': serialize.iso8601_date(date_updated),
             'FriendlyName': friendly_name,
             'Status': status,
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -114,7 +114,7 @@ class ConferenceContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = "/Accounts/{account_sid}/Conferences/{sid}.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Conferences/{sid}.json'.format(**self._kwargs)
         
         # Dependents
         self._participants = None

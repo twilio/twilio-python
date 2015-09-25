@@ -73,9 +73,9 @@ class TaskList(ListResource):
             'WorkflowName': workflow_name,
             'TaskQueueSid': task_queue_sid,
             'TaskQueueName': task_queue_name,
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -136,7 +136,7 @@ class TaskContext(InstanceContext):
             'workspace_sid': workspace_sid,
             'sid': sid,
         }
-        self._uri = "/Workspaces/{workspace_sid}/Tasks/{sid}".format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/Tasks/{sid}'.format(**self._kwargs)
         
         # Dependents
         self._reservations = None
@@ -170,7 +170,7 @@ class TaskContext(InstanceContext):
         )
 
     def delete(self):
-        return self._version.delete("delete", self._uri)
+        return self._version.delete('delete', self._uri)
 
     @property
     def reservations(self):

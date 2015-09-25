@@ -60,9 +60,9 @@ class MediaList(ListResource):
              page_size=None, **kwargs):
         params = values.of({
             'DateCreated': serialize.iso8601_date(date_created),
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -107,10 +107,10 @@ class MediaContext(InstanceContext):
             'message_sid': message_sid,
             'sid': sid,
         }
-        self._uri = "/Accounts/{account_sid}/Messages/{message_sid}/Media/{sid}.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Messages/{message_sid}/Media/{sid}.json'.format(**self._kwargs)
 
     def delete(self):
-        return self._version.delete("delete", self._uri)
+        return self._version.delete('delete', self._uri)
 
     def fetch(self):
         params = values.of({})

@@ -55,9 +55,9 @@ class DependentPhoneNumberList(ListResource):
 
     def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
         params = values.of({
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -96,7 +96,7 @@ class DependentPhoneNumberContext(InstanceContext):
         
         # Path Solution
         self._kwargs = {}
-        self._uri = "None".format(**self._kwargs)
+        self._uri = 'None'.format(**self._kwargs)
 
 
 class DependentPhoneNumberInstance(InstanceResource):

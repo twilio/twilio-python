@@ -81,9 +81,9 @@ class EventList(ListResource):
             'TaskSid': task_sid,
             'WorkerSid': worker_sid,
             'WorkflowSid': workflow_sid,
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -127,7 +127,7 @@ class EventContext(InstanceContext):
             'workspace_sid': workspace_sid,
             'sid': sid,
         }
-        self._uri = "/Workspaces/{workspace_sid}/Events/{sid}".format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/Events/{sid}'.format(**self._kwargs)
 
     def fetch(self):
         params = values.of({})

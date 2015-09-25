@@ -60,9 +60,9 @@ class ActivityList(ListResource):
         params = values.of({
             'FriendlyName': friendly_name,
             'Available': available,
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -120,7 +120,7 @@ class ActivityContext(InstanceContext):
             'workspace_sid': workspace_sid,
             'sid': sid,
         }
-        self._uri = "/Workspaces/{workspace_sid}/Activities/{sid}".format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/Activities/{sid}'.format(**self._kwargs)
 
     def fetch(self):
         params = values.of({})
@@ -147,7 +147,7 @@ class ActivityContext(InstanceContext):
         )
 
     def delete(self):
-        return self._version.delete("delete", self._uri)
+        return self._version.delete('delete', self._uri)
 
 
 class ActivityInstance(InstanceResource):

@@ -22,7 +22,7 @@ class FeedbackContext(InstanceContext):
             'account_sid': account_sid,
             'call_sid': call_sid,
         }
-        self._uri = "/Accounts/{account_sid}/Calls/{call_sid}/Feedback.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Feedback.json'.format(**self._kwargs)
 
     def create(self, quality_score, issue=values.unset):
         data = values.of({

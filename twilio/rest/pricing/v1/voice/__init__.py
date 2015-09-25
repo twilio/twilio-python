@@ -17,7 +17,7 @@ class VoiceContext(InstanceContext):
         
         # Path Solution
         self._kwargs = {}
-        self._uri = "/Voice".format(**self._kwargs)
+        self._uri = '/Voice'.format(**self._kwargs)
 
 
 class VoiceInstance(InstanceResource):

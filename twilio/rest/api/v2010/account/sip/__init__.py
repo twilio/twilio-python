@@ -17,7 +17,7 @@ class SipContext(InstanceContext):
         
         # Path Solution
         self._kwargs = {}
-        self._uri = "None".format(**self._kwargs)
+        self._uri = 'None'.format(**self._kwargs)
 
 
 class SipInstance(InstanceResource):

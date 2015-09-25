@@ -21,7 +21,7 @@ class StatisticsContext(InstanceContext):
             'workspace_sid': workspace_sid,
             'task_queue_sid': task_queue_sid,
         }
-        self._uri = "/Workspaces/{workspace_sid}/TaskQueues/{task_queue_sid}/Statistics".format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/TaskQueues/{task_queue_sid}/Statistics'.format(**self._kwargs)
 
     def fetch(self, end_date=values.unset, friendly_name=values.unset,
               minutes=values.unset, start_date=values.unset):

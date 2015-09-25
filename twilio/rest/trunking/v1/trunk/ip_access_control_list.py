@@ -67,9 +67,9 @@ class IpAccessControlListList(ListResource):
 
     def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
         params = values.of({
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -113,7 +113,7 @@ class IpAccessControlListContext(InstanceContext):
             'trunk_sid': trunk_sid,
             'sid': sid,
         }
-        self._uri = "/Trunks/{trunk_sid}/IpAccessControlLists/{sid}".format(**self._kwargs)
+        self._uri = '/Trunks/{trunk_sid}/IpAccessControlLists/{sid}'.format(**self._kwargs)
 
     def fetch(self):
         params = values.of({})
@@ -127,7 +127,7 @@ class IpAccessControlListContext(InstanceContext):
         )
 
     def delete(self):
-        return self._version.delete("delete", self._uri)
+        return self._version.delete('delete', self._uri)
 
 
 class IpAccessControlListInstance(InstanceResource):

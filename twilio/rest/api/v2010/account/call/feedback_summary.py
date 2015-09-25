@@ -82,7 +82,7 @@ class FeedbackSummaryContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = "/Accounts/{account_sid}/Calls/FeedbackSummary/{sid}.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Calls/FeedbackSummary/{sid}.json'.format(**self._kwargs)
 
     def fetch(self):
         params = values.of({})
@@ -96,7 +96,7 @@ class FeedbackSummaryContext(InstanceContext):
         )
 
     def delete(self):
-        return self._version.delete("delete", self._uri)
+        return self._version.delete('delete', self._uri)
 
 
 class FeedbackSummaryInstance(InstanceResource):

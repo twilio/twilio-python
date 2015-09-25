@@ -60,9 +60,9 @@ class ShortCodeList(ListResource):
         params = values.of({
             'FriendlyName': friendly_name,
             'ShortCode': short_code,
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -106,7 +106,7 @@ class ShortCodeContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = "/Accounts/{account_sid}/SMS/ShortCodes/{sid}.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/SMS/ShortCodes/{sid}.json'.format(**self._kwargs)
 
     def fetch(self):
         params = values.of({})

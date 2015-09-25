@@ -56,9 +56,9 @@ class AvailablePhoneNumberCountryList(ListResource):
 
     def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
         params = values.of({
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -102,7 +102,7 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
             'account_sid': account_sid,
             'country_code': country_code,
         }
-        self._uri = "/Accounts/{account_sid}/AvailablePhoneNumbers/{country_code}.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/AvailablePhoneNumbers/{country_code}.json'.format(**self._kwargs)
         
         # Dependents
         self._local = None

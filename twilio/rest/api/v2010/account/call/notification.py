@@ -63,9 +63,9 @@ class NotificationList(ListResource):
         params = values.of({
             'Log': log,
             'MessageDate': serialize.iso8601_date(message_date),
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -110,7 +110,7 @@ class NotificationContext(InstanceContext):
             'call_sid': call_sid,
             'sid': sid,
         }
-        self._uri = "/Accounts/{account_sid}/Calls/{call_sid}/Notifications/{sid}.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Notifications/{sid}.json'.format(**self._kwargs)
 
     def fetch(self):
         params = values.of({})
@@ -124,7 +124,7 @@ class NotificationContext(InstanceContext):
         )
 
     def delete(self):
-        return self._version.delete("delete", self._uri)
+        return self._version.delete('delete', self._uri)
 
 
 class NotificationInstance(InstanceResource):

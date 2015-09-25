@@ -54,9 +54,9 @@ class ParticipantList(ListResource):
 
     def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
         params = values.of({
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -114,7 +114,7 @@ class ParticipantContext(InstanceContext):
             'conversation_sid': conversation_sid,
             'sid': sid,
         }
-        self._uri = "/Conversations/{conversation_sid}/Participants/{sid}".format(**self._kwargs)
+        self._uri = '/Conversations/{conversation_sid}/Participants/{sid}'.format(**self._kwargs)
 
     def fetch(self):
         params = values.of({})

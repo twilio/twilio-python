@@ -20,7 +20,7 @@ class PhoneNumberContext(InstanceContext):
         self._kwargs = {
             'phone_number': phone_number,
         }
-        self._uri = "/PhoneNumbers/{phone_number}".format(**self._kwargs)
+        self._uri = '/PhoneNumbers/{phone_number}'.format(**self._kwargs)
 
     def fetch(self, country_code=values.unset, type=values.unset):
         params = values.of({

@@ -56,9 +56,9 @@ class ReservationList(ListResource):
 
     def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
         params = values.of({
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -103,7 +103,7 @@ class ReservationContext(InstanceContext):
             'task_sid': task_sid,
             'sid': sid,
         }
-        self._uri = "/Workspaces/{workspace_sid}/Tasks/{task_sid}/Reservations/{sid}".format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/Tasks/{task_sid}/Reservations/{sid}'.format(**self._kwargs)
 
     def fetch(self):
         params = values.of({})

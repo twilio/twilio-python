@@ -59,9 +59,9 @@ class ParticipantList(ListResource):
              page_size=None, **kwargs):
         params = values.of({
             'Muted': muted,
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -106,7 +106,7 @@ class ParticipantContext(InstanceContext):
             'conference_sid': conference_sid,
             'call_sid': call_sid,
         }
-        self._uri = "/Accounts/{account_sid}/Conferences/{conference_sid}/Participants/{call_sid}.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Conferences/{conference_sid}/Participants/{call_sid}.json'.format(**self._kwargs)
 
     def fetch(self):
         params = values.of({})
@@ -133,7 +133,7 @@ class ParticipantContext(InstanceContext):
         )
 
     def delete(self):
-        return self._version.delete("delete", self._uri)
+        return self._version.delete('delete', self._uri)
 
 
 class ParticipantInstance(InstanceResource):

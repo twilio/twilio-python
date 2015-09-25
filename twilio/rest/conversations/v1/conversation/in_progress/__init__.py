@@ -52,9 +52,9 @@ class InProgressList(ListResource):
 
     def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
         params = values.of({
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -97,7 +97,7 @@ class InProgressContext(InstanceContext):
         self._kwargs = {
             'sid': sid,
         }
-        self._uri = "/Conversations/{sid}".format(**self._kwargs)
+        self._uri = '/Conversations/{sid}'.format(**self._kwargs)
         
         # Dependents
         self._participants = None

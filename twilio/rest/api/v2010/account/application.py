@@ -92,9 +92,9 @@ class ApplicationList(ListResource):
              page_size=None, **kwargs):
         params = values.of({
             'FriendlyName': friendly_name,
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -138,10 +138,10 @@ class ApplicationContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = "/Accounts/{account_sid}/Applications/{sid}.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Applications/{sid}.json'.format(**self._kwargs)
 
     def delete(self):
-        return self._version.delete("delete", self._uri)
+        return self._version.delete('delete', self._uri)
 
     def fetch(self):
         params = values.of({})

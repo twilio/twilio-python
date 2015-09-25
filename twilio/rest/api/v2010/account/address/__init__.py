@@ -84,9 +84,9 @@ class AddressList(ListResource):
             'CustomerName': customer_name,
             'FriendlyName': friendly_name,
             'IsoCountry': iso_country,
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -130,13 +130,13 @@ class AddressContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = "/Accounts/{account_sid}/Addresses/{sid}.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Addresses/{sid}.json'.format(**self._kwargs)
         
         # Dependents
         self._dependent_phone_numbers = None
 
     def delete(self):
-        return self._version.delete("delete", self._uri)
+        return self._version.delete('delete', self._uri)
 
     def fetch(self):
         params = values.of({})

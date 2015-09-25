@@ -50,9 +50,9 @@ class CountryList(ListResource):
 
     def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
         params = values.of({
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -95,7 +95,7 @@ class CountryContext(InstanceContext):
         self._kwargs = {
             'iso_country': iso_country,
         }
-        self._uri = "/PhoneNumbers/Countries/{iso_country}".format(**self._kwargs)
+        self._uri = '/PhoneNumbers/Countries/{iso_country}'.format(**self._kwargs)
 
     def fetch(self):
         params = values.of({})

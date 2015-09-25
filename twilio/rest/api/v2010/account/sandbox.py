@@ -21,7 +21,7 @@ class SandboxContext(InstanceContext):
         self._kwargs = {
             'account_sid': account_sid,
         }
-        self._uri = "/Accounts/{account_sid}/Sandbox.json".format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Sandbox.json'.format(**self._kwargs)
 
     def fetch(self):
         params = values.of({})

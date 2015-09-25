@@ -70,9 +70,9 @@ class EventList(ListResource):
             'ResourceSid': resource_sid,
             'SourceIpAddress': source_ip_address,
             'StartDate': serialize.iso8601_date(start_date),
-            "PageToken": page_token,
-            "Page": page_number,
-            "PageSize": page_size,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
         })
         params.update(kwargs)
         
@@ -115,7 +115,7 @@ class EventContext(InstanceContext):
         self._kwargs = {
             'sid': sid,
         }
-        self._uri = "/Events/{sid}".format(**self._kwargs)
+        self._uri = '/Events/{sid}'.format(**self._kwargs)
 
     def fetch(self):
         params = values.of({})
