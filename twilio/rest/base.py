@@ -139,11 +139,6 @@ class Version(object):
         }
 
     def read(self, pager, instance, instance_kwargs, method, uri, limit, page_limit, **kwargs):
-        return Replayable(
-            self._read(pager, instance, instance_kwargs, method, uri, limit, page_limit, **kwargs)
-        )
-
-    def _read(self, pager, instance, instance_kwargs, method, uri, limit, page_limit, **kwargs):
         current_record = 1
         current_page = 1
         page = self.page(pager, instance, instance_kwargs, method, uri, **kwargs)
@@ -223,24 +218,6 @@ class Version(object):
 
         payload = json.loads(response.content)
         return instance(self, payload)
-
-
-class Replayable(object):
-    def __init__(self, generator):
-        self.generator = generator
-        self.cache = []
-        self.cached = False
-
-    def __iter__(self):
-        if self.cached:
-            for c in self.cache:
-                yield c
-        else:
-            for g in self.generator:
-                self.cache.append(g)
-                yield g
-            else:
-                self.cached = True
 
 
 class ListResource(object):
