@@ -17,20 +17,20 @@ class Taskrouter(Domain):
         Initialize the Taskrouter Domain
         
         :returns: Domain for Taskrouter
-        :rtype: twilio.rest.taskrouter.Taskrouter
+        :rtype: Taskrouter
         """
         super(Taskrouter, self).__init__(twilio)
         
         self.base_url = 'https://taskrouter.twilio.com'
-        """ :type : str """
+        
+        # Versions
         self._v1 = None
-        """ :type : twilio.rest.taskrouter.v1.V1 """
 
     @property
     def v1(self):
         """
         :returns: Version v1 of taskrouter
-        :rtype: twilio.rest.taskrouter.v1.V1
+        :rtype: V1
         """
         if self._v1 is None:
             self._v1 = V1(self)
@@ -39,7 +39,7 @@ class Taskrouter(Domain):
     @property
     def workspaces(self):
         """
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceList
+        :rtype: WorkspaceList
         """
         return self.v1.workspaces
 

@@ -16,6 +16,16 @@ from twilio.rest.base import ListResource
 class MemberList(ListResource):
 
     def __init__(self, version, account_sid, queue_sid):
+        """
+        Initialize the MemberList
+        
+        :param Version version: Version that contains the resource
+        :param account_sid: Contextual account_sid
+        :param queue_sid: Contextual queue_sid
+        
+        :returns: MemberList
+        :rtype: MemberList
+        """
         super(MemberList, self).__init__(version)
         
         # Path Solution
@@ -62,9 +72,23 @@ class MemberList(ListResource):
         )
 
     def __call__(self, call_sid):
+        """
+        Constructs a MemberContext
+        
+        :param call_sid: Contextual call_sid
+        
+        :returns: MemberContext
+        :rtype: MemberContext
+        """
         return MemberContext(self._version, call_sid=call_sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Api.V2010.MemberList>'
 
 

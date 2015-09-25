@@ -18,6 +18,15 @@ from twilio.rest.base import ListResource
 class AvailablePhoneNumberCountryList(ListResource):
 
     def __init__(self, version, account_sid):
+        """
+        Initialize the AvailablePhoneNumberCountryList
+        
+        :param Version version: Version that contains the resource
+        :param account_sid: Contextual account_sid
+        
+        :returns: AvailablePhoneNumberCountryList
+        :rtype: AvailablePhoneNumberCountryList
+        """
         super(AvailablePhoneNumberCountryList, self).__init__(version)
         
         # Path Solution
@@ -63,9 +72,23 @@ class AvailablePhoneNumberCountryList(ListResource):
         )
 
     def __call__(self, country_code):
+        """
+        Constructs a AvailablePhoneNumberCountryContext
+        
+        :param country_code: Contextual country_code
+        
+        :returns: AvailablePhoneNumberCountryContext
+        :rtype: AvailablePhoneNumberCountryContext
+        """
         return AvailablePhoneNumberCountryContext(self._version, country_code=country_code, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Api.V2010.AvailablePhoneNumberCountryList>'
 
 

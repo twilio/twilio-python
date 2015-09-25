@@ -16,6 +16,15 @@ from twilio.rest.base import ListResource
 class ParticipantList(ListResource):
 
     def __init__(self, version, conversation_sid):
+        """
+        Initialize the ParticipantList
+        
+        :param Version version: Version that contains the resource
+        :param conversation_sid: Contextual conversation_sid
+        
+        :returns: ParticipantList
+        :rtype: ParticipantList
+        """
         super(ParticipantList, self).__init__(version)
         
         # Path Solution
@@ -75,9 +84,23 @@ class ParticipantList(ListResource):
         )
 
     def __call__(self, sid):
+        """
+        Constructs a ParticipantContext
+        
+        :param sid: Contextual sid
+        
+        :returns: ParticipantContext
+        :rtype: ParticipantContext
+        """
         return ParticipantContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Conversations.V1.ParticipantList>'
 
 

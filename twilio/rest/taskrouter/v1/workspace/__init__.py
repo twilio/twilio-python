@@ -23,6 +23,14 @@ from twilio.rest.taskrouter.v1.workspace.workflow import WorkflowList
 class WorkspaceList(ListResource):
 
     def __init__(self, version):
+        """
+        Initialize the WorkspaceList
+        
+        :param Version version: Version that contains the resource
+        
+        :returns: WorkspaceList
+        :rtype: WorkspaceList
+        """
         super(WorkspaceList, self).__init__(version)
         
         # Path Solution
@@ -86,9 +94,23 @@ class WorkspaceList(ListResource):
         )
 
     def __call__(self, sid):
+        """
+        Constructs a WorkspaceContext
+        
+        :param sid: Contextual sid
+        
+        :returns: WorkspaceContext
+        :rtype: WorkspaceContext
+        """
         return WorkspaceContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Taskrouter.V1.WorkspaceList>'
 
 

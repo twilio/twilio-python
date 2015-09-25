@@ -15,6 +15,14 @@ from twilio.rest.base import ListResource
 class CountryList(ListResource):
 
     def __init__(self, version):
+        """
+        Initialize the CountryList
+        
+        :param Version version: Version that contains the resource
+        
+        :returns: CountryList
+        :rtype: CountryList
+        """
         super(CountryList, self).__init__(version)
         
         # Path Solution
@@ -58,9 +66,23 @@ class CountryList(ListResource):
         )
 
     def __call__(self, iso_country):
+        """
+        Constructs a CountryContext
+        
+        :param iso_country: Contextual iso_country
+        
+        :returns: CountryContext
+        :rtype: CountryContext
+        """
         return CountryContext(self._version, iso_country=iso_country, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Pricing.V1.CountryList>'
 
 

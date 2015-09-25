@@ -18,7 +18,7 @@ class V1(Version):
         Initialize the V1 version of Monitor
         
         :returns: V1 version of Monitor
-        :rtype: twilio.rest.monitor.v1.V1
+        :rtype: V1
         """
         super(V1, self).__init__(domain)
         self.version = 'v1'

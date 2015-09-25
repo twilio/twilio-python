@@ -17,20 +17,20 @@ class Api(Domain):
         Initialize the Api Domain
         
         :returns: Domain for Api
-        :rtype: twilio.rest.api.Api
+        :rtype: Api
         """
         super(Api, self).__init__(twilio)
         
         self.base_url = 'https://api.twilio.com'
-        """ :type : str """
+        
+        # Versions
         self._v2010 = None
-        """ :type : twilio.rest.api.v2010.V2010 """
 
     @property
     def v2010(self):
         """
         :returns: Version v2010 of api
-        :rtype: twilio.rest.api.v2010.V2010
+        :rtype: V2010
         """
         if self._v2010 is None:
             self._v2010 = V2010(self)
@@ -47,140 +47,140 @@ class Api(Domain):
     @property
     def accounts(self):
         """
-        :rtype: twilio.rest.api.v2010.account.AccountList
+        :rtype: AccountList
         """
         return self.v2010.accounts
 
     @property
     def addresses(self):
         """
-        :rtype: twilio.rest.api.v2010.account.address.AddressList
+        :rtype: AddressList
         """
         return self.account.addresses
 
     @property
     def applications(self):
         """
-        :rtype: twilio.rest.api.v2010.account.application.ApplicationList
+        :rtype: ApplicationList
         """
         return self.account.applications
 
     @property
     def authorized_connect_apps(self):
         """
-        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppList
+        :rtype: AuthorizedConnectAppList
         """
         return self.account.authorized_connect_apps
 
     @property
     def available_phone_numbers(self):
         """
-        :rtype: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryList
+        :rtype: AvailablePhoneNumberCountryList
         """
         return self.account.available_phone_numbers
 
     @property
     def calls(self):
         """
-        :rtype: twilio.rest.api.v2010.account.call.CallList
+        :rtype: CallList
         """
         return self.account.calls
 
     @property
     def conferences(self):
         """
-        :rtype: twilio.rest.api.v2010.account.conference.ConferenceList
+        :rtype: ConferenceList
         """
         return self.account.conferences
 
     @property
     def connect_apps(self):
         """
-        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppList
+        :rtype: ConnectAppList
         """
         return self.account.connect_apps
 
     @property
     def incoming_phone_numbers(self):
         """
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberList
+        :rtype: IncomingPhoneNumberList
         """
         return self.account.incoming_phone_numbers
 
     @property
     def messages(self):
         """
-        :rtype: twilio.rest.api.v2010.account.message.MessageList
+        :rtype: MessageList
         """
         return self.account.messages
 
     @property
     def notifications(self):
         """
-        :rtype: twilio.rest.api.v2010.account.notification.NotificationList
+        :rtype: NotificationList
         """
         return self.account.notifications
 
     @property
     def outgoing_caller_ids(self):
         """
-        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdList
+        :rtype: OutgoingCallerIdList
         """
         return self.account.outgoing_caller_ids
 
     @property
     def queues(self):
         """
-        :rtype: twilio.rest.api.v2010.account.queue.QueueList
+        :rtype: QueueList
         """
         return self.account.queues
 
     @property
     def recordings(self):
         """
-        :rtype: twilio.rest.api.v2010.account.recording.RecordingList
+        :rtype: RecordingList
         """
         return self.account.recordings
 
     @property
     def sandbox(self):
         """
-        :rtype: twilio.rest.api.v2010.account.sandbox.SandboxContext
+        :rtype: SandboxContext
         """
         return self.account.sandbox
 
     @property
     def sip(self):
         """
-        :rtype: twilio.rest.api.v2010.account.sip.SipContext
+        :rtype: SipContext
         """
         return self.account.sip
 
     @property
     def sms(self):
         """
-        :rtype: twilio.rest.api.v2010.account.sms.SmsContext
+        :rtype: SmsContext
         """
         return self.account.sms
 
     @property
     def tokens(self):
         """
-        :rtype: twilio.rest.api.v2010.account.token.TokenList
+        :rtype: TokenList
         """
         return self.account.tokens
 
     @property
     def transcriptions(self):
         """
-        :rtype: twilio.rest.api.v2010.account.transcription.TranscriptionList
+        :rtype: TranscriptionList
         """
         return self.account.transcriptions
 
     @property
     def usage(self):
         """
-        :rtype: twilio.rest.api.v2010.account.usage.UsageContext
+        :rtype: UsageContext
         """
         return self.account.usage
 

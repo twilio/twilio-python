@@ -16,6 +16,15 @@ from twilio.rest.base import ListResource
 class FeedbackSummaryList(ListResource):
 
     def __init__(self, version, account_sid):
+        """
+        Initialize the FeedbackSummaryList
+        
+        :param Version version: Version that contains the resource
+        :param account_sid: Contextual account_sid
+        
+        :returns: FeedbackSummaryList
+        :rtype: FeedbackSummaryList
+        """
         super(FeedbackSummaryList, self).__init__(version)
         
         # Path Solution
@@ -43,9 +52,23 @@ class FeedbackSummaryList(ListResource):
         )
 
     def __call__(self, sid):
+        """
+        Constructs a FeedbackSummaryContext
+        
+        :param sid: Contextual sid
+        
+        :returns: FeedbackSummaryContext
+        :rtype: FeedbackSummaryContext
+        """
         return FeedbackSummaryContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Api.V2010.FeedbackSummaryList>'
 
 

@@ -17,6 +17,15 @@ from twilio.rest.base import ListResource
 class NotificationList(ListResource):
 
     def __init__(self, version, account_sid):
+        """
+        Initialize the NotificationList
+        
+        :param Version version: Version that contains the resource
+        :param account_sid: Contextual account_sid
+        
+        :returns: NotificationList
+        :rtype: NotificationList
+        """
         super(NotificationList, self).__init__(version)
         
         # Path Solution
@@ -68,9 +77,23 @@ class NotificationList(ListResource):
         )
 
     def __call__(self, sid):
+        """
+        Constructs a NotificationContext
+        
+        :param sid: Contextual sid
+        
+        :returns: NotificationContext
+        :rtype: NotificationContext
+        """
         return NotificationContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Api.V2010.NotificationList>'
 
 

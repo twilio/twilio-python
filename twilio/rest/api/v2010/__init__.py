@@ -18,7 +18,7 @@ class V2010(Version):
         Initialize the V2010 version of Api
         
         :returns: V2010 version of Api
-        :rtype: twilio.rest.api.v2010.V2010
+        :rtype: V2010
         """
         super(V2010, self).__init__(domain)
         self.version = '2010-04-01'
@@ -38,7 +38,7 @@ class V2010(Version):
     def account(self):
         """
         :returns: Account provided as the authenticating account
-        :rtype: twilio.rest.api.v2010.account.AccountContext
+        :rtype: AccountContext
         """
         if self._account is None:
             self._account = AccountContext(self, self.domain.twilio.account_sid)

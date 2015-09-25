@@ -16,6 +16,15 @@ from twilio.rest.base import ListResource
 class MonthlyList(ListResource):
 
     def __init__(self, version, account_sid):
+        """
+        Initialize the MonthlyList
+        
+        :param Version version: Version that contains the resource
+        :param account_sid: Contextual account_sid
+        
+        :returns: MonthlyList
+        :rtype: MonthlyList
+        """
         super(MonthlyList, self).__init__(version)
         
         # Path Solution
@@ -61,9 +70,21 @@ class MonthlyList(ListResource):
         )
 
     def __call__(self):
+        """
+        Constructs a MonthlyContext
+        
+        :returns: MonthlyContext
+        :rtype: MonthlyContext
+        """
         return MonthlyContext(self._version, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Api.V2010.MonthlyList>'
 
 

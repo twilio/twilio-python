@@ -16,6 +16,15 @@ from twilio.rest.base import ListResource
 class ApplicationList(ListResource):
 
     def __init__(self, version, account_sid):
+        """
+        Initialize the ApplicationList
+        
+        :param Version version: Version that contains the resource
+        :param account_sid: Contextual account_sid
+        
+        :returns: ApplicationList
+        :rtype: ApplicationList
+        """
         super(ApplicationList, self).__init__(version)
         
         # Path Solution
@@ -99,9 +108,23 @@ class ApplicationList(ListResource):
         )
 
     def __call__(self, sid):
+        """
+        Constructs a ApplicationContext
+        
+        :param sid: Contextual sid
+        
+        :returns: ApplicationContext
+        :rtype: ApplicationContext
+        """
         return ApplicationContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Api.V2010.ApplicationList>'
 
 

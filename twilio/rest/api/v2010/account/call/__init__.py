@@ -21,6 +21,15 @@ from twilio.rest.base import ListResource
 class CallList(ListResource):
 
     def __init__(self, version, account_sid):
+        """
+        Initialize the CallList
+        
+        :param Version version: Version that contains the resource
+        :param account_sid: Contextual account_sid
+        
+        :returns: CallList
+        :rtype: CallList
+        """
         super(CallList, self).__init__(version)
         
         # Path Solution
@@ -122,9 +131,23 @@ class CallList(ListResource):
         return self._feedback_summaries
 
     def __call__(self, sid):
+        """
+        Constructs a CallContext
+        
+        :param sid: Contextual sid
+        
+        :returns: CallContext
+        :rtype: CallContext
+        """
         return CallContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Api.V2010.CallList>'
 
 

@@ -18,6 +18,15 @@ from twilio.rest.taskrouter.v1.workspace.worker.workers_statistics import Statis
 class WorkerList(ListResource):
 
     def __init__(self, version, workspace_sid):
+        """
+        Initialize the WorkerList
+        
+        :param Version version: Version that contains the resource
+        :param workspace_sid: Contextual workspace_sid
+        
+        :returns: WorkerList
+        :rtype: WorkerList
+        """
         super(WorkerList, self).__init__(version)
         
         # Path Solution
@@ -109,9 +118,23 @@ class WorkerList(ListResource):
         return self._statistics
 
     def __call__(self, sid):
+        """
+        Constructs a WorkerContext
+        
+        :param sid: Contextual sid
+        
+        :returns: WorkerContext
+        :rtype: WorkerContext
+        """
         return WorkerContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Taskrouter.V1.WorkerList>'
 
 

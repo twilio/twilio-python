@@ -15,6 +15,16 @@ from twilio.rest.base import ListResource
 class LocalList(ListResource):
 
     def __init__(self, version, account_sid, country_code):
+        """
+        Initialize the LocalList
+        
+        :param Version version: Version that contains the resource
+        :param account_sid: Contextual account_sid
+        :param country_code: Contextual country_code
+        
+        :returns: LocalList
+        :rtype: LocalList
+        """
         super(LocalList, self).__init__(version)
         
         # Path Solution
@@ -67,9 +77,21 @@ class LocalList(ListResource):
         )
 
     def __call__(self):
+        """
+        Constructs a LocalContext
+        
+        :returns: LocalContext
+        :rtype: LocalContext
+        """
         return LocalContext(self._version, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Api.V2010.LocalList>'
 
 

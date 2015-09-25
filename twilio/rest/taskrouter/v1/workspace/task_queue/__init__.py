@@ -18,6 +18,15 @@ from twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics impor
 class TaskQueueList(ListResource):
 
     def __init__(self, version, workspace_sid):
+        """
+        Initialize the TaskQueueList
+        
+        :param Version version: Version that contains the resource
+        :param workspace_sid: Contextual workspace_sid
+        
+        :returns: TaskQueueList
+        :rtype: TaskQueueList
+        """
         super(TaskQueueList, self).__init__(version)
         
         # Path Solution
@@ -99,9 +108,23 @@ class TaskQueueList(ListResource):
         return self._statistics
 
     def __call__(self, sid):
+        """
+        Constructs a TaskQueueContext
+        
+        :param sid: Contextual sid
+        
+        :returns: TaskQueueContext
+        :rtype: TaskQueueContext
+        """
         return TaskQueueContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Taskrouter.V1.TaskQueueList>'
 
 

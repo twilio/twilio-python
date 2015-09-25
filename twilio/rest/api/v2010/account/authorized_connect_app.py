@@ -16,6 +16,15 @@ from twilio.rest.base import ListResource
 class AuthorizedConnectAppList(ListResource):
 
     def __init__(self, version, account_sid):
+        """
+        Initialize the AuthorizedConnectAppList
+        
+        :param Version version: Version that contains the resource
+        :param account_sid: Contextual account_sid
+        
+        :returns: AuthorizedConnectAppList
+        :rtype: AuthorizedConnectAppList
+        """
         super(AuthorizedConnectAppList, self).__init__(version)
         
         # Path Solution
@@ -61,9 +70,23 @@ class AuthorizedConnectAppList(ListResource):
         )
 
     def __call__(self, sid):
+        """
+        Constructs a AuthorizedConnectAppContext
+        
+        :param sid: Contextual sid
+        
+        :returns: AuthorizedConnectAppContext
+        :rtype: AuthorizedConnectAppContext
+        """
         return AuthorizedConnectAppContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Api.V2010.AuthorizedConnectAppList>'
 
 

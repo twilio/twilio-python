@@ -16,6 +16,15 @@ from twilio.rest.base import ListResource
 class AllTimeList(ListResource):
 
     def __init__(self, version, account_sid):
+        """
+        Initialize the AllTimeList
+        
+        :param Version version: Version that contains the resource
+        :param account_sid: Contextual account_sid
+        
+        :returns: AllTimeList
+        :rtype: AllTimeList
+        """
         super(AllTimeList, self).__init__(version)
         
         # Path Solution
@@ -61,9 +70,21 @@ class AllTimeList(ListResource):
         )
 
     def __call__(self):
+        """
+        Constructs a AllTimeContext
+        
+        :returns: AllTimeContext
+        :rtype: AllTimeContext
+        """
         return AllTimeContext(self._version, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Api.V2010.AllTimeList>'
 
 

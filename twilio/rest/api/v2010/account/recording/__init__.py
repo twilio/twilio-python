@@ -18,6 +18,15 @@ from twilio.rest.base import ListResource
 class RecordingList(ListResource):
 
     def __init__(self, version, account_sid):
+        """
+        Initialize the RecordingList
+        
+        :param Version version: Version that contains the resource
+        :param account_sid: Contextual account_sid
+        
+        :returns: RecordingList
+        :rtype: RecordingList
+        """
         super(RecordingList, self).__init__(version)
         
         # Path Solution
@@ -66,9 +75,23 @@ class RecordingList(ListResource):
         )
 
     def __call__(self, sid):
+        """
+        Constructs a RecordingContext
+        
+        :param sid: Contextual sid
+        
+        :returns: RecordingContext
+        :rtype: RecordingContext
+        """
         return RecordingContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Api.V2010.RecordingList>'
 
 

@@ -16,6 +16,15 @@ from twilio.rest.base import ListResource
 class CredentialListList(ListResource):
 
     def __init__(self, version, trunk_sid):
+        """
+        Initialize the CredentialListList
+        
+        :param Version version: Version that contains the resource
+        :param trunk_sid: Contextual trunk_sid
+        
+        :returns: CredentialListList
+        :rtype: CredentialListList
+        """
         super(CredentialListList, self).__init__(version)
         
         # Path Solution
@@ -74,9 +83,23 @@ class CredentialListList(ListResource):
         )
 
     def __call__(self, sid):
+        """
+        Constructs a CredentialListContext
+        
+        :param sid: Contextual sid
+        
+        :returns: CredentialListContext
+        :rtype: CredentialListContext
+        """
         return CredentialListContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Trunking.V1.CredentialListList>'
 
 

@@ -17,7 +17,7 @@ class V1(Version):
         Initialize the V1 version of Lookups
         
         :returns: V1 version of Lookups
-        :rtype: twilio.rest.lookups.v1.V1
+        :rtype: V1
         """
         super(V1, self).__init__(domain)
         self.version = 'v1'

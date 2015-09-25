@@ -16,6 +16,15 @@ from twilio.rest.base import ListResource
 class YearlyList(ListResource):
 
     def __init__(self, version, account_sid):
+        """
+        Initialize the YearlyList
+        
+        :param Version version: Version that contains the resource
+        :param account_sid: Contextual account_sid
+        
+        :returns: YearlyList
+        :rtype: YearlyList
+        """
         super(YearlyList, self).__init__(version)
         
         # Path Solution
@@ -61,9 +70,21 @@ class YearlyList(ListResource):
         )
 
     def __call__(self):
+        """
+        Constructs a YearlyContext
+        
+        :returns: YearlyContext
+        :rtype: YearlyContext
+        """
         return YearlyContext(self._version, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Api.V2010.YearlyList>'
 
 

@@ -17,6 +17,14 @@ from twilio.rest.conversations.v1.conversation.participant import ParticipantLis
 class CompletedList(ListResource):
 
     def __init__(self, version):
+        """
+        Initialize the CompletedList
+        
+        :param Version version: Version that contains the resource
+        
+        :returns: CompletedList
+        :rtype: CompletedList
+        """
         super(CompletedList, self).__init__(version)
         
         # Path Solution
@@ -60,9 +68,23 @@ class CompletedList(ListResource):
         )
 
     def __call__(self, sid):
+        """
+        Constructs a CompletedContext
+        
+        :param sid: Contextual sid
+        
+        :returns: CompletedContext
+        :rtype: CompletedContext
+        """
         return CompletedContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Conversations.V1.CompletedList>'
 
 

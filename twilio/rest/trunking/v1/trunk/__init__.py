@@ -20,6 +20,14 @@ from twilio.rest.trunking.v1.trunk.phone_number import PhoneNumberList
 class TrunkList(ListResource):
 
     def __init__(self, version):
+        """
+        Initialize the TrunkList
+        
+        :param Version version: Version that contains the resource
+        
+        :returns: TrunkList
+        :rtype: TrunkList
+        """
         super(TrunkList, self).__init__(version)
         
         # Path Solution
@@ -84,9 +92,23 @@ class TrunkList(ListResource):
         )
 
     def __call__(self, sid):
+        """
+        Constructs a TrunkContext
+        
+        :param sid: Contextual sid
+        
+        :returns: TrunkContext
+        :rtype: TrunkContext
+        """
         return TrunkContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Trunking.V1.TrunkList>'
 
 

@@ -16,6 +16,15 @@ from twilio.rest.base import ListResource
 class ActivityList(ListResource):
 
     def __init__(self, version, workspace_sid):
+        """
+        Initialize the ActivityList
+        
+        :param Version version: Version that contains the resource
+        :param workspace_sid: Contextual workspace_sid
+        
+        :returns: ActivityList
+        :rtype: ActivityList
+        """
         super(ActivityList, self).__init__(version)
         
         # Path Solution
@@ -81,9 +90,23 @@ class ActivityList(ListResource):
         )
 
     def __call__(self, sid):
+        """
+        Constructs a ActivityContext
+        
+        :param sid: Contextual sid
+        
+        :returns: ActivityContext
+        :rtype: ActivityContext
+        """
         return ActivityContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Taskrouter.V1.ActivityList>'
 
 

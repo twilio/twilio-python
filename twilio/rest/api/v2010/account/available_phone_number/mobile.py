@@ -15,6 +15,16 @@ from twilio.rest.base import ListResource
 class MobileList(ListResource):
 
     def __init__(self, version, account_sid, country_code):
+        """
+        Initialize the MobileList
+        
+        :param Version version: Version that contains the resource
+        :param account_sid: Contextual account_sid
+        :param country_code: Contextual country_code
+        
+        :returns: MobileList
+        :rtype: MobileList
+        """
         super(MobileList, self).__init__(version)
         
         # Path Solution
@@ -64,9 +74,21 @@ class MobileList(ListResource):
         )
 
     def __call__(self):
+        """
+        Constructs a MobileContext
+        
+        :returns: MobileContext
+        :rtype: MobileContext
+        """
         return MobileContext(self._version, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Api.V2010.MobileList>'
 
 

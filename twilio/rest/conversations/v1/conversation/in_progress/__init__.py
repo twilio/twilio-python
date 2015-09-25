@@ -17,6 +17,14 @@ from twilio.rest.conversations.v1.conversation.participant import ParticipantLis
 class InProgressList(ListResource):
 
     def __init__(self, version):
+        """
+        Initialize the InProgressList
+        
+        :param Version version: Version that contains the resource
+        
+        :returns: InProgressList
+        :rtype: InProgressList
+        """
         super(InProgressList, self).__init__(version)
         
         # Path Solution
@@ -60,9 +68,23 @@ class InProgressList(ListResource):
         )
 
     def __call__(self, sid):
+        """
+        Constructs a InProgressContext
+        
+        :param sid: Contextual sid
+        
+        :returns: InProgressContext
+        :rtype: InProgressContext
+        """
         return InProgressContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Conversations.V1.InProgressList>'
 
 

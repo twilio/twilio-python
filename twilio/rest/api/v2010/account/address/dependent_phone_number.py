@@ -15,6 +15,16 @@ from twilio.rest.base import ListResource
 class DependentPhoneNumberList(ListResource):
 
     def __init__(self, version, account_sid, address_sid):
+        """
+        Initialize the DependentPhoneNumberList
+        
+        :param Version version: Version that contains the resource
+        :param account_sid: Contextual account_sid
+        :param address_sid: Contextual address_sid
+        
+        :returns: DependentPhoneNumberList
+        :rtype: DependentPhoneNumberList
+        """
         super(DependentPhoneNumberList, self).__init__(version)
         
         # Path Solution
@@ -61,9 +71,21 @@ class DependentPhoneNumberList(ListResource):
         )
 
     def __call__(self):
+        """
+        Constructs a DependentPhoneNumberContext
+        
+        :returns: DependentPhoneNumberContext
+        :rtype: DependentPhoneNumberContext
+        """
         return DependentPhoneNumberContext(self._version, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Api.V2010.DependentPhoneNumberList>'
 
 

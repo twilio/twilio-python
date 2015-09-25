@@ -18,6 +18,15 @@ from twilio.rest.base import ListResource
 class ConferenceList(ListResource):
 
     def __init__(self, version, account_sid):
+        """
+        Initialize the ConferenceList
+        
+        :param Version version: Version that contains the resource
+        :param account_sid: Contextual account_sid
+        
+        :returns: ConferenceList
+        :rtype: ConferenceList
+        """
         super(ConferenceList, self).__init__(version)
         
         # Path Solution
@@ -75,9 +84,23 @@ class ConferenceList(ListResource):
         )
 
     def __call__(self, sid):
+        """
+        Constructs a ConferenceContext
+        
+        :param sid: Contextual sid
+        
+        :returns: ConferenceContext
+        :rtype: ConferenceContext
+        """
         return ConferenceContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Api.V2010.ConferenceList>'
 
 

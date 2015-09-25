@@ -15,6 +15,15 @@ from twilio.rest.base import ListResource
 class StatisticsList(ListResource):
 
     def __init__(self, version, workspace_sid):
+        """
+        Initialize the StatisticsList
+        
+        :param Version version: Version that contains the resource
+        :param workspace_sid: Contextual workspace_sid
+        
+        :returns: StatisticsList
+        :rtype: StatisticsList
+        """
         super(StatisticsList, self).__init__(version)
         
         # Path Solution
@@ -72,9 +81,21 @@ class StatisticsList(ListResource):
         )
 
     def __call__(self):
+        """
+        Constructs a StatisticsContext
+        
+        :returns: StatisticsContext
+        :rtype: StatisticsContext
+        """
         return StatisticsContext(self._version, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Taskrouter.V1.StatisticsList>'
 
 

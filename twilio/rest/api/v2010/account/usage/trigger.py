@@ -16,6 +16,15 @@ from twilio.rest.base import ListResource
 class TriggerList(ListResource):
 
     def __init__(self, version, account_sid):
+        """
+        Initialize the TriggerList
+        
+        :param Version version: Version that contains the resource
+        :param account_sid: Contextual account_sid
+        
+        :returns: TriggerList
+        :rtype: TriggerList
+        """
         super(TriggerList, self).__init__(version)
         
         # Path Solution
@@ -91,9 +100,23 @@ class TriggerList(ListResource):
         )
 
     def __call__(self, sid):
+        """
+        Constructs a TriggerContext
+        
+        :param sid: Contextual sid
+        
+        :returns: TriggerContext
+        :rtype: TriggerContext
+        """
         return TriggerContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Api.V2010.TriggerList>'
 
 

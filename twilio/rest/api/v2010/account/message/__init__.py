@@ -18,6 +18,15 @@ from twilio.rest.base import ListResource
 class MessageList(ListResource):
 
     def __init__(self, version, account_sid):
+        """
+        Initialize the MessageList
+        
+        :param Version version: Version that contains the resource
+        :param account_sid: Contextual account_sid
+        
+        :returns: MessageList
+        :rtype: MessageList
+        """
         super(MessageList, self).__init__(version)
         
         # Path Solution
@@ -91,9 +100,23 @@ class MessageList(ListResource):
         )
 
     def __call__(self, sid):
+        """
+        Constructs a MessageContext
+        
+        :param sid: Contextual sid
+        
+        :returns: MessageContext
+        :rtype: MessageContext
+        """
         return MessageContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Api.V2010.MessageList>'
 
 

@@ -17,20 +17,20 @@ class Lookups(Domain):
         Initialize the Lookups Domain
         
         :returns: Domain for Lookups
-        :rtype: twilio.rest.lookups.Lookups
+        :rtype: Lookups
         """
         super(Lookups, self).__init__(twilio)
         
         self.base_url = 'https://lookups.twilio.com'
-        """ :type : str """
+        
+        # Versions
         self._v1 = None
-        """ :type : twilio.rest.lookups.v1.V1 """
 
     @property
     def v1(self):
         """
         :returns: Version v1 of lookups
-        :rtype: twilio.rest.lookups.v1.V1
+        :rtype: V1
         """
         if self._v1 is None:
             self._v1 = V1(self)
@@ -39,7 +39,7 @@ class Lookups(Domain):
     @property
     def phone_numbers(self):
         """
-        :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberContext
+        :rtype: PhoneNumberContext
         """
         return self.v1.phone_numbers
 

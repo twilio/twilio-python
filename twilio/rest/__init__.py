@@ -49,20 +49,14 @@ class Twilio(object):
         self.http_client = http_client or Httplib2Client()
         """ :type : HttpClient """
         
+        # Domains
         self._api = None
-        """ :type : twilio.rest.api.Api"""
         self._conversations = None
-        """ :type : twilio.rest.conversations.Conversations"""
         self._lookups = None
-        """ :type : twilio.rest.lookups.Lookups"""
         self._monitor = None
-        """ :type : twilio.rest.monitor.Monitor"""
         self._pricing = None
-        """ :type : twilio.rest.pricing.Pricing"""
         self._taskrouter = None
-        """ :type : twilio.rest.taskrouter.Taskrouter"""
         self._trunking = None
-        """ :type : twilio.rest.trunking.Trunking"""
 
     def request(self, method, uri, params=None, data=None, headers=None, auth=None,
                 timeout=None, allow_redirects=False):
@@ -100,7 +94,7 @@ class Twilio(object):
         Access the Api Twilio Domain
         
         :returns: Api Twilio Domain
-        :rtype: twilio.rest.api.Api
+        :rtype: Api
         """
         if self._api is None:
             self._api = Api(self)
@@ -112,7 +106,7 @@ class Twilio(object):
         Access the Conversations Twilio Domain
         
         :returns: Conversations Twilio Domain
-        :rtype: twilio.rest.conversations.Conversations
+        :rtype: Conversations
         """
         if self._conversations is None:
             self._conversations = Conversations(self)
@@ -124,7 +118,7 @@ class Twilio(object):
         Access the Lookups Twilio Domain
         
         :returns: Lookups Twilio Domain
-        :rtype: twilio.rest.lookups.Lookups
+        :rtype: Lookups
         """
         if self._lookups is None:
             self._lookups = Lookups(self)
@@ -136,7 +130,7 @@ class Twilio(object):
         Access the Monitor Twilio Domain
         
         :returns: Monitor Twilio Domain
-        :rtype: twilio.rest.monitor.Monitor
+        :rtype: Monitor
         """
         if self._monitor is None:
             self._monitor = Monitor(self)
@@ -148,7 +142,7 @@ class Twilio(object):
         Access the Pricing Twilio Domain
         
         :returns: Pricing Twilio Domain
-        :rtype: twilio.rest.pricing.Pricing
+        :rtype: Pricing
         """
         if self._pricing is None:
             self._pricing = Pricing(self)
@@ -160,7 +154,7 @@ class Twilio(object):
         Access the Taskrouter Twilio Domain
         
         :returns: Taskrouter Twilio Domain
-        :rtype: twilio.rest.taskrouter.Taskrouter
+        :rtype: Taskrouter
         """
         if self._taskrouter is None:
             self._taskrouter = Taskrouter(self)
@@ -172,7 +166,7 @@ class Twilio(object):
         Access the Trunking Twilio Domain
         
         :returns: Trunking Twilio Domain
-        :rtype: twilio.rest.trunking.Trunking
+        :rtype: Trunking
         """
         if self._trunking is None:
             self._trunking = Trunking(self)

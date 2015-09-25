@@ -16,6 +16,15 @@ from twilio.rest.base import ListResource
 class TodayList(ListResource):
 
     def __init__(self, version, account_sid):
+        """
+        Initialize the TodayList
+        
+        :param Version version: Version that contains the resource
+        :param account_sid: Contextual account_sid
+        
+        :returns: TodayList
+        :rtype: TodayList
+        """
         super(TodayList, self).__init__(version)
         
         # Path Solution
@@ -61,9 +70,21 @@ class TodayList(ListResource):
         )
 
     def __call__(self):
+        """
+        Constructs a TodayContext
+        
+        :returns: TodayContext
+        :rtype: TodayContext
+        """
         return TodayContext(self._version, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Api.V2010.TodayList>'
 
 

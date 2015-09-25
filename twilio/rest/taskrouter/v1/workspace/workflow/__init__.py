@@ -17,6 +17,15 @@ from twilio.rest.taskrouter.v1.workspace.workflow.statistics import StatisticsCo
 class WorkflowList(ListResource):
 
     def __init__(self, version, workspace_sid):
+        """
+        Initialize the WorkflowList
+        
+        :param Version version: Version that contains the resource
+        :param workspace_sid: Contextual workspace_sid
+        
+        :returns: WorkflowList
+        :rtype: WorkflowList
+        """
         super(WorkflowList, self).__init__(version)
         
         # Path Solution
@@ -85,9 +94,23 @@ class WorkflowList(ListResource):
         )
 
     def __call__(self, sid):
+        """
+        Constructs a WorkflowContext
+        
+        :param sid: Contextual sid
+        
+        :returns: WorkflowContext
+        :rtype: WorkflowContext
+        """
         return WorkflowContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Taskrouter.V1.WorkflowList>'
 
 

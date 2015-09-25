@@ -16,6 +16,16 @@ from twilio.rest.base import ListResource
 class IpAccessControlListMappingList(ListResource):
 
     def __init__(self, version, account_sid, domain_sid):
+        """
+        Initialize the IpAccessControlListMappingList
+        
+        :param Version version: Version that contains the resource
+        :param account_sid: Contextual account_sid
+        :param domain_sid: Contextual domain_sid
+        
+        :returns: IpAccessControlListMappingList
+        :rtype: IpAccessControlListMappingList
+        """
         super(IpAccessControlListMappingList, self).__init__(version)
         
         # Path Solution
@@ -75,9 +85,23 @@ class IpAccessControlListMappingList(ListResource):
         )
 
     def __call__(self, sid):
+        """
+        Constructs a IpAccessControlListMappingContext
+        
+        :param sid: Contextual sid
+        
+        :returns: IpAccessControlListMappingContext
+        :rtype: IpAccessControlListMappingContext
+        """
         return IpAccessControlListMappingContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Api.V2010.IpAccessControlListMappingList>'
 
 

@@ -35,6 +35,14 @@ from twilio.rest.base import ListResource
 class AccountList(ListResource):
 
     def __init__(self, version):
+        """
+        Initialize the AccountList
+        
+        :param Version version: Version that contains the resource
+        
+        :returns: AccountList
+        :rtype: AccountList
+        """
         super(AccountList, self).__init__(version)
         
         # Path Solution
@@ -97,9 +105,23 @@ class AccountList(ListResource):
         )
 
     def __call__(self, sid):
+        """
+        Constructs a AccountContext
+        
+        :param sid: Contextual sid
+        
+        :returns: AccountContext
+        :rtype: AccountContext
+        """
         return AccountContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Api.V2010.AccountList>'
 
 

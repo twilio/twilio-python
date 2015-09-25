@@ -17,20 +17,20 @@ class Conversations(Domain):
         Initialize the Conversations Domain
         
         :returns: Domain for Conversations
-        :rtype: twilio.rest.conversations.Conversations
+        :rtype: Conversations
         """
         super(Conversations, self).__init__(twilio)
         
         self.base_url = 'https://conversations.twilio.com'
-        """ :type : str """
+        
+        # Versions
         self._v1 = None
-        """ :type : twilio.rest.conversations.v1.V1 """
 
     @property
     def v1(self):
         """
         :returns: Version v1 of conversations
-        :rtype: twilio.rest.conversations.v1.V1
+        :rtype: V1
         """
         if self._v1 is None:
             self._v1 = V1(self)
@@ -39,7 +39,7 @@ class Conversations(Domain):
     @property
     def conversations(self):
         """
-        :rtype: twilio.rest.conversations.v1.conversation.ConversationContext
+        :rtype: ConversationContext
         """
         return self.v1.conversations
 

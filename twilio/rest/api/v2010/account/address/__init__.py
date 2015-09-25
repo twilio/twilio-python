@@ -17,6 +17,15 @@ from twilio.rest.base import ListResource
 class AddressList(ListResource):
 
     def __init__(self, version, account_sid):
+        """
+        Initialize the AddressList
+        
+        :param Version version: Version that contains the resource
+        :param account_sid: Contextual account_sid
+        
+        :returns: AddressList
+        :rtype: AddressList
+        """
         super(AddressList, self).__init__(version)
         
         # Path Solution
@@ -91,9 +100,23 @@ class AddressList(ListResource):
         )
 
     def __call__(self, sid):
+        """
+        Constructs a AddressContext
+        
+        :param sid: Contextual sid
+        
+        :returns: AddressContext
+        :rtype: AddressContext
+        """
         return AddressContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Api.V2010.AddressList>'
 
 

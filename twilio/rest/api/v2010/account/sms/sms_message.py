@@ -17,6 +17,15 @@ from twilio.rest.base import ListResource
 class SmsMessageList(ListResource):
 
     def __init__(self, version, account_sid):
+        """
+        Initialize the SmsMessageList
+        
+        :param Version version: Version that contains the resource
+        :param account_sid: Contextual account_sid
+        
+        :returns: SmsMessageList
+        :rtype: SmsMessageList
+        """
         super(SmsMessageList, self).__init__(version)
         
         # Path Solution
@@ -90,9 +99,23 @@ class SmsMessageList(ListResource):
         )
 
     def __call__(self, sid):
+        """
+        Constructs a SmsMessageContext
+        
+        :param sid: Contextual sid
+        
+        :returns: SmsMessageContext
+        :rtype: SmsMessageContext
+        """
         return SmsMessageContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Api.V2010.SmsMessageList>'
 
 

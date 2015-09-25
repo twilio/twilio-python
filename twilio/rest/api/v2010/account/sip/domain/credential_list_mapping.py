@@ -16,6 +16,16 @@ from twilio.rest.base import ListResource
 class CredentialListMappingList(ListResource):
 
     def __init__(self, version, account_sid, domain_sid):
+        """
+        Initialize the CredentialListMappingList
+        
+        :param Version version: Version that contains the resource
+        :param account_sid: Contextual account_sid
+        :param domain_sid: Contextual domain_sid
+        
+        :returns: CredentialListMappingList
+        :rtype: CredentialListMappingList
+        """
         super(CredentialListMappingList, self).__init__(version)
         
         # Path Solution
@@ -75,9 +85,23 @@ class CredentialListMappingList(ListResource):
         )
 
     def __call__(self, sid):
+        """
+        Constructs a CredentialListMappingContext
+        
+        :param sid: Contextual sid
+        
+        :returns: CredentialListMappingContext
+        :rtype: CredentialListMappingContext
+        """
         return CredentialListMappingContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Api.V2010.CredentialListMappingList>'
 
 

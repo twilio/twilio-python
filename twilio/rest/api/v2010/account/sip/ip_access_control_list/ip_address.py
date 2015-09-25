@@ -16,6 +16,16 @@ from twilio.rest.base import ListResource
 class IpAddressList(ListResource):
 
     def __init__(self, version, account_sid, ip_access_control_list_sid):
+        """
+        Initialize the IpAddressList
+        
+        :param Version version: Version that contains the resource
+        :param account_sid: Contextual account_sid
+        :param ip_access_control_list_sid: Contextual ip_access_control_list_sid
+        
+        :returns: IpAddressList
+        :rtype: IpAddressList
+        """
         super(IpAddressList, self).__init__(version)
         
         # Path Solution
@@ -76,9 +86,23 @@ class IpAddressList(ListResource):
         )
 
     def __call__(self, sid):
+        """
+        Constructs a IpAddressContext
+        
+        :param sid: Contextual sid
+        
+        :returns: IpAddressContext
+        :rtype: IpAddressContext
+        """
         return IpAddressContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Api.V2010.IpAddressList>'
 
 

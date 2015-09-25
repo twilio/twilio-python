@@ -17,6 +17,15 @@ from twilio.rest.taskrouter.v1.workspace.task.reservation import ReservationList
 class TaskList(ListResource):
 
     def __init__(self, version, workspace_sid):
+        """
+        Initialize the TaskList
+        
+        :param Version version: Version that contains the resource
+        :param workspace_sid: Contextual workspace_sid
+        
+        :returns: TaskList
+        :rtype: TaskList
+        """
         super(TaskList, self).__init__(version)
         
         # Path Solution
@@ -97,9 +106,23 @@ class TaskList(ListResource):
         )
 
     def __call__(self, sid):
+        """
+        Constructs a TaskContext
+        
+        :param sid: Contextual sid
+        
+        :returns: TaskContext
+        :rtype: TaskContext
+        """
         return TaskContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Taskrouter.V1.TaskList>'
 
 

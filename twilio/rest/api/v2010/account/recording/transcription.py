@@ -16,6 +16,16 @@ from twilio.rest.base import ListResource
 class TranscriptionList(ListResource):
 
     def __init__(self, version, account_sid, recording_sid):
+        """
+        Initialize the TranscriptionList
+        
+        :param Version version: Version that contains the resource
+        :param account_sid: Contextual account_sid
+        :param recording_sid: Contextual recording_sid
+        
+        :returns: TranscriptionList
+        :rtype: TranscriptionList
+        """
         super(TranscriptionList, self).__init__(version)
         
         # Path Solution
@@ -62,9 +72,23 @@ class TranscriptionList(ListResource):
         )
 
     def __call__(self, sid):
+        """
+        Constructs a TranscriptionContext
+        
+        :param sid: Contextual sid
+        
+        :returns: TranscriptionContext
+        :rtype: TranscriptionContext
+        """
         return TranscriptionContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Api.V2010.TranscriptionList>'
 
 

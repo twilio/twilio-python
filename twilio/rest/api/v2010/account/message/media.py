@@ -17,6 +17,16 @@ from twilio.rest.base import ListResource
 class MediaList(ListResource):
 
     def __init__(self, version, account_sid, message_sid):
+        """
+        Initialize the MediaList
+        
+        :param Version version: Version that contains the resource
+        :param account_sid: Contextual account_sid
+        :param message_sid: Contextual message_sid
+        
+        :returns: MediaList
+        :rtype: MediaList
+        """
         super(MediaList, self).__init__(version)
         
         # Path Solution
@@ -66,9 +76,23 @@ class MediaList(ListResource):
         )
 
     def __call__(self, sid):
+        """
+        Constructs a MediaContext
+        
+        :param sid: Contextual sid
+        
+        :returns: MediaContext
+        :rtype: MediaContext
+        """
         return MediaContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Api.V2010.MediaList>'
 
 

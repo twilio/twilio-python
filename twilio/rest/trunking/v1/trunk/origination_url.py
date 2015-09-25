@@ -16,6 +16,15 @@ from twilio.rest.base import ListResource
 class OriginationUrlList(ListResource):
 
     def __init__(self, version, trunk_sid):
+        """
+        Initialize the OriginationUrlList
+        
+        :param Version version: Version that contains the resource
+        :param trunk_sid: Contextual trunk_sid
+        
+        :returns: OriginationUrlList
+        :rtype: OriginationUrlList
+        """
         super(OriginationUrlList, self).__init__(version)
         
         # Path Solution
@@ -78,9 +87,23 @@ class OriginationUrlList(ListResource):
         )
 
     def __call__(self, sid):
+        """
+        Constructs a OriginationUrlContext
+        
+        :param sid: Contextual sid
+        
+        :returns: OriginationUrlContext
+        :rtype: OriginationUrlContext
+        """
         return OriginationUrlContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Trunking.V1.OriginationUrlList>'
 
 

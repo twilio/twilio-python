@@ -17,20 +17,20 @@ class Trunking(Domain):
         Initialize the Trunking Domain
         
         :returns: Domain for Trunking
-        :rtype: twilio.rest.trunking.Trunking
+        :rtype: Trunking
         """
         super(Trunking, self).__init__(twilio)
         
         self.base_url = 'https://trunking.twilio.com'
-        """ :type : str """
+        
+        # Versions
         self._v1 = None
-        """ :type : twilio.rest.trunking.v1.V1 """
 
     @property
     def v1(self):
         """
         :returns: Version v1 of trunking
-        :rtype: twilio.rest.trunking.v1.V1
+        :rtype: V1
         """
         if self._v1 is None:
             self._v1 = V1(self)
@@ -39,7 +39,7 @@ class Trunking(Domain):
     @property
     def trunks(self):
         """
-        :rtype: twilio.rest.trunking.v1.trunk.TrunkList
+        :rtype: TrunkList
         """
         return self.v1.trunks
 

@@ -16,6 +16,15 @@ from twilio.rest.base import ListResource
 class TollFreeList(ListResource):
 
     def __init__(self, version, owner_account_sid):
+        """
+        Initialize the TollFreeList
+        
+        :param Version version: Version that contains the resource
+        :param owner_account_sid: Contextual owner_account_sid
+        
+        :returns: TollFreeList
+        :rtype: TollFreeList
+        """
         super(TollFreeList, self).__init__(version)
         
         # Path Solution
@@ -107,9 +116,23 @@ class TollFreeList(ListResource):
         )
 
     def __call__(self, sid):
+        """
+        Constructs a TollFreeContext
+        
+        :param sid: Contextual sid
+        
+        :returns: TollFreeContext
+        :rtype: TollFreeContext
+        """
         return TollFreeContext(self._version, sid=sid, **self._kwargs)
 
     def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
         return '<Twilio.Api.V2010.TollFreeList>'
 
 
