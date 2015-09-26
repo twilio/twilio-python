@@ -46,6 +46,26 @@ class CallList(ListResource):
                status_callback_method=values.unset, send_digits=values.unset,
                if_machine=values.unset, timeout=values.unset, record=values.unset,
                url=values.unset, application_sid=values.unset):
+        """
+        Create a new CallInstance
+        
+        :param str to: Phone number, SIP address or client identifier to call
+        :param str from_: Twilio number from which to originate the call
+        :param str method: HTTP method to use to fetch TwiML
+        :param str fallback_url: Fallback URL in case of error
+        :param str fallback_method: HTTP Method to use with FallbackUrl
+        :param str status_callback: Status Callback URL
+        :param str status_callback_method: HTTP Method to use with StatusCallback
+        :param str send_digits: Digits to send
+        :param str if_machine: Action to take if a machine has answered the call
+        :param str timeout: Number of seconds to wait for an answer
+        :param bool record: Whether or not to record the Call
+        :param str url: Url from which to fetch TwiML
+        :param str application_sid: ApplicationSid that configures from where to fetch TwiML
+        
+        :returns: Newly created CallInstance
+        :rtype: CallInstance
+        """
         data = values.of({
             'To': to,
             'From': from_,
@@ -70,10 +90,38 @@ class CallList(ListResource):
             data=data,
         )
 
-    def read(self, to=values.unset, from_=values.unset,
-             parent_call_sid=values.unset, status=values.unset,
-             start_time=values.unset, end_time=values.unset, limit=None,
-             page_size=None, **kwargs):
+    def stream(self, to=values.unset, from_=values.unset,
+               parent_call_sid=values.unset, status=values.unset,
+               start_time_before=values.unset, start_time=values.unset,
+               start_time_after=values.unset, end_time_before=values.unset,
+               end_time=values.unset, end_time_after=values.unset, limit=None,
+               page_size=None, **kwargs):
+        """
+        Streams CallInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+        
+        :param str to: Phone number or Client identifier to filter `to` on
+        :param str from_: Phone number or Client identifier to filter `from` on
+        :param str parent_call_sid: Parent Call Sid to filter on
+        :param call.status status: Status to filter on
+        :param date start_time_before: StartTime to filter on
+        :param date start_time: StartTime to filter on
+        :param date start_time_after: StartTime to filter on
+        :param date end_time_before: EndTime to filter on
+        :param date end_time: EndTime to filter on
+        :param date end_time_after: EndTime to filter on
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
@@ -81,13 +129,17 @@ class CallList(ListResource):
             'From': from_,
             'ParentCallSid': parent_call_sid,
             'Status': status,
+            'StartTime<': serialize.iso8601_date(start_time_before),
             'StartTime': serialize.iso8601_date(start_time),
+            'StartTime>': serialize.iso8601_date(start_time_after),
+            'EndTime<': serialize.iso8601_date(end_time_before),
             'EndTime': serialize.iso8601_date(end_time),
+            'EndTime>': serialize.iso8601_date(end_time_after),
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         
-        return self._version.read(
+        return self._version.stream(
             self,
             CallInstance,
             self._kwargs,
@@ -98,17 +150,91 @@ class CallList(ListResource):
             params=params,
         )
 
+    def read(self, to=values.unset, from_=values.unset,
+             parent_call_sid=values.unset, status=values.unset,
+             start_time_before=values.unset, start_time=values.unset,
+             start_time_after=values.unset, end_time_before=values.unset,
+             end_time=values.unset, end_time_after=values.unset, limit=None,
+             page_size=None, **kwargs):
+        """
+        Reads CallInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+        
+        :param str to: Phone number or Client identifier to filter `to` on
+        :param str from_: Phone number or Client identifier to filter `from` on
+        :param str parent_call_sid: Parent Call Sid to filter on
+        :param call.status status: Status to filter on
+        :param date start_time_before: StartTime to filter on
+        :param date start_time: StartTime to filter on
+        :param date start_time_after: StartTime to filter on
+        :param date end_time_before: EndTime to filter on
+        :param date end_time: EndTime to filter on
+        :param date end_time_after: EndTime to filter on
+        :param int limit: Upper limit for the number of records to return. read() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, read() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
+        return list(self.stream(
+            to=to,
+            from_=from_,
+            parent_call_sid=parent_call_sid,
+            status=status,
+            start_time_before=start_time_before,
+            start_time=start_time,
+            start_time_after=start_time_after,
+            end_time_before=end_time_before,
+            end_time=end_time,
+            end_time_after=end_time_after,
+            limit=limit,
+            page_size=page_size,
+            **kwargs
+        ))
+
     def page(self, to=values.unset, from_=values.unset,
              parent_call_sid=values.unset, status=values.unset,
-             start_time=values.unset, end_time=values.unset, page_token=None,
+             start_time_before=values.unset, start_time=values.unset,
+             start_time_after=values.unset, end_time_before=values.unset,
+             end_time=values.unset, end_time_after=values.unset, page_token=None,
              page_number=None, page_size=None, **kwargs):
+        """
+        Retrieve a single page of CallInstance records from the API.
+        Request is executed immediately
+        
+        :param str to: Phone number or Client identifier to filter `to` on
+        :param str from_: Phone number or Client identifier to filter `from` on
+        :param str parent_call_sid: Parent Call Sid to filter on
+        :param call.status status: Status to filter on
+        :param date start_time_before: StartTime to filter on
+        :param date start_time: StartTime to filter on
+        :param date start_time_after: StartTime to filter on
+        :param date end_time_before: EndTime to filter on
+        :param date end_time: EndTime to filter on
+        :param date end_time_after: EndTime to filter on
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+        
+        :returns: Page of CallInstance
+        :rtype: Page
+        """
         params = values.of({
             'To': to,
             'From': from_,
             'ParentCallSid': parent_call_sid,
             'Status': status,
+            'StartTime<': serialize.iso8601_date(start_time_before),
             'StartTime': serialize.iso8601_date(start_time),
+            'StartTime>': serialize.iso8601_date(start_time_after),
+            'EndTime<': serialize.iso8601_date(end_time_before),
             'EndTime': serialize.iso8601_date(end_time),
+            'EndTime>': serialize.iso8601_date(end_time_after),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -185,9 +311,21 @@ class CallContext(InstanceContext):
         self._feedback = None
 
     def delete(self):
+        """
+        Deletes the CallInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
         return self._version.delete('delete', self._uri)
 
     def fetch(self):
+        """
+        Fetch a CallInstance
+        
+        :returns: Fetched CallInstance
+        :rtype: CallInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -201,6 +339,20 @@ class CallContext(InstanceContext):
     def update(self, url=values.unset, method=values.unset, status=values.unset,
                fallback_url=values.unset, fallback_method=values.unset,
                status_callback=values.unset, status_callback_method=values.unset):
+        """
+        Update the CallInstance
+        
+        :param str url: URL that returns TwiML
+        :param str method: HTTP method to use to fetch TwiML
+        :param feedback_summary.status status: Status to update the Call with
+        :param str fallback_url: Fallback URL in case of error
+        :param str fallback_method: HTTP Method to use with FallbackUrl
+        :param str status_callback: Status Callback URL
+        :param str status_callback_method: HTTP Method to use with StatusCallback
+        
+        :returns: Updated CallInstance
+        :rtype: CallInstance
+        """
         data = values.of({
             'Url': url,
             'Method': method,
@@ -543,15 +695,41 @@ class CallInstance(InstanceResource):
         return self._properties['uri']
 
     def delete(self):
-        self._context.delete()
+        """
+        Deletes the CallInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._context.delete()
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a CallInstance
+        
+        :returns: Fetched CallInstance
+        :rtype: CallInstance
+        """
+        return self._context.fetch()
 
     def update(self, url=values.unset, method=values.unset, status=values.unset,
                fallback_url=values.unset, fallback_method=values.unset,
                status_callback=values.unset, status_callback_method=values.unset):
-        self._context.update(
+        """
+        Update the CallInstance
+        
+        :param str url: URL that returns TwiML
+        :param str method: HTTP method to use to fetch TwiML
+        :param feedback_summary.status status: Status to update the Call with
+        :param str fallback_url: Fallback URL in case of error
+        :param str fallback_method: HTTP Method to use with FallbackUrl
+        :param str status_callback: Status Callback URL
+        :param str status_callback_method: HTTP Method to use with StatusCallback
+        
+        :returns: Updated CallInstance
+        :rtype: CallInstance
+        """
+        return self._context.update(
             url=url,
             method=method,
             status=status,

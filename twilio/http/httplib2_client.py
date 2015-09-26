@@ -67,7 +67,6 @@ class Httplib2Client(HttpClient):
             else:
                 url = '%s?%s' % (url, enc_params)
 
-        print "{} {}".format(method, url)
         resp, content = http.request(url, method, headers=headers, body=data)
 
         return Response(int(resp.status), content.decode('utf-8'))

@@ -32,12 +32,32 @@ class StatisticsContext(InstanceContext):
         }
         self._uri = '/Workspaces/{workspace_sid}/Statistics'.format(**self._kwargs)
 
-    def fetch(self, minutes=values.unset, start_date=values.unset,
-              end_date=values.unset):
+    def fetch(self, minutes=values.unset, start_date_before=values.unset,
+              start_date=values.unset, start_date_after=values.unset,
+              end_date_before=values.unset, end_date=values.unset,
+              end_date_after=values.unset):
+        """
+        Fetch a StatisticsInstance
+        
+        :param str minutes: The minutes
+        :param date start_date_before: The start_date
+        :param date start_date: The start_date
+        :param date start_date_after: The start_date
+        :param date end_date_before: The end_date
+        :param date end_date: The end_date
+        :param date end_date_after: The end_date
+        
+        :returns: Fetched StatisticsInstance
+        :rtype: StatisticsInstance
+        """
         params = values.of({
             'Minutes': minutes,
+            'StartDate<': serialize.iso8601_date(start_date_before),
             'StartDate': serialize.iso8601_date(start_date),
+            'StartDate>': serialize.iso8601_date(start_date_after),
+            'EndDate<': serialize.iso8601_date(end_date_before),
             'EndDate': serialize.iso8601_date(end_date),
+            'EndDate>': serialize.iso8601_date(end_date_after),
         })
         
         return self._version.fetch(
@@ -132,12 +152,32 @@ class StatisticsInstance(InstanceResource):
         """
         return self._properties['workspace_sid']
 
-    def fetch(self, minutes=values.unset, start_date=values.unset,
-              end_date=values.unset):
-        self._context.fetch(
+    def fetch(self, minutes=values.unset, start_date_before=values.unset,
+              start_date=values.unset, start_date_after=values.unset,
+              end_date_before=values.unset, end_date=values.unset,
+              end_date_after=values.unset):
+        """
+        Fetch a StatisticsInstance
+        
+        :param str minutes: The minutes
+        :param date start_date_before: The start_date
+        :param date start_date: The start_date
+        :param date start_date_after: The start_date
+        :param date end_date_before: The end_date
+        :param date end_date: The end_date
+        :param date end_date_after: The end_date
+        
+        :returns: Fetched StatisticsInstance
+        :rtype: StatisticsInstance
+        """
+        return self._context.fetch(
             minutes=minutes,
+            start_date_before=start_date_before,
             start_date=start_date,
+            start_date_after=start_date_after,
+            end_date_before=end_date_before,
             end_date=end_date,
+            end_date_after=end_date_after,
         )
 
     def __repr__(self):

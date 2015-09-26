@@ -31,19 +31,48 @@ class AlertList(ListResource):
         self._kwargs = {}
         self._uri = '/Alerts'.format(**self._kwargs)
 
-    def read(self, log_level=values.unset, start_date=values.unset,
-             end_date=values.unset, limit=None, page_size=None, **kwargs):
+    def stream(self, log_level=values.unset, start_date_before=values.unset,
+               start_date=values.unset, start_date_after=values.unset,
+               end_date_before=values.unset, end_date=values.unset,
+               end_date_after=values.unset, limit=None, page_size=None, **kwargs):
+        """
+        Streams AlertInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+        
+        :param str log_level: The log_level
+        :param date start_date_before: The start_date
+        :param date start_date: The start_date
+        :param date start_date_after: The start_date
+        :param date end_date_before: The end_date
+        :param date end_date: The end_date
+        :param date end_date_after: The end_date
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
             'LogLevel': log_level,
+            'StartDate<': serialize.iso8601_date(start_date_before),
             'StartDate': serialize.iso8601_date(start_date),
+            'StartDate>': serialize.iso8601_date(start_date_after),
+            'EndDate<': serialize.iso8601_date(end_date_before),
             'EndDate': serialize.iso8601_date(end_date),
+            'EndDate>': serialize.iso8601_date(end_date_after),
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         
-        return self._version.read(
+        return self._version.stream(
             self,
             AlertInstance,
             self._kwargs,
@@ -54,13 +83,76 @@ class AlertList(ListResource):
             params=params,
         )
 
-    def page(self, log_level=values.unset, start_date=values.unset,
-             end_date=values.unset, page_token=None, page_number=None,
+    def read(self, log_level=values.unset, start_date_before=values.unset,
+             start_date=values.unset, start_date_after=values.unset,
+             end_date_before=values.unset, end_date=values.unset,
+             end_date_after=values.unset, limit=None, page_size=None, **kwargs):
+        """
+        Reads AlertInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+        
+        :param str log_level: The log_level
+        :param date start_date_before: The start_date
+        :param date start_date: The start_date
+        :param date start_date_after: The start_date
+        :param date end_date_before: The end_date
+        :param date end_date: The end_date
+        :param date end_date_after: The end_date
+        :param int limit: Upper limit for the number of records to return. read() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, read() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
+        return list(self.stream(
+            log_level=log_level,
+            start_date_before=start_date_before,
+            start_date=start_date,
+            start_date_after=start_date_after,
+            end_date_before=end_date_before,
+            end_date=end_date,
+            end_date_after=end_date_after,
+            limit=limit,
+            page_size=page_size,
+            **kwargs
+        ))
+
+    def page(self, log_level=values.unset, start_date_before=values.unset,
+             start_date=values.unset, start_date_after=values.unset,
+             end_date_before=values.unset, end_date=values.unset,
+             end_date_after=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
+        """
+        Retrieve a single page of AlertInstance records from the API.
+        Request is executed immediately
+        
+        :param str log_level: The log_level
+        :param date start_date_before: The start_date
+        :param date start_date: The start_date
+        :param date start_date_after: The start_date
+        :param date end_date_before: The end_date
+        :param date end_date: The end_date
+        :param date end_date_after: The end_date
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+        
+        :returns: Page of AlertInstance
+        :rtype: Page
+        """
         params = values.of({
             'LogLevel': log_level,
+            'StartDate<': serialize.iso8601_date(start_date_before),
             'StartDate': serialize.iso8601_date(start_date),
+            'StartDate>': serialize.iso8601_date(start_date_after),
+            'EndDate<': serialize.iso8601_date(end_date_before),
             'EndDate': serialize.iso8601_date(end_date),
+            'EndDate>': serialize.iso8601_date(end_date_after),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -118,6 +210,12 @@ class AlertContext(InstanceContext):
         self._uri = '/Alerts/{sid}'.format(**self._kwargs)
 
     def fetch(self):
+        """
+        Fetch a AlertInstance
+        
+        :returns: Fetched AlertInstance
+        :rtype: AlertInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -129,6 +227,12 @@ class AlertContext(InstanceContext):
         )
 
     def delete(self):
+        """
+        Deletes the AlertInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
         return self._version.delete('delete', self._uri)
 
     def __repr__(self):
@@ -333,10 +437,22 @@ class AlertInstance(InstanceResource):
         return self._properties['url']
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a AlertInstance
+        
+        :returns: Fetched AlertInstance
+        :rtype: AlertInstance
+        """
+        return self._context.fetch()
 
     def delete(self):
-        self._context.delete()
+        """
+        Deletes the AlertInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._context.delete()
 
     def __repr__(self):
         """

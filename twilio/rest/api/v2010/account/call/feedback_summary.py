@@ -35,6 +35,18 @@ class FeedbackSummaryList(ListResource):
 
     def create(self, start_date, end_date, include_subaccounts=values.unset,
                status_callback=values.unset, status_callback_method=values.unset):
+        """
+        Create a new FeedbackSummaryInstance
+        
+        :param datetime start_date: The start_date
+        :param datetime end_date: The end_date
+        :param bool include_subaccounts: The include_subaccounts
+        :param str status_callback: The status_callback
+        :param str status_callback_method: The status_callback_method
+        
+        :returns: Newly created FeedbackSummaryInstance
+        :rtype: FeedbackSummaryInstance
+        """
         data = values.of({
             'StartDate': start_date,
             'EndDate': end_date,
@@ -95,6 +107,12 @@ class FeedbackSummaryContext(InstanceContext):
         self._uri = '/Accounts/{account_sid}/Calls/FeedbackSummary/{sid}.json'.format(**self._kwargs)
 
     def fetch(self):
+        """
+        Fetch a FeedbackSummaryInstance
+        
+        :returns: Fetched FeedbackSummaryInstance
+        :rtype: FeedbackSummaryInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -106,6 +124,12 @@ class FeedbackSummaryContext(InstanceContext):
         )
 
     def delete(self):
+        """
+        Deletes the FeedbackSummaryInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
         return self._version.delete('delete', self._uri)
 
     def __repr__(self):
@@ -285,10 +309,22 @@ class FeedbackSummaryInstance(InstanceResource):
         return self._properties['status']
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a FeedbackSummaryInstance
+        
+        :returns: Fetched FeedbackSummaryInstance
+        :rtype: FeedbackSummaryInstance
+        """
+        return self._context.fetch()
 
     def delete(self):
-        self._context.delete()
+        """
+        Deletes the FeedbackSummaryInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._context.delete()
 
     def __repr__(self):
         """

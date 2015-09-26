@@ -38,10 +38,33 @@ class WorkerList(ListResource):
         # Components
         self._statistics = None
 
-    def read(self, activity_name=values.unset, activity_sid=values.unset,
-             available=values.unset, friendly_name=values.unset,
-             target_workers_expression=values.unset, task_queue_name=values.unset,
-             task_queue_sid=values.unset, limit=None, page_size=None, **kwargs):
+    def stream(self, activity_name=values.unset, activity_sid=values.unset,
+               available=values.unset, friendly_name=values.unset,
+               target_workers_expression=values.unset, task_queue_name=values.unset,
+               task_queue_sid=values.unset, limit=None, page_size=None, **kwargs):
+        """
+        Streams WorkerInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+        
+        :param str activity_name: The activity_name
+        :param str activity_sid: The activity_sid
+        :param str available: The available
+        :param str friendly_name: The friendly_name
+        :param str target_workers_expression: The target_workers_expression
+        :param str task_queue_name: The task_queue_name
+        :param str task_queue_sid: The task_queue_sid
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
@@ -56,7 +79,7 @@ class WorkerList(ListResource):
         })
         params.update(kwargs)
         
-        return self._version.read(
+        return self._version.stream(
             self,
             WorkerInstance,
             self._kwargs,
@@ -67,11 +90,68 @@ class WorkerList(ListResource):
             params=params,
         )
 
+    def read(self, activity_name=values.unset, activity_sid=values.unset,
+             available=values.unset, friendly_name=values.unset,
+             target_workers_expression=values.unset, task_queue_name=values.unset,
+             task_queue_sid=values.unset, limit=None, page_size=None, **kwargs):
+        """
+        Reads WorkerInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+        
+        :param str activity_name: The activity_name
+        :param str activity_sid: The activity_sid
+        :param str available: The available
+        :param str friendly_name: The friendly_name
+        :param str target_workers_expression: The target_workers_expression
+        :param str task_queue_name: The task_queue_name
+        :param str task_queue_sid: The task_queue_sid
+        :param int limit: Upper limit for the number of records to return. read() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, read() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
+        return list(self.stream(
+            activity_name=activity_name,
+            activity_sid=activity_sid,
+            available=available,
+            friendly_name=friendly_name,
+            target_workers_expression=target_workers_expression,
+            task_queue_name=task_queue_name,
+            task_queue_sid=task_queue_sid,
+            limit=limit,
+            page_size=page_size,
+            **kwargs
+        ))
+
     def page(self, activity_name=values.unset, activity_sid=values.unset,
              available=values.unset, friendly_name=values.unset,
              target_workers_expression=values.unset, task_queue_name=values.unset,
              task_queue_sid=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
+        """
+        Retrieve a single page of WorkerInstance records from the API.
+        Request is executed immediately
+        
+        :param str activity_name: The activity_name
+        :param str activity_sid: The activity_sid
+        :param str available: The available
+        :param str friendly_name: The friendly_name
+        :param str target_workers_expression: The target_workers_expression
+        :param str task_queue_name: The task_queue_name
+        :param str task_queue_sid: The task_queue_sid
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+        
+        :returns: Page of WorkerInstance
+        :rtype: Page
+        """
         params = values.of({
             'ActivityName': activity_name,
             'ActivitySid': activity_sid,
@@ -97,6 +177,16 @@ class WorkerList(ListResource):
 
     def create(self, friendly_name, activity_sid=values.unset,
                attributes=values.unset):
+        """
+        Create a new WorkerInstance
+        
+        :param str friendly_name: The friendly_name
+        :param str activity_sid: The activity_sid
+        :param str attributes: The attributes
+        
+        :returns: Newly created WorkerInstance
+        :rtype: WorkerInstance
+        """
         data = values.of({
             'FriendlyName': friendly_name,
             'ActivitySid': activity_sid,
@@ -151,8 +241,8 @@ class WorkerContext(InstanceContext):
         Initialize the WorkerContext
         
         :param Version version
-        :param sid: Contextual sid
         :param workspace_sid: Contextual workspace_sid
+        :param sid: Contextual sid
         
         :returns: WorkerContext
         :rtype: WorkerContext
@@ -170,6 +260,12 @@ class WorkerContext(InstanceContext):
         self._statistics = None
 
     def fetch(self):
+        """
+        Fetch a WorkerInstance
+        
+        :returns: Fetched WorkerInstance
+        :rtype: WorkerInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -182,6 +278,16 @@ class WorkerContext(InstanceContext):
 
     def update(self, activity_sid=values.unset, attributes=values.unset,
                friendly_name=values.unset):
+        """
+        Update the WorkerInstance
+        
+        :param str activity_sid: The activity_sid
+        :param str attributes: The attributes
+        :param str friendly_name: The friendly_name
+        
+        :returns: Updated WorkerInstance
+        :rtype: WorkerInstance
+        """
         data = values.of({
             'ActivitySid': activity_sid,
             'Attributes': attributes,
@@ -197,6 +303,12 @@ class WorkerContext(InstanceContext):
         )
 
     def delete(self):
+        """
+        Deletes the WorkerInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
         return self._version.delete('delete', self._uri)
 
     @property
@@ -365,18 +477,40 @@ class WorkerInstance(InstanceResource):
         return self._properties['workspace_sid']
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a WorkerInstance
+        
+        :returns: Fetched WorkerInstance
+        :rtype: WorkerInstance
+        """
+        return self._context.fetch()
 
     def update(self, activity_sid=values.unset, attributes=values.unset,
                friendly_name=values.unset):
-        self._context.update(
+        """
+        Update the WorkerInstance
+        
+        :param str activity_sid: The activity_sid
+        :param str attributes: The attributes
+        :param str friendly_name: The friendly_name
+        
+        :returns: Updated WorkerInstance
+        :rtype: WorkerInstance
+        """
+        return self._context.update(
             activity_sid=activity_sid,
             attributes=attributes,
             friendly_name=friendly_name,
         )
 
     def delete(self):
-        self._context.delete()
+        """
+        Deletes the WorkerInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._context.delete()
 
     @property
     def statistics(self):

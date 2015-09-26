@@ -34,7 +34,23 @@ class QueueList(ListResource):
         }
         self._uri = '/Accounts/{account_sid}/Queues.json'.format(**self._kwargs)
 
-    def read(self, limit=None, page_size=None, **kwargs):
+    def stream(self, limit=None, page_size=None, **kwargs):
+        """
+        Streams QueueInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+        
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
@@ -42,7 +58,7 @@ class QueueList(ListResource):
         })
         params.update(kwargs)
         
-        return self._version.read(
+        return self._version.stream(
             self,
             QueueInstance,
             self._kwargs,
@@ -53,7 +69,40 @@ class QueueList(ListResource):
             params=params,
         )
 
+    def read(self, limit=None, page_size=None, **kwargs):
+        """
+        Reads QueueInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+        
+        :param int limit: Upper limit for the number of records to return. read() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, read() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
+        return list(self.stream(
+            limit=limit,
+            page_size=page_size,
+            **kwargs
+        ))
+
     def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
+        """
+        Retrieve a single page of QueueInstance records from the API.
+        Request is executed immediately
+        
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+        
+        :returns: Page of QueueInstance
+        :rtype: Page
+        """
         params = values.of({
             'PageToken': page_token,
             'Page': page_number,
@@ -71,6 +120,15 @@ class QueueList(ListResource):
         )
 
     def create(self, friendly_name=values.unset, max_size=values.unset):
+        """
+        Create a new QueueInstance
+        
+        :param str friendly_name: A user-provided string that identifies this queue.
+        :param str max_size: The max number of calls allowed in the queue
+        
+        :returns: Newly created QueueInstance
+        :rtype: QueueInstance
+        """
         data = values.of({
             'FriendlyName': friendly_name,
             'MaxSize': max_size,
@@ -131,6 +189,12 @@ class QueueContext(InstanceContext):
         self._members = None
 
     def fetch(self):
+        """
+        Fetch a QueueInstance
+        
+        :returns: Fetched QueueInstance
+        :rtype: QueueInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -142,6 +206,15 @@ class QueueContext(InstanceContext):
         )
 
     def update(self, friendly_name=values.unset, max_size=values.unset):
+        """
+        Update the QueueInstance
+        
+        :param str friendly_name: A human readable description of the queue
+        :param str max_size: The max number of members allowed in the queue
+        
+        :returns: Updated QueueInstance
+        :rtype: QueueInstance
+        """
         data = values.of({
             'FriendlyName': friendly_name,
             'MaxSize': max_size,
@@ -156,6 +229,12 @@ class QueueContext(InstanceContext):
         )
 
     def delete(self):
+        """
+        Deletes the QueueInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
         return self._version.delete('delete', self._uri)
 
     @property
@@ -306,16 +385,37 @@ class QueueInstance(InstanceResource):
         return self._properties['uri']
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a QueueInstance
+        
+        :returns: Fetched QueueInstance
+        :rtype: QueueInstance
+        """
+        return self._context.fetch()
 
     def update(self, friendly_name=values.unset, max_size=values.unset):
-        self._context.update(
+        """
+        Update the QueueInstance
+        
+        :param str friendly_name: A human readable description of the queue
+        :param str max_size: The max number of members allowed in the queue
+        
+        :returns: Updated QueueInstance
+        :rtype: QueueInstance
+        """
+        return self._context.update(
             friendly_name=friendly_name,
             max_size=max_size,
         )
 
     def delete(self):
-        self._context.delete()
+        """
+        Deletes the QueueInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._context.delete()
 
     @property
     def members(self):

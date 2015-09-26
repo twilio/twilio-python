@@ -36,16 +36,39 @@ class MediaList(ListResource):
         }
         self._uri = '/Accounts/{account_sid}/Messages/{message_sid}/Media.json'.format(**self._kwargs)
 
-    def read(self, date_created=values.unset, limit=None, page_size=None, **kwargs):
+    def stream(self, date_created_before=values.unset, date_created=values.unset,
+               date_created_after=values.unset, limit=None, page_size=None,
+               **kwargs):
+        """
+        Streams MediaInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+        
+        :param date date_created_before: Filter by date created
+        :param date date_created: Filter by date created
+        :param date date_created_after: Filter by date created
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
+            'DateCreated<': serialize.iso8601_date(date_created_before),
             'DateCreated': serialize.iso8601_date(date_created),
+            'DateCreated>': serialize.iso8601_date(date_created_after),
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         
-        return self._version.read(
+        return self._version.stream(
             self,
             MediaInstance,
             self._kwargs,
@@ -56,10 +79,56 @@ class MediaList(ListResource):
             params=params,
         )
 
-    def page(self, date_created=values.unset, page_token=None, page_number=None,
+    def read(self, date_created_before=values.unset, date_created=values.unset,
+             date_created_after=values.unset, limit=None, page_size=None, **kwargs):
+        """
+        Reads MediaInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+        
+        :param date date_created_before: Filter by date created
+        :param date date_created: Filter by date created
+        :param date date_created_after: Filter by date created
+        :param int limit: Upper limit for the number of records to return. read() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, read() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
+        return list(self.stream(
+            date_created_before=date_created_before,
+            date_created=date_created,
+            date_created_after=date_created_after,
+            limit=limit,
+            page_size=page_size,
+            **kwargs
+        ))
+
+    def page(self, date_created_before=values.unset, date_created=values.unset,
+             date_created_after=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
+        """
+        Retrieve a single page of MediaInstance records from the API.
+        Request is executed immediately
+        
+        :param date date_created_before: Filter by date created
+        :param date date_created: Filter by date created
+        :param date date_created_after: Filter by date created
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+        
+        :returns: Page of MediaInstance
+        :rtype: Page
+        """
         params = values.of({
+            'DateCreated<': serialize.iso8601_date(date_created_before),
             'DateCreated': serialize.iso8601_date(date_created),
+            'DateCreated>': serialize.iso8601_date(date_created_after),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -121,9 +190,21 @@ class MediaContext(InstanceContext):
         self._uri = '/Accounts/{account_sid}/Messages/{message_sid}/Media/{sid}.json'.format(**self._kwargs)
 
     def delete(self):
+        """
+        Deletes the MediaInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
         return self._version.delete('delete', self._uri)
 
     def fetch(self):
+        """
+        Fetch a MediaInstance
+        
+        :returns: Fetched MediaInstance
+        :rtype: MediaInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -250,10 +331,22 @@ class MediaInstance(InstanceResource):
         return self._properties['uri']
 
     def delete(self):
-        self._context.delete()
+        """
+        Deletes the MediaInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._context.delete()
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a MediaInstance
+        
+        :returns: Fetched MediaInstance
+        :rtype: MediaInstance
+        """
+        return self._context.fetch()
 
     def __repr__(self):
         """

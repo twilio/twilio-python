@@ -35,6 +35,15 @@ class FeedbackContext(InstanceContext):
         self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Feedback.json'.format(**self._kwargs)
 
     def create(self, quality_score, issue=values.unset):
+        """
+        Create a new FeedbackInstance
+        
+        :param str quality_score: The quality_score
+        :param feedback.issues issue: The issue
+        
+        :returns: Newly created FeedbackInstance
+        :rtype: FeedbackInstance
+        """
         data = values.of({
             'QualityScore': quality_score,
             'Issue': issue,
@@ -49,6 +58,12 @@ class FeedbackContext(InstanceContext):
         )
 
     def fetch(self):
+        """
+        Fetch a FeedbackInstance
+        
+        :returns: Fetched FeedbackInstance
+        :rtype: FeedbackInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -60,6 +75,15 @@ class FeedbackContext(InstanceContext):
         )
 
     def update(self, quality_score, issue=values.unset):
+        """
+        Update the FeedbackInstance
+        
+        :param str quality_score: An integer from 1 to 5
+        :param feedback.issues issue: Issues experienced during the call
+        
+        :returns: Updated FeedbackInstance
+        :rtype: FeedbackInstance
+        """
         data = values.of({
             'QualityScore': quality_score,
             'Issue': issue,
@@ -178,16 +202,40 @@ class FeedbackInstance(InstanceResource):
         return self._properties['sid']
 
     def create(self, quality_score, issue=values.unset):
-        self._context.create(
+        """
+        Create a new FeedbackInstance
+        
+        :param str quality_score: The quality_score
+        :param feedback.issues issue: The issue
+        
+        :returns: Newly created FeedbackInstance
+        :rtype: FeedbackInstance
+        """
+        return self._context.create(
             quality_score,
             issue=issue,
         )
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a FeedbackInstance
+        
+        :returns: Fetched FeedbackInstance
+        :rtype: FeedbackInstance
+        """
+        return self._context.fetch()
 
     def update(self, quality_score, issue=values.unset):
-        self._context.update(
+        """
+        Update the FeedbackInstance
+        
+        :param str quality_score: An integer from 1 to 5
+        :param feedback.issues issue: Issues experienced during the call
+        
+        :returns: Updated FeedbackInstance
+        :rtype: FeedbackInstance
+        """
+        return self._context.update(
             quality_score,
             issue=issue,
         )

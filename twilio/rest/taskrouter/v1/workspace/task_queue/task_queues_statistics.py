@@ -32,9 +32,29 @@ class StatisticsList(ListResource):
         }
         self._uri = '/Workspaces/{workspace_sid}/TaskQueues/Statistics'.format(**self._kwargs)
 
-    def read(self, end_date=values.unset, friendly_name=values.unset,
-             minutes=values.unset, start_date=values.unset, limit=None,
-             page_size=None, **kwargs):
+    def stream(self, end_date=values.unset, friendly_name=values.unset,
+               minutes=values.unset, start_date=values.unset, limit=None,
+               page_size=None, **kwargs):
+        """
+        Streams StatisticsInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+        
+        :param datetime end_date: The end_date
+        :param str friendly_name: The friendly_name
+        :param str minutes: The minutes
+        :param datetime start_date: The start_date
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
@@ -46,7 +66,7 @@ class StatisticsList(ListResource):
         })
         params.update(kwargs)
         
-        return self._version.read(
+        return self._version.stream(
             self,
             StatisticsInstance,
             self._kwargs,
@@ -57,9 +77,56 @@ class StatisticsList(ListResource):
             params=params,
         )
 
+    def read(self, end_date=values.unset, friendly_name=values.unset,
+             minutes=values.unset, start_date=values.unset, limit=None,
+             page_size=None, **kwargs):
+        """
+        Reads StatisticsInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+        
+        :param datetime end_date: The end_date
+        :param str friendly_name: The friendly_name
+        :param str minutes: The minutes
+        :param datetime start_date: The start_date
+        :param int limit: Upper limit for the number of records to return. read() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, read() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
+        return list(self.stream(
+            end_date=end_date,
+            friendly_name=friendly_name,
+            minutes=minutes,
+            start_date=start_date,
+            limit=limit,
+            page_size=page_size,
+            **kwargs
+        ))
+
     def page(self, end_date=values.unset, friendly_name=values.unset,
              minutes=values.unset, start_date=values.unset, page_token=None,
              page_number=None, page_size=None, **kwargs):
+        """
+        Retrieve a single page of StatisticsInstance records from the API.
+        Request is executed immediately
+        
+        :param datetime end_date: The end_date
+        :param str friendly_name: The friendly_name
+        :param str minutes: The minutes
+        :param datetime start_date: The start_date
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+        
+        :returns: Page of StatisticsInstance
+        :rtype: Page
+        """
         params = values.of({
             'EndDate': end_date,
             'FriendlyName': friendly_name,

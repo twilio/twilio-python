@@ -31,24 +31,56 @@ class EventList(ListResource):
         self._kwargs = {}
         self._uri = '/Events'.format(**self._kwargs)
 
-    def read(self, actor_sid=values.unset, end_date=values.unset,
-             event_type=values.unset, resource_sid=values.unset,
-             source_ip_address=values.unset, start_date=values.unset, limit=None,
-             page_size=None, **kwargs):
+    def stream(self, actor_sid=values.unset, end_date_before=values.unset,
+               end_date=values.unset, end_date_after=values.unset,
+               event_type=values.unset, resource_sid=values.unset,
+               source_ip_address=values.unset, start_date_before=values.unset,
+               start_date=values.unset, start_date_after=values.unset, limit=None,
+               page_size=None, **kwargs):
+        """
+        Streams EventInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+        
+        :param str actor_sid: The actor_sid
+        :param date end_date_before: The end_date
+        :param date end_date: The end_date
+        :param date end_date_after: The end_date
+        :param str event_type: The event_type
+        :param str resource_sid: The resource_sid
+        :param str source_ip_address: The source_ip_address
+        :param date start_date_before: The start_date
+        :param date start_date: The start_date
+        :param date start_date_after: The start_date
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
             'ActorSid': actor_sid,
+            'EndDate<': serialize.iso8601_date(end_date_before),
             'EndDate': serialize.iso8601_date(end_date),
+            'EndDate>': serialize.iso8601_date(end_date_after),
             'EventType': event_type,
             'ResourceSid': resource_sid,
             'SourceIpAddress': source_ip_address,
+            'StartDate<': serialize.iso8601_date(start_date_before),
             'StartDate': serialize.iso8601_date(start_date),
+            'StartDate>': serialize.iso8601_date(start_date_after),
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         
-        return self._version.read(
+        return self._version.stream(
             self,
             EventInstance,
             self._kwargs,
@@ -59,17 +91,91 @@ class EventList(ListResource):
             params=params,
         )
 
-    def page(self, actor_sid=values.unset, end_date=values.unset,
+    def read(self, actor_sid=values.unset, end_date_before=values.unset,
+             end_date=values.unset, end_date_after=values.unset,
              event_type=values.unset, resource_sid=values.unset,
-             source_ip_address=values.unset, start_date=values.unset,
+             source_ip_address=values.unset, start_date_before=values.unset,
+             start_date=values.unset, start_date_after=values.unset, limit=None,
+             page_size=None, **kwargs):
+        """
+        Reads EventInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+        
+        :param str actor_sid: The actor_sid
+        :param date end_date_before: The end_date
+        :param date end_date: The end_date
+        :param date end_date_after: The end_date
+        :param str event_type: The event_type
+        :param str resource_sid: The resource_sid
+        :param str source_ip_address: The source_ip_address
+        :param date start_date_before: The start_date
+        :param date start_date: The start_date
+        :param date start_date_after: The start_date
+        :param int limit: Upper limit for the number of records to return. read() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, read() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
+        return list(self.stream(
+            actor_sid=actor_sid,
+            end_date_before=end_date_before,
+            end_date=end_date,
+            end_date_after=end_date_after,
+            event_type=event_type,
+            resource_sid=resource_sid,
+            source_ip_address=source_ip_address,
+            start_date_before=start_date_before,
+            start_date=start_date,
+            start_date_after=start_date_after,
+            limit=limit,
+            page_size=page_size,
+            **kwargs
+        ))
+
+    def page(self, actor_sid=values.unset, end_date_before=values.unset,
+             end_date=values.unset, end_date_after=values.unset,
+             event_type=values.unset, resource_sid=values.unset,
+             source_ip_address=values.unset, start_date_before=values.unset,
+             start_date=values.unset, start_date_after=values.unset,
              page_token=None, page_number=None, page_size=None, **kwargs):
+        """
+        Retrieve a single page of EventInstance records from the API.
+        Request is executed immediately
+        
+        :param str actor_sid: The actor_sid
+        :param date end_date_before: The end_date
+        :param date end_date: The end_date
+        :param date end_date_after: The end_date
+        :param str event_type: The event_type
+        :param str resource_sid: The resource_sid
+        :param str source_ip_address: The source_ip_address
+        :param date start_date_before: The start_date
+        :param date start_date: The start_date
+        :param date start_date_after: The start_date
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+        
+        :returns: Page of EventInstance
+        :rtype: Page
+        """
         params = values.of({
             'ActorSid': actor_sid,
+            'EndDate<': serialize.iso8601_date(end_date_before),
             'EndDate': serialize.iso8601_date(end_date),
+            'EndDate>': serialize.iso8601_date(end_date_after),
             'EventType': event_type,
             'ResourceSid': resource_sid,
             'SourceIpAddress': source_ip_address,
+            'StartDate<': serialize.iso8601_date(start_date_before),
             'StartDate': serialize.iso8601_date(start_date),
+            'StartDate>': serialize.iso8601_date(start_date_after),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -127,6 +233,12 @@ class EventContext(InstanceContext):
         self._uri = '/Events/{sid}'.format(**self._kwargs)
 
     def fetch(self):
+        """
+        Fetch a EventInstance
+        
+        :returns: Fetched EventInstance
+        :rtype: EventInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -303,7 +415,13 @@ class EventInstance(InstanceResource):
         return self._properties['source_ip_address']
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a EventInstance
+        
+        :returns: Fetched EventInstance
+        :rtype: EventInstance
+        """
+        return self._context.fetch()
 
     def __repr__(self):
         """

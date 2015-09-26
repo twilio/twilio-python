@@ -33,6 +33,12 @@ class SandboxContext(InstanceContext):
         self._uri = '/Accounts/{account_sid}/Sandbox.json'.format(**self._kwargs)
 
     def fetch(self):
+        """
+        Fetch a SandboxInstance
+        
+        :returns: Fetched SandboxInstance
+        :rtype: SandboxInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -46,6 +52,19 @@ class SandboxContext(InstanceContext):
     def update(self, voice_url=values.unset, voice_method=values.unset,
                sms_url=values.unset, sms_method=values.unset,
                status_callback=values.unset, status_callback_method=values.unset):
+        """
+        Update the SandboxInstance
+        
+        :param str voice_url: The voice_url
+        :param str voice_method: The voice_method
+        :param str sms_url: The sms_url
+        :param str sms_method: The sms_method
+        :param str status_callback: The status_callback
+        :param str status_callback_method: The status_callback_method
+        
+        :returns: Updated SandboxInstance
+        :rtype: SandboxInstance
+        """
         data = values.of({
             'VoiceUrl': voice_url,
             'VoiceMethod': voice_method,
@@ -238,12 +257,31 @@ class SandboxInstance(InstanceResource):
         return self._properties['uri']
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a SandboxInstance
+        
+        :returns: Fetched SandboxInstance
+        :rtype: SandboxInstance
+        """
+        return self._context.fetch()
 
     def update(self, voice_url=values.unset, voice_method=values.unset,
                sms_url=values.unset, sms_method=values.unset,
                status_callback=values.unset, status_callback_method=values.unset):
-        self._context.update(
+        """
+        Update the SandboxInstance
+        
+        :param str voice_url: The voice_url
+        :param str voice_method: The voice_method
+        :param str sms_url: The sms_url
+        :param str sms_method: The sms_method
+        :param str status_callback: The status_callback
+        :param str status_callback_method: The status_callback_method
+        
+        :returns: Updated SandboxInstance
+        :rtype: SandboxInstance
+        """
+        return self._context.update(
             voice_url=voice_url,
             voice_method=voice_method,
             sms_url=sms_url,

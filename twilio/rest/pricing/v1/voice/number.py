@@ -32,6 +32,12 @@ class NumberContext(InstanceContext):
         self._uri = '/Voice/Numbers/{number}'.format(**self._kwargs)
 
     def fetch(self):
+        """
+        Fetch a NumberInstance
+        
+        :returns: Fetched NumberInstance
+        :rtype: NumberInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -154,7 +160,13 @@ class NumberInstance(InstanceResource):
         return self._properties['uri']
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a NumberInstance
+        
+        :returns: Fetched NumberInstance
+        :rtype: NumberInstance
+        """
+        return self._context.fetch()
 
     def __repr__(self):
         """

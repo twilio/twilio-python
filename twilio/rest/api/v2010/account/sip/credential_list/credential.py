@@ -35,7 +35,24 @@ class CredentialList(ListResource):
         }
         self._uri = '/Accounts/{account_sid}/SIP/CredentialLists/{credential_list_sid}/Credentials.json'.format(**self._kwargs)
 
-    def read(self, sip_credential_list_sid, limit=None, page_size=None, **kwargs):
+    def stream(self, sip_credential_list_sid, limit=None, page_size=None, **kwargs):
+        """
+        Streams CredentialInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+        
+        :param str sip_credential_list_sid: The sip_credential_list_sid
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
@@ -44,7 +61,7 @@ class CredentialList(ListResource):
         })
         params.update(kwargs)
         
-        return self._version.read(
+        return self._version.stream(
             self,
             CredentialInstance,
             self._kwargs,
@@ -55,8 +72,44 @@ class CredentialList(ListResource):
             params=params,
         )
 
+    def read(self, sip_credential_list_sid, limit=None, page_size=None, **kwargs):
+        """
+        Reads CredentialInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+        
+        :param str sip_credential_list_sid: The sip_credential_list_sid
+        :param int limit: Upper limit for the number of records to return. read() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, read() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
+        return list(self.stream(
+            sip_credential_list_sid=sip_credential_list_sid,
+            limit=limit,
+            page_size=page_size,
+            **kwargs
+        ))
+
     def page(self, sip_credential_list_sid, page_token=None, page_number=None,
              page_size=None, **kwargs):
+        """
+        Retrieve a single page of CredentialInstance records from the API.
+        Request is executed immediately
+        
+        :param str sip_credential_list_sid: The sip_credential_list_sid
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+        
+        :returns: Page of CredentialInstance
+        :rtype: Page
+        """
         params = values.of({
             'SipCredentialListSid': sip_credential_list_sid,
             'PageToken': page_token,
@@ -75,6 +128,16 @@ class CredentialList(ListResource):
         )
 
     def create(self, sip_credential_list_sid, username, password):
+        """
+        Create a new CredentialInstance
+        
+        :param str sip_credential_list_sid: The sip_credential_list_sid
+        :param str username: The username
+        :param str password: The password
+        
+        :returns: Newly created CredentialInstance
+        :rtype: CredentialInstance
+        """
         data = values.of({
             'SipCredentialListSid': sip_credential_list_sid,
             'Username': username,
@@ -135,6 +198,14 @@ class CredentialContext(InstanceContext):
         self._uri = '/Accounts/{account_sid}/SIP/CredentialLists/{credential_list_sid}/Credentials/{sid}.json'.format(**self._kwargs)
 
     def fetch(self, sip_credential_list_sid):
+        """
+        Fetch a CredentialInstance
+        
+        :param str sip_credential_list_sid: The sip_credential_list_sid
+        
+        :returns: Fetched CredentialInstance
+        :rtype: CredentialInstance
+        """
         params = values.of({
             'SipCredentialListSid': sip_credential_list_sid,
         })
@@ -148,6 +219,16 @@ class CredentialContext(InstanceContext):
         )
 
     def update(self, sip_credential_list_sid, username, password):
+        """
+        Update the CredentialInstance
+        
+        :param str sip_credential_list_sid: The sip_credential_list_sid
+        :param str username: The username
+        :param str password: The password
+        
+        :returns: Updated CredentialInstance
+        :rtype: CredentialInstance
+        """
         data = values.of({
             'SipCredentialListSid': sip_credential_list_sid,
             'Username': username,
@@ -163,6 +244,14 @@ class CredentialContext(InstanceContext):
         )
 
     def delete(self, sip_credential_list_sid):
+        """
+        Deletes the CredentialInstance
+        
+        :param str sip_credential_list_sid: The sip_credential_list_sid
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
         return self._version.delete('delete', self._uri)
 
     def __repr__(self):
@@ -291,19 +380,45 @@ class CredentialInstance(InstanceResource):
         return self._properties['uri']
 
     def fetch(self, sip_credential_list_sid):
-        self._context.fetch(
+        """
+        Fetch a CredentialInstance
+        
+        :param str sip_credential_list_sid: The sip_credential_list_sid
+        
+        :returns: Fetched CredentialInstance
+        :rtype: CredentialInstance
+        """
+        return self._context.fetch(
             sip_credential_list_sid,
         )
 
     def update(self, sip_credential_list_sid, username, password):
-        self._context.update(
+        """
+        Update the CredentialInstance
+        
+        :param str sip_credential_list_sid: The sip_credential_list_sid
+        :param str username: The username
+        :param str password: The password
+        
+        :returns: Updated CredentialInstance
+        :rtype: CredentialInstance
+        """
+        return self._context.update(
             sip_credential_list_sid,
             username,
             password,
         )
 
     def delete(self, sip_credential_list_sid):
-        self._context.delete(
+        """
+        Deletes the CredentialInstance
+        
+        :param str sip_credential_list_sid: The sip_credential_list_sid
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._context.delete(
             sip_credential_list_sid,
         )
 

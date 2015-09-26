@@ -1,7 +1,7 @@
 import json
 from math import ceil
-from twilio import TwilioException
 from twilio import values
+from twilio.exceptions import TwilioException
 from twilio.rest.page import Page
 
 
@@ -139,7 +139,7 @@ class Version(object):
             'page_limit': page_limit,
         }
 
-    def read(self, pager, instance, instance_kwargs, method, uri, limit, page_limit, **kwargs):
+    def stream(self, pager, instance, instance_kwargs, method, uri, limit, page_limit, **kwargs):
         current_record = 1
         current_page = 1
         page = self.page(pager, instance, instance_kwargs, method, uri, **kwargs)
@@ -211,14 +211,15 @@ class Version(object):
 
         raise TwilioException('Page Records can not be deserialized')
 
-    def create(self, instance, method, uri, **kwargs):
+    def create(self, instance, instance_kwargs, method, uri, **kwargs):
         response = self.request(method, uri, **kwargs)
 
         if response.status_code not in [200, 201]:
-            raise TwilioException('Unable to create record')
+            raise TwilioException('[{}] Unable to create record\n{}'.format(response.status_code,
+                                                                            response.content))
 
         payload = json.loads(response.content)
-        return instance(self, payload)
+        return instance(self, payload, **instance_kwargs)
 
 
 class ListResource(object):

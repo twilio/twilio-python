@@ -20,8 +20,8 @@ class ReservationList(ListResource):
         Initialize the ReservationList
         
         :param Version version: Version that contains the resource
-        :param task_sid: Contextual task_sid
         :param workspace_sid: Contextual workspace_sid
+        :param task_sid: Contextual task_sid
         
         :returns: ReservationList
         :rtype: ReservationList
@@ -35,7 +35,23 @@ class ReservationList(ListResource):
         }
         self._uri = '/Workspaces/{workspace_sid}/Tasks/{task_sid}/Reservations'.format(**self._kwargs)
 
-    def read(self, limit=None, page_size=None, **kwargs):
+    def stream(self, limit=None, page_size=None, **kwargs):
+        """
+        Streams ReservationInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+        
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
@@ -43,7 +59,7 @@ class ReservationList(ListResource):
         })
         params.update(kwargs)
         
-        return self._version.read(
+        return self._version.stream(
             self,
             ReservationInstance,
             self._kwargs,
@@ -54,7 +70,40 @@ class ReservationList(ListResource):
             params=params,
         )
 
+    def read(self, limit=None, page_size=None, **kwargs):
+        """
+        Reads ReservationInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+        
+        :param int limit: Upper limit for the number of records to return. read() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, read() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
+        return list(self.stream(
+            limit=limit,
+            page_size=page_size,
+            **kwargs
+        ))
+
     def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
+        """
+        Retrieve a single page of ReservationInstance records from the API.
+        Request is executed immediately
+        
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+        
+        :returns: Page of ReservationInstance
+        :rtype: Page
+        """
         params = values.of({
             'PageToken': page_token,
             'Page': page_number,
@@ -99,9 +148,9 @@ class ReservationContext(InstanceContext):
         Initialize the ReservationContext
         
         :param Version version
-        :param sid: Contextual sid
-        :param task_sid: Contextual task_sid
         :param workspace_sid: Contextual workspace_sid
+        :param task_sid: Contextual task_sid
+        :param sid: Contextual sid
         
         :returns: ReservationContext
         :rtype: ReservationContext
@@ -117,6 +166,12 @@ class ReservationContext(InstanceContext):
         self._uri = '/Workspaces/{workspace_sid}/Tasks/{task_sid}/Reservations/{sid}'.format(**self._kwargs)
 
     def fetch(self):
+        """
+        Fetch a ReservationInstance
+        
+        :returns: Fetched ReservationInstance
+        :rtype: ReservationInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -128,6 +183,15 @@ class ReservationContext(InstanceContext):
         )
 
     def update(self, reservation_status, worker_activity_sid=values.unset):
+        """
+        Update the ReservationInstance
+        
+        :param str reservation_status: The reservation_status
+        :param str worker_activity_sid: The worker_activity_sid
+        
+        :returns: Updated ReservationInstance
+        :rtype: ReservationInstance
+        """
         data = values.of({
             'ReservationStatus': reservation_status,
             'WorkerActivitySid': worker_activity_sid,
@@ -275,10 +339,25 @@ class ReservationInstance(InstanceResource):
         return self._properties['workspace_sid']
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a ReservationInstance
+        
+        :returns: Fetched ReservationInstance
+        :rtype: ReservationInstance
+        """
+        return self._context.fetch()
 
     def update(self, reservation_status, worker_activity_sid=values.unset):
-        self._context.update(
+        """
+        Update the ReservationInstance
+        
+        :param str reservation_status: The reservation_status
+        :param str worker_activity_sid: The worker_activity_sid
+        
+        :returns: Updated ReservationInstance
+        :rtype: ReservationInstance
+        """
+        return self._context.update(
             reservation_status,
             worker_activity_sid=worker_activity_sid,
         )

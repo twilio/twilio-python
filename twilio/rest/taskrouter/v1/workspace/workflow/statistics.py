@@ -18,8 +18,8 @@ class StatisticsContext(InstanceContext):
         Initialize the StatisticsContext
         
         :param Version version
-        :param workflow_sid: Contextual workflow_sid
         :param workspace_sid: Contextual workspace_sid
+        :param workflow_sid: Contextual workflow_sid
         
         :returns: StatisticsContext
         :rtype: StatisticsContext
@@ -35,6 +35,16 @@ class StatisticsContext(InstanceContext):
 
     def fetch(self, minutes=values.unset, start_date=values.unset,
               end_date=values.unset):
+        """
+        Fetch a StatisticsInstance
+        
+        :param str minutes: The minutes
+        :param datetime start_date: The start_date
+        :param datetime end_date: The end_date
+        
+        :returns: Fetched StatisticsInstance
+        :rtype: StatisticsInstance
+        """
         params = values.of({
             'Minutes': minutes,
             'StartDate': start_date,
@@ -146,7 +156,17 @@ class StatisticsInstance(InstanceResource):
 
     def fetch(self, minutes=values.unset, start_date=values.unset,
               end_date=values.unset):
-        self._context.fetch(
+        """
+        Fetch a StatisticsInstance
+        
+        :param str minutes: The minutes
+        :param datetime start_date: The start_date
+        :param datetime end_date: The end_date
+        
+        :returns: Fetched StatisticsInstance
+        :rtype: StatisticsInstance
+        """
+        return self._context.fetch(
             minutes=minutes,
             start_date=start_date,
             end_date=end_date,

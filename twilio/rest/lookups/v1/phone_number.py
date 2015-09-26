@@ -32,6 +32,15 @@ class PhoneNumberContext(InstanceContext):
         self._uri = '/PhoneNumbers/{phone_number}'.format(**self._kwargs)
 
     def fetch(self, country_code=values.unset, type=values.unset):
+        """
+        Fetch a PhoneNumberInstance
+        
+        :param str country_code: The country_code
+        :param str type: The type
+        
+        :returns: Fetched PhoneNumberInstance
+        :rtype: PhoneNumberInstance
+        """
         params = values.of({
             'CountryCode': country_code,
             'Type': type,
@@ -166,7 +175,16 @@ class PhoneNumberInstance(InstanceResource):
         return self._properties['carrier']
 
     def fetch(self, country_code=values.unset, type=values.unset):
-        self._context.fetch(
+        """
+        Fetch a PhoneNumberInstance
+        
+        :param str country_code: The country_code
+        :param str type: The type
+        
+        :returns: Fetched PhoneNumberInstance
+        :rtype: PhoneNumberInstance
+        """
+        return self._context.fetch(
             country_code=country_code,
             type=type,
         )

@@ -34,10 +34,32 @@ class TaskList(ListResource):
         }
         self._uri = '/Workspaces/{workspace_sid}/Tasks'.format(**self._kwargs)
 
-    def read(self, priority=values.unset, assignment_status=values.unset,
-             workflow_sid=values.unset, workflow_name=values.unset,
-             task_queue_sid=values.unset, task_queue_name=values.unset, limit=None,
-             page_size=None, **kwargs):
+    def stream(self, priority=values.unset, assignment_status=values.unset,
+               workflow_sid=values.unset, workflow_name=values.unset,
+               task_queue_sid=values.unset, task_queue_name=values.unset,
+               limit=None, page_size=None, **kwargs):
+        """
+        Streams TaskInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+        
+        :param str priority: The priority
+        :param task.status assignment_status: The assignment_status
+        :param str workflow_sid: The workflow_sid
+        :param str workflow_name: The workflow_name
+        :param str task_queue_sid: The task_queue_sid
+        :param str task_queue_name: The task_queue_name
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
@@ -51,7 +73,7 @@ class TaskList(ListResource):
         })
         params.update(kwargs)
         
-        return self._version.read(
+        return self._version.stream(
             self,
             TaskInstance,
             self._kwargs,
@@ -62,10 +84,64 @@ class TaskList(ListResource):
             params=params,
         )
 
+    def read(self, priority=values.unset, assignment_status=values.unset,
+             workflow_sid=values.unset, workflow_name=values.unset,
+             task_queue_sid=values.unset, task_queue_name=values.unset, limit=None,
+             page_size=None, **kwargs):
+        """
+        Reads TaskInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+        
+        :param str priority: The priority
+        :param task.status assignment_status: The assignment_status
+        :param str workflow_sid: The workflow_sid
+        :param str workflow_name: The workflow_name
+        :param str task_queue_sid: The task_queue_sid
+        :param str task_queue_name: The task_queue_name
+        :param int limit: Upper limit for the number of records to return. read() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, read() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
+        return list(self.stream(
+            priority=priority,
+            assignment_status=assignment_status,
+            workflow_sid=workflow_sid,
+            workflow_name=workflow_name,
+            task_queue_sid=task_queue_sid,
+            task_queue_name=task_queue_name,
+            limit=limit,
+            page_size=page_size,
+            **kwargs
+        ))
+
     def page(self, priority=values.unset, assignment_status=values.unset,
              workflow_sid=values.unset, workflow_name=values.unset,
              task_queue_sid=values.unset, task_queue_name=values.unset,
              page_token=None, page_number=None, page_size=None, **kwargs):
+        """
+        Retrieve a single page of TaskInstance records from the API.
+        Request is executed immediately
+        
+        :param str priority: The priority
+        :param task.status assignment_status: The assignment_status
+        :param str workflow_sid: The workflow_sid
+        :param str workflow_name: The workflow_name
+        :param str task_queue_sid: The task_queue_sid
+        :param str task_queue_name: The task_queue_name
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+        
+        :returns: Page of TaskInstance
+        :rtype: Page
+        """
         params = values.of({
             'Priority': priority,
             'AssignmentStatus': assignment_status,
@@ -90,6 +166,17 @@ class TaskList(ListResource):
 
     def create(self, attributes, workflow_sid, timeout=values.unset,
                priority=values.unset):
+        """
+        Create a new TaskInstance
+        
+        :param str attributes: The attributes
+        :param str workflow_sid: The workflow_sid
+        :param str timeout: The timeout
+        :param str priority: The priority
+        
+        :returns: Newly created TaskInstance
+        :rtype: TaskInstance
+        """
         data = values.of({
             'Attributes': attributes,
             'WorkflowSid': workflow_sid,
@@ -133,8 +220,8 @@ class TaskContext(InstanceContext):
         Initialize the TaskContext
         
         :param Version version
-        :param sid: Contextual sid
         :param workspace_sid: Contextual workspace_sid
+        :param sid: Contextual sid
         
         :returns: TaskContext
         :rtype: TaskContext
@@ -152,6 +239,12 @@ class TaskContext(InstanceContext):
         self._reservations = None
 
     def fetch(self):
+        """
+        Fetch a TaskInstance
+        
+        :returns: Fetched TaskInstance
+        :rtype: TaskInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -164,6 +257,17 @@ class TaskContext(InstanceContext):
 
     def update(self, attributes=values.unset, assignment_status=values.unset,
                reason=values.unset, priority=values.unset):
+        """
+        Update the TaskInstance
+        
+        :param str attributes: The attributes
+        :param task.status assignment_status: The assignment_status
+        :param str reason: The reason
+        :param str priority: The priority
+        
+        :returns: Updated TaskInstance
+        :rtype: TaskInstance
+        """
         data = values.of({
             'Attributes': attributes,
             'AssignmentStatus': assignment_status,
@@ -180,6 +284,12 @@ class TaskContext(InstanceContext):
         )
 
     def delete(self):
+        """
+        Deletes the TaskInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
         return self._version.delete('delete', self._uri)
 
     @property
@@ -366,11 +476,28 @@ class TaskInstance(InstanceResource):
         return self._properties['workspace_sid']
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a TaskInstance
+        
+        :returns: Fetched TaskInstance
+        :rtype: TaskInstance
+        """
+        return self._context.fetch()
 
     def update(self, attributes=values.unset, assignment_status=values.unset,
                reason=values.unset, priority=values.unset):
-        self._context.update(
+        """
+        Update the TaskInstance
+        
+        :param str attributes: The attributes
+        :param task.status assignment_status: The assignment_status
+        :param str reason: The reason
+        :param str priority: The priority
+        
+        :returns: Updated TaskInstance
+        :rtype: TaskInstance
+        """
+        return self._context.update(
             attributes=attributes,
             assignment_status=assignment_status,
             reason=reason,
@@ -378,7 +505,13 @@ class TaskInstance(InstanceResource):
         )
 
     def delete(self):
-        self._context.delete()
+        """
+        Deletes the TaskInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._context.delete()
 
     @property
     def reservations(self):

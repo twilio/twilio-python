@@ -50,6 +50,14 @@ class AccountList(ListResource):
         self._uri = '/Accounts.json'.format(**self._kwargs)
 
     def create(self, friendly_name=values.unset):
+        """
+        Create a new AccountInstance
+        
+        :param str friendly_name: A human readable description of the account
+        
+        :returns: Newly created AccountInstance
+        :rtype: AccountInstance
+        """
         data = values.of({
             'FriendlyName': friendly_name,
         })
@@ -62,8 +70,26 @@ class AccountList(ListResource):
             data=data,
         )
 
-    def read(self, friendly_name=values.unset, status=values.unset, limit=None,
-             page_size=None, **kwargs):
+    def stream(self, friendly_name=values.unset, status=values.unset, limit=None,
+               page_size=None, **kwargs):
+        """
+        Streams AccountInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+        
+        :param str friendly_name: FriendlyName to filter on
+        :param account.status status: Status to filter on
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
@@ -73,7 +99,7 @@ class AccountList(ListResource):
         })
         params.update(kwargs)
         
-        return self._version.read(
+        return self._version.stream(
             self,
             AccountInstance,
             self._kwargs,
@@ -84,8 +110,48 @@ class AccountList(ListResource):
             params=params,
         )
 
+    def read(self, friendly_name=values.unset, status=values.unset, limit=None,
+             page_size=None, **kwargs):
+        """
+        Reads AccountInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+        
+        :param str friendly_name: FriendlyName to filter on
+        :param account.status status: Status to filter on
+        :param int limit: Upper limit for the number of records to return. read() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, read() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
+        return list(self.stream(
+            friendly_name=friendly_name,
+            status=status,
+            limit=limit,
+            page_size=page_size,
+            **kwargs
+        ))
+
     def page(self, friendly_name=values.unset, status=values.unset, page_token=None,
              page_number=None, page_size=None, **kwargs):
+        """
+        Retrieve a single page of AccountInstance records from the API.
+        Request is executed immediately
+        
+        :param str friendly_name: FriendlyName to filter on
+        :param account.status status: Status to filter on
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+        
+        :returns: Page of AccountInstance
+        :rtype: Page
+        """
         params = values.of({
             'FriendlyName': friendly_name,
             'Status': status,
@@ -167,6 +233,12 @@ class AccountContext(InstanceContext):
         self._usage = None
 
     def fetch(self):
+        """
+        Fetch a AccountInstance
+        
+        :returns: Fetched AccountInstance
+        :rtype: AccountInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -178,6 +250,15 @@ class AccountContext(InstanceContext):
         )
 
     def update(self, friendly_name=values.unset, status=values.unset):
+        """
+        Update the AccountInstance
+        
+        :param str friendly_name: FriendlyName to update
+        :param account.status status: Status to update the Account with
+        
+        :returns: Updated AccountInstance
+        :rtype: AccountInstance
+        """
         data = values.of({
             'FriendlyName': friendly_name,
             'Status': status,
@@ -615,10 +696,25 @@ class AccountInstance(InstanceResource):
         return self._properties['uri']
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a AccountInstance
+        
+        :returns: Fetched AccountInstance
+        :rtype: AccountInstance
+        """
+        return self._context.fetch()
 
     def update(self, friendly_name=values.unset, status=values.unset):
-        self._context.update(
+        """
+        Update the AccountInstance
+        
+        :param str friendly_name: FriendlyName to update
+        :param account.status status: Status to update the Account with
+        
+        :returns: Updated AccountInstance
+        :rtype: AccountInstance
+        """
+        return self._context.update(
             friendly_name=friendly_name,
             status=status,
         )

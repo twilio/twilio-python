@@ -35,21 +35,51 @@ class ConferenceList(ListResource):
         }
         self._uri = '/Accounts/{account_sid}/Conferences.json'.format(**self._kwargs)
 
-    def read(self, date_created=values.unset, date_updated=values.unset,
-             friendly_name=values.unset, status=values.unset, limit=None,
-             page_size=None, **kwargs):
+    def stream(self, date_created_before=values.unset, date_created=values.unset,
+               date_created_after=values.unset, date_updated_before=values.unset,
+               date_updated=values.unset, date_updated_after=values.unset,
+               friendly_name=values.unset, status=values.unset, limit=None,
+               page_size=None, **kwargs):
+        """
+        Streams ConferenceInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+        
+        :param date date_created_before: Filter by date created
+        :param date date_created: Filter by date created
+        :param date date_created_after: Filter by date created
+        :param date date_updated_before: Filter by date updated
+        :param date date_updated: Filter by date updated
+        :param date date_updated_after: Filter by date updated
+        :param str friendly_name: Filter by friendly name
+        :param conference.status status: The status of the conference
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
+            'DateCreated<': serialize.iso8601_date(date_created_before),
             'DateCreated': serialize.iso8601_date(date_created),
+            'DateCreated>': serialize.iso8601_date(date_created_after),
+            'DateUpdated<': serialize.iso8601_date(date_updated_before),
             'DateUpdated': serialize.iso8601_date(date_updated),
+            'DateUpdated>': serialize.iso8601_date(date_updated_after),
             'FriendlyName': friendly_name,
             'Status': status,
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         
-        return self._version.read(
+        return self._version.stream(
             self,
             ConferenceInstance,
             self._kwargs,
@@ -60,12 +90,79 @@ class ConferenceList(ListResource):
             params=params,
         )
 
-    def page(self, date_created=values.unset, date_updated=values.unset,
+    def read(self, date_created_before=values.unset, date_created=values.unset,
+             date_created_after=values.unset, date_updated_before=values.unset,
+             date_updated=values.unset, date_updated_after=values.unset,
+             friendly_name=values.unset, status=values.unset, limit=None,
+             page_size=None, **kwargs):
+        """
+        Reads ConferenceInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+        
+        :param date date_created_before: Filter by date created
+        :param date date_created: Filter by date created
+        :param date date_created_after: Filter by date created
+        :param date date_updated_before: Filter by date updated
+        :param date date_updated: Filter by date updated
+        :param date date_updated_after: Filter by date updated
+        :param str friendly_name: Filter by friendly name
+        :param conference.status status: The status of the conference
+        :param int limit: Upper limit for the number of records to return. read() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, read() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
+        return list(self.stream(
+            date_created_before=date_created_before,
+            date_created=date_created,
+            date_created_after=date_created_after,
+            date_updated_before=date_updated_before,
+            date_updated=date_updated,
+            date_updated_after=date_updated_after,
+            friendly_name=friendly_name,
+            status=status,
+            limit=limit,
+            page_size=page_size,
+            **kwargs
+        ))
+
+    def page(self, date_created_before=values.unset, date_created=values.unset,
+             date_created_after=values.unset, date_updated_before=values.unset,
+             date_updated=values.unset, date_updated_after=values.unset,
              friendly_name=values.unset, status=values.unset, page_token=None,
              page_number=None, page_size=None, **kwargs):
+        """
+        Retrieve a single page of ConferenceInstance records from the API.
+        Request is executed immediately
+        
+        :param date date_created_before: Filter by date created
+        :param date date_created: Filter by date created
+        :param date date_created_after: Filter by date created
+        :param date date_updated_before: Filter by date updated
+        :param date date_updated: Filter by date updated
+        :param date date_updated_after: Filter by date updated
+        :param str friendly_name: Filter by friendly name
+        :param conference.status status: The status of the conference
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+        
+        :returns: Page of ConferenceInstance
+        :rtype: Page
+        """
         params = values.of({
+            'DateCreated<': serialize.iso8601_date(date_created_before),
             'DateCreated': serialize.iso8601_date(date_created),
+            'DateCreated>': serialize.iso8601_date(date_created_after),
+            'DateUpdated<': serialize.iso8601_date(date_updated_before),
             'DateUpdated': serialize.iso8601_date(date_updated),
+            'DateUpdated>': serialize.iso8601_date(date_updated_after),
             'FriendlyName': friendly_name,
             'Status': status,
             'PageToken': page_token,
@@ -130,6 +227,12 @@ class ConferenceContext(InstanceContext):
         self._participants = None
 
     def fetch(self):
+        """
+        Fetch a ConferenceInstance
+        
+        :returns: Fetched ConferenceInstance
+        :rtype: ConferenceInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -279,7 +382,13 @@ class ConferenceInstance(InstanceResource):
         return self._properties['uri']
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a ConferenceInstance
+        
+        :returns: Fetched ConferenceInstance
+        :rtype: ConferenceInstance
+        """
+        return self._context.fetch()
 
     @property
     def participants(self):

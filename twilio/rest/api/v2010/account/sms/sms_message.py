@@ -37,6 +37,19 @@ class SmsMessageList(ListResource):
     def create(self, to, from_, status_callback=values.unset,
                application_sid=values.unset, body=values.unset,
                media_url=values.unset):
+        """
+        Create a new SmsMessageInstance
+        
+        :param str to: The to
+        :param str from_: The from
+        :param str status_callback: The status_callback
+        :param str application_sid: The application_sid
+        :param str body: The body
+        :param str media_url: The media_url
+        
+        :returns: Newly created SmsMessageInstance
+        :rtype: SmsMessageInstance
+        """
         data = values.of({
             'To': to,
             'From': from_,
@@ -54,19 +67,43 @@ class SmsMessageList(ListResource):
             data=data,
         )
 
-    def read(self, to=values.unset, from_=values.unset, date_sent=values.unset,
-             limit=None, page_size=None, **kwargs):
+    def stream(self, to=values.unset, from_=values.unset,
+               date_sent_before=values.unset, date_sent=values.unset,
+               date_sent_after=values.unset, limit=None, page_size=None, **kwargs):
+        """
+        Streams SmsMessageInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+        
+        :param str to: The to
+        :param str from_: The from
+        :param date date_sent_before: The date_sent
+        :param date date_sent: The date_sent
+        :param date date_sent_after: The date_sent
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
             'To': to,
             'From': from_,
+            'DateSent<': serialize.iso8601_date(date_sent_before),
             'DateSent': serialize.iso8601_date(date_sent),
+            'DateSent>': serialize.iso8601_date(date_sent_after),
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         
-        return self._version.read(
+        return self._version.stream(
             self,
             SmsMessageInstance,
             self._kwargs,
@@ -77,12 +114,66 @@ class SmsMessageList(ListResource):
             params=params,
         )
 
-    def page(self, to=values.unset, from_=values.unset, date_sent=values.unset,
-             page_token=None, page_number=None, page_size=None, **kwargs):
+    def read(self, to=values.unset, from_=values.unset,
+             date_sent_before=values.unset, date_sent=values.unset,
+             date_sent_after=values.unset, limit=None, page_size=None, **kwargs):
+        """
+        Reads SmsMessageInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+        
+        :param str to: The to
+        :param str from_: The from
+        :param date date_sent_before: The date_sent
+        :param date date_sent: The date_sent
+        :param date date_sent_after: The date_sent
+        :param int limit: Upper limit for the number of records to return. read() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, read() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
+        return list(self.stream(
+            to=to,
+            from_=from_,
+            date_sent_before=date_sent_before,
+            date_sent=date_sent,
+            date_sent_after=date_sent_after,
+            limit=limit,
+            page_size=page_size,
+            **kwargs
+        ))
+
+    def page(self, to=values.unset, from_=values.unset,
+             date_sent_before=values.unset, date_sent=values.unset,
+             date_sent_after=values.unset, page_token=None, page_number=None,
+             page_size=None, **kwargs):
+        """
+        Retrieve a single page of SmsMessageInstance records from the API.
+        Request is executed immediately
+        
+        :param str to: The to
+        :param str from_: The from
+        :param date date_sent_before: The date_sent
+        :param date date_sent: The date_sent
+        :param date date_sent_after: The date_sent
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+        
+        :returns: Page of SmsMessageInstance
+        :rtype: Page
+        """
         params = values.of({
             'To': to,
             'From': from_,
+            'DateSent<': serialize.iso8601_date(date_sent_before),
             'DateSent': serialize.iso8601_date(date_sent),
+            'DateSent>': serialize.iso8601_date(date_sent_after),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -142,9 +233,21 @@ class SmsMessageContext(InstanceContext):
         self._uri = '/Accounts/{account_sid}/SMS/Messages/{sid}.json'.format(**self._kwargs)
 
     def delete(self):
+        """
+        Deletes the SmsMessageInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
         return self._version.delete('delete', self._uri)
 
     def fetch(self):
+        """
+        Fetch a SmsMessageInstance
+        
+        :returns: Fetched SmsMessageInstance
+        :rtype: SmsMessageInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -156,6 +259,14 @@ class SmsMessageContext(InstanceContext):
         )
 
     def update(self, body=values.unset):
+        """
+        Update the SmsMessageInstance
+        
+        :param str body: The body
+        
+        :returns: Updated SmsMessageInstance
+        :rtype: SmsMessageInstance
+        """
         data = values.of({
             'Body': body,
         })
@@ -390,13 +501,33 @@ class SmsMessageInstance(InstanceResource):
         return self._properties['uri']
 
     def delete(self):
-        self._context.delete()
+        """
+        Deletes the SmsMessageInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._context.delete()
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a SmsMessageInstance
+        
+        :returns: Fetched SmsMessageInstance
+        :rtype: SmsMessageInstance
+        """
+        return self._context.fetch()
 
     def update(self, body=values.unset):
-        self._context.update(
+        """
+        Update the SmsMessageInstance
+        
+        :param str body: The body
+        
+        :returns: Updated SmsMessageInstance
+        :rtype: SmsMessageInstance
+        """
+        return self._context.update(
             body=body,
         )
 

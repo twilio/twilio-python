@@ -34,8 +34,25 @@ class WorkflowList(ListResource):
         }
         self._uri = '/Workspaces/{workspace_sid}/Workflows'.format(**self._kwargs)
 
-    def read(self, friendly_name=values.unset, limit=None, page_size=None,
-             **kwargs):
+    def stream(self, friendly_name=values.unset, limit=None, page_size=None,
+               **kwargs):
+        """
+        Streams WorkflowInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+        
+        :param str friendly_name: The friendly_name
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
@@ -44,7 +61,7 @@ class WorkflowList(ListResource):
         })
         params.update(kwargs)
         
-        return self._version.read(
+        return self._version.stream(
             self,
             WorkflowInstance,
             self._kwargs,
@@ -55,8 +72,45 @@ class WorkflowList(ListResource):
             params=params,
         )
 
+    def read(self, friendly_name=values.unset, limit=None, page_size=None,
+             **kwargs):
+        """
+        Reads WorkflowInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+        
+        :param str friendly_name: The friendly_name
+        :param int limit: Upper limit for the number of records to return. read() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, read() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
+        return list(self.stream(
+            friendly_name=friendly_name,
+            limit=limit,
+            page_size=page_size,
+            **kwargs
+        ))
+
     def page(self, friendly_name=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
+        """
+        Retrieve a single page of WorkflowInstance records from the API.
+        Request is executed immediately
+        
+        :param str friendly_name: The friendly_name
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+        
+        :returns: Page of WorkflowInstance
+        :rtype: Page
+        """
         params = values.of({
             'FriendlyName': friendly_name,
             'PageToken': page_token,
@@ -77,6 +131,18 @@ class WorkflowList(ListResource):
     def create(self, friendly_name, configuration, assignment_callback_url,
                fallback_assignment_callback_url=values.unset,
                task_reservation_timeout=values.unset):
+        """
+        Create a new WorkflowInstance
+        
+        :param str friendly_name: The friendly_name
+        :param str configuration: The configuration
+        :param str assignment_callback_url: The assignment_callback_url
+        :param str fallback_assignment_callback_url: The fallback_assignment_callback_url
+        :param str task_reservation_timeout: The task_reservation_timeout
+        
+        :returns: Newly created WorkflowInstance
+        :rtype: WorkflowInstance
+        """
         data = values.of({
             'FriendlyName': friendly_name,
             'Configuration': configuration,
@@ -121,8 +187,8 @@ class WorkflowContext(InstanceContext):
         Initialize the WorkflowContext
         
         :param Version version
-        :param sid: Contextual sid
         :param workspace_sid: Contextual workspace_sid
+        :param sid: Contextual sid
         
         :returns: WorkflowContext
         :rtype: WorkflowContext
@@ -140,6 +206,12 @@ class WorkflowContext(InstanceContext):
         self._statistics = None
 
     def fetch(self):
+        """
+        Fetch a WorkflowInstance
+        
+        :returns: Fetched WorkflowInstance
+        :rtype: WorkflowInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -154,6 +226,18 @@ class WorkflowContext(InstanceContext):
                assignment_callback_url=values.unset,
                fallback_assignment_callback_url=values.unset,
                configuration=values.unset, task_reservation_timeout=values.unset):
+        """
+        Update the WorkflowInstance
+        
+        :param str friendly_name: The friendly_name
+        :param str assignment_callback_url: The assignment_callback_url
+        :param str fallback_assignment_callback_url: The fallback_assignment_callback_url
+        :param str configuration: The configuration
+        :param str task_reservation_timeout: The task_reservation_timeout
+        
+        :returns: Updated WorkflowInstance
+        :rtype: WorkflowInstance
+        """
         data = values.of({
             'FriendlyName': friendly_name,
             'AssignmentCallbackUrl': assignment_callback_url,
@@ -171,6 +255,12 @@ class WorkflowContext(InstanceContext):
         )
 
     def delete(self):
+        """
+        Deletes the WorkflowInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
         return self._version.delete('delete', self._uri)
 
     @property
@@ -339,13 +429,31 @@ class WorkflowInstance(InstanceResource):
         return self._properties['workspace_sid']
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a WorkflowInstance
+        
+        :returns: Fetched WorkflowInstance
+        :rtype: WorkflowInstance
+        """
+        return self._context.fetch()
 
     def update(self, friendly_name=values.unset,
                assignment_callback_url=values.unset,
                fallback_assignment_callback_url=values.unset,
                configuration=values.unset, task_reservation_timeout=values.unset):
-        self._context.update(
+        """
+        Update the WorkflowInstance
+        
+        :param str friendly_name: The friendly_name
+        :param str assignment_callback_url: The assignment_callback_url
+        :param str fallback_assignment_callback_url: The fallback_assignment_callback_url
+        :param str configuration: The configuration
+        :param str task_reservation_timeout: The task_reservation_timeout
+        
+        :returns: Updated WorkflowInstance
+        :rtype: WorkflowInstance
+        """
+        return self._context.update(
             friendly_name=friendly_name,
             assignment_callback_url=assignment_callback_url,
             fallback_assignment_callback_url=fallback_assignment_callback_url,
@@ -354,7 +462,13 @@ class WorkflowInstance(InstanceResource):
         )
 
     def delete(self):
-        self._context.delete()
+        """
+        Deletes the WorkflowInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._context.delete()
 
     @property
     def statistics(self):

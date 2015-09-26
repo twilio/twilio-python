@@ -34,18 +34,41 @@ class NotificationList(ListResource):
         }
         self._uri = '/Accounts/{account_sid}/Notifications'.format(**self._kwargs)
 
-    def read(self, log=values.unset, message_date=values.unset, limit=None,
-             page_size=None, **kwargs):
+    def stream(self, log=values.unset, message_date_before=values.unset,
+               message_date=values.unset, message_date_after=values.unset,
+               limit=None, page_size=None, **kwargs):
+        """
+        Streams NotificationInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+        
+        :param str log: Filter by log level
+        :param date message_date_before: Filter by date
+        :param date message_date: Filter by date
+        :param date message_date_after: Filter by date
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
             'Log': log,
+            'MessageDate<': serialize.iso8601_date(message_date_before),
             'MessageDate': serialize.iso8601_date(message_date),
+            'MessageDate>': serialize.iso8601_date(message_date_after),
             'PageSize': limits['page_size'],
         })
         params.update(kwargs)
         
-        return self._version.read(
+        return self._version.stream(
             self,
             NotificationInstance,
             self._kwargs,
@@ -56,11 +79,61 @@ class NotificationList(ListResource):
             params=params,
         )
 
-    def page(self, log=values.unset, message_date=values.unset, page_token=None,
-             page_number=None, page_size=None, **kwargs):
+    def read(self, log=values.unset, message_date_before=values.unset,
+             message_date=values.unset, message_date_after=values.unset, limit=None,
+             page_size=None, **kwargs):
+        """
+        Reads NotificationInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+        
+        :param str log: Filter by log level
+        :param date message_date_before: Filter by date
+        :param date message_date: Filter by date
+        :param date message_date_after: Filter by date
+        :param int limit: Upper limit for the number of records to return. read() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, read() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
+        return list(self.stream(
+            log=log,
+            message_date_before=message_date_before,
+            message_date=message_date,
+            message_date_after=message_date_after,
+            limit=limit,
+            page_size=page_size,
+            **kwargs
+        ))
+
+    def page(self, log=values.unset, message_date_before=values.unset,
+             message_date=values.unset, message_date_after=values.unset,
+             page_token=None, page_number=None, page_size=None, **kwargs):
+        """
+        Retrieve a single page of NotificationInstance records from the API.
+        Request is executed immediately
+        
+        :param str log: Filter by log level
+        :param date message_date_before: Filter by date
+        :param date message_date: Filter by date
+        :param date message_date_after: Filter by date
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+        
+        :returns: Page of NotificationInstance
+        :rtype: Page
+        """
         params = values.of({
             'Log': log,
+            'MessageDate<': serialize.iso8601_date(message_date_before),
             'MessageDate': serialize.iso8601_date(message_date),
+            'MessageDate>': serialize.iso8601_date(message_date_after),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -120,6 +193,12 @@ class NotificationContext(InstanceContext):
         self._uri = '/Accounts/{account_sid}/Notifications/{sid}.json'.format(**self._kwargs)
 
     def fetch(self):
+        """
+        Fetch a NotificationInstance
+        
+        :returns: Fetched NotificationInstance
+        :rtype: NotificationInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -131,6 +210,12 @@ class NotificationContext(InstanceContext):
         )
 
     def delete(self):
+        """
+        Deletes the NotificationInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
         return self._version.delete('delete', self._uri)
 
     def __repr__(self):
@@ -337,10 +422,22 @@ class NotificationInstance(InstanceResource):
         return self._properties['uri']
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a NotificationInstance
+        
+        :returns: Fetched NotificationInstance
+        :rtype: NotificationInstance
+        """
+        return self._context.fetch()
 
     def delete(self):
-        self._context.delete()
+        """
+        Deletes the NotificationInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._context.delete()
 
     def __repr__(self):
         """

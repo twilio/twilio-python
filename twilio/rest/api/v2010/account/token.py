@@ -34,6 +34,14 @@ class TokenList(ListResource):
         self._uri = '/Accounts/{account_sid}/Tokens.json'.format(**self._kwargs)
 
     def create(self, ttl=values.unset):
+        """
+        Create a new TokenInstance
+        
+        :param str ttl: The duration in seconds the credentials are valid
+        
+        :returns: Newly created TokenInstance
+        :rtype: TokenInstance
+        """
         data = values.of({
             'Ttl': ttl,
         })

@@ -33,8 +33,26 @@ class ShortCodeList(ListResource):
         }
         self._uri = '/Accounts/{account_sid}/SMS/ShortCodes'.format(**self._kwargs)
 
-    def read(self, friendly_name=values.unset, short_code=values.unset, limit=None,
-             page_size=None, **kwargs):
+    def stream(self, friendly_name=values.unset, short_code=values.unset,
+               limit=None, page_size=None, **kwargs):
+        """
+        Streams ShortCodeInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+        
+        :param str friendly_name: Filter by friendly name
+        :param str short_code: Filter by ShortCode
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
@@ -44,7 +62,7 @@ class ShortCodeList(ListResource):
         })
         params.update(kwargs)
         
-        return self._version.read(
+        return self._version.stream(
             self,
             ShortCodeInstance,
             self._kwargs,
@@ -55,8 +73,48 @@ class ShortCodeList(ListResource):
             params=params,
         )
 
+    def read(self, friendly_name=values.unset, short_code=values.unset, limit=None,
+             page_size=None, **kwargs):
+        """
+        Reads ShortCodeInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+        
+        :param str friendly_name: Filter by friendly name
+        :param str short_code: Filter by ShortCode
+        :param int limit: Upper limit for the number of records to return. read() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, read() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
+        return list(self.stream(
+            friendly_name=friendly_name,
+            short_code=short_code,
+            limit=limit,
+            page_size=page_size,
+            **kwargs
+        ))
+
     def page(self, friendly_name=values.unset, short_code=values.unset,
              page_token=None, page_number=None, page_size=None, **kwargs):
+        """
+        Retrieve a single page of ShortCodeInstance records from the API.
+        Request is executed immediately
+        
+        :param str friendly_name: Filter by friendly name
+        :param str short_code: Filter by ShortCode
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+        
+        :returns: Page of ShortCodeInstance
+        :rtype: Page
+        """
         params = values.of({
             'FriendlyName': friendly_name,
             'ShortCode': short_code,
@@ -119,6 +177,12 @@ class ShortCodeContext(InstanceContext):
         self._uri = '/Accounts/{account_sid}/SMS/ShortCodes/{sid}.json'.format(**self._kwargs)
 
     def fetch(self):
+        """
+        Fetch a ShortCodeInstance
+        
+        :returns: Fetched ShortCodeInstance
+        :rtype: ShortCodeInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -132,6 +196,19 @@ class ShortCodeContext(InstanceContext):
     def update(self, friendly_name=values.unset, api_version=values.unset,
                sms_url=values.unset, sms_method=values.unset,
                sms_fallback_url=values.unset, sms_fallback_method=values.unset):
+        """
+        Update the ShortCodeInstance
+        
+        :param str friendly_name: A human readable description of this resource
+        :param str api_version: The API version to use
+        :param str sms_url: URL Twilio will request when receiving an SMS
+        :param str sms_method: HTTP method to use when requesting the sms url
+        :param str sms_fallback_url: URL Twilio will request if an error occurs in executing TwiML
+        :param str sms_fallback_method: HTTP method Twilio will use with sms fallback url
+        
+        :returns: Updated ShortCodeInstance
+        :rtype: ShortCodeInstance
+        """
         data = values.of({
             'FriendlyName': friendly_name,
             'ApiVersion': api_version,
@@ -308,12 +385,31 @@ class ShortCodeInstance(InstanceResource):
         return self._properties['uri']
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a ShortCodeInstance
+        
+        :returns: Fetched ShortCodeInstance
+        :rtype: ShortCodeInstance
+        """
+        return self._context.fetch()
 
     def update(self, friendly_name=values.unset, api_version=values.unset,
                sms_url=values.unset, sms_method=values.unset,
                sms_fallback_url=values.unset, sms_fallback_method=values.unset):
-        self._context.update(
+        """
+        Update the ShortCodeInstance
+        
+        :param str friendly_name: A human readable description of this resource
+        :param str api_version: The API version to use
+        :param str sms_url: URL Twilio will request when receiving an SMS
+        :param str sms_method: HTTP method to use when requesting the sms url
+        :param str sms_fallback_url: URL Twilio will request if an error occurs in executing TwiML
+        :param str sms_fallback_method: HTTP method Twilio will use with sms fallback url
+        
+        :returns: Updated ShortCodeInstance
+        :rtype: ShortCodeInstance
+        """
+        return self._context.update(
             friendly_name=friendly_name,
             api_version=api_version,
             sms_url=sms_url,

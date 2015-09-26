@@ -35,7 +35,23 @@ class MemberList(ListResource):
         }
         self._uri = '/Accounts/{account_sid}/Queues/{queue_sid}/Members.json'.format(**self._kwargs)
 
-    def read(self, limit=None, page_size=None, **kwargs):
+    def stream(self, limit=None, page_size=None, **kwargs):
+        """
+        Streams MemberInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+        
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
@@ -43,7 +59,7 @@ class MemberList(ListResource):
         })
         params.update(kwargs)
         
-        return self._version.read(
+        return self._version.stream(
             self,
             MemberInstance,
             self._kwargs,
@@ -54,7 +70,40 @@ class MemberList(ListResource):
             params=params,
         )
 
+    def read(self, limit=None, page_size=None, **kwargs):
+        """
+        Reads MemberInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+        
+        :param int limit: Upper limit for the number of records to return. read() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, read() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
+        return list(self.stream(
+            limit=limit,
+            page_size=page_size,
+            **kwargs
+        ))
+
     def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
+        """
+        Retrieve a single page of MemberInstance records from the API.
+        Request is executed immediately
+        
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+        
+        :returns: Page of MemberInstance
+        :rtype: Page
+        """
         params = values.of({
             'PageToken': page_token,
             'Page': page_number,
@@ -100,8 +149,8 @@ class MemberContext(InstanceContext):
         
         :param Version version
         :param account_sid: Contextual account_sid
-        :param call_sid: Contextual call_sid
         :param queue_sid: Contextual queue_sid
+        :param call_sid: Contextual call_sid
         
         :returns: MemberContext
         :rtype: MemberContext
@@ -117,6 +166,12 @@ class MemberContext(InstanceContext):
         self._uri = '/Accounts/{account_sid}/Queues/{queue_sid}/Members/{call_sid}.json'.format(**self._kwargs)
 
     def fetch(self):
+        """
+        Fetch a MemberInstance
+        
+        :returns: Fetched MemberInstance
+        :rtype: MemberInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -128,6 +183,15 @@ class MemberContext(InstanceContext):
         )
 
     def update(self, url, method):
+        """
+        Update the MemberInstance
+        
+        :param str url: The url
+        :param str method: The method
+        
+        :returns: Updated MemberInstance
+        :rtype: MemberInstance
+        """
         data = values.of({
             'Url': url,
             'Method': method,
@@ -266,10 +330,25 @@ class MemberInstance(InstanceResource):
         return self._properties['wait_time']
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a MemberInstance
+        
+        :returns: Fetched MemberInstance
+        :rtype: MemberInstance
+        """
+        return self._context.fetch()
 
     def update(self, url, method):
-        self._context.update(
+        """
+        Update the MemberInstance
+        
+        :param str url: The url
+        :param str method: The method
+        
+        :returns: Updated MemberInstance
+        :rtype: MemberInstance
+        """
+        return self._context.update(
             url,
             method,
         )

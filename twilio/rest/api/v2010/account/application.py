@@ -41,6 +41,28 @@ class ApplicationList(ListResource):
                sms_method=values.unset, sms_fallback_url=values.unset,
                sms_fallback_method=values.unset, sms_status_callback=values.unset,
                message_status_callback=values.unset):
+        """
+        Create a new ApplicationInstance
+        
+        :param str friendly_name: Human readable description of this resource
+        :param str api_version: The API version to use
+        :param str voice_url: URL Twilio will make requests to when relieving a call
+        :param str voice_method: HTTP method to use with the URL
+        :param str voice_fallback_url: Fallback URL
+        :param str voice_fallback_method: HTTP method to use with the fallback url
+        :param str status_callback: URL to hit with status updates
+        :param str status_callback_method: HTTP method to use with the status callback
+        :param bool voice_caller_id_lookup: True or False
+        :param str sms_url: URL Twilio will request when receiving an SMS
+        :param str sms_method: HTTP method to use with sms_url
+        :param str sms_fallback_url: Fallback URL if there's an error parsing TwiML
+        :param str sms_fallback_method: HTTP method to use with sms_fallback_method
+        :param str sms_status_callback: URL Twilio with request with status updates
+        :param str message_status_callback: URL to make requests to with status updates
+        
+        :returns: Newly created ApplicationInstance
+        :rtype: ApplicationInstance
+        """
         data = values.of({
             'FriendlyName': friendly_name,
             'ApiVersion': api_version,
@@ -67,8 +89,25 @@ class ApplicationList(ListResource):
             data=data,
         )
 
-    def read(self, friendly_name=values.unset, limit=None, page_size=None,
-             **kwargs):
+    def stream(self, friendly_name=values.unset, limit=None, page_size=None,
+               **kwargs):
+        """
+        Streams ApplicationInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+        
+        :param str friendly_name: Filter by friendly name
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
@@ -77,7 +116,7 @@ class ApplicationList(ListResource):
         })
         params.update(kwargs)
         
-        return self._version.read(
+        return self._version.stream(
             self,
             ApplicationInstance,
             self._kwargs,
@@ -88,8 +127,45 @@ class ApplicationList(ListResource):
             params=params,
         )
 
+    def read(self, friendly_name=values.unset, limit=None, page_size=None,
+             **kwargs):
+        """
+        Reads ApplicationInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+        
+        :param str friendly_name: Filter by friendly name
+        :param int limit: Upper limit for the number of records to return. read() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, read() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
+        return list(self.stream(
+            friendly_name=friendly_name,
+            limit=limit,
+            page_size=page_size,
+            **kwargs
+        ))
+
     def page(self, friendly_name=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
+        """
+        Retrieve a single page of ApplicationInstance records from the API.
+        Request is executed immediately
+        
+        :param str friendly_name: Filter by friendly name
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+        
+        :returns: Page of ApplicationInstance
+        :rtype: Page
+        """
         params = values.of({
             'FriendlyName': friendly_name,
             'PageToken': page_token,
@@ -151,9 +227,21 @@ class ApplicationContext(InstanceContext):
         self._uri = '/Accounts/{account_sid}/Applications/{sid}.json'.format(**self._kwargs)
 
     def delete(self):
+        """
+        Deletes the ApplicationInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
         return self._version.delete('delete', self._uri)
 
     def fetch(self):
+        """
+        Fetch a ApplicationInstance
+        
+        :returns: Fetched ApplicationInstance
+        :rtype: ApplicationInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -172,6 +260,28 @@ class ApplicationContext(InstanceContext):
                sms_method=values.unset, sms_fallback_url=values.unset,
                sms_fallback_method=values.unset, sms_status_callback=values.unset,
                message_status_callback=values.unset):
+        """
+        Update the ApplicationInstance
+        
+        :param str friendly_name: Human readable description of this resource
+        :param str api_version: The API version to use
+        :param str voice_url: URL Twilio will make requests to when relieving a call
+        :param str voice_method: HTTP method to use with the URL
+        :param str voice_fallback_url: Fallback URL
+        :param str voice_fallback_method: HTTP method to use with the fallback url
+        :param str status_callback: URL to hit with status updates
+        :param str status_callback_method: HTTP method to use with the status callback
+        :param bool voice_caller_id_lookup: True or False
+        :param str sms_url: URL Twilio will request when receiving an SMS
+        :param str sms_method: HTTP method to use with sms_url
+        :param str sms_fallback_url: Fallback URL if there's an error parsing TwiML
+        :param str sms_fallback_method: HTTP method to use with sms_fallback_method
+        :param str sms_status_callback: URL Twilio with request with status updates
+        :param str message_status_callback: URL to make requests to with status updates
+        
+        :returns: Updated ApplicationInstance
+        :rtype: ApplicationInstance
+        """
         data = values.of({
             'FriendlyName': friendly_name,
             'ApiVersion': api_version,
@@ -429,10 +539,22 @@ class ApplicationInstance(InstanceResource):
         return self._properties['voice_url']
 
     def delete(self):
-        self._context.delete()
+        """
+        Deletes the ApplicationInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._context.delete()
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a ApplicationInstance
+        
+        :returns: Fetched ApplicationInstance
+        :rtype: ApplicationInstance
+        """
+        return self._context.fetch()
 
     def update(self, friendly_name=values.unset, api_version=values.unset,
                voice_url=values.unset, voice_method=values.unset,
@@ -442,7 +564,29 @@ class ApplicationInstance(InstanceResource):
                sms_method=values.unset, sms_fallback_url=values.unset,
                sms_fallback_method=values.unset, sms_status_callback=values.unset,
                message_status_callback=values.unset):
-        self._context.update(
+        """
+        Update the ApplicationInstance
+        
+        :param str friendly_name: Human readable description of this resource
+        :param str api_version: The API version to use
+        :param str voice_url: URL Twilio will make requests to when relieving a call
+        :param str voice_method: HTTP method to use with the URL
+        :param str voice_fallback_url: Fallback URL
+        :param str voice_fallback_method: HTTP method to use with the fallback url
+        :param str status_callback: URL to hit with status updates
+        :param str status_callback_method: HTTP method to use with the status callback
+        :param bool voice_caller_id_lookup: True or False
+        :param str sms_url: URL Twilio will request when receiving an SMS
+        :param str sms_method: HTTP method to use with sms_url
+        :param str sms_fallback_url: Fallback URL if there's an error parsing TwiML
+        :param str sms_fallback_method: HTTP method to use with sms_fallback_method
+        :param str sms_status_callback: URL Twilio with request with status updates
+        :param str message_status_callback: URL to make requests to with status updates
+        
+        :returns: Updated ApplicationInstance
+        :rtype: ApplicationInstance
+        """
+        return self._context.update(
             friendly_name=friendly_name,
             api_version=api_version,
             voice_url=voice_url,

@@ -36,6 +36,20 @@ class TriggerList(ListResource):
     def create(self, callback_url, trigger_value, usage_category,
                callback_method=values.unset, friendly_name=values.unset,
                recurring=values.unset, trigger_by=values.unset):
+        """
+        Create a new TriggerInstance
+        
+        :param str callback_url: URL Twilio will request when the trigger fires
+        :param str trigger_value: the value at which the trigger will fire
+        :param trigger.usage_category usage_category: The usage category the trigger watches
+        :param str callback_method: HTTP method to use with callback_url
+        :param str friendly_name: A user-specified, human-readable name for the trigger.
+        :param trigger.recurring recurring: How this trigger recurs
+        :param trigger.trigger_field trigger_by: The field in the UsageRecord that fires the trigger
+        
+        :returns: Newly created TriggerInstance
+        :rtype: TriggerInstance
+        """
         data = values.of({
             'CallbackUrl': callback_url,
             'TriggerValue': trigger_value,
@@ -54,8 +68,27 @@ class TriggerList(ListResource):
             data=data,
         )
 
-    def read(self, recurring=values.unset, trigger_by=values.unset,
-             usage_category=values.unset, limit=None, page_size=None, **kwargs):
+    def stream(self, recurring=values.unset, trigger_by=values.unset,
+               usage_category=values.unset, limit=None, page_size=None, **kwargs):
+        """
+        Streams TriggerInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+        
+        :param trigger.recurring recurring: Filter by recurring
+        :param trigger.trigger_field trigger_by: Filter by trigger by
+        :param trigger.usage_category usage_category: Filter by Usage Category
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
@@ -66,7 +99,7 @@ class TriggerList(ListResource):
         })
         params.update(kwargs)
         
-        return self._version.read(
+        return self._version.stream(
             self,
             TriggerInstance,
             self._kwargs,
@@ -77,9 +110,52 @@ class TriggerList(ListResource):
             params=params,
         )
 
+    def read(self, recurring=values.unset, trigger_by=values.unset,
+             usage_category=values.unset, limit=None, page_size=None, **kwargs):
+        """
+        Reads TriggerInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+        
+        :param trigger.recurring recurring: Filter by recurring
+        :param trigger.trigger_field trigger_by: Filter by trigger by
+        :param trigger.usage_category usage_category: Filter by Usage Category
+        :param int limit: Upper limit for the number of records to return. read() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, read() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
+        return list(self.stream(
+            recurring=recurring,
+            trigger_by=trigger_by,
+            usage_category=usage_category,
+            limit=limit,
+            page_size=page_size,
+            **kwargs
+        ))
+
     def page(self, recurring=values.unset, trigger_by=values.unset,
              usage_category=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
+        """
+        Retrieve a single page of TriggerInstance records from the API.
+        Request is executed immediately
+        
+        :param trigger.recurring recurring: Filter by recurring
+        :param trigger.trigger_field trigger_by: Filter by trigger by
+        :param trigger.usage_category usage_category: Filter by Usage Category
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+        
+        :returns: Page of TriggerInstance
+        :rtype: Page
+        """
         params = values.of({
             'Recurring': recurring,
             'TriggerBy': trigger_by,
@@ -143,6 +219,12 @@ class TriggerContext(InstanceContext):
         self._uri = '/Accounts/{account_sid}/Usage/Triggers/{sid}.json'.format(**self._kwargs)
 
     def fetch(self):
+        """
+        Fetch a TriggerInstance
+        
+        :returns: Fetched TriggerInstance
+        :rtype: TriggerInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -155,6 +237,16 @@ class TriggerContext(InstanceContext):
 
     def update(self, callback_method=values.unset, callback_url=values.unset,
                friendly_name=values.unset):
+        """
+        Update the TriggerInstance
+        
+        :param str callback_method: HTTP method to use with callback_url
+        :param str callback_url: URL Twilio will request when the trigger fires
+        :param str friendly_name: A user-specified, human-readable name for the trigger.
+        
+        :returns: Updated TriggerInstance
+        :rtype: TriggerInstance
+        """
         data = values.of({
             'CallbackMethod': callback_method,
             'CallbackUrl': callback_url,
@@ -170,6 +262,12 @@ class TriggerContext(InstanceContext):
         )
 
     def delete(self):
+        """
+        Deletes the TriggerInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
         return self._version.delete('delete', self._uri)
 
     def __repr__(self):
@@ -367,18 +465,40 @@ class TriggerInstance(InstanceResource):
         return self._properties['usage_record_uri']
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a TriggerInstance
+        
+        :returns: Fetched TriggerInstance
+        :rtype: TriggerInstance
+        """
+        return self._context.fetch()
 
     def update(self, callback_method=values.unset, callback_url=values.unset,
                friendly_name=values.unset):
-        self._context.update(
+        """
+        Update the TriggerInstance
+        
+        :param str callback_method: HTTP method to use with callback_url
+        :param str callback_url: URL Twilio will request when the trigger fires
+        :param str friendly_name: A user-specified, human-readable name for the trigger.
+        
+        :returns: Updated TriggerInstance
+        :rtype: TriggerInstance
+        """
+        return self._context.update(
             callback_method=callback_method,
             callback_url=callback_url,
             friendly_name=friendly_name,
         )
 
     def delete(self):
-        self._context.delete()
+        """
+        Deletes the TriggerInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._context.delete()
 
     def __repr__(self):
         """

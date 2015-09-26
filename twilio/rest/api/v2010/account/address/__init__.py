@@ -36,6 +36,20 @@ class AddressList(ListResource):
 
     def create(self, customer_name, street, city, region, postal_code, iso_country,
                friendly_name=values.unset):
+        """
+        Create a new AddressInstance
+        
+        :param str customer_name: The customer_name
+        :param str street: The street
+        :param str city: The city
+        :param str region: The region
+        :param str postal_code: The postal_code
+        :param str iso_country: The iso_country
+        :param str friendly_name: The friendly_name
+        
+        :returns: Newly created AddressInstance
+        :rtype: AddressInstance
+        """
         data = values.of({
             'CustomerName': customer_name,
             'Street': street,
@@ -54,8 +68,27 @@ class AddressList(ListResource):
             data=data,
         )
 
-    def read(self, customer_name=values.unset, friendly_name=values.unset,
-             iso_country=values.unset, limit=None, page_size=None, **kwargs):
+    def stream(self, customer_name=values.unset, friendly_name=values.unset,
+               iso_country=values.unset, limit=None, page_size=None, **kwargs):
+        """
+        Streams AddressInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+        
+        :param str customer_name: The customer_name
+        :param str friendly_name: The friendly_name
+        :param str iso_country: The iso_country
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
@@ -66,7 +99,7 @@ class AddressList(ListResource):
         })
         params.update(kwargs)
         
-        return self._version.read(
+        return self._version.stream(
             self,
             AddressInstance,
             self._kwargs,
@@ -77,9 +110,52 @@ class AddressList(ListResource):
             params=params,
         )
 
+    def read(self, customer_name=values.unset, friendly_name=values.unset,
+             iso_country=values.unset, limit=None, page_size=None, **kwargs):
+        """
+        Reads AddressInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+        
+        :param str customer_name: The customer_name
+        :param str friendly_name: The friendly_name
+        :param str iso_country: The iso_country
+        :param int limit: Upper limit for the number of records to return. read() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, read() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
+        return list(self.stream(
+            customer_name=customer_name,
+            friendly_name=friendly_name,
+            iso_country=iso_country,
+            limit=limit,
+            page_size=page_size,
+            **kwargs
+        ))
+
     def page(self, customer_name=values.unset, friendly_name=values.unset,
              iso_country=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
+        """
+        Retrieve a single page of AddressInstance records from the API.
+        Request is executed immediately
+        
+        :param str customer_name: The customer_name
+        :param str friendly_name: The friendly_name
+        :param str iso_country: The iso_country
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+        
+        :returns: Page of AddressInstance
+        :rtype: Page
+        """
         params = values.of({
             'CustomerName': customer_name,
             'FriendlyName': friendly_name,
@@ -146,9 +222,21 @@ class AddressContext(InstanceContext):
         self._dependent_phone_numbers = None
 
     def delete(self):
+        """
+        Deletes the AddressInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
         return self._version.delete('delete', self._uri)
 
     def fetch(self):
+        """
+        Fetch a AddressInstance
+        
+        :returns: Fetched AddressInstance
+        :rtype: AddressInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -162,6 +250,19 @@ class AddressContext(InstanceContext):
     def update(self, friendly_name=values.unset, customer_name=values.unset,
                street=values.unset, city=values.unset, region=values.unset,
                postal_code=values.unset):
+        """
+        Update the AddressInstance
+        
+        :param str friendly_name: The friendly_name
+        :param str customer_name: The customer_name
+        :param str street: The street
+        :param str city: The city
+        :param str region: The region
+        :param str postal_code: The postal_code
+        
+        :returns: Updated AddressInstance
+        :rtype: AddressInstance
+        """
         data = values.of({
             'FriendlyName': friendly_name,
             'CustomerName': customer_name,
@@ -354,15 +455,40 @@ class AddressInstance(InstanceResource):
         return self._properties['uri']
 
     def delete(self):
-        self._context.delete()
+        """
+        Deletes the AddressInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._context.delete()
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a AddressInstance
+        
+        :returns: Fetched AddressInstance
+        :rtype: AddressInstance
+        """
+        return self._context.fetch()
 
     def update(self, friendly_name=values.unset, customer_name=values.unset,
                street=values.unset, city=values.unset, region=values.unset,
                postal_code=values.unset):
-        self._context.update(
+        """
+        Update the AddressInstance
+        
+        :param str friendly_name: The friendly_name
+        :param str customer_name: The customer_name
+        :param str street: The street
+        :param str city: The city
+        :param str region: The region
+        :param str postal_code: The postal_code
+        
+        :returns: Updated AddressInstance
+        :rtype: AddressInstance
+        """
+        return self._context.update(
             friendly_name=friendly_name,
             customer_name=customer_name,
             street=street,

@@ -37,8 +37,25 @@ class WorkspaceList(ListResource):
         self._kwargs = {}
         self._uri = '/Workspaces'.format(**self._kwargs)
 
-    def read(self, friendly_name=values.unset, limit=None, page_size=None,
-             **kwargs):
+    def stream(self, friendly_name=values.unset, limit=None, page_size=None,
+               **kwargs):
+        """
+        Streams WorkspaceInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+        
+        :param str friendly_name: The friendly_name
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
@@ -47,7 +64,7 @@ class WorkspaceList(ListResource):
         })
         params.update(kwargs)
         
-        return self._version.read(
+        return self._version.stream(
             self,
             WorkspaceInstance,
             self._kwargs,
@@ -58,8 +75,45 @@ class WorkspaceList(ListResource):
             params=params,
         )
 
+    def read(self, friendly_name=values.unset, limit=None, page_size=None,
+             **kwargs):
+        """
+        Reads WorkspaceInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+        
+        :param str friendly_name: The friendly_name
+        :param int limit: Upper limit for the number of records to return. read() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, read() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
+        return list(self.stream(
+            friendly_name=friendly_name,
+            limit=limit,
+            page_size=page_size,
+            **kwargs
+        ))
+
     def page(self, friendly_name=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
+        """
+        Retrieve a single page of WorkspaceInstance records from the API.
+        Request is executed immediately
+        
+        :param str friendly_name: The friendly_name
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+        
+        :returns: Page of WorkspaceInstance
+        :rtype: Page
+        """
         params = values.of({
             'FriendlyName': friendly_name,
             'PageToken': page_token,
@@ -79,6 +133,16 @@ class WorkspaceList(ListResource):
 
     def create(self, friendly_name, event_callback_url=values.unset,
                template=values.unset):
+        """
+        Create a new WorkspaceInstance
+        
+        :param str friendly_name: The friendly_name
+        :param str event_callback_url: The event_callback_url
+        :param str template: The template
+        
+        :returns: Newly created WorkspaceInstance
+        :rtype: WorkspaceInstance
+        """
         data = values.of({
             'FriendlyName': friendly_name,
             'EventCallbackUrl': event_callback_url,
@@ -144,6 +208,12 @@ class WorkspaceContext(InstanceContext):
         self._statistics = None
 
     def fetch(self):
+        """
+        Fetch a WorkspaceInstance
+        
+        :returns: Fetched WorkspaceInstance
+        :rtype: WorkspaceInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -157,6 +227,17 @@ class WorkspaceContext(InstanceContext):
     def update(self, default_activity_sid=values.unset,
                event_callback_url=values.unset, friendly_name=values.unset,
                timeout_activity_sid=values.unset):
+        """
+        Update the WorkspaceInstance
+        
+        :param str default_activity_sid: The default_activity_sid
+        :param str event_callback_url: The event_callback_url
+        :param str friendly_name: The friendly_name
+        :param str timeout_activity_sid: The timeout_activity_sid
+        
+        :returns: Updated WorkspaceInstance
+        :rtype: WorkspaceInstance
+        """
         data = values.of({
             'DefaultActivitySid': default_activity_sid,
             'EventCallbackUrl': event_callback_url,
@@ -173,6 +254,12 @@ class WorkspaceContext(InstanceContext):
         )
 
     def delete(self):
+        """
+        Deletes the WorkspaceInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
         return self._version.delete('delete', self._uri)
 
     @property
@@ -419,12 +506,29 @@ class WorkspaceInstance(InstanceResource):
         return self._properties['timeout_activity_sid']
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a WorkspaceInstance
+        
+        :returns: Fetched WorkspaceInstance
+        :rtype: WorkspaceInstance
+        """
+        return self._context.fetch()
 
     def update(self, default_activity_sid=values.unset,
                event_callback_url=values.unset, friendly_name=values.unset,
                timeout_activity_sid=values.unset):
-        self._context.update(
+        """
+        Update the WorkspaceInstance
+        
+        :param str default_activity_sid: The default_activity_sid
+        :param str event_callback_url: The event_callback_url
+        :param str friendly_name: The friendly_name
+        :param str timeout_activity_sid: The timeout_activity_sid
+        
+        :returns: Updated WorkspaceInstance
+        :rtype: WorkspaceInstance
+        """
+        return self._context.update(
             default_activity_sid=default_activity_sid,
             event_callback_url=event_callback_url,
             friendly_name=friendly_name,
@@ -432,7 +536,13 @@ class WorkspaceInstance(InstanceResource):
         )
 
     def delete(self):
-        self._context.delete()
+        """
+        Deletes the WorkspaceInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._context.delete()
 
     @property
     def activities(self):

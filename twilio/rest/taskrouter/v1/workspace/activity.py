@@ -33,8 +33,26 @@ class ActivityList(ListResource):
         }
         self._uri = '/Workspaces/{workspace_sid}/Activities'.format(**self._kwargs)
 
-    def read(self, friendly_name=values.unset, available=values.unset, limit=None,
-             page_size=None, **kwargs):
+    def stream(self, friendly_name=values.unset, available=values.unset, limit=None,
+               page_size=None, **kwargs):
+        """
+        Streams ActivityInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+        
+        :param str friendly_name: The friendly_name
+        :param str available: The available
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
@@ -44,7 +62,7 @@ class ActivityList(ListResource):
         })
         params.update(kwargs)
         
-        return self._version.read(
+        return self._version.stream(
             self,
             ActivityInstance,
             self._kwargs,
@@ -55,8 +73,48 @@ class ActivityList(ListResource):
             params=params,
         )
 
+    def read(self, friendly_name=values.unset, available=values.unset, limit=None,
+             page_size=None, **kwargs):
+        """
+        Reads ActivityInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+        
+        :param str friendly_name: The friendly_name
+        :param str available: The available
+        :param int limit: Upper limit for the number of records to return. read() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, read() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
+        return list(self.stream(
+            friendly_name=friendly_name,
+            available=available,
+            limit=limit,
+            page_size=page_size,
+            **kwargs
+        ))
+
     def page(self, friendly_name=values.unset, available=values.unset,
              page_token=None, page_number=None, page_size=None, **kwargs):
+        """
+        Retrieve a single page of ActivityInstance records from the API.
+        Request is executed immediately
+        
+        :param str friendly_name: The friendly_name
+        :param str available: The available
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+        
+        :returns: Page of ActivityInstance
+        :rtype: Page
+        """
         params = values.of({
             'FriendlyName': friendly_name,
             'Available': available,
@@ -76,6 +134,15 @@ class ActivityList(ListResource):
         )
 
     def create(self, friendly_name, available):
+        """
+        Create a new ActivityInstance
+        
+        :param str friendly_name: The friendly_name
+        :param bool available: The available
+        
+        :returns: Newly created ActivityInstance
+        :rtype: ActivityInstance
+        """
         data = values.of({
             'FriendlyName': friendly_name,
             'Available': available,
@@ -117,8 +184,8 @@ class ActivityContext(InstanceContext):
         Initialize the ActivityContext
         
         :param Version version
-        :param sid: Contextual sid
         :param workspace_sid: Contextual workspace_sid
+        :param sid: Contextual sid
         
         :returns: ActivityContext
         :rtype: ActivityContext
@@ -133,6 +200,12 @@ class ActivityContext(InstanceContext):
         self._uri = '/Workspaces/{workspace_sid}/Activities/{sid}'.format(**self._kwargs)
 
     def fetch(self):
+        """
+        Fetch a ActivityInstance
+        
+        :returns: Fetched ActivityInstance
+        :rtype: ActivityInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -144,6 +217,14 @@ class ActivityContext(InstanceContext):
         )
 
     def update(self, friendly_name):
+        """
+        Update the ActivityInstance
+        
+        :param str friendly_name: The friendly_name
+        
+        :returns: Updated ActivityInstance
+        :rtype: ActivityInstance
+        """
         data = values.of({
             'FriendlyName': friendly_name,
         })
@@ -157,6 +238,12 @@ class ActivityContext(InstanceContext):
         )
 
     def delete(self):
+        """
+        Deletes the ActivityInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
         return self._version.delete('delete', self._uri)
 
     def __repr__(self):
@@ -273,15 +360,35 @@ class ActivityInstance(InstanceResource):
         return self._properties['workspace_sid']
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a ActivityInstance
+        
+        :returns: Fetched ActivityInstance
+        :rtype: ActivityInstance
+        """
+        return self._context.fetch()
 
     def update(self, friendly_name):
-        self._context.update(
+        """
+        Update the ActivityInstance
+        
+        :param str friendly_name: The friendly_name
+        
+        :returns: Updated ActivityInstance
+        :rtype: ActivityInstance
+        """
+        return self._context.update(
             friendly_name,
         )
 
     def delete(self):
-        self._context.delete()
+        """
+        Deletes the ActivityInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._context.delete()
 
     def __repr__(self):
         """

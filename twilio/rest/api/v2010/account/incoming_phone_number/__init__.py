@@ -41,8 +41,27 @@ class IncomingPhoneNumberList(ListResource):
         self._mobile = None
         self._toll_free = None
 
-    def read(self, beta=values.unset, friendly_name=values.unset,
-             phone_number=values.unset, limit=None, page_size=None, **kwargs):
+    def stream(self, beta=values.unset, friendly_name=values.unset,
+               phone_number=values.unset, limit=None, page_size=None, **kwargs):
+        """
+        Streams IncomingPhoneNumberInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+        
+        :param bool beta: Include new phone numbers
+        :param str friendly_name: Filter by friendly name
+        :param str phone_number: Filter by incoming phone number
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
@@ -53,7 +72,7 @@ class IncomingPhoneNumberList(ListResource):
         })
         params.update(kwargs)
         
-        return self._version.read(
+        return self._version.stream(
             self,
             IncomingPhoneNumberInstance,
             self._kwargs,
@@ -64,9 +83,52 @@ class IncomingPhoneNumberList(ListResource):
             params=params,
         )
 
+    def read(self, beta=values.unset, friendly_name=values.unset,
+             phone_number=values.unset, limit=None, page_size=None, **kwargs):
+        """
+        Reads IncomingPhoneNumberInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+        
+        :param bool beta: Include new phone numbers
+        :param str friendly_name: Filter by friendly name
+        :param str phone_number: Filter by incoming phone number
+        :param int limit: Upper limit for the number of records to return. read() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, read() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
+        return list(self.stream(
+            beta=beta,
+            friendly_name=friendly_name,
+            phone_number=phone_number,
+            limit=limit,
+            page_size=page_size,
+            **kwargs
+        ))
+
     def page(self, beta=values.unset, friendly_name=values.unset,
              phone_number=values.unset, page_token=None, page_number=None,
              page_size=None, **kwargs):
+        """
+        Retrieve a single page of IncomingPhoneNumberInstance records from the API.
+        Request is executed immediately
+        
+        :param bool beta: Include new phone numbers
+        :param str friendly_name: Filter by friendly name
+        :param str phone_number: Filter by incoming phone number
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+        
+        :returns: Page of IncomingPhoneNumberInstance
+        :rtype: Page
+        """
         params = values.of({
             'Beta': beta,
             'FriendlyName': friendly_name,
@@ -96,6 +158,30 @@ class IncomingPhoneNumberList(ListResource):
                voice_fallback_method=values.unset, voice_fallback_url=values.unset,
                voice_method=values.unset, voice_url=values.unset,
                phone_number=values.unset, area_code=values.unset):
+        """
+        Create a new IncomingPhoneNumberInstance
+        
+        :param str api_version: The Twilio Rest API version to use
+        :param str friendly_name: A human readable description of this resource
+        :param str sms_application_sid: Unique string that identifies the application
+        :param str sms_fallback_method: HTTP method used with sms fallback url
+        :param str sms_fallback_url: URL Twilio will request if an error occurs in executing TwiML
+        :param str sms_method: HTTP method to use with sms url
+        :param str sms_url: URL Twilio will request when receiving an SMS
+        :param str status_callback: URL Twilio will use to pass status parameters
+        :param str status_callback_method: HTTP method twilio will use with status callback
+        :param str voice_application_sid: The unique sid of the application to handle this number
+        :param bool voice_caller_id_lookup: Look up the caller's caller-ID
+        :param str voice_fallback_method: HTTP method used with fallback_url
+        :param str voice_fallback_url: URL Twilio will request when an error occurs in TwiML
+        :param str voice_method: HTTP method used with the voice url
+        :param str voice_url: URL Twilio will request when receiving a call
+        :param str phone_number: The phone number
+        :param str area_code: The desired area code for the new number
+        
+        :returns: Newly created IncomingPhoneNumberInstance
+        :rtype: IncomingPhoneNumberInstance
+        """
         data = values.of({
             'PhoneNumber': phone_number,
             'AreaCode': area_code,
@@ -212,6 +298,29 @@ class IncomingPhoneNumberContext(InstanceContext):
                voice_caller_id_lookup=values.unset,
                voice_fallback_method=values.unset, voice_fallback_url=values.unset,
                voice_method=values.unset, voice_url=values.unset):
+        """
+        Update the IncomingPhoneNumberInstance
+        
+        :param str account_sid: The new owner of the phone number
+        :param str api_version: The Twilio REST API version to use
+        :param str friendly_name: A human readable description of this resource
+        :param str sms_application_sid: Unique string that identifies the application
+        :param str sms_fallback_method: HTTP method used with sms fallback url
+        :param str sms_fallback_url: URL Twilio will request if an error occurs in executing TwiML
+        :param str sms_method: HTTP method to use with sms url
+        :param str sms_url: URL Twilio will request when receiving an SMS
+        :param str status_callback: URL Twilio will use to pass status parameters
+        :param str status_callback_method: HTTP method twilio will use with status callback
+        :param str voice_application_sid: The unique sid of the application to handle this number
+        :param bool voice_caller_id_lookup: Look up the caller's caller-ID
+        :param str voice_fallback_method: HTTP method used with fallback_url
+        :param str voice_fallback_url: URL Twilio will request when an error occurs in TwiML
+        :param str voice_method: HTTP method used with the voice url
+        :param str voice_url: URL Twilio will request when receiving a call
+        
+        :returns: Updated IncomingPhoneNumberInstance
+        :rtype: IncomingPhoneNumberInstance
+        """
         data = values.of({
             'AccountSid': account_sid,
             'ApiVersion': api_version,
@@ -240,6 +349,12 @@ class IncomingPhoneNumberContext(InstanceContext):
         )
 
     def fetch(self):
+        """
+        Fetch a IncomingPhoneNumberInstance
+        
+        :returns: Fetched IncomingPhoneNumberInstance
+        :rtype: IncomingPhoneNumberInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -251,6 +366,12 @@ class IncomingPhoneNumberContext(InstanceContext):
         )
 
     def delete(self):
+        """
+        Deletes the IncomingPhoneNumberInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
         return self._version.delete('delete', self._uri)
 
     def __repr__(self):
@@ -528,7 +649,30 @@ class IncomingPhoneNumberInstance(InstanceResource):
                voice_caller_id_lookup=values.unset,
                voice_fallback_method=values.unset, voice_fallback_url=values.unset,
                voice_method=values.unset, voice_url=values.unset):
-        self._context.update(
+        """
+        Update the IncomingPhoneNumberInstance
+        
+        :param str account_sid: The new owner of the phone number
+        :param str api_version: The Twilio REST API version to use
+        :param str friendly_name: A human readable description of this resource
+        :param str sms_application_sid: Unique string that identifies the application
+        :param str sms_fallback_method: HTTP method used with sms fallback url
+        :param str sms_fallback_url: URL Twilio will request if an error occurs in executing TwiML
+        :param str sms_method: HTTP method to use with sms url
+        :param str sms_url: URL Twilio will request when receiving an SMS
+        :param str status_callback: URL Twilio will use to pass status parameters
+        :param str status_callback_method: HTTP method twilio will use with status callback
+        :param str voice_application_sid: The unique sid of the application to handle this number
+        :param bool voice_caller_id_lookup: Look up the caller's caller-ID
+        :param str voice_fallback_method: HTTP method used with fallback_url
+        :param str voice_fallback_url: URL Twilio will request when an error occurs in TwiML
+        :param str voice_method: HTTP method used with the voice url
+        :param str voice_url: URL Twilio will request when receiving a call
+        
+        :returns: Updated IncomingPhoneNumberInstance
+        :rtype: IncomingPhoneNumberInstance
+        """
+        return self._context.update(
             account_sid=account_sid,
             api_version=api_version,
             friendly_name=friendly_name,
@@ -548,10 +692,22 @@ class IncomingPhoneNumberInstance(InstanceResource):
         )
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a IncomingPhoneNumberInstance
+        
+        :returns: Fetched IncomingPhoneNumberInstance
+        :rtype: IncomingPhoneNumberInstance
+        """
+        return self._context.fetch()
 
     def delete(self):
-        self._context.delete()
+        """
+        Deletes the IncomingPhoneNumberInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._context.delete()
 
     def __repr__(self):
         """

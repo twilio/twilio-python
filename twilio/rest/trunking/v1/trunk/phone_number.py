@@ -34,6 +34,14 @@ class PhoneNumberList(ListResource):
         self._uri = '/Trunks/{trunk_sid}/PhoneNumbers'.format(**self._kwargs)
 
     def create(self, phone_number_sid):
+        """
+        Create a new PhoneNumberInstance
+        
+        :param str phone_number_sid: The phone_number_sid
+        
+        :returns: Newly created PhoneNumberInstance
+        :rtype: PhoneNumberInstance
+        """
         data = values.of({
             'PhoneNumberSid': phone_number_sid,
         })
@@ -46,7 +54,23 @@ class PhoneNumberList(ListResource):
             data=data,
         )
 
-    def read(self, limit=None, page_size=None, **kwargs):
+    def stream(self, limit=None, page_size=None, **kwargs):
+        """
+        Streams PhoneNumberInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+        
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
@@ -54,7 +78,7 @@ class PhoneNumberList(ListResource):
         })
         params.update(kwargs)
         
-        return self._version.read(
+        return self._version.stream(
             self,
             PhoneNumberInstance,
             self._kwargs,
@@ -65,7 +89,40 @@ class PhoneNumberList(ListResource):
             params=params,
         )
 
+    def read(self, limit=None, page_size=None, **kwargs):
+        """
+        Reads PhoneNumberInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+        
+        :param int limit: Upper limit for the number of records to return. read() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, read() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
+        return list(self.stream(
+            limit=limit,
+            page_size=page_size,
+            **kwargs
+        ))
+
     def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
+        """
+        Retrieve a single page of PhoneNumberInstance records from the API.
+        Request is executed immediately
+        
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+        
+        :returns: Page of PhoneNumberInstance
+        :rtype: Page
+        """
         params = values.of({
             'PageToken': page_token,
             'Page': page_number,
@@ -110,8 +167,8 @@ class PhoneNumberContext(InstanceContext):
         Initialize the PhoneNumberContext
         
         :param Version version
-        :param sid: Contextual sid
         :param trunk_sid: Contextual trunk_sid
+        :param sid: Contextual sid
         
         :returns: PhoneNumberContext
         :rtype: PhoneNumberContext
@@ -126,6 +183,12 @@ class PhoneNumberContext(InstanceContext):
         self._uri = '/Trunks/{trunk_sid}/PhoneNumbers/{sid}'.format(**self._kwargs)
 
     def fetch(self):
+        """
+        Fetch a PhoneNumberInstance
+        
+        :returns: Fetched PhoneNumberInstance
+        :rtype: PhoneNumberInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -137,6 +200,12 @@ class PhoneNumberContext(InstanceContext):
         )
 
     def delete(self):
+        """
+        Deletes the PhoneNumberInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
         return self._version.delete('delete', self._uri)
 
     def __repr__(self):
@@ -424,10 +493,22 @@ class PhoneNumberInstance(InstanceResource):
         return self._properties['voice_url']
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a PhoneNumberInstance
+        
+        :returns: Fetched PhoneNumberInstance
+        :rtype: PhoneNumberInstance
+        """
+        return self._context.fetch()
 
     def delete(self):
-        self._context.delete()
+        """
+        Deletes the PhoneNumberInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._context.delete()
 
     def __repr__(self):
         """

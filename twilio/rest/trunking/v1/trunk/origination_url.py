@@ -34,6 +34,18 @@ class OriginationUrlList(ListResource):
         self._uri = '/Trunks/{trunk_sid}/OriginationUrls'.format(**self._kwargs)
 
     def create(self, weight, priority, enabled, friendly_name, sip_url):
+        """
+        Create a new OriginationUrlInstance
+        
+        :param str weight: The weight
+        :param str priority: The priority
+        :param bool enabled: The enabled
+        :param str friendly_name: The friendly_name
+        :param str sip_url: The sip_url
+        
+        :returns: Newly created OriginationUrlInstance
+        :rtype: OriginationUrlInstance
+        """
         data = values.of({
             'Weight': weight,
             'Priority': priority,
@@ -50,7 +62,23 @@ class OriginationUrlList(ListResource):
             data=data,
         )
 
-    def read(self, limit=None, page_size=None, **kwargs):
+    def stream(self, limit=None, page_size=None, **kwargs):
+        """
+        Streams OriginationUrlInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+        
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
@@ -58,7 +86,7 @@ class OriginationUrlList(ListResource):
         })
         params.update(kwargs)
         
-        return self._version.read(
+        return self._version.stream(
             self,
             OriginationUrlInstance,
             self._kwargs,
@@ -69,7 +97,40 @@ class OriginationUrlList(ListResource):
             params=params,
         )
 
+    def read(self, limit=None, page_size=None, **kwargs):
+        """
+        Reads OriginationUrlInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+        
+        :param int limit: Upper limit for the number of records to return. read() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, read() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
+        return list(self.stream(
+            limit=limit,
+            page_size=page_size,
+            **kwargs
+        ))
+
     def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
+        """
+        Retrieve a single page of OriginationUrlInstance records from the API.
+        Request is executed immediately
+        
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+        
+        :returns: Page of OriginationUrlInstance
+        :rtype: Page
+        """
         params = values.of({
             'PageToken': page_token,
             'Page': page_number,
@@ -114,8 +175,8 @@ class OriginationUrlContext(InstanceContext):
         Initialize the OriginationUrlContext
         
         :param Version version
-        :param sid: Contextual sid
         :param trunk_sid: Contextual trunk_sid
+        :param sid: Contextual sid
         
         :returns: OriginationUrlContext
         :rtype: OriginationUrlContext
@@ -130,6 +191,12 @@ class OriginationUrlContext(InstanceContext):
         self._uri = '/Trunks/{trunk_sid}/OriginationUrls/{sid}'.format(**self._kwargs)
 
     def fetch(self):
+        """
+        Fetch a OriginationUrlInstance
+        
+        :returns: Fetched OriginationUrlInstance
+        :rtype: OriginationUrlInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -141,11 +208,29 @@ class OriginationUrlContext(InstanceContext):
         )
 
     def delete(self):
+        """
+        Deletes the OriginationUrlInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
         return self._version.delete('delete', self._uri)
 
     def update(self, weight=values.unset, priority=values.unset,
                enabled=values.unset, friendly_name=values.unset,
                sip_url=values.unset):
+        """
+        Update the OriginationUrlInstance
+        
+        :param str weight: The weight
+        :param str priority: The priority
+        :param bool enabled: The enabled
+        :param str friendly_name: The friendly_name
+        :param str sip_url: The sip_url
+        
+        :returns: Updated OriginationUrlInstance
+        :rtype: OriginationUrlInstance
+        """
         data = values.of({
             'Weight': weight,
             'Priority': priority,
@@ -312,15 +397,39 @@ class OriginationUrlInstance(InstanceResource):
         return self._properties['url']
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a OriginationUrlInstance
+        
+        :returns: Fetched OriginationUrlInstance
+        :rtype: OriginationUrlInstance
+        """
+        return self._context.fetch()
 
     def delete(self):
-        self._context.delete()
+        """
+        Deletes the OriginationUrlInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._context.delete()
 
     def update(self, weight=values.unset, priority=values.unset,
                enabled=values.unset, friendly_name=values.unset,
                sip_url=values.unset):
-        self._context.update(
+        """
+        Update the OriginationUrlInstance
+        
+        :param str weight: The weight
+        :param str priority: The priority
+        :param bool enabled: The enabled
+        :param str friendly_name: The friendly_name
+        :param str sip_url: The sip_url
+        
+        :returns: Updated OriginationUrlInstance
+        :rtype: OriginationUrlInstance
+        """
+        return self._context.update(
             weight=weight,
             priority=priority,
             enabled=enabled,

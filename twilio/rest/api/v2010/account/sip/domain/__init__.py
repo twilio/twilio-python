@@ -35,7 +35,23 @@ class DomainList(ListResource):
         }
         self._uri = '/Accounts/{account_sid}/SIP/Domains.json'.format(**self._kwargs)
 
-    def read(self, limit=None, page_size=None, **kwargs):
+    def stream(self, limit=None, page_size=None, **kwargs):
+        """
+        Streams DomainInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+        
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
@@ -43,7 +59,7 @@ class DomainList(ListResource):
         })
         params.update(kwargs)
         
-        return self._version.read(
+        return self._version.stream(
             self,
             DomainInstance,
             self._kwargs,
@@ -54,7 +70,40 @@ class DomainList(ListResource):
             params=params,
         )
 
+    def read(self, limit=None, page_size=None, **kwargs):
+        """
+        Reads DomainInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+        
+        :param int limit: Upper limit for the number of records to return. read() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, read() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+        
+        :returns: Generator that will yield up to limit results
+        :rtype: generator
+        """
+        return list(self.stream(
+            limit=limit,
+            page_size=page_size,
+            **kwargs
+        ))
+
     def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
+        """
+        Retrieve a single page of DomainInstance records from the API.
+        Request is executed immediately
+        
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+        
+        :returns: Page of DomainInstance
+        :rtype: Page
+        """
         params = values.of({
             'PageToken': page_token,
             'Page': page_number,
@@ -76,6 +125,21 @@ class DomainList(ListResource):
                voice_fallback_url=values.unset, voice_fallback_method=values.unset,
                voice_status_callback_url=values.unset,
                voice_status_callback_method=values.unset):
+        """
+        Create a new DomainInstance
+        
+        :param str domain_name: The unique address on Twilio to route SIP traffic
+        :param str friendly_name: A user-specified, human-readable name for the trigger.
+        :param str voice_url: URL Twilio will request when receiving a call
+        :param str voice_method: HTTP method to use with voice_url
+        :param str voice_fallback_url: URL Twilio will request if an error occurs in executing TwiML
+        :param str voice_fallback_method: HTTP method used with voice_fallback_url
+        :param str voice_status_callback_url: URL that Twilio will request with status updates
+        :param str voice_status_callback_method: The voice_status_callback_method
+        
+        :returns: Newly created DomainInstance
+        :rtype: DomainInstance
+        """
         data = values.of({
             'DomainName': domain_name,
             'FriendlyName': friendly_name,
@@ -143,6 +207,12 @@ class DomainContext(InstanceContext):
         self._credential_list_mappings = None
 
     def fetch(self):
+        """
+        Fetch a DomainInstance
+        
+        :returns: Fetched DomainInstance
+        :rtype: DomainInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -157,6 +227,21 @@ class DomainContext(InstanceContext):
                voice_fallback_method=values.unset, voice_fallback_url=values.unset,
                voice_method=values.unset, voice_status_callback_method=values.unset,
                voice_status_callback_url=values.unset, voice_url=values.unset):
+        """
+        Update the DomainInstance
+        
+        :param str api_version: The api_version
+        :param str friendly_name: A user-specified, human-readable name for the trigger.
+        :param str voice_fallback_method: The voice_fallback_method
+        :param str voice_fallback_url: The voice_fallback_url
+        :param str voice_method: HTTP method to use with voice_url
+        :param str voice_status_callback_method: The voice_status_callback_method
+        :param str voice_status_callback_url: The voice_status_callback_url
+        :param str voice_url: The voice_url
+        
+        :returns: Updated DomainInstance
+        :rtype: DomainInstance
+        """
         data = values.of({
             'ApiVersion': api_version,
             'FriendlyName': friendly_name,
@@ -177,6 +262,12 @@ class DomainContext(InstanceContext):
         )
 
     def delete(self):
+        """
+        Deletes the DomainInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
         return self._version.delete('delete', self._uri)
 
     @property
@@ -397,13 +488,34 @@ class DomainInstance(InstanceResource):
         return self._properties['voice_url']
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a DomainInstance
+        
+        :returns: Fetched DomainInstance
+        :rtype: DomainInstance
+        """
+        return self._context.fetch()
 
     def update(self, api_version=values.unset, friendly_name=values.unset,
                voice_fallback_method=values.unset, voice_fallback_url=values.unset,
                voice_method=values.unset, voice_status_callback_method=values.unset,
                voice_status_callback_url=values.unset, voice_url=values.unset):
-        self._context.update(
+        """
+        Update the DomainInstance
+        
+        :param str api_version: The api_version
+        :param str friendly_name: A user-specified, human-readable name for the trigger.
+        :param str voice_fallback_method: The voice_fallback_method
+        :param str voice_fallback_url: The voice_fallback_url
+        :param str voice_method: HTTP method to use with voice_url
+        :param str voice_status_callback_method: The voice_status_callback_method
+        :param str voice_status_callback_url: The voice_status_callback_url
+        :param str voice_url: The voice_url
+        
+        :returns: Updated DomainInstance
+        :rtype: DomainInstance
+        """
+        return self._context.update(
             api_version=api_version,
             friendly_name=friendly_name,
             voice_fallback_method=voice_fallback_method,
@@ -415,7 +527,13 @@ class DomainInstance(InstanceResource):
         )
 
     def delete(self):
-        self._context.delete()
+        """
+        Deletes the DomainInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._context.delete()
 
     @property
     def ip_access_control_list_mappings(self):

@@ -18,8 +18,8 @@ class StatisticsContext(InstanceContext):
         Initialize the StatisticsContext
         
         :param Version version
-        :param task_queue_sid: Contextual task_queue_sid
         :param workspace_sid: Contextual workspace_sid
+        :param task_queue_sid: Contextual task_queue_sid
         
         :returns: StatisticsContext
         :rtype: StatisticsContext
@@ -35,6 +35,17 @@ class StatisticsContext(InstanceContext):
 
     def fetch(self, end_date=values.unset, friendly_name=values.unset,
               minutes=values.unset, start_date=values.unset):
+        """
+        Fetch a StatisticsInstance
+        
+        :param datetime end_date: The end_date
+        :param str friendly_name: The friendly_name
+        :param str minutes: The minutes
+        :param datetime start_date: The start_date
+        
+        :returns: Fetched StatisticsInstance
+        :rtype: StatisticsInstance
+        """
         params = values.of({
             'EndDate': end_date,
             'FriendlyName': friendly_name,
@@ -156,7 +167,18 @@ class StatisticsInstance(InstanceResource):
 
     def fetch(self, end_date=values.unset, friendly_name=values.unset,
               minutes=values.unset, start_date=values.unset):
-        self._context.fetch(
+        """
+        Fetch a StatisticsInstance
+        
+        :param datetime end_date: The end_date
+        :param str friendly_name: The friendly_name
+        :param str minutes: The minutes
+        :param datetime start_date: The start_date
+        
+        :returns: Fetched StatisticsInstance
+        :rtype: StatisticsInstance
+        """
+        return self._context.fetch(
             end_date=end_date,
             friendly_name=friendly_name,
             minutes=minutes,

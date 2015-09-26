@@ -37,6 +37,12 @@ class ConversationContext(InstanceContext):
         self._participants = None
 
     def fetch(self):
+        """
+        Fetch a ConversationInstance
+        
+        :returns: Fetched ConversationInstance
+        :rtype: ConversationInstance
+        """
         params = values.of({})
         
         return self._version.fetch(
@@ -183,7 +189,13 @@ class ConversationInstance(InstanceResource):
         return self._properties['url']
 
     def fetch(self):
-        self._context.fetch()
+        """
+        Fetch a ConversationInstance
+        
+        :returns: Fetched ConversationInstance
+        :rtype: ConversationInstance
+        """
+        return self._context.fetch()
 
     @property
     def participants(self):
