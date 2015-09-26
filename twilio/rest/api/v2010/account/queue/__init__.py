@@ -278,12 +278,12 @@ class QueueInstance(InstanceResource):
         # Marshaled Properties
         self._properties = {
             'account_sid': payload['account_sid'],
-            'average_wait_time': payload['average_wait_time'],
-            'current_size': payload['current_size'],
+            'average_wait_time': deserialize.integer(payload['average_wait_time']),
+            'current_size': deserialize.integer(payload['current_size']),
             'date_created': deserialize.rfc2822_datetime(payload['date_created']),
             'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
             'friendly_name': payload['friendly_name'],
-            'max_size': payload['max_size'],
+            'max_size': deserialize.integer(payload['max_size']),
             'sid': payload['sid'],
             'uri': payload['uri'],
         }

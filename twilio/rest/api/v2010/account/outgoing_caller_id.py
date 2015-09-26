@@ -288,7 +288,7 @@ class OutgoingCallerIdInstance(InstanceResource):
             'phone_number': payload['phone_number'],
             'sid': payload['sid'],
             'uri': payload['uri'],
-            'validation_code': payload['validation_code'],
+            'validation_code': deserialize.integer(payload['validation_code']),
         }
         
         # Context

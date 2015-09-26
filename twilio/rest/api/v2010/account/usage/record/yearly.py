@@ -185,7 +185,7 @@ class YearlyInstance(InstanceResource):
             'count_unit': payload['count_unit'],
             'description': payload['description'],
             'end_date': deserialize.rfc2822_datetime(payload['end_date']),
-            'price': payload['price'],
+            'price': deserialize.decimal(payload['price']),
             'price_unit': payload['price_unit'],
             'start_date': deserialize.rfc2822_datetime(payload['start_date']),
             'subresource_uris': payload['subresource_uris'],

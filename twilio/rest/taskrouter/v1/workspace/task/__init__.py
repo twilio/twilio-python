@@ -333,16 +333,16 @@ class TaskInstance(InstanceResource):
         # Marshaled Properties
         self._properties = {
             'account_sid': payload['account_sid'],
-            'age': payload['age'],
+            'age': deserialize.integer(payload['age']),
             'assignment_status': payload['assignment_status'],
             'attributes': payload['attributes'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'priority': payload['priority'],
+            'priority': deserialize.integer(payload['priority']),
             'reason': payload['reason'],
             'sid': payload['sid'],
             'task_queue_sid': payload['task_queue_sid'],
-            'timeout': payload['timeout'],
+            'timeout': deserialize.integer(payload['timeout']),
             'workflow_sid': payload['workflow_sid'],
             'workspace_sid': payload['workspace_sid'],
         }

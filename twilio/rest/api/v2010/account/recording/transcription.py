@@ -221,7 +221,7 @@ class TranscriptionInstance(InstanceResource):
             'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
             'duration': payload['duration'],
             'owner_account_sid': payload['owner_account_sid'],
-            'price': payload['price'],
+            'price': deserialize.decimal(payload['price']),
             'price_unit': payload['price_unit'],
             'recording_sid': payload['recording_sid'],
             'sid': payload['sid'],

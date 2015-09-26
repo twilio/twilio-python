@@ -459,7 +459,7 @@ class CallInstance(InstanceResource):
             'group_sid': payload['group_sid'],
             'parent_call_sid': payload['parent_call_sid'],
             'phone_number_sid': payload['phone_number_sid'],
-            'price': payload['price'],
+            'price': deserialize.decimal(payload['price']),
             'price_unit': payload['price_unit'],
             'sid': payload['sid'],
             'start_time': deserialize.rfc2822_datetime(payload['start_time']),

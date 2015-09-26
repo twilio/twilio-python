@@ -201,7 +201,7 @@ class InProgressInstance(InstanceResource):
         self._properties = {
             'sid': payload['sid'],
             'status': payload['status'],
-            'duration': payload['duration'],
+            'duration': deserialize.integer(payload['duration']),
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'start_time': deserialize.iso8601_datetime(payload['start_time']),
             'end_time': deserialize.iso8601_datetime(payload['end_time']),

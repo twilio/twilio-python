@@ -334,7 +334,7 @@ class TaskQueueInstance(InstanceResource):
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
             'friendly_name': payload['friendly_name'],
-            'max_reserved_workers': payload['max_reserved_workers'],
+            'max_reserved_workers': deserialize.integer(payload['max_reserved_workers']),
             'reservation_activity_sid': payload['reservation_activity_sid'],
             'reservation_activity_name': payload['reservation_activity_name'],
             'sid': payload['sid'],

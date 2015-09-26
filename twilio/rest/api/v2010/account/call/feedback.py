@@ -125,7 +125,7 @@ class FeedbackInstance(InstanceResource):
             'date_created': deserialize.rfc2822_datetime(payload['date_created']),
             'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
             'issues': payload['issues'],
-            'quality_score': payload['quality_score'],
+            'quality_score': deserialize.integer(payload['quality_score']),
             'sid': payload['sid'],
         }
         

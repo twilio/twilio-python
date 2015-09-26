@@ -108,7 +108,7 @@ class SandboxInstance(InstanceResource):
         self._properties = {
             'date_created': deserialize.rfc2822_datetime(payload['date_created']),
             'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
-            'pin': payload['pin'],
+            'pin': deserialize.integer(payload['pin']),
             'account_sid': payload['account_sid'],
             'phone_number': payload['phone_number'],
             'application_sid': payload['application_sid'],

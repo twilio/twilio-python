@@ -1,4 +1,5 @@
 import datetime
+from decimal import Decimal, BasicContext
 from email.utils import parsedate
 import pytz
 
@@ -28,3 +29,26 @@ def rfc2822_datetime(s):
     if date_tuple is None:
         return None
     return datetime.datetime(*date_tuple[:6]).replace(tzinfo=pytz.utc)
+
+
+def decimal(d):
+    """
+    Parses a decimal string into a Decimal
+    :param d: decimal string
+    :return: Decimal
+    """
+    if not d:
+        return d
+    return Decimal(d, BasicContext)
+
+
+def integer(i):
+    """
+    Parses an integer string into an int
+    :param i: integer string
+    :return: int
+    """
+    try:
+        return int(i)
+    except (TypeError, ValueError):
+        return i

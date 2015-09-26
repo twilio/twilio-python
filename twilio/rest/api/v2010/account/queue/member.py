@@ -233,10 +233,10 @@ class MemberInstance(InstanceResource):
             'call_sid': payload['call_sid'],
             'date_enqueued': deserialize.rfc2822_datetime(payload['date_enqueued']),
             'parent_sid': payload['parent_sid'],
-            'position': payload['position'],
+            'position': deserialize.integer(payload['position']),
             'sid': payload['sid'],
             'uri': payload['uri'],
-            'wait_time': payload['wait_time'],
+            'wait_time': deserialize.integer(payload['wait_time']),
         }
         
         # Context

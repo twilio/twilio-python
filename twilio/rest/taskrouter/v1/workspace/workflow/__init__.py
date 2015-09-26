@@ -312,7 +312,7 @@ class WorkflowInstance(InstanceResource):
             'fallback_assignment_callback_url': payload['fallback_assignment_callback_url'],
             'friendly_name': payload['friendly_name'],
             'sid': payload['sid'],
-            'task_reservation_timeout': payload['task_reservation_timeout'],
+            'task_reservation_timeout': deserialize.integer(payload['task_reservation_timeout']),
             'workspace_sid': payload['workspace_sid'],
         }
         

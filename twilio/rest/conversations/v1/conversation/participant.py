@@ -232,7 +232,7 @@ class ParticipantInstance(InstanceResource):
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'start_time': deserialize.iso8601_datetime(payload['start_time']),
             'end_time': deserialize.iso8601_datetime(payload['end_time']),
-            'duration': payload['duration'],
+            'duration': deserialize.integer(payload['duration']),
             'account_sid': payload['account_sid'],
             'url': payload['url'],
         }
