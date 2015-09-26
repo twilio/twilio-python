@@ -10,7 +10,6 @@ from twilio import values
 from twilio.rest import deserialize
 from twilio.rest import serialize
 from twilio.rest.api.v2010.account.recording.transcription import TranscriptionList
-from twilio.rest.api.v2010.account.recording.transcription import transcriptions
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource

@@ -10,12 +10,9 @@ from twilio import values
 from twilio.rest import deserialize
 from twilio.rest import serialize
 from twilio.rest.api.v2010.account.call.feedback import FeedbackContext
-from twilio.rest.api.v2010.account.call.feedback import feedback
 from twilio.rest.api.v2010.account.call.feedback_summary import FeedbackSummaryList
 from twilio.rest.api.v2010.account.call.notification import NotificationList
-from twilio.rest.api.v2010.account.call.notification import notifications
 from twilio.rest.api.v2010.account.call.recording import RecordingList
-from twilio.rest.api.v2010.account.call.recording import recordings
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource

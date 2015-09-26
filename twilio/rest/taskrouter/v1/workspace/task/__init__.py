@@ -12,7 +12,6 @@ from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
 from twilio.rest.taskrouter.v1.workspace.task.reservation import ReservationList
-from twilio.rest.taskrouter.v1.workspace.task.reservation import reservations
 
 
 class TaskList(ListResource):

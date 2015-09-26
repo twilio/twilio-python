@@ -11,7 +11,6 @@ from twilio.rest import deserialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.conversations.v1.conversation.participant import ParticipantList
-from twilio.rest.conversations.v1.conversation.participant import participants
 
 
 class ConversationContext(InstanceContext):

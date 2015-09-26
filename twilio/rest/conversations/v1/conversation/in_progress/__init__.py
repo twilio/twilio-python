@@ -12,7 +12,6 @@ from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
 from twilio.rest.conversations.v1.conversation.participant import ParticipantList
-from twilio.rest.conversations.v1.conversation.participant import participants
 
 
 class InProgressList(ListResource):

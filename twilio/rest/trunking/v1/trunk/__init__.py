@@ -12,13 +12,9 @@ from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
 from twilio.rest.trunking.v1.trunk.credential_list import CredentialListList
-from twilio.rest.trunking.v1.trunk.credential_list import credentials_lists
 from twilio.rest.trunking.v1.trunk.ip_access_control_list import IpAccessControlListList
-from twilio.rest.trunking.v1.trunk.ip_access_control_list import ip_access_control_lists
 from twilio.rest.trunking.v1.trunk.origination_url import OriginationUrlList
-from twilio.rest.trunking.v1.trunk.origination_url import origination_urls
 from twilio.rest.trunking.v1.trunk.phone_number import PhoneNumberList
-from twilio.rest.trunking.v1.trunk.phone_number import phone_numbers
 
 
 class TrunkList(ListResource):

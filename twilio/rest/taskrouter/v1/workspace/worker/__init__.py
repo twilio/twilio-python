@@ -12,7 +12,6 @@ from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
 from twilio.rest.taskrouter.v1.workspace.worker.worker_statistics import StatisticsContext
-from twilio.rest.taskrouter.v1.workspace.worker.worker_statistics import statistics
 from twilio.rest.taskrouter.v1.workspace.worker.workers_statistics import StatisticsContext
 
 
