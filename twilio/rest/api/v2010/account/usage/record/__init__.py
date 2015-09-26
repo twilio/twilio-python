@@ -243,6 +243,12 @@ class RecordContext(InstanceContext):
 class RecordInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid):
+        """
+        Initialize the RecordInstance
+        
+        :returns: RecordInstance
+        :rtype: RecordInstance
+        """
         super(RecordInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -264,85 +270,144 @@ class RecordInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'account_sid': account_sid,
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = RecordContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: RecordContext for this RecordInstance
+        :rtype: RecordContext
+        """
+        if self._instance_context is None:
+            self._instance_context = RecordContext(
                 self._version,
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The Account that accrued the usage
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def api_version(self):
-        """ The api_version """
+        """
+        :returns: The api_version
+        :rtype: str
+        """
         return self._properties['api_version']
 
     @property
     def category(self):
-        """ The category """
+        """
+        :returns: The category of usage
+        :rtype: yesterday.category
+        """
         return self._properties['category']
 
     @property
     def count(self):
-        """ The count """
+        """
+        :returns: The number of usage events (e.g. the number of calls).
+        :rtype: str
+        """
         return self._properties['count']
 
     @property
     def count_unit(self):
-        """ The count_unit """
+        """
+        :returns: The unit in which `Count` is measured
+        :rtype: str
+        """
         return self._properties['count_unit']
 
     @property
     def description(self):
-        """ The description """
+        """
+        :returns: A human-readable description of the usage category.
+        :rtype: str
+        """
         return self._properties['description']
 
     @property
     def end_date(self):
-        """ The end_date """
+        """
+        :returns: The last date usage is included in this record
+        :rtype: datetime
+        """
         return self._properties['end_date']
 
     @property
     def price(self):
-        """ The price """
+        """
+        :returns: The total price of the usage
+        :rtype: str
+        """
         return self._properties['price']
 
     @property
     def price_unit(self):
-        """ The price_unit """
+        """
+        :returns: The currency in which `Price` is measured
+        :rtype: str
+        """
         return self._properties['price_unit']
 
     @property
     def start_date(self):
-        """ The start_date """
+        """
+        :returns: The first date usage is included in this record
+        :rtype: datetime
+        """
         return self._properties['start_date']
 
     @property
     def subresource_uris(self):
-        """ The subresource_uris """
+        """
+        :returns: Subresources Uris for this UsageRecord
+        :rtype: str
+        """
         return self._properties['subresource_uris']
 
     @property
     def uri(self):
-        """ The uri """
+        """
+        :returns: The URI for this resource
+        :rtype: str
+        """
         return self._properties['uri']
 
     @property
     def usage(self):
-        """ The usage """
+        """
+        :returns: The amount of usage
+        :rtype: str
+        """
         return self._properties['usage']
 
     @property
     def usage_unit(self):
-        """ The usage_unit """
+        """
+        :returns: The units in which `Usage` is measured
+        :rtype: str
+        """
         return self._properties['usage_unit']
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.RecordInstance {}>'.format(context)

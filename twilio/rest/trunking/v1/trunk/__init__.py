@@ -12,9 +12,13 @@ from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
 from twilio.rest.trunking.v1.trunk.credential_list import CredentialListList
+from twilio.rest.trunking.v1.trunk.credential_list import credentials_lists
 from twilio.rest.trunking.v1.trunk.ip_access_control_list import IpAccessControlListList
+from twilio.rest.trunking.v1.trunk.ip_access_control_list import ip_access_control_lists
 from twilio.rest.trunking.v1.trunk.origination_url import OriginationUrlList
+from twilio.rest.trunking.v1.trunk.origination_url import origination_urls
 from twilio.rest.trunking.v1.trunk.phone_number import PhoneNumberList
+from twilio.rest.trunking.v1.trunk.phone_number import phone_numbers
 
 
 class TrunkList(ListResource):
@@ -247,6 +251,12 @@ class TrunkContext(InstanceContext):
 class TrunkInstance(InstanceResource):
 
     def __init__(self, version, payload, sid=None):
+        """
+        Initialize the TrunkInstance
+        
+        :returns: TrunkInstance
+        :rtype: TrunkInstance
+        """
         super(TrunkInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -268,88 +278,137 @@ class TrunkInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'sid': sid or self._properties['sid'],
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = TrunkContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: TrunkContext for this TrunkInstance
+        :rtype: TrunkContext
+        """
+        if self._instance_context is None:
+            self._instance_context = TrunkContext(
                 self._version,
-                self._context_properties['sid'],
+                self._kwargs['sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The account_sid
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def domain_name(self):
-        """ The domain_name """
+        """
+        :returns: The domain_name
+        :rtype: str
+        """
         return self._properties['domain_name']
 
     @property
     def disaster_recovery_method(self):
-        """ The disaster_recovery_method """
+        """
+        :returns: The disaster_recovery_method
+        :rtype: str
+        """
         return self._properties['disaster_recovery_method']
 
     @property
     def disaster_recovery_url(self):
-        """ The disaster_recovery_url """
+        """
+        :returns: The disaster_recovery_url
+        :rtype: str
+        """
         return self._properties['disaster_recovery_url']
 
     @property
     def friendly_name(self):
-        """ The friendly_name """
+        """
+        :returns: The friendly_name
+        :rtype: str
+        """
         return self._properties['friendly_name']
 
     @property
     def secure(self):
-        """ The secure """
+        """
+        :returns: The secure
+        :rtype: bool
+        """
         return self._properties['secure']
 
     @property
     def recording(self):
-        """ The recording """
+        """
+        :returns: The recording
+        :rtype: str
+        """
         return self._properties['recording']
 
     @property
     def auth_type(self):
-        """ The auth_type """
+        """
+        :returns: The auth_type
+        :rtype: str
+        """
         return self._properties['auth_type']
 
     @property
     def auth_type_set(self):
-        """ The auth_type_set """
+        """
+        :returns: The auth_type_set
+        :rtype: str
+        """
         return self._properties['auth_type_set']
 
     @property
     def date_created(self):
-        """ The date_created """
+        """
+        :returns: The date_created
+        :rtype: datetime
+        """
         return self._properties['date_created']
 
     @property
     def date_updated(self):
-        """ The date_updated """
+        """
+        :returns: The date_updated
+        :rtype: datetime
+        """
         return self._properties['date_updated']
 
     @property
     def sid(self):
-        """ The sid """
+        """
+        :returns: The sid
+        :rtype: str
+        """
         return self._properties['sid']
 
     @property
     def url(self):
-        """ The url """
+        """
+        :returns: The url
+        :rtype: str
+        """
         return self._properties['url']
 
     @property
     def links(self):
-        """ The links """
+        """
+        :returns: The links
+        :rtype: str
+        """
         return self._properties['links']
 
     def fetch(self):
@@ -373,16 +432,50 @@ class TrunkInstance(InstanceResource):
 
     @property
     def origination_urls(self):
+        """
+        Access the origination_urls
+        
+        :returns: origination_urls
+        :rtype: origination_urls
+        """
         return self._context.origination_urls
 
     @property
     def credentials_lists(self):
+        """
+        Access the credentials_lists
+        
+        :returns: credentials_lists
+        :rtype: credentials_lists
+        """
         return self._context.credentials_lists
 
     @property
     def ip_access_control_lists(self):
+        """
+        Access the ip_access_control_lists
+        
+        :returns: ip_access_control_lists
+        :rtype: ip_access_control_lists
+        """
         return self._context.ip_access_control_lists
 
     @property
     def phone_numbers(self):
+        """
+        Access the phone_numbers
+        
+        :returns: phone_numbers
+        :rtype: phone_numbers
+        """
         return self._context.phone_numbers
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Trunking.V1.TrunkInstance {}>'.format(context)

@@ -173,6 +173,12 @@ class ActivityContext(InstanceContext):
 class ActivityInstance(InstanceResource):
 
     def __init__(self, version, payload, workspace_sid, sid=None):
+        """
+        Initialize the ActivityInstance
+        
+        :returns: ActivityInstance
+        :rtype: ActivityInstance
+        """
         super(ActivityInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -187,55 +193,83 @@ class ActivityInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'workspace_sid': workspace_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = ActivityContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: ActivityContext for this ActivityInstance
+        :rtype: ActivityContext
+        """
+        if self._instance_context is None:
+            self._instance_context = ActivityContext(
                 self._version,
-                self._context_properties['workspace_sid'],
-                self._context_properties['sid'],
+                self._kwargs['workspace_sid'],
+                self._kwargs['sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The account_sid
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def available(self):
-        """ The available """
+        """
+        :returns: The available
+        :rtype: bool
+        """
         return self._properties['available']
 
     @property
     def date_created(self):
-        """ The date_created """
+        """
+        :returns: The date_created
+        :rtype: datetime
+        """
         return self._properties['date_created']
 
     @property
     def date_updated(self):
-        """ The date_updated """
+        """
+        :returns: The date_updated
+        :rtype: datetime
+        """
         return self._properties['date_updated']
 
     @property
     def friendly_name(self):
-        """ The friendly_name """
+        """
+        :returns: The friendly_name
+        :rtype: str
+        """
         return self._properties['friendly_name']
 
     @property
     def sid(self):
-        """ The sid """
+        """
+        :returns: The sid
+        :rtype: str
+        """
         return self._properties['sid']
 
     @property
     def workspace_sid(self):
-        """ The workspace_sid """
+        """
+        :returns: The workspace_sid
+        :rtype: str
+        """
         return self._properties['workspace_sid']
 
     def fetch(self):
@@ -248,3 +282,13 @@ class ActivityInstance(InstanceResource):
 
     def delete(self):
         self._context.delete()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Taskrouter.V1.ActivityInstance {}>'.format(context)

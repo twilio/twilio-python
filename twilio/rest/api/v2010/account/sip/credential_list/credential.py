@@ -180,6 +180,12 @@ class CredentialInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid, credential_list_sid,
                  sid=None):
+        """
+        Initialize the CredentialInstance
+        
+        :returns: CredentialInstance
+        :rtype: CredentialInstance
+        """
         super(CredentialInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -195,8 +201,8 @@ class CredentialInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'account_sid': account_sid,
             'credential_list_sid': credential_list_sid,
             'sid': sid or self._properties['sid'],
@@ -204,53 +210,84 @@ class CredentialInstance(InstanceResource):
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = CredentialContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: CredentialContext for this CredentialInstance
+        :rtype: CredentialContext
+        """
+        if self._instance_context is None:
+            self._instance_context = CredentialContext(
                 self._version,
-                self._context_properties['account_sid'],
-                self._context_properties['credential_list_sid'],
-                self._context_properties['sid'],
+                self._kwargs['account_sid'],
+                self._kwargs['credential_list_sid'],
+                self._kwargs['sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def sid(self):
-        """ The sid """
+        """
+        :returns: The sid
+        :rtype: str
+        """
         return self._properties['sid']
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The account_sid
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def credential_list_sid(self):
-        """ The credential_list_sid """
+        """
+        :returns: The credential_list_sid
+        :rtype: str
+        """
         return self._properties['credential_list_sid']
 
     @property
     def username(self):
-        """ The username """
+        """
+        :returns: The username
+        :rtype: str
+        """
         return self._properties['username']
 
     @property
     def friendly_name(self):
-        """ The friendly_name """
+        """
+        :returns: The friendly_name
+        :rtype: str
+        """
         return self._properties['friendly_name']
 
     @property
     def date_created(self):
-        """ The date_created """
+        """
+        :returns: The date_created
+        :rtype: datetime
+        """
         return self._properties['date_created']
 
     @property
     def date_updated(self):
-        """ The date_updated """
+        """
+        :returns: The date_updated
+        :rtype: datetime
+        """
         return self._properties['date_updated']
 
     @property
     def uri(self):
-        """ The uri """
+        """
+        :returns: The uri
+        :rtype: str
+        """
         return self._properties['uri']
 
     def fetch(self, sip_credential_list_sid):
@@ -269,3 +306,13 @@ class CredentialInstance(InstanceResource):
         self._context.delete(
             sip_credential_list_sid,
         )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.CredentialInstance {}>'.format(context)

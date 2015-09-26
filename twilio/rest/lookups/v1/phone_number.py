@@ -59,6 +59,12 @@ class PhoneNumberContext(InstanceContext):
 class PhoneNumberInstance(InstanceResource):
 
     def __init__(self, version, payload, phone_number=None):
+        """
+        Initialize the PhoneNumberInstance
+        
+        :returns: PhoneNumberInstance
+        :rtype: PhoneNumberInstance
+        """
         super(PhoneNumberInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -74,58 +80,89 @@ class PhoneNumberInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'phone_number': phone_number or self._properties['phone_number'],
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = PhoneNumberContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: PhoneNumberContext for this PhoneNumberInstance
+        :rtype: PhoneNumberContext
+        """
+        if self._instance_context is None:
+            self._instance_context = PhoneNumberContext(
                 self._version,
-                self._context_properties['phone_number'],
+                self._kwargs['phone_number'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def country_code(self):
-        """ The country_code """
+        """
+        :returns: The country_code
+        :rtype: str
+        """
         return self._properties['country_code']
 
     @property
     def phone_number(self):
-        """ The phone_number """
+        """
+        :returns: The phone_number
+        :rtype: str
+        """
         return self._properties['phone_number']
 
     @property
     def national_format(self):
-        """ The national_format """
+        """
+        :returns: The national_format
+        :rtype: str
+        """
         return self._properties['national_format']
 
     @property
     def mobile_country_code(self):
-        """ The mobile_country_code """
+        """
+        :returns: The mobile_country_code
+        :rtype: str
+        """
         return self._properties['mobile_country_code']
 
     @property
     def mobile_network_code(self):
-        """ The mobile_network_code """
+        """
+        :returns: The mobile_network_code
+        :rtype: str
+        """
         return self._properties['mobile_network_code']
 
     @property
     def name(self):
-        """ The name """
+        """
+        :returns: The name
+        :rtype: str
+        """
         return self._properties['name']
 
     @property
     def type(self):
-        """ The type """
+        """
+        :returns: The type
+        :rtype: str
+        """
         return self._properties['type']
 
     @property
     def carrier(self):
-        """ The carrier """
+        """
+        :returns: The carrier
+        :rtype: str
+        """
         return self._properties['carrier']
 
     def fetch(self, country_code=values.unset, type=values.unset):
@@ -133,3 +170,13 @@ class PhoneNumberInstance(InstanceResource):
             country_code=country_code,
             type=type,
         )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Lookups.V1.PhoneNumberInstance {}>'.format(context)

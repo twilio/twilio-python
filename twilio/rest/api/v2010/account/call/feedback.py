@@ -87,6 +87,12 @@ class FeedbackContext(InstanceContext):
 class FeedbackInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid=None, call_sid=None):
+        """
+        Initialize the FeedbackInstance
+        
+        :returns: FeedbackInstance
+        :rtype: FeedbackInstance
+        """
         super(FeedbackInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -100,50 +106,75 @@ class FeedbackInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'account_sid': account_sid or self._properties['account_sid'],
             'call_sid': call_sid or self._properties['call_sid'],
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = FeedbackContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: FeedbackContext for this FeedbackInstance
+        :rtype: FeedbackContext
+        """
+        if self._instance_context is None:
+            self._instance_context = FeedbackContext(
                 self._version,
-                self._context_properties['account_sid'],
-                self._context_properties['call_sid'],
+                self._kwargs['account_sid'],
+                self._kwargs['call_sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The account_sid
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def date_created(self):
-        """ The date_created """
+        """
+        :returns: The date_created
+        :rtype: datetime
+        """
         return self._properties['date_created']
 
     @property
     def date_updated(self):
-        """ The date_updated """
+        """
+        :returns: The date_updated
+        :rtype: datetime
+        """
         return self._properties['date_updated']
 
     @property
     def issues(self):
-        """ The issues """
+        """
+        :returns: The issues
+        :rtype: feedback.issues
+        """
         return self._properties['issues']
 
     @property
     def quality_score(self):
-        """ The quality_score """
+        """
+        :returns: 1 to 5 quality score
+        :rtype: str
+        """
         return self._properties['quality_score']
 
     @property
     def sid(self):
-        """ The sid """
+        """
+        :returns: The sid
+        :rtype: str
+        """
         return self._properties['sid']
 
     def create(self, quality_score, issue=values.unset):
@@ -160,3 +191,13 @@ class FeedbackInstance(InstanceResource):
             quality_score,
             issue=issue,
         )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.FeedbackInstance {}>'.format(context)

@@ -267,6 +267,12 @@ class IncomingPhoneNumberContext(InstanceContext):
 class IncomingPhoneNumberInstance(InstanceResource):
 
     def __init__(self, version, payload, owner_account_sid, sid=None):
+        """
+        Initialize the IncomingPhoneNumberInstance
+        
+        :returns: IncomingPhoneNumberInstance
+        :rtype: IncomingPhoneNumberInstance
+        """
         super(IncomingPhoneNumberInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -298,140 +304,219 @@ class IncomingPhoneNumberInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'owner_account_sid': owner_account_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = IncomingPhoneNumberContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: IncomingPhoneNumberContext for this IncomingPhoneNumberInstance
+        :rtype: IncomingPhoneNumberContext
+        """
+        if self._instance_context is None:
+            self._instance_context = IncomingPhoneNumberContext(
                 self._version,
-                self._context_properties['owner_account_sid'],
-                self._context_properties['sid'],
+                self._kwargs['owner_account_sid'],
+                self._kwargs['sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The unique sid that identifies this account
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def address_requirements(self):
-        """ The address_requirements """
+        """
+        :returns: Indicates if the customer requires an address
+        :rtype: toll_free.address_requirement
+        """
         return self._properties['address_requirements']
 
     @property
     def api_version(self):
-        """ The api_version """
+        """
+        :returns: The Twilio REST API version to use
+        :rtype: str
+        """
         return self._properties['api_version']
 
     @property
     def beta(self):
-        """ The beta """
+        """
+        :returns: Indicates if the phone number is a beta number
+        :rtype: bool
+        """
         return self._properties['beta']
 
     @property
     def capabilities(self):
-        """ The capabilities """
+        """
+        :returns: Indicate if a phone can receive calls or messages
+        :rtype: str
+        """
         return self._properties['capabilities']
 
     @property
     def date_created(self):
-        """ The date_created """
+        """
+        :returns: The date this resource was created
+        :rtype: datetime
+        """
         return self._properties['date_created']
 
     @property
     def date_updated(self):
-        """ The date_updated """
+        """
+        :returns: The date this resource was last updated
+        :rtype: datetime
+        """
         return self._properties['date_updated']
 
     @property
     def friendly_name(self):
-        """ The friendly_name """
+        """
+        :returns: A human readable description of this resouce
+        :rtype: str
+        """
         return self._properties['friendly_name']
 
     @property
     def phone_number(self):
-        """ The phone_number """
+        """
+        :returns: The incoming phone number
+        :rtype: str
+        """
         return self._properties['phone_number']
 
     @property
     def sid(self):
-        """ The sid """
+        """
+        :returns: A string that uniquely identifies this resource
+        :rtype: str
+        """
         return self._properties['sid']
 
     @property
     def sms_application_sid(self):
-        """ The sms_application_sid """
+        """
+        :returns: Unique string that identifies the application
+        :rtype: str
+        """
         return self._properties['sms_application_sid']
 
     @property
     def sms_fallback_method(self):
-        """ The sms_fallback_method """
+        """
+        :returns: HTTP method used with sms fallback url
+        :rtype: str
+        """
         return self._properties['sms_fallback_method']
 
     @property
     def sms_fallback_url(self):
-        """ The sms_fallback_url """
+        """
+        :returns: URL Twilio will request if an error occurs in executing TwiML
+        :rtype: str
+        """
         return self._properties['sms_fallback_url']
 
     @property
     def sms_method(self):
-        """ The sms_method """
+        """
+        :returns: HTTP method to use with sms url
+        :rtype: str
+        """
         return self._properties['sms_method']
 
     @property
     def sms_url(self):
-        """ The sms_url """
+        """
+        :returns: URL Twilio will request when receiving an SMS
+        :rtype: str
+        """
         return self._properties['sms_url']
 
     @property
     def status_callback(self):
-        """ The status_callback """
+        """
+        :returns: URL Twilio will use to pass status parameters
+        :rtype: str
+        """
         return self._properties['status_callback']
 
     @property
     def status_callback_method(self):
-        """ The status_callback_method """
+        """
+        :returns: HTTP method twilio will use with status callback
+        :rtype: str
+        """
         return self._properties['status_callback_method']
 
     @property
     def uri(self):
-        """ The uri """
+        """
+        :returns: The URI for this resource
+        :rtype: str
+        """
         return self._properties['uri']
 
     @property
     def voice_application_sid(self):
-        """ The voice_application_sid """
+        """
+        :returns: The unique sid of the application to handle this number
+        :rtype: str
+        """
         return self._properties['voice_application_sid']
 
     @property
     def voice_caller_id_lookup(self):
-        """ The voice_caller_id_lookup """
+        """
+        :returns: Look up the caller's caller-ID
+        :rtype: bool
+        """
         return self._properties['voice_caller_id_lookup']
 
     @property
     def voice_fallback_method(self):
-        """ The voice_fallback_method """
+        """
+        :returns: HTTP method used with fallback_url
+        :rtype: str
+        """
         return self._properties['voice_fallback_method']
 
     @property
     def voice_fallback_url(self):
-        """ The voice_fallback_url """
+        """
+        :returns: URL Twilio will request when an error occurs in TwiML
+        :rtype: str
+        """
         return self._properties['voice_fallback_url']
 
     @property
     def voice_method(self):
-        """ The voice_method """
+        """
+        :returns: HTTP method used with the voice url
+        :rtype: str
+        """
         return self._properties['voice_method']
 
     @property
     def voice_url(self):
-        """ The voice_url """
+        """
+        :returns: URL Twilio will request when receiving a call
+        :rtype: str
+        """
         return self._properties['voice_url']
 
     def update(self, account_sid=values.unset, api_version=values.unset,
@@ -467,3 +552,13 @@ class IncomingPhoneNumberInstance(InstanceResource):
 
     def delete(self):
         self._context.delete()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.IncomingPhoneNumberInstance {}>'.format(context)

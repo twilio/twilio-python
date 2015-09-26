@@ -155,6 +155,12 @@ class MemberContext(InstanceContext):
 class MemberInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid, queue_sid, call_sid=None):
+        """
+        Initialize the MemberInstance
+        
+        :returns: MemberInstance
+        :rtype: MemberInstance
+        """
         super(MemberInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -170,8 +176,8 @@ class MemberInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'account_sid': account_sid,
             'queue_sid': queue_sid,
             'call_sid': call_sid or self._properties['call_sid'],
@@ -179,53 +185,84 @@ class MemberInstance(InstanceResource):
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = MemberContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: MemberContext for this MemberInstance
+        :rtype: MemberContext
+        """
+        if self._instance_context is None:
+            self._instance_context = MemberContext(
                 self._version,
-                self._context_properties['account_sid'],
-                self._context_properties['queue_sid'],
-                self._context_properties['call_sid'],
+                self._kwargs['account_sid'],
+                self._kwargs['queue_sid'],
+                self._kwargs['call_sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The account_sid
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def call_sid(self):
-        """ The call_sid """
+        """
+        :returns: Unique string that identifies this resource
+        :rtype: str
+        """
         return self._properties['call_sid']
 
     @property
     def date_enqueued(self):
-        """ The date_enqueued """
+        """
+        :returns: The date the member was enqueued
+        :rtype: datetime
+        """
         return self._properties['date_enqueued']
 
     @property
     def parent_sid(self):
-        """ The parent_sid """
+        """
+        :returns: The parent_sid
+        :rtype: str
+        """
         return self._properties['parent_sid']
 
     @property
     def position(self):
-        """ The position """
+        """
+        :returns: This member's current position in the queue.
+        :rtype: str
+        """
         return self._properties['position']
 
     @property
     def sid(self):
-        """ The sid """
+        """
+        :returns: The sid
+        :rtype: str
+        """
         return self._properties['sid']
 
     @property
     def uri(self):
-        """ The uri """
+        """
+        :returns: The uri
+        :rtype: str
+        """
         return self._properties['uri']
 
     @property
     def wait_time(self):
-        """ The wait_time """
+        """
+        :returns: The number of seconds the member has been in the queue.
+        :rtype: str
+        """
         return self._properties['wait_time']
 
     def fetch(self):
@@ -236,3 +273,13 @@ class MemberInstance(InstanceResource):
             url,
             method,
         )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.MemberInstance {}>'.format(context)

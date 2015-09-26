@@ -119,6 +119,12 @@ class TodayContext(InstanceContext):
 class TodayInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid):
+        """
+        Initialize the TodayInstance
+        
+        :returns: TodayInstance
+        :rtype: TodayInstance
+        """
         super(TodayInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -140,85 +146,144 @@ class TodayInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'account_sid': account_sid,
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = TodayContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: TodayContext for this TodayInstance
+        :rtype: TodayContext
+        """
+        if self._instance_context is None:
+            self._instance_context = TodayContext(
                 self._version,
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The account_sid
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def api_version(self):
-        """ The api_version """
+        """
+        :returns: The api_version
+        :rtype: str
+        """
         return self._properties['api_version']
 
     @property
     def category(self):
-        """ The category """
+        """
+        :returns: The category
+        :rtype: today.category
+        """
         return self._properties['category']
 
     @property
     def count(self):
-        """ The count """
+        """
+        :returns: The count
+        :rtype: str
+        """
         return self._properties['count']
 
     @property
     def count_unit(self):
-        """ The count_unit """
+        """
+        :returns: The count_unit
+        :rtype: str
+        """
         return self._properties['count_unit']
 
     @property
     def description(self):
-        """ The description """
+        """
+        :returns: The description
+        :rtype: str
+        """
         return self._properties['description']
 
     @property
     def end_date(self):
-        """ The end_date """
+        """
+        :returns: The end_date
+        :rtype: datetime
+        """
         return self._properties['end_date']
 
     @property
     def price(self):
-        """ The price """
+        """
+        :returns: The price
+        :rtype: str
+        """
         return self._properties['price']
 
     @property
     def price_unit(self):
-        """ The price_unit """
+        """
+        :returns: The price_unit
+        :rtype: str
+        """
         return self._properties['price_unit']
 
     @property
     def start_date(self):
-        """ The start_date """
+        """
+        :returns: The start_date
+        :rtype: datetime
+        """
         return self._properties['start_date']
 
     @property
     def subresource_uris(self):
-        """ The subresource_uris """
+        """
+        :returns: The subresource_uris
+        :rtype: str
+        """
         return self._properties['subresource_uris']
 
     @property
     def uri(self):
-        """ The uri """
+        """
+        :returns: The uri
+        :rtype: str
+        """
         return self._properties['uri']
 
     @property
     def usage(self):
-        """ The usage """
+        """
+        :returns: The usage
+        :rtype: str
+        """
         return self._properties['usage']
 
     @property
     def usage_unit(self):
-        """ The usage_unit """
+        """
+        :returns: The usage_unit
+        :rtype: str
+        """
         return self._properties['usage_unit']
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.TodayInstance {}>'.format(context)

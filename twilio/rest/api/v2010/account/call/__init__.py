@@ -10,9 +10,12 @@ from twilio import values
 from twilio.rest import deserialize
 from twilio.rest import serialize
 from twilio.rest.api.v2010.account.call.feedback import FeedbackContext
+from twilio.rest.api.v2010.account.call.feedback import feedback
 from twilio.rest.api.v2010.account.call.feedback_summary import FeedbackSummaryList
 from twilio.rest.api.v2010.account.call.notification import NotificationList
+from twilio.rest.api.v2010.account.call.notification import notifications
 from twilio.rest.api.v2010.account.call.recording import RecordingList
+from twilio.rest.api.v2010.account.call.recording import recordings
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
@@ -281,6 +284,12 @@ class CallContext(InstanceContext):
 class CallInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid, sid=None):
+        """
+        Initialize the CallInstance
+        
+        :returns: CallInstance
+        :rtype: CallInstance
+        """
         super(CallInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -313,145 +322,227 @@ class CallInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'account_sid': account_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = CallContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: CallContext for this CallInstance
+        :rtype: CallContext
+        """
+        if self._instance_context is None:
+            self._instance_context = CallContext(
                 self._version,
-                self._context_properties['account_sid'],
-                self._context_properties['sid'],
+                self._kwargs['account_sid'],
+                self._kwargs['sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The unique id of the Account responsible for creating this Call
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def annotation(self):
-        """ The annotation """
+        """
+        :returns: The annotation provided for the Call
+        :rtype: str
+        """
         return self._properties['annotation']
 
     @property
     def answered_by(self):
-        """ The answered_by """
+        """
+        :returns: If this call was initiated with answering machine detection, either `human` or `machine`. Empty otherwise.
+        :rtype: str
+        """
         return self._properties['answered_by']
 
     @property
     def api_version(self):
-        """ The api_version """
+        """
+        :returns: The API Version the Call was created through
+        :rtype: str
+        """
         return self._properties['api_version']
 
     @property
     def caller_name(self):
-        """ The caller_name """
+        """
+        :returns: If this call was an incoming call to a phone number with Caller ID Lookup enabled, the caller's name. Empty otherwise.
+        :rtype: str
+        """
         return self._properties['caller_name']
 
     @property
     def date_created(self):
-        """ The date_created """
+        """
+        :returns: The date that this resource was created
+        :rtype: datetime
+        """
         return self._properties['date_created']
 
     @property
     def date_updated(self):
-        """ The date_updated """
+        """
+        :returns: The date that this resource was last updated
+        :rtype: datetime
+        """
         return self._properties['date_updated']
 
     @property
     def direction(self):
-        """ The direction """
+        """
+        :returns: A string describing the direction of the call. `inbound` for inbound calls, `outbound-api` for calls initiated via the REST API or `outbound-dial` for calls initiated by a `<Dial>` verb.
+        :rtype: str
+        """
         return self._properties['direction']
 
     @property
     def duration(self):
-        """ The duration """
+        """
+        :returns: The duration
+        :rtype: str
+        """
         return self._properties['duration']
 
     @property
     def end_time(self):
-        """ The end_time """
+        """
+        :returns: The end time of the Call. Null if the call did not complete successfully.
+        :rtype: datetime
+        """
         return self._properties['end_time']
 
     @property
     def forwarded_from(self):
-        """ The forwarded_from """
+        """
+        :returns: If this Call was an incoming call forwarded from another number, the forwarding phone number (depends on carrier supporting forwarding). Empty otherwise.
+        :rtype: str
+        """
         return self._properties['forwarded_from']
 
     @property
     def from_(self):
-        """ The from """
+        """
+        :returns: The phone number, SIP address or Client identifier that made this Call. Phone numbers are in E.164 format (e.g. +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
+        :rtype: str
+        """
         return self._properties['from_']
 
     @property
     def from_formatted(self):
-        """ The from_formatted """
+        """
+        :returns: The phone number, SIP address or Client identifier that made this Call. Formatted for display.
+        :rtype: str
+        """
         return self._properties['from_formatted']
 
     @property
     def group_sid(self):
-        """ The group_sid """
+        """
+        :returns: A 34 character Group Sid associated with this Call. Empty if no Group is associated with the Call.
+        :rtype: str
+        """
         return self._properties['group_sid']
 
     @property
     def parent_call_sid(self):
-        """ The parent_call_sid """
+        """
+        :returns: A 34 character string that uniquely identifies the Call that created this leg.
+        :rtype: str
+        """
         return self._properties['parent_call_sid']
 
     @property
     def phone_number_sid(self):
-        """ The phone_number_sid """
+        """
+        :returns: If the call was inbound, this is the Sid of the IncomingPhoneNumber that received the call. If the call was outbound, it is the Sid of the OutgoingCallerId from which the call was placed.
+        :rtype: str
+        """
         return self._properties['phone_number_sid']
 
     @property
     def price(self):
-        """ The price """
+        """
+        :returns: The charge for this call, in the currency associated with the account. Populated after the call is completed. May not be immediately available.
+        :rtype: str
+        """
         return self._properties['price']
 
     @property
     def price_unit(self):
-        """ The price_unit """
+        """
+        :returns: The currency in which `Price` is measured.
+        :rtype: str
+        """
         return self._properties['price_unit']
 
     @property
     def sid(self):
-        """ The sid """
+        """
+        :returns: A 34 character string that uniquely identifies this resource.
+        :rtype: str
+        """
         return self._properties['sid']
 
     @property
     def start_time(self):
-        """ The start_time """
+        """
+        :returns: The start time of the Call. Null if the call has not yet been dialed.
+        :rtype: datetime
+        """
         return self._properties['start_time']
 
     @property
     def status(self):
-        """ The status """
+        """
+        :returns: The status
+        :rtype: feedback_summary.status
+        """
         return self._properties['status']
 
     @property
     def subresource_uris(self):
-        """ The subresource_uris """
+        """
+        :returns: Call Instance Subresources
+        :rtype: str
+        """
         return self._properties['subresource_uris']
 
     @property
     def to(self):
-        """ The to """
+        """
+        :returns: The phone number, SIP address or Client identifier that received this Call. Phone numbers are in E.164 format (e.g. +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
+        :rtype: str
+        """
         return self._properties['to']
 
     @property
     def to_formatted(self):
-        """ The to_formatted """
+        """
+        :returns: The phone number, SIP address or Client identifier that received this Call. Formatted for display.
+        :rtype: str
+        """
         return self._properties['to_formatted']
 
     @property
     def uri(self):
-        """ The uri """
+        """
+        :returns: The URI for this resource, relative to `https://api.twilio.com`
+        :rtype: str
+        """
         return self._properties['uri']
 
     def delete(self):
@@ -475,12 +566,40 @@ class CallInstance(InstanceResource):
 
     @property
     def recordings(self):
+        """
+        Access the recordings
+        
+        :returns: recordings
+        :rtype: recordings
+        """
         return self._context.recordings
 
     @property
     def notifications(self):
+        """
+        Access the notifications
+        
+        :returns: notifications
+        :rtype: notifications
+        """
         return self._context.notifications
 
     @property
     def feedback(self):
+        """
+        Access the feedback
+        
+        :returns: feedback
+        :rtype: feedback
+        """
         return self._context.feedback
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.CallInstance {}>'.format(context)

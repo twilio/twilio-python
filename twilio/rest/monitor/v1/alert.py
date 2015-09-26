@@ -145,6 +145,12 @@ class AlertContext(InstanceContext):
 class AlertInstance(InstanceResource):
 
     def __init__(self, version, payload, sid=None):
+        """
+        Initialize the AlertInstance
+        
+        :returns: AlertInstance
+        :rtype: AlertInstance
+        """
         super(AlertInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -169,103 +175,161 @@ class AlertInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'sid': sid or self._properties['sid'],
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = AlertContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: AlertContext for this AlertInstance
+        :rtype: AlertContext
+        """
+        if self._instance_context is None:
+            self._instance_context = AlertContext(
                 self._version,
-                self._context_properties['sid'],
+                self._kwargs['sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The account_sid
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def alert_text(self):
-        """ The alert_text """
+        """
+        :returns: The alert_text
+        :rtype: str
+        """
         return self._properties['alert_text']
 
     @property
     def api_version(self):
-        """ The api_version """
+        """
+        :returns: The api_version
+        :rtype: str
+        """
         return self._properties['api_version']
 
     @property
     def date_created(self):
-        """ The date_created """
+        """
+        :returns: The date_created
+        :rtype: datetime
+        """
         return self._properties['date_created']
 
     @property
     def date_generated(self):
-        """ The date_generated """
+        """
+        :returns: The date_generated
+        :rtype: datetime
+        """
         return self._properties['date_generated']
 
     @property
     def date_updated(self):
-        """ The date_updated """
+        """
+        :returns: The date_updated
+        :rtype: datetime
+        """
         return self._properties['date_updated']
 
     @property
     def error_code(self):
-        """ The error_code """
+        """
+        :returns: The error_code
+        :rtype: str
+        """
         return self._properties['error_code']
 
     @property
     def log_level(self):
-        """ The log_level """
+        """
+        :returns: The log_level
+        :rtype: str
+        """
         return self._properties['log_level']
 
     @property
     def more_info(self):
-        """ The more_info """
+        """
+        :returns: The more_info
+        :rtype: str
+        """
         return self._properties['more_info']
 
     @property
     def request_method(self):
-        """ The request_method """
+        """
+        :returns: The request_method
+        :rtype: str
+        """
         return self._properties['request_method']
 
     @property
     def request_url(self):
-        """ The request_url """
+        """
+        :returns: The request_url
+        :rtype: str
+        """
         return self._properties['request_url']
 
     @property
     def request_variables(self):
-        """ The request_variables """
+        """
+        :returns: The request_variables
+        :rtype: str
+        """
         return self._properties['request_variables']
 
     @property
     def resource_sid(self):
-        """ The resource_sid """
+        """
+        :returns: The resource_sid
+        :rtype: str
+        """
         return self._properties['resource_sid']
 
     @property
     def response_body(self):
-        """ The response_body """
+        """
+        :returns: The response_body
+        :rtype: str
+        """
         return self._properties['response_body']
 
     @property
     def response_headers(self):
-        """ The response_headers """
+        """
+        :returns: The response_headers
+        :rtype: str
+        """
         return self._properties['response_headers']
 
     @property
     def sid(self):
-        """ The sid """
+        """
+        :returns: The sid
+        :rtype: str
+        """
         return self._properties['sid']
 
     @property
     def url(self):
-        """ The url """
+        """
+        :returns: The url
+        :rtype: str
+        """
         return self._properties['url']
 
     def fetch(self):
@@ -273,3 +337,13 @@ class AlertInstance(InstanceResource):
 
     def delete(self):
         self._context.delete()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Monitor.V1.AlertInstance {}>'.format(context)

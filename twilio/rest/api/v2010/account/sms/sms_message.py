@@ -182,6 +182,12 @@ class SmsMessageContext(InstanceContext):
 class SmsMessageInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid, sid=None):
+        """
+        Initialize the SmsMessageInstance
+        
+        :returns: SmsMessageInstance
+        :rtype: SmsMessageInstance
+        """
         super(SmsMessageInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -208,115 +214,179 @@ class SmsMessageInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'account_sid': account_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = SmsMessageContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: SmsMessageContext for this SmsMessageInstance
+        :rtype: SmsMessageContext
+        """
+        if self._instance_context is None:
+            self._instance_context = SmsMessageContext(
                 self._version,
-                self._context_properties['account_sid'],
-                self._context_properties['sid'],
+                self._kwargs['account_sid'],
+                self._kwargs['sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The account_sid
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def api_version(self):
-        """ The api_version """
+        """
+        :returns: The api_version
+        :rtype: str
+        """
         return self._properties['api_version']
 
     @property
     def body(self):
-        """ The body """
+        """
+        :returns: The body
+        :rtype: str
+        """
         return self._properties['body']
 
     @property
     def date_created(self):
-        """ The date_created """
+        """
+        :returns: The date_created
+        :rtype: datetime
+        """
         return self._properties['date_created']
 
     @property
     def date_updated(self):
-        """ The date_updated """
+        """
+        :returns: The date_updated
+        :rtype: datetime
+        """
         return self._properties['date_updated']
 
     @property
     def date_sent(self):
-        """ The date_sent """
+        """
+        :returns: The date_sent
+        :rtype: datetime
+        """
         return self._properties['date_sent']
 
     @property
     def direction(self):
-        """ The direction """
+        """
+        :returns: The direction
+        :rtype: sms_message.direction
+        """
         return self._properties['direction']
 
     @property
     def error_code(self):
-        """ The error_code """
+        """
+        :returns: The error_code
+        :rtype: str
+        """
         return self._properties['error_code']
 
     @property
     def error_message(self):
-        """ The error_message """
+        """
+        :returns: The error_message
+        :rtype: str
+        """
         return self._properties['error_message']
 
     @property
     def from_(self):
-        """ The from """
+        """
+        :returns: The from
+        :rtype: str
+        """
         return self._properties['from_']
 
     @property
     def num_media(self):
-        """ The num_media """
+        """
+        :returns: The num_media
+        :rtype: str
+        """
         return self._properties['num_media']
 
     @property
     def num_segments(self):
-        """ The num_segments """
+        """
+        :returns: The num_segments
+        :rtype: str
+        """
         return self._properties['num_segments']
 
     @property
     def price(self):
-        """ The price """
+        """
+        :returns: The price
+        :rtype: str
+        """
         return self._properties['price']
 
     @property
     def price_unit(self):
-        """ The price_unit """
+        """
+        :returns: The price_unit
+        :rtype: str
+        """
         return self._properties['price_unit']
 
     @property
     def sid(self):
-        """ The sid """
+        """
+        :returns: The sid
+        :rtype: str
+        """
         return self._properties['sid']
 
     @property
     def status(self):
-        """ The status """
+        """
+        :returns: The status
+        :rtype: sms_message.status
+        """
         return self._properties['status']
 
     @property
     def subresource_uris(self):
-        """ The subresource_uris """
+        """
+        :returns: The subresource_uris
+        :rtype: str
+        """
         return self._properties['subresource_uris']
 
     @property
     def to(self):
-        """ The to """
+        """
+        :returns: The to
+        :rtype: str
+        """
         return self._properties['to']
 
     @property
     def uri(self):
-        """ The uri """
+        """
+        :returns: The uri
+        :rtype: str
+        """
         return self._properties['uri']
 
     def delete(self):
@@ -329,3 +399,13 @@ class SmsMessageInstance(InstanceResource):
         self._context.update(
             body=body,
         )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.SmsMessageInstance {}>'.format(context)

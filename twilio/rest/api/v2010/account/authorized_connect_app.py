@@ -137,6 +137,12 @@ class AuthorizedConnectAppContext(InstanceContext):
 class AuthorizedConnectAppInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid, sid=None):
+        """
+        Initialize the AuthorizedConnectAppInstance
+        
+        :returns: AuthorizedConnectAppInstance
+        :rtype: AuthorizedConnectAppInstance
+        """
         super(AuthorizedConnectAppInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -154,71 +160,118 @@ class AuthorizedConnectAppInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'account_sid': account_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = AuthorizedConnectAppContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: AuthorizedConnectAppContext for this AuthorizedConnectAppInstance
+        :rtype: AuthorizedConnectAppContext
+        """
+        if self._instance_context is None:
+            self._instance_context = AuthorizedConnectAppContext(
                 self._version,
-                self._context_properties['account_sid'],
-                self._context_properties['sid'],
+                self._kwargs['account_sid'],
+                self._kwargs['sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The unique sid that identifies this account
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def connect_app_company_name(self):
-        """ The connect_app_company_name """
+        """
+        :returns: The company name set for this Connect App.
+        :rtype: str
+        """
         return self._properties['connect_app_company_name']
 
     @property
     def connect_app_description(self):
-        """ The connect_app_description """
+        """
+        :returns: Human readable description of the app
+        :rtype: str
+        """
         return self._properties['connect_app_description']
 
     @property
     def connect_app_friendly_name(self):
-        """ The connect_app_friendly_name """
+        """
+        :returns: A human readable name for the Connect App.
+        :rtype: str
+        """
         return self._properties['connect_app_friendly_name']
 
     @property
     def connect_app_homepage_url(self):
-        """ The connect_app_homepage_url """
+        """
+        :returns: The public URL for this Connect App.
+        :rtype: str
+        """
         return self._properties['connect_app_homepage_url']
 
     @property
     def connect_app_sid(self):
-        """ The connect_app_sid """
+        """
+        :returns: A string that uniquely identifies this app
+        :rtype: str
+        """
         return self._properties['connect_app_sid']
 
     @property
     def date_created(self):
-        """ The date_created """
+        """
+        :returns: The date this resource was created
+        :rtype: datetime
+        """
         return self._properties['date_created']
 
     @property
     def date_updated(self):
-        """ The date_updated """
+        """
+        :returns: The date this resource was last updated
+        :rtype: datetime
+        """
         return self._properties['date_updated']
 
     @property
     def permissions(self):
-        """ The permissions """
+        """
+        :returns: Permissions authorized to this app
+        :rtype: authorized_connect_app.permission
+        """
         return self._properties['permissions']
 
     @property
     def uri(self):
-        """ The uri """
+        """
+        :returns: The URI for this resource
+        :rtype: str
+        """
         return self._properties['uri']
 
     def fetch(self):
         self._context.fetch()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.AuthorizedConnectAppInstance {}>'.format(context)

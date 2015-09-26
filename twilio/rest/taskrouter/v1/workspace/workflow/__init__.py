@@ -12,6 +12,7 @@ from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
 from twilio.rest.taskrouter.v1.workspace.workflow.statistics import StatisticsContext
+from twilio.rest.taskrouter.v1.workspace.workflow.statistics import statistics
 
 
 class WorkflowList(ListResource):
@@ -203,6 +204,12 @@ class WorkflowContext(InstanceContext):
 class WorkflowInstance(InstanceResource):
 
     def __init__(self, version, payload, workspace_sid, sid=None):
+        """
+        Initialize the WorkflowInstance
+        
+        :returns: WorkflowInstance
+        :rtype: WorkflowInstance
+        """
         super(WorkflowInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -221,75 +228,115 @@ class WorkflowInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'workspace_sid': workspace_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = WorkflowContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: WorkflowContext for this WorkflowInstance
+        :rtype: WorkflowContext
+        """
+        if self._instance_context is None:
+            self._instance_context = WorkflowContext(
                 self._version,
-                self._context_properties['workspace_sid'],
-                self._context_properties['sid'],
+                self._kwargs['workspace_sid'],
+                self._kwargs['sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The account_sid
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def assignment_callback_url(self):
-        """ The assignment_callback_url """
+        """
+        :returns: The assignment_callback_url
+        :rtype: str
+        """
         return self._properties['assignment_callback_url']
 
     @property
     def configuration(self):
-        """ The configuration """
+        """
+        :returns: The configuration
+        :rtype: str
+        """
         return self._properties['configuration']
 
     @property
     def date_created(self):
-        """ The date_created """
+        """
+        :returns: The date_created
+        :rtype: datetime
+        """
         return self._properties['date_created']
 
     @property
     def date_updated(self):
-        """ The date_updated """
+        """
+        :returns: The date_updated
+        :rtype: datetime
+        """
         return self._properties['date_updated']
 
     @property
     def document_content_type(self):
-        """ The document_content_type """
+        """
+        :returns: The document_content_type
+        :rtype: str
+        """
         return self._properties['document_content_type']
 
     @property
     def fallback_assignment_callback_url(self):
-        """ The fallback_assignment_callback_url """
+        """
+        :returns: The fallback_assignment_callback_url
+        :rtype: str
+        """
         return self._properties['fallback_assignment_callback_url']
 
     @property
     def friendly_name(self):
-        """ The friendly_name """
+        """
+        :returns: The friendly_name
+        :rtype: str
+        """
         return self._properties['friendly_name']
 
     @property
     def sid(self):
-        """ The sid """
+        """
+        :returns: The sid
+        :rtype: str
+        """
         return self._properties['sid']
 
     @property
     def task_reservation_timeout(self):
-        """ The task_reservation_timeout """
+        """
+        :returns: The task_reservation_timeout
+        :rtype: str
+        """
         return self._properties['task_reservation_timeout']
 
     @property
     def workspace_sid(self):
-        """ The workspace_sid """
+        """
+        :returns: The workspace_sid
+        :rtype: str
+        """
         return self._properties['workspace_sid']
 
     def fetch(self):
@@ -312,4 +359,20 @@ class WorkflowInstance(InstanceResource):
 
     @property
     def statistics(self):
+        """
+        Access the statistics
+        
+        :returns: statistics
+        :rtype: statistics
+        """
         return self._context.statistics
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Taskrouter.V1.WorkflowInstance {}>'.format(context)

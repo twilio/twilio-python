@@ -151,6 +151,12 @@ class EventContext(InstanceContext):
 class EventInstance(InstanceResource):
 
     def __init__(self, version, payload, sid=None):
+        """
+        Initialize the EventInstance
+        
+        :returns: EventInstance
+        :rtype: EventInstance
+        """
         super(EventInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -171,84 +177,140 @@ class EventInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'sid': sid or self._properties['sid'],
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = EventContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: EventContext for this EventInstance
+        :rtype: EventContext
+        """
+        if self._instance_context is None:
+            self._instance_context = EventContext(
                 self._version,
-                self._context_properties['sid'],
+                self._kwargs['sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The account_sid
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def actor_sid(self):
-        """ The actor_sid """
+        """
+        :returns: The actor_sid
+        :rtype: str
+        """
         return self._properties['actor_sid']
 
     @property
     def actor_type(self):
-        """ The actor_type """
+        """
+        :returns: The actor_type
+        :rtype: str
+        """
         return self._properties['actor_type']
 
     @property
     def description(self):
-        """ The description """
+        """
+        :returns: The description
+        :rtype: str
+        """
         return self._properties['description']
 
     @property
     def event_data(self):
-        """ The event_data """
+        """
+        :returns: The event_data
+        :rtype: str
+        """
         return self._properties['event_data']
 
     @property
     def event_date(self):
-        """ The event_date """
+        """
+        :returns: The event_date
+        :rtype: datetime
+        """
         return self._properties['event_date']
 
     @property
     def event_type(self):
-        """ The event_type """
+        """
+        :returns: The event_type
+        :rtype: str
+        """
         return self._properties['event_type']
 
     @property
     def resource_sid(self):
-        """ The resource_sid """
+        """
+        :returns: The resource_sid
+        :rtype: str
+        """
         return self._properties['resource_sid']
 
     @property
     def resource_type(self):
-        """ The resource_type """
+        """
+        :returns: The resource_type
+        :rtype: str
+        """
         return self._properties['resource_type']
 
     @property
     def resource_url(self):
-        """ The resource_url """
+        """
+        :returns: The resource_url
+        :rtype: str
+        """
         return self._properties['resource_url']
 
     @property
     def sid(self):
-        """ The sid """
+        """
+        :returns: The sid
+        :rtype: str
+        """
         return self._properties['sid']
 
     @property
     def source(self):
-        """ The source """
+        """
+        :returns: The source
+        :rtype: str
+        """
         return self._properties['source']
 
     @property
     def source_ip_address(self):
-        """ The source_ip_address """
+        """
+        :returns: The source_ip_address
+        :rtype: str
+        """
         return self._properties['source_ip_address']
 
     def fetch(self):
         self._context.fetch()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Monitor.V1.EventInstance {}>'.format(context)

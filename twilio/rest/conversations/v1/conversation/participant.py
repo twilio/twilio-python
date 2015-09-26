@@ -151,6 +151,12 @@ class ParticipantContext(InstanceContext):
 class ParticipantInstance(InstanceResource):
 
     def __init__(self, version, payload, conversation_sid, sid=None):
+        """
+        Initialize the ParticipantInstance
+        
+        :returns: ParticipantInstance
+        :rtype: ParticipantInstance
+        """
         super(ParticipantInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -168,71 +174,118 @@ class ParticipantInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'conversation_sid': conversation_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = ParticipantContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: ParticipantContext for this ParticipantInstance
+        :rtype: ParticipantContext
+        """
+        if self._instance_context is None:
+            self._instance_context = ParticipantContext(
                 self._version,
-                self._context_properties['conversation_sid'],
-                self._context_properties['sid'],
+                self._kwargs['conversation_sid'],
+                self._kwargs['sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def sid(self):
-        """ The sid """
+        """
+        :returns: The sid
+        :rtype: str
+        """
         return self._properties['sid']
 
     @property
     def address(self):
-        """ The address """
+        """
+        :returns: The address
+        :rtype: str
+        """
         return self._properties['address']
 
     @property
     def status(self):
-        """ The status """
+        """
+        :returns: The status
+        :rtype: participant.status
+        """
         return self._properties['status']
 
     @property
     def conversation_sid(self):
-        """ The conversation_sid """
+        """
+        :returns: The conversation_sid
+        :rtype: str
+        """
         return self._properties['conversation_sid']
 
     @property
     def date_created(self):
-        """ The date_created """
+        """
+        :returns: The date_created
+        :rtype: datetime
+        """
         return self._properties['date_created']
 
     @property
     def start_time(self):
-        """ The start_time """
+        """
+        :returns: The start_time
+        :rtype: datetime
+        """
         return self._properties['start_time']
 
     @property
     def end_time(self):
-        """ The end_time """
+        """
+        :returns: The end_time
+        :rtype: datetime
+        """
         return self._properties['end_time']
 
     @property
     def duration(self):
-        """ The duration """
+        """
+        :returns: The duration
+        :rtype: str
+        """
         return self._properties['duration']
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The account_sid
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def url(self):
-        """ The url """
+        """
+        :returns: The url
+        :rtype: str
+        """
         return self._properties['url']
 
     def fetch(self):
         self._context.fetch()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Conversations.V1.ParticipantInstance {}>'.format(context)

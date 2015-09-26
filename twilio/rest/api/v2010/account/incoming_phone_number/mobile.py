@@ -172,6 +172,12 @@ class MobileContext(InstanceContext):
 class MobileInstance(InstanceResource):
 
     def __init__(self, version, payload, owner_account_sid, sid=None):
+        """
+        Initialize the MobileInstance
+        
+        :returns: MobileInstance
+        :rtype: MobileInstance
+        """
         super(MobileInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -203,138 +209,227 @@ class MobileInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'owner_account_sid': owner_account_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = MobileContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: MobileContext for this MobileInstance
+        :rtype: MobileContext
+        """
+        if self._instance_context is None:
+            self._instance_context = MobileContext(
                 self._version,
-                self._context_properties['owner_account_sid'],
-                self._context_properties['sid'],
+                self._kwargs['owner_account_sid'],
+                self._kwargs['sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The account_sid
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def address_requirements(self):
-        """ The address_requirements """
+        """
+        :returns: The address_requirements
+        :rtype: mobile.address_requirement
+        """
         return self._properties['address_requirements']
 
     @property
     def api_version(self):
-        """ The api_version """
+        """
+        :returns: The api_version
+        :rtype: str
+        """
         return self._properties['api_version']
 
     @property
     def beta(self):
-        """ The beta """
+        """
+        :returns: The beta
+        :rtype: bool
+        """
         return self._properties['beta']
 
     @property
     def capabilities(self):
-        """ The capabilities """
+        """
+        :returns: The capabilities
+        :rtype: str
+        """
         return self._properties['capabilities']
 
     @property
     def date_created(self):
-        """ The date_created """
+        """
+        :returns: The date_created
+        :rtype: datetime
+        """
         return self._properties['date_created']
 
     @property
     def date_updated(self):
-        """ The date_updated """
+        """
+        :returns: The date_updated
+        :rtype: datetime
+        """
         return self._properties['date_updated']
 
     @property
     def friendly_name(self):
-        """ The friendly_name """
+        """
+        :returns: The friendly_name
+        :rtype: str
+        """
         return self._properties['friendly_name']
 
     @property
     def phone_number(self):
-        """ The phone_number """
+        """
+        :returns: The phone_number
+        :rtype: str
+        """
         return self._properties['phone_number']
 
     @property
     def sid(self):
-        """ The sid """
+        """
+        :returns: The sid
+        :rtype: str
+        """
         return self._properties['sid']
 
     @property
     def sms_application_sid(self):
-        """ The sms_application_sid """
+        """
+        :returns: The sms_application_sid
+        :rtype: str
+        """
         return self._properties['sms_application_sid']
 
     @property
     def sms_fallback_method(self):
-        """ The sms_fallback_method """
+        """
+        :returns: The sms_fallback_method
+        :rtype: str
+        """
         return self._properties['sms_fallback_method']
 
     @property
     def sms_fallback_url(self):
-        """ The sms_fallback_url """
+        """
+        :returns: The sms_fallback_url
+        :rtype: str
+        """
         return self._properties['sms_fallback_url']
 
     @property
     def sms_method(self):
-        """ The sms_method """
+        """
+        :returns: The sms_method
+        :rtype: str
+        """
         return self._properties['sms_method']
 
     @property
     def sms_url(self):
-        """ The sms_url """
+        """
+        :returns: The sms_url
+        :rtype: str
+        """
         return self._properties['sms_url']
 
     @property
     def status_callback(self):
-        """ The status_callback """
+        """
+        :returns: The status_callback
+        :rtype: str
+        """
         return self._properties['status_callback']
 
     @property
     def status_callback_method(self):
-        """ The status_callback_method """
+        """
+        :returns: The status_callback_method
+        :rtype: str
+        """
         return self._properties['status_callback_method']
 
     @property
     def uri(self):
-        """ The uri """
+        """
+        :returns: The uri
+        :rtype: str
+        """
         return self._properties['uri']
 
     @property
     def voice_application_sid(self):
-        """ The voice_application_sid """
+        """
+        :returns: The voice_application_sid
+        :rtype: str
+        """
         return self._properties['voice_application_sid']
 
     @property
     def voice_caller_id_lookup(self):
-        """ The voice_caller_id_lookup """
+        """
+        :returns: The voice_caller_id_lookup
+        :rtype: bool
+        """
         return self._properties['voice_caller_id_lookup']
 
     @property
     def voice_fallback_method(self):
-        """ The voice_fallback_method """
+        """
+        :returns: The voice_fallback_method
+        :rtype: str
+        """
         return self._properties['voice_fallback_method']
 
     @property
     def voice_fallback_url(self):
-        """ The voice_fallback_url """
+        """
+        :returns: The voice_fallback_url
+        :rtype: str
+        """
         return self._properties['voice_fallback_url']
 
     @property
     def voice_method(self):
-        """ The voice_method """
+        """
+        :returns: The voice_method
+        :rtype: str
+        """
         return self._properties['voice_method']
 
     @property
     def voice_url(self):
-        """ The voice_url """
+        """
+        :returns: The voice_url
+        :rtype: str
+        """
         return self._properties['voice_url']
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.MobileInstance {}>'.format(context)

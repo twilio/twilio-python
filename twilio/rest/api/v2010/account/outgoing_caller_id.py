@@ -179,6 +179,12 @@ class OutgoingCallerIdContext(InstanceContext):
 class OutgoingCallerIdInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid, sid=None):
+        """
+        Initialize the OutgoingCallerIdInstance
+        
+        :returns: OutgoingCallerIdInstance
+        :rtype: OutgoingCallerIdInstance
+        """
         super(OutgoingCallerIdInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -195,65 +201,99 @@ class OutgoingCallerIdInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'account_sid': account_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = OutgoingCallerIdContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: OutgoingCallerIdContext for this OutgoingCallerIdInstance
+        :rtype: OutgoingCallerIdContext
+        """
+        if self._instance_context is None:
+            self._instance_context = OutgoingCallerIdContext(
                 self._version,
-                self._context_properties['account_sid'],
-                self._context_properties['sid'],
+                self._kwargs['account_sid'],
+                self._kwargs['sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The unique sid that identifies this account
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def call_sid(self):
-        """ The call_sid """
+        """
+        :returns: The call_sid
+        :rtype: str
+        """
         return self._properties['call_sid']
 
     @property
     def date_created(self):
-        """ The date_created """
+        """
+        :returns: The date this resource was created
+        :rtype: datetime
+        """
         return self._properties['date_created']
 
     @property
     def date_updated(self):
-        """ The date_updated """
+        """
+        :returns: The date this resource was last updated
+        :rtype: datetime
+        """
         return self._properties['date_updated']
 
     @property
     def friendly_name(self):
-        """ The friendly_name """
+        """
+        :returns: A human readable description for this resource
+        :rtype: str
+        """
         return self._properties['friendly_name']
 
     @property
     def phone_number(self):
-        """ The phone_number """
+        """
+        :returns: The incoming phone number
+        :rtype: str
+        """
         return self._properties['phone_number']
 
     @property
     def sid(self):
-        """ The sid """
+        """
+        :returns: A string that uniquely identifies this outgoing-caller-ids
+        :rtype: str
+        """
         return self._properties['sid']
 
     @property
     def uri(self):
-        """ The uri """
+        """
+        :returns: The URI for this resource
+        :rtype: str
+        """
         return self._properties['uri']
 
     @property
     def validation_code(self):
-        """ The validation_code """
+        """
+        :returns: The validation_code
+        :rtype: str
+        """
         return self._properties['validation_code']
 
     def fetch(self):
@@ -266,3 +306,13 @@ class OutgoingCallerIdInstance(InstanceResource):
 
     def delete(self):
         self._context.delete()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.OutgoingCallerIdInstance {}>'.format(context)

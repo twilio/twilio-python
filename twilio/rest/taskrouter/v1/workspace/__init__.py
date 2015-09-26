@@ -12,12 +12,19 @@ from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
 from twilio.rest.taskrouter.v1.workspace.activity import ActivityList
+from twilio.rest.taskrouter.v1.workspace.activity import activities
 from twilio.rest.taskrouter.v1.workspace.event import EventList
+from twilio.rest.taskrouter.v1.workspace.event import events
 from twilio.rest.taskrouter.v1.workspace.statistics import StatisticsContext
+from twilio.rest.taskrouter.v1.workspace.statistics import statistics
 from twilio.rest.taskrouter.v1.workspace.task import TaskList
+from twilio.rest.taskrouter.v1.workspace.task import tasks
 from twilio.rest.taskrouter.v1.workspace.task_queue import TaskQueueList
+from twilio.rest.taskrouter.v1.workspace.task_queue import task_queues
 from twilio.rest.taskrouter.v1.workspace.worker import WorkerList
+from twilio.rest.taskrouter.v1.workspace.worker import workers
 from twilio.rest.taskrouter.v1.workspace.workflow import WorkflowList
+from twilio.rest.taskrouter.v1.workspace.workflow import workflows
 
 
 class WorkspaceList(ListResource):
@@ -294,6 +301,12 @@ class WorkspaceContext(InstanceContext):
 class WorkspaceInstance(InstanceResource):
 
     def __init__(self, version, payload, sid=None):
+        """
+        Initialize the WorkspaceInstance
+        
+        :returns: WorkspaceInstance
+        :rtype: WorkspaceInstance
+        """
         super(WorkspaceInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -311,68 +324,105 @@ class WorkspaceInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'sid': sid or self._properties['sid'],
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = WorkspaceContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: WorkspaceContext for this WorkspaceInstance
+        :rtype: WorkspaceContext
+        """
+        if self._instance_context is None:
+            self._instance_context = WorkspaceContext(
                 self._version,
-                self._context_properties['sid'],
+                self._kwargs['sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The account_sid
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def date_created(self):
-        """ The date_created """
+        """
+        :returns: The date_created
+        :rtype: datetime
+        """
         return self._properties['date_created']
 
     @property
     def date_updated(self):
-        """ The date_updated """
+        """
+        :returns: The date_updated
+        :rtype: datetime
+        """
         return self._properties['date_updated']
 
     @property
     def default_activity_name(self):
-        """ The default_activity_name """
+        """
+        :returns: The default_activity_name
+        :rtype: str
+        """
         return self._properties['default_activity_name']
 
     @property
     def default_activity_sid(self):
-        """ The default_activity_sid """
+        """
+        :returns: The default_activity_sid
+        :rtype: str
+        """
         return self._properties['default_activity_sid']
 
     @property
     def event_callback_url(self):
-        """ The event_callback_url """
+        """
+        :returns: The event_callback_url
+        :rtype: str
+        """
         return self._properties['event_callback_url']
 
     @property
     def friendly_name(self):
-        """ The friendly_name """
+        """
+        :returns: The friendly_name
+        :rtype: str
+        """
         return self._properties['friendly_name']
 
     @property
     def sid(self):
-        """ The sid """
+        """
+        :returns: The sid
+        :rtype: str
+        """
         return self._properties['sid']
 
     @property
     def timeout_activity_name(self):
-        """ The timeout_activity_name """
+        """
+        :returns: The timeout_activity_name
+        :rtype: str
+        """
         return self._properties['timeout_activity_name']
 
     @property
     def timeout_activity_sid(self):
-        """ The timeout_activity_sid """
+        """
+        :returns: The timeout_activity_sid
+        :rtype: str
+        """
         return self._properties['timeout_activity_sid']
 
     def fetch(self):
@@ -393,28 +443,80 @@ class WorkspaceInstance(InstanceResource):
 
     @property
     def activities(self):
+        """
+        Access the activities
+        
+        :returns: activities
+        :rtype: activities
+        """
         return self._context.activities
 
     @property
     def events(self):
+        """
+        Access the events
+        
+        :returns: events
+        :rtype: events
+        """
         return self._context.events
 
     @property
     def tasks(self):
+        """
+        Access the tasks
+        
+        :returns: tasks
+        :rtype: tasks
+        """
         return self._context.tasks
 
     @property
     def task_queues(self):
+        """
+        Access the task_queues
+        
+        :returns: task_queues
+        :rtype: task_queues
+        """
         return self._context.task_queues
 
     @property
     def workers(self):
+        """
+        Access the workers
+        
+        :returns: workers
+        :rtype: workers
+        """
         return self._context.workers
 
     @property
     def workflows(self):
+        """
+        Access the workflows
+        
+        :returns: workflows
+        :rtype: workflows
+        """
         return self._context.workflows
 
     @property
     def statistics(self):
+        """
+        Access the statistics
+        
+        :returns: statistics
+        :rtype: statistics
+        """
         return self._context.statistics
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Taskrouter.V1.WorkspaceInstance {}>'.format(context)

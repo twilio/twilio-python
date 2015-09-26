@@ -56,6 +56,12 @@ class NumberContext(InstanceContext):
 class NumberInstance(InstanceResource):
 
     def __init__(self, version, payload, number=None):
+        """
+        Initialize the NumberInstance
+        
+        :returns: NumberInstance
+        :rtype: NumberInstance
+        """
         super(NumberInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -70,54 +76,92 @@ class NumberInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'number': number or self._properties['number'],
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = NumberContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: NumberContext for this NumberInstance
+        :rtype: NumberContext
+        """
+        if self._instance_context is None:
+            self._instance_context = NumberContext(
                 self._version,
-                self._context_properties['number'],
+                self._kwargs['number'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def number(self):
-        """ The number """
+        """
+        :returns: The number
+        :rtype: str
+        """
         return self._properties['number']
 
     @property
     def country(self):
-        """ The country """
+        """
+        :returns: The country
+        :rtype: str
+        """
         return self._properties['country']
 
     @property
     def iso_country(self):
-        """ The iso_country """
+        """
+        :returns: The iso_country
+        :rtype: str
+        """
         return self._properties['iso_country']
 
     @property
     def outbound_call_price(self):
-        """ The outbound_call_price """
+        """
+        :returns: The outbound_call_price
+        :rtype: str
+        """
         return self._properties['outbound_call_price']
 
     @property
     def inbound_call_price(self):
-        """ The inbound_call_price """
+        """
+        :returns: The inbound_call_price
+        :rtype: str
+        """
         return self._properties['inbound_call_price']
 
     @property
     def price_unit(self):
-        """ The price_unit """
+        """
+        :returns: The price_unit
+        :rtype: str
+        """
         return self._properties['price_unit']
 
     @property
     def uri(self):
-        """ The uri """
+        """
+        :returns: The uri
+        :rtype: str
+        """
         return self._properties['uri']
 
     def fetch(self):
         self._context.fetch()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Pricing.V1.NumberInstance {}>'.format(context)

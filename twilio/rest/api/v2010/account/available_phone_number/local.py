@@ -126,6 +126,12 @@ class LocalContext(InstanceContext):
 class LocalInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid, country_code):
+        """
+        Initialize the LocalInstance
+        
+        :returns: LocalInstance
+        :rtype: LocalInstance
+        """
         super(LocalInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -145,76 +151,129 @@ class LocalInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'account_sid': account_sid,
             'country_code': country_code,
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = LocalContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: LocalContext for this LocalInstance
+        :rtype: LocalContext
+        """
+        if self._instance_context is None:
+            self._instance_context = LocalContext(
                 self._version,
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def friendly_name(self):
-        """ The friendly_name """
+        """
+        :returns: The friendly_name
+        :rtype: str
+        """
         return self._properties['friendly_name']
 
     @property
     def phone_number(self):
-        """ The phone_number """
+        """
+        :returns: The phone_number
+        :rtype: str
+        """
         return self._properties['phone_number']
 
     @property
     def lata(self):
-        """ The lata """
+        """
+        :returns: The lata
+        :rtype: str
+        """
         return self._properties['lata']
 
     @property
     def rate_center(self):
-        """ The rate_center """
+        """
+        :returns: The rate_center
+        :rtype: str
+        """
         return self._properties['rate_center']
 
     @property
     def latitude(self):
-        """ The latitude """
+        """
+        :returns: The latitude
+        :rtype: str
+        """
         return self._properties['latitude']
 
     @property
     def longitude(self):
-        """ The longitude """
+        """
+        :returns: The longitude
+        :rtype: str
+        """
         return self._properties['longitude']
 
     @property
     def region(self):
-        """ The region """
+        """
+        :returns: The region
+        :rtype: str
+        """
         return self._properties['region']
 
     @property
     def postal_code(self):
-        """ The postal_code """
+        """
+        :returns: The postal_code
+        :rtype: str
+        """
         return self._properties['postal_code']
 
     @property
     def iso_country(self):
-        """ The iso_country """
+        """
+        :returns: The iso_country
+        :rtype: str
+        """
         return self._properties['iso_country']
 
     @property
     def address_requirements(self):
-        """ The address_requirements """
+        """
+        :returns: The address_requirements
+        :rtype: str
+        """
         return self._properties['address_requirements']
 
     @property
     def beta(self):
-        """ The beta """
+        """
+        :returns: The beta
+        :rtype: bool
+        """
         return self._properties['beta']
 
     @property
     def capabilities(self):
-        """ The capabilities """
+        """
+        :returns: The capabilities
+        :rtype: str
+        """
         return self._properties['capabilities']
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.LocalInstance {}>'.format(context)

@@ -41,6 +41,12 @@ class VoiceContext(InstanceContext):
 class VoiceInstance(InstanceResource):
 
     def __init__(self, version, payload):
+        """
+        Initialize the VoiceInstance
+        
+        :returns: VoiceInstance
+        :rtype: VoiceInstance
+        """
         super(VoiceInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -51,28 +57,54 @@ class VoiceInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {}
+        self._instance_context = None
+        self._kwargs = {}
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = VoiceContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: VoiceContext for this VoiceInstance
+        :rtype: VoiceContext
+        """
+        if self._instance_context is None:
+            self._instance_context = VoiceContext(
                 self._version,
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def name(self):
-        """ The name """
+        """
+        :returns: The name
+        :rtype: str
+        """
         return self._properties['name']
 
     @property
     def url(self):
-        """ The url """
+        """
+        :returns: The url
+        :rtype: str
+        """
         return self._properties['url']
 
     @property
     def links(self):
-        """ The links """
+        """
+        :returns: The links
+        :rtype: str
+        """
         return self._properties['links']
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Pricing.V1.VoiceInstance {}>'.format(context)

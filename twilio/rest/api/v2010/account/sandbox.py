@@ -77,6 +77,12 @@ class SandboxContext(InstanceContext):
 class SandboxInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid=None):
+        """
+        Initialize the SandboxInstance
+        
+        :returns: SandboxInstance
+        :rtype: SandboxInstance
+        """
         super(SandboxInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -98,88 +104,137 @@ class SandboxInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'account_sid': account_sid or self._properties['account_sid'],
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = SandboxContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: SandboxContext for this SandboxInstance
+        :rtype: SandboxContext
+        """
+        if self._instance_context is None:
+            self._instance_context = SandboxContext(
                 self._version,
-                self._context_properties['account_sid'],
+                self._kwargs['account_sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def date_created(self):
-        """ The date_created """
+        """
+        :returns: The date_created
+        :rtype: datetime
+        """
         return self._properties['date_created']
 
     @property
     def date_updated(self):
-        """ The date_updated """
+        """
+        :returns: The date_updated
+        :rtype: datetime
+        """
         return self._properties['date_updated']
 
     @property
     def pin(self):
-        """ The pin """
+        """
+        :returns: The pin
+        :rtype: str
+        """
         return self._properties['pin']
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The account_sid
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def phone_number(self):
-        """ The phone_number """
+        """
+        :returns: The phone_number
+        :rtype: str
+        """
         return self._properties['phone_number']
 
     @property
     def application_sid(self):
-        """ The application_sid """
+        """
+        :returns: The application_sid
+        :rtype: str
+        """
         return self._properties['application_sid']
 
     @property
     def api_version(self):
-        """ The api_version """
+        """
+        :returns: The api_version
+        :rtype: str
+        """
         return self._properties['api_version']
 
     @property
     def voice_url(self):
-        """ The voice_url """
+        """
+        :returns: The voice_url
+        :rtype: str
+        """
         return self._properties['voice_url']
 
     @property
     def voice_method(self):
-        """ The voice_method """
+        """
+        :returns: The voice_method
+        :rtype: str
+        """
         return self._properties['voice_method']
 
     @property
     def sms_url(self):
-        """ The sms_url """
+        """
+        :returns: The sms_url
+        :rtype: str
+        """
         return self._properties['sms_url']
 
     @property
     def sms_method(self):
-        """ The sms_method """
+        """
+        :returns: The sms_method
+        :rtype: str
+        """
         return self._properties['sms_method']
 
     @property
     def status_callback(self):
-        """ The status_callback """
+        """
+        :returns: The status_callback
+        :rtype: str
+        """
         return self._properties['status_callback']
 
     @property
     def status_callback_method(self):
-        """ The status_callback_method """
+        """
+        :returns: The status_callback_method
+        :rtype: str
+        """
         return self._properties['status_callback_method']
 
     @property
     def uri(self):
-        """ The uri """
+        """
+        :returns: The uri
+        :rtype: str
+        """
         return self._properties['uri']
 
     def fetch(self):
@@ -196,3 +251,13 @@ class SandboxInstance(InstanceResource):
             status_callback=status_callback,
             status_callback_method=status_callback_method,
         )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.SandboxInstance {}>'.format(context)

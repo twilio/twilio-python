@@ -186,6 +186,12 @@ class TriggerContext(InstanceContext):
 class TriggerInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid, sid=None):
+        """
+        Initialize the TriggerInstance
+        
+        :returns: TriggerInstance
+        :rtype: TriggerInstance
+        """
         super(TriggerInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -209,100 +215,155 @@ class TriggerInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'account_sid': account_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = TriggerContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: TriggerContext for this TriggerInstance
+        :rtype: TriggerContext
+        """
+        if self._instance_context is None:
+            self._instance_context = TriggerContext(
                 self._version,
-                self._context_properties['account_sid'],
-                self._context_properties['sid'],
+                self._kwargs['account_sid'],
+                self._kwargs['sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The account this trigger monitors.
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def api_version(self):
-        """ The api_version """
+        """
+        :returns: The api_version
+        :rtype: str
+        """
         return self._properties['api_version']
 
     @property
     def callback_method(self):
-        """ The callback_method """
+        """
+        :returns: HTTP method to use with callback_url
+        :rtype: str
+        """
         return self._properties['callback_method']
 
     @property
     def callback_url(self):
-        """ The callback_url """
+        """
+        :returns: URL Twilio will request when the trigger fires
+        :rtype: str
+        """
         return self._properties['callback_url']
 
     @property
     def current_value(self):
-        """ The current_value """
+        """
+        :returns: The current value of the field the trigger is watching.
+        :rtype: str
+        """
         return self._properties['current_value']
 
     @property
     def date_created(self):
-        """ The date_created """
+        """
+        :returns: The date this resource was created
+        :rtype: datetime
+        """
         return self._properties['date_created']
 
     @property
     def date_fired(self):
-        """ The date_fired """
+        """
+        :returns: The date the trigger was last fired
+        :rtype: datetime
+        """
         return self._properties['date_fired']
 
     @property
     def date_updated(self):
-        """ The date_updated """
+        """
+        :returns: The date this resource was last updated
+        :rtype: datetime
+        """
         return self._properties['date_updated']
 
     @property
     def friendly_name(self):
-        """ The friendly_name """
+        """
+        :returns: A user-specified, human-readable name for the trigger.
+        :rtype: str
+        """
         return self._properties['friendly_name']
 
     @property
     def recurring(self):
-        """ The recurring """
+        """
+        :returns: How this trigger recurs
+        :rtype: trigger.recurring
+        """
         return self._properties['recurring']
 
     @property
     def sid(self):
-        """ The sid """
+        """
+        :returns: The trigger's unique Sid
+        :rtype: str
+        """
         return self._properties['sid']
 
     @property
     def trigger_by(self):
-        """ The trigger_by """
+        """
+        :returns: The field in the UsageRecord that fires the trigger
+        :rtype: trigger.trigger_field
+        """
         return self._properties['trigger_by']
 
     @property
     def trigger_value(self):
-        """ The trigger_value """
+        """
+        :returns: the value at which the trigger will fire
+        :rtype: str
+        """
         return self._properties['trigger_value']
 
     @property
     def uri(self):
-        """ The uri """
+        """
+        :returns: The URI for this resource
+        :rtype: str
+        """
         return self._properties['uri']
 
     @property
     def usage_category(self):
-        """ The usage_category """
+        """
+        :returns: The usage category the trigger watches
+        :rtype: trigger.usage_category
+        """
         return self._properties['usage_category']
 
     @property
     def usage_record_uri(self):
-        """ The usage_record_uri """
+        """
+        :returns: The URI of the UsageRecord this trigger is watching
+        :rtype: str
+        """
         return self._properties['usage_record_uri']
 
     def fetch(self):
@@ -318,3 +379,13 @@ class TriggerInstance(InstanceResource):
 
     def delete(self):
         self._context.delete()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.TriggerInstance {}>'.format(context)

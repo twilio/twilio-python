@@ -64,6 +64,12 @@ class StatisticsContext(InstanceContext):
 class StatisticsInstance(InstanceResource):
 
     def __init__(self, version, payload, workspace_sid=None, task_queue_sid=None):
+        """
+        Initialize the StatisticsInstance
+        
+        :returns: StatisticsInstance
+        :rtype: StatisticsInstance
+        """
         super(StatisticsInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -77,50 +83,75 @@ class StatisticsInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'workspace_sid': workspace_sid or self._properties['workspace_sid'],
             'task_queue_sid': task_queue_sid or self._properties['task_queue_sid'],
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = StatisticsContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: StatisticsContext for this StatisticsInstance
+        :rtype: StatisticsContext
+        """
+        if self._instance_context is None:
+            self._instance_context = StatisticsContext(
                 self._version,
-                self._context_properties['workspace_sid'],
-                self._context_properties['task_queue_sid'],
+                self._kwargs['workspace_sid'],
+                self._kwargs['task_queue_sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The account_sid
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def cumulative(self):
-        """ The cumulative """
+        """
+        :returns: The cumulative
+        :rtype: str
+        """
         return self._properties['cumulative']
 
     @property
     def realtime(self):
-        """ The realtime """
+        """
+        :returns: The realtime
+        :rtype: str
+        """
         return self._properties['realtime']
 
     @property
     def task_queue_sid(self):
-        """ The task_queue_sid """
+        """
+        :returns: The task_queue_sid
+        :rtype: str
+        """
         return self._properties['task_queue_sid']
 
     @property
     def worker_sid(self):
-        """ The worker_sid """
+        """
+        :returns: The worker_sid
+        :rtype: str
+        """
         return self._properties['worker_sid']
 
     @property
     def workspace_sid(self):
-        """ The workspace_sid """
+        """
+        :returns: The workspace_sid
+        :rtype: str
+        """
         return self._properties['workspace_sid']
 
     def fetch(self, end_date=values.unset, friendly_name=values.unset,
@@ -131,3 +162,13 @@ class StatisticsInstance(InstanceResource):
             minutes=minutes,
             start_date=start_date,
         )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Taskrouter.V1.StatisticsInstance {}>'.format(context)

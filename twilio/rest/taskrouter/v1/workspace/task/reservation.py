@@ -155,6 +155,12 @@ class ReservationContext(InstanceContext):
 class ReservationInstance(InstanceResource):
 
     def __init__(self, version, payload, workspace_sid, task_sid, sid=None):
+        """
+        Initialize the ReservationInstance
+        
+        :returns: ReservationInstance
+        :rtype: ReservationInstance
+        """
         super(ReservationInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -171,8 +177,8 @@ class ReservationInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'workspace_sid': workspace_sid,
             'task_sid': task_sid,
             'sid': sid or self._properties['sid'],
@@ -180,58 +186,92 @@ class ReservationInstance(InstanceResource):
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = ReservationContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: ReservationContext for this ReservationInstance
+        :rtype: ReservationContext
+        """
+        if self._instance_context is None:
+            self._instance_context = ReservationContext(
                 self._version,
-                self._context_properties['workspace_sid'],
-                self._context_properties['task_sid'],
-                self._context_properties['sid'],
+                self._kwargs['workspace_sid'],
+                self._kwargs['task_sid'],
+                self._kwargs['sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The account_sid
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def date_created(self):
-        """ The date_created """
+        """
+        :returns: The date_created
+        :rtype: datetime
+        """
         return self._properties['date_created']
 
     @property
     def date_updated(self):
-        """ The date_updated """
+        """
+        :returns: The date_updated
+        :rtype: datetime
+        """
         return self._properties['date_updated']
 
     @property
     def reservation_status(self):
-        """ The reservation_status """
+        """
+        :returns: The reservation_status
+        :rtype: str
+        """
         return self._properties['reservation_status']
 
     @property
     def sid(self):
-        """ The sid """
+        """
+        :returns: The sid
+        :rtype: str
+        """
         return self._properties['sid']
 
     @property
     def task_sid(self):
-        """ The task_sid """
+        """
+        :returns: The task_sid
+        :rtype: str
+        """
         return self._properties['task_sid']
 
     @property
     def worker_name(self):
-        """ The worker_name """
+        """
+        :returns: The worker_name
+        :rtype: str
+        """
         return self._properties['worker_name']
 
     @property
     def worker_sid(self):
-        """ The worker_sid """
+        """
+        :returns: The worker_sid
+        :rtype: str
+        """
         return self._properties['worker_sid']
 
     @property
     def workspace_sid(self):
-        """ The workspace_sid """
+        """
+        :returns: The workspace_sid
+        :rtype: str
+        """
         return self._properties['workspace_sid']
 
     def fetch(self):
@@ -242,3 +282,13 @@ class ReservationInstance(InstanceResource):
             reservation_status,
             worker_activity_sid=worker_activity_sid,
         )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Taskrouter.V1.ReservationInstance {}>'.format(context)

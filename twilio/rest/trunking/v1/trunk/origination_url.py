@@ -176,6 +176,12 @@ class OriginationUrlContext(InstanceContext):
 class OriginationUrlInstance(InstanceResource):
 
     def __init__(self, version, payload, trunk_sid, sid=None):
+        """
+        Initialize the OriginationUrlInstance
+        
+        :returns: OriginationUrlInstance
+        :rtype: OriginationUrlInstance
+        """
         super(OriginationUrlInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -194,75 +200,115 @@ class OriginationUrlInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'trunk_sid': trunk_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = OriginationUrlContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: OriginationUrlContext for this OriginationUrlInstance
+        :rtype: OriginationUrlContext
+        """
+        if self._instance_context is None:
+            self._instance_context = OriginationUrlContext(
                 self._version,
-                self._context_properties['trunk_sid'],
-                self._context_properties['sid'],
+                self._kwargs['trunk_sid'],
+                self._kwargs['sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The account_sid
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def sid(self):
-        """ The sid """
+        """
+        :returns: The sid
+        :rtype: str
+        """
         return self._properties['sid']
 
     @property
     def trunk_sid(self):
-        """ The trunk_sid """
+        """
+        :returns: The trunk_sid
+        :rtype: str
+        """
         return self._properties['trunk_sid']
 
     @property
     def weight(self):
-        """ The weight """
+        """
+        :returns: The weight
+        :rtype: str
+        """
         return self._properties['weight']
 
     @property
     def enabled(self):
-        """ The enabled """
+        """
+        :returns: The enabled
+        :rtype: bool
+        """
         return self._properties['enabled']
 
     @property
     def sip_url(self):
-        """ The sip_url """
+        """
+        :returns: The sip_url
+        :rtype: str
+        """
         return self._properties['sip_url']
 
     @property
     def friendly_name(self):
-        """ The friendly_name """
+        """
+        :returns: The friendly_name
+        :rtype: str
+        """
         return self._properties['friendly_name']
 
     @property
     def priority(self):
-        """ The priority """
+        """
+        :returns: The priority
+        :rtype: str
+        """
         return self._properties['priority']
 
     @property
     def date_created(self):
-        """ The date_created """
+        """
+        :returns: The date_created
+        :rtype: datetime
+        """
         return self._properties['date_created']
 
     @property
     def date_updated(self):
-        """ The date_updated """
+        """
+        :returns: The date_updated
+        :rtype: datetime
+        """
         return self._properties['date_updated']
 
     @property
     def url(self):
-        """ The url """
+        """
+        :returns: The url
+        :rtype: str
+        """
         return self._properties['url']
 
     def fetch(self):
@@ -281,3 +327,13 @@ class OriginationUrlInstance(InstanceResource):
             friendly_name=friendly_name,
             sip_url=sip_url,
         )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Trunking.V1.OriginationUrlInstance {}>'.format(context)

@@ -157,6 +157,12 @@ class IpAccessControlListMappingContext(InstanceContext):
 class IpAccessControlListMappingInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid, domain_sid, sid=None):
+        """
+        Initialize the IpAccessControlListMappingInstance
+        
+        :returns: IpAccessControlListMappingInstance
+        :rtype: IpAccessControlListMappingInstance
+        """
         super(IpAccessControlListMappingInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -171,8 +177,8 @@ class IpAccessControlListMappingInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'account_sid': account_sid,
             'domain_sid': domain_sid,
             'sid': sid or self._properties['sid'],
@@ -180,48 +186,76 @@ class IpAccessControlListMappingInstance(InstanceResource):
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = IpAccessControlListMappingContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: IpAccessControlListMappingContext for this IpAccessControlListMappingInstance
+        :rtype: IpAccessControlListMappingContext
+        """
+        if self._instance_context is None:
+            self._instance_context = IpAccessControlListMappingContext(
                 self._version,
-                self._context_properties['account_sid'],
-                self._context_properties['domain_sid'],
-                self._context_properties['sid'],
+                self._kwargs['account_sid'],
+                self._kwargs['domain_sid'],
+                self._kwargs['sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The account_sid
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def api_version(self):
-        """ The api_version """
+        """
+        :returns: The api_version
+        :rtype: str
+        """
         return self._properties['api_version']
 
     @property
     def date_created(self):
-        """ The date_created """
+        """
+        :returns: The date_created
+        :rtype: datetime
+        """
         return self._properties['date_created']
 
     @property
     def date_updated(self):
-        """ The date_updated """
+        """
+        :returns: The date_updated
+        :rtype: datetime
+        """
         return self._properties['date_updated']
 
     @property
     def friendly_name(self):
-        """ The friendly_name """
+        """
+        :returns: The friendly_name
+        :rtype: str
+        """
         return self._properties['friendly_name']
 
     @property
     def sid(self):
-        """ The sid """
+        """
+        :returns: The sid
+        :rtype: str
+        """
         return self._properties['sid']
 
     @property
     def uri(self):
-        """ The uri """
+        """
+        :returns: The uri
+        :rtype: str
+        """
         return self._properties['uri']
 
     def fetch(self):
@@ -229,3 +263,13 @@ class IpAccessControlListMappingInstance(InstanceResource):
 
     def delete(self):
         self._context.delete()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.IpAccessControlListMappingInstance {}>'.format(context)

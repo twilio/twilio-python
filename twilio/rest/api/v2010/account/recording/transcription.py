@@ -144,6 +144,12 @@ class TranscriptionContext(InstanceContext):
 class TranscriptionInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid, recording_sid, sid=None):
+        """
+        Initialize the TranscriptionInstance
+        
+        :returns: TranscriptionInstance
+        :rtype: TranscriptionInstance
+        """
         super(TranscriptionInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -165,8 +171,8 @@ class TranscriptionInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'account_sid': account_sid,
             'recording_sid': recording_sid,
             'sid': sid or self._properties['sid'],
@@ -174,83 +180,132 @@ class TranscriptionInstance(InstanceResource):
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = TranscriptionContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: TranscriptionContext for this TranscriptionInstance
+        :rtype: TranscriptionContext
+        """
+        if self._instance_context is None:
+            self._instance_context = TranscriptionContext(
                 self._version,
-                self._context_properties['account_sid'],
-                self._context_properties['recording_sid'],
-                self._context_properties['sid'],
+                self._kwargs['account_sid'],
+                self._kwargs['recording_sid'],
+                self._kwargs['sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The account_sid
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def api_version(self):
-        """ The api_version """
+        """
+        :returns: The api_version
+        :rtype: str
+        """
         return self._properties['api_version']
 
     @property
     def date_created(self):
-        """ The date_created """
+        """
+        :returns: The date_created
+        :rtype: datetime
+        """
         return self._properties['date_created']
 
     @property
     def date_updated(self):
-        """ The date_updated """
+        """
+        :returns: The date_updated
+        :rtype: datetime
+        """
         return self._properties['date_updated']
 
     @property
     def duration(self):
-        """ The duration """
+        """
+        :returns: The duration
+        :rtype: str
+        """
         return self._properties['duration']
 
     @property
     def owner_account_sid(self):
-        """ The owner_account_sid """
+        """
+        :returns: The owner_account_sid
+        :rtype: str
+        """
         return self._properties['owner_account_sid']
 
     @property
     def price(self):
-        """ The price """
+        """
+        :returns: The price
+        :rtype: str
+        """
         return self._properties['price']
 
     @property
     def price_unit(self):
-        """ The price_unit """
+        """
+        :returns: The price_unit
+        :rtype: str
+        """
         return self._properties['price_unit']
 
     @property
     def recording_sid(self):
-        """ The recording_sid """
+        """
+        :returns: The recording_sid
+        :rtype: str
+        """
         return self._properties['recording_sid']
 
     @property
     def sid(self):
-        """ The sid """
+        """
+        :returns: The sid
+        :rtype: str
+        """
         return self._properties['sid']
 
     @property
     def status(self):
-        """ The status """
+        """
+        :returns: The status
+        :rtype: transcription.status
+        """
         return self._properties['status']
 
     @property
     def transcription_text(self):
-        """ The transcription_text """
+        """
+        :returns: The transcription_text
+        :rtype: str
+        """
         return self._properties['transcription_text']
 
     @property
     def type(self):
-        """ The type """
+        """
+        :returns: The type
+        :rtype: str
+        """
         return self._properties['type']
 
     @property
     def uri(self):
-        """ The uri """
+        """
+        :returns: The uri
+        :rtype: str
+        """
         return self._properties['uri']
 
     def fetch(self):
@@ -258,3 +313,13 @@ class TranscriptionInstance(InstanceResource):
 
     def delete(self):
         self._context.delete()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.TranscriptionInstance {}>'.format(context)

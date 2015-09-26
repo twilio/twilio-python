@@ -122,6 +122,12 @@ class FeedbackSummaryContext(InstanceContext):
 class FeedbackSummaryInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid, sid=None):
+        """
+        Initialize the FeedbackSummaryInstance
+        
+        :returns: FeedbackSummaryInstance
+        :rtype: FeedbackSummaryInstance
+        """
         super(FeedbackSummaryInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -143,90 +149,139 @@ class FeedbackSummaryInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'account_sid': account_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = FeedbackSummaryContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: FeedbackSummaryContext for this FeedbackSummaryInstance
+        :rtype: FeedbackSummaryContext
+        """
+        if self._instance_context is None:
+            self._instance_context = FeedbackSummaryContext(
                 self._version,
-                self._context_properties['account_sid'],
-                self._context_properties['sid'],
+                self._kwargs['account_sid'],
+                self._kwargs['sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The account_sid
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def call_count(self):
-        """ The call_count """
+        """
+        :returns: The call_count
+        :rtype: str
+        """
         return self._properties['call_count']
 
     @property
     def call_feedback_count(self):
-        """ The call_feedback_count """
+        """
+        :returns: The call_feedback_count
+        :rtype: str
+        """
         return self._properties['call_feedback_count']
 
     @property
     def date_created(self):
-        """ The date_created """
+        """
+        :returns: The date_created
+        :rtype: datetime
+        """
         return self._properties['date_created']
 
     @property
     def date_updated(self):
-        """ The date_updated """
+        """
+        :returns: The date_updated
+        :rtype: datetime
+        """
         return self._properties['date_updated']
 
     @property
     def end_date(self):
-        """ The end_date """
+        """
+        :returns: The end_date
+        :rtype: datetime
+        """
         return self._properties['end_date']
 
     @property
     def include_subaccounts(self):
-        """ The include_subaccounts """
+        """
+        :returns: The include_subaccounts
+        :rtype: bool
+        """
         return self._properties['include_subaccounts']
 
     @property
     def issues(self):
-        """ The issues """
+        """
+        :returns: The issues
+        :rtype: str
+        """
         return self._properties['issues']
 
     @property
     def quality_score_average(self):
-        """ The quality_score_average """
+        """
+        :returns: The quality_score_average
+        :rtype: str
+        """
         return self._properties['quality_score_average']
 
     @property
     def quality_score_median(self):
-        """ The quality_score_median """
+        """
+        :returns: The quality_score_median
+        :rtype: str
+        """
         return self._properties['quality_score_median']
 
     @property
     def quality_score_standard_deviation(self):
-        """ The quality_score_standard_deviation """
+        """
+        :returns: The quality_score_standard_deviation
+        :rtype: str
+        """
         return self._properties['quality_score_standard_deviation']
 
     @property
     def sid(self):
-        """ The sid """
+        """
+        :returns: The sid
+        :rtype: str
+        """
         return self._properties['sid']
 
     @property
     def start_date(self):
-        """ The start_date """
+        """
+        :returns: The start_date
+        :rtype: datetime
+        """
         return self._properties['start_date']
 
     @property
     def status(self):
-        """ The status """
+        """
+        :returns: The status
+        :rtype: feedback_summary.status
+        """
         return self._properties['status']
 
     def fetch(self):
@@ -234,3 +289,13 @@ class FeedbackSummaryInstance(InstanceResource):
 
     def delete(self):
         self._context.delete()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.FeedbackSummaryInstance {}>'.format(context)

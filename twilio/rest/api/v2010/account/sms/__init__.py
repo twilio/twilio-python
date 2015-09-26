@@ -41,17 +41,40 @@ class SmsContext(InstanceContext):
 class SmsInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid):
+        """
+        Initialize the SmsInstance
+        
+        :returns: SmsInstance
+        :rtype: SmsInstance
+        """
         super(SmsInstance, self).__init__(version)
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'account_sid': account_sid,
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = SmsContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: SmsContext for this SmsInstance
+        :rtype: SmsContext
+        """
+        if self._instance_context is None:
+            self._instance_context = SmsContext(
                 self._version,
             )
-        return self._lazy_context
+        return self._instance_context
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.SmsInstance {}>'.format(context)

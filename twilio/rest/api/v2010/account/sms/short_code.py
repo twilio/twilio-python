@@ -163,6 +163,12 @@ class ShortCodeContext(InstanceContext):
 class ShortCodeInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid, sid=None):
+        """
+        Initialize the ShortCodeInstance
+        
+        :returns: ShortCodeInstance
+        :rtype: ShortCodeInstance
+        """
         super(ShortCodeInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -182,80 +188,123 @@ class ShortCodeInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'account_sid': account_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = ShortCodeContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: ShortCodeContext for this ShortCodeInstance
+        :rtype: ShortCodeContext
+        """
+        if self._instance_context is None:
+            self._instance_context = ShortCodeContext(
                 self._version,
-                self._context_properties['account_sid'],
-                self._context_properties['sid'],
+                self._kwargs['account_sid'],
+                self._kwargs['sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The unique sid that identifies this account
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def api_version(self):
-        """ The api_version """
+        """
+        :returns: The API version to use
+        :rtype: str
+        """
         return self._properties['api_version']
 
     @property
     def date_created(self):
-        """ The date_created """
+        """
+        :returns: The date this resource was created
+        :rtype: datetime
+        """
         return self._properties['date_created']
 
     @property
     def date_updated(self):
-        """ The date_updated """
+        """
+        :returns: The date this resource was last updated
+        :rtype: datetime
+        """
         return self._properties['date_updated']
 
     @property
     def friendly_name(self):
-        """ The friendly_name """
+        """
+        :returns: A human readable description of this resource
+        :rtype: str
+        """
         return self._properties['friendly_name']
 
     @property
     def short_code(self):
-        """ The short_code """
+        """
+        :returns: The short code. e.g., 894546.
+        :rtype: str
+        """
         return self._properties['short_code']
 
     @property
     def sid(self):
-        """ The sid """
+        """
+        :returns: A string that uniquely identifies this short-codes
+        :rtype: str
+        """
         return self._properties['sid']
 
     @property
     def sms_fallback_method(self):
-        """ The sms_fallback_method """
+        """
+        :returns: HTTP method Twilio will use with sms fallback url
+        :rtype: str
+        """
         return self._properties['sms_fallback_method']
 
     @property
     def sms_fallback_url(self):
-        """ The sms_fallback_url """
+        """
+        :returns: URL Twilio will request if an error occurs in executing TwiML
+        :rtype: str
+        """
         return self._properties['sms_fallback_url']
 
     @property
     def sms_method(self):
-        """ The sms_method """
+        """
+        :returns: HTTP method to use when requesting the sms url
+        :rtype: str
+        """
         return self._properties['sms_method']
 
     @property
     def sms_url(self):
-        """ The sms_url """
+        """
+        :returns: URL Twilio will request when receiving an SMS
+        :rtype: str
+        """
         return self._properties['sms_url']
 
     @property
     def uri(self):
-        """ The uri """
+        """
+        :returns: The URI for this resource
+        :rtype: str
+        """
         return self._properties['uri']
 
     def fetch(self):
@@ -272,3 +321,13 @@ class ShortCodeInstance(InstanceResource):
             sms_fallback_url=sms_fallback_url,
             sms_fallback_method=sms_fallback_method,
         )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.ShortCodeInstance {}>'.format(context)

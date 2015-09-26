@@ -41,17 +41,40 @@ class UsageContext(InstanceContext):
 class UsageInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid):
+        """
+        Initialize the UsageInstance
+        
+        :returns: UsageInstance
+        :rtype: UsageInstance
+        """
         super(UsageInstance, self).__init__(version)
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'account_sid': account_sid,
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = UsageContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: UsageContext for this UsageInstance
+        :rtype: UsageContext
+        """
+        if self._instance_context is None:
+            self._instance_context = UsageContext(
                 self._version,
             )
-        return self._lazy_context
+        return self._instance_context
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.UsageInstance {}>'.format(context)

@@ -10,6 +10,7 @@ from twilio import values
 from twilio.rest import deserialize
 from twilio.rest import serialize
 from twilio.rest.api.v2010.account.recording.transcription import TranscriptionList
+from twilio.rest.api.v2010.account.recording.transcription import transcriptions
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
@@ -164,6 +165,12 @@ class RecordingContext(InstanceContext):
 class RecordingInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid, sid=None):
+        """
+        Initialize the RecordingInstance
+        
+        :returns: RecordingInstance
+        :rtype: RecordingInstance
+        """
         super(RecordingInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -179,60 +186,91 @@ class RecordingInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'account_sid': account_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = RecordingContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: RecordingContext for this RecordingInstance
+        :rtype: RecordingContext
+        """
+        if self._instance_context is None:
+            self._instance_context = RecordingContext(
                 self._version,
-                self._context_properties['account_sid'],
-                self._context_properties['sid'],
+                self._kwargs['account_sid'],
+                self._kwargs['sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The unique sid that identifies this account
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def api_version(self):
-        """ The api_version """
+        """
+        :returns: The version of the API in use during the recording.
+        :rtype: str
+        """
         return self._properties['api_version']
 
     @property
     def call_sid(self):
-        """ The call_sid """
+        """
+        :returns: The call during which the recording was made.
+        :rtype: str
+        """
         return self._properties['call_sid']
 
     @property
     def date_created(self):
-        """ The date_created """
+        """
+        :returns: The date this resource was created
+        :rtype: datetime
+        """
         return self._properties['date_created']
 
     @property
     def date_updated(self):
-        """ The date_updated """
+        """
+        :returns: The date this resource was last updated
+        :rtype: datetime
+        """
         return self._properties['date_updated']
 
     @property
     def duration(self):
-        """ The duration """
+        """
+        :returns: The length of the recording, in seconds.
+        :rtype: str
+        """
         return self._properties['duration']
 
     @property
     def sid(self):
-        """ The sid """
+        """
+        :returns: A string that uniquely identifies this recording
+        :rtype: str
+        """
         return self._properties['sid']
 
     @property
     def uri(self):
-        """ The uri """
+        """
+        :returns: The URI for this resource
+        :rtype: str
+        """
         return self._properties['uri']
 
     def fetch(self):
@@ -243,4 +281,20 @@ class RecordingInstance(InstanceResource):
 
     @property
     def transcriptions(self):
+        """
+        Access the transcriptions
+        
+        :returns: transcriptions
+        :rtype: transcriptions
+        """
         return self._context.transcriptions
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.RecordingInstance {}>'.format(context)

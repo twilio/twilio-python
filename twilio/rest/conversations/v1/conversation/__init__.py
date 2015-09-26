@@ -11,6 +11,7 @@ from twilio.rest import deserialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.conversations.v1.conversation.participant import ParticipantList
+from twilio.rest.conversations.v1.conversation.participant import participants
 
 
 class ConversationContext(InstanceContext):
@@ -76,6 +77,12 @@ class ConversationContext(InstanceContext):
 class ConversationInstance(InstanceResource):
 
     def __init__(self, version, payload, sid=None):
+        """
+        Initialize the ConversationInstance
+        
+        :returns: ConversationInstance
+        :rtype: ConversationInstance
+        """
         super(ConversationInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -91,58 +98,89 @@ class ConversationInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'sid': sid or self._properties['sid'],
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = ConversationContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: ConversationContext for this ConversationInstance
+        :rtype: ConversationContext
+        """
+        if self._instance_context is None:
+            self._instance_context = ConversationContext(
                 self._version,
-                self._context_properties['sid'],
+                self._kwargs['sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def sid(self):
-        """ The sid """
+        """
+        :returns: The sid
+        :rtype: str
+        """
         return self._properties['sid']
 
     @property
     def status(self):
-        """ The status """
+        """
+        :returns: The status
+        :rtype: conversation.status
+        """
         return self._properties['status']
 
     @property
     def duration(self):
-        """ The duration """
+        """
+        :returns: The duration
+        :rtype: str
+        """
         return self._properties['duration']
 
     @property
     def date_created(self):
-        """ The date_created """
+        """
+        :returns: The date_created
+        :rtype: datetime
+        """
         return self._properties['date_created']
 
     @property
     def start_time(self):
-        """ The start_time """
+        """
+        :returns: The start_time
+        :rtype: datetime
+        """
         return self._properties['start_time']
 
     @property
     def end_time(self):
-        """ The end_time """
+        """
+        :returns: The end_time
+        :rtype: datetime
+        """
         return self._properties['end_time']
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The account_sid
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def url(self):
-        """ The url """
+        """
+        :returns: The url
+        :rtype: str
+        """
         return self._properties['url']
 
     def fetch(self):
@@ -150,4 +188,20 @@ class ConversationInstance(InstanceResource):
 
     @property
     def participants(self):
+        """
+        Access the participants
+        
+        :returns: participants
+        :rtype: participants
+        """
         return self._context.participants
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Conversations.V1.ConversationInstance {}>'.format(context)

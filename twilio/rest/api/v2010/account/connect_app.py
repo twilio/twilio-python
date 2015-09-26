@@ -160,6 +160,12 @@ class ConnectAppContext(InstanceContext):
 class ConnectAppInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid, sid=None):
+        """
+        Initialize the ConnectAppInstance
+        
+        :returns: ConnectAppInstance
+        :rtype: ConnectAppInstance
+        """
         super(ConnectAppInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -178,75 +184,115 @@ class ConnectAppInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'account_sid': account_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = ConnectAppContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: ConnectAppContext for this ConnectAppInstance
+        :rtype: ConnectAppContext
+        """
+        if self._instance_context is None:
+            self._instance_context = ConnectAppContext(
                 self._version,
-                self._context_properties['account_sid'],
-                self._context_properties['sid'],
+                self._kwargs['account_sid'],
+                self._kwargs['sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The unique sid that identifies this account
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def authorize_redirect_url(self):
-        """ The authorize_redirect_url """
+        """
+        :returns: URIL Twilio sends requests when users authorize
+        :rtype: str
+        """
         return self._properties['authorize_redirect_url']
 
     @property
     def company_name(self):
-        """ The company_name """
+        """
+        :returns: The company name set for this Connect App.
+        :rtype: str
+        """
         return self._properties['company_name']
 
     @property
     def deauthorize_callback_method(self):
-        """ The deauthorize_callback_method """
+        """
+        :returns: HTTP method Twilio WIll use making requests to the url
+        :rtype: str
+        """
         return self._properties['deauthorize_callback_method']
 
     @property
     def deauthorize_callback_url(self):
-        """ The deauthorize_callback_url """
+        """
+        :returns: URL Twilio will send a request when a user de-authorizes this app
+        :rtype: str
+        """
         return self._properties['deauthorize_callback_url']
 
     @property
     def description(self):
-        """ The description """
+        """
+        :returns: A more detailed human readable description
+        :rtype: str
+        """
         return self._properties['description']
 
     @property
     def friendly_name(self):
-        """ The friendly_name """
+        """
+        :returns: A human readable name for the Connect App.
+        :rtype: str
+        """
         return self._properties['friendly_name']
 
     @property
     def homepage_url(self):
-        """ The homepage_url """
+        """
+        :returns: The URL users can obtain more information
+        :rtype: str
+        """
         return self._properties['homepage_url']
 
     @property
     def permissions(self):
-        """ The permissions """
+        """
+        :returns: The set of permissions that your ConnectApp requests.
+        :rtype: connect_app.permission
+        """
         return self._properties['permissions']
 
     @property
     def sid(self):
-        """ The sid """
+        """
+        :returns: A string that uniquely identifies this connect-apps
+        :rtype: str
+        """
         return self._properties['sid']
 
     @property
     def uri(self):
-        """ The uri """
+        """
+        :returns: The URI for this resource
+        :rtype: str
+        """
         return self._properties['uri']
 
     def fetch(self):
@@ -267,3 +313,13 @@ class ConnectAppInstance(InstanceResource):
             homepage_url=homepage_url,
             permissions=permissions,
         )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.ConnectAppInstance {}>'.format(context)

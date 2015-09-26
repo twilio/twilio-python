@@ -10,6 +10,7 @@ from twilio import values
 from twilio.rest import deserialize
 from twilio.rest import serialize
 from twilio.rest.api.v2010.account.message.media import MediaList
+from twilio.rest.api.v2010.account.message.media import media
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
@@ -202,6 +203,12 @@ class MessageContext(InstanceContext):
 class MessageInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid, sid=None):
+        """
+        Initialize the MessageInstance
+        
+        :returns: MessageInstance
+        :rtype: MessageInstance
+        """
         super(MessageInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -228,115 +235,179 @@ class MessageInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'account_sid': account_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = MessageContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: MessageContext for this MessageInstance
+        :rtype: MessageContext
+        """
+        if self._instance_context is None:
+            self._instance_context = MessageContext(
                 self._version,
-                self._context_properties['account_sid'],
-                self._context_properties['sid'],
+                self._kwargs['account_sid'],
+                self._kwargs['sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The unique sid that identifies this account
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def api_version(self):
-        """ The api_version """
+        """
+        :returns: The version of the Twilio API used to process the message.
+        :rtype: str
+        """
         return self._properties['api_version']
 
     @property
     def body(self):
-        """ The body """
+        """
+        :returns: The text body of the message. Up to 1600 characters long.
+        :rtype: str
+        """
         return self._properties['body']
 
     @property
     def date_created(self):
-        """ The date_created """
+        """
+        :returns: The date this resource was created
+        :rtype: datetime
+        """
         return self._properties['date_created']
 
     @property
     def date_updated(self):
-        """ The date_updated """
+        """
+        :returns: The date this resource was last updated
+        :rtype: datetime
+        """
         return self._properties['date_updated']
 
     @property
     def date_sent(self):
-        """ The date_sent """
+        """
+        :returns: The date the message was sent
+        :rtype: datetime
+        """
         return self._properties['date_sent']
 
     @property
     def direction(self):
-        """ The direction """
+        """
+        :returns: The direction of the message
+        :rtype: message.direction
+        """
         return self._properties['direction']
 
     @property
     def error_code(self):
-        """ The error_code """
+        """
+        :returns: The error code associated with the message
+        :rtype: str
+        """
         return self._properties['error_code']
 
     @property
     def error_message(self):
-        """ The error_message """
+        """
+        :returns: Human readable description of the ErrorCode
+        :rtype: str
+        """
         return self._properties['error_message']
 
     @property
     def from_(self):
-        """ The from """
+        """
+        :returns: The phone number that initiated the message
+        :rtype: str
+        """
         return self._properties['from_']
 
     @property
     def num_media(self):
-        """ The num_media """
+        """
+        :returns: Number of media files associated with the message
+        :rtype: str
+        """
         return self._properties['num_media']
 
     @property
     def num_segments(self):
-        """ The num_segments """
+        """
+        :returns: Indicates number of messages used to delivery the body
+        :rtype: str
+        """
         return self._properties['num_segments']
 
     @property
     def price(self):
-        """ The price """
+        """
+        :returns: The amount billed for the message
+        :rtype: str
+        """
         return self._properties['price']
 
     @property
     def price_unit(self):
-        """ The price_unit """
+        """
+        :returns: The currency in which Price is measured
+        :rtype: str
+        """
         return self._properties['price_unit']
 
     @property
     def sid(self):
-        """ The sid """
+        """
+        :returns: A string that uniquely identifies this message
+        :rtype: str
+        """
         return self._properties['sid']
 
     @property
     def status(self):
-        """ The status """
+        """
+        :returns: The status of this message
+        :rtype: message.status
+        """
         return self._properties['status']
 
     @property
     def subresource_uris(self):
-        """ The subresource_uris """
+        """
+        :returns: The subresource_uris
+        :rtype: str
+        """
         return self._properties['subresource_uris']
 
     @property
     def to(self):
-        """ The to """
+        """
+        :returns: The phone number that received the message
+        :rtype: str
+        """
         return self._properties['to']
 
     @property
     def uri(self):
-        """ The uri """
+        """
+        :returns: The URI for this resource
+        :rtype: str
+        """
         return self._properties['uri']
 
     def delete(self):
@@ -352,4 +423,20 @@ class MessageInstance(InstanceResource):
 
     @property
     def media(self):
+        """
+        Access the media
+        
+        :returns: media
+        :rtype: media
+        """
         return self._context.media
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.MessageInstance {}>'.format(context)

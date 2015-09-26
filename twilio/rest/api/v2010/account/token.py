@@ -96,6 +96,12 @@ class TokenContext(InstanceContext):
 class TokenInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid):
+        """
+        Initialize the TokenInstance
+        
+        :returns: TokenInstance
+        :rtype: TokenInstance
+        """
         super(TokenInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -110,50 +116,88 @@ class TokenInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'account_sid': account_sid,
         }
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = TokenContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: TokenContext for this TokenInstance
+        :rtype: TokenContext
+        """
+        if self._instance_context is None:
+            self._instance_context = TokenContext(
                 self._version,
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The unique sid that identifies this account
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def date_created(self):
-        """ The date_created """
+        """
+        :returns: The date this resource was created
+        :rtype: datetime
+        """
         return self._properties['date_created']
 
     @property
     def date_updated(self):
-        """ The date_updated """
+        """
+        :returns: The date this resource was last updated
+        :rtype: datetime
+        """
         return self._properties['date_updated']
 
     @property
     def ice_servers(self):
-        """ The ice_servers """
+        """
+        :returns: An array representing the ephemeral credentials
+        :rtype: str
+        """
         return self._properties['ice_servers']
 
     @property
     def password(self):
-        """ The password """
+        """
+        :returns: The temporary password used for authenticating
+        :rtype: str
+        """
         return self._properties['password']
 
     @property
     def ttl(self):
-        """ The ttl """
+        """
+        :returns: The duration in seconds the credentials are valid
+        :rtype: str
+        """
         return self._properties['ttl']
 
     @property
     def username(self):
-        """ The username """
+        """
+        :returns: The temporary username that uniquely identifies a Token.
+        :rtype: str
+        """
         return self._properties['username']
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.TokenInstance {}>'.format(context)

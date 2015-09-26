@@ -151,6 +151,12 @@ class NotificationContext(InstanceContext):
 class NotificationInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid, call_sid, sid=None):
+        """
+        Initialize the NotificationInstance
+        
+        :returns: NotificationInstance
+        :rtype: NotificationInstance
+        """
         super(NotificationInstance, self).__init__(version)
         
         # Marshaled Properties
@@ -175,8 +181,8 @@ class NotificationInstance(InstanceResource):
         }
         
         # Context
-        self._lazy_context = None
-        self._context_properties = {
+        self._instance_context = None
+        self._kwargs = {
             'account_sid': account_sid,
             'call_sid': call_sid,
             'sid': sid or self._properties['sid'],
@@ -184,98 +190,156 @@ class NotificationInstance(InstanceResource):
 
     @property
     def _context(self):
-        if self._lazy_context is None:
-            self._lazy_context = NotificationContext(
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions.  All instance actions are proxied to the context
+        
+        :returns: NotificationContext for this NotificationInstance
+        :rtype: NotificationContext
+        """
+        if self._instance_context is None:
+            self._instance_context = NotificationContext(
                 self._version,
-                self._context_properties['account_sid'],
-                self._context_properties['call_sid'],
-                self._context_properties['sid'],
+                self._kwargs['account_sid'],
+                self._kwargs['call_sid'],
+                self._kwargs['sid'],
             )
-        return self._lazy_context
+        return self._instance_context
 
     @property
     def account_sid(self):
-        """ The account_sid """
+        """
+        :returns: The account_sid
+        :rtype: str
+        """
         return self._properties['account_sid']
 
     @property
     def api_version(self):
-        """ The api_version """
+        """
+        :returns: The api_version
+        :rtype: str
+        """
         return self._properties['api_version']
 
     @property
     def call_sid(self):
-        """ The call_sid """
+        """
+        :returns: The call_sid
+        :rtype: str
+        """
         return self._properties['call_sid']
 
     @property
     def date_created(self):
-        """ The date_created """
+        """
+        :returns: The date_created
+        :rtype: datetime
+        """
         return self._properties['date_created']
 
     @property
     def date_updated(self):
-        """ The date_updated """
+        """
+        :returns: The date_updated
+        :rtype: datetime
+        """
         return self._properties['date_updated']
 
     @property
     def error_code(self):
-        """ The error_code """
+        """
+        :returns: The error_code
+        :rtype: str
+        """
         return self._properties['error_code']
 
     @property
     def log(self):
-        """ The log """
+        """
+        :returns: The log
+        :rtype: str
+        """
         return self._properties['log']
 
     @property
     def message_date(self):
-        """ The message_date """
+        """
+        :returns: The message_date
+        :rtype: datetime
+        """
         return self._properties['message_date']
 
     @property
     def message_text(self):
-        """ The message_text """
+        """
+        :returns: The message_text
+        :rtype: str
+        """
         return self._properties['message_text']
 
     @property
     def more_info(self):
-        """ The more_info """
+        """
+        :returns: The more_info
+        :rtype: str
+        """
         return self._properties['more_info']
 
     @property
     def request_method(self):
-        """ The request_method """
+        """
+        :returns: The request_method
+        :rtype: str
+        """
         return self._properties['request_method']
 
     @property
     def request_url(self):
-        """ The request_url """
+        """
+        :returns: The request_url
+        :rtype: str
+        """
         return self._properties['request_url']
 
     @property
     def request_variables(self):
-        """ The request_variables """
+        """
+        :returns: The request_variables
+        :rtype: str
+        """
         return self._properties['request_variables']
 
     @property
     def response_body(self):
-        """ The response_body """
+        """
+        :returns: The response_body
+        :rtype: str
+        """
         return self._properties['response_body']
 
     @property
     def response_headers(self):
-        """ The response_headers """
+        """
+        :returns: The response_headers
+        :rtype: str
+        """
         return self._properties['response_headers']
 
     @property
     def sid(self):
-        """ The sid """
+        """
+        :returns: The sid
+        :rtype: str
+        """
         return self._properties['sid']
 
     @property
     def uri(self):
-        """ The uri """
+        """
+        :returns: The uri
+        :rtype: str
+        """
         return self._properties['uri']
 
     def fetch(self):
@@ -283,3 +347,13 @@ class NotificationInstance(InstanceResource):
 
     def delete(self):
         self._context.delete()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        return '<Twilio.Api.V2010.NotificationInstance {}>'.format(context)
