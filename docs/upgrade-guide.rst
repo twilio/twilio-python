@@ -135,36 +135,11 @@ new methods. For example, `r.addSay` would become `r.say`.
 Checking Signatures
 =====================
 
-The :class:`Utils` class has been renamed to :class:`TwilioValidation` in the
-:mod:`twilio.util` module and the :meth:`validateRequest` method has been
-renamed :meth:`validate`.
+The :mod:`util` module has been removed. Request validation can now be done
+with the :class:`RequestValidator` in the :mod:`twilio.request_validator` module
+and the :meth:`validate` method.
 
-A sample using the old version of **twilio-python**.
-
-.. code-block:: python
-
-    import twilio
-
-    ACCOUNT_SID = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-    ACCOUNT_TOKEN = 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'
-
-    utils = twilio.Utils(ACCOUNT_SID, ACCOUNT_TOKEN)
-
-    # the callback URL you provided to Twilio for the phone number/app
-    url = "http://UUUUUUUUUUUUUUUUUU"
-
-    the POST variables attached to the request (e.g. "From", "To")
-    post_vars = {}
-
-    # X-Twilio-Signature header value
-    signature = "HpS7PBa1Agvt4OtO+wZp75IuQa0=" # will look something like that
-
-    if utils.validateRequest(url, post_vars, signature):
-        print "was confirmed to have come from Twilio."
-    else:
-        print "was NOT VALID.  It might have been spoofed!"
-
-The same sample, converted to use the new version.
+A sample using the version 4.x of **twilio-python**.
 
 .. code-block:: python
 
@@ -184,6 +159,30 @@ The same sample, converted to use the new version.
     signature = "HpS7PBa1Agvt4OtO+wZp75IuQa0=" # will look something like that
 
     if utils.validate(url, post_vars, signature):
+        print "was confirmed to have come from Twilio."
+    else:
+        print "was NOT VALID.  It might have been spoofed!"
+
+The same sample, converted to use the new version.
+
+.. code-block:: python
+
+    from twilio.request_validator import RequestValidator
+
+    ACCOUNT_TOKEN = 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'
+
+    validator = RequestValidator(ACCOUNT_TOKEN)
+
+    # the callback URL you provided to Twilio
+    url = "http://www.example.com/my/callback/url.xml"
+
+    # the POST variables attached to the request (eg "From", "To")
+    post_vars = {}
+
+    # X-Twilio-Signature header value
+    signature = "HpS7PBa1Agvt4OtO+wZp75IuQa0=" # will look something like that
+
+    if validator.validate(url, post_vars, signature):
         print "was confirmed to have come from Twilio."
     else:
         print "was NOT VALID.  It might have been spoofed!"

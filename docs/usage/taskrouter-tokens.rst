@@ -19,14 +19,14 @@ conform to the JSON Web Token (commonly referred to as a JWT and pronounced
 party. Your web server needs to generate a Twilio capability token and provide
 it to your JavaScript application in order to register a TaskRouter worker.
 
-:class:`TaskRouterCapability` is responsible for the creation of these
+:class:`CapabilityToken` is responsible for the creation of these
 capability tokens. You'll need your Twilio AccountSid and AuthToken,
 the Sid of the Workspace you want to authorize access to, and the Sid
 of the Worker you're granting authorization for.
 
 .. code-block:: python
 
-    from twilio.task_router import TaskRouterCapability
+    from twilio.jwt.task_router import CapabilityToken
 
     # Get these values from https://twilio.com/user/account
     account_sid = "AC123"
@@ -37,8 +37,8 @@ of the Worker you're granting authorization for.
     workspace_sid = "WS456"
     worker_sid = "WK789"
 
-    capability = TaskRouterCapability(account_sid, auth_token,
-                                      workspace_sid, worker_sid)
+    capability = CapabilityToken(account_sid, auth_token,
+                                 workspace_sid, worker_sid)
 
 By default, the Capability object will allow the Worker.js process to
 read from and write to the websockets used to communicate events, and also

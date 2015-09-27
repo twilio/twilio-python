@@ -17,18 +17,19 @@ security and authorization. The `Capability Token documentation
 <http://www.twilio.com/docs/tokens>`_ explains in depth the purpose and
 features of these tokens.
 
-:class:`TwilioCapability` is responsible for the creation of these capability
-tokens. You'll need your Twilio AccountSid and AuthToken.
+:class:`CapabilityToken` in the :mod:`twilio.jwt.client`is responsible for
+the creation of these capability tokens. You'll need your Twilio AccountSid
+and AuthToken.
 
 .. code-block:: python
 
-    from twilio.util import TwilioCapability
+    from twilio.jwt.client import CapabilityToken
 
     # Find these values at twilio.com/user/account
     account_sid = "AC123123"
     auth_token = "secret"
 
-    capability = TwilioCapability(account_sid, auth_token)
+    capability = CapabilityToken(account_sid, auth_token)
 
 
 Allow Incoming Connections

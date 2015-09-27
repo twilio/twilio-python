@@ -32,7 +32,7 @@ actually from Twilio.
 
 .. code-block:: python
 
-    from twilio.util import RequestValidator
+    from twilio.request_validator import RequestValidator
 
     AUTH_TOKEN = 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'
 

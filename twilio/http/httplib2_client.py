@@ -1,8 +1,8 @@
-from urllib import urlencode
-from urlparse import urlparse
 import httplib2
+
 from six import integer_types, string_types, iteritems
 from six import binary_type
+from twilio.compat import urlencode, urlparse
 from twilio.http import get_cert_file, HttpClient
 from twilio.http.response import Response
 
