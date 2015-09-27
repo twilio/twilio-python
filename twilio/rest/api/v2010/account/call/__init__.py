@@ -344,7 +344,7 @@ class CallContext(InstanceContext):
         
         :param str url: URL that returns TwiML
         :param str method: HTTP method to use to fetch TwiML
-        :param feedback_summary.status status: Status to update the Call with
+        :param call.status status: Status to update the Call with
         :param str fallback_url: Fallback URL in case of error
         :param str fallback_method: HTTP Method to use with FallbackUrl
         :param str status_callback: Status Callback URL
@@ -658,7 +658,7 @@ class CallInstance(InstanceResource):
     def status(self):
         """
         :returns: The status
-        :rtype: feedback_summary.status
+        :rtype: call.status
         """
         return self._properties['status']
 
@@ -720,7 +720,7 @@ class CallInstance(InstanceResource):
         
         :param str url: URL that returns TwiML
         :param str method: HTTP method to use to fetch TwiML
-        :param feedback_summary.status status: Status to update the Call with
+        :param call.status status: Status to update the Call with
         :param str fallback_url: Fallback URL in case of error
         :param str fallback_method: HTTP Method to use with FallbackUrl
         :param str status_callback: Status Callback URL

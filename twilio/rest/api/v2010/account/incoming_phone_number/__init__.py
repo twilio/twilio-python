@@ -460,7 +460,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
     def address_requirements(self):
         """
         :returns: Indicates if the customer requires an address
-        :rtype: toll_free.address_requirement
+        :rtype: incoming_phone_number.address_requirement
         """
         return self._properties['address_requirements']
 

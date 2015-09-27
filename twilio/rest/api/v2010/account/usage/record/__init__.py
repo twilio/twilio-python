@@ -402,7 +402,7 @@ class RecordInstance(InstanceResource):
     def category(self):
         """
         :returns: The category of usage
-        :rtype: yesterday.category
+        :rtype: record.category
         """
         return self._properties['category']
 

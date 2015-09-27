@@ -242,7 +242,7 @@ class CompletedInstance(InstanceResource):
     def status(self):
         """
         :returns: The status
-        :rtype: participant.status
+        :rtype: completed.status
         """
         return self._properties['status']
 
