@@ -285,6 +285,15 @@ class RecordList(ListResource):
             self._yesterday = YesterdayList(self._version, **self._kwargs)
         return self._yesterday
 
+    def get(self):
+        """
+        Constructs a RecordContext
+        
+        :returns: RecordContext
+        :rtype: RecordContext
+        """
+        return RecordContext(self._version, **self._kwargs)
+
     def __call__(self):
         """
         Constructs a RecordContext

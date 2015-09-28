@@ -15,5 +15,8 @@ class EventTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
         self.holodeck.mock(Response({status}, {content}))
-        self.twilio.taskrouter.v1.events()
+        
+        self.twilio.taskrouter.v1.workspaces.get(sid=None) \
+                                 .events.get(sid=None).fetch()
+        
         self.holodeck.assert_has_request(Request('get', 'https://taskrouter.twilio.com/v1/Workspaces/{workspace_sid}/Events/{sid}'))

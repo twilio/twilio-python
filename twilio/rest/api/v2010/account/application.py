@@ -183,6 +183,17 @@ class ApplicationList(ListResource):
             params=params,
         )
 
+    def get(self, sid):
+        """
+        Constructs a ApplicationContext
+        
+        :param sid: Contextual sid
+        
+        :returns: ApplicationContext
+        :rtype: ApplicationContext
+        """
+        return ApplicationContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a ApplicationContext

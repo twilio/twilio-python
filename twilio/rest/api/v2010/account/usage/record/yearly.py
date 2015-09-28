@@ -118,6 +118,15 @@ class YearlyList(ListResource):
             params=params,
         )
 
+    def get(self):
+        """
+        Constructs a YearlyContext
+        
+        :returns: YearlyContext
+        :rtype: YearlyContext
+        """
+        return YearlyContext(self._version, **self._kwargs)
+
     def __call__(self):
         """
         Constructs a YearlyContext

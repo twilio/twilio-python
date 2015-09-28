@@ -189,6 +189,17 @@ class SmsMessageList(ListResource):
             params=params,
         )
 
+    def get(self, sid):
+        """
+        Constructs a SmsMessageContext
+        
+        :param sid: Contextual sid
+        
+        :returns: SmsMessageContext
+        :rtype: SmsMessageContext
+        """
+        return SmsMessageContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a SmsMessageContext

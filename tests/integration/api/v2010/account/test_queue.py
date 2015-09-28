@@ -15,5 +15,8 @@ class QueueTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
         self.holodeck.mock(Response({status}, {content}))
-        self.twilio.api.v2010.queues()
+        
+        self.twilio.api.v2010.accounts.get(sid=None) \
+                             .queues.get(sid=None).fetch()
+        
         self.holodeck.assert_has_request(Request('get', 'https://api.twilio.com/2010-04-01/Accounts/{account_sid}/Queues/{sid}.json'))

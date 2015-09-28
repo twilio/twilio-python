@@ -15,5 +15,9 @@ class FeedbackTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
         self.holodeck.mock(Response({status}, {content}))
-        self.twilio.api.v2010.feedback()
+        
+        self.twilio.api.v2010.accounts.get(sid=None) \
+                             .calls.get(sid=None) \
+                             .feedback.get(account_sid=None, call_sid=None).fetch()
+        
         self.holodeck.assert_has_request(Request('get', 'https://api.twilio.com/2010-04-01/Accounts/{account_sid}/Calls/{call_sid}/Feedback.json'))

@@ -120,6 +120,17 @@ class MemberList(ListResource):
             params=params,
         )
 
+    def get(self, call_sid):
+        """
+        Constructs a MemberContext
+        
+        :param call_sid: Contextual call_sid
+        
+        :returns: MemberContext
+        :rtype: MemberContext
+        """
+        return MemberContext(self._version, call_sid=call_sid, **self._kwargs)
+
     def __call__(self, call_sid):
         """
         Constructs a MemberContext

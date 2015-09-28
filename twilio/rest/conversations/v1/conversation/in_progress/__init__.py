@@ -116,6 +116,17 @@ class InProgressList(ListResource):
             params=params,
         )
 
+    def get(self, sid):
+        """
+        Constructs a InProgressContext
+        
+        :param sid: Contextual sid
+        
+        :returns: InProgressContext
+        :rtype: InProgressContext
+        """
+        return InProgressContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a InProgressContext

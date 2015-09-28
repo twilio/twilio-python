@@ -153,6 +153,17 @@ class TrunkList(ListResource):
             params=params,
         )
 
+    def get(self, sid):
+        """
+        Constructs a TrunkContext
+        
+        :param sid: Contextual sid
+        
+        :returns: TrunkContext
+        :rtype: TrunkContext
+        """
+        return TrunkContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a TrunkContext

@@ -201,6 +201,17 @@ class LocalList(ListResource):
             data=data,
         )
 
+    def get(self, sid):
+        """
+        Constructs a LocalContext
+        
+        :param sid: Contextual sid
+        
+        :returns: LocalContext
+        :rtype: LocalContext
+        """
+        return LocalContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a LocalContext

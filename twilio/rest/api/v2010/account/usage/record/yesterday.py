@@ -118,6 +118,15 @@ class YesterdayList(ListResource):
             params=params,
         )
 
+    def get(self):
+        """
+        Constructs a YesterdayContext
+        
+        :returns: YesterdayContext
+        :rtype: YesterdayContext
+        """
+        return YesterdayContext(self._version, **self._kwargs)
+
     def __call__(self):
         """
         Constructs a YesterdayContext

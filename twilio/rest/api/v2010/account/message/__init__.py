@@ -190,6 +190,17 @@ class MessageList(ListResource):
             params=params,
         )
 
+    def get(self, sid):
+        """
+        Constructs a MessageContext
+        
+        :param sid: Contextual sid
+        
+        :returns: MessageContext
+        :rtype: MessageContext
+        """
+        return MessageContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a MessageContext

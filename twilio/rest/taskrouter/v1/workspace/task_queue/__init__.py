@@ -184,6 +184,17 @@ class TaskQueueList(ListResource):
             self._statistics = StatisticsList(self._version, **self._kwargs)
         return self._statistics
 
+    def get(self, sid):
+        """
+        Constructs a TaskQueueContext
+        
+        :param sid: Contextual sid
+        
+        :returns: TaskQueueContext
+        :rtype: TaskQueueContext
+        """
+        return TaskQueueContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a TaskQueueContext

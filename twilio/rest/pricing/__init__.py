@@ -39,14 +39,14 @@ class Pricing(Domain):
     @property
     def phone_numbers(self):
         """
-        :rtype: PhoneNumberContext
+        :rtype: PhoneNumberList
         """
         return self.v1.phone_numbers
 
     @property
     def voice(self):
         """
-        :rtype: VoiceContext
+        :rtype: VoiceList
         """
         return self.v1.voice
 

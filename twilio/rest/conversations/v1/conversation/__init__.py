@@ -10,7 +10,87 @@ from twilio import values
 from twilio.rest import deserialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
+from twilio.rest.base import ListResource
+from twilio.rest.conversations.v1.conversation.completed import CompletedList
+from twilio.rest.conversations.v1.conversation.in_progress import InProgressList
 from twilio.rest.conversations.v1.conversation.participant import ParticipantList
+
+
+class ConversationList(ListResource):
+
+    def __init__(self, version):
+        """
+        Initialize the ConversationList
+        
+        :param Version version: Version that contains the resource
+        
+        :returns: ConversationList
+        :rtype: ConversationList
+        """
+        super(ConversationList, self).__init__(version)
+        
+        # Path Solution
+        self._kwargs = {}
+        self._uri = 'None'.format(**self._kwargs)
+        
+        # Components
+        self._in_progress = None
+        self._completed = None
+
+    @property
+    def in_progress(self):
+        """
+        Access the in_progress
+        
+        :returns: InProgressList
+        :rtype: InProgressList
+        """
+        if self._in_progress is None:
+            self._in_progress = InProgressList(self._version, **self._kwargs)
+        return self._in_progress
+
+    @property
+    def completed(self):
+        """
+        Access the completed
+        
+        :returns: CompletedList
+        :rtype: CompletedList
+        """
+        if self._completed is None:
+            self._completed = CompletedList(self._version, **self._kwargs)
+        return self._completed
+
+    def get(self, sid):
+        """
+        Constructs a ConversationContext
+        
+        :param sid: Contextual sid
+        
+        :returns: ConversationContext
+        :rtype: ConversationContext
+        """
+        return ConversationContext(self._version, sid=sid, **self._kwargs)
+
+    def __call__(self, sid):
+        """
+        Constructs a ConversationContext
+        
+        :param sid: Contextual sid
+        
+        :returns: ConversationContext
+        :rtype: ConversationContext
+        """
+        return ConversationContext(self._version, sid=sid, **self._kwargs)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Conversations.V1.ConversationList>'
 
 
 class ConversationContext(InstanceContext):

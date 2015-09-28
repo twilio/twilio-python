@@ -15,5 +15,7 @@ class EventTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
         self.holodeck.mock(Response({status}, {content}))
-        self.twilio.monitor.v1.events()
+        
+        self.twilio.monitor.v1.events.get(sid=None).fetch()
+        
         self.holodeck.assert_has_request(Request('get', 'https://monitor.twilio.com/v1/Events/{sid}'))

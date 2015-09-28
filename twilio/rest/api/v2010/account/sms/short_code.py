@@ -133,6 +133,17 @@ class ShortCodeList(ListResource):
             params=params,
         )
 
+    def get(self, sid):
+        """
+        Constructs a ShortCodeContext
+        
+        :param sid: Contextual sid
+        
+        :returns: ShortCodeContext
+        :rtype: ShortCodeContext
+        """
+        return ShortCodeContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a ShortCodeContext

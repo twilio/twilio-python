@@ -135,6 +135,15 @@ class LocalList(ListResource):
             params=params,
         )
 
+    def get(self):
+        """
+        Constructs a LocalContext
+        
+        :returns: LocalContext
+        :rtype: LocalContext
+        """
+        return LocalContext(self._version, **self._kwargs)
+
     def __call__(self):
         """
         Constructs a LocalContext

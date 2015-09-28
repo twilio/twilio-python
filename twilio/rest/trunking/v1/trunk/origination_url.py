@@ -147,6 +147,17 @@ class OriginationUrlList(ListResource):
             params=params,
         )
 
+    def get(self, sid):
+        """
+        Constructs a OriginationUrlContext
+        
+        :param sid: Contextual sid
+        
+        :returns: OriginationUrlContext
+        :rtype: OriginationUrlContext
+        """
+        return OriginationUrlContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a OriginationUrlContext

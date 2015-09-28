@@ -140,6 +140,17 @@ class IpAccessControlListList(ListResource):
             data=data,
         )
 
+    def get(self, sid):
+        """
+        Constructs a IpAccessControlListContext
+        
+        :param sid: Contextual sid
+        
+        :returns: IpAccessControlListContext
+        :rtype: IpAccessControlListContext
+        """
+        return IpAccessControlListContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a IpAccessControlListContext

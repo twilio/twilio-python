@@ -118,6 +118,17 @@ class TranscriptionList(ListResource):
             params=params,
         )
 
+    def get(self, sid):
+        """
+        Constructs a TranscriptionContext
+        
+        :param sid: Contextual sid
+        
+        :returns: TranscriptionContext
+        :rtype: TranscriptionContext
+        """
+        return TranscriptionContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a TranscriptionContext

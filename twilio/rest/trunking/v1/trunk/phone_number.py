@@ -139,6 +139,17 @@ class PhoneNumberList(ListResource):
             params=params,
         )
 
+    def get(self, sid):
+        """
+        Constructs a PhoneNumberContext
+        
+        :param sid: Contextual sid
+        
+        :returns: PhoneNumberContext
+        :rtype: PhoneNumberContext
+        """
+        return PhoneNumberContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a PhoneNumberContext

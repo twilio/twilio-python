@@ -154,14 +154,14 @@ class V2010(Version):
     @property
     def sip(self):
         """
-        :rtype: SipContext
+        :rtype: SipList
         """
         return self.account.sip
 
     @property
     def sms(self):
         """
-        :rtype: SmsContext
+        :rtype: SmsList
         """
         return self.account.sms
 
@@ -182,7 +182,7 @@ class V2010(Version):
     @property
     def usage(self):
         """
-        :rtype: UsageContext
+        :rtype: UsageList
         """
         return self.account.usage
 

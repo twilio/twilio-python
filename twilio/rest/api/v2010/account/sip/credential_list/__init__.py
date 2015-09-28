@@ -140,6 +140,17 @@ class CredentialListList(ListResource):
             data=data,
         )
 
+    def get(self, sid):
+        """
+        Constructs a CredentialListContext
+        
+        :param sid: Contextual sid
+        
+        :returns: CredentialListContext
+        :rtype: CredentialListContext
+        """
+        return CredentialListContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a CredentialListContext

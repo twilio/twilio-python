@@ -141,6 +141,17 @@ class IpAccessControlListMappingList(ListResource):
             params=params,
         )
 
+    def get(self, sid):
+        """
+        Constructs a IpAccessControlListMappingContext
+        
+        :param sid: Contextual sid
+        
+        :returns: IpAccessControlListMappingContext
+        :rtype: IpAccessControlListMappingContext
+        """
+        return IpAccessControlListMappingContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a IpAccessControlListMappingContext

@@ -120,6 +120,17 @@ class AvailablePhoneNumberCountryList(ListResource):
             params=params,
         )
 
+    def get(self, country_code):
+        """
+        Constructs a AvailablePhoneNumberCountryContext
+        
+        :param country_code: Contextual country_code
+        
+        :returns: AvailablePhoneNumberCountryContext
+        :rtype: AvailablePhoneNumberCountryContext
+        """
+        return AvailablePhoneNumberCountryContext(self._version, country_code=country_code, **self._kwargs)
+
     def __call__(self, country_code):
         """
         Constructs a AvailablePhoneNumberCountryContext

@@ -157,6 +157,17 @@ class WorkspaceList(ListResource):
             data=data,
         )
 
+    def get(self, sid):
+        """
+        Constructs a WorkspaceContext
+        
+        :param sid: Contextual sid
+        
+        :returns: WorkspaceContext
+        :rtype: WorkspaceContext
+        """
+        return WorkspaceContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a WorkspaceContext

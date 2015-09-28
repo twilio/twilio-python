@@ -159,6 +159,17 @@ class DomainList(ListResource):
             data=data,
         )
 
+    def get(self, sid):
+        """
+        Constructs a DomainContext
+        
+        :param sid: Contextual sid
+        
+        :returns: DomainContext
+        :rtype: DomainContext
+        """
+        return DomainContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a DomainContext

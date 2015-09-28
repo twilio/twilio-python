@@ -201,6 +201,17 @@ class MobileList(ListResource):
             data=data,
         )
 
+    def get(self, sid):
+        """
+        Constructs a MobileContext
+        
+        :param sid: Contextual sid
+        
+        :returns: MobileContext
+        :rtype: MobileContext
+        """
+        return MobileContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a MobileContext

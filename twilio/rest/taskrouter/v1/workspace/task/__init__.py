@@ -192,6 +192,17 @@ class TaskList(ListResource):
             data=data,
         )
 
+    def get(self, sid):
+        """
+        Constructs a TaskContext
+        
+        :param sid: Contextual sid
+        
+        :returns: TaskContext
+        :rtype: TaskContext
+        """
+        return TaskContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a TaskContext

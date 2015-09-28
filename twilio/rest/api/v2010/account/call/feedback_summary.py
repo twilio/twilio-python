@@ -63,6 +63,17 @@ class FeedbackSummaryList(ListResource):
             data=data,
         )
 
+    def get(self, sid):
+        """
+        Constructs a FeedbackSummaryContext
+        
+        :param sid: Contextual sid
+        
+        :returns: FeedbackSummaryContext
+        :rtype: FeedbackSummaryContext
+        """
+        return FeedbackSummaryContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a FeedbackSummaryContext

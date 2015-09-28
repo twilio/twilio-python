@@ -114,6 +114,17 @@ class CountryList(ListResource):
             params=params,
         )
 
+    def get(self, iso_country):
+        """
+        Constructs a CountryContext
+        
+        :param iso_country: Contextual iso_country
+        
+        :returns: CountryContext
+        :rtype: CountryContext
+        """
+        return CountryContext(self._version, iso_country=iso_country, **self._kwargs)
+
     def __call__(self, iso_country):
         """
         Constructs a CountryContext

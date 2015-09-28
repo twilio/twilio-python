@@ -118,6 +118,17 @@ class AuthorizedConnectAppList(ListResource):
             params=params,
         )
 
+    def get(self, sid):
+        """
+        Constructs a AuthorizedConnectAppContext
+        
+        :param sid: Contextual sid
+        
+        :returns: AuthorizedConnectAppContext
+        :rtype: AuthorizedConnectAppContext
+        """
+        return AuthorizedConnectAppContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a AuthorizedConnectAppContext

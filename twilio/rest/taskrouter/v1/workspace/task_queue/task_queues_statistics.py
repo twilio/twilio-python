@@ -147,6 +147,15 @@ class StatisticsList(ListResource):
             params=params,
         )
 
+    def get(self):
+        """
+        Constructs a StatisticsContext
+        
+        :returns: StatisticsContext
+        :rtype: StatisticsContext
+        """
+        return StatisticsContext(self._version, **self._kwargs)
+
     def __call__(self):
         """
         Constructs a StatisticsContext

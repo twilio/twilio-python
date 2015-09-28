@@ -180,6 +180,17 @@ class ConferenceList(ListResource):
             params=params,
         )
 
+    def get(self, sid):
+        """
+        Constructs a ConferenceContext
+        
+        :param sid: Contextual sid
+        
+        :returns: ConferenceContext
+        :rtype: ConferenceContext
+        """
+        return ConferenceContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a ConferenceContext

@@ -213,6 +213,17 @@ class WorkerList(ListResource):
             self._statistics = StatisticsContext(self._version, **self._kwargs)
         return self._statistics
 
+    def get(self, sid):
+        """
+        Constructs a WorkerContext
+        
+        :param sid: Contextual sid
+        
+        :returns: WorkerContext
+        :rtype: WorkerContext
+        """
+        return WorkerContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a WorkerContext

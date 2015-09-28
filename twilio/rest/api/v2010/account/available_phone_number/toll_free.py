@@ -135,6 +135,15 @@ class TollFreeList(ListResource):
             params=params,
         )
 
+    def get(self):
+        """
+        Constructs a TollFreeContext
+        
+        :returns: TollFreeContext
+        :rtype: TollFreeContext
+        """
+        return TollFreeContext(self._version, **self._kwargs)
+
     def __call__(self):
         """
         Constructs a TollFreeContext

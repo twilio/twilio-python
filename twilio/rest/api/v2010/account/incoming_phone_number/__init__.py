@@ -246,6 +246,17 @@ class IncomingPhoneNumberList(ListResource):
             self._toll_free = TollFreeList(self._version, **self._kwargs)
         return self._toll_free
 
+    def get(self, sid):
+        """
+        Constructs a IncomingPhoneNumberContext
+        
+        :param sid: Contextual sid
+        
+        :returns: IncomingPhoneNumberContext
+        :rtype: IncomingPhoneNumberContext
+        """
+        return IncomingPhoneNumberContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a IncomingPhoneNumberContext

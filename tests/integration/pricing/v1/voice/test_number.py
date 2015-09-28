@@ -15,5 +15,8 @@ class NumberTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
         self.holodeck.mock(Response({status}, {content}))
-        self.twilio.pricing.v1.numbers()
+        
+        self.twilio.pricing.v1.voice \
+                              .numbers.get(number=None).fetch()
+        
         self.holodeck.assert_has_request(Request('get', 'https://pricing.twilio.com/v1/Voice/Numbers/{number}'))

@@ -144,6 +144,17 @@ class MediaList(ListResource):
             params=params,
         )
 
+    def get(self, sid):
+        """
+        Constructs a MediaContext
+        
+        :param sid: Contextual sid
+        
+        :returns: MediaContext
+        :rtype: MediaContext
+        """
+        return MediaContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a MediaContext

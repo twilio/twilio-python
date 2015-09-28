@@ -127,6 +127,15 @@ class MobileList(ListResource):
             params=params,
         )
 
+    def get(self):
+        """
+        Constructs a MobileContext
+        
+        :returns: MobileContext
+        :rtype: MobileContext
+        """
+        return MobileContext(self._version, **self._kwargs)
+
     def __call__(self):
         """
         Constructs a MobileContext

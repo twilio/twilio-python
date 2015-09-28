@@ -151,6 +151,17 @@ class NotificationList(ListResource):
             params=params,
         )
 
+    def get(self, sid):
+        """
+        Constructs a NotificationContext
+        
+        :param sid: Contextual sid
+        
+        :returns: NotificationContext
+        :rtype: NotificationContext
+        """
+        return NotificationContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a NotificationContext

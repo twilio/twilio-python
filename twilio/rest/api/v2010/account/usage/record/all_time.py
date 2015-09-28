@@ -118,6 +118,15 @@ class AllTimeList(ListResource):
             params=params,
         )
 
+    def get(self):
+        """
+        Constructs a AllTimeContext
+        
+        :returns: AllTimeContext
+        :rtype: AllTimeContext
+        """
+        return AllTimeContext(self._version, **self._kwargs)
+
     def __call__(self):
         """
         Constructs a AllTimeContext

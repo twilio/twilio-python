@@ -118,6 +118,15 @@ class MonthlyList(ListResource):
             params=params,
         )
 
+    def get(self):
+        """
+        Constructs a MonthlyContext
+        
+        :returns: MonthlyContext
+        :rtype: MonthlyContext
+        """
+        return MonthlyContext(self._version, **self._kwargs)
+
     def __call__(self):
         """
         Constructs a MonthlyContext

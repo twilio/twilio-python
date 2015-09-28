@@ -15,5 +15,8 @@ class AvailablePhoneNumberCountryTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
         self.holodeck.mock(Response({status}, {content}))
-        self.twilio.api.v2010.available_phone_numbers()
+        
+        self.twilio.api.v2010.accounts.get(sid=None) \
+                             .available_phone_numbers.get(country_code=None).fetch()
+        
         self.holodeck.assert_has_request(Request('get', 'https://api.twilio.com/2010-04-01/Accounts/{account_sid}/AvailablePhoneNumbers/{country_code}.json'))

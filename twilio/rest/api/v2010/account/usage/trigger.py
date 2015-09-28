@@ -175,6 +175,17 @@ class TriggerList(ListResource):
             params=params,
         )
 
+    def get(self, sid):
+        """
+        Constructs a TriggerContext
+        
+        :param sid: Contextual sid
+        
+        :returns: TriggerContext
+        :rtype: TriggerContext
+        """
+        return TriggerContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a TriggerContext

@@ -118,6 +118,15 @@ class LastMonthList(ListResource):
             params=params,
         )
 
+    def get(self):
+        """
+        Constructs a LastMonthContext
+        
+        :returns: LastMonthContext
+        :rtype: LastMonthContext
+        """
+        return LastMonthContext(self._version, **self._kwargs)
+
     def __call__(self):
         """
         Constructs a LastMonthContext

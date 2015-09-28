@@ -262,6 +262,17 @@ class CallList(ListResource):
             self._feedback_summaries = FeedbackSummaryList(self._version, **self._kwargs)
         return self._feedback_summaries
 
+    def get(self, sid):
+        """
+        Constructs a CallContext
+        
+        :param sid: Contextual sid
+        
+        :returns: CallContext
+        :rtype: CallContext
+        """
+        return CallContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a CallContext

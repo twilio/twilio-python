@@ -15,5 +15,9 @@ class ParticipantTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
         self.holodeck.mock(Response({status}, {content}))
-        self.twilio.api.v2010.participants()
+        
+        self.twilio.api.v2010.accounts.get(sid=None) \
+                             .conferences.get(sid=None) \
+                             .participants.get(call_sid=None).fetch()
+        
         self.holodeck.assert_has_request(Request('get', 'https://api.twilio.com/2010-04-01/Accounts/{account_sid}/Conferences/{conference_sid}/Participants/{call_sid}.json'))

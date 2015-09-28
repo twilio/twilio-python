@@ -143,6 +143,17 @@ class RecordingList(ListResource):
             params=params,
         )
 
+    def get(self, sid):
+        """
+        Constructs a RecordingContext
+        
+        :param sid: Contextual sid
+        
+        :returns: RecordingContext
+        :rtype: RecordingContext
+        """
+        return RecordingContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a RecordingContext

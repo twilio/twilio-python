@@ -141,6 +141,17 @@ class ParticipantList(ListResource):
             data=data,
         )
 
+    def get(self, sid):
+        """
+        Constructs a ParticipantContext
+        
+        :param sid: Contextual sid
+        
+        :returns: ParticipantContext
+        :rtype: ParticipantContext
+        """
+        return ParticipantContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a ParticipantContext

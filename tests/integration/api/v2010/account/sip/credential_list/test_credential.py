@@ -15,5 +15,10 @@ class CredentialTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
         self.holodeck.mock(Response({status}, {content}))
-        self.twilio.api.v2010.credentials()
+        
+        self.twilio.api.v2010.accounts.get(sid=None) \
+                             .sip \
+                             .credential_lists.get(sid=None) \
+                             .credentials.get(sid=None).fetch()
+        
         self.holodeck.assert_has_request(Request('get', 'https://api.twilio.com/2010-04-01/Accounts/{account_sid}/SIP/CredentialLists/{credential_list_sid}/Credentials/{sid}.json'))

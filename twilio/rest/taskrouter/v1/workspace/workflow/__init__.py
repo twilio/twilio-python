@@ -159,6 +159,17 @@ class WorkflowList(ListResource):
             data=data,
         )
 
+    def get(self, sid):
+        """
+        Constructs a WorkflowContext
+        
+        :param sid: Contextual sid
+        
+        :returns: WorkflowContext
+        :rtype: WorkflowContext
+        """
+        return WorkflowContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a WorkflowContext

@@ -116,6 +116,17 @@ class CompletedList(ListResource):
             params=params,
         )
 
+    def get(self, sid):
+        """
+        Constructs a CompletedContext
+        
+        :param sid: Contextual sid
+        
+        :returns: CompletedContext
+        :rtype: CompletedContext
+        """
+        return CompletedContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a CompletedContext

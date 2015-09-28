@@ -143,6 +143,17 @@ class IpAddressList(ListResource):
             data=data,
         )
 
+    def get(self, sid):
+        """
+        Constructs a IpAddressContext
+        
+        :param sid: Contextual sid
+        
+        :returns: IpAddressContext
+        :rtype: IpAddressContext
+        """
+        return IpAddressContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a IpAddressContext

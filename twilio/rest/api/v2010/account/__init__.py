@@ -22,11 +22,11 @@ from twilio.rest.api.v2010.account.outgoing_caller_id import OutgoingCallerIdLis
 from twilio.rest.api.v2010.account.queue import QueueList
 from twilio.rest.api.v2010.account.recording import RecordingList
 from twilio.rest.api.v2010.account.sandbox import SandboxContext
-from twilio.rest.api.v2010.account.sip import SipContext
-from twilio.rest.api.v2010.account.sms import SmsContext
+from twilio.rest.api.v2010.account.sip import SipList
+from twilio.rest.api.v2010.account.sms import SmsList
 from twilio.rest.api.v2010.account.token import TokenList
 from twilio.rest.api.v2010.account.transcription import TranscriptionList
-from twilio.rest.api.v2010.account.usage import UsageContext
+from twilio.rest.api.v2010.account.usage import UsageList
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
@@ -169,6 +169,17 @@ class AccountList(ListResource):
             self._uri,
             params=params,
         )
+
+    def get(self, sid):
+        """
+        Constructs a AccountContext
+        
+        :param sid: Contextual sid
+        
+        :returns: AccountContext
+        :rtype: AccountContext
+        """
+        return AccountContext(self._version, sid=sid, **self._kwargs)
 
     def __call__(self, sid):
         """
@@ -487,11 +498,11 @@ class AccountContext(InstanceContext):
         """
         Access the sip
         
-        :returns: SipContext
-        :rtype: SipContext
+        :returns: SipList
+        :rtype: SipList
         """
         if self._sip is None:
-            self._sip = SipContext(
+            self._sip = SipList(
                 self._version,
                 account_sid=self._kwargs['sid'],
             )
@@ -502,11 +513,11 @@ class AccountContext(InstanceContext):
         """
         Access the sms
         
-        :returns: SmsContext
-        :rtype: SmsContext
+        :returns: SmsList
+        :rtype: SmsList
         """
         if self._sms is None:
-            self._sms = SmsContext(
+            self._sms = SmsList(
                 self._version,
                 account_sid=self._kwargs['sid'],
             )
@@ -547,11 +558,11 @@ class AccountContext(InstanceContext):
         """
         Access the usage
         
-        :returns: UsageContext
-        :rtype: UsageContext
+        :returns: UsageList
+        :rtype: UsageList
         """
         if self._usage is None:
-            self._usage = UsageContext(
+            self._usage = UsageList(
                 self._version,
                 account_sid=self._kwargs['sid'],
             )

@@ -118,6 +118,15 @@ class TodayList(ListResource):
             params=params,
         )
 
+    def get(self):
+        """
+        Constructs a TodayContext
+        
+        :returns: TodayContext
+        :rtype: TodayContext
+        """
+        return TodayContext(self._version, **self._kwargs)
+
     def __call__(self):
         """
         Constructs a TodayContext

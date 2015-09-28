@@ -15,5 +15,7 @@ class AlertTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
         self.holodeck.mock(Response({status}, {content}))
-        self.twilio.monitor.v1.alerts()
+        
+        self.twilio.monitor.v1.alerts.get(sid=None).fetch()
+        
         self.holodeck.assert_has_request(Request('get', 'https://monitor.twilio.com/v1/Alerts/{sid}'))

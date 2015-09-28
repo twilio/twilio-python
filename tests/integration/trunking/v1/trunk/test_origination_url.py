@@ -15,5 +15,8 @@ class OriginationUrlTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
         self.holodeck.mock(Response({status}, {content}))
-        self.twilio.trunking.v1.origination_urls()
+        
+        self.twilio.trunking.v1.trunks.get(sid=None) \
+                               .origination_urls.get(sid=None).fetch()
+        
         self.holodeck.assert_has_request(Request('get', 'https://trunking.twilio.com/v1/Trunks/{trunk_sid}/OriginationUrls/{sid}'))

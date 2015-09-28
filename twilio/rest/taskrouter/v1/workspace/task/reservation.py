@@ -120,6 +120,17 @@ class ReservationList(ListResource):
             params=params,
         )
 
+    def get(self, sid):
+        """
+        Constructs a ReservationContext
+        
+        :param sid: Contextual sid
+        
+        :returns: ReservationContext
+        :rtype: ReservationContext
+        """
+        return ReservationContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a ReservationContext

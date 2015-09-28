@@ -120,6 +120,15 @@ class DependentPhoneNumberList(ListResource):
             params=params,
         )
 
+    def get(self):
+        """
+        Constructs a DependentPhoneNumberContext
+        
+        :returns: DependentPhoneNumberContext
+        :rtype: DependentPhoneNumberContext
+        """
+        return DependentPhoneNumberContext(self._version, **self._kwargs)
+
     def __call__(self):
         """
         Constructs a DependentPhoneNumberContext

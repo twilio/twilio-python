@@ -168,6 +168,17 @@ class AlertList(ListResource):
             params=params,
         )
 
+    def get(self, sid):
+        """
+        Constructs a AlertContext
+        
+        :param sid: Contextual sid
+        
+        :returns: AlertContext
+        :rtype: AlertContext
+        """
+        return AlertContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a AlertContext

@@ -201,6 +201,17 @@ class TollFreeList(ListResource):
             data=data,
         )
 
+    def get(self, sid):
+        """
+        Constructs a TollFreeContext
+        
+        :param sid: Contextual sid
+        
+        :returns: TollFreeContext
+        :rtype: TollFreeContext
+        """
+        return TollFreeContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a TollFreeContext

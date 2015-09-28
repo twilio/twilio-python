@@ -166,6 +166,17 @@ class OutgoingCallerIdList(ListResource):
             data=data,
         )
 
+    def get(self, sid):
+        """
+        Constructs a OutgoingCallerIdContext
+        
+        :param sid: Contextual sid
+        
+        :returns: OutgoingCallerIdContext
+        :rtype: OutgoingCallerIdContext
+        """
+        return OutgoingCallerIdContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a OutgoingCallerIdContext

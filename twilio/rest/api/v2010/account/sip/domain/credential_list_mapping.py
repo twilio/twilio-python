@@ -141,6 +141,17 @@ class CredentialListMappingList(ListResource):
             params=params,
         )
 
+    def get(self, sid):
+        """
+        Constructs a CredentialListMappingContext
+        
+        :param sid: Contextual sid
+        
+        :returns: CredentialListMappingContext
+        :rtype: CredentialListMappingContext
+        """
+        return CredentialListMappingContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a CredentialListMappingContext

@@ -15,5 +15,7 @@ class PhoneNumberTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
         self.holodeck.mock(Response({status}, {content}))
-        self.twilio.lookups.v1.phone_numbers()
+        
+        self.twilio.lookups.v1.phone_numbers.get(phone_number=None).fetch()
+        
         self.holodeck.assert_has_request(Request('get', 'https://lookups.twilio.com/v1/PhoneNumbers/{phone_number}'))

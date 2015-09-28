@@ -118,6 +118,15 @@ class DailyList(ListResource):
             params=params,
         )
 
+    def get(self):
+        """
+        Constructs a DailyContext
+        
+        :returns: DailyContext
+        :rtype: DailyContext
+        """
+        return DailyContext(self._version, **self._kwargs)
+
     def __call__(self):
         """
         Constructs a DailyContext

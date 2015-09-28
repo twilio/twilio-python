@@ -39,7 +39,7 @@ class Conversations(Domain):
     @property
     def conversations(self):
         """
-        :rtype: ConversationContext
+        :rtype: ConversationList
         """
         return self.v1.conversations
 

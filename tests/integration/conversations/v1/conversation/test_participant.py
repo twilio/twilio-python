@@ -15,5 +15,8 @@ class ParticipantTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
         self.holodeck.mock(Response({status}, {content}))
-        self.twilio.conversations.v1.participants()
+        
+        self.twilio.conversations.v1.conversations.get(sid=None) \
+                                    .participants.get(sid=None).fetch()
+        
         self.holodeck.assert_has_request(Request('get', 'https://conversations.twilio.com/v1/Conversations/{conversation_sid}/Participants/{sid}'))

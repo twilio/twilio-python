@@ -185,6 +185,17 @@ class EventList(ListResource):
             params=params,
         )
 
+    def get(self, sid):
+        """
+        Constructs a EventContext
+        
+        :param sid: Contextual sid
+        
+        :returns: EventContext
+        :rtype: EventContext
+        """
+        return EventContext(self._version, sid=sid, **self._kwargs)
+
     def __call__(self, sid):
         """
         Constructs a EventContext

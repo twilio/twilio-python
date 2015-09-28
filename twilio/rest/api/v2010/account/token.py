@@ -54,6 +54,15 @@ class TokenList(ListResource):
             data=data,
         )
 
+    def get(self):
+        """
+        Constructs a TokenContext
+        
+        :returns: TokenContext
+        :rtype: TokenContext
+        """
+        return TokenContext(self._version, **self._kwargs)
+
     def __call__(self):
         """
         Constructs a TokenContext
