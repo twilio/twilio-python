@@ -20,7 +20,7 @@ class EventList(ListResource):
         Initialize the EventList
         
         :param Version version: Version that contains the resource
-        :param workspace_sid: Contextual workspace_sid
+        :param workspace_sid: The sid
         
         :returns: EventList
         :rtype: EventList

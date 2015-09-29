@@ -20,7 +20,7 @@ class OutgoingCallerIdList(ListResource):
         Initialize the OutgoingCallerIdList
         
         :param Version version: Version that contains the resource
-        :param account_sid: Contextual account_sid
+        :param account_sid: The unique sid that identifies this account
         
         :returns: OutgoingCallerIdList
         :rtype: OutgoingCallerIdList

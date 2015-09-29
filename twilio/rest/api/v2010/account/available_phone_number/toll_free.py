@@ -20,8 +20,8 @@ class TollFreeList(ListResource):
         Initialize the TollFreeList
         
         :param Version version: Version that contains the resource
-        :param account_sid: Contextual account_sid
-        :param country_code: Contextual country_code
+        :param account_sid: A 34 character string that uniquely identifies this resource.
+        :param country_code: The country_code
         
         :returns: TollFreeList
         :rtype: TollFreeList

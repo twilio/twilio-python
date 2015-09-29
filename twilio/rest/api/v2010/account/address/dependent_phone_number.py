@@ -20,8 +20,8 @@ class DependentPhoneNumberList(ListResource):
         Initialize the DependentPhoneNumberList
         
         :param Version version: Version that contains the resource
-        :param account_sid: Contextual account_sid
-        :param address_sid: Contextual address_sid
+        :param account_sid: The account_sid
+        :param address_sid: The sid
         
         :returns: DependentPhoneNumberList
         :rtype: DependentPhoneNumberList

@@ -20,8 +20,8 @@ class TranscriptionList(ListResource):
         Initialize the TranscriptionList
         
         :param Version version: Version that contains the resource
-        :param account_sid: Contextual account_sid
-        :param recording_sid: Contextual recording_sid
+        :param account_sid: The account_sid
+        :param recording_sid: The recording_sid
         
         :returns: TranscriptionList
         :rtype: TranscriptionList

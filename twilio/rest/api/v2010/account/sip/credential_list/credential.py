@@ -20,8 +20,8 @@ class CredentialList(ListResource):
         Initialize the CredentialList
         
         :param Version version: Version that contains the resource
-        :param account_sid: Contextual account_sid
-        :param credential_list_sid: Contextual credential_list_sid
+        :param account_sid: The account_sid
+        :param credential_list_sid: The credential_list_sid
         
         :returns: CredentialList
         :rtype: CredentialList

@@ -20,7 +20,7 @@ class LocalList(ListResource):
         Initialize the LocalList
         
         :param Version version: Version that contains the resource
-        :param owner_account_sid: Contextual owner_account_sid
+        :param owner_account_sid: A 34 character string that uniquely identifies this resource.
         
         :returns: LocalList
         :rtype: LocalList

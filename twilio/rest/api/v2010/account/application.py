@@ -20,7 +20,7 @@ class ApplicationList(ListResource):
         Initialize the ApplicationList
         
         :param Version version: Version that contains the resource
-        :param account_sid: Contextual account_sid
+        :param account_sid: A string that uniquely identifies this resource
         
         :returns: ApplicationList
         :rtype: ApplicationList

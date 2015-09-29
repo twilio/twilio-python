@@ -22,7 +22,7 @@ class ConferenceList(ListResource):
         Initialize the ConferenceList
         
         :param Version version: Version that contains the resource
-        :param account_sid: Contextual account_sid
+        :param account_sid: The unique sid that identifies this account
         
         :returns: ConferenceList
         :rtype: ConferenceList

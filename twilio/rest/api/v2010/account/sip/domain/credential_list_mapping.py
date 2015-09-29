@@ -20,8 +20,8 @@ class CredentialListMappingList(ListResource):
         Initialize the CredentialListMappingList
         
         :param Version version: Version that contains the resource
-        :param account_sid: Contextual account_sid
-        :param domain_sid: Contextual domain_sid
+        :param account_sid: The account_sid
+        :param domain_sid: A string that uniquely identifies the SIP Domain
         
         :returns: CredentialListMappingList
         :rtype: CredentialListMappingList

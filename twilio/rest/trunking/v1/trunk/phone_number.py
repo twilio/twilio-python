@@ -20,7 +20,7 @@ class PhoneNumberList(ListResource):
         Initialize the PhoneNumberList
         
         :param Version version: Version that contains the resource
-        :param trunk_sid: Contextual trunk_sid
+        :param trunk_sid: The trunk_sid
         
         :returns: PhoneNumberList
         :rtype: PhoneNumberList

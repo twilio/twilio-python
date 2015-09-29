@@ -20,8 +20,8 @@ class ParticipantList(ListResource):
         Initialize the ParticipantList
         
         :param Version version: Version that contains the resource
-        :param account_sid: Contextual account_sid
-        :param conference_sid: Contextual conference_sid
+        :param account_sid: The unique sid that identifies this account
+        :param conference_sid: A string that uniquely identifies this conference
         
         :returns: ParticipantList
         :rtype: ParticipantList

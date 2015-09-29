@@ -20,7 +20,7 @@ class IpAccessControlListList(ListResource):
         Initialize the IpAccessControlListList
         
         :param Version version: Version that contains the resource
-        :param trunk_sid: Contextual trunk_sid
+        :param trunk_sid: The trunk_sid
         
         :returns: IpAccessControlListList
         :rtype: IpAccessControlListList

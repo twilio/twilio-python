@@ -20,8 +20,8 @@ class IpAddressList(ListResource):
         Initialize the IpAddressList
         
         :param Version version: Version that contains the resource
-        :param account_sid: Contextual account_sid
-        :param ip_access_control_list_sid: Contextual ip_access_control_list_sid
+        :param account_sid: The account_sid
+        :param ip_access_control_list_sid: The ip_access_control_list_sid
         
         :returns: IpAddressList
         :rtype: IpAddressList

@@ -20,7 +20,7 @@ class ActivityList(ListResource):
         Initialize the ActivityList
         
         :param Version version: Version that contains the resource
-        :param workspace_sid: Contextual workspace_sid
+        :param workspace_sid: The workspace_sid
         
         :returns: ActivityList
         :rtype: ActivityList

@@ -20,7 +20,7 @@ class FeedbackSummaryList(ListResource):
         Initialize the FeedbackSummaryList
         
         :param Version version: Version that contains the resource
-        :param account_sid: Contextual account_sid
+        :param account_sid: The unique id of the Account responsible for creating this Call
         
         :returns: FeedbackSummaryList
         :rtype: FeedbackSummaryList

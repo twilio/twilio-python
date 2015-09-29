@@ -21,7 +21,7 @@ class SipList(ListResource):
         Initialize the SipList
         
         :param Version version: Version that contains the resource
-        :param account_sid: Contextual account_sid
+        :param account_sid: A 34 character string that uniquely identifies this resource.
         
         :returns: SipList
         :rtype: SipList

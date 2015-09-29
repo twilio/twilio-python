@@ -20,7 +20,7 @@ class SmsList(ListResource):
         Initialize the SmsList
         
         :param Version version: Version that contains the resource
-        :param account_sid: Contextual account_sid
+        :param account_sid: A 34 character string that uniquely identifies this resource.
         
         :returns: SmsList
         :rtype: SmsList

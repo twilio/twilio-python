@@ -21,8 +21,8 @@ class RecordingList(ListResource):
         Initialize the RecordingList
         
         :param Version version: Version that contains the resource
-        :param account_sid: Contextual account_sid
-        :param call_sid: Contextual call_sid
+        :param account_sid: The account_sid
+        :param call_sid: The call_sid
         
         :returns: RecordingList
         :rtype: RecordingList

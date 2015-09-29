@@ -21,8 +21,8 @@ class MediaList(ListResource):
         Initialize the MediaList
         
         :param Version version: Version that contains the resource
-        :param account_sid: Contextual account_sid
-        :param message_sid: Contextual message_sid
+        :param account_sid: The unique sid that identifies this account
+        :param message_sid: A string that uniquely identifies this message
         
         :returns: MediaList
         :rtype: MediaList

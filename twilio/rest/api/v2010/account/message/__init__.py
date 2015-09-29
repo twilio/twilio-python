@@ -22,7 +22,7 @@ class MessageList(ListResource):
         Initialize the MessageList
         
         :param Version version: Version that contains the resource
-        :param account_sid: Contextual account_sid
+        :param account_sid: The unique sid that identifies this account
         
         :returns: MessageList
         :rtype: MessageList

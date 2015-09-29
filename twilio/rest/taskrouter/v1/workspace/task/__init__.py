@@ -21,7 +21,7 @@ class TaskList(ListResource):
         Initialize the TaskList
         
         :param Version version: Version that contains the resource
-        :param workspace_sid: Contextual workspace_sid
+        :param workspace_sid: The workspace_sid
         
         :returns: TaskList
         :rtype: TaskList

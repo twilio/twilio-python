@@ -20,7 +20,7 @@ class ParticipantList(ListResource):
         Initialize the ParticipantList
         
         :param Version version: Version that contains the resource
-        :param conversation_sid: Contextual conversation_sid
+        :param conversation_sid: The conversation_sid
         
         :returns: ParticipantList
         :rtype: ParticipantList

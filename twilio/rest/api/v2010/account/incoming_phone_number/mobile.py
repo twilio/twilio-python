@@ -20,7 +20,7 @@ class MobileList(ListResource):
         Initialize the MobileList
         
         :param Version version: Version that contains the resource
-        :param owner_account_sid: Contextual owner_account_sid
+        :param owner_account_sid: A 34 character string that uniquely identifies this resource.
         
         :returns: MobileList
         :rtype: MobileList

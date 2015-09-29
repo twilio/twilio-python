@@ -20,8 +20,8 @@ class MemberList(ListResource):
         Initialize the MemberList
         
         :param Version version: Version that contains the resource
-        :param account_sid: Contextual account_sid
-        :param queue_sid: Contextual queue_sid
+        :param account_sid: The account_sid
+        :param queue_sid: A string that uniquely identifies this queue
         
         :returns: MemberList
         :rtype: MemberList

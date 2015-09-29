@@ -21,7 +21,7 @@ class IpAccessControlListList(ListResource):
         Initialize the IpAccessControlListList
         
         :param Version version: Version that contains the resource
-        :param account_sid: Contextual account_sid
+        :param account_sid: A 34 character string that uniquely identifies this resource.
         
         :returns: IpAccessControlListList
         :rtype: IpAccessControlListList

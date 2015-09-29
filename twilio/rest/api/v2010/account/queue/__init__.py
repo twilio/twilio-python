@@ -21,7 +21,7 @@ class QueueList(ListResource):
         Initialize the QueueList
         
         :param Version version: Version that contains the resource
-        :param account_sid: Contextual account_sid
+        :param account_sid: The account_sid
         
         :returns: QueueList
         :rtype: QueueList

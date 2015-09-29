@@ -25,7 +25,7 @@ class CallList(ListResource):
         Initialize the CallList
         
         :param Version version: Version that contains the resource
-        :param account_sid: Contextual account_sid
+        :param account_sid: The unique id of the Account responsible for creating this Call
         
         :returns: CallList
         :rtype: CallList

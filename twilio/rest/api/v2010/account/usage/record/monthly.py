@@ -20,7 +20,7 @@ class MonthlyList(ListResource):
         Initialize the MonthlyList
         
         :param Version version: Version that contains the resource
-        :param account_sid: Contextual account_sid
+        :param account_sid: A 34 character string that uniquely identifies this resource.
         
         :returns: MonthlyList
         :rtype: MonthlyList

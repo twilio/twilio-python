@@ -20,7 +20,7 @@ class CredentialListList(ListResource):
         Initialize the CredentialListList
         
         :param Version version: Version that contains the resource
-        :param trunk_sid: Contextual trunk_sid
+        :param trunk_sid: The trunk_sid
         
         :returns: CredentialListList
         :rtype: CredentialListList

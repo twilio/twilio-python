@@ -19,7 +19,7 @@ class StatisticsList(ListResource):
         Initialize the StatisticsList
         
         :param Version version: Version that contains the resource
-        :param workspace_sid: Contextual workspace_sid
+        :param workspace_sid: The workspace_sid
         
         :returns: StatisticsList
         :rtype: StatisticsList

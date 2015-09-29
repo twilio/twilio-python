@@ -20,8 +20,8 @@ class ReservationList(ListResource):
         Initialize the ReservationList
         
         :param Version version: Version that contains the resource
-        :param workspace_sid: Contextual workspace_sid
-        :param task_sid: Contextual task_sid
+        :param workspace_sid: The workspace_sid
+        :param task_sid: The task_sid
         
         :returns: ReservationList
         :rtype: ReservationList
