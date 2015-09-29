@@ -35,15 +35,13 @@ class TollFreeList(ListResource):
         }
         self._uri = '/Accounts/{account_sid}/AvailablePhoneNumbers/{country_code}/TollFree.json'.format(**self._kwargs)
 
-    def stream(self, number_type, beta=values.unset, limit=None, page_size=None,
-               **kwargs):
+    def stream(self, beta=values.unset, limit=None, page_size=None, **kwargs):
         """
         Streams TollFreeInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param str number_type: The number_type
         :param bool beta: The beta
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
@@ -58,7 +56,6 @@ class TollFreeList(ListResource):
         limits = self._version.read_limits(limit, page_size)
         
         params = values.of({
-            'NumberType': number_type,
             'Beta': beta,
             'PageSize': limits['page_size'],
         })
@@ -75,14 +72,12 @@ class TollFreeList(ListResource):
             params=params,
         )
 
-    def read(self, number_type, beta=values.unset, limit=None, page_size=None,
-             **kwargs):
+    def read(self, beta=values.unset, limit=None, page_size=None, **kwargs):
         """
         Reads TollFreeInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param str number_type: The number_type
         :param bool beta: The beta
         :param int limit: Upper limit for the number of records to return. read() guarantees
                           never to return more than limit.  Default is no limit
@@ -95,20 +90,18 @@ class TollFreeList(ListResource):
         :rtype: generator
         """
         return list(self.stream(
-            number_type=number_type,
             beta=beta,
             limit=limit,
             page_size=page_size,
             **kwargs
         ))
 
-    def page(self, number_type, beta=values.unset, page_token=None,
-             page_number=None, page_size=None, **kwargs):
+    def page(self, beta=values.unset, page_token=None, page_number=None,
+             page_size=None, **kwargs):
         """
         Retrieve a single page of TollFreeInstance records from the API.
         Request is executed immediately
         
-        :param str number_type: The number_type
         :param bool beta: The beta
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
@@ -118,7 +111,6 @@ class TollFreeList(ListResource):
         :rtype: Page
         """
         params = values.of({
-            'NumberType': number_type,
             'Beta': beta,
             'PageToken': page_token,
             'Page': page_number,

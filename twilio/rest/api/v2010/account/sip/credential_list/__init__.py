@@ -256,7 +256,7 @@ class CredentialListContext(InstanceContext):
             self._credentials = CredentialList(
                 self._version,
                 account_sid=self._kwargs['account_sid'],
-                sip_credential_list_sid=self._kwargs['sid'],
+                credential_list_sid=self._kwargs['sid'],
             )
         return self._credentials
 
