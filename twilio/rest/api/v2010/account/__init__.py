@@ -174,7 +174,7 @@ class AccountList(ListResource):
         """
         Constructs a AccountContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique Account Sid
         
         :returns: AccountContext
         :rtype: AccountContext
@@ -185,7 +185,7 @@ class AccountList(ListResource):
         """
         Constructs a AccountContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique Account Sid
         
         :returns: AccountContext
         :rtype: AccountContext
@@ -209,7 +209,7 @@ class AccountContext(InstanceContext):
         Initialize the AccountContext
         
         :param Version version
-        :param sid: Contextual sid
+        :param sid: Fetch by unique Account Sid
         
         :returns: AccountContext
         :rtype: AccountContext

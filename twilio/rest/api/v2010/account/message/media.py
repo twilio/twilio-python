@@ -148,7 +148,7 @@ class MediaList(ListResource):
         """
         Constructs a MediaContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique media Sid
         
         :returns: MediaContext
         :rtype: MediaContext
@@ -159,7 +159,7 @@ class MediaList(ListResource):
         """
         Constructs a MediaContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique media Sid
         
         :returns: MediaContext
         :rtype: MediaContext
@@ -183,9 +183,9 @@ class MediaContext(InstanceContext):
         Initialize the MediaContext
         
         :param Version version
-        :param account_sid: Contextual account_sid
-        :param message_sid: Contextual message_sid
-        :param sid: Contextual sid
+        :param account_sid: The account_sid
+        :param message_sid: The message_sid
+        :param sid: Fetch by unique media Sid
         
         :returns: MediaContext
         :rtype: MediaContext

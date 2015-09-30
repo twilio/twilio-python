@@ -65,7 +65,7 @@ class ConversationList(ListResource):
         """
         Constructs a ConversationContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: ConversationContext
         :rtype: ConversationContext
@@ -76,7 +76,7 @@ class ConversationList(ListResource):
         """
         Constructs a ConversationContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: ConversationContext
         :rtype: ConversationContext
@@ -100,7 +100,7 @@ class ConversationContext(InstanceContext):
         Initialize the ConversationContext
         
         :param Version version
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: ConversationContext
         :rtype: ConversationContext

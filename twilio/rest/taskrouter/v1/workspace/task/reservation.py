@@ -124,7 +124,7 @@ class ReservationList(ListResource):
         """
         Constructs a ReservationContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: ReservationContext
         :rtype: ReservationContext
@@ -135,7 +135,7 @@ class ReservationList(ListResource):
         """
         Constructs a ReservationContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: ReservationContext
         :rtype: ReservationContext
@@ -159,9 +159,9 @@ class ReservationContext(InstanceContext):
         Initialize the ReservationContext
         
         :param Version version
-        :param workspace_sid: Contextual workspace_sid
-        :param task_sid: Contextual task_sid
-        :param sid: Contextual sid
+        :param workspace_sid: The workspace_sid
+        :param task_sid: The task_sid
+        :param sid: The sid
         
         :returns: ReservationContext
         :rtype: ReservationContext

@@ -18,6 +18,6 @@ class StatisticsTestCase(IntegrationTestCase):
         
         self.twilio.taskrouter.v1.workspaces.get(sid=None) \
                                  .workers.get(sid=None) \
-                                 .statistics.get(workspace_sid=None, worker_sid=None).fetch()
+                                 .statistics.get().fetch()
         
         self.holodeck.assert_has_request(Request('get', 'https://taskrouter.twilio.com/v1/Workspaces/{workspace_sid}/Workers/{worker_sid}/Statistics'))

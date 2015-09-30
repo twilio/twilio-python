@@ -163,7 +163,7 @@ class DomainList(ListResource):
         """
         Constructs a DomainContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique Domain Sid
         
         :returns: DomainContext
         :rtype: DomainContext
@@ -174,7 +174,7 @@ class DomainList(ListResource):
         """
         Constructs a DomainContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique Domain Sid
         
         :returns: DomainContext
         :rtype: DomainContext
@@ -198,8 +198,8 @@ class DomainContext(InstanceContext):
         Initialize the DomainContext
         
         :param Version version
-        :param account_sid: Contextual account_sid
-        :param sid: Contextual sid
+        :param account_sid: The account_sid
+        :param sid: Fetch by unique Domain Sid
         
         :returns: DomainContext
         :rtype: DomainContext

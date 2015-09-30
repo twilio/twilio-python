@@ -147,7 +147,7 @@ class IpAddressList(ListResource):
         """
         Constructs a IpAddressContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: IpAddressContext
         :rtype: IpAddressContext
@@ -158,7 +158,7 @@ class IpAddressList(ListResource):
         """
         Constructs a IpAddressContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: IpAddressContext
         :rtype: IpAddressContext
@@ -182,9 +182,9 @@ class IpAddressContext(InstanceContext):
         Initialize the IpAddressContext
         
         :param Version version
-        :param account_sid: Contextual account_sid
-        :param ip_access_control_list_sid: Contextual ip_access_control_list_sid
-        :param sid: Contextual sid
+        :param account_sid: The account_sid
+        :param ip_access_control_list_sid: The ip_access_control_list_sid
+        :param sid: The sid
         
         :returns: IpAddressContext
         :rtype: IpAddressContext

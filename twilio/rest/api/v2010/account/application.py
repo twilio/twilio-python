@@ -187,7 +187,7 @@ class ApplicationList(ListResource):
         """
         Constructs a ApplicationContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique Application Sid
         
         :returns: ApplicationContext
         :rtype: ApplicationContext
@@ -198,7 +198,7 @@ class ApplicationList(ListResource):
         """
         Constructs a ApplicationContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique Application Sid
         
         :returns: ApplicationContext
         :rtype: ApplicationContext
@@ -222,8 +222,8 @@ class ApplicationContext(InstanceContext):
         Initialize the ApplicationContext
         
         :param Version version
-        :param account_sid: Contextual account_sid
-        :param sid: Contextual sid
+        :param account_sid: The account_sid
+        :param sid: Fetch by unique Application Sid
         
         :returns: ApplicationContext
         :rtype: ApplicationContext

@@ -143,7 +143,7 @@ class CredentialListList(ListResource):
         """
         Constructs a CredentialListContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: CredentialListContext
         :rtype: CredentialListContext
@@ -154,7 +154,7 @@ class CredentialListList(ListResource):
         """
         Constructs a CredentialListContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: CredentialListContext
         :rtype: CredentialListContext
@@ -178,8 +178,8 @@ class CredentialListContext(InstanceContext):
         Initialize the CredentialListContext
         
         :param Version version
-        :param trunk_sid: Contextual trunk_sid
-        :param sid: Contextual sid
+        :param trunk_sid: The trunk_sid
+        :param sid: The sid
         
         :returns: CredentialListContext
         :rtype: CredentialListContext

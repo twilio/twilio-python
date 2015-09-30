@@ -67,7 +67,7 @@ class FeedbackSummaryList(ListResource):
         """
         Constructs a FeedbackSummaryContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: FeedbackSummaryContext
         :rtype: FeedbackSummaryContext
@@ -78,7 +78,7 @@ class FeedbackSummaryList(ListResource):
         """
         Constructs a FeedbackSummaryContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: FeedbackSummaryContext
         :rtype: FeedbackSummaryContext
@@ -102,8 +102,8 @@ class FeedbackSummaryContext(InstanceContext):
         Initialize the FeedbackSummaryContext
         
         :param Version version
-        :param account_sid: Contextual account_sid
-        :param sid: Contextual sid
+        :param account_sid: The account_sid
+        :param sid: The sid
         
         :returns: FeedbackSummaryContext
         :rtype: FeedbackSummaryContext

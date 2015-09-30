@@ -179,7 +179,7 @@ class TriggerList(ListResource):
         """
         Constructs a TriggerContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique usage-trigger Sid
         
         :returns: TriggerContext
         :rtype: TriggerContext
@@ -190,7 +190,7 @@ class TriggerList(ListResource):
         """
         Constructs a TriggerContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique usage-trigger Sid
         
         :returns: TriggerContext
         :rtype: TriggerContext
@@ -214,8 +214,8 @@ class TriggerContext(InstanceContext):
         Initialize the TriggerContext
         
         :param Version version
-        :param account_sid: Contextual account_sid
-        :param sid: Contextual sid
+        :param account_sid: The account_sid
+        :param sid: Fetch by unique usage-trigger Sid
         
         :returns: TriggerContext
         :rtype: TriggerContext

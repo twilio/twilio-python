@@ -196,7 +196,7 @@ class TaskList(ListResource):
         """
         Constructs a TaskContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: TaskContext
         :rtype: TaskContext
@@ -207,7 +207,7 @@ class TaskList(ListResource):
         """
         Constructs a TaskContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: TaskContext
         :rtype: TaskContext
@@ -231,8 +231,8 @@ class TaskContext(InstanceContext):
         Initialize the TaskContext
         
         :param Version version
-        :param workspace_sid: Contextual workspace_sid
-        :param sid: Contextual sid
+        :param workspace_sid: The workspace_sid
+        :param sid: The sid
         
         :returns: TaskContext
         :rtype: TaskContext

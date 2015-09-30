@@ -145,7 +145,7 @@ class CredentialListMappingList(ListResource):
         """
         Constructs a CredentialListMappingContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: CredentialListMappingContext
         :rtype: CredentialListMappingContext
@@ -156,7 +156,7 @@ class CredentialListMappingList(ListResource):
         """
         Constructs a CredentialListMappingContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: CredentialListMappingContext
         :rtype: CredentialListMappingContext
@@ -180,9 +180,9 @@ class CredentialListMappingContext(InstanceContext):
         Initialize the CredentialListMappingContext
         
         :param Version version
-        :param account_sid: Contextual account_sid
-        :param domain_sid: Contextual domain_sid
-        :param sid: Contextual sid
+        :param account_sid: The account_sid
+        :param domain_sid: The domain_sid
+        :param sid: The sid
         
         :returns: CredentialListMappingContext
         :rtype: CredentialListMappingContext

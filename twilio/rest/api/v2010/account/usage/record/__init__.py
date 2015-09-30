@@ -17,7 +17,6 @@ from twilio.rest.api.v2010.account.usage.record.this_month import ThisMonthList
 from twilio.rest.api.v2010.account.usage.record.today import TodayList
 from twilio.rest.api.v2010.account.usage.record.yearly import YearlyList
 from twilio.rest.api.v2010.account.usage.record.yesterday import YesterdayList
-from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
 
@@ -285,24 +284,6 @@ class RecordList(ListResource):
             self._yesterday = YesterdayList(self._version, **self._kwargs)
         return self._yesterday
 
-    def get(self):
-        """
-        Constructs a RecordContext
-        
-        :returns: RecordContext
-        :rtype: RecordContext
-        """
-        return RecordContext(self._version, **self._kwargs)
-
-    def __call__(self):
-        """
-        Constructs a RecordContext
-        
-        :returns: RecordContext
-        :rtype: RecordContext
-        """
-        return RecordContext(self._version, **self._kwargs)
-
     def __repr__(self):
         """
         Provide a friendly representation
@@ -313,37 +294,9 @@ class RecordList(ListResource):
         return '<Twilio.Api.V2010.RecordList>'
 
 
-class RecordContext(InstanceContext):
-
-    def __init__(self, version):
-        """
-        Initialize the RecordContext
-        
-        :param Version version
-        
-        :returns: RecordContext
-        :rtype: RecordContext
-        """
-        super(RecordContext, self).__init__(version)
-        
-        # Path Solution
-        self._kwargs = {}
-        self._uri = 'None'.format(**self._kwargs)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
-        return '<Twilio.Api.V2010.RecordContext {}>'.format(context)
-
-
 class RecordInstance(InstanceResource):
 
-    def __init__(self, version, payload, account_sid):
+    def __init__(self, version, payload):
         """
         Initialize the RecordInstance
         
@@ -369,27 +322,6 @@ class RecordInstance(InstanceResource):
             'usage': payload['usage'],
             'usage_unit': payload['usage_unit'],
         }
-        
-        # Context
-        self._instance_context = None
-        self._kwargs = {
-            'account_sid': account_sid,
-        }
-
-    @property
-    def _context(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions.  All instance actions are proxied to the context
-        
-        :returns: RecordContext for this RecordInstance
-        :rtype: RecordContext
-        """
-        if self._instance_context is None:
-            self._instance_context = RecordContext(
-                self._version,
-            )
-        return self._instance_context
 
     @property
     def account_sid(self):
@@ -510,5 +442,4 @@ class RecordInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
-        return '<Twilio.Api.V2010.RecordInstance {}>'.format(context)
+        return '<Twilio.Api.V2010.RecordInstance>'

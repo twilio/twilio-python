@@ -144,7 +144,7 @@ class IpAccessControlListList(ListResource):
         """
         Constructs a IpAccessControlListContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique ip-access-control-list Sid
         
         :returns: IpAccessControlListContext
         :rtype: IpAccessControlListContext
@@ -155,7 +155,7 @@ class IpAccessControlListList(ListResource):
         """
         Constructs a IpAccessControlListContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique ip-access-control-list Sid
         
         :returns: IpAccessControlListContext
         :rtype: IpAccessControlListContext
@@ -179,8 +179,8 @@ class IpAccessControlListContext(InstanceContext):
         Initialize the IpAccessControlListContext
         
         :param Version version
-        :param account_sid: Contextual account_sid
-        :param sid: Contextual sid
+        :param account_sid: The account_sid
+        :param sid: Fetch by unique ip-access-control-list Sid
         
         :returns: IpAccessControlListContext
         :rtype: IpAccessControlListContext

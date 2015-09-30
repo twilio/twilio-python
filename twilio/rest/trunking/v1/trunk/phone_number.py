@@ -143,7 +143,7 @@ class PhoneNumberList(ListResource):
         """
         Constructs a PhoneNumberContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: PhoneNumberContext
         :rtype: PhoneNumberContext
@@ -154,7 +154,7 @@ class PhoneNumberList(ListResource):
         """
         Constructs a PhoneNumberContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: PhoneNumberContext
         :rtype: PhoneNumberContext
@@ -178,8 +178,8 @@ class PhoneNumberContext(InstanceContext):
         Initialize the PhoneNumberContext
         
         :param Version version
-        :param trunk_sid: Contextual trunk_sid
-        :param sid: Contextual sid
+        :param trunk_sid: The trunk_sid
+        :param sid: The sid
         
         :returns: PhoneNumberContext
         :rtype: PhoneNumberContext

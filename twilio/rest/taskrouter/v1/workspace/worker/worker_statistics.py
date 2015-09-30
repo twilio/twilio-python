@@ -18,8 +18,8 @@ class StatisticsContext(InstanceContext):
         Initialize the StatisticsContext
         
         :param Version version
-        :param workspace_sid: Contextual workspace_sid
-        :param worker_sid: Contextual worker_sid
+        :param workspace_sid: The workspace_sid
+        :param worker_sid: The worker_sid
         
         :returns: StatisticsContext
         :rtype: StatisticsContext
@@ -72,7 +72,7 @@ class StatisticsContext(InstanceContext):
 
 class StatisticsInstance(InstanceResource):
 
-    def __init__(self, version, payload, workspace_sid=None, worker_sid=None):
+    def __init__(self, version, payload, workspace_sid, worker_sid):
         """
         Initialize the StatisticsInstance
         
@@ -92,8 +92,8 @@ class StatisticsInstance(InstanceResource):
         # Context
         self._instance_context = None
         self._kwargs = {
-            'workspace_sid': workspace_sid or self._properties['workspace_sid'],
-            'worker_sid': worker_sid or self._properties['worker_sid'],
+            'workspace_sid': workspace_sid,
+            'worker_sid': worker_sid,
         }
 
     @property

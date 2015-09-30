@@ -157,7 +157,7 @@ class TrunkList(ListResource):
         """
         Constructs a TrunkContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: TrunkContext
         :rtype: TrunkContext
@@ -168,7 +168,7 @@ class TrunkList(ListResource):
         """
         Constructs a TrunkContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: TrunkContext
         :rtype: TrunkContext
@@ -192,7 +192,7 @@ class TrunkContext(InstanceContext):
         Initialize the TrunkContext
         
         :param Version version
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: TrunkContext
         :rtype: TrunkContext

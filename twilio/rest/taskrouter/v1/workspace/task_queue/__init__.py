@@ -188,7 +188,7 @@ class TaskQueueList(ListResource):
         """
         Constructs a TaskQueueContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: TaskQueueContext
         :rtype: TaskQueueContext
@@ -199,7 +199,7 @@ class TaskQueueList(ListResource):
         """
         Constructs a TaskQueueContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: TaskQueueContext
         :rtype: TaskQueueContext
@@ -223,8 +223,8 @@ class TaskQueueContext(InstanceContext):
         Initialize the TaskQueueContext
         
         :param Version version
-        :param workspace_sid: Contextual workspace_sid
-        :param sid: Contextual sid
+        :param workspace_sid: The workspace_sid
+        :param sid: The sid
         
         :returns: TaskQueueContext
         :rtype: TaskQueueContext

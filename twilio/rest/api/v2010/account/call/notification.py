@@ -155,7 +155,7 @@ class NotificationList(ListResource):
         """
         Constructs a NotificationContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: NotificationContext
         :rtype: NotificationContext
@@ -166,7 +166,7 @@ class NotificationList(ListResource):
         """
         Constructs a NotificationContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: NotificationContext
         :rtype: NotificationContext
@@ -190,9 +190,9 @@ class NotificationContext(InstanceContext):
         Initialize the NotificationContext
         
         :param Version version
-        :param account_sid: Contextual account_sid
-        :param call_sid: Contextual call_sid
-        :param sid: Contextual sid
+        :param account_sid: The account_sid
+        :param call_sid: The call_sid
+        :param sid: The sid
         
         :returns: NotificationContext
         :rtype: NotificationContext

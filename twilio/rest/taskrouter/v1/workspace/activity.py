@@ -160,7 +160,7 @@ class ActivityList(ListResource):
         """
         Constructs a ActivityContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: ActivityContext
         :rtype: ActivityContext
@@ -171,7 +171,7 @@ class ActivityList(ListResource):
         """
         Constructs a ActivityContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: ActivityContext
         :rtype: ActivityContext
@@ -195,8 +195,8 @@ class ActivityContext(InstanceContext):
         Initialize the ActivityContext
         
         :param Version version
-        :param workspace_sid: Contextual workspace_sid
-        :param sid: Contextual sid
+        :param workspace_sid: The workspace_sid
+        :param sid: The sid
         
         :returns: ActivityContext
         :rtype: ActivityContext

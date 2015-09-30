@@ -18,7 +18,7 @@ class PhoneNumberContext(InstanceContext):
         Initialize the PhoneNumberContext
         
         :param Version version
-        :param phone_number: Contextual phone_number
+        :param phone_number: The phone_number
         
         :returns: PhoneNumberContext
         :rtype: PhoneNumberContext

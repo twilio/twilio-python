@@ -19,8 +19,8 @@ class FeedbackContext(InstanceContext):
         Initialize the FeedbackContext
         
         :param Version version
-        :param account_sid: Contextual account_sid
-        :param call_sid: Contextual call_sid
+        :param account_sid: The account_sid
+        :param call_sid: The call sid that uniquely identifies the call
         
         :returns: FeedbackContext
         :rtype: FeedbackContext
@@ -110,7 +110,7 @@ class FeedbackContext(InstanceContext):
 
 class FeedbackInstance(InstanceResource):
 
-    def __init__(self, version, payload, account_sid=None, call_sid=None):
+    def __init__(self, version, payload, account_sid, call_sid):
         """
         Initialize the FeedbackInstance
         
@@ -132,8 +132,8 @@ class FeedbackInstance(InstanceResource):
         # Context
         self._instance_context = None
         self._kwargs = {
-            'account_sid': account_sid or self._properties['account_sid'],
-            'call_sid': call_sid or self._properties['call_sid'],
+            'account_sid': account_sid,
+            'call_sid': call_sid,
         }
 
     @property

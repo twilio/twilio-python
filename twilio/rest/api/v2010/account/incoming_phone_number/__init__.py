@@ -250,7 +250,7 @@ class IncomingPhoneNumberList(ListResource):
         """
         Constructs a IncomingPhoneNumberContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique incoming-phone-number Sid
         
         :returns: IncomingPhoneNumberContext
         :rtype: IncomingPhoneNumberContext
@@ -261,7 +261,7 @@ class IncomingPhoneNumberList(ListResource):
         """
         Constructs a IncomingPhoneNumberContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique incoming-phone-number Sid
         
         :returns: IncomingPhoneNumberContext
         :rtype: IncomingPhoneNumberContext
@@ -285,8 +285,8 @@ class IncomingPhoneNumberContext(InstanceContext):
         Initialize the IncomingPhoneNumberContext
         
         :param Version version
-        :param owner_account_sid: Contextual owner_account_sid
-        :param sid: Contextual sid
+        :param owner_account_sid: The owner_account_sid
+        :param sid: Fetch by unique incoming-phone-number Sid
         
         :returns: IncomingPhoneNumberContext
         :rtype: IncomingPhoneNumberContext

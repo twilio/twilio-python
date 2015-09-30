@@ -144,7 +144,7 @@ class CredentialListList(ListResource):
         """
         Constructs a CredentialListContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique credential Sid
         
         :returns: CredentialListContext
         :rtype: CredentialListContext
@@ -155,7 +155,7 @@ class CredentialListList(ListResource):
         """
         Constructs a CredentialListContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique credential Sid
         
         :returns: CredentialListContext
         :rtype: CredentialListContext
@@ -179,8 +179,8 @@ class CredentialListContext(InstanceContext):
         Initialize the CredentialListContext
         
         :param Version version
-        :param account_sid: Contextual account_sid
-        :param sid: Contextual sid
+        :param account_sid: The account_sid
+        :param sid: Fetch by unique credential Sid
         
         :returns: CredentialListContext
         :rtype: CredentialListContext

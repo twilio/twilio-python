@@ -19,7 +19,7 @@ class SandboxContext(InstanceContext):
         Initialize the SandboxContext
         
         :param Version version
-        :param account_sid: Contextual account_sid
+        :param account_sid: The account_sid
         
         :returns: SandboxContext
         :rtype: SandboxContext
@@ -95,7 +95,7 @@ class SandboxContext(InstanceContext):
 
 class SandboxInstance(InstanceResource):
 
-    def __init__(self, version, payload, account_sid=None):
+    def __init__(self, version, payload, account_sid):
         """
         Initialize the SandboxInstance
         
@@ -125,7 +125,7 @@ class SandboxInstance(InstanceResource):
         # Context
         self._instance_context = None
         self._kwargs = {
-            'account_sid': account_sid or self._properties['account_sid'],
+            'account_sid': account_sid,
         }
 
     @property

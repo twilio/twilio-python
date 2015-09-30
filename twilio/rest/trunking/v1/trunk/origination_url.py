@@ -151,7 +151,7 @@ class OriginationUrlList(ListResource):
         """
         Constructs a OriginationUrlContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: OriginationUrlContext
         :rtype: OriginationUrlContext
@@ -162,7 +162,7 @@ class OriginationUrlList(ListResource):
         """
         Constructs a OriginationUrlContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: OriginationUrlContext
         :rtype: OriginationUrlContext
@@ -186,8 +186,8 @@ class OriginationUrlContext(InstanceContext):
         Initialize the OriginationUrlContext
         
         :param Version version
-        :param trunk_sid: Contextual trunk_sid
-        :param sid: Contextual sid
+        :param trunk_sid: The trunk_sid
+        :param sid: The sid
         
         :returns: OriginationUrlContext
         :rtype: OriginationUrlContext

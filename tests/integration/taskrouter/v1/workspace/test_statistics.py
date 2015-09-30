@@ -17,6 +17,6 @@ class StatisticsTestCase(IntegrationTestCase):
         self.holodeck.mock(Response({status}, {content}))
         
         self.twilio.taskrouter.v1.workspaces.get(sid=None) \
-                                 .statistics.get(workspace_sid=None).fetch()
+                                 .statistics.get().fetch()
         
         self.holodeck.assert_has_request(Request('get', 'https://taskrouter.twilio.com/v1/Workspaces/{workspace_sid}/Statistics'))

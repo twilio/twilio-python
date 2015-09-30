@@ -217,7 +217,7 @@ class WorkerList(ListResource):
         """
         Constructs a WorkerContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: WorkerContext
         :rtype: WorkerContext
@@ -228,7 +228,7 @@ class WorkerList(ListResource):
         """
         Constructs a WorkerContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: WorkerContext
         :rtype: WorkerContext
@@ -252,8 +252,8 @@ class WorkerContext(InstanceContext):
         Initialize the WorkerContext
         
         :param Version version
-        :param workspace_sid: Contextual workspace_sid
-        :param sid: Contextual sid
+        :param workspace_sid: The workspace_sid
+        :param sid: The sid
         
         :returns: WorkerContext
         :rtype: WorkerContext

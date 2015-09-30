@@ -121,7 +121,7 @@ class ConnectAppList(ListResource):
         """
         Constructs a ConnectAppContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique connect-app Sid
         
         :returns: ConnectAppContext
         :rtype: ConnectAppContext
@@ -132,7 +132,7 @@ class ConnectAppList(ListResource):
         """
         Constructs a ConnectAppContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique connect-app Sid
         
         :returns: ConnectAppContext
         :rtype: ConnectAppContext
@@ -156,8 +156,8 @@ class ConnectAppContext(InstanceContext):
         Initialize the ConnectAppContext
         
         :param Version version
-        :param account_sid: Contextual account_sid
-        :param sid: Contextual sid
+        :param account_sid: The account_sid
+        :param sid: Fetch by unique connect-app Sid
         
         :returns: ConnectAppContext
         :rtype: ConnectAppContext

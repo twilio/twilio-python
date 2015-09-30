@@ -161,7 +161,7 @@ class WorkspaceList(ListResource):
         """
         Constructs a WorkspaceContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: WorkspaceContext
         :rtype: WorkspaceContext
@@ -172,7 +172,7 @@ class WorkspaceList(ListResource):
         """
         Constructs a WorkspaceContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: WorkspaceContext
         :rtype: WorkspaceContext
@@ -196,7 +196,7 @@ class WorkspaceContext(InstanceContext):
         Initialize the WorkspaceContext
         
         :param Version version
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: WorkspaceContext
         :rtype: WorkspaceContext

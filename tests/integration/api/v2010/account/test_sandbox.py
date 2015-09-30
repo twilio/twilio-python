@@ -17,6 +17,6 @@ class SandboxTestCase(IntegrationTestCase):
         self.holodeck.mock(Response({status}, {content}))
         
         self.twilio.api.v2010.accounts.get(sid=None) \
-                             .sandbox.get(account_sid=None).fetch()
+                             .sandbox.get().fetch()
         
         self.holodeck.assert_has_request(Request('get', 'https://api.twilio.com/2010-04-01/Accounts/{account_sid}/Sandbox.json'))

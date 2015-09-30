@@ -118,7 +118,7 @@ class CountryList(ListResource):
         """
         Constructs a CountryContext
         
-        :param iso_country: Contextual iso_country
+        :param iso_country: The iso_country
         
         :returns: CountryContext
         :rtype: CountryContext
@@ -129,7 +129,7 @@ class CountryList(ListResource):
         """
         Constructs a CountryContext
         
-        :param iso_country: Contextual iso_country
+        :param iso_country: The iso_country
         
         :returns: CountryContext
         :rtype: CountryContext
@@ -153,7 +153,7 @@ class CountryContext(InstanceContext):
         Initialize the CountryContext
         
         :param Version version
-        :param iso_country: Contextual iso_country
+        :param iso_country: The iso_country
         
         :returns: CountryContext
         :rtype: CountryContext

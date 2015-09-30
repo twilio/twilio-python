@@ -124,7 +124,7 @@ class MemberList(ListResource):
         """
         Constructs a MemberContext
         
-        :param call_sid: Contextual call_sid
+        :param call_sid: The call_sid
         
         :returns: MemberContext
         :rtype: MemberContext
@@ -135,7 +135,7 @@ class MemberList(ListResource):
         """
         Constructs a MemberContext
         
-        :param call_sid: Contextual call_sid
+        :param call_sid: The call_sid
         
         :returns: MemberContext
         :rtype: MemberContext
@@ -159,9 +159,9 @@ class MemberContext(InstanceContext):
         Initialize the MemberContext
         
         :param Version version
-        :param account_sid: Contextual account_sid
-        :param queue_sid: Contextual queue_sid
-        :param call_sid: Contextual call_sid
+        :param account_sid: The account_sid
+        :param queue_sid: The Queue in which to find the members
+        :param call_sid: The call_sid
         
         :returns: MemberContext
         :rtype: MemberContext

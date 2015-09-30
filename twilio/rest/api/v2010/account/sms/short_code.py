@@ -137,7 +137,7 @@ class ShortCodeList(ListResource):
         """
         Constructs a ShortCodeContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique short-code Sid
         
         :returns: ShortCodeContext
         :rtype: ShortCodeContext
@@ -148,7 +148,7 @@ class ShortCodeList(ListResource):
         """
         Constructs a ShortCodeContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique short-code Sid
         
         :returns: ShortCodeContext
         :rtype: ShortCodeContext
@@ -172,8 +172,8 @@ class ShortCodeContext(InstanceContext):
         Initialize the ShortCodeContext
         
         :param Version version
-        :param account_sid: Contextual account_sid
-        :param sid: Contextual sid
+        :param account_sid: The account_sid
+        :param sid: Fetch by unique short-code Sid
         
         :returns: ShortCodeContext
         :rtype: ShortCodeContext

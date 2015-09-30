@@ -193,7 +193,7 @@ class SmsMessageList(ListResource):
         """
         Constructs a SmsMessageContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: SmsMessageContext
         :rtype: SmsMessageContext
@@ -204,7 +204,7 @@ class SmsMessageList(ListResource):
         """
         Constructs a SmsMessageContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: SmsMessageContext
         :rtype: SmsMessageContext
@@ -228,8 +228,8 @@ class SmsMessageContext(InstanceContext):
         Initialize the SmsMessageContext
         
         :param Version version
-        :param account_sid: Contextual account_sid
-        :param sid: Contextual sid
+        :param account_sid: The account_sid
+        :param sid: The sid
         
         :returns: SmsMessageContext
         :rtype: SmsMessageContext

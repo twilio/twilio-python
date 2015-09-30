@@ -124,7 +124,7 @@ class AvailablePhoneNumberCountryList(ListResource):
         """
         Constructs a AvailablePhoneNumberCountryContext
         
-        :param country_code: Contextual country_code
+        :param country_code: The country_code
         
         :returns: AvailablePhoneNumberCountryContext
         :rtype: AvailablePhoneNumberCountryContext
@@ -135,7 +135,7 @@ class AvailablePhoneNumberCountryList(ListResource):
         """
         Constructs a AvailablePhoneNumberCountryContext
         
-        :param country_code: Contextual country_code
+        :param country_code: The country_code
         
         :returns: AvailablePhoneNumberCountryContext
         :rtype: AvailablePhoneNumberCountryContext
@@ -159,8 +159,8 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         Initialize the AvailablePhoneNumberCountryContext
         
         :param Version version
-        :param account_sid: Contextual account_sid
-        :param country_code: Contextual country_code
+        :param account_sid: The account_sid
+        :param country_code: The country_code
         
         :returns: AvailablePhoneNumberCountryContext
         :rtype: AvailablePhoneNumberCountryContext

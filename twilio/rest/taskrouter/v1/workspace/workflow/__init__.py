@@ -163,7 +163,7 @@ class WorkflowList(ListResource):
         """
         Constructs a WorkflowContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: WorkflowContext
         :rtype: WorkflowContext
@@ -174,7 +174,7 @@ class WorkflowList(ListResource):
         """
         Constructs a WorkflowContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: WorkflowContext
         :rtype: WorkflowContext
@@ -198,8 +198,8 @@ class WorkflowContext(InstanceContext):
         Initialize the WorkflowContext
         
         :param Version version
-        :param workspace_sid: Contextual workspace_sid
-        :param sid: Contextual sid
+        :param workspace_sid: The workspace_sid
+        :param sid: The sid
         
         :returns: WorkflowContext
         :rtype: WorkflowContext

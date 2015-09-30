@@ -179,7 +179,7 @@ class AddressList(ListResource):
         """
         Constructs a AddressContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: AddressContext
         :rtype: AddressContext
@@ -190,7 +190,7 @@ class AddressList(ListResource):
         """
         Constructs a AddressContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: AddressContext
         :rtype: AddressContext
@@ -214,8 +214,8 @@ class AddressContext(InstanceContext):
         Initialize the AddressContext
         
         :param Version version
-        :param account_sid: Contextual account_sid
-        :param sid: Contextual sid
+        :param account_sid: The account_sid
+        :param sid: The sid
         
         :returns: AddressContext
         :rtype: AddressContext

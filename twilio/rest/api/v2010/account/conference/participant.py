@@ -131,7 +131,7 @@ class ParticipantList(ListResource):
         """
         Constructs a ParticipantContext
         
-        :param call_sid: Contextual call_sid
+        :param call_sid: The call_sid
         
         :returns: ParticipantContext
         :rtype: ParticipantContext
@@ -142,7 +142,7 @@ class ParticipantList(ListResource):
         """
         Constructs a ParticipantContext
         
-        :param call_sid: Contextual call_sid
+        :param call_sid: The call_sid
         
         :returns: ParticipantContext
         :rtype: ParticipantContext
@@ -166,9 +166,9 @@ class ParticipantContext(InstanceContext):
         Initialize the ParticipantContext
         
         :param Version version
-        :param account_sid: Contextual account_sid
-        :param conference_sid: Contextual conference_sid
-        :param call_sid: Contextual call_sid
+        :param account_sid: The account_sid
+        :param conference_sid: The string that uniquely identifies this conference
+        :param call_sid: The call_sid
         
         :returns: ParticipantContext
         :rtype: ParticipantContext

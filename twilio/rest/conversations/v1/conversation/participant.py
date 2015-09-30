@@ -145,7 +145,7 @@ class ParticipantList(ListResource):
         """
         Constructs a ParticipantContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: ParticipantContext
         :rtype: ParticipantContext
@@ -156,7 +156,7 @@ class ParticipantList(ListResource):
         """
         Constructs a ParticipantContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: ParticipantContext
         :rtype: ParticipantContext
@@ -180,8 +180,8 @@ class ParticipantContext(InstanceContext):
         Initialize the ParticipantContext
         
         :param Version version
-        :param conversation_sid: Contextual conversation_sid
-        :param sid: Contextual sid
+        :param conversation_sid: The conversation_sid
+        :param sid: The sid
         
         :returns: ParticipantContext
         :rtype: ParticipantContext

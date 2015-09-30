@@ -18,7 +18,7 @@ class NumberContext(InstanceContext):
         Initialize the NumberContext
         
         :param Version version
-        :param number: Contextual number
+        :param number: The number
         
         :returns: NumberContext
         :rtype: NumberContext

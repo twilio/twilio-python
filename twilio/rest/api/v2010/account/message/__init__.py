@@ -194,7 +194,7 @@ class MessageList(ListResource):
         """
         Constructs a MessageContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique message Sid
         
         :returns: MessageContext
         :rtype: MessageContext
@@ -205,7 +205,7 @@ class MessageList(ListResource):
         """
         Constructs a MessageContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique message Sid
         
         :returns: MessageContext
         :rtype: MessageContext
@@ -229,8 +229,8 @@ class MessageContext(InstanceContext):
         Initialize the MessageContext
         
         :param Version version
-        :param account_sid: Contextual account_sid
-        :param sid: Contextual sid
+        :param account_sid: The account_sid
+        :param sid: Fetch by unique message Sid
         
         :returns: MessageContext
         :rtype: MessageContext

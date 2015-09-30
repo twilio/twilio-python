@@ -122,7 +122,7 @@ class AuthorizedConnectAppList(ListResource):
         """
         Constructs a AuthorizedConnectAppContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique authorized-connect-app Sid
         
         :returns: AuthorizedConnectAppContext
         :rtype: AuthorizedConnectAppContext
@@ -133,7 +133,7 @@ class AuthorizedConnectAppList(ListResource):
         """
         Constructs a AuthorizedConnectAppContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique authorized-connect-app Sid
         
         :returns: AuthorizedConnectAppContext
         :rtype: AuthorizedConnectAppContext
@@ -157,8 +157,8 @@ class AuthorizedConnectAppContext(InstanceContext):
         Initialize the AuthorizedConnectAppContext
         
         :param Version version
-        :param account_sid: Contextual account_sid
-        :param sid: Contextual sid
+        :param account_sid: The account_sid
+        :param sid: Fetch by unique authorized-connect-app Sid
         
         :returns: AuthorizedConnectAppContext
         :rtype: AuthorizedConnectAppContext

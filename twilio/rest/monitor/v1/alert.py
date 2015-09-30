@@ -172,7 +172,7 @@ class AlertList(ListResource):
         """
         Constructs a AlertContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: AlertContext
         :rtype: AlertContext
@@ -183,7 +183,7 @@ class AlertList(ListResource):
         """
         Constructs a AlertContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: AlertContext
         :rtype: AlertContext
@@ -207,7 +207,7 @@ class AlertContext(InstanceContext):
         Initialize the AlertContext
         
         :param Version version
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: AlertContext
         :rtype: AlertContext

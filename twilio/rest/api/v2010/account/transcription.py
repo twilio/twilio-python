@@ -122,7 +122,7 @@ class TranscriptionList(ListResource):
         """
         Constructs a TranscriptionContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique transcription Sid
         
         :returns: TranscriptionContext
         :rtype: TranscriptionContext
@@ -133,7 +133,7 @@ class TranscriptionList(ListResource):
         """
         Constructs a TranscriptionContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique transcription Sid
         
         :returns: TranscriptionContext
         :rtype: TranscriptionContext
@@ -157,8 +157,8 @@ class TranscriptionContext(InstanceContext):
         Initialize the TranscriptionContext
         
         :param Version version
-        :param account_sid: Contextual account_sid
-        :param sid: Contextual sid
+        :param account_sid: The account_sid
+        :param sid: Fetch by unique transcription Sid
         
         :returns: TranscriptionContext
         :rtype: TranscriptionContext

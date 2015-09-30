@@ -195,7 +195,7 @@ class EventList(ListResource):
         """
         Constructs a EventContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: EventContext
         :rtype: EventContext
@@ -206,7 +206,7 @@ class EventList(ListResource):
         """
         Constructs a EventContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: EventContext
         :rtype: EventContext
@@ -230,7 +230,7 @@ class EventContext(InstanceContext):
         Initialize the EventContext
         
         :param Version version
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: EventContext
         :rtype: EventContext

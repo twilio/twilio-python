@@ -147,7 +147,7 @@ class RecordingList(ListResource):
         """
         Constructs a RecordingContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique recording Sid
         
         :returns: RecordingContext
         :rtype: RecordingContext
@@ -158,7 +158,7 @@ class RecordingList(ListResource):
         """
         Constructs a RecordingContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique recording Sid
         
         :returns: RecordingContext
         :rtype: RecordingContext
@@ -182,8 +182,8 @@ class RecordingContext(InstanceContext):
         Initialize the RecordingContext
         
         :param Version version
-        :param account_sid: Contextual account_sid
-        :param sid: Contextual sid
+        :param account_sid: The account_sid
+        :param sid: Fetch by unique recording Sid
         
         :returns: RecordingContext
         :rtype: RecordingContext

@@ -146,7 +146,7 @@ class QueueList(ListResource):
         """
         Constructs a QueueContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique queue Sid
         
         :returns: QueueContext
         :rtype: QueueContext
@@ -157,7 +157,7 @@ class QueueList(ListResource):
         """
         Constructs a QueueContext
         
-        :param sid: Contextual sid
+        :param sid: Fetch by unique queue Sid
         
         :returns: QueueContext
         :rtype: QueueContext
@@ -181,8 +181,8 @@ class QueueContext(InstanceContext):
         Initialize the QueueContext
         
         :param Version version
-        :param account_sid: Contextual account_sid
-        :param sid: Contextual sid
+        :param account_sid: The account_sid
+        :param sid: Fetch by unique queue Sid
         
         :returns: QueueContext
         :rtype: QueueContext

@@ -266,7 +266,7 @@ class CallList(ListResource):
         """
         Constructs a CallContext
         
-        :param sid: Contextual sid
+        :param sid: Call Sid that uniquely identifies the Call to fetch
         
         :returns: CallContext
         :rtype: CallContext
@@ -277,7 +277,7 @@ class CallList(ListResource):
         """
         Constructs a CallContext
         
-        :param sid: Contextual sid
+        :param sid: Call Sid that uniquely identifies the Call to fetch
         
         :returns: CallContext
         :rtype: CallContext
@@ -301,8 +301,8 @@ class CallContext(InstanceContext):
         Initialize the CallContext
         
         :param Version version
-        :param account_sid: Contextual account_sid
-        :param sid: Contextual sid
+        :param account_sid: The account_sid
+        :param sid: Call Sid that uniquely identifies the Call to fetch
         
         :returns: CallContext
         :rtype: CallContext

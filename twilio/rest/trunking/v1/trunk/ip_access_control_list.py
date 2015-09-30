@@ -143,7 +143,7 @@ class IpAccessControlListList(ListResource):
         """
         Constructs a IpAccessControlListContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: IpAccessControlListContext
         :rtype: IpAccessControlListContext
@@ -154,7 +154,7 @@ class IpAccessControlListList(ListResource):
         """
         Constructs a IpAccessControlListContext
         
-        :param sid: Contextual sid
+        :param sid: The sid
         
         :returns: IpAccessControlListContext
         :rtype: IpAccessControlListContext
@@ -178,8 +178,8 @@ class IpAccessControlListContext(InstanceContext):
         Initialize the IpAccessControlListContext
         
         :param Version version
-        :param trunk_sid: Contextual trunk_sid
-        :param sid: Contextual sid
+        :param trunk_sid: The trunk_sid
+        :param sid: The sid
         
         :returns: IpAccessControlListContext
         :rtype: IpAccessControlListContext
