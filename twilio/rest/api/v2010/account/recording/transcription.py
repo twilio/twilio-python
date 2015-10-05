@@ -231,7 +231,6 @@ class TranscriptionInstance(InstanceResource):
             'date_created': deserialize.rfc2822_datetime(payload['date_created']),
             'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
             'duration': payload['duration'],
-            'owner_account_sid': payload['owner_account_sid'],
             'price': deserialize.decimal(payload['price']),
             'price_unit': payload['price_unit'],
             'recording_sid': payload['recording_sid'],
@@ -307,14 +306,6 @@ class TranscriptionInstance(InstanceResource):
         :rtype: str
         """
         return self._properties['duration']
-
-    @property
-    def owner_account_sid(self):
-        """
-        :returns: The owner_account_sid
-        :rtype: str
-        """
-        return self._properties['owner_account_sid']
 
     @property
     def price(self):

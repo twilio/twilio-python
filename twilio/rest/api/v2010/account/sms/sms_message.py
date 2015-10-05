@@ -321,16 +321,11 @@ class SmsMessageInstance(InstanceResource):
             'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
             'date_sent': deserialize.rfc2822_datetime(payload['date_sent']),
             'direction': payload['direction'],
-            'error_code': deserialize.integer(payload['error_code']),
-            'error_message': payload['error_message'],
             'from_': payload['from'],
-            'num_media': payload['num_media'],
-            'num_segments': payload['num_segments'],
             'price': deserialize.decimal(payload['price']),
             'price_unit': payload['price_unit'],
             'sid': payload['sid'],
             'status': payload['status'],
-            'subresource_uris': payload['subresource_uris'],
             'to': payload['to'],
             'uri': payload['uri'],
         }
@@ -416,44 +411,12 @@ class SmsMessageInstance(InstanceResource):
         return self._properties['direction']
 
     @property
-    def error_code(self):
-        """
-        :returns: The error_code
-        :rtype: str
-        """
-        return self._properties['error_code']
-
-    @property
-    def error_message(self):
-        """
-        :returns: The error_message
-        :rtype: str
-        """
-        return self._properties['error_message']
-
-    @property
     def from_(self):
         """
         :returns: The from
         :rtype: str
         """
         return self._properties['from_']
-
-    @property
-    def num_media(self):
-        """
-        :returns: The num_media
-        :rtype: str
-        """
-        return self._properties['num_media']
-
-    @property
-    def num_segments(self):
-        """
-        :returns: The num_segments
-        :rtype: str
-        """
-        return self._properties['num_segments']
 
     @property
     def price(self):
@@ -486,14 +449,6 @@ class SmsMessageInstance(InstanceResource):
         :rtype: sms_message.status
         """
         return self._properties['status']
-
-    @property
-    def subresource_uris(self):
-        """
-        :returns: The subresource_uris
-        :rtype: str
-        """
-        return self._properties['subresource_uris']
 
     @property
     def to(self):

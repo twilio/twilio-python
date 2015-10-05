@@ -18,6 +18,7 @@ class CredentialListTestCase(IntegrationTestCase):
             200,
             '''
             {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "Wed, 11 Sep 2013 17:51:38 -0000",
                 "date_updated": "Wed, 11 Sep 2013 17:51:38 -0000",
                 "friendly_name": "Low Rises",

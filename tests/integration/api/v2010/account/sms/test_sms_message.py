@@ -27,6 +27,7 @@ class SmsMessageTestCase(IntegrationTestCase):
                 "direction": "outbound-api",
                 "from": "+141586753093",
                 "price": "-0.03000",
+                "price_unit": "USD",
                 "sid": "SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "status": "sent",
                 "to": "+141586753096",

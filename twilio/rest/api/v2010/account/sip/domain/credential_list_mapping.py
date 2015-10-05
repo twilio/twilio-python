@@ -248,7 +248,6 @@ class CredentialListMappingInstance(InstanceResource):
         # Marshaled Properties
         self._properties = {
             'account_sid': payload['account_sid'],
-            'api_version': payload['api_version'],
             'date_created': deserialize.rfc2822_datetime(payload['date_created']),
             'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
             'friendly_name': payload['friendly_name'],
@@ -289,14 +288,6 @@ class CredentialListMappingInstance(InstanceResource):
         :rtype: str
         """
         return self._properties['account_sid']
-
-    @property
-    def api_version(self):
-        """
-        :returns: The api_version
-        :rtype: str
-        """
-        return self._properties['api_version']
 
     @property
     def date_created(self):

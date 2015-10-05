@@ -277,7 +277,6 @@ class CredentialInstance(InstanceResource):
             'account_sid': payload['account_sid'],
             'credential_list_sid': payload['credential_list_sid'],
             'username': payload['username'],
-            'friendly_name': payload['friendly_name'],
             'date_created': deserialize.rfc2822_datetime(payload['date_created']),
             'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
             'uri': payload['uri'],
@@ -340,14 +339,6 @@ class CredentialInstance(InstanceResource):
         :rtype: str
         """
         return self._properties['username']
-
-    @property
-    def friendly_name(self):
-        """
-        :returns: The friendly_name
-        :rtype: str
-        """
-        return self._properties['friendly_name']
 
     @property
     def date_created(self):
