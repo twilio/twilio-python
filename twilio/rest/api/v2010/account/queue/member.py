@@ -240,12 +240,9 @@ class MemberInstance(InstanceResource):
         
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
             'call_sid': payload['call_sid'],
             'date_enqueued': deserialize.rfc2822_datetime(payload['date_enqueued']),
-            'parent_sid': payload['parent_sid'],
             'position': deserialize.integer(payload['position']),
-            'sid': payload['sid'],
             'uri': payload['uri'],
             'wait_time': deserialize.integer(payload['wait_time']),
         }
@@ -277,14 +274,6 @@ class MemberInstance(InstanceResource):
         return self._instance_context
 
     @property
-    def account_sid(self):
-        """
-        :returns: The account_sid
-        :rtype: str
-        """
-        return self._properties['account_sid']
-
-    @property
     def call_sid(self):
         """
         :returns: Unique string that identifies this resource
@@ -301,28 +290,12 @@ class MemberInstance(InstanceResource):
         return self._properties['date_enqueued']
 
     @property
-    def parent_sid(self):
-        """
-        :returns: The parent_sid
-        :rtype: str
-        """
-        return self._properties['parent_sid']
-
-    @property
     def position(self):
         """
         :returns: This member's current position in the queue.
         :rtype: str
         """
         return self._properties['position']
-
-    @property
-    def sid(self):
-        """
-        :returns: The sid
-        :rtype: str
-        """
-        return self._properties['sid']
 
     @property
     def uri(self):

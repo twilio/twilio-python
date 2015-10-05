@@ -202,7 +202,7 @@ class Version(object):
 
     def load_page(self, payload):
         if 'meta' in payload and 'key' in payload['meta']:
-            return payload['meta']['key']
+            return payload[payload['meta']['key']]
         else:
             keys = set(payload.keys())
             key = keys - self.META_KEYS
