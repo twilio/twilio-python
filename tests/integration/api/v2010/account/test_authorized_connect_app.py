@@ -14,9 +14,28 @@ from twilio.http.response import Response
 class AuthorizedConnectAppTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response({status}, {content}))
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "connect_app_company_name": "aaa",
+                "connect_app_description": "alksjdfl;ajseifj;alsijfl;ajself;jasjfjas;lejflj",
+                "connect_app_friendly_name": "aaa",
+                "connect_app_homepage_url": "http://www.google.com",
+                "connect_app_sid": "CNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "permissions": [
+                    "get-all"
+                ],
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AuthorizedConnectApps/CNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+            }
+            '''
+        ))
         
-        self.twilio.api.v2010.accounts.get(sid=None) \
-                             .authorized_connect_apps.get(sid=None).fetch()
+        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .authorized_connect_apps.get(sid="CNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
-        self.holodeck.assert_has_request(Request('get', 'https://api.twilio.com/2010-04-01/Accounts/{account_sid}/AuthorizedConnectApps/{sid}.json'))
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AuthorizedConnectApps/CNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+        ))

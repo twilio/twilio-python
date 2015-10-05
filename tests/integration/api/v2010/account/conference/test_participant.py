@@ -14,10 +14,28 @@ from twilio.http.response import Response
 class ParticipantTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response({status}, {content}))
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "conference_sid": "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_created": "Fri, 18 Feb 2011 21:07:19 +0000",
+                "date_updated": "Fri, 18 Feb 2011 21:07:19 +0000",
+                "end_conference_on_exit": false,
+                "muted": false,
+                "start_conference_on_enter": true,
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+            }
+            '''
+        ))
         
-        self.twilio.api.v2010.accounts.get(sid=None) \
-                             .conferences.get(sid=None) \
-                             .participants.get(call_sid=None).fetch()
+        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .conferences.get(sid="CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .participants.get(call_sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
-        self.holodeck.assert_has_request(Request('get', 'https://api.twilio.com/2010-04-01/Accounts/{account_sid}/Conferences/{conference_sid}/Participants/{call_sid}.json'))
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+        ))

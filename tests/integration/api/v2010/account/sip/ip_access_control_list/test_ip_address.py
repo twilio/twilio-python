@@ -14,11 +14,28 @@ from twilio.http.response import Response
 class IpAddressTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response({status}, {content}))
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_created": "Mon, 20 Jul 2015 17:27:10 +0000",
+                "date_updated": "Mon, 20 Jul 2015 17:27:10 +0000",
+                "friendly_name": "aaa",
+                "ip_access_control_list_sid": "ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "ip_address": "192.1.1.2",
+                "sid": "IPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/IpAccessControlLists/ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAddresses/IPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+            }
+            '''
+        ))
         
-        self.twilio.api.v2010.accounts.get(sid=None) \
+        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                              .sip \
-                             .ip_access_control_lists.get(sid=None) \
-                             .ip_addresses.get(sid=None).fetch()
+                             .ip_access_control_lists.get(sid="ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .ip_addresses.get(sid="IPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
-        self.holodeck.assert_has_request(Request('get', 'https://api.twilio.com/2010-04-01/Accounts/{account_sid}/SIP/IpAccessControlLists/{ip_access_control_list_sid}/IpAddresses/{sid}.json'))
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/IpAccessControlLists/ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAddresses/IPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+        ))

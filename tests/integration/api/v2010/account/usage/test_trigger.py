@@ -14,10 +14,35 @@ from twilio.http.response import Response
 class TriggerTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response({status}, {content}))
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "api_version": "2010-04-01",
+                "callback_method": "GET",
+                "callback_url": "http://cap.com/streetfight",
+                "current_value": "0",
+                "date_created": "Sun, 06 Sep 2015 12:58:45 +0000",
+                "date_fired": null,
+                "date_updated": "Sun, 06 Sep 2015 12:58:45 +0000",
+                "friendly_name": "raphael-cluster-1441544325.86",
+                "recurring": "yearly",
+                "sid": "UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "trigger_by": "price",
+                "trigger_value": "50",
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Triggers/UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "usage_category": "totalprice",
+                "usage_record_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records?Category=totalprice"
+            }
+            '''
+        ))
         
-        self.twilio.api.v2010.accounts.get(sid=None) \
+        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                              .usage \
-                             .triggers.get(sid=None).fetch()
+                             .triggers.get(sid="UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
-        self.holodeck.assert_has_request(Request('get', 'https://api.twilio.com/2010-04-01/Accounts/{account_sid}/Usage/Triggers/{sid}.json'))
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Triggers/UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+        ))

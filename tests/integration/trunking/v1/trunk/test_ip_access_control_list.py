@@ -14,9 +14,10 @@ from twilio.http.response import Response
 class IpAccessControlListTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response({status}, {content}))
+        self.twilio.trunking.v1.trunks.get(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                               .ip_access_control_lists.get(sid="ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
-        self.twilio.trunking.v1.trunks.get(sid=None) \
-                               .ip_access_control_lists.get(sid=None).fetch()
-        
-        self.holodeck.assert_has_request(Request('get', 'https://trunking.twilio.com/v1/Trunks/{trunk_sid}/IpAccessControlLists/{sid}'))
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists/ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        ))

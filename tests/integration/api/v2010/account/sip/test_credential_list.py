@@ -14,10 +14,27 @@ from twilio.http.response import Response
 class CredentialListTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response({status}, {content}))
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "date_created": "Wed, 11 Sep 2013 17:51:38 -0000",
+                "date_updated": "Wed, 11 Sep 2013 17:51:38 -0000",
+                "friendly_name": "Low Rises",
+                "sid": "CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "subresource_uris": {
+                    "credentials": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Credentials.json"
+                },
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+            }
+            '''
+        ))
         
-        self.twilio.api.v2010.accounts.get(sid=None) \
+        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                              .sip \
-                             .credential_lists.get(sid=None).fetch()
+                             .credential_lists.get(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
-        self.holodeck.assert_has_request(Request('get', 'https://api.twilio.com/2010-04-01/Accounts/{account_sid}/SIP/CredentialLists/{sid}.json'))
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+        ))

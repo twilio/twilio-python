@@ -14,9 +14,34 @@ from twilio.http.response import Response
 class CountryTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response({status}, {content}))
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "country": "Estonia",
+                "iso_country": "EE",
+                "phone_number_prices": [
+                    {
+                        "base_price": 3.0,
+                        "current_price": 3.0,
+                        "type": "mobile"
+                    },
+                    {
+                        "base_price": 1.0,
+                        "current_price": 1.0,
+                        "type": "national"
+                    }
+                ],
+                "price_unit": "usd",
+                "uri": "/PhoneNumbers/Countries/US"
+            }
+            '''
+        ))
         
         self.twilio.pricing.v1.phone_numbers \
-                              .countries.get(iso_country=None).fetch()
+                              .countries.get(iso_country="US").fetch()
         
-        self.holodeck.assert_has_request(Request('get', 'https://pricing.twilio.com/v1/PhoneNumbers/Countries/{iso_country}'))
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://pricing.twilio.com/v1/PhoneNumbers/Countries/US'
+        ))

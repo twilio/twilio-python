@@ -14,9 +14,25 @@ from twilio.http.response import Response
 class OutgoingCallerIdTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response({status}, {content}))
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_created": "Fri, 21 Aug 2009 00:11:24 +0000",
+                "date_updated": "Fri, 21 Aug 2009 00:11:24 +0000",
+                "friendly_name": "(415) 867-5309",
+                "phone_number": "+141586753096",
+                "sid": "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+            }
+            '''
+        ))
         
-        self.twilio.api.v2010.accounts.get(sid=None) \
-                             .outgoing_caller_ids.get(sid=None).fetch()
+        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .outgoing_caller_ids.get(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
-        self.holodeck.assert_has_request(Request('get', 'https://api.twilio.com/2010-04-01/Accounts/{account_sid}/OutgoingCallerIds/{sid}.json'))
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+        ))

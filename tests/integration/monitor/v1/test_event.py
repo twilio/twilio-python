@@ -14,8 +14,39 @@ from twilio.http.response import Response
 class EventTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response({status}, {content}))
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "actor_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "actor_type": "account",
+                "description": null,
+                "event_data": {
+                    "friendly_name": {
+                        "previous": "SubAccount Created at 2014-10-03 09:48 am",
+                        "updated": "Mr. Friendly"
+                    }
+                },
+                "event_date": "2014-10-03T16:48:25Z",
+                "event_type": "account.updated",
+                "links": {
+                    "actor": "https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "resource": "https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                },
+                "resource_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "resource_type": "account",
+                "sid": "AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "source": "api",
+                "source_ip_address": "10.86.6.250",
+                "url": "https://monitor.twilio.com/v1/Events/AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
         
-        self.twilio.monitor.v1.events.get(sid=None).fetch()
+        self.twilio.monitor.v1.events.get(sid="AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
-        self.holodeck.assert_has_request(Request('get', 'https://monitor.twilio.com/v1/Events/{sid}'))
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://monitor.twilio.com/v1/Events/AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        ))

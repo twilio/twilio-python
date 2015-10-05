@@ -14,9 +14,28 @@ from twilio.http.response import Response
 class OriginationUrlTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response({status}, {content}))
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "weight": 1,
+                "date_updated": "2015-01-02T11:23:45Z",
+                "enabled": true,
+                "friendly_name": "friendly_name",
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "priority": 1,
+                "url": "sip://sip-box.com:1234",
+                "sid": "OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_created": "2015-01-02T11:23:45Z",
+                "trunk_sid": "TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
         
-        self.twilio.trunking.v1.trunks.get(sid=None) \
-                               .origination_urls.get(sid=None).fetch()
+        self.twilio.trunking.v1.trunks.get(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                               .origination_urls.get(sid="OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
-        self.holodeck.assert_has_request(Request('get', 'https://trunking.twilio.com/v1/Trunks/{trunk_sid}/OriginationUrls/{sid}'))
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        ))

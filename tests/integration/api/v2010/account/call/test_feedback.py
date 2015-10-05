@@ -14,10 +14,28 @@ from twilio.http.response import Response
 class FeedbackTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response({status}, {content}))
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_created": "Thu, 20 Aug 2015 21:45:46 +0000",
+                "date_updated": "Thu, 20 Aug 2015 21:45:46 +0000",
+                "issues": [
+                    "imperfect-audio",
+                    "post-dial-delay"
+                ],
+                "quality_score": 5,
+                "sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
         
-        self.twilio.api.v2010.accounts.get(sid=None) \
-                             .calls.get(sid=None) \
+        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .calls.get(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                              .feedback.get().fetch()
         
-        self.holodeck.assert_has_request(Request('get', 'https://api.twilio.com/2010-04-01/Accounts/{account_sid}/Calls/{call_sid}/Feedback.json'))
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Feedback.json'
+        ))

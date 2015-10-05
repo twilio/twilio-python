@@ -262,8 +262,6 @@ class ParticipantInstance(InstanceResource):
             'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
             'end_conference_on_exit': payload['end_conference_on_exit'],
             'muted': payload['muted'],
-            'parent_sid': payload['parent_sid'],
-            'sid': payload['sid'],
             'start_conference_on_enter': payload['start_conference_on_enter'],
             'uri': payload['uri'],
         }
@@ -349,22 +347,6 @@ class ParticipantInstance(InstanceResource):
         :rtype: bool
         """
         return self._properties['muted']
-
-    @property
-    def parent_sid(self):
-        """
-        :returns: The parent_sid
-        :rtype: str
-        """
-        return self._properties['parent_sid']
-
-    @property
-    def sid(self):
-        """
-        :returns: The sid
-        :rtype: str
-        """
-        return self._properties['sid']
 
     @property
     def start_conference_on_enter(self):

@@ -14,11 +14,29 @@ from twilio.http.response import Response
 class CredentialListMappingTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response({status}, {content}))
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_created": "Wed, 11 Sep 2013 17:51:38 -0000",
+                "date_updated": "Wed, 11 Sep 2013 17:51:38 -0000",
+                "friendly_name": "Production Gateways IP Address - Scranton",
+                "sid": "CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "subresource_uris": {
+                    "credentials": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Credentials.json"
+                },
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+            }
+            '''
+        ))
         
-        self.twilio.api.v2010.accounts.get(sid=None) \
+        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                              .sip \
-                             .domains.get(sid=None) \
-                             .credential_list_mappings.get(sid=None).fetch()
+                             .domains.get(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .credential_list_mappings.get(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
-        self.holodeck.assert_has_request(Request('get', 'https://api.twilio.com/2010-04-01/Accounts/{account_sid}/SIP/Domains/{domain_sid}/CredentialListMappings/{sid}.json'))
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialListMappings/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+        ))

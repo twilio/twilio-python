@@ -14,9 +14,29 @@ from twilio.http.response import Response
 class ConnectAppTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response({status}, {content}))
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "authorize_redirect_url": "http://example.com/redirect",
+                "company_name": "Twilio",
+                "deauthorize_callback_method": "GET",
+                "deauthorize_callback_url": "http://example.com/deauth",
+                "description": null,
+                "friendly_name": "Connect app for deletion",
+                "homepage_url": "http://example.com/home",
+                "permissions": [],
+                "sid": "CNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps/CNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+            }
+            '''
+        ))
         
-        self.twilio.api.v2010.accounts.get(sid=None) \
-                             .connect_apps.get(sid=None).fetch()
+        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .connect_apps.get(sid="CNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
-        self.holodeck.assert_has_request(Request('get', 'https://api.twilio.com/2010-04-01/Accounts/{account_sid}/ConnectApps/{sid}.json'))
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps/CNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+        ))

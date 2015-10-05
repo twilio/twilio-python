@@ -14,10 +14,26 @@ from twilio.http.response import Response
 class MediaTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response({status}, {content}))
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "content_type": "image/jpeg",
+                "date_created": "Sun, 16 Aug 2015 15:53:54 +0000",
+                "date_updated": "Sun, 16 Aug 2015 15:53:55 +0000",
+                "parent_sid": "SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "sid": "MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media/MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+            }
+            '''
+        ))
         
-        self.twilio.api.v2010.accounts.get(sid=None) \
-                             .messages.get(sid=None) \
-                             .media.get(sid=None).fetch()
+        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .messages.get(sid="MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .media.get(sid="MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
-        self.holodeck.assert_has_request(Request('get', 'https://api.twilio.com/2010-04-01/Accounts/{account_sid}/Messages/{message_sid}/Media/{sid}.json'))
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media/MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+        ))

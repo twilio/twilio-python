@@ -14,10 +14,31 @@ from twilio.http.response import Response
 class ShortCodeTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response({status}, {content}))
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "api_version": "2010-04-01",
+                "date_created": null,
+                "date_updated": null,
+                "friendly_name": "API_CLUSTER_TEST_SHORT_CODE",
+                "short_code": "99990",
+                "sid": "SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "sms_fallback_method": "POST",
+                "sms_fallback_url": null,
+                "sms_method": "POST",
+                "sms_url": null,
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SMS/ShortCodes/SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+            }
+            '''
+        ))
         
-        self.twilio.api.v2010.accounts.get(sid=None) \
+        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                              .sms \
-                             .short_codes.get(sid=None).fetch()
+                             .short_codes.get(sid="SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
-        self.holodeck.assert_has_request(Request('get', 'https://api.twilio.com/2010-04-01/Accounts/{account_sid}/SMS/ShortCodes/{sid}.json'))
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SMS/ShortCodes/SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+        ))

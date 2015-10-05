@@ -14,10 +14,28 @@ from twilio.http.response import Response
 class RecordingTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response({status}, {content}))
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "api_version": "2008-08-01",
+                "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_created": "Mon, 22 Aug 2011 20:58:45 +0000",
+                "date_updated": "Mon, 22 Aug 2011 20:58:45 +0000",
+                "duration": "6",
+                "price": null,
+                "sid": "REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+            }
+            '''
+        ))
         
-        self.twilio.api.v2010.accounts.get(sid=None) \
-                             .calls.get(sid=None) \
-                             .recordings.get(sid=None).fetch()
+        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .calls.get(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .recordings.get(sid="REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
-        self.holodeck.assert_has_request(Request('get', 'https://api.twilio.com/2010-04-01/Accounts/{account_sid}/Calls/{call_sid}/Recordings/{sid}.json'))
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+        ))

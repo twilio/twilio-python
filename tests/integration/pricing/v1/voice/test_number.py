@@ -14,9 +14,32 @@ from twilio.http.response import Response
 class NumberTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response({status}, {content}))
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "country": "United States",
+                "inbound_call_price": {
+                    "base_price": null,
+                    "current_price": null,
+                    "number_type": null
+                },
+                "iso_country": "US",
+                "number": "+987654321",
+                "outbound_call_price": {
+                    "base_price": "0.015",
+                    "current_price": "0.015"
+                },
+                "price_unit": "USD",
+                "url": "https://pricing.twilio.com/v1/Voice/Numbers/+987654321"
+            }
+            '''
+        ))
         
         self.twilio.pricing.v1.voice \
-                              .numbers.get(number=None).fetch()
+                              .numbers.get(number="+987654321").fetch()
         
-        self.holodeck.assert_has_request(Request('get', 'https://pricing.twilio.com/v1/Voice/Numbers/{number}'))
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://pricing.twilio.com/v1/Voice/Numbers/+987654321'
+        ))

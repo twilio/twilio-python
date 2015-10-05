@@ -14,10 +14,39 @@ from twilio.http.response import Response
 class FeedbackSummaryTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response({status}, {content}))
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "call_count": 10200,
+                "call_feedback_count": 729,
+                "end_date": "2014-01-31",
+                "include_subaccounts": false,
+                "issues": [
+                    {
+                        "count": 45,
+                        "description": "imperfect-audio",
+                        "percentage_of_total_calls": "0.04%"
+                    }
+                ],
+                "quality_score_average": 4.5,
+                "quality_score_median": 4,
+                "quality_score_standard_deviation": 1,
+                "sid": "FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "start_date": "2014-01-01",
+                "status": "completed",
+                "date_created": "Tue, 31 Aug 2010 20:36:28 +0000",
+                "date_updated": "Tue, 31 Aug 2010 20:36:44 +0000"
+            }
+            '''
+        ))
         
-        self.twilio.api.v2010.accounts.get(sid=None) \
+        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                              .calls \
-                             .feedback_summaries.get(sid=None).fetch()
+                             .feedback_summaries.get(sid="FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
-        self.holodeck.assert_has_request(Request('get', 'https://api.twilio.com/2010-04-01/Accounts/{account_sid}/Calls/FeedbackSummary/{sid}.json'))
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/FeedbackSummary/FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+        ))

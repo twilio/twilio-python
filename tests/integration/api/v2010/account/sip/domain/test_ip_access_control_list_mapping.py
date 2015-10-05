@@ -14,11 +14,29 @@ from twilio.http.response import Response
 class IpAccessControlListMappingTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response({status}, {content}))
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_created": "Fri, 17 Jul 2015 21:25:15 +0000",
+                "date_updated": "Fri, 17 Jul 2015 21:25:15 +0000",
+                "friendly_name": "aaaa",
+                "sid": "ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "subresource_uris": {
+                    "ip_addresses": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/IpAccessControlLists/ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAddresses.json"
+                },
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlListMappings/ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+            }
+            '''
+        ))
         
-        self.twilio.api.v2010.accounts.get(sid=None) \
+        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                              .sip \
-                             .domains.get(sid=None) \
-                             .ip_access_control_list_mappings.get(sid=None).fetch()
+                             .domains.get(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .ip_access_control_list_mappings.get(sid="ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
-        self.holodeck.assert_has_request(Request('get', 'https://api.twilio.com/2010-04-01/Accounts/{account_sid}/SIP/Domains/{domain_sid}/IpAccessControlListMappings/{sid}.json'))
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlListMappings/ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+        ))

@@ -14,9 +14,30 @@ from twilio.http.response import Response
 class WorkflowTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response({status}, {content}))
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "assignment_callback_url": "http://example.com",
+                "configuration": "task-routing:\\n  - filter: \\n      - 1 == 1\\n    target:\\n      - queue: WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\n        set-priority: 0\\n",
+                "date_created": "2014-05-14T10:50:02Z",
+                "date_updated": "2014-05-14T23:26:06Z",
+                "document_content_type": "application/json",
+                "fallback_assignment_callback_url": null,
+                "friendly_name": "Default Fifo Workflow",
+                "sid": "WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "task_reservation_timeout": 120,
+                "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows/WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
         
-        self.twilio.taskrouter.v1.workspaces.get(sid=None) \
-                                 .workflows.get(sid=None).fetch()
+        self.twilio.taskrouter.v1.workspaces.get(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                 .workflows.get(sid="WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
-        self.holodeck.assert_has_request(Request('get', 'https://taskrouter.twilio.com/v1/Workspaces/{workspace_sid}/Workflows/{sid}'))
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows/WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        ))

@@ -13,7 +13,7 @@ class Request(object):
                  params=ANY,
                  data=ANY,
                  headers=ANY):
-        self.method = method
+        self.method = method.upper()
         self.url = url
         self.auth = auth
         self.params = params

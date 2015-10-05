@@ -14,8 +14,28 @@ from twilio.http.response import Response
 class PhoneNumberTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response({status}, {content}))
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "carrier": {
+                    "error_code": null,
+                    "mobile_country_code": "310",
+                    "mobile_network_code": "456",
+                    "name": "verizon",
+                    "type": "mobile"
+                },
+                "country_code": "US",
+                "national_format": "(510) 867-5309",
+                "phone_number": "+15108675309",
+                "url": "https://lookups.twilio.com/v1/PhoneNumbers/phone_number"
+            }
+            '''
+        ))
         
-        self.twilio.lookups.v1.phone_numbers.get(phone_number=None).fetch()
+        self.twilio.lookups.v1.phone_numbers.get(phone_number="+987654321").fetch()
         
-        self.holodeck.assert_has_request(Request('get', 'https://lookups.twilio.com/v1/PhoneNumbers/{phone_number}'))
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://lookups.twilio.com/v1/PhoneNumbers/+987654321'
+        ))

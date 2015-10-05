@@ -14,9 +14,31 @@ from twilio.http.response import Response
 class TaskTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response({status}, {content}))
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "age": 25200,
+                "assignment_status": "pending",
+                "attributes": "{\"body\": \"hello\"}",
+                "date_created": "2014-05-14T10:50:02Z",
+                "date_updated": "2014-05-14T23:26:06Z",
+                "priority": 0,
+                "sid": "WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "task_queue_sid": "WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "timeout": 60,
+                "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "workflow_sid": "WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
         
-        self.twilio.taskrouter.v1.workspaces.get(sid=None) \
-                                 .tasks.get(sid=None).fetch()
+        self.twilio.taskrouter.v1.workspaces.get(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                 .tasks.get(sid="WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
-        self.holodeck.assert_has_request(Request('get', 'https://taskrouter.twilio.com/v1/Workspaces/{workspace_sid}/Tasks/{sid}'))
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        ))

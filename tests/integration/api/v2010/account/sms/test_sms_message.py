@@ -14,10 +14,32 @@ from twilio.http.response import Response
 class SmsMessageTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response({status}, {content}))
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "api_version": "2008-08-01",
+                "body": "n",
+                "date_created": "Mon, 26 Jul 2010 21:46:42 +0000",
+                "date_sent": "Mon, 26 Jul 2010 21:46:44 +0000",
+                "date_updated": "Mon, 26 Jul 2010 21:46:44 +0000",
+                "direction": "outbound-api",
+                "from": "+141586753093",
+                "price": "-0.03000",
+                "sid": "SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "status": "sent",
+                "to": "+141586753096",
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SMS/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+            }
+            '''
+        ))
         
-        self.twilio.api.v2010.accounts.get(sid=None) \
+        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                              .sms \
-                             .messages.get(sid=None).fetch()
+                             .messages.get(sid="SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
-        self.holodeck.assert_has_request(Request('get', 'https://api.twilio.com/2010-04-01/Accounts/{account_sid}/SMS/Messages/{sid}.json'))
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SMS/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+        ))

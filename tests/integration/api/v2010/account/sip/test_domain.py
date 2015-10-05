@@ -14,10 +14,38 @@ from twilio.http.response import Response
 class DomainTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response({status}, {content}))
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "api_version": "2010-04-01",
+                "auth_type": "IP_ACL",
+                "date_created": "Fri, 06 Sep 2013 19:18:30 -0000",
+                "date_updated": "Fri, 06 Sep 2013 19:18:30 -0000",
+                "domain_name": "dunder-mifflin-scranton.sip.twilio.com",
+                "friendly_name": "Scranton Office",
+                "sid": "SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "subresource_uris": {
+                    "credential_list_mappings": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialListMappings.json",
+                    "ip_access_control_list_mappings": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlListMappings.json"
+                },
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json",
+                "voice_fallback_method": "POST",
+                "voice_fallback_url": null,
+                "voice_method": "POST",
+                "voice_status_callback_method": "POST",
+                "voice_status_callback_url": null,
+                "voice_url": "https://dundermifflin.example.com/twilio/app.php"
+            }
+            '''
+        ))
         
-        self.twilio.api.v2010.accounts.get(sid=None) \
+        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                              .sip \
-                             .domains.get(sid=None).fetch()
+                             .domains.get(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
-        self.holodeck.assert_has_request(Request('get', 'https://api.twilio.com/2010-04-01/Accounts/{account_sid}/SIP/Domains/{sid}.json'))
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+        ))
