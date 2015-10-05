@@ -84,7 +84,7 @@ class StatisticsTestCase(IntegrationTestCase):
         ))
         
         self.twilio.taskrouter.v1.workspaces.get(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .statistics.get().fetch()
+                                 .statistics.fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',

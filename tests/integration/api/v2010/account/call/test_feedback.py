@@ -33,7 +33,7 @@ class FeedbackTestCase(IntegrationTestCase):
         
         self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                              .calls.get(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                             .feedback.get().fetch()
+                             .feedback.fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',
