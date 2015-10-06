@@ -21,7 +21,7 @@ class QueueList(ListResource):
         Initialize the QueueList
         
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
+        :param account_sid: A 34 character string that uniquely identifies this resource.
         
         :returns: QueueList
         :rtype: QueueList
@@ -259,7 +259,6 @@ class QueueContext(InstanceContext):
         if self._members is None:
             self._members = MemberList(
                 self._version,
-                account_sid=self._kwargs['account_sid'],
                 queue_sid=self._kwargs['sid'],
             )
         return self._members
@@ -288,7 +287,6 @@ class QueueInstance(InstanceResource):
         
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
             'average_wait_time': deserialize.integer(payload['average_wait_time']),
             'current_size': deserialize.integer(payload['current_size']),
             'date_created': deserialize.rfc2822_datetime(payload['date_created']),
@@ -322,14 +320,6 @@ class QueueInstance(InstanceResource):
                 self._kwargs['sid'],
             )
         return self._instance_context
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The account_sid
-        :rtype: str
-        """
-        return self._properties['account_sid']
 
     @property
     def average_wait_time(self):

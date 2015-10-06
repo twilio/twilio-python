@@ -24,6 +24,8 @@ class AuthorizedConnectAppTestCase(IntegrationTestCase):
                 "connect_app_friendly_name": "aaa",
                 "connect_app_homepage_url": "http://www.google.com",
                 "connect_app_sid": "CNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_created": "Tue, 31 Aug 2010 20:36:28 +0000",
+                "date_updated": "Tue, 31 Aug 2010 20:36:44 +0000",
                 "permissions": [
                     "get-all"
                 ],

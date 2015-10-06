@@ -29,11 +29,13 @@ class CallTestCase(IntegrationTestCase):
                 "duration": "15",
                 "end_time": "Tue, 31 Aug 2010 20:36:44 +0000",
                 "forwarded_from": "+141586753093",
-                "from": "+141586753091",
+                "from": "+14158675308",
+                "from_formatted": "(415) 867-5308",
                 "group_sid": null,
                 "parent_call_sid": null,
                 "phone_number_sid": "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "price": "-0.03000",
+                "price_unit": "USD",
                 "sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "start_time": "Tue, 31 Aug 2010 20:36:29 +0000",
                 "status": "completed",
@@ -41,7 +43,8 @@ class CallTestCase(IntegrationTestCase):
                     "notifications": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json",
                     "recordings": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json"
                 },
-                "to": "+141586753093",
+                "to": "+14158675309",
+                "to_formatted": "(415) 867-5309",
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
             }
             '''
