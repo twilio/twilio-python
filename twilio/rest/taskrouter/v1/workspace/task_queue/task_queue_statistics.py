@@ -89,7 +89,6 @@ class StatisticsInstance(InstanceResource):
             'cumulative': payload['cumulative'],
             'realtime': payload['realtime'],
             'task_queue_sid': payload['task_queue_sid'],
-            'worker_sid': payload['worker_sid'],
             'workspace_sid': payload['workspace_sid'],
         }
         
@@ -148,14 +147,6 @@ class StatisticsInstance(InstanceResource):
         :rtype: str
         """
         return self._properties['task_queue_sid']
-
-    @property
-    def worker_sid(self):
-        """
-        :returns: The worker_sid
-        :rtype: str
-        """
-        return self._properties['worker_sid']
 
     @property
     def workspace_sid(self):

@@ -33,7 +33,7 @@ class CountryTestCase(IntegrationTestCase):
                     }
                 ],
                 "price_unit": "usd",
-                "uri": "/PhoneNumbers/Countries/US"
+                "url": "https://pricing.twilio.com/v1/PhoneNumbers/Countries/US"
             }
             '''
         ))
