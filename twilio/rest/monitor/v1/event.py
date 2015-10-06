@@ -293,7 +293,6 @@ class EventInstance(InstanceResource):
             'event_type': payload['event_type'],
             'resource_sid': payload['resource_sid'],
             'resource_type': payload['resource_type'],
-            'resource_url': payload['resource_url'],
             'sid': payload['sid'],
             'source': payload['source'],
             'source_ip_address': payload['source_ip_address'],
@@ -392,14 +391,6 @@ class EventInstance(InstanceResource):
         :rtype: str
         """
         return self._properties['resource_type']
-
-    @property
-    def resource_url(self):
-        """
-        :returns: The resource_url
-        :rtype: str
-        """
-        return self._properties['resource_url']
 
     @property
     def sid(self):
