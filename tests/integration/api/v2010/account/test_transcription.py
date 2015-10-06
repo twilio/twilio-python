@@ -24,6 +24,7 @@ class TranscriptionTestCase(IntegrationTestCase):
                 "date_updated": "Sun, 13 Feb 2011 02:30:01 +0000",
                 "duration": "1",
                 "price": "-0.05000",
+                "price_unit": "USD",
                 "recording_sid": "REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "sid": "TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "status": "failed",

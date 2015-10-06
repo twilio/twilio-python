@@ -19,6 +19,7 @@ class SandboxTestCase(IntegrationTestCase):
             '''
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "application_sid": "APaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "api_version": "2008-08-01",
                 "date_created": "Sun, 15 Mar 2009 02:08:47 +0000",
                 "date_updated": "Fri, 18 Feb 2011 17:37:18 +0000",
