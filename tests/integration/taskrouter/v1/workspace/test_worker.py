@@ -21,7 +21,7 @@ class WorkerTestCase(IntegrationTestCase):
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "activity_name": "available",
                 "activity_sid": "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "attributes": "{\"email\": \"test@twilio.com\", \"phone\": \"8675309\"}",
+                "attributes": "{\\"email\\": \\"test@twilio.com\\", \\"phone\\": \\"8675309\\"}",
                 "available": true,
                 "date_created": "2014-05-14T10:50:02Z",
                 "date_status_changed": "2014-05-14T23:26:06Z",
