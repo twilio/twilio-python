@@ -24,6 +24,7 @@ class TaskQueueTestCase(IntegrationTestCase):
                 "date_created": "2015-08-03T17:31:41Z",
                 "date_updated": "2015-08-03T17:31:41Z",
                 "friendly_name": "81f96435-3a05-11e5-9f81-98e0d9a1eb73",
+                "max_reserved_workers": 1,
                 "links": {
                     "assignment_activity": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Activities/WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                     "reservation_activity": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Activities/WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",

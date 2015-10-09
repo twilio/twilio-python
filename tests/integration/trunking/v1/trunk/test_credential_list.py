@@ -14,6 +14,21 @@ from twilio.http.response import Response
 class CredentialListTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "trunk_sid": "TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_created": "Wed, 11 Sep 2013 17:51:38 -0000",
+                "date_updated": "Wed, 11 Sep 2013 17:51:38 -0000",
+                "friendly_name": "Low Rises",
+                "sid": "CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "url": "https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
+        
         self.twilio.trunking.v1.trunks.get(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                .credentials_lists.get(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
