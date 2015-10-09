@@ -262,7 +262,7 @@ class PhoneNumberInstance(InstanceResource):
             'status_callback': payload['status_callback'],
             'status_callback_method': payload['status_callback_method'],
             'trunk_sid': payload['trunk_sid'],
-            'uri': payload['uri'],
+            'url': payload['url'],
             'voice_application_sid': payload['voice_application_sid'],
             'voice_caller_id_lookup': payload['voice_caller_id_lookup'],
             'voice_fallback_method': payload['voice_fallback_method'],
@@ -448,12 +448,12 @@ class PhoneNumberInstance(InstanceResource):
         return self._properties['trunk_sid']
 
     @property
-    def uri(self):
+    def url(self):
         """
-        :returns: The uri
+        :returns: The url
         :rtype: str
         """
-        return self._properties['uri']
+        return self._properties['url']
 
     @property
     def voice_application_sid(self):

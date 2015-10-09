@@ -24,10 +24,11 @@ class OriginationUrlTestCase(IntegrationTestCase):
                 "friendly_name": "friendly_name",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "priority": 1,
-                "url": "sip://sip-box.com:1234",
+                "sip_url": "sip://sip-box.com:1234",
                 "sid": "OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-01-02T11:23:45Z",
-                "trunk_sid": "TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                "trunk_sid": "TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "url": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
         ))
