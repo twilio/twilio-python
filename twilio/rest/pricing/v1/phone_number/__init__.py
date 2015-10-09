@@ -26,7 +26,6 @@ class PhoneNumberList(ListResource):
         
         # Path Solution
         self._kwargs = {}
-        self._uri = '/PhoneNumbers'.format(**self._kwargs)
         
         # Components
         self._countries = None

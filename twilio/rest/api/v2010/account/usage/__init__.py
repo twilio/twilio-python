@@ -30,7 +30,6 @@ class UsageList(ListResource):
         self._kwargs = {
             'account_sid': account_sid,
         }
-        self._uri = '/Accounts/{account_sid}/Usage.json'.format(**self._kwargs)
         
         # Components
         self._records = None

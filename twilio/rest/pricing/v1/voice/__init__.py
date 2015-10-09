@@ -27,7 +27,6 @@ class VoiceList(ListResource):
         
         # Path Solution
         self._kwargs = {}
-        self._uri = 'None'.format(**self._kwargs)
         
         # Components
         self._numbers = None
