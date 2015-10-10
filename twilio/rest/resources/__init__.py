@@ -73,3 +73,14 @@ from .addresses import (
     DependentPhoneNumber,
     DependentPhoneNumbers,
 )
+
+from .trunking import (
+    CredentialList,
+    CredentialLists,
+    IpAccessControlList,
+    IpAccessControlLists,
+    OriginationUrl,
+    OriginationUrls,
+    Trunk,
+    Trunks,
+)
