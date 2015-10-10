@@ -37,7 +37,7 @@ class NumberTestCase(IntegrationTestCase):
         ))
         
         self.twilio.pricing.v1.voice \
-                              .numbers.fetch()
+                              .numbers(number="+987654321").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',

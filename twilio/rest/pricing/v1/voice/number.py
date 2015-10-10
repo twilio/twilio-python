@@ -78,7 +78,7 @@ class NumberInstance(InstanceResource):
             'outbound_call_price': payload['outbound_call_price'],
             'inbound_call_price': payload['inbound_call_price'],
             'price_unit': payload['price_unit'],
-            'uri': payload['uri'],
+            'url': payload['url'],
         }
         
         # Context
@@ -152,12 +152,12 @@ class NumberInstance(InstanceResource):
         return self._properties['price_unit']
 
     @property
-    def uri(self):
+    def url(self):
         """
-        :returns: The uri
+        :returns: The url
         :rtype: str
         """
-        return self._properties['uri']
+        return self._properties['url']
 
     def fetch(self):
         """

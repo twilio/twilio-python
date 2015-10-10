@@ -32,8 +32,7 @@ class VoiceList(ListResource):
         self._numbers = None
         self._countries = None
 
-    @property
-    def numbers(self):
+    def numbers(self, number):
         """
         Access the numbers
         
@@ -41,7 +40,7 @@ class VoiceList(ListResource):
         :rtype: NumberContext
         """
         if self._numbers is None:
-            self._numbers = NumberContext(self._version, **self._kwargs)
+            self._numbers = NumberContext(self._version, number, **self._kwargs)
         return self._numbers
 
     @property

@@ -33,7 +33,7 @@ class PhoneNumberTestCase(IntegrationTestCase):
             '''
         ))
         
-        self.twilio.lookups.v1.phone_numbers.fetch()
+        self.twilio.lookups.v1.phone_numbers(phone_number="+987654321").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',

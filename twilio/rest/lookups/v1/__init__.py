@@ -23,13 +23,12 @@ class V1(Version):
         self.version = 'v1'
         self._phone_numbers = None
 
-    @property
-    def phone_numbers(self):
+    def phone_numbers(self, phone_number):
         """
         :rtype: PhoneNumberContext
         """
         if self._phone_numbers is None:
-            self._phone_numbers = PhoneNumberContext(self)
+            self._phone_numbers = PhoneNumberContext(self, phone_number)
         return self._phone_numbers
 
     def __repr__(self):

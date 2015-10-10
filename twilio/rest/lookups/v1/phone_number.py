@@ -81,10 +81,6 @@ class PhoneNumberInstance(InstanceResource):
             'country_code': payload['country_code'],
             'phone_number': payload['phone_number'],
             'national_format': payload['national_format'],
-            'mobile_country_code': payload['mobile_country_code'],
-            'mobile_network_code': payload['mobile_network_code'],
-            'name': payload['name'],
-            'type': payload['type'],
             'carrier': payload['carrier'],
         }
         
@@ -133,38 +129,6 @@ class PhoneNumberInstance(InstanceResource):
         :rtype: str
         """
         return self._properties['national_format']
-
-    @property
-    def mobile_country_code(self):
-        """
-        :returns: The mobile_country_code
-        :rtype: str
-        """
-        return self._properties['mobile_country_code']
-
-    @property
-    def mobile_network_code(self):
-        """
-        :returns: The mobile_network_code
-        :rtype: str
-        """
-        return self._properties['mobile_network_code']
-
-    @property
-    def name(self):
-        """
-        :returns: The name
-        :rtype: str
-        """
-        return self._properties['name']
-
-    @property
-    def type(self):
-        """
-        :returns: The type
-        :rtype: str
-        """
-        return self._properties['type']
 
     @property
     def carrier(self):
