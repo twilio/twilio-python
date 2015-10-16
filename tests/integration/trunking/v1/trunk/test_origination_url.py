@@ -33,8 +33,8 @@ class OriginationUrlTestCase(IntegrationTestCase):
             '''
         ))
         
-        self.twilio.trunking.v1.trunks.get(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .origination_urls.get(sid="OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        self.twilio.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                               .origination_urls(sid="OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',

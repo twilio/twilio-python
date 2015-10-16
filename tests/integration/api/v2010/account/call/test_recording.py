@@ -31,9 +31,9 @@ class RecordingTestCase(IntegrationTestCase):
             '''
         ))
         
-        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                             .calls.get(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                             .recordings.get(sid="REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .calls(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .recordings(sid="REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',

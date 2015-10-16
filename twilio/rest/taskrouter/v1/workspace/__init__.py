@@ -13,11 +13,11 @@ from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
 from twilio.rest.taskrouter.v1.workspace.activity import ActivityList
 from twilio.rest.taskrouter.v1.workspace.event import EventList
-from twilio.rest.taskrouter.v1.workspace.statistics import StatisticsContext
 from twilio.rest.taskrouter.v1.workspace.task import TaskList
 from twilio.rest.taskrouter.v1.workspace.task_queue import TaskQueueList
 from twilio.rest.taskrouter.v1.workspace.worker import WorkerList
 from twilio.rest.taskrouter.v1.workspace.workflow import WorkflowList
+from twilio.rest.taskrouter.v1.workspace.workspace_statistics import WorkspaceStatisticsList
 
 
 class WorkspaceList(ListResource):
@@ -368,11 +368,11 @@ class WorkspaceContext(InstanceContext):
         """
         Access the statistics
         
-        :returns: StatisticsContext
-        :rtype: StatisticsContext
+        :returns: WorkspaceStatisticsList
+        :rtype: WorkspaceStatisticsList
         """
         if self._statistics is None:
-            self._statistics = StatisticsContext(
+            self._statistics = WorkspaceStatisticsList(
                 self._version,
                 workspace_sid=self._kwargs['sid'],
             )

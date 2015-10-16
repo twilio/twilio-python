@@ -44,7 +44,7 @@ class TrunkTestCase(IntegrationTestCase):
             '''
         ))
         
-        self.twilio.trunking.v1.trunks.get(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        self.twilio.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',

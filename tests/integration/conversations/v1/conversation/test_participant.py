@@ -32,8 +32,8 @@ class ParticipantTestCase(IntegrationTestCase):
             '''
         ))
         
-        self.twilio.conversations.v1.conversations.get(sid="CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .participants.get(sid="PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        self.twilio.conversations.v1.conversations(sid="CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                    .participants(sid="PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',

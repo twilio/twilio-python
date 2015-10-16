@@ -47,9 +47,9 @@ class StatisticsTestCase(IntegrationTestCase):
             '''
         ))
         
-        self.twilio.taskrouter.v1.workspaces.get(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .workflows.get(sid="WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .statistics.fetch()
+        self.twilio.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                 .workflows(sid="WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                 .statistics().fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',

@@ -38,9 +38,9 @@ class TriggerTestCase(IntegrationTestCase):
             '''
         ))
         
-        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                              .usage \
-                             .triggers.get(sid="UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+                             .triggers(sid="UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',

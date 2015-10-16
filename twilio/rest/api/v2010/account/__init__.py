@@ -21,7 +21,7 @@ from twilio.rest.api.v2010.account.notification import NotificationList
 from twilio.rest.api.v2010.account.outgoing_caller_id import OutgoingCallerIdList
 from twilio.rest.api.v2010.account.queue import QueueList
 from twilio.rest.api.v2010.account.recording import RecordingList
-from twilio.rest.api.v2010.account.sandbox import SandboxContext
+from twilio.rest.api.v2010.account.sandbox import SandboxList
 from twilio.rest.api.v2010.account.sip import SipList
 from twilio.rest.api.v2010.account.sms import SmsList
 from twilio.rest.api.v2010.account.token import TokenList
@@ -483,11 +483,11 @@ class AccountContext(InstanceContext):
         """
         Access the sandbox
         
-        :returns: SandboxContext
-        :rtype: SandboxContext
+        :returns: SandboxList
+        :rtype: SandboxList
         """
         if self._sandbox is None:
-            self._sandbox = SandboxContext(
+            self._sandbox = SandboxList(
                 self._version,
                 account_sid=self._kwargs['sid'],
             )

@@ -11,19 +11,19 @@ from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
 
 
-class StatisticsList(ListResource):
+class TaskQueuesStatisticsList(ListResource):
 
     def __init__(self, version, workspace_sid):
         """
-        Initialize the StatisticsList
+        Initialize the TaskQueuesStatisticsList
         
         :param Version version: Version that contains the resource
         :param workspace_sid: The workspace_sid
         
-        :returns: StatisticsList
-        :rtype: StatisticsList
+        :returns: TaskQueuesStatisticsList
+        :rtype: TaskQueuesStatisticsList
         """
-        super(StatisticsList, self).__init__(version)
+        super(TaskQueuesStatisticsList, self).__init__(version)
         
         # Path Solution
         self._kwargs = {
@@ -35,7 +35,7 @@ class StatisticsList(ListResource):
                minutes=values.unset, start_date=values.unset, limit=None,
                page_size=None, **kwargs):
         """
-        Streams StatisticsInstance records from the API as a generator stream.
+        Streams TaskQueuesStatisticsInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -67,7 +67,7 @@ class StatisticsList(ListResource):
         
         return self._version.stream(
             self,
-            StatisticsInstance,
+            TaskQueuesStatisticsInstance,
             self._kwargs,
             'GET',
             self._uri,
@@ -80,7 +80,7 @@ class StatisticsList(ListResource):
              minutes=values.unset, start_date=values.unset, limit=None,
              page_size=None, **kwargs):
         """
-        Reads StatisticsInstance records from the API as a list.
+        Reads TaskQueuesStatisticsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -112,7 +112,7 @@ class StatisticsList(ListResource):
              minutes=values.unset, start_date=values.unset, page_token=None,
              page_number=None, page_size=None, **kwargs):
         """
-        Retrieve a single page of StatisticsInstance records from the API.
+        Retrieve a single page of TaskQueuesStatisticsInstance records from the API.
         Request is executed immediately
         
         :param datetime end_date: The end_date
@@ -123,7 +123,7 @@ class StatisticsList(ListResource):
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
         
-        :returns: Page of StatisticsInstance
+        :returns: Page of TaskQueuesStatisticsInstance
         :rtype: Page
         """
         params = values.of({
@@ -139,7 +139,7 @@ class StatisticsList(ListResource):
         
         return self._version.page(
             self,
-            StatisticsInstance,
+            TaskQueuesStatisticsInstance,
             self._kwargs,
             'GET',
             self._uri,
@@ -153,19 +153,19 @@ class StatisticsList(ListResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Taskrouter.V1.StatisticsList>'
+        return '<Twilio.Taskrouter.V1.TaskQueuesStatisticsList>'
 
 
-class StatisticsInstance(InstanceResource):
+class TaskQueuesStatisticsInstance(InstanceResource):
 
     def __init__(self, version, payload):
         """
-        Initialize the StatisticsInstance
+        Initialize the TaskQueuesStatisticsInstance
         
-        :returns: StatisticsInstance
-        :rtype: StatisticsInstance
+        :returns: TaskQueuesStatisticsInstance
+        :rtype: TaskQueuesStatisticsInstance
         """
-        super(StatisticsInstance, self).__init__(version)
+        super(TaskQueuesStatisticsInstance, self).__init__(version)
         
         # Marshaled Properties
         self._properties = {
@@ -232,4 +232,4 @@ class StatisticsInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Taskrouter.V1.StatisticsInstance>'
+        return '<Twilio.Taskrouter.V1.TaskQueuesStatisticsInstance>'

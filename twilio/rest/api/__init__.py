@@ -145,7 +145,7 @@ class Api(Domain):
     @property
     def sandbox(self):
         """
-        :rtype: SandboxContext
+        :rtype: SandboxList
         """
         return self.account.sandbox
 

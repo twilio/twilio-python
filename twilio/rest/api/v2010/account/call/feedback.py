@@ -10,6 +10,56 @@ from twilio import values
 from twilio.rest import deserialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
+from twilio.rest.base import ListResource
+
+
+class FeedbackList(ListResource):
+
+    def __init__(self, version, account_sid, call_sid):
+        """
+        Initialize the FeedbackList
+        
+        :param Version version: Version that contains the resource
+        :param account_sid: The account_sid
+        :param call_sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: FeedbackList
+        :rtype: FeedbackList
+        """
+        super(FeedbackList, self).__init__(version)
+        
+        # Path Solution
+        self._kwargs = {
+            'account_sid': account_sid,
+            'call_sid': call_sid,
+        }
+
+    def get(self):
+        """
+        Constructs a FeedbackContext
+        
+        :returns: FeedbackContext
+        :rtype: FeedbackContext
+        """
+        return FeedbackContext(self._version, **self._kwargs)
+
+    def __call__(self):
+        """
+        Constructs a FeedbackContext
+        
+        :returns: FeedbackContext
+        :rtype: FeedbackContext
+        """
+        return FeedbackContext(self._version, **self._kwargs)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Api.V2010.FeedbackList>'
 
 
 class FeedbackContext(InstanceContext):

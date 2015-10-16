@@ -33,8 +33,8 @@ class ConnectAppTestCase(IntegrationTestCase):
             '''
         ))
         
-        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                             .connect_apps.get(sid="CNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .connect_apps(sid="CNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',

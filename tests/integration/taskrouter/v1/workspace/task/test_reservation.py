@@ -37,9 +37,9 @@ class ReservationTestCase(IntegrationTestCase):
             '''
         ))
         
-        self.twilio.taskrouter.v1.workspaces.get(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .tasks.get(sid="WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .reservations.get(sid="WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        self.twilio.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                 .tasks(sid="WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                 .reservations(sid="WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',

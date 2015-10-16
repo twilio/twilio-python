@@ -39,7 +39,7 @@ class AlertTestCase(IntegrationTestCase):
             '''
         ))
         
-        self.twilio.monitor.v1.alerts.get(sid="NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        self.twilio.monitor.v1.alerts(sid="NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',

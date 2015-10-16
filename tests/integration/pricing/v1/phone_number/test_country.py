@@ -39,7 +39,7 @@ class CountryTestCase(IntegrationTestCase):
         ))
         
         self.twilio.pricing.v1.phone_numbers \
-                              .countries.get(iso_country="US").fetch()
+                              .countries(iso_country="US").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',

@@ -39,7 +39,7 @@ class Lookups(Domain):
     @property
     def phone_numbers(self):
         """
-        :rtype: PhoneNumberContext
+        :rtype: PhoneNumberList
         """
         return self.v1.phone_numbers
 

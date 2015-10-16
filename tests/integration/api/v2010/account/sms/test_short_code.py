@@ -34,9 +34,9 @@ class ShortCodeTestCase(IntegrationTestCase):
             '''
         ))
         
-        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                              .sms \
-                             .short_codes.get(sid="SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+                             .short_codes(sid="SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',

@@ -11,7 +11,7 @@ from tests.integration.holodeck import Request
 from twilio.http.response import Response
 
 
-class StatisticsTestCase(IntegrationTestCase):
+class WorkerStatisticsTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
         self.holodeck.mock(Response(
@@ -86,9 +86,9 @@ class StatisticsTestCase(IntegrationTestCase):
             '''
         ))
         
-        self.twilio.taskrouter.v1.workspaces.get(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .workers.get(sid="WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .statistics.fetch()
+        self.twilio.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                 .workers(sid="WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                 .statistics().fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',

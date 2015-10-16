@@ -44,7 +44,7 @@ class EventTestCase(IntegrationTestCase):
             '''
         ))
         
-        self.twilio.monitor.v1.events.get(sid="AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        self.twilio.monitor.v1.events(sid="AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',

@@ -18,6 +18,7 @@ class QueueTestCase(IntegrationTestCase):
             200,
             '''
             {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "average_wait_time": 0,
                 "current_size": 0,
                 "date_created": "Tue, 04 Aug 2015 18:39:09 +0000",
@@ -30,8 +31,8 @@ class QueueTestCase(IntegrationTestCase):
             '''
         ))
         
-        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                             .queues.get(sid="QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .queues(sid="QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',

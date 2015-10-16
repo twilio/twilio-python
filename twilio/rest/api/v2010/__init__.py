@@ -147,7 +147,7 @@ class V2010(Version):
     @property
     def sandbox(self):
         """
-        :rtype: SandboxContext
+        :rtype: SandboxList
         """
         return self.account.sandbox
 

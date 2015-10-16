@@ -30,8 +30,8 @@ class AvailablePhoneNumberCountryTestCase(IntegrationTestCase):
             '''
         ))
         
-        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                             .available_phone_numbers.get(country_code="US").fetch()
+        self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .available_phone_numbers(country_code="US").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',

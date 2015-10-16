@@ -36,9 +36,9 @@ class SmsMessageTestCase(IntegrationTestCase):
             '''
         ))
         
-        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                              .sms \
-                             .messages.get(sid="SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+                             .messages(sid="SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',

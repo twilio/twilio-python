@@ -11,8 +11,8 @@ from twilio.rest import deserialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
-from twilio.rest.taskrouter.v1.workspace.worker.worker_statistics import StatisticsContext
-from twilio.rest.taskrouter.v1.workspace.worker.workers_statistics import StatisticsContext
+from twilio.rest.taskrouter.v1.workspace.worker.worker_statistics import WorkerStatisticsList
+from twilio.rest.taskrouter.v1.workspace.worker.workers_statistics import WorkersStatisticsList
 
 
 class WorkerList(ListResource):
@@ -206,11 +206,11 @@ class WorkerList(ListResource):
         """
         Access the statistics
         
-        :returns: StatisticsContext
-        :rtype: StatisticsContext
+        :returns: WorkersStatisticsList
+        :rtype: WorkersStatisticsList
         """
         if self._statistics is None:
-            self._statistics = StatisticsContext(self._version, **self._kwargs)
+            self._statistics = WorkersStatisticsList(self._version, **self._kwargs)
         return self._statistics
 
     def get(self, sid):
@@ -327,11 +327,11 @@ class WorkerContext(InstanceContext):
         """
         Access the statistics
         
-        :returns: StatisticsContext
-        :rtype: StatisticsContext
+        :returns: WorkerStatisticsList
+        :rtype: WorkerStatisticsList
         """
         if self._statistics is None:
-            self._statistics = StatisticsContext(
+            self._statistics = WorkerStatisticsList(
                 self._version,
                 workspace_sid=self._kwargs['workspace_sid'],
                 worker_sid=self._kwargs['sid'],

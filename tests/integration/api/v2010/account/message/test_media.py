@@ -29,9 +29,9 @@ class MediaTestCase(IntegrationTestCase):
             '''
         ))
         
-        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                             .messages.get(sid="MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                             .media.get(sid="MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .messages(sid="MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .media(sid="MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',

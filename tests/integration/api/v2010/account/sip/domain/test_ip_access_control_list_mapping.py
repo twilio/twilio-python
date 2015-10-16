@@ -31,10 +31,10 @@ class IpAccessControlListMappingTestCase(IntegrationTestCase):
             '''
         ))
         
-        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                              .sip \
-                             .domains.get(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                             .ip_access_control_list_mappings.get(sid="ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+                             .domains(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .ip_access_control_list_mappings(sid="ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',

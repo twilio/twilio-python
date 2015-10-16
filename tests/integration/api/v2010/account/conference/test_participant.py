@@ -31,9 +31,9 @@ class ParticipantTestCase(IntegrationTestCase):
             '''
         ))
         
-        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                             .conferences.get(sid="CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                             .participants.get(call_sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .conferences(sid="CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .participants(call_sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',

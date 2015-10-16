@@ -35,9 +35,9 @@ class TranscriptionTestCase(IntegrationTestCase):
             '''
         ))
         
-        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                             .recordings.get(sid="REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                             .transcriptions.get(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .recordings(sid="REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .transcriptions(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',

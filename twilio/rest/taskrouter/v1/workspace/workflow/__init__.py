@@ -11,7 +11,7 @@ from twilio.rest import deserialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
-from twilio.rest.taskrouter.v1.workspace.workflow.statistics import StatisticsContext
+from twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics import WorkflowStatisticsList
 
 
 class WorkflowList(ListResource):
@@ -279,11 +279,11 @@ class WorkflowContext(InstanceContext):
         """
         Access the statistics
         
-        :returns: StatisticsContext
-        :rtype: StatisticsContext
+        :returns: WorkflowStatisticsList
+        :rtype: WorkflowStatisticsList
         """
         if self._statistics is None:
-            self._statistics = StatisticsContext(
+            self._statistics = WorkflowStatisticsList(
                 self._version,
                 workspace_sid=self._kwargs['workspace_sid'],
                 workflow_sid=self._kwargs['sid'],

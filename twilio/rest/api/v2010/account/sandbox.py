@@ -10,6 +10,54 @@ from twilio import values
 from twilio.rest import deserialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
+from twilio.rest.base import ListResource
+
+
+class SandboxList(ListResource):
+
+    def __init__(self, version, account_sid):
+        """
+        Initialize the SandboxList
+        
+        :param Version version: Version that contains the resource
+        :param account_sid: The account_sid
+        
+        :returns: SandboxList
+        :rtype: SandboxList
+        """
+        super(SandboxList, self).__init__(version)
+        
+        # Path Solution
+        self._kwargs = {
+            'account_sid': account_sid,
+        }
+
+    def get(self):
+        """
+        Constructs a SandboxContext
+        
+        :returns: SandboxContext
+        :rtype: SandboxContext
+        """
+        return SandboxContext(self._version, **self._kwargs)
+
+    def __call__(self):
+        """
+        Constructs a SandboxContext
+        
+        :returns: SandboxContext
+        :rtype: SandboxContext
+        """
+        return SandboxContext(self._version, **self._kwargs)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Api.V2010.SandboxList>'
 
 
 class SandboxContext(InstanceContext):

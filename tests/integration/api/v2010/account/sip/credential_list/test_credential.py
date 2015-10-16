@@ -29,10 +29,10 @@ class CredentialTestCase(IntegrationTestCase):
             '''
         ))
         
-        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                              .sip \
-                             .credential_lists.get(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                             .credentials.get(sid="CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+                             .credential_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .credentials(sid="CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',

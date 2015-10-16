@@ -11,8 +11,8 @@ from twilio.rest import deserialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
-from twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics import StatisticsContext
-from twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics import StatisticsList
+from twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics import TaskQueueStatisticsList
+from twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics import TaskQueuesStatisticsList
 
 
 class TaskQueueList(ListResource):
@@ -177,11 +177,11 @@ class TaskQueueList(ListResource):
         """
         Access the statistics
         
-        :returns: StatisticsList
-        :rtype: StatisticsList
+        :returns: TaskQueuesStatisticsList
+        :rtype: TaskQueuesStatisticsList
         """
         if self._statistics is None:
-            self._statistics = StatisticsList(self._version, **self._kwargs)
+            self._statistics = TaskQueuesStatisticsList(self._version, **self._kwargs)
         return self._statistics
 
     def get(self, sid):
@@ -304,11 +304,11 @@ class TaskQueueContext(InstanceContext):
         """
         Access the statistics
         
-        :returns: StatisticsContext
-        :rtype: StatisticsContext
+        :returns: TaskQueueStatisticsList
+        :rtype: TaskQueueStatisticsList
         """
         if self._statistics is None:
-            self._statistics = StatisticsContext(
+            self._statistics = TaskQueueStatisticsList(
                 self._version,
                 workspace_sid=self._kwargs['workspace_sid'],
                 task_queue_sid=self._kwargs['sid'],

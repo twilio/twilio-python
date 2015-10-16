@@ -27,9 +27,9 @@ class MemberTestCase(IntegrationTestCase):
             '''
         ))
         
-        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                             .queues.get(sid="QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                             .members.get(call_sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .queues(sid="QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .members(call_sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',

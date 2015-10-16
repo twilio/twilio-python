@@ -11,5 +11,5 @@ from tests.integration.holodeck import Request
 from twilio.http.response import Response
 
 
-class StatisticsTestCase(IntegrationTestCase):
+class TaskQueuesStatisticsTestCase(IntegrationTestCase):
     pass

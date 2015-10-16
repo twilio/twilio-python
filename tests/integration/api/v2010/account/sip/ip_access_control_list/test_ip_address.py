@@ -30,10 +30,10 @@ class IpAddressTestCase(IntegrationTestCase):
             '''
         ))
         
-        self.twilio.api.v2010.accounts.get(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                              .sip \
-                             .ip_access_control_lists.get(sid="ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                             .ip_addresses.get(sid="IPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+                             .ip_access_control_lists(sid="ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                             .ip_addresses(sid="IPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',
