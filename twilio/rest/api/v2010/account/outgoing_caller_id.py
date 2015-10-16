@@ -133,39 +133,6 @@ class OutgoingCallerIdList(ListResource):
             params=params,
         )
 
-    def create(self, phone_number, friendly_name=values.unset,
-               call_delay=values.unset, extension=values.unset,
-               status_callback=values.unset, status_callback_method=values.unset):
-        """
-        Create a new OutgoingCallerIdInstance
-        
-        :param str phone_number: The phone number to verify
-        :param str friendly_name: A human readable description of the CallerID
-        :param str call_delay: Number of seconds to delay before initiating verification
-        :param str extension: Digits to dial after connecting the verification call
-        :param str status_callback: URL Twilio will request with status of the verification
-        :param str status_callback_method: HTTP method Twilio will use with the status callback
-        
-        :returns: Newly created OutgoingCallerIdInstance
-        :rtype: OutgoingCallerIdInstance
-        """
-        data = values.of({
-            'PhoneNumber': phone_number,
-            'FriendlyName': friendly_name,
-            'CallDelay': call_delay,
-            'Extension': extension,
-            'StatusCallback': status_callback,
-            'StatusCallbackMethod': status_callback_method,
-        })
-        
-        return self._version.create(
-            OutgoingCallerIdInstance,
-            self._kwargs,
-            'POST',
-            self._uri,
-            data=data,
-        )
-
     def get(self, sid):
         """
         Constructs a OutgoingCallerIdContext
@@ -291,15 +258,13 @@ class OutgoingCallerIdInstance(InstanceResource):
         
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'call_sid': payload['call_sid'],
+            'sid': payload['sid'],
             'date_created': deserialize.rfc2822_datetime(payload['date_created']),
             'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
             'friendly_name': payload['friendly_name'],
+            'account_sid': payload['account_sid'],
             'phone_number': payload['phone_number'],
-            'sid': payload['sid'],
             'uri': payload['uri'],
-            'validation_code': deserialize.integer(payload['validation_code']),
         }
         
         # Context
@@ -327,20 +292,12 @@ class OutgoingCallerIdInstance(InstanceResource):
         return self._instance_context
 
     @property
-    def account_sid(self):
+    def sid(self):
         """
-        :returns: The unique sid that identifies this account
+        :returns: A string that uniquely identifies this outgoing-caller-ids
         :rtype: str
         """
-        return self._properties['account_sid']
-
-    @property
-    def call_sid(self):
-        """
-        :returns: The call_sid
-        :rtype: str
-        """
-        return self._properties['call_sid']
+        return self._properties['sid']
 
     @property
     def date_created(self):
@@ -367,6 +324,14 @@ class OutgoingCallerIdInstance(InstanceResource):
         return self._properties['friendly_name']
 
     @property
+    def account_sid(self):
+        """
+        :returns: The unique sid that identifies this account
+        :rtype: str
+        """
+        return self._properties['account_sid']
+
+    @property
     def phone_number(self):
         """
         :returns: The incoming phone number
@@ -375,28 +340,12 @@ class OutgoingCallerIdInstance(InstanceResource):
         return self._properties['phone_number']
 
     @property
-    def sid(self):
-        """
-        :returns: A string that uniquely identifies this outgoing-caller-ids
-        :rtype: str
-        """
-        return self._properties['sid']
-
-    @property
     def uri(self):
         """
         :returns: The URI for this resource
         :rtype: str
         """
         return self._properties['uri']
-
-    @property
-    def validation_code(self):
-        """
-        :returns: The validation_code
-        :rtype: str
-        """
-        return self._properties['validation_code']
 
     def fetch(self):
         """

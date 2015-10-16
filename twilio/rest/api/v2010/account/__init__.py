@@ -27,6 +27,7 @@ from twilio.rest.api.v2010.account.sms import SmsList
 from twilio.rest.api.v2010.account.token import TokenList
 from twilio.rest.api.v2010.account.transcription import TranscriptionList
 from twilio.rest.api.v2010.account.usage import UsageList
+from twilio.rest.api.v2010.account.validation_request import ValidationRequestList
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
@@ -242,6 +243,7 @@ class AccountContext(InstanceContext):
         self._tokens = None
         self._transcriptions = None
         self._usage = None
+        self._validation_requests = None
 
     def fetch(self):
         """
@@ -567,6 +569,21 @@ class AccountContext(InstanceContext):
                 account_sid=self._kwargs['sid'],
             )
         return self._usage
+
+    @property
+    def validation_requests(self):
+        """
+        Access the validation_requests
+        
+        :returns: ValidationRequestList
+        :rtype: ValidationRequestList
+        """
+        if self._validation_requests is None:
+            self._validation_requests = ValidationRequestList(
+                self._version,
+                account_sid=self._kwargs['sid'],
+            )
+        return self._validation_requests
 
     def __repr__(self):
         """
@@ -919,6 +936,16 @@ class AccountInstance(InstanceResource):
         :rtype: usage
         """
         return self._context.usage
+
+    @property
+    def validation_requests(self):
+        """
+        Access the validation_requests
+        
+        :returns: validation_requests
+        :rtype: validation_requests
+        """
+        return self._context.validation_requests
 
     def __repr__(self):
         """

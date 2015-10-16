@@ -186,6 +186,13 @@ class V2010(Version):
         """
         return self.account.usage
 
+    @property
+    def validation_requests(self):
+        """
+        :rtype: ValidationRequestList
+        """
+        return self.account.validation_requests
+
     def __repr__(self):
         """
         Provide a friendly representation

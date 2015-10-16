@@ -1,9 +1,10 @@
 from twilio.http import HttpClient
+from twilio.http.request import Request
 
 
-class NoisyClient(HttpClient):
+class DebugClient(HttpClient):
     def __init__(self, client):
-        super(NoisyClient, self).__init__()
+        super(DebugClient, self).__init__()
         self._client = client
 
     def request(self,
@@ -15,9 +16,8 @@ class NoisyClient(HttpClient):
                 auth=None,
                 timeout=None,
                 allow_redirects=False):
-        print("""
-
-        """)
+        req = Request(method=method, url=url, auth=auth, params=params, data=data, headers=headers)
+        print(req)
         return self._client.request(
             method,
             url,
