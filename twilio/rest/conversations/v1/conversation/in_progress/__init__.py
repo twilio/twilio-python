@@ -57,7 +57,7 @@ class InProgressList(ListResource):
         return self._version.stream(
             self,
             InProgressInstance,
-            self._kwargs,
+            {},
             'GET',
             self._uri,
             limits['limit'],

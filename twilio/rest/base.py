@@ -167,7 +167,7 @@ class Version(object):
         response = self.request(method, uri, **kwargs)
 
         if response.status_code != 200:
-            raise Exception('Unable to fetch page')
+            raise TwilioException('Unable to fetch page')
 
         payload = json.loads(response.content)
         records = self.load_page(payload)

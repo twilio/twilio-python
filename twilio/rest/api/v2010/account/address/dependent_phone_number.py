@@ -61,7 +61,7 @@ class DependentPhoneNumberList(ListResource):
         return self._version.stream(
             self,
             DependentPhoneNumberInstance,
-            self._kwargs,
+            {},
             'GET',
             self._uri,
             limits['limit'],

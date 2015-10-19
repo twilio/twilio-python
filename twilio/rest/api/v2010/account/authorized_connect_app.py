@@ -118,27 +118,27 @@ class AuthorizedConnectAppList(ListResource):
             params=params,
         )
 
-    def get(self, sid):
+    def get(self, connect_app_sid):
         """
         Constructs a AuthorizedConnectAppContext
         
-        :param sid: Fetch by unique authorized-connect-app Sid
+        :param connect_app_sid: The connect_app_sid
         
         :returns: AuthorizedConnectAppContext
         :rtype: AuthorizedConnectAppContext
         """
-        return AuthorizedConnectAppContext(self._version, sid=sid, **self._kwargs)
+        return AuthorizedConnectAppContext(self._version, connect_app_sid=connect_app_sid, **self._kwargs)
 
-    def __call__(self, sid):
+    def __call__(self, connect_app_sid):
         """
         Constructs a AuthorizedConnectAppContext
         
-        :param sid: Fetch by unique authorized-connect-app Sid
+        :param connect_app_sid: The connect_app_sid
         
         :returns: AuthorizedConnectAppContext
         :rtype: AuthorizedConnectAppContext
         """
-        return AuthorizedConnectAppContext(self._version, sid=sid, **self._kwargs)
+        return AuthorizedConnectAppContext(self._version, connect_app_sid=connect_app_sid, **self._kwargs)
 
     def __repr__(self):
         """
@@ -152,13 +152,13 @@ class AuthorizedConnectAppList(ListResource):
 
 class AuthorizedConnectAppContext(InstanceContext):
 
-    def __init__(self, version, account_sid, sid):
+    def __init__(self, version, account_sid, connect_app_sid):
         """
         Initialize the AuthorizedConnectAppContext
         
         :param Version version
         :param account_sid: The account_sid
-        :param sid: Fetch by unique authorized-connect-app Sid
+        :param connect_app_sid: The connect_app_sid
         
         :returns: AuthorizedConnectAppContext
         :rtype: AuthorizedConnectAppContext
@@ -168,9 +168,9 @@ class AuthorizedConnectAppContext(InstanceContext):
         # Path Solution
         self._kwargs = {
             'account_sid': account_sid,
-            'sid': sid,
+            'connect_app_sid': connect_app_sid,
         }
-        self._uri = '/Accounts/{account_sid}/AuthorizedConnectApps/{sid}.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/AuthorizedConnectApps/{connect_app_sid}.json'.format(**self._kwargs)
 
     def fetch(self):
         """
@@ -202,7 +202,7 @@ class AuthorizedConnectAppContext(InstanceContext):
 
 class AuthorizedConnectAppInstance(InstanceResource):
 
-    def __init__(self, version, payload, account_sid, sid=None):
+    def __init__(self, version, payload, account_sid, connect_app_sid=None):
         """
         Initialize the AuthorizedConnectAppInstance
         
@@ -229,7 +229,7 @@ class AuthorizedConnectAppInstance(InstanceResource):
         self._instance_context = None
         self._kwargs = {
             'account_sid': account_sid,
-            'sid': sid or self._properties['sid'],
+            'connect_app_sid': connect_app_sid or self._properties['connect_app_sid'],
         }
 
     @property
@@ -245,7 +245,7 @@ class AuthorizedConnectAppInstance(InstanceResource):
             self._instance_context = AuthorizedConnectAppContext(
                 self._version,
                 self._kwargs['account_sid'],
-                self._kwargs['sid'],
+                self._kwargs['connect_app_sid'],
             )
         return self._instance_context
 

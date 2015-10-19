@@ -57,7 +57,7 @@ class CompletedList(ListResource):
         return self._version.stream(
             self,
             CompletedInstance,
-            self._kwargs,
+            {},
             'GET',
             self._uri,
             limits['limit'],

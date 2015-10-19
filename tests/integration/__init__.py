@@ -1,5 +1,6 @@
 import unittest
 from tests.integration.holodeck import Holodeck
+from twilio.http.response import Response
 from twilio.rest import Twilio
 
 

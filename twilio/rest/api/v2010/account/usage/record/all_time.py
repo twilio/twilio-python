@@ -59,7 +59,7 @@ class AllTimeList(ListResource):
         return self._version.stream(
             self,
             AllTimeInstance,
-            self._kwargs,
+            {},
             'GET',
             self._uri,
             limits['limit'],

@@ -59,7 +59,7 @@ class ThisMonthList(ListResource):
         return self._version.stream(
             self,
             ThisMonthInstance,
-            self._kwargs,
+            {},
             'GET',
             self._uri,
             limits['limit'],

@@ -59,7 +59,7 @@ class DailyList(ListResource):
         return self._version.stream(
             self,
             DailyInstance,
-            self._kwargs,
+            {},
             'GET',
             self._uri,
             limits['limit'],

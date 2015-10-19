@@ -59,7 +59,7 @@ class YesterdayList(ListResource):
         return self._version.stream(
             self,
             YesterdayInstance,
-            self._kwargs,
+            {},
             'GET',
             self._uri,
             limits['limit'],

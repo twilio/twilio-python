@@ -63,7 +63,7 @@ class MobileList(ListResource):
         return self._version.stream(
             self,
             MobileInstance,
-            self._kwargs,
+            {},
             'GET',
             self._uri,
             limits['limit'],

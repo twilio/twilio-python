@@ -95,7 +95,7 @@ class RecordList(ListResource):
         return self._version.stream(
             self,
             RecordInstance,
-            self._kwargs,
+            {},
             'GET',
             self._uri,
             limits['limit'],

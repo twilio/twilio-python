@@ -63,7 +63,7 @@ class TollFreeList(ListResource):
         return self._version.stream(
             self,
             TollFreeInstance,
-            self._kwargs,
+            {},
             'GET',
             self._uri,
             limits['limit'],
