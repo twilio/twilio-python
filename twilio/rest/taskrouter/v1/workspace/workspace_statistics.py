@@ -13,19 +13,19 @@ from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
 
 
-class StatisticsList(ListResource):
+class WorkspaceStatisticsList(ListResource):
 
     def __init__(self, version, workspace_sid):
         """
-        Initialize the StatisticsList
+        Initialize the WorkspaceStatisticsList
         
         :param Version version: Version that contains the resource
         :param workspace_sid: The workspace_sid
         
-        :returns: StatisticsList
-        :rtype: StatisticsList
+        :returns: WorkspaceStatisticsList
+        :rtype: WorkspaceStatisticsList
         """
-        super(StatisticsList, self).__init__(version)
+        super(WorkspaceStatisticsList, self).__init__(version)
         
         # Path Solution
         self._kwargs = {
@@ -34,21 +34,21 @@ class StatisticsList(ListResource):
 
     def get(self):
         """
-        Constructs a StatisticsContext
+        Constructs a WorkspaceStatisticsContext
         
-        :returns: StatisticsContext
-        :rtype: StatisticsContext
+        :returns: WorkspaceStatisticsContext
+        :rtype: WorkspaceStatisticsContext
         """
-        return StatisticsContext(self._version, **self._kwargs)
+        return WorkspaceStatisticsContext(self._version, **self._kwargs)
 
     def __call__(self):
         """
-        Constructs a StatisticsContext
+        Constructs a WorkspaceStatisticsContext
         
-        :returns: StatisticsContext
-        :rtype: StatisticsContext
+        :returns: WorkspaceStatisticsContext
+        :rtype: WorkspaceStatisticsContext
         """
-        return StatisticsContext(self._version, **self._kwargs)
+        return WorkspaceStatisticsContext(self._version, **self._kwargs)
 
     def __repr__(self):
         """
@@ -57,22 +57,22 @@ class StatisticsList(ListResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Taskrouter.V1.StatisticsList>'
+        return '<Twilio.Taskrouter.V1.WorkspaceStatisticsList>'
 
 
-class StatisticsContext(InstanceContext):
+class WorkspaceStatisticsContext(InstanceContext):
 
     def __init__(self, version, workspace_sid):
         """
-        Initialize the StatisticsContext
+        Initialize the WorkspaceStatisticsContext
         
         :param Version version
         :param workspace_sid: The workspace_sid
         
-        :returns: StatisticsContext
-        :rtype: StatisticsContext
+        :returns: WorkspaceStatisticsContext
+        :rtype: WorkspaceStatisticsContext
         """
-        super(StatisticsContext, self).__init__(version)
+        super(WorkspaceStatisticsContext, self).__init__(version)
         
         # Path Solution
         self._kwargs = {
@@ -85,7 +85,7 @@ class StatisticsContext(InstanceContext):
               end_date_before=values.unset, end_date=values.unset,
               end_date_after=values.unset):
         """
-        Fetch a StatisticsInstance
+        Fetch a WorkspaceStatisticsInstance
         
         :param str minutes: The minutes
         :param date start_date_before: The start_date
@@ -95,8 +95,8 @@ class StatisticsContext(InstanceContext):
         :param date end_date: The end_date
         :param date end_date_after: The end_date
         
-        :returns: Fetched StatisticsInstance
-        :rtype: StatisticsInstance
+        :returns: Fetched WorkspaceStatisticsInstance
+        :rtype: WorkspaceStatisticsInstance
         """
         params = values.of({
             'Minutes': minutes,
@@ -109,7 +109,7 @@ class StatisticsContext(InstanceContext):
         })
         
         return self._version.fetch(
-            StatisticsInstance,
+            WorkspaceStatisticsInstance,
             self._kwargs,
             'GET',
             self._uri,
@@ -124,19 +124,19 @@ class StatisticsContext(InstanceContext):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
-        return '<Twilio.Taskrouter.V1.StatisticsContext {}>'.format(context)
+        return '<Twilio.Taskrouter.V1.WorkspaceStatisticsContext {}>'.format(context)
 
 
-class StatisticsInstance(InstanceResource):
+class WorkspaceStatisticsInstance(InstanceResource):
 
     def __init__(self, version, payload, workspace_sid):
         """
-        Initialize the StatisticsInstance
+        Initialize the WorkspaceStatisticsInstance
         
-        :returns: StatisticsInstance
-        :rtype: StatisticsInstance
+        :returns: WorkspaceStatisticsInstance
+        :rtype: WorkspaceStatisticsInstance
         """
-        super(StatisticsInstance, self).__init__(version)
+        super(WorkspaceStatisticsInstance, self).__init__(version)
         
         # Marshaled Properties
         self._properties = {
@@ -158,11 +158,11 @@ class StatisticsInstance(InstanceResource):
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
         
-        :returns: StatisticsContext for this StatisticsInstance
-        :rtype: StatisticsContext
+        :returns: WorkspaceStatisticsContext for this WorkspaceStatisticsInstance
+        :rtype: WorkspaceStatisticsContext
         """
         if self._instance_context is None:
-            self._instance_context = StatisticsContext(
+            self._instance_context = WorkspaceStatisticsContext(
                 self._version,
                 self._kwargs['workspace_sid'],
             )
@@ -205,7 +205,7 @@ class StatisticsInstance(InstanceResource):
               end_date_before=values.unset, end_date=values.unset,
               end_date_after=values.unset):
         """
-        Fetch a StatisticsInstance
+        Fetch a WorkspaceStatisticsInstance
         
         :param str minutes: The minutes
         :param date start_date_before: The start_date
@@ -215,8 +215,8 @@ class StatisticsInstance(InstanceResource):
         :param date end_date: The end_date
         :param date end_date_after: The end_date
         
-        :returns: Fetched StatisticsInstance
-        :rtype: StatisticsInstance
+        :returns: Fetched WorkspaceStatisticsInstance
+        :rtype: WorkspaceStatisticsInstance
         """
         return self._context.fetch(
             minutes=minutes,
@@ -236,4 +236,4 @@ class StatisticsInstance(InstanceResource):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
-        return '<Twilio.Taskrouter.V1.StatisticsInstance {}>'.format(context)
+        return '<Twilio.Taskrouter.V1.WorkspaceStatisticsInstance {}>'.format(context)
