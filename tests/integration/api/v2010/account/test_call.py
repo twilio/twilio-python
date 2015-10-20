@@ -14,6 +14,36 @@ from twilio.http.response import Response
 
 class CallTestCase(IntegrationTestCase):
 
+    def test_create_request(self):
+        self.holodeck.mock(Response(500, ''))
+        
+        with self.assertRaises(TwilioException):
+            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                 .calls.create(to="+123456789", from_="+987654321")
+        
+        values = {
+            'To': "+123456789",
+            'From': "+987654321",
+        }
+        
+        self.holodeck.assert_has_request(Request(
+            'post',
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json',
+            data=values,
+        ))
+
+    def test_delete_request(self):
+        self.holodeck.mock(Response(500, ''))
+        
+        with self.assertRaises(TwilioException):
+            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                 .calls(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        
+        self.holodeck.assert_has_request(Request(
+            'delete',
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+        ))
+
     def test_fetch_request(self):
         self.holodeck.mock(Response(500, ''))
         
@@ -23,7 +53,7 @@ class CallTestCase(IntegrationTestCase):
         
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
         ))
 
     def test_read_request(self):
@@ -35,5 +65,17 @@ class CallTestCase(IntegrationTestCase):
         
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json'
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json',
+        ))
+
+    def test_update_request(self):
+        self.holodeck.mock(Response(500, ''))
+        
+        with self.assertRaises(TwilioException):
+            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                 .calls(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+        
+        self.holodeck.assert_has_request(Request(
+            'post',
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
         ))

@@ -22,5 +22,5 @@ class ConversationTestCase(IntegrationTestCase):
         
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://conversations.twilio.com/v1/Conversations/CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+            'https://conversations.twilio.com/v1/Conversations/CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         ))

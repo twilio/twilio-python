@@ -24,7 +24,25 @@ class IpAccessControlListTestCase(IntegrationTestCase):
         
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/IpAccessControlLists.json'
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/IpAccessControlLists.json',
+        ))
+
+    def test_create_request(self):
+        self.holodeck.mock(Response(500, ''))
+        
+        with self.assertRaises(TwilioException):
+            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                 .sip \
+                                 .ip_access_control_lists.create(friendly_name="friendly_name")
+        
+        values = {
+            'FriendlyName': "friendly_name",
+        }
+        
+        self.holodeck.assert_has_request(Request(
+            'post',
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/IpAccessControlLists.json',
+            data=values,
         ))
 
     def test_fetch_request(self):
@@ -37,5 +55,36 @@ class IpAccessControlListTestCase(IntegrationTestCase):
         
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/IpAccessControlLists/ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/IpAccessControlLists/ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+        ))
+
+    def test_update_request(self):
+        self.holodeck.mock(Response(500, ''))
+        
+        with self.assertRaises(TwilioException):
+            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                 .sip \
+                                 .ip_access_control_lists(sid="ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(friendly_name="friendly_name")
+        
+        values = {
+            'FriendlyName': "friendly_name",
+        }
+        
+        self.holodeck.assert_has_request(Request(
+            'post',
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/IpAccessControlLists/ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+            data=values,
+        ))
+
+    def test_delete_request(self):
+        self.holodeck.mock(Response(500, ''))
+        
+        with self.assertRaises(TwilioException):
+            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                 .sip \
+                                 .ip_access_control_lists(sid="ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        
+        self.holodeck.assert_has_request(Request(
+            'delete',
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/IpAccessControlLists/ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
         ))

@@ -23,7 +23,36 @@ class PhoneNumberTestCase(IntegrationTestCase):
         
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+            'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        ))
+
+    def test_delete_request(self):
+        self.holodeck.mock(Response(500, ''))
+        
+        with self.assertRaises(TwilioException):
+            self.twilio.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                   .phone_numbers(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        
+        self.holodeck.assert_has_request(Request(
+            'delete',
+            'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        ))
+
+    def test_create_request(self):
+        self.holodeck.mock(Response(500, ''))
+        
+        with self.assertRaises(TwilioException):
+            self.twilio.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                   .phone_numbers.create(phone_number_sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        
+        values = {
+            'PhoneNumberSid': "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        }
+        
+        self.holodeck.assert_has_request(Request(
+            'post',
+            'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers',
+            data=values,
         ))
 
     def test_read_request(self):
@@ -35,5 +64,5 @@ class PhoneNumberTestCase(IntegrationTestCase):
         
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers'
+            'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers',
         ))

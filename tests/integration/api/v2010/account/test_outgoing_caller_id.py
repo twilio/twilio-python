@@ -23,7 +23,31 @@ class OutgoingCallerIdTestCase(IntegrationTestCase):
         
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+        ))
+
+    def test_update_request(self):
+        self.holodeck.mock(Response(500, ''))
+        
+        with self.assertRaises(TwilioException):
+            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                 .outgoing_caller_ids(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+        
+        self.holodeck.assert_has_request(Request(
+            'post',
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+        ))
+
+    def test_delete_request(self):
+        self.holodeck.mock(Response(500, ''))
+        
+        with self.assertRaises(TwilioException):
+            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                 .outgoing_caller_ids(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        
+        self.holodeck.assert_has_request(Request(
+            'delete',
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
         ))
 
     def test_read_request(self):
@@ -35,5 +59,5 @@ class OutgoingCallerIdTestCase(IntegrationTestCase):
         
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds.json'
+            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds.json',
         ))

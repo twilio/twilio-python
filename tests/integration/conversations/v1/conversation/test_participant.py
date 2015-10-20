@@ -23,7 +23,25 @@ class ParticipantTestCase(IntegrationTestCase):
         
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://conversations.twilio.com/v1/Conversations/CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants'
+            'https://conversations.twilio.com/v1/Conversations/CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants',
+        ))
+
+    def test_create_request(self):
+        self.holodeck.mock(Response(500, ''))
+        
+        with self.assertRaises(TwilioException):
+            self.twilio.conversations.v1.conversations(sid="CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                        .participants.create(to="+123456789", from_="+987654321")
+        
+        values = {
+            'To': "+123456789",
+            'From': "+987654321",
+        }
+        
+        self.holodeck.assert_has_request(Request(
+            'post',
+            'https://conversations.twilio.com/v1/Conversations/CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants',
+            data=values,
         ))
 
     def test_fetch_request(self):
@@ -35,5 +53,5 @@ class ParticipantTestCase(IntegrationTestCase):
         
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://conversations.twilio.com/v1/Conversations/CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+            'https://conversations.twilio.com/v1/Conversations/CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         ))

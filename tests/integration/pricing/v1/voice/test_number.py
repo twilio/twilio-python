@@ -23,5 +23,5 @@ class NumberTestCase(IntegrationTestCase):
         
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://pricing.twilio.com/v1/Voice/Numbers/+987654321'
+            'https://pricing.twilio.com/v1/Voice/Numbers/+987654321',
         ))

@@ -22,7 +22,7 @@ class EventTestCase(IntegrationTestCase):
         
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://monitor.twilio.com/v1/Events/AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+            'https://monitor.twilio.com/v1/Events/AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         ))
 
     def test_read_request(self):
@@ -33,5 +33,5 @@ class EventTestCase(IntegrationTestCase):
         
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://monitor.twilio.com/v1/Events'
+            'https://monitor.twilio.com/v1/Events',
         ))

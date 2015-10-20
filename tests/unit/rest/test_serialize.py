@@ -1,9 +1,15 @@
 import unittest
 import datetime
+from twilio import values
 from twilio.rest import serialize
 
 
 class Iso8601DateTestCase(unittest.TestCase):
+
+    def test_unset(self):
+        value = values.unset
+        actual = serialize.iso8601_date(value)
+        self.assertEqual(values.unset, actual)
 
     def test_datetime(self):
         value = datetime.datetime(2015, 01, 02, 12, 0, 0, 0)
@@ -24,3 +30,29 @@ class Iso8601DateTestCase(unittest.TestCase):
         actual = serialize.iso8601_date('2015-01-02')
         self.assertEqual('2015-01-02', actual)
 
+
+class Iso8601DateTimeTestCase(unittest.TestCase):
+
+    def test_unset(self):
+        value = values.unset
+        actual = serialize.iso8601_datetime(value)
+        self.assertEqual(values.unset, actual)
+
+    def test_datetime(self):
+        value = datetime.datetime(2015, 01, 02, 03, 04, 05, 06)
+        actual = serialize.iso8601_datetime(value)
+        self.assertEqual('2015-01-02T03:04:05Z', actual)
+
+    def test_datetime_without_time(self):
+        value = datetime.datetime(2015, 01, 02)
+        actual = serialize.iso8601_datetime(value)
+        self.assertEqual('2015-01-02T00:00:00Z', actual)
+
+    def test_date(self):
+        value = datetime.date(2015, 01, 02)
+        actual = serialize.iso8601_datetime(value)
+        self.assertEqual('2015-01-02T00:00:00Z', actual)
+
+    def test_str(self):
+        actual = serialize.iso8601_datetime('2015-01-02T03:04:05Z')
+        self.assertEqual('2015-01-02T03:04:05Z', actual)

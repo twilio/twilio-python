@@ -23,7 +23,7 @@ class CountryTestCase(IntegrationTestCase):
         
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://pricing.twilio.com/v1/PhoneNumbers/Countries'
+            'https://pricing.twilio.com/v1/PhoneNumbers/Countries',
         ))
 
     def test_fetch_request(self):
@@ -35,5 +35,5 @@ class CountryTestCase(IntegrationTestCase):
         
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://pricing.twilio.com/v1/PhoneNumbers/Countries/US'
+            'https://pricing.twilio.com/v1/PhoneNumbers/Countries/US',
         ))

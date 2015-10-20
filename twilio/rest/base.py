@@ -120,6 +120,10 @@ class Version(object):
             timeout=timeout,
             allow_redirects=allow_redirects,
         )
+
+        if 500 <= response.status_code < 600:
+            raise TwilioException('Unable to delete record')
+
         return response.status_code == 204
 
     def read_limits(self, limit=None, page_size=None):

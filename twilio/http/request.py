@@ -1,3 +1,6 @@
+from urllib import urlencode
+
+
 class Request(object):
     ANY = '*'
 
@@ -48,7 +51,9 @@ class Request(object):
 
         data = ''
         if self.data and self.data != self.ANY:
-            data = '\n{}'.format('\n'.join(' -d "{}={}"'.format(k, v) for k, v in self.data.items()))
+            if self.method == 'GET':
+                data = '\n -G'
+            data += '\n{}'.format('\n'.join(' -d "{}={}"'.format(k, v) for k, v in self.data.items()))
 
         headers = ''
         if self.headers and self.headers != self.ANY:

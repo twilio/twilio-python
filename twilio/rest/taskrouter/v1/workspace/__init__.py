@@ -152,7 +152,7 @@ class WorkspaceList(ListResource):
         return self._version.create(
             WorkspaceInstance,
             self._kwargs,
-            'GET',
+            'POST',
             self._uri,
             data=data,
         )

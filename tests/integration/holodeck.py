@@ -33,7 +33,7 @@ class Holodeck(HttpClient):
         message = '\nHolodeck never received a request matching: \n + {}\n'.format(request)
         if self._requests:
             message += 'Requests received:\n'
-            message += '\n'.join(' - {}'.format(r) for r in self.requests)
+            message += '\n'.join(' * {}'.format(r) for r in self.requests)
         else:
             message += 'No Requests received'
 
