@@ -36,7 +36,7 @@ class TokenList(ListResource):
         """
         Create a new TokenInstance
         
-        :param str ttl: The duration in seconds the credentials are valid
+        :param unicode ttl: The duration in seconds the credentials are valid
         
         :returns: Newly created TokenInstance
         :rtype: TokenInstance
@@ -47,7 +47,7 @@ class TokenList(ListResource):
         
         return self._version.create(
             TokenInstance,
-            self._kwargs,
+            {},
             'POST',
             self._uri,
             data=data,
@@ -89,7 +89,7 @@ class TokenInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The unique sid that identifies this account
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -113,7 +113,7 @@ class TokenInstance(InstanceResource):
     def ice_servers(self):
         """
         :returns: An array representing the ephemeral credentials
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['ice_servers']
 
@@ -121,7 +121,7 @@ class TokenInstance(InstanceResource):
     def password(self):
         """
         :returns: The temporary password used for authenticating
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['password']
 
@@ -129,7 +129,7 @@ class TokenInstance(InstanceResource):
     def ttl(self):
         """
         :returns: The duration in seconds the credentials are valid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['ttl']
 
@@ -137,7 +137,7 @@ class TokenInstance(InstanceResource):
     def username(self):
         """
         :returns: The temporary username that uniquely identifies a Token.
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['username']
 

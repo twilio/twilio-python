@@ -111,7 +111,7 @@ class AllTimeList(ListResource):
         return self._version.page(
             self,
             AllTimeInstance,
-            self._kwargs,
+            {},
             'GET',
             self._uri,
             params=params,
@@ -160,7 +160,7 @@ class AllTimeInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -168,7 +168,7 @@ class AllTimeInstance(InstanceResource):
     def api_version(self):
         """
         :returns: The api_version
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['api_version']
 
@@ -184,7 +184,7 @@ class AllTimeInstance(InstanceResource):
     def count(self):
         """
         :returns: The count
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['count']
 
@@ -192,7 +192,7 @@ class AllTimeInstance(InstanceResource):
     def count_unit(self):
         """
         :returns: The count_unit
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['count_unit']
 
@@ -200,7 +200,7 @@ class AllTimeInstance(InstanceResource):
     def description(self):
         """
         :returns: The description
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['description']
 
@@ -216,7 +216,7 @@ class AllTimeInstance(InstanceResource):
     def price(self):
         """
         :returns: The price
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['price']
 
@@ -224,7 +224,7 @@ class AllTimeInstance(InstanceResource):
     def price_unit(self):
         """
         :returns: The price_unit
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['price_unit']
 
@@ -240,7 +240,7 @@ class AllTimeInstance(InstanceResource):
     def subresource_uris(self):
         """
         :returns: The subresource_uris
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['subresource_uris']
 
@@ -248,7 +248,7 @@ class AllTimeInstance(InstanceResource):
     def uri(self):
         """
         :returns: The uri
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 
@@ -256,7 +256,7 @@ class AllTimeInstance(InstanceResource):
     def usage(self):
         """
         :returns: The usage
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['usage']
 
@@ -264,7 +264,7 @@ class AllTimeInstance(InstanceResource):
     def usage_unit(self):
         """
         :returns: The usage_unit
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['usage_unit']
 

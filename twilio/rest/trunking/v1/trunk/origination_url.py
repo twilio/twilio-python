@@ -37,11 +37,11 @@ class OriginationUrlList(ListResource):
         """
         Create a new OriginationUrlInstance
         
-        :param str weight: The weight
-        :param str priority: The priority
+        :param unicode weight: The weight
+        :param unicode priority: The priority
         :param bool enabled: The enabled
-        :param str friendly_name: The friendly_name
-        :param str sip_url: The sip_url
+        :param unicode friendly_name: The friendly_name
+        :param unicode sip_url: The sip_url
         
         :returns: Newly created OriginationUrlInstance
         :rtype: OriginationUrlInstance
@@ -233,11 +233,11 @@ class OriginationUrlContext(InstanceContext):
         """
         Update the OriginationUrlInstance
         
-        :param str weight: The weight
-        :param str priority: The priority
+        :param unicode weight: The weight
+        :param unicode priority: The priority
         :param bool enabled: The enabled
-        :param str friendly_name: The friendly_name
-        :param str sip_url: The sip_url
+        :param unicode friendly_name: The friendly_name
+        :param unicode sip_url: The sip_url
         
         :returns: Updated OriginationUrlInstance
         :rtype: OriginationUrlInstance
@@ -323,7 +323,7 @@ class OriginationUrlInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -331,7 +331,7 @@ class OriginationUrlInstance(InstanceResource):
     def sid(self):
         """
         :returns: The sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -339,7 +339,7 @@ class OriginationUrlInstance(InstanceResource):
     def trunk_sid(self):
         """
         :returns: The trunk_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['trunk_sid']
 
@@ -347,7 +347,7 @@ class OriginationUrlInstance(InstanceResource):
     def weight(self):
         """
         :returns: The weight
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['weight']
 
@@ -363,7 +363,7 @@ class OriginationUrlInstance(InstanceResource):
     def sip_url(self):
         """
         :returns: The sip_url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sip_url']
 
@@ -371,7 +371,7 @@ class OriginationUrlInstance(InstanceResource):
     def friendly_name(self):
         """
         :returns: The friendly_name
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['friendly_name']
 
@@ -379,7 +379,7 @@ class OriginationUrlInstance(InstanceResource):
     def priority(self):
         """
         :returns: The priority
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['priority']
 
@@ -403,7 +403,7 @@ class OriginationUrlInstance(InstanceResource):
     def url(self):
         """
         :returns: The url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['url']
 
@@ -431,11 +431,11 @@ class OriginationUrlInstance(InstanceResource):
         """
         Update the OriginationUrlInstance
         
-        :param str weight: The weight
-        :param str priority: The priority
+        :param unicode weight: The weight
+        :param unicode priority: The priority
         :param bool enabled: The enabled
-        :param str friendly_name: The friendly_name
-        :param str sip_url: The sip_url
+        :param unicode friendly_name: The friendly_name
+        :param unicode sip_url: The sip_url
         
         :returns: Updated OriginationUrlInstance
         :rtype: OriginationUrlInstance

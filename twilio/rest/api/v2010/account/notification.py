@@ -43,7 +43,7 @@ class NotificationList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param str log: Filter by log level
+        :param unicode log: Filter by log level
         :param date message_date_before: Filter by date
         :param date message_date: Filter by date
         :param date message_date_after: Filter by date
@@ -87,7 +87,7 @@ class NotificationList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param str log: Filter by log level
+        :param unicode log: Filter by log level
         :param date message_date_before: Filter by date
         :param date message_date: Filter by date
         :param date message_date_after: Filter by date
@@ -118,7 +118,7 @@ class NotificationList(ListResource):
         Retrieve a single page of NotificationInstance records from the API.
         Request is executed immediately
         
-        :param str log: Filter by log level
+        :param unicode log: Filter by log level
         :param date message_date_before: Filter by date
         :param date message_date: Filter by date
         :param date message_date_after: Filter by date
@@ -300,7 +300,7 @@ class NotificationInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The unique sid that identifies this account
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -308,7 +308,7 @@ class NotificationInstance(InstanceResource):
     def api_version(self):
         """
         :returns: The version of the Twilio API in use
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['api_version']
 
@@ -316,7 +316,7 @@ class NotificationInstance(InstanceResource):
     def call_sid(self):
         """
         :returns: The string that uniquely identifies the call
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['call_sid']
 
@@ -340,7 +340,7 @@ class NotificationInstance(InstanceResource):
     def error_code(self):
         """
         :returns: A unique error code corresponding to the notification
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['error_code']
 
@@ -348,7 +348,7 @@ class NotificationInstance(InstanceResource):
     def log(self):
         """
         :returns: An integer log level
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['log']
 
@@ -364,7 +364,7 @@ class NotificationInstance(InstanceResource):
     def message_text(self):
         """
         :returns: The text of the notification.
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['message_text']
 
@@ -372,7 +372,7 @@ class NotificationInstance(InstanceResource):
     def more_info(self):
         """
         :returns: A URL for more information about the error code
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['more_info']
 
@@ -380,7 +380,7 @@ class NotificationInstance(InstanceResource):
     def request_method(self):
         """
         :returns: HTTP method used with the request url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['request_method']
 
@@ -388,7 +388,7 @@ class NotificationInstance(InstanceResource):
     def request_url(self):
         """
         :returns: URL of the resource that generated the notification
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['request_url']
 
@@ -396,7 +396,7 @@ class NotificationInstance(InstanceResource):
     def request_variables(self):
         """
         :returns: Twilio-generated HTTP variables sent to the server
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['request_variables']
 
@@ -404,7 +404,7 @@ class NotificationInstance(InstanceResource):
     def response_body(self):
         """
         :returns: The HTTP body returned by your server.
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['response_body']
 
@@ -412,7 +412,7 @@ class NotificationInstance(InstanceResource):
     def response_headers(self):
         """
         :returns: The HTTP headers returned by your server.
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['response_headers']
 
@@ -420,7 +420,7 @@ class NotificationInstance(InstanceResource):
     def sid(self):
         """
         :returns: A string that uniquely identifies this notification
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -428,7 +428,7 @@ class NotificationInstance(InstanceResource):
     def uri(self):
         """
         :returns: The URI for this resource
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 

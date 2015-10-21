@@ -41,8 +41,8 @@ class LocalList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
         
         :param bool beta: The beta
-        :param str friendly_name: The friendly_name
-        :param str phone_number: The phone_number
+        :param unicode friendly_name: The friendly_name
+        :param unicode phone_number: The phone_number
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -82,8 +82,8 @@ class LocalList(ListResource):
         memory before returning.
         
         :param bool beta: The beta
-        :param str friendly_name: The friendly_name
-        :param str phone_number: The phone_number
+        :param unicode friendly_name: The friendly_name
+        :param unicode phone_number: The phone_number
         :param int limit: Upper limit for the number of records to return. read() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -111,8 +111,8 @@ class LocalList(ListResource):
         Request is executed immediately
         
         :param bool beta: The beta
-        :param str friendly_name: The friendly_name
-        :param str phone_number: The phone_number
+        :param unicode friendly_name: The friendly_name
+        :param unicode phone_number: The phone_number
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -133,7 +133,7 @@ class LocalList(ListResource):
         return self._version.page(
             self,
             LocalInstance,
-            self._kwargs,
+            {},
             'GET',
             self._uri,
             params=params,
@@ -151,23 +151,23 @@ class LocalList(ListResource):
         """
         Create a new LocalInstance
         
-        :param str area_code: The area_code
-        :param str phone_number: The phone_number
-        :param str api_version: The api_version
-        :param str friendly_name: The friendly_name
-        :param str sms_application_sid: The sms_application_sid
-        :param str sms_fallback_method: The sms_fallback_method
-        :param str sms_fallback_url: The sms_fallback_url
-        :param str sms_method: The sms_method
-        :param str sms_url: The sms_url
-        :param str status_callback: The status_callback
-        :param str status_callback_method: The status_callback_method
-        :param str voice_application_sid: The voice_application_sid
+        :param unicode area_code: The area_code
+        :param unicode phone_number: The phone_number
+        :param unicode api_version: The api_version
+        :param unicode friendly_name: The friendly_name
+        :param unicode sms_application_sid: The sms_application_sid
+        :param unicode sms_fallback_method: The sms_fallback_method
+        :param unicode sms_fallback_url: The sms_fallback_url
+        :param unicode sms_method: The sms_method
+        :param unicode sms_url: The sms_url
+        :param unicode status_callback: The status_callback
+        :param unicode status_callback_method: The status_callback_method
+        :param unicode voice_application_sid: The voice_application_sid
         :param bool voice_caller_id_lookup: The voice_caller_id_lookup
-        :param str voice_fallback_method: The voice_fallback_method
-        :param str voice_fallback_url: The voice_fallback_url
-        :param str voice_method: The voice_method
-        :param str voice_url: The voice_url
+        :param unicode voice_fallback_method: The voice_fallback_method
+        :param unicode voice_fallback_url: The voice_fallback_url
+        :param unicode voice_method: The voice_method
+        :param unicode voice_url: The voice_url
         
         :returns: Newly created LocalInstance
         :rtype: LocalInstance
@@ -194,7 +194,7 @@ class LocalList(ListResource):
         
         return self._version.create(
             LocalInstance,
-            self._kwargs,
+            {},
             'POST',
             self._uri,
             data=data,
@@ -253,7 +253,7 @@ class LocalInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -269,7 +269,7 @@ class LocalInstance(InstanceResource):
     def api_version(self):
         """
         :returns: The api_version
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['api_version']
 
@@ -285,7 +285,7 @@ class LocalInstance(InstanceResource):
     def capabilities(self):
         """
         :returns: The capabilities
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['capabilities']
 
@@ -309,7 +309,7 @@ class LocalInstance(InstanceResource):
     def friendly_name(self):
         """
         :returns: The friendly_name
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['friendly_name']
 
@@ -317,7 +317,7 @@ class LocalInstance(InstanceResource):
     def phone_number(self):
         """
         :returns: The phone_number
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['phone_number']
 
@@ -325,7 +325,7 @@ class LocalInstance(InstanceResource):
     def sid(self):
         """
         :returns: The sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -333,7 +333,7 @@ class LocalInstance(InstanceResource):
     def sms_application_sid(self):
         """
         :returns: The sms_application_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sms_application_sid']
 
@@ -341,7 +341,7 @@ class LocalInstance(InstanceResource):
     def sms_fallback_method(self):
         """
         :returns: The sms_fallback_method
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sms_fallback_method']
 
@@ -349,7 +349,7 @@ class LocalInstance(InstanceResource):
     def sms_fallback_url(self):
         """
         :returns: The sms_fallback_url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sms_fallback_url']
 
@@ -357,7 +357,7 @@ class LocalInstance(InstanceResource):
     def sms_method(self):
         """
         :returns: The sms_method
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sms_method']
 
@@ -365,7 +365,7 @@ class LocalInstance(InstanceResource):
     def sms_url(self):
         """
         :returns: The sms_url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sms_url']
 
@@ -373,7 +373,7 @@ class LocalInstance(InstanceResource):
     def status_callback(self):
         """
         :returns: The status_callback
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['status_callback']
 
@@ -381,7 +381,7 @@ class LocalInstance(InstanceResource):
     def status_callback_method(self):
         """
         :returns: The status_callback_method
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['status_callback_method']
 
@@ -389,7 +389,7 @@ class LocalInstance(InstanceResource):
     def uri(self):
         """
         :returns: The uri
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 
@@ -397,7 +397,7 @@ class LocalInstance(InstanceResource):
     def voice_application_sid(self):
         """
         :returns: The voice_application_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['voice_application_sid']
 
@@ -413,7 +413,7 @@ class LocalInstance(InstanceResource):
     def voice_fallback_method(self):
         """
         :returns: The voice_fallback_method
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['voice_fallback_method']
 
@@ -421,7 +421,7 @@ class LocalInstance(InstanceResource):
     def voice_fallback_url(self):
         """
         :returns: The voice_fallback_url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['voice_fallback_url']
 
@@ -429,7 +429,7 @@ class LocalInstance(InstanceResource):
     def voice_method(self):
         """
         :returns: The voice_method
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['voice_method']
 
@@ -437,7 +437,7 @@ class LocalInstance(InstanceResource):
     def voice_url(self):
         """
         :returns: The voice_url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['voice_url']
 

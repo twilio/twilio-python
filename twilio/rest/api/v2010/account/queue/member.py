@@ -197,8 +197,8 @@ class MemberContext(InstanceContext):
         """
         Update the MemberInstance
         
-        :param str url: The url
-        :param str method: The method
+        :param unicode url: The url
+        :param unicode method: The method
         
         :returns: Updated MemberInstance
         :rtype: MemberInstance
@@ -277,7 +277,7 @@ class MemberInstance(InstanceResource):
     def call_sid(self):
         """
         :returns: Unique string that identifies this resource
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['call_sid']
 
@@ -293,7 +293,7 @@ class MemberInstance(InstanceResource):
     def position(self):
         """
         :returns: This member's current position in the queue.
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['position']
 
@@ -301,7 +301,7 @@ class MemberInstance(InstanceResource):
     def uri(self):
         """
         :returns: The uri
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 
@@ -309,7 +309,7 @@ class MemberInstance(InstanceResource):
     def wait_time(self):
         """
         :returns: The number of seconds the member has been in the queue.
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['wait_time']
 
@@ -326,8 +326,8 @@ class MemberInstance(InstanceResource):
         """
         Update the MemberInstance
         
-        :param str url: The url
-        :param str method: The method
+        :param unicode url: The url
+        :param unicode method: The method
         
         :returns: Updated MemberInstance
         :rtype: MemberInstance

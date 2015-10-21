@@ -74,7 +74,7 @@ class PhoneNumberInstance(InstanceResource):
     def name(self):
         """
         :returns: The name
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['name']
 
@@ -82,7 +82,7 @@ class PhoneNumberInstance(InstanceResource):
     def url(self):
         """
         :returns: The url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['url']
 
@@ -90,7 +90,7 @@ class PhoneNumberInstance(InstanceResource):
     def links(self):
         """
         :returns: The links
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['links']
 

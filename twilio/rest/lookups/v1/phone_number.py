@@ -84,8 +84,8 @@ class PhoneNumberContext(InstanceContext):
         """
         Fetch a PhoneNumberInstance
         
-        :param str country_code: The country_code
-        :param str type: The type
+        :param unicode country_code: The country_code
+        :param unicode type: The type
         
         :returns: Fetched PhoneNumberInstance
         :rtype: PhoneNumberInstance
@@ -159,7 +159,7 @@ class PhoneNumberInstance(InstanceResource):
     def country_code(self):
         """
         :returns: The country_code
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['country_code']
 
@@ -167,7 +167,7 @@ class PhoneNumberInstance(InstanceResource):
     def phone_number(self):
         """
         :returns: The phone_number
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['phone_number']
 
@@ -175,7 +175,7 @@ class PhoneNumberInstance(InstanceResource):
     def national_format(self):
         """
         :returns: The national_format
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['national_format']
 
@@ -183,7 +183,7 @@ class PhoneNumberInstance(InstanceResource):
     def carrier(self):
         """
         :returns: The carrier
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['carrier']
 
@@ -191,8 +191,8 @@ class PhoneNumberInstance(InstanceResource):
         """
         Fetch a PhoneNumberInstance
         
-        :param str country_code: The country_code
-        :param str type: The type
+        :param unicode country_code: The country_code
+        :param unicode type: The type
         
         :returns: Fetched PhoneNumberInstance
         :rtype: PhoneNumberInstance

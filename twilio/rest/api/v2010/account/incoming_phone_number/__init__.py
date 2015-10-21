@@ -50,8 +50,8 @@ class IncomingPhoneNumberList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
         
         :param bool beta: Include new phone numbers
-        :param str friendly_name: Filter by friendly name
-        :param str phone_number: Filter by incoming phone number
+        :param unicode friendly_name: Filter by friendly name
+        :param unicode phone_number: Filter by incoming phone number
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -91,8 +91,8 @@ class IncomingPhoneNumberList(ListResource):
         memory before returning.
         
         :param bool beta: Include new phone numbers
-        :param str friendly_name: Filter by friendly name
-        :param str phone_number: Filter by incoming phone number
+        :param unicode friendly_name: Filter by friendly name
+        :param unicode phone_number: Filter by incoming phone number
         :param int limit: Upper limit for the number of records to return. read() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -120,8 +120,8 @@ class IncomingPhoneNumberList(ListResource):
         Request is executed immediately
         
         :param bool beta: Include new phone numbers
-        :param str friendly_name: Filter by friendly name
-        :param str phone_number: Filter by incoming phone number
+        :param unicode friendly_name: Filter by friendly name
+        :param unicode phone_number: Filter by incoming phone number
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -161,23 +161,23 @@ class IncomingPhoneNumberList(ListResource):
         """
         Create a new IncomingPhoneNumberInstance
         
-        :param str api_version: The Twilio Rest API version to use
-        :param str friendly_name: A human readable description of this resource
-        :param str sms_application_sid: Unique string that identifies the application
-        :param str sms_fallback_method: HTTP method used with sms fallback url
-        :param str sms_fallback_url: URL Twilio will request if an error occurs in executing TwiML
-        :param str sms_method: HTTP method to use with sms url
-        :param str sms_url: URL Twilio will request when receiving an SMS
-        :param str status_callback: URL Twilio will use to pass status parameters
-        :param str status_callback_method: HTTP method twilio will use with status callback
-        :param str voice_application_sid: The unique sid of the application to handle this number
+        :param unicode api_version: The Twilio Rest API version to use
+        :param unicode friendly_name: A human readable description of this resource
+        :param unicode sms_application_sid: Unique string that identifies the application
+        :param unicode sms_fallback_method: HTTP method used with sms fallback url
+        :param unicode sms_fallback_url: URL Twilio will request if an error occurs in executing TwiML
+        :param unicode sms_method: HTTP method to use with sms url
+        :param unicode sms_url: URL Twilio will request when receiving an SMS
+        :param unicode status_callback: URL Twilio will use to pass status parameters
+        :param unicode status_callback_method: HTTP method twilio will use with status callback
+        :param unicode voice_application_sid: The unique sid of the application to handle this number
         :param bool voice_caller_id_lookup: Look up the caller's caller-ID
-        :param str voice_fallback_method: HTTP method used with fallback_url
-        :param str voice_fallback_url: URL Twilio will request when an error occurs in TwiML
-        :param str voice_method: HTTP method used with the voice url
-        :param str voice_url: URL Twilio will request when receiving a call
-        :param str phone_number: The phone number
-        :param str area_code: The desired area code for the new number
+        :param unicode voice_fallback_method: HTTP method used with fallback_url
+        :param unicode voice_fallback_url: URL Twilio will request when an error occurs in TwiML
+        :param unicode voice_method: HTTP method used with the voice url
+        :param unicode voice_url: URL Twilio will request when receiving a call
+        :param unicode phone_number: The phone number
+        :param unicode area_code: The desired area code for the new number
         
         :returns: Newly created IncomingPhoneNumberInstance
         :rtype: IncomingPhoneNumberInstance
@@ -312,22 +312,22 @@ class IncomingPhoneNumberContext(InstanceContext):
         """
         Update the IncomingPhoneNumberInstance
         
-        :param str account_sid: The new owner of the phone number
-        :param str api_version: The Twilio REST API version to use
-        :param str friendly_name: A human readable description of this resource
-        :param str sms_application_sid: Unique string that identifies the application
-        :param str sms_fallback_method: HTTP method used with sms fallback url
-        :param str sms_fallback_url: URL Twilio will request if an error occurs in executing TwiML
-        :param str sms_method: HTTP method to use with sms url
-        :param str sms_url: URL Twilio will request when receiving an SMS
-        :param str status_callback: URL Twilio will use to pass status parameters
-        :param str status_callback_method: HTTP method twilio will use with status callback
-        :param str voice_application_sid: The unique sid of the application to handle this number
+        :param unicode account_sid: The new owner of the phone number
+        :param unicode api_version: The Twilio REST API version to use
+        :param unicode friendly_name: A human readable description of this resource
+        :param unicode sms_application_sid: Unique string that identifies the application
+        :param unicode sms_fallback_method: HTTP method used with sms fallback url
+        :param unicode sms_fallback_url: URL Twilio will request if an error occurs in executing TwiML
+        :param unicode sms_method: HTTP method to use with sms url
+        :param unicode sms_url: URL Twilio will request when receiving an SMS
+        :param unicode status_callback: URL Twilio will use to pass status parameters
+        :param unicode status_callback_method: HTTP method twilio will use with status callback
+        :param unicode voice_application_sid: The unique sid of the application to handle this number
         :param bool voice_caller_id_lookup: Look up the caller's caller-ID
-        :param str voice_fallback_method: HTTP method used with fallback_url
-        :param str voice_fallback_url: URL Twilio will request when an error occurs in TwiML
-        :param str voice_method: HTTP method used with the voice url
-        :param str voice_url: URL Twilio will request when receiving a call
+        :param unicode voice_fallback_method: HTTP method used with fallback_url
+        :param unicode voice_fallback_url: URL Twilio will request when an error occurs in TwiML
+        :param unicode voice_method: HTTP method used with the voice url
+        :param unicode voice_url: URL Twilio will request when receiving a call
         
         :returns: Updated IncomingPhoneNumberInstance
         :rtype: IncomingPhoneNumberInstance
@@ -463,7 +463,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The unique sid that identifies this account
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -479,7 +479,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
     def api_version(self):
         """
         :returns: The Twilio REST API version to use
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['api_version']
 
@@ -495,7 +495,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
     def capabilities(self):
         """
         :returns: Indicate if a phone can receive calls or messages
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['capabilities']
 
@@ -519,7 +519,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
     def friendly_name(self):
         """
         :returns: A human readable description of this resouce
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['friendly_name']
 
@@ -527,7 +527,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
     def phone_number(self):
         """
         :returns: The incoming phone number
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['phone_number']
 
@@ -535,7 +535,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
     def sid(self):
         """
         :returns: A string that uniquely identifies this resource
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -543,7 +543,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
     def sms_application_sid(self):
         """
         :returns: Unique string that identifies the application
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sms_application_sid']
 
@@ -551,7 +551,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
     def sms_fallback_method(self):
         """
         :returns: HTTP method used with sms fallback url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sms_fallback_method']
 
@@ -559,7 +559,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
     def sms_fallback_url(self):
         """
         :returns: URL Twilio will request if an error occurs in executing TwiML
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sms_fallback_url']
 
@@ -567,7 +567,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
     def sms_method(self):
         """
         :returns: HTTP method to use with sms url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sms_method']
 
@@ -575,7 +575,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
     def sms_url(self):
         """
         :returns: URL Twilio will request when receiving an SMS
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sms_url']
 
@@ -583,7 +583,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
     def status_callback(self):
         """
         :returns: URL Twilio will use to pass status parameters
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['status_callback']
 
@@ -591,7 +591,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
     def status_callback_method(self):
         """
         :returns: HTTP method twilio will use with status callback
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['status_callback_method']
 
@@ -599,7 +599,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
     def uri(self):
         """
         :returns: The URI for this resource
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 
@@ -607,7 +607,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
     def voice_application_sid(self):
         """
         :returns: The unique sid of the application to handle this number
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['voice_application_sid']
 
@@ -623,7 +623,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
     def voice_fallback_method(self):
         """
         :returns: HTTP method used with fallback_url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['voice_fallback_method']
 
@@ -631,7 +631,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
     def voice_fallback_url(self):
         """
         :returns: URL Twilio will request when an error occurs in TwiML
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['voice_fallback_url']
 
@@ -639,7 +639,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
     def voice_method(self):
         """
         :returns: HTTP method used with the voice url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['voice_method']
 
@@ -647,7 +647,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
     def voice_url(self):
         """
         :returns: URL Twilio will request when receiving a call
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['voice_url']
 
@@ -663,22 +663,22 @@ class IncomingPhoneNumberInstance(InstanceResource):
         """
         Update the IncomingPhoneNumberInstance
         
-        :param str account_sid: The new owner of the phone number
-        :param str api_version: The Twilio REST API version to use
-        :param str friendly_name: A human readable description of this resource
-        :param str sms_application_sid: Unique string that identifies the application
-        :param str sms_fallback_method: HTTP method used with sms fallback url
-        :param str sms_fallback_url: URL Twilio will request if an error occurs in executing TwiML
-        :param str sms_method: HTTP method to use with sms url
-        :param str sms_url: URL Twilio will request when receiving an SMS
-        :param str status_callback: URL Twilio will use to pass status parameters
-        :param str status_callback_method: HTTP method twilio will use with status callback
-        :param str voice_application_sid: The unique sid of the application to handle this number
+        :param unicode account_sid: The new owner of the phone number
+        :param unicode api_version: The Twilio REST API version to use
+        :param unicode friendly_name: A human readable description of this resource
+        :param unicode sms_application_sid: Unique string that identifies the application
+        :param unicode sms_fallback_method: HTTP method used with sms fallback url
+        :param unicode sms_fallback_url: URL Twilio will request if an error occurs in executing TwiML
+        :param unicode sms_method: HTTP method to use with sms url
+        :param unicode sms_url: URL Twilio will request when receiving an SMS
+        :param unicode status_callback: URL Twilio will use to pass status parameters
+        :param unicode status_callback_method: HTTP method twilio will use with status callback
+        :param unicode voice_application_sid: The unique sid of the application to handle this number
         :param bool voice_caller_id_lookup: Look up the caller's caller-ID
-        :param str voice_fallback_method: HTTP method used with fallback_url
-        :param str voice_fallback_url: URL Twilio will request when an error occurs in TwiML
-        :param str voice_method: HTTP method used with the voice url
-        :param str voice_url: URL Twilio will request when receiving a call
+        :param unicode voice_fallback_method: HTTP method used with fallback_url
+        :param unicode voice_fallback_url: URL Twilio will request when an error occurs in TwiML
+        :param unicode voice_method: HTTP method used with the voice url
+        :param unicode voice_url: URL Twilio will request when receiving a call
         
         :returns: Updated IncomingPhoneNumberInstance
         :rtype: IncomingPhoneNumberInstance

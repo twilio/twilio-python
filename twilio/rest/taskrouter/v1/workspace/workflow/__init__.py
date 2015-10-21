@@ -42,7 +42,7 @@ class WorkflowList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param str friendly_name: The friendly_name
+        :param unicode friendly_name: The friendly_name
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -79,7 +79,7 @@ class WorkflowList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param str friendly_name: The friendly_name
+        :param unicode friendly_name: The friendly_name
         :param int limit: Upper limit for the number of records to return. read() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -103,7 +103,7 @@ class WorkflowList(ListResource):
         Retrieve a single page of WorkflowInstance records from the API.
         Request is executed immediately
         
-        :param str friendly_name: The friendly_name
+        :param unicode friendly_name: The friendly_name
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -134,11 +134,11 @@ class WorkflowList(ListResource):
         """
         Create a new WorkflowInstance
         
-        :param str friendly_name: The friendly_name
-        :param str configuration: The configuration
-        :param str assignment_callback_url: The assignment_callback_url
-        :param str fallback_assignment_callback_url: The fallback_assignment_callback_url
-        :param str task_reservation_timeout: The task_reservation_timeout
+        :param unicode friendly_name: The friendly_name
+        :param unicode configuration: The configuration
+        :param unicode assignment_callback_url: The assignment_callback_url
+        :param unicode fallback_assignment_callback_url: The fallback_assignment_callback_url
+        :param unicode task_reservation_timeout: The task_reservation_timeout
         
         :returns: Newly created WorkflowInstance
         :rtype: WorkflowInstance
@@ -240,11 +240,11 @@ class WorkflowContext(InstanceContext):
         """
         Update the WorkflowInstance
         
-        :param str friendly_name: The friendly_name
-        :param str assignment_callback_url: The assignment_callback_url
-        :param str fallback_assignment_callback_url: The fallback_assignment_callback_url
-        :param str configuration: The configuration
-        :param str task_reservation_timeout: The task_reservation_timeout
+        :param unicode friendly_name: The friendly_name
+        :param unicode assignment_callback_url: The assignment_callback_url
+        :param unicode fallback_assignment_callback_url: The fallback_assignment_callback_url
+        :param unicode configuration: The configuration
+        :param unicode task_reservation_timeout: The task_reservation_timeout
         
         :returns: Updated WorkflowInstance
         :rtype: WorkflowInstance
@@ -355,7 +355,7 @@ class WorkflowInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -363,7 +363,7 @@ class WorkflowInstance(InstanceResource):
     def assignment_callback_url(self):
         """
         :returns: The assignment_callback_url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['assignment_callback_url']
 
@@ -371,7 +371,7 @@ class WorkflowInstance(InstanceResource):
     def configuration(self):
         """
         :returns: The configuration
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['configuration']
 
@@ -395,7 +395,7 @@ class WorkflowInstance(InstanceResource):
     def document_content_type(self):
         """
         :returns: The document_content_type
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['document_content_type']
 
@@ -403,7 +403,7 @@ class WorkflowInstance(InstanceResource):
     def fallback_assignment_callback_url(self):
         """
         :returns: The fallback_assignment_callback_url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['fallback_assignment_callback_url']
 
@@ -411,7 +411,7 @@ class WorkflowInstance(InstanceResource):
     def friendly_name(self):
         """
         :returns: The friendly_name
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['friendly_name']
 
@@ -419,7 +419,7 @@ class WorkflowInstance(InstanceResource):
     def sid(self):
         """
         :returns: The sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -427,7 +427,7 @@ class WorkflowInstance(InstanceResource):
     def task_reservation_timeout(self):
         """
         :returns: The task_reservation_timeout
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['task_reservation_timeout']
 
@@ -435,7 +435,7 @@ class WorkflowInstance(InstanceResource):
     def workspace_sid(self):
         """
         :returns: The workspace_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['workspace_sid']
 
@@ -455,11 +455,11 @@ class WorkflowInstance(InstanceResource):
         """
         Update the WorkflowInstance
         
-        :param str friendly_name: The friendly_name
-        :param str assignment_callback_url: The assignment_callback_url
-        :param str fallback_assignment_callback_url: The fallback_assignment_callback_url
-        :param str configuration: The configuration
-        :param str task_reservation_timeout: The task_reservation_timeout
+        :param unicode friendly_name: The friendly_name
+        :param unicode assignment_callback_url: The assignment_callback_url
+        :param unicode fallback_assignment_callback_url: The fallback_assignment_callback_url
+        :param unicode configuration: The configuration
+        :param unicode task_reservation_timeout: The task_reservation_timeout
         
         :returns: Updated WorkflowInstance
         :rtype: WorkflowInstance

@@ -41,8 +41,8 @@ class ActivityList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param str friendly_name: The friendly_name
-        :param str available: The available
+        :param unicode friendly_name: The friendly_name
+        :param unicode available: The available
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -80,8 +80,8 @@ class ActivityList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param str friendly_name: The friendly_name
-        :param str available: The available
+        :param unicode friendly_name: The friendly_name
+        :param unicode available: The available
         :param int limit: Upper limit for the number of records to return. read() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -106,8 +106,8 @@ class ActivityList(ListResource):
         Retrieve a single page of ActivityInstance records from the API.
         Request is executed immediately
         
-        :param str friendly_name: The friendly_name
-        :param str available: The available
+        :param unicode friendly_name: The friendly_name
+        :param unicode available: The available
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -137,7 +137,7 @@ class ActivityList(ListResource):
         """
         Create a new ActivityInstance
         
-        :param str friendly_name: The friendly_name
+        :param unicode friendly_name: The friendly_name
         :param bool available: The available
         
         :returns: Newly created ActivityInstance
@@ -231,7 +231,7 @@ class ActivityContext(InstanceContext):
         """
         Update the ActivityInstance
         
-        :param str friendly_name: The friendly_name
+        :param unicode friendly_name: The friendly_name
         
         :returns: Updated ActivityInstance
         :rtype: ActivityInstance
@@ -318,7 +318,7 @@ class ActivityInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -350,7 +350,7 @@ class ActivityInstance(InstanceResource):
     def friendly_name(self):
         """
         :returns: The friendly_name
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['friendly_name']
 
@@ -358,7 +358,7 @@ class ActivityInstance(InstanceResource):
     def sid(self):
         """
         :returns: The sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -366,7 +366,7 @@ class ActivityInstance(InstanceResource):
     def workspace_sid(self):
         """
         :returns: The workspace_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['workspace_sid']
 
@@ -383,7 +383,7 @@ class ActivityInstance(InstanceResource):
         """
         Update the ActivityInstance
         
-        :param str friendly_name: The friendly_name
+        :param unicode friendly_name: The friendly_name
         
         :returns: Updated ActivityInstance
         :rtype: ActivityInstance

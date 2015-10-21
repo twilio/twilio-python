@@ -26,6 +26,27 @@ class OutgoingCallerIdTestCase(IntegrationTestCase):
             'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
         ))
 
+    def test_fetch_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_created": "Fri, 21 Aug 2009 00:11:24 +0000",
+                "date_updated": "Fri, 21 Aug 2009 00:11:24 +0000",
+                "friendly_name": "(415) 867-5309",
+                "phone_number": "+141586753096",
+                "sid": "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+            }
+            '''
+        ))
+        
+        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                      .outgoing_caller_ids(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        
+        self.assertIsNotNone(actual)
+
     def test_update_request(self):
         self.holodeck.mock(Response(500, ''))
         
@@ -37,6 +58,27 @@ class OutgoingCallerIdTestCase(IntegrationTestCase):
             'post',
             'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
         ))
+
+    def test_update_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_created": "Fri, 21 Aug 2009 00:11:24 +0000",
+                "date_updated": "Fri, 21 Aug 2009 00:11:24 +0000",
+                "friendly_name": "(415) 867-5309",
+                "phone_number": "+141586753096",
+                "sid": "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+            }
+            '''
+        ))
+        
+        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                      .outgoing_caller_ids(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+        
+        self.assertIsNotNone(actual)
 
     def test_delete_request(self):
         self.holodeck.mock(Response(500, ''))
@@ -50,6 +92,17 @@ class OutgoingCallerIdTestCase(IntegrationTestCase):
             'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
         ))
 
+    def test_delete_response(self):
+        self.holodeck.mock(Response(
+            204,
+            None,
+        ))
+        
+        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                      .outgoing_caller_ids(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        
+        self.assertTrue(actual)
+
     def test_read_request(self):
         self.holodeck.mock(Response(500, ''))
         
@@ -61,3 +114,65 @@ class OutgoingCallerIdTestCase(IntegrationTestCase):
             'get',
             'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds.json',
         ))
+
+    def test_read_full_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "end": 0,
+                "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds.json?Page=0&PageSize=50",
+                "last_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds.json?Page=0&PageSize=50",
+                "next_page_uri": null,
+                "num_pages": 1,
+                "outgoing_caller_ids": [
+                    {
+                        "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "date_created": "Fri, 21 Aug 2009 00:11:24 +0000",
+                        "date_updated": "Fri, 21 Aug 2009 00:11:24 +0000",
+                        "friendly_name": "(415) 867-5309",
+                        "phone_number": "+141586753096",
+                        "sid": "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+                    }
+                ],
+                "page": 0,
+                "page_size": 50,
+                "previous_page_uri": null,
+                "start": 0,
+                "total": 1,
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds.json"
+            }
+            '''
+        ))
+        
+        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                      .outgoing_caller_ids.read()
+        
+        self.assertIsNotNone(actual)
+
+    def test_read_empty_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "end": 0,
+                "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds.json?Page=0&PageSize=50",
+                "last_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds.json?Page=0&PageSize=50",
+                "next_page_uri": null,
+                "num_pages": 1,
+                "outgoing_caller_ids": [],
+                "page": 0,
+                "page_size": 50,
+                "previous_page_uri": null,
+                "start": 0,
+                "total": 1,
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds.json"
+            }
+            '''
+        ))
+        
+        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                      .outgoing_caller_ids.read()
+        
+        self.assertIsNotNone(actual)

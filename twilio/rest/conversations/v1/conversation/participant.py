@@ -122,8 +122,8 @@ class ParticipantList(ListResource):
         """
         Create a new ParticipantInstance
         
-        :param str to: The to
-        :param str from_: The from
+        :param unicode to: The to
+        :param unicode from_: The from
         
         :returns: Newly created ParticipantInstance
         :rtype: ParticipantInstance
@@ -276,7 +276,7 @@ class ParticipantInstance(InstanceResource):
     def sid(self):
         """
         :returns: The sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -284,7 +284,7 @@ class ParticipantInstance(InstanceResource):
     def address(self):
         """
         :returns: The address
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['address']
 
@@ -300,7 +300,7 @@ class ParticipantInstance(InstanceResource):
     def conversation_sid(self):
         """
         :returns: The conversation_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['conversation_sid']
 
@@ -332,7 +332,7 @@ class ParticipantInstance(InstanceResource):
     def duration(self):
         """
         :returns: The duration
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['duration']
 
@@ -340,7 +340,7 @@ class ParticipantInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -348,7 +348,7 @@ class ParticipantInstance(InstanceResource):
     def url(self):
         """
         :returns: The url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['url']
 

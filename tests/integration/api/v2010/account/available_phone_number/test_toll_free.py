@@ -26,3 +26,56 @@ class TollFreeTestCase(IntegrationTestCase):
             'get',
             'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/TollFree.json',
         ))
+
+    def test_read_full_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "available_phone_numbers": [
+                    {
+                        "address_requirements": "none",
+                        "beta": false,
+                        "capabilities": {
+                            "MMS": true,
+                            "SMS": true,
+                            "voice": true
+                        },
+                        "friendly_name": "(800) 100-0052",
+                        "iso_country": "US",
+                        "lata": null,
+                        "latitude": null,
+                        "longitude": null,
+                        "phone_number": "+18001000052",
+                        "postal_code": null,
+                        "rate_center": null,
+                        "region": null
+                    }
+                ],
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/TollFree.json?PageSize=1"
+            }
+            '''
+        ))
+        
+        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                      .available_phone_numbers(country_code="US") \
+                                      .toll_free.read()
+        
+        self.assertIsNotNone(actual)
+
+    def test_read_empty_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "available_phone_numbers": [],
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/TollFree.json?PageSize=1"
+            }
+            '''
+        ))
+        
+        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                      .available_phone_numbers(country_code="US") \
+                                      .toll_free.read()
+        
+        self.assertIsNotNone(actual)

@@ -35,6 +35,41 @@ class FeedbackSummaryTestCase(IntegrationTestCase):
             data=values,
         ))
 
+    def test_create_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "call_count": 10200,
+                "call_feedback_count": 729,
+                "end_date": "2014-01-31",
+                "include_subaccounts": false,
+                "issues": [
+                    {
+                        "count": 45,
+                        "description": "imperfect-audio",
+                        "percentage_of_total_calls": "0.04%"
+                    }
+                ],
+                "quality_score_average": 4.5,
+                "quality_score_median": 4,
+                "quality_score_standard_deviation": 1,
+                "sid": "FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "start_date": "2014-01-01",
+                "status": "completed",
+                "date_created": "Tue, 31 Aug 2010 20:36:28 +0000",
+                "date_updated": "Tue, 31 Aug 2010 20:36:44 +0000"
+            }
+            '''
+        ))
+        
+        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                      .calls \
+                                      .feedback_summaries.create(start_date=date(2008, 1, 2), end_date=date(2008, 1, 2))
+        
+        self.assertIsNotNone(actual)
+
     def test_fetch_request(self):
         self.holodeck.mock(Response(500, ''))
         
@@ -48,6 +83,41 @@ class FeedbackSummaryTestCase(IntegrationTestCase):
             'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/FeedbackSummary/FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
         ))
 
+    def test_fetch_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "call_count": 10200,
+                "call_feedback_count": 729,
+                "end_date": "2014-01-31",
+                "include_subaccounts": false,
+                "issues": [
+                    {
+                        "count": 45,
+                        "description": "imperfect-audio",
+                        "percentage_of_total_calls": "0.04%"
+                    }
+                ],
+                "quality_score_average": 4.5,
+                "quality_score_median": 4,
+                "quality_score_standard_deviation": 1,
+                "sid": "FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "start_date": "2014-01-01",
+                "status": "completed",
+                "date_created": "Tue, 31 Aug 2010 20:36:28 +0000",
+                "date_updated": "Tue, 31 Aug 2010 20:36:44 +0000"
+            }
+            '''
+        ))
+        
+        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                      .calls \
+                                      .feedback_summaries(sid="FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        
+        self.assertIsNotNone(actual)
+
     def test_delete_request(self):
         self.holodeck.mock(Response(500, ''))
         
@@ -60,3 +130,15 @@ class FeedbackSummaryTestCase(IntegrationTestCase):
             'delete',
             'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/FeedbackSummary/FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
         ))
+
+    def test_delete_response(self):
+        self.holodeck.mock(Response(
+            204,
+            None,
+        ))
+        
+        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                      .calls \
+                                      .feedback_summaries(sid="FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        
+        self.assertTrue(actual)

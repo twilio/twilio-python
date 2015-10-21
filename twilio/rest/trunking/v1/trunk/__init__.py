@@ -41,11 +41,11 @@ class TrunkList(ListResource):
         """
         Create a new TrunkInstance
         
-        :param str friendly_name: The friendly_name
-        :param str domain_name: The domain_name
-        :param str disaster_recovery_url: The disaster_recovery_url
-        :param str disaster_recovery_method: The disaster_recovery_method
-        :param str recording: The recording
+        :param unicode friendly_name: The friendly_name
+        :param unicode domain_name: The domain_name
+        :param unicode disaster_recovery_url: The disaster_recovery_url
+        :param unicode disaster_recovery_method: The disaster_recovery_method
+        :param unicode recording: The recording
         :param bool secure: The secure
         
         :returns: Newly created TrunkInstance
@@ -244,11 +244,11 @@ class TrunkContext(InstanceContext):
         """
         Update the TrunkInstance
         
-        :param str friendly_name: The friendly_name
-        :param str domain_name: The domain_name
-        :param str disaster_recovery_url: The disaster_recovery_url
-        :param str disaster_recovery_method: The disaster_recovery_method
-        :param str recording: The recording
+        :param unicode friendly_name: The friendly_name
+        :param unicode domain_name: The domain_name
+        :param unicode disaster_recovery_url: The disaster_recovery_url
+        :param unicode disaster_recovery_method: The disaster_recovery_method
+        :param unicode recording: The recording
         :param bool secure: The secure
         
         :returns: Updated TrunkInstance
@@ -397,7 +397,7 @@ class TrunkInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -405,7 +405,7 @@ class TrunkInstance(InstanceResource):
     def domain_name(self):
         """
         :returns: The domain_name
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['domain_name']
 
@@ -413,7 +413,7 @@ class TrunkInstance(InstanceResource):
     def disaster_recovery_method(self):
         """
         :returns: The disaster_recovery_method
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['disaster_recovery_method']
 
@@ -421,7 +421,7 @@ class TrunkInstance(InstanceResource):
     def disaster_recovery_url(self):
         """
         :returns: The disaster_recovery_url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['disaster_recovery_url']
 
@@ -429,7 +429,7 @@ class TrunkInstance(InstanceResource):
     def friendly_name(self):
         """
         :returns: The friendly_name
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['friendly_name']
 
@@ -445,7 +445,7 @@ class TrunkInstance(InstanceResource):
     def recording(self):
         """
         :returns: The recording
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['recording']
 
@@ -453,7 +453,7 @@ class TrunkInstance(InstanceResource):
     def auth_type(self):
         """
         :returns: The auth_type
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['auth_type']
 
@@ -461,7 +461,7 @@ class TrunkInstance(InstanceResource):
     def auth_type_set(self):
         """
         :returns: The auth_type_set
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['auth_type_set']
 
@@ -485,7 +485,7 @@ class TrunkInstance(InstanceResource):
     def sid(self):
         """
         :returns: The sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -493,7 +493,7 @@ class TrunkInstance(InstanceResource):
     def url(self):
         """
         :returns: The url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['url']
 
@@ -501,7 +501,7 @@ class TrunkInstance(InstanceResource):
     def links(self):
         """
         :returns: The links
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['links']
 
@@ -530,11 +530,11 @@ class TrunkInstance(InstanceResource):
         """
         Update the TrunkInstance
         
-        :param str friendly_name: The friendly_name
-        :param str domain_name: The domain_name
-        :param str disaster_recovery_url: The disaster_recovery_url
-        :param str disaster_recovery_method: The disaster_recovery_method
-        :param str recording: The recording
+        :param unicode friendly_name: The friendly_name
+        :param unicode domain_name: The domain_name
+        :param unicode disaster_recovery_url: The disaster_recovery_url
+        :param unicode disaster_recovery_method: The disaster_recovery_method
+        :param unicode recording: The recording
         :param bool secure: The secure
         
         :returns: Updated TrunkInstance

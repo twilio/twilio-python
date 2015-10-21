@@ -109,7 +109,7 @@ class CompletedList(ListResource):
         return self._version.page(
             self,
             CompletedInstance,
-            self._kwargs,
+            {},
             'GET',
             self._uri,
             params=params,
@@ -152,7 +152,7 @@ class CompletedInstance(InstanceResource):
     def sid(self):
         """
         :returns: The sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -168,7 +168,7 @@ class CompletedInstance(InstanceResource):
     def duration(self):
         """
         :returns: The duration
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['duration']
 
@@ -200,7 +200,7 @@ class CompletedInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -208,7 +208,7 @@ class CompletedInstance(InstanceResource):
     def url(self):
         """
         :returns: The url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['url']
 

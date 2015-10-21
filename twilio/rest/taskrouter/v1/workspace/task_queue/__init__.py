@@ -47,8 +47,8 @@ class TaskQueueList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param str friendly_name: The friendly_name
-        :param str evaluate_worker_attributes: The evaluate_worker_attributes
+        :param unicode friendly_name: The friendly_name
+        :param unicode evaluate_worker_attributes: The evaluate_worker_attributes
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -87,8 +87,8 @@ class TaskQueueList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param str friendly_name: The friendly_name
-        :param str evaluate_worker_attributes: The evaluate_worker_attributes
+        :param unicode friendly_name: The friendly_name
+        :param unicode evaluate_worker_attributes: The evaluate_worker_attributes
         :param int limit: Upper limit for the number of records to return. read() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -114,8 +114,8 @@ class TaskQueueList(ListResource):
         Retrieve a single page of TaskQueueInstance records from the API.
         Request is executed immediately
         
-        :param str friendly_name: The friendly_name
-        :param str evaluate_worker_attributes: The evaluate_worker_attributes
+        :param unicode friendly_name: The friendly_name
+        :param unicode evaluate_worker_attributes: The evaluate_worker_attributes
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -147,11 +147,11 @@ class TaskQueueList(ListResource):
         """
         Create a new TaskQueueInstance
         
-        :param str friendly_name: The friendly_name
-        :param str reservation_activity_sid: The reservation_activity_sid
-        :param str assignment_activity_sid: The assignment_activity_sid
-        :param str target_workers: The target_workers
-        :param str max_reserved_workers: The max_reserved_workers
+        :param unicode friendly_name: The friendly_name
+        :param unicode reservation_activity_sid: The reservation_activity_sid
+        :param unicode assignment_activity_sid: The assignment_activity_sid
+        :param unicode target_workers: The target_workers
+        :param unicode max_reserved_workers: The max_reserved_workers
         
         :returns: Newly created TaskQueueInstance
         :rtype: TaskQueueInstance
@@ -265,11 +265,11 @@ class TaskQueueContext(InstanceContext):
         """
         Update the TaskQueueInstance
         
-        :param str friendly_name: The friendly_name
-        :param str target_workers: The target_workers
-        :param str reservation_activity_sid: The reservation_activity_sid
-        :param str assignment_activity_sid: The assignment_activity_sid
-        :param str max_reserved_workers: The max_reserved_workers
+        :param unicode friendly_name: The friendly_name
+        :param unicode target_workers: The target_workers
+        :param unicode reservation_activity_sid: The reservation_activity_sid
+        :param unicode assignment_activity_sid: The assignment_activity_sid
+        :param unicode max_reserved_workers: The max_reserved_workers
         
         :returns: Updated TaskQueueInstance
         :rtype: TaskQueueInstance
@@ -382,7 +382,7 @@ class TaskQueueInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -390,7 +390,7 @@ class TaskQueueInstance(InstanceResource):
     def assignment_activity_sid(self):
         """
         :returns: The assignment_activity_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['assignment_activity_sid']
 
@@ -398,7 +398,7 @@ class TaskQueueInstance(InstanceResource):
     def assignment_activity_name(self):
         """
         :returns: The assignment_activity_name
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['assignment_activity_name']
 
@@ -422,7 +422,7 @@ class TaskQueueInstance(InstanceResource):
     def friendly_name(self):
         """
         :returns: The friendly_name
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['friendly_name']
 
@@ -430,7 +430,7 @@ class TaskQueueInstance(InstanceResource):
     def max_reserved_workers(self):
         """
         :returns: The max_reserved_workers
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['max_reserved_workers']
 
@@ -438,7 +438,7 @@ class TaskQueueInstance(InstanceResource):
     def reservation_activity_sid(self):
         """
         :returns: The reservation_activity_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['reservation_activity_sid']
 
@@ -446,7 +446,7 @@ class TaskQueueInstance(InstanceResource):
     def reservation_activity_name(self):
         """
         :returns: The reservation_activity_name
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['reservation_activity_name']
 
@@ -454,7 +454,7 @@ class TaskQueueInstance(InstanceResource):
     def sid(self):
         """
         :returns: The sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -462,7 +462,7 @@ class TaskQueueInstance(InstanceResource):
     def target_workers(self):
         """
         :returns: The target_workers
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['target_workers']
 
@@ -470,7 +470,7 @@ class TaskQueueInstance(InstanceResource):
     def url(self):
         """
         :returns: The url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['url']
 
@@ -478,7 +478,7 @@ class TaskQueueInstance(InstanceResource):
     def workspace_sid(self):
         """
         :returns: The workspace_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['workspace_sid']
 
@@ -498,11 +498,11 @@ class TaskQueueInstance(InstanceResource):
         """
         Update the TaskQueueInstance
         
-        :param str friendly_name: The friendly_name
-        :param str target_workers: The target_workers
-        :param str reservation_activity_sid: The reservation_activity_sid
-        :param str assignment_activity_sid: The assignment_activity_sid
-        :param str max_reserved_workers: The max_reserved_workers
+        :param unicode friendly_name: The friendly_name
+        :param unicode target_workers: The target_workers
+        :param unicode reservation_activity_sid: The reservation_activity_sid
+        :param unicode assignment_activity_sid: The assignment_activity_sid
+        :param unicode max_reserved_workers: The max_reserved_workers
         
         :returns: Updated TaskQueueInstance
         :rtype: TaskQueueInstance

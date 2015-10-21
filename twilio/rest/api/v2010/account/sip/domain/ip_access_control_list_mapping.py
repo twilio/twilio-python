@@ -39,7 +39,7 @@ class IpAccessControlListMappingList(ListResource):
         """
         Create a new IpAccessControlListMappingInstance
         
-        :param str ip_access_control_list_sid: The ip_access_control_list_sid
+        :param unicode ip_access_control_list_sid: The ip_access_control_list_sid
         
         :returns: Newly created IpAccessControlListMappingInstance
         :rtype: IpAccessControlListMappingInstance
@@ -285,7 +285,7 @@ class IpAccessControlListMappingInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -309,7 +309,7 @@ class IpAccessControlListMappingInstance(InstanceResource):
     def friendly_name(self):
         """
         :returns: The friendly_name
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['friendly_name']
 
@@ -317,7 +317,7 @@ class IpAccessControlListMappingInstance(InstanceResource):
     def sid(self):
         """
         :returns: The sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -325,7 +325,7 @@ class IpAccessControlListMappingInstance(InstanceResource):
     def uri(self):
         """
         :returns: The uri
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 

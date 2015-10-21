@@ -41,8 +41,8 @@ class OutgoingCallerIdList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param str phone_number: Filter by phone number
-        :param str friendly_name: Filter by friendly name
+        :param unicode phone_number: Filter by phone number
+        :param unicode friendly_name: Filter by friendly name
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -80,8 +80,8 @@ class OutgoingCallerIdList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param str phone_number: Filter by phone number
-        :param str friendly_name: Filter by friendly name
+        :param unicode phone_number: Filter by phone number
+        :param unicode friendly_name: Filter by friendly name
         :param int limit: Upper limit for the number of records to return. read() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -106,8 +106,8 @@ class OutgoingCallerIdList(ListResource):
         Retrieve a single page of OutgoingCallerIdInstance records from the API.
         Request is executed immediately
         
-        :param str phone_number: Filter by phone number
-        :param str friendly_name: Filter by friendly name
+        :param unicode phone_number: Filter by phone number
+        :param unicode friendly_name: Filter by friendly name
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -208,7 +208,7 @@ class OutgoingCallerIdContext(InstanceContext):
         """
         Update the OutgoingCallerIdInstance
         
-        :param str friendly_name: A human readable description of the caller ID
+        :param unicode friendly_name: A human readable description of the caller ID
         
         :returns: Updated OutgoingCallerIdInstance
         :rtype: OutgoingCallerIdInstance
@@ -295,7 +295,7 @@ class OutgoingCallerIdInstance(InstanceResource):
     def sid(self):
         """
         :returns: A string that uniquely identifies this outgoing-caller-ids
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -319,7 +319,7 @@ class OutgoingCallerIdInstance(InstanceResource):
     def friendly_name(self):
         """
         :returns: A human readable description for this resource
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['friendly_name']
 
@@ -327,7 +327,7 @@ class OutgoingCallerIdInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The unique sid that identifies this account
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -335,7 +335,7 @@ class OutgoingCallerIdInstance(InstanceResource):
     def phone_number(self):
         """
         :returns: The incoming phone number
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['phone_number']
 
@@ -343,7 +343,7 @@ class OutgoingCallerIdInstance(InstanceResource):
     def uri(self):
         """
         :returns: The URI for this resource
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 
@@ -360,7 +360,7 @@ class OutgoingCallerIdInstance(InstanceResource):
         """
         Update the OutgoingCallerIdInstance
         
-        :param str friendly_name: A human readable description of the caller ID
+        :param unicode friendly_name: A human readable description of the caller ID
         
         :returns: Updated OutgoingCallerIdInstance
         :rtype: OutgoingCallerIdInstance

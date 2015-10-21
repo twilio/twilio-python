@@ -123,7 +123,7 @@ class CredentialListList(ListResource):
         """
         Create a new CredentialListInstance
         
-        :param str friendly_name: The friendly_name
+        :param unicode friendly_name: The friendly_name
         
         :returns: Newly created CredentialListInstance
         :rtype: CredentialListInstance
@@ -218,7 +218,7 @@ class CredentialListContext(InstanceContext):
         """
         Update the CredentialListInstance
         
-        :param str friendly_name: The friendly_name
+        :param unicode friendly_name: The friendly_name
         
         :returns: Updated CredentialListInstance
         :rtype: CredentialListInstance
@@ -321,7 +321,7 @@ class CredentialListInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The unique sid that identifies this account
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -345,7 +345,7 @@ class CredentialListInstance(InstanceResource):
     def friendly_name(self):
         """
         :returns: The friendly_name
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['friendly_name']
 
@@ -353,7 +353,7 @@ class CredentialListInstance(InstanceResource):
     def sid(self):
         """
         :returns: A string that uniquely identifies this credential
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -361,7 +361,7 @@ class CredentialListInstance(InstanceResource):
     def subresource_uris(self):
         """
         :returns: The subresource_uris
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['subresource_uris']
 
@@ -369,7 +369,7 @@ class CredentialListInstance(InstanceResource):
     def uri(self):
         """
         :returns: The URI for this resource
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 
@@ -386,7 +386,7 @@ class CredentialListInstance(InstanceResource):
         """
         Update the CredentialListInstance
         
-        :param str friendly_name: The friendly_name
+        :param unicode friendly_name: The friendly_name
         
         :returns: Updated CredentialListInstance
         :rtype: CredentialListInstance

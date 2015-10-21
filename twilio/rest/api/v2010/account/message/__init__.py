@@ -41,12 +41,12 @@ class MessageList(ListResource):
         """
         Create a new MessageInstance
         
-        :param str to: The phone number to receive the message
-        :param str from_: The phone number that initiated the message
-        :param str status_callback: URL Twilio will request when the status changes
-        :param str application_sid: The application to use for callbacks
-        :param str body: The body
-        :param str media_url: The media_url
+        :param unicode to: The phone number to receive the message
+        :param unicode from_: The phone number that initiated the message
+        :param unicode status_callback: URL Twilio will request when the status changes
+        :param unicode application_sid: The application to use for callbacks
+        :param unicode body: The body
+        :param unicode media_url: The media_url
         
         :returns: Newly created MessageInstance
         :rtype: MessageInstance
@@ -77,8 +77,8 @@ class MessageList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param str to: Filter by messages to this number
-        :param str from_: Filter by from number
+        :param unicode to: Filter by messages to this number
+        :param unicode from_: Filter by from number
         :param date date_sent_before: Filter by date sent
         :param date date_sent: Filter by date sent
         :param date date_sent_after: Filter by date sent
@@ -123,8 +123,8 @@ class MessageList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param str to: Filter by messages to this number
-        :param str from_: Filter by from number
+        :param unicode to: Filter by messages to this number
+        :param unicode from_: Filter by from number
         :param date date_sent_before: Filter by date sent
         :param date date_sent: Filter by date sent
         :param date date_sent_after: Filter by date sent
@@ -157,8 +157,8 @@ class MessageList(ListResource):
         Retrieve a single page of MessageInstance records from the API.
         Request is executed immediately
         
-        :param str to: Filter by messages to this number
-        :param str from_: Filter by from number
+        :param unicode to: Filter by messages to this number
+        :param unicode from_: Filter by from number
         :param date date_sent_before: Filter by date sent
         :param date date_sent: Filter by date sent
         :param date date_sent_after: Filter by date sent
@@ -277,7 +277,7 @@ class MessageContext(InstanceContext):
         """
         Update the MessageInstance
         
-        :param str body: The body
+        :param unicode body: The body
         
         :returns: Updated MessageInstance
         :rtype: MessageInstance
@@ -383,7 +383,7 @@ class MessageInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The unique sid that identifies this account
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -391,7 +391,7 @@ class MessageInstance(InstanceResource):
     def api_version(self):
         """
         :returns: The version of the Twilio API used to process the message.
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['api_version']
 
@@ -399,7 +399,7 @@ class MessageInstance(InstanceResource):
     def body(self):
         """
         :returns: The text body of the message. Up to 1600 characters long.
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['body']
 
@@ -439,7 +439,7 @@ class MessageInstance(InstanceResource):
     def error_code(self):
         """
         :returns: The error code associated with the message
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['error_code']
 
@@ -447,7 +447,7 @@ class MessageInstance(InstanceResource):
     def error_message(self):
         """
         :returns: Human readable description of the ErrorCode
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['error_message']
 
@@ -455,7 +455,7 @@ class MessageInstance(InstanceResource):
     def from_(self):
         """
         :returns: The phone number that initiated the message
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['from_']
 
@@ -463,7 +463,7 @@ class MessageInstance(InstanceResource):
     def num_media(self):
         """
         :returns: Number of media files associated with the message
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['num_media']
 
@@ -471,7 +471,7 @@ class MessageInstance(InstanceResource):
     def num_segments(self):
         """
         :returns: Indicates number of messages used to delivery the body
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['num_segments']
 
@@ -479,7 +479,7 @@ class MessageInstance(InstanceResource):
     def price(self):
         """
         :returns: The amount billed for the message
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['price']
 
@@ -487,7 +487,7 @@ class MessageInstance(InstanceResource):
     def price_unit(self):
         """
         :returns: The currency in which Price is measured
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['price_unit']
 
@@ -495,7 +495,7 @@ class MessageInstance(InstanceResource):
     def sid(self):
         """
         :returns: A string that uniquely identifies this message
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -511,7 +511,7 @@ class MessageInstance(InstanceResource):
     def subresource_uris(self):
         """
         :returns: The subresource_uris
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['subresource_uris']
 
@@ -519,7 +519,7 @@ class MessageInstance(InstanceResource):
     def to(self):
         """
         :returns: The phone number that received the message
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['to']
 
@@ -527,7 +527,7 @@ class MessageInstance(InstanceResource):
     def uri(self):
         """
         :returns: The URI for this resource
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 
@@ -553,7 +553,7 @@ class MessageInstance(InstanceResource):
         """
         Update the MessageInstance
         
-        :param str body: The body
+        :param unicode body: The body
         
         :returns: Updated MessageInstance
         :rtype: MessageInstance

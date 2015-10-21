@@ -103,12 +103,12 @@ class SandboxContext(InstanceContext):
         """
         Update the SandboxInstance
         
-        :param str voice_url: The voice_url
-        :param str voice_method: The voice_method
-        :param str sms_url: The sms_url
-        :param str sms_method: The sms_method
-        :param str status_callback: The status_callback
-        :param str status_callback_method: The status_callback_method
+        :param unicode voice_url: The voice_url
+        :param unicode voice_method: The voice_method
+        :param unicode sms_url: The sms_url
+        :param unicode sms_method: The sms_method
+        :param unicode status_callback: The status_callback
+        :param unicode status_callback_method: The status_callback_method
         
         :returns: Updated SandboxInstance
         :rtype: SandboxInstance
@@ -212,7 +212,7 @@ class SandboxInstance(InstanceResource):
     def pin(self):
         """
         :returns: The pin
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['pin']
 
@@ -220,7 +220,7 @@ class SandboxInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -228,7 +228,7 @@ class SandboxInstance(InstanceResource):
     def phone_number(self):
         """
         :returns: The phone_number
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['phone_number']
 
@@ -236,7 +236,7 @@ class SandboxInstance(InstanceResource):
     def application_sid(self):
         """
         :returns: The application_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['application_sid']
 
@@ -244,7 +244,7 @@ class SandboxInstance(InstanceResource):
     def api_version(self):
         """
         :returns: The api_version
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['api_version']
 
@@ -252,7 +252,7 @@ class SandboxInstance(InstanceResource):
     def voice_url(self):
         """
         :returns: The voice_url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['voice_url']
 
@@ -260,7 +260,7 @@ class SandboxInstance(InstanceResource):
     def voice_method(self):
         """
         :returns: The voice_method
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['voice_method']
 
@@ -268,7 +268,7 @@ class SandboxInstance(InstanceResource):
     def sms_url(self):
         """
         :returns: The sms_url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sms_url']
 
@@ -276,7 +276,7 @@ class SandboxInstance(InstanceResource):
     def sms_method(self):
         """
         :returns: The sms_method
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sms_method']
 
@@ -284,7 +284,7 @@ class SandboxInstance(InstanceResource):
     def status_callback(self):
         """
         :returns: The status_callback
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['status_callback']
 
@@ -292,7 +292,7 @@ class SandboxInstance(InstanceResource):
     def status_callback_method(self):
         """
         :returns: The status_callback_method
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['status_callback_method']
 
@@ -300,7 +300,7 @@ class SandboxInstance(InstanceResource):
     def uri(self):
         """
         :returns: The uri
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 
@@ -319,12 +319,12 @@ class SandboxInstance(InstanceResource):
         """
         Update the SandboxInstance
         
-        :param str voice_url: The voice_url
-        :param str voice_method: The voice_method
-        :param str sms_url: The sms_url
-        :param str sms_method: The sms_method
-        :param str status_callback: The status_callback
-        :param str status_callback_method: The status_callback_method
+        :param unicode voice_url: The voice_url
+        :param unicode voice_method: The voice_method
+        :param unicode sms_url: The sms_url
+        :param unicode sms_method: The sms_method
+        :param unicode status_callback: The status_callback
+        :param unicode status_callback_method: The status_callback_method
         
         :returns: Updated SandboxInstance
         :rtype: SandboxInstance

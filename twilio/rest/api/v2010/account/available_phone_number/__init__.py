@@ -303,7 +303,7 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
     def country_code(self):
         """
         :returns: The country_code
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['country_code']
 
@@ -311,7 +311,7 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
     def country(self):
         """
         :returns: The country
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['country']
 
@@ -319,7 +319,7 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
     def uri(self):
         """
         :returns: The uri
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 
@@ -335,7 +335,7 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
     def subresource_uris(self):
         """
         :returns: The subresource_uris
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['subresource_uris']
 

@@ -265,7 +265,7 @@ class TranscriptionInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The unique sid that identifies this account
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -273,7 +273,7 @@ class TranscriptionInstance(InstanceResource):
     def api_version(self):
         """
         :returns: The api_version
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['api_version']
 
@@ -297,7 +297,7 @@ class TranscriptionInstance(InstanceResource):
     def duration(self):
         """
         :returns: The duration of the transcribed audio, in seconds.
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['duration']
 
@@ -305,7 +305,7 @@ class TranscriptionInstance(InstanceResource):
     def price(self):
         """
         :returns: The charge for this transcription
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['price']
 
@@ -313,7 +313,7 @@ class TranscriptionInstance(InstanceResource):
     def price_unit(self):
         """
         :returns: The currency in which Price is measured
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['price_unit']
 
@@ -321,7 +321,7 @@ class TranscriptionInstance(InstanceResource):
     def recording_sid(self):
         """
         :returns: The string that uniquely identifies the recording
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['recording_sid']
 
@@ -329,7 +329,7 @@ class TranscriptionInstance(InstanceResource):
     def sid(self):
         """
         :returns: A string that uniquely identifies this transcription
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -345,7 +345,7 @@ class TranscriptionInstance(InstanceResource):
     def transcription_text(self):
         """
         :returns: The text content of the transcription.
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['transcription_text']
 
@@ -353,7 +353,7 @@ class TranscriptionInstance(InstanceResource):
     def type(self):
         """
         :returns: The type
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['type']
 
@@ -361,7 +361,7 @@ class TranscriptionInstance(InstanceResource):
     def uri(self):
         """
         :returns: The URI for this resource
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 

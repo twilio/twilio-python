@@ -41,8 +41,8 @@ class ShortCodeList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param str friendly_name: Filter by friendly name
-        :param str short_code: Filter by ShortCode
+        :param unicode friendly_name: Filter by friendly name
+        :param unicode short_code: Filter by ShortCode
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -80,8 +80,8 @@ class ShortCodeList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param str friendly_name: Filter by friendly name
-        :param str short_code: Filter by ShortCode
+        :param unicode friendly_name: Filter by friendly name
+        :param unicode short_code: Filter by ShortCode
         :param int limit: Upper limit for the number of records to return. read() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -106,8 +106,8 @@ class ShortCodeList(ListResource):
         Retrieve a single page of ShortCodeInstance records from the API.
         Request is executed immediately
         
-        :param str friendly_name: Filter by friendly name
-        :param str short_code: Filter by ShortCode
+        :param unicode friendly_name: Filter by friendly name
+        :param unicode short_code: Filter by ShortCode
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -210,12 +210,12 @@ class ShortCodeContext(InstanceContext):
         """
         Update the ShortCodeInstance
         
-        :param str friendly_name: A human readable description of this resource
-        :param str api_version: The API version to use
-        :param str sms_url: URL Twilio will request when receiving an SMS
-        :param str sms_method: HTTP method to use when requesting the sms url
-        :param str sms_fallback_url: URL Twilio will request if an error occurs in executing TwiML
-        :param str sms_fallback_method: HTTP method Twilio will use with sms fallback url
+        :param unicode friendly_name: A human readable description of this resource
+        :param unicode api_version: The API version to use
+        :param unicode sms_url: URL Twilio will request when receiving an SMS
+        :param unicode sms_method: HTTP method to use when requesting the sms url
+        :param unicode sms_fallback_url: URL Twilio will request if an error occurs in executing TwiML
+        :param unicode sms_fallback_method: HTTP method Twilio will use with sms fallback url
         
         :returns: Updated ShortCodeInstance
         :rtype: ShortCodeInstance
@@ -303,7 +303,7 @@ class ShortCodeInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The unique sid that identifies this account
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -311,7 +311,7 @@ class ShortCodeInstance(InstanceResource):
     def api_version(self):
         """
         :returns: The API version to use
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['api_version']
 
@@ -335,7 +335,7 @@ class ShortCodeInstance(InstanceResource):
     def friendly_name(self):
         """
         :returns: A human readable description of this resource
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['friendly_name']
 
@@ -343,7 +343,7 @@ class ShortCodeInstance(InstanceResource):
     def short_code(self):
         """
         :returns: The short code. e.g., 894546.
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['short_code']
 
@@ -351,7 +351,7 @@ class ShortCodeInstance(InstanceResource):
     def sid(self):
         """
         :returns: A string that uniquely identifies this short-codes
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -359,7 +359,7 @@ class ShortCodeInstance(InstanceResource):
     def sms_fallback_method(self):
         """
         :returns: HTTP method Twilio will use with sms fallback url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sms_fallback_method']
 
@@ -367,7 +367,7 @@ class ShortCodeInstance(InstanceResource):
     def sms_fallback_url(self):
         """
         :returns: URL Twilio will request if an error occurs in executing TwiML
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sms_fallback_url']
 
@@ -375,7 +375,7 @@ class ShortCodeInstance(InstanceResource):
     def sms_method(self):
         """
         :returns: HTTP method to use when requesting the sms url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sms_method']
 
@@ -383,7 +383,7 @@ class ShortCodeInstance(InstanceResource):
     def sms_url(self):
         """
         :returns: URL Twilio will request when receiving an SMS
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sms_url']
 
@@ -391,7 +391,7 @@ class ShortCodeInstance(InstanceResource):
     def uri(self):
         """
         :returns: The URI for this resource
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 
@@ -410,12 +410,12 @@ class ShortCodeInstance(InstanceResource):
         """
         Update the ShortCodeInstance
         
-        :param str friendly_name: A human readable description of this resource
-        :param str api_version: The API version to use
-        :param str sms_url: URL Twilio will request when receiving an SMS
-        :param str sms_method: HTTP method to use when requesting the sms url
-        :param str sms_fallback_url: URL Twilio will request if an error occurs in executing TwiML
-        :param str sms_fallback_method: HTTP method Twilio will use with sms fallback url
+        :param unicode friendly_name: A human readable description of this resource
+        :param unicode api_version: The API version to use
+        :param unicode sms_url: URL Twilio will request when receiving an SMS
+        :param unicode sms_method: HTTP method to use when requesting the sms url
+        :param unicode sms_fallback_url: URL Twilio will request if an error occurs in executing TwiML
+        :param unicode sms_fallback_method: HTTP method Twilio will use with sms fallback url
         
         :returns: Updated ShortCodeInstance
         :rtype: ShortCodeInstance

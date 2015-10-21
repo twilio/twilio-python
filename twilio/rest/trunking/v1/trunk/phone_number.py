@@ -37,7 +37,7 @@ class PhoneNumberList(ListResource):
         """
         Create a new PhoneNumberInstance
         
-        :param str phone_number_sid: The phone_number_sid
+        :param unicode phone_number_sid: The phone_number_sid
         
         :returns: Newly created PhoneNumberInstance
         :rtype: PhoneNumberInstance
@@ -299,7 +299,7 @@ class PhoneNumberInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -315,7 +315,7 @@ class PhoneNumberInstance(InstanceResource):
     def api_version(self):
         """
         :returns: The api_version
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['api_version']
 
@@ -331,7 +331,7 @@ class PhoneNumberInstance(InstanceResource):
     def capabilities(self):
         """
         :returns: The capabilities
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['capabilities']
 
@@ -355,7 +355,7 @@ class PhoneNumberInstance(InstanceResource):
     def friendly_name(self):
         """
         :returns: The friendly_name
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['friendly_name']
 
@@ -363,7 +363,7 @@ class PhoneNumberInstance(InstanceResource):
     def links(self):
         """
         :returns: The links
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['links']
 
@@ -371,7 +371,7 @@ class PhoneNumberInstance(InstanceResource):
     def phone_number(self):
         """
         :returns: The phone_number
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['phone_number']
 
@@ -379,7 +379,7 @@ class PhoneNumberInstance(InstanceResource):
     def sid(self):
         """
         :returns: The sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -387,7 +387,7 @@ class PhoneNumberInstance(InstanceResource):
     def sms_application_sid(self):
         """
         :returns: The sms_application_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sms_application_sid']
 
@@ -395,7 +395,7 @@ class PhoneNumberInstance(InstanceResource):
     def sms_fallback_method(self):
         """
         :returns: The sms_fallback_method
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sms_fallback_method']
 
@@ -403,7 +403,7 @@ class PhoneNumberInstance(InstanceResource):
     def sms_fallback_url(self):
         """
         :returns: The sms_fallback_url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sms_fallback_url']
 
@@ -411,7 +411,7 @@ class PhoneNumberInstance(InstanceResource):
     def sms_method(self):
         """
         :returns: The sms_method
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sms_method']
 
@@ -419,7 +419,7 @@ class PhoneNumberInstance(InstanceResource):
     def sms_url(self):
         """
         :returns: The sms_url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sms_url']
 
@@ -427,7 +427,7 @@ class PhoneNumberInstance(InstanceResource):
     def status_callback(self):
         """
         :returns: The status_callback
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['status_callback']
 
@@ -435,7 +435,7 @@ class PhoneNumberInstance(InstanceResource):
     def status_callback_method(self):
         """
         :returns: The status_callback_method
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['status_callback_method']
 
@@ -443,7 +443,7 @@ class PhoneNumberInstance(InstanceResource):
     def trunk_sid(self):
         """
         :returns: The trunk_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['trunk_sid']
 
@@ -451,7 +451,7 @@ class PhoneNumberInstance(InstanceResource):
     def url(self):
         """
         :returns: The url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['url']
 
@@ -459,7 +459,7 @@ class PhoneNumberInstance(InstanceResource):
     def voice_application_sid(self):
         """
         :returns: The voice_application_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['voice_application_sid']
 
@@ -475,7 +475,7 @@ class PhoneNumberInstance(InstanceResource):
     def voice_fallback_method(self):
         """
         :returns: The voice_fallback_method
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['voice_fallback_method']
 
@@ -483,7 +483,7 @@ class PhoneNumberInstance(InstanceResource):
     def voice_fallback_url(self):
         """
         :returns: The voice_fallback_url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['voice_fallback_url']
 
@@ -491,7 +491,7 @@ class PhoneNumberInstance(InstanceResource):
     def voice_method(self):
         """
         :returns: The voice_method
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['voice_method']
 
@@ -499,7 +499,7 @@ class PhoneNumberInstance(InstanceResource):
     def voice_url(self):
         """
         :returns: The voice_url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['voice_url']
 

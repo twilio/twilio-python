@@ -123,7 +123,7 @@ class IpAccessControlListList(ListResource):
         """
         Create a new IpAccessControlListInstance
         
-        :param str friendly_name: A human readable description of this resource
+        :param unicode friendly_name: A human readable description of this resource
         
         :returns: Newly created IpAccessControlListInstance
         :rtype: IpAccessControlListInstance
@@ -218,7 +218,7 @@ class IpAccessControlListContext(InstanceContext):
         """
         Update the IpAccessControlListInstance
         
-        :param str friendly_name: A human readable description of this resource
+        :param unicode friendly_name: A human readable description of this resource
         
         :returns: Updated IpAccessControlListInstance
         :rtype: IpAccessControlListInstance
@@ -321,7 +321,7 @@ class IpAccessControlListInstance(InstanceResource):
     def sid(self):
         """
         :returns: A string that uniquely identifies this resource
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -329,7 +329,7 @@ class IpAccessControlListInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The unique sid that identifies this account
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -337,7 +337,7 @@ class IpAccessControlListInstance(InstanceResource):
     def friendly_name(self):
         """
         :returns: A human readable description of this resource
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['friendly_name']
 
@@ -361,7 +361,7 @@ class IpAccessControlListInstance(InstanceResource):
     def subresource_uris(self):
         """
         :returns: The subresource_uris
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['subresource_uris']
 
@@ -369,7 +369,7 @@ class IpAccessControlListInstance(InstanceResource):
     def uri(self):
         """
         :returns: The URI for this resource
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 
@@ -386,7 +386,7 @@ class IpAccessControlListInstance(InstanceResource):
         """
         Update the IpAccessControlListInstance
         
-        :param str friendly_name: A human readable description of this resource
+        :param unicode friendly_name: A human readable description of this resource
         
         :returns: Updated IpAccessControlListInstance
         :rtype: IpAccessControlListInstance

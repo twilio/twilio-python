@@ -52,7 +52,7 @@ class ConferenceList(ListResource):
         :param date date_updated_before: Filter by date updated
         :param date date_updated: Filter by date updated
         :param date date_updated_after: Filter by date updated
-        :param str friendly_name: Filter by friendly name
+        :param unicode friendly_name: Filter by friendly name
         :param conference.status status: The status of the conference
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
@@ -106,7 +106,7 @@ class ConferenceList(ListResource):
         :param date date_updated_before: Filter by date updated
         :param date date_updated: Filter by date updated
         :param date date_updated_after: Filter by date updated
-        :param str friendly_name: Filter by friendly name
+        :param unicode friendly_name: Filter by friendly name
         :param conference.status status: The status of the conference
         :param int limit: Upper limit for the number of records to return. read() guarantees
                           never to return more than limit.  Default is no limit
@@ -147,7 +147,7 @@ class ConferenceList(ListResource):
         :param date date_updated_before: Filter by date updated
         :param date date_updated: Filter by date updated
         :param date date_updated_after: Filter by date updated
-        :param str friendly_name: Filter by friendly name
+        :param unicode friendly_name: Filter by friendly name
         :param conference.status status: The status of the conference
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
@@ -332,7 +332,7 @@ class ConferenceInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The unique sid that identifies this account
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -356,7 +356,7 @@ class ConferenceInstance(InstanceResource):
     def api_version(self):
         """
         :returns: The api_version
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['api_version']
 
@@ -364,7 +364,7 @@ class ConferenceInstance(InstanceResource):
     def friendly_name(self):
         """
         :returns: A human readable description of this resource
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['friendly_name']
 
@@ -372,7 +372,7 @@ class ConferenceInstance(InstanceResource):
     def sid(self):
         """
         :returns: A string that uniquely identifies this conference
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -388,7 +388,7 @@ class ConferenceInstance(InstanceResource):
     def uri(self):
         """
         :returns: The URI for this resource
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 

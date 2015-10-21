@@ -197,8 +197,8 @@ class ReservationContext(InstanceContext):
         """
         Update the ReservationInstance
         
-        :param str reservation_status: The reservation_status
-        :param str worker_activity_sid: The worker_activity_sid
+        :param unicode reservation_status: The reservation_status
+        :param unicode worker_activity_sid: The worker_activity_sid
         
         :returns: Updated ReservationInstance
         :rtype: ReservationInstance
@@ -281,7 +281,7 @@ class ReservationInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -305,7 +305,7 @@ class ReservationInstance(InstanceResource):
     def reservation_status(self):
         """
         :returns: The reservation_status
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['reservation_status']
 
@@ -313,7 +313,7 @@ class ReservationInstance(InstanceResource):
     def sid(self):
         """
         :returns: The sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -321,7 +321,7 @@ class ReservationInstance(InstanceResource):
     def task_sid(self):
         """
         :returns: The task_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['task_sid']
 
@@ -329,7 +329,7 @@ class ReservationInstance(InstanceResource):
     def worker_name(self):
         """
         :returns: The worker_name
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['worker_name']
 
@@ -337,7 +337,7 @@ class ReservationInstance(InstanceResource):
     def worker_sid(self):
         """
         :returns: The worker_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['worker_sid']
 
@@ -345,7 +345,7 @@ class ReservationInstance(InstanceResource):
     def workspace_sid(self):
         """
         :returns: The workspace_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['workspace_sid']
 
@@ -362,8 +362,8 @@ class ReservationInstance(InstanceResource):
         """
         Update the ReservationInstance
         
-        :param str reservation_status: The reservation_status
-        :param str worker_activity_sid: The worker_activity_sid
+        :param unicode reservation_status: The reservation_status
+        :param unicode worker_activity_sid: The worker_activity_sid
         
         :returns: Updated ReservationInstance
         :rtype: ReservationInstance

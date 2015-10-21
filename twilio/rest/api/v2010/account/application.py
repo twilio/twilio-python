@@ -44,21 +44,21 @@ class ApplicationList(ListResource):
         """
         Create a new ApplicationInstance
         
-        :param str friendly_name: Human readable description of this resource
-        :param str api_version: The API version to use
-        :param str voice_url: URL Twilio will make requests to when relieving a call
-        :param str voice_method: HTTP method to use with the URL
-        :param str voice_fallback_url: Fallback URL
-        :param str voice_fallback_method: HTTP method to use with the fallback url
-        :param str status_callback: URL to hit with status updates
-        :param str status_callback_method: HTTP method to use with the status callback
+        :param unicode friendly_name: Human readable description of this resource
+        :param unicode api_version: The API version to use
+        :param unicode voice_url: URL Twilio will make requests to when relieving a call
+        :param unicode voice_method: HTTP method to use with the URL
+        :param unicode voice_fallback_url: Fallback URL
+        :param unicode voice_fallback_method: HTTP method to use with the fallback url
+        :param unicode status_callback: URL to hit with status updates
+        :param unicode status_callback_method: HTTP method to use with the status callback
         :param bool voice_caller_id_lookup: True or False
-        :param str sms_url: URL Twilio will request when receiving an SMS
-        :param str sms_method: HTTP method to use with sms_url
-        :param str sms_fallback_url: Fallback URL if there's an error parsing TwiML
-        :param str sms_fallback_method: HTTP method to use with sms_fallback_method
-        :param str sms_status_callback: URL Twilio with request with status updates
-        :param str message_status_callback: URL to make requests to with status updates
+        :param unicode sms_url: URL Twilio will request when receiving an SMS
+        :param unicode sms_method: HTTP method to use with sms_url
+        :param unicode sms_fallback_url: Fallback URL if there's an error parsing TwiML
+        :param unicode sms_fallback_method: HTTP method to use with sms_fallback_method
+        :param unicode sms_status_callback: URL Twilio with request with status updates
+        :param unicode message_status_callback: URL to make requests to with status updates
         
         :returns: Newly created ApplicationInstance
         :rtype: ApplicationInstance
@@ -97,7 +97,7 @@ class ApplicationList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param str friendly_name: Filter by friendly name
+        :param unicode friendly_name: Filter by friendly name
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -134,7 +134,7 @@ class ApplicationList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param str friendly_name: Filter by friendly name
+        :param unicode friendly_name: Filter by friendly name
         :param int limit: Upper limit for the number of records to return. read() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -158,7 +158,7 @@ class ApplicationList(ListResource):
         Retrieve a single page of ApplicationInstance records from the API.
         Request is executed immediately
         
-        :param str friendly_name: Filter by friendly name
+        :param unicode friendly_name: Filter by friendly name
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -274,21 +274,21 @@ class ApplicationContext(InstanceContext):
         """
         Update the ApplicationInstance
         
-        :param str friendly_name: Human readable description of this resource
-        :param str api_version: The API version to use
-        :param str voice_url: URL Twilio will make requests to when relieving a call
-        :param str voice_method: HTTP method to use with the URL
-        :param str voice_fallback_url: Fallback URL
-        :param str voice_fallback_method: HTTP method to use with the fallback url
-        :param str status_callback: URL to hit with status updates
-        :param str status_callback_method: HTTP method to use with the status callback
+        :param unicode friendly_name: Human readable description of this resource
+        :param unicode api_version: The API version to use
+        :param unicode voice_url: URL Twilio will make requests to when relieving a call
+        :param unicode voice_method: HTTP method to use with the URL
+        :param unicode voice_fallback_url: Fallback URL
+        :param unicode voice_fallback_method: HTTP method to use with the fallback url
+        :param unicode status_callback: URL to hit with status updates
+        :param unicode status_callback_method: HTTP method to use with the status callback
         :param bool voice_caller_id_lookup: True or False
-        :param str sms_url: URL Twilio will request when receiving an SMS
-        :param str sms_method: HTTP method to use with sms_url
-        :param str sms_fallback_url: Fallback URL if there's an error parsing TwiML
-        :param str sms_fallback_method: HTTP method to use with sms_fallback_method
-        :param str sms_status_callback: URL Twilio with request with status updates
-        :param str message_status_callback: URL to make requests to with status updates
+        :param unicode sms_url: URL Twilio will request when receiving an SMS
+        :param unicode sms_method: HTTP method to use with sms_url
+        :param unicode sms_fallback_url: Fallback URL if there's an error parsing TwiML
+        :param unicode sms_fallback_method: HTTP method to use with sms_fallback_method
+        :param unicode sms_status_callback: URL Twilio with request with status updates
+        :param unicode message_status_callback: URL to make requests to with status updates
         
         :returns: Updated ApplicationInstance
         :rtype: ApplicationInstance
@@ -393,7 +393,7 @@ class ApplicationInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: A string that uniquely identifies this resource
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -401,7 +401,7 @@ class ApplicationInstance(InstanceResource):
     def api_version(self):
         """
         :returns: The API version to use
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['api_version']
 
@@ -425,7 +425,7 @@ class ApplicationInstance(InstanceResource):
     def friendly_name(self):
         """
         :returns: Human readable description of this resource
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['friendly_name']
 
@@ -433,7 +433,7 @@ class ApplicationInstance(InstanceResource):
     def message_status_callback(self):
         """
         :returns: URL to make requests to with status updates
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['message_status_callback']
 
@@ -441,7 +441,7 @@ class ApplicationInstance(InstanceResource):
     def sid(self):
         """
         :returns: A string that uniquely identifies this resource
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -449,7 +449,7 @@ class ApplicationInstance(InstanceResource):
     def sms_fallback_method(self):
         """
         :returns: HTTP method to use with sms_fallback_method
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sms_fallback_method']
 
@@ -457,7 +457,7 @@ class ApplicationInstance(InstanceResource):
     def sms_fallback_url(self):
         """
         :returns: Fallback URL if there's an error parsing TwiML
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sms_fallback_url']
 
@@ -465,7 +465,7 @@ class ApplicationInstance(InstanceResource):
     def sms_method(self):
         """
         :returns: HTTP method to use with sms_url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sms_method']
 
@@ -473,7 +473,7 @@ class ApplicationInstance(InstanceResource):
     def sms_status_callback(self):
         """
         :returns: URL Twilio with request with status updates
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sms_status_callback']
 
@@ -481,7 +481,7 @@ class ApplicationInstance(InstanceResource):
     def sms_url(self):
         """
         :returns: URL Twilio will request when receiving an SMS
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sms_url']
 
@@ -489,7 +489,7 @@ class ApplicationInstance(InstanceResource):
     def status_callback(self):
         """
         :returns: URL to hit with status updates
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['status_callback']
 
@@ -497,7 +497,7 @@ class ApplicationInstance(InstanceResource):
     def status_callback_method(self):
         """
         :returns: HTTP method to use with the status callback
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['status_callback_method']
 
@@ -505,7 +505,7 @@ class ApplicationInstance(InstanceResource):
     def uri(self):
         """
         :returns: URI for this resource
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 
@@ -521,7 +521,7 @@ class ApplicationInstance(InstanceResource):
     def voice_fallback_method(self):
         """
         :returns: HTTP method to use with the fallback url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['voice_fallback_method']
 
@@ -529,7 +529,7 @@ class ApplicationInstance(InstanceResource):
     def voice_fallback_url(self):
         """
         :returns: Fallback URL
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['voice_fallback_url']
 
@@ -537,7 +537,7 @@ class ApplicationInstance(InstanceResource):
     def voice_method(self):
         """
         :returns: HTTP method to use with the URL
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['voice_method']
 
@@ -545,7 +545,7 @@ class ApplicationInstance(InstanceResource):
     def voice_url(self):
         """
         :returns: URL Twilio will make requests to when relieving a call
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['voice_url']
 
@@ -578,21 +578,21 @@ class ApplicationInstance(InstanceResource):
         """
         Update the ApplicationInstance
         
-        :param str friendly_name: Human readable description of this resource
-        :param str api_version: The API version to use
-        :param str voice_url: URL Twilio will make requests to when relieving a call
-        :param str voice_method: HTTP method to use with the URL
-        :param str voice_fallback_url: Fallback URL
-        :param str voice_fallback_method: HTTP method to use with the fallback url
-        :param str status_callback: URL to hit with status updates
-        :param str status_callback_method: HTTP method to use with the status callback
+        :param unicode friendly_name: Human readable description of this resource
+        :param unicode api_version: The API version to use
+        :param unicode voice_url: URL Twilio will make requests to when relieving a call
+        :param unicode voice_method: HTTP method to use with the URL
+        :param unicode voice_fallback_url: Fallback URL
+        :param unicode voice_fallback_method: HTTP method to use with the fallback url
+        :param unicode status_callback: URL to hit with status updates
+        :param unicode status_callback_method: HTTP method to use with the status callback
         :param bool voice_caller_id_lookup: True or False
-        :param str sms_url: URL Twilio will request when receiving an SMS
-        :param str sms_method: HTTP method to use with sms_url
-        :param str sms_fallback_url: Fallback URL if there's an error parsing TwiML
-        :param str sms_fallback_method: HTTP method to use with sms_fallback_method
-        :param str sms_status_callback: URL Twilio with request with status updates
-        :param str message_status_callback: URL to make requests to with status updates
+        :param unicode sms_url: URL Twilio will request when receiving an SMS
+        :param unicode sms_method: HTTP method to use with sms_url
+        :param unicode sms_fallback_url: Fallback URL if there's an error parsing TwiML
+        :param unicode sms_fallback_method: HTTP method to use with sms_fallback_method
+        :param unicode sms_status_callback: URL Twilio with request with status updates
+        :param unicode message_status_callback: URL to make requests to with status updates
         
         :returns: Updated ApplicationInstance
         :rtype: ApplicationInstance

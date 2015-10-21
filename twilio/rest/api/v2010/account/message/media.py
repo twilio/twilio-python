@@ -289,7 +289,7 @@ class MediaInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The unique sid that identifies this account
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -297,7 +297,7 @@ class MediaInstance(InstanceResource):
     def content_type(self):
         """
         :returns: The default mime-type of the media
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['content_type']
 
@@ -321,7 +321,7 @@ class MediaInstance(InstanceResource):
     def parent_sid(self):
         """
         :returns: The unique id of the resource that created the media.
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['parent_sid']
 
@@ -329,7 +329,7 @@ class MediaInstance(InstanceResource):
     def sid(self):
         """
         :returns: A string that uniquely identifies this media
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -337,7 +337,7 @@ class MediaInstance(InstanceResource):
     def uri(self):
         """
         :returns: The URI for this resource
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 

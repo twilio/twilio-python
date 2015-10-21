@@ -88,7 +88,7 @@ class FeedbackContext(InstanceContext):
         """
         Create a new FeedbackInstance
         
-        :param str quality_score: The quality_score
+        :param unicode quality_score: The quality_score
         :param feedback.issues issue: The issue
         
         :returns: Newly created FeedbackInstance
@@ -128,7 +128,7 @@ class FeedbackContext(InstanceContext):
         """
         Update the FeedbackInstance
         
-        :param str quality_score: An integer from 1 to 5
+        :param unicode quality_score: An integer from 1 to 5
         :param feedback.issues issue: Issues experienced during the call
         
         :returns: Updated FeedbackInstance
@@ -207,7 +207,7 @@ class FeedbackInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -239,7 +239,7 @@ class FeedbackInstance(InstanceResource):
     def quality_score(self):
         """
         :returns: 1 to 5 quality score
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['quality_score']
 
@@ -247,7 +247,7 @@ class FeedbackInstance(InstanceResource):
     def sid(self):
         """
         :returns: The sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -255,7 +255,7 @@ class FeedbackInstance(InstanceResource):
         """
         Create a new FeedbackInstance
         
-        :param str quality_score: The quality_score
+        :param unicode quality_score: The quality_score
         :param feedback.issues issue: The issue
         
         :returns: Newly created FeedbackInstance
@@ -279,7 +279,7 @@ class FeedbackInstance(InstanceResource):
         """
         Update the FeedbackInstance
         
-        :param str quality_score: An integer from 1 to 5
+        :param unicode quality_score: An integer from 1 to 5
         :param feedback.issues issue: Issues experienced during the call
         
         :returns: Updated FeedbackInstance

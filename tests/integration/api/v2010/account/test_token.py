@@ -25,3 +25,33 @@ class TokenTestCase(IntegrationTestCase):
             'post',
             'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tokens.json',
         ))
+
+    def test_create_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_created": "Fri, 24 Jul 2015 18:43:58 +0000",
+                "date_updated": "Fri, 24 Jul 2015 18:43:58 +0000",
+                "ice_servers": [
+                    {
+                        "url": "stun:global.stun:3478?transport=udp"
+                    },
+                    {
+                        "credential": "5SR2x8mZK1lTFJW3NVgLGw6UM9C0dja4jI/Hdw3xr+w=",
+                        "url": "turn:global.turn:3478?transport=udp",
+                        "username": "cda92e5006c7810494639fc466ecc80182cef8183fdf400f84c4126f3b59d0bb"
+                    }
+                ],
+                "password": "5SR2x8mZK1lTFJW3NVgLGw6UM9C0dja4jI/Hdw3xr+w=",
+                "ttl": "86400",
+                "username": "cda92e5006c7810494639fc466ecc80182cef8183fdf400f84c4126f3b59d0bb"
+            }
+            '''
+        ))
+        
+        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                      .tokens.create()
+        
+        self.assertIsNotNone(actual)

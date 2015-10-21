@@ -41,7 +41,7 @@ class AlertList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param str log_level: The log_level
+        :param unicode log_level: The log_level
         :param date start_date_before: The start_date
         :param date start_date: The start_date
         :param date start_date_after: The start_date
@@ -92,7 +92,7 @@ class AlertList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param str log_level: The log_level
+        :param unicode log_level: The log_level
         :param date start_date_before: The start_date
         :param date start_date: The start_date
         :param date start_date_after: The start_date
@@ -131,7 +131,7 @@ class AlertList(ListResource):
         Retrieve a single page of AlertInstance records from the API.
         Request is executed immediately
         
-        :param str log_level: The log_level
+        :param unicode log_level: The log_level
         :param date start_date_before: The start_date
         :param date start_date: The start_date
         :param date start_date_after: The start_date
@@ -315,7 +315,7 @@ class AlertInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -323,7 +323,7 @@ class AlertInstance(InstanceResource):
     def alert_text(self):
         """
         :returns: The alert_text
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['alert_text']
 
@@ -331,7 +331,7 @@ class AlertInstance(InstanceResource):
     def api_version(self):
         """
         :returns: The api_version
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['api_version']
 
@@ -363,7 +363,7 @@ class AlertInstance(InstanceResource):
     def error_code(self):
         """
         :returns: The error_code
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['error_code']
 
@@ -371,7 +371,7 @@ class AlertInstance(InstanceResource):
     def log_level(self):
         """
         :returns: The log_level
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['log_level']
 
@@ -379,7 +379,7 @@ class AlertInstance(InstanceResource):
     def more_info(self):
         """
         :returns: The more_info
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['more_info']
 
@@ -387,7 +387,7 @@ class AlertInstance(InstanceResource):
     def request_method(self):
         """
         :returns: The request_method
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['request_method']
 
@@ -395,7 +395,7 @@ class AlertInstance(InstanceResource):
     def request_url(self):
         """
         :returns: The request_url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['request_url']
 
@@ -403,7 +403,7 @@ class AlertInstance(InstanceResource):
     def request_variables(self):
         """
         :returns: The request_variables
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['request_variables']
 
@@ -411,7 +411,7 @@ class AlertInstance(InstanceResource):
     def resource_sid(self):
         """
         :returns: The resource_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['resource_sid']
 
@@ -419,7 +419,7 @@ class AlertInstance(InstanceResource):
     def response_body(self):
         """
         :returns: The response_body
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['response_body']
 
@@ -427,7 +427,7 @@ class AlertInstance(InstanceResource):
     def response_headers(self):
         """
         :returns: The response_headers
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['response_headers']
 
@@ -435,7 +435,7 @@ class AlertInstance(InstanceResource):
     def sid(self):
         """
         :returns: The sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -443,7 +443,7 @@ class AlertInstance(InstanceResource):
     def url(self):
         """
         :returns: The url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['url']
 

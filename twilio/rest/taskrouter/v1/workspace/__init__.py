@@ -45,7 +45,7 @@ class WorkspaceList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param str friendly_name: The friendly_name
+        :param unicode friendly_name: The friendly_name
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -82,7 +82,7 @@ class WorkspaceList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param str friendly_name: The friendly_name
+        :param unicode friendly_name: The friendly_name
         :param int limit: Upper limit for the number of records to return. read() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -106,7 +106,7 @@ class WorkspaceList(ListResource):
         Retrieve a single page of WorkspaceInstance records from the API.
         Request is executed immediately
         
-        :param str friendly_name: The friendly_name
+        :param unicode friendly_name: The friendly_name
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -136,9 +136,9 @@ class WorkspaceList(ListResource):
         """
         Create a new WorkspaceInstance
         
-        :param str friendly_name: The friendly_name
-        :param str event_callback_url: The event_callback_url
-        :param str template: The template
+        :param unicode friendly_name: The friendly_name
+        :param unicode event_callback_url: The event_callback_url
+        :param unicode template: The template
         
         :returns: Newly created WorkspaceInstance
         :rtype: WorkspaceInstance
@@ -241,10 +241,10 @@ class WorkspaceContext(InstanceContext):
         """
         Update the WorkspaceInstance
         
-        :param str default_activity_sid: The default_activity_sid
-        :param str event_callback_url: The event_callback_url
-        :param str friendly_name: The friendly_name
-        :param str timeout_activity_sid: The timeout_activity_sid
+        :param unicode default_activity_sid: The default_activity_sid
+        :param unicode event_callback_url: The event_callback_url
+        :param unicode friendly_name: The friendly_name
+        :param unicode timeout_activity_sid: The timeout_activity_sid
         
         :returns: Updated WorkspaceInstance
         :rtype: WorkspaceInstance
@@ -440,7 +440,7 @@ class WorkspaceInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -464,7 +464,7 @@ class WorkspaceInstance(InstanceResource):
     def default_activity_name(self):
         """
         :returns: The default_activity_name
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['default_activity_name']
 
@@ -472,7 +472,7 @@ class WorkspaceInstance(InstanceResource):
     def default_activity_sid(self):
         """
         :returns: The default_activity_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['default_activity_sid']
 
@@ -480,7 +480,7 @@ class WorkspaceInstance(InstanceResource):
     def event_callback_url(self):
         """
         :returns: The event_callback_url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['event_callback_url']
 
@@ -488,7 +488,7 @@ class WorkspaceInstance(InstanceResource):
     def friendly_name(self):
         """
         :returns: The friendly_name
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['friendly_name']
 
@@ -496,7 +496,7 @@ class WorkspaceInstance(InstanceResource):
     def sid(self):
         """
         :returns: The sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -504,7 +504,7 @@ class WorkspaceInstance(InstanceResource):
     def timeout_activity_name(self):
         """
         :returns: The timeout_activity_name
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['timeout_activity_name']
 
@@ -512,7 +512,7 @@ class WorkspaceInstance(InstanceResource):
     def timeout_activity_sid(self):
         """
         :returns: The timeout_activity_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['timeout_activity_sid']
 
@@ -531,10 +531,10 @@ class WorkspaceInstance(InstanceResource):
         """
         Update the WorkspaceInstance
         
-        :param str default_activity_sid: The default_activity_sid
-        :param str event_callback_url: The event_callback_url
-        :param str friendly_name: The friendly_name
-        :param str timeout_activity_sid: The timeout_activity_sid
+        :param unicode default_activity_sid: The default_activity_sid
+        :param unicode event_callback_url: The event_callback_url
+        :param unicode friendly_name: The friendly_name
+        :param unicode timeout_activity_sid: The timeout_activity_sid
         
         :returns: Updated WorkspaceInstance
         :rtype: WorkspaceInstance

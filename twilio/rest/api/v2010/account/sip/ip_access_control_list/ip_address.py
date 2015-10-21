@@ -124,8 +124,8 @@ class IpAddressList(ListResource):
         """
         Create a new IpAddressInstance
         
-        :param str friendly_name: The friendly_name
-        :param str ip_address: The ip_address
+        :param unicode friendly_name: The friendly_name
+        :param unicode ip_address: The ip_address
         
         :returns: Newly created IpAddressInstance
         :rtype: IpAddressInstance
@@ -220,8 +220,8 @@ class IpAddressContext(InstanceContext):
         """
         Update the IpAddressInstance
         
-        :param str ip_address: The ip_address
-        :param str friendly_name: The friendly_name
+        :param unicode ip_address: The ip_address
+        :param unicode friendly_name: The friendly_name
         
         :returns: Updated IpAddressInstance
         :rtype: IpAddressInstance
@@ -313,7 +313,7 @@ class IpAddressInstance(InstanceResource):
     def sid(self):
         """
         :returns: The sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -321,7 +321,7 @@ class IpAddressInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -329,7 +329,7 @@ class IpAddressInstance(InstanceResource):
     def friendly_name(self):
         """
         :returns: The friendly_name
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['friendly_name']
 
@@ -337,7 +337,7 @@ class IpAddressInstance(InstanceResource):
     def ip_address(self):
         """
         :returns: The ip_address
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['ip_address']
 
@@ -345,7 +345,7 @@ class IpAddressInstance(InstanceResource):
     def ip_access_control_list_sid(self):
         """
         :returns: The ip_access_control_list_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['ip_access_control_list_sid']
 
@@ -369,7 +369,7 @@ class IpAddressInstance(InstanceResource):
     def uri(self):
         """
         :returns: The uri
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 
@@ -386,8 +386,8 @@ class IpAddressInstance(InstanceResource):
         """
         Update the IpAddressInstance
         
-        :param str ip_address: The ip_address
-        :param str friendly_name: The friendly_name
+        :param unicode ip_address: The ip_address
+        :param unicode friendly_name: The friendly_name
         
         :returns: Updated IpAddressInstance
         :rtype: IpAddressInstance

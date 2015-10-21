@@ -87,7 +87,7 @@ class WorkspaceStatisticsContext(InstanceContext):
         """
         Fetch a WorkspaceStatisticsInstance
         
-        :param str minutes: The minutes
+        :param unicode minutes: The minutes
         :param date start_date_before: The start_date
         :param date start_date: The start_date
         :param date start_date_after: The start_date
@@ -172,7 +172,7 @@ class WorkspaceStatisticsInstance(InstanceResource):
     def realtime(self):
         """
         :returns: The realtime
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['realtime']
 
@@ -180,7 +180,7 @@ class WorkspaceStatisticsInstance(InstanceResource):
     def cumulative(self):
         """
         :returns: The cumulative
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['cumulative']
 
@@ -188,7 +188,7 @@ class WorkspaceStatisticsInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -196,7 +196,7 @@ class WorkspaceStatisticsInstance(InstanceResource):
     def workspace_sid(self):
         """
         :returns: The workspace_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['workspace_sid']
 
@@ -207,7 +207,7 @@ class WorkspaceStatisticsInstance(InstanceResource):
         """
         Fetch a WorkspaceStatisticsInstance
         
-        :param str minutes: The minutes
+        :param unicode minutes: The minutes
         :param date start_date_before: The start_date
         :param date start_date: The start_date
         :param date start_date_after: The start_date

@@ -89,7 +89,7 @@ class WorkerStatisticsContext(InstanceContext):
         """
         Fetch a WorkerStatisticsInstance
         
-        :param str minutes: The minutes
+        :param unicode minutes: The minutes
         :param datetime start_date: The start_date
         :param datetime end_date: The end_date
         
@@ -168,7 +168,7 @@ class WorkerStatisticsInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -176,7 +176,7 @@ class WorkerStatisticsInstance(InstanceResource):
     def cumulative(self):
         """
         :returns: The cumulative
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['cumulative']
 
@@ -184,7 +184,7 @@ class WorkerStatisticsInstance(InstanceResource):
     def worker_sid(self):
         """
         :returns: The worker_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['worker_sid']
 
@@ -192,7 +192,7 @@ class WorkerStatisticsInstance(InstanceResource):
     def workspace_sid(self):
         """
         :returns: The workspace_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['workspace_sid']
 
@@ -201,7 +201,7 @@ class WorkerStatisticsInstance(InstanceResource):
         """
         Fetch a WorkerStatisticsInstance
         
-        :param str minutes: The minutes
+        :param unicode minutes: The minutes
         :param datetime start_date: The start_date
         :param datetime end_date: The end_date
         

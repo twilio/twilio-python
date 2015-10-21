@@ -24,3 +24,27 @@ class PhoneNumberTestCase(IntegrationTestCase):
             'get',
             'https://lookups.twilio.com/v1/PhoneNumbers/+987654321',
         ))
+
+    def test_fetch_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "carrier": {
+                    "error_code": null,
+                    "mobile_country_code": "310",
+                    "mobile_network_code": "456",
+                    "name": "verizon",
+                    "type": "mobile"
+                },
+                "country_code": "US",
+                "national_format": "(510) 867-5309",
+                "phone_number": "+15108675309",
+                "url": "https://lookups.twilio.com/v1/PhoneNumbers/phone_number"
+            }
+            '''
+        ))
+        
+        actual = self.twilio.lookups.v1.phone_numbers(phone_number="+987654321").fetch()
+        
+        self.assertIsNotNone(actual)

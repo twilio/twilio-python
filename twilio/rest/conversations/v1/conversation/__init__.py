@@ -207,7 +207,7 @@ class ConversationInstance(InstanceResource):
     def sid(self):
         """
         :returns: The sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -223,7 +223,7 @@ class ConversationInstance(InstanceResource):
     def duration(self):
         """
         :returns: The duration
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['duration']
 
@@ -255,7 +255,7 @@ class ConversationInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -263,7 +263,7 @@ class ConversationInstance(InstanceResource):
     def url(self):
         """
         :returns: The url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['url']
 

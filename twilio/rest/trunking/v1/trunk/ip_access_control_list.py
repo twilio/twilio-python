@@ -37,7 +37,7 @@ class IpAccessControlListList(ListResource):
         """
         Create a new IpAccessControlListInstance
         
-        :param str ip_access_control_list_sid: The ip_access_control_list_sid
+        :param unicode ip_access_control_list_sid: The ip_access_control_list_sid
         
         :returns: Newly created IpAccessControlListInstance
         :rtype: IpAccessControlListInstance
@@ -280,7 +280,7 @@ class IpAccessControlListInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -288,7 +288,7 @@ class IpAccessControlListInstance(InstanceResource):
     def sid(self):
         """
         :returns: The sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -296,7 +296,7 @@ class IpAccessControlListInstance(InstanceResource):
     def trunk_sid(self):
         """
         :returns: The trunk_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['trunk_sid']
 
@@ -304,7 +304,7 @@ class IpAccessControlListInstance(InstanceResource):
     def friendly_name(self):
         """
         :returns: The friendly_name
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['friendly_name']
 
@@ -328,7 +328,7 @@ class IpAccessControlListInstance(InstanceResource):
     def url(self):
         """
         :returns: The url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['url']
 

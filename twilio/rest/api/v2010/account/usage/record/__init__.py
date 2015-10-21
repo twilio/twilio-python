@@ -182,7 +182,7 @@ class RecordList(ListResource):
         return self._version.page(
             self,
             RecordInstance,
-            self._kwargs,
+            {},
             'GET',
             self._uri,
             params=params,
@@ -327,7 +327,7 @@ class RecordInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The Account that accrued the usage
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -335,7 +335,7 @@ class RecordInstance(InstanceResource):
     def api_version(self):
         """
         :returns: The api_version
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['api_version']
 
@@ -351,7 +351,7 @@ class RecordInstance(InstanceResource):
     def count(self):
         """
         :returns: The number of usage events (e.g. the number of calls).
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['count']
 
@@ -359,7 +359,7 @@ class RecordInstance(InstanceResource):
     def count_unit(self):
         """
         :returns: The unit in which `Count` is measured
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['count_unit']
 
@@ -367,7 +367,7 @@ class RecordInstance(InstanceResource):
     def description(self):
         """
         :returns: A human-readable description of the usage category.
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['description']
 
@@ -383,7 +383,7 @@ class RecordInstance(InstanceResource):
     def price(self):
         """
         :returns: The total price of the usage
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['price']
 
@@ -391,7 +391,7 @@ class RecordInstance(InstanceResource):
     def price_unit(self):
         """
         :returns: The currency in which `Price` is measured
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['price_unit']
 
@@ -407,7 +407,7 @@ class RecordInstance(InstanceResource):
     def subresource_uris(self):
         """
         :returns: Subresources Uris for this UsageRecord
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['subresource_uris']
 
@@ -415,7 +415,7 @@ class RecordInstance(InstanceResource):
     def uri(self):
         """
         :returns: The URI for this resource
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 
@@ -423,7 +423,7 @@ class RecordInstance(InstanceResource):
     def usage(self):
         """
         :returns: The amount of usage
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['usage']
 
@@ -431,7 +431,7 @@ class RecordInstance(InstanceResource):
     def usage_unit(self):
         """
         :returns: The units in which `Usage` is measured
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['usage_unit']
 

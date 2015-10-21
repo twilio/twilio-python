@@ -296,7 +296,7 @@ class ParticipantInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The unique sid that identifies this account
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -304,7 +304,7 @@ class ParticipantInstance(InstanceResource):
     def call_sid(self):
         """
         :returns: A string that uniquely identifies this call
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['call_sid']
 
@@ -312,7 +312,7 @@ class ParticipantInstance(InstanceResource):
     def conference_sid(self):
         """
         :returns: A string that uniquely identifies this conference
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['conference_sid']
 
@@ -360,7 +360,7 @@ class ParticipantInstance(InstanceResource):
     def uri(self):
         """
         :returns: The URI for this resource
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 

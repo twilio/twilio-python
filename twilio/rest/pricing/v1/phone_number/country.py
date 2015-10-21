@@ -238,7 +238,7 @@ class CountryInstance(InstanceResource):
     def country(self):
         """
         :returns: The country
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['country']
 
@@ -246,7 +246,7 @@ class CountryInstance(InstanceResource):
     def iso_country(self):
         """
         :returns: The iso_country
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['iso_country']
 
@@ -254,7 +254,7 @@ class CountryInstance(InstanceResource):
     def url(self):
         """
         :returns: The url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['url']
 

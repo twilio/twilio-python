@@ -304,7 +304,7 @@ class RecordingInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The unique sid that identifies this account
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -312,7 +312,7 @@ class RecordingInstance(InstanceResource):
     def api_version(self):
         """
         :returns: The version of the API in use during the recording.
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['api_version']
 
@@ -320,7 +320,7 @@ class RecordingInstance(InstanceResource):
     def call_sid(self):
         """
         :returns: The call during which the recording was made.
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['call_sid']
 
@@ -344,7 +344,7 @@ class RecordingInstance(InstanceResource):
     def duration(self):
         """
         :returns: The length of the recording, in seconds.
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['duration']
 
@@ -352,7 +352,7 @@ class RecordingInstance(InstanceResource):
     def sid(self):
         """
         :returns: A string that uniquely identifies this recording
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -360,7 +360,7 @@ class RecordingInstance(InstanceResource):
     def uri(self):
         """
         :returns: The URI for this resource
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 

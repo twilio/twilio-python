@@ -194,7 +194,7 @@ class Version(object):
         elif 'previous_page_uri' in payload:
             return payload['previous_page_uri']
 
-        raise TwilioException('Previous Page URL can not be parsed')
+        return None
 
     def next_page_url(self, payload):
         if 'meta' in payload and 'next_page_url' in payload['meta']:
@@ -202,7 +202,7 @@ class Version(object):
         elif 'next_page_uri' in payload:
             return payload['next_page_uri']
 
-        raise TwilioException('Next Page URL can not be parsed')
+        return None
 
     def load_page(self, payload):
         if 'meta' in payload and 'key' in payload['meta']:

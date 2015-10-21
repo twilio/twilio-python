@@ -38,12 +38,12 @@ class ValidationRequestList(ListResource):
         """
         Create a new ValidationRequestInstance
         
-        :param str phone_number: The phone_number
-        :param str friendly_name: The friendly_name
-        :param str call_delay: The call_delay
-        :param str extension: The extension
-        :param str status_callback: The status_callback
-        :param str status_callback_method: The status_callback_method
+        :param unicode phone_number: The phone_number
+        :param unicode friendly_name: The friendly_name
+        :param unicode call_delay: The call_delay
+        :param unicode extension: The extension
+        :param unicode status_callback: The status_callback
+        :param unicode status_callback_method: The status_callback_method
         
         :returns: Newly created ValidationRequestInstance
         :rtype: ValidationRequestInstance
@@ -59,7 +59,7 @@ class ValidationRequestList(ListResource):
         
         return self._version.create(
             ValidationRequestInstance,
-            self._kwargs,
+            {},
             'POST',
             self._uri,
             data=data,
@@ -99,7 +99,7 @@ class ValidationRequestInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -107,7 +107,7 @@ class ValidationRequestInstance(InstanceResource):
     def phone_number(self):
         """
         :returns: The phone_number
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['phone_number']
 
@@ -115,7 +115,7 @@ class ValidationRequestInstance(InstanceResource):
     def friendly_name(self):
         """
         :returns: The friendly_name
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['friendly_name']
 
@@ -123,7 +123,7 @@ class ValidationRequestInstance(InstanceResource):
     def validation_code(self):
         """
         :returns: The validation_code
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['validation_code']
 
@@ -131,7 +131,7 @@ class ValidationRequestInstance(InstanceResource):
     def call_sid(self):
         """
         :returns: The call_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['call_sid']
 

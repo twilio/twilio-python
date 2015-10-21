@@ -39,11 +39,11 @@ class TriggerList(ListResource):
         """
         Create a new TriggerInstance
         
-        :param str callback_url: URL Twilio will request when the trigger fires
-        :param str trigger_value: the value at which the trigger will fire
+        :param unicode callback_url: URL Twilio will request when the trigger fires
+        :param unicode trigger_value: the value at which the trigger will fire
         :param trigger.usage_category usage_category: The usage category the trigger watches
-        :param str callback_method: HTTP method to use with callback_url
-        :param str friendly_name: A user-specified, human-readable name for the trigger.
+        :param unicode callback_method: HTTP method to use with callback_url
+        :param unicode friendly_name: A user-specified, human-readable name for the trigger.
         :param trigger.recurring recurring: How this trigger recurs
         :param trigger.trigger_field trigger_by: The field in the UsageRecord that fires the trigger
         
@@ -251,9 +251,9 @@ class TriggerContext(InstanceContext):
         """
         Update the TriggerInstance
         
-        :param str callback_method: HTTP method to use with callback_url
-        :param str callback_url: URL Twilio will request when the trigger fires
-        :param str friendly_name: A user-specified, human-readable name for the trigger.
+        :param unicode callback_method: HTTP method to use with callback_url
+        :param unicode callback_url: URL Twilio will request when the trigger fires
+        :param unicode friendly_name: A user-specified, human-readable name for the trigger.
         
         :returns: Updated TriggerInstance
         :rtype: TriggerInstance
@@ -351,7 +351,7 @@ class TriggerInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account this trigger monitors.
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -359,7 +359,7 @@ class TriggerInstance(InstanceResource):
     def api_version(self):
         """
         :returns: The api_version
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['api_version']
 
@@ -367,7 +367,7 @@ class TriggerInstance(InstanceResource):
     def callback_method(self):
         """
         :returns: HTTP method to use with callback_url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['callback_method']
 
@@ -375,7 +375,7 @@ class TriggerInstance(InstanceResource):
     def callback_url(self):
         """
         :returns: URL Twilio will request when the trigger fires
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['callback_url']
 
@@ -383,7 +383,7 @@ class TriggerInstance(InstanceResource):
     def current_value(self):
         """
         :returns: The current value of the field the trigger is watching.
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['current_value']
 
@@ -415,7 +415,7 @@ class TriggerInstance(InstanceResource):
     def friendly_name(self):
         """
         :returns: A user-specified, human-readable name for the trigger.
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['friendly_name']
 
@@ -431,7 +431,7 @@ class TriggerInstance(InstanceResource):
     def sid(self):
         """
         :returns: The trigger's unique Sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -447,7 +447,7 @@ class TriggerInstance(InstanceResource):
     def trigger_value(self):
         """
         :returns: the value at which the trigger will fire
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['trigger_value']
 
@@ -455,7 +455,7 @@ class TriggerInstance(InstanceResource):
     def uri(self):
         """
         :returns: The URI for this resource
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 
@@ -471,7 +471,7 @@ class TriggerInstance(InstanceResource):
     def usage_record_uri(self):
         """
         :returns: The URI of the UsageRecord this trigger is watching
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['usage_record_uri']
 
@@ -489,9 +489,9 @@ class TriggerInstance(InstanceResource):
         """
         Update the TriggerInstance
         
-        :param str callback_method: HTTP method to use with callback_url
-        :param str callback_url: URL Twilio will request when the trigger fires
-        :param str friendly_name: A user-specified, human-readable name for the trigger.
+        :param unicode callback_method: HTTP method to use with callback_url
+        :param unicode callback_url: URL Twilio will request when the trigger fires
+        :param unicode friendly_name: A user-specified, human-readable name for the trigger.
         
         :returns: Updated TriggerInstance
         :rtype: TriggerInstance

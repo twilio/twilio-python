@@ -46,14 +46,14 @@ class EventList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
         
         :param datetime end_date: The end_date
-        :param str event_type: The event_type
-        :param str minutes: The minutes
-        :param str reservation_sid: The reservation_sid
+        :param unicode event_type: The event_type
+        :param unicode minutes: The minutes
+        :param unicode reservation_sid: The reservation_sid
         :param datetime start_date: The start_date
-        :param str task_queue_sid: The task_queue_sid
-        :param str task_sid: The task_sid
-        :param str worker_sid: The worker_sid
-        :param str workflow_sid: The workflow_sid
+        :param unicode task_queue_sid: The task_queue_sid
+        :param unicode task_sid: The task_sid
+        :param unicode worker_sid: The worker_sid
+        :param unicode workflow_sid: The workflow_sid
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -102,14 +102,14 @@ class EventList(ListResource):
         memory before returning.
         
         :param datetime end_date: The end_date
-        :param str event_type: The event_type
-        :param str minutes: The minutes
-        :param str reservation_sid: The reservation_sid
+        :param unicode event_type: The event_type
+        :param unicode minutes: The minutes
+        :param unicode reservation_sid: The reservation_sid
         :param datetime start_date: The start_date
-        :param str task_queue_sid: The task_queue_sid
-        :param str task_sid: The task_sid
-        :param str worker_sid: The worker_sid
-        :param str workflow_sid: The workflow_sid
+        :param unicode task_queue_sid: The task_queue_sid
+        :param unicode task_sid: The task_sid
+        :param unicode worker_sid: The worker_sid
+        :param unicode workflow_sid: The workflow_sid
         :param int limit: Upper limit for the number of records to return. read() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -146,14 +146,14 @@ class EventList(ListResource):
         Request is executed immediately
         
         :param datetime end_date: The end_date
-        :param str event_type: The event_type
-        :param str minutes: The minutes
-        :param str reservation_sid: The reservation_sid
+        :param unicode event_type: The event_type
+        :param unicode minutes: The minutes
+        :param unicode reservation_sid: The reservation_sid
         :param datetime start_date: The start_date
-        :param str task_queue_sid: The task_queue_sid
-        :param str task_sid: The task_sid
-        :param str worker_sid: The worker_sid
-        :param str workflow_sid: The workflow_sid
+        :param unicode task_queue_sid: The task_queue_sid
+        :param unicode task_sid: The task_sid
+        :param unicode worker_sid: The worker_sid
+        :param unicode workflow_sid: The workflow_sid
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -326,7 +326,7 @@ class EventInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -334,7 +334,7 @@ class EventInstance(InstanceResource):
     def actor_sid(self):
         """
         :returns: The actor_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['actor_sid']
 
@@ -342,7 +342,7 @@ class EventInstance(InstanceResource):
     def actor_type(self):
         """
         :returns: The actor_type
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['actor_type']
 
@@ -350,7 +350,7 @@ class EventInstance(InstanceResource):
     def actor_url(self):
         """
         :returns: The actor_url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['actor_url']
 
@@ -358,7 +358,7 @@ class EventInstance(InstanceResource):
     def description(self):
         """
         :returns: The description
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['description']
 
@@ -366,7 +366,7 @@ class EventInstance(InstanceResource):
     def event_data(self):
         """
         :returns: The event_data
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['event_data']
 
@@ -382,7 +382,7 @@ class EventInstance(InstanceResource):
     def event_type(self):
         """
         :returns: The event_type
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['event_type']
 
@@ -390,7 +390,7 @@ class EventInstance(InstanceResource):
     def resource_sid(self):
         """
         :returns: The resource_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['resource_sid']
 
@@ -398,7 +398,7 @@ class EventInstance(InstanceResource):
     def resource_type(self):
         """
         :returns: The resource_type
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['resource_type']
 
@@ -406,7 +406,7 @@ class EventInstance(InstanceResource):
     def resource_url(self):
         """
         :returns: The resource_url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['resource_url']
 
@@ -414,7 +414,7 @@ class EventInstance(InstanceResource):
     def sid(self):
         """
         :returns: The sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -422,7 +422,7 @@ class EventInstance(InstanceResource):
     def source(self):
         """
         :returns: The source
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['source']
 
@@ -430,7 +430,7 @@ class EventInstance(InstanceResource):
     def source_ip_address(self):
         """
         :returns: The source_ip_address
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['source_ip_address']
 
@@ -438,7 +438,7 @@ class EventInstance(InstanceResource):
     def url(self):
         """
         :returns: The url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['url']
 

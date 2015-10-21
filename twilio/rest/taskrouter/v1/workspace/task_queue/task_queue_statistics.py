@@ -90,8 +90,8 @@ class TaskQueueStatisticsContext(InstanceContext):
         Fetch a TaskQueueStatisticsInstance
         
         :param datetime end_date: The end_date
-        :param str friendly_name: The friendly_name
-        :param str minutes: The minutes
+        :param unicode friendly_name: The friendly_name
+        :param unicode minutes: The minutes
         :param datetime start_date: The start_date
         
         :returns: Fetched TaskQueueStatisticsInstance
@@ -171,7 +171,7 @@ class TaskQueueStatisticsInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -179,7 +179,7 @@ class TaskQueueStatisticsInstance(InstanceResource):
     def cumulative(self):
         """
         :returns: The cumulative
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['cumulative']
 
@@ -187,7 +187,7 @@ class TaskQueueStatisticsInstance(InstanceResource):
     def realtime(self):
         """
         :returns: The realtime
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['realtime']
 
@@ -195,7 +195,7 @@ class TaskQueueStatisticsInstance(InstanceResource):
     def task_queue_sid(self):
         """
         :returns: The task_queue_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['task_queue_sid']
 
@@ -203,7 +203,7 @@ class TaskQueueStatisticsInstance(InstanceResource):
     def workspace_sid(self):
         """
         :returns: The workspace_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['workspace_sid']
 
@@ -213,8 +213,8 @@ class TaskQueueStatisticsInstance(InstanceResource):
         Fetch a TaskQueueStatisticsInstance
         
         :param datetime end_date: The end_date
-        :param str friendly_name: The friendly_name
-        :param str minutes: The minutes
+        :param unicode friendly_name: The friendly_name
+        :param unicode minutes: The minutes
         :param datetime start_date: The start_date
         
         :returns: Fetched TaskQueueStatisticsInstance

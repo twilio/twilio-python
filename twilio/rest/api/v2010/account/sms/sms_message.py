@@ -40,12 +40,12 @@ class SmsMessageList(ListResource):
         """
         Create a new SmsMessageInstance
         
-        :param str to: The to
-        :param str from_: The from
-        :param str status_callback: The status_callback
-        :param str application_sid: The application_sid
-        :param str body: The body
-        :param str media_url: The media_url
+        :param unicode to: The to
+        :param unicode from_: The from
+        :param unicode status_callback: The status_callback
+        :param unicode application_sid: The application_sid
+        :param unicode body: The body
+        :param unicode media_url: The media_url
         
         :returns: Newly created SmsMessageInstance
         :rtype: SmsMessageInstance
@@ -76,8 +76,8 @@ class SmsMessageList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param str to: The to
-        :param str from_: The from
+        :param unicode to: The to
+        :param unicode from_: The from
         :param date date_sent_before: The date_sent
         :param date date_sent: The date_sent
         :param date date_sent_after: The date_sent
@@ -122,8 +122,8 @@ class SmsMessageList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param str to: The to
-        :param str from_: The from
+        :param unicode to: The to
+        :param unicode from_: The from
         :param date date_sent_before: The date_sent
         :param date date_sent: The date_sent
         :param date date_sent_after: The date_sent
@@ -156,8 +156,8 @@ class SmsMessageList(ListResource):
         Retrieve a single page of SmsMessageInstance records from the API.
         Request is executed immediately
         
-        :param str to: The to
-        :param str from_: The from
+        :param unicode to: The to
+        :param unicode from_: The from
         :param date date_sent_before: The date_sent
         :param date date_sent: The date_sent
         :param date date_sent_after: The date_sent
@@ -273,7 +273,7 @@ class SmsMessageContext(InstanceContext):
         """
         Update the SmsMessageInstance
         
-        :param str body: The body
+        :param unicode body: The body
         
         :returns: Updated SmsMessageInstance
         :rtype: SmsMessageInstance
@@ -358,7 +358,7 @@ class SmsMessageInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -366,7 +366,7 @@ class SmsMessageInstance(InstanceResource):
     def api_version(self):
         """
         :returns: The api_version
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['api_version']
 
@@ -374,7 +374,7 @@ class SmsMessageInstance(InstanceResource):
     def body(self):
         """
         :returns: The body
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['body']
 
@@ -414,7 +414,7 @@ class SmsMessageInstance(InstanceResource):
     def from_(self):
         """
         :returns: The from
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['from_']
 
@@ -422,7 +422,7 @@ class SmsMessageInstance(InstanceResource):
     def price(self):
         """
         :returns: The price
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['price']
 
@@ -430,7 +430,7 @@ class SmsMessageInstance(InstanceResource):
     def price_unit(self):
         """
         :returns: The price_unit
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['price_unit']
 
@@ -438,7 +438,7 @@ class SmsMessageInstance(InstanceResource):
     def sid(self):
         """
         :returns: The sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -454,7 +454,7 @@ class SmsMessageInstance(InstanceResource):
     def to(self):
         """
         :returns: The to
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['to']
 
@@ -462,7 +462,7 @@ class SmsMessageInstance(InstanceResource):
     def uri(self):
         """
         :returns: The uri
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 
@@ -488,7 +488,7 @@ class SmsMessageInstance(InstanceResource):
         """
         Update the SmsMessageInstance
         
-        :param str body: The body
+        :param unicode body: The body
         
         :returns: Updated SmsMessageInstance
         :rtype: SmsMessageInstance

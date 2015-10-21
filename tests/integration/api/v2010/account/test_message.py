@@ -32,6 +32,41 @@ class MessageTestCase(IntegrationTestCase):
             data=values,
         ))
 
+    def test_create_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "api_version": "2010-04-01",
+                "body": "O Slash: \u00d8, PoP: \ud83d\udca9",
+                "date_created": "Thu, 30 Jul 2015 20:12:31 +0000",
+                "date_sent": "Thu, 30 Jul 2015 20:12:33 +0000",
+                "date_updated": "Thu, 30 Jul 2015 20:12:33 +0000",
+                "direction": "outbound-api",
+                "error_code": null,
+                "error_message": null,
+                "from": "+14155552345",
+                "num_media": "0",
+                "num_segments": "1",
+                "price": "-0.00750",
+                "price_unit": "USD",
+                "sid": "SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "status": "sent",
+                "subresource_uris": {
+                    "media": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media.json"
+                },
+                "to": "+14155552345",
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+            }
+            '''
+        ))
+        
+        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                      .messages.create(to="+123456789", from_="+987654321")
+        
+        self.assertIsNotNone(actual)
+
     def test_delete_request(self):
         self.holodeck.mock(Response(500, ''))
         
@@ -43,6 +78,17 @@ class MessageTestCase(IntegrationTestCase):
             'delete',
             'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
         ))
+
+    def test_delete_response(self):
+        self.holodeck.mock(Response(
+            204,
+            None,
+        ))
+        
+        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                      .messages(sid="MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        
+        self.assertTrue(actual)
 
     def test_fetch_request(self):
         self.holodeck.mock(Response(500, ''))
@@ -56,6 +102,41 @@ class MessageTestCase(IntegrationTestCase):
             'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
         ))
 
+    def test_fetch_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "api_version": "2010-04-01",
+                "body": "O Slash: \u00d8, PoP: \ud83d\udca9",
+                "date_created": "Thu, 30 Jul 2015 20:12:31 +0000",
+                "date_sent": "Thu, 30 Jul 2015 20:12:33 +0000",
+                "date_updated": "Thu, 30 Jul 2015 20:12:33 +0000",
+                "direction": "outbound-api",
+                "error_code": null,
+                "error_message": null,
+                "from": "+14155552345",
+                "num_media": "0",
+                "num_segments": "1",
+                "price": "-0.00750",
+                "price_unit": "USD",
+                "sid": "SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "status": "sent",
+                "subresource_uris": {
+                    "media": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media.json"
+                },
+                "to": "+14155552345",
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+            }
+            '''
+        ))
+        
+        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                      .messages(sid="MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        
+        self.assertIsNotNone(actual)
+
     def test_read_request(self):
         self.holodeck.mock(Response(500, ''))
         
@@ -68,6 +149,82 @@ class MessageTestCase(IntegrationTestCase):
             'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json',
         ))
 
+    def test_read_full_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "end": 0,
+                "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?PageSize=1&Page=0",
+                "last_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?PageSize=1&Page=119771",
+                "messages": [
+                    {
+                        "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "api_version": "2010-04-01",
+                        "body": "O Slash: \u00d8, PoP: \ud83d\udca9",
+                        "date_created": "Fri, 04 Sep 2015 22:54:39 +0000",
+                        "date_sent": "Fri, 04 Sep 2015 22:54:41 +0000",
+                        "date_updated": "Fri, 04 Sep 2015 22:54:41 +0000",
+                        "direction": "outbound-api",
+                        "error_code": null,
+                        "error_message": null,
+                        "from": "+14155552345",
+                        "num_media": "0",
+                        "num_segments": "1",
+                        "price": "-0.00750",
+                        "price_unit": "USD",
+                        "sid": "SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "status": "sent",
+                        "subresource_uris": {
+                            "media": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media.json"
+                        },
+                        "to": "+14155552345",
+                        "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+                    }
+                ],
+                "next_page_uri": null,
+                "num_pages": 119772,
+                "page": 0,
+                "page_size": 1,
+                "previous_page_uri": null,
+                "start": 0,
+                "total": 119772,
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?PageSize=1&Page=0"
+            }
+            '''
+        ))
+        
+        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                      .messages.read()
+        
+        self.assertIsNotNone(actual)
+
+    def test_read_empty_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "end": 0,
+                "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?PageSize=1&Page=0",
+                "last_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?PageSize=1&Page=119771",
+                "messages": [],
+                "next_page_uri": null,
+                "num_pages": 119772,
+                "page": 0,
+                "page_size": 1,
+                "previous_page_uri": null,
+                "start": 0,
+                "total": 119772,
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?PageSize=1&Page=0"
+            }
+            '''
+        ))
+        
+        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                      .messages.read()
+        
+        self.assertIsNotNone(actual)
+
     def test_update_request(self):
         self.holodeck.mock(Response(500, ''))
         
@@ -79,3 +236,38 @@ class MessageTestCase(IntegrationTestCase):
             'post',
             'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
         ))
+
+    def test_update_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "api_version": "2010-04-01",
+                "body": "O Slash: \u00d8, PoP: \ud83d\udca9",
+                "date_created": "Thu, 30 Jul 2015 20:12:31 +0000",
+                "date_sent": "Thu, 30 Jul 2015 20:12:33 +0000",
+                "date_updated": "Thu, 30 Jul 2015 20:12:33 +0000",
+                "direction": "outbound-api",
+                "error_code": null,
+                "error_message": null,
+                "from": "+14155552345",
+                "num_media": "0",
+                "num_segments": "1",
+                "price": "-0.00750",
+                "price_unit": "USD",
+                "sid": "SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "status": "sent",
+                "subresource_uris": {
+                    "media": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media.json"
+                },
+                "to": "+14155552345",
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+            }
+            '''
+        ))
+        
+        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                      .messages(sid="MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+        
+        self.assertIsNotNone(actual)

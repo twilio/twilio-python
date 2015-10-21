@@ -128,14 +128,14 @@ class DomainList(ListResource):
         """
         Create a new DomainInstance
         
-        :param str domain_name: The unique address on Twilio to route SIP traffic
-        :param str friendly_name: A user-specified, human-readable name for the trigger.
-        :param str voice_url: URL Twilio will request when receiving a call
-        :param str voice_method: HTTP method to use with voice_url
-        :param str voice_fallback_url: URL Twilio will request if an error occurs in executing TwiML
-        :param str voice_fallback_method: HTTP method used with voice_fallback_url
-        :param str voice_status_callback_url: URL that Twilio will request with status updates
-        :param str voice_status_callback_method: The voice_status_callback_method
+        :param unicode domain_name: The unique address on Twilio to route SIP traffic
+        :param unicode friendly_name: A user-specified, human-readable name for the trigger.
+        :param unicode voice_url: URL Twilio will request when receiving a call
+        :param unicode voice_method: HTTP method to use with voice_url
+        :param unicode voice_fallback_url: URL Twilio will request if an error occurs in executing TwiML
+        :param unicode voice_fallback_method: HTTP method used with voice_fallback_url
+        :param unicode voice_status_callback_url: URL that Twilio will request with status updates
+        :param unicode voice_status_callback_method: The voice_status_callback_method
         
         :returns: Newly created DomainInstance
         :rtype: DomainInstance
@@ -241,14 +241,14 @@ class DomainContext(InstanceContext):
         """
         Update the DomainInstance
         
-        :param str api_version: The api_version
-        :param str friendly_name: A user-specified, human-readable name for the trigger.
-        :param str voice_fallback_method: The voice_fallback_method
-        :param str voice_fallback_url: The voice_fallback_url
-        :param str voice_method: HTTP method to use with voice_url
-        :param str voice_status_callback_method: The voice_status_callback_method
-        :param str voice_status_callback_url: The voice_status_callback_url
-        :param str voice_url: The voice_url
+        :param unicode api_version: The api_version
+        :param unicode friendly_name: A user-specified, human-readable name for the trigger.
+        :param unicode voice_fallback_method: The voice_fallback_method
+        :param unicode voice_fallback_url: The voice_fallback_url
+        :param unicode voice_method: HTTP method to use with voice_url
+        :param unicode voice_status_callback_method: The voice_status_callback_method
+        :param unicode voice_status_callback_url: The voice_status_callback_url
+        :param unicode voice_url: The voice_url
         
         :returns: Updated DomainInstance
         :rtype: DomainInstance
@@ -382,7 +382,7 @@ class DomainInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The unique id of the account that sent the message
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -390,7 +390,7 @@ class DomainInstance(InstanceResource):
     def api_version(self):
         """
         :returns: The Twilio API version used to process the message
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['api_version']
 
@@ -398,7 +398,7 @@ class DomainInstance(InstanceResource):
     def auth_type(self):
         """
         :returns: The types of authentication mapped to the domain
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['auth_type']
 
@@ -422,7 +422,7 @@ class DomainInstance(InstanceResource):
     def domain_name(self):
         """
         :returns: The unique address on Twilio to route SIP traffic
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['domain_name']
 
@@ -430,7 +430,7 @@ class DomainInstance(InstanceResource):
     def friendly_name(self):
         """
         :returns: A user-specified, human-readable name for the trigger.
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['friendly_name']
 
@@ -438,7 +438,7 @@ class DomainInstance(InstanceResource):
     def sid(self):
         """
         :returns: A string that uniquely identifies the SIP Domain
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -446,7 +446,7 @@ class DomainInstance(InstanceResource):
     def uri(self):
         """
         :returns: The URI for this resource
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 
@@ -454,7 +454,7 @@ class DomainInstance(InstanceResource):
     def voice_fallback_method(self):
         """
         :returns: HTTP method used with voice_fallback_url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['voice_fallback_method']
 
@@ -462,7 +462,7 @@ class DomainInstance(InstanceResource):
     def voice_fallback_url(self):
         """
         :returns: URL Twilio will request if an error occurs in executing TwiML
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['voice_fallback_url']
 
@@ -470,7 +470,7 @@ class DomainInstance(InstanceResource):
     def voice_method(self):
         """
         :returns: HTTP method to use with voice_url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['voice_method']
 
@@ -478,7 +478,7 @@ class DomainInstance(InstanceResource):
     def voice_status_callback_method(self):
         """
         :returns: The voice_status_callback_method
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['voice_status_callback_method']
 
@@ -486,7 +486,7 @@ class DomainInstance(InstanceResource):
     def voice_status_callback_url(self):
         """
         :returns: URL that Twilio will request with status updates
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['voice_status_callback_url']
 
@@ -494,7 +494,7 @@ class DomainInstance(InstanceResource):
     def voice_url(self):
         """
         :returns: URL Twilio will request when receiving a call
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['voice_url']
 
@@ -514,14 +514,14 @@ class DomainInstance(InstanceResource):
         """
         Update the DomainInstance
         
-        :param str api_version: The api_version
-        :param str friendly_name: A user-specified, human-readable name for the trigger.
-        :param str voice_fallback_method: The voice_fallback_method
-        :param str voice_fallback_url: The voice_fallback_url
-        :param str voice_method: HTTP method to use with voice_url
-        :param str voice_status_callback_method: The voice_status_callback_method
-        :param str voice_status_callback_url: The voice_status_callback_url
-        :param str voice_url: The voice_url
+        :param unicode api_version: The api_version
+        :param unicode friendly_name: A user-specified, human-readable name for the trigger.
+        :param unicode voice_fallback_method: The voice_fallback_method
+        :param unicode voice_fallback_url: The voice_fallback_url
+        :param unicode voice_method: HTTP method to use with voice_url
+        :param unicode voice_status_callback_method: The voice_status_callback_method
+        :param unicode voice_status_callback_url: The voice_status_callback_url
+        :param unicode voice_url: The voice_url
         
         :returns: Updated DomainInstance
         :rtype: DomainInstance

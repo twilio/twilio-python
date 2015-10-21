@@ -156,7 +156,7 @@ class NumberInstance(InstanceResource):
     def number(self):
         """
         :returns: The number
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['number']
 
@@ -164,7 +164,7 @@ class NumberInstance(InstanceResource):
     def country(self):
         """
         :returns: The country
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['country']
 
@@ -172,7 +172,7 @@ class NumberInstance(InstanceResource):
     def iso_country(self):
         """
         :returns: The iso_country
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['iso_country']
 
@@ -180,7 +180,7 @@ class NumberInstance(InstanceResource):
     def outbound_call_price(self):
         """
         :returns: The outbound_call_price
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['outbound_call_price']
 
@@ -188,7 +188,7 @@ class NumberInstance(InstanceResource):
     def inbound_call_price(self):
         """
         :returns: The inbound_call_price
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['inbound_call_price']
 
@@ -196,7 +196,7 @@ class NumberInstance(InstanceResource):
     def price_unit(self):
         """
         :returns: The price_unit
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['price_unit']
 
@@ -204,7 +204,7 @@ class NumberInstance(InstanceResource):
     def url(self):
         """
         :returns: The url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['url']
 

@@ -120,7 +120,7 @@ class LocalList(ListResource):
         return self._version.page(
             self,
             LocalInstance,
-            self._kwargs,
+            {},
             'GET',
             self._uri,
             params=params,
@@ -167,7 +167,7 @@ class LocalInstance(InstanceResource):
     def friendly_name(self):
         """
         :returns: The friendly_name
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['friendly_name']
 
@@ -175,7 +175,7 @@ class LocalInstance(InstanceResource):
     def phone_number(self):
         """
         :returns: The phone_number
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['phone_number']
 
@@ -183,7 +183,7 @@ class LocalInstance(InstanceResource):
     def lata(self):
         """
         :returns: The lata
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['lata']
 
@@ -191,7 +191,7 @@ class LocalInstance(InstanceResource):
     def rate_center(self):
         """
         :returns: The rate_center
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['rate_center']
 
@@ -199,7 +199,7 @@ class LocalInstance(InstanceResource):
     def latitude(self):
         """
         :returns: The latitude
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['latitude']
 
@@ -207,7 +207,7 @@ class LocalInstance(InstanceResource):
     def longitude(self):
         """
         :returns: The longitude
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['longitude']
 
@@ -215,7 +215,7 @@ class LocalInstance(InstanceResource):
     def region(self):
         """
         :returns: The region
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['region']
 
@@ -223,7 +223,7 @@ class LocalInstance(InstanceResource):
     def postal_code(self):
         """
         :returns: The postal_code
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['postal_code']
 
@@ -231,7 +231,7 @@ class LocalInstance(InstanceResource):
     def iso_country(self):
         """
         :returns: The iso_country
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['iso_country']
 
@@ -239,7 +239,7 @@ class LocalInstance(InstanceResource):
     def address_requirements(self):
         """
         :returns: The address_requirements
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['address_requirements']
 
@@ -255,7 +255,7 @@ class LocalInstance(InstanceResource):
     def capabilities(self):
         """
         :returns: The capabilities
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['capabilities']
 

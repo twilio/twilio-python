@@ -271,7 +271,7 @@ class TranscriptionInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -279,7 +279,7 @@ class TranscriptionInstance(InstanceResource):
     def api_version(self):
         """
         :returns: The api_version
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['api_version']
 
@@ -303,7 +303,7 @@ class TranscriptionInstance(InstanceResource):
     def duration(self):
         """
         :returns: The duration
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['duration']
 
@@ -311,7 +311,7 @@ class TranscriptionInstance(InstanceResource):
     def price(self):
         """
         :returns: The price
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['price']
 
@@ -319,7 +319,7 @@ class TranscriptionInstance(InstanceResource):
     def price_unit(self):
         """
         :returns: The price_unit
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['price_unit']
 
@@ -327,7 +327,7 @@ class TranscriptionInstance(InstanceResource):
     def recording_sid(self):
         """
         :returns: The recording_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['recording_sid']
 
@@ -335,7 +335,7 @@ class TranscriptionInstance(InstanceResource):
     def sid(self):
         """
         :returns: The sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -351,7 +351,7 @@ class TranscriptionInstance(InstanceResource):
     def transcription_text(self):
         """
         :returns: The transcription_text
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['transcription_text']
 
@@ -359,7 +359,7 @@ class TranscriptionInstance(InstanceResource):
     def type(self):
         """
         :returns: The type
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['type']
 
@@ -367,7 +367,7 @@ class TranscriptionInstance(InstanceResource):
     def uri(self):
         """
         :returns: The uri
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 

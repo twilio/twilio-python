@@ -44,12 +44,12 @@ class TaskList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param str priority: The priority
+        :param unicode priority: The priority
         :param task.status assignment_status: The assignment_status
-        :param str workflow_sid: The workflow_sid
-        :param str workflow_name: The workflow_name
-        :param str task_queue_sid: The task_queue_sid
-        :param str task_queue_name: The task_queue_name
+        :param unicode workflow_sid: The workflow_sid
+        :param unicode workflow_name: The workflow_name
+        :param unicode task_queue_sid: The task_queue_sid
+        :param unicode task_queue_name: The task_queue_name
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -93,12 +93,12 @@ class TaskList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param str priority: The priority
+        :param unicode priority: The priority
         :param task.status assignment_status: The assignment_status
-        :param str workflow_sid: The workflow_sid
-        :param str workflow_name: The workflow_name
-        :param str task_queue_sid: The task_queue_sid
-        :param str task_queue_name: The task_queue_name
+        :param unicode workflow_sid: The workflow_sid
+        :param unicode workflow_name: The workflow_name
+        :param unicode task_queue_sid: The task_queue_sid
+        :param unicode task_queue_name: The task_queue_name
         :param int limit: Upper limit for the number of records to return. read() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -129,12 +129,12 @@ class TaskList(ListResource):
         Retrieve a single page of TaskInstance records from the API.
         Request is executed immediately
         
-        :param str priority: The priority
+        :param unicode priority: The priority
         :param task.status assignment_status: The assignment_status
-        :param str workflow_sid: The workflow_sid
-        :param str workflow_name: The workflow_name
-        :param str task_queue_sid: The task_queue_sid
-        :param str task_queue_name: The task_queue_name
+        :param unicode workflow_sid: The workflow_sid
+        :param unicode workflow_name: The workflow_name
+        :param unicode task_queue_sid: The task_queue_sid
+        :param unicode task_queue_name: The task_queue_name
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -169,10 +169,10 @@ class TaskList(ListResource):
         """
         Create a new TaskInstance
         
-        :param str attributes: The attributes
-        :param str workflow_sid: The workflow_sid
-        :param str timeout: The timeout
-        :param str priority: The priority
+        :param unicode attributes: The attributes
+        :param unicode workflow_sid: The workflow_sid
+        :param unicode timeout: The timeout
+        :param unicode priority: The priority
         
         :returns: Newly created TaskInstance
         :rtype: TaskInstance
@@ -271,10 +271,10 @@ class TaskContext(InstanceContext):
         """
         Update the TaskInstance
         
-        :param str attributes: The attributes
+        :param unicode attributes: The attributes
         :param task.status assignment_status: The assignment_status
-        :param str reason: The reason
-        :param str priority: The priority
+        :param unicode reason: The reason
+        :param unicode priority: The priority
         
         :returns: Updated TaskInstance
         :rtype: TaskInstance
@@ -386,7 +386,7 @@ class TaskInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -394,7 +394,7 @@ class TaskInstance(InstanceResource):
     def age(self):
         """
         :returns: The age
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['age']
 
@@ -410,7 +410,7 @@ class TaskInstance(InstanceResource):
     def attributes(self):
         """
         :returns: The attributes
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['attributes']
 
@@ -434,7 +434,7 @@ class TaskInstance(InstanceResource):
     def priority(self):
         """
         :returns: The priority
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['priority']
 
@@ -442,7 +442,7 @@ class TaskInstance(InstanceResource):
     def reason(self):
         """
         :returns: The reason
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['reason']
 
@@ -450,7 +450,7 @@ class TaskInstance(InstanceResource):
     def sid(self):
         """
         :returns: The sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -458,7 +458,7 @@ class TaskInstance(InstanceResource):
     def task_queue_sid(self):
         """
         :returns: The task_queue_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['task_queue_sid']
 
@@ -466,7 +466,7 @@ class TaskInstance(InstanceResource):
     def timeout(self):
         """
         :returns: The timeout
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['timeout']
 
@@ -474,7 +474,7 @@ class TaskInstance(InstanceResource):
     def workflow_sid(self):
         """
         :returns: The workflow_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['workflow_sid']
 
@@ -482,7 +482,7 @@ class TaskInstance(InstanceResource):
     def workspace_sid(self):
         """
         :returns: The workspace_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['workspace_sid']
 
@@ -500,10 +500,10 @@ class TaskInstance(InstanceResource):
         """
         Update the TaskInstance
         
-        :param str attributes: The attributes
+        :param unicode attributes: The attributes
         :param task.status assignment_status: The assignment_status
-        :param str reason: The reason
-        :param str priority: The priority
+        :param unicode reason: The reason
+        :param unicode priority: The priority
         
         :returns: Updated TaskInstance
         :rtype: TaskInstance

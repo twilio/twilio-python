@@ -48,13 +48,13 @@ class WorkerList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param str activity_name: The activity_name
-        :param str activity_sid: The activity_sid
-        :param str available: The available
-        :param str friendly_name: The friendly_name
-        :param str target_workers_expression: The target_workers_expression
-        :param str task_queue_name: The task_queue_name
-        :param str task_queue_sid: The task_queue_sid
+        :param unicode activity_name: The activity_name
+        :param unicode activity_sid: The activity_sid
+        :param unicode available: The available
+        :param unicode friendly_name: The friendly_name
+        :param unicode target_workers_expression: The target_workers_expression
+        :param unicode task_queue_name: The task_queue_name
+        :param unicode task_queue_sid: The task_queue_sid
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -99,13 +99,13 @@ class WorkerList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param str activity_name: The activity_name
-        :param str activity_sid: The activity_sid
-        :param str available: The available
-        :param str friendly_name: The friendly_name
-        :param str target_workers_expression: The target_workers_expression
-        :param str task_queue_name: The task_queue_name
-        :param str task_queue_sid: The task_queue_sid
+        :param unicode activity_name: The activity_name
+        :param unicode activity_sid: The activity_sid
+        :param unicode available: The available
+        :param unicode friendly_name: The friendly_name
+        :param unicode target_workers_expression: The target_workers_expression
+        :param unicode task_queue_name: The task_queue_name
+        :param unicode task_queue_sid: The task_queue_sid
         :param int limit: Upper limit for the number of records to return. read() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -138,13 +138,13 @@ class WorkerList(ListResource):
         Retrieve a single page of WorkerInstance records from the API.
         Request is executed immediately
         
-        :param str activity_name: The activity_name
-        :param str activity_sid: The activity_sid
-        :param str available: The available
-        :param str friendly_name: The friendly_name
-        :param str target_workers_expression: The target_workers_expression
-        :param str task_queue_name: The task_queue_name
-        :param str task_queue_sid: The task_queue_sid
+        :param unicode activity_name: The activity_name
+        :param unicode activity_sid: The activity_sid
+        :param unicode available: The available
+        :param unicode friendly_name: The friendly_name
+        :param unicode target_workers_expression: The target_workers_expression
+        :param unicode task_queue_name: The task_queue_name
+        :param unicode task_queue_sid: The task_queue_sid
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -180,9 +180,9 @@ class WorkerList(ListResource):
         """
         Create a new WorkerInstance
         
-        :param str friendly_name: The friendly_name
-        :param str activity_sid: The activity_sid
-        :param str attributes: The attributes
+        :param unicode friendly_name: The friendly_name
+        :param unicode activity_sid: The activity_sid
+        :param unicode attributes: The attributes
         
         :returns: Newly created WorkerInstance
         :rtype: WorkerInstance
@@ -292,9 +292,9 @@ class WorkerContext(InstanceContext):
         """
         Update the WorkerInstance
         
-        :param str activity_sid: The activity_sid
-        :param str attributes: The attributes
-        :param str friendly_name: The friendly_name
+        :param unicode activity_sid: The activity_sid
+        :param unicode attributes: The attributes
+        :param unicode friendly_name: The friendly_name
         
         :returns: Updated WorkerInstance
         :rtype: WorkerInstance
@@ -403,7 +403,7 @@ class WorkerInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -411,7 +411,7 @@ class WorkerInstance(InstanceResource):
     def activity_name(self):
         """
         :returns: The activity_name
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['activity_name']
 
@@ -419,7 +419,7 @@ class WorkerInstance(InstanceResource):
     def activity_sid(self):
         """
         :returns: The activity_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['activity_sid']
 
@@ -427,7 +427,7 @@ class WorkerInstance(InstanceResource):
     def attributes(self):
         """
         :returns: The attributes
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['attributes']
 
@@ -467,7 +467,7 @@ class WorkerInstance(InstanceResource):
     def friendly_name(self):
         """
         :returns: The friendly_name
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['friendly_name']
 
@@ -475,7 +475,7 @@ class WorkerInstance(InstanceResource):
     def sid(self):
         """
         :returns: The sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -483,7 +483,7 @@ class WorkerInstance(InstanceResource):
     def workspace_sid(self):
         """
         :returns: The workspace_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['workspace_sid']
 
@@ -501,9 +501,9 @@ class WorkerInstance(InstanceResource):
         """
         Update the WorkerInstance
         
-        :param str activity_sid: The activity_sid
-        :param str attributes: The attributes
-        :param str friendly_name: The friendly_name
+        :param unicode activity_sid: The activity_sid
+        :param unicode attributes: The attributes
+        :param unicode friendly_name: The friendly_name
         
         :returns: Updated WorkerInstance
         :rtype: WorkerInstance

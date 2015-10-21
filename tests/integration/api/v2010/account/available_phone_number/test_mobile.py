@@ -26,3 +26,56 @@ class MobileTestCase(IntegrationTestCase):
             'get',
             'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Mobile.json',
         ))
+
+    def test_read_full_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "available_phone_numbers": [
+                    {
+                        "address_requirements": "none",
+                        "beta": false,
+                        "capabilities": {
+                            "MMS": false,
+                            "SMS": true,
+                            "voice": false
+                        },
+                        "friendly_name": "+4759440374",
+                        "iso_country": "NO",
+                        "lata": null,
+                        "latitude": null,
+                        "longitude": null,
+                        "phone_number": "+4759440374",
+                        "postal_code": null,
+                        "rate_center": null,
+                        "region": null
+                    }
+                ],
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Mobile.json?PageSize=1"
+            }
+            '''
+        ))
+        
+        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                      .available_phone_numbers(country_code="US") \
+                                      .mobile.read()
+        
+        self.assertIsNotNone(actual)
+
+    def test_read_empty_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "available_phone_numbers": [],
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Mobile.json?PageSize=1"
+            }
+            '''
+        ))
+        
+        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                      .available_phone_numbers(country_code="US") \
+                                      .mobile.read()
+        
+        self.assertIsNotNone(actual)

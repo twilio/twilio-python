@@ -196,13 +196,13 @@ class ConnectAppContext(InstanceContext):
         """
         Update the ConnectAppInstance
         
-        :param str authorize_redirect_url: URIL Twilio sends requests when users authorize
-        :param str company_name: The company name set for this Connect App.
-        :param str deauthorize_callback_method: HTTP method Twilio WIll use making requests to the url
-        :param str deauthorize_callback_url: URL Twilio will send a request when a user de-authorizes this app
-        :param str description: A more detailed human readable description
-        :param str friendly_name: A human readable name for the Connect App.
-        :param str homepage_url: The URL users can obtain more information
+        :param unicode authorize_redirect_url: URIL Twilio sends requests when users authorize
+        :param unicode company_name: The company name set for this Connect App.
+        :param unicode deauthorize_callback_method: HTTP method Twilio WIll use making requests to the url
+        :param unicode deauthorize_callback_url: URL Twilio will send a request when a user de-authorizes this app
+        :param unicode description: A more detailed human readable description
+        :param unicode friendly_name: A human readable name for the Connect App.
+        :param unicode homepage_url: The URL users can obtain more information
         :param connect_app.permission permissions: The set of permissions that your ConnectApp requests.
         
         :returns: Updated ConnectAppInstance
@@ -292,7 +292,7 @@ class ConnectAppInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The unique sid that identifies this account
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -300,7 +300,7 @@ class ConnectAppInstance(InstanceResource):
     def authorize_redirect_url(self):
         """
         :returns: URIL Twilio sends requests when users authorize
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['authorize_redirect_url']
 
@@ -308,7 +308,7 @@ class ConnectAppInstance(InstanceResource):
     def company_name(self):
         """
         :returns: The company name set for this Connect App.
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['company_name']
 
@@ -316,7 +316,7 @@ class ConnectAppInstance(InstanceResource):
     def deauthorize_callback_method(self):
         """
         :returns: HTTP method Twilio WIll use making requests to the url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['deauthorize_callback_method']
 
@@ -324,7 +324,7 @@ class ConnectAppInstance(InstanceResource):
     def deauthorize_callback_url(self):
         """
         :returns: URL Twilio will send a request when a user de-authorizes this app
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['deauthorize_callback_url']
 
@@ -332,7 +332,7 @@ class ConnectAppInstance(InstanceResource):
     def description(self):
         """
         :returns: A more detailed human readable description
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['description']
 
@@ -340,7 +340,7 @@ class ConnectAppInstance(InstanceResource):
     def friendly_name(self):
         """
         :returns: A human readable name for the Connect App.
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['friendly_name']
 
@@ -348,7 +348,7 @@ class ConnectAppInstance(InstanceResource):
     def homepage_url(self):
         """
         :returns: The URL users can obtain more information
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['homepage_url']
 
@@ -364,7 +364,7 @@ class ConnectAppInstance(InstanceResource):
     def sid(self):
         """
         :returns: A string that uniquely identifies this connect-apps
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -372,7 +372,7 @@ class ConnectAppInstance(InstanceResource):
     def uri(self):
         """
         :returns: The URI for this resource
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 
@@ -393,13 +393,13 @@ class ConnectAppInstance(InstanceResource):
         """
         Update the ConnectAppInstance
         
-        :param str authorize_redirect_url: URIL Twilio sends requests when users authorize
-        :param str company_name: The company name set for this Connect App.
-        :param str deauthorize_callback_method: HTTP method Twilio WIll use making requests to the url
-        :param str deauthorize_callback_url: URL Twilio will send a request when a user de-authorizes this app
-        :param str description: A more detailed human readable description
-        :param str friendly_name: A human readable name for the Connect App.
-        :param str homepage_url: The URL users can obtain more information
+        :param unicode authorize_redirect_url: URIL Twilio sends requests when users authorize
+        :param unicode company_name: The company name set for this Connect App.
+        :param unicode deauthorize_callback_method: HTTP method Twilio WIll use making requests to the url
+        :param unicode deauthorize_callback_url: URL Twilio will send a request when a user de-authorizes this app
+        :param unicode description: A more detailed human readable description
+        :param unicode friendly_name: A human readable name for the Connect App.
+        :param unicode homepage_url: The URL users can obtain more information
         :param connect_app.permission permissions: The set of permissions that your ConnectApp requests.
         
         :returns: Updated ConnectAppInstance

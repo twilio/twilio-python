@@ -124,8 +124,8 @@ class CredentialList(ListResource):
         """
         Create a new CredentialInstance
         
-        :param str username: The username
-        :param str password: The password
+        :param unicode username: The username
+        :param unicode password: The password
         
         :returns: Newly created CredentialInstance
         :rtype: CredentialInstance
@@ -220,8 +220,8 @@ class CredentialContext(InstanceContext):
         """
         Update the CredentialInstance
         
-        :param str username: The username
-        :param str password: The password
+        :param unicode username: The username
+        :param unicode password: The password
         
         :returns: Updated CredentialInstance
         :rtype: CredentialInstance
@@ -312,7 +312,7 @@ class CredentialInstance(InstanceResource):
     def sid(self):
         """
         :returns: The sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -320,7 +320,7 @@ class CredentialInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -328,7 +328,7 @@ class CredentialInstance(InstanceResource):
     def credential_list_sid(self):
         """
         :returns: The credential_list_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['credential_list_sid']
 
@@ -336,7 +336,7 @@ class CredentialInstance(InstanceResource):
     def username(self):
         """
         :returns: The username
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['username']
 
@@ -360,7 +360,7 @@ class CredentialInstance(InstanceResource):
     def uri(self):
         """
         :returns: The uri
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 
@@ -377,8 +377,8 @@ class CredentialInstance(InstanceResource):
         """
         Update the CredentialInstance
         
-        :param str username: The username
-        :param str password: The password
+        :param unicode username: The username
+        :param unicode password: The password
         
         :returns: Updated CredentialInstance
         :rtype: CredentialInstance

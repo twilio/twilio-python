@@ -123,8 +123,8 @@ class QueueList(ListResource):
         """
         Create a new QueueInstance
         
-        :param str friendly_name: A user-provided string that identifies this queue.
-        :param str max_size: The max number of calls allowed in the queue
+        :param unicode friendly_name: A user-provided string that identifies this queue.
+        :param unicode max_size: The max number of calls allowed in the queue
         
         :returns: Newly created QueueInstance
         :rtype: QueueInstance
@@ -220,8 +220,8 @@ class QueueContext(InstanceContext):
         """
         Update the QueueInstance
         
-        :param str friendly_name: A human readable description of the queue
-        :param str max_size: The max number of members allowed in the queue
+        :param unicode friendly_name: A human readable description of the queue
+        :param unicode max_size: The max number of members allowed in the queue
         
         :returns: Updated QueueInstance
         :rtype: QueueInstance
@@ -327,7 +327,7 @@ class QueueInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -335,7 +335,7 @@ class QueueInstance(InstanceResource):
     def average_wait_time(self):
         """
         :returns: Average wait time of members in the queue
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['average_wait_time']
 
@@ -343,7 +343,7 @@ class QueueInstance(InstanceResource):
     def current_size(self):
         """
         :returns: The count of calls currently in the queue.
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['current_size']
 
@@ -367,7 +367,7 @@ class QueueInstance(InstanceResource):
     def friendly_name(self):
         """
         :returns: A user-provided string that identifies this queue.
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['friendly_name']
 
@@ -375,7 +375,7 @@ class QueueInstance(InstanceResource):
     def max_size(self):
         """
         :returns: The max number of calls allowed in the queue
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['max_size']
 
@@ -383,7 +383,7 @@ class QueueInstance(InstanceResource):
     def sid(self):
         """
         :returns: A string that uniquely identifies this queue
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -391,7 +391,7 @@ class QueueInstance(InstanceResource):
     def uri(self):
         """
         :returns: The uri
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 
@@ -408,8 +408,8 @@ class QueueInstance(InstanceResource):
         """
         Update the QueueInstance
         
-        :param str friendly_name: A human readable description of the queue
-        :param str max_size: The max number of members allowed in the queue
+        :param unicode friendly_name: A human readable description of the queue
+        :param unicode max_size: The max number of members allowed in the queue
         
         :returns: Updated QueueInstance
         :rtype: QueueInstance

@@ -39,13 +39,13 @@ class AddressList(ListResource):
         """
         Create a new AddressInstance
         
-        :param str customer_name: The customer_name
-        :param str street: The street
-        :param str city: The city
-        :param str region: The region
-        :param str postal_code: The postal_code
-        :param str iso_country: The iso_country
-        :param str friendly_name: The friendly_name
+        :param unicode customer_name: The customer_name
+        :param unicode street: The street
+        :param unicode city: The city
+        :param unicode region: The region
+        :param unicode postal_code: The postal_code
+        :param unicode iso_country: The iso_country
+        :param unicode friendly_name: The friendly_name
         
         :returns: Newly created AddressInstance
         :rtype: AddressInstance
@@ -76,9 +76,9 @@ class AddressList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param str customer_name: The customer_name
-        :param str friendly_name: The friendly_name
-        :param str iso_country: The iso_country
+        :param unicode customer_name: The customer_name
+        :param unicode friendly_name: The friendly_name
+        :param unicode iso_country: The iso_country
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -117,9 +117,9 @@ class AddressList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param str customer_name: The customer_name
-        :param str friendly_name: The friendly_name
-        :param str iso_country: The iso_country
+        :param unicode customer_name: The customer_name
+        :param unicode friendly_name: The friendly_name
+        :param unicode iso_country: The iso_country
         :param int limit: Upper limit for the number of records to return. read() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -146,9 +146,9 @@ class AddressList(ListResource):
         Retrieve a single page of AddressInstance records from the API.
         Request is executed immediately
         
-        :param str customer_name: The customer_name
-        :param str friendly_name: The friendly_name
-        :param str iso_country: The iso_country
+        :param unicode customer_name: The customer_name
+        :param unicode friendly_name: The friendly_name
+        :param unicode iso_country: The iso_country
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -264,12 +264,12 @@ class AddressContext(InstanceContext):
         """
         Update the AddressInstance
         
-        :param str friendly_name: The friendly_name
-        :param str customer_name: The customer_name
-        :param str street: The street
-        :param str city: The city
-        :param str region: The region
-        :param str postal_code: The postal_code
+        :param unicode friendly_name: The friendly_name
+        :param unicode customer_name: The customer_name
+        :param unicode street: The street
+        :param unicode city: The city
+        :param unicode region: The region
+        :param unicode postal_code: The postal_code
         
         :returns: Updated AddressInstance
         :rtype: AddressInstance
@@ -373,7 +373,7 @@ class AddressInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -381,7 +381,7 @@ class AddressInstance(InstanceResource):
     def city(self):
         """
         :returns: The city
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['city']
 
@@ -389,7 +389,7 @@ class AddressInstance(InstanceResource):
     def customer_name(self):
         """
         :returns: The customer_name
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['customer_name']
 
@@ -413,7 +413,7 @@ class AddressInstance(InstanceResource):
     def friendly_name(self):
         """
         :returns: The friendly_name
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['friendly_name']
 
@@ -421,7 +421,7 @@ class AddressInstance(InstanceResource):
     def iso_country(self):
         """
         :returns: The iso_country
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['iso_country']
 
@@ -429,7 +429,7 @@ class AddressInstance(InstanceResource):
     def postal_code(self):
         """
         :returns: The postal_code
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['postal_code']
 
@@ -437,7 +437,7 @@ class AddressInstance(InstanceResource):
     def region(self):
         """
         :returns: The region
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['region']
 
@@ -445,7 +445,7 @@ class AddressInstance(InstanceResource):
     def sid(self):
         """
         :returns: The sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -453,7 +453,7 @@ class AddressInstance(InstanceResource):
     def street(self):
         """
         :returns: The street
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['street']
 
@@ -461,7 +461,7 @@ class AddressInstance(InstanceResource):
     def uri(self):
         """
         :returns: The uri
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 
@@ -489,12 +489,12 @@ class AddressInstance(InstanceResource):
         """
         Update the AddressInstance
         
-        :param str friendly_name: The friendly_name
-        :param str customer_name: The customer_name
-        :param str street: The street
-        :param str city: The city
-        :param str region: The region
-        :param str postal_code: The postal_code
+        :param unicode friendly_name: The friendly_name
+        :param unicode customer_name: The customer_name
+        :param unicode street: The street
+        :param unicode city: The city
+        :param unicode region: The region
+        :param unicode postal_code: The postal_code
         
         :returns: Updated AddressInstance
         :rtype: AddressInstance

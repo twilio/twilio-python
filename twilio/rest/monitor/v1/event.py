@@ -43,13 +43,13 @@ class EventList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param str actor_sid: The actor_sid
+        :param unicode actor_sid: The actor_sid
         :param date end_date_before: The end_date
         :param date end_date: The end_date
         :param date end_date_after: The end_date
-        :param str event_type: The event_type
-        :param str resource_sid: The resource_sid
-        :param str source_ip_address: The source_ip_address
+        :param unicode event_type: The event_type
+        :param unicode resource_sid: The resource_sid
+        :param unicode source_ip_address: The source_ip_address
         :param date start_date_before: The start_date
         :param date start_date: The start_date
         :param date start_date_after: The start_date
@@ -102,13 +102,13 @@ class EventList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param str actor_sid: The actor_sid
+        :param unicode actor_sid: The actor_sid
         :param date end_date_before: The end_date
         :param date end_date: The end_date
         :param date end_date_after: The end_date
-        :param str event_type: The event_type
-        :param str resource_sid: The resource_sid
-        :param str source_ip_address: The source_ip_address
+        :param unicode event_type: The event_type
+        :param unicode resource_sid: The resource_sid
+        :param unicode source_ip_address: The source_ip_address
         :param date start_date_before: The start_date
         :param date start_date: The start_date
         :param date start_date_after: The start_date
@@ -148,13 +148,13 @@ class EventList(ListResource):
         Retrieve a single page of EventInstance records from the API.
         Request is executed immediately
         
-        :param str actor_sid: The actor_sid
+        :param unicode actor_sid: The actor_sid
         :param date end_date_before: The end_date
         :param date end_date: The end_date
         :param date end_date_after: The end_date
-        :param str event_type: The event_type
-        :param str resource_sid: The resource_sid
-        :param str source_ip_address: The source_ip_address
+        :param unicode event_type: The event_type
+        :param unicode resource_sid: The resource_sid
+        :param unicode source_ip_address: The source_ip_address
         :param date start_date_before: The start_date
         :param date start_date: The start_date
         :param date start_date_after: The start_date
@@ -324,7 +324,7 @@ class EventInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -332,7 +332,7 @@ class EventInstance(InstanceResource):
     def actor_sid(self):
         """
         :returns: The actor_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['actor_sid']
 
@@ -340,7 +340,7 @@ class EventInstance(InstanceResource):
     def actor_type(self):
         """
         :returns: The actor_type
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['actor_type']
 
@@ -348,7 +348,7 @@ class EventInstance(InstanceResource):
     def description(self):
         """
         :returns: The description
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['description']
 
@@ -356,7 +356,7 @@ class EventInstance(InstanceResource):
     def event_data(self):
         """
         :returns: The event_data
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['event_data']
 
@@ -372,7 +372,7 @@ class EventInstance(InstanceResource):
     def event_type(self):
         """
         :returns: The event_type
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['event_type']
 
@@ -380,7 +380,7 @@ class EventInstance(InstanceResource):
     def resource_sid(self):
         """
         :returns: The resource_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['resource_sid']
 
@@ -388,7 +388,7 @@ class EventInstance(InstanceResource):
     def resource_type(self):
         """
         :returns: The resource_type
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['resource_type']
 
@@ -396,7 +396,7 @@ class EventInstance(InstanceResource):
     def sid(self):
         """
         :returns: The sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -404,7 +404,7 @@ class EventInstance(InstanceResource):
     def source(self):
         """
         :returns: The source
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['source']
 
@@ -412,7 +412,7 @@ class EventInstance(InstanceResource):
     def source_ip_address(self):
         """
         :returns: The source_ip_address
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['source_ip_address']
 

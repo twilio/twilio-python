@@ -45,7 +45,7 @@ class NotificationList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param str log: The log
+        :param unicode log: The log
         :param date message_date_before: The message_date
         :param date message_date: The message_date
         :param date message_date_after: The message_date
@@ -89,7 +89,7 @@ class NotificationList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param str log: The log
+        :param unicode log: The log
         :param date message_date_before: The message_date
         :param date message_date: The message_date
         :param date message_date_after: The message_date
@@ -120,7 +120,7 @@ class NotificationList(ListResource):
         Retrieve a single page of NotificationInstance records from the API.
         Request is executed immediately
         
-        :param str log: The log
+        :param unicode log: The log
         :param date message_date_before: The message_date
         :param date message_date: The message_date
         :param date message_date_after: The message_date
@@ -306,7 +306,7 @@ class NotificationInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -314,7 +314,7 @@ class NotificationInstance(InstanceResource):
     def api_version(self):
         """
         :returns: The api_version
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['api_version']
 
@@ -322,7 +322,7 @@ class NotificationInstance(InstanceResource):
     def call_sid(self):
         """
         :returns: The call_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['call_sid']
 
@@ -346,7 +346,7 @@ class NotificationInstance(InstanceResource):
     def error_code(self):
         """
         :returns: The error_code
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['error_code']
 
@@ -354,7 +354,7 @@ class NotificationInstance(InstanceResource):
     def log(self):
         """
         :returns: The log
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['log']
 
@@ -370,7 +370,7 @@ class NotificationInstance(InstanceResource):
     def message_text(self):
         """
         :returns: The message_text
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['message_text']
 
@@ -378,7 +378,7 @@ class NotificationInstance(InstanceResource):
     def more_info(self):
         """
         :returns: The more_info
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['more_info']
 
@@ -386,7 +386,7 @@ class NotificationInstance(InstanceResource):
     def request_method(self):
         """
         :returns: The request_method
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['request_method']
 
@@ -394,7 +394,7 @@ class NotificationInstance(InstanceResource):
     def request_url(self):
         """
         :returns: The request_url
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['request_url']
 
@@ -402,7 +402,7 @@ class NotificationInstance(InstanceResource):
     def request_variables(self):
         """
         :returns: The request_variables
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['request_variables']
 
@@ -410,7 +410,7 @@ class NotificationInstance(InstanceResource):
     def response_body(self):
         """
         :returns: The response_body
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['response_body']
 
@@ -418,7 +418,7 @@ class NotificationInstance(InstanceResource):
     def response_headers(self):
         """
         :returns: The response_headers
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['response_headers']
 
@@ -426,7 +426,7 @@ class NotificationInstance(InstanceResource):
     def sid(self):
         """
         :returns: The sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -434,7 +434,7 @@ class NotificationInstance(InstanceResource):
     def uri(self):
         """
         :returns: The uri
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 

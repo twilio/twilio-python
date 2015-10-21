@@ -253,7 +253,7 @@ class AuthorizedConnectAppInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The unique sid that identifies this account
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -261,7 +261,7 @@ class AuthorizedConnectAppInstance(InstanceResource):
     def connect_app_company_name(self):
         """
         :returns: The company name set for this Connect App.
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['connect_app_company_name']
 
@@ -269,7 +269,7 @@ class AuthorizedConnectAppInstance(InstanceResource):
     def connect_app_description(self):
         """
         :returns: Human readable description of the app
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['connect_app_description']
 
@@ -277,7 +277,7 @@ class AuthorizedConnectAppInstance(InstanceResource):
     def connect_app_friendly_name(self):
         """
         :returns: A human readable name for the Connect App.
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['connect_app_friendly_name']
 
@@ -285,7 +285,7 @@ class AuthorizedConnectAppInstance(InstanceResource):
     def connect_app_homepage_url(self):
         """
         :returns: The public URL for this Connect App.
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['connect_app_homepage_url']
 
@@ -293,7 +293,7 @@ class AuthorizedConnectAppInstance(InstanceResource):
     def connect_app_sid(self):
         """
         :returns: A string that uniquely identifies this app
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['connect_app_sid']
 
@@ -325,7 +325,7 @@ class AuthorizedConnectAppInstance(InstanceResource):
     def uri(self):
         """
         :returns: The URI for this resource
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 

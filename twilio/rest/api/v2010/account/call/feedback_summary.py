@@ -42,8 +42,8 @@ class FeedbackSummaryList(ListResource):
         :param date start_date: The start_date
         :param date end_date: The end_date
         :param bool include_subaccounts: The include_subaccounts
-        :param str status_callback: The status_callback
-        :param str status_callback_method: The status_callback_method
+        :param unicode status_callback: The status_callback
+        :param unicode status_callback_method: The status_callback_method
         
         :returns: Newly created FeedbackSummaryInstance
         :rtype: FeedbackSummaryInstance
@@ -212,7 +212,7 @@ class FeedbackSummaryInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -220,7 +220,7 @@ class FeedbackSummaryInstance(InstanceResource):
     def call_count(self):
         """
         :returns: The call_count
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['call_count']
 
@@ -228,7 +228,7 @@ class FeedbackSummaryInstance(InstanceResource):
     def call_feedback_count(self):
         """
         :returns: The call_feedback_count
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['call_feedback_count']
 
@@ -268,7 +268,7 @@ class FeedbackSummaryInstance(InstanceResource):
     def issues(self):
         """
         :returns: The issues
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['issues']
 
@@ -276,7 +276,7 @@ class FeedbackSummaryInstance(InstanceResource):
     def quality_score_average(self):
         """
         :returns: The quality_score_average
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['quality_score_average']
 
@@ -284,7 +284,7 @@ class FeedbackSummaryInstance(InstanceResource):
     def quality_score_median(self):
         """
         :returns: The quality_score_median
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['quality_score_median']
 
@@ -292,7 +292,7 @@ class FeedbackSummaryInstance(InstanceResource):
     def quality_score_standard_deviation(self):
         """
         :returns: The quality_score_standard_deviation
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['quality_score_standard_deviation']
 
@@ -300,7 +300,7 @@ class FeedbackSummaryInstance(InstanceResource):
     def sid(self):
         """
         :returns: The sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 

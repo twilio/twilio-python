@@ -54,7 +54,7 @@ class AccountList(ListResource):
         """
         Create a new AccountInstance
         
-        :param str friendly_name: A human readable description of the account
+        :param unicode friendly_name: A human readable description of the account
         
         :returns: Newly created AccountInstance
         :rtype: AccountInstance
@@ -79,7 +79,7 @@ class AccountList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param str friendly_name: FriendlyName to filter on
+        :param unicode friendly_name: FriendlyName to filter on
         :param account.status status: Status to filter on
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
@@ -118,7 +118,7 @@ class AccountList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param str friendly_name: FriendlyName to filter on
+        :param unicode friendly_name: FriendlyName to filter on
         :param account.status status: Status to filter on
         :param int limit: Upper limit for the number of records to return. read() guarantees
                           never to return more than limit.  Default is no limit
@@ -144,7 +144,7 @@ class AccountList(ListResource):
         Retrieve a single page of AccountInstance records from the API.
         Request is executed immediately
         
-        :param str friendly_name: FriendlyName to filter on
+        :param unicode friendly_name: FriendlyName to filter on
         :param account.status status: Status to filter on
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
@@ -266,7 +266,7 @@ class AccountContext(InstanceContext):
         """
         Update the AccountInstance
         
-        :param str friendly_name: FriendlyName to update
+        :param unicode friendly_name: FriendlyName to update
         :param account.status status: Status to update the Account with
         
         :returns: Updated AccountInstance
@@ -647,7 +647,7 @@ class AccountInstance(InstanceResource):
     def auth_token(self):
         """
         :returns: The authorization token for this account
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['auth_token']
 
@@ -671,7 +671,7 @@ class AccountInstance(InstanceResource):
     def friendly_name(self):
         """
         :returns: A human readable description of this account
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['friendly_name']
 
@@ -679,7 +679,7 @@ class AccountInstance(InstanceResource):
     def owner_account_sid(self):
         """
         :returns: The unique 34 character id representing the parent of this account
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['owner_account_sid']
 
@@ -687,7 +687,7 @@ class AccountInstance(InstanceResource):
     def sid(self):
         """
         :returns: A 34 character string that uniquely identifies this resource.
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['sid']
 
@@ -703,7 +703,7 @@ class AccountInstance(InstanceResource):
     def subresource_uris(self):
         """
         :returns: Account Instance Subresources
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['subresource_uris']
 
@@ -719,7 +719,7 @@ class AccountInstance(InstanceResource):
     def uri(self):
         """
         :returns: The URI for this resource, relative to `https://api.twilio.com`
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['uri']
 
@@ -736,7 +736,7 @@ class AccountInstance(InstanceResource):
         """
         Update the AccountInstance
         
-        :param str friendly_name: FriendlyName to update
+        :param unicode friendly_name: FriendlyName to update
         :param account.status status: Status to update the Account with
         
         :returns: Updated AccountInstance

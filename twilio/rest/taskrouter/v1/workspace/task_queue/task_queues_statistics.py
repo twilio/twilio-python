@@ -42,8 +42,8 @@ class TaskQueuesStatisticsList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
         
         :param datetime end_date: The end_date
-        :param str friendly_name: The friendly_name
-        :param str minutes: The minutes
+        :param unicode friendly_name: The friendly_name
+        :param unicode minutes: The minutes
         :param datetime start_date: The start_date
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
@@ -86,8 +86,8 @@ class TaskQueuesStatisticsList(ListResource):
         memory before returning.
         
         :param datetime end_date: The end_date
-        :param str friendly_name: The friendly_name
-        :param str minutes: The minutes
+        :param unicode friendly_name: The friendly_name
+        :param unicode minutes: The minutes
         :param datetime start_date: The start_date
         :param int limit: Upper limit for the number of records to return. read() guarantees
                           never to return more than limit.  Default is no limit
@@ -117,8 +117,8 @@ class TaskQueuesStatisticsList(ListResource):
         Request is executed immediately
         
         :param datetime end_date: The end_date
-        :param str friendly_name: The friendly_name
-        :param str minutes: The minutes
+        :param unicode friendly_name: The friendly_name
+        :param unicode minutes: The minutes
         :param datetime start_date: The start_date
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
@@ -141,7 +141,7 @@ class TaskQueuesStatisticsList(ListResource):
         return self._version.page(
             self,
             TaskQueuesStatisticsInstance,
-            self._kwargs,
+            {},
             'GET',
             self._uri,
             params=params,
@@ -174,7 +174,6 @@ class TaskQueuesStatisticsInstance(InstanceResource):
             'cumulative': payload['cumulative'],
             'realtime': payload['realtime'],
             'task_queue_sid': payload['task_queue_sid'],
-            'worker_sid': payload['worker_sid'],
             'workspace_sid': payload['workspace_sid'],
         }
 
@@ -182,7 +181,7 @@ class TaskQueuesStatisticsInstance(InstanceResource):
     def account_sid(self):
         """
         :returns: The account_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['account_sid']
 
@@ -190,7 +189,7 @@ class TaskQueuesStatisticsInstance(InstanceResource):
     def cumulative(self):
         """
         :returns: The cumulative
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['cumulative']
 
@@ -198,7 +197,7 @@ class TaskQueuesStatisticsInstance(InstanceResource):
     def realtime(self):
         """
         :returns: The realtime
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['realtime']
 
@@ -206,23 +205,15 @@ class TaskQueuesStatisticsInstance(InstanceResource):
     def task_queue_sid(self):
         """
         :returns: The task_queue_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['task_queue_sid']
-
-    @property
-    def worker_sid(self):
-        """
-        :returns: The worker_sid
-        :rtype: str
-        """
-        return self._properties['worker_sid']
 
     @property
     def workspace_sid(self):
         """
         :returns: The workspace_sid
-        :rtype: str
+        :rtype: unicode
         """
         return self._properties['workspace_sid']
 
