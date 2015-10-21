@@ -244,7 +244,7 @@ class InstanceResource(Resource):
             del entries["uri"]
 
         for key in entries.keys():
-            if (key.startswith("date_") and
+            if ((key.startswith("date_") or key.endswith("_time")) and
                     isinstance(entries[key], string_types)):
                 entries[key] = self._parse_date(entries[key])
 
