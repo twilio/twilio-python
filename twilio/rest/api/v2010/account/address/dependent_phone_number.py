@@ -152,7 +152,6 @@ class DependentPhoneNumberInstance(InstanceResource):
             'postal_code': payload['postal_code'],
             'iso_country': payload['iso_country'],
             'address_requirements': payload['address_requirements'],
-            'beta': payload['beta'],
             'capabilities': payload['capabilities'],
         }
 
@@ -235,14 +234,6 @@ class DependentPhoneNumberInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['address_requirements']
-
-    @property
-    def beta(self):
-        """
-        :returns: The beta
-        :rtype: bool
-        """
-        return self._properties['beta']
 
     @property
     def capabilities(self):

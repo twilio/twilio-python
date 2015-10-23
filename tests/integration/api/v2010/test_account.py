@@ -35,6 +35,7 @@ class AccountTestCase(IntegrationTestCase):
                 "date_updated": "Wed, 25 Aug 2010 01:30:09 +0000",
                 "friendly_name": "Test Account",
                 "sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "owner_account_sid": "ACbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
                 "status": "active",
                 "subresource_uris": {
                     "available_phone_numbers": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers.json",
@@ -217,6 +218,7 @@ class AccountTestCase(IntegrationTestCase):
                 "date_updated": "Wed, 25 Aug 2010 01:30:09 +0000",
                 "friendly_name": "Test Account",
                 "sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "owner_account_sid": "ACbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
                 "status": "active",
                 "subresource_uris": {
                     "available_phone_numbers": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers.json",
