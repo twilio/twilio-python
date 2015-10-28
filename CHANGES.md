@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 4.6.0-edge
+-------------
+
+Released October 28, 2015:
+
+- Add /Keys endpoint
+
 Version 4.6.0
 -------------
 
