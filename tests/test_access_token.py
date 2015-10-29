@@ -1,11 +1,16 @@
 import unittest
 
-from nose.tools import assert_equal, assert_is_not_none
+from nose.tools import assert_equal
 from twilio.jwt import decode
 from twilio.access_token import AccessToken
 
 ACCOUNT_SID = 'AC123'
 SIGNING_KEY_SID = 'SK123'
+
+
+# python2.6 support
+def assert_is_not_none(obj):
+    assert obj is not None, '%r is None' % obj
 
 
 class AccessTokenTest(unittest.TestCase):
@@ -16,7 +21,7 @@ class AccessTokenTest(unittest.TestCase):
         assert_is_not_none(payload['exp'])
         assert_equal(payload['nbf'] + 3600, payload['exp'])
         assert_is_not_none(payload['jti'])
-        assert_equal('{}-{}'.format(payload['iss'], payload['nbf']),
+        assert_equal('{0}-{1}'.format(payload['iss'], payload['nbf']),
                      payload['jti'])
         assert_is_not_none(payload['grants'])
 

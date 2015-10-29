@@ -1,5 +1,4 @@
 import time
-
 import jwt
 
 ALL = '*'
@@ -34,7 +33,7 @@ class AccessToken(object):
         return self
 
     def add_rest_grant(self, uri, actions=ALL):
-        resource = 'https://api.twilio.com/2010-04-01/Accounts/{}/{}'.format(
+        resource = 'https://api.twilio.com/2010-04-01/Accounts/{0}/{1}'.format(
             self.account_sid,
             uri.lstrip('/'),
         )
@@ -42,8 +41,10 @@ class AccessToken(object):
 
     def add_endpoint_grant(self, endpoint, actions=None):
         actions = actions or [CLIENT_LISTEN, CLIENT_INVITE]
-        resource = 'sip:{}@{}.endpoint.twilio.com'.format(endpoint,
-                                                          self.account_sid)
+        resource = 'sip:{0}@{1}.endpoint.twilio.com'.format(
+            endpoint,
+            self.account_sid
+        )
         return self.add_grant(resource, actions)
 
     def enable_nts(self):
@@ -55,7 +56,7 @@ class AccessToken(object):
             "cty": "twilio-sat;v=1"
         }
         payload = {
-            "jti": '{}-{}'.format(self.signing_key_sid, now),
+            "jti": '{0}-{1}'.format(self.signing_key_sid, now),
             "iss": self.signing_key_sid,
             "sub": self.account_sid,
             "nbf": now,
@@ -66,4 +67,4 @@ class AccessToken(object):
         return jwt.encode(payload, self.secret, headers=headers)
 
     def __str__(self):
-        return self.to_jwt()
+        return self.to_jwt().decode('utf-8')
