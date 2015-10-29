@@ -90,6 +90,11 @@ class MakeRequestTest(unittest.TestCase):
         })
         mock_request.side_effect = [(response, Mock()), (Mock(), Mock())]
         make_request('GET', 'http://httpbin.org/get', auth=('AC123', 'AuthToken'))
+
+        auth = "{0}:{1}".format('AC123', 'AuthToken')
+        encoded_auth = auth.encode('utf-8')
+        b64_auth = base64.b64encode(encoded_auth)
+
         mock_request.assert_called_with(
             ANY,
             '/get',
@@ -97,9 +102,7 @@ class MakeRequestTest(unittest.TestCase):
             None,
             {
                 'accept-encoding': 'gzip, deflate',
-                'authorization': 'Basic {}'.format(
-                    base64.b64encode("{}:{}".format('AC123', 'AuthToken'))
-                ),
+                'authorization': 'Basic {0}'.format(b64_auth.decode('utf-8')),
                 'user-agent': ANY,
             }
         )
