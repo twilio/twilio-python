@@ -6,6 +6,11 @@ Here you can see the full list of changes between each twilio-python release.
 Version 4.6.0
 -------------
 
+- Add /Keys endpoint
+
+Version 4.6.0
+-------------
+
 Released September 23, 2015:
 
 - Allow fetching TaskRouter reservations by Worker
