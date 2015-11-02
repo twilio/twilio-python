@@ -1,0 +1,23 @@
+{
+    "meta": {
+        "first_page_url": "https://pricing.twilio.com/v1/Messaging/Countries?PageSize=50&Page=0",
+        "key": "countries",
+        "next_page_url": "https://pricing.twilio.com/v1/Messaging/Countries?PageSize=50&Page=1&PageToken=DNCZ",
+        "page": 0,
+        "page_size": 50,
+        "previous_page_url": null,
+        "url": "https://pricing.twilio.com/v1/Messaging/Countries?PageSize=50&Page=0"
+    },
+    "countries": [
+        {
+            "country": "Austria",
+            "iso_country": "AT",
+            "url": "https://pricing.twilio.com/v1/Messaging/Countries/AT"
+        },
+        {
+            "country": "Australia",
+            "iso_country": "AU",
+            "url": "https://pricing.twilio.com/v1/Messaging/Countries/AU"
+        }
+    ]
+}
