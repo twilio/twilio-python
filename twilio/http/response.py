@@ -7,3 +7,6 @@ class Response(object):
         self.cached = False
         self.status_code = status_code
         self.ok = self.status_code < 400
+
+    def __repr__(self):
+        return 'HTTP {} {}'.format(self.status_code, self.content)

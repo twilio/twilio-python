@@ -1,16 +1,30 @@
-import urlparse
+import json
+
+from twilio.exceptions import TwilioException
 
 
 class Page(object):
-    def __init__(self, domain, pager, instance, instance_kwargs, previous_page_uri, next_page_uri,
-                 records):
-        self._domain = domain
-        self._pager = pager
-        self._instance = instance
-        self._instance_kwargs = instance_kwargs
-        self._previous_page_uri = previous_page_uri
-        self._next_page_uri = next_page_uri
-        self._records = iter(records)
+    META_KEYS = {
+        'end',
+        'first_page_uri',
+        'next_page_uri',
+        'last_page_uri',
+        'page',
+        'page_size',
+        'previous_page_uri',
+        'total',
+        'num_pages',
+        'start',
+        'uri'
+    }
+
+    def __init__(self, version, response, solution):
+        payload = self.process_response(response)
+
+        self._version = version
+        self._payload = payload
+        self._solution = solution
+        self._records = iter(self.load_page(payload))
 
     def __iter__(self):
         return self
@@ -19,23 +33,64 @@ class Page(object):
         return self.next()
 
     def next(self):
-        return self._instance(self._domain, next(self._records), **self._instance_kwargs)
+        return self.get_instance(next(self._records))
+
+    @classmethod
+    def process_response(self, response):
+        if response.status_code != 200:
+            raise TwilioException('Unable to fetch page', response)
+
+        return json.loads(response.content)
+
+    def load_page(self, payload):
+        if 'meta' in payload and 'key' in payload['meta']:
+            return payload[payload['meta']['key']]
+        else:
+            keys = set(payload.keys())
+            key = keys - self.META_KEYS
+            if len(key) == 1:
+                return payload[key.pop()]
+
+        raise TwilioException('Page Records can not be deserialized')
+
+    @property
+    def previous_page_url(self):
+        if 'meta' in self._payload and 'previous_page_url' in self._payload['meta']:
+            return self._payload['meta']['previous_page_url']
+        elif 'previous_page_uri' in self._payload:
+            return self._version.domain.absolute_url(self._payload['previous_page_uri'])
+
+        return None
+
+    @property
+    def next_page_url(self):
+        if 'meta' in self._payload and 'next_page_url' in self._payload['meta']:
+            return self._payload['meta']['next_page_url']
+        elif 'next_page_uri' in self._payload:
+            return self._version.domain.absolute_url(self._payload['next_page_uri'])
+
+        return None
+
+    def get_instance(self, payload):
+        raise TwilioException('Page.get_instance() must be implemented in the derived class')
 
     def next_page(self):
-        if not self._next_page_uri:
+        if not self.next_page_url:
             return None
 
-        kwargs = urlparse.parse_qs(urlparse.urlparse(self._next_page_uri).query)
-        return self._pager.page(**kwargs)
+        response = self._version.domain.twilio.request('GET', self.next_page_url)
+        cls = type(self)
+        return cls(self._version, response, self._solution)
 
     def previous_page(self):
-        if not self._previous_page_uri:
+        if not self.previous_page_url:
             return None
 
-        kwargs = urlparse.parse_qs(urlparse.urlparse(self._previous_page_uri).query)
-        return self._pager.page(**kwargs)
+        response = self._version.domain.twilio.request('GET', self.previous_page_url)
+        cls = type(self)
+        return cls(self._version, response, self._solution)
 
     def __repr__(self):
-        return '<Page {}>'.format(self._instance)
+        return '<Page>'
 
 
