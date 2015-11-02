@@ -119,4 +119,3 @@ def test_proxy_info(http_mock, resp_mock):
     assert_equal(proxy_info.proxy_host, 'example.com')
     assert_equal(proxy_info.proxy_port, 8080)
     assert_equal(proxy_info.proxy_type, PROXY_TYPE_SOCKS5)
->>>>>>> parent of 6bf0e94... Merge remote-tracking branch 'origin/signal-beta' into edge
