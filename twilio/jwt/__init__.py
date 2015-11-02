@@ -6,8 +6,7 @@ http://self-issued.info/docs/draft-jones-json-web-token-01.html
 import base64
 import hashlib
 import hmac
-
-from six import b
+from six import text_type, b
 
 
 # default text to binary representation conversion
@@ -42,11 +41,9 @@ def base64url_encode(input):
     return base64.urlsafe_b64encode(input).decode('utf-8').replace('=', '')
 
 
-def encode(payload, key, algorithm='HS256', headers=None):
+def encode(payload, key, algorithm='HS256'):
     segments = []
     header = {"typ": "JWT", "alg": algorithm}
-    if headers:
-        header.update(headers)
     segments.append(base64url_encode(binary(json.dumps(header))))
     segments.append(base64url_encode(binary(json.dumps(payload))))
     sign_input = '.'.join(segments)
