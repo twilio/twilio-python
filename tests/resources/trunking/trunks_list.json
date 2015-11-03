@@ -1,0 +1,39 @@
+{
+    "trunks": [
+        {
+            "sid": "TK11111111111111111111111111111111",
+            "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "domain_name": "test-trunk.pstn.twilio.com",
+            "disaster_recovery_method": null,
+            "disaster_recovery_url": null,
+            "friendly_name": "Test",
+            "secure": false,
+            "recording": {
+                "trim": "do-not-trim",
+                "mode": "record-from-ringing"
+            },
+            "auth_type": "CREDENTIAL_LIST",
+            "auth_type_set": [
+               "CREDENTIAL_LIST"
+            ],
+            "date_created": "2015-05-05T20:59:07Z",
+            "date_updated": "2015-05-05T22:44:23Z",
+            "url": "https://trunking.twilio.com/v1/Trunks/TK11111111111111111111111111111111",
+            "links": {
+                "origination_urls": "https://trunking.twilio.com/v1/Trunks/TK11111111111111111111111111111111/OriginationUrls",
+                "credential_lists": "https://trunking.twilio.com/v1/Trunks/TK11111111111111111111111111111111/CredentialLists",
+                "ip_access_control_lists": "https://trunking.twilio.com/v1/Trunks/TK11111111111111111111111111111111/IpAccessControlLists",
+                "phone_numbers": "https://trunking.twilio.com/v1/Trunks/TK11111111111111111111111111111111/PhoneNumbers"
+            }
+        }
+    ],
+    "meta": {
+        "page": 0,
+        "page_size": 50,
+        "first_page_url": "https://trunking.twilio.com/v1/Trunks?PageSize=50&Page=0",
+        "previous_page_url": null,
+        "url": "https://trunking.twilio.com/v1/Trunks?PageSize=50&Page=0",
+        "next_page_url": null,
+        "key": "trunks"
+    }
+}

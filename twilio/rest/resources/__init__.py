@@ -74,4 +74,15 @@ from .addresses import (
     DependentPhoneNumbers,
 )
 
+from .trunking import (
+    CredentialList,
+    CredentialLists,
+    IpAccessControlList,
+    IpAccessControlLists,
+    OriginationUrl,
+    OriginationUrls,
+    Trunk,
+    Trunks,
+)
+
 from .keys import Key, Keys
