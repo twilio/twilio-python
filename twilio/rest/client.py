@@ -11,6 +11,7 @@ from twilio.rest.resources import (
     Conferences,
     ConnectApps,
     DependentPhoneNumbers,
+    Keys,
     MediaList,
     Members,
     Messages,
@@ -74,6 +75,7 @@ class TwilioRestClient(TwilioClient):
         self.media = MediaList(self.account_uri, self.auth, timeout)
         self.sip = Sip(self.account_uri, self.auth, timeout)
         self.tokens = Tokens(self.account_uri, self.auth, timeout)
+        self.keys = Keys(self.account_uri, self.auth, timeout)
 
     def participants(self, conference_sid):
         """

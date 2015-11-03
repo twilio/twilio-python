@@ -28,6 +28,24 @@ def test_paging(mock):
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
+def test_paging_iter(mock):
+    resp = create_mock_json("tests/resources/recordings_list.json")
+    mock.return_value = resp
+
+    uri = "%s/Recordings" % (BASE_URI)
+
+    next(recordings.iter(before=date(2010, 12, 5)))
+    exp_params = {'DateCreated<': '2010-12-05'}
+    mock.assert_called_with("GET", uri, params=exp_params, auth=AUTH,
+                            use_json_extension=True)
+
+    next(recordings.iter(after=date(2012, 12, 7)))
+    exp_params = {'DateCreated>': '2012-12-07'}
+    mock.assert_called_with("GET", uri, params=exp_params, auth=AUTH,
+                            use_json_extension=True)
+
+
+@patch("twilio.rest.resources.base.make_twilio_request")
 def test_get(mock):
     resp = create_mock_json("tests/resources/recordings_instance.json")
     mock.return_value = resp

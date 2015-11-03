@@ -9,6 +9,7 @@ from .phone_numbers import PhoneNumbers
 from .conferences import Conferences
 from .connect_apps import ConnectApps, AuthorizedConnectApps
 from .queues import Queues
+from .keys import Keys
 from .usage import UsageRecords, UsageTriggers
 from .messages import Messages
 from .media import MediaList
@@ -42,6 +43,7 @@ class Account(InstanceResource):
         MediaList,
         Messages,
         Sip,
+        Keys,
     ]
 
     def update(self, **kwargs):

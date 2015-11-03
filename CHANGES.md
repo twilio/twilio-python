@@ -3,6 +3,17 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 4.8.0
+-------------
+
+- Add support for SMS pricing
+
+
+Version 4.6.0
+-------------
+
+- Add /Keys endpoint
+
 Version 4.6.0
 -------------
 

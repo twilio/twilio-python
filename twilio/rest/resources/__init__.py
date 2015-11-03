@@ -84,3 +84,5 @@ from .trunking import (
     Trunk,
     Trunks,
 )
+
+from .keys import Key, Keys

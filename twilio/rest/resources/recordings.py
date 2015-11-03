@@ -41,6 +41,18 @@ class Recordings(ListResource):
         kwargs["DateCreated>"] = after
         return self.get_instances(kwargs)
 
+    @normalize_dates
+    def iter(self, before=None, after=None, **kwargs):
+        """
+        Returns an iterator of :class:`Recording` resources.
+
+        :param date after: Only list recordings logged after this datetime
+        :param date before: Only list recordings logger before this datetime
+        """
+        kwargs["DateCreated<"] = before
+        kwargs["DateCreated>"] = after
+        return super(Recordings, self).iter(**kwargs)
+
     def delete(self, sid):
         """
         Delete the given recording

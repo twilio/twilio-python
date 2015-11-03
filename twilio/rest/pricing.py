@@ -3,6 +3,7 @@ from twilio.rest.resources import UNSET_TIMEOUT
 from twilio.rest.resources.pricing import (
     PhoneNumbers,
     Voice,
+    MessagingCountries,
 )
 
 
@@ -24,7 +25,18 @@ class TwilioPricingClient(TwilioClient):
         super(TwilioPricingClient, self).__init__(account, token, base,
                                                   version, timeout)
 
-        uri_base = "{}/{}".format(base, version)
+        self.uri_base = "{}/{}".format(base, version)
 
-        self.voice = Voice(uri_base, self.auth, self.timeout)
-        self.phone_numbers = PhoneNumbers(uri_base, self.auth, self.timeout)
+        self.voice = Voice(self.uri_base, self.auth, self.timeout)
+        self.phone_numbers = PhoneNumbers(self.uri_base, self.auth,
+                                          self.timeout)
+
+    def messaging_countries(self):
+        """
+        Returns a :class:`MessagingCountries` resource
+        :return: MessagingCountries
+        """
+        messaging_countries_uri = "{0}/Messaging/Countries".format(
+            self.uri_base)
+        return MessagingCountries(messaging_countries_uri, self.auth,
+                                  self.timeout)
