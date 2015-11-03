@@ -8,8 +8,7 @@ Version 4.9.0
 
 Released November 3, 2015:
 
-- Add SIP Trunking endpoint
-
+- Add support for SIP Trunking
 
 Version 4.8.0
 -------------
