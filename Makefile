@@ -35,3 +35,6 @@ build: test-install
 
 clean:
 	rm -rf venv
+
+deploy:
+	python setup.py sdist upload

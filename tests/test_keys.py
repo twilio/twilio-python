@@ -4,7 +4,7 @@ from tests.tools import create_mock_json
 
 ACCOUNT_SID = "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 AUTH = (ACCOUNT_SID, "token")
-BASE_URL = "https://api.twilio.com/2010-04-01/Accounts/{}".format(ACCOUNT_SID)
+BASE_URL = "https://api.twilio.com/2010-04-01/Accounts/{0}".format(ACCOUNT_SID)
 KEY_SID = "SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
 list_resource = Keys(BASE_URL, AUTH)
@@ -15,7 +15,7 @@ def test_get_key(mock):
     resp = create_mock_json("tests/resources/keys_instance.json")
     mock.return_value = resp
 
-    url = BASE_URL + "/Keys/{}".format(KEY_SID)
+    url = BASE_URL + "/Keys/{0}".format(KEY_SID)
     list_resource.get(KEY_SID)
 
     mock.assert_called_with("GET", url, auth=AUTH, use_json_extension=True)
@@ -41,7 +41,7 @@ def test_update_key(mock):
     resp = create_mock_json("tests/resources/keys_instance.json")
     mock.return_value = resp
 
-    url = BASE_URL + "/Keys/{}".format(KEY_SID)
+    url = BASE_URL + "/Keys/{0}".format(KEY_SID)
     list_resource.update(sid=KEY_SID, friendly_name="Fuzzy Lumpkins' SigningKey")
     params = {
         'FriendlyName': "Fuzzy Lumpkins' SigningKey"
@@ -60,7 +60,7 @@ def test_delete_key(mock):
     key = Key(list_resource, KEY_SID)
     key.delete()
 
-    url = BASE_URL + "/Keys/{}".format(KEY_SID)
+    url = BASE_URL + "/Keys/{0}".format(KEY_SID)
     mock.assert_called_with("DELETE", url)
 
 
