@@ -11,6 +11,7 @@ from twilio.rest import deserialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class CredentialList(ListResource):
@@ -29,13 +30,13 @@ class CredentialList(ListResource):
         super(CredentialList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
             'credential_list_sid': credential_list_sid,
         }
-        self._uri = '/Accounts/{account_sid}/SIP/CredentialLists/{credential_list_sid}/Credentials.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/SIP/CredentialLists/{credential_list_sid}/Credentials.json'.format(**self._solution)
 
-    def stream(self, limit=None, page_size=None, **kwargs):
+    def stream(self, limit=None, page_size=None):
         """
         Streams CredentialInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -54,23 +55,13 @@ class CredentialList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            CredentialInstance,
-            self._kwargs,
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def read(self, limit=None, page_size=None, **kwargs):
+    def read(self, limit=None, page_size=values.unset):
         """
         Reads CredentialInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -89,10 +80,10 @@ class CredentialList(ListResource):
         return list(self.stream(
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
-    def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
+    def page(self, page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of CredentialInstance records from the API.
         Request is executed immediately
@@ -109,15 +100,18 @@ class CredentialList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            CredentialInstance,
-            self._kwargs,
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return CredentialPage(
+            self._version,
+            response,
+            account_sid=self._solution['account_sid'],
+            credential_list_sid=self._solution['credential_list_sid'],
         )
 
     def create(self, username, password):
@@ -135,12 +129,17 @@ class CredentialList(ListResource):
             'Password': password,
         })
         
-        return self._version.create(
-            CredentialInstance,
-            self._kwargs,
+        payload = self._version.create(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return CredentialInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            credential_list_sid=self._solution['credential_list_sid'],
         )
 
     def get(self, sid):
@@ -152,7 +151,12 @@ class CredentialList(ListResource):
         :returns: CredentialContext
         :rtype: CredentialContext
         """
-        return CredentialContext(self._version, sid=sid, **self._kwargs)
+        return CredentialContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            credential_list_sid=self._solution['credential_list_sid'],
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
@@ -163,7 +167,12 @@ class CredentialList(ListResource):
         :returns: CredentialContext
         :rtype: CredentialContext
         """
-        return CredentialContext(self._version, sid=sid, **self._kwargs)
+        return CredentialContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            credential_list_sid=self._solution['credential_list_sid'],
+            sid=sid,
+        )
 
     def __repr__(self):
         """
@@ -175,13 +184,61 @@ class CredentialList(ListResource):
         return '<Twilio.Api.V2010.CredentialList>'
 
 
+class CredentialPage(Page):
+
+    def __init__(self, version, response, account_sid, credential_list_sid):
+        """
+        Initialize the CredentialPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param account_sid: The account_sid
+        :param credential_list_sid: The credential_list_sid
+        
+        :returns: CredentialPage
+        :rtype: CredentialPage
+        """
+        super(CredentialPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'account_sid': account_sid,
+            'credential_list_sid': credential_list_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of CredentialInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: CredentialInstance
+        :rtype: CredentialInstance
+        """
+        return CredentialInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            credential_list_sid=self._solution['credential_list_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Api.V2010.CredentialPage>'
+
+
 class CredentialContext(InstanceContext):
 
     def __init__(self, version, account_sid, credential_list_sid, sid):
         """
         Initialize the CredentialContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param account_sid: The account_sid
         :param credential_list_sid: The credential_list_sid
         :param sid: The sid
@@ -192,12 +249,12 @@ class CredentialContext(InstanceContext):
         super(CredentialContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
             'credential_list_sid': credential_list_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/{account_sid}/SIP/CredentialLists/{credential_list_sid}/Credentials/{sid}.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/SIP/CredentialLists/{credential_list_sid}/Credentials/{sid}.json'.format(**self._solution)
 
     def fetch(self):
         """
@@ -208,12 +265,18 @@ class CredentialContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            CredentialInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return CredentialInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            credential_list_sid=self._solution['credential_list_sid'],
+            sid=self._solution['sid'],
         )
 
     def update(self, username, password):
@@ -231,12 +294,18 @@ class CredentialContext(InstanceContext):
             'Password': password,
         })
         
-        return self._version.update(
-            CredentialInstance,
-            self._kwargs,
+        payload = self._version.update(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return CredentialInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            credential_list_sid=self._solution['credential_list_sid'],
+            sid=self._solution['sid'],
         )
 
     def delete(self):
@@ -255,7 +324,7 @@ class CredentialContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.CredentialContext {}>'.format(context)
 
 
@@ -283,15 +352,15 @@ class CredentialInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'account_sid': account_sid,
             'credential_list_sid': credential_list_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -299,14 +368,14 @@ class CredentialInstance(InstanceResource):
         :returns: CredentialContext for this CredentialInstance
         :rtype: CredentialContext
         """
-        if self._instance_context is None:
-            self._instance_context = CredentialContext(
+        if self._context is None:
+            self._context = CredentialContext(
                 self._version,
-                self._kwargs['account_sid'],
-                self._kwargs['credential_list_sid'],
-                self._kwargs['sid'],
+                account_sid=self._solution['account_sid'],
+                credential_list_sid=self._solution['credential_list_sid'],
+                sid=self._solution['sid'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def sid(self):
@@ -371,7 +440,7 @@ class CredentialInstance(InstanceResource):
         :returns: Fetched CredentialInstance
         :rtype: CredentialInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     def update(self, username, password):
         """
@@ -383,7 +452,7 @@ class CredentialInstance(InstanceResource):
         :returns: Updated CredentialInstance
         :rtype: CredentialInstance
         """
-        return self._context.update(
+        return self._proxy.update(
             username,
             password,
         )
@@ -395,7 +464,7 @@ class CredentialInstance(InstanceResource):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._context.delete()
+        return self._proxy.delete()
 
     def __repr__(self):
         """
@@ -404,5 +473,5 @@ class CredentialInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.CredentialInstance {}>'.format(context)

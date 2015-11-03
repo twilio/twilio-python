@@ -13,6 +13,7 @@ from twilio.rest.api.v2010.account.message.media import MediaList
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class MessageList(ListResource):
@@ -30,10 +31,10 @@ class MessageList(ListResource):
         super(MessageList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
         }
-        self._uri = '/Accounts/{account_sid}/Messages.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Messages.json'.format(**self._solution)
 
     def create(self, to, from_, status_callback=values.unset,
                application_sid=values.unset, body=values.unset,
@@ -60,17 +61,21 @@ class MessageList(ListResource):
             'ApplicationSid': application_sid,
         })
         
-        return self._version.create(
-            MessageInstance,
-            self._kwargs,
+        payload = self._version.create(
             'POST',
             self._uri,
             data=data,
         )
+        
+        return MessageInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+        )
 
     def stream(self, to=values.unset, from_=values.unset,
                date_sent_before=values.unset, date_sent=values.unset,
-               date_sent_after=values.unset, limit=None, page_size=None, **kwargs):
+               date_sent_after=values.unset, limit=None, page_size=None):
         """
         Streams MessageInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -94,30 +99,20 @@ class MessageList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'To': to,
-            'From': from_,
-            'DateSent<': serialize.iso8601_date(date_sent_before),
-            'DateSent': serialize.iso8601_date(date_sent),
-            'DateSent>': serialize.iso8601_date(date_sent_after),
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            MessageInstance,
-            self._kwargs,
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            to=to,
+            from_=from_,
+            date_sent_before=date_sent_before,
+            date_sent=date_sent,
+            date_sent_after=date_sent_after,
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
     def read(self, to=values.unset, from_=values.unset,
              date_sent_before=values.unset, date_sent=values.unset,
-             date_sent_after=values.unset, limit=None, page_size=None, **kwargs):
+             date_sent_after=values.unset, limit=None, page_size=values.unset):
         """
         Reads MessageInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -146,13 +141,12 @@ class MessageList(ListResource):
             date_sent_after=date_sent_after,
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
     def page(self, to=values.unset, from_=values.unset,
              date_sent_before=values.unset, date_sent=values.unset,
-             date_sent_after=values.unset, page_token=None, page_number=None,
-             page_size=None, **kwargs):
+             date_sent_after=values.unset, page_token=values.unset,
+             page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of MessageInstance records from the API.
         Request is executed immediately
@@ -179,15 +173,17 @@ class MessageList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            MessageInstance,
-            self._kwargs,
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return MessagePage(
+            self._version,
+            response,
+            account_sid=self._solution['account_sid'],
         )
 
     def get(self, sid):
@@ -199,7 +195,11 @@ class MessageList(ListResource):
         :returns: MessageContext
         :rtype: MessageContext
         """
-        return MessageContext(self._version, sid=sid, **self._kwargs)
+        return MessageContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
@@ -210,7 +210,11 @@ class MessageList(ListResource):
         :returns: MessageContext
         :rtype: MessageContext
         """
-        return MessageContext(self._version, sid=sid, **self._kwargs)
+        return MessageContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            sid=sid,
+        )
 
     def __repr__(self):
         """
@@ -222,13 +226,58 @@ class MessageList(ListResource):
         return '<Twilio.Api.V2010.MessageList>'
 
 
+class MessagePage(Page):
+
+    def __init__(self, version, response, account_sid):
+        """
+        Initialize the MessagePage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param account_sid: The unique sid that identifies this account
+        
+        :returns: MessagePage
+        :rtype: MessagePage
+        """
+        super(MessagePage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'account_sid': account_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of MessageInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: MessageInstance
+        :rtype: MessageInstance
+        """
+        return MessageInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Api.V2010.MessagePage>'
+
+
 class MessageContext(InstanceContext):
 
     def __init__(self, version, account_sid, sid):
         """
         Initialize the MessageContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param account_sid: The account_sid
         :param sid: Fetch by unique message Sid
         
@@ -238,11 +287,11 @@ class MessageContext(InstanceContext):
         super(MessageContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/{account_sid}/Messages/{sid}.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Messages/{sid}.json'.format(**self._solution)
         
         # Dependents
         self._media = None
@@ -265,12 +314,17 @@ class MessageContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            MessageInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return MessageInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
         )
 
     def update(self, body=values.unset):
@@ -286,12 +340,17 @@ class MessageContext(InstanceContext):
             'Body': body,
         })
         
-        return self._version.update(
-            MessageInstance,
-            self._kwargs,
+        payload = self._version.update(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return MessageInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
         )
 
     @property
@@ -305,8 +364,8 @@ class MessageContext(InstanceContext):
         if self._media is None:
             self._media = MediaList(
                 self._version,
-                account_sid=self._kwargs['account_sid'],
-                message_sid=self._kwargs['sid'],
+                account_sid=self._solution['account_sid'],
+                message_sid=self._solution['sid'],
             )
         return self._media
 
@@ -317,7 +376,7 @@ class MessageContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.MessageContext {}>'.format(context)
 
 
@@ -356,14 +415,14 @@ class MessageInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'account_sid': account_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -371,13 +430,13 @@ class MessageInstance(InstanceResource):
         :returns: MessageContext for this MessageInstance
         :rtype: MessageContext
         """
-        if self._instance_context is None:
-            self._instance_context = MessageContext(
+        if self._context is None:
+            self._context = MessageContext(
                 self._version,
-                self._kwargs['account_sid'],
-                self._kwargs['sid'],
+                account_sid=self._solution['account_sid'],
+                sid=self._solution['sid'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def account_sid(self):
@@ -538,7 +597,7 @@ class MessageInstance(InstanceResource):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._context.delete()
+        return self._proxy.delete()
 
     def fetch(self):
         """
@@ -547,7 +606,7 @@ class MessageInstance(InstanceResource):
         :returns: Fetched MessageInstance
         :rtype: MessageInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     def update(self, body=values.unset):
         """
@@ -558,7 +617,7 @@ class MessageInstance(InstanceResource):
         :returns: Updated MessageInstance
         :rtype: MessageInstance
         """
-        return self._context.update(
+        return self._proxy.update(
             body=body,
         )
 
@@ -570,7 +629,7 @@ class MessageInstance(InstanceResource):
         :returns: media
         :rtype: media
         """
-        return self._context.media
+        return self._proxy.media
 
     def __repr__(self):
         """
@@ -579,5 +638,5 @@ class MessageInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.MessageInstance {}>'.format(context)

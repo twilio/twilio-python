@@ -11,6 +11,7 @@ from twilio.rest import deserialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class AuthorizedConnectAppList(ListResource):
@@ -28,12 +29,12 @@ class AuthorizedConnectAppList(ListResource):
         super(AuthorizedConnectAppList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
         }
-        self._uri = '/Accounts/{account_sid}/AuthorizedConnectApps.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/AuthorizedConnectApps.json'.format(**self._solution)
 
-    def stream(self, limit=None, page_size=None, **kwargs):
+    def stream(self, limit=None, page_size=None):
         """
         Streams AuthorizedConnectAppInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -52,23 +53,13 @@ class AuthorizedConnectAppList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            AuthorizedConnectAppInstance,
-            self._kwargs,
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def read(self, limit=None, page_size=None, **kwargs):
+    def read(self, limit=None, page_size=values.unset):
         """
         Reads AuthorizedConnectAppInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -87,10 +78,10 @@ class AuthorizedConnectAppList(ListResource):
         return list(self.stream(
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
-    def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
+    def page(self, page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of AuthorizedConnectAppInstance records from the API.
         Request is executed immediately
@@ -107,15 +98,17 @@ class AuthorizedConnectAppList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            AuthorizedConnectAppInstance,
-            self._kwargs,
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return AuthorizedConnectAppPage(
+            self._version,
+            response,
+            account_sid=self._solution['account_sid'],
         )
 
     def get(self, connect_app_sid):
@@ -127,7 +120,11 @@ class AuthorizedConnectAppList(ListResource):
         :returns: AuthorizedConnectAppContext
         :rtype: AuthorizedConnectAppContext
         """
-        return AuthorizedConnectAppContext(self._version, connect_app_sid=connect_app_sid, **self._kwargs)
+        return AuthorizedConnectAppContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            connect_app_sid=connect_app_sid,
+        )
 
     def __call__(self, connect_app_sid):
         """
@@ -138,7 +135,11 @@ class AuthorizedConnectAppList(ListResource):
         :returns: AuthorizedConnectAppContext
         :rtype: AuthorizedConnectAppContext
         """
-        return AuthorizedConnectAppContext(self._version, connect_app_sid=connect_app_sid, **self._kwargs)
+        return AuthorizedConnectAppContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            connect_app_sid=connect_app_sid,
+        )
 
     def __repr__(self):
         """
@@ -150,13 +151,58 @@ class AuthorizedConnectAppList(ListResource):
         return '<Twilio.Api.V2010.AuthorizedConnectAppList>'
 
 
+class AuthorizedConnectAppPage(Page):
+
+    def __init__(self, version, response, account_sid):
+        """
+        Initialize the AuthorizedConnectAppPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param account_sid: The unique sid that identifies this account
+        
+        :returns: AuthorizedConnectAppPage
+        :rtype: AuthorizedConnectAppPage
+        """
+        super(AuthorizedConnectAppPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'account_sid': account_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of AuthorizedConnectAppInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: AuthorizedConnectAppInstance
+        :rtype: AuthorizedConnectAppInstance
+        """
+        return AuthorizedConnectAppInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Api.V2010.AuthorizedConnectAppPage>'
+
+
 class AuthorizedConnectAppContext(InstanceContext):
 
     def __init__(self, version, account_sid, connect_app_sid):
         """
         Initialize the AuthorizedConnectAppContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param account_sid: The account_sid
         :param connect_app_sid: The connect_app_sid
         
@@ -166,11 +212,11 @@ class AuthorizedConnectAppContext(InstanceContext):
         super(AuthorizedConnectAppContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
             'connect_app_sid': connect_app_sid,
         }
-        self._uri = '/Accounts/{account_sid}/AuthorizedConnectApps/{connect_app_sid}.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/AuthorizedConnectApps/{connect_app_sid}.json'.format(**self._solution)
 
     def fetch(self):
         """
@@ -181,12 +227,17 @@ class AuthorizedConnectAppContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            AuthorizedConnectAppInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return AuthorizedConnectAppInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            connect_app_sid=self._solution['connect_app_sid'],
         )
 
     def __repr__(self):
@@ -196,7 +247,7 @@ class AuthorizedConnectAppContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.AuthorizedConnectAppContext {}>'.format(context)
 
 
@@ -226,14 +277,14 @@ class AuthorizedConnectAppInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'account_sid': account_sid,
             'connect_app_sid': connect_app_sid or self._properties['connect_app_sid'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -241,13 +292,13 @@ class AuthorizedConnectAppInstance(InstanceResource):
         :returns: AuthorizedConnectAppContext for this AuthorizedConnectAppInstance
         :rtype: AuthorizedConnectAppContext
         """
-        if self._instance_context is None:
-            self._instance_context = AuthorizedConnectAppContext(
+        if self._context is None:
+            self._context = AuthorizedConnectAppContext(
                 self._version,
-                self._kwargs['account_sid'],
-                self._kwargs['connect_app_sid'],
+                account_sid=self._solution['account_sid'],
+                connect_app_sid=self._solution['connect_app_sid'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def account_sid(self):
@@ -336,7 +387,7 @@ class AuthorizedConnectAppInstance(InstanceResource):
         :returns: Fetched AuthorizedConnectAppInstance
         :rtype: AuthorizedConnectAppInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     def __repr__(self):
         """
@@ -345,5 +396,5 @@ class AuthorizedConnectAppInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.AuthorizedConnectAppInstance {}>'.format(context)

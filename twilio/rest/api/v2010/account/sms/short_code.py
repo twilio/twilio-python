@@ -11,6 +11,7 @@ from twilio.rest import deserialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class ShortCodeList(ListResource):
@@ -28,13 +29,13 @@ class ShortCodeList(ListResource):
         super(ShortCodeList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
         }
-        self._uri = '/Accounts/{account_sid}/SMS/ShortCodes'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/SMS/ShortCodes'.format(**self._solution)
 
     def stream(self, friendly_name=values.unset, short_code=values.unset,
-               limit=None, page_size=None, **kwargs):
+               limit=None, page_size=None):
         """
         Streams ShortCodeInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -55,26 +56,16 @@ class ShortCodeList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'FriendlyName': friendly_name,
-            'ShortCode': short_code,
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            ShortCodeInstance,
-            self._kwargs,
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            friendly_name=friendly_name,
+            short_code=short_code,
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
     def read(self, friendly_name=values.unset, short_code=values.unset, limit=None,
-             page_size=None, **kwargs):
+             page_size=values.unset):
         """
         Reads ShortCodeInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -97,11 +88,11 @@ class ShortCodeList(ListResource):
             short_code=short_code,
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
     def page(self, friendly_name=values.unset, short_code=values.unset,
-             page_token=None, page_number=None, page_size=None, **kwargs):
+             page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of ShortCodeInstance records from the API.
         Request is executed immediately
@@ -122,15 +113,17 @@ class ShortCodeList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            ShortCodeInstance,
-            self._kwargs,
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return ShortCodePage(
+            self._version,
+            response,
+            account_sid=self._solution['account_sid'],
         )
 
     def get(self, sid):
@@ -142,7 +135,11 @@ class ShortCodeList(ListResource):
         :returns: ShortCodeContext
         :rtype: ShortCodeContext
         """
-        return ShortCodeContext(self._version, sid=sid, **self._kwargs)
+        return ShortCodeContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
@@ -153,7 +150,11 @@ class ShortCodeList(ListResource):
         :returns: ShortCodeContext
         :rtype: ShortCodeContext
         """
-        return ShortCodeContext(self._version, sid=sid, **self._kwargs)
+        return ShortCodeContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            sid=sid,
+        )
 
     def __repr__(self):
         """
@@ -165,13 +166,58 @@ class ShortCodeList(ListResource):
         return '<Twilio.Api.V2010.ShortCodeList>'
 
 
+class ShortCodePage(Page):
+
+    def __init__(self, version, response, account_sid):
+        """
+        Initialize the ShortCodePage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param account_sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: ShortCodePage
+        :rtype: ShortCodePage
+        """
+        super(ShortCodePage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'account_sid': account_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of ShortCodeInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: ShortCodeInstance
+        :rtype: ShortCodeInstance
+        """
+        return ShortCodeInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Api.V2010.ShortCodePage>'
+
+
 class ShortCodeContext(InstanceContext):
 
     def __init__(self, version, account_sid, sid):
         """
         Initialize the ShortCodeContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param account_sid: The account_sid
         :param sid: Fetch by unique short-code Sid
         
@@ -181,11 +227,11 @@ class ShortCodeContext(InstanceContext):
         super(ShortCodeContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/{account_sid}/SMS/ShortCodes/{sid}.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/SMS/ShortCodes/{sid}.json'.format(**self._solution)
 
     def fetch(self):
         """
@@ -196,12 +242,17 @@ class ShortCodeContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            ShortCodeInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return ShortCodeInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
         )
 
     def update(self, friendly_name=values.unset, api_version=values.unset,
@@ -229,12 +280,17 @@ class ShortCodeContext(InstanceContext):
             'SmsFallbackMethod': sms_fallback_method,
         })
         
-        return self._version.update(
-            ShortCodeInstance,
-            self._kwargs,
+        payload = self._version.update(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return ShortCodeInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
         )
 
     def __repr__(self):
@@ -244,7 +300,7 @@ class ShortCodeContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.ShortCodeContext {}>'.format(context)
 
 
@@ -276,14 +332,14 @@ class ShortCodeInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'account_sid': account_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -291,13 +347,13 @@ class ShortCodeInstance(InstanceResource):
         :returns: ShortCodeContext for this ShortCodeInstance
         :rtype: ShortCodeContext
         """
-        if self._instance_context is None:
-            self._instance_context = ShortCodeContext(
+        if self._context is None:
+            self._context = ShortCodeContext(
                 self._version,
-                self._kwargs['account_sid'],
-                self._kwargs['sid'],
+                account_sid=self._solution['account_sid'],
+                sid=self._solution['sid'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def account_sid(self):
@@ -402,7 +458,7 @@ class ShortCodeInstance(InstanceResource):
         :returns: Fetched ShortCodeInstance
         :rtype: ShortCodeInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     def update(self, friendly_name=values.unset, api_version=values.unset,
                sms_url=values.unset, sms_method=values.unset,
@@ -420,7 +476,7 @@ class ShortCodeInstance(InstanceResource):
         :returns: Updated ShortCodeInstance
         :rtype: ShortCodeInstance
         """
-        return self._context.update(
+        return self._proxy.update(
             friendly_name=friendly_name,
             api_version=api_version,
             sms_url=sms_url,
@@ -436,5 +492,5 @@ class ShortCodeInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.ShortCodeInstance {}>'.format(context)

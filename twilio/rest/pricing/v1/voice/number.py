@@ -10,6 +10,7 @@ from twilio import values
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class NumberList(ListResource):
@@ -26,7 +27,7 @@ class NumberList(ListResource):
         super(NumberList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {}
+        self._solution = {}
 
     def get(self, number):
         """
@@ -37,7 +38,10 @@ class NumberList(ListResource):
         :returns: NumberContext
         :rtype: NumberContext
         """
-        return NumberContext(self._version, number=number, **self._kwargs)
+        return NumberContext(
+            self._version,
+            number=number,
+        )
 
     def __call__(self, number):
         """
@@ -48,7 +52,10 @@ class NumberList(ListResource):
         :returns: NumberContext
         :rtype: NumberContext
         """
-        return NumberContext(self._version, number=number, **self._kwargs)
+        return NumberContext(
+            self._version,
+            number=number,
+        )
 
     def __repr__(self):
         """
@@ -60,13 +67,54 @@ class NumberList(ListResource):
         return '<Twilio.Pricing.V1.NumberList>'
 
 
+class NumberPage(Page):
+
+    def __init__(self, version, response):
+        """
+        Initialize the NumberPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        
+        :returns: NumberPage
+        :rtype: NumberPage
+        """
+        super(NumberPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {}
+
+    def get_instance(self, payload):
+        """
+        Build an instance of NumberInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: NumberInstance
+        :rtype: NumberInstance
+        """
+        return NumberInstance(
+            self._version,
+            payload,
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Pricing.V1.NumberPage>'
+
+
 class NumberContext(InstanceContext):
 
     def __init__(self, version, number):
         """
         Initialize the NumberContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param number: The number
         
         :returns: NumberContext
@@ -75,10 +123,10 @@ class NumberContext(InstanceContext):
         super(NumberContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'number': number,
         }
-        self._uri = '/Voice/Numbers/{number}'.format(**self._kwargs)
+        self._uri = '/Voice/Numbers/{number}'.format(**self._solution)
 
     def fetch(self):
         """
@@ -89,12 +137,16 @@ class NumberContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            NumberInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return NumberInstance(
+            self._version,
+            payload,
+            number=self._solution['number'],
         )
 
     def __repr__(self):
@@ -104,7 +156,7 @@ class NumberContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Pricing.V1.NumberContext {}>'.format(context)
 
 
@@ -131,13 +183,13 @@ class NumberInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'number': number or self._properties['number'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -145,12 +197,12 @@ class NumberInstance(InstanceResource):
         :returns: NumberContext for this NumberInstance
         :rtype: NumberContext
         """
-        if self._instance_context is None:
-            self._instance_context = NumberContext(
+        if self._context is None:
+            self._context = NumberContext(
                 self._version,
-                self._kwargs['number'],
+                number=self._solution['number'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def number(self):
@@ -215,7 +267,7 @@ class NumberInstance(InstanceResource):
         :returns: Fetched NumberInstance
         :rtype: NumberInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     def __repr__(self):
         """
@@ -224,5 +276,5 @@ class NumberInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Pricing.V1.NumberInstance {}>'.format(context)

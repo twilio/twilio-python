@@ -14,6 +14,7 @@ from twilio.rest.api.v2010.account.incoming_phone_number.toll_free import TollFr
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class IncomingPhoneNumberList(ListResource):
@@ -31,10 +32,10 @@ class IncomingPhoneNumberList(ListResource):
         super(IncomingPhoneNumberList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'owner_account_sid': owner_account_sid,
         }
-        self._uri = '/Accounts/{owner_account_sid}/IncomingPhoneNumbers.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{owner_account_sid}/IncomingPhoneNumbers.json'.format(**self._solution)
         
         # Components
         self._local = None
@@ -42,7 +43,7 @@ class IncomingPhoneNumberList(ListResource):
         self._toll_free = None
 
     def stream(self, beta=values.unset, friendly_name=values.unset,
-               phone_number=values.unset, limit=None, page_size=None, **kwargs):
+               phone_number=values.unset, limit=None, page_size=None):
         """
         Streams IncomingPhoneNumberInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -64,27 +65,17 @@ class IncomingPhoneNumberList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'Beta': beta,
-            'FriendlyName': friendly_name,
-            'PhoneNumber': phone_number,
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            IncomingPhoneNumberInstance,
-            self._kwargs,
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            beta=beta,
+            friendly_name=friendly_name,
+            phone_number=phone_number,
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
     def read(self, beta=values.unset, friendly_name=values.unset,
-             phone_number=values.unset, limit=None, page_size=None, **kwargs):
+             phone_number=values.unset, limit=None, page_size=values.unset):
         """
         Reads IncomingPhoneNumberInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -109,12 +100,11 @@ class IncomingPhoneNumberList(ListResource):
             phone_number=phone_number,
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
     def page(self, beta=values.unset, friendly_name=values.unset,
-             phone_number=values.unset, page_token=None, page_number=None,
-             page_size=None, **kwargs):
+             phone_number=values.unset, page_token=values.unset,
+             page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of IncomingPhoneNumberInstance records from the API.
         Request is executed immediately
@@ -137,15 +127,17 @@ class IncomingPhoneNumberList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            IncomingPhoneNumberInstance,
-            self._kwargs,
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return IncomingPhoneNumberPage(
+            self._version,
+            response,
+            owner_account_sid=self._solution['owner_account_sid'],
         )
 
     def create(self, api_version=values.unset, friendly_name=values.unset,
@@ -202,12 +194,16 @@ class IncomingPhoneNumberList(ListResource):
             'VoiceUrl': voice_url,
         })
         
-        return self._version.create(
-            IncomingPhoneNumberInstance,
-            self._kwargs,
+        payload = self._version.create(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return IncomingPhoneNumberInstance(
+            self._version,
+            payload,
+            owner_account_sid=self._solution['owner_account_sid'],
         )
 
     @property
@@ -219,7 +215,10 @@ class IncomingPhoneNumberList(ListResource):
         :rtype: LocalList
         """
         if self._local is None:
-            self._local = LocalList(self._version, **self._kwargs)
+            self._local = LocalList(
+                self._version,
+                owner_account_sid=self._solution['owner_account_sid'],
+            )
         return self._local
 
     @property
@@ -231,7 +230,10 @@ class IncomingPhoneNumberList(ListResource):
         :rtype: MobileList
         """
         if self._mobile is None:
-            self._mobile = MobileList(self._version, **self._kwargs)
+            self._mobile = MobileList(
+                self._version,
+                owner_account_sid=self._solution['owner_account_sid'],
+            )
         return self._mobile
 
     @property
@@ -243,7 +245,10 @@ class IncomingPhoneNumberList(ListResource):
         :rtype: TollFreeList
         """
         if self._toll_free is None:
-            self._toll_free = TollFreeList(self._version, **self._kwargs)
+            self._toll_free = TollFreeList(
+                self._version,
+                owner_account_sid=self._solution['owner_account_sid'],
+            )
         return self._toll_free
 
     def get(self, sid):
@@ -255,7 +260,11 @@ class IncomingPhoneNumberList(ListResource):
         :returns: IncomingPhoneNumberContext
         :rtype: IncomingPhoneNumberContext
         """
-        return IncomingPhoneNumberContext(self._version, sid=sid, **self._kwargs)
+        return IncomingPhoneNumberContext(
+            self._version,
+            owner_account_sid=self._solution['owner_account_sid'],
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
@@ -266,7 +275,11 @@ class IncomingPhoneNumberList(ListResource):
         :returns: IncomingPhoneNumberContext
         :rtype: IncomingPhoneNumberContext
         """
-        return IncomingPhoneNumberContext(self._version, sid=sid, **self._kwargs)
+        return IncomingPhoneNumberContext(
+            self._version,
+            owner_account_sid=self._solution['owner_account_sid'],
+            sid=sid,
+        )
 
     def __repr__(self):
         """
@@ -278,13 +291,58 @@ class IncomingPhoneNumberList(ListResource):
         return '<Twilio.Api.V2010.IncomingPhoneNumberList>'
 
 
+class IncomingPhoneNumberPage(Page):
+
+    def __init__(self, version, response, owner_account_sid):
+        """
+        Initialize the IncomingPhoneNumberPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param owner_account_sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: IncomingPhoneNumberPage
+        :rtype: IncomingPhoneNumberPage
+        """
+        super(IncomingPhoneNumberPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'owner_account_sid': owner_account_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of IncomingPhoneNumberInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: IncomingPhoneNumberInstance
+        :rtype: IncomingPhoneNumberInstance
+        """
+        return IncomingPhoneNumberInstance(
+            self._version,
+            payload,
+            owner_account_sid=self._solution['owner_account_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Api.V2010.IncomingPhoneNumberPage>'
+
+
 class IncomingPhoneNumberContext(InstanceContext):
 
     def __init__(self, version, owner_account_sid, sid):
         """
         Initialize the IncomingPhoneNumberContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param owner_account_sid: The owner_account_sid
         :param sid: Fetch by unique incoming-phone-number Sid
         
@@ -294,11 +352,11 @@ class IncomingPhoneNumberContext(InstanceContext):
         super(IncomingPhoneNumberContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'owner_account_sid': owner_account_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/{owner_account_sid}/IncomingPhoneNumbers/{sid}.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{owner_account_sid}/IncomingPhoneNumbers/{sid}.json'.format(**self._solution)
 
     def update(self, account_sid=values.unset, api_version=values.unset,
                friendly_name=values.unset, sms_application_sid=values.unset,
@@ -351,12 +409,17 @@ class IncomingPhoneNumberContext(InstanceContext):
             'VoiceUrl': voice_url,
         })
         
-        return self._version.update(
-            IncomingPhoneNumberInstance,
-            self._kwargs,
+        payload = self._version.update(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return IncomingPhoneNumberInstance(
+            self._version,
+            payload,
+            owner_account_sid=self._solution['owner_account_sid'],
+            sid=self._solution['sid'],
         )
 
     def fetch(self):
@@ -368,12 +431,17 @@ class IncomingPhoneNumberContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            IncomingPhoneNumberInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return IncomingPhoneNumberInstance(
+            self._version,
+            payload,
+            owner_account_sid=self._solution['owner_account_sid'],
+            sid=self._solution['sid'],
         )
 
     def delete(self):
@@ -392,7 +460,7 @@ class IncomingPhoneNumberContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.IncomingPhoneNumberContext {}>'.format(context)
 
 
@@ -436,14 +504,14 @@ class IncomingPhoneNumberInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'owner_account_sid': owner_account_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -451,13 +519,13 @@ class IncomingPhoneNumberInstance(InstanceResource):
         :returns: IncomingPhoneNumberContext for this IncomingPhoneNumberInstance
         :rtype: IncomingPhoneNumberContext
         """
-        if self._instance_context is None:
-            self._instance_context = IncomingPhoneNumberContext(
+        if self._context is None:
+            self._context = IncomingPhoneNumberContext(
                 self._version,
-                self._kwargs['owner_account_sid'],
-                self._kwargs['sid'],
+                owner_account_sid=self._solution['owner_account_sid'],
+                sid=self._solution['sid'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def account_sid(self):
@@ -683,7 +751,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
         :returns: Updated IncomingPhoneNumberInstance
         :rtype: IncomingPhoneNumberInstance
         """
-        return self._context.update(
+        return self._proxy.update(
             account_sid=account_sid,
             api_version=api_version,
             friendly_name=friendly_name,
@@ -709,7 +777,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
         :returns: Fetched IncomingPhoneNumberInstance
         :rtype: IncomingPhoneNumberInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     def delete(self):
         """
@@ -718,7 +786,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._context.delete()
+        return self._proxy.delete()
 
     def __repr__(self):
         """
@@ -727,5 +795,5 @@ class IncomingPhoneNumberInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.IncomingPhoneNumberInstance {}>'.format(context)

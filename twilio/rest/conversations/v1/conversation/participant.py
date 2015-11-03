@@ -11,6 +11,7 @@ from twilio.rest import deserialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class ParticipantList(ListResource):
@@ -28,12 +29,12 @@ class ParticipantList(ListResource):
         super(ParticipantList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'conversation_sid': conversation_sid,
         }
-        self._uri = '/Conversations/{conversation_sid}/Participants'.format(**self._kwargs)
+        self._uri = '/Conversations/{conversation_sid}/Participants'.format(**self._solution)
 
-    def stream(self, limit=None, page_size=None, **kwargs):
+    def stream(self, limit=None, page_size=None):
         """
         Streams ParticipantInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -52,23 +53,13 @@ class ParticipantList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            ParticipantInstance,
-            self._kwargs,
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def read(self, limit=None, page_size=None, **kwargs):
+    def read(self, limit=None, page_size=values.unset):
         """
         Reads ParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -87,10 +78,10 @@ class ParticipantList(ListResource):
         return list(self.stream(
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
-    def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
+    def page(self, page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of ParticipantInstance records from the API.
         Request is executed immediately
@@ -107,15 +98,17 @@ class ParticipantList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            ParticipantInstance,
-            self._kwargs,
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return ParticipantPage(
+            self._version,
+            response,
+            conversation_sid=self._solution['conversation_sid'],
         )
 
     def create(self, to, from_):
@@ -133,12 +126,16 @@ class ParticipantList(ListResource):
             'From': from_,
         })
         
-        return self._version.create(
-            ParticipantInstance,
-            self._kwargs,
+        payload = self._version.create(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return ParticipantInstance(
+            self._version,
+            payload,
+            conversation_sid=self._solution['conversation_sid'],
         )
 
     def get(self, sid):
@@ -150,7 +147,11 @@ class ParticipantList(ListResource):
         :returns: ParticipantContext
         :rtype: ParticipantContext
         """
-        return ParticipantContext(self._version, sid=sid, **self._kwargs)
+        return ParticipantContext(
+            self._version,
+            conversation_sid=self._solution['conversation_sid'],
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
@@ -161,7 +162,11 @@ class ParticipantList(ListResource):
         :returns: ParticipantContext
         :rtype: ParticipantContext
         """
-        return ParticipantContext(self._version, sid=sid, **self._kwargs)
+        return ParticipantContext(
+            self._version,
+            conversation_sid=self._solution['conversation_sid'],
+            sid=sid,
+        )
 
     def __repr__(self):
         """
@@ -173,13 +178,58 @@ class ParticipantList(ListResource):
         return '<Twilio.Conversations.V1.ParticipantList>'
 
 
+class ParticipantPage(Page):
+
+    def __init__(self, version, response, conversation_sid):
+        """
+        Initialize the ParticipantPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param conversation_sid: The conversation_sid
+        
+        :returns: ParticipantPage
+        :rtype: ParticipantPage
+        """
+        super(ParticipantPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'conversation_sid': conversation_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of ParticipantInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: ParticipantInstance
+        :rtype: ParticipantInstance
+        """
+        return ParticipantInstance(
+            self._version,
+            payload,
+            conversation_sid=self._solution['conversation_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Conversations.V1.ParticipantPage>'
+
+
 class ParticipantContext(InstanceContext):
 
     def __init__(self, version, conversation_sid, sid):
         """
         Initialize the ParticipantContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param conversation_sid: The conversation_sid
         :param sid: The sid
         
@@ -189,11 +239,11 @@ class ParticipantContext(InstanceContext):
         super(ParticipantContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'conversation_sid': conversation_sid,
             'sid': sid,
         }
-        self._uri = '/Conversations/{conversation_sid}/Participants/{sid}'.format(**self._kwargs)
+        self._uri = '/Conversations/{conversation_sid}/Participants/{sid}'.format(**self._solution)
 
     def fetch(self):
         """
@@ -204,12 +254,17 @@ class ParticipantContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            ParticipantInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return ParticipantInstance(
+            self._version,
+            payload,
+            conversation_sid=self._solution['conversation_sid'],
+            sid=self._solution['sid'],
         )
 
     def __repr__(self):
@@ -219,7 +274,7 @@ class ParticipantContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Conversations.V1.ParticipantContext {}>'.format(context)
 
 
@@ -249,14 +304,14 @@ class ParticipantInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'conversation_sid': conversation_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -264,13 +319,13 @@ class ParticipantInstance(InstanceResource):
         :returns: ParticipantContext for this ParticipantInstance
         :rtype: ParticipantContext
         """
-        if self._instance_context is None:
-            self._instance_context = ParticipantContext(
+        if self._context is None:
+            self._context = ParticipantContext(
                 self._version,
-                self._kwargs['conversation_sid'],
-                self._kwargs['sid'],
+                conversation_sid=self._solution['conversation_sid'],
+                sid=self._solution['sid'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def sid(self):
@@ -359,7 +414,7 @@ class ParticipantInstance(InstanceResource):
         :returns: Fetched ParticipantInstance
         :rtype: ParticipantInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     def __repr__(self):
         """
@@ -368,5 +423,5 @@ class ParticipantInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Conversations.V1.ParticipantInstance {}>'.format(context)

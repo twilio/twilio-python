@@ -10,6 +10,7 @@ from twilio import values
 from twilio.rest import deserialize
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class TokenList(ListResource):
@@ -27,10 +28,10 @@ class TokenList(ListResource):
         super(TokenList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
         }
-        self._uri = '/Accounts/{account_sid}/Tokens.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Tokens.json'.format(**self._solution)
 
     def create(self, ttl=values.unset):
         """
@@ -45,12 +46,16 @@ class TokenList(ListResource):
             'Ttl': ttl,
         })
         
-        return self._version.create(
-            TokenInstance,
-            {},
+        payload = self._version.create(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return TokenInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
         )
 
     def __repr__(self):
@@ -63,9 +68,54 @@ class TokenList(ListResource):
         return '<Twilio.Api.V2010.TokenList>'
 
 
+class TokenPage(Page):
+
+    def __init__(self, version, response, account_sid):
+        """
+        Initialize the TokenPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param account_sid: The unique sid that identifies this account
+        
+        :returns: TokenPage
+        :rtype: TokenPage
+        """
+        super(TokenPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'account_sid': account_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of TokenInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: TokenInstance
+        :rtype: TokenInstance
+        """
+        return TokenInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Api.V2010.TokenPage>'
+
+
 class TokenInstance(InstanceResource):
 
-    def __init__(self, version, payload):
+    def __init__(self, version, payload, account_sid):
         """
         Initialize the TokenInstance
         
@@ -83,6 +133,12 @@ class TokenInstance(InstanceResource):
             'password': payload['password'],
             'ttl': payload['ttl'],
             'username': payload['username'],
+        }
+        
+        # Context
+        self._context = None
+        self._solution = {
+            'account_sid': account_sid,
         }
 
     @property

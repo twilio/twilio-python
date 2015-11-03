@@ -10,6 +10,7 @@ from twilio import values
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class ConnectAppList(ListResource):
@@ -27,12 +28,12 @@ class ConnectAppList(ListResource):
         super(ConnectAppList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
         }
-        self._uri = '/Accounts/{account_sid}/ConnectApps.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/ConnectApps.json'.format(**self._solution)
 
-    def stream(self, limit=None, page_size=None, **kwargs):
+    def stream(self, limit=None, page_size=None):
         """
         Streams ConnectAppInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -51,23 +52,13 @@ class ConnectAppList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            ConnectAppInstance,
-            self._kwargs,
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def read(self, limit=None, page_size=None, **kwargs):
+    def read(self, limit=None, page_size=values.unset):
         """
         Reads ConnectAppInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -86,10 +77,10 @@ class ConnectAppList(ListResource):
         return list(self.stream(
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
-    def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
+    def page(self, page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of ConnectAppInstance records from the API.
         Request is executed immediately
@@ -106,15 +97,17 @@ class ConnectAppList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            ConnectAppInstance,
-            self._kwargs,
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return ConnectAppPage(
+            self._version,
+            response,
+            account_sid=self._solution['account_sid'],
         )
 
     def get(self, sid):
@@ -126,7 +119,11 @@ class ConnectAppList(ListResource):
         :returns: ConnectAppContext
         :rtype: ConnectAppContext
         """
-        return ConnectAppContext(self._version, sid=sid, **self._kwargs)
+        return ConnectAppContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
@@ -137,7 +134,11 @@ class ConnectAppList(ListResource):
         :returns: ConnectAppContext
         :rtype: ConnectAppContext
         """
-        return ConnectAppContext(self._version, sid=sid, **self._kwargs)
+        return ConnectAppContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            sid=sid,
+        )
 
     def __repr__(self):
         """
@@ -149,13 +150,58 @@ class ConnectAppList(ListResource):
         return '<Twilio.Api.V2010.ConnectAppList>'
 
 
+class ConnectAppPage(Page):
+
+    def __init__(self, version, response, account_sid):
+        """
+        Initialize the ConnectAppPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param account_sid: The unique sid that identifies this account
+        
+        :returns: ConnectAppPage
+        :rtype: ConnectAppPage
+        """
+        super(ConnectAppPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'account_sid': account_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of ConnectAppInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: ConnectAppInstance
+        :rtype: ConnectAppInstance
+        """
+        return ConnectAppInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Api.V2010.ConnectAppPage>'
+
+
 class ConnectAppContext(InstanceContext):
 
     def __init__(self, version, account_sid, sid):
         """
         Initialize the ConnectAppContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param account_sid: The account_sid
         :param sid: Fetch by unique connect-app Sid
         
@@ -165,11 +211,11 @@ class ConnectAppContext(InstanceContext):
         super(ConnectAppContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/{account_sid}/ConnectApps/{sid}.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/ConnectApps/{sid}.json'.format(**self._solution)
 
     def fetch(self):
         """
@@ -180,12 +226,17 @@ class ConnectAppContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            ConnectAppInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return ConnectAppInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
         )
 
     def update(self, authorize_redirect_url=values.unset, company_name=values.unset,
@@ -219,12 +270,17 @@ class ConnectAppContext(InstanceContext):
             'Permissions': permissions,
         })
         
-        return self._version.update(
-            ConnectAppInstance,
-            self._kwargs,
+        payload = self._version.update(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return ConnectAppInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
         )
 
     def __repr__(self):
@@ -234,7 +290,7 @@ class ConnectAppContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.ConnectAppContext {}>'.format(context)
 
 
@@ -265,14 +321,14 @@ class ConnectAppInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'account_sid': account_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -280,13 +336,13 @@ class ConnectAppInstance(InstanceResource):
         :returns: ConnectAppContext for this ConnectAppInstance
         :rtype: ConnectAppContext
         """
-        if self._instance_context is None:
-            self._instance_context = ConnectAppContext(
+        if self._context is None:
+            self._context = ConnectAppContext(
                 self._version,
-                self._kwargs['account_sid'],
-                self._kwargs['sid'],
+                account_sid=self._solution['account_sid'],
+                sid=self._solution['sid'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def account_sid(self):
@@ -383,7 +439,7 @@ class ConnectAppInstance(InstanceResource):
         :returns: Fetched ConnectAppInstance
         :rtype: ConnectAppInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     def update(self, authorize_redirect_url=values.unset, company_name=values.unset,
                deauthorize_callback_method=values.unset,
@@ -405,7 +461,7 @@ class ConnectAppInstance(InstanceResource):
         :returns: Updated ConnectAppInstance
         :rtype: ConnectAppInstance
         """
-        return self._context.update(
+        return self._proxy.update(
             authorize_redirect_url=authorize_redirect_url,
             company_name=company_name,
             deauthorize_callback_method=deauthorize_callback_method,
@@ -423,5 +479,5 @@ class ConnectAppInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.ConnectAppInstance {}>'.format(context)

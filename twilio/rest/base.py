@@ -184,31 +184,27 @@ class Version(object):
         return json.loads(response.content)
 
 class ListResource(object):
-    def __init__(self, version, solution):
+    def __init__(self, version):
         """
         :param Version version:
         """
         self._version = version
-        self._solution = solution
         """ :type: Version """
 
 
 class InstanceContext(object):
-    def __init__(self, version, solution):
+    def __init__(self, version):
         """
         :param Version version:
         """
         self._version = version
-        self._solution = solution
         """ :type: Version """
 
 
 class InstanceResource(object):
-    def __init__(self, version, payload, solution):
+    def __init__(self, version):
         """
         :param Version version:
         """
         self._version = version
-        self._payload = payload
-        self._solution = solution
         """ :type: Version """

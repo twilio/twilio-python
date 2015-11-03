@@ -10,6 +10,7 @@ from twilio import values
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class CountryList(ListResource):
@@ -26,10 +27,10 @@ class CountryList(ListResource):
         super(CountryList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {}
-        self._uri = '/Voice/Countries'.format(**self._kwargs)
+        self._solution = {}
+        self._uri = '/Voice/Countries'.format(**self._solution)
 
-    def stream(self, limit=None, page_size=None, **kwargs):
+    def stream(self, limit=None, page_size=None):
         """
         Streams CountryInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -48,23 +49,13 @@ class CountryList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            CountryInstance,
-            self._kwargs,
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def read(self, limit=None, page_size=None, **kwargs):
+    def read(self, limit=None, page_size=values.unset):
         """
         Reads CountryInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -83,10 +74,10 @@ class CountryList(ListResource):
         return list(self.stream(
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
-    def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
+    def page(self, page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of CountryInstance records from the API.
         Request is executed immediately
@@ -103,15 +94,16 @@ class CountryList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            CountryInstance,
-            self._kwargs,
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return CountryPage(
+            self._version,
+            response,
         )
 
     def get(self, iso_country):
@@ -123,7 +115,10 @@ class CountryList(ListResource):
         :returns: CountryContext
         :rtype: CountryContext
         """
-        return CountryContext(self._version, iso_country=iso_country, **self._kwargs)
+        return CountryContext(
+            self._version,
+            iso_country=iso_country,
+        )
 
     def __call__(self, iso_country):
         """
@@ -134,7 +129,10 @@ class CountryList(ListResource):
         :returns: CountryContext
         :rtype: CountryContext
         """
-        return CountryContext(self._version, iso_country=iso_country, **self._kwargs)
+        return CountryContext(
+            self._version,
+            iso_country=iso_country,
+        )
 
     def __repr__(self):
         """
@@ -146,13 +144,54 @@ class CountryList(ListResource):
         return '<Twilio.Pricing.V1.CountryList>'
 
 
+class CountryPage(Page):
+
+    def __init__(self, version, response):
+        """
+        Initialize the CountryPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        
+        :returns: CountryPage
+        :rtype: CountryPage
+        """
+        super(CountryPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {}
+
+    def get_instance(self, payload):
+        """
+        Build an instance of CountryInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: CountryInstance
+        :rtype: CountryInstance
+        """
+        return CountryInstance(
+            self._version,
+            payload,
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Pricing.V1.CountryPage>'
+
+
 class CountryContext(InstanceContext):
 
     def __init__(self, version, iso_country):
         """
         Initialize the CountryContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param iso_country: The iso_country
         
         :returns: CountryContext
@@ -161,10 +200,10 @@ class CountryContext(InstanceContext):
         super(CountryContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'iso_country': iso_country,
         }
-        self._uri = '/Voice/Countries/{iso_country}'.format(**self._kwargs)
+        self._uri = '/Voice/Countries/{iso_country}'.format(**self._solution)
 
     def fetch(self):
         """
@@ -175,12 +214,16 @@ class CountryContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            CountryInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return CountryInstance(
+            self._version,
+            payload,
+            iso_country=self._solution['iso_country'],
         )
 
     def __repr__(self):
@@ -190,7 +233,7 @@ class CountryContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Pricing.V1.CountryContext {}>'.format(context)
 
 
@@ -210,19 +253,19 @@ class CountryInstance(InstanceResource):
             'iso_country': payload['iso_country'],
             'url': payload['url'],
             'country': payload['country'],
-            'inbound_call_prices': payload.get('inbound_call_prices'),
             'outbound_prefix_prices': payload.get('outbound_prefix_prices'),
+            'inbound_call_prices': payload.get('inbound_call_prices'),
             'price_unit': payload.get('price_unit'),
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'iso_country': iso_country or self._properties['iso_country'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -230,12 +273,20 @@ class CountryInstance(InstanceResource):
         :returns: CountryContext for this CountryInstance
         :rtype: CountryContext
         """
-        if self._instance_context is None:
-            self._instance_context = CountryContext(
+        if self._context is None:
+            self._context = CountryContext(
                 self._version,
-                self._kwargs['iso_country'],
+                iso_country=self._solution['iso_country'],
             )
-        return self._instance_context
+        return self._context
+
+    @property
+    def iso_country(self):
+        """
+        :returns: The iso_country
+        :rtype: unicode
+        """
+        return self._properties['iso_country']
 
     @property
     def inbound_call_prices(self):
@@ -244,6 +295,22 @@ class CountryInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['inbound_call_prices']
+
+    @property
+    def country(self):
+        """
+        :returns: The country
+        :rtype: unicode
+        """
+        return self._properties['country']
+
+    @property
+    def price_unit(self):
+        """
+        :returns: The price_unit
+        :rtype: unicode
+        """
+        return self._properties['price_unit']
 
     @property
     def url(self):
@@ -261,30 +328,6 @@ class CountryInstance(InstanceResource):
         """
         return self._properties['outbound_prefix_prices']
 
-    @property
-    def price_unit(self):
-        """
-        :returns: The price_unit
-        :rtype: unicode
-        """
-        return self._properties['price_unit']
-
-    @property
-    def iso_country(self):
-        """
-        :returns: The iso_country
-        :rtype: unicode
-        """
-        return self._properties['iso_country']
-
-    @property
-    def country(self):
-        """
-        :returns: The country
-        :rtype: unicode
-        """
-        return self._properties['country']
-
     def fetch(self):
         """
         Fetch a CountryInstance
@@ -292,7 +335,7 @@ class CountryInstance(InstanceResource):
         :returns: Fetched CountryInstance
         :rtype: CountryInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     def __repr__(self):
         """
@@ -301,5 +344,5 @@ class CountryInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Pricing.V1.CountryInstance {}>'.format(context)

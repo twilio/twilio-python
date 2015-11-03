@@ -10,6 +10,7 @@ from twilio import values
 from twilio.rest import serialize
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class TaskQueuesStatisticsList(ListResource):
@@ -27,14 +28,14 @@ class TaskQueuesStatisticsList(ListResource):
         super(TaskQueuesStatisticsList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'workspace_sid': workspace_sid,
         }
-        self._uri = '/Workspaces/{workspace_sid}/TaskQueues/Statistics'.format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/TaskQueues/Statistics'.format(**self._solution)
 
     def stream(self, end_date=values.unset, friendly_name=values.unset,
                minutes=values.unset, start_date=values.unset, limit=None,
-               page_size=None, **kwargs):
+               page_size=None):
         """
         Streams TaskQueuesStatisticsInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -57,29 +58,19 @@ class TaskQueuesStatisticsList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'EndDate': serialize.iso8601_datetime(end_date),
-            'FriendlyName': friendly_name,
-            'Minutes': minutes,
-            'StartDate': serialize.iso8601_datetime(start_date),
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            TaskQueuesStatisticsInstance,
-            {},
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            end_date=end_date,
+            friendly_name=friendly_name,
+            minutes=minutes,
+            start_date=start_date,
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
     def read(self, end_date=values.unset, friendly_name=values.unset,
              minutes=values.unset, start_date=values.unset, limit=None,
-             page_size=None, **kwargs):
+             page_size=values.unset):
         """
         Reads TaskQueuesStatisticsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -106,12 +97,11 @@ class TaskQueuesStatisticsList(ListResource):
             start_date=start_date,
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
     def page(self, end_date=values.unset, friendly_name=values.unset,
-             minutes=values.unset, start_date=values.unset, page_token=None,
-             page_number=None, page_size=None, **kwargs):
+             minutes=values.unset, start_date=values.unset, page_token=values.unset,
+             page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of TaskQueuesStatisticsInstance records from the API.
         Request is executed immediately
@@ -136,15 +126,17 @@ class TaskQueuesStatisticsList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            TaskQueuesStatisticsInstance,
-            {},
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return TaskQueuesStatisticsPage(
+            self._version,
+            response,
+            workspace_sid=self._solution['workspace_sid'],
         )
 
     def __repr__(self):
@@ -157,9 +149,54 @@ class TaskQueuesStatisticsList(ListResource):
         return '<Twilio.Taskrouter.V1.TaskQueuesStatisticsList>'
 
 
+class TaskQueuesStatisticsPage(Page):
+
+    def __init__(self, version, response, workspace_sid):
+        """
+        Initialize the TaskQueuesStatisticsPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param workspace_sid: The workspace_sid
+        
+        :returns: TaskQueuesStatisticsPage
+        :rtype: TaskQueuesStatisticsPage
+        """
+        super(TaskQueuesStatisticsPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'workspace_sid': workspace_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of TaskQueuesStatisticsInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: TaskQueuesStatisticsInstance
+        :rtype: TaskQueuesStatisticsInstance
+        """
+        return TaskQueuesStatisticsInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Taskrouter.V1.TaskQueuesStatisticsPage>'
+
+
 class TaskQueuesStatisticsInstance(InstanceResource):
 
-    def __init__(self, version, payload):
+    def __init__(self, version, payload, workspace_sid):
         """
         Initialize the TaskQueuesStatisticsInstance
         
@@ -175,6 +212,12 @@ class TaskQueuesStatisticsInstance(InstanceResource):
             'realtime': payload['realtime'],
             'task_queue_sid': payload['task_queue_sid'],
             'workspace_sid': payload['workspace_sid'],
+        }
+        
+        # Context
+        self._context = None
+        self._solution = {
+            'workspace_sid': workspace_sid,
         }
 
     @property

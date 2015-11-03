@@ -10,6 +10,7 @@ from twilio import values
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class PhoneNumberList(ListResource):
@@ -26,7 +27,7 @@ class PhoneNumberList(ListResource):
         super(PhoneNumberList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {}
+        self._solution = {}
 
     def get(self, phone_number):
         """
@@ -37,7 +38,10 @@ class PhoneNumberList(ListResource):
         :returns: PhoneNumberContext
         :rtype: PhoneNumberContext
         """
-        return PhoneNumberContext(self._version, phone_number=phone_number, **self._kwargs)
+        return PhoneNumberContext(
+            self._version,
+            phone_number=phone_number,
+        )
 
     def __call__(self, phone_number):
         """
@@ -48,7 +52,10 @@ class PhoneNumberList(ListResource):
         :returns: PhoneNumberContext
         :rtype: PhoneNumberContext
         """
-        return PhoneNumberContext(self._version, phone_number=phone_number, **self._kwargs)
+        return PhoneNumberContext(
+            self._version,
+            phone_number=phone_number,
+        )
 
     def __repr__(self):
         """
@@ -60,13 +67,54 @@ class PhoneNumberList(ListResource):
         return '<Twilio.Lookups.V1.PhoneNumberList>'
 
 
+class PhoneNumberPage(Page):
+
+    def __init__(self, version, response):
+        """
+        Initialize the PhoneNumberPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        
+        :returns: PhoneNumberPage
+        :rtype: PhoneNumberPage
+        """
+        super(PhoneNumberPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {}
+
+    def get_instance(self, payload):
+        """
+        Build an instance of PhoneNumberInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: PhoneNumberInstance
+        :rtype: PhoneNumberInstance
+        """
+        return PhoneNumberInstance(
+            self._version,
+            payload,
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Lookups.V1.PhoneNumberPage>'
+
+
 class PhoneNumberContext(InstanceContext):
 
     def __init__(self, version, phone_number):
         """
         Initialize the PhoneNumberContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param phone_number: The phone_number
         
         :returns: PhoneNumberContext
@@ -75,10 +123,10 @@ class PhoneNumberContext(InstanceContext):
         super(PhoneNumberContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'phone_number': phone_number,
         }
-        self._uri = '/PhoneNumbers/{phone_number}'.format(**self._kwargs)
+        self._uri = '/PhoneNumbers/{phone_number}'.format(**self._solution)
 
     def fetch(self, country_code=values.unset, type=values.unset):
         """
@@ -95,12 +143,16 @@ class PhoneNumberContext(InstanceContext):
             'Type': type,
         })
         
-        return self._version.fetch(
-            PhoneNumberInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return PhoneNumberInstance(
+            self._version,
+            payload,
+            phone_number=self._solution['phone_number'],
         )
 
     def __repr__(self):
@@ -110,7 +162,7 @@ class PhoneNumberContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Lookups.V1.PhoneNumberContext {}>'.format(context)
 
 
@@ -134,13 +186,13 @@ class PhoneNumberInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'phone_number': phone_number or self._properties['phone_number'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -148,12 +200,12 @@ class PhoneNumberInstance(InstanceResource):
         :returns: PhoneNumberContext for this PhoneNumberInstance
         :rtype: PhoneNumberContext
         """
-        if self._instance_context is None:
-            self._instance_context = PhoneNumberContext(
+        if self._context is None:
+            self._context = PhoneNumberContext(
                 self._version,
-                self._kwargs['phone_number'],
+                phone_number=self._solution['phone_number'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def country_code(self):
@@ -197,7 +249,7 @@ class PhoneNumberInstance(InstanceResource):
         :returns: Fetched PhoneNumberInstance
         :rtype: PhoneNumberInstance
         """
-        return self._context.fetch(
+        return self._proxy.fetch(
             country_code=country_code,
             type=type,
         )
@@ -209,5 +261,5 @@ class PhoneNumberInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Lookups.V1.PhoneNumberInstance {}>'.format(context)

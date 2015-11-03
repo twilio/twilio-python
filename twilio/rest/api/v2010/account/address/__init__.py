@@ -12,6 +12,7 @@ from twilio.rest.api.v2010.account.address.dependent_phone_number import Depende
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class AddressList(ListResource):
@@ -29,10 +30,10 @@ class AddressList(ListResource):
         super(AddressList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
         }
-        self._uri = '/Accounts/{account_sid}/Addresses.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Addresses.json'.format(**self._solution)
 
     def create(self, customer_name, street, city, region, postal_code, iso_country,
                friendly_name=values.unset):
@@ -60,16 +61,20 @@ class AddressList(ListResource):
             'FriendlyName': friendly_name,
         })
         
-        return self._version.create(
-            AddressInstance,
-            self._kwargs,
+        payload = self._version.create(
             'POST',
             self._uri,
             data=data,
         )
+        
+        return AddressInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+        )
 
     def stream(self, customer_name=values.unset, friendly_name=values.unset,
-               iso_country=values.unset, limit=None, page_size=None, **kwargs):
+               iso_country=values.unset, limit=None, page_size=None):
         """
         Streams AddressInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -91,27 +96,17 @@ class AddressList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'CustomerName': customer_name,
-            'FriendlyName': friendly_name,
-            'IsoCountry': iso_country,
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            AddressInstance,
-            self._kwargs,
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            customer_name=customer_name,
+            friendly_name=friendly_name,
+            iso_country=iso_country,
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
     def read(self, customer_name=values.unset, friendly_name=values.unset,
-             iso_country=values.unset, limit=None, page_size=None, **kwargs):
+             iso_country=values.unset, limit=None, page_size=values.unset):
         """
         Reads AddressInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -136,12 +131,11 @@ class AddressList(ListResource):
             iso_country=iso_country,
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
     def page(self, customer_name=values.unset, friendly_name=values.unset,
-             iso_country=values.unset, page_token=None, page_number=None,
-             page_size=None, **kwargs):
+             iso_country=values.unset, page_token=values.unset,
+             page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of AddressInstance records from the API.
         Request is executed immediately
@@ -164,15 +158,17 @@ class AddressList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            AddressInstance,
-            self._kwargs,
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return AddressPage(
+            self._version,
+            response,
+            account_sid=self._solution['account_sid'],
         )
 
     def get(self, sid):
@@ -184,7 +180,11 @@ class AddressList(ListResource):
         :returns: AddressContext
         :rtype: AddressContext
         """
-        return AddressContext(self._version, sid=sid, **self._kwargs)
+        return AddressContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
@@ -195,7 +195,11 @@ class AddressList(ListResource):
         :returns: AddressContext
         :rtype: AddressContext
         """
-        return AddressContext(self._version, sid=sid, **self._kwargs)
+        return AddressContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            sid=sid,
+        )
 
     def __repr__(self):
         """
@@ -207,13 +211,58 @@ class AddressList(ListResource):
         return '<Twilio.Api.V2010.AddressList>'
 
 
+class AddressPage(Page):
+
+    def __init__(self, version, response, account_sid):
+        """
+        Initialize the AddressPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param account_sid: The account_sid
+        
+        :returns: AddressPage
+        :rtype: AddressPage
+        """
+        super(AddressPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'account_sid': account_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of AddressInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: AddressInstance
+        :rtype: AddressInstance
+        """
+        return AddressInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Api.V2010.AddressPage>'
+
+
 class AddressContext(InstanceContext):
 
     def __init__(self, version, account_sid, sid):
         """
         Initialize the AddressContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param account_sid: The account_sid
         :param sid: The sid
         
@@ -223,11 +272,11 @@ class AddressContext(InstanceContext):
         super(AddressContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/{account_sid}/Addresses/{sid}.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Addresses/{sid}.json'.format(**self._solution)
         
         # Dependents
         self._dependent_phone_numbers = None
@@ -250,12 +299,17 @@ class AddressContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            AddressInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return AddressInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
         )
 
     def update(self, friendly_name=values.unset, customer_name=values.unset,
@@ -283,12 +337,17 @@ class AddressContext(InstanceContext):
             'PostalCode': postal_code,
         })
         
-        return self._version.update(
-            AddressInstance,
-            self._kwargs,
+        payload = self._version.update(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return AddressInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
         )
 
     @property
@@ -302,8 +361,8 @@ class AddressContext(InstanceContext):
         if self._dependent_phone_numbers is None:
             self._dependent_phone_numbers = DependentPhoneNumberList(
                 self._version,
-                account_sid=self._kwargs['account_sid'],
-                address_sid=self._kwargs['sid'],
+                account_sid=self._solution['account_sid'],
+                address_sid=self._solution['sid'],
             )
         return self._dependent_phone_numbers
 
@@ -314,7 +373,7 @@ class AddressContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.AddressContext {}>'.format(context)
 
 
@@ -346,14 +405,14 @@ class AddressInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'account_sid': account_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -361,13 +420,13 @@ class AddressInstance(InstanceResource):
         :returns: AddressContext for this AddressInstance
         :rtype: AddressContext
         """
-        if self._instance_context is None:
-            self._instance_context = AddressContext(
+        if self._context is None:
+            self._context = AddressContext(
                 self._version,
-                self._kwargs['account_sid'],
-                self._kwargs['sid'],
+                account_sid=self._solution['account_sid'],
+                sid=self._solution['sid'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def account_sid(self):
@@ -472,7 +531,7 @@ class AddressInstance(InstanceResource):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._context.delete()
+        return self._proxy.delete()
 
     def fetch(self):
         """
@@ -481,7 +540,7 @@ class AddressInstance(InstanceResource):
         :returns: Fetched AddressInstance
         :rtype: AddressInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     def update(self, friendly_name=values.unset, customer_name=values.unset,
                street=values.unset, city=values.unset, region=values.unset,
@@ -499,7 +558,7 @@ class AddressInstance(InstanceResource):
         :returns: Updated AddressInstance
         :rtype: AddressInstance
         """
-        return self._context.update(
+        return self._proxy.update(
             friendly_name=friendly_name,
             customer_name=customer_name,
             street=street,
@@ -516,7 +575,7 @@ class AddressInstance(InstanceResource):
         :returns: dependent_phone_numbers
         :rtype: dependent_phone_numbers
         """
-        return self._context.dependent_phone_numbers
+        return self._proxy.dependent_phone_numbers
 
     def __repr__(self):
         """
@@ -525,5 +584,5 @@ class AddressInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.AddressInstance {}>'.format(context)

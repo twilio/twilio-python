@@ -18,12 +18,12 @@ class Page(object):
         'uri'
     }
 
-    def __init__(self, version, response, solution):
+    def __init__(self, version, response):
         payload = self.process_response(response)
 
         self._version = version
         self._payload = payload
-        self._solution = solution
+        self._solution = {}
         self._records = iter(self.load_page(payload))
 
     def __iter__(self):
@@ -66,7 +66,7 @@ class Page(object):
     def next_page_url(self):
         if 'meta' in self._payload and 'next_page_url' in self._payload['meta']:
             return self._payload['meta']['next_page_url']
-        elif 'next_page_uri' in self._payload:
+        elif 'next_page_uri' in self._payload and self._payload['next_page_uri']:
             return self._version.domain.absolute_url(self._payload['next_page_uri'])
 
         return None

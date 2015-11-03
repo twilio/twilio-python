@@ -11,6 +11,7 @@ from twilio.rest import deserialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class FeedbackList(ListResource):
@@ -29,7 +30,7 @@ class FeedbackList(ListResource):
         super(FeedbackList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
             'call_sid': call_sid,
         }
@@ -41,7 +42,11 @@ class FeedbackList(ListResource):
         :returns: FeedbackContext
         :rtype: FeedbackContext
         """
-        return FeedbackContext(self._version, **self._kwargs)
+        return FeedbackContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            call_sid=self._solution['call_sid'],
+        )
 
     def __call__(self):
         """
@@ -50,7 +55,11 @@ class FeedbackList(ListResource):
         :returns: FeedbackContext
         :rtype: FeedbackContext
         """
-        return FeedbackContext(self._version, **self._kwargs)
+        return FeedbackContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            call_sid=self._solution['call_sid'],
+        )
 
     def __repr__(self):
         """
@@ -62,13 +71,61 @@ class FeedbackList(ListResource):
         return '<Twilio.Api.V2010.FeedbackList>'
 
 
+class FeedbackPage(Page):
+
+    def __init__(self, version, response, account_sid, call_sid):
+        """
+        Initialize the FeedbackPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param account_sid: The account_sid
+        :param call_sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: FeedbackPage
+        :rtype: FeedbackPage
+        """
+        super(FeedbackPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'account_sid': account_sid,
+            'call_sid': call_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of FeedbackInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: FeedbackInstance
+        :rtype: FeedbackInstance
+        """
+        return FeedbackInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            call_sid=self._solution['call_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Api.V2010.FeedbackPage>'
+
+
 class FeedbackContext(InstanceContext):
 
     def __init__(self, version, account_sid, call_sid):
         """
         Initialize the FeedbackContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param account_sid: The account_sid
         :param call_sid: The call sid that uniquely identifies the call
         
@@ -78,11 +135,11 @@ class FeedbackContext(InstanceContext):
         super(FeedbackContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
             'call_sid': call_sid,
         }
-        self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Feedback.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Feedback.json'.format(**self._solution)
 
     def create(self, quality_score, issue=values.unset):
         """
@@ -99,12 +156,17 @@ class FeedbackContext(InstanceContext):
             'Issue': issue,
         })
         
-        return self._version.create(
-            FeedbackInstance,
-            self._kwargs,
+        payload = self._version.create(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return FeedbackInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            call_sid=self._solution['call_sid'],
         )
 
     def fetch(self):
@@ -116,12 +178,17 @@ class FeedbackContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            FeedbackInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return FeedbackInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            call_sid=self._solution['call_sid'],
         )
 
     def update(self, quality_score, issue=values.unset):
@@ -139,12 +206,17 @@ class FeedbackContext(InstanceContext):
             'Issue': issue,
         })
         
-        return self._version.update(
-            FeedbackInstance,
-            self._kwargs,
+        payload = self._version.update(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return FeedbackInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            call_sid=self._solution['call_sid'],
         )
 
     def __repr__(self):
@@ -154,7 +226,7 @@ class FeedbackContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.FeedbackContext {}>'.format(context)
 
 
@@ -180,14 +252,14 @@ class FeedbackInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'account_sid': account_sid,
             'call_sid': call_sid,
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -195,13 +267,13 @@ class FeedbackInstance(InstanceResource):
         :returns: FeedbackContext for this FeedbackInstance
         :rtype: FeedbackContext
         """
-        if self._instance_context is None:
-            self._instance_context = FeedbackContext(
+        if self._context is None:
+            self._context = FeedbackContext(
                 self._version,
-                self._kwargs['account_sid'],
-                self._kwargs['call_sid'],
+                account_sid=self._solution['account_sid'],
+                call_sid=self._solution['call_sid'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def account_sid(self):
@@ -261,7 +333,7 @@ class FeedbackInstance(InstanceResource):
         :returns: Newly created FeedbackInstance
         :rtype: FeedbackInstance
         """
-        return self._context.create(
+        return self._proxy.create(
             quality_score,
             issue=issue,
         )
@@ -273,7 +345,7 @@ class FeedbackInstance(InstanceResource):
         :returns: Fetched FeedbackInstance
         :rtype: FeedbackInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     def update(self, quality_score, issue=values.unset):
         """
@@ -285,7 +357,7 @@ class FeedbackInstance(InstanceResource):
         :returns: Updated FeedbackInstance
         :rtype: FeedbackInstance
         """
-        return self._context.update(
+        return self._proxy.update(
             quality_score,
             issue=issue,
         )
@@ -297,5 +369,5 @@ class FeedbackInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.FeedbackInstance {}>'.format(context)

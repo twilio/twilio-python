@@ -13,6 +13,7 @@ from twilio.rest.api.v2010.account.recording.transcription import TranscriptionL
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class RecordingList(ListResource):
@@ -30,14 +31,13 @@ class RecordingList(ListResource):
         super(RecordingList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
         }
-        self._uri = '/Accounts/{account_sid}/Recordings.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Recordings.json'.format(**self._solution)
 
     def stream(self, date_created_before=values.unset, date_created=values.unset,
-               date_created_after=values.unset, limit=None, page_size=None,
-               **kwargs):
+               date_created_after=values.unset, limit=None, page_size=None):
         """
         Streams RecordingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -59,27 +59,17 @@ class RecordingList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'DateCreated<': serialize.iso8601_date(date_created_before),
-            'DateCreated': serialize.iso8601_date(date_created),
-            'DateCreated>': serialize.iso8601_date(date_created_after),
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            RecordingInstance,
-            self._kwargs,
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            date_created_before=date_created_before,
+            date_created=date_created,
+            date_created_after=date_created_after,
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
     def read(self, date_created_before=values.unset, date_created=values.unset,
-             date_created_after=values.unset, limit=None, page_size=None, **kwargs):
+             date_created_after=values.unset, limit=None, page_size=values.unset):
         """
         Reads RecordingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -104,12 +94,11 @@ class RecordingList(ListResource):
             date_created_after=date_created_after,
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
     def page(self, date_created_before=values.unset, date_created=values.unset,
-             date_created_after=values.unset, page_token=None, page_number=None,
-             page_size=None, **kwargs):
+             date_created_after=values.unset, page_token=values.unset,
+             page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of RecordingInstance records from the API.
         Request is executed immediately
@@ -132,15 +121,17 @@ class RecordingList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            RecordingInstance,
-            self._kwargs,
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return RecordingPage(
+            self._version,
+            response,
+            account_sid=self._solution['account_sid'],
         )
 
     def get(self, sid):
@@ -152,7 +143,11 @@ class RecordingList(ListResource):
         :returns: RecordingContext
         :rtype: RecordingContext
         """
-        return RecordingContext(self._version, sid=sid, **self._kwargs)
+        return RecordingContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
@@ -163,7 +158,11 @@ class RecordingList(ListResource):
         :returns: RecordingContext
         :rtype: RecordingContext
         """
-        return RecordingContext(self._version, sid=sid, **self._kwargs)
+        return RecordingContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            sid=sid,
+        )
 
     def __repr__(self):
         """
@@ -175,13 +174,58 @@ class RecordingList(ListResource):
         return '<Twilio.Api.V2010.RecordingList>'
 
 
+class RecordingPage(Page):
+
+    def __init__(self, version, response, account_sid):
+        """
+        Initialize the RecordingPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param account_sid: The unique sid that identifies this account
+        
+        :returns: RecordingPage
+        :rtype: RecordingPage
+        """
+        super(RecordingPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'account_sid': account_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of RecordingInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: RecordingInstance
+        :rtype: RecordingInstance
+        """
+        return RecordingInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Api.V2010.RecordingPage>'
+
+
 class RecordingContext(InstanceContext):
 
     def __init__(self, version, account_sid, sid):
         """
         Initialize the RecordingContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param account_sid: The account_sid
         :param sid: Fetch by unique recording Sid
         
@@ -191,11 +235,11 @@ class RecordingContext(InstanceContext):
         super(RecordingContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/{account_sid}/Recordings/{sid}.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Recordings/{sid}.json'.format(**self._solution)
         
         # Dependents
         self._transcriptions = None
@@ -209,12 +253,17 @@ class RecordingContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            RecordingInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return RecordingInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
         )
 
     def delete(self):
@@ -237,8 +286,8 @@ class RecordingContext(InstanceContext):
         if self._transcriptions is None:
             self._transcriptions = TranscriptionList(
                 self._version,
-                account_sid=self._kwargs['account_sid'],
-                recording_sid=self._kwargs['sid'],
+                account_sid=self._solution['account_sid'],
+                recording_sid=self._solution['sid'],
             )
         return self._transcriptions
 
@@ -249,7 +298,7 @@ class RecordingContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.RecordingContext {}>'.format(context)
 
 
@@ -277,14 +326,14 @@ class RecordingInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'account_sid': account_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -292,13 +341,13 @@ class RecordingInstance(InstanceResource):
         :returns: RecordingContext for this RecordingInstance
         :rtype: RecordingContext
         """
-        if self._instance_context is None:
-            self._instance_context = RecordingContext(
+        if self._context is None:
+            self._context = RecordingContext(
                 self._version,
-                self._kwargs['account_sid'],
-                self._kwargs['sid'],
+                account_sid=self._solution['account_sid'],
+                sid=self._solution['sid'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def account_sid(self):
@@ -371,7 +420,7 @@ class RecordingInstance(InstanceResource):
         :returns: Fetched RecordingInstance
         :rtype: RecordingInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     def delete(self):
         """
@@ -380,7 +429,7 @@ class RecordingInstance(InstanceResource):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._context.delete()
+        return self._proxy.delete()
 
     @property
     def transcriptions(self):
@@ -390,7 +439,7 @@ class RecordingInstance(InstanceResource):
         :returns: transcriptions
         :rtype: transcriptions
         """
-        return self._context.transcriptions
+        return self._proxy.transcriptions
 
     def __repr__(self):
         """
@@ -399,5 +448,5 @@ class RecordingInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.RecordingInstance {}>'.format(context)

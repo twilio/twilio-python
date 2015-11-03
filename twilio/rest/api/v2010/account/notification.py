@@ -12,6 +12,7 @@ from twilio.rest import serialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class NotificationList(ListResource):
@@ -29,14 +30,14 @@ class NotificationList(ListResource):
         super(NotificationList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
         }
-        self._uri = '/Accounts/{account_sid}/Notifications'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Notifications'.format(**self._solution)
 
     def stream(self, log=values.unset, message_date_before=values.unset,
                message_date=values.unset, message_date_after=values.unset,
-               limit=None, page_size=None, **kwargs):
+               limit=None, page_size=None):
         """
         Streams NotificationInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -59,29 +60,19 @@ class NotificationList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'Log': log,
-            'MessageDate<': serialize.iso8601_date(message_date_before),
-            'MessageDate': serialize.iso8601_date(message_date),
-            'MessageDate>': serialize.iso8601_date(message_date_after),
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            NotificationInstance,
-            self._kwargs,
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            log=log,
+            message_date_before=message_date_before,
+            message_date=message_date,
+            message_date_after=message_date_after,
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
     def read(self, log=values.unset, message_date_before=values.unset,
              message_date=values.unset, message_date_after=values.unset, limit=None,
-             page_size=None, **kwargs):
+             page_size=values.unset):
         """
         Reads NotificationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -108,12 +99,12 @@ class NotificationList(ListResource):
             message_date_after=message_date_after,
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
     def page(self, log=values.unset, message_date_before=values.unset,
              message_date=values.unset, message_date_after=values.unset,
-             page_token=None, page_number=None, page_size=None, **kwargs):
+             page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of NotificationInstance records from the API.
         Request is executed immediately
@@ -138,15 +129,17 @@ class NotificationList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            NotificationInstance,
-            self._kwargs,
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return NotificationPage(
+            self._version,
+            response,
+            account_sid=self._solution['account_sid'],
         )
 
     def get(self, sid):
@@ -158,7 +151,11 @@ class NotificationList(ListResource):
         :returns: NotificationContext
         :rtype: NotificationContext
         """
-        return NotificationContext(self._version, sid=sid, **self._kwargs)
+        return NotificationContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
@@ -169,7 +166,11 @@ class NotificationList(ListResource):
         :returns: NotificationContext
         :rtype: NotificationContext
         """
-        return NotificationContext(self._version, sid=sid, **self._kwargs)
+        return NotificationContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            sid=sid,
+        )
 
     def __repr__(self):
         """
@@ -181,13 +182,58 @@ class NotificationList(ListResource):
         return '<Twilio.Api.V2010.NotificationList>'
 
 
+class NotificationPage(Page):
+
+    def __init__(self, version, response, account_sid):
+        """
+        Initialize the NotificationPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param account_sid: The unique sid that identifies this account
+        
+        :returns: NotificationPage
+        :rtype: NotificationPage
+        """
+        super(NotificationPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'account_sid': account_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of NotificationInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: NotificationInstance
+        :rtype: NotificationInstance
+        """
+        return NotificationInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Api.V2010.NotificationPage>'
+
+
 class NotificationContext(InstanceContext):
 
     def __init__(self, version, account_sid, sid):
         """
         Initialize the NotificationContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param account_sid: The account_sid
         :param sid: Fetch by unique notification Sid
         
@@ -197,11 +243,11 @@ class NotificationContext(InstanceContext):
         super(NotificationContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/{account_sid}/Notifications/{sid}.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Notifications/{sid}.json'.format(**self._solution)
 
     def fetch(self):
         """
@@ -212,12 +258,17 @@ class NotificationContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            NotificationInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return NotificationInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
         )
 
     def delete(self):
@@ -236,7 +287,7 @@ class NotificationContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.NotificationContext {}>'.format(context)
 
 
@@ -253,34 +304,34 @@ class NotificationInstance(InstanceResource):
         
         # Marshaled Properties
         self._properties = {
-            'log': payload['log'],
-            'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
-            'error_code': payload['error_code'],
-            'more_info': payload['more_info'],
-            'call_sid': payload['call_sid'],
-            'date_created': deserialize.rfc2822_datetime(payload['date_created']),
-            'sid': payload['sid'],
             'api_version': payload['api_version'],
-            'request_url': payload['request_url'],
-            'message_date': deserialize.rfc2822_datetime(payload['message_date']),
+            'log': payload['log'],
+            'date_created': deserialize.rfc2822_datetime(payload['date_created']),
+            'call_sid': payload['call_sid'],
+            'sid': payload['sid'],
             'uri': payload['uri'],
-            'account_sid': payload['account_sid'],
+            'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
+            'message_date': deserialize.rfc2822_datetime(payload['message_date']),
+            'request_url': payload['request_url'],
+            'more_info': payload['more_info'],
+            'error_code': payload['error_code'],
             'message_text': payload['message_text'],
             'request_method': payload['request_method'],
+            'account_sid': payload['account_sid'],
             'request_variables': payload.get('request_variables'),
             'response_headers': payload.get('response_headers'),
             'response_body': payload.get('response_body'),
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'account_sid': account_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -288,13 +339,69 @@ class NotificationInstance(InstanceResource):
         :returns: NotificationContext for this NotificationInstance
         :rtype: NotificationContext
         """
-        if self._instance_context is None:
-            self._instance_context = NotificationContext(
+        if self._context is None:
+            self._context = NotificationContext(
                 self._version,
-                self._kwargs['account_sid'],
-                self._kwargs['sid'],
+                account_sid=self._solution['account_sid'],
+                sid=self._solution['sid'],
             )
-        return self._instance_context
+        return self._context
+
+    @property
+    def uri(self):
+        """
+        :returns: The URI for this resource
+        :rtype: unicode
+        """
+        return self._properties['uri']
+
+    @property
+    def response_body(self):
+        """
+        :returns: The HTTP body returned by your server.
+        :rtype: unicode
+        """
+        return self._properties['response_body']
+
+    @property
+    def response_headers(self):
+        """
+        :returns: The HTTP headers returned by your server.
+        :rtype: unicode
+        """
+        return self._properties['response_headers']
+
+    @property
+    def log(self):
+        """
+        :returns: An integer log level
+        :rtype: unicode
+        """
+        return self._properties['log']
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date this resource was created
+        :rtype: datetime
+        """
+        return self._properties['date_created']
+
+    @property
+    def more_info(self):
+        """
+        :returns: A URL for more information about the error code
+        :rtype: unicode
+        """
+        return self._properties['more_info']
+
+    @property
+    def sid(self):
+        """
+        :returns: A string that uniquely identifies this notification
+        :rtype: unicode
+        """
+        return self._properties['sid']
 
     @property
     def request_variables(self):
@@ -313,60 +420,12 @@ class NotificationInstance(InstanceResource):
         return self._properties['date_updated']
 
     @property
-    def sid(self):
-        """
-        :returns: A string that uniquely identifies this notification
-        :rtype: unicode
-        """
-        return self._properties['sid']
-
-    @property
-    def more_info(self):
-        """
-        :returns: A URL for more information about the error code
-        :rtype: unicode
-        """
-        return self._properties['more_info']
-
-    @property
-    def call_sid(self):
-        """
-        :returns: The string that uniquely identifies the call
-        :rtype: unicode
-        """
-        return self._properties['call_sid']
-
-    @property
-    def response_body(self):
-        """
-        :returns: The HTTP body returned by your server.
-        :rtype: unicode
-        """
-        return self._properties['response_body']
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date this resource was created
-        :rtype: datetime
-        """
-        return self._properties['date_created']
-
-    @property
     def message_date(self):
         """
         :returns: The date the notification was generated
         :rtype: datetime
         """
         return self._properties['message_date']
-
-    @property
-    def api_version(self):
-        """
-        :returns: The version of the Twilio API in use
-        :rtype: unicode
-        """
-        return self._properties['api_version']
 
     @property
     def request_url(self):
@@ -385,36 +444,28 @@ class NotificationInstance(InstanceResource):
         return self._properties['account_sid']
 
     @property
-    def log(self):
-        """
-        :returns: An integer log level
-        :rtype: unicode
-        """
-        return self._properties['log']
-
-    @property
-    def uri(self):
-        """
-        :returns: The URI for this resource
-        :rtype: unicode
-        """
-        return self._properties['uri']
-
-    @property
-    def response_headers(self):
-        """
-        :returns: The HTTP headers returned by your server.
-        :rtype: unicode
-        """
-        return self._properties['response_headers']
-
-    @property
     def error_code(self):
         """
         :returns: A unique error code corresponding to the notification
         :rtype: unicode
         """
         return self._properties['error_code']
+
+    @property
+    def call_sid(self):
+        """
+        :returns: The string that uniquely identifies the call
+        :rtype: unicode
+        """
+        return self._properties['call_sid']
+
+    @property
+    def request_method(self):
+        """
+        :returns: HTTP method used with the request url
+        :rtype: unicode
+        """
+        return self._properties['request_method']
 
     @property
     def message_text(self):
@@ -425,12 +476,12 @@ class NotificationInstance(InstanceResource):
         return self._properties['message_text']
 
     @property
-    def request_method(self):
+    def api_version(self):
         """
-        :returns: HTTP method used with the request url
+        :returns: The version of the Twilio API in use
         :rtype: unicode
         """
-        return self._properties['request_method']
+        return self._properties['api_version']
 
     def fetch(self):
         """
@@ -439,7 +490,7 @@ class NotificationInstance(InstanceResource):
         :returns: Fetched NotificationInstance
         :rtype: NotificationInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     def delete(self):
         """
@@ -448,7 +499,7 @@ class NotificationInstance(InstanceResource):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._context.delete()
+        return self._proxy.delete()
 
     def __repr__(self):
         """
@@ -457,5 +508,5 @@ class NotificationInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.NotificationInstance {}>'.format(context)

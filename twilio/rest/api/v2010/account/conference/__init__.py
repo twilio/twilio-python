@@ -13,6 +13,7 @@ from twilio.rest.api.v2010.account.conference.participant import ParticipantList
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class ConferenceList(ListResource):
@@ -30,16 +31,16 @@ class ConferenceList(ListResource):
         super(ConferenceList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
         }
-        self._uri = '/Accounts/{account_sid}/Conferences.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Conferences.json'.format(**self._solution)
 
     def stream(self, date_created_before=values.unset, date_created=values.unset,
                date_created_after=values.unset, date_updated_before=values.unset,
                date_updated=values.unset, date_updated_after=values.unset,
                friendly_name=values.unset, status=values.unset, limit=None,
-               page_size=None, **kwargs):
+               page_size=None):
         """
         Streams ConferenceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -66,35 +67,25 @@ class ConferenceList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'DateCreated<': serialize.iso8601_date(date_created_before),
-            'DateCreated': serialize.iso8601_date(date_created),
-            'DateCreated>': serialize.iso8601_date(date_created_after),
-            'DateUpdated<': serialize.iso8601_date(date_updated_before),
-            'DateUpdated': serialize.iso8601_date(date_updated),
-            'DateUpdated>': serialize.iso8601_date(date_updated_after),
-            'FriendlyName': friendly_name,
-            'Status': status,
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            ConferenceInstance,
-            self._kwargs,
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            date_created_before=date_created_before,
+            date_created=date_created,
+            date_created_after=date_created_after,
+            date_updated_before=date_updated_before,
+            date_updated=date_updated,
+            date_updated_after=date_updated_after,
+            friendly_name=friendly_name,
+            status=status,
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
     def read(self, date_created_before=values.unset, date_created=values.unset,
              date_created_after=values.unset, date_updated_before=values.unset,
              date_updated=values.unset, date_updated_after=values.unset,
              friendly_name=values.unset, status=values.unset, limit=None,
-             page_size=None, **kwargs):
+             page_size=values.unset):
         """
         Reads ConferenceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -129,14 +120,14 @@ class ConferenceList(ListResource):
             status=status,
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
     def page(self, date_created_before=values.unset, date_created=values.unset,
              date_created_after=values.unset, date_updated_before=values.unset,
              date_updated=values.unset, date_updated_after=values.unset,
-             friendly_name=values.unset, status=values.unset, page_token=None,
-             page_number=None, page_size=None, **kwargs):
+             friendly_name=values.unset, status=values.unset,
+             page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of ConferenceInstance records from the API.
         Request is executed immediately
@@ -169,15 +160,17 @@ class ConferenceList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            ConferenceInstance,
-            self._kwargs,
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return ConferencePage(
+            self._version,
+            response,
+            account_sid=self._solution['account_sid'],
         )
 
     def get(self, sid):
@@ -189,7 +182,11 @@ class ConferenceList(ListResource):
         :returns: ConferenceContext
         :rtype: ConferenceContext
         """
-        return ConferenceContext(self._version, sid=sid, **self._kwargs)
+        return ConferenceContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
@@ -200,7 +197,11 @@ class ConferenceList(ListResource):
         :returns: ConferenceContext
         :rtype: ConferenceContext
         """
-        return ConferenceContext(self._version, sid=sid, **self._kwargs)
+        return ConferenceContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            sid=sid,
+        )
 
     def __repr__(self):
         """
@@ -212,13 +213,58 @@ class ConferenceList(ListResource):
         return '<Twilio.Api.V2010.ConferenceList>'
 
 
+class ConferencePage(Page):
+
+    def __init__(self, version, response, account_sid):
+        """
+        Initialize the ConferencePage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param account_sid: The unique sid that identifies this account
+        
+        :returns: ConferencePage
+        :rtype: ConferencePage
+        """
+        super(ConferencePage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'account_sid': account_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of ConferenceInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: ConferenceInstance
+        :rtype: ConferenceInstance
+        """
+        return ConferenceInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Api.V2010.ConferencePage>'
+
+
 class ConferenceContext(InstanceContext):
 
     def __init__(self, version, account_sid, sid):
         """
         Initialize the ConferenceContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param account_sid: The account_sid
         :param sid: Fetch by unique conference Sid
         
@@ -228,11 +274,11 @@ class ConferenceContext(InstanceContext):
         super(ConferenceContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/{account_sid}/Conferences/{sid}.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Conferences/{sid}.json'.format(**self._solution)
         
         # Dependents
         self._participants = None
@@ -246,12 +292,17 @@ class ConferenceContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            ConferenceInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return ConferenceInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
         )
 
     @property
@@ -265,8 +316,8 @@ class ConferenceContext(InstanceContext):
         if self._participants is None:
             self._participants = ParticipantList(
                 self._version,
-                account_sid=self._kwargs['account_sid'],
-                conference_sid=self._kwargs['sid'],
+                account_sid=self._solution['account_sid'],
+                conference_sid=self._solution['sid'],
             )
         return self._participants
 
@@ -277,7 +328,7 @@ class ConferenceContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.ConferenceContext {}>'.format(context)
 
 
@@ -305,14 +356,14 @@ class ConferenceInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'account_sid': account_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -320,13 +371,13 @@ class ConferenceInstance(InstanceResource):
         :returns: ConferenceContext for this ConferenceInstance
         :rtype: ConferenceContext
         """
-        if self._instance_context is None:
-            self._instance_context = ConferenceContext(
+        if self._context is None:
+            self._context = ConferenceContext(
                 self._version,
-                self._kwargs['account_sid'],
-                self._kwargs['sid'],
+                account_sid=self._solution['account_sid'],
+                sid=self._solution['sid'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def account_sid(self):
@@ -399,7 +450,7 @@ class ConferenceInstance(InstanceResource):
         :returns: Fetched ConferenceInstance
         :rtype: ConferenceInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     @property
     def participants(self):
@@ -409,7 +460,7 @@ class ConferenceInstance(InstanceResource):
         :returns: participants
         :rtype: participants
         """
-        return self._context.participants
+        return self._proxy.participants
 
     def __repr__(self):
         """
@@ -418,5 +469,5 @@ class ConferenceInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.ConferenceInstance {}>'.format(context)

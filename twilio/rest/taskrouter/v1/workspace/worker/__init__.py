@@ -11,6 +11,7 @@ from twilio.rest import deserialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 from twilio.rest.taskrouter.v1.workspace.worker.worker_statistics import WorkerStatisticsList
 from twilio.rest.taskrouter.v1.workspace.worker.workers_statistics import WorkersStatisticsList
 
@@ -30,10 +31,10 @@ class WorkerList(ListResource):
         super(WorkerList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'workspace_sid': workspace_sid,
         }
-        self._uri = '/Workspaces/{workspace_sid}/Workers'.format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/Workers'.format(**self._solution)
         
         # Components
         self._statistics = None
@@ -41,7 +42,7 @@ class WorkerList(ListResource):
     def stream(self, activity_name=values.unset, activity_sid=values.unset,
                available=values.unset, friendly_name=values.unset,
                target_workers_expression=values.unset, task_queue_name=values.unset,
-               task_queue_sid=values.unset, limit=None, page_size=None, **kwargs):
+               task_queue_sid=values.unset, limit=None, page_size=None):
         """
         Streams WorkerInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -67,33 +68,23 @@ class WorkerList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'ActivityName': activity_name,
-            'ActivitySid': activity_sid,
-            'Available': available,
-            'FriendlyName': friendly_name,
-            'TargetWorkersExpression': target_workers_expression,
-            'TaskQueueName': task_queue_name,
-            'TaskQueueSid': task_queue_sid,
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            WorkerInstance,
-            self._kwargs,
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            activity_name=activity_name,
+            activity_sid=activity_sid,
+            available=available,
+            friendly_name=friendly_name,
+            target_workers_expression=target_workers_expression,
+            task_queue_name=task_queue_name,
+            task_queue_sid=task_queue_sid,
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
     def read(self, activity_name=values.unset, activity_sid=values.unset,
              available=values.unset, friendly_name=values.unset,
              target_workers_expression=values.unset, task_queue_name=values.unset,
-             task_queue_sid=values.unset, limit=None, page_size=None, **kwargs):
+             task_queue_sid=values.unset, limit=None, page_size=values.unset):
         """
         Reads WorkerInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -126,14 +117,13 @@ class WorkerList(ListResource):
             task_queue_sid=task_queue_sid,
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
     def page(self, activity_name=values.unset, activity_sid=values.unset,
              available=values.unset, friendly_name=values.unset,
              target_workers_expression=values.unset, task_queue_name=values.unset,
-             task_queue_sid=values.unset, page_token=None, page_number=None,
-             page_size=None, **kwargs):
+             task_queue_sid=values.unset, page_token=values.unset,
+             page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of WorkerInstance records from the API.
         Request is executed immediately
@@ -164,15 +154,17 @@ class WorkerList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            WorkerInstance,
-            self._kwargs,
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return WorkerPage(
+            self._version,
+            response,
+            workspace_sid=self._solution['workspace_sid'],
         )
 
     def create(self, friendly_name, activity_sid=values.unset,
@@ -193,12 +185,16 @@ class WorkerList(ListResource):
             'Attributes': attributes,
         })
         
-        return self._version.create(
-            WorkerInstance,
-            self._kwargs,
+        payload = self._version.create(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return WorkerInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
         )
 
     @property
@@ -210,7 +206,10 @@ class WorkerList(ListResource):
         :rtype: WorkersStatisticsList
         """
         if self._statistics is None:
-            self._statistics = WorkersStatisticsList(self._version, **self._kwargs)
+            self._statistics = WorkersStatisticsList(
+                self._version,
+                workspace_sid=self._solution['workspace_sid'],
+            )
         return self._statistics
 
     def get(self, sid):
@@ -222,7 +221,11 @@ class WorkerList(ListResource):
         :returns: WorkerContext
         :rtype: WorkerContext
         """
-        return WorkerContext(self._version, sid=sid, **self._kwargs)
+        return WorkerContext(
+            self._version,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
@@ -233,7 +236,11 @@ class WorkerList(ListResource):
         :returns: WorkerContext
         :rtype: WorkerContext
         """
-        return WorkerContext(self._version, sid=sid, **self._kwargs)
+        return WorkerContext(
+            self._version,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=sid,
+        )
 
     def __repr__(self):
         """
@@ -245,13 +252,58 @@ class WorkerList(ListResource):
         return '<Twilio.Taskrouter.V1.WorkerList>'
 
 
+class WorkerPage(Page):
+
+    def __init__(self, version, response, workspace_sid):
+        """
+        Initialize the WorkerPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param workspace_sid: The workspace_sid
+        
+        :returns: WorkerPage
+        :rtype: WorkerPage
+        """
+        super(WorkerPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'workspace_sid': workspace_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of WorkerInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: WorkerInstance
+        :rtype: WorkerInstance
+        """
+        return WorkerInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Taskrouter.V1.WorkerPage>'
+
+
 class WorkerContext(InstanceContext):
 
     def __init__(self, version, workspace_sid, sid):
         """
         Initialize the WorkerContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param workspace_sid: The workspace_sid
         :param sid: The sid
         
@@ -261,11 +313,11 @@ class WorkerContext(InstanceContext):
         super(WorkerContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'workspace_sid': workspace_sid,
             'sid': sid,
         }
-        self._uri = '/Workspaces/{workspace_sid}/Workers/{sid}'.format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/Workers/{sid}'.format(**self._solution)
         
         # Dependents
         self._statistics = None
@@ -279,12 +331,17 @@ class WorkerContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            WorkerInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return WorkerInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid'],
         )
 
     def update(self, activity_sid=values.unset, attributes=values.unset,
@@ -305,12 +362,17 @@ class WorkerContext(InstanceContext):
             'FriendlyName': friendly_name,
         })
         
-        return self._version.update(
-            WorkerInstance,
-            self._kwargs,
+        payload = self._version.update(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return WorkerInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid'],
         )
 
     def delete(self):
@@ -333,8 +395,8 @@ class WorkerContext(InstanceContext):
         if self._statistics is None:
             self._statistics = WorkerStatisticsList(
                 self._version,
-                workspace_sid=self._kwargs['workspace_sid'],
-                worker_sid=self._kwargs['sid'],
+                workspace_sid=self._solution['workspace_sid'],
+                worker_sid=self._solution['sid'],
             )
         return self._statistics
 
@@ -345,7 +407,7 @@ class WorkerContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Taskrouter.V1.WorkerContext {}>'.format(context)
 
 
@@ -376,14 +438,14 @@ class WorkerInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'workspace_sid': workspace_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -391,13 +453,13 @@ class WorkerInstance(InstanceResource):
         :returns: WorkerContext for this WorkerInstance
         :rtype: WorkerContext
         """
-        if self._instance_context is None:
-            self._instance_context = WorkerContext(
+        if self._context is None:
+            self._context = WorkerContext(
                 self._version,
-                self._kwargs['workspace_sid'],
-                self._kwargs['sid'],
+                workspace_sid=self._solution['workspace_sid'],
+                sid=self._solution['sid'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def account_sid(self):
@@ -494,7 +556,7 @@ class WorkerInstance(InstanceResource):
         :returns: Fetched WorkerInstance
         :rtype: WorkerInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     def update(self, activity_sid=values.unset, attributes=values.unset,
                friendly_name=values.unset):
@@ -508,7 +570,7 @@ class WorkerInstance(InstanceResource):
         :returns: Updated WorkerInstance
         :rtype: WorkerInstance
         """
-        return self._context.update(
+        return self._proxy.update(
             activity_sid=activity_sid,
             attributes=attributes,
             friendly_name=friendly_name,
@@ -521,7 +583,7 @@ class WorkerInstance(InstanceResource):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._context.delete()
+        return self._proxy.delete()
 
     @property
     def statistics(self):
@@ -531,7 +593,7 @@ class WorkerInstance(InstanceResource):
         :returns: statistics
         :rtype: statistics
         """
-        return self._context.statistics
+        return self._proxy.statistics
 
     def __repr__(self):
         """
@@ -540,5 +602,5 @@ class WorkerInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Taskrouter.V1.WorkerInstance {}>'.format(context)

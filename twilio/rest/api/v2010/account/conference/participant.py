@@ -11,6 +11,7 @@ from twilio.rest import deserialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class ParticipantList(ListResource):
@@ -29,13 +30,13 @@ class ParticipantList(ListResource):
         super(ParticipantList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
             'conference_sid': conference_sid,
         }
-        self._uri = '/Accounts/{account_sid}/Conferences/{conference_sid}/Participants.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Conferences/{conference_sid}/Participants.json'.format(**self._solution)
 
-    def stream(self, muted=values.unset, limit=None, page_size=None, **kwargs):
+    def stream(self, muted=values.unset, limit=None, page_size=None):
         """
         Streams ParticipantInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -55,24 +56,14 @@ class ParticipantList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'Muted': muted,
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            ParticipantInstance,
-            self._kwargs,
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            muted=muted,
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def read(self, muted=values.unset, limit=None, page_size=None, **kwargs):
+    def read(self, muted=values.unset, limit=None, page_size=values.unset):
         """
         Reads ParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -93,11 +84,10 @@ class ParticipantList(ListResource):
             muted=muted,
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
-    def page(self, muted=values.unset, page_token=None, page_number=None,
-             page_size=None, **kwargs):
+    def page(self, muted=values.unset, page_token=values.unset,
+             page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of ParticipantInstance records from the API.
         Request is executed immediately
@@ -116,15 +106,18 @@ class ParticipantList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            ParticipantInstance,
-            self._kwargs,
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return ParticipantPage(
+            self._version,
+            response,
+            account_sid=self._solution['account_sid'],
+            conference_sid=self._solution['conference_sid'],
         )
 
     def get(self, call_sid):
@@ -136,7 +129,12 @@ class ParticipantList(ListResource):
         :returns: ParticipantContext
         :rtype: ParticipantContext
         """
-        return ParticipantContext(self._version, call_sid=call_sid, **self._kwargs)
+        return ParticipantContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            conference_sid=self._solution['conference_sid'],
+            call_sid=call_sid,
+        )
 
     def __call__(self, call_sid):
         """
@@ -147,7 +145,12 @@ class ParticipantList(ListResource):
         :returns: ParticipantContext
         :rtype: ParticipantContext
         """
-        return ParticipantContext(self._version, call_sid=call_sid, **self._kwargs)
+        return ParticipantContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            conference_sid=self._solution['conference_sid'],
+            call_sid=call_sid,
+        )
 
     def __repr__(self):
         """
@@ -159,13 +162,61 @@ class ParticipantList(ListResource):
         return '<Twilio.Api.V2010.ParticipantList>'
 
 
+class ParticipantPage(Page):
+
+    def __init__(self, version, response, account_sid, conference_sid):
+        """
+        Initialize the ParticipantPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param account_sid: The unique sid that identifies this account
+        :param conference_sid: A string that uniquely identifies this conference
+        
+        :returns: ParticipantPage
+        :rtype: ParticipantPage
+        """
+        super(ParticipantPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'account_sid': account_sid,
+            'conference_sid': conference_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of ParticipantInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: ParticipantInstance
+        :rtype: ParticipantInstance
+        """
+        return ParticipantInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            conference_sid=self._solution['conference_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Api.V2010.ParticipantPage>'
+
+
 class ParticipantContext(InstanceContext):
 
     def __init__(self, version, account_sid, conference_sid, call_sid):
         """
         Initialize the ParticipantContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param account_sid: The account_sid
         :param conference_sid: The string that uniquely identifies this conference
         :param call_sid: The call_sid
@@ -176,12 +227,12 @@ class ParticipantContext(InstanceContext):
         super(ParticipantContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
             'conference_sid': conference_sid,
             'call_sid': call_sid,
         }
-        self._uri = '/Accounts/{account_sid}/Conferences/{conference_sid}/Participants/{call_sid}.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Conferences/{conference_sid}/Participants/{call_sid}.json'.format(**self._solution)
 
     def fetch(self):
         """
@@ -192,12 +243,18 @@ class ParticipantContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            ParticipantInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return ParticipantInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            conference_sid=self._solution['conference_sid'],
+            call_sid=self._solution['call_sid'],
         )
 
     def update(self, muted):
@@ -213,12 +270,18 @@ class ParticipantContext(InstanceContext):
             'Muted': muted,
         })
         
-        return self._version.update(
-            ParticipantInstance,
-            self._kwargs,
+        payload = self._version.update(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return ParticipantInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            conference_sid=self._solution['conference_sid'],
+            call_sid=self._solution['call_sid'],
         )
 
     def delete(self):
@@ -237,7 +300,7 @@ class ParticipantContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.ParticipantContext {}>'.format(context)
 
 
@@ -267,15 +330,15 @@ class ParticipantInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'account_sid': account_sid,
             'conference_sid': conference_sid,
             'call_sid': call_sid or self._properties['call_sid'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -283,14 +346,14 @@ class ParticipantInstance(InstanceResource):
         :returns: ParticipantContext for this ParticipantInstance
         :rtype: ParticipantContext
         """
-        if self._instance_context is None:
-            self._instance_context = ParticipantContext(
+        if self._context is None:
+            self._context = ParticipantContext(
                 self._version,
-                self._kwargs['account_sid'],
-                self._kwargs['conference_sid'],
-                self._kwargs['call_sid'],
+                account_sid=self._solution['account_sid'],
+                conference_sid=self._solution['conference_sid'],
+                call_sid=self._solution['call_sid'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def account_sid(self):
@@ -371,7 +434,7 @@ class ParticipantInstance(InstanceResource):
         :returns: Fetched ParticipantInstance
         :rtype: ParticipantInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     def update(self, muted):
         """
@@ -382,7 +445,7 @@ class ParticipantInstance(InstanceResource):
         :returns: Updated ParticipantInstance
         :rtype: ParticipantInstance
         """
-        return self._context.update(
+        return self._proxy.update(
             muted,
         )
 
@@ -393,7 +456,7 @@ class ParticipantInstance(InstanceResource):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._context.delete()
+        return self._proxy.delete()
 
     def __repr__(self):
         """
@@ -402,5 +465,5 @@ class ParticipantInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.ParticipantInstance {}>'.format(context)

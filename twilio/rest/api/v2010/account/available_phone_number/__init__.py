@@ -13,6 +13,7 @@ from twilio.rest.api.v2010.account.available_phone_number.toll_free import TollF
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class AvailablePhoneNumberCountryList(ListResource):
@@ -30,12 +31,12 @@ class AvailablePhoneNumberCountryList(ListResource):
         super(AvailablePhoneNumberCountryList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
         }
-        self._uri = '/Accounts/{account_sid}/AvailablePhoneNumbers.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/AvailablePhoneNumbers.json'.format(**self._solution)
 
-    def stream(self, limit=None, page_size=None, **kwargs):
+    def stream(self, limit=None, page_size=None):
         """
         Streams AvailablePhoneNumberCountryInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -54,23 +55,13 @@ class AvailablePhoneNumberCountryList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            AvailablePhoneNumberCountryInstance,
-            self._kwargs,
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def read(self, limit=None, page_size=None, **kwargs):
+    def read(self, limit=None, page_size=values.unset):
         """
         Reads AvailablePhoneNumberCountryInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -89,10 +80,10 @@ class AvailablePhoneNumberCountryList(ListResource):
         return list(self.stream(
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
-    def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
+    def page(self, page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of AvailablePhoneNumberCountryInstance records from the API.
         Request is executed immediately
@@ -109,15 +100,17 @@ class AvailablePhoneNumberCountryList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            AvailablePhoneNumberCountryInstance,
-            self._kwargs,
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return AvailablePhoneNumberCountryPage(
+            self._version,
+            response,
+            account_sid=self._solution['account_sid'],
         )
 
     def get(self, country_code):
@@ -129,7 +122,11 @@ class AvailablePhoneNumberCountryList(ListResource):
         :returns: AvailablePhoneNumberCountryContext
         :rtype: AvailablePhoneNumberCountryContext
         """
-        return AvailablePhoneNumberCountryContext(self._version, country_code=country_code, **self._kwargs)
+        return AvailablePhoneNumberCountryContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            country_code=country_code,
+        )
 
     def __call__(self, country_code):
         """
@@ -140,7 +137,11 @@ class AvailablePhoneNumberCountryList(ListResource):
         :returns: AvailablePhoneNumberCountryContext
         :rtype: AvailablePhoneNumberCountryContext
         """
-        return AvailablePhoneNumberCountryContext(self._version, country_code=country_code, **self._kwargs)
+        return AvailablePhoneNumberCountryContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            country_code=country_code,
+        )
 
     def __repr__(self):
         """
@@ -152,13 +153,58 @@ class AvailablePhoneNumberCountryList(ListResource):
         return '<Twilio.Api.V2010.AvailablePhoneNumberCountryList>'
 
 
+class AvailablePhoneNumberCountryPage(Page):
+
+    def __init__(self, version, response, account_sid):
+        """
+        Initialize the AvailablePhoneNumberCountryPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param account_sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: AvailablePhoneNumberCountryPage
+        :rtype: AvailablePhoneNumberCountryPage
+        """
+        super(AvailablePhoneNumberCountryPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'account_sid': account_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of AvailablePhoneNumberCountryInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: AvailablePhoneNumberCountryInstance
+        :rtype: AvailablePhoneNumberCountryInstance
+        """
+        return AvailablePhoneNumberCountryInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Api.V2010.AvailablePhoneNumberCountryPage>'
+
+
 class AvailablePhoneNumberCountryContext(InstanceContext):
 
     def __init__(self, version, account_sid, country_code):
         """
         Initialize the AvailablePhoneNumberCountryContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param account_sid: The account_sid
         :param country_code: The country_code
         
@@ -168,11 +214,11 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         super(AvailablePhoneNumberCountryContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
             'country_code': country_code,
         }
-        self._uri = '/Accounts/{account_sid}/AvailablePhoneNumbers/{country_code}.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/AvailablePhoneNumbers/{country_code}.json'.format(**self._solution)
         
         # Dependents
         self._local = None
@@ -188,12 +234,17 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            AvailablePhoneNumberCountryInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return AvailablePhoneNumberCountryInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            country_code=self._solution['country_code'],
         )
 
     @property
@@ -207,8 +258,8 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         if self._local is None:
             self._local = LocalList(
                 self._version,
-                country_code=self._kwargs['country_code'],
-                account_sid=self._kwargs['account_sid'],
+                country_code=self._solution['country_code'],
+                account_sid=self._solution['account_sid'],
             )
         return self._local
 
@@ -223,8 +274,8 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         if self._toll_free is None:
             self._toll_free = TollFreeList(
                 self._version,
-                country_code=self._kwargs['country_code'],
-                account_sid=self._kwargs['account_sid'],
+                country_code=self._solution['country_code'],
+                account_sid=self._solution['account_sid'],
             )
         return self._toll_free
 
@@ -239,8 +290,8 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         if self._mobile is None:
             self._mobile = MobileList(
                 self._version,
-                country_code=self._kwargs['country_code'],
-                account_sid=self._kwargs['account_sid'],
+                country_code=self._solution['country_code'],
+                account_sid=self._solution['account_sid'],
             )
         return self._mobile
 
@@ -251,7 +302,7 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.AvailablePhoneNumberCountryContext {}>'.format(context)
 
 
@@ -276,14 +327,14 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'account_sid': account_sid,
             'country_code': country_code or self._properties['country_code'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -291,13 +342,13 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
         :returns: AvailablePhoneNumberCountryContext for this AvailablePhoneNumberCountryInstance
         :rtype: AvailablePhoneNumberCountryContext
         """
-        if self._instance_context is None:
-            self._instance_context = AvailablePhoneNumberCountryContext(
+        if self._context is None:
+            self._context = AvailablePhoneNumberCountryContext(
                 self._version,
-                self._kwargs['account_sid'],
-                self._kwargs['country_code'],
+                account_sid=self._solution['account_sid'],
+                country_code=self._solution['country_code'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def country_code(self):
@@ -346,7 +397,7 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
         :returns: Fetched AvailablePhoneNumberCountryInstance
         :rtype: AvailablePhoneNumberCountryInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     @property
     def local(self):
@@ -356,7 +407,7 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
         :returns: local
         :rtype: local
         """
-        return self._context.local
+        return self._proxy.local
 
     @property
     def toll_free(self):
@@ -366,7 +417,7 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
         :returns: toll_free
         :rtype: toll_free
         """
-        return self._context.toll_free
+        return self._proxy.toll_free
 
     @property
     def mobile(self):
@@ -376,7 +427,7 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
         :returns: mobile
         :rtype: mobile
         """
-        return self._context.mobile
+        return self._proxy.mobile
 
     def __repr__(self):
         """
@@ -385,5 +436,5 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.AvailablePhoneNumberCountryInstance {}>'.format(context)

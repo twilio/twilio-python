@@ -10,6 +10,7 @@ from twilio import values
 from twilio.rest import deserialize
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class ValidationRequestList(ListResource):
@@ -27,10 +28,10 @@ class ValidationRequestList(ListResource):
         super(ValidationRequestList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
         }
-        self._uri = '/Accounts/{account_sid}/OutgoingCallerIds.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/OutgoingCallerIds.json'.format(**self._solution)
 
     def create(self, phone_number, friendly_name=values.unset,
                call_delay=values.unset, extension=values.unset,
@@ -57,12 +58,16 @@ class ValidationRequestList(ListResource):
             'StatusCallbackMethod': status_callback_method,
         })
         
-        return self._version.create(
-            ValidationRequestInstance,
-            {},
+        payload = self._version.create(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return ValidationRequestInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
         )
 
     def __repr__(self):
@@ -75,9 +80,54 @@ class ValidationRequestList(ListResource):
         return '<Twilio.Api.V2010.ValidationRequestList>'
 
 
+class ValidationRequestPage(Page):
+
+    def __init__(self, version, response, account_sid):
+        """
+        Initialize the ValidationRequestPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param account_sid: The account_sid
+        
+        :returns: ValidationRequestPage
+        :rtype: ValidationRequestPage
+        """
+        super(ValidationRequestPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'account_sid': account_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of ValidationRequestInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: ValidationRequestInstance
+        :rtype: ValidationRequestInstance
+        """
+        return ValidationRequestInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Api.V2010.ValidationRequestPage>'
+
+
 class ValidationRequestInstance(InstanceResource):
 
-    def __init__(self, version, payload):
+    def __init__(self, version, payload, account_sid):
         """
         Initialize the ValidationRequestInstance
         
@@ -93,6 +143,12 @@ class ValidationRequestInstance(InstanceResource):
             'friendly_name': payload['friendly_name'],
             'validation_code': deserialize.integer(payload['validation_code']),
             'call_sid': payload['call_sid'],
+        }
+        
+        # Context
+        self._context = None
+        self._solution = {
+            'account_sid': account_sid,
         }
 
     @property

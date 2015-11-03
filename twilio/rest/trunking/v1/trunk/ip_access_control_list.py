@@ -11,6 +11,7 @@ from twilio.rest import deserialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class IpAccessControlListList(ListResource):
@@ -28,10 +29,10 @@ class IpAccessControlListList(ListResource):
         super(IpAccessControlListList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'trunk_sid': trunk_sid,
         }
-        self._uri = '/Trunks/{trunk_sid}/IpAccessControlLists'.format(**self._kwargs)
+        self._uri = '/Trunks/{trunk_sid}/IpAccessControlLists'.format(**self._solution)
 
     def create(self, ip_access_control_list_sid):
         """
@@ -46,15 +47,19 @@ class IpAccessControlListList(ListResource):
             'IpAccessControlListSid': ip_access_control_list_sid,
         })
         
-        return self._version.create(
-            IpAccessControlListInstance,
-            self._kwargs,
+        payload = self._version.create(
             'POST',
             self._uri,
             data=data,
         )
+        
+        return IpAccessControlListInstance(
+            self._version,
+            payload,
+            trunk_sid=self._solution['trunk_sid'],
+        )
 
-    def stream(self, limit=None, page_size=None, **kwargs):
+    def stream(self, limit=None, page_size=None):
         """
         Streams IpAccessControlListInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -73,23 +78,13 @@ class IpAccessControlListList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            IpAccessControlListInstance,
-            self._kwargs,
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def read(self, limit=None, page_size=None, **kwargs):
+    def read(self, limit=None, page_size=values.unset):
         """
         Reads IpAccessControlListInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -108,10 +103,10 @@ class IpAccessControlListList(ListResource):
         return list(self.stream(
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
-    def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
+    def page(self, page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of IpAccessControlListInstance records from the API.
         Request is executed immediately
@@ -128,15 +123,17 @@ class IpAccessControlListList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            IpAccessControlListInstance,
-            self._kwargs,
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return IpAccessControlListPage(
+            self._version,
+            response,
+            trunk_sid=self._solution['trunk_sid'],
         )
 
     def get(self, sid):
@@ -148,7 +145,11 @@ class IpAccessControlListList(ListResource):
         :returns: IpAccessControlListContext
         :rtype: IpAccessControlListContext
         """
-        return IpAccessControlListContext(self._version, sid=sid, **self._kwargs)
+        return IpAccessControlListContext(
+            self._version,
+            trunk_sid=self._solution['trunk_sid'],
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
@@ -159,7 +160,11 @@ class IpAccessControlListList(ListResource):
         :returns: IpAccessControlListContext
         :rtype: IpAccessControlListContext
         """
-        return IpAccessControlListContext(self._version, sid=sid, **self._kwargs)
+        return IpAccessControlListContext(
+            self._version,
+            trunk_sid=self._solution['trunk_sid'],
+            sid=sid,
+        )
 
     def __repr__(self):
         """
@@ -171,13 +176,58 @@ class IpAccessControlListList(ListResource):
         return '<Twilio.Trunking.V1.IpAccessControlListList>'
 
 
+class IpAccessControlListPage(Page):
+
+    def __init__(self, version, response, trunk_sid):
+        """
+        Initialize the IpAccessControlListPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param trunk_sid: The trunk_sid
+        
+        :returns: IpAccessControlListPage
+        :rtype: IpAccessControlListPage
+        """
+        super(IpAccessControlListPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'trunk_sid': trunk_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of IpAccessControlListInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: IpAccessControlListInstance
+        :rtype: IpAccessControlListInstance
+        """
+        return IpAccessControlListInstance(
+            self._version,
+            payload,
+            trunk_sid=self._solution['trunk_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Trunking.V1.IpAccessControlListPage>'
+
+
 class IpAccessControlListContext(InstanceContext):
 
     def __init__(self, version, trunk_sid, sid):
         """
         Initialize the IpAccessControlListContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param trunk_sid: The trunk_sid
         :param sid: The sid
         
@@ -187,11 +237,11 @@ class IpAccessControlListContext(InstanceContext):
         super(IpAccessControlListContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'trunk_sid': trunk_sid,
             'sid': sid,
         }
-        self._uri = '/Trunks/{trunk_sid}/IpAccessControlLists/{sid}'.format(**self._kwargs)
+        self._uri = '/Trunks/{trunk_sid}/IpAccessControlLists/{sid}'.format(**self._solution)
 
     def fetch(self):
         """
@@ -202,12 +252,17 @@ class IpAccessControlListContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            IpAccessControlListInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return IpAccessControlListInstance(
+            self._version,
+            payload,
+            trunk_sid=self._solution['trunk_sid'],
+            sid=self._solution['sid'],
         )
 
     def delete(self):
@@ -226,7 +281,7 @@ class IpAccessControlListContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Trunking.V1.IpAccessControlListContext {}>'.format(context)
 
 
@@ -253,14 +308,14 @@ class IpAccessControlListInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'trunk_sid': trunk_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -268,13 +323,13 @@ class IpAccessControlListInstance(InstanceResource):
         :returns: IpAccessControlListContext for this IpAccessControlListInstance
         :rtype: IpAccessControlListContext
         """
-        if self._instance_context is None:
-            self._instance_context = IpAccessControlListContext(
+        if self._context is None:
+            self._context = IpAccessControlListContext(
                 self._version,
-                self._kwargs['trunk_sid'],
-                self._kwargs['sid'],
+                trunk_sid=self._solution['trunk_sid'],
+                sid=self._solution['sid'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def account_sid(self):
@@ -339,7 +394,7 @@ class IpAccessControlListInstance(InstanceResource):
         :returns: Fetched IpAccessControlListInstance
         :rtype: IpAccessControlListInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     def delete(self):
         """
@@ -348,7 +403,7 @@ class IpAccessControlListInstance(InstanceResource):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._context.delete()
+        return self._proxy.delete()
 
     def __repr__(self):
         """
@@ -357,5 +412,5 @@ class IpAccessControlListInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Trunking.V1.IpAccessControlListInstance {}>'.format(context)

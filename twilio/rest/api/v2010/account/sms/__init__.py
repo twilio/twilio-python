@@ -10,6 +10,7 @@ from twilio.rest.api.v2010.account.sms.short_code import ShortCodeList
 from twilio.rest.api.v2010.account.sms.sms_message import SmsMessageList
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class SmsList(ListResource):
@@ -27,7 +28,7 @@ class SmsList(ListResource):
         super(SmsList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
         }
         
@@ -44,7 +45,10 @@ class SmsList(ListResource):
         :rtype: SmsMessageList
         """
         if self._messages is None:
-            self._messages = SmsMessageList(self._version, **self._kwargs)
+            self._messages = SmsMessageList(
+                self._version,
+                account_sid=self._solution['account_sid'],
+            )
         return self._messages
 
     @property
@@ -56,7 +60,10 @@ class SmsList(ListResource):
         :rtype: ShortCodeList
         """
         if self._short_codes is None:
-            self._short_codes = ShortCodeList(self._version, **self._kwargs)
+            self._short_codes = ShortCodeList(
+                self._version,
+                account_sid=self._solution['account_sid'],
+            )
         return self._short_codes
 
     def __repr__(self):
@@ -69,9 +76,54 @@ class SmsList(ListResource):
         return '<Twilio.Api.V2010.SmsList>'
 
 
+class SmsPage(Page):
+
+    def __init__(self, version, response, account_sid):
+        """
+        Initialize the SmsPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param account_sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: SmsPage
+        :rtype: SmsPage
+        """
+        super(SmsPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'account_sid': account_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of SmsInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: SmsInstance
+        :rtype: SmsInstance
+        """
+        return SmsInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Api.V2010.SmsPage>'
+
+
 class SmsInstance(InstanceResource):
 
-    def __init__(self, version, payload):
+    def __init__(self, version, payload, account_sid):
         """
         Initialize the SmsInstance
         
@@ -79,6 +131,12 @@ class SmsInstance(InstanceResource):
         :rtype: SmsInstance
         """
         super(SmsInstance, self).__init__(version)
+        
+        # Context
+        self._context = None
+        self._solution = {
+            'account_sid': account_sid,
+        }
 
     def __repr__(self):
         """

@@ -12,6 +12,7 @@ from twilio.rest import serialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class MediaList(ListResource):
@@ -30,15 +31,14 @@ class MediaList(ListResource):
         super(MediaList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
             'message_sid': message_sid,
         }
-        self._uri = '/Accounts/{account_sid}/Messages/{message_sid}/Media.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Messages/{message_sid}/Media.json'.format(**self._solution)
 
     def stream(self, date_created_before=values.unset, date_created=values.unset,
-               date_created_after=values.unset, limit=None, page_size=None,
-               **kwargs):
+               date_created_after=values.unset, limit=None, page_size=None):
         """
         Streams MediaInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -60,27 +60,17 @@ class MediaList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'DateCreated<': serialize.iso8601_date(date_created_before),
-            'DateCreated': serialize.iso8601_date(date_created),
-            'DateCreated>': serialize.iso8601_date(date_created_after),
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            MediaInstance,
-            self._kwargs,
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            date_created_before=date_created_before,
+            date_created=date_created,
+            date_created_after=date_created_after,
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
     def read(self, date_created_before=values.unset, date_created=values.unset,
-             date_created_after=values.unset, limit=None, page_size=None, **kwargs):
+             date_created_after=values.unset, limit=None, page_size=values.unset):
         """
         Reads MediaInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -105,12 +95,11 @@ class MediaList(ListResource):
             date_created_after=date_created_after,
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
     def page(self, date_created_before=values.unset, date_created=values.unset,
-             date_created_after=values.unset, page_token=None, page_number=None,
-             page_size=None, **kwargs):
+             date_created_after=values.unset, page_token=values.unset,
+             page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of MediaInstance records from the API.
         Request is executed immediately
@@ -133,15 +122,18 @@ class MediaList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            MediaInstance,
-            self._kwargs,
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return MediaPage(
+            self._version,
+            response,
+            account_sid=self._solution['account_sid'],
+            message_sid=self._solution['message_sid'],
         )
 
     def get(self, sid):
@@ -153,7 +145,12 @@ class MediaList(ListResource):
         :returns: MediaContext
         :rtype: MediaContext
         """
-        return MediaContext(self._version, sid=sid, **self._kwargs)
+        return MediaContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            message_sid=self._solution['message_sid'],
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
@@ -164,7 +161,12 @@ class MediaList(ListResource):
         :returns: MediaContext
         :rtype: MediaContext
         """
-        return MediaContext(self._version, sid=sid, **self._kwargs)
+        return MediaContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            message_sid=self._solution['message_sid'],
+            sid=sid,
+        )
 
     def __repr__(self):
         """
@@ -176,13 +178,61 @@ class MediaList(ListResource):
         return '<Twilio.Api.V2010.MediaList>'
 
 
+class MediaPage(Page):
+
+    def __init__(self, version, response, account_sid, message_sid):
+        """
+        Initialize the MediaPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param account_sid: The unique sid that identifies this account
+        :param message_sid: A string that uniquely identifies this message
+        
+        :returns: MediaPage
+        :rtype: MediaPage
+        """
+        super(MediaPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'account_sid': account_sid,
+            'message_sid': message_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of MediaInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: MediaInstance
+        :rtype: MediaInstance
+        """
+        return MediaInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            message_sid=self._solution['message_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Api.V2010.MediaPage>'
+
+
 class MediaContext(InstanceContext):
 
     def __init__(self, version, account_sid, message_sid, sid):
         """
         Initialize the MediaContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param account_sid: The account_sid
         :param message_sid: The message_sid
         :param sid: Fetch by unique media Sid
@@ -193,12 +243,12 @@ class MediaContext(InstanceContext):
         super(MediaContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
             'message_sid': message_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/{account_sid}/Messages/{message_sid}/Media/{sid}.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Messages/{message_sid}/Media/{sid}.json'.format(**self._solution)
 
     def delete(self):
         """
@@ -218,12 +268,18 @@ class MediaContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            MediaInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return MediaInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            message_sid=self._solution['message_sid'],
+            sid=self._solution['sid'],
         )
 
     def __repr__(self):
@@ -233,7 +289,7 @@ class MediaContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.MediaContext {}>'.format(context)
 
 
@@ -260,15 +316,15 @@ class MediaInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'account_sid': account_sid,
             'message_sid': message_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -276,14 +332,14 @@ class MediaInstance(InstanceResource):
         :returns: MediaContext for this MediaInstance
         :rtype: MediaContext
         """
-        if self._instance_context is None:
-            self._instance_context = MediaContext(
+        if self._context is None:
+            self._context = MediaContext(
                 self._version,
-                self._kwargs['account_sid'],
-                self._kwargs['message_sid'],
-                self._kwargs['sid'],
+                account_sid=self._solution['account_sid'],
+                message_sid=self._solution['message_sid'],
+                sid=self._solution['sid'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def account_sid(self):
@@ -348,7 +404,7 @@ class MediaInstance(InstanceResource):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._context.delete()
+        return self._proxy.delete()
 
     def fetch(self):
         """
@@ -357,7 +413,7 @@ class MediaInstance(InstanceResource):
         :returns: Fetched MediaInstance
         :rtype: MediaInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     def __repr__(self):
         """
@@ -366,5 +422,5 @@ class MediaInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.MediaInstance {}>'.format(context)

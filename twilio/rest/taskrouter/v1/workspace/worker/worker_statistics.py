@@ -11,6 +11,7 @@ from twilio.rest import serialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class WorkerStatisticsList(ListResource):
@@ -29,7 +30,7 @@ class WorkerStatisticsList(ListResource):
         super(WorkerStatisticsList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'workspace_sid': workspace_sid,
             'worker_sid': worker_sid,
         }
@@ -41,7 +42,11 @@ class WorkerStatisticsList(ListResource):
         :returns: WorkerStatisticsContext
         :rtype: WorkerStatisticsContext
         """
-        return WorkerStatisticsContext(self._version, **self._kwargs)
+        return WorkerStatisticsContext(
+            self._version,
+            workspace_sid=self._solution['workspace_sid'],
+            worker_sid=self._solution['worker_sid'],
+        )
 
     def __call__(self):
         """
@@ -50,7 +55,11 @@ class WorkerStatisticsList(ListResource):
         :returns: WorkerStatisticsContext
         :rtype: WorkerStatisticsContext
         """
-        return WorkerStatisticsContext(self._version, **self._kwargs)
+        return WorkerStatisticsContext(
+            self._version,
+            workspace_sid=self._solution['workspace_sid'],
+            worker_sid=self._solution['worker_sid'],
+        )
 
     def __repr__(self):
         """
@@ -62,13 +71,61 @@ class WorkerStatisticsList(ListResource):
         return '<Twilio.Taskrouter.V1.WorkerStatisticsList>'
 
 
+class WorkerStatisticsPage(Page):
+
+    def __init__(self, version, response, workspace_sid, worker_sid):
+        """
+        Initialize the WorkerStatisticsPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param workspace_sid: The workspace_sid
+        :param worker_sid: The worker_sid
+        
+        :returns: WorkerStatisticsPage
+        :rtype: WorkerStatisticsPage
+        """
+        super(WorkerStatisticsPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'workspace_sid': workspace_sid,
+            'worker_sid': worker_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of WorkerStatisticsInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: WorkerStatisticsInstance
+        :rtype: WorkerStatisticsInstance
+        """
+        return WorkerStatisticsInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            worker_sid=self._solution['worker_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Taskrouter.V1.WorkerStatisticsPage>'
+
+
 class WorkerStatisticsContext(InstanceContext):
 
     def __init__(self, version, workspace_sid, worker_sid):
         """
         Initialize the WorkerStatisticsContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param workspace_sid: The workspace_sid
         :param worker_sid: The worker_sid
         
@@ -78,11 +135,11 @@ class WorkerStatisticsContext(InstanceContext):
         super(WorkerStatisticsContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'workspace_sid': workspace_sid,
             'worker_sid': worker_sid,
         }
-        self._uri = '/Workspaces/{workspace_sid}/Workers/{worker_sid}/Statistics'.format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/Workers/{worker_sid}/Statistics'.format(**self._solution)
 
     def fetch(self, minutes=values.unset, start_date=values.unset,
               end_date=values.unset):
@@ -102,12 +159,17 @@ class WorkerStatisticsContext(InstanceContext):
             'EndDate': serialize.iso8601_datetime(end_date),
         })
         
-        return self._version.fetch(
-            WorkerStatisticsInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return WorkerStatisticsInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            worker_sid=self._solution['worker_sid'],
         )
 
     def __repr__(self):
@@ -117,7 +179,7 @@ class WorkerStatisticsContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Taskrouter.V1.WorkerStatisticsContext {}>'.format(context)
 
 
@@ -141,14 +203,14 @@ class WorkerStatisticsInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'workspace_sid': workspace_sid,
             'worker_sid': worker_sid,
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -156,13 +218,13 @@ class WorkerStatisticsInstance(InstanceResource):
         :returns: WorkerStatisticsContext for this WorkerStatisticsInstance
         :rtype: WorkerStatisticsContext
         """
-        if self._instance_context is None:
-            self._instance_context = WorkerStatisticsContext(
+        if self._context is None:
+            self._context = WorkerStatisticsContext(
                 self._version,
-                self._kwargs['workspace_sid'],
-                self._kwargs['worker_sid'],
+                workspace_sid=self._solution['workspace_sid'],
+                worker_sid=self._solution['worker_sid'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def account_sid(self):
@@ -208,7 +270,7 @@ class WorkerStatisticsInstance(InstanceResource):
         :returns: Fetched WorkerStatisticsInstance
         :rtype: WorkerStatisticsInstance
         """
-        return self._context.fetch(
+        return self._proxy.fetch(
             minutes=minutes,
             start_date=start_date,
             end_date=end_date,
@@ -221,5 +283,5 @@ class WorkerStatisticsInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Taskrouter.V1.WorkerStatisticsInstance {}>'.format(context)

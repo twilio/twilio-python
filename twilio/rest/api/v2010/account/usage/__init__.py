@@ -10,6 +10,7 @@ from twilio.rest.api.v2010.account.usage.record import RecordList
 from twilio.rest.api.v2010.account.usage.trigger import TriggerList
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class UsageList(ListResource):
@@ -27,7 +28,7 @@ class UsageList(ListResource):
         super(UsageList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
         }
         
@@ -44,7 +45,10 @@ class UsageList(ListResource):
         :rtype: RecordList
         """
         if self._records is None:
-            self._records = RecordList(self._version, **self._kwargs)
+            self._records = RecordList(
+                self._version,
+                account_sid=self._solution['account_sid'],
+            )
         return self._records
 
     @property
@@ -56,7 +60,10 @@ class UsageList(ListResource):
         :rtype: TriggerList
         """
         if self._triggers is None:
-            self._triggers = TriggerList(self._version, **self._kwargs)
+            self._triggers = TriggerList(
+                self._version,
+                account_sid=self._solution['account_sid'],
+            )
         return self._triggers
 
     def __repr__(self):
@@ -69,9 +76,54 @@ class UsageList(ListResource):
         return '<Twilio.Api.V2010.UsageList>'
 
 
+class UsagePage(Page):
+
+    def __init__(self, version, response, account_sid):
+        """
+        Initialize the UsagePage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param account_sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: UsagePage
+        :rtype: UsagePage
+        """
+        super(UsagePage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'account_sid': account_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of UsageInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: UsageInstance
+        :rtype: UsageInstance
+        """
+        return UsageInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Api.V2010.UsagePage>'
+
+
 class UsageInstance(InstanceResource):
 
-    def __init__(self, version, payload):
+    def __init__(self, version, payload, account_sid):
         """
         Initialize the UsageInstance
         
@@ -79,6 +131,12 @@ class UsageInstance(InstanceResource):
         :rtype: UsageInstance
         """
         super(UsageInstance, self).__init__(version)
+        
+        # Context
+        self._context = None
+        self._solution = {
+            'account_sid': account_sid,
+        }
 
     def __repr__(self):
         """

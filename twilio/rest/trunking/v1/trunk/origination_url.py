@@ -11,6 +11,7 @@ from twilio.rest import deserialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class OriginationUrlList(ListResource):
@@ -28,10 +29,10 @@ class OriginationUrlList(ListResource):
         super(OriginationUrlList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'trunk_sid': trunk_sid,
         }
-        self._uri = '/Trunks/{trunk_sid}/OriginationUrls'.format(**self._kwargs)
+        self._uri = '/Trunks/{trunk_sid}/OriginationUrls'.format(**self._solution)
 
     def create(self, weight, priority, enabled, friendly_name, sip_url):
         """
@@ -54,15 +55,19 @@ class OriginationUrlList(ListResource):
             'SipUrl': sip_url,
         })
         
-        return self._version.create(
-            OriginationUrlInstance,
-            self._kwargs,
+        payload = self._version.create(
             'POST',
             self._uri,
             data=data,
         )
+        
+        return OriginationUrlInstance(
+            self._version,
+            payload,
+            trunk_sid=self._solution['trunk_sid'],
+        )
 
-    def stream(self, limit=None, page_size=None, **kwargs):
+    def stream(self, limit=None, page_size=None):
         """
         Streams OriginationUrlInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -81,23 +86,13 @@ class OriginationUrlList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            OriginationUrlInstance,
-            self._kwargs,
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def read(self, limit=None, page_size=None, **kwargs):
+    def read(self, limit=None, page_size=values.unset):
         """
         Reads OriginationUrlInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -116,10 +111,10 @@ class OriginationUrlList(ListResource):
         return list(self.stream(
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
-    def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
+    def page(self, page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of OriginationUrlInstance records from the API.
         Request is executed immediately
@@ -136,15 +131,17 @@ class OriginationUrlList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            OriginationUrlInstance,
-            self._kwargs,
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return OriginationUrlPage(
+            self._version,
+            response,
+            trunk_sid=self._solution['trunk_sid'],
         )
 
     def get(self, sid):
@@ -156,7 +153,11 @@ class OriginationUrlList(ListResource):
         :returns: OriginationUrlContext
         :rtype: OriginationUrlContext
         """
-        return OriginationUrlContext(self._version, sid=sid, **self._kwargs)
+        return OriginationUrlContext(
+            self._version,
+            trunk_sid=self._solution['trunk_sid'],
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
@@ -167,7 +168,11 @@ class OriginationUrlList(ListResource):
         :returns: OriginationUrlContext
         :rtype: OriginationUrlContext
         """
-        return OriginationUrlContext(self._version, sid=sid, **self._kwargs)
+        return OriginationUrlContext(
+            self._version,
+            trunk_sid=self._solution['trunk_sid'],
+            sid=sid,
+        )
 
     def __repr__(self):
         """
@@ -179,13 +184,58 @@ class OriginationUrlList(ListResource):
         return '<Twilio.Trunking.V1.OriginationUrlList>'
 
 
+class OriginationUrlPage(Page):
+
+    def __init__(self, version, response, trunk_sid):
+        """
+        Initialize the OriginationUrlPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param trunk_sid: The trunk_sid
+        
+        :returns: OriginationUrlPage
+        :rtype: OriginationUrlPage
+        """
+        super(OriginationUrlPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'trunk_sid': trunk_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of OriginationUrlInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: OriginationUrlInstance
+        :rtype: OriginationUrlInstance
+        """
+        return OriginationUrlInstance(
+            self._version,
+            payload,
+            trunk_sid=self._solution['trunk_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Trunking.V1.OriginationUrlPage>'
+
+
 class OriginationUrlContext(InstanceContext):
 
     def __init__(self, version, trunk_sid, sid):
         """
         Initialize the OriginationUrlContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param trunk_sid: The trunk_sid
         :param sid: The sid
         
@@ -195,11 +245,11 @@ class OriginationUrlContext(InstanceContext):
         super(OriginationUrlContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'trunk_sid': trunk_sid,
             'sid': sid,
         }
-        self._uri = '/Trunks/{trunk_sid}/OriginationUrls/{sid}'.format(**self._kwargs)
+        self._uri = '/Trunks/{trunk_sid}/OriginationUrls/{sid}'.format(**self._solution)
 
     def fetch(self):
         """
@@ -210,12 +260,17 @@ class OriginationUrlContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            OriginationUrlInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return OriginationUrlInstance(
+            self._version,
+            payload,
+            trunk_sid=self._solution['trunk_sid'],
+            sid=self._solution['sid'],
         )
 
     def delete(self):
@@ -250,12 +305,17 @@ class OriginationUrlContext(InstanceContext):
             'SipUrl': sip_url,
         })
         
-        return self._version.update(
-            OriginationUrlInstance,
-            self._kwargs,
+        payload = self._version.update(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return OriginationUrlInstance(
+            self._version,
+            payload,
+            trunk_sid=self._solution['trunk_sid'],
+            sid=self._solution['sid'],
         )
 
     def __repr__(self):
@@ -265,7 +325,7 @@ class OriginationUrlContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Trunking.V1.OriginationUrlContext {}>'.format(context)
 
 
@@ -296,14 +356,14 @@ class OriginationUrlInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'trunk_sid': trunk_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -311,13 +371,13 @@ class OriginationUrlInstance(InstanceResource):
         :returns: OriginationUrlContext for this OriginationUrlInstance
         :rtype: OriginationUrlContext
         """
-        if self._instance_context is None:
-            self._instance_context = OriginationUrlContext(
+        if self._context is None:
+            self._context = OriginationUrlContext(
                 self._version,
-                self._kwargs['trunk_sid'],
-                self._kwargs['sid'],
+                trunk_sid=self._solution['trunk_sid'],
+                sid=self._solution['sid'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def account_sid(self):
@@ -414,7 +474,7 @@ class OriginationUrlInstance(InstanceResource):
         :returns: Fetched OriginationUrlInstance
         :rtype: OriginationUrlInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     def delete(self):
         """
@@ -423,7 +483,7 @@ class OriginationUrlInstance(InstanceResource):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._context.delete()
+        return self._proxy.delete()
 
     def update(self, weight=values.unset, priority=values.unset,
                enabled=values.unset, friendly_name=values.unset,
@@ -440,7 +500,7 @@ class OriginationUrlInstance(InstanceResource):
         :returns: Updated OriginationUrlInstance
         :rtype: OriginationUrlInstance
         """
-        return self._context.update(
+        return self._proxy.update(
             weight=weight,
             priority=priority,
             enabled=enabled,
@@ -455,5 +515,5 @@ class OriginationUrlInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Trunking.V1.OriginationUrlInstance {}>'.format(context)

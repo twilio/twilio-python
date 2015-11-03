@@ -14,6 +14,7 @@ from twilio.rest.base import ListResource
 from twilio.rest.conversations.v1.conversation.completed import CompletedList
 from twilio.rest.conversations.v1.conversation.in_progress import InProgressList
 from twilio.rest.conversations.v1.conversation.participant import ParticipantList
+from twilio.rest.page import Page
 
 
 class ConversationList(ListResource):
@@ -30,7 +31,7 @@ class ConversationList(ListResource):
         super(ConversationList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {}
+        self._solution = {}
         
         # Components
         self._in_progress = None
@@ -45,7 +46,9 @@ class ConversationList(ListResource):
         :rtype: InProgressList
         """
         if self._in_progress is None:
-            self._in_progress = InProgressList(self._version, **self._kwargs)
+            self._in_progress = InProgressList(
+                self._version,
+            )
         return self._in_progress
 
     @property
@@ -57,7 +60,9 @@ class ConversationList(ListResource):
         :rtype: CompletedList
         """
         if self._completed is None:
-            self._completed = CompletedList(self._version, **self._kwargs)
+            self._completed = CompletedList(
+                self._version,
+            )
         return self._completed
 
     def get(self, sid):
@@ -69,7 +74,10 @@ class ConversationList(ListResource):
         :returns: ConversationContext
         :rtype: ConversationContext
         """
-        return ConversationContext(self._version, sid=sid, **self._kwargs)
+        return ConversationContext(
+            self._version,
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
@@ -80,7 +88,10 @@ class ConversationList(ListResource):
         :returns: ConversationContext
         :rtype: ConversationContext
         """
-        return ConversationContext(self._version, sid=sid, **self._kwargs)
+        return ConversationContext(
+            self._version,
+            sid=sid,
+        )
 
     def __repr__(self):
         """
@@ -92,13 +103,54 @@ class ConversationList(ListResource):
         return '<Twilio.Conversations.V1.ConversationList>'
 
 
+class ConversationPage(Page):
+
+    def __init__(self, version, response):
+        """
+        Initialize the ConversationPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        
+        :returns: ConversationPage
+        :rtype: ConversationPage
+        """
+        super(ConversationPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {}
+
+    def get_instance(self, payload):
+        """
+        Build an instance of ConversationInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: ConversationInstance
+        :rtype: ConversationInstance
+        """
+        return ConversationInstance(
+            self._version,
+            payload,
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Conversations.V1.ConversationPage>'
+
+
 class ConversationContext(InstanceContext):
 
     def __init__(self, version, sid):
         """
         Initialize the ConversationContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param sid: The sid
         
         :returns: ConversationContext
@@ -107,10 +159,10 @@ class ConversationContext(InstanceContext):
         super(ConversationContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'sid': sid,
         }
-        self._uri = '/Conversations/{sid}'.format(**self._kwargs)
+        self._uri = '/Conversations/{sid}'.format(**self._solution)
         
         # Dependents
         self._participants = None
@@ -124,12 +176,16 @@ class ConversationContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            ConversationInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return ConversationInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
         )
 
     @property
@@ -143,7 +199,7 @@ class ConversationContext(InstanceContext):
         if self._participants is None:
             self._participants = ParticipantList(
                 self._version,
-                conversation_sid=self._kwargs['sid'],
+                conversation_sid=self._solution['sid'],
             )
         return self._participants
 
@@ -154,7 +210,7 @@ class ConversationContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Conversations.V1.ConversationContext {}>'.format(context)
 
 
@@ -182,13 +238,13 @@ class ConversationInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'sid': sid or self._properties['sid'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -196,12 +252,12 @@ class ConversationInstance(InstanceResource):
         :returns: ConversationContext for this ConversationInstance
         :rtype: ConversationContext
         """
-        if self._instance_context is None:
-            self._instance_context = ConversationContext(
+        if self._context is None:
+            self._context = ConversationContext(
                 self._version,
-                self._kwargs['sid'],
+                sid=self._solution['sid'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def sid(self):
@@ -274,7 +330,7 @@ class ConversationInstance(InstanceResource):
         :returns: Fetched ConversationInstance
         :rtype: ConversationInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     @property
     def participants(self):
@@ -284,7 +340,7 @@ class ConversationInstance(InstanceResource):
         :returns: participants
         :rtype: participants
         """
-        return self._context.participants
+        return self._proxy.participants
 
     def __repr__(self):
         """
@@ -293,5 +349,5 @@ class ConversationInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Conversations.V1.ConversationInstance {}>'.format(context)

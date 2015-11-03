@@ -10,6 +10,7 @@ from twilio import values
 from twilio.rest import deserialize
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class ThisMonthList(ListResource):
@@ -27,12 +28,12 @@ class ThisMonthList(ListResource):
         super(ThisMonthList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
         }
-        self._uri = '/Accounts/{account_sid}/Usage/Records/ThisMonth'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Usage/Records/ThisMonth'.format(**self._solution)
 
-    def stream(self, limit=None, page_size=None, **kwargs):
+    def stream(self, limit=None, page_size=None):
         """
         Streams ThisMonthInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -51,23 +52,13 @@ class ThisMonthList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            ThisMonthInstance,
-            {},
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def read(self, limit=None, page_size=None, **kwargs):
+    def read(self, limit=None, page_size=values.unset):
         """
         Reads ThisMonthInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -86,10 +77,10 @@ class ThisMonthList(ListResource):
         return list(self.stream(
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
-    def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
+    def page(self, page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of ThisMonthInstance records from the API.
         Request is executed immediately
@@ -106,15 +97,17 @@ class ThisMonthList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            ThisMonthInstance,
-            {},
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return ThisMonthPage(
+            self._version,
+            response,
+            account_sid=self._solution['account_sid'],
         )
 
     def __repr__(self):
@@ -127,9 +120,54 @@ class ThisMonthList(ListResource):
         return '<Twilio.Api.V2010.ThisMonthList>'
 
 
+class ThisMonthPage(Page):
+
+    def __init__(self, version, response, account_sid):
+        """
+        Initialize the ThisMonthPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param account_sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: ThisMonthPage
+        :rtype: ThisMonthPage
+        """
+        super(ThisMonthPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'account_sid': account_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of ThisMonthInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: ThisMonthInstance
+        :rtype: ThisMonthInstance
+        """
+        return ThisMonthInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Api.V2010.ThisMonthPage>'
+
+
 class ThisMonthInstance(InstanceResource):
 
-    def __init__(self, version, payload):
+    def __init__(self, version, payload, account_sid):
         """
         Initialize the ThisMonthInstance
         
@@ -154,6 +192,12 @@ class ThisMonthInstance(InstanceResource):
             'uri': payload['uri'],
             'usage': payload['usage'],
             'usage_unit': payload['usage_unit'],
+        }
+        
+        # Context
+        self._context = None
+        self._solution = {
+            'account_sid': account_sid,
         }
 
     @property

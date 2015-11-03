@@ -11,6 +11,7 @@ from twilio.rest import deserialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class SandboxList(ListResource):
@@ -28,7 +29,7 @@ class SandboxList(ListResource):
         super(SandboxList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
         }
 
@@ -39,7 +40,10 @@ class SandboxList(ListResource):
         :returns: SandboxContext
         :rtype: SandboxContext
         """
-        return SandboxContext(self._version, **self._kwargs)
+        return SandboxContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+        )
 
     def __call__(self):
         """
@@ -48,7 +52,10 @@ class SandboxList(ListResource):
         :returns: SandboxContext
         :rtype: SandboxContext
         """
-        return SandboxContext(self._version, **self._kwargs)
+        return SandboxContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+        )
 
     def __repr__(self):
         """
@@ -60,13 +67,58 @@ class SandboxList(ListResource):
         return '<Twilio.Api.V2010.SandboxList>'
 
 
+class SandboxPage(Page):
+
+    def __init__(self, version, response, account_sid):
+        """
+        Initialize the SandboxPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param account_sid: The account_sid
+        
+        :returns: SandboxPage
+        :rtype: SandboxPage
+        """
+        super(SandboxPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'account_sid': account_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of SandboxInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: SandboxInstance
+        :rtype: SandboxInstance
+        """
+        return SandboxInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Api.V2010.SandboxPage>'
+
+
 class SandboxContext(InstanceContext):
 
     def __init__(self, version, account_sid):
         """
         Initialize the SandboxContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param account_sid: The account_sid
         
         :returns: SandboxContext
@@ -75,10 +127,10 @@ class SandboxContext(InstanceContext):
         super(SandboxContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
         }
-        self._uri = '/Accounts/{account_sid}/Sandbox.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Sandbox.json'.format(**self._solution)
 
     def fetch(self):
         """
@@ -89,12 +141,16 @@ class SandboxContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            SandboxInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return SandboxInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
         )
 
     def update(self, voice_url=values.unset, voice_method=values.unset,
@@ -122,12 +178,16 @@ class SandboxContext(InstanceContext):
             'StatusCallbackMethod': status_callback_method,
         })
         
-        return self._version.update(
-            SandboxInstance,
-            self._kwargs,
+        payload = self._version.update(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return SandboxInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
         )
 
     def __repr__(self):
@@ -137,7 +197,7 @@ class SandboxContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.SandboxContext {}>'.format(context)
 
 
@@ -171,13 +231,13 @@ class SandboxInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'account_sid': account_sid,
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -185,12 +245,12 @@ class SandboxInstance(InstanceResource):
         :returns: SandboxContext for this SandboxInstance
         :rtype: SandboxContext
         """
-        if self._instance_context is None:
-            self._instance_context = SandboxContext(
+        if self._context is None:
+            self._context = SandboxContext(
                 self._version,
-                self._kwargs['account_sid'],
+                account_sid=self._solution['account_sid'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def date_created(self):
@@ -311,7 +371,7 @@ class SandboxInstance(InstanceResource):
         :returns: Fetched SandboxInstance
         :rtype: SandboxInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     def update(self, voice_url=values.unset, voice_method=values.unset,
                sms_url=values.unset, sms_method=values.unset,
@@ -329,7 +389,7 @@ class SandboxInstance(InstanceResource):
         :returns: Updated SandboxInstance
         :rtype: SandboxInstance
         """
-        return self._context.update(
+        return self._proxy.update(
             voice_url=voice_url,
             voice_method=voice_method,
             sms_url=sms_url,
@@ -345,5 +405,5 @@ class SandboxInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.SandboxInstance {}>'.format(context)

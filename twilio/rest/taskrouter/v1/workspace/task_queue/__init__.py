@@ -11,6 +11,7 @@ from twilio.rest import deserialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 from twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics import TaskQueueStatisticsList
 from twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics import TaskQueuesStatisticsList
 
@@ -30,17 +31,16 @@ class TaskQueueList(ListResource):
         super(TaskQueueList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'workspace_sid': workspace_sid,
         }
-        self._uri = '/Workspaces/{workspace_sid}/TaskQueues'.format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/TaskQueues'.format(**self._solution)
         
         # Components
         self._statistics = None
 
     def stream(self, friendly_name=values.unset,
-               evaluate_worker_attributes=values.unset, limit=None, page_size=None,
-               **kwargs):
+               evaluate_worker_attributes=values.unset, limit=None, page_size=None):
         """
         Streams TaskQueueInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -61,27 +61,17 @@ class TaskQueueList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'FriendlyName': friendly_name,
-            'EvaluateWorkerAttributes': evaluate_worker_attributes,
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            TaskQueueInstance,
-            self._kwargs,
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            friendly_name=friendly_name,
+            evaluate_worker_attributes=evaluate_worker_attributes,
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
     def read(self, friendly_name=values.unset,
-             evaluate_worker_attributes=values.unset, limit=None, page_size=None,
-             **kwargs):
+             evaluate_worker_attributes=values.unset, limit=None,
+             page_size=values.unset):
         """
         Reads TaskQueueInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -104,12 +94,11 @@ class TaskQueueList(ListResource):
             evaluate_worker_attributes=evaluate_worker_attributes,
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
     def page(self, friendly_name=values.unset,
-             evaluate_worker_attributes=values.unset, page_token=None,
-             page_number=None, page_size=None, **kwargs):
+             evaluate_worker_attributes=values.unset, page_token=values.unset,
+             page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of TaskQueueInstance records from the API.
         Request is executed immediately
@@ -130,15 +119,17 @@ class TaskQueueList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            TaskQueueInstance,
-            self._kwargs,
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return TaskQueuePage(
+            self._version,
+            response,
+            workspace_sid=self._solution['workspace_sid'],
         )
 
     def create(self, friendly_name, reservation_activity_sid,
@@ -164,12 +155,16 @@ class TaskQueueList(ListResource):
             'MaxReservedWorkers': max_reserved_workers,
         })
         
-        return self._version.create(
-            TaskQueueInstance,
-            self._kwargs,
+        payload = self._version.create(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return TaskQueueInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
         )
 
     @property
@@ -181,7 +176,10 @@ class TaskQueueList(ListResource):
         :rtype: TaskQueuesStatisticsList
         """
         if self._statistics is None:
-            self._statistics = TaskQueuesStatisticsList(self._version, **self._kwargs)
+            self._statistics = TaskQueuesStatisticsList(
+                self._version,
+                workspace_sid=self._solution['workspace_sid'],
+            )
         return self._statistics
 
     def get(self, sid):
@@ -193,7 +191,11 @@ class TaskQueueList(ListResource):
         :returns: TaskQueueContext
         :rtype: TaskQueueContext
         """
-        return TaskQueueContext(self._version, sid=sid, **self._kwargs)
+        return TaskQueueContext(
+            self._version,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
@@ -204,7 +206,11 @@ class TaskQueueList(ListResource):
         :returns: TaskQueueContext
         :rtype: TaskQueueContext
         """
-        return TaskQueueContext(self._version, sid=sid, **self._kwargs)
+        return TaskQueueContext(
+            self._version,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=sid,
+        )
 
     def __repr__(self):
         """
@@ -216,13 +222,58 @@ class TaskQueueList(ListResource):
         return '<Twilio.Taskrouter.V1.TaskQueueList>'
 
 
+class TaskQueuePage(Page):
+
+    def __init__(self, version, response, workspace_sid):
+        """
+        Initialize the TaskQueuePage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param workspace_sid: The workspace_sid
+        
+        :returns: TaskQueuePage
+        :rtype: TaskQueuePage
+        """
+        super(TaskQueuePage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'workspace_sid': workspace_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of TaskQueueInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: TaskQueueInstance
+        :rtype: TaskQueueInstance
+        """
+        return TaskQueueInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Taskrouter.V1.TaskQueuePage>'
+
+
 class TaskQueueContext(InstanceContext):
 
     def __init__(self, version, workspace_sid, sid):
         """
         Initialize the TaskQueueContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param workspace_sid: The workspace_sid
         :param sid: The sid
         
@@ -232,11 +283,11 @@ class TaskQueueContext(InstanceContext):
         super(TaskQueueContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'workspace_sid': workspace_sid,
             'sid': sid,
         }
-        self._uri = '/Workspaces/{workspace_sid}/TaskQueues/{sid}'.format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/TaskQueues/{sid}'.format(**self._solution)
         
         # Dependents
         self._statistics = None
@@ -250,12 +301,17 @@ class TaskQueueContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            TaskQueueInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return TaskQueueInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid'],
         )
 
     def update(self, friendly_name=values.unset, target_workers=values.unset,
@@ -282,12 +338,17 @@ class TaskQueueContext(InstanceContext):
             'MaxReservedWorkers': max_reserved_workers,
         })
         
-        return self._version.update(
-            TaskQueueInstance,
-            self._kwargs,
+        payload = self._version.update(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return TaskQueueInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid'],
         )
 
     def delete(self):
@@ -310,8 +371,8 @@ class TaskQueueContext(InstanceContext):
         if self._statistics is None:
             self._statistics = TaskQueueStatisticsList(
                 self._version,
-                workspace_sid=self._kwargs['workspace_sid'],
-                task_queue_sid=self._kwargs['sid'],
+                workspace_sid=self._solution['workspace_sid'],
+                task_queue_sid=self._solution['sid'],
             )
         return self._statistics
 
@@ -322,7 +383,7 @@ class TaskQueueContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Taskrouter.V1.TaskQueueContext {}>'.format(context)
 
 
@@ -355,14 +416,14 @@ class TaskQueueInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'workspace_sid': workspace_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -370,13 +431,13 @@ class TaskQueueInstance(InstanceResource):
         :returns: TaskQueueContext for this TaskQueueInstance
         :rtype: TaskQueueContext
         """
-        if self._instance_context is None:
-            self._instance_context = TaskQueueContext(
+        if self._context is None:
+            self._context = TaskQueueContext(
                 self._version,
-                self._kwargs['workspace_sid'],
-                self._kwargs['sid'],
+                workspace_sid=self._solution['workspace_sid'],
+                sid=self._solution['sid'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def account_sid(self):
@@ -489,7 +550,7 @@ class TaskQueueInstance(InstanceResource):
         :returns: Fetched TaskQueueInstance
         :rtype: TaskQueueInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     def update(self, friendly_name=values.unset, target_workers=values.unset,
                reservation_activity_sid=values.unset,
@@ -507,7 +568,7 @@ class TaskQueueInstance(InstanceResource):
         :returns: Updated TaskQueueInstance
         :rtype: TaskQueueInstance
         """
-        return self._context.update(
+        return self._proxy.update(
             friendly_name=friendly_name,
             target_workers=target_workers,
             reservation_activity_sid=reservation_activity_sid,
@@ -522,7 +583,7 @@ class TaskQueueInstance(InstanceResource):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._context.delete()
+        return self._proxy.delete()
 
     @property
     def statistics(self):
@@ -532,7 +593,7 @@ class TaskQueueInstance(InstanceResource):
         :returns: statistics
         :rtype: statistics
         """
-        return self._context.statistics
+        return self._proxy.statistics
 
     def __repr__(self):
         """
@@ -541,5 +602,5 @@ class TaskQueueInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Taskrouter.V1.TaskQueueInstance {}>'.format(context)

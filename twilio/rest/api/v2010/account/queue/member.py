@@ -11,6 +11,7 @@ from twilio.rest import deserialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class MemberList(ListResource):
@@ -29,13 +30,13 @@ class MemberList(ListResource):
         super(MemberList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
             'queue_sid': queue_sid,
         }
-        self._uri = '/Accounts/{account_sid}/Queues/{queue_sid}/Members.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Queues/{queue_sid}/Members.json'.format(**self._solution)
 
-    def stream(self, limit=None, page_size=None, **kwargs):
+    def stream(self, limit=None, page_size=None):
         """
         Streams MemberInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -54,23 +55,13 @@ class MemberList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            MemberInstance,
-            self._kwargs,
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def read(self, limit=None, page_size=None, **kwargs):
+    def read(self, limit=None, page_size=values.unset):
         """
         Reads MemberInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -89,10 +80,10 @@ class MemberList(ListResource):
         return list(self.stream(
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
-    def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
+    def page(self, page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of MemberInstance records from the API.
         Request is executed immediately
@@ -109,15 +100,18 @@ class MemberList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            MemberInstance,
-            self._kwargs,
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return MemberPage(
+            self._version,
+            response,
+            account_sid=self._solution['account_sid'],
+            queue_sid=self._solution['queue_sid'],
         )
 
     def get(self, call_sid):
@@ -129,7 +123,12 @@ class MemberList(ListResource):
         :returns: MemberContext
         :rtype: MemberContext
         """
-        return MemberContext(self._version, call_sid=call_sid, **self._kwargs)
+        return MemberContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            queue_sid=self._solution['queue_sid'],
+            call_sid=call_sid,
+        )
 
     def __call__(self, call_sid):
         """
@@ -140,7 +139,12 @@ class MemberList(ListResource):
         :returns: MemberContext
         :rtype: MemberContext
         """
-        return MemberContext(self._version, call_sid=call_sid, **self._kwargs)
+        return MemberContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            queue_sid=self._solution['queue_sid'],
+            call_sid=call_sid,
+        )
 
     def __repr__(self):
         """
@@ -152,13 +156,61 @@ class MemberList(ListResource):
         return '<Twilio.Api.V2010.MemberList>'
 
 
+class MemberPage(Page):
+
+    def __init__(self, version, response, account_sid, queue_sid):
+        """
+        Initialize the MemberPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param account_sid: The account_sid
+        :param queue_sid: A string that uniquely identifies this queue
+        
+        :returns: MemberPage
+        :rtype: MemberPage
+        """
+        super(MemberPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'account_sid': account_sid,
+            'queue_sid': queue_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of MemberInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: MemberInstance
+        :rtype: MemberInstance
+        """
+        return MemberInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            queue_sid=self._solution['queue_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Api.V2010.MemberPage>'
+
+
 class MemberContext(InstanceContext):
 
     def __init__(self, version, account_sid, queue_sid, call_sid):
         """
         Initialize the MemberContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param account_sid: The account_sid
         :param queue_sid: The Queue in which to find the members
         :param call_sid: The call_sid
@@ -169,12 +221,12 @@ class MemberContext(InstanceContext):
         super(MemberContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
             'queue_sid': queue_sid,
             'call_sid': call_sid,
         }
-        self._uri = '/Accounts/{account_sid}/Queues/{queue_sid}/Members/{call_sid}.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Queues/{queue_sid}/Members/{call_sid}.json'.format(**self._solution)
 
     def fetch(self):
         """
@@ -185,12 +237,18 @@ class MemberContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            MemberInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return MemberInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            queue_sid=self._solution['queue_sid'],
+            call_sid=self._solution['call_sid'],
         )
 
     def update(self, url, method):
@@ -208,12 +266,18 @@ class MemberContext(InstanceContext):
             'Method': method,
         })
         
-        return self._version.update(
-            MemberInstance,
-            self._kwargs,
+        payload = self._version.update(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return MemberInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            queue_sid=self._solution['queue_sid'],
+            call_sid=self._solution['call_sid'],
         )
 
     def __repr__(self):
@@ -223,7 +287,7 @@ class MemberContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.MemberContext {}>'.format(context)
 
 
@@ -248,15 +312,15 @@ class MemberInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'account_sid': account_sid,
             'queue_sid': queue_sid,
             'call_sid': call_sid or self._properties['call_sid'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -264,14 +328,14 @@ class MemberInstance(InstanceResource):
         :returns: MemberContext for this MemberInstance
         :rtype: MemberContext
         """
-        if self._instance_context is None:
-            self._instance_context = MemberContext(
+        if self._context is None:
+            self._context = MemberContext(
                 self._version,
-                self._kwargs['account_sid'],
-                self._kwargs['queue_sid'],
-                self._kwargs['call_sid'],
+                account_sid=self._solution['account_sid'],
+                queue_sid=self._solution['queue_sid'],
+                call_sid=self._solution['call_sid'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def call_sid(self):
@@ -320,7 +384,7 @@ class MemberInstance(InstanceResource):
         :returns: Fetched MemberInstance
         :rtype: MemberInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     def update(self, url, method):
         """
@@ -332,7 +396,7 @@ class MemberInstance(InstanceResource):
         :returns: Updated MemberInstance
         :rtype: MemberInstance
         """
-        return self._context.update(
+        return self._proxy.update(
             url,
             method,
         )
@@ -344,5 +408,5 @@ class MemberInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.MemberInstance {}>'.format(context)

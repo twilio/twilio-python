@@ -11,6 +11,7 @@ from twilio.rest import deserialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 from twilio.rest.trunking.v1.trunk.credential_list import CredentialListList
 from twilio.rest.trunking.v1.trunk.ip_access_control_list import IpAccessControlListList
 from twilio.rest.trunking.v1.trunk.origination_url import OriginationUrlList
@@ -31,8 +32,8 @@ class TrunkList(ListResource):
         super(TrunkList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {}
-        self._uri = '/Trunks'.format(**self._kwargs)
+        self._solution = {}
+        self._uri = '/Trunks'.format(**self._solution)
 
     def create(self, friendly_name=values.unset, domain_name=values.unset,
                disaster_recovery_url=values.unset,
@@ -60,15 +61,18 @@ class TrunkList(ListResource):
             'Secure': secure,
         })
         
-        return self._version.create(
-            TrunkInstance,
-            self._kwargs,
+        payload = self._version.create(
             'POST',
             self._uri,
             data=data,
         )
+        
+        return TrunkInstance(
+            self._version,
+            payload,
+        )
 
-    def stream(self, limit=None, page_size=None, **kwargs):
+    def stream(self, limit=None, page_size=None):
         """
         Streams TrunkInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -87,23 +91,13 @@ class TrunkList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            TrunkInstance,
-            self._kwargs,
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def read(self, limit=None, page_size=None, **kwargs):
+    def read(self, limit=None, page_size=values.unset):
         """
         Reads TrunkInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -122,10 +116,10 @@ class TrunkList(ListResource):
         return list(self.stream(
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
-    def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
+    def page(self, page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of TrunkInstance records from the API.
         Request is executed immediately
@@ -142,15 +136,16 @@ class TrunkList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            TrunkInstance,
-            self._kwargs,
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return TrunkPage(
+            self._version,
+            response,
         )
 
     def get(self, sid):
@@ -162,7 +157,10 @@ class TrunkList(ListResource):
         :returns: TrunkContext
         :rtype: TrunkContext
         """
-        return TrunkContext(self._version, sid=sid, **self._kwargs)
+        return TrunkContext(
+            self._version,
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
@@ -173,7 +171,10 @@ class TrunkList(ListResource):
         :returns: TrunkContext
         :rtype: TrunkContext
         """
-        return TrunkContext(self._version, sid=sid, **self._kwargs)
+        return TrunkContext(
+            self._version,
+            sid=sid,
+        )
 
     def __repr__(self):
         """
@@ -185,13 +186,54 @@ class TrunkList(ListResource):
         return '<Twilio.Trunking.V1.TrunkList>'
 
 
+class TrunkPage(Page):
+
+    def __init__(self, version, response):
+        """
+        Initialize the TrunkPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        
+        :returns: TrunkPage
+        :rtype: TrunkPage
+        """
+        super(TrunkPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {}
+
+    def get_instance(self, payload):
+        """
+        Build an instance of TrunkInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: TrunkInstance
+        :rtype: TrunkInstance
+        """
+        return TrunkInstance(
+            self._version,
+            payload,
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Trunking.V1.TrunkPage>'
+
+
 class TrunkContext(InstanceContext):
 
     def __init__(self, version, sid):
         """
         Initialize the TrunkContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param sid: The sid
         
         :returns: TrunkContext
@@ -200,10 +242,10 @@ class TrunkContext(InstanceContext):
         super(TrunkContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'sid': sid,
         }
-        self._uri = '/Trunks/{sid}'.format(**self._kwargs)
+        self._uri = '/Trunks/{sid}'.format(**self._solution)
         
         # Dependents
         self._origination_urls = None
@@ -220,12 +262,16 @@ class TrunkContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            TrunkInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return TrunkInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
         )
 
     def delete(self):
@@ -263,12 +309,16 @@ class TrunkContext(InstanceContext):
             'Secure': secure,
         })
         
-        return self._version.update(
-            TrunkInstance,
-            self._kwargs,
+        payload = self._version.update(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return TrunkInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
         )
 
     @property
@@ -282,7 +332,7 @@ class TrunkContext(InstanceContext):
         if self._origination_urls is None:
             self._origination_urls = OriginationUrlList(
                 self._version,
-                trunk_sid=self._kwargs['sid'],
+                trunk_sid=self._solution['sid'],
             )
         return self._origination_urls
 
@@ -297,7 +347,7 @@ class TrunkContext(InstanceContext):
         if self._credentials_lists is None:
             self._credentials_lists = CredentialListList(
                 self._version,
-                trunk_sid=self._kwargs['sid'],
+                trunk_sid=self._solution['sid'],
             )
         return self._credentials_lists
 
@@ -312,7 +362,7 @@ class TrunkContext(InstanceContext):
         if self._ip_access_control_lists is None:
             self._ip_access_control_lists = IpAccessControlListList(
                 self._version,
-                trunk_sid=self._kwargs['sid'],
+                trunk_sid=self._solution['sid'],
             )
         return self._ip_access_control_lists
 
@@ -327,7 +377,7 @@ class TrunkContext(InstanceContext):
         if self._phone_numbers is None:
             self._phone_numbers = PhoneNumberList(
                 self._version,
-                trunk_sid=self._kwargs['sid'],
+                trunk_sid=self._solution['sid'],
             )
         return self._phone_numbers
 
@@ -338,7 +388,7 @@ class TrunkContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Trunking.V1.TrunkContext {}>'.format(context)
 
 
@@ -372,13 +422,13 @@ class TrunkInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'sid': sid or self._properties['sid'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -386,12 +436,12 @@ class TrunkInstance(InstanceResource):
         :returns: TrunkContext for this TrunkInstance
         :rtype: TrunkContext
         """
-        if self._instance_context is None:
-            self._instance_context = TrunkContext(
+        if self._context is None:
+            self._context = TrunkContext(
                 self._version,
-                self._kwargs['sid'],
+                sid=self._solution['sid'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def account_sid(self):
@@ -512,7 +562,7 @@ class TrunkInstance(InstanceResource):
         :returns: Fetched TrunkInstance
         :rtype: TrunkInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     def delete(self):
         """
@@ -521,7 +571,7 @@ class TrunkInstance(InstanceResource):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._context.delete()
+        return self._proxy.delete()
 
     def update(self, friendly_name=values.unset, domain_name=values.unset,
                disaster_recovery_url=values.unset,
@@ -540,7 +590,7 @@ class TrunkInstance(InstanceResource):
         :returns: Updated TrunkInstance
         :rtype: TrunkInstance
         """
-        return self._context.update(
+        return self._proxy.update(
             friendly_name=friendly_name,
             domain_name=domain_name,
             disaster_recovery_url=disaster_recovery_url,
@@ -557,7 +607,7 @@ class TrunkInstance(InstanceResource):
         :returns: origination_urls
         :rtype: origination_urls
         """
-        return self._context.origination_urls
+        return self._proxy.origination_urls
 
     @property
     def credentials_lists(self):
@@ -567,7 +617,7 @@ class TrunkInstance(InstanceResource):
         :returns: credentials_lists
         :rtype: credentials_lists
         """
-        return self._context.credentials_lists
+        return self._proxy.credentials_lists
 
     @property
     def ip_access_control_lists(self):
@@ -577,7 +627,7 @@ class TrunkInstance(InstanceResource):
         :returns: ip_access_control_lists
         :rtype: ip_access_control_lists
         """
-        return self._context.ip_access_control_lists
+        return self._proxy.ip_access_control_lists
 
     @property
     def phone_numbers(self):
@@ -587,7 +637,7 @@ class TrunkInstance(InstanceResource):
         :returns: phone_numbers
         :rtype: phone_numbers
         """
-        return self._context.phone_numbers
+        return self._proxy.phone_numbers
 
     def __repr__(self):
         """
@@ -596,5 +646,5 @@ class TrunkInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Trunking.V1.TrunkInstance {}>'.format(context)

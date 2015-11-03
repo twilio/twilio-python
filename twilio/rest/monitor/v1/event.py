@@ -12,6 +12,7 @@ from twilio.rest import serialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class EventList(ListResource):
@@ -28,15 +29,15 @@ class EventList(ListResource):
         super(EventList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {}
-        self._uri = '/Events'.format(**self._kwargs)
+        self._solution = {}
+        self._uri = '/Events'.format(**self._solution)
 
     def stream(self, actor_sid=values.unset, end_date_before=values.unset,
                end_date=values.unset, end_date_after=values.unset,
                event_type=values.unset, resource_sid=values.unset,
                source_ip_address=values.unset, start_date_before=values.unset,
                start_date=values.unset, start_date_after=values.unset, limit=None,
-               page_size=None, **kwargs):
+               page_size=None):
         """
         Streams EventInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -65,38 +66,28 @@ class EventList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'ActorSid': actor_sid,
-            'EndDate<': serialize.iso8601_date(end_date_before),
-            'EndDate': serialize.iso8601_date(end_date),
-            'EndDate>': serialize.iso8601_date(end_date_after),
-            'EventType': event_type,
-            'ResourceSid': resource_sid,
-            'SourceIpAddress': source_ip_address,
-            'StartDate<': serialize.iso8601_date(start_date_before),
-            'StartDate': serialize.iso8601_date(start_date),
-            'StartDate>': serialize.iso8601_date(start_date_after),
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            EventInstance,
-            self._kwargs,
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            actor_sid=actor_sid,
+            end_date_before=end_date_before,
+            end_date=end_date,
+            end_date_after=end_date_after,
+            event_type=event_type,
+            resource_sid=resource_sid,
+            source_ip_address=source_ip_address,
+            start_date_before=start_date_before,
+            start_date=start_date,
+            start_date_after=start_date_after,
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
     def read(self, actor_sid=values.unset, end_date_before=values.unset,
              end_date=values.unset, end_date_after=values.unset,
              event_type=values.unset, resource_sid=values.unset,
              source_ip_address=values.unset, start_date_before=values.unset,
              start_date=values.unset, start_date_after=values.unset, limit=None,
-             page_size=None, **kwargs):
+             page_size=values.unset):
         """
         Reads EventInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -135,7 +126,6 @@ class EventList(ListResource):
             start_date_after=start_date_after,
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
     def page(self, actor_sid=values.unset, end_date_before=values.unset,
@@ -143,7 +133,8 @@ class EventList(ListResource):
              event_type=values.unset, resource_sid=values.unset,
              source_ip_address=values.unset, start_date_before=values.unset,
              start_date=values.unset, start_date_after=values.unset,
-             page_token=None, page_number=None, page_size=None, **kwargs):
+             page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of EventInstance records from the API.
         Request is executed immediately
@@ -180,15 +171,16 @@ class EventList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            EventInstance,
-            self._kwargs,
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return EventPage(
+            self._version,
+            response,
         )
 
     def get(self, sid):
@@ -200,7 +192,10 @@ class EventList(ListResource):
         :returns: EventContext
         :rtype: EventContext
         """
-        return EventContext(self._version, sid=sid, **self._kwargs)
+        return EventContext(
+            self._version,
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
@@ -211,7 +206,10 @@ class EventList(ListResource):
         :returns: EventContext
         :rtype: EventContext
         """
-        return EventContext(self._version, sid=sid, **self._kwargs)
+        return EventContext(
+            self._version,
+            sid=sid,
+        )
 
     def __repr__(self):
         """
@@ -223,13 +221,54 @@ class EventList(ListResource):
         return '<Twilio.Monitor.V1.EventList>'
 
 
+class EventPage(Page):
+
+    def __init__(self, version, response):
+        """
+        Initialize the EventPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        
+        :returns: EventPage
+        :rtype: EventPage
+        """
+        super(EventPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {}
+
+    def get_instance(self, payload):
+        """
+        Build an instance of EventInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: EventInstance
+        :rtype: EventInstance
+        """
+        return EventInstance(
+            self._version,
+            payload,
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Monitor.V1.EventPage>'
+
+
 class EventContext(InstanceContext):
 
     def __init__(self, version, sid):
         """
         Initialize the EventContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param sid: The sid
         
         :returns: EventContext
@@ -238,10 +277,10 @@ class EventContext(InstanceContext):
         super(EventContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'sid': sid,
         }
-        self._uri = '/Events/{sid}'.format(**self._kwargs)
+        self._uri = '/Events/{sid}'.format(**self._solution)
 
     def fetch(self):
         """
@@ -252,12 +291,16 @@ class EventContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            EventInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return EventInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
         )
 
     def __repr__(self):
@@ -267,7 +310,7 @@ class EventContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Monitor.V1.EventContext {}>'.format(context)
 
 
@@ -299,13 +342,13 @@ class EventInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'sid': sid or self._properties['sid'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -313,12 +356,12 @@ class EventInstance(InstanceResource):
         :returns: EventContext for this EventInstance
         :rtype: EventContext
         """
-        if self._instance_context is None:
-            self._instance_context = EventContext(
+        if self._context is None:
+            self._context = EventContext(
                 self._version,
-                self._kwargs['sid'],
+                sid=self._solution['sid'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def account_sid(self):
@@ -423,7 +466,7 @@ class EventInstance(InstanceResource):
         :returns: Fetched EventInstance
         :rtype: EventInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     def __repr__(self):
         """
@@ -432,5 +475,5 @@ class EventInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Monitor.V1.EventInstance {}>'.format(context)

@@ -19,6 +19,7 @@ from twilio.rest.api.v2010.account.usage.record.yearly import YearlyList
 from twilio.rest.api.v2010.account.usage.record.yesterday import YesterdayList
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class RecordList(ListResource):
@@ -36,10 +37,10 @@ class RecordList(ListResource):
         super(RecordList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
         }
-        self._uri = '/Accounts/{account_sid}/Usage/Records'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/Usage/Records'.format(**self._solution)
         
         # Components
         self._all_time = None
@@ -54,7 +55,7 @@ class RecordList(ListResource):
     def stream(self, category=values.unset, start_date_before=values.unset,
                start_date=values.unset, start_date_after=values.unset,
                end_date_before=values.unset, end_date=values.unset,
-               end_date_after=values.unset, limit=None, page_size=None, **kwargs):
+               end_date_after=values.unset, limit=None, page_size=None):
         """
         Streams RecordInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -80,33 +81,23 @@ class RecordList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'Category': category,
-            'StartDate<': serialize.iso8601_date(start_date_before),
-            'StartDate': serialize.iso8601_date(start_date),
-            'StartDate>': serialize.iso8601_date(start_date_after),
-            'EndDate<': serialize.iso8601_date(end_date_before),
-            'EndDate': serialize.iso8601_date(end_date),
-            'EndDate>': serialize.iso8601_date(end_date_after),
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            RecordInstance,
-            {},
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            category=category,
+            start_date_before=start_date_before,
+            start_date=start_date,
+            start_date_after=start_date_after,
+            end_date_before=end_date_before,
+            end_date=end_date,
+            end_date_after=end_date_after,
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
     def read(self, category=values.unset, start_date_before=values.unset,
              start_date=values.unset, start_date_after=values.unset,
              end_date_before=values.unset, end_date=values.unset,
-             end_date_after=values.unset, limit=None, page_size=None, **kwargs):
+             end_date_after=values.unset, limit=None, page_size=values.unset):
         """
         Reads RecordInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -139,14 +130,13 @@ class RecordList(ListResource):
             end_date_after=end_date_after,
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
     def page(self, category=values.unset, start_date_before=values.unset,
              start_date=values.unset, start_date_after=values.unset,
              end_date_before=values.unset, end_date=values.unset,
-             end_date_after=values.unset, page_token=None, page_number=None,
-             page_size=None, **kwargs):
+             end_date_after=values.unset, page_token=values.unset,
+             page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of RecordInstance records from the API.
         Request is executed immediately
@@ -177,15 +167,17 @@ class RecordList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            RecordInstance,
-            {},
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return RecordPage(
+            self._version,
+            response,
+            account_sid=self._solution['account_sid'],
         )
 
     @property
@@ -197,7 +189,10 @@ class RecordList(ListResource):
         :rtype: AllTimeList
         """
         if self._all_time is None:
-            self._all_time = AllTimeList(self._version, **self._kwargs)
+            self._all_time = AllTimeList(
+                self._version,
+                account_sid=self._solution['account_sid'],
+            )
         return self._all_time
 
     @property
@@ -209,7 +204,10 @@ class RecordList(ListResource):
         :rtype: DailyList
         """
         if self._daily is None:
-            self._daily = DailyList(self._version, **self._kwargs)
+            self._daily = DailyList(
+                self._version,
+                account_sid=self._solution['account_sid'],
+            )
         return self._daily
 
     @property
@@ -221,7 +219,10 @@ class RecordList(ListResource):
         :rtype: LastMonthList
         """
         if self._last_month is None:
-            self._last_month = LastMonthList(self._version, **self._kwargs)
+            self._last_month = LastMonthList(
+                self._version,
+                account_sid=self._solution['account_sid'],
+            )
         return self._last_month
 
     @property
@@ -233,7 +234,10 @@ class RecordList(ListResource):
         :rtype: MonthlyList
         """
         if self._monthly is None:
-            self._monthly = MonthlyList(self._version, **self._kwargs)
+            self._monthly = MonthlyList(
+                self._version,
+                account_sid=self._solution['account_sid'],
+            )
         return self._monthly
 
     @property
@@ -245,7 +249,10 @@ class RecordList(ListResource):
         :rtype: ThisMonthList
         """
         if self._this_month is None:
-            self._this_month = ThisMonthList(self._version, **self._kwargs)
+            self._this_month = ThisMonthList(
+                self._version,
+                account_sid=self._solution['account_sid'],
+            )
         return self._this_month
 
     @property
@@ -257,7 +264,10 @@ class RecordList(ListResource):
         :rtype: TodayList
         """
         if self._today is None:
-            self._today = TodayList(self._version, **self._kwargs)
+            self._today = TodayList(
+                self._version,
+                account_sid=self._solution['account_sid'],
+            )
         return self._today
 
     @property
@@ -269,7 +279,10 @@ class RecordList(ListResource):
         :rtype: YearlyList
         """
         if self._yearly is None:
-            self._yearly = YearlyList(self._version, **self._kwargs)
+            self._yearly = YearlyList(
+                self._version,
+                account_sid=self._solution['account_sid'],
+            )
         return self._yearly
 
     @property
@@ -281,7 +294,10 @@ class RecordList(ListResource):
         :rtype: YesterdayList
         """
         if self._yesterday is None:
-            self._yesterday = YesterdayList(self._version, **self._kwargs)
+            self._yesterday = YesterdayList(
+                self._version,
+                account_sid=self._solution['account_sid'],
+            )
         return self._yesterday
 
     def __repr__(self):
@@ -294,9 +310,54 @@ class RecordList(ListResource):
         return '<Twilio.Api.V2010.RecordList>'
 
 
+class RecordPage(Page):
+
+    def __init__(self, version, response, account_sid):
+        """
+        Initialize the RecordPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param account_sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: RecordPage
+        :rtype: RecordPage
+        """
+        super(RecordPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'account_sid': account_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of RecordInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: RecordInstance
+        :rtype: RecordInstance
+        """
+        return RecordInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Api.V2010.RecordPage>'
+
+
 class RecordInstance(InstanceResource):
 
-    def __init__(self, version, payload):
+    def __init__(self, version, payload, account_sid):
         """
         Initialize the RecordInstance
         
@@ -321,6 +382,12 @@ class RecordInstance(InstanceResource):
             'uri': payload['uri'],
             'usage': payload['usage'],
             'usage_unit': payload['usage_unit'],
+        }
+        
+        # Context
+        self._context = None
+        self._solution = {
+            'account_sid': account_sid,
         }
 
     @property

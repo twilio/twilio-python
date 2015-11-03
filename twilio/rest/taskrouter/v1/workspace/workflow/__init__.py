@@ -11,6 +11,7 @@ from twilio.rest import deserialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 from twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics import WorkflowStatisticsList
 
 
@@ -29,13 +30,12 @@ class WorkflowList(ListResource):
         super(WorkflowList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'workspace_sid': workspace_sid,
         }
-        self._uri = '/Workspaces/{workspace_sid}/Workflows'.format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/Workflows'.format(**self._solution)
 
-    def stream(self, friendly_name=values.unset, limit=None, page_size=None,
-               **kwargs):
+    def stream(self, friendly_name=values.unset, limit=None, page_size=None):
         """
         Streams WorkflowInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -55,25 +55,14 @@ class WorkflowList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'FriendlyName': friendly_name,
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            WorkflowInstance,
-            self._kwargs,
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            friendly_name=friendly_name,
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def read(self, friendly_name=values.unset, limit=None, page_size=None,
-             **kwargs):
+    def read(self, friendly_name=values.unset, limit=None, page_size=values.unset):
         """
         Reads WorkflowInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -94,11 +83,10 @@ class WorkflowList(ListResource):
             friendly_name=friendly_name,
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
-    def page(self, friendly_name=values.unset, page_token=None, page_number=None,
-             page_size=None, **kwargs):
+    def page(self, friendly_name=values.unset, page_token=values.unset,
+             page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of WorkflowInstance records from the API.
         Request is executed immediately
@@ -117,15 +105,17 @@ class WorkflowList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            WorkflowInstance,
-            self._kwargs,
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return WorkflowPage(
+            self._version,
+            response,
+            workspace_sid=self._solution['workspace_sid'],
         )
 
     def create(self, friendly_name, configuration, assignment_callback_url,
@@ -151,12 +141,16 @@ class WorkflowList(ListResource):
             'TaskReservationTimeout': task_reservation_timeout,
         })
         
-        return self._version.create(
-            WorkflowInstance,
-            self._kwargs,
+        payload = self._version.create(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return WorkflowInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
         )
 
     def get(self, sid):
@@ -168,7 +162,11 @@ class WorkflowList(ListResource):
         :returns: WorkflowContext
         :rtype: WorkflowContext
         """
-        return WorkflowContext(self._version, sid=sid, **self._kwargs)
+        return WorkflowContext(
+            self._version,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
@@ -179,7 +177,11 @@ class WorkflowList(ListResource):
         :returns: WorkflowContext
         :rtype: WorkflowContext
         """
-        return WorkflowContext(self._version, sid=sid, **self._kwargs)
+        return WorkflowContext(
+            self._version,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=sid,
+        )
 
     def __repr__(self):
         """
@@ -191,13 +193,58 @@ class WorkflowList(ListResource):
         return '<Twilio.Taskrouter.V1.WorkflowList>'
 
 
+class WorkflowPage(Page):
+
+    def __init__(self, version, response, workspace_sid):
+        """
+        Initialize the WorkflowPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param workspace_sid: The workspace_sid
+        
+        :returns: WorkflowPage
+        :rtype: WorkflowPage
+        """
+        super(WorkflowPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'workspace_sid': workspace_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of WorkflowInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: WorkflowInstance
+        :rtype: WorkflowInstance
+        """
+        return WorkflowInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Taskrouter.V1.WorkflowPage>'
+
+
 class WorkflowContext(InstanceContext):
 
     def __init__(self, version, workspace_sid, sid):
         """
         Initialize the WorkflowContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param workspace_sid: The workspace_sid
         :param sid: The sid
         
@@ -207,11 +254,11 @@ class WorkflowContext(InstanceContext):
         super(WorkflowContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'workspace_sid': workspace_sid,
             'sid': sid,
         }
-        self._uri = '/Workspaces/{workspace_sid}/Workflows/{sid}'.format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/Workflows/{sid}'.format(**self._solution)
         
         # Dependents
         self._statistics = None
@@ -225,12 +272,17 @@ class WorkflowContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            WorkflowInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return WorkflowInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid'],
         )
 
     def update(self, friendly_name=values.unset,
@@ -257,12 +309,17 @@ class WorkflowContext(InstanceContext):
             'TaskReservationTimeout': task_reservation_timeout,
         })
         
-        return self._version.update(
-            WorkflowInstance,
-            self._kwargs,
+        payload = self._version.update(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return WorkflowInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid'],
         )
 
     def delete(self):
@@ -285,8 +342,8 @@ class WorkflowContext(InstanceContext):
         if self._statistics is None:
             self._statistics = WorkflowStatisticsList(
                 self._version,
-                workspace_sid=self._kwargs['workspace_sid'],
-                workflow_sid=self._kwargs['sid'],
+                workspace_sid=self._solution['workspace_sid'],
+                workflow_sid=self._solution['sid'],
             )
         return self._statistics
 
@@ -297,7 +354,7 @@ class WorkflowContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Taskrouter.V1.WorkflowContext {}>'.format(context)
 
 
@@ -328,14 +385,14 @@ class WorkflowInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'workspace_sid': workspace_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -343,13 +400,13 @@ class WorkflowInstance(InstanceResource):
         :returns: WorkflowContext for this WorkflowInstance
         :rtype: WorkflowContext
         """
-        if self._instance_context is None:
-            self._instance_context = WorkflowContext(
+        if self._context is None:
+            self._context = WorkflowContext(
                 self._version,
-                self._kwargs['workspace_sid'],
-                self._kwargs['sid'],
+                workspace_sid=self._solution['workspace_sid'],
+                sid=self._solution['sid'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def account_sid(self):
@@ -446,7 +503,7 @@ class WorkflowInstance(InstanceResource):
         :returns: Fetched WorkflowInstance
         :rtype: WorkflowInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     def update(self, friendly_name=values.unset,
                assignment_callback_url=values.unset,
@@ -464,7 +521,7 @@ class WorkflowInstance(InstanceResource):
         :returns: Updated WorkflowInstance
         :rtype: WorkflowInstance
         """
-        return self._context.update(
+        return self._proxy.update(
             friendly_name=friendly_name,
             assignment_callback_url=assignment_callback_url,
             fallback_assignment_callback_url=fallback_assignment_callback_url,
@@ -479,7 +536,7 @@ class WorkflowInstance(InstanceResource):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._context.delete()
+        return self._proxy.delete()
 
     @property
     def statistics(self):
@@ -489,7 +546,7 @@ class WorkflowInstance(InstanceResource):
         :returns: statistics
         :rtype: statistics
         """
-        return self._context.statistics
+        return self._proxy.statistics
 
     def __repr__(self):
         """
@@ -498,5 +555,5 @@ class WorkflowInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Taskrouter.V1.WorkflowInstance {}>'.format(context)

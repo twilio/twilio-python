@@ -11,6 +11,7 @@ from twilio.rest import deserialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class ReservationList(ListResource):
@@ -29,13 +30,13 @@ class ReservationList(ListResource):
         super(ReservationList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'workspace_sid': workspace_sid,
             'task_sid': task_sid,
         }
-        self._uri = '/Workspaces/{workspace_sid}/Tasks/{task_sid}/Reservations'.format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/Tasks/{task_sid}/Reservations'.format(**self._solution)
 
-    def stream(self, limit=None, page_size=None, **kwargs):
+    def stream(self, limit=None, page_size=None):
         """
         Streams ReservationInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -54,23 +55,13 @@ class ReservationList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            ReservationInstance,
-            self._kwargs,
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def read(self, limit=None, page_size=None, **kwargs):
+    def read(self, limit=None, page_size=values.unset):
         """
         Reads ReservationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -89,10 +80,10 @@ class ReservationList(ListResource):
         return list(self.stream(
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
-    def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
+    def page(self, page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of ReservationInstance records from the API.
         Request is executed immediately
@@ -109,15 +100,18 @@ class ReservationList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            ReservationInstance,
-            self._kwargs,
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return ReservationPage(
+            self._version,
+            response,
+            workspace_sid=self._solution['workspace_sid'],
+            task_sid=self._solution['task_sid'],
         )
 
     def get(self, sid):
@@ -129,7 +123,12 @@ class ReservationList(ListResource):
         :returns: ReservationContext
         :rtype: ReservationContext
         """
-        return ReservationContext(self._version, sid=sid, **self._kwargs)
+        return ReservationContext(
+            self._version,
+            workspace_sid=self._solution['workspace_sid'],
+            task_sid=self._solution['task_sid'],
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
@@ -140,7 +139,12 @@ class ReservationList(ListResource):
         :returns: ReservationContext
         :rtype: ReservationContext
         """
-        return ReservationContext(self._version, sid=sid, **self._kwargs)
+        return ReservationContext(
+            self._version,
+            workspace_sid=self._solution['workspace_sid'],
+            task_sid=self._solution['task_sid'],
+            sid=sid,
+        )
 
     def __repr__(self):
         """
@@ -152,13 +156,61 @@ class ReservationList(ListResource):
         return '<Twilio.Taskrouter.V1.ReservationList>'
 
 
+class ReservationPage(Page):
+
+    def __init__(self, version, response, workspace_sid, task_sid):
+        """
+        Initialize the ReservationPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param workspace_sid: The workspace_sid
+        :param task_sid: The task_sid
+        
+        :returns: ReservationPage
+        :rtype: ReservationPage
+        """
+        super(ReservationPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'workspace_sid': workspace_sid,
+            'task_sid': task_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of ReservationInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: ReservationInstance
+        :rtype: ReservationInstance
+        """
+        return ReservationInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            task_sid=self._solution['task_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Taskrouter.V1.ReservationPage>'
+
+
 class ReservationContext(InstanceContext):
 
     def __init__(self, version, workspace_sid, task_sid, sid):
         """
         Initialize the ReservationContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param workspace_sid: The workspace_sid
         :param task_sid: The task_sid
         :param sid: The sid
@@ -169,12 +221,12 @@ class ReservationContext(InstanceContext):
         super(ReservationContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'workspace_sid': workspace_sid,
             'task_sid': task_sid,
             'sid': sid,
         }
-        self._uri = '/Workspaces/{workspace_sid}/Tasks/{task_sid}/Reservations/{sid}'.format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/Tasks/{task_sid}/Reservations/{sid}'.format(**self._solution)
 
     def fetch(self):
         """
@@ -185,12 +237,18 @@ class ReservationContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            ReservationInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return ReservationInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            task_sid=self._solution['task_sid'],
+            sid=self._solution['sid'],
         )
 
     def update(self, reservation_status, worker_activity_sid=values.unset):
@@ -208,12 +266,18 @@ class ReservationContext(InstanceContext):
             'WorkerActivitySid': worker_activity_sid,
         })
         
-        return self._version.update(
-            ReservationInstance,
-            self._kwargs,
+        payload = self._version.update(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return ReservationInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            task_sid=self._solution['task_sid'],
+            sid=self._solution['sid'],
         )
 
     def __repr__(self):
@@ -223,7 +287,7 @@ class ReservationContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Taskrouter.V1.ReservationContext {}>'.format(context)
 
 
@@ -252,15 +316,15 @@ class ReservationInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'workspace_sid': workspace_sid,
             'task_sid': task_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -268,14 +332,14 @@ class ReservationInstance(InstanceResource):
         :returns: ReservationContext for this ReservationInstance
         :rtype: ReservationContext
         """
-        if self._instance_context is None:
-            self._instance_context = ReservationContext(
+        if self._context is None:
+            self._context = ReservationContext(
                 self._version,
-                self._kwargs['workspace_sid'],
-                self._kwargs['task_sid'],
-                self._kwargs['sid'],
+                workspace_sid=self._solution['workspace_sid'],
+                task_sid=self._solution['task_sid'],
+                sid=self._solution['sid'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def account_sid(self):
@@ -356,7 +420,7 @@ class ReservationInstance(InstanceResource):
         :returns: Fetched ReservationInstance
         :rtype: ReservationInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     def update(self, reservation_status, worker_activity_sid=values.unset):
         """
@@ -368,7 +432,7 @@ class ReservationInstance(InstanceResource):
         :returns: Updated ReservationInstance
         :rtype: ReservationInstance
         """
-        return self._context.update(
+        return self._proxy.update(
             reservation_status,
             worker_activity_sid=worker_activity_sid,
         )
@@ -380,5 +444,5 @@ class ReservationInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Taskrouter.V1.ReservationInstance {}>'.format(context)

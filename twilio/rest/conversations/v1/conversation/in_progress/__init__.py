@@ -11,6 +11,7 @@ from twilio.rest import deserialize
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
 from twilio.rest.conversations.v1.conversation.participant import ParticipantList
+from twilio.rest.page import Page
 
 
 class InProgressList(ListResource):
@@ -27,10 +28,10 @@ class InProgressList(ListResource):
         super(InProgressList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {}
-        self._uri = '/Conversations/InProgress'.format(**self._kwargs)
+        self._solution = {}
+        self._uri = '/Conversations/InProgress'.format(**self._solution)
 
-    def stream(self, limit=None, page_size=None, **kwargs):
+    def stream(self, limit=None, page_size=None):
         """
         Streams InProgressInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -49,23 +50,13 @@ class InProgressList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            InProgressInstance,
-            {},
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def read(self, limit=None, page_size=None, **kwargs):
+    def read(self, limit=None, page_size=values.unset):
         """
         Reads InProgressInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -84,10 +75,10 @@ class InProgressList(ListResource):
         return list(self.stream(
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
-    def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
+    def page(self, page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of InProgressInstance records from the API.
         Request is executed immediately
@@ -104,15 +95,16 @@ class InProgressList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            InProgressInstance,
-            {},
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return InProgressPage(
+            self._version,
+            response,
         )
 
     def __repr__(self):
@@ -123,6 +115,47 @@ class InProgressList(ListResource):
         :rtype: str
         """
         return '<Twilio.Conversations.V1.InProgressList>'
+
+
+class InProgressPage(Page):
+
+    def __init__(self, version, response):
+        """
+        Initialize the InProgressPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        
+        :returns: InProgressPage
+        :rtype: InProgressPage
+        """
+        super(InProgressPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {}
+
+    def get_instance(self, payload):
+        """
+        Build an instance of InProgressInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: InProgressInstance
+        :rtype: InProgressInstance
+        """
+        return InProgressInstance(
+            self._version,
+            payload,
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Conversations.V1.InProgressPage>'
 
 
 class InProgressInstance(InstanceResource):
@@ -147,6 +180,10 @@ class InProgressInstance(InstanceResource):
             'account_sid': payload['account_sid'],
             'url': payload['url'],
         }
+        
+        # Context
+        self._context = None
+        self._solution = {}
 
     @property
     def sid(self):
@@ -220,7 +257,7 @@ class InProgressInstance(InstanceResource):
         :returns: participants
         :rtype: participants
         """
-        return self._context.participants
+        return self._proxy.participants
 
     def __repr__(self):
         """

@@ -12,6 +12,7 @@ from twilio.rest import serialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class EventList(ListResource):
@@ -29,16 +30,16 @@ class EventList(ListResource):
         super(EventList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'workspace_sid': workspace_sid,
         }
-        self._uri = '/Workspaces/{workspace_sid}/Events'.format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/Events'.format(**self._solution)
 
     def stream(self, end_date=values.unset, event_type=values.unset,
                minutes=values.unset, reservation_sid=values.unset,
                start_date=values.unset, task_queue_sid=values.unset,
                task_sid=values.unset, worker_sid=values.unset,
-               workflow_sid=values.unset, limit=None, page_size=None, **kwargs):
+               workflow_sid=values.unset, limit=None, page_size=None):
         """
         Streams EventInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -66,36 +67,26 @@ class EventList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'EndDate': serialize.iso8601_datetime(end_date),
-            'EventType': event_type,
-            'Minutes': minutes,
-            'ReservationSid': reservation_sid,
-            'StartDate': serialize.iso8601_datetime(start_date),
-            'TaskQueueSid': task_queue_sid,
-            'TaskSid': task_sid,
-            'WorkerSid': worker_sid,
-            'WorkflowSid': workflow_sid,
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            EventInstance,
-            self._kwargs,
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            end_date=end_date,
+            event_type=event_type,
+            minutes=minutes,
+            reservation_sid=reservation_sid,
+            start_date=start_date,
+            task_queue_sid=task_queue_sid,
+            task_sid=task_sid,
+            worker_sid=worker_sid,
+            workflow_sid=workflow_sid,
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
     def read(self, end_date=values.unset, event_type=values.unset,
              minutes=values.unset, reservation_sid=values.unset,
              start_date=values.unset, task_queue_sid=values.unset,
              task_sid=values.unset, worker_sid=values.unset,
-             workflow_sid=values.unset, limit=None, page_size=None, **kwargs):
+             workflow_sid=values.unset, limit=None, page_size=values.unset):
         """
         Reads EventInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -132,15 +123,14 @@ class EventList(ListResource):
             workflow_sid=workflow_sid,
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
     def page(self, end_date=values.unset, event_type=values.unset,
              minutes=values.unset, reservation_sid=values.unset,
              start_date=values.unset, task_queue_sid=values.unset,
              task_sid=values.unset, worker_sid=values.unset,
-             workflow_sid=values.unset, page_token=None, page_number=None,
-             page_size=None, **kwargs):
+             workflow_sid=values.unset, page_token=values.unset,
+             page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of EventInstance records from the API.
         Request is executed immediately
@@ -175,15 +165,17 @@ class EventList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            EventInstance,
-            self._kwargs,
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return EventPage(
+            self._version,
+            response,
+            workspace_sid=self._solution['workspace_sid'],
         )
 
     def get(self, sid):
@@ -195,7 +187,11 @@ class EventList(ListResource):
         :returns: EventContext
         :rtype: EventContext
         """
-        return EventContext(self._version, sid=sid, **self._kwargs)
+        return EventContext(
+            self._version,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
@@ -206,7 +202,11 @@ class EventList(ListResource):
         :returns: EventContext
         :rtype: EventContext
         """
-        return EventContext(self._version, sid=sid, **self._kwargs)
+        return EventContext(
+            self._version,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=sid,
+        )
 
     def __repr__(self):
         """
@@ -218,13 +218,58 @@ class EventList(ListResource):
         return '<Twilio.Taskrouter.V1.EventList>'
 
 
+class EventPage(Page):
+
+    def __init__(self, version, response, workspace_sid):
+        """
+        Initialize the EventPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param workspace_sid: The sid
+        
+        :returns: EventPage
+        :rtype: EventPage
+        """
+        super(EventPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'workspace_sid': workspace_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of EventInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: EventInstance
+        :rtype: EventInstance
+        """
+        return EventInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Taskrouter.V1.EventPage>'
+
+
 class EventContext(InstanceContext):
 
     def __init__(self, version, workspace_sid, sid):
         """
         Initialize the EventContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param workspace_sid: The workspace_sid
         :param sid: The sid
         
@@ -234,11 +279,11 @@ class EventContext(InstanceContext):
         super(EventContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'workspace_sid': workspace_sid,
             'sid': sid,
         }
-        self._uri = '/Workspaces/{workspace_sid}/Events/{sid}'.format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/Events/{sid}'.format(**self._solution)
 
     def fetch(self):
         """
@@ -249,12 +294,17 @@ class EventContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            EventInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return EventInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid'],
         )
 
     def __repr__(self):
@@ -264,7 +314,7 @@ class EventContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Taskrouter.V1.EventContext {}>'.format(context)
 
 
@@ -299,14 +349,14 @@ class EventInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'workspace_sid': workspace_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -314,13 +364,13 @@ class EventInstance(InstanceResource):
         :returns: EventContext for this EventInstance
         :rtype: EventContext
         """
-        if self._instance_context is None:
-            self._instance_context = EventContext(
+        if self._context is None:
+            self._context = EventContext(
                 self._version,
-                self._kwargs['workspace_sid'],
-                self._kwargs['sid'],
+                workspace_sid=self._solution['workspace_sid'],
+                sid=self._solution['sid'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def account_sid(self):
@@ -449,7 +499,7 @@ class EventInstance(InstanceResource):
         :returns: Fetched EventInstance
         :rtype: EventInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     def __repr__(self):
         """
@@ -458,5 +508,5 @@ class EventInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Taskrouter.V1.EventInstance {}>'.format(context)

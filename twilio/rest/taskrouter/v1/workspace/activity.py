@@ -11,6 +11,7 @@ from twilio.rest import deserialize
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class ActivityList(ListResource):
@@ -28,13 +29,13 @@ class ActivityList(ListResource):
         super(ActivityList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'workspace_sid': workspace_sid,
         }
-        self._uri = '/Workspaces/{workspace_sid}/Activities'.format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/Activities'.format(**self._solution)
 
     def stream(self, friendly_name=values.unset, available=values.unset, limit=None,
-               page_size=None, **kwargs):
+               page_size=None):
         """
         Streams ActivityInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -55,26 +56,16 @@ class ActivityList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'FriendlyName': friendly_name,
-            'Available': available,
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            ActivityInstance,
-            self._kwargs,
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            friendly_name=friendly_name,
+            available=available,
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
     def read(self, friendly_name=values.unset, available=values.unset, limit=None,
-             page_size=None, **kwargs):
+             page_size=values.unset):
         """
         Reads ActivityInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -97,11 +88,11 @@ class ActivityList(ListResource):
             available=available,
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
     def page(self, friendly_name=values.unset, available=values.unset,
-             page_token=None, page_number=None, page_size=None, **kwargs):
+             page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of ActivityInstance records from the API.
         Request is executed immediately
@@ -122,15 +113,17 @@ class ActivityList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            ActivityInstance,
-            self._kwargs,
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return ActivityPage(
+            self._version,
+            response,
+            workspace_sid=self._solution['workspace_sid'],
         )
 
     def create(self, friendly_name, available):
@@ -148,12 +141,16 @@ class ActivityList(ListResource):
             'Available': available,
         })
         
-        return self._version.create(
-            ActivityInstance,
-            self._kwargs,
+        payload = self._version.create(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return ActivityInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
         )
 
     def get(self, sid):
@@ -165,7 +162,11 @@ class ActivityList(ListResource):
         :returns: ActivityContext
         :rtype: ActivityContext
         """
-        return ActivityContext(self._version, sid=sid, **self._kwargs)
+        return ActivityContext(
+            self._version,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
@@ -176,7 +177,11 @@ class ActivityList(ListResource):
         :returns: ActivityContext
         :rtype: ActivityContext
         """
-        return ActivityContext(self._version, sid=sid, **self._kwargs)
+        return ActivityContext(
+            self._version,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=sid,
+        )
 
     def __repr__(self):
         """
@@ -188,13 +193,58 @@ class ActivityList(ListResource):
         return '<Twilio.Taskrouter.V1.ActivityList>'
 
 
+class ActivityPage(Page):
+
+    def __init__(self, version, response, workspace_sid):
+        """
+        Initialize the ActivityPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param workspace_sid: The workspace_sid
+        
+        :returns: ActivityPage
+        :rtype: ActivityPage
+        """
+        super(ActivityPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'workspace_sid': workspace_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of ActivityInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: ActivityInstance
+        :rtype: ActivityInstance
+        """
+        return ActivityInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Taskrouter.V1.ActivityPage>'
+
+
 class ActivityContext(InstanceContext):
 
     def __init__(self, version, workspace_sid, sid):
         """
         Initialize the ActivityContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param workspace_sid: The workspace_sid
         :param sid: The sid
         
@@ -204,11 +254,11 @@ class ActivityContext(InstanceContext):
         super(ActivityContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'workspace_sid': workspace_sid,
             'sid': sid,
         }
-        self._uri = '/Workspaces/{workspace_sid}/Activities/{sid}'.format(**self._kwargs)
+        self._uri = '/Workspaces/{workspace_sid}/Activities/{sid}'.format(**self._solution)
 
     def fetch(self):
         """
@@ -219,12 +269,17 @@ class ActivityContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            ActivityInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return ActivityInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid'],
         )
 
     def update(self, friendly_name):
@@ -240,12 +295,17 @@ class ActivityContext(InstanceContext):
             'FriendlyName': friendly_name,
         })
         
-        return self._version.update(
-            ActivityInstance,
-            self._kwargs,
+        payload = self._version.update(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return ActivityInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid'],
         )
 
     def delete(self):
@@ -264,7 +324,7 @@ class ActivityContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Taskrouter.V1.ActivityContext {}>'.format(context)
 
 
@@ -291,14 +351,14 @@ class ActivityInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'workspace_sid': workspace_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -306,13 +366,13 @@ class ActivityInstance(InstanceResource):
         :returns: ActivityContext for this ActivityInstance
         :rtype: ActivityContext
         """
-        if self._instance_context is None:
-            self._instance_context = ActivityContext(
+        if self._context is None:
+            self._context = ActivityContext(
                 self._version,
-                self._kwargs['workspace_sid'],
-                self._kwargs['sid'],
+                workspace_sid=self._solution['workspace_sid'],
+                sid=self._solution['sid'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def account_sid(self):
@@ -377,7 +437,7 @@ class ActivityInstance(InstanceResource):
         :returns: Fetched ActivityInstance
         :rtype: ActivityInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     def update(self, friendly_name):
         """
@@ -388,7 +448,7 @@ class ActivityInstance(InstanceResource):
         :returns: Updated ActivityInstance
         :rtype: ActivityInstance
         """
-        return self._context.update(
+        return self._proxy.update(
             friendly_name,
         )
 
@@ -399,7 +459,7 @@ class ActivityInstance(InstanceResource):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._context.delete()
+        return self._proxy.delete()
 
     def __repr__(self):
         """
@@ -408,5 +468,5 @@ class ActivityInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Taskrouter.V1.ActivityInstance {}>'.format(context)

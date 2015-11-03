@@ -10,6 +10,7 @@ from twilio import values
 from twilio.rest import deserialize
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class TollFreeList(ListResource):
@@ -28,13 +29,13 @@ class TollFreeList(ListResource):
         super(TollFreeList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
             'country_code': country_code,
         }
-        self._uri = '/Accounts/{account_sid}/AvailablePhoneNumbers/{country_code}/TollFree.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/AvailablePhoneNumbers/{country_code}/TollFree.json'.format(**self._solution)
 
-    def stream(self, beta=values.unset, limit=None, page_size=None, **kwargs):
+    def stream(self, beta=values.unset, limit=None, page_size=None):
         """
         Streams TollFreeInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -54,24 +55,14 @@ class TollFreeList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'Beta': beta,
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            TollFreeInstance,
-            {},
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            beta=beta,
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def read(self, beta=values.unset, limit=None, page_size=None, **kwargs):
+    def read(self, beta=values.unset, limit=None, page_size=values.unset):
         """
         Reads TollFreeInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -92,11 +83,10 @@ class TollFreeList(ListResource):
             beta=beta,
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
-    def page(self, beta=values.unset, page_token=None, page_number=None,
-             page_size=None, **kwargs):
+    def page(self, beta=values.unset, page_token=values.unset,
+             page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of TollFreeInstance records from the API.
         Request is executed immediately
@@ -115,15 +105,18 @@ class TollFreeList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            TollFreeInstance,
-            {},
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return TollFreePage(
+            self._version,
+            response,
+            account_sid=self._solution['account_sid'],
+            country_code=self._solution['country_code'],
         )
 
     def __repr__(self):
@@ -136,9 +129,57 @@ class TollFreeList(ListResource):
         return '<Twilio.Api.V2010.TollFreeList>'
 
 
+class TollFreePage(Page):
+
+    def __init__(self, version, response, account_sid, country_code):
+        """
+        Initialize the TollFreePage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param account_sid: A 34 character string that uniquely identifies this resource.
+        :param country_code: The country_code
+        
+        :returns: TollFreePage
+        :rtype: TollFreePage
+        """
+        super(TollFreePage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'account_sid': account_sid,
+            'country_code': country_code,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of TollFreeInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: TollFreeInstance
+        :rtype: TollFreeInstance
+        """
+        return TollFreeInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            country_code=self._solution['country_code'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Api.V2010.TollFreePage>'
+
+
 class TollFreeInstance(InstanceResource):
 
-    def __init__(self, version, payload):
+    def __init__(self, version, payload, account_sid, country_code):
         """
         Initialize the TollFreeInstance
         
@@ -161,6 +202,13 @@ class TollFreeInstance(InstanceResource):
             'address_requirements': payload['address_requirements'],
             'beta': payload['beta'],
             'capabilities': payload['capabilities'],
+        }
+        
+        # Context
+        self._context = None
+        self._solution = {
+            'account_sid': account_sid,
+            'country_code': country_code,
         }
 
     @property

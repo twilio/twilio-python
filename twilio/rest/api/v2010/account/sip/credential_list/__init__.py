@@ -12,6 +12,7 @@ from twilio.rest.api.v2010.account.sip.credential_list.credential import Credent
 from twilio.rest.base import InstanceContext
 from twilio.rest.base import InstanceResource
 from twilio.rest.base import ListResource
+from twilio.rest.page import Page
 
 
 class CredentialListList(ListResource):
@@ -29,12 +30,12 @@ class CredentialListList(ListResource):
         super(CredentialListList, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
         }
-        self._uri = '/Accounts/{account_sid}/SIP/CredentialLists.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/SIP/CredentialLists.json'.format(**self._solution)
 
-    def stream(self, limit=None, page_size=None, **kwargs):
+    def stream(self, limit=None, page_size=None):
         """
         Streams CredentialListInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -53,23 +54,13 @@ class CredentialListList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         
-        params = values.of({
-            'PageSize': limits['page_size'],
-        })
-        params.update(kwargs)
-        
-        return self._version.stream(
-            self,
-            CredentialListInstance,
-            self._kwargs,
-            'GET',
-            self._uri,
-            limits['limit'],
-            limits['page_limit'],
-            params=params,
+        page = self.page(
+            page_size=limits['page_size'],
         )
+        
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def read(self, limit=None, page_size=None, **kwargs):
+    def read(self, limit=None, page_size=values.unset):
         """
         Reads CredentialListInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -88,10 +79,10 @@ class CredentialListList(ListResource):
         return list(self.stream(
             limit=limit,
             page_size=page_size,
-            **kwargs
         ))
 
-    def page(self, page_token=None, page_number=None, page_size=None, **kwargs):
+    def page(self, page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of CredentialListInstance records from the API.
         Request is executed immediately
@@ -108,15 +99,17 @@ class CredentialListList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        params.update(kwargs)
         
-        return self._version.page(
-            self,
-            CredentialListInstance,
-            self._kwargs,
+        response = self._version.page(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return CredentialListPage(
+            self._version,
+            response,
+            account_sid=self._solution['account_sid'],
         )
 
     def create(self, friendly_name):
@@ -132,12 +125,16 @@ class CredentialListList(ListResource):
             'FriendlyName': friendly_name,
         })
         
-        return self._version.create(
-            CredentialListInstance,
-            self._kwargs,
+        payload = self._version.create(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return CredentialListInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
         )
 
     def get(self, sid):
@@ -149,7 +146,11 @@ class CredentialListList(ListResource):
         :returns: CredentialListContext
         :rtype: CredentialListContext
         """
-        return CredentialListContext(self._version, sid=sid, **self._kwargs)
+        return CredentialListContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
@@ -160,7 +161,11 @@ class CredentialListList(ListResource):
         :returns: CredentialListContext
         :rtype: CredentialListContext
         """
-        return CredentialListContext(self._version, sid=sid, **self._kwargs)
+        return CredentialListContext(
+            self._version,
+            account_sid=self._solution['account_sid'],
+            sid=sid,
+        )
 
     def __repr__(self):
         """
@@ -172,13 +177,58 @@ class CredentialListList(ListResource):
         return '<Twilio.Api.V2010.CredentialListList>'
 
 
+class CredentialListPage(Page):
+
+    def __init__(self, version, response, account_sid):
+        """
+        Initialize the CredentialListPage
+        
+        :param Version version: Version that contains the resource
+        :param Response response: Response from the API
+        :param account_sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: CredentialListPage
+        :rtype: CredentialListPage
+        """
+        super(CredentialListPage, self).__init__(version, response)
+        
+        # Path Solution
+        self._solution = {
+            'account_sid': account_sid,
+        }
+
+    def get_instance(self, payload):
+        """
+        Build an instance of CredentialListInstance
+        
+        :param dict payload: Payload response from the API
+        
+        :returns: CredentialListInstance
+        :rtype: CredentialListInstance
+        """
+        return CredentialListInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Api.V2010.CredentialListPage>'
+
+
 class CredentialListContext(InstanceContext):
 
     def __init__(self, version, account_sid, sid):
         """
         Initialize the CredentialListContext
         
-        :param Version version
+        :param Version version: Version that contains the resource
         :param account_sid: The account_sid
         :param sid: Fetch by unique credential Sid
         
@@ -188,11 +238,11 @@ class CredentialListContext(InstanceContext):
         super(CredentialListContext, self).__init__(version)
         
         # Path Solution
-        self._kwargs = {
+        self._solution = {
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/{account_sid}/SIP/CredentialLists/{sid}.json'.format(**self._kwargs)
+        self._uri = '/Accounts/{account_sid}/SIP/CredentialLists/{sid}.json'.format(**self._solution)
         
         # Dependents
         self._credentials = None
@@ -206,12 +256,17 @@ class CredentialListContext(InstanceContext):
         """
         params = values.of({})
         
-        return self._version.fetch(
-            CredentialListInstance,
-            self._kwargs,
+        payload = self._version.fetch(
             'GET',
             self._uri,
             params=params,
+        )
+        
+        return CredentialListInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
         )
 
     def update(self, friendly_name):
@@ -227,12 +282,17 @@ class CredentialListContext(InstanceContext):
             'FriendlyName': friendly_name,
         })
         
-        return self._version.update(
-            CredentialListInstance,
-            self._kwargs,
+        payload = self._version.update(
             'POST',
             self._uri,
             data=data,
+        )
+        
+        return CredentialListInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
         )
 
     def delete(self):
@@ -255,8 +315,8 @@ class CredentialListContext(InstanceContext):
         if self._credentials is None:
             self._credentials = CredentialList(
                 self._version,
-                account_sid=self._kwargs['account_sid'],
-                credential_list_sid=self._kwargs['sid'],
+                account_sid=self._solution['account_sid'],
+                credential_list_sid=self._solution['sid'],
             )
         return self._credentials
 
@@ -267,7 +327,7 @@ class CredentialListContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.CredentialListContext {}>'.format(context)
 
 
@@ -294,14 +354,14 @@ class CredentialListInstance(InstanceResource):
         }
         
         # Context
-        self._instance_context = None
-        self._kwargs = {
+        self._context = None
+        self._solution = {
             'account_sid': account_sid,
             'sid': sid or self._properties['sid'],
         }
 
     @property
-    def _context(self):
+    def _proxy(self):
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
@@ -309,13 +369,13 @@ class CredentialListInstance(InstanceResource):
         :returns: CredentialListContext for this CredentialListInstance
         :rtype: CredentialListContext
         """
-        if self._instance_context is None:
-            self._instance_context = CredentialListContext(
+        if self._context is None:
+            self._context = CredentialListContext(
                 self._version,
-                self._kwargs['account_sid'],
-                self._kwargs['sid'],
+                account_sid=self._solution['account_sid'],
+                sid=self._solution['sid'],
             )
-        return self._instance_context
+        return self._context
 
     @property
     def account_sid(self):
@@ -380,7 +440,7 @@ class CredentialListInstance(InstanceResource):
         :returns: Fetched CredentialListInstance
         :rtype: CredentialListInstance
         """
-        return self._context.fetch()
+        return self._proxy.fetch()
 
     def update(self, friendly_name):
         """
@@ -391,7 +451,7 @@ class CredentialListInstance(InstanceResource):
         :returns: Updated CredentialListInstance
         :rtype: CredentialListInstance
         """
-        return self._context.update(
+        return self._proxy.update(
             friendly_name,
         )
 
@@ -402,7 +462,7 @@ class CredentialListInstance(InstanceResource):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._context.delete()
+        return self._proxy.delete()
 
     @property
     def credentials(self):
@@ -412,7 +472,7 @@ class CredentialListInstance(InstanceResource):
         :returns: credentials
         :rtype: credentials
         """
-        return self._context.credentials
+        return self._proxy.credentials
 
     def __repr__(self):
         """
@@ -421,5 +481,5 @@ class CredentialListInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._kwargs.items())
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.CredentialListInstance {}>'.format(context)
