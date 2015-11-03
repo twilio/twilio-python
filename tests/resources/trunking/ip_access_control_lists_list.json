@@ -1,0 +1,22 @@
+{
+    "ip_access_control_lists": [
+        {
+            "sid": "ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "trunk_sid": "TK11111111111111111111111111111111",
+            "friendly_name": "Test",
+            "date_created": "2014-10-30T23:59:12Z",
+            "date_updated": "2014-10-30T23:59:12Z",
+            "url": "https://trunking.twilio.com/v1/Trunks/TK11111111111111111111111111111111/IpAccessControlLists/ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+    ],
+    "meta": {
+        "page": 0,
+        "page_size": 50,
+        "first_page_url": "https://trunking.twilio.com/v1/Trunks/TK11111111111111111111111111111111/IpAccessControlLists?PageSize=50&Page=0",
+        "previous_page_url": null,
+        "url": "https://trunking.twilio.com/v1/Trunks/TK11111111111111111111111111111111/IpAccessControlLists?PageSize=50&Page=0",
+        "next_page_url": null,
+        "key": "ip_access_control_lists"
+    }
+}

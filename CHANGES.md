@@ -3,10 +3,18 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
-Version 4.8.0-edge
+Version 4.9.0
 -------------
 
-Released November 22, 2015:
+Released November 3, 2015:
+
+- Add SIP Trunking endpoint
+
+
+Version 4.8.0
+-------------
+
+Released November 2, 2015:
 
 - Add SMS pricing endpoint
 

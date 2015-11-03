@@ -1,0 +1,47 @@
+{
+    "phone_numbers": [
+        {
+            "sid": "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "date_created": "2014-10-07T13:37:19Z",
+            "date_updated": "2015-09-02T16:27:22Z",
+            "friendly_name": "Name",
+            "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "phone_number": "+14158675309",
+            "api_version": "2010-04-01",
+            "voice_caller_id_lookup": false,
+            "voice_url": null,
+            "voice_method": null,
+            "voice_fallback_url": "",
+            "voice_fallback_method": "POST",
+            "status_callback": "",
+            "status_callback_method": "POST",
+            "voice_application_sid": null,
+            "trunk_sid": "TK11111111111111111111111111111111",
+            "sms_url": "https://demo.twilio.com/welcome/sms/reply/",
+            "sms_method": "POST",
+            "sms_fallback_url": "",
+            "sms_fallback_method": "POST",
+            "sms_application_sid": "",
+            "address_requirements": "none",
+            "beta": false,
+            "url": "https://trunking.twilio.com/v1/Trunks/TK11111111111111111111111111111111/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "capabilities": {
+                "voice": true,
+                "sms": true,
+                "mms": true
+            },
+            "links": {
+                "phone_number": "https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+        }
+    ],
+    "meta": {
+        "page": 0,
+        "page_size": 50,
+        "first_page_url": "https://trunking.twilio.com/v1/Trunks/TK11111111111111111111111111111111/PhoneNumbers?PageSize=50&Page=0",
+        "previous_page_url": null,
+        "url": "https://trunking.twilio.com/v1/Trunks/TK11111111111111111111111111111111/PhoneNumbers?PageSize=50&Page=0",
+        "next_page_url": null,
+        "key": "phone_numbers"
+    }
+}
