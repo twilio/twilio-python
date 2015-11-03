@@ -44,8 +44,6 @@ from .messages import Message, Messages
 
 from .media import Media, MediaList
 
-from .signing_keys import SigningKey, SigningKeys
-
 from .sip import Sip
 
 from .task_router import (
