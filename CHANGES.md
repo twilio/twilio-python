@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 4.9.0
+-------------
+
+Released November 3, 2015:
+
+- Add support for SIP Trunking
+
 Version 4.8.0
 -------------
 
