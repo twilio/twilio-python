@@ -1,7 +1,8 @@
 import unittest
 import datetime
+
+from twilio import serialize
 from twilio import values
-from twilio.rest import serialize
 
 
 class Iso8601DateTestCase(unittest.TestCase):

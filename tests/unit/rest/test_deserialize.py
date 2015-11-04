@@ -1,8 +1,10 @@
 import unittest
 import datetime
 from decimal import Decimal
+
 import pytz
-from twilio.rest import deserialize
+
+from twilio import deserialize
 
 
 class Iso8601DateTimeTestCase(unittest.TestCase):

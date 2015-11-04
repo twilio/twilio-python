@@ -119,10 +119,9 @@ class LocalTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .incoming_phone_numbers \
-                                 .local.create(area_code="area_code", phone_number="+987654321")
+                                 .local.create(phone_number="+987654321")
         
         values = {
-            'AreaCode': "area_code",
             'PhoneNumber': "+987654321",
         }
         
@@ -172,6 +171,6 @@ class LocalTestCase(IntegrationTestCase):
         
         actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .incoming_phone_numbers \
-                                      .local.create(area_code="area_code", phone_number="+987654321")
+                                      .local.create(phone_number="+987654321")
         
         self.assertIsNotNone(actual)

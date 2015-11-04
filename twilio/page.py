@@ -1,5 +1,4 @@
 import json
-
 from twilio.exceptions import TwilioException
 
 
@@ -92,5 +91,4 @@ class Page(object):
 
     def __repr__(self):
         return '<Page>'
-
 

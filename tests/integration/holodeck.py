@@ -1,7 +1,6 @@
-from twilio.compat import urlencode
 from twilio.http import HttpClient
 from twilio.http.request import Request
-from twilio.rest.exceptions import TwilioRestException
+from twilio.exceptions import TwilioRestException
 
 
 class Hologram(object):

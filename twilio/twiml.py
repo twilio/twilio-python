@@ -4,7 +4,7 @@ https://www.twilio.com/docs/api/twiml
 """
 import xml.etree.ElementTree as ET
 
-from .exceptions import TwimlException
+from twilio.exceptions import TwimlException
 
 
 class Verb(object):
