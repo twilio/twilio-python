@@ -18,7 +18,7 @@ class TollFreeTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .incoming_phone_numbers \
                                  .toll_free.read()
         
@@ -80,7 +80,7 @@ class TollFreeTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .incoming_phone_numbers \
                                       .toll_free.read()
         
@@ -107,7 +107,7 @@ class TollFreeTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .incoming_phone_numbers \
                                       .toll_free.read()
         
@@ -117,7 +117,7 @@ class TollFreeTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .incoming_phone_numbers \
                                  .toll_free.create(phone_number="+987654321")
         
@@ -169,7 +169,7 @@ class TollFreeTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .incoming_phone_numbers \
                                       .toll_free.create(phone_number="+987654321")
         

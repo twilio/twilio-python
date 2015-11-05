@@ -18,7 +18,7 @@ class PhoneNumberTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.lookups.v1.phone_numbers(phone_number="+987654321").fetch()
+            self.client.lookups.v1.phone_numbers(phone_number="+987654321").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -45,6 +45,6 @@ class PhoneNumberTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.lookups.v1.phone_numbers(phone_number="+987654321").fetch()
+        actual = self.client.lookups.v1.phone_numbers(phone_number="+987654321").fetch()
         
         self.assertIsNotNone(actual)

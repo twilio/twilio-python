@@ -18,7 +18,7 @@ class CountryTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.pricing.v1.phone_numbers \
+            self.client.pricing.v1.phone_numbers \
                                   .countries.read()
         
         self.holodeck.assert_has_request(Request(
@@ -51,7 +51,7 @@ class CountryTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.pricing.v1.phone_numbers \
+        actual = self.client.pricing.v1.phone_numbers \
                                        .countries.read()
         
         self.assertIsNotNone(actual)
@@ -75,7 +75,7 @@ class CountryTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.pricing.v1.phone_numbers \
+        actual = self.client.pricing.v1.phone_numbers \
                                        .countries.read()
         
         self.assertIsNotNone(actual)
@@ -84,7 +84,7 @@ class CountryTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.pricing.v1.phone_numbers \
+            self.client.pricing.v1.phone_numbers \
                                   .countries(iso_country="US").fetch()
         
         self.holodeck.assert_has_request(Request(
@@ -117,7 +117,7 @@ class CountryTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.pricing.v1.phone_numbers \
+        actual = self.client.pricing.v1.phone_numbers \
                                        .countries(iso_country="US").fetch()
         
         self.assertIsNotNone(actual)

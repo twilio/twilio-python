@@ -18,7 +18,7 @@ class TriggerTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .usage \
                                  .triggers(sid="UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
@@ -52,7 +52,7 @@ class TriggerTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .usage \
                                       .triggers(sid="UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
@@ -62,7 +62,7 @@ class TriggerTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .usage \
                                  .triggers(sid="UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
         
@@ -96,7 +96,7 @@ class TriggerTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .usage \
                                       .triggers(sid="UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
         
@@ -106,7 +106,7 @@ class TriggerTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .usage \
                                  .triggers(sid="UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
         
@@ -121,7 +121,7 @@ class TriggerTestCase(IntegrationTestCase):
             None,
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .usage \
                                       .triggers(sid="UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
         
@@ -131,7 +131,7 @@ class TriggerTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .usage \
                                  .triggers.create(callback_url="https://example.com", trigger_value="trigger_value", usage_category="calleridlookups")
         
@@ -172,7 +172,7 @@ class TriggerTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .usage \
                                       .triggers.create(callback_url="https://example.com", trigger_value="trigger_value", usage_category="calleridlookups")
         
@@ -182,7 +182,7 @@ class TriggerTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .usage \
                                  .triggers.read()
         
@@ -231,7 +231,7 @@ class TriggerTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .usage \
                                       .triggers.read()
         
@@ -258,7 +258,7 @@ class TriggerTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .usage \
                                       .triggers.read()
         

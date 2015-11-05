@@ -20,7 +20,7 @@ class FeedbackSummaryTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .calls \
                                  .feedback_summaries.create(start_date=date(2008, 1, 2), end_date=date(2008, 1, 2))
         
@@ -64,7 +64,7 @@ class FeedbackSummaryTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .calls \
                                       .feedback_summaries.create(start_date=date(2008, 1, 2), end_date=date(2008, 1, 2))
         
@@ -74,7 +74,7 @@ class FeedbackSummaryTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .calls \
                                  .feedback_summaries(sid="FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
@@ -112,7 +112,7 @@ class FeedbackSummaryTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .calls \
                                       .feedback_summaries(sid="FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
@@ -122,7 +122,7 @@ class FeedbackSummaryTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .calls \
                                  .feedback_summaries(sid="FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
         
@@ -137,7 +137,7 @@ class FeedbackSummaryTestCase(IntegrationTestCase):
             None,
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .calls \
                                       .feedback_summaries(sid="FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
         

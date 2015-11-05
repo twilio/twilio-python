@@ -312,23 +312,23 @@ class AlertInstance(InstanceResource):
         
         # Marshaled Properties
         self._properties = {
-            'date_generated': deserialize.iso8601_datetime(payload['date_generated']),
-            'request_url': payload['request_url'],
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'log_level': payload['log_level'],
-            'request_method': payload['request_method'],
-            'api_version': payload['api_version'],
-            'error_code': payload['error_code'],
-            'sid': payload['sid'],
-            'account_sid': payload['account_sid'],
             'alert_text': payload['alert_text'],
+            'date_generated': deserialize.iso8601_datetime(payload['date_generated']),
+            'error_code': payload['error_code'],
             'url': payload['url'],
-            'more_info': payload['more_info'],
-            'resource_sid': payload['resource_sid'],
+            'log_level': payload['log_level'],
+            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
+            'api_version': payload['api_version'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
+            'more_info': payload['more_info'],
+            'request_method': payload['request_method'],
+            'request_url': payload['request_url'],
+            'account_sid': payload['account_sid'],
+            'resource_sid': payload['resource_sid'],
+            'sid': payload['sid'],
             'request_variables': payload.get('request_variables'),
-            'response_headers': payload.get('response_headers'),
             'response_body': payload.get('response_body'),
+            'response_headers': payload.get('response_headers'),
         }
         
         # Context
@@ -354,36 +354,12 @@ class AlertInstance(InstanceResource):
         return self._context
 
     @property
-    def api_version(self):
+    def alert_text(self):
         """
-        :returns: The api_version
+        :returns: The alert_text
         :rtype: unicode
         """
-        return self._properties['api_version']
-
-    @property
-    def response_headers(self):
-        """
-        :returns: The response_headers
-        :rtype: unicode
-        """
-        return self._properties['response_headers']
-
-    @property
-    def response_body(self):
-        """
-        :returns: The response_body
-        :rtype: unicode
-        """
-        return self._properties['response_body']
-
-    @property
-    def request_url(self):
-        """
-        :returns: The request_url
-        :rtype: unicode
-        """
-        return self._properties['request_url']
+        return self._properties['alert_text']
 
     @property
     def date_generated(self):
@@ -394,68 +370,12 @@ class AlertInstance(InstanceResource):
         return self._properties['date_generated']
 
     @property
-    def log_level(self):
-        """
-        :returns: The log_level
-        :rtype: unicode
-        """
-        return self._properties['log_level']
-
-    @property
-    def request_method(self):
-        """
-        :returns: The request_method
-        :rtype: unicode
-        """
-        return self._properties['request_method']
-
-    @property
     def error_code(self):
         """
         :returns: The error_code
         :rtype: unicode
         """
         return self._properties['error_code']
-
-    @property
-    def request_variables(self):
-        """
-        :returns: The request_variables
-        :rtype: unicode
-        """
-        return self._properties['request_variables']
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date_updated
-        :rtype: datetime
-        """
-        return self._properties['date_updated']
-
-    @property
-    def sid(self):
-        """
-        :returns: The sid
-        :rtype: unicode
-        """
-        return self._properties['sid']
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The account_sid
-        :rtype: unicode
-        """
-        return self._properties['account_sid']
-
-    @property
-    def alert_text(self):
-        """
-        :returns: The alert_text
-        :rtype: unicode
-        """
-        return self._properties['alert_text']
 
     @property
     def url(self):
@@ -466,12 +386,92 @@ class AlertInstance(InstanceResource):
         return self._properties['url']
 
     @property
+    def response_body(self):
+        """
+        :returns: The response_body
+        :rtype: unicode
+        """
+        return self._properties['response_body']
+
+    @property
+    def log_level(self):
+        """
+        :returns: The log_level
+        :rtype: unicode
+        """
+        return self._properties['log_level']
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date_updated
+        :rtype: datetime
+        """
+        return self._properties['date_updated']
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date_created
+        :rtype: datetime
+        """
+        return self._properties['date_created']
+
+    @property
+    def api_version(self):
+        """
+        :returns: The api_version
+        :rtype: unicode
+        """
+        return self._properties['api_version']
+
+    @property
+    def request_variables(self):
+        """
+        :returns: The request_variables
+        :rtype: unicode
+        """
+        return self._properties['request_variables']
+
+    @property
     def more_info(self):
         """
         :returns: The more_info
         :rtype: unicode
         """
         return self._properties['more_info']
+
+    @property
+    def request_method(self):
+        """
+        :returns: The request_method
+        :rtype: unicode
+        """
+        return self._properties['request_method']
+
+    @property
+    def request_url(self):
+        """
+        :returns: The request_url
+        :rtype: unicode
+        """
+        return self._properties['request_url']
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The account_sid
+        :rtype: unicode
+        """
+        return self._properties['account_sid']
+
+    @property
+    def response_headers(self):
+        """
+        :returns: The response_headers
+        :rtype: unicode
+        """
+        return self._properties['response_headers']
 
     @property
     def resource_sid(self):
@@ -482,12 +482,12 @@ class AlertInstance(InstanceResource):
         return self._properties['resource_sid']
 
     @property
-    def date_created(self):
+    def sid(self):
         """
-        :returns: The date_created
-        :rtype: datetime
+        :returns: The sid
+        :rtype: unicode
         """
-        return self._properties['date_created']
+        return self._properties['sid']
 
     def fetch(self):
         """

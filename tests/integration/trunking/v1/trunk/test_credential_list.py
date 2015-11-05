@@ -18,7 +18,7 @@ class CredentialListTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                    .credentials_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.holodeck.assert_has_request(Request(
@@ -42,7 +42,7 @@ class CredentialListTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                         .credentials_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.assertIsNotNone(actual)
@@ -51,7 +51,7 @@ class CredentialListTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                    .credentials_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
         
         self.holodeck.assert_has_request(Request(
@@ -65,7 +65,7 @@ class CredentialListTestCase(IntegrationTestCase):
             None,
         ))
         
-        actual = self.twilio.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                         .credentials_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
         
         self.assertTrue(actual)
@@ -74,7 +74,7 @@ class CredentialListTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                    .credentials_lists.create(credential_list_sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         
         values = {
@@ -103,7 +103,7 @@ class CredentialListTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                         .credentials_lists.create(credential_list_sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         
         self.assertIsNotNone(actual)
@@ -112,7 +112,7 @@ class CredentialListTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                    .credentials_lists.read()
         
         self.holodeck.assert_has_request(Request(
@@ -149,7 +149,7 @@ class CredentialListTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                         .credentials_lists.read()
         
         self.assertIsNotNone(actual)
@@ -173,7 +173,7 @@ class CredentialListTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                         .credentials_lists.read()
         
         self.assertIsNotNone(actual)

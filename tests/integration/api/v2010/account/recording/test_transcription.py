@@ -18,7 +18,7 @@ class TranscriptionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .recordings(sid="REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .transcriptions(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
@@ -49,7 +49,7 @@ class TranscriptionTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .recordings(sid="REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .transcriptions(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
@@ -59,7 +59,7 @@ class TranscriptionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .recordings(sid="REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .transcriptions(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
         
@@ -74,7 +74,7 @@ class TranscriptionTestCase(IntegrationTestCase):
             None,
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .recordings(sid="REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .transcriptions(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
         
@@ -84,7 +84,7 @@ class TranscriptionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .recordings(sid="REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .transcriptions.read()
         
@@ -130,7 +130,7 @@ class TranscriptionTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .recordings(sid="REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .transcriptions.read()
         
@@ -157,7 +157,7 @@ class TranscriptionTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .recordings(sid="REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .transcriptions.read()
         

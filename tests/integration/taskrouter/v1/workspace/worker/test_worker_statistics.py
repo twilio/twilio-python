@@ -18,7 +18,7 @@ class WorkerStatisticsTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                      .workers(sid="WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                      .statistics().fetch()
         
@@ -100,7 +100,7 @@ class WorkerStatisticsTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                           .workers(sid="WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                           .statistics().fetch()
         

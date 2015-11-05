@@ -18,7 +18,7 @@ class AlertTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.monitor.v1.alerts(sid="NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.monitor.v1.alerts(sid="NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -51,7 +51,7 @@ class AlertTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.monitor.v1.alerts(sid="NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.monitor.v1.alerts(sid="NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.assertIsNotNone(actual)
 
@@ -59,7 +59,7 @@ class AlertTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.monitor.v1.alerts(sid="NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+            self.client.monitor.v1.alerts(sid="NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
         
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -72,7 +72,7 @@ class AlertTestCase(IntegrationTestCase):
             None,
         ))
         
-        actual = self.twilio.monitor.v1.alerts(sid="NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        actual = self.client.monitor.v1.alerts(sid="NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
         
         self.assertTrue(actual)
 
@@ -80,7 +80,7 @@ class AlertTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.monitor.v1.alerts.read()
+            self.client.monitor.v1.alerts.read()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -123,7 +123,7 @@ class AlertTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.monitor.v1.alerts.read()
+        actual = self.client.monitor.v1.alerts.read()
         
         self.assertIsNotNone(actual)
 
@@ -146,6 +146,6 @@ class AlertTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.monitor.v1.alerts.read()
+        actual = self.client.monitor.v1.alerts.read()
         
         self.assertIsNotNone(actual)

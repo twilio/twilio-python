@@ -18,7 +18,7 @@ class TrunkTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -56,7 +56,7 @@ class TrunkTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.assertIsNotNone(actual)
 
@@ -64,7 +64,7 @@ class TrunkTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+            self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
         
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -77,7 +77,7 @@ class TrunkTestCase(IntegrationTestCase):
             None,
         ))
         
-        actual = self.twilio.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        actual = self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
         
         self.assertTrue(actual)
 
@@ -85,7 +85,7 @@ class TrunkTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.trunking.v1.trunks.create()
+            self.client.trunking.v1.trunks.create()
         
         self.holodeck.assert_has_request(Request(
             'post',
@@ -123,7 +123,7 @@ class TrunkTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.trunking.v1.trunks.create()
+        actual = self.client.trunking.v1.trunks.create()
         
         self.assertIsNotNone(actual)
 
@@ -131,7 +131,7 @@ class TrunkTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.trunking.v1.trunks.read()
+            self.client.trunking.v1.trunks.read()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -182,7 +182,7 @@ class TrunkTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.trunking.v1.trunks.read()
+        actual = self.client.trunking.v1.trunks.read()
         
         self.assertIsNotNone(actual)
 
@@ -205,7 +205,7 @@ class TrunkTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.trunking.v1.trunks.read()
+        actual = self.client.trunking.v1.trunks.read()
         
         self.assertIsNotNone(actual)
 
@@ -213,7 +213,7 @@ class TrunkTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+            self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
         
         self.holodeck.assert_has_request(Request(
             'post',
@@ -251,6 +251,6 @@ class TrunkTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+        actual = self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
         
         self.assertIsNotNone(actual)

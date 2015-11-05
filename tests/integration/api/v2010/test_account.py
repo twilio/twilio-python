@@ -18,7 +18,7 @@ class AccountTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts.create()
+            self.client.api.v2010.accounts.create()
         
         self.holodeck.assert_has_request(Request(
             'post',
@@ -55,7 +55,7 @@ class AccountTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts.create()
+        actual = self.client.api.v2010.accounts.create()
         
         self.assertIsNotNone(actual)
 
@@ -63,7 +63,7 @@ class AccountTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -100,7 +100,7 @@ class AccountTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.assertIsNotNone(actual)
 
@@ -108,7 +108,7 @@ class AccountTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts.read()
+            self.client.api.v2010.accounts.read()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -168,7 +168,7 @@ class AccountTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts.read()
+        actual = self.client.api.v2010.accounts.read()
         
         self.assertIsNotNone(actual)
 
@@ -193,7 +193,7 @@ class AccountTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts.read()
+        actual = self.client.api.v2010.accounts.read()
         
         self.assertIsNotNone(actual)
 
@@ -201,7 +201,7 @@ class AccountTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
         
         self.holodeck.assert_has_request(Request(
             'post',
@@ -238,6 +238,6 @@ class AccountTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
         
         self.assertIsNotNone(actual)

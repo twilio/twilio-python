@@ -20,7 +20,7 @@ from twilio.rest.taskrouter import Taskrouter
 from twilio.rest.trunking import Trunking
 
 
-class Twilio(object):
+class Client(object):
     """ A client for accessing the Twilio API. """
 
     def __init__(self, account_sid=None, auth_token=None, http_client=None,
@@ -34,7 +34,7 @@ class Twilio(object):
         :param dict environment: Environment to look for auth details, defaults to os.environ
         
         :returns: Twilio Client
-        :rtype: twilio.rest.Twilio
+        :rtype: twilio.rest.Client
         """
         environment = environment or os.environ
         

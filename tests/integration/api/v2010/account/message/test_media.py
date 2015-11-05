@@ -18,7 +18,7 @@ class MediaTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .messages(sid="MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .media(sid="MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
         
@@ -33,7 +33,7 @@ class MediaTestCase(IntegrationTestCase):
             None,
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .messages(sid="MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .media(sid="MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
         
@@ -43,7 +43,7 @@ class MediaTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .messages(sid="MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .media(sid="MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
@@ -68,7 +68,7 @@ class MediaTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .messages(sid="MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .media(sid="MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
@@ -78,7 +78,7 @@ class MediaTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .messages(sid="MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .media.read()
         
@@ -118,7 +118,7 @@ class MediaTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .messages(sid="MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .media.read()
         
@@ -145,7 +145,7 @@ class MediaTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .messages(sid="MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .media.read()
         

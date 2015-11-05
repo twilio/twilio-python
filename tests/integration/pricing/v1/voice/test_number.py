@@ -18,7 +18,7 @@ class NumberTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.pricing.v1.voice \
+            self.client.pricing.v1.voice \
                                   .numbers(number="+987654321").fetch()
         
         self.holodeck.assert_has_request(Request(
@@ -49,7 +49,7 @@ class NumberTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.pricing.v1.voice \
+        actual = self.client.pricing.v1.voice \
                                        .numbers(number="+987654321").fetch()
         
         self.assertIsNotNone(actual)

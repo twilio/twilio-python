@@ -18,7 +18,7 @@ class TaskQueuesStatisticsTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                      .task_queues \
                                      .statistics.read()
         
@@ -111,7 +111,7 @@ class TaskQueuesStatisticsTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                           .task_queues \
                                           .statistics.read()
         
@@ -136,7 +136,7 @@ class TaskQueuesStatisticsTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                           .task_queues \
                                           .statistics.read()
         

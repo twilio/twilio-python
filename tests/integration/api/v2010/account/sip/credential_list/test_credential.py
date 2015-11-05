@@ -18,7 +18,7 @@ class CredentialTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .sip \
                                  .credential_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .credentials.read()
@@ -59,7 +59,7 @@ class CredentialTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
                                       .credential_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .credentials.read()
@@ -87,7 +87,7 @@ class CredentialTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
                                       .credential_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .credentials.read()
@@ -98,7 +98,7 @@ class CredentialTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .sip \
                                  .credential_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .credentials.create(username="username", password="password")
@@ -130,7 +130,7 @@ class CredentialTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
                                       .credential_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .credentials.create(username="username", password="password")
@@ -141,7 +141,7 @@ class CredentialTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .sip \
                                  .credential_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .credentials(sid="CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
@@ -167,7 +167,7 @@ class CredentialTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
                                       .credential_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .credentials(sid="CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
@@ -178,7 +178,7 @@ class CredentialTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .sip \
                                  .credential_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .credentials(sid="CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(username="username", password="password")
@@ -210,7 +210,7 @@ class CredentialTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
                                       .credential_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .credentials(sid="CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(username="username", password="password")
@@ -221,7 +221,7 @@ class CredentialTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .sip \
                                  .credential_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .credentials(sid="CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
@@ -237,7 +237,7 @@ class CredentialTestCase(IntegrationTestCase):
             None,
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
                                       .credential_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .credentials(sid="CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()

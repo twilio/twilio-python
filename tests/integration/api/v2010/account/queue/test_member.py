@@ -18,7 +18,7 @@ class MemberTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .queues(sid="QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .members(call_sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
@@ -41,7 +41,7 @@ class MemberTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .queues(sid="QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .members(call_sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
@@ -51,7 +51,7 @@ class MemberTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .queues(sid="QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .members(call_sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(url="https://example.com", method="GET")
         
@@ -80,7 +80,7 @@ class MemberTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .queues(sid="QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .members(call_sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(url="https://example.com", method="GET")
         
@@ -90,7 +90,7 @@ class MemberTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .queues(sid="QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .members.read()
         
@@ -128,7 +128,7 @@ class MemberTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .queues(sid="QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .members.read()
         
@@ -155,7 +155,7 @@ class MemberTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .queues(sid="QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .members.read()
         

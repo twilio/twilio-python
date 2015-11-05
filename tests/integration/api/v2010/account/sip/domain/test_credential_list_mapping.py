@@ -18,7 +18,7 @@ class CredentialListMappingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .sip \
                                  .domains(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .credential_list_mappings.create(credential_list_sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
@@ -51,7 +51,7 @@ class CredentialListMappingTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
                                       .domains(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .credential_list_mappings.create(credential_list_sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
@@ -62,7 +62,7 @@ class CredentialListMappingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .sip \
                                  .domains(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .credential_list_mappings.read()
@@ -100,7 +100,7 @@ class CredentialListMappingTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
                                       .domains(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .credential_list_mappings.read()
@@ -123,7 +123,7 @@ class CredentialListMappingTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
                                       .domains(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .credential_list_mappings.read()
@@ -134,7 +134,7 @@ class CredentialListMappingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .sip \
                                  .domains(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .credential_list_mappings(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
@@ -162,7 +162,7 @@ class CredentialListMappingTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
                                       .domains(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .credential_list_mappings(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
@@ -173,7 +173,7 @@ class CredentialListMappingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .sip \
                                  .domains(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .credential_list_mappings(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
@@ -189,7 +189,7 @@ class CredentialListMappingTestCase(IntegrationTestCase):
             None,
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
                                       .domains(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .credential_list_mappings(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()

@@ -18,7 +18,7 @@ class DependentPhoneNumberTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .addresses(sid="ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .dependent_phone_numbers.read()
         
@@ -61,7 +61,7 @@ class DependentPhoneNumberTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .addresses(sid="ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .dependent_phone_numbers.read()
         
@@ -83,7 +83,7 @@ class DependentPhoneNumberTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .addresses(sid="ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .dependent_phone_numbers.read()
         

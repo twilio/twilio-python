@@ -18,7 +18,7 @@ class WorkspaceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -53,7 +53,7 @@ class WorkspaceTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.assertIsNotNone(actual)
 
@@ -61,7 +61,7 @@ class WorkspaceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+            self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
         
         self.holodeck.assert_has_request(Request(
             'post',
@@ -96,7 +96,7 @@ class WorkspaceTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+        actual = self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
         
         self.assertIsNotNone(actual)
 
@@ -104,7 +104,7 @@ class WorkspaceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.taskrouter.v1.workspaces.read()
+            self.client.taskrouter.v1.workspaces.read()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -152,7 +152,7 @@ class WorkspaceTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.taskrouter.v1.workspaces.read()
+        actual = self.client.taskrouter.v1.workspaces.read()
         
         self.assertIsNotNone(actual)
 
@@ -175,7 +175,7 @@ class WorkspaceTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.taskrouter.v1.workspaces.read()
+        actual = self.client.taskrouter.v1.workspaces.read()
         
         self.assertIsNotNone(actual)
 
@@ -183,7 +183,7 @@ class WorkspaceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.taskrouter.v1.workspaces.create(friendly_name="friendly_name")
+            self.client.taskrouter.v1.workspaces.create(friendly_name="friendly_name")
         
         values = {
             'FriendlyName': "friendly_name",
@@ -223,7 +223,7 @@ class WorkspaceTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.taskrouter.v1.workspaces.create(friendly_name="friendly_name")
+        actual = self.client.taskrouter.v1.workspaces.create(friendly_name="friendly_name")
         
         self.assertIsNotNone(actual)
 
@@ -231,7 +231,7 @@ class WorkspaceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+            self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
         
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -244,6 +244,6 @@ class WorkspaceTestCase(IntegrationTestCase):
             None,
         ))
         
-        actual = self.twilio.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        actual = self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
         
         self.assertTrue(actual)

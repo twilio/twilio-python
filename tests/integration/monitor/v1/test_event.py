@@ -18,7 +18,7 @@ class EventTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.monitor.v1.events(sid="AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.monitor.v1.events(sid="AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -56,7 +56,7 @@ class EventTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.monitor.v1.events(sid="AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.monitor.v1.events(sid="AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.assertIsNotNone(actual)
 
@@ -64,7 +64,7 @@ class EventTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.monitor.v1.events.read()
+            self.client.monitor.v1.events.read()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -115,7 +115,7 @@ class EventTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.monitor.v1.events.read()
+        actual = self.client.monitor.v1.events.read()
         
         self.assertIsNotNone(actual)
 
@@ -138,6 +138,6 @@ class EventTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.monitor.v1.events.read()
+        actual = self.client.monitor.v1.events.read()
         
         self.assertIsNotNone(actual)

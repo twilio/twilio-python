@@ -18,7 +18,7 @@ class IpAccessControlListMappingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .sip \
                                  .domains(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .ip_access_control_list_mappings(sid="ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
@@ -46,7 +46,7 @@ class IpAccessControlListMappingTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
                                       .domains(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .ip_access_control_list_mappings(sid="ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
@@ -57,7 +57,7 @@ class IpAccessControlListMappingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .sip \
                                  .domains(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .ip_access_control_list_mappings.create(ip_access_control_list_sid="ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
@@ -90,7 +90,7 @@ class IpAccessControlListMappingTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
                                       .domains(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .ip_access_control_list_mappings.create(ip_access_control_list_sid="ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
@@ -101,7 +101,7 @@ class IpAccessControlListMappingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .sip \
                                  .domains(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .ip_access_control_list_mappings.read()
@@ -144,7 +144,7 @@ class IpAccessControlListMappingTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
                                       .domains(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .ip_access_control_list_mappings.read()
@@ -172,7 +172,7 @@ class IpAccessControlListMappingTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
                                       .domains(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .ip_access_control_list_mappings.read()
@@ -183,7 +183,7 @@ class IpAccessControlListMappingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .sip \
                                  .domains(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .ip_access_control_list_mappings(sid="ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
@@ -199,7 +199,7 @@ class IpAccessControlListMappingTestCase(IntegrationTestCase):
             None,
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
                                       .domains(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .ip_access_control_list_mappings(sid="ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()

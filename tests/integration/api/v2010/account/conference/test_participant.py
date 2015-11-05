@@ -18,7 +18,7 @@ class ParticipantTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .conferences(sid="CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .participants(call_sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
@@ -45,7 +45,7 @@ class ParticipantTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .conferences(sid="CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .participants(call_sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
@@ -55,7 +55,7 @@ class ParticipantTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .conferences(sid="CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .participants(call_sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(muted=True)
         
@@ -87,7 +87,7 @@ class ParticipantTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .conferences(sid="CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .participants(call_sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(muted=True)
         
@@ -97,7 +97,7 @@ class ParticipantTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .conferences(sid="CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .participants(call_sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
         
@@ -112,7 +112,7 @@ class ParticipantTestCase(IntegrationTestCase):
             None,
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .conferences(sid="CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .participants(call_sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
         
@@ -122,7 +122,7 @@ class ParticipantTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .conferences(sid="CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .participants.read()
         
@@ -164,7 +164,7 @@ class ParticipantTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .conferences(sid="CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .participants.read()
         
@@ -191,7 +191,7 @@ class ParticipantTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .conferences(sid="CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .participants.read()
         

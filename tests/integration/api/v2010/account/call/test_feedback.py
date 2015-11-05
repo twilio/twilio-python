@@ -18,7 +18,7 @@ class FeedbackTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .calls(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .feedback().create(quality_score=1)
         
@@ -50,7 +50,7 @@ class FeedbackTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .calls(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .feedback().create(quality_score=1)
         
@@ -60,7 +60,7 @@ class FeedbackTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .calls(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .feedback().fetch()
         
@@ -87,7 +87,7 @@ class FeedbackTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .calls(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .feedback().fetch()
         
@@ -97,7 +97,7 @@ class FeedbackTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .calls(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .feedback().update(quality_score=1)
         
@@ -129,7 +129,7 @@ class FeedbackTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .calls(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .feedback().update(quality_score=1)
         

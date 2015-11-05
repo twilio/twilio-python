@@ -250,12 +250,12 @@ class CountryInstance(InstanceResource):
         
         # Marshaled Properties
         self._properties = {
-            'iso_country': payload['iso_country'],
             'country': payload['country'],
-            'uri': payload.get('uri'),
-            'url': payload.get('url'),
+            'iso_country': payload['iso_country'],
             'price_unit': payload.get('price_unit'),
+            'uri': payload.get('uri'),
             'phone_number_prices': payload.get('phone_number_prices'),
+            'url': payload.get('url'),
         }
         
         # Context
@@ -281,36 +281,12 @@ class CountryInstance(InstanceResource):
         return self._context
 
     @property
-    def uri(self):
+    def country(self):
         """
-        :returns: The uri
+        :returns: The country
         :rtype: unicode
         """
-        return self._properties['uri']
-
-    @property
-    def iso_country(self):
-        """
-        :returns: The iso_country
-        :rtype: unicode
-        """
-        return self._properties['iso_country']
-
-    @property
-    def phone_number_prices(self):
-        """
-        :returns: The phone_number_prices
-        :rtype: unicode
-        """
-        return self._properties['phone_number_prices']
-
-    @property
-    def price_unit(self):
-        """
-        :returns: The price_unit
-        :rtype: unicode
-        """
-        return self._properties['price_unit']
+        return self._properties['country']
 
     @property
     def url(self):
@@ -321,12 +297,36 @@ class CountryInstance(InstanceResource):
         return self._properties['url']
 
     @property
-    def country(self):
+    def price_unit(self):
         """
-        :returns: The country
+        :returns: The price_unit
         :rtype: unicode
         """
-        return self._properties['country']
+        return self._properties['price_unit']
+
+    @property
+    def uri(self):
+        """
+        :returns: The uri
+        :rtype: unicode
+        """
+        return self._properties['uri']
+
+    @property
+    def phone_number_prices(self):
+        """
+        :returns: The phone_number_prices
+        :rtype: unicode
+        """
+        return self._properties['phone_number_prices']
+
+    @property
+    def iso_country(self):
+        """
+        :returns: The iso_country
+        :rtype: unicode
+        """
+        return self._properties['iso_country']
 
     def fetch(self):
         """

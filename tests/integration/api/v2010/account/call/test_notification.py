@@ -18,7 +18,7 @@ class NotificationTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .calls(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .notifications(sid="NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
@@ -53,7 +53,7 @@ class NotificationTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .calls(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .notifications(sid="NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
@@ -63,7 +63,7 @@ class NotificationTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .calls(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .notifications(sid="NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
         
@@ -78,7 +78,7 @@ class NotificationTestCase(IntegrationTestCase):
             None,
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .calls(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .notifications(sid="NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
         
@@ -88,7 +88,7 @@ class NotificationTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .calls(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .notifications.read()
         
@@ -135,7 +135,7 @@ class NotificationTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .calls(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .notifications.read()
         
@@ -162,7 +162,7 @@ class NotificationTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.twilio.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .calls(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .notifications.read()
         
