@@ -62,7 +62,7 @@ class AccessToken(object):
         now = int(time.time())
         headers = {
             "typ": "JWT",
-            "cty": "twilio-sat;v=2"
+            "cty": "twilio-fpa;v=1"
         }
 
         grants = {}
