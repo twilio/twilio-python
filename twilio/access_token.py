@@ -45,10 +45,10 @@ class ConversationGrant(object):
 
 
 class AccessToken(object):
-    def __init__(self, signing_key_sid, account_sid, secret,
+    def __init__(self, account_sid, signing_key_sid, secret,
                  identity=None, ttl=3600):
-        self.signing_key_sid = signing_key_sid
         self.account_sid = account_sid
+        self.signing_key_sid = signing_key_sid
         self.secret = secret
 
         self.identity = identity

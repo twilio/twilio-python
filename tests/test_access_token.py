@@ -26,7 +26,7 @@ class AccessTokenTest(unittest.TestCase):
         assert_is_not_none(payload['grants'])
 
     def test_empty_grants(self):
-        scat = AccessToken(SIGNING_KEY_SID, ACCOUNT_SID, 'secret')
+        scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
         token = str(scat)
 
         assert_is_not_none(token)
@@ -35,7 +35,7 @@ class AccessTokenTest(unittest.TestCase):
         assert_equal({}, payload['grants'])
 
     def test_conversations_grant(self):
-        scat = AccessToken(SIGNING_KEY_SID, ACCOUNT_SID, 'secret')
+        scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
         scat.add_grant(ConversationGrant())
 
         token = str(scat)
@@ -46,7 +46,7 @@ class AccessTokenTest(unittest.TestCase):
         assert_equal({}, payload['grants']['rtc'])
 
     def test_ip_messaging_grant(self):
-        scat = AccessToken(SIGNING_KEY_SID, ACCOUNT_SID, 'secret')
+        scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
         scat.add_grant(IpMessagingGrant())
 
         token = str(scat)
@@ -57,7 +57,7 @@ class AccessTokenTest(unittest.TestCase):
         assert_equal({}, payload['grants']['ip_messaging'])
 
     def test_grants(self):
-        scat = AccessToken(SIGNING_KEY_SID, ACCOUNT_SID, 'secret')
+        scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
         scat.add_grant(ConversationGrant())
         scat.add_grant(IpMessagingGrant())
 
