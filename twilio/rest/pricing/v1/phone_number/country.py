@@ -254,8 +254,8 @@ class CountryInstance(InstanceResource):
             'iso_country': payload['iso_country'],
             'phone_number_prices': payload.get('phone_number_prices'),
             'price_unit': payload.get('price_unit'),
-            'url': payload.get('url'),
             'uri': payload.get('uri'),
+            'url': payload.get('url'),
         }
         
         # Context
@@ -281,20 +281,20 @@ class CountryInstance(InstanceResource):
         return self._context
 
     @property
-    def url(self):
+    def country(self):
         """
-        :returns: The url
+        :returns: The country
         :rtype: unicode
         """
-        return self._properties['url']
+        return self._properties['country']
 
     @property
-    def uri(self):
+    def iso_country(self):
         """
-        :returns: The uri
+        :returns: The iso_country
         :rtype: unicode
         """
-        return self._properties['uri']
+        return self._properties['iso_country']
 
     @property
     def phone_number_prices(self):
@@ -313,20 +313,20 @@ class CountryInstance(InstanceResource):
         return self._properties['price_unit']
 
     @property
-    def country(self):
+    def uri(self):
         """
-        :returns: The country
+        :returns: The uri
         :rtype: unicode
         """
-        return self._properties['country']
+        return self._properties['uri']
 
     @property
-    def iso_country(self):
+    def url(self):
         """
-        :returns: The iso_country
+        :returns: The url
         :rtype: unicode
         """
-        return self._properties['iso_country']
+        return self._properties['url']
 
     def fetch(self):
         """

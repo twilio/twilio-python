@@ -250,9 +250,9 @@ class CountryInstance(InstanceResource):
         
         # Marshaled Properties
         self._properties = {
-            'url': payload['url'],
             'country': payload['country'],
             'iso_country': payload['iso_country'],
+            'url': payload['url'],
             'outbound_prefix_prices': payload.get('outbound_prefix_prices'),
             'inbound_call_prices': payload.get('inbound_call_prices'),
             'price_unit': payload.get('price_unit'),
@@ -281,20 +281,12 @@ class CountryInstance(InstanceResource):
         return self._context
 
     @property
-    def url(self):
+    def country(self):
         """
-        :returns: The url
+        :returns: The country
         :rtype: unicode
         """
-        return self._properties['url']
-
-    @property
-    def outbound_prefix_prices(self):
-        """
-        :returns: The outbound_prefix_prices
-        :rtype: unicode
-        """
-        return self._properties['outbound_prefix_prices']
+        return self._properties['country']
 
     @property
     def iso_country(self):
@@ -303,6 +295,14 @@ class CountryInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['iso_country']
+
+    @property
+    def outbound_prefix_prices(self):
+        """
+        :returns: The outbound_prefix_prices
+        :rtype: unicode
+        """
+        return self._properties['outbound_prefix_prices']
 
     @property
     def inbound_call_prices(self):
@@ -321,12 +321,12 @@ class CountryInstance(InstanceResource):
         return self._properties['price_unit']
 
     @property
-    def country(self):
+    def url(self):
         """
-        :returns: The country
+        :returns: The url
         :rtype: unicode
         """
-        return self._properties['country']
+        return self._properties['url']
 
     def fetch(self):
         """

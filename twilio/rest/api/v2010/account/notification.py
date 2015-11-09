@@ -304,20 +304,20 @@ class NotificationInstance(InstanceResource):
         
         # Marshaled Properties
         self._properties = {
-            'message_text': payload['message_text'],
+            'account_sid': payload['account_sid'],
+            'api_version': payload['api_version'],
             'call_sid': payload['call_sid'],
-            'uri': payload['uri'],
-            'request_url': payload['request_url'],
             'date_created': deserialize.rfc2822_datetime(payload['date_created']),
-            'more_info': payload['more_info'],
-            'request_method': payload['request_method'],
+            'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
+            'error_code': payload['error_code'],
             'log': payload['log'],
             'message_date': deserialize.rfc2822_datetime(payload['message_date']),
-            'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
-            'api_version': payload['api_version'],
+            'message_text': payload['message_text'],
+            'more_info': payload['more_info'],
+            'request_method': payload['request_method'],
+            'request_url': payload['request_url'],
             'sid': payload['sid'],
-            'error_code': payload['error_code'],
-            'account_sid': payload['account_sid'],
+            'uri': payload['uri'],
             'request_variables': payload.get('request_variables'),
             'response_body': payload.get('response_body'),
             'response_headers': payload.get('response_headers'),
@@ -348,36 +348,28 @@ class NotificationInstance(InstanceResource):
         return self._context
 
     @property
-    def message_text(self):
+    def account_sid(self):
         """
-        :returns: The text of the notification.
+        :returns: The unique sid that identifies this account
         :rtype: unicode
         """
-        return self._properties['message_text']
+        return self._properties['account_sid']
 
     @property
-    def response_body(self):
+    def api_version(self):
         """
-        :returns: The HTTP body returned by your server.
+        :returns: The version of the Twilio API in use
         :rtype: unicode
         """
-        return self._properties['response_body']
+        return self._properties['api_version']
 
     @property
-    def uri(self):
+    def call_sid(self):
         """
-        :returns: The URI for this resource
+        :returns: The string that uniquely identifies the call
         :rtype: unicode
         """
-        return self._properties['uri']
-
-    @property
-    def request_url(self):
-        """
-        :returns: URL of the resource that generated the notification
-        :rtype: unicode
-        """
-        return self._properties['request_url']
+        return self._properties['call_sid']
 
     @property
     def date_created(self):
@@ -386,6 +378,46 @@ class NotificationInstance(InstanceResource):
         :rtype: datetime
         """
         return self._properties['date_created']
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date this resource was last updated
+        :rtype: datetime
+        """
+        return self._properties['date_updated']
+
+    @property
+    def error_code(self):
+        """
+        :returns: A unique error code corresponding to the notification
+        :rtype: unicode
+        """
+        return self._properties['error_code']
+
+    @property
+    def log(self):
+        """
+        :returns: An integer log level
+        :rtype: unicode
+        """
+        return self._properties['log']
+
+    @property
+    def message_date(self):
+        """
+        :returns: The date the notification was generated
+        :rtype: datetime
+        """
+        return self._properties['message_date']
+
+    @property
+    def message_text(self):
+        """
+        :returns: The text of the notification.
+        :rtype: unicode
+        """
+        return self._properties['message_text']
 
     @property
     def more_info(self):
@@ -404,12 +436,12 @@ class NotificationInstance(InstanceResource):
         return self._properties['request_method']
 
     @property
-    def log(self):
+    def request_url(self):
         """
-        :returns: An integer log level
+        :returns: URL of the resource that generated the notification
         :rtype: unicode
         """
-        return self._properties['log']
+        return self._properties['request_url']
 
     @property
     def request_variables(self):
@@ -420,44 +452,12 @@ class NotificationInstance(InstanceResource):
         return self._properties['request_variables']
 
     @property
-    def call_sid(self):
+    def response_body(self):
         """
-        :returns: The string that uniquely identifies the call
+        :returns: The HTTP body returned by your server.
         :rtype: unicode
         """
-        return self._properties['call_sid']
-
-    @property
-    def message_date(self):
-        """
-        :returns: The date the notification was generated
-        :rtype: datetime
-        """
-        return self._properties['message_date']
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date this resource was last updated
-        :rtype: datetime
-        """
-        return self._properties['date_updated']
-
-    @property
-    def api_version(self):
-        """
-        :returns: The version of the Twilio API in use
-        :rtype: unicode
-        """
-        return self._properties['api_version']
-
-    @property
-    def sid(self):
-        """
-        :returns: A string that uniquely identifies this notification
-        :rtype: unicode
-        """
-        return self._properties['sid']
+        return self._properties['response_body']
 
     @property
     def response_headers(self):
@@ -468,20 +468,20 @@ class NotificationInstance(InstanceResource):
         return self._properties['response_headers']
 
     @property
-    def error_code(self):
+    def sid(self):
         """
-        :returns: A unique error code corresponding to the notification
+        :returns: A string that uniquely identifies this notification
         :rtype: unicode
         """
-        return self._properties['error_code']
+        return self._properties['sid']
 
     @property
-    def account_sid(self):
+    def uri(self):
         """
-        :returns: The unique sid that identifies this account
+        :returns: The URI for this resource
         :rtype: unicode
         """
-        return self._properties['account_sid']
+        return self._properties['uri']
 
     def fetch(self):
         """
