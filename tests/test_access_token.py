@@ -2,7 +2,7 @@ import unittest
 
 from nose.tools import assert_equal
 from twilio.jwt import decode
-from twilio.access_token import AccessToken, ConversationGrant, IpMessagingGrant
+from twilio.access_token import AccessToken, ConversationsGrant, IpMessagingGrant
 
 ACCOUNT_SID = 'AC123'
 SIGNING_KEY_SID = 'SK123'
@@ -36,7 +36,7 @@ class AccessTokenTest(unittest.TestCase):
 
     def test_conversations_grant(self):
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
-        scat.add_grant(ConversationGrant())
+        scat.add_grant(ConversationsGrant())
 
         token = str(scat)
         assert_is_not_none(token)
@@ -58,7 +58,7 @@ class AccessTokenTest(unittest.TestCase):
 
     def test_grants(self):
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
-        scat.add_grant(ConversationGrant())
+        scat.add_grant(ConversationsGrant())
         scat.add_grant(IpMessagingGrant())
 
         token = str(scat)

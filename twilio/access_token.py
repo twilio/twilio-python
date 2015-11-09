@@ -28,7 +28,7 @@ class IpMessagingGrant(object):
         return grant
 
 
-class ConversationGrant(object):
+class ConversationsGrant(object):
     def __init__(self, configuration_profile_sid=None):
         self.configuration_profile_sid = configuration_profile_sid
 
