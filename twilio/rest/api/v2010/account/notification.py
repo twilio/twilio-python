@@ -33,7 +33,7 @@ class NotificationList(ListResource):
         self._solution = {
             'account_sid': account_sid,
         }
-        self._uri = '/Accounts/{account_sid}/Notifications'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Notifications.json'.format(**self._solution)
 
     def stream(self, log=values.unset, message_date_before=values.unset,
                message_date=values.unset, message_date_after=values.unset,

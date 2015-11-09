@@ -31,7 +31,7 @@ class LastMonthList(ListResource):
         self._solution = {
             'account_sid': account_sid,
         }
-        self._uri = '/Accounts/{account_sid}/Usage/Records/LastMonth'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Usage/Records/LastMonth.json'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
         """

@@ -40,7 +40,7 @@ class RecordList(ListResource):
         self._solution = {
             'account_sid': account_sid,
         }
-        self._uri = '/Accounts/{account_sid}/Usage/Records'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Usage/Records.json'.format(**self._solution)
         
         # Components
         self._all_time = None

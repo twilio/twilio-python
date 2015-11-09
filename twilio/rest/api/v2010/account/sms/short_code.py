@@ -32,7 +32,7 @@ class ShortCodeList(ListResource):
         self._solution = {
             'account_sid': account_sid,
         }
-        self._uri = '/Accounts/{account_sid}/SMS/ShortCodes'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/SMS/ShortCodes.json'.format(**self._solution)
 
     def stream(self, friendly_name=values.unset, short_code=values.unset,
                limit=None, page_size=None):
