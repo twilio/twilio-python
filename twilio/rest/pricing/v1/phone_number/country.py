@@ -252,10 +252,10 @@ class CountryInstance(InstanceResource):
         self._properties = {
             'country': payload['country'],
             'iso_country': payload['iso_country'],
-            'price_unit': payload.get('price_unit'),
-            'uri': payload.get('uri'),
             'phone_number_prices': payload.get('phone_number_prices'),
+            'price_unit': payload.get('price_unit'),
             'url': payload.get('url'),
+            'uri': payload.get('uri'),
         }
         
         # Context
@@ -281,28 +281,12 @@ class CountryInstance(InstanceResource):
         return self._context
 
     @property
-    def country(self):
-        """
-        :returns: The country
-        :rtype: unicode
-        """
-        return self._properties['country']
-
-    @property
     def url(self):
         """
         :returns: The url
         :rtype: unicode
         """
         return self._properties['url']
-
-    @property
-    def price_unit(self):
-        """
-        :returns: The price_unit
-        :rtype: unicode
-        """
-        return self._properties['price_unit']
 
     @property
     def uri(self):
@@ -319,6 +303,22 @@ class CountryInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['phone_number_prices']
+
+    @property
+    def price_unit(self):
+        """
+        :returns: The price_unit
+        :rtype: unicode
+        """
+        return self._properties['price_unit']
+
+    @property
+    def country(self):
+        """
+        :returns: The country
+        :rtype: unicode
+        """
+        return self._properties['country']
 
     @property
     def iso_country(self):

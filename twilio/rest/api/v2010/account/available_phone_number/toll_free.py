@@ -35,13 +35,27 @@ class TollFreeList(ListResource):
         }
         self._uri = '/Accounts/{account_sid}/AvailablePhoneNumbers/{country_code}/TollFree.json'.format(**self._solution)
 
-    def stream(self, beta=values.unset, limit=None, page_size=None):
+    def stream(self, area_code=values.unset, contains=values.unset,
+               sms_enabled=values.unset, mms_enabled=values.unset,
+               voice_enabled=values.unset,
+               exclude_all_address_required=values.unset,
+               exclude_local_address_required=values.unset,
+               exclude_foreign_address_required=values.unset, beta=values.unset,
+               limit=None, page_size=None):
         """
         Streams TollFreeInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
+        :param unicode area_code: The area_code
+        :param unicode contains: The contains
+        :param bool sms_enabled: The sms_enabled
+        :param bool mms_enabled: The mms_enabled
+        :param bool voice_enabled: The voice_enabled
+        :param bool exclude_all_address_required: The exclude_all_address_required
+        :param bool exclude_local_address_required: The exclude_local_address_required
+        :param bool exclude_foreign_address_required: The exclude_foreign_address_required
         :param bool beta: The beta
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
@@ -56,18 +70,39 @@ class TollFreeList(ListResource):
         limits = self._version.read_limits(limit, page_size)
         
         page = self.page(
+            area_code=area_code,
+            contains=contains,
+            sms_enabled=sms_enabled,
+            mms_enabled=mms_enabled,
+            voice_enabled=voice_enabled,
+            exclude_all_address_required=exclude_all_address_required,
+            exclude_local_address_required=exclude_local_address_required,
+            exclude_foreign_address_required=exclude_foreign_address_required,
             beta=beta,
             page_size=limits['page_size'],
         )
         
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def read(self, beta=values.unset, limit=None, page_size=values.unset):
+    def read(self, area_code=values.unset, contains=values.unset,
+             sms_enabled=values.unset, mms_enabled=values.unset,
+             voice_enabled=values.unset, exclude_all_address_required=values.unset,
+             exclude_local_address_required=values.unset,
+             exclude_foreign_address_required=values.unset, beta=values.unset,
+             limit=None, page_size=values.unset):
         """
         Reads TollFreeInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
+        :param unicode area_code: The area_code
+        :param unicode contains: The contains
+        :param bool sms_enabled: The sms_enabled
+        :param bool mms_enabled: The mms_enabled
+        :param bool voice_enabled: The voice_enabled
+        :param bool exclude_all_address_required: The exclude_all_address_required
+        :param bool exclude_local_address_required: The exclude_local_address_required
+        :param bool exclude_foreign_address_required: The exclude_foreign_address_required
         :param bool beta: The beta
         :param int limit: Upper limit for the number of records to return. read() guarantees
                           never to return more than limit.  Default is no limit
@@ -80,17 +115,38 @@ class TollFreeList(ListResource):
         :rtype: generator
         """
         return list(self.stream(
+            area_code=area_code,
+            contains=contains,
+            sms_enabled=sms_enabled,
+            mms_enabled=mms_enabled,
+            voice_enabled=voice_enabled,
+            exclude_all_address_required=exclude_all_address_required,
+            exclude_local_address_required=exclude_local_address_required,
+            exclude_foreign_address_required=exclude_foreign_address_required,
             beta=beta,
             limit=limit,
             page_size=page_size,
         ))
 
-    def page(self, beta=values.unset, page_token=values.unset,
-             page_number=values.unset, page_size=values.unset):
+    def page(self, area_code=values.unset, contains=values.unset,
+             sms_enabled=values.unset, mms_enabled=values.unset,
+             voice_enabled=values.unset, exclude_all_address_required=values.unset,
+             exclude_local_address_required=values.unset,
+             exclude_foreign_address_required=values.unset, beta=values.unset,
+             page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of TollFreeInstance records from the API.
         Request is executed immediately
         
+        :param unicode area_code: The area_code
+        :param unicode contains: The contains
+        :param bool sms_enabled: The sms_enabled
+        :param bool mms_enabled: The mms_enabled
+        :param bool voice_enabled: The voice_enabled
+        :param bool exclude_all_address_required: The exclude_all_address_required
+        :param bool exclude_local_address_required: The exclude_local_address_required
+        :param bool exclude_foreign_address_required: The exclude_foreign_address_required
         :param bool beta: The beta
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
@@ -100,6 +156,14 @@ class TollFreeList(ListResource):
         :rtype: Page
         """
         params = values.of({
+            'AreaCode': area_code,
+            'Contains': contains,
+            'SmsEnabled': sms_enabled,
+            'MmsEnabled': mms_enabled,
+            'VoiceEnabled': voice_enabled,
+            'ExcludeAllAddressRequired': exclude_all_address_required,
+            'ExcludeLocalAddressRequired': exclude_local_address_required,
+            'ExcludeForeignAddressRequired': exclude_foreign_address_required,
             'Beta': beta,
             'PageToken': page_token,
             'Page': page_number,
