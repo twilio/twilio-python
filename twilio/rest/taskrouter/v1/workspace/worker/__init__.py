@@ -84,7 +84,7 @@ class WorkerList(ListResource):
     def read(self, activity_name=values.unset, activity_sid=values.unset,
              available=values.unset, friendly_name=values.unset,
              target_workers_expression=values.unset, task_queue_name=values.unset,
-             task_queue_sid=values.unset, limit=None, page_size=values.unset):
+             task_queue_sid=values.unset, limit=None, page_size=None):
         """
         Reads WorkerInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into

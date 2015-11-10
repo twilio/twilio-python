@@ -75,7 +75,7 @@ class IncomingPhoneNumberList(ListResource):
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
     def read(self, beta=values.unset, friendly_name=values.unset,
-             phone_number=values.unset, limit=None, page_size=values.unset):
+             phone_number=values.unset, limit=None, page_size=None):
         """
         Reads IncomingPhoneNumberInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into

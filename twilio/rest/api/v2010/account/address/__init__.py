@@ -106,7 +106,7 @@ class AddressList(ListResource):
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
     def read(self, customer_name=values.unset, friendly_name=values.unset,
-             iso_country=values.unset, limit=None, page_size=values.unset):
+             iso_country=values.unset, limit=None, page_size=None):
         """
         Reads AddressInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into

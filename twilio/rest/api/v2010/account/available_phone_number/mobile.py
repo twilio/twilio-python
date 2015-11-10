@@ -89,7 +89,7 @@ class MobileList(ListResource):
              voice_enabled=values.unset, exclude_all_address_required=values.unset,
              exclude_local_address_required=values.unset,
              exclude_foreign_address_required=values.unset, beta=values.unset,
-             limit=None, page_size=values.unset):
+             limit=None, page_size=None):
         """
         Reads MobileInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into

@@ -72,7 +72,7 @@ class NotificationList(ListResource):
 
     def read(self, log=values.unset, message_date_before=values.unset,
              message_date=values.unset, message_date_after=values.unset, limit=None,
-             page_size=values.unset):
+             page_size=None):
         """
         Reads NotificationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into

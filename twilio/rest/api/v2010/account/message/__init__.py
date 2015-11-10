@@ -112,7 +112,7 @@ class MessageList(ListResource):
 
     def read(self, to=values.unset, from_=values.unset,
              date_sent_before=values.unset, date_sent=values.unset,
-             date_sent_after=values.unset, limit=None, page_size=values.unset):
+             date_sent_after=values.unset, limit=None, page_size=None):
         """
         Reads MessageInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into

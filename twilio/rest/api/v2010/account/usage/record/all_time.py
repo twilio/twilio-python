@@ -58,7 +58,7 @@ class AllTimeList(ListResource):
         
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def read(self, limit=None, page_size=values.unset):
+    def read(self, limit=None, page_size=None):
         """
         Reads AllTimeInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into

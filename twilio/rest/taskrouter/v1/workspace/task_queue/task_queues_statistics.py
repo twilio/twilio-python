@@ -70,7 +70,7 @@ class TaskQueuesStatisticsList(ListResource):
 
     def read(self, end_date=values.unset, friendly_name=values.unset,
              minutes=values.unset, start_date=values.unset, limit=None,
-             page_size=values.unset):
+             page_size=None):
         """
         Reads TaskQueuesStatisticsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into

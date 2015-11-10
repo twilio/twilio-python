@@ -78,7 +78,7 @@ class TaskList(ListResource):
     def read(self, priority=values.unset, assignment_status=values.unset,
              workflow_sid=values.unset, workflow_name=values.unset,
              task_queue_sid=values.unset, task_queue_name=values.unset, limit=None,
-             page_size=values.unset):
+             page_size=None):
         """
         Reads TaskInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into

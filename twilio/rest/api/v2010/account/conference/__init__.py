@@ -85,7 +85,7 @@ class ConferenceList(ListResource):
              date_created_after=values.unset, date_updated_before=values.unset,
              date_updated=values.unset, date_updated_after=values.unset,
              friendly_name=values.unset, status=values.unset, limit=None,
-             page_size=values.unset):
+             page_size=None):
         """
         Reads ConferenceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into

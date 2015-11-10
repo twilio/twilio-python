@@ -70,7 +70,7 @@ class RecordingList(ListResource):
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
     def read(self, date_created_before=values.unset, date_created=values.unset,
-             date_created_after=values.unset, limit=None, page_size=values.unset):
+             date_created_after=values.unset, limit=None, page_size=None):
         """
         Reads RecordingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into

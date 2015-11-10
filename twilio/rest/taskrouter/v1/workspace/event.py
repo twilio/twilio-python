@@ -86,7 +86,7 @@ class EventList(ListResource):
              minutes=values.unset, reservation_sid=values.unset,
              start_date=values.unset, task_queue_sid=values.unset,
              task_sid=values.unset, worker_sid=values.unset,
-             workflow_sid=values.unset, limit=None, page_size=values.unset):
+             workflow_sid=values.unset, limit=None, page_size=None):
         """
         Reads EventInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into

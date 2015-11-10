@@ -65,7 +65,7 @@ class ActivityList(ListResource):
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
     def read(self, friendly_name=values.unset, available=values.unset, limit=None,
-             page_size=values.unset):
+             page_size=None):
         """
         Reads ActivityInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into

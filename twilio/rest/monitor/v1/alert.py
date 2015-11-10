@@ -77,7 +77,7 @@ class AlertList(ListResource):
     def read(self, log_level=values.unset, start_date_before=values.unset,
              start_date=values.unset, start_date_after=values.unset,
              end_date_before=values.unset, end_date=values.unset,
-             end_date_after=values.unset, limit=None, page_size=values.unset):
+             end_date_after=values.unset, limit=None, page_size=None):
         """
         Reads AlertInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into

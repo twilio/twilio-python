@@ -65,7 +65,7 @@ class OutgoingCallerIdList(ListResource):
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
     def read(self, phone_number=values.unset, friendly_name=values.unset,
-             limit=None, page_size=values.unset):
+             limit=None, page_size=None):
         """
         Reads OutgoingCallerIdInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into

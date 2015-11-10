@@ -150,7 +150,7 @@ class CallList(ListResource):
              start_time_before=values.unset, start_time=values.unset,
              start_time_after=values.unset, end_time_before=values.unset,
              end_time=values.unset, end_time_after=values.unset, limit=None,
-             page_size=values.unset):
+             page_size=None):
         """
         Reads CallInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into

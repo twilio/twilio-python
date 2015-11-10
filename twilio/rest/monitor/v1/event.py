@@ -87,7 +87,7 @@ class EventList(ListResource):
              event_type=values.unset, resource_sid=values.unset,
              source_ip_address=values.unset, start_date_before=values.unset,
              start_date=values.unset, start_date_after=values.unset, limit=None,
-             page_size=values.unset):
+             page_size=None):
         """
         Reads EventInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
