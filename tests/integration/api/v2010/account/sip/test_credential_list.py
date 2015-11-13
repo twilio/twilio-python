@@ -20,7 +20,7 @@ class CredentialListTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .sip \
-                                 .credential_lists.read()
+                                 .credential_lists.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -57,7 +57,7 @@ class CredentialListTestCase(IntegrationTestCase):
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
-                                      .credential_lists.read()
+                                      .credential_lists.list()
         
         self.assertIsNotNone(actual)
 
@@ -79,7 +79,7 @@ class CredentialListTestCase(IntegrationTestCase):
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
-                                      .credential_lists.read()
+                                      .credential_lists.list()
         
         self.assertIsNotNone(actual)
 

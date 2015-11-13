@@ -113,7 +113,7 @@ class CredentialListTestCase(IntegrationTestCase):
         
         with self.assertRaises(TwilioException):
             self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                   .credentials_lists.read()
+                                   .credentials_lists.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -150,7 +150,7 @@ class CredentialListTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                        .credentials_lists.read()
+                                        .credentials_lists.list()
         
         self.assertIsNotNone(actual)
 
@@ -174,6 +174,6 @@ class CredentialListTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                        .credentials_lists.read()
+                                        .credentials_lists.list()
         
         self.assertIsNotNone(actual)

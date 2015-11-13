@@ -65,7 +65,7 @@ class CredentialListMappingTestCase(IntegrationTestCase):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .sip \
                                  .domains(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .credential_list_mappings.read()
+                                 .credential_list_mappings.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -103,7 +103,7 @@ class CredentialListMappingTestCase(IntegrationTestCase):
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
                                       .domains(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .credential_list_mappings.read()
+                                      .credential_list_mappings.list()
         
         self.assertIsNotNone(actual)
 
@@ -126,7 +126,7 @@ class CredentialListMappingTestCase(IntegrationTestCase):
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
                                       .domains(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .credential_list_mappings.read()
+                                      .credential_list_mappings.list()
         
         self.assertIsNotNone(actual)
 

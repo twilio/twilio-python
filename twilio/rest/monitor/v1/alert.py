@@ -74,12 +74,12 @@ class AlertList(ListResource):
         
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def read(self, log_level=values.unset, start_date_before=values.unset,
+    def list(self, log_level=values.unset, start_date_before=values.unset,
              start_date=values.unset, start_date_after=values.unset,
              end_date_before=values.unset, end_date=values.unset,
              end_date_after=values.unset, limit=None, page_size=None):
         """
-        Reads AlertInstance records from the API as a list.
+        Lists AlertInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -90,11 +90,11 @@ class AlertList(ListResource):
         :param date end_date_before: The end_date
         :param date end_date: The end_date
         :param date end_date_after: The end_date
-        :param int limit: Upper limit for the number of records to return. read() guarantees
+        :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
                               the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, read() will attempt to read the limit
+                              but a limit is defined, list() will attempt to read the limit
                               with the most efficient page size, i.e. min(limit, 1000)
         
         :returns: Generator that will yield up to limit results

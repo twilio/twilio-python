@@ -19,7 +19,7 @@ class CompletedTestCase(IntegrationTestCase):
         
         with self.assertRaises(TwilioException):
             self.client.conversations.v1.conversations \
-                                        .completed.read()
+                                        .completed.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -60,7 +60,7 @@ class CompletedTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.conversations.v1.conversations \
-                                             .completed.read()
+                                             .completed.list()
         
         self.assertIsNotNone(actual)
 
@@ -84,6 +84,6 @@ class CompletedTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.conversations.v1.conversations \
-                                             .completed.read()
+                                             .completed.list()
         
         self.assertIsNotNone(actual)

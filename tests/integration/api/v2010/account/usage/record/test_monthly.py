@@ -21,7 +21,7 @@ class MonthlyTestCase(IntegrationTestCase):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .usage \
                                  .records \
-                                 .monthly.read()
+                                 .monthly.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -78,7 +78,7 @@ class MonthlyTestCase(IntegrationTestCase):
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .usage \
                                       .records \
-                                      .monthly.read()
+                                      .monthly.list()
         
         self.assertIsNotNone(actual)
 
@@ -106,6 +106,6 @@ class MonthlyTestCase(IntegrationTestCase):
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .usage \
                                       .records \
-                                      .monthly.read()
+                                      .monthly.list()
         
         self.assertIsNotNone(actual)

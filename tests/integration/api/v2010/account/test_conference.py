@@ -56,7 +56,7 @@ class ConferenceTestCase(IntegrationTestCase):
         
         with self.assertRaises(TwilioException):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .conferences.read()
+                                 .conferences.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -99,7 +99,7 @@ class ConferenceTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .conferences.read()
+                                      .conferences.list()
         
         self.assertIsNotNone(actual)
 
@@ -125,6 +125,6 @@ class ConferenceTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .conferences.read()
+                                      .conferences.list()
         
         self.assertIsNotNone(actual)

@@ -80,7 +80,7 @@ class MediaTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .messages(sid="MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .media.read()
+                                 .media.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -120,7 +120,7 @@ class MediaTestCase(IntegrationTestCase):
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .messages(sid="MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .media.read()
+                                      .media.list()
         
         self.assertIsNotNone(actual)
 
@@ -147,6 +147,6 @@ class MediaTestCase(IntegrationTestCase):
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .messages(sid="MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .media.read()
+                                      .media.list()
         
         self.assertIsNotNone(actual)

@@ -122,7 +122,7 @@ class TaskTestCase(IntegrationTestCase):
         
         with self.assertRaises(TwilioException):
             self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                     .tasks.read()
+                                     .tasks.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -167,7 +167,7 @@ class TaskTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                          .tasks.read()
+                                          .tasks.list()
         
         self.assertIsNotNone(actual)
 
@@ -192,7 +192,7 @@ class TaskTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                          .tasks.read()
+                                          .tasks.list()
         
         self.assertIsNotNone(actual)
 

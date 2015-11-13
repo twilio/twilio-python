@@ -118,7 +118,7 @@ class WorkflowTestCase(IntegrationTestCase):
         
         with self.assertRaises(TwilioException):
             self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                     .workflows.read()
+                                     .workflows.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -161,7 +161,7 @@ class WorkflowTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                          .workflows.read()
+                                          .workflows.list()
         
         self.assertIsNotNone(actual)
 
@@ -186,7 +186,7 @@ class WorkflowTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                          .workflows.read()
+                                          .workflows.list()
         
         self.assertIsNotNone(actual)
 

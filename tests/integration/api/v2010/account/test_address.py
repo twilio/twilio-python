@@ -166,7 +166,7 @@ class AddressTestCase(IntegrationTestCase):
         
         with self.assertRaises(TwilioException):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .addresses.read()
+                                 .addresses.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -210,7 +210,7 @@ class AddressTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .addresses.read()
+                                      .addresses.list()
         
         self.assertIsNotNone(actual)
 
@@ -236,6 +236,6 @@ class AddressTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .addresses.read()
+                                      .addresses.list()
         
         self.assertIsNotNone(actual)

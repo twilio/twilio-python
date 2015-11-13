@@ -80,7 +80,7 @@ class AlertTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.client.monitor.v1.alerts.read()
+            self.client.monitor.v1.alerts.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -123,7 +123,7 @@ class AlertTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.client.monitor.v1.alerts.read()
+        actual = self.client.monitor.v1.alerts.list()
         
         self.assertIsNotNone(actual)
 
@@ -146,6 +146,6 @@ class AlertTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.client.monitor.v1.alerts.read()
+        actual = self.client.monitor.v1.alerts.list()
         
         self.assertIsNotNone(actual)

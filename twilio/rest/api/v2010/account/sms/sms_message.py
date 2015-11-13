@@ -109,11 +109,11 @@ class SmsMessageList(ListResource):
         
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def read(self, to=values.unset, from_=values.unset,
+    def list(self, to=values.unset, from_=values.unset,
              date_sent_before=values.unset, date_sent=values.unset,
              date_sent_after=values.unset, limit=None, page_size=None):
         """
-        Reads SmsMessageInstance records from the API as a list.
+        Lists SmsMessageInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -122,11 +122,11 @@ class SmsMessageList(ListResource):
         :param date date_sent_before: The date_sent
         :param date date_sent: The date_sent
         :param date date_sent_after: The date_sent
-        :param int limit: Upper limit for the number of records to return. read() guarantees
+        :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
                               the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, read() will attempt to read the limit
+                              but a limit is defined, list() will attempt to read the limit
                               with the most efficient page size, i.e. min(limit, 1000)
         
         :returns: Generator that will yield up to limit results

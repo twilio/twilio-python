@@ -112,7 +112,7 @@ class QueueTestCase(IntegrationTestCase):
         
         with self.assertRaises(TwilioException):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .queues.read()
+                                 .queues.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -153,7 +153,7 @@ class QueueTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .queues.read()
+                                      .queues.list()
         
         self.assertIsNotNone(actual)
 
@@ -179,7 +179,7 @@ class QueueTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .queues.read()
+                                      .queues.list()
         
         self.assertIsNotNone(actual)
 

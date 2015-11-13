@@ -104,7 +104,7 @@ class IpAccessControlListMappingTestCase(IntegrationTestCase):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .sip \
                                  .domains(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .ip_access_control_list_mappings.read()
+                                 .ip_access_control_list_mappings.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -147,7 +147,7 @@ class IpAccessControlListMappingTestCase(IntegrationTestCase):
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
                                       .domains(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .ip_access_control_list_mappings.read()
+                                      .ip_access_control_list_mappings.list()
         
         self.assertIsNotNone(actual)
 
@@ -175,7 +175,7 @@ class IpAccessControlListMappingTestCase(IntegrationTestCase):
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
                                       .domains(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .ip_access_control_list_mappings.read()
+                                      .ip_access_control_list_mappings.list()
         
         self.assertIsNotNone(actual)
 

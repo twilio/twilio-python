@@ -21,7 +21,7 @@ class CredentialTestCase(IntegrationTestCase):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .sip \
                                  .credential_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .credentials.read()
+                                 .credentials.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -62,7 +62,7 @@ class CredentialTestCase(IntegrationTestCase):
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
                                       .credential_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .credentials.read()
+                                      .credentials.list()
         
         self.assertIsNotNone(actual)
 
@@ -90,7 +90,7 @@ class CredentialTestCase(IntegrationTestCase):
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
                                       .credential_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .credentials.read()
+                                      .credentials.list()
         
         self.assertIsNotNone(actual)
 

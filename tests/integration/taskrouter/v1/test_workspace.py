@@ -104,7 +104,7 @@ class WorkspaceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.client.taskrouter.v1.workspaces.read()
+            self.client.taskrouter.v1.workspaces.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -152,7 +152,7 @@ class WorkspaceTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.client.taskrouter.v1.workspaces.read()
+        actual = self.client.taskrouter.v1.workspaces.list()
         
         self.assertIsNotNone(actual)
 
@@ -175,7 +175,7 @@ class WorkspaceTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.client.taskrouter.v1.workspaces.read()
+        actual = self.client.taskrouter.v1.workspaces.list()
         
         self.assertIsNotNone(actual)
 

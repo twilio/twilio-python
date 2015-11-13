@@ -163,7 +163,7 @@ class PhoneNumberTestCase(IntegrationTestCase):
         
         with self.assertRaises(TwilioException):
             self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                   .phone_numbers.read()
+                                   .phone_numbers.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -225,7 +225,7 @@ class PhoneNumberTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                        .phone_numbers.read()
+                                        .phone_numbers.list()
         
         self.assertIsNotNone(actual)
 
@@ -249,6 +249,6 @@ class PhoneNumberTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                        .phone_numbers.read()
+                                        .phone_numbers.list()
         
         self.assertIsNotNone(actual)

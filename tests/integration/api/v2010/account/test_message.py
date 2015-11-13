@@ -142,7 +142,7 @@ class MessageTestCase(IntegrationTestCase):
         
         with self.assertRaises(TwilioException):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .messages.read()
+                                 .messages.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -195,7 +195,7 @@ class MessageTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .messages.read()
+                                      .messages.list()
         
         self.assertIsNotNone(actual)
 
@@ -221,7 +221,7 @@ class MessageTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .messages.read()
+                                      .messages.list()
         
         self.assertIsNotNone(actual)
 

@@ -57,7 +57,7 @@ class AuthorizedConnectAppTestCase(IntegrationTestCase):
         
         with self.assertRaises(TwilioException):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .authorized_connect_apps.read()
+                                 .authorized_connect_apps.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -101,7 +101,7 @@ class AuthorizedConnectAppTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .authorized_connect_apps.read()
+                                      .authorized_connect_apps.list()
         
         self.assertIsNotNone(actual)
 
@@ -127,6 +127,6 @@ class AuthorizedConnectAppTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .authorized_connect_apps.read()
+                                      .authorized_connect_apps.list()
         
         self.assertIsNotNone(actual)

@@ -86,7 +86,7 @@ class TranscriptionTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .recordings(sid="REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .transcriptions.read()
+                                 .transcriptions.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -132,7 +132,7 @@ class TranscriptionTestCase(IntegrationTestCase):
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .recordings(sid="REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .transcriptions.read()
+                                      .transcriptions.list()
         
         self.assertIsNotNone(actual)
 
@@ -159,6 +159,6 @@ class TranscriptionTestCase(IntegrationTestCase):
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .recordings(sid="REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .transcriptions.read()
+                                      .transcriptions.list()
         
         self.assertIsNotNone(actual)

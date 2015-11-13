@@ -19,7 +19,7 @@ class CountryTestCase(IntegrationTestCase):
         
         with self.assertRaises(TwilioException):
             self.client.pricing.v1.voice \
-                                  .countries.read()
+                                  .countries.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -52,7 +52,7 @@ class CountryTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.pricing.v1.voice \
-                                       .countries.read()
+                                       .countries.list()
         
         self.assertIsNotNone(actual)
 
@@ -76,7 +76,7 @@ class CountryTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.pricing.v1.voice \
-                                       .countries.read()
+                                       .countries.list()
         
         self.assertIsNotNone(actual)
 

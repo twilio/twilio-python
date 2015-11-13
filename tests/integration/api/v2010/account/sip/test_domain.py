@@ -20,7 +20,7 @@ class DomainTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .sip \
-                                 .domains.read()
+                                 .domains.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -67,7 +67,7 @@ class DomainTestCase(IntegrationTestCase):
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
-                                      .domains.read()
+                                      .domains.list()
         
         self.assertIsNotNone(actual)
 
@@ -89,7 +89,7 @@ class DomainTestCase(IntegrationTestCase):
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
-                                      .domains.read()
+                                      .domains.list()
         
         self.assertIsNotNone(actual)
 

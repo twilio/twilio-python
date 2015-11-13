@@ -100,7 +100,7 @@ class ShortCodeTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .sms \
-                                 .short_codes.read()
+                                 .short_codes.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -145,7 +145,7 @@ class ShortCodeTestCase(IntegrationTestCase):
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sms \
-                                      .short_codes.read()
+                                      .short_codes.list()
         
         self.assertIsNotNone(actual)
 
@@ -172,6 +172,6 @@ class ShortCodeTestCase(IntegrationTestCase):
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sms \
-                                      .short_codes.read()
+                                      .short_codes.list()
         
         self.assertIsNotNone(actual)

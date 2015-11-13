@@ -125,7 +125,7 @@ class OriginationUrlTestCase(IntegrationTestCase):
         
         with self.assertRaises(TwilioException):
             self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                   .origination_urls.read()
+                                   .origination_urls.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -166,7 +166,7 @@ class OriginationUrlTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                        .origination_urls.read()
+                                        .origination_urls.list()
         
         self.assertIsNotNone(actual)
 
@@ -190,7 +190,7 @@ class OriginationUrlTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                        .origination_urls.read()
+                                        .origination_urls.list()
         
         self.assertIsNotNone(actual)
 

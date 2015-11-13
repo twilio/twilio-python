@@ -21,7 +21,7 @@ class AllTimeTestCase(IntegrationTestCase):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .usage \
                                  .records \
-                                 .all_time.read()
+                                 .all_time.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -78,7 +78,7 @@ class AllTimeTestCase(IntegrationTestCase):
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .usage \
                                       .records \
-                                      .all_time.read()
+                                      .all_time.list()
         
         self.assertIsNotNone(actual)
 
@@ -106,6 +106,6 @@ class AllTimeTestCase(IntegrationTestCase):
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .usage \
                                       .records \
-                                      .all_time.read()
+                                      .all_time.list()
         
         self.assertIsNotNone(actual)

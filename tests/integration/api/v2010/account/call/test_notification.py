@@ -90,7 +90,7 @@ class NotificationTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .calls(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .notifications.read()
+                                 .notifications.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -137,7 +137,7 @@ class NotificationTestCase(IntegrationTestCase):
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .calls(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .notifications.read()
+                                      .notifications.list()
         
         self.assertIsNotNone(actual)
 
@@ -164,6 +164,6 @@ class NotificationTestCase(IntegrationTestCase):
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .calls(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .notifications.read()
+                                      .notifications.list()
         
         self.assertIsNotNone(actual)

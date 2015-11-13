@@ -93,7 +93,7 @@ class ConnectAppTestCase(IntegrationTestCase):
         
         with self.assertRaises(TwilioException):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .connect_apps.read()
+                                 .connect_apps.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -136,7 +136,7 @@ class ConnectAppTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .connect_apps.read()
+                                      .connect_apps.list()
         
         self.assertIsNotNone(actual)
 
@@ -162,6 +162,6 @@ class ConnectAppTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .connect_apps.read()
+                                      .connect_apps.list()
         
         self.assertIsNotNone(actual)

@@ -20,7 +20,7 @@ class DependentPhoneNumberTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .addresses(sid="ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .dependent_phone_numbers.read()
+                                 .dependent_phone_numbers.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -63,7 +63,7 @@ class DependentPhoneNumberTestCase(IntegrationTestCase):
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .addresses(sid="ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .dependent_phone_numbers.read()
+                                      .dependent_phone_numbers.list()
         
         self.assertIsNotNone(actual)
 
@@ -85,6 +85,6 @@ class DependentPhoneNumberTestCase(IntegrationTestCase):
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .addresses(sid="ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .dependent_phone_numbers.read()
+                                      .dependent_phone_numbers.list()
         
         self.assertIsNotNone(actual)

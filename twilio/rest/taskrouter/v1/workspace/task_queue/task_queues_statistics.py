@@ -68,11 +68,11 @@ class TaskQueuesStatisticsList(ListResource):
         
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def read(self, end_date=values.unset, friendly_name=values.unset,
+    def list(self, end_date=values.unset, friendly_name=values.unset,
              minutes=values.unset, start_date=values.unset, limit=None,
              page_size=None):
         """
-        Reads TaskQueuesStatisticsInstance records from the API as a list.
+        Lists TaskQueuesStatisticsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -80,11 +80,11 @@ class TaskQueuesStatisticsList(ListResource):
         :param unicode friendly_name: The friendly_name
         :param unicode minutes: The minutes
         :param datetime start_date: The start_date
-        :param int limit: Upper limit for the number of records to return. read() guarantees
+        :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
                               the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, read() will attempt to read the limit
+                              but a limit is defined, list() will attempt to read the limit
                               with the most efficient page size, i.e. min(limit, 1000)
         
         :returns: Generator that will yield up to limit results

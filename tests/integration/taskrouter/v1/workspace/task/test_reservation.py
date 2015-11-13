@@ -20,7 +20,7 @@ class ReservationTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                      .tasks(sid="WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                     .reservations.read()
+                                     .reservations.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -66,7 +66,7 @@ class ReservationTestCase(IntegrationTestCase):
         
         actual = self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                           .tasks(sid="WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                          .reservations.read()
+                                          .reservations.list()
         
         self.assertIsNotNone(actual)
 
@@ -91,7 +91,7 @@ class ReservationTestCase(IntegrationTestCase):
         
         actual = self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                           .tasks(sid="WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                          .reservations.read()
+                                          .reservations.list()
         
         self.assertIsNotNone(actual)
 

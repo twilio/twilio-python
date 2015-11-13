@@ -20,7 +20,7 @@ class IpAccessControlListTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .sip \
-                                 .ip_access_control_lists.read()
+                                 .ip_access_control_lists.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -62,7 +62,7 @@ class IpAccessControlListTestCase(IntegrationTestCase):
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
-                                      .ip_access_control_lists.read()
+                                      .ip_access_control_lists.list()
         
         self.assertIsNotNone(actual)
 
@@ -89,7 +89,7 @@ class IpAccessControlListTestCase(IntegrationTestCase):
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
-                                      .ip_access_control_lists.read()
+                                      .ip_access_control_lists.list()
         
         self.assertIsNotNone(actual)
 

@@ -20,7 +20,7 @@ class LocalTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .incoming_phone_numbers \
-                                 .local.read()
+                                 .local.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -82,7 +82,7 @@ class LocalTestCase(IntegrationTestCase):
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .incoming_phone_numbers \
-                                      .local.read()
+                                      .local.list()
         
         self.assertIsNotNone(actual)
 
@@ -109,7 +109,7 @@ class LocalTestCase(IntegrationTestCase):
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .incoming_phone_numbers \
-                                      .local.read()
+                                      .local.list()
         
         self.assertIsNotNone(actual)
 

@@ -84,14 +84,14 @@ class MobileList(ListResource):
         
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def read(self, area_code=values.unset, contains=values.unset,
+    def list(self, area_code=values.unset, contains=values.unset,
              sms_enabled=values.unset, mms_enabled=values.unset,
              voice_enabled=values.unset, exclude_all_address_required=values.unset,
              exclude_local_address_required=values.unset,
              exclude_foreign_address_required=values.unset, beta=values.unset,
              limit=None, page_size=None):
         """
-        Reads MobileInstance records from the API as a list.
+        Lists MobileInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -104,11 +104,11 @@ class MobileList(ListResource):
         :param bool exclude_local_address_required: The exclude_local_address_required
         :param bool exclude_foreign_address_required: The exclude_foreign_address_required
         :param bool beta: The beta
-        :param int limit: Upper limit for the number of records to return. read() guarantees
+        :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
                               the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, read() will attempt to read the limit
+                              but a limit is defined, list() will attempt to read the limit
                               with the most efficient page size, i.e. min(limit, 1000)
         
         :returns: Generator that will yield up to limit results

@@ -81,13 +81,13 @@ class ConferenceList(ListResource):
         
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def read(self, date_created_before=values.unset, date_created=values.unset,
+    def list(self, date_created_before=values.unset, date_created=values.unset,
              date_created_after=values.unset, date_updated_before=values.unset,
              date_updated=values.unset, date_updated_after=values.unset,
              friendly_name=values.unset, status=values.unset, limit=None,
              page_size=None):
         """
-        Reads ConferenceInstance records from the API as a list.
+        Lists ConferenceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -99,11 +99,11 @@ class ConferenceList(ListResource):
         :param date date_updated_after: Filter by date updated
         :param unicode friendly_name: Filter by friendly name
         :param conference.status status: The status of the conference
-        :param int limit: Upper limit for the number of records to return. read() guarantees
+        :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
                               the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, read() will attempt to read the limit
+                              but a limit is defined, list() will attempt to read the limit
                               with the most efficient page size, i.e. min(limit, 1000)
         
         :returns: Generator that will yield up to limit results

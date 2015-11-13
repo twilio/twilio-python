@@ -21,7 +21,7 @@ class IpAddressTestCase(IntegrationTestCase):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .sip \
                                  .ip_access_control_lists(sid="ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .ip_addresses.read()
+                                 .ip_addresses.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -63,7 +63,7 @@ class IpAddressTestCase(IntegrationTestCase):
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
                                       .ip_access_control_lists(sid="ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .ip_addresses.read()
+                                      .ip_addresses.list()
         
         self.assertIsNotNone(actual)
 
@@ -91,7 +91,7 @@ class IpAddressTestCase(IntegrationTestCase):
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
                                       .ip_access_control_lists(sid="ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .ip_addresses.read()
+                                      .ip_addresses.list()
         
         self.assertIsNotNone(actual)
 

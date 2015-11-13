@@ -108,7 +108,7 @@ class AccountTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts.read()
+            self.client.api.v2010.accounts.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -168,7 +168,7 @@ class AccountTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.client.api.v2010.accounts.read()
+        actual = self.client.api.v2010.accounts.list()
         
         self.assertIsNotNone(actual)
 
@@ -193,7 +193,7 @@ class AccountTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.client.api.v2010.accounts.read()
+        actual = self.client.api.v2010.accounts.list()
         
         self.assertIsNotNone(actual)
 

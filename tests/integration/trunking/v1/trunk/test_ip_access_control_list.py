@@ -113,7 +113,7 @@ class IpAccessControlListTestCase(IntegrationTestCase):
         
         with self.assertRaises(TwilioException):
             self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                   .ip_access_control_lists.read()
+                                   .ip_access_control_lists.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -151,7 +151,7 @@ class IpAccessControlListTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                        .ip_access_control_lists.read()
+                                        .ip_access_control_lists.list()
         
         self.assertIsNotNone(actual)
 
@@ -174,6 +174,6 @@ class IpAccessControlListTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                        .ip_access_control_lists.read()
+                                        .ip_access_control_lists.list()
         
         self.assertIsNotNone(actual)

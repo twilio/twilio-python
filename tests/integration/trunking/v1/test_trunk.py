@@ -131,7 +131,7 @@ class TrunkTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.client.trunking.v1.trunks.read()
+            self.client.trunking.v1.trunks.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
@@ -182,7 +182,7 @@ class TrunkTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.client.trunking.v1.trunks.read()
+        actual = self.client.trunking.v1.trunks.list()
         
         self.assertIsNotNone(actual)
 
@@ -205,7 +205,7 @@ class TrunkTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.client.trunking.v1.trunks.read()
+        actual = self.client.trunking.v1.trunks.list()
         
         self.assertIsNotNone(actual)
 

@@ -145,14 +145,14 @@ class CallList(ListResource):
         
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def read(self, to=values.unset, from_=values.unset,
+    def list(self, to=values.unset, from_=values.unset,
              parent_call_sid=values.unset, status=values.unset,
              start_time_before=values.unset, start_time=values.unset,
              start_time_after=values.unset, end_time_before=values.unset,
              end_time=values.unset, end_time_after=values.unset, limit=None,
              page_size=None):
         """
-        Reads CallInstance records from the API as a list.
+        Lists CallInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -166,11 +166,11 @@ class CallList(ListResource):
         :param date end_time_before: EndTime to filter on
         :param date end_time: EndTime to filter on
         :param date end_time_after: EndTime to filter on
-        :param int limit: Upper limit for the number of records to return. read() guarantees
+        :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
                               the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, read() will attempt to read the limit
+                              but a limit is defined, list() will attempt to read the limit
                               with the most efficient page size, i.e. min(limit, 1000)
         
         :returns: Generator that will yield up to limit results
