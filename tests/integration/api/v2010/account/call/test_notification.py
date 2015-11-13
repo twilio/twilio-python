@@ -84,7 +84,7 @@ class NotificationTestCase(IntegrationTestCase):
         
         self.assertTrue(actual)
 
-    def test_read_request(self):
+    def test_list_request(self):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
