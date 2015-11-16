@@ -8,8 +8,8 @@ class IpMessagingGrant(object):
                  role_sid=None, credential_sid=None):
         self.service_sid = service_sid
         self.endpoint_id = endpoint_id
-        self.role_sid = role_sid
-        self.credential_sid = credential_sid
+        self.deployment_role_sid = role_sid
+        self.push_credential_sid = credential_sid
 
     @property
     def key(self):
@@ -21,10 +21,10 @@ class IpMessagingGrant(object):
             grant['service_sid'] = self.service_sid
         if self.endpoint_id:
             grant['endpoint_id'] = self.endpoint_id
-        if self.role_sid:
-            grant['deployment_role_sid'] = self.role_sid
-        if self.credential_sid:
-            grant['push_credential_sid'] = self.credential_sid
+        if self.deployment_role_sid:
+            grant['deployment_role_sid'] = self.deployment_role_sid
+        if self.push_credential_sid:
+            grant['push_credential_sid'] = self.push_credential_sid
 
         return grant
 
