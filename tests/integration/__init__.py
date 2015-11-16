@@ -10,6 +10,6 @@ class IntegrationTestCase(unittest.TestCase):
         self.account_sid = 'AC' + 'a' * 32
         self.auth_token = 'AUTHTOKEN'
         self.holodeck = Holodeck()
-        self.client = Client(account_sid=self.account_sid,
-                             auth_token=self.auth_token,
+        self.client = Client(username=self.account_sid,
+                             password=self.auth_token,
                              http_client=self.holodeck)

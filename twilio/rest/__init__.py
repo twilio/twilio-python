@@ -23,13 +23,14 @@ from twilio.rest.trunking import Trunking
 class Client(object):
     """ A client for accessing the Twilio API. """
 
-    def __init__(self, account_sid=None, auth_token=None, http_client=None,
-                 environment=None):
+    def __init__(self, username=None, password=None, account_sid=None,
+                 http_client=None, environment=None):
         """
         Initializes the Twilio Client
         
-        :param str account_sid: Account Sid to authenticate with
-        :param str auth_token: Auth Token to authenticate with
+        :param str username: Username to authenticate with
+        :param str password: Password to authenticate with
+        :param str account_sid: Account Sid, defaults to Username
         :param HttpClient http_client: HttpClient, defaults to Httplib2Client
         :param dict environment: Environment to look for auth details, defaults to os.environ
         
@@ -38,15 +39,17 @@ class Client(object):
         """
         environment = environment or os.environ
         
-        self.account_sid = account_sid or environment.get('TWILIO_ACCOUNT_SID')
+        self.username = username or environment.get('TWILIO_ACCOUNT_SID')
         """ :type : str """
-        self.auth_token = auth_token or environment.get('TWILIO_AUTH_TOKEN')
+        self.password = password or environment.get('TWILIO_AUTH_TOKEN')
+        """ :type : str """
+        self.account_sid = account_sid or self.username
         """ :type : str """
         
-        if not self.account_sid or not self.auth_token:
+        if not self.username or not self.password:
             raise TwilioException("Credentials are required to create a TwilioClient")
         
-        self.auth = (self.account_sid, self.auth_token)
+        self.auth = (self.username, self.password)
         """ :type : tuple(str, str) """
         self.http_client = http_client or Httplib2Client()
         """ :type : HttpClient """
