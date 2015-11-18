@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 4.9.1
+-------------
+
+Released November 18, 2015:
+
+- Addresses bug with SMS Pricing country
+
 Version 4.9.0
 -------------
 
