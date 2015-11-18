@@ -36,7 +36,7 @@ class TwilioPricingClient(TwilioClient):
         Returns a :class:`MessagingCountries` resource
         :return: MessagingCountries
         """
-        messaging_countries_uri = "{0}/Messaging/Countries".format(
+        messaging_countries_uri = "{0}/Messaging".format(
             self.uri_base)
         return MessagingCountries(messaging_countries_uri, self.auth,
                                   self.timeout)
