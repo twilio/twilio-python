@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 5.0.0-edge
+-------------
+
+Released November 19, 2015:
+
+- Added support for First Person Grants.
+
 Version 4.9.1
 -------------
 
