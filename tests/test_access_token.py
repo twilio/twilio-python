@@ -2,7 +2,7 @@ import unittest
 
 from nose.tools import assert_equal
 from twilio.jwt import decode
-from twilio.access_token import AccessToken
+from twilio.access_token import AccessToken, ConversationsGrant, IpMessagingGrant
 
 ACCOUNT_SID = 'AC123'
 SIGNING_KEY_SID = 'SK123'
@@ -26,56 +26,45 @@ class AccessTokenTest(unittest.TestCase):
         assert_is_not_none(payload['grants'])
 
     def test_empty_grants(self):
-        scat = AccessToken(SIGNING_KEY_SID, ACCOUNT_SID, 'secret')
+        scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
         token = str(scat)
+
         assert_is_not_none(token)
         payload = decode(token, 'secret')
         self._validate_claims(payload)
-        assert_equal([], payload['grants'])
+        assert_equal({}, payload['grants'])
 
-    def test_single_grant(self):
-        scat = AccessToken(SIGNING_KEY_SID, ACCOUNT_SID, 'secret')
-        scat.add_grant('https://api.twilio.com/**')
+    def test_conversations_grant(self):
+        scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
+        scat.add_grant(ConversationsGrant())
+
         token = str(scat)
         assert_is_not_none(token)
         payload = decode(token, 'secret')
         self._validate_claims(payload)
         assert_equal(1, len(payload['grants']))
-        assert_equal('https://api.twilio.com/**', payload['grants'][0]['res'])
-        assert_equal(['*'], payload['grants'][0]['act'])
+        assert_equal({}, payload['grants']['rtc'])
 
-    def test_endpoint_grant(self):
-        scat = AccessToken(SIGNING_KEY_SID, ACCOUNT_SID, 'secret')
-        scat.add_endpoint_grant('bob')
+    def test_ip_messaging_grant(self):
+        scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
+        scat.add_grant(IpMessagingGrant())
+
         token = str(scat)
         assert_is_not_none(token)
         payload = decode(token, 'secret')
         self._validate_claims(payload)
         assert_equal(1, len(payload['grants']))
-        assert_equal('sip:bob@AC123.endpoint.twilio.com',
-                     payload['grants'][0]['res'])
-        assert_equal(['listen', 'invite'], payload['grants'][0]['act'])
+        assert_equal({}, payload['grants']['ip_messaging'])
 
-    def test_rest_grant(self):
-        scat = AccessToken(SIGNING_KEY_SID, ACCOUNT_SID, 'secret')
-        scat.add_rest_grant('/Apps')
+    def test_grants(self):
+        scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
+        scat.add_grant(ConversationsGrant())
+        scat.add_grant(IpMessagingGrant())
+
         token = str(scat)
         assert_is_not_none(token)
         payload = decode(token, 'secret')
         self._validate_claims(payload)
-        assert_equal(1, len(payload['grants']))
-        assert_equal('https://api.twilio.com/2010-04-01/Accounts/AC123/Apps',
-                     payload['grants'][0]['res'])
-        assert_equal(['*'], payload['grants'][0]['act'])
-
-    def test_enable_nts(self):
-        scat = AccessToken(SIGNING_KEY_SID, ACCOUNT_SID, 'secret')
-        scat.enable_nts()
-        token = str(scat)
-        assert_is_not_none(token)
-        payload = decode(token, 'secret')
-        self._validate_claims(payload)
-        assert_equal(1, len(payload['grants']))
-        assert_equal('https://api.twilio.com/2010-04-01/Accounts/AC123/Tokens.json',
-                     payload['grants'][0]['res'])
-        assert_equal(['POST'], payload['grants'][0]['act'])
+        assert_equal(2, len(payload['grants']))
+        assert_equal({}, payload['grants']['rtc'])
+        assert_equal({}, payload['grants']['ip_messaging'])
