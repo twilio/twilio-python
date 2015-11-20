@@ -2,7 +2,7 @@ import unittest
 from mock import patch
 from nose.tools import assert_equal
 from tests.tools import create_mock_json
-from twilio.rest.resources.pricing.messaging_countries import (
+from twilio.rest.resources.pricing.messaging import (
     MessagingCountries
 )
 
