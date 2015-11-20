@@ -1,5 +1,14 @@
 from .. import NextGenInstanceResource, NextGenListResource
 
+class Messaging(object):
+    """Holds references to the Messaging pricing resources."""
+
+    name = "Messaging"
+    key = "messaging"
+
+    def __init__(self, base_uri, auth, timeout):
+        self.uri = "%s/Messaging" % base_uri
+        self.countries = MessagingCountries(self.uri, auth, timeout)
 
 class MessagingCountry(NextGenInstanceResource):
     """Pricing information for Twilio Messages in a specific country.
