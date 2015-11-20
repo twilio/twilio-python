@@ -1,6 +1,7 @@
 from twilio.rest.base import TwilioClient
 from twilio.rest.resources import UNSET_TIMEOUT
 from twilio.rest.resources.ip_messaging.services import Services
+from twilio.rest.resources.ip_messaging.credentials import Credentials
 
 
 class TwilioIpMessagingClient(TwilioClient):
@@ -27,3 +28,4 @@ class TwilioIpMessagingClient(TwilioClient):
 
         self.version_uri = "%s/%s" % (base, version)
         self.services = Services(self.version_uri, self.auth, timeout)
+        self.credentials = Credentials(self.version_uri, self.auth, timeout)
