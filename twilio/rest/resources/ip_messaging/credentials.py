@@ -3,8 +3,20 @@ from twilio.rest.resources import NextGenInstanceResource, NextGenListResource
 
 class Credential(NextGenInstanceResource):
 
-    def update(self, sid, **kwargs):
-        return self.update_instance(sid, kwargs)
+    def update(self, type, **kwargs):
+        """
+        Updates this Credential instance
+        :param sid: Credential instance identifier
+        :param type: Credential type
+        :param friendly_name: Credential's friendly name
+        :param certificate: Credential's certificate
+        :param private_key: Credential's Private key
+        :param sandbox: Credential's Sandbox
+        :param api_key: Credential's Api Key
+        :return: Updated instance
+        """
+        kwargs['type'] = type
+        return self.update_instance(**kwargs)
 
     def delete(self):
         """
@@ -51,3 +63,18 @@ class Credentials(NextGenListResource):
         Delete a given Credential
         """
         return self.delete_instance(sid)
+
+    def update(self, sid, type, **kwargs):
+        """
+        Updates the Credential instance identified by sid
+        :param sid: Credential instance identifier
+        :param type: Credential type
+        :param friendly_name: Credential's friendly name
+        :param certificate: Credential's certificate
+        :param private_key: Credential's Private key
+        :param sandbox: Credential's Sandbox
+        :param api_key: Credential's Api Key
+        :return: Updated instance
+        """
+        kwargs['type'] = type
+        return self.update_instance(sid, kwargs)

@@ -10,8 +10,17 @@ class Channel(NextGenInstanceResource):
         Messages
     ]
 
-    def update(self, sid, **kwargs):
-        return self.update_instance(sid, kwargs)
+    def update(self, **kwargs):
+        """
+        Updates the Channel instance
+        :param sid: Channel instance identifier
+        :param type: Channel type
+        :param friendly_name: Channel's friendly name
+        :param attributes: Additional attributes that needs to be stored with
+        channel
+        :return: the updated instance
+        """
+        return self.update_instance(**kwargs)
 
     def delete(self):
         """
@@ -52,3 +61,15 @@ class Channels(NextGenListResource):
         Delete a given Channel
         """
         return self.delete_instance(sid)
+
+    def update(self, sid, **kwargs):
+        """
+        Updates the Channel instance identified by sid
+        :param sid: Channel instance identifier
+        :param type: Channel type
+        :param friendly_name: Channel's friendly name
+        :param attributes: Additional attributes that needs to be stored with
+        channel
+        :return: Updated instance
+        """
+        return self.update_instance(sid, kwargs)

@@ -3,9 +3,6 @@ from twilio.rest.resources import NextGenInstanceResource, NextGenListResource
 
 class Message(NextGenInstanceResource):
 
-    def update(self, sid, **kwargs):
-        return self.update_instance(sid, kwargs)
-
     def delete(self):
         """
         Delete this message
