@@ -10,6 +10,20 @@ Released December 3, 2015:
 
 - Add Access Tokens
 
+Version 4.9.2
+-------------
+
+Released November 25, 2015:
+
+- Fix for SIP Trunking bug
+
+Version 4.9.1
+-------------
+
+Released November 18, 2015:
+
+- Addresses bug with SMS Pricing country
+
 Version 4.9.0
 -------------
 
