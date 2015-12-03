@@ -42,16 +42,16 @@ class Roles(NextGenListResource):
         """
         return self.delete_instance(sid)
 
-    def create(self, friendly_name, type, permission):
+    def create(self, friendly_name, role_type, permission):
         """
         Creates a Role
         :param str friendly_name: Human readable name to the Role
-        :param str type: Type of role - deployment or channel
+        :param str role_type: Type of role - deployment or channel
         :param str permission: Set of permissions for the role
         """
         kwargs = {
             "friendly_name": friendly_name,
-            "type": type,
+            "type": role_type,
             "permission": permission
         }
         return self.create_instance(kwargs)

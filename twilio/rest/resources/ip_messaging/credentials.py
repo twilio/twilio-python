@@ -3,11 +3,11 @@ from twilio.rest.resources import NextGenInstanceResource, NextGenListResource
 
 class Credential(NextGenInstanceResource):
 
-    def update(self, type, **kwargs):
+    def update(self, credential_type, **kwargs):
         """
         Updates this Credential instance
         :param sid: Credential instance identifier
-        :param type: Credential type
+        :param credential_type: Credential type
         :param friendly_name: Credential's friendly name
         :param certificate: Credential's certificate
         :param private_key: Credential's Private key
@@ -15,7 +15,7 @@ class Credential(NextGenInstanceResource):
         :param api_key: Credential's Api Key
         :return: Updated instance
         """
-        kwargs['type'] = type
+        kwargs['type'] = credential_type
         return self.update_instance(**kwargs)
 
     def delete(self):
@@ -46,16 +46,16 @@ class Credentials(NextGenListResource):
         """
         return self.get_instances(kwargs)
 
-    def create(self, type, **kwargs):
+    def create(self, credential_type, **kwargs):
         """
         Make a phone call to a number.
 
-        :param str type: The type of credential
+        :param str credential_type: The type of credential
         :param str friendly_name: The friendly name of the credential.
 
         :return: A :class:`Credential` object
         """
-        kwargs["type"] = type
+        kwargs["type"] = credential_type
         return self.create_instance(kwargs)
 
     def delete(self, sid):
@@ -64,11 +64,11 @@ class Credentials(NextGenListResource):
         """
         return self.delete_instance(sid)
 
-    def update(self, sid, type, **kwargs):
+    def update(self, sid, credential_type, **kwargs):
         """
         Updates the Credential instance identified by sid
         :param sid: Credential instance identifier
-        :param type: Credential type
+        :param credential_type: Credential type
         :param friendly_name: Credential's friendly name
         :param certificate: Credential's certificate
         :param private_key: Credential's Private key
@@ -76,5 +76,5 @@ class Credentials(NextGenListResource):
         :param api_key: Credential's Api Key
         :return: Updated instance
         """
-        kwargs['type'] = type
+        kwargs['type'] = credential_type
         return self.update_instance(sid, kwargs)
