@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 4.10.0
+-------------
+
+Released December 3, 2015:
+
+- Add Access Tokens
+
 Version 4.9.0
 -------------
 
