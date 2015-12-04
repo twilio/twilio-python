@@ -3,6 +3,28 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 5.0.3-edge
+-------------
+
+Released December 4, 2015:
+
+- Adds support for Create and Modify Roles for IP Messaging.
+- Fixes issues with IP Messaging SDK.
+
+Version 5.0.2-edge
+-------------
+
+Released November 25, 2015:
+
+- Adds support for python 3.5.
+
+Version 5.0.1-edge
+-------------
+
+Released November 20, 2015:
+
+- Fix missing Credentials mount IP Messaging SDK.
+
 Version 5.0.0-edge
 -------------
 
