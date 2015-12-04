@@ -12,8 +12,12 @@ class Service(NextGenInstanceResource):
         Users
     ]
 
-    def update(self, sid, **kwargs):
-        return self.update_instance(sid, kwargs)
+    def update(self, **kwargs):
+        """
+        Updates this Service instance
+        :return: Updated instance
+        """
+        return self.update_instance(**kwargs)
 
     def delete(self):
         """
@@ -55,3 +59,11 @@ class Services(NextGenListResource):
         Delete a given Service
         """
         return self.delete_instance(sid)
+
+    def update(self, sid, **kwargs):
+        """
+        Updates the Service instance identified by sid
+        :param sid: Service instance identifier
+        :return: Updated instance
+        """
+        return self.update_instance(sid, kwargs)

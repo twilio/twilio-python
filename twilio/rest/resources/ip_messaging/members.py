@@ -3,8 +3,16 @@ from twilio.rest.resources import NextGenInstanceResource, NextGenListResource
 
 class Member(NextGenInstanceResource):
 
-    def update(self, sid, **kwargs):
-        return self.update_instance(sid, kwargs)
+    def update(self, role_sid, **kwargs):
+        """
+        Updates the Member instance identified by sid
+        :param sid: Member instance identifier
+        :param role_sid: Member's Role Sid
+        :param identity: Member's Identity
+        :return: Updated instance
+        """
+        kwargs['role_sid'] = role_sid
+        return self.update_instance(**kwargs)
 
     def delete(self):
         """
@@ -47,3 +55,14 @@ class Members(NextGenListResource):
         Delete a given Member
         """
         return self.delete_instance(sid)
+
+    def update(self, sid, role_sid, **kwargs):
+        """
+        Updates the Member instance identified by sid
+        :param sid: Member instance identifier
+        :param role_sid: Member's Role Sid
+        :param identity: Member's Identity
+        :return: Updated instance
+        """
+        kwargs['role_sid'] = role_sid
+        return self.update_instance(sid, kwargs)

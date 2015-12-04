@@ -1,3 +1,4 @@
+import unittest
 from mock import patch, Mock
 from twilio.rest.resources.ip_messaging import Messages, Message
 from tests.tools import create_mock_json
@@ -10,43 +11,43 @@ MESSAGE_SID = "MSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 list_resource = Messages(BASE_URI, AUTH)
 
 
-@patch("twilio.rest.resources.base.make_twilio_request")
-def test_create_message(mock):
-    resp = create_mock_json("tests/resources/ip_messaging/message_instance.json")
-    resp.status_code = 201
-    mock.return_value = resp
+class MessageTest(unittest.TestCase):
 
-    uri = "%s/Messages" % (BASE_URI)
-    list_resource.create('TestBody')
-    exp_params = {
-        'Body': "TestBody"
-    }
+    @patch("twilio.rest.resources.base.make_twilio_request")
+    def test_create_message(self, mock):
+        resp = create_mock_json("tests/resources/ip_messaging/message_instance.json")
+        resp.status_code = 201
+        mock.return_value = resp
 
-    mock.assert_called_with("POST", uri, data=exp_params, auth=AUTH,
-                            use_json_extension=False)
+        uri = "%s/Messages" % (BASE_URI)
+        list_resource.create('TestBody')
+        exp_params = {
+            'Body': "TestBody"
+        }
 
+        mock.assert_called_with("POST", uri, data=exp_params, auth=AUTH,
+                                use_json_extension=False)
 
-@patch("twilio.rest.resources.base.make_twilio_request")
-def test_get(mock):
-    resp = create_mock_json("tests/resources/ip_messaging/message_instance.json")
-    mock.return_value = resp
+    @patch("twilio.rest.resources.base.make_twilio_request")
+    def test_get(self, mock):
+        resp = create_mock_json("tests/resources/ip_messaging/message_instance.json")
+        mock.return_value = resp
 
-    uri = "%s/Messages/%s" % (BASE_URI, MESSAGE_SID)
-    list_resource.get(MESSAGE_SID)
+        uri = "%s/Messages/%s" % (BASE_URI, MESSAGE_SID)
+        list_resource.get(MESSAGE_SID)
 
-    mock.assert_called_with("GET", uri, auth=AUTH,
-                            use_json_extension=False)
+        mock.assert_called_with("GET", uri, auth=AUTH,
+                                use_json_extension=False)
 
+    @patch("twilio.rest.resources.base.Resource.request")
+    def test_delete(self, req):
+        """ Deleting a call should work """
+        resp = Mock()
+        resp.content = ""
+        resp.status_code = 204
+        req.return_value = resp, {}
 
-@patch("twilio.rest.resources.base.Resource.request")
-def test_delete(req):
-    """ Deleting a call should work """
-    resp = Mock()
-    resp.content = ""
-    resp.status_code = 204
-    req.return_value = resp, {}
-
-    app = Message(list_resource, "MS123")
-    app.delete()
-    uri = "%s/Messages/MS123" % (BASE_URI)
-    req.assert_called_with("DELETE", uri)
+        app = Message(list_resource, "MS123")
+        app.delete()
+        uri = "%s/Messages/MS123" % (BASE_URI)
+        req.assert_called_with("DELETE", uri)

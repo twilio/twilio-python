@@ -3,8 +3,13 @@ from twilio.rest.resources import NextGenInstanceResource, NextGenListResource
 
 class User(NextGenInstanceResource):
 
-    def update(self, sid, **kwargs):
-        return self.update_instance(sid, kwargs)
+    def update(self, **kwargs):
+        """
+        Updates this User instance
+        :param role_sid: The role to assign the user.
+        :return: Updated instance
+        """
+        return self.update_instance(**kwargs)
 
     def delete(self):
         """
@@ -32,10 +37,10 @@ class Users(NextGenListResource):
 
     def create(self, id, **kwargs):
         """
-        Make a phone call to a number.
+        Creates a User
 
         :param str id: The identity of the user.
-        :param str role: The role to assign the user.
+        :param str role_sid: The role to assign the user.
 
         :return: A :class:`User` object
         """
@@ -47,3 +52,12 @@ class Users(NextGenListResource):
         Delete a given User
         """
         return self.delete_instance(sid)
+
+    def update(self, sid, **kwargs):
+        """
+        Updates the User instance identified by sid
+        :param sid: User instance identifier
+        :param role_sid: The role to assign the user.
+        :return: Updated instance
+        """
+        return self.update_instance(sid, kwargs)
