@@ -5,11 +5,11 @@ import jwt
 class IpMessagingGrant(object):
     """ Grant to access Twilio IP Messaging """
     def __init__(self, service_sid=None, endpoint_id=None,
-                 role_sid=None, credential_sid=None):
+                 deployment_role_sid=None, push_credential_sid=None):
         self.service_sid = service_sid
         self.endpoint_id = endpoint_id
-        self.deployment_role_sid = role_sid
-        self.push_credential_sid = credential_sid
+        self.deployment_role_sid = deployment_role_sid
+        self.push_credential_sid = push_credential_sid
 
     @property
     def key(self):
@@ -49,13 +49,14 @@ class ConversationsGrant(object):
 class AccessToken(object):
     """ Access Token used to access Twilio Resources """
     def __init__(self, account_sid, signing_key_sid, secret,
-                 identity=None, ttl=3600):
+                 identity=None, ttl=3600, nbf=None):
         self.account_sid = account_sid
         self.signing_key_sid = signing_key_sid
         self.secret = secret
 
         self.identity = identity
         self.ttl = ttl
+        self.nbf = nbf
         self.grants = []
 
     def add_grant(self, grant):
@@ -79,10 +80,12 @@ class AccessToken(object):
             "jti": '{0}-{1}'.format(self.signing_key_sid, now),
             "iss": self.signing_key_sid,
             "sub": self.account_sid,
-            "nbf": now,
             "exp": now + self.ttl,
             "grants": grants
         }
+
+        if self.nbf is not None:
+            payload['nbf'] = self.nbf
 
         return jwt.encode(payload, self.secret, headers=headers,
                           algorithm=algorithm)
