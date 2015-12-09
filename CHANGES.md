@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 5.0.0
+-------------
+
+Released December 8, 2015:
+
+- Update Access Tokens so that NBF is a optional parameter
+
 Version 4.10.0
 -------------
 
