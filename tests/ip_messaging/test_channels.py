@@ -35,16 +35,10 @@ class ChannelTest(unittest.TestCase):
         mock.return_value = resp
 
         uri = "%s/Channels/%s" % (BASE_URI, CHANNEL_SID)
-        channel_instance = list_resource.get(CHANNEL_SID)
+        list_resource.get(CHANNEL_SID)
 
         mock.assert_called_with("GET", uri, auth=AUTH,
                                 use_json_extension=False)
-        self.assertIsNotNone(channel_instance)
-        self.assertEquals('CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', channel_instance.sid)
-        self.assertEquals('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', channel_instance.account_sid)
-        self.assertEquals('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', channel_instance.service_sid)
-        self.assertEquals('update', channel_instance.friendly_name)
-        self.assertEquals('unique', channel_instance.unique_name)
 
     @patch("twilio.rest.resources.base.Resource.request")
     def test_delete(self, req):
