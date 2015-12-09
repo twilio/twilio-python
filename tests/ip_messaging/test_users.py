@@ -22,7 +22,7 @@ class UserTest(unittest.TestCase):
         uri = "%s/Users" % (BASE_URI)
         list_resource.create('test_id')
         exp_params = {
-            'Id': "test_id"
+            'Identity': "test_id"
         }
 
         mock.assert_called_with("POST", uri, data=exp_params, auth=AUTH,

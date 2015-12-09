@@ -35,16 +35,16 @@ class Users(NextGenListResource):
         """
         return self.get_instances(kwargs)
 
-    def create(self, id, **kwargs):
+    def create(self, identity, **kwargs):
         """
         Creates a User
 
-        :param str id: The identity of the user.
+        :param str identity: The identity of the user.
         :param str role_sid: The role to assign the user.
 
         :return: A :class:`User` object
         """
-        kwargs["id"] = id
+        kwargs["identity"] = identity
         return self.create_instance(kwargs)
 
     def delete(self, sid):
