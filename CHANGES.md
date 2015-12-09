@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 6.0.0-edge
+-------------
+
+Released December 6, 2015:
+
+- Update First Person Grants NBF field to be optional
+
 Version 5.0.3-edge
 -------------
 
