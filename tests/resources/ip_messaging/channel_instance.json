@@ -3,6 +3,7 @@
   "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
   "service_sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
   "friendly_name": "update",
+  "unique_name": "unique",
   "attributes": "",
   "date_created": "2015-08-20T09:30:24Z",
   "date_updated": "2015-08-20T09:30:24Z",
