@@ -3,6 +3,14 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 6.1.0-edge
+-------------
+
+Released December 9, 2015:
+
+- Adds support for Modifying and Deleting IP Messages
+- Fixes a bug with IP Messaging Create User
+
 Version 6.0.0-edge
 -------------
 
