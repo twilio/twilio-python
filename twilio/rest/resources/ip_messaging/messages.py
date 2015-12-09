@@ -3,6 +3,17 @@ from twilio.rest.resources import NextGenInstanceResource, NextGenListResource
 
 class Message(NextGenInstanceResource):
 
+    def update(self, **kwargs):
+        """
+        Updates the Message instance
+        :param sid: Message instance identifier
+        :param service_sid: Service instance identifier
+        :param channel_sid: Channel instance identifier
+        :param body: Message's body
+        :return: the updated instance
+        """
+        return self.update_instance(**kwargs)
+
     def delete(self):
         """
         Delete this message
@@ -44,3 +55,14 @@ class Messages(NextGenListResource):
         Delete a given Message
         """
         return self.delete_instance(sid)
+
+    def update(self, sid, **kwargs):
+        """
+        Updates the Message instance identified by sid
+        :param sid: Message instance identifier
+        :param service_sid: Service instance identifier
+        :param channel_sid: Channel instance identifier
+        :param body: Message's body
+        :return: the updated instance
+        """
+        return self.update_instance(sid, kwargs)
