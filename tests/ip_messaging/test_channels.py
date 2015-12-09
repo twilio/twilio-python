@@ -20,9 +20,10 @@ class ChannelTest(unittest.TestCase):
         mock.return_value = resp
 
         uri = "%s/Channels" % (BASE_URI)
-        list_resource.create(friendly_name='TestChannel')
+        list_resource.create(friendly_name='TestChannel', unique_name='Unique')
         exp_params = {
-            'FriendlyName': "TestChannel"
+            'FriendlyName': "TestChannel",
+            'UniqueName': 'Unique'
         }
 
         mock.assert_called_with("POST", uri, data=exp_params, auth=AUTH,

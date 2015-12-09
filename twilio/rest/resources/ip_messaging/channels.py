@@ -16,6 +16,7 @@ class Channel(NextGenInstanceResource):
         :param sid: Channel instance identifier
         :param type: Channel type
         :param friendly_name: Channel's friendly name
+        :param unique_name: Channel's Unique name
         :param attributes: Additional attributes that needs to be stored with
         channel
         :return: the updated instance
@@ -49,8 +50,9 @@ class Channels(NextGenListResource):
         """
         Create a channel.
 
-        :param str friendly_name: The friendly name of the channel.
-        :param str attributes: An attribute string with arbitrary
+        :param str friendly_name: Channel's friendly name
+        :param unique_name: Channel's Unique name
+        :param str attributes: Developer-specific data (json) storage
 
         :return: A :class:`Channel` object
         """
@@ -68,6 +70,7 @@ class Channels(NextGenListResource):
         :param sid: Channel instance identifier
         :param type: Channel type
         :param friendly_name: Channel's friendly name
+        :param unique_name: Channel's Unique name
         :param attributes: Additional attributes that needs to be stored with
         channel
         :return: Updated instance

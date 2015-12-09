@@ -39,6 +39,21 @@ class MessageTest(unittest.TestCase):
         mock.assert_called_with("GET", uri, auth=AUTH,
                                 use_json_extension=False)
 
+    @patch("twilio.rest.resources.base.make_twilio_request")
+    def test_update(self, mock):
+        resp = create_mock_json("tests/resources/ip_messaging/message_instance.json")
+        mock.return_value = resp
+
+        update_params = {
+            'UniqueName': 'unique'
+        }
+
+        uri = "%s/Messages/%s" % (BASE_URI, MESSAGE_SID)
+        list_resource.update(MESSAGE_SID, unique_name='unique')
+
+        mock.assert_called_with("POST", uri, data=update_params, auth=AUTH,
+                                use_json_extension=False)
+
     @patch("twilio.rest.resources.base.Resource.request")
     def test_delete(self, req):
         """ Deleting a call should work """
