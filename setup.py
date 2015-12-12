@@ -13,7 +13,7 @@ with open('twilio/version.py') as f:
 #
 # You need to have the setuptools module installed. Try reading the setuptools
 # documentation: http://pypi.python.org/pypi/setuptools
-REQUIRES = ["httplib2 >= 0.7", "six", "pytz", "pyjwt"]
+REQUIRES = ["httplib2 >= 0.7", "six", "pytz"]
 
 if sys.version_info < (2, 6):
     REQUIRES.append('simplejson')
