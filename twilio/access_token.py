@@ -1,5 +1,5 @@
 import time
-import jwt
+from twilio import jwt
 
 
 class IpMessagingGrant(object):
