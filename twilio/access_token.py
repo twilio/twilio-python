@@ -91,4 +91,4 @@ class AccessToken(object):
                           algorithm=algorithm)
 
     def __str__(self):
-        return self.to_jwt().decode('utf-8')
+        return self.to_jwt()
