@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 6.2.0-edge
+-------------
+
+Released December 11, 2015:
+
+- Remove pyjwt dependency
+
 Version 6.1.0-edge
 -------------
 
