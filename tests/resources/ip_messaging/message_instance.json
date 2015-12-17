@@ -1,0 +1,12 @@
+{
+  "sid": "IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "space_sid": "SPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "date_created": "2015-07-23T20:20:10Z",
+  "date_updated": "2015-07-23T20:20:10Z",
+  "was_edited": true,
+  "from": "carl@twilio.com",
+  "to": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "body": "Hello",
+  "url": "/v1/Spaces/SPxx/Channels/CHxx/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}

@@ -1,0 +1,11 @@
+{
+  "sid":"RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "account_sid":"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "space_sid": "SPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "name":"Deployment Admin",
+  "type":"deployment",
+  "permissions":[
+    "createChannel", 
+    "destroyChannel"
+  ]
+}
