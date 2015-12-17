@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 5.2.0
+-------------
+
+Released December 17, 2015:
+
+- Add support for IP Messaging
+
 Version 5.1.0
 -------------
 
