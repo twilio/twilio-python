@@ -1,0 +1,16 @@
+{
+  "sid": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "service_sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "friendly_name": "update",
+  "unique_name": "unique",
+  "attributes": "",
+  "date_created": "2015-08-20T09:30:24Z",
+  "date_updated": "2015-08-20T09:30:24Z",
+  "created_by": "system",
+  "url": "https://ip-messaging.stage.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "links": {
+    "members": "https://ip-messaging.stage.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Member",
+    "messages": "https://ip-messaging.stage.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages"
+  }
+}
