@@ -30,5 +30,5 @@ class WorkflowRule:
         return str({
             'expression': self.expression,
             'friendly_name': self.friendly_name,
-            'target': self.target,
+            'targets': self.targets,
         })
