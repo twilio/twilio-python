@@ -26,9 +26,6 @@ class TaskRouterConfig:
                 self.workflow_rules.append(
                     WorkflowRule(rule['expression'], rule['targets'], name))
 
-
-
-
     def __repr__(self):
 
         return str({
