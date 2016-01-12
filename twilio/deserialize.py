@@ -3,17 +3,32 @@ from decimal import Decimal, BasicContext
 from email.utils import parsedate
 import pytz
 
+ISO8601_DATE_FORMAT = '%Y-%m-%d'
+ISO8601_DATETIME_FORMAT = '%Y-%m-%dT%H:%M:%SZ'
+
+
+def iso8601_date(s):
+    """
+    Parses an ISO 8601 date string and returns a UTC date object or the string
+    if the parsing failed.
+    :param s: ISO 8601-formatted date string (2015-01-25)
+    :return:
+    """
+    try:
+        return datetime.datetime.strptime(s, ISO8601_DATE_FORMAT).replace(tzinfo=pytz.utc).date()
+    except ValueError:
+        return s
+
 
 def iso8601_datetime(s):
     """
-    Parses an ISO 8601 date string and returns a UTC datetime object,
+    Parses an ISO 8601 datetime string and returns a UTC datetime object,
     or the string if parsing failed.
-    :param s: ISO 8601-formatted string date
+    :param s: ISO 8601-formatted datetime string (2015-01-25T12:34:56Z)
     :return: datetime or str
     """
-    format = "%Y-%m-%dT%H:%M:%SZ"
     try:
-        return datetime.datetime.strptime(s, format).replace(tzinfo=pytz.utc)
+        return datetime.datetime.strptime(s, ISO8601_DATETIME_FORMAT).replace(tzinfo=pytz.utc)
     except ValueError:
         return s
 

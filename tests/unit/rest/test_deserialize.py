@@ -7,6 +7,18 @@ import pytz
 from twilio import deserialize
 
 
+class Iso8601DateTestCase(unittest.TestCase):
+
+    def test_parsable(self):
+        actual = deserialize.iso8601_date('2015-01-02')
+        expected = datetime.date(2015, 1, 2)
+        self.assertEqual(expected, actual)
+
+    def test_not_parsable(self):
+        actual = deserialize.iso8601_date('not-a-date')
+        self.assertEqual('not-a-date', actual)
+
+
 class Iso8601DateTimeTestCase(unittest.TestCase):
 
     def test_parsable(self):
@@ -15,8 +27,8 @@ class Iso8601DateTimeTestCase(unittest.TestCase):
         self.assertEqual(expected, actual)
 
     def test_not_parsable(self):
-        actual = deserialize.iso8601_datetime('not-a-date')
-        self.assertEqual('not-a-date', actual)
+        actual = deserialize.iso8601_datetime('not-a-datetime')
+        self.assertEqual('not-a-datetime', actual)
 
 
 class DecimalTestCase(unittest.TestCase):
