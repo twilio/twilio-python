@@ -14,7 +14,6 @@ class WorkflowConfigTest(unittest.TestCase):
             ]
             def_target = WorkflowRuleTarget("WQ9963154bf3122d0a0558f3763951d916", "1==1", None, None)
             config = WorkflowConfig(rules, def_target)
-            self.assertEqual(True, self.is_json(config.to_json()))
 
         def test_from_json(self):
 
@@ -125,9 +124,59 @@ class WorkflowConfigTest(unittest.TestCase):
             config = WorkflowConfig.json2obj(json.dumps(data))
             self.assertEqual(3, len(config.task_routing.filters))
             self.assertEqual(1, len(config.task_routing.default_filter))
-            self.assertEqual("Sales", config.task_routing.workflow_rules[0].friendly_name)
-            self.assertEqual("Marketing", config.task_routing.workflow_rules[1].friendly_name)
-            self.assertEqual("Support", config.task_routing.workflow_rules[2].friendly_name)
+            self.assertEqual("Sales", config.task_routing.filters[0].friendly_name)
+            self.assertEqual("Marketing", config.task_routing.filters[1].friendly_name)
+            self.assertEqual("Support", config.task_routing.filters[2].friendly_name)
+
+            # convert back to json; should marshal as friendly_name
+            config_json = config.to_json()
+            expected_config_data = {
+                                "task_routing": {
+                                        "default_filter": {
+                                        "queue": "WQ05f810d2d130344fd56e3c91ece2e594"
+                                    },
+                                    "filters": [
+                                        {
+                                            "expression": "type == \"sales\"",
+                                            "friendly_name": "Sales",
+                                            "targets": [
+                                                {
+                                                    "expression": "task.language IN worker.languages",
+                                                    "queue": "WQec62de0e1148b8477f2e24579779c8b1"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "expression": "type == \"marketing\"",
+                                            "friendly_name": "Marketing",
+                                            "targets": [
+                                                {
+                                                    "expression": "task.language IN worker.languages",
+                                                    "queue": "WQ2acd4c1a41ffadce5d1bac9e1ce2fa9f"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "expression": "type == \"support\"",
+                                            "friendly_name": "Support",
+                                            "targets": [
+                                                {
+                                                    "expression": "task.language IN worker.languages",
+                                                    "queue": "WQe5eb317eb23500ade45087ea6522896c"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+
+            expected_config_json = json.dumps(expected_config_data,
+                          default=lambda o: o.__dict__,
+                          sort_keys=True,
+                          indent=4)
+
+            self.assertEqual(config_json, expected_config_json)
+
 
         def is_json(self, myjson):
             try:
@@ -136,3 +185,7 @@ class WorkflowConfigTest(unittest.TestCase):
                 print(e)
                 return False
             return True
+
+if __name__ == '__main__':
+    unittest.main()
+

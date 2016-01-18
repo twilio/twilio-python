@@ -1,5 +1,6 @@
 from .workflow_rule import WorkflowRule
 from .workflow_ruletarget import WorkflowRuleTarget
+import json
 
 
 class TaskRouterConfig:
@@ -11,25 +12,30 @@ class TaskRouterConfig:
 
     def __init__(self, rules, default_target):
 
-        self.filters = rules
         self.default_filter = default_target
-        self.workflow_rules = []
+        workflow_rules = []
 
         for rule in rules:
             if isinstance(rule, WorkflowRule):
-                self.workflow_rules.append(rule)
+                workflow_rules.append(rule)
             else:
                 try:
                     name = rule['friendly_name']
                 except KeyError:
                     name = rule['filter_friendly_name']
-                self.workflow_rules.append(
+                workflow_rules.append(
                     WorkflowRule(rule['expression'], rule['targets'], name))
+        self.filters = workflow_rules
 
-    def __repr__(self):
+    def to_json(self):
 
-        return str({
-            'workflow_rules': self.workflow_rules,
-            'default': self.default_filter,
-            'rules': self.rules
-        })
+        return json.dumps(self,
+                          default=lambda o: o.__dict__,
+                          sort_keys=True,
+                          indent=4)
+
+    @staticmethod
+    def json2obj(data):
+
+        m = json.loads(data)
+        return TaskRouterConfig(m['filters'], m['default_filter'])
