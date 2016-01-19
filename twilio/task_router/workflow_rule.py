@@ -1,5 +1,4 @@
 from .workflow_ruletarget import WorkflowRuleTarget
-import json
 
 
 class WorkflowRule:

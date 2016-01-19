@@ -78,17 +78,17 @@ class WorkflowConfigTest(unittest.TestCase):
             self.assertEqual(2, len(config.task_routing.filters))
             self.assertEqual(4, len(config.task_routing.default_filter))
 
-        def test_from_json_filter_friendly_name(self):
-
+        def test_from_json_with_filter_friendly_name(self):
             data = {
                        'task_routing':
                        {
                            'filters': [
                                {
                                    'expression': 'type == "sales"',
-                                   'friendly_name': 'Sales',
+                                   'filter_friendly_name': 'Sales',
                                    'targets': [
                                        {
+
                                            'queue': 'WQec62de0e1148b8477f2e24579779c8b1',
                                            'expression': 'task.language IN worker.languages'
                                        }
@@ -96,7 +96,7 @@ class WorkflowConfigTest(unittest.TestCase):
                                },
                                {
                                    'expression': 'type == "marketing"',
-                                   'friendly_name': 'Marketing',
+                                   'filter_friendly_name': 'Marketing',
                                    'targets': [
                                        {
                                            'queue': 'WQ2acd4c1a41ffadce5d1bac9e1ce2fa9f',
@@ -106,7 +106,7 @@ class WorkflowConfigTest(unittest.TestCase):
                                },
                                {
                                    'expression': 'type == "support"',
-                                   'friendly_name': 'Support',
+                                   'filter_friendly_name': 'Support',
                                    'targets': [
                                        {
                                            'queue': 'WQe5eb317eb23500ade45087ea6522896c',
@@ -121,16 +121,12 @@ class WorkflowConfigTest(unittest.TestCase):
                            }
                        }
                    }
-
+            # marshal object
             config = WorkflowConfig.json2obj(json.dumps(data))
             self.assertEqual(3, len(config.task_routing.filters))
             self.assertEqual(1, len(config.task_routing.default_filter))
-            self.assertEqual("Sales", config.task_routing.filters[0].friendly_name)
-            self.assertEqual("Marketing", config.task_routing.filters[1].friendly_name)
-            self.assertEqual("Support", config.task_routing.filters[2].friendly_name)
 
-            # convert back to json; should marshal as friendly_name
-            config_json = config.to_json()
+            # check that the configuration was marshaled to "friendly_name" and not "filter_friendly_name"
             expected_config_data = {
                                       "task_routing":
                                       {
@@ -174,11 +170,10 @@ class WorkflowConfigTest(unittest.TestCase):
                                    }
 
             expected_config_json = json.dumps(expected_config_data,
-                          default=lambda o: o.__dict__,
                           sort_keys=True,
                           indent=4)
-
-            self.assertEqual(config_json, expected_config_json)
+            # check that marshaling back stays as "friendly_name"
+            self.assertEqual(config.to_json(), expected_config_json)
 
         def is_json(self, myjson):
             try:

@@ -21,6 +21,9 @@ class WorkflowConfig:
 
     @staticmethod
     def json2obj(data):
+        # replace instances of "filter_friendly_name" with "friendly_name"
+        data = data.replace("filter_friendly_name", "friendly_name")
+
         m = json.loads(data)
         return WorkflowConfig(m['task_routing']['filters'],
                               m['task_routing']['default_filter'])
