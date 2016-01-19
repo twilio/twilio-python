@@ -1,6 +1,7 @@
 from .workflow_rule import WorkflowRule
 from .workflow_ruletarget import WorkflowRuleTarget
 
+
 class TaskRouterConfig:
 
     """
