@@ -19,7 +19,7 @@ class WorkflowRuleTarget:
 
       The timeout before the reservation expires.
     """
-    def __init__(self, queue, expression, priority=None, timeout=None):
+    def __init__(self, queue, expression, priority, timeout):
 
         self.queue = queue
         self.expression = expression

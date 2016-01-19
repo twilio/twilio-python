@@ -20,7 +20,7 @@ class WorkflowRule:
        The name of the filter
     """
 
-    def __init__(self, expression, targets, friendly_name=None):
+    def __init__(self, expression, targets, friendly_name):
 
         self.expression = expression
         self.targets = targets
