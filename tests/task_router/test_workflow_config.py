@@ -175,6 +175,106 @@ class WorkflowConfigTest(unittest.TestCase):
             # check that marshaling back stays as "friendly_name"
             self.assertEqual(config.to_json(), expected_config_json)
 
+        def test_from_json_with_both_filter_and_friendly_name(self):
+            data = {
+                       'task_routing':
+                       {
+                           'filters': [
+                               {
+                                   'expression': 'type == "sales"',
+                                   'filter_friendly_name': "Sales",
+                                   'friendly_name': 'Sales2',
+                                   'targets': [
+                                       {
+
+                                           'queue': 'WQec62de0e1148b8477f2e24579779c8b1',
+                                           'expression': 'task.language IN worker.languages'
+                                       }
+                                   ]
+                               },
+                               {
+                                   'expression': 'type == "marketing"',
+                                   'filter_friendly_name': 'Marketing',
+                                   'friendly_name': 'Marketing2',
+                                   'targets': [
+                                       {
+                                           'queue': 'WQ2acd4c1a41ffadce5d1bac9e1ce2fa9f',
+                                           'expression': 'task.language IN worker.languages'
+                                       }
+                                   ]
+                               },
+                               {
+                                   'expression': 'type == "support"',
+                                   'filter_friendly_name': 'Support',
+                                   'friendly_name': 'Support2',
+                                   'targets': [
+                                       {
+                                           'queue': 'WQe5eb317eb23500ade45087ea6522896c',
+                                           'expression': 'task.language IN worker.languages'
+                                       }
+                                   ]
+                               }
+                           ],
+                           'default_filter':
+                           {
+                               'queue': 'WQ05f810d2d130344fd56e3c91ece2e594'
+                           }
+                       }
+                   }
+            # marshal object
+            config = WorkflowConfig.json2obj(json.dumps(data))
+            self.assertEqual(3, len(config.task_routing.filters))
+            self.assertEqual(1, len(config.task_routing.default_filter))
+
+            # check that the configuration was marshaled to "friendly_name" and not "filter_friendly_name"
+            expected_config_data = {
+                                      "task_routing":
+                                      {
+                                          "default_filter":
+                                          {
+                                              "queue": "WQ05f810d2d130344fd56e3c91ece2e594"
+                                          },
+                                          "filters": [
+                                              {
+                                                  "expression": "type == \"sales\"",
+                                                  "friendly_name": "Sales",
+                                                  "targets": [
+                                                      {
+                                                          "expression": "task.language IN worker.languages",
+                                                          "queue": "WQec62de0e1148b8477f2e24579779c8b1"
+                                                      }
+                                                  ]
+                                              },
+                                              {
+                                                  "expression": "type == \"marketing\"",
+                                                  "friendly_name": "Marketing",
+                                                  "targets": [
+                                                      {
+                                                          "expression": "task.language IN worker.languages",
+                                                          "queue": "WQ2acd4c1a41ffadce5d1bac9e1ce2fa9f"
+                                                      }
+                                                  ]
+                                              },
+                                              {
+                                                  "expression": "type == \"support\"",
+                                                  "friendly_name": "Support",
+                                                  "targets": [
+                                                      {
+                                                          "expression": "task.language IN worker.languages",
+                                                          "queue": "WQe5eb317eb23500ade45087ea6522896c"
+                                                      }
+                                                  ]
+                                              }
+                                          ]
+                                      }
+                                   }
+
+            expected_config_json = json.dumps(expected_config_data,
+                          sort_keys=True,
+                          indent=4)
+            # check that marshaling back stays as "friendly_name"
+            self.assertEqual(config.to_json(), expected_config_json)
+
         def is_json(self, myjson):
             try:
                 json.loads(myjson)
