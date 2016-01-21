@@ -59,6 +59,20 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         )
         expected = [
             {
+                'url': websocket_url,
+                'method': 'GET',
+                'allow': True,
+                'query_filter': {},
+                'post_filter': {},
+            },
+            {
+                'url': websocket_url,
+                'method': 'POST',
+                'allow': True,
+                'query_filter': {},
+                'post_filter': {},
+            },
+            {
                 'url': 'https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities',
                 'method': 'GET',
                 'allow': True,
@@ -73,15 +87,8 @@ class TaskRouterCapabilityTest(unittest.TestCase):
                 'post_filter': {},
             },
             {
-                'url': websocket_url,
+                'url': 'https://taskrouter.twilio.com/v1/Workspaces/{0}/Workers/{1}/Reservations/**'.format(self.workspace_sid, self.worker_sid),
                 'method': 'GET',
-                'allow': True,
-                'query_filter': {},
-                'post_filter': {},
-            },
-            {
-                'url': websocket_url,
-                'method': 'POST',
                 'allow': True,
                 'query_filter': {},
                 'post_filter': {},
