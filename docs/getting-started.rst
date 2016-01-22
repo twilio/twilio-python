@@ -12,13 +12,13 @@ Make a Call
 
 .. code-block:: python
 
-    from twilio.rest import TwilioRestClient
+    from twilio.rest import Client
 
     # To find these visit https://www.twilio.com/user/account
     ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXX"
     AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
 
-    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
+    client = Client(ACCOUNT_SID, AUTH_TOKEN)
     call = client.calls.create(to="9991231234", from_="9991231234",
         url="http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient")
     print call.length
@@ -30,11 +30,11 @@ Send an SMS
 
 .. code-block:: python
 
-    from twilio.rest import TwilioRestClient
+    from twilio.rest import Client
 
     account = "ACXXXXXXXXXXXXXXXXX"
     token = "YYYYYYYYYYYYYYYYYY"
-    client = TwilioRestClient(account, token)
+    client = Client(account, token)
 
     message = client.sms.messages.create(to="+12316851234",
                                          from_="+15555555555",
@@ -82,6 +82,6 @@ to easily create such responses.
 Digging Deeper
 ========================
 
-The full power of the Twilio API is at your fingertips. The :ref:`user-guide`
+The full power of the Twilio API is at your fingertips. The `Twilio API Docs <https://twilio.com/docs>`
 explains all the awesome features available to use.
 

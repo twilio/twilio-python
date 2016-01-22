@@ -12,7 +12,7 @@ package manager for Python.
 
 .. code-block:: bash
 
-    pip install twilio
+    pip install twilio=6.0.0rc1
 
 Don't have pip installed? Try installing it, by running this from the command
 line:
@@ -60,19 +60,6 @@ Query the Twilio REST API to create phone calls, send messages and more!
     :maxdepth: 1
 
     usage/basics
-    usage/messages
-    usage/phone-calls
-    usage/phone-numbers
-    usage/accounts
-    usage/conferences
-    usage/applications
-    usage/notifications
-    usage/recordings
-    usage/transcriptions
-    usage/usage
-    usage/caller-ids
-    usage/queues
-    usage/sip
 
 
 TaskRouter
@@ -85,7 +72,6 @@ state.
 .. toctree::
     :maxdepth: 1
 
-    usage/taskrouter
     usage/taskrouter-tokens
 
 
@@ -115,8 +101,8 @@ Small functions useful for validating requests are coming from Twilio
 Upgrade Plan
 ==================
 
-`twilio-python` 3.0 introduced backwards-incompatible changes to the API. See
-the :doc:`/upgrade-guide` for step-by-step instructions for migrating to 3.0.
+`twilio-python` 6.0 introduced backwards-incompatible changes to the API. See
+the :doc:`/upgrade-guide` for step-by-step instructions for migrating to 6.0.
 In many cases, the same methods are still offered, just in different locations.
 
 

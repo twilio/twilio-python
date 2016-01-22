@@ -12,14 +12,15 @@
 # serve to show the default.
 
 import sys, os
+sys.path.insert(0, os.path.abspath('..'))
 from datetime import datetime
+import sphinx_rtd_theme
 
 from twilio import __version_info__
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-#sys.path.insert(0, os.path.abspath('.'))
 
 # -- General configuration -----------------------------------------------------
 
@@ -34,9 +35,6 @@ extensions = [
 ]
 
 RTD_NEW_THEME = True
-
-# Load the source for autodoc
-sys.path.insert(0, os.path.abspath(os.path.join(os.getcwd(), '..')))
 
 # So links to Python default docs work
 intersphinx_mapping = {'python': ('http://docs.python.org/2.7', None)}
@@ -106,8 +104,8 @@ pygments_style = 'sphinx'
 # a list of builtin themes.
 
 sys.path.append(os.path.abspath('_themes'))
-#html_theme_path = ['_themes']
-#html_theme = 'kr'
+html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+html_theme = 'sphinx_rtd_theme'
 
 
 # Theme options are theme-specific and customize the look and feel of a theme
@@ -271,3 +269,16 @@ epub_copyright = u'2013, Twilio Inc.'
 
 # Allow duplicate toc entries.
 #epub_tocdup = True
+
+
+# def autodoc_process_docstring(app, what, name, obj, options, lines):
+#     pass
+
+
+# def autodoc_process_signature(app, what, name, obj, options, signature, return_annotation):
+#     return (signature, return_annotation)
+
+
+# def setup(app):
+#     app.connect('autodoc-process-docstring', autodoc_process_docstring)
+#     app.connect('autodoc-process-signature', autodoc_process_signature)
