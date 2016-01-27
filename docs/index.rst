@@ -12,7 +12,7 @@ package manager for Python.
 
 .. code-block:: bash
 
-    pip install twilio=6.0.0rc1
+    pip install twilio~=6.0.0rc1
 
 Don't have pip installed? Try installing it, by running this from the command
 line:
@@ -30,6 +30,20 @@ library, and then running:
 .. code-block:: bash
 
     python setup.py install
+
+
+Migrate from 5.x
+==================
+
+`twilio-python` 6.0 introduced backwards-incompatible changes to the API. See
+the `upgrade-guide <https://github.com/twilio/twilio-python/wiki/Python-Version-6.x-Upgrade-Guide>`_ for step-by-step instructions for migrating to 6.0.
+In many cases, the same methods are still offered, just in different locations.
+
+
+Feedback
+================
+
+Report any feedback or problems with this Release Candidate to the `Github Issues <https://github.com/twilio/twilio-python/issues>`_ for twilio-python.
 
 
 Getting Started
@@ -96,14 +110,6 @@ Small functions useful for validating requests are coming from Twilio
 
     usage/validation
     usage/token-generation
-
-
-Upgrade Plan
-==================
-
-`twilio-python` 6.0 introduced backwards-incompatible changes to the API. See
-the :doc:`/upgrade-guide` for step-by-step instructions for migrating to 6.0.
-In many cases, the same methods are still offered, just in different locations.
 
 
 API Reference
