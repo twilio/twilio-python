@@ -228,13 +228,13 @@ class TaskRouterWorkerCapability(TaskRouterCapability):
                                                          worker_sid)
 
         self.activity_url = self.base_url + "/Activities"
-        self.tasks_url = self.base_url + "/Tasks/**"
+        self.reservations_url = self.base_url + "/Tasks/**"
         self.worker_reservations_url = self.resource_url + "/Reservations/**"
 
         # add permissions to fetch the
         # list of activities, tasks, and worker reservations
         self.allow(self.activity_url, "GET")
-        self.allow(self.tasks_url, "GET")
+        self.allow(self.reservations_url, "GET")
         self.allow(self.worker_reservations_url, "GET")
 
     def setup_resource(self):
@@ -249,7 +249,7 @@ class TaskRouterWorkerCapability(TaskRouterCapability):
 
     def allow_reservation_updates(self):
         self.policies.append(self.make_policy(
-            self.tasks_url,
+            self.reservations_url,
             'POST',
             True))
         self.policies.append(self.make_policy(
