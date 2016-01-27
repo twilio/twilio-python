@@ -33,6 +33,7 @@
                     "assigned": 0,
                     "reserved": 0
                 },
+                "tasks_by_priority":{},
                 "activity_statistics": [
                     {
                         "sid": "WA79bcc984ca4fe04a31f2f91807a53ca0",

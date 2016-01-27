@@ -21,6 +21,9 @@
             "assigned": 1,
             "reserved": 0
         },
+        "tasks_by_priority": {
+            "Priority-5"
+        }
         "activity_statistics": [
             {
                 "sid": "WA36da5e4272ecadef27920fa475617394",
