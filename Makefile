@@ -14,10 +14,10 @@ develop: venv
 	. venv/bin/activate; pip install -r tests/requirements.txt
 
 analysis:
-	. venv/bin/activate; flake8 --ignore=E123,E126,E128,E501 tests
-	. venv/bin/activate; flake8 --ignore=F401 twilio
+	. venv/bin/activate; flake8 --ignore=E123,E126,E128,E501,W391,W291,W293,F401 tests
+	. venv/bin/activate; flake8 --ignore=F401,W391,W291,W293 twilio --max-line-length=300
 
-test:
+test: analysis
 	. venv/bin/activate; \
   find tests -type d | xargs nosetests
 
