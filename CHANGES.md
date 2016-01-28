@@ -78,24 +78,15 @@ Released November 3, 2015:
 Version 4.8.0
 -------------
 
-<<<<<<< HEAD
 Released November 2, 2015:
 
 - Add SMS pricing endpoint
 
-Version 4.6.0-edge
+Version 4.6.0
 -------------
 
 Released October 28, 2015:
 
-=======
-- Add support for SMS pricing
-
-
-Version 4.6.0
--------------
-
->>>>>>> bae308162e9e9505a73651d1de0a946e59c30267
 - Add /Keys endpoint
 
 Version 4.6.0
