@@ -21,6 +21,7 @@ from twilio.rest.resources import (
     Queues,
     Recordings,
     Sandboxes,
+    SigningKeys,
     Sip,
     Sms,
     Tokens,
@@ -74,6 +75,7 @@ class TwilioRestClient(TwilioClient):
         self.messages = Messages(self.account_uri, self.auth, timeout)
         self.media = MediaList(self.account_uri, self.auth, timeout)
         self.sip = Sip(self.account_uri, self.auth, timeout)
+        self.signing_keys = SigningKeys(self.account_uri, self.auth, timeout)
         self.tokens = Tokens(self.account_uri, self.auth, timeout)
         self.keys = Keys(self.account_uri, self.auth, timeout)
 
