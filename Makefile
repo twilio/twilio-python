@@ -17,7 +17,7 @@ analysis:
 	. venv/bin/activate; flake8 --ignore=E123,E126,E128,E501 tests
 	. venv/bin/activate; flake8 --ignore=F401 twilio
 
-test: analysis
+test:
 	. venv/bin/activate; \
   find tests -type d | xargs nosetests
 

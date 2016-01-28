@@ -43,7 +43,7 @@ class FeedbackSummaryTestCase(IntegrationTestCase):
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "call_count": 10200,
                 "call_feedback_count": 729,
-                "end_date": "2014-01-31",
+                "end_date": "2011-01-01",
                 "include_subaccounts": false,
                 "issues": [
                     {
@@ -56,7 +56,7 @@ class FeedbackSummaryTestCase(IntegrationTestCase):
                 "quality_score_median": 4,
                 "quality_score_standard_deviation": 1,
                 "sid": "FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "start_date": "2014-01-01",
+                "start_date": "2011-01-01",
                 "status": "completed",
                 "date_created": "Tue, 31 Aug 2010 20:36:28 +0000",
                 "date_updated": "Tue, 31 Aug 2010 20:36:44 +0000"
@@ -91,7 +91,7 @@ class FeedbackSummaryTestCase(IntegrationTestCase):
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "call_count": 10200,
                 "call_feedback_count": 729,
-                "end_date": "2014-01-31",
+                "end_date": "2011-01-01",
                 "include_subaccounts": false,
                 "issues": [
                     {
@@ -104,7 +104,7 @@ class FeedbackSummaryTestCase(IntegrationTestCase):
                 "quality_score_median": 4,
                 "quality_score_standard_deviation": 1,
                 "sid": "FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "start_date": "2014-01-01",
+                "start_date": "2011-01-01",
                 "status": "completed",
                 "date_created": "Tue, 31 Aug 2010 20:36:28 +0000",
                 "date_updated": "Tue, 31 Aug 2010 20:36:44 +0000"

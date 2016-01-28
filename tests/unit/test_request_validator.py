@@ -4,7 +4,7 @@ import unittest
 from nose.tools import assert_equal, assert_true
 from six import b, u
 
-from twilio.request_validator import RequestValidator
+from twilio.security import RequestValidator
 
 
 class ValidationTest(unittest.TestCase):

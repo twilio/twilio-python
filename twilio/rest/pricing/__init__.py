@@ -37,6 +37,13 @@ class Pricing(Domain):
         return self._v1
 
     @property
+    def messaging(self):
+        """
+        :rtype: MessagingList
+        """
+        return self.v1.messaging
+
+    @property
     def phone_numbers(self):
         """
         :rtype: PhoneNumberList

@@ -236,14 +236,14 @@ class FeedbackSummaryInstance(InstanceResource):
             'call_feedback_count': deserialize.integer(payload['call_feedback_count']),
             'date_created': deserialize.rfc2822_datetime(payload['date_created']),
             'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
-            'end_date': deserialize.rfc2822_datetime(payload['end_date']),
+            'end_date': deserialize.iso8601_datetime(payload['end_date']),
             'include_subaccounts': payload['include_subaccounts'],
             'issues': payload['issues'],
             'quality_score_average': deserialize.decimal(payload['quality_score_average']),
             'quality_score_median': deserialize.decimal(payload['quality_score_median']),
             'quality_score_standard_deviation': deserialize.decimal(payload['quality_score_standard_deviation']),
             'sid': payload['sid'],
-            'start_date': deserialize.rfc2822_datetime(payload['start_date']),
+            'start_date': deserialize.iso8601_datetime(payload['start_date']),
             'status': payload['status'],
         }
         
