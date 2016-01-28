@@ -21,7 +21,7 @@ test: analysis
 	. venv/bin/activate; \
   find tests -type d | xargs nosetests
 
-ci: analysis
+ci:
 	flake8 --ignore=E123,E126,E128,E501,W391,W291,W293,F401 tests
 	flake8 --ignore=F401,W391,W291,W293 twilio --max-line-length=300
 	find tests -type d | xargs nosetests
