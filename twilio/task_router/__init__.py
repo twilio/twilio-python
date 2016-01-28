@@ -5,21 +5,6 @@ from .workflow_config import WorkflowConfig
 from .workflow_ruletarget import WorkflowRuleTarget
 from .workflow_rule import WorkflowRule
 
-from .taskrouter_config import (
-    TaskRouterConfig
-)
-
-from .workflow_config import (
-    WorkflowConfig
-)
-
-from .workflow_ruletarget import (
-    WorkflowRuleTarget
-)
-from .workflow_rule import (
-    WorkflowRule
-)
-
 import warnings
 warnings.simplefilter('always', DeprecationWarning)
 
