@@ -41,7 +41,7 @@ Getting started with the Twilio API couldn't be easier. Create a
 
 ### API Credentials
 
-The `Twilio` needs your Twilio credentials. You can either pass these
+The `Twilio` client needs your Twilio credentials. You can either pass these
 directly to the constructor (see the code below) or via environment variables.
 
 ```python
