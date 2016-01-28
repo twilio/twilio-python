@@ -72,17 +72,18 @@ class TaskRouterWorkerCapabilityTest(unittest.TestCase):
 
         websocket_url = 'https://event-bridge.twilio.com/v1/wschannels/{0}/{1}'.format(self.account_sid, self.worker_sid)
 
-        # expect 5 policies
+        # expect 6 policies
         policies = decoded['policies']
-        self.assertEqual(len(policies), 5)
+        self.assertEqual(len(policies), 6)
 
-        # should expect 5 policies
+        # should expect 6 policies
         for method, url, policy in [
             ('GET', websocket_url, policies[0]),
             ('POST', websocket_url, policies[1]),
             ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", policies[2]),
-            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", policies[3]),
-            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities", policies[4])
+            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities", policies[3])
+            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", policies[4]),
+            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789/Reservations/**", policies[5])
         ]:
             yield self.check_policy, method, url, policy
 
@@ -98,8 +99,8 @@ class TaskRouterWorkerCapabilityTest(unittest.TestCase):
         self.assertNotEqual(None, decoded)
 
         policies = decoded['policies']
-        self.assertEqual(len(policies), 6)
-        policy = policies[5]
+        self.assertEqual(len(policies), 7)
+        policy = policies[6]
 
         url = "https://taskrouter.twilio.com/v1/Workspaces/{0}/Workers/{1}".format(self.workspace_sid, self.worker_sid)
 
@@ -121,13 +122,15 @@ class TaskRouterWorkerCapabilityTest(unittest.TestCase):
         self.assertNotEqual(None, decoded)
 
         policies = decoded['policies']
-        self.assertEqual(len(policies), 6)
+        self.assertEqual(len(policies), 8)
 
-        policy = policies[5]
+        taskPolicy = policies[6]
+        tasksUrl = "https://taskrouter.twilio.com/v1/Workspaces/{0}/Tasks/**".format(self.workspace_sid)
+        self.check_policy('POST', tasksUrl, taskPolicy)
 
-        url = "https://taskrouter.twilio.com/v1/Workspaces/{0}/Tasks/**".format(self.workspace_sid)
-
-        self.check_policy('POST', url, policy)
+        workerReservationsPolicy = policies[7]
+        reservationsUrl = "https://taskrouter.twilio.com/v1/Workspaces/{0}/Workers/{1}/Reservations/**".format(self.workspace_sid, self.worker_sid)
+        self.check_policy('POST', reservationsUrl, workerReservationsPolicy)
 
 if __name__ == "__main__":
     unittest.main()
