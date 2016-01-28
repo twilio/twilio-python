@@ -1,4 +1,4 @@
-from urllib import urlencode
+from twilio.compat import urlencode
 
 
 class Request(object):
