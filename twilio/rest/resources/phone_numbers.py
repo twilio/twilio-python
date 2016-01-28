@@ -325,7 +325,8 @@ class PhoneNumbers(ListResource):
         :param str region: When searching the US, show numbers in this state
         :param str postal_code: Only show numbers in this area code
         :param str rate_center: US only.
-        :param tuple near_lat_long: Find close numbers within Distance miles.
+        :param str near_lat_long: Find close numbers within Distance miles.
+            Should be string of format "{lat},{long}"
         :param integer distance: Search radius for a Near- query in miles.
         :param boolean beta: Whether to include numbers new to the Twilio
             platform.

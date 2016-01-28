@@ -28,13 +28,13 @@ class TwilioTrunkingClient(TwilioClient):
         """
         super(TwilioTrunkingClient, self).__init__(account, token, base,
                                                    version, timeout)
-        self.trunk_base_uri = "{0}/{1}/Trunks".format(base, version)
+        self.trunk_base_uri = "{0}/{1}".format(base, version)
 
     def credential_lists(self, trunk_sid):
         """
         Return a :class:`CredentialList` instance
         """
-        credential_lists_uri = "{0}/{1}/CredentialLists".format(
+        credential_lists_uri = "{0}/Trunks/{1}".format(
             self.trunk_base_uri, trunk_sid)
         return CredentialLists(credential_lists_uri, self.auth, self.timeout)
 
@@ -42,7 +42,7 @@ class TwilioTrunkingClient(TwilioClient):
         """
         Return a :class:`IpAccessControlList` instance
         """
-        ip_access_control_lists_uri = "{0}/{1}/IpAccessControlLists".format(
+        ip_access_control_lists_uri = "{0}/Trunks/{1}".format(
             self.trunk_base_uri, trunk_sid)
         return IpAccessControlLists(ip_access_control_lists_uri, self.auth,
                                     self.timeout)
@@ -51,7 +51,7 @@ class TwilioTrunkingClient(TwilioClient):
         """
         Return a :class:`OriginationUrls` instance
         """
-        origination_urls_uri = "{0}/{1}/OriginationUrls".format(
+        origination_urls_uri = "{0}/Trunks/{1}".format(
             self.trunk_base_uri, trunk_sid)
         return OriginationUrls(origination_urls_uri, self.auth, self.timeout)
 
@@ -59,8 +59,8 @@ class TwilioTrunkingClient(TwilioClient):
         """
         Return a :class:`PhoneNumbers` instance
         """
-        phone_numbers_uri = "{0}/{1}/PhoneNumbers".format(self.trunk_base_uri,
-                                                          trunk_sid)
+        phone_numbers_uri = "{0}/Trunks/{1}".format(self.trunk_base_uri,
+                                                    trunk_sid)
         return PhoneNumbers(phone_numbers_uri, self.auth, self.timeout)
 
     def trunks(self):

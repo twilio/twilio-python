@@ -5,10 +5,11 @@ python:
   - '3.2'
   - '3.3'
   - '3.4'
+  - '3.5'
 install:
-  - pip install . --use-mirrors
-  - pip install -r requirements.txt --use-mirrors
-  - pip install -r tests/requirements.txt --use-mirrors
+  - pip install .
+  - pip install -r requirements.txt
+  - pip install -r tests/requirements.txt
 script:
   - flake8 --ignore=F401 twilio
   - flake8 --ignore=E123,E126,E128,E501 tests

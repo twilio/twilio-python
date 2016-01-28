@@ -8,10 +8,10 @@ from six import (
     binary_type,
     iteritems
 )
-
 from ...compat import urlencode
 from ...compat import urlparse
 from ...compat import urlunparse
+
 from ... import __version__
 from ...exceptions import TwilioException
 from ..exceptions import TwilioRestException
@@ -23,7 +23,6 @@ from .util import (
     transform_params,
     UNSET_TIMEOUT,
 )
-
 
 logger = logging.getLogger('twilio')
 
@@ -245,7 +244,7 @@ class InstanceResource(Resource):
             del entries["uri"]
 
         for key in entries.keys():
-            if ((key.startswith("date_") or key.endswith("_time")) and
+            if (key.startswith("date_") and
                     isinstance(entries[key], string_types)):
                 entries[key] = self._parse_date(entries[key])
 

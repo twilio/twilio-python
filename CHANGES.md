@@ -40,6 +40,13 @@ Released November 25, 2015:
 
 - Adds support for python 3.5.
 
+Version 4.9.2
+-------------
+
+Released November 25, 2015:
+
+- Fix for SIP Trunking bug
+
 Version 5.0.1-edge
 -------------
 
@@ -71,6 +78,7 @@ Released November 3, 2015:
 Version 4.8.0
 -------------
 
+<<<<<<< HEAD
 Released November 2, 2015:
 
 - Add SMS pricing endpoint
@@ -80,6 +88,14 @@ Version 4.6.0-edge
 
 Released October 28, 2015:
 
+=======
+- Add support for SMS pricing
+
+
+Version 4.6.0
+-------------
+
+>>>>>>> bae308162e9e9505a73651d1de0a946e59c30267
 - Add /Keys endpoint
 
 Version 4.6.0

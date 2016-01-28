@@ -1,5 +1,4 @@
 sphinx
-httplib2==0.8
 mock==0.8.0
 nose
 coverage
