@@ -22,7 +22,7 @@
             "reserved": 0
         },
         "tasks_by_priority": {
-            "Priority-5"
+            "Priority-5":1
         },
         "activity_statistics": [
             {
