@@ -127,10 +127,10 @@ class Version(object):
             for record in page:
                 yield record
                 current_record += 1
-                if limit and limit <= current_record:
+                if limit and limit is not values.unset and limit <= current_record:
                     return
 
-            if page_limit and page_limit <= current_page:
+            if page_limit and page_limit is not values.unset and page_limit <= current_page:
                 return
 
             page = page.next_page()
