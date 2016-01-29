@@ -13,5 +13,11 @@ class TaskRouterConfig:
         self.filters = rules
         self.default_filter = default_target
 
+        for rule in self.filters:
+            if not isinstance(rule, WorkflowRule):
+                filter_friendly_name = rule.pop('filter_friendly_name', None)
+                if filter_friendly_name is not None:
+                    rule['friendly_name'] = filter_friendly_name
+
     def __repr__(self):
         return self.__dict__
