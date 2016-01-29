@@ -13,6 +13,7 @@ from twilio.exceptions import TwilioException
 from twilio.http.httplib2_client import Httplib2Client
 from twilio.rest.api import Api
 from twilio.rest.conversations import Conversations
+from twilio.rest.ip_messaging import IpMessaging
 from twilio.rest.lookups import Lookups
 from twilio.rest.monitor import Monitor
 from twilio.rest.pricing import Pricing
@@ -57,6 +58,7 @@ class Client(object):
         # Domains
         self._api = None
         self._conversations = None
+        self._ip_messaging = None
         self._lookups = None
         self._monitor = None
         self._pricing = None
@@ -130,6 +132,18 @@ class Client(object):
         if self._conversations is None:
             self._conversations = Conversations(self)
         return self._conversations
+
+    @property
+    def ip_messaging(self):
+        """
+        Access the IpMessaging Twilio Domain
+        
+        :returns: IpMessaging Twilio Domain
+        :rtype: IpMessaging
+        """
+        if self._ip_messaging is None:
+            self._ip_messaging = IpMessaging(self)
+        return self._ip_messaging
 
     @property
     def lookups(self):
