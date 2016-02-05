@@ -5,8 +5,7 @@
 A module for using the Twilio REST API and generating valid
 [TwiML](http://www.twilio.com/docs/api/twiml/ "TwiML -
 Twilio Markup Language"). [Click here to read the full
-documentation.](http://readthedocs.org/docs/twilio-python/en/latest/ "Twilio
-Python library documentation")
+documentation.][documentation]
 
 ## Installation
 
@@ -122,8 +121,7 @@ If you've instead found a bug in the library or would like new features added, g
 ### Digging Deeper
 
 The full power of the Twilio API is at your fingertips. The [full
-documentation](http://readthedocs.org/docs/twilio-python/en/latest/ "Twilio
-Python library documentation") explains all the awesome features available to
+documentation][documentation] explains all the awesome features available to
 use.
 
 * [Retrieve Call Records][calls]
@@ -139,5 +137,5 @@ use.
 [messages]: http://twilio-python.readthedocs.org/en/latest/usage/messages.html#retrieving-sent-messages
 [calls]: http://twilio-python.readthedocs.org/en/latest/usage/phone-calls.html#retrieve-a-call-record
 [issues]: https://github.com/twilio/twilio-python/issues
-[documentation]: http://twilio-python.readthedocs.org
+[documentation]: http://twilio-python.readthedocs.org/en/release-6x/
 [upgrade]: https://github.com/twilio/twilio-python/wiki/Python-Version-6.x-Upgrade-Guide
