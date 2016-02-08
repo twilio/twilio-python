@@ -1,6 +1,8 @@
+from base64 import b64encode
+
 import httplib2
-from six import integer_types, string_types, iteritems
 from six import binary_type
+from six import integer_types, string_types, iteritems
 
 from twilio.compat import urlencode, urlparse
 from twilio.http import get_cert_file, HttpClient
@@ -45,7 +47,8 @@ class Httplib2Client(HttpClient):
         http.follow_redirects = allow_redirects
 
         if auth is not None:
-            http.add_credentials(auth[0], auth[1])
+            headers = headers or {}
+            headers["Authorization"] = "Basic {}".format(b64encode(':'.join(auth)))
 
         if data is not None:
             udata = {}
