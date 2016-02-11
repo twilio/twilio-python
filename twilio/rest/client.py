@@ -58,7 +58,7 @@ class TwilioRestClient(TwilioClient):
             self.auth,
             timeout
         )
-        self.addresses = Addresses(self.account_url, self.auth, timeout)
+        self.addresses = Addresses(self.account_uri, self.auth, timeout)
         self.calls = Calls(self.account_uri, self.auth, timeout)
         self.caller_ids = CallerIds(self.account_uri, self.auth, timeout)
         self.connect_apps = ConnectApps(self.account_uri, self.auth, timeout)
