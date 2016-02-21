@@ -116,7 +116,7 @@ class Messages(ListResource):
         :param status_callback: A URL that Twilio will POST to when
             your message is processed.
         :param str application_sid: The 34 character sid of the application
-            Twilio should use to handle this phone call.
+            Twilio should use to handle this message.
         """
         kwargs["from"] = from_
         return self.create_instance(kwargs)
