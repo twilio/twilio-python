@@ -125,11 +125,7 @@ class TaskQueueList(ListResource):
             params=params,
         )
         
-        return TaskQueuePage(
-            self._version,
-            response,
-            workspace_sid=self._solution['workspace_sid'],
-        )
+        return TaskQueuePage(self._version, response, self._solution)
 
     def create(self, friendly_name, reservation_activity_sid,
                assignment_activity_sid, target_workers=values.unset,
@@ -223,7 +219,7 @@ class TaskQueueList(ListResource):
 
 class TaskQueuePage(Page):
 
-    def __init__(self, version, response, workspace_sid):
+    def __init__(self, version, response, solution):
         """
         Initialize the TaskQueuePage
         
@@ -237,9 +233,7 @@ class TaskQueuePage(Page):
         super(TaskQueuePage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """

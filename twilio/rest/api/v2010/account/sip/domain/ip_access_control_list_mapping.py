@@ -133,12 +133,7 @@ class IpAccessControlListMappingList(ListResource):
             params=params,
         )
         
-        return IpAccessControlListMappingPage(
-            self._version,
-            response,
-            account_sid=self._solution['account_sid'],
-            domain_sid=self._solution['domain_sid'],
-        )
+        return IpAccessControlListMappingPage(self._version, response, self._solution)
 
     def get(self, sid):
         """
@@ -184,7 +179,7 @@ class IpAccessControlListMappingList(ListResource):
 
 class IpAccessControlListMappingPage(Page):
 
-    def __init__(self, version, response, account_sid, domain_sid):
+    def __init__(self, version, response, solution):
         """
         Initialize the IpAccessControlListMappingPage
         
@@ -199,10 +194,7 @@ class IpAccessControlListMappingPage(Page):
         super(IpAccessControlListMappingPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'domain_sid': domain_sid,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """

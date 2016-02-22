@@ -176,12 +176,7 @@ class TollFreeList(ListResource):
             params=params,
         )
         
-        return TollFreePage(
-            self._version,
-            response,
-            account_sid=self._solution['account_sid'],
-            country_code=self._solution['country_code'],
-        )
+        return TollFreePage(self._version, response, self._solution)
 
     def __repr__(self):
         """
@@ -195,7 +190,7 @@ class TollFreeList(ListResource):
 
 class TollFreePage(Page):
 
-    def __init__(self, version, response, account_sid, country_code):
+    def __init__(self, version, response, solution):
         """
         Initialize the TollFreePage
         
@@ -210,10 +205,7 @@ class TollFreePage(Page):
         super(TollFreePage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'country_code': country_code,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """

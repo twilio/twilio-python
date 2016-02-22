@@ -57,7 +57,7 @@ class PhoneNumberList(ListResource):
 
 class PhoneNumberPage(Page):
 
-    def __init__(self, version, response):
+    def __init__(self, version, response, solution):
         """
         Initialize the PhoneNumberPage
         
@@ -70,7 +70,7 @@ class PhoneNumberPage(Page):
         super(PhoneNumberPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {}
+        self._solution = solution
 
     def get_instance(self, payload):
         """

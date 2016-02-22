@@ -241,11 +241,7 @@ class CallList(ListResource):
             params=params,
         )
         
-        return CallPage(
-            self._version,
-            response,
-            account_sid=self._solution['account_sid'],
-        )
+        return CallPage(self._version, response, self._solution)
 
     @property
     def feedback_summaries(self):
@@ -304,7 +300,7 @@ class CallList(ListResource):
 
 class CallPage(Page):
 
-    def __init__(self, version, response, account_sid):
+    def __init__(self, version, response, solution):
         """
         Initialize the CallPage
         
@@ -318,9 +314,7 @@ class CallPage(Page):
         super(CallPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """

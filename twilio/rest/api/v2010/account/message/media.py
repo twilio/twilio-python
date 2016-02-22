@@ -129,12 +129,7 @@ class MediaList(ListResource):
             params=params,
         )
         
-        return MediaPage(
-            self._version,
-            response,
-            account_sid=self._solution['account_sid'],
-            message_sid=self._solution['message_sid'],
-        )
+        return MediaPage(self._version, response, self._solution)
 
     def get(self, sid):
         """
@@ -180,7 +175,7 @@ class MediaList(ListResource):
 
 class MediaPage(Page):
 
-    def __init__(self, version, response, account_sid, message_sid):
+    def __init__(self, version, response, solution):
         """
         Initialize the MediaPage
         
@@ -195,10 +190,7 @@ class MediaPage(Page):
         super(MediaPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'message_sid': message_sid,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """

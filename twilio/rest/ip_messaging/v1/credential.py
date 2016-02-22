@@ -102,10 +102,7 @@ class CredentialList(ListResource):
             params=params,
         )
         
-        return CredentialPage(
-            self._version,
-            response,
-        )
+        return CredentialPage(self._version, response, self._solution)
 
     def create(self, friendly_name, type, certificate=values.unset,
                private_key=values.unset, sandbox=values.unset,
@@ -183,7 +180,7 @@ class CredentialList(ListResource):
 
 class CredentialPage(Page):
 
-    def __init__(self, version, response):
+    def __init__(self, version, response, solution):
         """
         Initialize the CredentialPage
         
@@ -196,7 +193,7 @@ class CredentialPage(Page):
         super(CredentialPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {}
+        self._solution = solution
 
     def get_instance(self, payload):
         """

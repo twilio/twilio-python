@@ -107,12 +107,7 @@ class IpAddressList(ListResource):
             params=params,
         )
         
-        return IpAddressPage(
-            self._version,
-            response,
-            account_sid=self._solution['account_sid'],
-            ip_access_control_list_sid=self._solution['ip_access_control_list_sid'],
-        )
+        return IpAddressPage(self._version, response, self._solution)
 
     def create(self, friendly_name, ip_address):
         """
@@ -186,7 +181,7 @@ class IpAddressList(ListResource):
 
 class IpAddressPage(Page):
 
-    def __init__(self, version, response, account_sid, ip_access_control_list_sid):
+    def __init__(self, version, response, solution):
         """
         Initialize the IpAddressPage
         
@@ -201,10 +196,7 @@ class IpAddressPage(Page):
         super(IpAddressPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'ip_access_control_list_sid': ip_access_control_list_sid,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """

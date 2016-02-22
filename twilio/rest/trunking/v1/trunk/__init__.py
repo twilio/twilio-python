@@ -143,10 +143,7 @@ class TrunkList(ListResource):
             params=params,
         )
         
-        return TrunkPage(
-            self._version,
-            response,
-        )
+        return TrunkPage(self._version, response, self._solution)
 
     def get(self, sid):
         """
@@ -188,7 +185,7 @@ class TrunkList(ListResource):
 
 class TrunkPage(Page):
 
-    def __init__(self, version, response):
+    def __init__(self, version, response, solution):
         """
         Initialize the TrunkPage
         
@@ -201,7 +198,7 @@ class TrunkPage(Page):
         super(TrunkPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {}
+        self._solution = solution
 
     def get_instance(self, payload):
         """

@@ -125,11 +125,7 @@ class MobileList(ListResource):
             params=params,
         )
         
-        return MobilePage(
-            self._version,
-            response,
-            owner_account_sid=self._solution['owner_account_sid'],
-        )
+        return MobilePage(self._version, response, self._solution)
 
     def create(self, phone_number, api_version=values.unset,
                friendly_name=values.unset, sms_application_sid=values.unset,
@@ -206,7 +202,7 @@ class MobileList(ListResource):
 
 class MobilePage(Page):
 
-    def __init__(self, version, response, owner_account_sid):
+    def __init__(self, version, response, solution):
         """
         Initialize the MobilePage
         
@@ -220,9 +216,7 @@ class MobilePage(Page):
         super(MobilePage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'owner_account_sid': owner_account_sid,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """

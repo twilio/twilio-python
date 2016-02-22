@@ -107,11 +107,7 @@ class DomainList(ListResource):
             params=params,
         )
         
-        return DomainPage(
-            self._version,
-            response,
-            account_sid=self._solution['account_sid'],
-        )
+        return DomainPage(self._version, response, self._solution)
 
     def create(self, domain_name, friendly_name=values.unset,
                voice_url=values.unset, voice_method=values.unset,
@@ -198,7 +194,7 @@ class DomainList(ListResource):
 
 class DomainPage(Page):
 
-    def __init__(self, version, response, account_sid):
+    def __init__(self, version, response, solution):
         """
         Initialize the DomainPage
         
@@ -212,9 +208,7 @@ class DomainPage(Page):
         super(DomainPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """

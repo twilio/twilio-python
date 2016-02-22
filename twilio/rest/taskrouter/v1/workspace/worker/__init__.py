@@ -161,11 +161,7 @@ class WorkerList(ListResource):
             params=params,
         )
         
-        return WorkerPage(
-            self._version,
-            response,
-            workspace_sid=self._solution['workspace_sid'],
-        )
+        return WorkerPage(self._version, response, self._solution)
 
     def create(self, friendly_name, activity_sid=values.unset,
                attributes=values.unset):
@@ -254,7 +250,7 @@ class WorkerList(ListResource):
 
 class WorkerPage(Page):
 
-    def __init__(self, version, response, workspace_sid):
+    def __init__(self, version, response, solution):
         """
         Initialize the WorkerPage
         
@@ -268,9 +264,7 @@ class WorkerPage(Page):
         super(WorkerPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """

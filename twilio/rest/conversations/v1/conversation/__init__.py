@@ -105,7 +105,7 @@ class ConversationList(ListResource):
 
 class ConversationPage(Page):
 
-    def __init__(self, version, response):
+    def __init__(self, version, response, solution):
         """
         Initialize the ConversationPage
         
@@ -118,7 +118,7 @@ class ConversationPage(Page):
         super(ConversationPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {}
+        self._solution = solution
 
     def get_instance(self, payload):
         """

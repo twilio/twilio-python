@@ -176,12 +176,7 @@ class LocalList(ListResource):
             params=params,
         )
         
-        return LocalPage(
-            self._version,
-            response,
-            account_sid=self._solution['account_sid'],
-            country_code=self._solution['country_code'],
-        )
+        return LocalPage(self._version, response, self._solution)
 
     def __repr__(self):
         """
@@ -195,7 +190,7 @@ class LocalList(ListResource):
 
 class LocalPage(Page):
 
-    def __init__(self, version, response, account_sid, country_code):
+    def __init__(self, version, response, solution):
         """
         Initialize the LocalPage
         
@@ -210,10 +205,7 @@ class LocalPage(Page):
         super(LocalPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'country_code': country_code,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """

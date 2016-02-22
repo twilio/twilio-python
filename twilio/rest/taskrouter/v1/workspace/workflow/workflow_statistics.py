@@ -73,7 +73,7 @@ class WorkflowStatisticsList(ListResource):
 
 class WorkflowStatisticsPage(Page):
 
-    def __init__(self, version, response, workspace_sid, workflow_sid):
+    def __init__(self, version, response, solution):
         """
         Initialize the WorkflowStatisticsPage
         
@@ -88,10 +88,7 @@ class WorkflowStatisticsPage(Page):
         super(WorkflowStatisticsPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'workflow_sid': workflow_sid,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """

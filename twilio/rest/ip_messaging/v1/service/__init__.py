@@ -129,10 +129,7 @@ class ServiceList(ListResource):
             params=params,
         )
         
-        return ServicePage(
-            self._version,
-            response,
-        )
+        return ServicePage(self._version, response, self._solution)
 
     def get(self, sid):
         """
@@ -174,7 +171,7 @@ class ServiceList(ListResource):
 
 class ServicePage(Page):
 
-    def __init__(self, version, response):
+    def __init__(self, version, response, solution):
         """
         Initialize the ServicePage
         
@@ -187,7 +184,7 @@ class ServicePage(Page):
         super(ServicePage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {}
+        self._solution = solution
 
     def get_instance(self, payload):
         """

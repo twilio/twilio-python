@@ -73,7 +73,7 @@ class FeedbackList(ListResource):
 
 class FeedbackPage(Page):
 
-    def __init__(self, version, response, account_sid, call_sid):
+    def __init__(self, version, response, solution):
         """
         Initialize the FeedbackPage
         
@@ -88,10 +88,7 @@ class FeedbackPage(Page):
         super(FeedbackPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'call_sid': call_sid,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """

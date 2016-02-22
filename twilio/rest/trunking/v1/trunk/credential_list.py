@@ -130,11 +130,7 @@ class CredentialListList(ListResource):
             params=params,
         )
         
-        return CredentialListPage(
-            self._version,
-            response,
-            trunk_sid=self._solution['trunk_sid'],
-        )
+        return CredentialListPage(self._version, response, self._solution)
 
     def get(self, sid):
         """
@@ -178,7 +174,7 @@ class CredentialListList(ListResource):
 
 class CredentialListPage(Page):
 
-    def __init__(self, version, response, trunk_sid):
+    def __init__(self, version, response, solution):
         """
         Initialize the CredentialListPage
         
@@ -192,9 +188,7 @@ class CredentialListPage(Page):
         super(CredentialListPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'trunk_sid': trunk_sid,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """

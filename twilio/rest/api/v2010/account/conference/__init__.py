@@ -167,11 +167,7 @@ class ConferenceList(ListResource):
             params=params,
         )
         
-        return ConferencePage(
-            self._version,
-            response,
-            account_sid=self._solution['account_sid'],
-        )
+        return ConferencePage(self._version, response, self._solution)
 
     def get(self, sid):
         """
@@ -215,7 +211,7 @@ class ConferenceList(ListResource):
 
 class ConferencePage(Page):
 
-    def __init__(self, version, response, account_sid):
+    def __init__(self, version, response, solution):
         """
         Initialize the ConferencePage
         
@@ -229,9 +225,7 @@ class ConferencePage(Page):
         super(ConferencePage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """

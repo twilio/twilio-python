@@ -133,11 +133,7 @@ class TaskQueuesStatisticsList(ListResource):
             params=params,
         )
         
-        return TaskQueuesStatisticsPage(
-            self._version,
-            response,
-            workspace_sid=self._solution['workspace_sid'],
-        )
+        return TaskQueuesStatisticsPage(self._version, response, self._solution)
 
     def __repr__(self):
         """
@@ -151,7 +147,7 @@ class TaskQueuesStatisticsList(ListResource):
 
 class TaskQueuesStatisticsPage(Page):
 
-    def __init__(self, version, response, workspace_sid):
+    def __init__(self, version, response, solution):
         """
         Initialize the TaskQueuesStatisticsPage
         
@@ -165,9 +161,7 @@ class TaskQueuesStatisticsPage(Page):
         super(TaskQueuesStatisticsPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """
