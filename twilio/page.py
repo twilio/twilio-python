@@ -56,7 +56,7 @@ class Page(object):
     def previous_page_url(self):
         if 'meta' in self._payload and 'previous_page_url' in self._payload['meta']:
             return self._payload['meta']['previous_page_url']
-        elif 'previous_page_uri' in self._payload:
+        elif 'previous_page_uri' in self._payload and self._payload['previous_page_uri']:
             return self._version.domain.absolute_url(self._payload['previous_page_uri'])
 
         return None
