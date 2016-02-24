@@ -69,7 +69,7 @@ class SandboxList(ListResource):
 
 class SandboxPage(Page):
 
-    def __init__(self, version, response, account_sid):
+    def __init__(self, version, response, solution):
         """
         Initialize the SandboxPage
         
@@ -83,9 +83,7 @@ class SandboxPage(Page):
         super(SandboxPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """

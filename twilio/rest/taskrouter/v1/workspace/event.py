@@ -172,11 +172,7 @@ class EventList(ListResource):
             params=params,
         )
         
-        return EventPage(
-            self._version,
-            response,
-            workspace_sid=self._solution['workspace_sid'],
-        )
+        return EventPage(self._version, response, self._solution)
 
     def get(self, sid):
         """
@@ -220,7 +216,7 @@ class EventList(ListResource):
 
 class EventPage(Page):
 
-    def __init__(self, version, response, workspace_sid):
+    def __init__(self, version, response, solution):
         """
         Initialize the EventPage
         
@@ -234,9 +230,7 @@ class EventPage(Page):
         super(EventPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """

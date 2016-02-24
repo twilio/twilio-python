@@ -36,13 +36,17 @@ class ReservationList(ListResource):
         }
         self._uri = '/Workspaces/{workspace_sid}/Tasks/{task_sid}/Reservations'.format(**self._solution)
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, status=values.unset, assignment_status=values.unset,
+               reservation_status=values.unset, limit=None, page_size=None):
         """
         Streams ReservationInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
+        :param unicode status: The status
+        :param unicode assignment_status: The assignment_status
+        :param unicode reservation_status: The reservation_status
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -56,17 +60,24 @@ class ReservationList(ListResource):
         limits = self._version.read_limits(limit, page_size)
         
         page = self.page(
+            status=status,
+            assignment_status=assignment_status,
+            reservation_status=reservation_status,
             page_size=limits['page_size'],
         )
         
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, status=values.unset, assignment_status=values.unset,
+             reservation_status=values.unset, limit=None, page_size=None):
         """
         Lists ReservationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
+        :param unicode status: The status
+        :param unicode assignment_status: The assignment_status
+        :param unicode reservation_status: The reservation_status
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -78,16 +89,23 @@ class ReservationList(ListResource):
         :rtype: generator
         """
         return list(self.stream(
+            status=status,
+            assignment_status=assignment_status,
+            reservation_status=reservation_status,
             limit=limit,
             page_size=page_size,
         ))
 
-    def page(self, page_token=values.unset, page_number=values.unset,
-             page_size=values.unset):
+    def page(self, status=values.unset, assignment_status=values.unset,
+             reservation_status=values.unset, page_token=values.unset,
+             page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of ReservationInstance records from the API.
         Request is executed immediately
         
+        :param unicode status: The status
+        :param unicode assignment_status: The assignment_status
+        :param unicode reservation_status: The reservation_status
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -96,6 +114,9 @@ class ReservationList(ListResource):
         :rtype: Page
         """
         params = values.of({
+            'Status': status,
+            'AssignmentStatus': assignment_status,
+            'ReservationStatus': reservation_status,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -107,12 +128,7 @@ class ReservationList(ListResource):
             params=params,
         )
         
-        return ReservationPage(
-            self._version,
-            response,
-            workspace_sid=self._solution['workspace_sid'],
-            task_sid=self._solution['task_sid'],
-        )
+        return ReservationPage(self._version, response, self._solution)
 
     def get(self, sid):
         """
@@ -158,7 +174,7 @@ class ReservationList(ListResource):
 
 class ReservationPage(Page):
 
-    def __init__(self, version, response, workspace_sid, task_sid):
+    def __init__(self, version, response, solution):
         """
         Initialize the ReservationPage
         
@@ -173,10 +189,7 @@ class ReservationPage(Page):
         super(ReservationPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'task_sid': task_sid,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """
@@ -251,12 +264,39 @@ class ReservationContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
-    def update(self, reservation_status, worker_activity_sid=values.unset):
+    def update(self, reservation_status, worker_activity_sid=values.unset,
+               instruction=values.unset,
+               dequeue_post_work_activity_sid=values.unset,
+               dequeue_from=values.unset, dequeue_record=values.unset,
+               dequeue_timeout=values.unset, dequeue_to=values.unset,
+               dequeue_status_callback_url=values.unset, call_from=values.unset,
+               call_record=values.unset, call_timeout=values.unset,
+               call_to=values.unset, call_url=values.unset,
+               call_status_callback_url=values.unset, call_accept=values.unset,
+               redirect_call_sid=values.unset, redirect_accept=values.unset,
+               redirect_url=values.unset):
         """
         Update the ReservationInstance
         
         :param unicode reservation_status: The reservation_status
         :param unicode worker_activity_sid: The worker_activity_sid
+        :param unicode instruction: The instruction
+        :param unicode dequeue_post_work_activity_sid: The dequeue_post_work_activity_sid
+        :param unicode dequeue_from: The dequeue_from
+        :param unicode dequeue_record: The dequeue_record
+        :param unicode dequeue_timeout: The dequeue_timeout
+        :param unicode dequeue_to: The dequeue_to
+        :param unicode dequeue_status_callback_url: The dequeue_status_callback_url
+        :param unicode call_from: The call_from
+        :param unicode call_record: The call_record
+        :param unicode call_timeout: The call_timeout
+        :param unicode call_to: The call_to
+        :param unicode call_url: The call_url
+        :param unicode call_status_callback_url: The call_status_callback_url
+        :param bool call_accept: The call_accept
+        :param unicode redirect_call_sid: The redirect_call_sid
+        :param bool redirect_accept: The redirect_accept
+        :param unicode redirect_url: The redirect_url
         
         :returns: Updated ReservationInstance
         :rtype: ReservationInstance
@@ -264,6 +304,23 @@ class ReservationContext(InstanceContext):
         data = values.of({
             'ReservationStatus': reservation_status,
             'WorkerActivitySid': worker_activity_sid,
+            'Instruction': instruction,
+            'DequeuePostWorkActivitySid': dequeue_post_work_activity_sid,
+            'DequeueFrom': dequeue_from,
+            'DequeueRecord': dequeue_record,
+            'DequeueTimeout': dequeue_timeout,
+            'DequeueTo': dequeue_to,
+            'DequeueStatusCallbackUrl': dequeue_status_callback_url,
+            'CallFrom': call_from,
+            'CallRecord': call_record,
+            'CallTimeout': call_timeout,
+            'CallTo': call_to,
+            'CallUrl': call_url,
+            'CallStatusCallbackUrl': call_status_callback_url,
+            'CallAccept': call_accept,
+            'RedirectCallSid': redirect_call_sid,
+            'RedirectAccept': redirect_accept,
+            'RedirectUrl': redirect_url,
         })
         
         payload = self._version.update(
@@ -422,12 +479,39 @@ class ReservationInstance(InstanceResource):
         """
         return self._proxy.fetch()
 
-    def update(self, reservation_status, worker_activity_sid=values.unset):
+    def update(self, reservation_status, worker_activity_sid=values.unset,
+               instruction=values.unset,
+               dequeue_post_work_activity_sid=values.unset,
+               dequeue_from=values.unset, dequeue_record=values.unset,
+               dequeue_timeout=values.unset, dequeue_to=values.unset,
+               dequeue_status_callback_url=values.unset, call_from=values.unset,
+               call_record=values.unset, call_timeout=values.unset,
+               call_to=values.unset, call_url=values.unset,
+               call_status_callback_url=values.unset, call_accept=values.unset,
+               redirect_call_sid=values.unset, redirect_accept=values.unset,
+               redirect_url=values.unset):
         """
         Update the ReservationInstance
         
         :param unicode reservation_status: The reservation_status
         :param unicode worker_activity_sid: The worker_activity_sid
+        :param unicode instruction: The instruction
+        :param unicode dequeue_post_work_activity_sid: The dequeue_post_work_activity_sid
+        :param unicode dequeue_from: The dequeue_from
+        :param unicode dequeue_record: The dequeue_record
+        :param unicode dequeue_timeout: The dequeue_timeout
+        :param unicode dequeue_to: The dequeue_to
+        :param unicode dequeue_status_callback_url: The dequeue_status_callback_url
+        :param unicode call_from: The call_from
+        :param unicode call_record: The call_record
+        :param unicode call_timeout: The call_timeout
+        :param unicode call_to: The call_to
+        :param unicode call_url: The call_url
+        :param unicode call_status_callback_url: The call_status_callback_url
+        :param bool call_accept: The call_accept
+        :param unicode redirect_call_sid: The redirect_call_sid
+        :param bool redirect_accept: The redirect_accept
+        :param unicode redirect_url: The redirect_url
         
         :returns: Updated ReservationInstance
         :rtype: ReservationInstance
@@ -435,6 +519,23 @@ class ReservationInstance(InstanceResource):
         return self._proxy.update(
             reservation_status,
             worker_activity_sid=worker_activity_sid,
+            instruction=instruction,
+            dequeue_post_work_activity_sid=dequeue_post_work_activity_sid,
+            dequeue_from=dequeue_from,
+            dequeue_record=dequeue_record,
+            dequeue_timeout=dequeue_timeout,
+            dequeue_to=dequeue_to,
+            dequeue_status_callback_url=dequeue_status_callback_url,
+            call_from=call_from,
+            call_record=call_record,
+            call_timeout=call_timeout,
+            call_to=call_to,
+            call_url=call_url,
+            call_status_callback_url=call_status_callback_url,
+            call_accept=call_accept,
+            redirect_call_sid=redirect_call_sid,
+            redirect_accept=redirect_accept,
+            redirect_url=redirect_url,
         )
 
     def __repr__(self):

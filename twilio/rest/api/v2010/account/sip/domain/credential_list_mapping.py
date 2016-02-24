@@ -133,12 +133,7 @@ class CredentialListMappingList(ListResource):
             params=params,
         )
         
-        return CredentialListMappingPage(
-            self._version,
-            response,
-            account_sid=self._solution['account_sid'],
-            domain_sid=self._solution['domain_sid'],
-        )
+        return CredentialListMappingPage(self._version, response, self._solution)
 
     def get(self, sid):
         """
@@ -184,7 +179,7 @@ class CredentialListMappingList(ListResource):
 
 class CredentialListMappingPage(Page):
 
-    def __init__(self, version, response, account_sid, domain_sid):
+    def __init__(self, version, response, solution):
         """
         Initialize the CredentialListMappingPage
         
@@ -199,10 +194,7 @@ class CredentialListMappingPage(Page):
         super(CredentialListMappingPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'domain_sid': domain_sid,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """

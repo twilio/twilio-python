@@ -138,11 +138,7 @@ class OriginationUrlList(ListResource):
             params=params,
         )
         
-        return OriginationUrlPage(
-            self._version,
-            response,
-            trunk_sid=self._solution['trunk_sid'],
-        )
+        return OriginationUrlPage(self._version, response, self._solution)
 
     def get(self, sid):
         """
@@ -186,7 +182,7 @@ class OriginationUrlList(ListResource):
 
 class OriginationUrlPage(Page):
 
-    def __init__(self, version, response, trunk_sid):
+    def __init__(self, version, response, solution):
         """
         Initialize the OriginationUrlPage
         
@@ -200,9 +196,7 @@ class OriginationUrlPage(Page):
         super(OriginationUrlPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'trunk_sid': trunk_sid,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """

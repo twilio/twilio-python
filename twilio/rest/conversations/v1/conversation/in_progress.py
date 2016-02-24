@@ -13,29 +13,26 @@ from twilio.list_resource import ListResource
 from twilio.page import Page
 
 
-class YearlyList(ListResource):
+class InProgressList(ListResource):
 
-    def __init__(self, version, account_sid):
+    def __init__(self, version):
         """
-        Initialize the YearlyList
+        Initialize the InProgressList
         
         :param Version version: Version that contains the resource
-        :param account_sid: A 34 character string that uniquely identifies this resource.
         
-        :returns: YearlyList
-        :rtype: YearlyList
+        :returns: InProgressList
+        :rtype: InProgressList
         """
-        super(YearlyList, self).__init__(version)
+        super(InProgressList, self).__init__(version)
         
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
-        self._uri = '/Accounts/{account_sid}/Usage/Records/Yearly.json'.format(**self._solution)
+        self._solution = {}
+        self._uri = '/Conversations/InProgress'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
         """
-        Streams YearlyInstance records from the API as a generator stream.
+        Streams InProgressInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -60,7 +57,7 @@ class YearlyList(ListResource):
 
     def list(self, limit=None, page_size=None):
         """
-        Lists YearlyInstance records from the API as a list.
+        Lists InProgressInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -82,14 +79,14 @@ class YearlyList(ListResource):
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
         """
-        Retrieve a single page of YearlyInstance records from the API.
+        Retrieve a single page of InProgressInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
         
-        :returns: Page of YearlyInstance
+        :returns: Page of InProgressInstance
         :rtype: Page
         """
         params = values.of({
@@ -104,7 +101,7 @@ class YearlyList(ListResource):
             params=params,
         )
         
-        return YearlyPage(self._version, response, self._solution)
+        return InProgressPage(self._version, response, self._solution)
 
     def __repr__(self):
         """
@@ -113,40 +110,38 @@ class YearlyList(ListResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Api.V2010.YearlyList>'
+        return '<Twilio.Conversations.V1.InProgressList>'
 
 
-class YearlyPage(Page):
+class InProgressPage(Page):
 
     def __init__(self, version, response, solution):
         """
-        Initialize the YearlyPage
+        Initialize the InProgressPage
         
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: A 34 character string that uniquely identifies this resource.
         
-        :returns: YearlyPage
-        :rtype: YearlyPage
+        :returns: InProgressPage
+        :rtype: InProgressPage
         """
-        super(YearlyPage, self).__init__(version, response)
+        super(InProgressPage, self).__init__(version, response)
         
         # Path Solution
         self._solution = solution
 
     def get_instance(self, payload):
         """
-        Build an instance of YearlyInstance
+        Build an instance of InProgressInstance
         
         :param dict payload: Payload response from the API
         
-        :returns: YearlyInstance
-        :rtype: YearlyInstance
+        :returns: InProgressInstance
+        :rtype: InProgressInstance
         """
-        return YearlyInstance(
+        return InProgressInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
         )
 
     def __repr__(self):
@@ -156,43 +151,83 @@ class YearlyPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Api.V2010.YearlyPage>'
+        return '<Twilio.Conversations.V1.InProgressPage>'
 
 
-class YearlyInstance(InstanceResource):
+class InProgressInstance(InstanceResource):
 
-    def __init__(self, version, payload, account_sid):
+    def __init__(self, version, payload):
         """
-        Initialize the YearlyInstance
+        Initialize the InProgressInstance
         
-        :returns: YearlyInstance
-        :rtype: YearlyInstance
+        :returns: InProgressInstance
+        :rtype: InProgressInstance
         """
-        super(YearlyInstance, self).__init__(version)
+        super(InProgressInstance, self).__init__(version)
         
         # Marshaled Properties
         self._properties = {
+            'sid': payload['sid'],
+            'status': payload['status'],
+            'duration': deserialize.integer(payload['duration']),
+            'date_created': deserialize.iso8601_datetime(payload['date_created']),
+            'start_time': deserialize.iso8601_datetime(payload['start_time']),
+            'end_time': deserialize.iso8601_datetime(payload['end_time']),
             'account_sid': payload['account_sid'],
-            'api_version': payload['api_version'],
-            'category': payload['category'],
-            'count': payload['count'],
-            'count_unit': payload['count_unit'],
-            'description': payload['description'],
-            'end_date': deserialize.iso8601_datetime(payload['end_date']),
-            'price': deserialize.decimal(payload['price']),
-            'price_unit': payload['price_unit'],
-            'start_date': deserialize.iso8601_datetime(payload['start_date']),
-            'subresource_uris': payload['subresource_uris'],
-            'uri': payload['uri'],
-            'usage': payload['usage'],
-            'usage_unit': payload['usage_unit'],
+            'url': payload['url'],
         }
         
         # Context
         self._context = None
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {}
+
+    @property
+    def sid(self):
+        """
+        :returns: The sid
+        :rtype: unicode
+        """
+        return self._properties['sid']
+
+    @property
+    def status(self):
+        """
+        :returns: The status
+        :rtype: in_progress.status
+        """
+        return self._properties['status']
+
+    @property
+    def duration(self):
+        """
+        :returns: The duration
+        :rtype: unicode
+        """
+        return self._properties['duration']
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date_created
+        :rtype: datetime
+        """
+        return self._properties['date_created']
+
+    @property
+    def start_time(self):
+        """
+        :returns: The start_time
+        :rtype: datetime
+        """
+        return self._properties['start_time']
+
+    @property
+    def end_time(self):
+        """
+        :returns: The end_time
+        :rtype: datetime
+        """
+        return self._properties['end_time']
 
     @property
     def account_sid(self):
@@ -203,108 +238,12 @@ class YearlyInstance(InstanceResource):
         return self._properties['account_sid']
 
     @property
-    def api_version(self):
+    def url(self):
         """
-        :returns: The api_version
+        :returns: The url
         :rtype: unicode
         """
-        return self._properties['api_version']
-
-    @property
-    def category(self):
-        """
-        :returns: The category
-        :rtype: yearly.category
-        """
-        return self._properties['category']
-
-    @property
-    def count(self):
-        """
-        :returns: The count
-        :rtype: unicode
-        """
-        return self._properties['count']
-
-    @property
-    def count_unit(self):
-        """
-        :returns: The count_unit
-        :rtype: unicode
-        """
-        return self._properties['count_unit']
-
-    @property
-    def description(self):
-        """
-        :returns: The description
-        :rtype: unicode
-        """
-        return self._properties['description']
-
-    @property
-    def end_date(self):
-        """
-        :returns: The end_date
-        :rtype: datetime
-        """
-        return self._properties['end_date']
-
-    @property
-    def price(self):
-        """
-        :returns: The price
-        :rtype: unicode
-        """
-        return self._properties['price']
-
-    @property
-    def price_unit(self):
-        """
-        :returns: The price_unit
-        :rtype: unicode
-        """
-        return self._properties['price_unit']
-
-    @property
-    def start_date(self):
-        """
-        :returns: The start_date
-        :rtype: datetime
-        """
-        return self._properties['start_date']
-
-    @property
-    def subresource_uris(self):
-        """
-        :returns: The subresource_uris
-        :rtype: unicode
-        """
-        return self._properties['subresource_uris']
-
-    @property
-    def uri(self):
-        """
-        :returns: The uri
-        :rtype: unicode
-        """
-        return self._properties['uri']
-
-    @property
-    def usage(self):
-        """
-        :returns: The usage
-        :rtype: unicode
-        """
-        return self._properties['usage']
-
-    @property
-    def usage_unit(self):
-        """
-        :returns: The usage_unit
-        :rtype: unicode
-        """
-        return self._properties['usage_unit']
+        return self._properties['url']
 
     def __repr__(self):
         """
@@ -313,4 +252,4 @@ class YearlyInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Api.V2010.YearlyInstance>'
+        return '<Twilio.Conversations.V1.InProgressInstance>'

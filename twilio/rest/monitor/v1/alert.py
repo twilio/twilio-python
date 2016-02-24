@@ -154,10 +154,7 @@ class AlertList(ListResource):
             params=params,
         )
         
-        return AlertPage(
-            self._version,
-            response,
-        )
+        return AlertPage(self._version, response, self._solution)
 
     def get(self, sid):
         """
@@ -199,7 +196,7 @@ class AlertList(ListResource):
 
 class AlertPage(Page):
 
-    def __init__(self, version, response):
+    def __init__(self, version, response, solution):
         """
         Initialize the AlertPage
         
@@ -212,7 +209,7 @@ class AlertPage(Page):
         super(AlertPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {}
+        self._solution = solution
 
     def get_instance(self, payload):
         """

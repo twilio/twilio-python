@@ -57,7 +57,7 @@ class MessagingList(ListResource):
 
 class MessagingPage(Page):
 
-    def __init__(self, version, response):
+    def __init__(self, version, response, solution):
         """
         Initialize the MessagingPage
         
@@ -70,7 +70,7 @@ class MessagingPage(Page):
         super(MessagingPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {}
+        self._solution = solution
 
     def get_instance(self, payload):
         """

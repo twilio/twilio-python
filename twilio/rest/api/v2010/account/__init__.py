@@ -161,10 +161,7 @@ class AccountList(ListResource):
             params=params,
         )
         
-        return AccountPage(
-            self._version,
-            response,
-        )
+        return AccountPage(self._version, response, self._solution)
 
     def get(self, sid):
         """
@@ -206,7 +203,7 @@ class AccountList(ListResource):
 
 class AccountPage(Page):
 
-    def __init__(self, version, response):
+    def __init__(self, version, response, solution):
         """
         Initialize the AccountPage
         
@@ -219,7 +216,7 @@ class AccountPage(Page):
         super(AccountPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {}
+        self._solution = solution
 
     def get_instance(self, payload):
         """

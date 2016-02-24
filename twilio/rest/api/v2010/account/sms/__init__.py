@@ -78,7 +78,7 @@ class SmsList(ListResource):
 
 class SmsPage(Page):
 
-    def __init__(self, version, response, account_sid):
+    def __init__(self, version, response, solution):
         """
         Initialize the SmsPage
         
@@ -92,9 +92,7 @@ class SmsPage(Page):
         super(SmsPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """

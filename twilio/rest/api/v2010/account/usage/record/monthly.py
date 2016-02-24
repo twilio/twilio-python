@@ -104,11 +104,7 @@ class MonthlyList(ListResource):
             params=params,
         )
         
-        return MonthlyPage(
-            self._version,
-            response,
-            account_sid=self._solution['account_sid'],
-        )
+        return MonthlyPage(self._version, response, self._solution)
 
     def __repr__(self):
         """
@@ -122,7 +118,7 @@ class MonthlyList(ListResource):
 
 class MonthlyPage(Page):
 
-    def __init__(self, version, response, account_sid):
+    def __init__(self, version, response, solution):
         """
         Initialize the MonthlyPage
         
@@ -136,9 +132,7 @@ class MonthlyPage(Page):
         super(MonthlyPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """

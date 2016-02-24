@@ -120,11 +120,7 @@ class OutgoingCallerIdList(ListResource):
             params=params,
         )
         
-        return OutgoingCallerIdPage(
-            self._version,
-            response,
-            account_sid=self._solution['account_sid'],
-        )
+        return OutgoingCallerIdPage(self._version, response, self._solution)
 
     def get(self, sid):
         """
@@ -168,7 +164,7 @@ class OutgoingCallerIdList(ListResource):
 
 class OutgoingCallerIdPage(Page):
 
-    def __init__(self, version, response, account_sid):
+    def __init__(self, version, response, solution):
         """
         Initialize the OutgoingCallerIdPage
         
@@ -182,9 +178,7 @@ class OutgoingCallerIdPage(Page):
         super(OutgoingCallerIdPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """

@@ -136,11 +136,7 @@ class NotificationList(ListResource):
             params=params,
         )
         
-        return NotificationPage(
-            self._version,
-            response,
-            account_sid=self._solution['account_sid'],
-        )
+        return NotificationPage(self._version, response, self._solution)
 
     def get(self, sid):
         """
@@ -184,7 +180,7 @@ class NotificationList(ListResource):
 
 class NotificationPage(Page):
 
-    def __init__(self, version, response, account_sid):
+    def __init__(self, version, response, solution):
         """
         Initialize the NotificationPage
         
@@ -198,9 +194,7 @@ class NotificationPage(Page):
         super(NotificationPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """

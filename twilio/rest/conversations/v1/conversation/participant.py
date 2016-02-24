@@ -105,11 +105,7 @@ class ParticipantList(ListResource):
             params=params,
         )
         
-        return ParticipantPage(
-            self._version,
-            response,
-            conversation_sid=self._solution['conversation_sid'],
-        )
+        return ParticipantPage(self._version, response, self._solution)
 
     def create(self, to, from_):
         """
@@ -180,7 +176,7 @@ class ParticipantList(ListResource):
 
 class ParticipantPage(Page):
 
-    def __init__(self, version, response, conversation_sid):
+    def __init__(self, version, response, solution):
         """
         Initialize the ParticipantPage
         
@@ -194,9 +190,7 @@ class ParticipantPage(Page):
         super(ParticipantPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'conversation_sid': conversation_sid,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """

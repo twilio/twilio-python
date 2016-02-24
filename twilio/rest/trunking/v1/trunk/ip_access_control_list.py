@@ -130,11 +130,7 @@ class IpAccessControlListList(ListResource):
             params=params,
         )
         
-        return IpAccessControlListPage(
-            self._version,
-            response,
-            trunk_sid=self._solution['trunk_sid'],
-        )
+        return IpAccessControlListPage(self._version, response, self._solution)
 
     def get(self, sid):
         """
@@ -178,7 +174,7 @@ class IpAccessControlListList(ListResource):
 
 class IpAccessControlListPage(Page):
 
-    def __init__(self, version, response, trunk_sid):
+    def __init__(self, version, response, solution):
         """
         Initialize the IpAccessControlListPage
         
@@ -192,9 +188,7 @@ class IpAccessControlListPage(Page):
         super(IpAccessControlListPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'trunk_sid': trunk_sid,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """

@@ -112,11 +112,7 @@ class WorkflowList(ListResource):
             params=params,
         )
         
-        return WorkflowPage(
-            self._version,
-            response,
-            workspace_sid=self._solution['workspace_sid'],
-        )
+        return WorkflowPage(self._version, response, self._solution)
 
     def create(self, friendly_name, configuration, assignment_callback_url,
                fallback_assignment_callback_url=values.unset,
@@ -195,7 +191,7 @@ class WorkflowList(ListResource):
 
 class WorkflowPage(Page):
 
-    def __init__(self, version, response, workspace_sid):
+    def __init__(self, version, response, solution):
         """
         Initialize the WorkflowPage
         
@@ -209,9 +205,7 @@ class WorkflowPage(Page):
         super(WorkflowPage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """

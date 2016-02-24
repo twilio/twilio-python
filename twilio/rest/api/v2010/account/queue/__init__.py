@@ -106,11 +106,7 @@ class QueueList(ListResource):
             params=params,
         )
         
-        return QueuePage(
-            self._version,
-            response,
-            account_sid=self._solution['account_sid'],
-        )
+        return QueuePage(self._version, response, self._solution)
 
     def create(self, friendly_name=values.unset, max_size=values.unset):
         """
@@ -181,7 +177,7 @@ class QueueList(ListResource):
 
 class QueuePage(Page):
 
-    def __init__(self, version, response, account_sid):
+    def __init__(self, version, response, solution):
         """
         Initialize the QueuePage
         
@@ -195,9 +191,7 @@ class QueuePage(Page):
         super(QueuePage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """

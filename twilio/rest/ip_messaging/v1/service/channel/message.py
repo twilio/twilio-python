@@ -135,12 +135,7 @@ class MessageList(ListResource):
             params=params,
         )
         
-        return MessagePage(
-            self._version,
-            response,
-            service_sid=self._solution['service_sid'],
-            channel_sid=self._solution['channel_sid'],
-        )
+        return MessagePage(self._version, response, self._solution)
 
     def get(self, sid):
         """
@@ -186,7 +181,7 @@ class MessageList(ListResource):
 
 class MessagePage(Page):
 
-    def __init__(self, version, response, service_sid, channel_sid):
+    def __init__(self, version, response, solution):
         """
         Initialize the MessagePage
         
@@ -201,10 +196,7 @@ class MessagePage(Page):
         super(MessagePage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {
-            'service_sid': service_sid,
-            'channel_sid': channel_sid,
-        }
+        self._solution = solution
 
     def get_instance(self, payload):
         """

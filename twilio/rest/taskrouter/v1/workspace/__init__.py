@@ -115,10 +115,7 @@ class WorkspaceList(ListResource):
             params=params,
         )
         
-        return WorkspacePage(
-            self._version,
-            response,
-        )
+        return WorkspacePage(self._version, response, self._solution)
 
     def create(self, friendly_name, event_callback_url=values.unset,
                template=values.unset):
@@ -189,7 +186,7 @@ class WorkspaceList(ListResource):
 
 class WorkspacePage(Page):
 
-    def __init__(self, version, response):
+    def __init__(self, version, response, solution):
         """
         Initialize the WorkspacePage
         
@@ -202,7 +199,7 @@ class WorkspacePage(Page):
         super(WorkspacePage, self).__init__(version, response)
         
         # Path Solution
-        self._solution = {}
+        self._solution = solution
 
     def get_instance(self, payload):
         """
