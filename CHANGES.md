@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 5.4.0
+-------------
+
+Released February 29, 2016:
+
+- Add support for API Key auth
+
 Version 5.3.0
 -------------
 
