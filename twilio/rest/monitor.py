@@ -21,10 +21,11 @@ class TwilioMonitorClient(TwilioClient):
 
     def __init__(self, account=None, token=None,
                  base="https://monitor.twilio.com", version="v1",
-                 timeout=UNSET_TIMEOUT):
+                 timeout=UNSET_TIMEOUT, request_account=None):
 
         super(TwilioMonitorClient, self).__init__(account, token, base,
-                                                  version, timeout)
+                                                  version, timeout,
+                                                  request_account)
 
         self.version_uri = "%s/%s" % (base, version)
         self.events = Events(self.version_uri, self.auth, timeout)
