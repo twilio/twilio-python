@@ -25,12 +25,13 @@ class TwilioTaskRouterClient(TwilioClient):
 
     def __init__(self, account=None, token=None,
                  base="https://taskrouter.twilio.com", version="v1",
-                 timeout=UNSET_TIMEOUT):
+                 timeout=UNSET_TIMEOUT, request_account=None):
         """
         Create a Twilio REST API client.
         """
         super(TwilioTaskRouterClient, self).__init__(account, token, base,
-                                                     version, timeout)
+                                                     version, timeout,
+                                                     request_account)
         self.base_uri = "{0}/{1}".format(base, version)
         self.workspace_uri = "{0}/Workspaces".format(self.base_uri)
 

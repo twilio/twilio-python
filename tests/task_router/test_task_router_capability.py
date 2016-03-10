@@ -72,14 +72,15 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         self.check_decoded(decoded, account_sid, workspace_sid, worker_sid, worker_sid)
 
         policies = decoded['policies']
-        self.assertEqual(len(policies), 5)
+        self.assertEqual(len(policies), 6)
 
         for method, url, policy in [
-            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities", policies[0]),
-            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", policies[1]),
-            ('GET', "https://taskrouter.twilio.com/v1/wschannels/AC123/WK789", policies[2]),
-            ('POST', "https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", policies[3]),
-            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", policies[4])
+            ('GET', "https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", policies[0]),
+            ('POST', "https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", policies[1]),
+            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", policies[2])
+            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities", policies[3]),
+            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", policies[4]),
+            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789/Reservations/**", policies[5])
         ]:
             yield self.check_policy, method, url, policy
 
@@ -128,15 +129,16 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         self.check_decoded(decoded, account_sid, workspace_sid, worker_sid, worker_sid)
 
         policies = decoded['policies']
-        self.assertEqual(len(policies), 5)
+        self.assertEqual(len(policies), 6)
 
-        # should expect 5 policies
+        # should expect 6 policies
         for method, url, policy in [
-            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities", policies[0]),
-            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", policies[1]),
-            ('GET', "https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", policies[2]),
-            ('POST', "https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", policies[3]),
-            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", policies[4])
+            ('GET', "https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", policies[0]),
+            ('POST', "https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", policies[1]),
+            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities", policies[2]),
+            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", policies[3]),
+            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789/Reservations/**", policies[4]),
+            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", policies[5])
         ]:
             yield self.check_policy, method, url, policy
 
