@@ -30,7 +30,7 @@ The output is perfectly formatted XML:
 .. code-block:: xml
 
    <?xml version="1.0" encoding="utf-8"?>
-   <Response><Say>Hello</Say><Response>
+   <Response><Say>Hello</Say></Response>
 
 The verb methods (outlined in the :doc:`complete reference </api/twiml>`)
 take the body (only text) of the verb as the first argument.
@@ -49,7 +49,7 @@ All attributes are keyword arguments.
     <?xml version="1.0" encoding="utf-8"?>
     <Response>
         <Play loop="3">https://api.twilio.com/cowbell.mp3</Play>
-    <Response>
+    </Response>
 
 The Message and Sms verbs are slightly special: because :const:`from` is a
 Python keyword, use the :const:`sender` parameter to specify the number
@@ -68,7 +68,7 @@ the message should come from:
     <?xml version="1.0" encoding="utf-8"?>
     <Response>
         <Message from="+14155551234">Hello MMS Monkey!</Message>
-    <Response>
+    </Response>
 
 Python 2.6+ added the :const:`with` statement for context management.
 Using :const:`with`, the module can *almost* emulate Ruby blocks.
