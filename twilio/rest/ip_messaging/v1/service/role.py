@@ -270,7 +270,7 @@ class RoleContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('get', self._uri)
+        return self._version.delete('delete', self._uri)
 
     def update(self, friendly_name, permission):
         """

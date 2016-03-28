@@ -27,6 +27,32 @@ class MemberTestCase(IntegrationTestCase):
             'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         ))
 
+    def test_fetch_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "sid": "MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "channel_sid": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "service_sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "identity": "jing",
+                "role_sid": "RL003876fe89d744dfa576824b53c26784",
+                "last_consumed_message_index": null,
+                "last_consumption_timestamp": null,
+                "date_created": "2016-03-24T21:05:50Z",
+                "date_updated": "2016-03-24T21:05:50Z",
+                "url": "https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
+        
+        actual = self.client.ip_messaging.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                            .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                            .members(sid="MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        
+        self.assertIsNotNone(actual)
+
     def test_create_request(self):
         self.holodeck.mock(Response(500, ''))
         
@@ -45,6 +71,32 @@ class MemberTestCase(IntegrationTestCase):
             data=values,
         ))
 
+    def test_create_response(self):
+        self.holodeck.mock(Response(
+            201,
+            '''
+            {
+                "sid": "MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "channel_sid": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "service_sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "identity": "jing",
+                "role_sid": "RL003876fe89d744dfa576824b53c26784",
+                "last_consumed_message_index": null,
+                "last_consumption_timestamp": null,
+                "date_created": "2016-03-24T21:05:50Z",
+                "date_updated": "2016-03-24T21:05:50Z",
+                "url": "https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
+        
+        actual = self.client.ip_messaging.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                            .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                            .members.create(identity="identity")
+        
+        self.assertIsNotNone(actual)
+
     def test_list_request(self):
         self.holodeck.mock(Response(500, ''))
         
@@ -58,6 +110,70 @@ class MemberTestCase(IntegrationTestCase):
             'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members',
         ))
 
+    def test_read_full_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "meta": {
+                    "page": 0,
+                    "page_size": 1,
+                    "first_page_url": "https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members?PageSize=1&Page=0",
+                    "previous_page_url": null,
+                    "url": "https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members?PageSize=1&Page=0",
+                    "next_page_url": null,
+                    "key": "members"
+                },
+                "members": [
+                    {
+                        "sid": "MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "channel_sid": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "service_sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "identity": "jing",
+                        "role_sid": "RL003876fe89d744dfa576824b53c26784",
+                        "last_consumed_message_index": null,
+                        "last_consumption_timestamp": null,
+                        "date_created": "2016-03-24T21:05:50Z",
+                        "date_updated": "2016-03-24T21:05:50Z",
+                        "url": "https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    }
+                ]
+            }
+            '''
+        ))
+        
+        actual = self.client.ip_messaging.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                            .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                            .members.list()
+        
+        self.assertIsNotNone(actual)
+
+    def test_read_empty_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "meta": {
+                    "page": 0,
+                    "page_size": 1,
+                    "first_page_url": "https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members?PageSize=1&Page=0",
+                    "previous_page_url": null,
+                    "url": "https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members?PageSize=1&Page=0",
+                    "next_page_url": null,
+                    "key": "members"
+                },
+                "members": []
+            }
+            '''
+        ))
+        
+        actual = self.client.ip_messaging.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                            .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                            .members.list()
+        
+        self.assertIsNotNone(actual)
+
     def test_delete_request(self):
         self.holodeck.mock(Response(500, ''))
         
@@ -70,3 +186,15 @@ class MemberTestCase(IntegrationTestCase):
             'delete',
             'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         ))
+
+    def test_delete_response(self):
+        self.holodeck.mock(Response(
+            204,
+            None,
+        ))
+        
+        actual = self.client.ip_messaging.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                            .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                            .members(sid="MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        
+        self.assertTrue(actual)

@@ -3,8 +3,17 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 6.0rc4
+-------------
+
+Released March 29, 2016:
+
+- Add notifications.twilio.com subdomain
+
 Version 6.0.0
 -------------
+
+Released January 29, 2016:
 
 - First class paging support
 - Streaming auto-paging functionality

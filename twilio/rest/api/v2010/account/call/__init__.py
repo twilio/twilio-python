@@ -621,7 +621,7 @@ class CallInstance(InstanceResource):
     @property
     def direction(self):
         """
-        :returns: A string describing the direction of the call. `inbound` for inbound calls, `outbound-api` for calls initiated via the REST API or `outbound-dial` for calls initiated by a `<Dial>` verb.
+        :returns: A string describing the direction of the call. `inbound` for inbound calls, `outbound-api` for calls initiated via the REST API or `outbound-dial` for calls initiated by a `Dial` verb.
         :rtype: unicode
         """
         return self._properties['direction']

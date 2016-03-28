@@ -12,9 +12,8 @@ from twilio.instance_context import InstanceContext
 from twilio.instance_resource import InstanceResource
 from twilio.list_resource import ListResource
 from twilio.page import Page
-from twilio.rest.ip_messaging.v1.service.channel import ChannelList
-from twilio.rest.ip_messaging.v1.service.role import RoleList
-from twilio.rest.ip_messaging.v1.service.user import UserList
+from twilio.rest.notifications.v1.service.binding import BindingList
+from twilio.rest.notifications.v1.service.notification import NotificationList
 
 
 class ServiceList(ListResource):
@@ -34,17 +33,28 @@ class ServiceList(ListResource):
         self._solution = {}
         self._uri = '/Services'.format(**self._solution)
 
-    def create(self, friendly_name):
+    def create(self, friendly_name=values.unset, apn_credential_sid=values.unset,
+               gcm_credential_sid=values.unset,
+               default_apn_notification_protocol_version=values.unset,
+               default_gcm_notification_protocol_version=values.unset):
         """
         Create a new ServiceInstance
         
         :param unicode friendly_name: The friendly_name
+        :param unicode apn_credential_sid: The apn_credential_sid
+        :param unicode gcm_credential_sid: The gcm_credential_sid
+        :param unicode default_apn_notification_protocol_version: The default_apn_notification_protocol_version
+        :param unicode default_gcm_notification_protocol_version: The default_gcm_notification_protocol_version
         
         :returns: Newly created ServiceInstance
         :rtype: ServiceInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
+            'ApnCredentialSid': apn_credential_sid,
+            'GcmCredentialSid': gcm_credential_sid,
+            'DefaultApnNotificationProtocolVersion': default_apn_notification_protocol_version,
+            'DefaultGcmNotificationProtocolVersion': default_gcm_notification_protocol_version,
         })
         
         payload = self._version.create(
@@ -58,13 +68,14 @@ class ServiceList(ListResource):
             payload,
         )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, friendly_name=values.unset, limit=None, page_size=None):
         """
         Streams ServiceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
+        :param unicode friendly_name: The friendly_name
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -78,17 +89,19 @@ class ServiceList(ListResource):
         limits = self._version.read_limits(limit, page_size)
         
         page = self.page(
+            friendly_name=friendly_name,
             page_size=limits['page_size'],
         )
         
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, friendly_name=values.unset, limit=None, page_size=None):
         """
         Lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
+        :param unicode friendly_name: The friendly_name
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -100,16 +113,18 @@ class ServiceList(ListResource):
         :rtype: generator
         """
         return list(self.stream(
+            friendly_name=friendly_name,
             limit=limit,
             page_size=page_size,
         ))
 
-    def page(self, page_token=values.unset, page_number=values.unset,
-             page_size=values.unset):
+    def page(self, friendly_name=values.unset, page_token=values.unset,
+             page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
         
+        :param unicode friendly_name: The friendly_name
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -118,6 +133,7 @@ class ServiceList(ListResource):
         :rtype: Page
         """
         params = values.of({
+            'FriendlyName': friendly_name,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -166,7 +182,7 @@ class ServiceList(ListResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.IpMessaging.V1.ServiceList>'
+        return '<Twilio.Notifications.V1.ServiceList>'
 
 
 class ServicePage(Page):
@@ -207,7 +223,7 @@ class ServicePage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.IpMessaging.V1.ServicePage>'
+        return '<Twilio.Notifications.V1.ServicePage>'
 
 
 class ServiceContext(InstanceContext):
@@ -231,9 +247,17 @@ class ServiceContext(InstanceContext):
         self._uri = '/Services/{sid}'.format(**self._solution)
         
         # Dependents
-        self._channels = None
-        self._roles = None
-        self._users = None
+        self._bindings = None
+        self._notifications = None
+
+    def delete(self):
+        """
+        Deletes the ServiceInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete('delete', self._uri)
 
     def fetch(self):
         """
@@ -256,46 +280,28 @@ class ServiceContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
-    def delete(self):
-        """
-        Deletes the ServiceInstance
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete('delete', self._uri)
-
-    def update(self, friendly_name=values.unset,
-               default_service_role_sid=values.unset,
-               default_channel_role_sid=values.unset,
-               default_channel_creator_role_sid=values.unset,
-               read_status_enabled=values.unset,
-               typing_indicator_timeout=values.unset,
-               consumption_report_interval=values.unset, webhooks=values.unset):
+    def update(self, friendly_name=values.unset, apn_credential_sid=values.unset,
+               gcm_credential_sid=values.unset,
+               default_apn_notification_protocol_version=values.unset,
+               default_gcm_notification_protocol_version=values.unset):
         """
         Update the ServiceInstance
         
         :param unicode friendly_name: The friendly_name
-        :param unicode default_service_role_sid: The default_service_role_sid
-        :param unicode default_channel_role_sid: The default_channel_role_sid
-        :param unicode default_channel_creator_role_sid: The default_channel_creator_role_sid
-        :param bool read_status_enabled: The read_status_enabled
-        :param unicode typing_indicator_timeout: The typing_indicator_timeout
-        :param unicode consumption_report_interval: The consumption_report_interval
-        :param unicode webhooks: The webhooks
+        :param unicode apn_credential_sid: The apn_credential_sid
+        :param unicode gcm_credential_sid: The gcm_credential_sid
+        :param unicode default_apn_notification_protocol_version: The default_apn_notification_protocol_version
+        :param unicode default_gcm_notification_protocol_version: The default_gcm_notification_protocol_version
         
         :returns: Updated ServiceInstance
         :rtype: ServiceInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
-            'DefaultServiceRoleSid': default_service_role_sid,
-            'DefaultChannelRoleSid': default_channel_role_sid,
-            'DefaultChannelCreatorRoleSid': default_channel_creator_role_sid,
-            'ReadStatusEnabled': read_status_enabled,
-            'TypingIndicatorTimeout': typing_indicator_timeout,
-            'ConsumptionReportInterval': consumption_report_interval,
-            'Webhooks': webhooks,
+            'ApnCredentialSid': apn_credential_sid,
+            'GcmCredentialSid': gcm_credential_sid,
+            'DefaultApnNotificationProtocolVersion': default_apn_notification_protocol_version,
+            'DefaultGcmNotificationProtocolVersion': default_gcm_notification_protocol_version,
         })
         
         payload = self._version.update(
@@ -311,49 +317,34 @@ class ServiceContext(InstanceContext):
         )
 
     @property
-    def channels(self):
+    def bindings(self):
         """
-        Access the channels
+        Access the bindings
         
-        :returns: ChannelList
-        :rtype: ChannelList
+        :returns: BindingList
+        :rtype: BindingList
         """
-        if self._channels is None:
-            self._channels = ChannelList(
+        if self._bindings is None:
+            self._bindings = BindingList(
                 self._version,
                 service_sid=self._solution['sid'],
             )
-        return self._channels
+        return self._bindings
 
     @property
-    def roles(self):
+    def notifications(self):
         """
-        Access the roles
+        Access the notifications
         
-        :returns: RoleList
-        :rtype: RoleList
+        :returns: NotificationList
+        :rtype: NotificationList
         """
-        if self._roles is None:
-            self._roles = RoleList(
+        if self._notifications is None:
+            self._notifications = NotificationList(
                 self._version,
                 service_sid=self._solution['sid'],
             )
-        return self._roles
-
-    @property
-    def users(self):
-        """
-        Access the users
-        
-        :returns: UserList
-        :rtype: UserList
-        """
-        if self._users is None:
-            self._users = UserList(
-                self._version,
-                service_sid=self._solution['sid'],
-            )
-        return self._users
+        return self._notifications
 
     def __repr__(self):
         """
@@ -363,7 +354,7 @@ class ServiceContext(InstanceContext):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.IpMessaging.V1.ServiceContext {}>'.format(context)
+        return '<Twilio.Notifications.V1.ServiceContext {}>'.format(context)
 
 
 class ServiceInstance(InstanceResource):
@@ -384,13 +375,10 @@ class ServiceInstance(InstanceResource):
             'friendly_name': payload['friendly_name'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'default_service_role_sid': payload['default_service_role_sid'],
-            'default_channel_role_sid': payload['default_channel_role_sid'],
-            'default_channel_creator_role_sid': payload['default_channel_creator_role_sid'],
-            'read_status_enabled': payload['read_status_enabled'],
-            'typing_indicator_timeout': deserialize.integer(payload['typing_indicator_timeout']),
-            'consumption_report_interval': deserialize.integer(payload['consumption_report_interval']),
-            'webhooks': payload['webhooks'],
+            'apn_credential_sid': payload['apn_credential_sid'],
+            'gcm_credential_sid': payload['gcm_credential_sid'],
+            'default_apn_notification_protocol_version': payload['default_apn_notification_protocol_version'],
+            'default_gcm_notification_protocol_version': payload['default_gcm_notification_protocol_version'],
             'url': payload['url'],
             'links': payload['links'],
         }
@@ -458,60 +446,36 @@ class ServiceInstance(InstanceResource):
         return self._properties['date_updated']
 
     @property
-    def default_service_role_sid(self):
+    def apn_credential_sid(self):
         """
-        :returns: The default_service_role_sid
+        :returns: The apn_credential_sid
         :rtype: unicode
         """
-        return self._properties['default_service_role_sid']
+        return self._properties['apn_credential_sid']
 
     @property
-    def default_channel_role_sid(self):
+    def gcm_credential_sid(self):
         """
-        :returns: The default_channel_role_sid
+        :returns: The gcm_credential_sid
         :rtype: unicode
         """
-        return self._properties['default_channel_role_sid']
+        return self._properties['gcm_credential_sid']
 
     @property
-    def default_channel_creator_role_sid(self):
+    def default_apn_notification_protocol_version(self):
         """
-        :returns: The default_channel_creator_role_sid
+        :returns: The default_apn_notification_protocol_version
         :rtype: unicode
         """
-        return self._properties['default_channel_creator_role_sid']
+        return self._properties['default_apn_notification_protocol_version']
 
     @property
-    def read_status_enabled(self):
+    def default_gcm_notification_protocol_version(self):
         """
-        :returns: The read_status_enabled
-        :rtype: bool
-        """
-        return self._properties['read_status_enabled']
-
-    @property
-    def typing_indicator_timeout(self):
-        """
-        :returns: The typing_indicator_timeout
+        :returns: The default_gcm_notification_protocol_version
         :rtype: unicode
         """
-        return self._properties['typing_indicator_timeout']
-
-    @property
-    def consumption_report_interval(self):
-        """
-        :returns: The consumption_report_interval
-        :rtype: unicode
-        """
-        return self._properties['consumption_report_interval']
-
-    @property
-    def webhooks(self):
-        """
-        :returns: The webhooks
-        :rtype: unicode
-        """
-        return self._properties['webhooks']
+        return self._properties['default_gcm_notification_protocol_version']
 
     @property
     def url(self):
@@ -529,15 +493,6 @@ class ServiceInstance(InstanceResource):
         """
         return self._properties['links']
 
-    def fetch(self):
-        """
-        Fetch a ServiceInstance
-        
-        :returns: Fetched ServiceInstance
-        :rtype: ServiceInstance
-        """
-        return self._proxy.fetch()
-
     def delete(self):
         """
         Deletes the ServiceInstance
@@ -547,68 +502,58 @@ class ServiceInstance(InstanceResource):
         """
         return self._proxy.delete()
 
-    def update(self, friendly_name=values.unset,
-               default_service_role_sid=values.unset,
-               default_channel_role_sid=values.unset,
-               default_channel_creator_role_sid=values.unset,
-               read_status_enabled=values.unset,
-               typing_indicator_timeout=values.unset,
-               consumption_report_interval=values.unset, webhooks=values.unset):
+    def fetch(self):
+        """
+        Fetch a ServiceInstance
+        
+        :returns: Fetched ServiceInstance
+        :rtype: ServiceInstance
+        """
+        return self._proxy.fetch()
+
+    def update(self, friendly_name=values.unset, apn_credential_sid=values.unset,
+               gcm_credential_sid=values.unset,
+               default_apn_notification_protocol_version=values.unset,
+               default_gcm_notification_protocol_version=values.unset):
         """
         Update the ServiceInstance
         
         :param unicode friendly_name: The friendly_name
-        :param unicode default_service_role_sid: The default_service_role_sid
-        :param unicode default_channel_role_sid: The default_channel_role_sid
-        :param unicode default_channel_creator_role_sid: The default_channel_creator_role_sid
-        :param bool read_status_enabled: The read_status_enabled
-        :param unicode typing_indicator_timeout: The typing_indicator_timeout
-        :param unicode consumption_report_interval: The consumption_report_interval
-        :param unicode webhooks: The webhooks
+        :param unicode apn_credential_sid: The apn_credential_sid
+        :param unicode gcm_credential_sid: The gcm_credential_sid
+        :param unicode default_apn_notification_protocol_version: The default_apn_notification_protocol_version
+        :param unicode default_gcm_notification_protocol_version: The default_gcm_notification_protocol_version
         
         :returns: Updated ServiceInstance
         :rtype: ServiceInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
-            default_service_role_sid=default_service_role_sid,
-            default_channel_role_sid=default_channel_role_sid,
-            default_channel_creator_role_sid=default_channel_creator_role_sid,
-            read_status_enabled=read_status_enabled,
-            typing_indicator_timeout=typing_indicator_timeout,
-            consumption_report_interval=consumption_report_interval,
-            webhooks=webhooks,
+            apn_credential_sid=apn_credential_sid,
+            gcm_credential_sid=gcm_credential_sid,
+            default_apn_notification_protocol_version=default_apn_notification_protocol_version,
+            default_gcm_notification_protocol_version=default_gcm_notification_protocol_version,
         )
 
     @property
-    def channels(self):
+    def bindings(self):
         """
-        Access the channels
+        Access the bindings
         
-        :returns: channels
-        :rtype: channels
+        :returns: bindings
+        :rtype: bindings
         """
-        return self._proxy.channels
+        return self._proxy.bindings
 
     @property
-    def roles(self):
+    def notifications(self):
         """
-        Access the roles
+        Access the notifications
         
-        :returns: roles
-        :rtype: roles
+        :returns: notifications
+        :rtype: notifications
         """
-        return self._proxy.roles
-
-    @property
-    def users(self):
-        """
-        Access the users
-        
-        :returns: users
-        :rtype: users
-        """
-        return self._proxy.users
+        return self._proxy.notifications
 
     def __repr__(self):
         """
@@ -618,4 +563,4 @@ class ServiceInstance(InstanceResource):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.IpMessaging.V1.ServiceInstance {}>'.format(context)
+        return '<Twilio.Notifications.V1.ServiceInstance {}>'.format(context)

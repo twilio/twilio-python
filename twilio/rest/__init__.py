@@ -16,6 +16,7 @@ from twilio.rest.conversations import Conversations
 from twilio.rest.ip_messaging import IpMessaging
 from twilio.rest.lookups import Lookups
 from twilio.rest.monitor import Monitor
+from twilio.rest.notifications import Notifications
 from twilio.rest.pricing import Pricing
 from twilio.rest.taskrouter import Taskrouter
 from twilio.rest.trunking import Trunking
@@ -61,6 +62,7 @@ class Client(object):
         self._ip_messaging = None
         self._lookups = None
         self._monitor = None
+        self._notifications = None
         self._pricing = None
         self._taskrouter = None
         self._trunking = None
@@ -168,6 +170,18 @@ class Client(object):
         if self._monitor is None:
             self._monitor = Monitor(self)
         return self._monitor
+
+    @property
+    def notifications(self):
+        """
+        Access the Notifications Twilio Domain
+        
+        :returns: Notifications Twilio Domain
+        :rtype: Notifications
+        """
+        if self._notifications is None:
+            self._notifications = Notifications(self)
+        return self._notifications
 
     @property
     def pricing(self):
@@ -282,13 +296,6 @@ class Client(object):
         :rtype: MessageList
         """
         return self.account.messages
-
-    @property
-    def notifications(self):
-        """
-        :rtype: NotificationList
-        """
-        return self.account.notifications
 
     @property
     def outgoing_caller_ids(self):

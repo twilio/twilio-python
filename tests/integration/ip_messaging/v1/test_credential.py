@@ -25,6 +25,63 @@ class CredentialTestCase(IntegrationTestCase):
             'https://ip-messaging.twilio.com/v1/Credentials',
         ))
 
+    def test_read_full_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "credentials": [
+                    {
+                        "sid": "CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "friendly_name": "Test slow create",
+                        "type": "apn",
+                        "sandbox": "False",
+                        "date_created": "2015-10-07T17:50:01Z",
+                        "date_updated": "2015-10-07T17:50:01Z",
+                        "url": "https://ip-messaging.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    }
+                ],
+                "meta": {
+                    "page": 0,
+                    "page_size": 1,
+                    "first_page_url": "https://ip-messaging.twilio.com/v1/Credentials?PageSize=1&Page=0",
+                    "previous_page_url": null,
+                    "url": "https://ip-messaging.twilio.com/v1/Credentials?PageSize=1&Page=0",
+                    "next_page_url": "https://ip-messaging.twilio.com/v1/Credentials?PageSize=1&Page=1&PageToken=PTMDAwMTQ0NDI0MDIwMTE3MjoxOjE%3D",
+                    "key": "credentials"
+                }
+            }
+            '''
+        ))
+        
+        actual = self.client.ip_messaging.v1.credentials.list()
+        
+        self.assertIsNotNone(actual)
+
+    def test_read_empty_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "credentials": [],
+                "meta": {
+                    "page": 0,
+                    "page_size": 1,
+                    "first_page_url": "https://ip-messaging.twilio.com/v1/Credentials?PageSize=1&Page=0",
+                    "previous_page_url": null,
+                    "url": "https://ip-messaging.twilio.com/v1/Credentials?PageSize=1&Page=0",
+                    "next_page_url": null,
+                    "key": "credentials"
+                }
+            }
+            '''
+        ))
+        
+        actual = self.client.ip_messaging.v1.credentials.list()
+        
+        self.assertIsNotNone(actual)
+
     def test_create_request(self):
         self.holodeck.mock(Response(500, ''))
         
@@ -42,6 +99,27 @@ class CredentialTestCase(IntegrationTestCase):
             data=values,
         ))
 
+    def test_create_response(self):
+        self.holodeck.mock(Response(
+            201,
+            '''
+            {
+                "sid": "CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "friendly_name": "Test slow create",
+                "type": "apn",
+                "sandbox": "False",
+                "date_created": "2015-10-07T17:50:01Z",
+                "date_updated": "2015-10-07T17:50:01Z",
+                "url": "https://ip-messaging.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
+        
+        actual = self.client.ip_messaging.v1.credentials.create(friendly_name="friendly_name", type="gcm")
+        
+        self.assertIsNotNone(actual)
+
     def test_fetch_request(self):
         self.holodeck.mock(Response(500, ''))
         
@@ -52,6 +130,27 @@ class CredentialTestCase(IntegrationTestCase):
             'get',
             'https://ip-messaging.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         ))
+
+    def test_fetch_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "sid": "CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "friendly_name": "Test slow create",
+                "type": "apn",
+                "sandbox": "False",
+                "date_created": "2015-10-07T17:50:01Z",
+                "date_updated": "2015-10-07T17:50:01Z",
+                "url": "https://ip-messaging.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
+        
+        actual = self.client.ip_messaging.v1.credentials(sid="CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        
+        self.assertIsNotNone(actual)
 
     def test_update_request(self):
         self.holodeck.mock(Response(500, ''))
@@ -70,6 +169,27 @@ class CredentialTestCase(IntegrationTestCase):
             data=values,
         ))
 
+    def test_update_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "sid": "CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "friendly_name": "Test slow create",
+                "type": "apn",
+                "sandbox": "False",
+                "date_created": "2015-10-07T17:50:01Z",
+                "date_updated": "2015-10-07T17:50:01Z",
+                "url": "https://ip-messaging.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
+        
+        actual = self.client.ip_messaging.v1.credentials(sid="CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(friendly_name="friendly_name", type="gcm")
+        
+        self.assertIsNotNone(actual)
+
     def test_delete_request(self):
         self.holodeck.mock(Response(500, ''))
         
@@ -80,3 +200,13 @@ class CredentialTestCase(IntegrationTestCase):
             'delete',
             'https://ip-messaging.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         ))
+
+    def test_delete_response(self):
+        self.holodeck.mock(Response(
+            201,
+            None,
+        ))
+        
+        actual = self.client.ip_messaging.v1.credentials(sid="CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        
+        self.assertTrue(actual)
