@@ -30,8 +30,8 @@ def set_twilio_proxy(proxy_url, proxy_port):
 
 class TwilioClient(object):
     def __init__(self, account=None, token=None, base="https://api.twilio.com",
-                 version="2010-04-01",
-                 timeout=UNSET_TIMEOUT):
+                 version="2010-04-01", timeout=UNSET_TIMEOUT,
+                 request_account=None):
         """
         Create a Twilio API client.
         """
@@ -58,8 +58,9 @@ values from your Twilio Account at https://www.twilio.com/user/account.
         self.base = base
         self.auth = (account, token)
         self.timeout = timeout
+        req_account = request_account if request_account else account
         self.account_uri = "{0}/{1}/Accounts/{2}".format(base,
-                                                         version, account)
+                                                         version, req_account)
 
     def request(self, path, method=None, vars=None):
         """sends a request and gets a response from the Twilio REST API

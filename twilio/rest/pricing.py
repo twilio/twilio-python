@@ -21,9 +21,10 @@ class TwilioPricingClient(TwilioClient):
 
     def __init__(self, account=None, token=None,
                  base="https://pricing.twilio.com", version="v1",
-                 timeout=UNSET_TIMEOUT):
+                 timeout=UNSET_TIMEOUT, request_account=None):
         super(TwilioPricingClient, self).__init__(account, token, base,
-                                                  version, timeout)
+                                                  version, timeout,
+                                                  request_account)
 
         self.uri_base = "{}/{}".format(base, version)
 

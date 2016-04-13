@@ -2,6 +2,7 @@ from twilio.rest.base import TwilioClient
 from twilio.rest.resources import (
     UNSET_TIMEOUT,
     Accounts,
+    Addresses,
     Applications,
     AuthorizedConnectApps,
     CallFeedback,
@@ -41,12 +42,13 @@ class TwilioRestClient(TwilioClient):
     """
 
     def __init__(self, account=None, token=None, base="https://api.twilio.com",
-                 version="2010-04-01", timeout=UNSET_TIMEOUT):
+                 version="2010-04-01", timeout=UNSET_TIMEOUT,
+                 request_account=None):
         """
         Create a Twilio REST API client.
         """
         super(TwilioRestClient, self).__init__(account, token, base, version,
-                                               timeout)
+                                               timeout, request_account)
 
         version_uri = "%s/%s" % (base, version)
 
@@ -57,6 +59,7 @@ class TwilioRestClient(TwilioClient):
             self.auth,
             timeout
         )
+        self.addresses = Addresses(self.account_uri, self.auth, timeout)
         self.calls = Calls(self.account_uri, self.auth, timeout)
         self.caller_ids = CallerIds(self.account_uri, self.auth, timeout)
         self.connect_apps = ConnectApps(self.account_uri, self.auth, timeout)
