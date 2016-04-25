@@ -441,9 +441,14 @@ class Conference(Verb):
     GET = 'GET'
     POST = 'POST'
 
+    nestables = ['Task']
+
     def __init__(self, name, **kwargs):
         super(Conference, self).__init__(**kwargs)
         self.body = name
+
+    def task(self, attributes, **kwargs):
+        return self.append(Task(attributes, **kwargs))
 
 
 class Dial(Verb):
