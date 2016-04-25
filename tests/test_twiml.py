@@ -361,9 +361,8 @@ class TestConferenceEnqueueTask(TwilioTest):
     def setUp(self):
         r = Response()
         with r.dial() as dial:
-            with dial.conference("TestConferenceAttributes", beep=False, waitUrl="",
-                startConferenceOnEnter=True, endConferenceOnExit=True) as conf:
-                    conf.task('{"selected_language":"en"}', priority="10", timeout="50", workflowSid="Workflow1")
+            with dial.conference("TestConferenceAttributes", beep=False, waitUrl="", startConferenceOnEnter=True, endConferenceOnExit=True) as conf:
+                conf.task('{"selected_language":"en"}', priority="10", timeout="50", workflowSid="Workflow1")
 
         xml = r.toxml()
 
@@ -402,6 +401,7 @@ class TestConferenceEnqueueTask(TwilioTest):
 
     def test_enqueue_task_timeout(self):
         self.assertEqual(self.task.get('timeout'), "50")
+
 
 class TestQueue(TwilioTest):
 
@@ -669,4 +669,3 @@ class TestGather(TwilioTest):
         self.assertRaises(TwimlException, verb.append, twiml.Dial())
         self.assertRaises(TwimlException, verb.append, twiml.Conference(""))
         self.assertRaises(TwimlException, verb.append, twiml.Sms(""))
-
