@@ -372,7 +372,6 @@ class TestConferenceEnqueueTask(TwilioTest):
         self.task = self.conf.find(".//Task")
 
     def test_conf_text(self):
-        print self.task
         self.assertEqual(self.conf.text.strip(), "TestConferenceAttributes")
 
     def test_conf_beep(self):
