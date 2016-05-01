@@ -14,9 +14,14 @@ class TwilioTrunkingClient(TwilioClient):
     A client for accessing the Twilio Trunking API
 
     :param str account: Your Account SID from `your dashboard
-        <https://twilio.com/user/account>`_
+        <https://twilio.com/user/account>`_ or your API Key SID from `your
+        api key console <https://www.twilio.com/console/dev-tools/api-keys>`_
     :param str token: Your Auth Token from `your dashboard
-        <https://twilio.com/user/account>`_
+        <https://twilio.com/user/account>`_ or your API Key token from `your
+        api key console <https://www.twilio.com/console/dev-tools/api-keys>`_
+    :param str request_account: Your Account SID from `your dashboard
+        <https://twilio.com/user/account>`_. This param is only necessary if
+        using an API key to authenticate rather than Account Token.
     :param float timeout: The socket and read timeout for requests to Twilio
     """
 
