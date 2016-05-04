@@ -12,7 +12,7 @@ package manager for Python.
 
 .. code-block:: bash
 
-    pip install twilio==6.0.0rc2
+    pip install twilio==6.0.0rc3
 
 Don't have pip installed? Try installing it, by running this from the command
 line:
