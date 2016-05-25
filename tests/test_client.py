@@ -21,7 +21,9 @@ class RestClientTest(unittest.TestCase):
         self.client.request("2010-04-01", method="GET")
         mock.assert_called_with("GET", "https://api.twilio.com/2010-04-01",
                                 headers={"User-Agent": ANY,
-                                         'Accept-Charset': 'utf-8'},
+                                         'Accept-Charset': 'utf-8',
+                                         'authorization':
+                                         'Basic QUNDT1VOVF9TSUQ6QVVUSF9UT0tFTg=='},
                                 params={}, auth=AUTH, data=None)
         called_kwargs = mock.mock_calls[0][2]
         self.assertTrue(
