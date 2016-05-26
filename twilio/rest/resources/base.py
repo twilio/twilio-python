@@ -1,3 +1,4 @@
+import base64
 import logging
 import os
 import platform
@@ -137,6 +138,9 @@ def make_twilio_request(method, uri, **kwargs):
     )
     headers["User-Agent"] = user_agent
     headers["Accept-Charset"] = "utf-8"
+    if kwargs.get("auth"):
+        auth = kwargs.get("auth")
+        headers["Authorization"] = "Basic {}".format(base64.b64encode(':'.join(auth)))
 
     if method == "POST" and "Content-Type" not in headers:
         headers["Content-Type"] = "application/x-www-form-urlencoded"
