@@ -110,7 +110,7 @@ values from your Twilio Account at https://www.twilio.com/user/account.
         headers = {
             "User-Agent": user_agent,
             "Accept-Charset": "utf-8",
-            "authorization": 'Basic ' + base64.b64encode("%s:%s" % self.auth).strip()
+            "Authorization": "Basic {}".format(base64.b64encode(':'.join(self.auth)))
         }
 
         resp = make_request(method, uri, auth=self.auth, data=data,
