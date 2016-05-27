@@ -14,56 +14,26 @@ from twilio.list_resource import ListResource
 from twilio.page import Page
 
 
-class UserList(ListResource):
+class CredentialList(ListResource):
 
-    def __init__(self, version, service_sid):
+    def __init__(self, version):
         """
-        Initialize the UserList
+        Initialize the CredentialList
         
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
         
-        :returns: UserList
-        :rtype: UserList
+        :returns: CredentialList
+        :rtype: CredentialList
         """
-        super(UserList, self).__init__(version)
+        super(CredentialList, self).__init__(version)
         
         # Path Solution
-        self._solution = {
-            'service_sid': service_sid,
-        }
-        self._uri = '/Services/{service_sid}/Users'.format(**self._solution)
-
-    def create(self, identity, role_sid):
-        """
-        Create a new UserInstance
-        
-        :param unicode identity: The identity
-        :param unicode role_sid: The role_sid
-        
-        :returns: Newly created UserInstance
-        :rtype: UserInstance
-        """
-        data = values.of({
-            'Identity': identity,
-            'RoleSid': role_sid,
-        })
-        
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
-        
-        return UserInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-        )
+        self._solution = {}
+        self._uri = '/Credentials'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
         """
-        Streams UserInstance records from the API as a generator stream.
+        Streams CredentialInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -88,7 +58,7 @@ class UserList(ListResource):
 
     def list(self, limit=None, page_size=None):
         """
-        Lists UserInstance records from the API as a list.
+        Lists CredentialInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -110,14 +80,14 @@ class UserList(ListResource):
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
         """
-        Retrieve a single page of UserInstance records from the API.
+        Retrieve a single page of CredentialInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
         
-        :returns: Page of UserInstance
+        :returns: Page of CredentialInstance
         :rtype: Page
         """
         params = values.of({
@@ -132,35 +102,69 @@ class UserList(ListResource):
             params=params,
         )
         
-        return UserPage(self._version, response, self._solution)
+        return CredentialPage(self._version, response, self._solution)
+
+    def create(self, friendly_name, type, certificate=values.unset,
+               private_key=values.unset, sandbox=values.unset,
+               api_key=values.unset):
+        """
+        Create a new CredentialInstance
+        
+        :param unicode friendly_name: The friendly_name
+        :param credential.push_service type: The type
+        :param unicode certificate: The certificate
+        :param unicode private_key: The private_key
+        :param bool sandbox: The sandbox
+        :param unicode api_key: The api_key
+        
+        :returns: Newly created CredentialInstance
+        :rtype: CredentialInstance
+        """
+        data = values.of({
+            'FriendlyName': friendly_name,
+            'Type': type,
+            'Certificate': certificate,
+            'PrivateKey': private_key,
+            'Sandbox': sandbox,
+            'ApiKey': api_key,
+        })
+        
+        payload = self._version.create(
+            'POST',
+            self._uri,
+            data=data,
+        )
+        
+        return CredentialInstance(
+            self._version,
+            payload,
+        )
 
     def get(self, sid):
         """
-        Constructs a UserContext
+        Constructs a CredentialContext
         
         :param sid: The sid
         
-        :returns: UserContext
-        :rtype: UserContext
+        :returns: CredentialContext
+        :rtype: CredentialContext
         """
-        return UserContext(
+        return CredentialContext(
             self._version,
-            service_sid=self._solution['service_sid'],
             sid=sid,
         )
 
     def __call__(self, sid):
         """
-        Constructs a UserContext
+        Constructs a CredentialContext
         
         :param sid: The sid
         
-        :returns: UserContext
-        :rtype: UserContext
+        :returns: CredentialContext
+        :rtype: CredentialContext
         """
-        return UserContext(
+        return CredentialContext(
             self._version,
-            service_sid=self._solution['service_sid'],
             sid=sid,
         )
 
@@ -171,40 +175,38 @@ class UserList(ListResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.IpMessaging.V1.UserList>'
+        return '<Twilio.Notifications.V1.CredentialList>'
 
 
-class UserPage(Page):
+class CredentialPage(Page):
 
     def __init__(self, version, response, solution):
         """
-        Initialize the UserPage
+        Initialize the CredentialPage
         
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The service_sid
         
-        :returns: UserPage
-        :rtype: UserPage
+        :returns: CredentialPage
+        :rtype: CredentialPage
         """
-        super(UserPage, self).__init__(version, response)
+        super(CredentialPage, self).__init__(version, response)
         
         # Path Solution
         self._solution = solution
 
     def get_instance(self, payload):
         """
-        Build an instance of UserInstance
+        Build an instance of CredentialInstance
         
         :param dict payload: Payload response from the API
         
-        :returns: UserInstance
-        :rtype: UserInstance
+        :returns: CredentialInstance
+        :rtype: CredentialInstance
         """
-        return UserInstance(
+        return CredentialInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
         )
 
     def __repr__(self):
@@ -214,37 +216,35 @@ class UserPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.IpMessaging.V1.UserPage>'
+        return '<Twilio.Notifications.V1.CredentialPage>'
 
 
-class UserContext(InstanceContext):
+class CredentialContext(InstanceContext):
 
-    def __init__(self, version, service_sid, sid):
+    def __init__(self, version, sid):
         """
-        Initialize the UserContext
+        Initialize the CredentialContext
         
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
         :param sid: The sid
         
-        :returns: UserContext
-        :rtype: UserContext
+        :returns: CredentialContext
+        :rtype: CredentialContext
         """
-        super(UserContext, self).__init__(version)
+        super(CredentialContext, self).__init__(version)
         
         # Path Solution
         self._solution = {
-            'service_sid': service_sid,
             'sid': sid,
         }
-        self._uri = '/Services/{service_sid}/Users/{sid}'.format(**self._solution)
+        self._uri = '/Credentials/{sid}'.format(**self._solution)
 
     def fetch(self):
         """
-        Fetch a UserInstance
+        Fetch a CredentialInstance
         
-        :returns: Fetched UserInstance
-        :rtype: UserInstance
+        :returns: Fetched CredentialInstance
+        :rtype: CredentialInstance
         """
         params = values.of({})
         
@@ -254,33 +254,35 @@ class UserContext(InstanceContext):
             params=params,
         )
         
-        return UserInstance(
+        return CredentialInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
             sid=self._solution['sid'],
         )
 
-    def delete(self):
+    def update(self, friendly_name, type, certificate=values.unset,
+               private_key=values.unset, sandbox=values.unset,
+               api_key=values.unset):
         """
-        Deletes the UserInstance
+        Update the CredentialInstance
         
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete('delete', self._uri)
-
-    def update(self, role_sid):
-        """
-        Update the UserInstance
+        :param unicode friendly_name: The friendly_name
+        :param credential.push_service type: The type
+        :param unicode certificate: The certificate
+        :param unicode private_key: The private_key
+        :param bool sandbox: The sandbox
+        :param unicode api_key: The api_key
         
-        :param unicode role_sid: The role_sid
-        
-        :returns: Updated UserInstance
-        :rtype: UserInstance
+        :returns: Updated CredentialInstance
+        :rtype: CredentialInstance
         """
         data = values.of({
-            'RoleSid': role_sid,
+            'FriendlyName': friendly_name,
+            'Type': type,
+            'Certificate': certificate,
+            'PrivateKey': private_key,
+            'Sandbox': sandbox,
+            'ApiKey': api_key,
         })
         
         payload = self._version.update(
@@ -289,12 +291,20 @@ class UserContext(InstanceContext):
             data=data,
         )
         
-        return UserInstance(
+        return CredentialInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
             sid=self._solution['sid'],
         )
+
+    def delete(self):
+        """
+        Deletes the CredentialInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete('delete', self._uri)
 
     def __repr__(self):
         """
@@ -304,27 +314,27 @@ class UserContext(InstanceContext):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.IpMessaging.V1.UserContext {}>'.format(context)
+        return '<Twilio.Notifications.V1.CredentialContext {}>'.format(context)
 
 
-class UserInstance(InstanceResource):
+class CredentialInstance(InstanceResource):
 
-    def __init__(self, version, payload, service_sid, sid=None):
+    def __init__(self, version, payload, sid=None):
         """
-        Initialize the UserInstance
+        Initialize the CredentialInstance
         
-        :returns: UserInstance
-        :rtype: UserInstance
+        :returns: CredentialInstance
+        :rtype: CredentialInstance
         """
-        super(UserInstance, self).__init__(version)
+        super(CredentialInstance, self).__init__(version)
         
         # Marshaled Properties
         self._properties = {
             'sid': payload['sid'],
             'account_sid': payload['account_sid'],
-            'service_sid': payload['service_sid'],
-            'role_sid': payload['role_sid'],
-            'identity': payload['identity'],
+            'friendly_name': payload['friendly_name'],
+            'type': payload['type'],
+            'sandbox': payload['sandbox'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
             'url': payload['url'],
@@ -333,7 +343,6 @@ class UserInstance(InstanceResource):
         # Context
         self._context = None
         self._solution = {
-            'service_sid': service_sid,
             'sid': sid or self._properties['sid'],
         }
 
@@ -343,13 +352,12 @@ class UserInstance(InstanceResource):
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
         
-        :returns: UserContext for this UserInstance
-        :rtype: UserContext
+        :returns: CredentialContext for this CredentialInstance
+        :rtype: CredentialContext
         """
         if self._context is None:
-            self._context = UserContext(
+            self._context = CredentialContext(
                 self._version,
-                service_sid=self._solution['service_sid'],
                 sid=self._solution['sid'],
             )
         return self._context
@@ -371,28 +379,28 @@ class UserInstance(InstanceResource):
         return self._properties['account_sid']
 
     @property
-    def service_sid(self):
+    def friendly_name(self):
         """
-        :returns: The service_sid
+        :returns: The friendly_name
         :rtype: unicode
         """
-        return self._properties['service_sid']
+        return self._properties['friendly_name']
 
     @property
-    def role_sid(self):
+    def type(self):
         """
-        :returns: The role_sid
-        :rtype: unicode
+        :returns: The type
+        :rtype: credential.push_service
         """
-        return self._properties['role_sid']
+        return self._properties['type']
 
     @property
-    def identity(self):
+    def sandbox(self):
         """
-        :returns: The identity
+        :returns: The sandbox
         :rtype: unicode
         """
-        return self._properties['identity']
+        return self._properties['sandbox']
 
     @property
     def date_created(self):
@@ -420,34 +428,46 @@ class UserInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a UserInstance
+        Fetch a CredentialInstance
         
-        :returns: Fetched UserInstance
-        :rtype: UserInstance
+        :returns: Fetched CredentialInstance
+        :rtype: CredentialInstance
         """
         return self._proxy.fetch()
 
+    def update(self, friendly_name, type, certificate=values.unset,
+               private_key=values.unset, sandbox=values.unset,
+               api_key=values.unset):
+        """
+        Update the CredentialInstance
+        
+        :param unicode friendly_name: The friendly_name
+        :param credential.push_service type: The type
+        :param unicode certificate: The certificate
+        :param unicode private_key: The private_key
+        :param bool sandbox: The sandbox
+        :param unicode api_key: The api_key
+        
+        :returns: Updated CredentialInstance
+        :rtype: CredentialInstance
+        """
+        return self._proxy.update(
+            friendly_name,
+            type,
+            certificate=certificate,
+            private_key=private_key,
+            sandbox=sandbox,
+            api_key=api_key,
+        )
+
     def delete(self):
         """
-        Deletes the UserInstance
+        Deletes the CredentialInstance
         
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
         return self._proxy.delete()
-
-    def update(self, role_sid):
-        """
-        Update the UserInstance
-        
-        :param unicode role_sid: The role_sid
-        
-        :returns: Updated UserInstance
-        :rtype: UserInstance
-        """
-        return self._proxy.update(
-            role_sid,
-        )
 
     def __repr__(self):
         """
@@ -457,4 +477,4 @@ class UserInstance(InstanceResource):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.IpMessaging.V1.UserInstance {}>'.format(context)
+        return '<Twilio.Notifications.V1.CredentialInstance {}>'.format(context)

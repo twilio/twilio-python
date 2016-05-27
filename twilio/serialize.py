@@ -29,3 +29,29 @@ def iso8601_datetime(d):
         return d.strftime('%Y-%m-%dT%H:%M:%SZ')
     elif isinstance(d, str):
         return d
+
+
+
+
+def prefixed_collapsible_map(m, prefix):
+    """
+    Return a dict of params corresponding to those in m with the added prefix
+    """
+
+    if m == values.unset:
+        return m
+
+    def flatten_dict(d, result={}, prv_keys=[]):
+        for k, v in d.iteritems():
+            if isinstance(v, dict):
+                flatten_dict(v, result, prv_keys + [k])
+            else:
+                result['.'.join(prv_keys + [k])] = v
+
+        return result
+
+    if isinstance(m, dict):
+        flattened = flatten_dict(m)
+        return {'{}.{}'.format(prefix, k): v for k, v in flattened.items()}
+
+    return values.unset

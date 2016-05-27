@@ -37,6 +37,13 @@ class Notifications(Domain):
         return self._v1
 
     @property
+    def credentials(self):
+        """
+        :rtype: CredentialList
+        """
+        return self.v1.credentials
+
+    @property
     def services(self):
         """
         :rtype: ServiceList

@@ -17,6 +17,7 @@ from twilio.rest.ip_messaging import IpMessaging
 from twilio.rest.lookups import Lookups
 from twilio.rest.monitor import Monitor
 from twilio.rest.notifications import Notifications
+from twilio.rest.preview import Preview
 from twilio.rest.pricing import Pricing
 from twilio.rest.taskrouter import Taskrouter
 from twilio.rest.trunking import Trunking
@@ -63,6 +64,7 @@ class Client(object):
         self._lookups = None
         self._monitor = None
         self._notifications = None
+        self._preview = None
         self._pricing = None
         self._taskrouter = None
         self._trunking = None
@@ -182,6 +184,18 @@ class Client(object):
         if self._notifications is None:
             self._notifications = Notifications(self)
         return self._notifications
+
+    @property
+    def preview(self):
+        """
+        Access the Preview Twilio Domain
+        
+        :returns: Preview Twilio Domain
+        :rtype: Preview
+        """
+        if self._preview is None:
+            self._preview = Preview(self)
+        return self._preview
 
     @property
     def pricing(self):
