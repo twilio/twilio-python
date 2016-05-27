@@ -14,60 +14,34 @@ from twilio.list_resource import ListResource
 from twilio.page import Page
 
 
-class UserList(ListResource):
+class CommandList(ListResource):
 
-    def __init__(self, version, service_sid):
+    def __init__(self, version):
         """
-        Initialize the UserList
+        Initialize the CommandList
         
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
         
-        :returns: UserList
-        :rtype: UserList
+        :returns: CommandList
+        :rtype: CommandList
         """
-        super(UserList, self).__init__(version)
+        super(CommandList, self).__init__(version)
         
         # Path Solution
-        self._solution = {
-            'service_sid': service_sid,
-        }
-        self._uri = '/Services/{service_sid}/Users'.format(**self._solution)
+        self._solution = {}
+        self._uri = '/Commands'.format(**self._solution)
 
-    def create(self, identity, role_sid):
+    def stream(self, device=values.unset, status=values.unset,
+               direction=values.unset, limit=None, page_size=None):
         """
-        Create a new UserInstance
-        
-        :param unicode identity: The identity
-        :param unicode role_sid: The role_sid
-        
-        :returns: Newly created UserInstance
-        :rtype: UserInstance
-        """
-        data = values.of({
-            'Identity': identity,
-            'RoleSid': role_sid,
-        })
-        
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
-        
-        return UserInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-        )
-
-    def stream(self, limit=None, page_size=None):
-        """
-        Streams UserInstance records from the API as a generator stream.
+        Streams CommandInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
+        :param unicode device: The device
+        :param unicode status: The status
+        :param unicode direction: The direction
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -81,17 +55,24 @@ class UserList(ListResource):
         limits = self._version.read_limits(limit, page_size)
         
         page = self.page(
+            device=device,
+            status=status,
+            direction=direction,
             page_size=limits['page_size'],
         )
         
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, device=values.unset, status=values.unset, direction=values.unset,
+             limit=None, page_size=None):
         """
-        Lists UserInstance records from the API as a list.
+        Lists CommandInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
+        :param unicode device: The device
+        :param unicode status: The status
+        :param unicode direction: The direction
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -103,24 +84,34 @@ class UserList(ListResource):
         :rtype: generator
         """
         return list(self.stream(
+            device=device,
+            status=status,
+            direction=direction,
             limit=limit,
             page_size=page_size,
         ))
 
-    def page(self, page_token=values.unset, page_number=values.unset,
+    def page(self, device=values.unset, status=values.unset, direction=values.unset,
+             page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
         """
-        Retrieve a single page of UserInstance records from the API.
+        Retrieve a single page of CommandInstance records from the API.
         Request is executed immediately
         
+        :param unicode device: The device
+        :param unicode status: The status
+        :param unicode direction: The direction
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
         
-        :returns: Page of UserInstance
+        :returns: Page of CommandInstance
         :rtype: Page
         """
         params = values.of({
+            'Device': device,
+            'Status': status,
+            'Direction': direction,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -132,35 +123,64 @@ class UserList(ListResource):
             params=params,
         )
         
-        return UserPage(self._version, response, self._solution)
+        return CommandPage(self._version, response, self._solution)
+
+    def create(self, device, command, callback_method=values.unset,
+               callback_url=values.unset):
+        """
+        Create a new CommandInstance
+        
+        :param unicode device: The device
+        :param unicode command: The command
+        :param unicode callback_method: The callback_method
+        :param unicode callback_url: The callback_url
+        
+        :returns: Newly created CommandInstance
+        :rtype: CommandInstance
+        """
+        data = values.of({
+            'Device': device,
+            'Command': command,
+            'CallbackMethod': callback_method,
+            'CallbackUrl': callback_url,
+        })
+        
+        payload = self._version.create(
+            'POST',
+            self._uri,
+            data=data,
+        )
+        
+        return CommandInstance(
+            self._version,
+            payload,
+        )
 
     def get(self, sid):
         """
-        Constructs a UserContext
+        Constructs a CommandContext
         
         :param sid: The sid
         
-        :returns: UserContext
-        :rtype: UserContext
+        :returns: CommandContext
+        :rtype: CommandContext
         """
-        return UserContext(
+        return CommandContext(
             self._version,
-            service_sid=self._solution['service_sid'],
             sid=sid,
         )
 
     def __call__(self, sid):
         """
-        Constructs a UserContext
+        Constructs a CommandContext
         
         :param sid: The sid
         
-        :returns: UserContext
-        :rtype: UserContext
+        :returns: CommandContext
+        :rtype: CommandContext
         """
-        return UserContext(
+        return CommandContext(
             self._version,
-            service_sid=self._solution['service_sid'],
             sid=sid,
         )
 
@@ -171,40 +191,38 @@ class UserList(ListResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.IpMessaging.V1.UserList>'
+        return '<Twilio.Preview.Wireless.CommandList>'
 
 
-class UserPage(Page):
+class CommandPage(Page):
 
     def __init__(self, version, response, solution):
         """
-        Initialize the UserPage
+        Initialize the CommandPage
         
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The service_sid
         
-        :returns: UserPage
-        :rtype: UserPage
+        :returns: CommandPage
+        :rtype: CommandPage
         """
-        super(UserPage, self).__init__(version, response)
+        super(CommandPage, self).__init__(version, response)
         
         # Path Solution
         self._solution = solution
 
     def get_instance(self, payload):
         """
-        Build an instance of UserInstance
+        Build an instance of CommandInstance
         
         :param dict payload: Payload response from the API
         
-        :returns: UserInstance
-        :rtype: UserInstance
+        :returns: CommandInstance
+        :rtype: CommandInstance
         """
-        return UserInstance(
+        return CommandInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
         )
 
     def __repr__(self):
@@ -214,37 +232,35 @@ class UserPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.IpMessaging.V1.UserPage>'
+        return '<Twilio.Preview.Wireless.CommandPage>'
 
 
-class UserContext(InstanceContext):
+class CommandContext(InstanceContext):
 
-    def __init__(self, version, service_sid, sid):
+    def __init__(self, version, sid):
         """
-        Initialize the UserContext
+        Initialize the CommandContext
         
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
         :param sid: The sid
         
-        :returns: UserContext
-        :rtype: UserContext
+        :returns: CommandContext
+        :rtype: CommandContext
         """
-        super(UserContext, self).__init__(version)
+        super(CommandContext, self).__init__(version)
         
         # Path Solution
         self._solution = {
-            'service_sid': service_sid,
             'sid': sid,
         }
-        self._uri = '/Services/{service_sid}/Users/{sid}'.format(**self._solution)
+        self._uri = '/Commands/{sid}'.format(**self._solution)
 
     def fetch(self):
         """
-        Fetch a UserInstance
+        Fetch a CommandInstance
         
-        :returns: Fetched UserInstance
-        :rtype: UserInstance
+        :returns: Fetched CommandInstance
+        :rtype: CommandInstance
         """
         params = values.of({})
         
@@ -254,45 +270,9 @@ class UserContext(InstanceContext):
             params=params,
         )
         
-        return UserInstance(
+        return CommandInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-        )
-
-    def delete(self):
-        """
-        Deletes the UserInstance
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete('delete', self._uri)
-
-    def update(self, role_sid):
-        """
-        Update the UserInstance
-        
-        :param unicode role_sid: The role_sid
-        
-        :returns: Updated UserInstance
-        :rtype: UserInstance
-        """
-        data = values.of({
-            'RoleSid': role_sid,
-        })
-        
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
-        
-        return UserInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
             sid=self._solution['sid'],
         )
 
@@ -304,27 +284,28 @@ class UserContext(InstanceContext):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.IpMessaging.V1.UserContext {}>'.format(context)
+        return '<Twilio.Preview.Wireless.CommandContext {}>'.format(context)
 
 
-class UserInstance(InstanceResource):
+class CommandInstance(InstanceResource):
 
-    def __init__(self, version, payload, service_sid, sid=None):
+    def __init__(self, version, payload, sid=None):
         """
-        Initialize the UserInstance
+        Initialize the CommandInstance
         
-        :returns: UserInstance
-        :rtype: UserInstance
+        :returns: CommandInstance
+        :rtype: CommandInstance
         """
-        super(UserInstance, self).__init__(version)
+        super(CommandInstance, self).__init__(version)
         
         # Marshaled Properties
         self._properties = {
             'sid': payload['sid'],
             'account_sid': payload['account_sid'],
-            'service_sid': payload['service_sid'],
-            'role_sid': payload['role_sid'],
-            'identity': payload['identity'],
+            'device_sid': payload['device_sid'],
+            'command': payload['command'],
+            'status': payload['status'],
+            'direction': payload['direction'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
             'url': payload['url'],
@@ -333,7 +314,6 @@ class UserInstance(InstanceResource):
         # Context
         self._context = None
         self._solution = {
-            'service_sid': service_sid,
             'sid': sid or self._properties['sid'],
         }
 
@@ -343,13 +323,12 @@ class UserInstance(InstanceResource):
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
         
-        :returns: UserContext for this UserInstance
-        :rtype: UserContext
+        :returns: CommandContext for this CommandInstance
+        :rtype: CommandContext
         """
         if self._context is None:
-            self._context = UserContext(
+            self._context = CommandContext(
                 self._version,
-                service_sid=self._solution['service_sid'],
                 sid=self._solution['sid'],
             )
         return self._context
@@ -371,28 +350,36 @@ class UserInstance(InstanceResource):
         return self._properties['account_sid']
 
     @property
-    def service_sid(self):
+    def device_sid(self):
         """
-        :returns: The service_sid
+        :returns: The device_sid
         :rtype: unicode
         """
-        return self._properties['service_sid']
+        return self._properties['device_sid']
 
     @property
-    def role_sid(self):
+    def command(self):
         """
-        :returns: The role_sid
+        :returns: The command
         :rtype: unicode
         """
-        return self._properties['role_sid']
+        return self._properties['command']
 
     @property
-    def identity(self):
+    def status(self):
         """
-        :returns: The identity
+        :returns: The status
         :rtype: unicode
         """
-        return self._properties['identity']
+        return self._properties['status']
+
+    @property
+    def direction(self):
+        """
+        :returns: The direction
+        :rtype: unicode
+        """
+        return self._properties['direction']
 
     @property
     def date_created(self):
@@ -420,34 +407,12 @@ class UserInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a UserInstance
+        Fetch a CommandInstance
         
-        :returns: Fetched UserInstance
-        :rtype: UserInstance
+        :returns: Fetched CommandInstance
+        :rtype: CommandInstance
         """
         return self._proxy.fetch()
-
-    def delete(self):
-        """
-        Deletes the UserInstance
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._proxy.delete()
-
-    def update(self, role_sid):
-        """
-        Update the UserInstance
-        
-        :param unicode role_sid: The role_sid
-        
-        :returns: Updated UserInstance
-        :rtype: UserInstance
-        """
-        return self._proxy.update(
-            role_sid,
-        )
 
     def __repr__(self):
         """
@@ -457,4 +422,4 @@ class UserInstance(InstanceResource):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.IpMessaging.V1.UserInstance {}>'.format(context)
+        return '<Twilio.Preview.Wireless.CommandInstance {}>'.format(context)

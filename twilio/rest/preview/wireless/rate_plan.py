@@ -14,29 +14,26 @@ from twilio.list_resource import ListResource
 from twilio.page import Page
 
 
-class ParticipantList(ListResource):
+class RatePlanList(ListResource):
 
-    def __init__(self, version, conversation_sid):
+    def __init__(self, version):
         """
-        Initialize the ParticipantList
+        Initialize the RatePlanList
         
         :param Version version: Version that contains the resource
-        :param conversation_sid: The conversation_sid
         
-        :returns: ParticipantList
-        :rtype: ParticipantList
+        :returns: RatePlanList
+        :rtype: RatePlanList
         """
-        super(ParticipantList, self).__init__(version)
+        super(RatePlanList, self).__init__(version)
         
         # Path Solution
-        self._solution = {
-            'conversation_sid': conversation_sid,
-        }
-        self._uri = '/Conversations/{conversation_sid}/Participants'.format(**self._solution)
+        self._solution = {}
+        self._uri = '/RatePlans'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
         """
-        Streams ParticipantInstance records from the API as a generator stream.
+        Streams RatePlanInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -61,7 +58,7 @@ class ParticipantList(ListResource):
 
     def list(self, limit=None, page_size=None):
         """
-        Lists ParticipantInstance records from the API as a list.
+        Lists RatePlanInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -83,14 +80,14 @@ class ParticipantList(ListResource):
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
         """
-        Retrieve a single page of ParticipantInstance records from the API.
+        Retrieve a single page of RatePlanInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
         
-        :returns: Page of ParticipantInstance
+        :returns: Page of RatePlanInstance
         :rtype: Page
         """
         params = values.of({
@@ -105,62 +102,33 @@ class ParticipantList(ListResource):
             params=params,
         )
         
-        return ParticipantPage(self._version, response, self._solution)
-
-    def create(self, to, from_):
-        """
-        Create a new ParticipantInstance
-        
-        :param unicode to: The to
-        :param unicode from_: The from
-        
-        :returns: Newly created ParticipantInstance
-        :rtype: ParticipantInstance
-        """
-        data = values.of({
-            'To': to,
-            'From': from_,
-        })
-        
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
-        
-        return ParticipantInstance(
-            self._version,
-            payload,
-            conversation_sid=self._solution['conversation_sid'],
-        )
+        return RatePlanPage(self._version, response, self._solution)
 
     def get(self, sid):
         """
-        Constructs a ParticipantContext
+        Constructs a RatePlanContext
         
         :param sid: The sid
         
-        :returns: ParticipantContext
-        :rtype: ParticipantContext
+        :returns: RatePlanContext
+        :rtype: RatePlanContext
         """
-        return ParticipantContext(
+        return RatePlanContext(
             self._version,
-            conversation_sid=self._solution['conversation_sid'],
             sid=sid,
         )
 
     def __call__(self, sid):
         """
-        Constructs a ParticipantContext
+        Constructs a RatePlanContext
         
         :param sid: The sid
         
-        :returns: ParticipantContext
-        :rtype: ParticipantContext
+        :returns: RatePlanContext
+        :rtype: RatePlanContext
         """
-        return ParticipantContext(
+        return RatePlanContext(
             self._version,
-            conversation_sid=self._solution['conversation_sid'],
             sid=sid,
         )
 
@@ -171,40 +139,38 @@ class ParticipantList(ListResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Conversations.V1.ParticipantList>'
+        return '<Twilio.Preview.Wireless.RatePlanList>'
 
 
-class ParticipantPage(Page):
+class RatePlanPage(Page):
 
     def __init__(self, version, response, solution):
         """
-        Initialize the ParticipantPage
+        Initialize the RatePlanPage
         
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param conversation_sid: The conversation_sid
         
-        :returns: ParticipantPage
-        :rtype: ParticipantPage
+        :returns: RatePlanPage
+        :rtype: RatePlanPage
         """
-        super(ParticipantPage, self).__init__(version, response)
+        super(RatePlanPage, self).__init__(version, response)
         
         # Path Solution
         self._solution = solution
 
     def get_instance(self, payload):
         """
-        Build an instance of ParticipantInstance
+        Build an instance of RatePlanInstance
         
         :param dict payload: Payload response from the API
         
-        :returns: ParticipantInstance
-        :rtype: ParticipantInstance
+        :returns: RatePlanInstance
+        :rtype: RatePlanInstance
         """
-        return ParticipantInstance(
+        return RatePlanInstance(
             self._version,
             payload,
-            conversation_sid=self._solution['conversation_sid'],
         )
 
     def __repr__(self):
@@ -214,37 +180,35 @@ class ParticipantPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Conversations.V1.ParticipantPage>'
+        return '<Twilio.Preview.Wireless.RatePlanPage>'
 
 
-class ParticipantContext(InstanceContext):
+class RatePlanContext(InstanceContext):
 
-    def __init__(self, version, conversation_sid, sid):
+    def __init__(self, version, sid):
         """
-        Initialize the ParticipantContext
+        Initialize the RatePlanContext
         
         :param Version version: Version that contains the resource
-        :param conversation_sid: The conversation_sid
         :param sid: The sid
         
-        :returns: ParticipantContext
-        :rtype: ParticipantContext
+        :returns: RatePlanContext
+        :rtype: RatePlanContext
         """
-        super(ParticipantContext, self).__init__(version)
+        super(RatePlanContext, self).__init__(version)
         
         # Path Solution
         self._solution = {
-            'conversation_sid': conversation_sid,
             'sid': sid,
         }
-        self._uri = '/Conversations/{conversation_sid}/Participants/{sid}'.format(**self._solution)
+        self._uri = '/RatePlans/{sid}'.format(**self._solution)
 
     def fetch(self):
         """
-        Fetch a ParticipantInstance
+        Fetch a RatePlanInstance
         
-        :returns: Fetched ParticipantInstance
-        :rtype: ParticipantInstance
+        :returns: Fetched RatePlanInstance
+        :rtype: RatePlanInstance
         """
         params = values.of({})
         
@@ -254,10 +218,9 @@ class ParticipantContext(InstanceContext):
             params=params,
         )
         
-        return ParticipantInstance(
+        return RatePlanInstance(
             self._version,
             payload,
-            conversation_sid=self._solution['conversation_sid'],
             sid=self._solution['sid'],
         )
 
@@ -269,38 +232,42 @@ class ParticipantContext(InstanceContext):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Conversations.V1.ParticipantContext {}>'.format(context)
+        return '<Twilio.Preview.Wireless.RatePlanContext {}>'.format(context)
 
 
-class ParticipantInstance(InstanceResource):
+class RatePlanInstance(InstanceResource):
 
-    def __init__(self, version, payload, conversation_sid, sid=None):
+    def __init__(self, version, payload, sid=None):
         """
-        Initialize the ParticipantInstance
+        Initialize the RatePlanInstance
         
-        :returns: ParticipantInstance
-        :rtype: ParticipantInstance
+        :returns: RatePlanInstance
+        :rtype: RatePlanInstance
         """
-        super(ParticipantInstance, self).__init__(version)
+        super(RatePlanInstance, self).__init__(version)
         
         # Marshaled Properties
         self._properties = {
             'sid': payload['sid'],
-            'address': payload['address'],
-            'status': payload['status'],
-            'conversation_sid': payload['conversation_sid'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'start_time': deserialize.iso8601_datetime(payload['start_time']),
-            'end_time': deserialize.iso8601_datetime(payload['end_time']),
-            'duration': deserialize.integer(payload['duration']),
+            'alias': payload['alias'],
             'account_sid': payload['account_sid'],
+            'friendly_name': payload['friendly_name'],
+            'data_metering': payload['data_metering'],
+            'capabilities': payload['capabilities'],
+            'voice_cap': deserialize.integer(payload['voice_cap']),
+            'messaging_cap': deserialize.integer(payload['messaging_cap']),
+            'commands_cap': deserialize.integer(payload['commands_cap']),
+            'data_cap': deserialize.integer(payload['data_cap']),
+            'cap_period': deserialize.integer(payload['cap_period']),
+            'cap_unit': payload['cap_unit'],
+            'date_created': deserialize.iso8601_datetime(payload['date_created']),
+            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
             'url': payload['url'],
         }
         
         # Context
         self._context = None
         self._solution = {
-            'conversation_sid': conversation_sid,
             'sid': sid or self._properties['sid'],
         }
 
@@ -310,13 +277,12 @@ class ParticipantInstance(InstanceResource):
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
         
-        :returns: ParticipantContext for this ParticipantInstance
-        :rtype: ParticipantContext
+        :returns: RatePlanContext for this RatePlanInstance
+        :rtype: RatePlanContext
         """
         if self._context is None:
-            self._context = ParticipantContext(
+            self._context = RatePlanContext(
                 self._version,
-                conversation_sid=self._solution['conversation_sid'],
                 sid=self._solution['sid'],
             )
         return self._context
@@ -330,28 +296,92 @@ class ParticipantInstance(InstanceResource):
         return self._properties['sid']
 
     @property
-    def address(self):
+    def alias(self):
         """
-        :returns: The address
+        :returns: The alias
         :rtype: unicode
         """
-        return self._properties['address']
+        return self._properties['alias']
 
     @property
-    def status(self):
+    def account_sid(self):
         """
-        :returns: The status
-        :rtype: participant.status
-        """
-        return self._properties['status']
-
-    @property
-    def conversation_sid(self):
-        """
-        :returns: The conversation_sid
+        :returns: The account_sid
         :rtype: unicode
         """
-        return self._properties['conversation_sid']
+        return self._properties['account_sid']
+
+    @property
+    def friendly_name(self):
+        """
+        :returns: The friendly_name
+        :rtype: unicode
+        """
+        return self._properties['friendly_name']
+
+    @property
+    def data_metering(self):
+        """
+        :returns: The data_metering
+        :rtype: unicode
+        """
+        return self._properties['data_metering']
+
+    @property
+    def capabilities(self):
+        """
+        :returns: The capabilities
+        :rtype: unicode
+        """
+        return self._properties['capabilities']
+
+    @property
+    def voice_cap(self):
+        """
+        :returns: The voice_cap
+        :rtype: unicode
+        """
+        return self._properties['voice_cap']
+
+    @property
+    def messaging_cap(self):
+        """
+        :returns: The messaging_cap
+        :rtype: unicode
+        """
+        return self._properties['messaging_cap']
+
+    @property
+    def commands_cap(self):
+        """
+        :returns: The commands_cap
+        :rtype: unicode
+        """
+        return self._properties['commands_cap']
+
+    @property
+    def data_cap(self):
+        """
+        :returns: The data_cap
+        :rtype: unicode
+        """
+        return self._properties['data_cap']
+
+    @property
+    def cap_period(self):
+        """
+        :returns: The cap_period
+        :rtype: unicode
+        """
+        return self._properties['cap_period']
+
+    @property
+    def cap_unit(self):
+        """
+        :returns: The cap_unit
+        :rtype: unicode
+        """
+        return self._properties['cap_unit']
 
     @property
     def date_created(self):
@@ -362,36 +392,12 @@ class ParticipantInstance(InstanceResource):
         return self._properties['date_created']
 
     @property
-    def start_time(self):
+    def date_updated(self):
         """
-        :returns: The start_time
+        :returns: The date_updated
         :rtype: datetime
         """
-        return self._properties['start_time']
-
-    @property
-    def end_time(self):
-        """
-        :returns: The end_time
-        :rtype: datetime
-        """
-        return self._properties['end_time']
-
-    @property
-    def duration(self):
-        """
-        :returns: The duration
-        :rtype: unicode
-        """
-        return self._properties['duration']
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The account_sid
-        :rtype: unicode
-        """
-        return self._properties['account_sid']
+        return self._properties['date_updated']
 
     @property
     def url(self):
@@ -403,10 +409,10 @@ class ParticipantInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a ParticipantInstance
+        Fetch a RatePlanInstance
         
-        :returns: Fetched ParticipantInstance
-        :rtype: ParticipantInstance
+        :returns: Fetched RatePlanInstance
+        :rtype: RatePlanInstance
         """
         return self._proxy.fetch()
 
@@ -418,4 +424,4 @@ class ParticipantInstance(InstanceResource):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Conversations.V1.ParticipantInstance {}>'.format(context)
+        return '<Twilio.Preview.Wireless.RatePlanInstance {}>'.format(context)

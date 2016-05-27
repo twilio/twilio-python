@@ -12,11 +12,11 @@ from twilio import __version__
 from twilio.exceptions import TwilioException
 from twilio.http.httplib2_client import Httplib2Client
 from twilio.rest.api import Api
-from twilio.rest.conversations import Conversations
 from twilio.rest.ip_messaging import IpMessaging
 from twilio.rest.lookups import Lookups
 from twilio.rest.monitor import Monitor
 from twilio.rest.notifications import Notifications
+from twilio.rest.preview import Preview
 from twilio.rest.pricing import Pricing
 from twilio.rest.taskrouter import Taskrouter
 from twilio.rest.trunking import Trunking
@@ -58,11 +58,11 @@ class Client(object):
         
         # Domains
         self._api = None
-        self._conversations = None
         self._ip_messaging = None
         self._lookups = None
         self._monitor = None
         self._notifications = None
+        self._preview = None
         self._pricing = None
         self._taskrouter = None
         self._trunking = None
@@ -124,18 +124,6 @@ class Client(object):
         return self._api
 
     @property
-    def conversations(self):
-        """
-        Access the Conversations Twilio Domain
-        
-        :returns: Conversations Twilio Domain
-        :rtype: Conversations
-        """
-        if self._conversations is None:
-            self._conversations = Conversations(self)
-        return self._conversations
-
-    @property
     def ip_messaging(self):
         """
         Access the IpMessaging Twilio Domain
@@ -182,6 +170,18 @@ class Client(object):
         if self._notifications is None:
             self._notifications = Notifications(self)
         return self._notifications
+
+    @property
+    def preview(self):
+        """
+        Access the Preview Twilio Domain
+        
+        :returns: Preview Twilio Domain
+        :rtype: Preview
+        """
+        if self._preview is None:
+            self._preview = Preview(self)
+        return self._preview
 
     @property
     def pricing(self):
