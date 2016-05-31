@@ -22,7 +22,7 @@ class CredentialTestCase(IntegrationTestCase):
         
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://notify.twilio.com/v1/Credentials',
+            'https://notifications.twilio.com/v1/Credentials',
         ))
 
     def test_read_full_response(self):
@@ -95,7 +95,7 @@ class CredentialTestCase(IntegrationTestCase):
         
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://notify.twilio.com/v1/Credentials',
+            'https://notifications.twilio.com/v1/Credentials',
             data=values,
         ))
 
@@ -128,7 +128,7 @@ class CredentialTestCase(IntegrationTestCase):
         
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://notify.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://notifications.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         ))
 
     def test_fetch_response(self):
@@ -165,7 +165,7 @@ class CredentialTestCase(IntegrationTestCase):
         
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://notify.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://notifications.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
             data=values,
         ))
 
@@ -198,7 +198,7 @@ class CredentialTestCase(IntegrationTestCase):
         
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://notify.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://notifications.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         ))
 
     def test_delete_response(self):

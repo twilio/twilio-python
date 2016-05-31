@@ -23,5 +23,5 @@ class UsageTestCase(IntegrationTestCase):
         
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://preview.twilio.com/wireless/Devices/device_sid/Usage',
+            'https://preview.twilio.com/wireless/Devices/sid/Usage',
         ))
