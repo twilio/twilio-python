@@ -35,7 +35,6 @@ def prefixed_collapsible_map(m, prefix):
     """
     Return a dict of params corresponding to those in m with the added prefix
     """
-
     if m == values.unset:
         return {}
 
