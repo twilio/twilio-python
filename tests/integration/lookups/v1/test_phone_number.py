@@ -40,6 +40,12 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 "country_code": "US",
                 "national_format": "(510) 867-5309",
                 "phone_number": "+15108675309",
+                "add_ons": {
+                    "status": "successful",
+                    "message": null,
+                    "code": null,
+                    "results": {}
+                },
                 "url": "https://lookups.twilio.com/v1/PhoneNumbers/phone_number"
             }
             '''

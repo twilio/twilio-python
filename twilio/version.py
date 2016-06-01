@@ -48,7 +48,7 @@ class Version(object):
             allow_redirects=allow_redirects,
         )
 
-        if response.status_code != 200:
+        if response.status_code < 200 or response.status_code >= 300:
             raise TwilioException('Unable to fetch record')
 
         return json.loads(response.content)
@@ -66,7 +66,7 @@ class Version(object):
             allow_redirects=allow_redirects,
         )
 
-        if response.status_code != 200:
+        if response.status_code < 200 or response.status_code >= 300:
             raise TwilioException('Unable to update record')
 
         return json.loads(response.content)
@@ -84,7 +84,7 @@ class Version(object):
             allow_redirects=allow_redirects,
         )
 
-        if 500 <= response.status_code < 600:
+        if response.status_code < 200 or response.status_code >= 300:
             raise TwilioException('Unable to delete record')
 
         return response.status_code == 204
@@ -149,7 +149,7 @@ class Version(object):
             allow_redirects=allow_redirects,
         )
 
-        if response.status_code not in [200, 201]:
+        if response.status_code < 200 or response.status_code >= 300:
             raise TwilioException('[{}] Unable to create record\n{}'.format(response.status_code,
                                                                             response.content))
 
