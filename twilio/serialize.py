@@ -39,7 +39,7 @@ def prefixed_collapsible_map(m, prefix):
         return {}
 
     def flatten_dict(d, result={}, prv_keys=[]):
-        for k, v in d.iteritems():
+        for k, v in d.items():
             if isinstance(v, dict):
                 flatten_dict(v, result, prv_keys + [k])
             else:
