@@ -137,7 +137,7 @@ class PhoneNumberContext(InstanceContext):
         :param unicode country_code: The country_code
         :param unicode type: The type
         :param unicode add_ons: The add_ons
-        :param unicode add_ons_data: The add_ons_data
+        :param dict add_ons_data: The add_ons_data
         
         :returns: Fetched PhoneNumberInstance
         :rtype: PhoneNumberInstance
@@ -262,7 +262,7 @@ class PhoneNumberInstance(InstanceResource):
         :param unicode country_code: The country_code
         :param unicode type: The type
         :param unicode add_ons: The add_ons
-        :param unicode add_ons_data: The add_ons_data
+        :param dict add_ons_data: The add_ons_data
         
         :returns: Fetched PhoneNumberInstance
         :rtype: PhoneNumberInstance
