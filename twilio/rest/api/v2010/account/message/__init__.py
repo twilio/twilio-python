@@ -13,6 +13,7 @@ from twilio.instance_context import InstanceContext
 from twilio.instance_resource import InstanceResource
 from twilio.list_resource import ListResource
 from twilio.page import Page
+from twilio.rest.api.v2010.account.message.feedback import FeedbackList
 from twilio.rest.api.v2010.account.message.media import MediaList
 
 
@@ -289,6 +290,7 @@ class MessageContext(InstanceContext):
         
         # Dependents
         self._media = None
+        self._feedback = None
 
     def delete(self):
         """
@@ -362,6 +364,22 @@ class MessageContext(InstanceContext):
                 message_sid=self._solution['sid'],
             )
         return self._media
+
+    @property
+    def feedback(self):
+        """
+        Access the feedback
+        
+        :returns: FeedbackList
+        :rtype: FeedbackList
+        """
+        if self._feedback is None:
+            self._feedback = FeedbackList(
+                self._version,
+                account_sid=self._solution['account_sid'],
+                message_sid=self._solution['sid'],
+            )
+        return self._feedback
 
     def __repr__(self):
         """
@@ -624,6 +642,16 @@ class MessageInstance(InstanceResource):
         :rtype: media
         """
         return self._proxy.media
+
+    @property
+    def feedback(self):
+        """
+        Access the feedback
+        
+        :returns: feedback
+        :rtype: feedback
+        """
+        return self._proxy.feedback
 
     def __repr__(self):
         """
