@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 6.0rc7
+-------------
+
+Released June 9, 2016:
+
+- Add messaging feedback preview
+
 Version 6.0rc5
 -------------
 
