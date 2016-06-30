@@ -45,7 +45,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         self.check_decoded(decoded, account_sid, workspace_sid, channel_id)
 
         policies = decoded['policies']
-        self.assertEqual(len(policies), 3)
+        self.assertEqual(len(policies), 4)
 
         for method, url, policy in [
             ('GET', "https://event-bridge.twilio.com/v1/wschannels/AC123/WS456", policies[0]),
@@ -72,7 +72,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         self.check_decoded(decoded, account_sid, workspace_sid, worker_sid, worker_sid)
 
         policies = decoded['policies']
-        self.assertEqual(len(policies), 6)
+        self.assertEqual(len(policies), 7)
 
         for method, url, policy in [
             ('GET', "https://event-bridge.twilio.com/v1/wschannels/AC123/WK789", policies[0]),
@@ -80,7 +80,8 @@ class TaskRouterCapabilityTest(unittest.TestCase):
             ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789", policies[2])
             ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities", policies[3]),
             ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**", policies[4]),
-            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789/Reservations/**", policies[5])
+            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789/Reservations/**", policies[5]),
+            ('GET', "https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789/Channels/**", policies[6])
         ]:
             yield self.check_policy, method, url, policy
 
@@ -102,7 +103,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         self.check_decoded(decoded, account_sid, workspace_sid, taskqueue_sid, taskqueue_sid)
 
         policies = decoded['policies']
-        self.assertEqual(len(policies), 3)
+        self.assertEqual(len(policies), 4)
 
         for method, url, policy in [
             ('GET', "https://event-bridge.twilio.com/v1/wschannels/AC123/WQ789", policies[0]),
@@ -129,7 +130,7 @@ class TaskRouterCapabilityTest(unittest.TestCase):
         self.check_decoded(decoded, account_sid, workspace_sid, worker_sid, worker_sid)
 
         policies = decoded['policies']
-        self.assertEqual(len(policies), 6)
+        self.assertEqual(len(policies), 7)
 
         # should expect 6 policies
         for method, url, policy in [

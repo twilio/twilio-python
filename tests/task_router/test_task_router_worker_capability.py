@@ -74,7 +74,7 @@ class TaskRouterWorkerCapabilityTest(unittest.TestCase):
 
         # expect 6 policies
         policies = decoded['policies']
-        self.assertEqual(len(policies), 6)
+        self.assertEqual(len(policies), 7)
 
         # should expect 6 policies
         for method, url, policy in [
@@ -99,8 +99,8 @@ class TaskRouterWorkerCapabilityTest(unittest.TestCase):
         self.assertNotEqual(None, decoded)
 
         policies = decoded['policies']
-        self.assertEqual(len(policies), 7)
-        policy = policies[6]
+        self.assertEqual(len(policies), 8)
+        policy = policies[7]
 
         url = "https://taskrouter.twilio.com/v1/Workspaces/{0}/Workers/{1}".format(self.workspace_sid, self.worker_sid)
 
@@ -122,13 +122,13 @@ class TaskRouterWorkerCapabilityTest(unittest.TestCase):
         self.assertNotEqual(None, decoded)
 
         policies = decoded['policies']
-        self.assertEqual(len(policies), 8)
+        self.assertEqual(len(policies), 9)
 
-        taskPolicy = policies[6]
+        taskPolicy = policies[7]
         tasksUrl = "https://taskrouter.twilio.com/v1/Workspaces/{0}/Tasks/**".format(self.workspace_sid)
         self.check_policy('POST', tasksUrl, taskPolicy)
 
-        workerReservationsPolicy = policies[7]
+        workerReservationsPolicy = policies[8]
         reservationsUrl = "https://taskrouter.twilio.com/v1/Workspaces/{0}/Workers/{1}/Reservations/**".format(self.workspace_sid, self.worker_sid)
         self.check_policy('POST', reservationsUrl, workerReservationsPolicy)
 
