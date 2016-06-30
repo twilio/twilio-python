@@ -109,7 +109,6 @@ class TaskRouterCapabilityTest(unittest.TestCase):
             }
 
         ]
-        
         self.assertEqual(expected, decoded['policies'])
 
     def test_allow_worker_activity_updates(self):
