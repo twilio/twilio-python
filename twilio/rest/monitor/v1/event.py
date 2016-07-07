@@ -396,7 +396,7 @@ class EventInstance(InstanceResource):
     def event_data(self):
         """
         :returns: The event_data
-        :rtype: unicode
+        :rtype: dict
         """
         return self._properties['event_data']
 

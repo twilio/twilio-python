@@ -236,7 +236,7 @@ class WorkflowStatisticsInstance(InstanceResource):
     def cumulative(self):
         """
         :returns: The cumulative
-        :rtype: unicode
+        :rtype: dict
         """
         return self._properties['cumulative']
 
@@ -244,7 +244,7 @@ class WorkflowStatisticsInstance(InstanceResource):
     def realtime(self):
         """
         :returns: The realtime
-        :rtype: unicode
+        :rtype: dict
         """
         return self._properties['realtime']
 

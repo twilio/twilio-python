@@ -36,14 +36,14 @@ class NotificationList(ListResource):
     def create(self, identity=values.unset, tag=values.unset, body=values.unset,
                priority=values.unset, ttl=values.unset, title=values.unset,
                sound=values.unset, action=values.unset, data=values.unset,
-               apn=values.unset, gcm=values.unset):
+               apn=values.unset, gcm=values.unset, facebook_messenger=values.unset):
         """
         Create a new NotificationInstance
         
         :param unicode identity: The identity
         :param unicode tag: The tag
         :param unicode body: The body
-        :param unicode priority: The priority
+        :param notification.priority priority: The priority
         :param unicode ttl: The ttl
         :param unicode title: The title
         :param unicode sound: The sound
@@ -51,6 +51,7 @@ class NotificationList(ListResource):
         :param unicode data: The data
         :param unicode apn: The apn
         :param unicode gcm: The gcm
+        :param dict facebook_messenger: The facebook_messenger
         
         :returns: Newly created NotificationInstance
         :rtype: NotificationInstance
@@ -67,6 +68,7 @@ class NotificationList(ListResource):
             'Data': data,
             'Apn': apn,
             'Gcm': gcm,
+            'FacebookMessenger': facebook_messenger,
         })
         
         payload = self._version.create(
@@ -162,6 +164,7 @@ class NotificationInstance(InstanceResource):
             'data': payload['data'],
             'apn': payload['apn'],
             'gcm': payload['gcm'],
+            'facebook_messenger': payload['facebook_messenger'],
         }
         
         # Context
@@ -222,7 +225,7 @@ class NotificationInstance(InstanceResource):
     def priority(self):
         """
         :returns: The priority
-        :rtype: unicode
+        :rtype: notification.priority
         """
         return self._properties['priority']
 
@@ -270,7 +273,7 @@ class NotificationInstance(InstanceResource):
     def data(self):
         """
         :returns: The data
-        :rtype: unicode
+        :rtype: dict
         """
         return self._properties['data']
 
@@ -278,7 +281,7 @@ class NotificationInstance(InstanceResource):
     def apn(self):
         """
         :returns: The apn
-        :rtype: unicode
+        :rtype: dict
         """
         return self._properties['apn']
 
@@ -286,9 +289,17 @@ class NotificationInstance(InstanceResource):
     def gcm(self):
         """
         :returns: The gcm
-        :rtype: unicode
+        :rtype: dict
         """
         return self._properties['gcm']
+
+    @property
+    def facebook_messenger(self):
+        """
+        :returns: The facebook_messenger
+        :rtype: dict
+        """
+        return self._properties['facebook_messenger']
 
     def __repr__(self):
         """

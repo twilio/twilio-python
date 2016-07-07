@@ -34,7 +34,8 @@ class ServiceList(ListResource):
         self._uri = '/Services'.format(**self._solution)
 
     def create(self, friendly_name=values.unset, apn_credential_sid=values.unset,
-               gcm_credential_sid=values.unset,
+               gcm_credential_sid=values.unset, messaging_service_sid=values.unset,
+               facebook_messenger_page_id=values.unset,
                default_apn_notification_protocol_version=values.unset,
                default_gcm_notification_protocol_version=values.unset):
         """
@@ -43,6 +44,8 @@ class ServiceList(ListResource):
         :param unicode friendly_name: The friendly_name
         :param unicode apn_credential_sid: The apn_credential_sid
         :param unicode gcm_credential_sid: The gcm_credential_sid
+        :param unicode messaging_service_sid: The messaging_service_sid
+        :param unicode facebook_messenger_page_id: The facebook_messenger_page_id
         :param unicode default_apn_notification_protocol_version: The default_apn_notification_protocol_version
         :param unicode default_gcm_notification_protocol_version: The default_gcm_notification_protocol_version
         
@@ -53,6 +56,8 @@ class ServiceList(ListResource):
             'FriendlyName': friendly_name,
             'ApnCredentialSid': apn_credential_sid,
             'GcmCredentialSid': gcm_credential_sid,
+            'MessagingServiceSid': messaging_service_sid,
+            'FacebookMessengerPageId': facebook_messenger_page_id,
             'DefaultApnNotificationProtocolVersion': default_apn_notification_protocol_version,
             'DefaultGcmNotificationProtocolVersion': default_gcm_notification_protocol_version,
         })
@@ -281,7 +286,8 @@ class ServiceContext(InstanceContext):
         )
 
     def update(self, friendly_name=values.unset, apn_credential_sid=values.unset,
-               gcm_credential_sid=values.unset,
+               gcm_credential_sid=values.unset, messaging_service_sid=values.unset,
+               facebook_messenger_page_id=values.unset,
                default_apn_notification_protocol_version=values.unset,
                default_gcm_notification_protocol_version=values.unset):
         """
@@ -290,6 +296,8 @@ class ServiceContext(InstanceContext):
         :param unicode friendly_name: The friendly_name
         :param unicode apn_credential_sid: The apn_credential_sid
         :param unicode gcm_credential_sid: The gcm_credential_sid
+        :param unicode messaging_service_sid: The messaging_service_sid
+        :param unicode facebook_messenger_page_id: The facebook_messenger_page_id
         :param unicode default_apn_notification_protocol_version: The default_apn_notification_protocol_version
         :param unicode default_gcm_notification_protocol_version: The default_gcm_notification_protocol_version
         
@@ -300,6 +308,8 @@ class ServiceContext(InstanceContext):
             'FriendlyName': friendly_name,
             'ApnCredentialSid': apn_credential_sid,
             'GcmCredentialSid': gcm_credential_sid,
+            'MessagingServiceSid': messaging_service_sid,
+            'FacebookMessengerPageId': facebook_messenger_page_id,
             'DefaultApnNotificationProtocolVersion': default_apn_notification_protocol_version,
             'DefaultGcmNotificationProtocolVersion': default_gcm_notification_protocol_version,
         })
@@ -377,6 +387,8 @@ class ServiceInstance(InstanceResource):
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
             'apn_credential_sid': payload['apn_credential_sid'],
             'gcm_credential_sid': payload['gcm_credential_sid'],
+            'messaging_service_sid': payload['messaging_service_sid'],
+            'facebook_messenger_page_id': payload['facebook_messenger_page_id'],
             'default_apn_notification_protocol_version': payload['default_apn_notification_protocol_version'],
             'default_gcm_notification_protocol_version': payload['default_gcm_notification_protocol_version'],
             'url': payload['url'],
@@ -462,6 +474,22 @@ class ServiceInstance(InstanceResource):
         return self._properties['gcm_credential_sid']
 
     @property
+    def messaging_service_sid(self):
+        """
+        :returns: The messaging_service_sid
+        :rtype: unicode
+        """
+        return self._properties['messaging_service_sid']
+
+    @property
+    def facebook_messenger_page_id(self):
+        """
+        :returns: The facebook_messenger_page_id
+        :rtype: unicode
+        """
+        return self._properties['facebook_messenger_page_id']
+
+    @property
     def default_apn_notification_protocol_version(self):
         """
         :returns: The default_apn_notification_protocol_version
@@ -512,7 +540,8 @@ class ServiceInstance(InstanceResource):
         return self._proxy.fetch()
 
     def update(self, friendly_name=values.unset, apn_credential_sid=values.unset,
-               gcm_credential_sid=values.unset,
+               gcm_credential_sid=values.unset, messaging_service_sid=values.unset,
+               facebook_messenger_page_id=values.unset,
                default_apn_notification_protocol_version=values.unset,
                default_gcm_notification_protocol_version=values.unset):
         """
@@ -521,6 +550,8 @@ class ServiceInstance(InstanceResource):
         :param unicode friendly_name: The friendly_name
         :param unicode apn_credential_sid: The apn_credential_sid
         :param unicode gcm_credential_sid: The gcm_credential_sid
+        :param unicode messaging_service_sid: The messaging_service_sid
+        :param unicode facebook_messenger_page_id: The facebook_messenger_page_id
         :param unicode default_apn_notification_protocol_version: The default_apn_notification_protocol_version
         :param unicode default_gcm_notification_protocol_version: The default_gcm_notification_protocol_version
         
@@ -531,6 +562,8 @@ class ServiceInstance(InstanceResource):
             friendly_name=friendly_name,
             apn_credential_sid=apn_credential_sid,
             gcm_credential_sid=gcm_credential_sid,
+            messaging_service_sid=messaging_service_sid,
+            facebook_messenger_page_id=facebook_messenger_page_id,
             default_apn_notification_protocol_version=default_apn_notification_protocol_version,
             default_gcm_notification_protocol_version=default_gcm_notification_protocol_version,
         )

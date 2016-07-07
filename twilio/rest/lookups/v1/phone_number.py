@@ -250,7 +250,7 @@ class PhoneNumberInstance(InstanceResource):
     def add_ons(self):
         """
         :returns: The add_ons
-        :rtype: unicode
+        :rtype: dict
         """
         return self._properties['add_ons']
 

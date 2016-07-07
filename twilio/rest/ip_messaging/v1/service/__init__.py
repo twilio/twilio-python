@@ -282,7 +282,7 @@ class ServiceContext(InstanceContext):
         :param bool read_status_enabled: The read_status_enabled
         :param unicode typing_indicator_timeout: The typing_indicator_timeout
         :param unicode consumption_report_interval: The consumption_report_interval
-        :param unicode webhooks: The webhooks
+        :param dict webhooks: The webhooks
         
         :returns: Updated ServiceInstance
         :rtype: ServiceInstance
@@ -509,7 +509,7 @@ class ServiceInstance(InstanceResource):
     def webhooks(self):
         """
         :returns: The webhooks
-        :rtype: unicode
+        :rtype: dict
         """
         return self._properties['webhooks']
 
@@ -564,7 +564,7 @@ class ServiceInstance(InstanceResource):
         :param bool read_status_enabled: The read_status_enabled
         :param unicode typing_indicator_timeout: The typing_indicator_timeout
         :param unicode consumption_report_interval: The consumption_report_interval
-        :param unicode webhooks: The webhooks
+        :param dict webhooks: The webhooks
         
         :returns: Updated ServiceInstance
         :rtype: ServiceInstance

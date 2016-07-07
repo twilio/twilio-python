@@ -235,7 +235,7 @@ class WorkerStatisticsInstance(InstanceResource):
     def cumulative(self):
         """
         :returns: The cumulative
-        :rtype: unicode
+        :rtype: dict
         """
         return self._properties['cumulative']
 

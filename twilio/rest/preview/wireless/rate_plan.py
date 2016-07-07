@@ -331,7 +331,7 @@ class RatePlanInstance(InstanceResource):
     def capabilities(self):
         """
         :returns: The capabilities
-        :rtype: unicode
+        :rtype: dict
         """
         return self._properties['capabilities']
 

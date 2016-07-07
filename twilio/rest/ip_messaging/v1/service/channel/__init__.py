@@ -43,7 +43,7 @@ class ChannelList(ListResource):
         
         :param unicode friendly_name: The friendly_name
         :param unicode unique_name: The unique_name
-        :param unicode attributes: The attributes
+        :param dict attributes: The attributes
         :param channel.channel_type type: The type
         
         :returns: Newly created ChannelInstance
@@ -288,7 +288,7 @@ class ChannelContext(InstanceContext):
         
         :param unicode friendly_name: The friendly_name
         :param unicode unique_name: The unique_name
-        :param unicode attributes: The attributes
+        :param dict attributes: The attributes
         :param channel.channel_type type: The type
         
         :returns: Updated ChannelInstance
@@ -452,7 +452,7 @@ class ChannelInstance(InstanceResource):
     def attributes(self):
         """
         :returns: The attributes
-        :rtype: unicode
+        :rtype: dict
         """
         return self._properties['attributes']
 
@@ -529,7 +529,7 @@ class ChannelInstance(InstanceResource):
         
         :param unicode friendly_name: The friendly_name
         :param unicode unique_name: The unique_name
-        :param unicode attributes: The attributes
+        :param dict attributes: The attributes
         :param channel.channel_type type: The type
         
         :returns: Updated ChannelInstance

@@ -241,7 +241,7 @@ class UsageInstance(InstanceResource):
     def period(self):
         """
         :returns: The period
-        :rtype: unicode
+        :rtype: dict
         """
         return self._properties['period']
 
@@ -249,7 +249,7 @@ class UsageInstance(InstanceResource):
     def commands_usage(self):
         """
         :returns: The commands_usage
-        :rtype: unicode
+        :rtype: dict
         """
         return self._properties['commands_usage']
 
@@ -257,7 +257,7 @@ class UsageInstance(InstanceResource):
     def commands_costs(self):
         """
         :returns: The commands_costs
-        :rtype: unicode
+        :rtype: dict
         """
         return self._properties['commands_costs']
 
@@ -265,7 +265,7 @@ class UsageInstance(InstanceResource):
     def data_usage(self):
         """
         :returns: The data_usage
-        :rtype: unicode
+        :rtype: dict
         """
         return self._properties['data_usage']
 
@@ -273,7 +273,7 @@ class UsageInstance(InstanceResource):
     def data_costs(self):
         """
         :returns: The data_costs
-        :rtype: unicode
+        :rtype: dict
         """
         return self._properties['data_costs']
 

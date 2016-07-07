@@ -492,7 +492,7 @@ class TrunkInstance(InstanceResource):
     def recording(self):
         """
         :returns: The recording
-        :rtype: unicode
+        :rtype: dict
         """
         return self._properties['recording']
 
