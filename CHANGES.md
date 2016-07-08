@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 6.0rc8
+-------------
+
+Released July 8, 2016:
+
+- Add SMS and Facebook Messenger for Notify
+
 Version 6.0rc7
 -------------
 
