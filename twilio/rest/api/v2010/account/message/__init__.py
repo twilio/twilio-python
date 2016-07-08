@@ -38,7 +38,7 @@ class MessageList(ListResource):
         self._uri = '/Accounts/{account_sid}/Messages.json'.format(**self._solution)
 
     def create(self, to, from_, status_callback=values.unset,
-               application_sid=values.unset, provide_feeback=values.unset,
+               application_sid=values.unset, provide_feedback=values.unset,
                body=values.unset, media_url=values.unset):
         """
         Create a new MessageInstance
@@ -47,7 +47,7 @@ class MessageList(ListResource):
         :param unicode from_: The phone number that initiated the message
         :param unicode status_callback: URL Twilio will request when the status changes
         :param unicode application_sid: The application to use for callbacks
-        :param bool provide_feeback: The provide_feeback
+        :param bool provide_feedback: The provide_feedback
         :param unicode body: The body
         :param unicode media_url: The media_url
         
@@ -61,7 +61,7 @@ class MessageList(ListResource):
             'MediaUrl': media_url,
             'StatusCallback': status_callback,
             'ApplicationSid': application_sid,
-            'ProvideFeeback': provide_feeback,
+            'ProvideFeedback': provide_feedback,
         })
         
         payload = self._version.create(
