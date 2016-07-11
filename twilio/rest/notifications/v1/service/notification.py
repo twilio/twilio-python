@@ -36,7 +36,8 @@ class NotificationList(ListResource):
     def create(self, identity=values.unset, tag=values.unset, body=values.unset,
                priority=values.unset, ttl=values.unset, title=values.unset,
                sound=values.unset, action=values.unset, data=values.unset,
-               apn=values.unset, gcm=values.unset, facebook_messenger=values.unset):
+               apn=values.unset, gcm=values.unset, sms=values.unset,
+               facebook_messenger=values.unset):
         """
         Create a new NotificationInstance
         
@@ -51,6 +52,7 @@ class NotificationList(ListResource):
         :param unicode data: The data
         :param unicode apn: The apn
         :param unicode gcm: The gcm
+        :param unicode sms: The sms
         :param dict facebook_messenger: The facebook_messenger
         
         :returns: Newly created NotificationInstance
@@ -68,6 +70,7 @@ class NotificationList(ListResource):
             'Data': data,
             'Apn': apn,
             'Gcm': gcm,
+            'Sms': sms,
             'FacebookMessenger': facebook_messenger,
         })
         
