@@ -20,12 +20,16 @@ from twilio.rest.api.v2010.account.call import CallList
 from twilio.rest.api.v2010.account.conference import ConferenceList
 from twilio.rest.api.v2010.account.connect_app import ConnectAppList
 from twilio.rest.api.v2010.account.incoming_phone_number import IncomingPhoneNumberList
+from twilio.rest.api.v2010.account.key import KeyList
 from twilio.rest.api.v2010.account.message import MessageList
+from twilio.rest.api.v2010.account.new_key import NewKeyList
+from twilio.rest.api.v2010.account.new_signing_key import NewSigningKeyList
 from twilio.rest.api.v2010.account.notification import NotificationList
 from twilio.rest.api.v2010.account.outgoing_caller_id import OutgoingCallerIdList
 from twilio.rest.api.v2010.account.queue import QueueList
 from twilio.rest.api.v2010.account.recording import RecordingList
 from twilio.rest.api.v2010.account.sandbox import SandboxList
+from twilio.rest.api.v2010.account.signing_key import SigningKeyList
 from twilio.rest.api.v2010.account.sip import SipList
 from twilio.rest.api.v2010.account.sms import SmsList
 from twilio.rest.api.v2010.account.token import TokenList
@@ -271,12 +275,16 @@ class AccountContext(InstanceContext):
         self._conferences = None
         self._connect_apps = None
         self._incoming_phone_numbers = None
+        self._keys = None
         self._messages = None
+        self._new_keys = None
+        self._new_signing_keys = None
         self._notifications = None
         self._outgoing_caller_ids = None
         self._queues = None
         self._recordings = None
         self._sandbox = None
+        self._signing_keys = None
         self._sip = None
         self._sms = None
         self._tokens = None
@@ -453,6 +461,21 @@ class AccountContext(InstanceContext):
         return self._incoming_phone_numbers
 
     @property
+    def keys(self):
+        """
+        Access the keys
+        
+        :returns: KeyList
+        :rtype: KeyList
+        """
+        if self._keys is None:
+            self._keys = KeyList(
+                self._version,
+                account_sid=self._solution['sid'],
+            )
+        return self._keys
+
+    @property
     def messages(self):
         """
         Access the messages
@@ -466,6 +489,36 @@ class AccountContext(InstanceContext):
                 account_sid=self._solution['sid'],
             )
         return self._messages
+
+    @property
+    def new_keys(self):
+        """
+        Access the new_keys
+        
+        :returns: NewKeyList
+        :rtype: NewKeyList
+        """
+        if self._new_keys is None:
+            self._new_keys = NewKeyList(
+                self._version,
+                account_sid=self._solution['sid'],
+            )
+        return self._new_keys
+
+    @property
+    def new_signing_keys(self):
+        """
+        Access the new_signing_keys
+        
+        :returns: NewSigningKeyList
+        :rtype: NewSigningKeyList
+        """
+        if self._new_signing_keys is None:
+            self._new_signing_keys = NewSigningKeyList(
+                self._version,
+                account_sid=self._solution['sid'],
+            )
+        return self._new_signing_keys
 
     @property
     def notifications(self):
@@ -541,6 +594,21 @@ class AccountContext(InstanceContext):
                 account_sid=self._solution['sid'],
             )
         return self._sandbox
+
+    @property
+    def signing_keys(self):
+        """
+        Access the signing_keys
+        
+        :returns: SigningKeyList
+        :rtype: SigningKeyList
+        """
+        if self._signing_keys is None:
+            self._signing_keys = SigningKeyList(
+                self._version,
+                account_sid=self._solution['sid'],
+            )
+        return self._signing_keys
 
     @property
     def sip(self):
@@ -875,6 +943,16 @@ class AccountInstance(InstanceResource):
         return self._proxy.incoming_phone_numbers
 
     @property
+    def keys(self):
+        """
+        Access the keys
+        
+        :returns: keys
+        :rtype: keys
+        """
+        return self._proxy.keys
+
+    @property
     def messages(self):
         """
         Access the messages
@@ -883,6 +961,26 @@ class AccountInstance(InstanceResource):
         :rtype: messages
         """
         return self._proxy.messages
+
+    @property
+    def new_keys(self):
+        """
+        Access the new_keys
+        
+        :returns: new_keys
+        :rtype: new_keys
+        """
+        return self._proxy.new_keys
+
+    @property
+    def new_signing_keys(self):
+        """
+        Access the new_signing_keys
+        
+        :returns: new_signing_keys
+        :rtype: new_signing_keys
+        """
+        return self._proxy.new_signing_keys
 
     @property
     def notifications(self):
@@ -933,6 +1031,16 @@ class AccountInstance(InstanceResource):
         :rtype: sandbox
         """
         return self._proxy.sandbox
+
+    @property
+    def signing_keys(self):
+        """
+        Access the signing_keys
+        
+        :returns: signing_keys
+        :rtype: signing_keys
+        """
+        return self._proxy.signing_keys
 
     @property
     def sip(self):

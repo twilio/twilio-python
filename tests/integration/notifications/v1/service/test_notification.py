@@ -48,6 +48,7 @@ class NotificationTestCase(IntegrationTestCase):
                 "data": null,
                 "apn": null,
                 "gcm": null,
+                "sms": null,
                 "facebook_messenger": null
             }
             '''

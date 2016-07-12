@@ -110,8 +110,9 @@ class DomainList(ListResource):
         return DomainPage(self._version, response, self._solution)
 
     def create(self, domain_name, friendly_name=values.unset,
-               voice_url=values.unset, voice_method=values.unset,
-               voice_fallback_url=values.unset, voice_fallback_method=values.unset,
+               auth_type=values.unset, voice_url=values.unset,
+               voice_method=values.unset, voice_fallback_url=values.unset,
+               voice_fallback_method=values.unset,
                voice_status_callback_url=values.unset,
                voice_status_callback_method=values.unset):
         """
@@ -119,6 +120,7 @@ class DomainList(ListResource):
         
         :param unicode domain_name: The unique address on Twilio to route SIP traffic
         :param unicode friendly_name: A user-specified, human-readable name for the trigger.
+        :param unicode auth_type: The types of authentication mapped to the domain
         :param unicode voice_url: URL Twilio will request when receiving a call
         :param unicode voice_method: HTTP method to use with voice_url
         :param unicode voice_fallback_url: URL Twilio will request if an error occurs in executing TwiML
@@ -132,6 +134,7 @@ class DomainList(ListResource):
         data = values.of({
             'DomainName': domain_name,
             'FriendlyName': friendly_name,
+            'AuthType': auth_type,
             'VoiceUrl': voice_url,
             'VoiceMethod': voice_method,
             'VoiceFallbackUrl': voice_fallback_url,
@@ -283,14 +286,14 @@ class DomainContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
-    def update(self, api_version=values.unset, friendly_name=values.unset,
+    def update(self, auth_type=values.unset, friendly_name=values.unset,
                voice_fallback_method=values.unset, voice_fallback_url=values.unset,
                voice_method=values.unset, voice_status_callback_method=values.unset,
                voice_status_callback_url=values.unset, voice_url=values.unset):
         """
         Update the DomainInstance
         
-        :param unicode api_version: The api_version
+        :param unicode auth_type: The auth_type
         :param unicode friendly_name: A user-specified, human-readable name for the trigger.
         :param unicode voice_fallback_method: The voice_fallback_method
         :param unicode voice_fallback_url: The voice_fallback_url
@@ -303,7 +306,7 @@ class DomainContext(InstanceContext):
         :rtype: DomainInstance
         """
         data = values.of({
-            'ApiVersion': api_version,
+            'AuthType': auth_type,
             'FriendlyName': friendly_name,
             'VoiceFallbackMethod': voice_fallback_method,
             'VoiceFallbackUrl': voice_fallback_url,
@@ -561,14 +564,14 @@ class DomainInstance(InstanceResource):
         """
         return self._proxy.fetch()
 
-    def update(self, api_version=values.unset, friendly_name=values.unset,
+    def update(self, auth_type=values.unset, friendly_name=values.unset,
                voice_fallback_method=values.unset, voice_fallback_url=values.unset,
                voice_method=values.unset, voice_status_callback_method=values.unset,
                voice_status_callback_url=values.unset, voice_url=values.unset):
         """
         Update the DomainInstance
         
-        :param unicode api_version: The api_version
+        :param unicode auth_type: The auth_type
         :param unicode friendly_name: A user-specified, human-readable name for the trigger.
         :param unicode voice_fallback_method: The voice_fallback_method
         :param unicode voice_fallback_url: The voice_fallback_url
@@ -581,7 +584,7 @@ class DomainInstance(InstanceResource):
         :rtype: DomainInstance
         """
         return self._proxy.update(
-            api_version=api_version,
+            auth_type=auth_type,
             friendly_name=friendly_name,
             voice_fallback_method=voice_fallback_method,
             voice_fallback_url=voice_fallback_url,

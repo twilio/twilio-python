@@ -291,11 +291,32 @@ class Client(object):
         return self.account.incoming_phone_numbers
 
     @property
+    def keys(self):
+        """
+        :rtype: KeyList
+        """
+        return self.account.keys
+
+    @property
     def messages(self):
         """
         :rtype: MessageList
         """
         return self.account.messages
+
+    @property
+    def new_keys(self):
+        """
+        :rtype: NewKeyList
+        """
+        return self.account.new_keys
+
+    @property
+    def new_signing_keys(self):
+        """
+        :rtype: NewSigningKeyList
+        """
+        return self.account.new_signing_keys
 
     @property
     def outgoing_caller_ids(self):
@@ -324,6 +345,13 @@ class Client(object):
         :rtype: SandboxList
         """
         return self.account.sandbox
+
+    @property
+    def signing_keys(self):
+        """
+        :rtype: SigningKeyList
+        """
+        return self.account.signing_keys
 
     @property
     def sip(self):

@@ -167,6 +167,7 @@ class NotificationInstance(InstanceResource):
             'data': payload['data'],
             'apn': payload['apn'],
             'gcm': payload['gcm'],
+            'sms': payload['sms'],
             'facebook_messenger': payload['facebook_messenger'],
         }
         
@@ -295,6 +296,14 @@ class NotificationInstance(InstanceResource):
         :rtype: dict
         """
         return self._properties['gcm']
+
+    @property
+    def sms(self):
+        """
+        :returns: The sms
+        :rtype: dict
+        """
+        return self._properties['sms']
 
     @property
     def facebook_messenger(self):

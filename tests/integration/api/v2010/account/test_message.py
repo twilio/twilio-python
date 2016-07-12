@@ -19,11 +19,10 @@ class MessageTestCase(IntegrationTestCase):
         
         with self.assertRaises(TwilioException):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .messages.create(to="+123456789", from_="+987654321")
+                                 .messages.create(to="+123456789")
         
         values = {
             'To': "+123456789",
-            'From': "+987654321",
         }
         
         self.holodeck.assert_has_request(Request(
@@ -63,7 +62,7 @@ class MessageTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .messages.create(to="+123456789", from_="+987654321")
+                                      .messages.create(to="+123456789")
         
         self.assertIsNotNone(actual)
 
