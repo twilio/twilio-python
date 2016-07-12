@@ -114,4 +114,4 @@ class JwtTest(unittest.TestCase):
         self.assertRaises(jwt.DecodeError, jwt.decode, jwt_message)
 
     def test_invalid_crypto_alg(self):
-        self.assertRaises(NotImplementedError, jwt.encode, self.payload, "secret", "HS1024")
+        self.assertRaises(NotImplementedError, jwt.encode, self.payload, "secret", {}, "HS1024")
