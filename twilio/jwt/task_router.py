@@ -1,9 +1,6 @@
 import time
-import warnings
 
 from twilio import jwt
-
-warnings.simplefilter('always', DeprecationWarning)
 
 TASK_ROUTER_BASE_URL = 'https://taskrouter.twilio.com'
 TASK_ROUTER_BASE_EVENTS_URL = 'https://event-bridge.twilio.com/v1/wschannels'
@@ -11,18 +8,6 @@ TASK_ROUTER_VERSION = "v1"
 
 REQUIRED = {'required': True}
 OPTIONAL = {'required': False}
-
-
-def deprecated(func):
-    def log_warning(*args, **kwargs):
-        # stacklevel = 2 makes the warning refer to the caller of the
-        # deprecation rather than the source of deprecation itself
-        warnings.warn("Call to deprecated function {0}.".
-                      format(func.__name__),
-                      stacklevel=2,
-                      category=DeprecationWarning)
-        return func(*args, **kwargs)
-    return log_warning
 
 
 class TaskRouterCapability(object):
@@ -44,7 +29,7 @@ class TaskRouterCapability(object):
         self.allow_web_sockets(channel_id)
 
         # set up resources
-        self.setup_resource()
+        self.resource_url = self.setup_resource()
 
         # add permissions to fetch the instance resource
         self.add_policy(self.resource_url, "GET", True)
@@ -54,23 +39,7 @@ class TaskRouterCapability(object):
         return self.channel_id[0:2]
 
     def setup_resource(self):
-        if self.channel_prefix == "WS":
-            self.resource_url = self.base_url
-        elif self.channel_prefix == "WK":
-            self.resource_url = self.base_url + "/Workers/" + self.channel_id
-
-            activity_url = self.base_url + "/Activities"
-            self.allow(activity_url, "GET")
-
-            tasks_url = self.base_url + "/Tasks/**"
-            self.allow(tasks_url, "GET")
-
-            worker_reservations_url = self.resource_url + "/Reservations/**"
-            self.allow(worker_reservations_url, "GET")
-
-        elif self.channel_prefix == "WQ":
-            self.resource_url = "{0}/TaskQueues/{1}".format(
-                self.base_url, self.channel_id)
+        return self.base_url
 
     def allow_web_sockets(self, channel_id):
         web_socket_url = "{0}/{1}/{2}".format(TASK_ROUTER_BASE_EVENTS_URL,
@@ -108,37 +77,6 @@ class TaskRouterCapability(object):
 
     def allow_delete_subresources(self):
         self.allow(self.resource_url + "/**", "DELETE")
-
-    @deprecated
-    def allow_worker_fetch_attributes(self):
-        if self.channel_prefix != "WK":
-            raise ValueError("Deprecated func not applicable to non Worker")
-        else:
-            self.policies.append(self.make_policy(
-                self.resource_url,
-                'GET'))
-
-    @deprecated
-    def allow_worker_activity_updates(self):
-        if self.channel_prefix == "WK":
-            self.policies.append(self.make_policy(
-                self.resource_url,
-                'POST',
-                True,
-                post_filter={'ActivitySid': REQUIRED}))
-        else:
-            raise ValueError("Deprecated func not applicable to non Worker")
-
-    @deprecated
-    def allow_task_reservation_updates(self):
-        if self.channel_prefix == "WK":
-            tasks_url = self.base_url + "/Tasks/**"
-            self.policies.append(self.make_policy(
-                tasks_url,
-                'POST',
-                True))
-        else:
-            raise ValueError("Deprecated func not applicable to non Worker")
 
     def add_policy(self, url, method,
                    allowed, query_filter=None, post_filter=None):
@@ -224,7 +162,7 @@ class TaskRouterWorkerCapability(TaskRouterCapability):
         self.allow(self.worker_reservations_url, "GET")
 
     def setup_resource(self):
-        self.resource_url = self.base_url + "/Workers/" + self.channel_id
+        return self.base_url + "/Workers/" + self.channel_id
 
     def allow_activity_updates(self):
         self.policies.append(self.make_policy(
@@ -245,8 +183,14 @@ class TaskRouterWorkerCapability(TaskRouterCapability):
 
 
 class TaskRouterTaskQueueCapability(TaskRouterCapability):
+    def __init__(self, account_sid, auth_token, workspace_sid, task_queue_sid):
+        super(TaskRouterTaskQueueCapability, self).__init__(account_sid,
+                                                            auth_token,
+                                                            workspace_sid,
+                                                            task_queue_sid)
+
     def setup_resource(self):
-        self.resource_url = self.base_url + "/TaskQueues/" + self.channel_id
+        return self.base_url + "/TaskQueues/" + self.channel_id
 
 
 class TaskRouterWorkspaceCapability(TaskRouterCapability):
@@ -257,4 +201,4 @@ class TaskRouterWorkspaceCapability(TaskRouterCapability):
                                                             workspace_sid)
 
     def setup_resource(self):
-        self.resource_url = self.base_url
+        return self.base_url
