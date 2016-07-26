@@ -41,9 +41,11 @@ def base64url_encode(input):
     return base64.urlsafe_b64encode(input).decode('utf-8').replace('=', '')
 
 
-def encode(payload, key, algorithm='HS256'):
+def encode(payload, key, algorithm='HS256', headers=None):
     segments = []
     header = {"typ": "JWT", "alg": algorithm}
+    if headers:
+        header.update(headers)
     segments.append(base64url_encode(binary(json.dumps(header))))
     segments.append(base64url_encode(binary(json.dumps(payload))))
     sign_input = '.'.join(segments)
