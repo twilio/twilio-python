@@ -30,6 +30,26 @@ class IpMessagingGrant(object):
         return grant
 
 
+class SyncGrant(object):
+    """ Grant to access Twilio Sync """
+    def __init__(self, service_sid=None, endpoint_id=None):
+        self.service_sid = service_sid
+        self.endpoint_id = endpoint_id
+
+    @property
+    def key(self):
+        return "data_sync"
+
+    def to_payload(self):
+        grant = {}
+        if self.service_sid:
+            grant['service_sid'] = self.service_sid
+        if self.endpoint_id:
+            grant['endpoint_id'] = self.endpoint_id
+
+        return grant
+
+
 class ConversationsGrant(object):
     """ Grant to access Twilio Conversations """
     def __init__(self, configuration_profile_sid=None):
