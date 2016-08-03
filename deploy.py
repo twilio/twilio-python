@@ -27,7 +27,7 @@ def main(version):
     info = version.split('.')
 
     init_src = ("__version_info__ = ({version_info})\n"
-                "__version__ = '.'.join(__version_info__)")
+                "__version__ = '.'.join(__version_info__)\n")
     init_src = init_src.format(version_info=', '.join(["'{}'".format(i) for i in info]))
 
     print('Updating twilio/__init__.py ... ', end="")
