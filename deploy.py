@@ -62,7 +62,13 @@ def main(version):
     os.system('git push --tags')
     print('Done')
 
-    print('Deploy complete')
+    # TODO: Remove this once 6.x is Generally Available
+
+    print('!' * 80)
+    print('! {:^76} !'.format('Go hide latest RC and unhide latest 5.x'))
+    print('!' * 80)
+
+    os.system('open "https://pypi.python.org/pypi?:action=pkg_edit&name=twilio"')
 
 if __name__ == '__main__':
     parser = ArgumentParser()

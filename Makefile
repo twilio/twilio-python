@@ -36,7 +36,7 @@ docs-install:
 docs:
 	. venv/bin/activate; cd docs && make html
 
-release: test-install
+release:
 	. venv/bin/activate; python setup.py sdist upload
 	. venv/bin/activate; python setup.py bdist_wheel upload
 
