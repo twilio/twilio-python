@@ -57,3 +57,34 @@ class MessageTestCase(IntegrationTestCase):
             'get',
             'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages',
         ))
+
+    def test_delete_request(self):
+        self.holodeck.mock(Response(500, ''))
+        
+        with self.assertRaises(TwilioException):
+            self.client.ip_messaging.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                       .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                       .messages(sid="IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        
+        self.holodeck.assert_has_request(Request(
+            'delete',
+            'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        ))
+
+    def test_update_request(self):
+        self.holodeck.mock(Response(500, ''))
+        
+        with self.assertRaises(TwilioException):
+            self.client.ip_messaging.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                       .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                       .messages(sid="IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(body="body")
+        
+        values = {
+            'Body': "body",
+        }
+        
+        self.holodeck.assert_has_request(Request(
+            'post',
+            'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            data=values,
+        ))

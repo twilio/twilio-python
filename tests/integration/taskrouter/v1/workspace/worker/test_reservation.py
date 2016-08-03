@@ -19,12 +19,12 @@ class ReservationTestCase(IntegrationTestCase):
         
         with self.assertRaises(TwilioException):
             self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                     .tasks(sid="WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                     .workers(sid="WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                      .reservations.list()
         
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations',
+            'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations',
         ))
 
     def test_read_full_response(self):
@@ -33,13 +33,13 @@ class ReservationTestCase(IntegrationTestCase):
             '''
             {
                 "meta": {
-                    "first_page_url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations?PageSize=50&Page=0",
+                    "first_page_url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations?PageSize=50&Page=0",
                     "key": "reservations",
                     "next_page_url": null,
                     "page": 0,
                     "page_size": 50,
                     "previous_page_url": null,
-                    "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations"
+                    "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations"
                 },
                 "reservations": [
                     {
@@ -54,7 +54,7 @@ class ReservationTestCase(IntegrationTestCase):
                         "reservation_status": "reserved",
                         "sid": "WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "task_sid": "WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                        "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "worker_name": "Doug",
                         "worker_sid": "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -65,7 +65,7 @@ class ReservationTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                          .tasks(sid="WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                          .workers(sid="WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                           .reservations.list()
         
         self.assertIsNotNone(actual)
@@ -76,13 +76,13 @@ class ReservationTestCase(IntegrationTestCase):
             '''
             {
                 "meta": {
-                    "first_page_url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations?PageSize=50&Page=0",
+                    "first_page_url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations?PageSize=50&Page=0",
                     "key": "reservations",
                     "next_page_url": null,
                     "page": 0,
                     "page_size": 50,
                     "previous_page_url": null,
-                    "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations"
+                    "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations"
                 },
                 "reservations": []
             }
@@ -90,7 +90,7 @@ class ReservationTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                          .tasks(sid="WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                          .workers(sid="WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                           .reservations.list()
         
         self.assertIsNotNone(actual)
@@ -100,12 +100,12 @@ class ReservationTestCase(IntegrationTestCase):
         
         with self.assertRaises(TwilioException):
             self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                     .tasks(sid="WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                     .workers(sid="WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                      .reservations(sid="WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         ))
 
     def test_fetch_response(self):
@@ -124,7 +124,7 @@ class ReservationTestCase(IntegrationTestCase):
                 "reservation_status": "reserved",
                 "sid": "WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "task_sid": "WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "worker_name": "Doug",
                 "worker_sid": "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -133,7 +133,7 @@ class ReservationTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                          .tasks(sid="WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                          .workers(sid="WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                           .reservations(sid="WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.assertIsNotNone(actual)
@@ -143,12 +143,12 @@ class ReservationTestCase(IntegrationTestCase):
         
         with self.assertRaises(TwilioException):
             self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                     .tasks(sid="WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                     .workers(sid="WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                      .reservations(sid="WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
         
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         ))
 
     def test_update_response(self):
@@ -167,7 +167,7 @@ class ReservationTestCase(IntegrationTestCase):
                 "reservation_status": "reserved",
                 "sid": "WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "task_sid": "WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "worker_name": "Doug",
                 "worker_sid": "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -176,7 +176,7 @@ class ReservationTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                          .tasks(sid="WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                          .workers(sid="WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                           .reservations(sid="WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
         
         self.assertIsNotNone(actual)

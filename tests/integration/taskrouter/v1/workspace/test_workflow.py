@@ -195,12 +195,12 @@ class WorkflowTestCase(IntegrationTestCase):
         
         with self.assertRaises(TwilioException):
             self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                     .workflows.create(friendly_name="friendly_name", configuration="configuration", assignment_callback_url="/example")
+                                     .workflows.create(friendly_name="friendly_name", configuration="configuration", assignment_callback_url="https://example.com")
         
         values = {
             'FriendlyName': "friendly_name",
             'Configuration': "configuration",
-            'AssignmentCallbackUrl': "/example",
+            'AssignmentCallbackUrl': "https://example.com",
         }
         
         self.holodeck.assert_has_request(Request(
@@ -231,6 +231,6 @@ class WorkflowTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                          .workflows.create(friendly_name="friendly_name", configuration="configuration", assignment_callback_url="/example")
+                                          .workflows.create(friendly_name="friendly_name", configuration="configuration", assignment_callback_url="https://example.com")
         
         self.assertIsNotNone(actual)

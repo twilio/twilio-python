@@ -184,17 +184,11 @@ class IpAddressTestCase(IntegrationTestCase):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .sip \
                                  .ip_access_control_lists(sid="ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .ip_addresses(sid="IPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(ip_address="ip_address", friendly_name="friendly_name")
-        
-        values = {
-            'IpAddress': "ip_address",
-            'FriendlyName': "friendly_name",
-        }
+                                 .ip_addresses(sid="IPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
         
         self.holodeck.assert_has_request(Request(
             'post',
             'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/IpAccessControlLists/ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAddresses/IPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
-            data=values,
         ))
 
     def test_update_response(self):
@@ -217,7 +211,7 @@ class IpAddressTestCase(IntegrationTestCase):
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .sip \
                                       .ip_access_control_lists(sid="ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .ip_addresses(sid="IPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(ip_address="ip_address", friendly_name="friendly_name")
+                                      .ip_addresses(sid="IPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
         
         self.assertIsNotNone(actual)
 

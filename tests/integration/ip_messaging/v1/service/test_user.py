@@ -193,16 +193,11 @@ class UserTestCase(IntegrationTestCase):
         
         with self.assertRaises(TwilioException):
             self.client.ip_messaging.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                       .users(sid="USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(role_sid="RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-        
-        values = {
-            'RoleSid': "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-        }
+                                       .users(sid="USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
         
         self.holodeck.assert_has_request(Request(
             'post',
             'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-            data=values,
         ))
 
     def test_update_response(self):
@@ -225,6 +220,6 @@ class UserTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.ip_messaging.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                            .users(sid="USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(role_sid="RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+                                            .users(sid="USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
         
         self.assertIsNotNone(actual)

@@ -270,17 +270,22 @@ class UserContext(InstanceContext):
         """
         return self._version.delete('delete', self._uri)
 
-    def update(self, role_sid):
+    def update(self, role_sid=values.unset, attributes=values.unset,
+               friendly_name=values.unset):
         """
         Update the UserInstance
         
         :param unicode role_sid: The role_sid
+        :param dict attributes: The attributes
+        :param unicode friendly_name: The friendly_name
         
         :returns: Updated UserInstance
         :rtype: UserInstance
         """
         data = values.of({
             'RoleSid': role_sid,
+            'Attributes': attributes,
+            'FriendlyName': friendly_name,
         })
         
         payload = self._version.update(
@@ -436,17 +441,22 @@ class UserInstance(InstanceResource):
         """
         return self._proxy.delete()
 
-    def update(self, role_sid):
+    def update(self, role_sid=values.unset, attributes=values.unset,
+               friendly_name=values.unset):
         """
         Update the UserInstance
         
         :param unicode role_sid: The role_sid
+        :param dict attributes: The attributes
+        :param unicode friendly_name: The friendly_name
         
         :returns: Updated UserInstance
         :rtype: UserInstance
         """
         return self._proxy.update(
-            role_sid,
+            role_sid=role_sid,
+            attributes=attributes,
+            friendly_name=friendly_name,
         )
 
     def __repr__(self):

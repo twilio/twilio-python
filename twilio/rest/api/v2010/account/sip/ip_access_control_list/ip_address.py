@@ -271,7 +271,7 @@ class IpAddressContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
-    def update(self, ip_address, friendly_name):
+    def update(self, ip_address=values.unset, friendly_name=values.unset):
         """
         Update the IpAddressInstance
         
@@ -443,7 +443,7 @@ class IpAddressInstance(InstanceResource):
         """
         return self._proxy.fetch()
 
-    def update(self, ip_address, friendly_name):
+    def update(self, ip_address=values.unset, friendly_name=values.unset):
         """
         Update the IpAddressInstance
         
@@ -454,8 +454,8 @@ class IpAddressInstance(InstanceResource):
         :rtype: IpAddressInstance
         """
         return self._proxy.update(
-            ip_address,
-            friendly_name,
+            ip_address=ip_address,
+            friendly_name=friendly_name,
         )
 
     def delete(self):

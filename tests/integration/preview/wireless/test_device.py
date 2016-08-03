@@ -18,11 +18,11 @@ class DeviceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.client.preview.wireless.devices(sid="sid").fetch()
+            self.client.preview.wireless.devices(sid="DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://preview.twilio.com/wireless/Devices/sid',
+            'https://preview.twilio.com/wireless/Devices/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         ))
 
     def test_list_request(self):
@@ -56,9 +56,9 @@ class DeviceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.client.preview.wireless.devices(sid="sid").update()
+            self.client.preview.wireless.devices(sid="DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
         
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://preview.twilio.com/wireless/Devices/sid',
+            'https://preview.twilio.com/wireless/Devices/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         ))

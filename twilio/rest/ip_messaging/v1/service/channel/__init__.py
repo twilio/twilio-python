@@ -36,8 +36,8 @@ class ChannelList(ListResource):
         }
         self._uri = '/Services/{service_sid}/Channels'.format(**self._solution)
 
-    def create(self, friendly_name, unique_name, attributes=values.unset,
-               type=values.unset):
+    def create(self, friendly_name=values.unset, unique_name=values.unset,
+               attributes=values.unset, type=values.unset):
         """
         Create a new ChannelInstance
         

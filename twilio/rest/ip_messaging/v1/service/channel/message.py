@@ -271,6 +271,44 @@ class MessageContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
+    def delete(self):
+        """
+        Deletes the MessageInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete('delete', self._uri)
+
+    def update(self, body, attributes=values.unset):
+        """
+        Update the MessageInstance
+        
+        :param unicode body: The body
+        :param dict attributes: The attributes
+        
+        :returns: Updated MessageInstance
+        :rtype: MessageInstance
+        """
+        data = values.of({
+            'Body': body,
+            'Attributes': attributes,
+        })
+        
+        payload = self._version.update(
+            'POST',
+            self._uri,
+            data=data,
+        )
+        
+        return MessageInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            channel_sid=self._solution['channel_sid'],
+            sid=self._solution['sid'],
+        )
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -421,6 +459,30 @@ class MessageInstance(InstanceResource):
         :rtype: MessageInstance
         """
         return self._proxy.fetch()
+
+    def delete(self):
+        """
+        Deletes the MessageInstance
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+
+    def update(self, body, attributes=values.unset):
+        """
+        Update the MessageInstance
+        
+        :param unicode body: The body
+        :param dict attributes: The attributes
+        
+        :returns: Updated MessageInstance
+        :rtype: MessageInstance
+        """
+        return self._proxy.update(
+            body,
+            attributes=attributes,
+        )
 
     def __repr__(self):
         """

@@ -86,10 +86,9 @@ class CredentialTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.client.notifications.v1.credentials.create(friendly_name="friendly_name", type="gcm")
+            self.client.notifications.v1.credentials.create(type="gcm")
         
         values = {
-            'FriendlyName': "friendly_name",
             'Type': "gcm",
         }
         
@@ -116,7 +115,7 @@ class CredentialTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.client.notifications.v1.credentials.create(friendly_name="friendly_name", type="gcm")
+        actual = self.client.notifications.v1.credentials.create(type="gcm")
         
         self.assertIsNotNone(actual)
 
@@ -156,17 +155,11 @@ class CredentialTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.client.notifications.v1.credentials(sid="CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(friendly_name="friendly_name", type="gcm")
-        
-        values = {
-            'FriendlyName': "friendly_name",
-            'Type': "gcm",
-        }
+            self.client.notifications.v1.credentials(sid="CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
         
         self.holodeck.assert_has_request(Request(
             'post',
             'https://notifications.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-            data=values,
         ))
 
     def test_update_response(self):
@@ -186,7 +179,7 @@ class CredentialTestCase(IntegrationTestCase):
             '''
         ))
         
-        actual = self.client.notifications.v1.credentials(sid="CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(friendly_name="friendly_name", type="gcm")
+        actual = self.client.notifications.v1.credentials(sid="CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
         
         self.assertIsNotNone(actual)
 

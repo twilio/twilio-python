@@ -16,13 +16,13 @@ from twilio.page import Page
 
 class ReservationList(ListResource):
 
-    def __init__(self, version, workspace_sid, task_sid):
+    def __init__(self, version, workspace_sid, worker_sid):
         """
         Initialize the ReservationList
         
         :param Version version: Version that contains the resource
         :param workspace_sid: The workspace_sid
-        :param task_sid: The task_sid
+        :param worker_sid: The worker_sid
         
         :returns: ReservationList
         :rtype: ReservationList
@@ -32,9 +32,9 @@ class ReservationList(ListResource):
         # Path Solution
         self._solution = {
             'workspace_sid': workspace_sid,
-            'task_sid': task_sid,
+            'worker_sid': worker_sid,
         }
-        self._uri = '/Workspaces/{workspace_sid}/Tasks/{task_sid}/Reservations'.format(**self._solution)
+        self._uri = '/Workspaces/{workspace_sid}/Workers/{worker_sid}/Reservations'.format(**self._solution)
 
     def stream(self, reservation_status=values.unset, limit=None, page_size=None):
         """
@@ -127,7 +127,7 @@ class ReservationList(ListResource):
         return ReservationContext(
             self._version,
             workspace_sid=self._solution['workspace_sid'],
-            task_sid=self._solution['task_sid'],
+            worker_sid=self._solution['worker_sid'],
             sid=sid,
         )
 
@@ -143,7 +143,7 @@ class ReservationList(ListResource):
         return ReservationContext(
             self._version,
             workspace_sid=self._solution['workspace_sid'],
-            task_sid=self._solution['task_sid'],
+            worker_sid=self._solution['worker_sid'],
             sid=sid,
         )
 
@@ -166,7 +166,7 @@ class ReservationPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
         :param workspace_sid: The workspace_sid
-        :param task_sid: The task_sid
+        :param worker_sid: The worker_sid
         
         :returns: ReservationPage
         :rtype: ReservationPage
@@ -189,7 +189,7 @@ class ReservationPage(Page):
             self._version,
             payload,
             workspace_sid=self._solution['workspace_sid'],
-            task_sid=self._solution['task_sid'],
+            worker_sid=self._solution['worker_sid'],
         )
 
     def __repr__(self):
@@ -204,13 +204,13 @@ class ReservationPage(Page):
 
 class ReservationContext(InstanceContext):
 
-    def __init__(self, version, workspace_sid, task_sid, sid):
+    def __init__(self, version, workspace_sid, worker_sid, sid):
         """
         Initialize the ReservationContext
         
         :param Version version: Version that contains the resource
         :param workspace_sid: The workspace_sid
-        :param task_sid: The task_sid
+        :param worker_sid: The worker_sid
         :param sid: The sid
         
         :returns: ReservationContext
@@ -221,10 +221,10 @@ class ReservationContext(InstanceContext):
         # Path Solution
         self._solution = {
             'workspace_sid': workspace_sid,
-            'task_sid': task_sid,
+            'worker_sid': worker_sid,
             'sid': sid,
         }
-        self._uri = '/Workspaces/{workspace_sid}/Tasks/{task_sid}/Reservations/{sid}'.format(**self._solution)
+        self._uri = '/Workspaces/{workspace_sid}/Workers/{worker_sid}/Reservations/{sid}'.format(**self._solution)
 
     def fetch(self):
         """
@@ -245,7 +245,7 @@ class ReservationContext(InstanceContext):
             self._version,
             payload,
             workspace_sid=self._solution['workspace_sid'],
-            task_sid=self._solution['task_sid'],
+            worker_sid=self._solution['worker_sid'],
             sid=self._solution['sid'],
         )
 
@@ -318,7 +318,7 @@ class ReservationContext(InstanceContext):
             self._version,
             payload,
             workspace_sid=self._solution['workspace_sid'],
-            task_sid=self._solution['task_sid'],
+            worker_sid=self._solution['worker_sid'],
             sid=self._solution['sid'],
         )
 
@@ -335,7 +335,7 @@ class ReservationContext(InstanceContext):
 
 class ReservationInstance(InstanceResource):
 
-    def __init__(self, version, payload, workspace_sid, task_sid, sid=None):
+    def __init__(self, version, payload, workspace_sid, worker_sid, sid=None):
         """
         Initialize the ReservationInstance
         
@@ -361,7 +361,7 @@ class ReservationInstance(InstanceResource):
         self._context = None
         self._solution = {
             'workspace_sid': workspace_sid,
-            'task_sid': task_sid,
+            'worker_sid': worker_sid,
             'sid': sid or self._properties['sid'],
         }
 
@@ -378,7 +378,7 @@ class ReservationInstance(InstanceResource):
             self._context = ReservationContext(
                 self._version,
                 workspace_sid=self._solution['workspace_sid'],
-                task_sid=self._solution['task_sid'],
+                worker_sid=self._solution['worker_sid'],
                 sid=self._solution['sid'],
             )
         return self._context

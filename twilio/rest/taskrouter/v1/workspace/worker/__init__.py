@@ -12,6 +12,7 @@ from twilio.instance_context import InstanceContext
 from twilio.instance_resource import InstanceResource
 from twilio.list_resource import ListResource
 from twilio.page import Page
+from twilio.rest.taskrouter.v1.workspace.worker.reservation import ReservationList
 from twilio.rest.taskrouter.v1.workspace.worker.worker_statistics import WorkerStatisticsList
 from twilio.rest.taskrouter.v1.workspace.worker.workers_statistics import WorkersStatisticsList
 
@@ -315,6 +316,7 @@ class WorkerContext(InstanceContext):
         
         # Dependents
         self._statistics = None
+        self._reservations = None
 
     def fetch(self):
         """
@@ -393,6 +395,22 @@ class WorkerContext(InstanceContext):
                 worker_sid=self._solution['sid'],
             )
         return self._statistics
+
+    @property
+    def reservations(self):
+        """
+        Access the reservations
+        
+        :returns: ReservationList
+        :rtype: ReservationList
+        """
+        if self._reservations is None:
+            self._reservations = ReservationList(
+                self._version,
+                workspace_sid=self._solution['workspace_sid'],
+                worker_sid=self._solution['sid'],
+            )
+        return self._reservations
 
     def __repr__(self):
         """
@@ -588,6 +606,16 @@ class WorkerInstance(InstanceResource):
         :rtype: statistics
         """
         return self._proxy.statistics
+
+    @property
+    def reservations(self):
+        """
+        Access the reservations
+        
+        :returns: reservations
+        :rtype: reservations
+        """
+        return self._proxy.reservations
 
     def __repr__(self):
         """

@@ -41,7 +41,10 @@ class TollFreeList(ListResource):
                exclude_all_address_required=values.unset,
                exclude_local_address_required=values.unset,
                exclude_foreign_address_required=values.unset, beta=values.unset,
-               limit=None, page_size=None):
+               near_number=values.unset, near_lat_long=values.unset,
+               distance=values.unset, in_postal_code=values.unset,
+               in_region=values.unset, in_rate_center=values.unset,
+               in_lata=values.unset, limit=None, page_size=None):
         """
         Streams TollFreeInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -57,6 +60,13 @@ class TollFreeList(ListResource):
         :param bool exclude_local_address_required: The exclude_local_address_required
         :param bool exclude_foreign_address_required: The exclude_foreign_address_required
         :param bool beta: The beta
+        :param unicode near_number: The near_number
+        :param unicode near_lat_long: The near_lat_long
+        :param unicode distance: The distance
+        :param unicode in_postal_code: The in_postal_code
+        :param unicode in_region: The in_region
+        :param unicode in_rate_center: The in_rate_center
+        :param unicode in_lata: The in_lata
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -79,6 +89,13 @@ class TollFreeList(ListResource):
             exclude_local_address_required=exclude_local_address_required,
             exclude_foreign_address_required=exclude_foreign_address_required,
             beta=beta,
+            near_number=near_number,
+            near_lat_long=near_lat_long,
+            distance=distance,
+            in_postal_code=in_postal_code,
+            in_region=in_region,
+            in_rate_center=in_rate_center,
+            in_lata=in_lata,
             page_size=limits['page_size'],
         )
         
@@ -89,7 +106,10 @@ class TollFreeList(ListResource):
              voice_enabled=values.unset, exclude_all_address_required=values.unset,
              exclude_local_address_required=values.unset,
              exclude_foreign_address_required=values.unset, beta=values.unset,
-             limit=None, page_size=None):
+             near_number=values.unset, near_lat_long=values.unset,
+             distance=values.unset, in_postal_code=values.unset,
+             in_region=values.unset, in_rate_center=values.unset,
+             in_lata=values.unset, limit=None, page_size=None):
         """
         Lists TollFreeInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -104,6 +124,13 @@ class TollFreeList(ListResource):
         :param bool exclude_local_address_required: The exclude_local_address_required
         :param bool exclude_foreign_address_required: The exclude_foreign_address_required
         :param bool beta: The beta
+        :param unicode near_number: The near_number
+        :param unicode near_lat_long: The near_lat_long
+        :param unicode distance: The distance
+        :param unicode in_postal_code: The in_postal_code
+        :param unicode in_region: The in_region
+        :param unicode in_rate_center: The in_rate_center
+        :param unicode in_lata: The in_lata
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -124,6 +151,13 @@ class TollFreeList(ListResource):
             exclude_local_address_required=exclude_local_address_required,
             exclude_foreign_address_required=exclude_foreign_address_required,
             beta=beta,
+            near_number=near_number,
+            near_lat_long=near_lat_long,
+            distance=distance,
+            in_postal_code=in_postal_code,
+            in_region=in_region,
+            in_rate_center=in_rate_center,
+            in_lata=in_lata,
             limit=limit,
             page_size=page_size,
         ))
@@ -133,8 +167,11 @@ class TollFreeList(ListResource):
              voice_enabled=values.unset, exclude_all_address_required=values.unset,
              exclude_local_address_required=values.unset,
              exclude_foreign_address_required=values.unset, beta=values.unset,
-             page_token=values.unset, page_number=values.unset,
-             page_size=values.unset):
+             near_number=values.unset, near_lat_long=values.unset,
+             distance=values.unset, in_postal_code=values.unset,
+             in_region=values.unset, in_rate_center=values.unset,
+             in_lata=values.unset, page_token=values.unset,
+             page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of TollFreeInstance records from the API.
         Request is executed immediately
@@ -148,6 +185,13 @@ class TollFreeList(ListResource):
         :param bool exclude_local_address_required: The exclude_local_address_required
         :param bool exclude_foreign_address_required: The exclude_foreign_address_required
         :param bool beta: The beta
+        :param unicode near_number: The near_number
+        :param unicode near_lat_long: The near_lat_long
+        :param unicode distance: The distance
+        :param unicode in_postal_code: The in_postal_code
+        :param unicode in_region: The in_region
+        :param unicode in_rate_center: The in_rate_center
+        :param unicode in_lata: The in_lata
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -165,6 +209,13 @@ class TollFreeList(ListResource):
             'ExcludeLocalAddressRequired': exclude_local_address_required,
             'ExcludeForeignAddressRequired': exclude_foreign_address_required,
             'Beta': beta,
+            'NearNumber': near_number,
+            'NearLatLong': near_lat_long,
+            'Distance': distance,
+            'InPostalCode': in_postal_code,
+            'InRegion': in_region,
+            'InRateCenter': in_rate_center,
+            'InLata': in_lata,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,

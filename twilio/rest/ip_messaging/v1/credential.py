@@ -104,14 +104,14 @@ class CredentialList(ListResource):
         
         return CredentialPage(self._version, response, self._solution)
 
-    def create(self, friendly_name, type, certificate=values.unset,
+    def create(self, type, friendly_name=values.unset, certificate=values.unset,
                private_key=values.unset, sandbox=values.unset,
                api_key=values.unset):
         """
         Create a new CredentialInstance
         
-        :param unicode friendly_name: The friendly_name
         :param credential.push_service type: The type
+        :param unicode friendly_name: The friendly_name
         :param unicode certificate: The certificate
         :param unicode private_key: The private_key
         :param bool sandbox: The sandbox
@@ -121,8 +121,8 @@ class CredentialList(ListResource):
         :rtype: CredentialInstance
         """
         data = values.of({
-            'FriendlyName': friendly_name,
             'Type': type,
+            'FriendlyName': friendly_name,
             'Certificate': certificate,
             'PrivateKey': private_key,
             'Sandbox': sandbox,
@@ -260,14 +260,13 @@ class CredentialContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
-    def update(self, friendly_name, type, certificate=values.unset,
+    def update(self, friendly_name=values.unset, certificate=values.unset,
                private_key=values.unset, sandbox=values.unset,
                api_key=values.unset):
         """
         Update the CredentialInstance
         
         :param unicode friendly_name: The friendly_name
-        :param credential.push_service type: The type
         :param unicode certificate: The certificate
         :param unicode private_key: The private_key
         :param bool sandbox: The sandbox
@@ -278,7 +277,6 @@ class CredentialContext(InstanceContext):
         """
         data = values.of({
             'FriendlyName': friendly_name,
-            'Type': type,
             'Certificate': certificate,
             'PrivateKey': private_key,
             'Sandbox': sandbox,
@@ -435,14 +433,13 @@ class CredentialInstance(InstanceResource):
         """
         return self._proxy.fetch()
 
-    def update(self, friendly_name, type, certificate=values.unset,
+    def update(self, friendly_name=values.unset, certificate=values.unset,
                private_key=values.unset, sandbox=values.unset,
                api_key=values.unset):
         """
         Update the CredentialInstance
         
         :param unicode friendly_name: The friendly_name
-        :param credential.push_service type: The type
         :param unicode certificate: The certificate
         :param unicode private_key: The private_key
         :param bool sandbox: The sandbox
@@ -452,8 +449,7 @@ class CredentialInstance(InstanceResource):
         :rtype: CredentialInstance
         """
         return self._proxy.update(
-            friendly_name,
-            type,
+            friendly_name=friendly_name,
             certificate=certificate,
             private_key=private_key,
             sandbox=sandbox,

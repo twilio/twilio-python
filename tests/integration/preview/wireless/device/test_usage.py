@@ -18,10 +18,10 @@ class UsageTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
         
         with self.assertRaises(TwilioException):
-            self.client.preview.wireless.devices(sid="sid") \
+            self.client.preview.wireless.devices(sid="DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                         .usage().fetch()
         
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://preview.twilio.com/wireless/Devices/sid/Usage',
+            'https://preview.twilio.com/wireless/Devices/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage',
         ))

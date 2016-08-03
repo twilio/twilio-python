@@ -83,17 +83,11 @@ class ChannelTestCase(IntegrationTestCase):
         
         with self.assertRaises(TwilioException):
             self.client.ip_messaging.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                       .channels.create(friendly_name="friendly_name", unique_name="unique_name")
-        
-        values = {
-            'FriendlyName': "friendly_name",
-            'UniqueName': "unique_name",
-        }
+                                       .channels.create()
         
         self.holodeck.assert_has_request(Request(
             'post',
             'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels',
-            data=values,
         ))
 
     def test_create_response(self):
@@ -121,7 +115,7 @@ class ChannelTestCase(IntegrationTestCase):
         ))
         
         actual = self.client.ip_messaging.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                            .channels.create(friendly_name="friendly_name", unique_name="unique_name")
+                                            .channels.create()
         
         self.assertIsNotNone(actual)
 
