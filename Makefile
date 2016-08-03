@@ -1,10 +1,10 @@
-.PHONY: clean venv install analysis test test-install develop docs docs-install
+.PHONY: clean install analysis test test-install develop docs docs-install
 
 venv:
 	virtualenv venv
 
 install: venv
-	. venv/bin/activate; pip install . --use-mirrors
+	. venv/bin/activate; pip install .
 
 test-install: install
 	. venv/bin/activate; pip install -r tests/requirements.txt
@@ -46,3 +46,6 @@ build: test-install
 
 clean:
 	rm -rf venv
+
+deploy:
+	. venv/bin/activate; python deploy.py
