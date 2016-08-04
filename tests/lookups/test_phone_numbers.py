@@ -37,7 +37,39 @@ def test_get_carrier_info(request):
     assert_equal(pn.phone_number, '+15108675309')
     request.assert_called_with('GET', '/v1/PhoneNumbers/+15108675309',
                                auth=AUTH, timeout=TIMEOUT,
-                               params={'Type': 'carrier'},
+                               params={'Type': ['carrier']},
+                               use_json_extension=False)
+
+
+@patch("twilio.rest.resources.base.make_twilio_request")
+def test_get_caller_name(request):
+    resp = create_mock_json(
+        "tests/resources/lookups/phone_number_instance.json",
+    )
+    request.return_value = resp
+
+    phone_numbers = PhoneNumbers('/v1', AUTH, TIMEOUT)
+    pn = phone_numbers.get('+15108675309', include_carrier_info=True)
+    assert_equal(pn.phone_number, '+15108675309')
+    request.assert_called_with('GET', '/v1/PhoneNumbers/+15108675309',
+                               auth=AUTH, timeout=TIMEOUT,
+                               params={'Type': ['caller-name']},
+                               use_json_extension=False)
+
+
+@patch("twilio.rest.resources.base.make_twilio_request")
+def test_get_carrier_info_and_caller_name(request):
+    resp = create_mock_json(
+        "tests/resources/lookups/phone_number_instance.json",
+    )
+    request.return_value = resp
+
+    phone_numbers = PhoneNumbers('/v1', AUTH, TIMEOUT)
+    pn = phone_numbers.get('+15108675309', include_carrier_info=True)
+    assert_equal(pn.phone_number, '+15108675309')
+    request.assert_called_with('GET', '/v1/PhoneNumbers/+15108675309',
+                               auth=AUTH, timeout=TIMEOUT,
+                               params={'Type': ['carrier', 'caller-name']},
                                use_json_extension=False)
 
 
