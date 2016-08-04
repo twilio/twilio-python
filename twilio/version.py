@@ -1,7 +1,8 @@
 import json
 from math import ceil
+
 from twilio import values
-from twilio.exceptions import TwilioException
+from twilio.exceptions import TwilioRestException
 
 
 class Version(object):
@@ -35,6 +36,18 @@ class Version(object):
             allow_redirects=allow_redirects
         )
 
+    @classmethod
+    def exception(cls, method, uri, response, message):
+        # noinspection PyBroadException
+        try:
+            error_payload = json.loads(response.content)
+            if 'message' in error_payload:
+                message = '{}: {}'.format(message, error_payload['message'])
+            code = error_payload.get('code', response.status_code)
+            return TwilioRestException(response.status_code, uri, message, code, method)
+        except:
+            return TwilioRestException(response.status_code, uri, message, response.status_code, method)
+
     def fetch(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
               allow_redirects=False):
         response = self.request(
@@ -49,7 +62,7 @@ class Version(object):
         )
 
         if response.status_code < 200 or response.status_code >= 300:
-            raise TwilioException('Unable to fetch record')
+            raise self.exception(method, uri, response, 'Unable to fetch record')
 
         return json.loads(response.content)
 
@@ -67,7 +80,7 @@ class Version(object):
         )
 
         if response.status_code < 200 or response.status_code >= 300:
-            raise TwilioException('Unable to update record')
+            raise self.exception(method, uri, response, 'Unable to update record')
 
         return json.loads(response.content)
 
@@ -85,7 +98,7 @@ class Version(object):
         )
 
         if response.status_code < 200 or response.status_code >= 300:
-            raise TwilioException('Unable to delete record')
+            raise self.exception(method, uri, response, 'Unable to delete record')
 
         return response.status_code == 204
 
@@ -150,8 +163,7 @@ class Version(object):
         )
 
         if response.status_code < 200 or response.status_code >= 300:
-            raise TwilioException('[{}] Unable to create record\n{}'.format(response.status_code,
-                                                                            response.content))
+            raise self.exception(method, uri, response, 'Unable to create record')
 
         return json.loads(response.content)
 
