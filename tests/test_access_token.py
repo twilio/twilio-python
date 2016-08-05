@@ -4,7 +4,7 @@ import unittest
 from datetime import datetime
 from nose.tools import assert_equal
 from twilio.jwt import decode
-from twilio.access_token import AccessToken, ConversationsGrant, IpMessagingGrant
+from twilio.access_token import AccessToken, ConversationsGrant, IpMessagingGrant, ProgrammableVoiceGrant
 
 ACCOUNT_SID = 'AC123'
 SIGNING_KEY_SID = 'SK123'
@@ -105,3 +105,28 @@ class AccessTokenTest(unittest.TestCase):
         assert_equal(2, len(payload['grants']))
         assert_equal({}, payload['grants']['rtc'])
         assert_equal({}, payload['grants']['ip_messaging'])
+
+    def test_programmable_voice_grant(self):
+        grant = ProgrammableVoiceGrant(
+            outgoing_application_sid='AP123',
+            outgoing_application_params={
+                'foo': 'bar'
+            }
+        )
+
+        scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
+        scat.add_grant(grant)
+
+        token = str(scat)
+        assert_is_not_none(token)
+        payload = decode(token, 'secret')
+        self._validate_claims(payload)
+        assert_equal(1, len(payload['grants']))
+        assert_equal({
+            'outgoing': {
+                'application_sid': 'AP123',
+                'params': {
+                    'foo': 'bar'
+                }
+            }
+        }, payload['grants']['programmable_voice'])

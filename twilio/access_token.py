@@ -46,6 +46,45 @@ class ConversationsGrant(object):
         return grant
 
 
+class ProgrammableVoiceGrant(object):
+    """ Grant to access Twilio Programmable Voice"""
+    def __init__(self,
+                 outgoing_application_sid=None,
+                 outgoing_application_params=None,
+                 push_credential_sid=None,
+                 endpoint_id=None):
+        self.outgoing_application_sid = outgoing_application_sid
+        """ :type : str """
+        self.outgoing_application_params = outgoing_application_params
+        """ :type : dict """
+        self.push_credential_sid = push_credential_sid
+        """ :type : str """
+        self.endpoint_id = endpoint_id
+        """ :type : str """
+
+    @property
+    def key(self):
+        return "programmable_voice"
+
+    def to_payload(self):
+        grant = {}
+        if self.outgoing_application_sid:
+            grant['outgoing'] = {}
+            grant['outgoing']['application_sid'] = \
+                self.outgoing_application_sid
+
+            if self.outgoing_application_params:
+                grant['outgoing']['params'] = self.outgoing_application_params
+
+        if self.push_credential_sid:
+            grant['push_credential_sid'] = self.push_credential_sid
+
+        if self.endpoint_id:
+            grant['endpoint_id'] = self.endpoint_id
+
+        return grant
+
+
 class AccessToken(object):
     """ Access Token used to access Twilio Resources """
     def __init__(self, account_sid, signing_key_sid, secret,
