@@ -15,6 +15,7 @@ from twilio.page import Page
 from twilio.rest.taskrouter.v1.workspace.activity import ActivityList
 from twilio.rest.taskrouter.v1.workspace.event import EventList
 from twilio.rest.taskrouter.v1.workspace.task import TaskList
+from twilio.rest.taskrouter.v1.workspace.task_channel import TaskChannelList
 from twilio.rest.taskrouter.v1.workspace.task_queue import TaskQueueList
 from twilio.rest.taskrouter.v1.workspace.worker import WorkerList
 from twilio.rest.taskrouter.v1.workspace.workflow import WorkflowList
@@ -253,6 +254,7 @@ class WorkspaceContext(InstanceContext):
         self._workers = None
         self._workflows = None
         self._statistics = None
+        self._task_channels = None
 
     def fetch(self):
         """
@@ -421,6 +423,21 @@ class WorkspaceContext(InstanceContext):
                 workspace_sid=self._solution['sid'],
             )
         return self._statistics
+
+    @property
+    def task_channels(self):
+        """
+        Access the task_channels
+        
+        :returns: TaskChannelList
+        :rtype: TaskChannelList
+        """
+        if self._task_channels is None:
+            self._task_channels = TaskChannelList(
+                self._version,
+                workspace_sid=self._solution['sid'],
+            )
+        return self._task_channels
 
     def __repr__(self):
         """
@@ -668,6 +685,16 @@ class WorkspaceInstance(InstanceResource):
         :rtype: statistics
         """
         return self._proxy.statistics
+
+    @property
+    def task_channels(self):
+        """
+        Access the task_channels
+        
+        :returns: task_channels
+        :rtype: task_channels
+        """
+        return self._proxy.task_channels
 
     def __repr__(self):
         """

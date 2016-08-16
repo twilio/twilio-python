@@ -316,6 +316,11 @@ class RecordingInstance(InstanceResource):
             'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
             'duration': payload['duration'],
             'sid': payload['sid'],
+            'price': payload['price'],
+            'price_unit': payload['price_unit'],
+            'status': payload['status'],
+            'channels': deserialize.integer(payload['channels']),
+            'source': payload['source'],
             'uri': payload['uri'],
         }
         
@@ -398,6 +403,46 @@ class RecordingInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['sid']
+
+    @property
+    def price(self):
+        """
+        :returns: The price
+        :rtype: unicode
+        """
+        return self._properties['price']
+
+    @property
+    def price_unit(self):
+        """
+        :returns: The price_unit
+        :rtype: unicode
+        """
+        return self._properties['price_unit']
+
+    @property
+    def status(self):
+        """
+        :returns: The status
+        :rtype: recording.status
+        """
+        return self._properties['status']
+
+    @property
+    def channels(self):
+        """
+        :returns: The channels
+        :rtype: unicode
+        """
+        return self._properties['channels']
+
+    @property
+    def source(self):
+        """
+        :returns: The source
+        :rtype: recording.source
+        """
+        return self._properties['source']
 
     @property
     def uri(self):

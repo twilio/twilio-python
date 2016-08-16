@@ -29,9 +29,9 @@ from twilio.rest.api.v2010.account.outgoing_caller_id import OutgoingCallerIdLis
 from twilio.rest.api.v2010.account.queue import QueueList
 from twilio.rest.api.v2010.account.recording import RecordingList
 from twilio.rest.api.v2010.account.sandbox import SandboxList
+from twilio.rest.api.v2010.account.short_code import ShortCodeList
 from twilio.rest.api.v2010.account.signing_key import SigningKeyList
 from twilio.rest.api.v2010.account.sip import SipList
-from twilio.rest.api.v2010.account.sms import SmsList
 from twilio.rest.api.v2010.account.token import TokenList
 from twilio.rest.api.v2010.account.transcription import TranscriptionList
 from twilio.rest.api.v2010.account.usage import UsageList
@@ -286,7 +286,7 @@ class AccountContext(InstanceContext):
         self._sandbox = None
         self._signing_keys = None
         self._sip = None
-        self._sms = None
+        self._short_codes = None
         self._tokens = None
         self._transcriptions = None
         self._usage = None
@@ -626,19 +626,19 @@ class AccountContext(InstanceContext):
         return self._sip
 
     @property
-    def sms(self):
+    def short_codes(self):
         """
-        Access the sms
+        Access the short_codes
         
-        :returns: SmsList
-        :rtype: SmsList
+        :returns: ShortCodeList
+        :rtype: ShortCodeList
         """
-        if self._sms is None:
-            self._sms = SmsList(
+        if self._short_codes is None:
+            self._short_codes = ShortCodeList(
                 self._version,
                 account_sid=self._solution['sid'],
             )
-        return self._sms
+        return self._short_codes
 
     @property
     def tokens(self):
@@ -1053,14 +1053,14 @@ class AccountInstance(InstanceResource):
         return self._proxy.sip
 
     @property
-    def sms(self):
+    def short_codes(self):
         """
-        Access the sms
+        Access the short_codes
         
-        :returns: sms
-        :rtype: sms
+        :returns: short_codes
+        :rtype: short_codes
         """
-        return self._proxy.sms
+        return self._proxy.short_codes
 
     @property
     def tokens(self):

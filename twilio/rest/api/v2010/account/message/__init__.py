@@ -39,8 +39,8 @@ class MessageList(ListResource):
 
     def create(self, to, status_callback=values.unset, application_sid=values.unset,
                max_price=values.unset, provide_feedback=values.unset,
-               body=values.unset, media_url=values.unset, from_=values.unset,
-               messaging_service_sid=values.unset):
+               from_=values.unset, messaging_service_sid=values.unset,
+               body=values.unset, media_url=values.unset):
         """
         Create a new MessageInstance
         
@@ -49,20 +49,20 @@ class MessageList(ListResource):
         :param unicode application_sid: The application to use for callbacks
         :param unicode max_price: The max_price
         :param bool provide_feedback: The provide_feedback
-        :param unicode body: The body
-        :param unicode media_url: The media_url
         :param unicode from_: The phone number that initiated the message
         :param unicode messaging_service_sid: The messaging_service_sid
+        :param unicode body: The body
+        :param unicode media_url: The media_url
         
         :returns: Newly created MessageInstance
         :rtype: MessageInstance
         """
         data = values.of({
             'To': to,
-            'Body': body,
-            'MediaUrl': media_url,
             'From': from_,
             'MessagingServiceSid': messaging_service_sid,
+            'Body': body,
+            'MediaUrl': media_url,
             'StatusCallback': status_callback,
             'ApplicationSid': application_sid,
             'MaxPrice': max_price,

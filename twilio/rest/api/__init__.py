@@ -185,11 +185,11 @@ class Api(Domain):
         return self.account.sip
 
     @property
-    def sms(self):
+    def short_codes(self):
         """
-        :rtype: SmsList
+        :rtype: ShortCodeList
         """
-        return self.account.sms
+        return self.account.short_codes
 
     @property
     def tokens(self):

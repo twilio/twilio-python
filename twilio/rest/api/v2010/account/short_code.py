@@ -21,7 +21,7 @@ class ShortCodeList(ListResource):
         Initialize the ShortCodeList
         
         :param Version version: Version that contains the resource
-        :param account_sid: A 34 character string that uniquely identifies this resource.
+        :param account_sid: The unique sid that identifies this account
         
         :returns: ShortCodeList
         :rtype: ShortCodeList
@@ -170,7 +170,7 @@ class ShortCodePage(Page):
         
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: A 34 character string that uniquely identifies this resource.
+        :param account_sid: The unique sid that identifies this account
         
         :returns: ShortCodePage
         :rtype: ShortCodePage

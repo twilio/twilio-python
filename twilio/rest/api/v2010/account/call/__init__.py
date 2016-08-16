@@ -44,8 +44,12 @@ class CallList(ListResource):
 
     def create(self, to, from_, method=values.unset, fallback_url=values.unset,
                fallback_method=values.unset, status_callback=values.unset,
+               status_callback_event=values.unset,
                status_callback_method=values.unset, send_digits=values.unset,
                if_machine=values.unset, timeout=values.unset, record=values.unset,
+               recording_channels=values.unset,
+               recording_status_callback=values.unset,
+               recording_status_callback_method=values.unset,
                sip_auth_username=values.unset, sip_auth_password=values.unset,
                url=values.unset, application_sid=values.unset):
         """
@@ -57,11 +61,15 @@ class CallList(ListResource):
         :param unicode fallback_url: Fallback URL in case of error
         :param unicode fallback_method: HTTP Method to use with FallbackUrl
         :param unicode status_callback: Status Callback URL
+        :param unicode status_callback_event: The status_callback_event
         :param unicode status_callback_method: HTTP Method to use with StatusCallback
         :param unicode send_digits: Digits to send
         :param unicode if_machine: Action to take if a machine has answered the call
         :param unicode timeout: Number of seconds to wait for an answer
         :param bool record: Whether or not to record the Call
+        :param unicode recording_channels: The recording_channels
+        :param unicode recording_status_callback: The recording_status_callback
+        :param unicode recording_status_callback_method: The recording_status_callback_method
         :param unicode sip_auth_username: The sip_auth_username
         :param unicode sip_auth_password: The sip_auth_password
         :param unicode url: Url from which to fetch TwiML
@@ -79,11 +87,15 @@ class CallList(ListResource):
             'FallbackUrl': fallback_url,
             'FallbackMethod': fallback_method,
             'StatusCallback': status_callback,
+            'StatusCallbackEvent': status_callback_event,
             'StatusCallbackMethod': status_callback_method,
             'SendDigits': send_digits,
             'IfMachine': if_machine,
             'Timeout': timeout,
             'Record': record,
+            'RecordingChannels': recording_channels,
+            'RecordingStatusCallback': recording_status_callback,
+            'RecordingStatusCallbackMethod': recording_status_callback_method,
             'SipAuthUsername': sip_auth_username,
             'SipAuthPassword': sip_auth_password,
         })

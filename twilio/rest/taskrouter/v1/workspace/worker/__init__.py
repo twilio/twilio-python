@@ -13,6 +13,7 @@ from twilio.instance_resource import InstanceResource
 from twilio.list_resource import ListResource
 from twilio.page import Page
 from twilio.rest.taskrouter.v1.workspace.worker.reservation import ReservationList
+from twilio.rest.taskrouter.v1.workspace.worker.worker_channel import WorkerChannelList
 from twilio.rest.taskrouter.v1.workspace.worker.worker_statistics import WorkerStatisticsList
 from twilio.rest.taskrouter.v1.workspace.worker.workers_statistics import WorkersStatisticsList
 
@@ -317,6 +318,7 @@ class WorkerContext(InstanceContext):
         # Dependents
         self._statistics = None
         self._reservations = None
+        self._worker_channels = None
 
     def fetch(self):
         """
@@ -411,6 +413,22 @@ class WorkerContext(InstanceContext):
                 worker_sid=self._solution['sid'],
             )
         return self._reservations
+
+    @property
+    def worker_channels(self):
+        """
+        Access the worker_channels
+        
+        :returns: WorkerChannelList
+        :rtype: WorkerChannelList
+        """
+        if self._worker_channels is None:
+            self._worker_channels = WorkerChannelList(
+                self._version,
+                workspace_sid=self._solution['workspace_sid'],
+                worker_sid=self._solution['sid'],
+            )
+        return self._worker_channels
 
     def __repr__(self):
         """
@@ -616,6 +634,16 @@ class WorkerInstance(InstanceResource):
         :rtype: reservations
         """
         return self._proxy.reservations
+
+    @property
+    def worker_channels(self):
+        """
+        Access the worker_channels
+        
+        :returns: worker_channels
+        :rtype: worker_channels
+        """
+        return self._proxy.worker_channels
 
     def __repr__(self):
         """

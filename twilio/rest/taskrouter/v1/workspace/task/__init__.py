@@ -38,7 +38,7 @@ class TaskList(ListResource):
     def stream(self, priority=values.unset, assignment_status=values.unset,
                workflow_sid=values.unset, workflow_name=values.unset,
                task_queue_sid=values.unset, task_queue_name=values.unset,
-               limit=None, page_size=None):
+               task_channel=values.unset, limit=None, page_size=None):
         """
         Streams TaskInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -51,6 +51,7 @@ class TaskList(ListResource):
         :param unicode workflow_name: The workflow_name
         :param unicode task_queue_sid: The task_queue_sid
         :param unicode task_queue_name: The task_queue_name
+        :param unicode task_channel: The task_channel
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -70,6 +71,7 @@ class TaskList(ListResource):
             workflow_name=workflow_name,
             task_queue_sid=task_queue_sid,
             task_queue_name=task_queue_name,
+            task_channel=task_channel,
             page_size=limits['page_size'],
         )
         
@@ -77,8 +79,8 @@ class TaskList(ListResource):
 
     def list(self, priority=values.unset, assignment_status=values.unset,
              workflow_sid=values.unset, workflow_name=values.unset,
-             task_queue_sid=values.unset, task_queue_name=values.unset, limit=None,
-             page_size=None):
+             task_queue_sid=values.unset, task_queue_name=values.unset,
+             task_channel=values.unset, limit=None, page_size=None):
         """
         Lists TaskInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -90,6 +92,7 @@ class TaskList(ListResource):
         :param unicode workflow_name: The workflow_name
         :param unicode task_queue_sid: The task_queue_sid
         :param unicode task_queue_name: The task_queue_name
+        :param unicode task_channel: The task_channel
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -107,6 +110,7 @@ class TaskList(ListResource):
             workflow_name=workflow_name,
             task_queue_sid=task_queue_sid,
             task_queue_name=task_queue_name,
+            task_channel=task_channel,
             limit=limit,
             page_size=page_size,
         ))
@@ -114,8 +118,8 @@ class TaskList(ListResource):
     def page(self, priority=values.unset, assignment_status=values.unset,
              workflow_sid=values.unset, workflow_name=values.unset,
              task_queue_sid=values.unset, task_queue_name=values.unset,
-             page_token=values.unset, page_number=values.unset,
-             page_size=values.unset):
+             task_channel=values.unset, page_token=values.unset,
+             page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of TaskInstance records from the API.
         Request is executed immediately
@@ -126,6 +130,7 @@ class TaskList(ListResource):
         :param unicode workflow_name: The workflow_name
         :param unicode task_queue_sid: The task_queue_sid
         :param unicode task_queue_name: The task_queue_name
+        :param unicode task_channel: The task_channel
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -140,6 +145,7 @@ class TaskList(ListResource):
             'WorkflowName': workflow_name,
             'TaskQueueSid': task_queue_sid,
             'TaskQueueName': task_queue_name,
+            'TaskChannel': task_channel,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -154,7 +160,7 @@ class TaskList(ListResource):
         return TaskPage(self._version, response, self._solution)
 
     def create(self, attributes, workflow_sid, timeout=values.unset,
-               priority=values.unset):
+               priority=values.unset, task_channel=values.unset):
         """
         Create a new TaskInstance
         
@@ -162,6 +168,7 @@ class TaskList(ListResource):
         :param unicode workflow_sid: The workflow_sid
         :param unicode timeout: The timeout
         :param unicode priority: The priority
+        :param unicode task_channel: The task_channel
         
         :returns: Newly created TaskInstance
         :rtype: TaskInstance
@@ -171,6 +178,7 @@ class TaskList(ListResource):
             'WorkflowSid': workflow_sid,
             'Timeout': timeout,
             'Priority': priority,
+            'TaskChannel': task_channel,
         })
         
         payload = self._version.create(
@@ -316,7 +324,8 @@ class TaskContext(InstanceContext):
         )
 
     def update(self, attributes=values.unset, assignment_status=values.unset,
-               reason=values.unset, priority=values.unset):
+               reason=values.unset, priority=values.unset,
+               task_channel=values.unset):
         """
         Update the TaskInstance
         
@@ -324,6 +333,7 @@ class TaskContext(InstanceContext):
         :param task.status assignment_status: The assignment_status
         :param unicode reason: The reason
         :param unicode priority: The priority
+        :param unicode task_channel: The task_channel
         
         :returns: Updated TaskInstance
         :rtype: TaskInstance
@@ -333,6 +343,7 @@ class TaskContext(InstanceContext):
             'AssignmentStatus': assignment_status,
             'Reason': reason,
             'Priority': priority,
+            'TaskChannel': task_channel,
         })
         
         payload = self._version.update(
@@ -407,6 +418,8 @@ class TaskInstance(InstanceResource):
             'reason': payload['reason'],
             'sid': payload['sid'],
             'task_queue_sid': payload['task_queue_sid'],
+            'task_channel_sid': payload['task_channel_sid'],
+            'task_channel_unique_name': payload['task_channel_unique_name'],
             'timeout': deserialize.integer(payload['timeout']),
             'workflow_sid': payload['workflow_sid'],
             'workspace_sid': payload['workspace_sid'],
@@ -517,6 +530,22 @@ class TaskInstance(InstanceResource):
         return self._properties['task_queue_sid']
 
     @property
+    def task_channel_sid(self):
+        """
+        :returns: The task_channel_sid
+        :rtype: unicode
+        """
+        return self._properties['task_channel_sid']
+
+    @property
+    def task_channel_unique_name(self):
+        """
+        :returns: The task_channel_unique_name
+        :rtype: unicode
+        """
+        return self._properties['task_channel_unique_name']
+
+    @property
     def timeout(self):
         """
         :returns: The timeout
@@ -550,7 +579,8 @@ class TaskInstance(InstanceResource):
         return self._proxy.fetch()
 
     def update(self, attributes=values.unset, assignment_status=values.unset,
-               reason=values.unset, priority=values.unset):
+               reason=values.unset, priority=values.unset,
+               task_channel=values.unset):
         """
         Update the TaskInstance
         
@@ -558,6 +588,7 @@ class TaskInstance(InstanceResource):
         :param task.status assignment_status: The assignment_status
         :param unicode reason: The reason
         :param unicode priority: The priority
+        :param unicode task_channel: The task_channel
         
         :returns: Updated TaskInstance
         :rtype: TaskInstance
@@ -567,6 +598,7 @@ class TaskInstance(InstanceResource):
             assignment_status=assignment_status,
             reason=reason,
             priority=priority,
+            task_channel=task_channel,
         )
 
     def delete(self):
