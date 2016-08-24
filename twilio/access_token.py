@@ -46,7 +46,7 @@ class ConversationsGrant(object):
         return grant
 
 
-class ProgrammableVoiceGrant(object):
+class VoiceGrant(object):
     """ Grant to access Twilio Programmable Voice"""
     def __init__(self,
                  outgoing_application_sid=None,
@@ -64,7 +64,7 @@ class ProgrammableVoiceGrant(object):
 
     @property
     def key(self):
-        return "programmable_voice"
+        return "voice"
 
     def to_payload(self):
         grant = {}
