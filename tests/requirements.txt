@@ -3,6 +3,6 @@ mock==0.8.0
 nose
 coverage
 nosexcover
-flake8
+flake8==3.0.3
 mccabe
 wheel>=0.22.0
