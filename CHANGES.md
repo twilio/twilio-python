@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 5.5.0
+-------------
+
+Released September 1, 2016:
+
+- Add Voice Grant
+
 Version 5.4.0
 -------------
 
