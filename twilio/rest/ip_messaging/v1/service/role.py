@@ -272,18 +272,16 @@ class RoleContext(InstanceContext):
         """
         return self._version.delete('delete', self._uri)
 
-    def update(self, friendly_name, permission):
+    def update(self, permission):
         """
         Update the RoleInstance
         
-        :param unicode friendly_name: The friendly_name
         :param unicode permission: The permission
         
         :returns: Updated RoleInstance
         :rtype: RoleInstance
         """
         data = values.of({
-            'FriendlyName': friendly_name,
             'Permission': permission,
         })
         
@@ -449,18 +447,16 @@ class RoleInstance(InstanceResource):
         """
         return self._proxy.delete()
 
-    def update(self, friendly_name, permission):
+    def update(self, permission):
         """
         Update the RoleInstance
         
-        :param unicode friendly_name: The friendly_name
         :param unicode permission: The permission
         
         :returns: Updated RoleInstance
         :rtype: RoleInstance
         """
         return self._proxy.update(
-            friendly_name,
             permission,
         )
 

@@ -36,7 +36,8 @@ class ParticipantList(ListResource):
         }
         self._uri = '/Accounts/{account_sid}/Conferences/{conference_sid}/Participants.json'.format(**self._solution)
 
-    def stream(self, muted=values.unset, limit=None, page_size=None):
+    def stream(self, muted=values.unset, hold=values.unset, limit=None,
+               page_size=None):
         """
         Streams ParticipantInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -44,6 +45,7 @@ class ParticipantList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
         
         :param bool muted: Filter by muted participants
+        :param bool hold: The hold
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -58,18 +60,21 @@ class ParticipantList(ListResource):
         
         page = self.page(
             muted=muted,
+            hold=hold,
             page_size=limits['page_size'],
         )
         
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def list(self, muted=values.unset, limit=None, page_size=None):
+    def list(self, muted=values.unset, hold=values.unset, limit=None,
+             page_size=None):
         """
         Lists ParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
         :param bool muted: Filter by muted participants
+        :param bool hold: The hold
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -82,17 +87,19 @@ class ParticipantList(ListResource):
         """
         return list(self.stream(
             muted=muted,
+            hold=hold,
             limit=limit,
             page_size=page_size,
         ))
 
-    def page(self, muted=values.unset, page_token=values.unset,
+    def page(self, muted=values.unset, hold=values.unset, page_token=values.unset,
              page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of ParticipantInstance records from the API.
         Request is executed immediately
         
         :param bool muted: Filter by muted participants
+        :param bool hold: The hold
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -102,6 +109,7 @@ class ParticipantList(ListResource):
         """
         params = values.of({
             'Muted': muted,
+            'Hold': hold,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -249,17 +257,24 @@ class ParticipantContext(InstanceContext):
             call_sid=self._solution['call_sid'],
         )
 
-    def update(self, muted):
+    def update(self, muted=values.unset, hold=values.unset, hold_url=values.unset,
+               hold_method=values.unset):
         """
         Update the ParticipantInstance
         
         :param bool muted: Indicates if the participant should be muted
+        :param bool hold: The hold
+        :param unicode hold_url: The hold_url
+        :param unicode hold_method: The hold_method
         
         :returns: Updated ParticipantInstance
         :rtype: ParticipantInstance
         """
         data = values.of({
             'Muted': muted,
+            'Hold': hold,
+            'HoldUrl': hold_url,
+            'HoldMethod': hold_method,
         })
         
         payload = self._version.update(
@@ -317,6 +332,7 @@ class ParticipantInstance(InstanceResource):
             'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
             'end_conference_on_exit': payload['end_conference_on_exit'],
             'muted': payload['muted'],
+            'hold': payload['hold'],
             'start_conference_on_enter': payload['start_conference_on_enter'],
             'uri': payload['uri'],
         }
@@ -404,6 +420,14 @@ class ParticipantInstance(InstanceResource):
         return self._properties['muted']
 
     @property
+    def hold(self):
+        """
+        :returns: The hold
+        :rtype: bool
+        """
+        return self._properties['hold']
+
+    @property
     def start_conference_on_enter(self):
         """
         :returns: Indicates if the startConferenceOnEnter attribute was set
@@ -428,17 +452,24 @@ class ParticipantInstance(InstanceResource):
         """
         return self._proxy.fetch()
 
-    def update(self, muted):
+    def update(self, muted=values.unset, hold=values.unset, hold_url=values.unset,
+               hold_method=values.unset):
         """
         Update the ParticipantInstance
         
         :param bool muted: Indicates if the participant should be muted
+        :param bool hold: The hold
+        :param unicode hold_url: The hold_url
+        :param unicode hold_method: The hold_method
         
         :returns: Updated ParticipantInstance
         :rtype: ParticipantInstance
         """
         return self._proxy.update(
-            muted,
+            muted=muted,
+            hold=hold,
+            hold_url=hold_url,
+            hold_method=hold_method,
         )
 
     def delete(self):

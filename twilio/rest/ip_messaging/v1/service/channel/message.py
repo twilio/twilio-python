@@ -36,12 +36,13 @@ class MessageList(ListResource):
         }
         self._uri = '/Services/{service_sid}/Channels/{channel_sid}/Messages'.format(**self._solution)
 
-    def create(self, body, from_=values.unset):
+    def create(self, body, from_=values.unset, attributes=values.unset):
         """
         Create a new MessageInstance
         
         :param unicode body: The body
         :param unicode from_: The from
+        :param unicode attributes: The attributes
         
         :returns: Newly created MessageInstance
         :rtype: MessageInstance
@@ -49,6 +50,7 @@ class MessageList(ListResource):
         data = values.of({
             'Body': body,
             'From': from_,
+            'Attributes': attributes,
         })
         
         payload = self._version.create(

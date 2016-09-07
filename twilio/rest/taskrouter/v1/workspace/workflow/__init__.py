@@ -114,7 +114,8 @@ class WorkflowList(ListResource):
         
         return WorkflowPage(self._version, response, self._solution)
 
-    def create(self, friendly_name, configuration, assignment_callback_url,
+    def create(self, friendly_name, configuration,
+               assignment_callback_url=values.unset,
                fallback_assignment_callback_url=values.unset,
                task_reservation_timeout=values.unset):
         """

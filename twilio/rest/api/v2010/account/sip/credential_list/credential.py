@@ -271,18 +271,16 @@ class CredentialContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
-    def update(self, username, password):
+    def update(self, password=values.unset):
         """
         Update the CredentialInstance
         
-        :param unicode username: The username
         :param unicode password: The password
         
         :returns: Updated CredentialInstance
         :rtype: CredentialInstance
         """
         data = values.of({
-            'Username': username,
             'Password': password,
         })
         
@@ -434,19 +432,17 @@ class CredentialInstance(InstanceResource):
         """
         return self._proxy.fetch()
 
-    def update(self, username, password):
+    def update(self, password=values.unset):
         """
         Update the CredentialInstance
         
-        :param unicode username: The username
         :param unicode password: The password
         
         :returns: Updated CredentialInstance
         :rtype: CredentialInstance
         """
         return self._proxy.update(
-            username,
-            password,
+            password=password,
         )
 
     def delete(self):

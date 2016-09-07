@@ -119,12 +119,15 @@ class WorkspaceList(ListResource):
         return WorkspacePage(self._version, response, self._solution)
 
     def create(self, friendly_name, event_callback_url=values.unset,
+               events_filter=values.unset, multi_task_enabled=values.unset,
                template=values.unset):
         """
         Create a new WorkspaceInstance
         
         :param unicode friendly_name: The friendly_name
         :param unicode event_callback_url: The event_callback_url
+        :param unicode events_filter: The events_filter
+        :param bool multi_task_enabled: The multi_task_enabled
         :param unicode template: The template
         
         :returns: Newly created WorkspaceInstance
@@ -133,6 +136,8 @@ class WorkspaceList(ListResource):
         data = values.of({
             'FriendlyName': friendly_name,
             'EventCallbackUrl': event_callback_url,
+            'EventsFilter': events_filter,
+            'MultiTaskEnabled': multi_task_enabled,
             'Template': template,
         })
         
@@ -278,14 +283,17 @@ class WorkspaceContext(InstanceContext):
         )
 
     def update(self, default_activity_sid=values.unset,
-               event_callback_url=values.unset, friendly_name=values.unset,
+               event_callback_url=values.unset, events_filter=values.unset,
+               friendly_name=values.unset, multi_task_enabled=values.unset,
                timeout_activity_sid=values.unset):
         """
         Update the WorkspaceInstance
         
         :param unicode default_activity_sid: The default_activity_sid
         :param unicode event_callback_url: The event_callback_url
+        :param unicode events_filter: The events_filter
         :param unicode friendly_name: The friendly_name
+        :param bool multi_task_enabled: The multi_task_enabled
         :param unicode timeout_activity_sid: The timeout_activity_sid
         
         :returns: Updated WorkspaceInstance
@@ -294,7 +302,9 @@ class WorkspaceContext(InstanceContext):
         data = values.of({
             'DefaultActivitySid': default_activity_sid,
             'EventCallbackUrl': event_callback_url,
+            'EventsFilter': events_filter,
             'FriendlyName': friendly_name,
+            'MultiTaskEnabled': multi_task_enabled,
             'TimeoutActivitySid': timeout_activity_sid,
         })
         
@@ -469,7 +479,9 @@ class WorkspaceInstance(InstanceResource):
             'default_activity_name': payload['default_activity_name'],
             'default_activity_sid': payload['default_activity_sid'],
             'event_callback_url': payload['event_callback_url'],
+            'events_filter': payload['events_filter'],
             'friendly_name': payload['friendly_name'],
+            'multi_task_enabled': payload['multi_task_enabled'],
             'sid': payload['sid'],
             'timeout_activity_name': payload['timeout_activity_name'],
             'timeout_activity_sid': payload['timeout_activity_sid'],
@@ -546,12 +558,28 @@ class WorkspaceInstance(InstanceResource):
         return self._properties['event_callback_url']
 
     @property
+    def events_filter(self):
+        """
+        :returns: The events_filter
+        :rtype: unicode
+        """
+        return self._properties['events_filter']
+
+    @property
     def friendly_name(self):
         """
         :returns: The friendly_name
         :rtype: unicode
         """
         return self._properties['friendly_name']
+
+    @property
+    def multi_task_enabled(self):
+        """
+        :returns: The multi_task_enabled
+        :rtype: bool
+        """
+        return self._properties['multi_task_enabled']
 
     @property
     def sid(self):
@@ -587,14 +615,17 @@ class WorkspaceInstance(InstanceResource):
         return self._proxy.fetch()
 
     def update(self, default_activity_sid=values.unset,
-               event_callback_url=values.unset, friendly_name=values.unset,
+               event_callback_url=values.unset, events_filter=values.unset,
+               friendly_name=values.unset, multi_task_enabled=values.unset,
                timeout_activity_sid=values.unset):
         """
         Update the WorkspaceInstance
         
         :param unicode default_activity_sid: The default_activity_sid
         :param unicode event_callback_url: The event_callback_url
+        :param unicode events_filter: The events_filter
         :param unicode friendly_name: The friendly_name
+        :param bool multi_task_enabled: The multi_task_enabled
         :param unicode timeout_activity_sid: The timeout_activity_sid
         
         :returns: Updated WorkspaceInstance
@@ -603,7 +634,9 @@ class WorkspaceInstance(InstanceResource):
         return self._proxy.update(
             default_activity_sid=default_activity_sid,
             event_callback_url=event_callback_url,
+            events_filter=events_filter,
             friendly_name=friendly_name,
+            multi_task_enabled=multi_task_enabled,
             timeout_activity_sid=timeout_activity_sid,
         )
 

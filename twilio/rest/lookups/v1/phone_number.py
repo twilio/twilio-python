@@ -185,6 +185,7 @@ class PhoneNumberInstance(InstanceResource):
         
         # Marshaled Properties
         self._properties = {
+            'caller_name': payload['caller_name'],
             'country_code': payload['country_code'],
             'phone_number': payload['phone_number'],
             'national_format': payload['national_format'],
@@ -213,6 +214,14 @@ class PhoneNumberInstance(InstanceResource):
                 phone_number=self._solution['phone_number'],
             )
         return self._context
+
+    @property
+    def caller_name(self):
+        """
+        :returns: The caller_name
+        :rtype: unicode
+        """
+        return self._properties['caller_name']
 
     @property
     def country_code(self):

@@ -34,12 +34,15 @@ class UserList(ListResource):
         }
         self._uri = '/Services/{service_sid}/Users'.format(**self._solution)
 
-    def create(self, identity, role_sid):
+    def create(self, identity, role_sid=values.unset, attributes=values.unset,
+               friendly_name=values.unset):
         """
         Create a new UserInstance
         
         :param unicode identity: The identity
         :param unicode role_sid: The role_sid
+        :param unicode attributes: The attributes
+        :param unicode friendly_name: The friendly_name
         
         :returns: Newly created UserInstance
         :rtype: UserInstance
@@ -47,6 +50,8 @@ class UserList(ListResource):
         data = values.of({
             'Identity': identity,
             'RoleSid': role_sid,
+            'Attributes': attributes,
+            'FriendlyName': friendly_name,
         })
         
         payload = self._version.create(

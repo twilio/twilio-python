@@ -12,10 +12,11 @@ from twilio import __version__
 from twilio.exceptions import TwilioException
 from twilio.http.httplib2_client import Httplib2Client
 from twilio.rest.api import Api
+from twilio.rest.chat import Chat
 from twilio.rest.ip_messaging import IpMessaging
 from twilio.rest.lookups import Lookups
 from twilio.rest.monitor import Monitor
-from twilio.rest.notifications import Notifications
+from twilio.rest.notify import Notify
 from twilio.rest.preview import Preview
 from twilio.rest.pricing import Pricing
 from twilio.rest.taskrouter import Taskrouter
@@ -59,9 +60,10 @@ class Client(object):
         # Domains
         self._api = None
         self._ip_messaging = None
+        self._chat = None
         self._lookups = None
         self._monitor = None
-        self._notifications = None
+        self._notify = None
         self._preview = None
         self._pricing = None
         self._taskrouter = None
@@ -136,6 +138,18 @@ class Client(object):
         return self._ip_messaging
 
     @property
+    def chat(self):
+        """
+        Access the Chat Twilio Domain
+        
+        :returns: Chat Twilio Domain
+        :rtype: Chat
+        """
+        if self._chat is None:
+            self._chat = Chat(self)
+        return self._chat
+
+    @property
     def lookups(self):
         """
         Access the Lookups Twilio Domain
@@ -160,16 +174,16 @@ class Client(object):
         return self._monitor
 
     @property
-    def notifications(self):
+    def notify(self):
         """
-        Access the Notifications Twilio Domain
+        Access the Notify Twilio Domain
         
-        :returns: Notifications Twilio Domain
-        :rtype: Notifications
+        :returns: Notify Twilio Domain
+        :rtype: Notify
         """
-        if self._notifications is None:
-            self._notifications = Notifications(self)
-        return self._notifications
+        if self._notify is None:
+            self._notify = Notify(self)
+        return self._notify
 
     @property
     def preview(self):
@@ -317,6 +331,13 @@ class Client(object):
         :rtype: NewSigningKeyList
         """
         return self.account.new_signing_keys
+
+    @property
+    def notifications(self):
+        """
+        :rtype: NotificationList
+        """
+        return self.account.notifications
 
     @property
     def outgoing_caller_ids(self):
