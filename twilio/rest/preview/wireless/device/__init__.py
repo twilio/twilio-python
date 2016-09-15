@@ -295,8 +295,8 @@ class DeviceContext(InstanceContext):
 
     def update(self, alias=values.unset, callback_method=values.unset,
                callback_url=values.unset, friendly_name=values.unset,
-               sim_identifier=values.unset, status=values.unset,
-               commands_callback_method=values.unset,
+               rate_plan=values.unset, sim_identifier=values.unset,
+               status=values.unset, commands_callback_method=values.unset,
                commands_callback_url=values.unset):
         """
         Update the DeviceInstance
@@ -305,6 +305,7 @@ class DeviceContext(InstanceContext):
         :param unicode callback_method: The callback_method
         :param unicode callback_url: The callback_url
         :param unicode friendly_name: The friendly_name
+        :param unicode rate_plan: The rate_plan
         :param unicode sim_identifier: The sim_identifier
         :param unicode status: The status
         :param unicode commands_callback_method: The commands_callback_method
@@ -318,6 +319,7 @@ class DeviceContext(InstanceContext):
             'CallbackMethod': callback_method,
             'CallbackUrl': callback_url,
             'FriendlyName': friendly_name,
+            'RatePlan': rate_plan,
             'SimIdentifier': sim_identifier,
             'Status': status,
             'CommandsCallbackMethod': commands_callback_method,
@@ -527,8 +529,8 @@ class DeviceInstance(InstanceResource):
 
     def update(self, alias=values.unset, callback_method=values.unset,
                callback_url=values.unset, friendly_name=values.unset,
-               sim_identifier=values.unset, status=values.unset,
-               commands_callback_method=values.unset,
+               rate_plan=values.unset, sim_identifier=values.unset,
+               status=values.unset, commands_callback_method=values.unset,
                commands_callback_url=values.unset):
         """
         Update the DeviceInstance
@@ -537,6 +539,7 @@ class DeviceInstance(InstanceResource):
         :param unicode callback_method: The callback_method
         :param unicode callback_url: The callback_url
         :param unicode friendly_name: The friendly_name
+        :param unicode rate_plan: The rate_plan
         :param unicode sim_identifier: The sim_identifier
         :param unicode status: The status
         :param unicode commands_callback_method: The commands_callback_method
@@ -550,6 +553,7 @@ class DeviceInstance(InstanceResource):
             callback_method=callback_method,
             callback_url=callback_url,
             friendly_name=friendly_name,
+            rate_plan=rate_plan,
             sim_identifier=sim_identifier,
             status=status,
             commands_callback_method=commands_callback_method,

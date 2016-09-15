@@ -59,8 +59,8 @@ class Client(object):
         
         # Domains
         self._api = None
-        self._ip_messaging = None
         self._chat = None
+        self._ip_messaging = None
         self._lookups = None
         self._monitor = None
         self._notify = None
@@ -126,18 +126,6 @@ class Client(object):
         return self._api
 
     @property
-    def ip_messaging(self):
-        """
-        Access the IpMessaging Twilio Domain
-        
-        :returns: IpMessaging Twilio Domain
-        :rtype: IpMessaging
-        """
-        if self._ip_messaging is None:
-            self._ip_messaging = IpMessaging(self)
-        return self._ip_messaging
-
-    @property
     def chat(self):
         """
         Access the Chat Twilio Domain
@@ -148,6 +136,18 @@ class Client(object):
         if self._chat is None:
             self._chat = Chat(self)
         return self._chat
+
+    @property
+    def ip_messaging(self):
+        """
+        Access the IpMessaging Twilio Domain
+        
+        :returns: IpMessaging Twilio Domain
+        :rtype: IpMessaging
+        """
+        if self._ip_messaging is None:
+            self._ip_messaging = IpMessaging(self)
+        return self._ip_messaging
 
     @property
     def lookups(self):

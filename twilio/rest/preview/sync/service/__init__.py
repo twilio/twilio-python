@@ -34,12 +34,14 @@ class ServiceList(ListResource):
         self._solution = {}
         self._uri = '/Services'.format(**self._solution)
 
-    def create(self, friendly_name=values.unset, webhook_url=values.unset):
+    def create(self, friendly_name=values.unset, webhook_url=values.unset,
+               reachability_webhooks_enabled=values.unset):
         """
         Create a new ServiceInstance
         
         :param unicode friendly_name: The friendly_name
         :param unicode webhook_url: The webhook_url
+        :param bool reachability_webhooks_enabled: The reachability_webhooks_enabled
         
         :returns: Newly created ServiceInstance
         :rtype: ServiceInstance
@@ -47,6 +49,7 @@ class ServiceList(ListResource):
         data = values.of({
             'FriendlyName': friendly_name,
             'WebhookUrl': webhook_url,
+            'ReachabilityWebhooksEnabled': reachability_webhooks_enabled,
         })
         
         payload = self._version.create(
@@ -267,12 +270,14 @@ class ServiceContext(InstanceContext):
         """
         return self._version.delete('delete', self._uri)
 
-    def update(self, webhook_url=values.unset, friendly_name=values.unset):
+    def update(self, webhook_url=values.unset, friendly_name=values.unset,
+               reachability_webhooks_enabled=values.unset):
         """
         Update the ServiceInstance
         
         :param unicode webhook_url: The webhook_url
         :param unicode friendly_name: The friendly_name
+        :param bool reachability_webhooks_enabled: The reachability_webhooks_enabled
         
         :returns: Updated ServiceInstance
         :rtype: ServiceInstance
@@ -280,6 +285,7 @@ class ServiceContext(InstanceContext):
         data = values.of({
             'WebhookUrl': webhook_url,
             'FriendlyName': friendly_name,
+            'ReachabilityWebhooksEnabled': reachability_webhooks_enabled,
         })
         
         payload = self._version.update(
@@ -370,6 +376,7 @@ class ServiceInstance(InstanceResource):
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
             'url': payload['url'],
             'webhook_url': payload['webhook_url'],
+            'reachability_webhooks_enabled': payload['reachability_webhooks_enabled'],
             'links': payload['links'],
         }
         
@@ -452,6 +459,14 @@ class ServiceInstance(InstanceResource):
         return self._properties['webhook_url']
 
     @property
+    def reachability_webhooks_enabled(self):
+        """
+        :returns: The reachability_webhooks_enabled
+        :rtype: bool
+        """
+        return self._properties['reachability_webhooks_enabled']
+
+    @property
     def links(self):
         """
         :returns: The links
@@ -477,12 +492,14 @@ class ServiceInstance(InstanceResource):
         """
         return self._proxy.delete()
 
-    def update(self, webhook_url=values.unset, friendly_name=values.unset):
+    def update(self, webhook_url=values.unset, friendly_name=values.unset,
+               reachability_webhooks_enabled=values.unset):
         """
         Update the ServiceInstance
         
         :param unicode webhook_url: The webhook_url
         :param unicode friendly_name: The friendly_name
+        :param bool reachability_webhooks_enabled: The reachability_webhooks_enabled
         
         :returns: Updated ServiceInstance
         :rtype: ServiceInstance
@@ -490,6 +507,7 @@ class ServiceInstance(InstanceResource):
         return self._proxy.update(
             webhook_url=webhook_url,
             friendly_name=friendly_name,
+            reachability_webhooks_enabled=reachability_webhooks_enabled,
         )
 
     @property
