@@ -79,7 +79,7 @@ class PhoneNumberTest(unittest.TestCase):
             entry = json.load(f)
             resource.load(entry)
 
-        self.assertEquals(resource.parent.base_uri,
+        self.assertEqual(resource.parent.base_uri,
             ("https://api.twilio.com/2010-04-01/Accounts/AC4bf2dafbed59a573"
              "3d2c1c1c69a83a28"))
 

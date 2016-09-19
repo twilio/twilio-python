@@ -18,7 +18,7 @@ class AccountTest(unittest.TestCase):
         account = Account(mock, 'AC123')
         account.load_subresources()
         records = account.usage_records.list()
-        self.assertEquals(len(records), 2)
+        self.assertEqual(len(records), 2)
 
     @patch("twilio.rest.resources.base.make_twilio_request")
     def test_usage_triggers_subresource(self, request):
@@ -30,4 +30,4 @@ class AccountTest(unittest.TestCase):
         account = Account(mock, 'AC123')
         account.load_subresources()
         triggers = account.usage_triggers.list()
-        self.assertEquals(len(triggers), 2)
+        self.assertEqual(len(triggers), 2)

@@ -1,6 +1,6 @@
 from datetime import date
 from mock import patch
-from nose.tools import raises, assert_equals, assert_true
+from nose.tools import raises, assert_equal, assert_true
 
 from tests.tools import create_mock_json
 from twilio.rest.resources import Recordings, Recording
@@ -57,7 +57,7 @@ def test_get(mock):
                             use_json_extension=True)
 
     truri = "%s/Recordings/%s/Transcriptions" % (BASE_URI, RE_SID)
-    assert_equals(r.transcriptions.uri, truri)
+    assert_equal(r.transcriptions.uri, truri)
 
 
 @patch("twilio.rest.resources.base.make_twilio_request")
