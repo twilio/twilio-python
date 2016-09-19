@@ -4,7 +4,7 @@ import unittest
 from datetime import datetime
 from nose.tools import assert_equal
 from twilio.jwt import decode
-from twilio.access_token import AccessToken, ConversationsGrant, IpMessagingGrant, VoiceGrant
+from twilio.access_token import AccessToken, ConversationsGrant, IpMessagingGrant, VoiceGrant, VideoGrant
 
 ACCOUNT_SID = 'AC123'
 SIGNING_KEY_SID = 'SK123'
@@ -93,18 +93,33 @@ class AccessTokenTest(unittest.TestCase):
             'push_credential_sid': 'CR123'
         }, payload['grants']['ip_messaging'])
 
-    def test_grants(self):
+    def test_video_grant(self):
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
-        scat.add_grant(ConversationsGrant())
-        scat.add_grant(IpMessagingGrant())
+        scat.add_grant(VideoGrant(configuration_profile_sid='CP123'))
 
         token = str(scat)
         assert_is_not_none(token)
         payload = decode(token, 'secret')
         self._validate_claims(payload)
-        assert_equal(2, len(payload['grants']))
+        assert_equal(1, len(payload['grants']))
+        assert_equal({
+            'configuration_profile_sid': 'CP123'
+        }, payload['grants']['video'])
+
+    def test_grants(self):
+        scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
+        scat.add_grant(ConversationsGrant())
+        scat.add_grant(IpMessagingGrant())
+        scat.add_grant(VideoGrant())
+
+        token = str(scat)
+        assert_is_not_none(token)
+        payload = decode(token, 'secret')
+        self._validate_claims(payload)
+        assert_equal(3, len(payload['grants']))
         assert_equal({}, payload['grants']['rtc'])
         assert_equal({}, payload['grants']['ip_messaging'])
+        assert_equal({}, payload['grants']['video'])
 
     def test_programmable_voice_grant(self):
         grant = VoiceGrant(
