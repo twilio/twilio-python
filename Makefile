@@ -1,4 +1,4 @@
-.PHONY: clean venv install analysis test test-install docs docs-install
+.PHONY: clean install analysis test test-install docs docs-install
 
 venv:
 	virtualenv venv
