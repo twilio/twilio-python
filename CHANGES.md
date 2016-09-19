@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 5.6.0
+-------------
+
+Released September 19, 2016:
+
+- Add Video Grant
+
 Version 5.5.0
 -------------
 
