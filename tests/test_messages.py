@@ -1,10 +1,12 @@
 from datetime import date
 import unittest
+from tests.tools import create_mock_json
 
 from mock import patch
 from six import u
 
 from twilio.rest.resources import Messages
+from twilio.rest.resources import ListResource
 
 DEFAULT = {
     'From': None,
@@ -37,6 +39,18 @@ class MessageTest(unittest.TestCase):
             self.resource.list(before=date(2011, 1, 1))
             self.params['DateSent<'] = "2011-01-01"
             mock.assert_called_with(self.params)
+
+
+    def test_iter_params(self):
+        with patch.object(ListResource, 'iter') as mock:
+            self.resource.iter(before=date(2016, 1, 1), after=date(2011,1,1), date_sent=date(2016,2,1), to="+15005551212", from_="+15005559999")
+            self.params['DateSent<'] = "2016-01-01"
+            self.params['DateSent>'] = "2011-01-01"
+            self.params['DateSent'] = "2016-02-01"
+            self.params['To'] = "+15005551212"
+            self.params['From'] = "+15005559999"
+            mock.assert_called_with(**self.params)
+
 
     def test_create(self):
         with patch.object(self.resource, 'create_instance') as mock:

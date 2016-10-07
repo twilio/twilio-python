@@ -142,6 +142,22 @@ class Messages(ListResource):
         kw["DateSent"] = parse_date(date_sent)
         return self.get_instances(kw)
 
+    @normalize_dates
+    def iter(self, from_=None, to=None, before=None, after=None,
+            date_sent=None, **kwargs):
+        """
+        Returns an iterator of :class:`Call` resources.
+
+        :param date after: Only list calls started after this datetime
+        :param date before: Only list calls started before this datetime
+        """
+        kwargs["From"] = from_
+        kwargs["To"] = to
+        kwargs["DateSent<"] = before
+        kwargs["DateSent>"] = after
+        kwargs["DateSent"] = parse_date(date_sent)
+        return super(Messages, self).iter(**kwargs)
+
     def update(self, sid, **kwargs):
         """ Updates the message for the given sid
         :param sid: The sid of the message to update.
