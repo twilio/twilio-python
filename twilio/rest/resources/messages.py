@@ -144,7 +144,7 @@ class Messages(ListResource):
 
     @normalize_dates
     def iter(self, from_=None, to=None, before=None, after=None,
-            date_sent=None, **kwargs):
+             date_sent=None, **kwargs):
         """
         Returns an iterator of :class:`Call` resources.
 
