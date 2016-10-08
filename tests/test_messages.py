@@ -1,6 +1,5 @@
 from datetime import date
 import unittest
-from tests.tools import create_mock_json
 
 from mock import patch
 from six import u
