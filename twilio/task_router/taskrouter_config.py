@@ -11,7 +11,8 @@ class TaskRouterConfig:
 
     def __init__(self, rules, default_target):
         self.filters = rules
-        self.default_filter = default_target
+        if default_target is not None:
+            self.default_filter = default_target
 
         for rule in self.filters:
             if not isinstance(rule, WorkflowRule):

@@ -20,11 +20,12 @@ class WorkflowRule:
        The name of the filter
     """
 
-    def __init__(self, expression, targets, friendly_name):
+    def __init__(self, expression, targets, friendly_name=None):
 
         self.expression = expression
         self.targets = targets
-        self.friendly_name = friendly_name
+        if friendly_name is not None:
+            self.friendly_name = friendly_name
 
     def __repr__(self):
         return str({
