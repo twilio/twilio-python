@@ -23,8 +23,8 @@ class WorkflowRuleTarget:
 
         self.queue = queue
         if expression is not None:
-          self.expression = expression
+            self.expression = expression
         if priority is not None:
-          self.priority = priority
+            self.priority = priority
         if timeout is not None:
-          self.timeout = timeout
+            self.timeout = timeout
