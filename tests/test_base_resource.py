@@ -24,6 +24,7 @@ def test_resource_init():
     assert_equal(r.base_uri, base_uri)
     assert_equal(r.auth, auth)
     assert_equal(r.uri, uri)
+    assert_equal(r.content, {})
 
 
 def test_equivalence():
@@ -82,6 +83,13 @@ class ListResourceTest(unittest.TestCase):
 
         assert_true(isinstance(instance, InstanceResource))
         assert_equal(instance.sid, "foo")
+        assert_equal(instance.content, {"sid": "foo"})
+
+    def testInstanceSerialize(self):
+        instance = self.r.load_instance({"sid": "foo"})
+
+        assert_true(isinstance(instance, InstanceResource))
+        assert_equal(instance.serialize(), {"sid": "foo"})
 
     def testListResourceCreateResponse200(self):
         """We should accept 200 OK in response to a POST creating a resource."""
@@ -142,6 +150,7 @@ class NextGenListResourceTest(unittest.TestCase):
 
         assert_true(isinstance(instance, NextGenInstanceResource))
         assert_equal(instance.sid, "foo")
+        assert_equal(instance.serialize(), {"sid": "foo"})
 
 
 class testInstanceResourceInit(unittest.TestCase):
@@ -153,15 +162,18 @@ class testInstanceResourceInit(unittest.TestCase):
 
     def testInit(self):
         assert_equal(self.r.uri, self.uri)
+        assert_equal(self.r.content, {})
 
     def testLoad(self):
         self.r.load({"hey": "you"})
         assert_equal(self.r.hey, "you")
+        assert_equal(self.r.content, {"hey": "you"})
 
     def testLoadWithUri(self):
         self.r.load({"hey": "you", "uri": "foobar"})
         assert_equal(self.r.hey, "you")
         assert_equal(self.r.uri, self.uri)
+        assert_equal(self.r.content, {"hey": "you"})
 
     def testLoadDateCreated(self):
         self.r.load({"date_created": "Sat, 29 Sep 2012 12:47:54 +0000",
@@ -186,6 +198,11 @@ class testInstanceResourceInit(unittest.TestCase):
         self.r.load_subresources()
         m.assert_called_with(self.r.uri, self.r.auth, self.r.timeout)
 
+    def testSerialize(self):
+        self.r.load({"hey": "you", "uri": "foobar"})
+        assert_equal(self.r.content, {"hey": "you"})
+        assert_equal(self.r.serialize(), {"hey": "you"})
+
 
 class NextGenInstanceResourceTest(unittest.TestCase):
     def setUp(self):
@@ -195,6 +212,12 @@ class NextGenInstanceResourceTest(unittest.TestCase):
     def test_load(self):
         self.r.load({"hey": "you"})
         assert_equal(self.r.hey, "you")
+        assert_equal(self.r.content, {"hey": "you"})
+
+    def test_serialize(self):
+        self.r.load({"hey": "you"})
+        assert_equal(self.r.content, {"hey": "you"})
+        assert_equal(self.r.serialize(), {"hey": "you"})
 
     def test_iso_date_parser(self):
         self.r.load({"date_created": "2015-01-01T00:00:00Z"})
