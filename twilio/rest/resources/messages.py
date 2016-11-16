@@ -146,7 +146,7 @@ class Messages(ListResource):
     def iter(self, from_=None, to=None, before=None, after=None,
              date_sent=None, **kwargs):
         """
-        Returns an iterator of :class:`Call` resources.
+        Returns an iterator of :class:`Message` resources.
 
         :param date after: Only list calls started after this datetime
         :param date before: Only list calls started before this datetime
