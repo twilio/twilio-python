@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 5.7.0
+-------------
+
+Released January 26, 2017:
+
+- Add `iter` method for messages
+
 Version 5.6.0
 -------------
 
