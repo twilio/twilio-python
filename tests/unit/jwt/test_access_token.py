@@ -4,7 +4,7 @@ import unittest
 from datetime import datetime
 from nose.tools import assert_equal
 from twilio.jwt import decode
-from twilio.jwt.access_token import AccessToken, ConversationsGrant, IpMessagingGrant, SyncGrant, VoiceGrant, VideoGrant
+from twilio.jwt.access_token import AccessToken, ConversationsGrant, IpMessagingGrant, SyncGrant, VoiceGrant, VideoGrant, TaskRouterGrant
 
 ACCOUNT_SID = 'AC123'
 SIGNING_KEY_SID = 'SK123'
@@ -159,3 +159,20 @@ class AccessTokenTest(unittest.TestCase):
                 }
             }
         }, payload['grants']['voice'])
+
+    def test_task_router_grant(self):
+        grant = TaskRouterGrant(workspace_sid='WS123', worker_sid='WK123', role='worker')
+
+        scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
+        scat.add_grant(grant)
+
+        token = str(scat)
+        assert_is_not_none(token)
+        payload = decode(token, 'secret')
+        self._validate_claims(payload)
+        assert_equal(1, len(payload['grants']))
+        assert_equal({
+            'workspace_sid': 'WS123',
+            'worker_sid': 'WK123',
+            'role': 'worker'
+        }, payload['grants']['task_router'])
