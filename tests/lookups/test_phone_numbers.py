@@ -1,4 +1,9 @@
-import urllib.parse
+import urllib
+
+try:
+    import urllib.parse
+except ImportError:
+    import urllib
 
 from mock import patch
 
@@ -7,12 +12,13 @@ from nose.tools import assert_equal
 from tests.tools import create_mock_json
 from twilio.rest.resources.lookups.phone_numbers import PhoneNumbers
 
-
 AUTH = ('AC123', 'foobar')
 TIMEOUT = 30
 NUMBER = '+15108675309'
-NUMBER_ENCODED = urllib.parse.quote(NUMBER)
-
+try:
+    NUMBER_ENCODED = urllib.quote_plus(NUMBER)
+except:
+    NUMBER_ENCODED = urllib.parse.quote_plus(NUMBER)
 
 @patch("twilio.rest.resources.base.make_twilio_request")
 def test_get_phone_number(request):
@@ -24,7 +30,8 @@ def test_get_phone_number(request):
     phone_numbers = PhoneNumbers('/v1', AUTH, TIMEOUT)
     pn = phone_numbers.get(NUMBER)
     assert_equal(pn.phone_number, NUMBER)
-    request.assert_called_with('GET', '/v1/PhoneNumbers/{}'.format(NUMBER_ENCODED),
+    request.assert_called_with('GET',
+                               '/v1/PhoneNumbers/{}'.format(NUMBER_ENCODED),
                                auth=AUTH, timeout=TIMEOUT, params={},
                                use_json_extension=False)
 
@@ -39,7 +46,8 @@ def test_get_carrier_info(request):
     phone_numbers = PhoneNumbers('/v1', AUTH, TIMEOUT)
     pn = phone_numbers.get(NUMBER, include_carrier_info=True)
     assert_equal(pn.phone_number, NUMBER)
-    request.assert_called_with('GET', '/v1/PhoneNumbers/{}'.format(NUMBER_ENCODED),
+    request.assert_called_with('GET',
+                               '/v1/PhoneNumbers/{}'.format(NUMBER_ENCODED),
                                auth=AUTH, timeout=TIMEOUT,
                                params={'Type': 'carrier'},
                                use_json_extension=False)
