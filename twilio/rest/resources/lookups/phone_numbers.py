@@ -6,7 +6,6 @@ from twilio.rest.resources import (
 )
 
 
-
 class PhoneNumber(NextGenInstanceResource):
     """
     Represents information about a phone number.
