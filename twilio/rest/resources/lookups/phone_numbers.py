@@ -1,8 +1,10 @@
+import urllib.parse
 from twilio.rest.resources import (
     NextGenInstanceResource,
     NextGenListResource,
     transform_params,
 )
+
 
 
 class PhoneNumber(NextGenInstanceResource):
@@ -63,7 +65,7 @@ class PhoneNumbers(NextGenListResource):
             params['type'] = 'carrier'
 
         params = transform_params(params)
-        uri = "%s/%s" % (self.uri, number)
+        uri = "%s/%s" % (self.uri, urllib.parse.quote(number))
         _, item = self.request("GET", uri, params=params)
 
         return self.load_instance(item)
