@@ -13,6 +13,7 @@ from six import text_type, b
 def binary(txt):
     return txt.encode('utf-8')
 
+
 try:
     import json
 except ImportError:
@@ -24,6 +25,7 @@ __all__ = ['encode', 'decode', 'DecodeError']
 
 class DecodeError(Exception):
     pass
+
 
 signing_methods = {
     'HS256': lambda msg, key: hmac.new(key, msg, hashlib.sha256).digest(),
