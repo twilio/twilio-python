@@ -1,6 +1,8 @@
 # twilio-python
 
 [![Build Status](https://secure.travis-ci.org/twilio/twilio-python.png?branch=master)](http://travis-ci.org/twilio/twilio-python)
+[![PyPI](https://img.shields.io/pypi/v/twilio.svg)](https://pypi.python.org/pypi/twilio)
+[![PyPI](https://img.shields.io/pypi/pyversions/twilio.svg)](https://pypi.python.org/pypi/twilio)
 
 A module for using the Twilio REST API and generating valid
 [TwiML](http://www.twilio.com/docs/api/twiml/ "TwiML -
