@@ -22,6 +22,7 @@ except:
 
 print(NUMBER_ENCODED)
 
+
 @patch("twilio.rest.resources.base.make_twilio_request")
 def test_get_phone_number(request):
     resp = create_mock_json(
