@@ -20,6 +20,7 @@ try:
 except:
     NUMBER_ENCODED = urllib.parse.quote_plus(NUMBER)
 
+print(NUMBER_ENCODED)
 
 @patch("twilio.rest.resources.base.make_twilio_request")
 def test_get_phone_number(request):
@@ -32,7 +33,7 @@ def test_get_phone_number(request):
     pn = phone_numbers.get(NUMBER)
     assert_equal(pn.phone_number, NUMBER)
     request.assert_called_with('GET',
-                               '/v1/PhoneNumbers/{}'.format(NUMBER_ENCODED),
+                               '/v1/PhoneNumbers/{0}'.format(NUMBER_ENCODED),
                                auth=AUTH, timeout=TIMEOUT, params={},
                                use_json_extension=False)
 
@@ -48,7 +49,7 @@ def test_get_carrier_info(request):
     pn = phone_numbers.get(NUMBER, include_carrier_info=True)
     assert_equal(pn.phone_number, NUMBER)
     request.assert_called_with('GET',
-                               '/v1/PhoneNumbers/{}'.format(NUMBER_ENCODED),
+                               '/v1/PhoneNumbers/{0}'.format(NUMBER_ENCODED),
                                auth=AUTH, timeout=TIMEOUT,
                                params={'Type': 'carrier'},
                                use_json_extension=False)
