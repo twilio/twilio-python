@@ -1,117 +1,239 @@
-import time
 import unittest
+import jwt as jwt_lib
+import time
 
-from nose.tools import assert_true, assert_equal
+from nose.tools import assert_true
+from mock import patch
 
-from twilio import jwt
-from twilio.jwt.client import CapabilityToken
+from twilio.jwt import Jwt, JwtDecodeError
+
+
+class DummyJwt(Jwt):
+    """Jwt implementation that allows setting arbitrary payload and headers for testing."""
+    def __init__(self, secret_key, issuer, subject=None, algorithm='HS256', nbf=None, ttl=3600,
+                 valid_until=None, headers=None, payload=None):
+        super(DummyJwt, self).__init__(
+            secret_key=secret_key,
+            issuer=issuer,
+            subject=subject,
+            algorithm=algorithm,
+            nbf=nbf,
+            ttl=ttl,
+            valid_until=valid_until
+        )
+        self._payload = payload or {}
+        self._headers = headers or {}
+
+    def _generate_payload(self):
+        return self._payload
+
+    def _generate_headers(self):
+        return self._headers
 
 
 class JwtTest(unittest.TestCase):
-
     def assertIn(self, foo, bar, msg=None):
         """backport for 2.6"""
-        return assert_true(foo in bar, msg=(msg or "%s not found in %s"
-            % (foo, bar)))
+        return assert_true(foo in bar, msg=(msg or "%s not found in %s" % (foo, bar)))
 
-    def test_no_permissions(self):
-        token = CapabilityToken("AC123", "XXXXX")
-        payload = token.payload()
-        assert_equal(len(payload), 1)
-        assert_equal(payload["scope"], '')
+    def now(self):
+        return int(time.time())
 
-    def test_inbound_permissions(self):
-        token = CapabilityToken("AC123", "XXXXX")
-        token.allow_client_incoming("andy")
-        payload = token.payload()
+    @patch('time.time')
+    def test_basic_encode(self, time_mock):
+        time_mock.return_value = 0.0
 
-        eurl = "scope:client:incoming?clientName=andy"
-        assert_equal(len(payload), 1)
-        assert_equal(payload['scope'], eurl)
+        jwt = DummyJwt('secret_key', 'issuer', headers={}, payload={})
+        expected_jwt = jwt_lib.encode(
+            {'iss': 'issuer', 'exp': 3600, 'nbf': 0},
+            'secret_key',
+            algorithm='HS256'
+        )
 
-    def test_outbound_permissions(self):
-        token = CapabilityToken("AC123", "XXXXX")
-        token.allow_client_outgoing("AP123")
-        payload = token.payload()
+        self.assertEqual(expected_jwt, jwt.to_jwt())
 
-        eurl = "scope:client:outgoing?appSid=AP123"
+    @patch('time.time')
+    def test_encode_with_subject(self, time_mock):
+        time_mock.return_value = 0.0
 
-        assert_equal(len(payload), 1)
-        self.assertIn(eurl, payload['scope'])
+        jwt = DummyJwt('secret_key', 'issuer', subject='subject', headers={}, payload={})
+        expected_jwt = jwt_lib.encode(
+            {'iss': 'issuer', 'exp': 3600, 'nbf': 0, 'sub': 'subject'},
+            'secret_key',
+            algorithm='HS256'
+        )
 
-    def test_outbound_permissions_params(self):
-        token = CapabilityToken("AC123", "XXXXX")
-        token.allow_client_outgoing("AP123", foobar=3)
-        payload = token.payload()
+        self.assertEqual(expected_jwt, jwt.to_jwt())
 
-        eurl = "scope:client:outgoing?appParams=foobar%3D3&appSid=AP123"
-        assert_equal(payload["scope"], eurl)
+    @patch('time.time')
+    def test_encode_custom_ttl(self, time_mock):
+        time_mock.return_value = 0.0
 
-    def test_events(self):
-        token = CapabilityToken("AC123", "XXXXX")
-        token.allow_event_stream()
-        payload = token.payload()
+        jwt = DummyJwt('secret_key', 'issuer', ttl=10, headers={}, payload={})
+        expected_jwt = jwt_lib.encode(
+            {'iss': 'issuer', 'exp': 10, 'nbf': 0},
+            'secret_key',
+            algorithm='HS256'
+        )
 
-        event_uri = "scope:stream:subscribe?path=%2F2010-04-01%2FEvents"
-        assert_equal(payload["scope"], event_uri)
+        self.assertEqual(expected_jwt, jwt.to_jwt())
 
-    def test_events_with_filters(self):
-        token = CapabilityToken("AC123", "XXXXX")
-        token.allow_event_stream(foobar="hey")
-        payload = token.payload()
+    @patch('time.time')
+    def test_encode_ttl_added_to_current_time(self, time_mock):
+        time_mock.return_value = 50.0
 
-        event_uri = "scope:stream:subscribe?params=foobar%3Dhey&path=%2F2010-04-01%2FEvents"
-        assert_equal(payload["scope"], event_uri)
+        jwt = DummyJwt('secret_key', 'issuer', ttl=10, headers={}, payload={})
+        expected_jwt = jwt_lib.encode(
+            {'iss': 'issuer', 'exp': 60, 'nbf': 50},
+            'secret_key',
+            algorithm='HS256'
+        )
 
-    def test_decode(self):
-        token = CapabilityToken("AC123", "XXXXX")
-        token.allow_client_outgoing("AP123", foobar=3)
-        token.allow_client_incoming("andy")
-        token.allow_event_stream()
+        self.assertEqual(expected_jwt, jwt.to_jwt())
 
-        outgoing_uri = "scope:client:outgoing?appParams=foobar%3D3&appSid=AP123&clientName=andy"
-        incoming_uri = "scope:client:incoming?clientName=andy"
-        event_uri = "scope:stream:subscribe?path=%2F2010-04-01%2FEvents"
+    @patch('time.time')
+    def test_encode_override_ttl(self, time_mock):
+        time_mock.return_value = 0.0
 
-        result = jwt.decode(token.generate(), "XXXXX")
-        scope = result["scope"].split(" ")
+        jwt = DummyJwt('secret_key', 'issuer', ttl=10, headers={}, payload={})
+        expected_jwt = jwt_lib.encode(
+            {'iss': 'issuer', 'exp': 20, 'nbf': 0},
+            'secret_key',
+            algorithm='HS256'
+        )
 
-        self.assertIn(outgoing_uri, scope)
-        self.assertIn(incoming_uri, scope)
-        self.assertIn(event_uri, scope)
+        self.assertEqual(expected_jwt, jwt.to_jwt(ttl=20))
 
-    def setUp(self):
-        self.payload = {"iss": "jeff", "exp": int(time.time()), "claim": "insanity"}
+    @patch('time.time')
+    def test_encode_valid_until_overrides_ttl(self, time_mock):
+        time_mock.return_value = 0.0
+
+        jwt = DummyJwt('secret_key', 'issuer', ttl=10, valid_until=70, headers={}, payload={})
+        expected_jwt = jwt_lib.encode(
+            {'iss': 'issuer', 'exp': 70, 'nbf': 0},
+            'secret_key',
+            algorithm='HS256'
+        )
+
+        self.assertEqual(expected_jwt, jwt.to_jwt())
+
+    @patch('time.time')
+    def test_encode_custom_nbf(self, time_mock):
+        time_mock.return_value = 0.0
+
+        jwt = DummyJwt('secret_key', 'issuer', ttl=10, nbf=5, headers={}, payload={})
+        expected_jwt = jwt_lib.encode(
+            {'iss': 'issuer', 'exp': 10, 'nbf': 5},
+            'secret_key',
+            algorithm='HS256'
+        )
+
+        self.assertEqual(expected_jwt, jwt.to_jwt())
+
+    @patch('time.time')
+    def test_encode_custom_algorithm(self, time_mock):
+        time_mock.return_value = 0.0
+
+        jwt = DummyJwt('secret_key', 'issuer', algorithm='HS512', headers={}, payload={})
+        expected_jwt = jwt_lib.encode(
+            {'iss': 'issuer', 'exp': 3600, 'nbf': 0},
+            'secret_key',
+            algorithm='HS512'
+        )
+
+        self.assertEqual(expected_jwt, jwt.to_jwt())
+
+    @patch('time.time')
+    def test_encode_with_headers(self, time_mock):
+        time_mock.return_value = 0.0
+        headers = {'sooper': 'secret'}
+
+        jwt = DummyJwt('secret_key', 'issuer', algorithm='HS512', headers=headers, payload={})
+        expected_jwt = jwt_lib.encode(
+            {'iss': 'issuer', 'exp': 3600, 'nbf': 0},
+            'secret_key',
+            algorithm='HS512',
+            headers=headers
+        )
+
+        self.assertEqual(expected_jwt, jwt.to_jwt())
+
+    @patch('time.time')
+    def test_encode_with_payload(self, time_mock):
+        time_mock.return_value = 0.0
+
+        jwt = DummyJwt('secret_key', 'issuer', algorithm='HS512', payload={'root': 'true'})
+        expected_jwt = jwt_lib.encode(
+            {'iss': 'issuer', 'exp': 3600, 'nbf': 0, 'root': 'true'},
+            'secret_key',
+            algorithm='HS512'
+        )
+
+        self.assertEqual(expected_jwt, jwt.to_jwt())
+
+    @patch('time.time')
+    def test_encode_with_payload_and_headers(self, time_mock):
+        time_mock.return_value = 0.0
+
+        jwt = DummyJwt('secret_key', 'issuer', headers={'yes': 'oui'}, payload={'pay': 'me'})
+        expected_jwt = jwt_lib.encode(
+            {'iss': 'issuer', 'exp': 3600, 'nbf': 0, 'pay': 'me'},
+            'secret_key',
+            algorithm='HS256',
+            headers={'yes': 'oui'}
+        )
+
+        self.assertEqual(expected_jwt, jwt.to_jwt())
+
+    def test_encode_invalid_crypto_alg_fails(self):
+        jwt = DummyJwt('secret_key', 'issuer', algorithm='PlzDontTouchAlgorithm')
+        self.assertRaises(NotImplementedError, jwt.to_jwt)
+
+    def test_encode_no_key_fails(self):
+        jwt = DummyJwt(None, 'issuer')
+        self.assertRaises(ValueError, jwt.to_jwt)
 
     def test_encode_decode(self):
-        secret = 'secret'
-        jwt_message = jwt.encode(self.payload, secret)
-        decoded_payload = jwt.decode(jwt_message, secret)
-        self.assertEqual(decoded_payload, self.payload)
+        test_start = self.now()
 
-    def test_bad_secret(self):
-        right_secret = 'foo'
-        bad_secret = 'bar'
-        jwt_message = jwt.encode(self.payload, right_secret)
-        self.assertRaises(jwt.DecodeError, jwt.decode, jwt_message, bad_secret)
+        jwt = DummyJwt('secret_key', 'issuer', subject='hey', payload={'sick': 'sick'})
+        decoded_jwt = Jwt.from_jwt(jwt.to_jwt(), 'secret_key')
+
+        self.assertGreaterEqual(decoded_jwt.valid_until, self.now() + 3600)
+        self.assertGreaterEqual(decoded_jwt.nbf, test_start)
+        self.assertEqual(decoded_jwt.issuer, 'issuer')
+        self.assertEqual(decoded_jwt.secret_key, 'secret_key')
+        self.assertEqual(decoded_jwt.algorithm, 'HS256')
+        self.assertEqual(decoded_jwt.subject, 'hey')
+
+        self.assertEqual(decoded_jwt.headers, {'typ': 'JWT', 'alg': 'HS256'})
+        self.assertDictContainsSubset({
+            'iss': 'issuer',
+            'sub': 'hey',
+            'sick': 'sick',
+        }, decoded_jwt.payload)
+
+    def test_decode_bad_secret(self):
+        jwt = DummyJwt('secret_key', 'issuer')
+        self.assertRaises(JwtDecodeError, Jwt.from_jwt, jwt.to_jwt(), 'letmeinplz')
 
     def test_decodes_valid_jwt(self):
-        example_payload = {"hello": "world"}
-        example_secret = "secret"
-        example_jwt = "eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJoZWxsbyI6ICJ3b3JsZCJ9.tvagLDLoaiJKxOKqpBXSEGy7SYSifZhjntgm9ctpyj8"
-        decoded_payload = jwt.decode(example_jwt, example_secret)
-        self.assertEqual(decoded_payload, example_payload)
+        expiry_time = self.now() + 1000
+        example_jwt = jwt_lib.encode(
+            {'hello': 'world', 'iss': 'me', 'sub': 'being awesome', 'exp': expiry_time},
+            'secret'
+        )
 
-    def test_allow_skip_verification(self):
-        right_secret = 'foo'
-        jwt_message = jwt.encode(self.payload, right_secret)
-        decoded_payload = jwt.decode(jwt_message, verify=False)
-        self.assertEqual(decoded_payload, self.payload)
+        decoded_jwt = Jwt.from_jwt(example_jwt, 'secret')
+        self.assertEqual(decoded_jwt.issuer, 'me')
+        self.assertEqual(decoded_jwt.subject, 'being awesome')
+        self.assertEqual(decoded_jwt.valid_until, expiry_time)
+        self.assertIn('hello', decoded_jwt.payload)
+        self.assertEqual(decoded_jwt.payload['hello'], 'world')
 
-    def test_no_secret(self):
-        right_secret = 'foo'
-        jwt_message = jwt.encode(self.payload, right_secret)
-        self.assertRaises(jwt.DecodeError, jwt.decode, jwt_message)
-
-    def test_invalid_crypto_alg(self):
-        self.assertRaises(NotImplementedError, jwt.encode, self.payload, "secret", "HS1024")
+    def test_decode_allows_skip_verification(self):
+        jwt = DummyJwt('secret', 'issuer', payload={'get': 'rekt'})
+        decoded_jwt = Jwt.from_jwt(jwt.to_jwt(), key=None)
+        self.assertEqual(decoded_jwt.issuer, 'issuer')
+        self.assertEqual(decoded_jwt.payload['get'], 'rekt')
+        self.assertIsNone(decoded_jwt.secret_key)
