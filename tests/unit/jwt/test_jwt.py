@@ -1,6 +1,6 @@
 import unittest
 import jwt as jwt_lib
-import time
+import time as real_time
 
 from nose.tools import assert_true
 from mock import patch
@@ -37,153 +37,164 @@ class JwtTest(unittest.TestCase):
         return assert_true(foo in bar, msg=(msg or "%s not found in %s" % (foo, bar)))
 
     def now(self):
-        return int(time.time())
+        return int(real_time.time())
+
+    def assertJwtsEqual(self, jwt, key, expected_payload=None, expected_headers=None):
+        expected_headers = expected_headers or {}
+        expected_payload = expected_payload or {}
+
+        decoded_payload = jwt_lib.decode(jwt, key, verify=False)
+        decoded_headers = jwt_lib.get_unverified_header(jwt)
+
+        self.assertEqual(expected_headers, decoded_headers)
+        self.assertEqual(expected_payload, decoded_payload)
 
     @patch('time.time')
     def test_basic_encode(self, time_mock):
         time_mock.return_value = 0.0
 
         jwt = DummyJwt('secret_key', 'issuer', headers={}, payload={})
-        expected_jwt = jwt_lib.encode(
-            {'iss': 'issuer', 'exp': 3600, 'nbf': 0},
-            'secret_key',
-            algorithm='HS256'
-        )
 
-        self.assertEqual(expected_jwt, jwt.to_jwt())
+        self.assertJwtsEqual(
+            jwt.to_jwt(), 'secret_key',
+            expected_headers={'typ': 'JWT', 'alg': 'HS256'},
+            expected_payload={'iss': 'issuer', 'exp': 3600, 'nbf': 0},
+        )
 
     @patch('time.time')
     def test_encode_with_subject(self, time_mock):
         time_mock.return_value = 0.0
 
         jwt = DummyJwt('secret_key', 'issuer', subject='subject', headers={}, payload={})
-        expected_jwt = jwt_lib.encode(
-            {'iss': 'issuer', 'exp': 3600, 'nbf': 0, 'sub': 'subject'},
-            'secret_key',
-            algorithm='HS256'
-        )
 
-        self.assertEqual(expected_jwt, jwt.to_jwt())
+        self.assertJwtsEqual(
+            jwt.to_jwt(), 'secret_key',
+            expected_headers={'typ': 'JWT', 'alg': 'HS256'},
+            expected_payload={'iss': 'issuer', 'exp': 3600, 'nbf': 0, 'sub': 'subject'},
+        )
 
     @patch('time.time')
     def test_encode_custom_ttl(self, time_mock):
         time_mock.return_value = 0.0
 
         jwt = DummyJwt('secret_key', 'issuer', ttl=10, headers={}, payload={})
-        expected_jwt = jwt_lib.encode(
-            {'iss': 'issuer', 'exp': 10, 'nbf': 0},
-            'secret_key',
-            algorithm='HS256'
-        )
 
-        self.assertEqual(expected_jwt, jwt.to_jwt())
+        self.assertJwtsEqual(
+            jwt.to_jwt(), 'secret_key',
+            expected_headers={'typ': 'JWT', 'alg': 'HS256'},
+            expected_payload={'iss': 'issuer', 'exp': 10, 'nbf': 0},
+        )
 
     @patch('time.time')
     def test_encode_ttl_added_to_current_time(self, time_mock):
         time_mock.return_value = 50.0
 
         jwt = DummyJwt('secret_key', 'issuer', ttl=10, headers={}, payload={})
-        expected_jwt = jwt_lib.encode(
-            {'iss': 'issuer', 'exp': 60, 'nbf': 50},
-            'secret_key',
-            algorithm='HS256'
-        )
 
-        self.assertEqual(expected_jwt, jwt.to_jwt())
+        self.assertJwtsEqual(
+            jwt.to_jwt(), 'secret_key',
+            expected_headers={'typ': 'JWT', 'alg': 'HS256'},
+            expected_payload={'iss': 'issuer', 'exp': 60, 'nbf': 50},
+        )
 
     @patch('time.time')
     def test_encode_override_ttl(self, time_mock):
         time_mock.return_value = 0.0
 
         jwt = DummyJwt('secret_key', 'issuer', ttl=10, headers={}, payload={})
-        expected_jwt = jwt_lib.encode(
-            {'iss': 'issuer', 'exp': 20, 'nbf': 0},
-            'secret_key',
-            algorithm='HS256'
-        )
 
-        self.assertEqual(expected_jwt, jwt.to_jwt(ttl=20))
+        self.assertJwtsEqual(
+            jwt.to_jwt(ttl=20),
+            'secret_key',
+            expected_headers={'typ': 'JWT', 'alg': 'HS256'},
+            expected_payload={'iss': 'issuer', 'exp': 20, 'nbf': 0},
+        )
 
     @patch('time.time')
     def test_encode_valid_until_overrides_ttl(self, time_mock):
         time_mock.return_value = 0.0
 
         jwt = DummyJwt('secret_key', 'issuer', ttl=10, valid_until=70, headers={}, payload={})
-        expected_jwt = jwt_lib.encode(
-            {'iss': 'issuer', 'exp': 70, 'nbf': 0},
-            'secret_key',
-            algorithm='HS256'
-        )
 
-        self.assertEqual(expected_jwt, jwt.to_jwt())
+        self.assertJwtsEqual(
+            jwt.to_jwt(), 'secret_key',
+            expected_headers={'typ': 'JWT', 'alg': 'HS256'},
+            expected_payload={'iss': 'issuer', 'exp': 70, 'nbf': 0},
+        )
 
     @patch('time.time')
     def test_encode_custom_nbf(self, time_mock):
         time_mock.return_value = 0.0
 
         jwt = DummyJwt('secret_key', 'issuer', ttl=10, nbf=5, headers={}, payload={})
-        expected_jwt = jwt_lib.encode(
-            {'iss': 'issuer', 'exp': 10, 'nbf': 5},
-            'secret_key',
-            algorithm='HS256'
-        )
 
-        self.assertEqual(expected_jwt, jwt.to_jwt())
+        self.assertJwtsEqual(
+            jwt.to_jwt(), 'secret_key',
+            expected_headers={'typ': 'JWT', 'alg': 'HS256'},
+            expected_payload={'iss': 'issuer', 'exp': 10, 'nbf': 5},
+        )
 
     @patch('time.time')
     def test_encode_custom_algorithm(self, time_mock):
         time_mock.return_value = 0.0
 
         jwt = DummyJwt('secret_key', 'issuer', algorithm='HS512', headers={}, payload={})
-        expected_jwt = jwt_lib.encode(
-            {'iss': 'issuer', 'exp': 3600, 'nbf': 0},
-            'secret_key',
-            algorithm='HS512'
+
+        self.assertJwtsEqual(
+            jwt.to_jwt(), 'secret_key',
+            expected_headers={'typ': 'JWT', 'alg': 'HS512'},
+            expected_payload={'iss': 'issuer', 'exp': 3600, 'nbf': 0},
         )
 
-        self.assertEqual(expected_jwt, jwt.to_jwt())
+    @patch('time.time')
+    def test_encode_override_algorithm(self, time_mock):
+        time_mock.return_value = 0.0
+
+        jwt = DummyJwt('secret_key', 'issuer', algorithm='HS256', headers={}, payload={})
+
+        self.assertJwtsEqual(
+            jwt.to_jwt(algorithm='HS512'),
+            'secret_key',
+            expected_headers={'typ': 'JWT', 'alg': 'HS512'},
+            expected_payload={'iss': 'issuer', 'exp': 3600, 'nbf': 0},
+        )
 
     @patch('time.time')
     def test_encode_with_headers(self, time_mock):
         time_mock.return_value = 0.0
-        headers = {'sooper': 'secret'}
 
-        jwt = DummyJwt('secret_key', 'issuer', algorithm='HS512', headers=headers, payload={})
-        expected_jwt = jwt_lib.encode(
-            {'iss': 'issuer', 'exp': 3600, 'nbf': 0},
-            'secret_key',
-            algorithm='HS512',
-            headers=headers
+        jwt = DummyJwt('secret_key', 'issuer', algorithm='HS256', headers={'sooper': 'secret'},
+                       payload={})
+
+        self.assertJwtsEqual(
+            jwt.to_jwt(), 'secret_key',
+            expected_headers={'typ': 'JWT', 'alg': 'HS256', 'sooper': 'secret'},
+            expected_payload={'iss': 'issuer', 'exp': 3600, 'nbf': 0},
         )
-
-        self.assertEqual(expected_jwt, jwt.to_jwt())
 
     @patch('time.time')
     def test_encode_with_payload(self, time_mock):
         time_mock.return_value = 0.0
 
-        jwt = DummyJwt('secret_key', 'issuer', algorithm='HS512', payload={'root': 'true'})
-        expected_jwt = jwt_lib.encode(
-            {'iss': 'issuer', 'exp': 3600, 'nbf': 0, 'root': 'true'},
-            'secret_key',
-            algorithm='HS512'
-        )
+        jwt = DummyJwt('secret_key', 'issuer', algorithm='HS256', payload={'root': 'true'})
 
-        self.assertEqual(expected_jwt, jwt.to_jwt())
+        self.assertJwtsEqual(
+            jwt.to_jwt(), 'secret_key',
+            expected_headers={'typ': 'JWT', 'alg': 'HS256'},
+            expected_payload={'iss': 'issuer', 'exp': 3600, 'nbf': 0, 'root': 'true'},
+        )
 
     @patch('time.time')
     def test_encode_with_payload_and_headers(self, time_mock):
         time_mock.return_value = 0.0
 
         jwt = DummyJwt('secret_key', 'issuer', headers={'yes': 'oui'}, payload={'pay': 'me'})
-        expected_jwt = jwt_lib.encode(
-            {'iss': 'issuer', 'exp': 3600, 'nbf': 0, 'pay': 'me'},
-            'secret_key',
-            algorithm='HS256',
-            headers={'yes': 'oui'}
-        )
 
-        self.assertEqual(expected_jwt, jwt.to_jwt())
+        self.assertJwtsEqual(
+            jwt.to_jwt(), 'secret_key',
+            expected_headers={'typ': 'JWT', 'alg': 'HS256', 'yes': 'oui'},
+            expected_payload={'iss': 'issuer', 'exp': 3600, 'nbf': 0, 'pay': 'me'},
+        )
 
     def test_encode_invalid_crypto_alg_fails(self):
         jwt = DummyJwt('secret_key', 'issuer', algorithm='PlzDontTouchAlgorithm')
@@ -216,6 +227,23 @@ class JwtTest(unittest.TestCase):
     def test_decode_bad_secret(self):
         jwt = DummyJwt('secret_key', 'issuer')
         self.assertRaises(JwtDecodeError, Jwt.from_jwt, jwt.to_jwt(), 'letmeinplz')
+
+    def test_decode_modified_jwt_fails(self):
+        jwt = DummyJwt('secret_key', 'issuer')
+        example_jwt = jwt.to_jwt().decode('utf-8')
+        example_jwt = 'ABC' + example_jwt[3:]
+        example_jwt = example_jwt.encode('utf-8')
+
+        self.assertRaises(JwtDecodeError, Jwt.from_jwt, example_jwt, 'secret_key')
+
+    def test_decode_validates_expiration(self):
+        expired_jwt = DummyJwt('secret_key', 'issuer', valid_until=self.now())
+        real_time.sleep(1)
+        self.assertRaises(JwtDecodeError, Jwt.from_jwt, expired_jwt.to_jwt(), 'secret_key')
+
+    def test_decode_validates_nbf(self):
+        expired_jwt = DummyJwt('secret_key', 'issuer', nbf=self.now() + 3600)   # valid 1hr from now
+        self.assertRaises(JwtDecodeError, Jwt.from_jwt, expired_jwt.to_jwt(), 'secret_key')
 
     def test_decodes_valid_jwt(self):
         expiry_time = self.now() + 1000

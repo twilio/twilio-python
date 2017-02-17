@@ -6,8 +6,6 @@ except ImportError:
     import simplejson as json
 
 import time
-import hashlib
-import hmac
 import base64
 from six import b
 
@@ -149,7 +147,7 @@ class Jwt(object):
             })
             headers = jwt_lib.get_unverified_header(jwt)
         except Exception as e:
-            raise JwtDecodeError(e.message)
+            raise JwtDecodeError(getattr(e, 'message', str(e)))
 
         return cls._from_jwt(headers, payload, key)
 
