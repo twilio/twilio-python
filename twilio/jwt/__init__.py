@@ -62,6 +62,25 @@ class Jwt(object):
         """:rtype dict: Additional headers to include in the JWT, defaults to an empty dict"""
         return {}
 
+    @classmethod
+    def _from_jwt(cls, headers, payload, key=None):
+        """
+        Class specific implementation of from_jwt which should take jwt components and return
+        and instance of this Class with jwt information loaded.
+        :return: Jwt object containing the headers, payload and key
+        """
+        jwt = Jwt(
+            secret_key=key,
+            issuer=payload.get('iss', None),
+            subject=payload.get('sub', None),
+            algorithm=headers.get('alg', None),
+            valid_until=payload.get('exp', None),
+            nbf=payload.get('nbf', None),
+        )
+        jwt.__decoded_payload = payload
+        jwt.__decoded_headers = headers
+        return jwt
+
     @property
     def payload(self):
         if self.__decoded_payload:
@@ -109,25 +128,6 @@ class Jwt(object):
             payload['exp'] = int(time.time()) + ttl
 
         return jwt_lib.encode(payload, self.secret_key, algorithm=algorithm, headers=headers)
-
-    @classmethod
-    def _from_jwt(cls, headers, payload, key=None):
-        """
-        Class specific implementation of from_jwt which should take jwt components and return
-        and instance of this Class with jwt information loaded.
-        :return: Jwt object containing the headers, payload and key
-        """
-        jwt = Jwt(
-            secret_key=key,
-            issuer=payload.get('iss', None),
-            subject=payload.get('sub', None),
-            algorithm=headers.get('alg', None),
-            valid_until=payload.get('exp', None),
-            nbf=payload.get('nbf', None),
-        )
-        jwt.__decoded_payload = payload
-        jwt.__decoded_headers = headers
-        return jwt
 
     @classmethod
     def from_jwt(cls, jwt, key=''):
