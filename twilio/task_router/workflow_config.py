@@ -9,7 +9,7 @@ class WorkflowConfig:
     filters and default_filter.
     """
 
-    def __init__(self, workflow_rules, default_target):
+    def __init__(self, workflow_rules, default_target=None):
         # filters and default_filters
         self.task_routing = TaskRouterConfig(workflow_rules, default_target)
 

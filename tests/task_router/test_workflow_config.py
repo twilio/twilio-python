@@ -16,6 +16,14 @@ class WorkflowConfigTest(unittest.TestCase):
             config = WorkflowConfig(rules, def_target)
             self.assertEqual(True, self.is_json(config.to_json()))
 
+        def test_to_json_optional(self):
+            rules = [
+                WorkflowRule("1==1", [WorkflowRuleTarget("WQeae4fc2f4db7f377c5d3758fb08b79b7")]),
+                WorkflowRule("1==1", [WorkflowRuleTarget("WQ19ebe92fb33522f018b5a31d805d94da")])
+            ]
+            config = WorkflowConfig(rules)
+            self.assertEqual(True, self.is_json(config.to_json()))
+
         def test_from_json(self):
 
             data = {
