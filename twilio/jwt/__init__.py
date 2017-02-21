@@ -77,38 +77,38 @@ class Jwt(object):
     def payload(self):
         if self.__decoded_payload:
             return self.__decoded_payload
-        else:
-            payload = self._generate_payload().copy()
-            payload['iss'] = self.issuer
-            payload['nbf'] = self.nbf or int(time.time())
-            payload['exp'] = int(time.time()) + self.ttl
-            if self.valid_until:
-                payload['exp'] = self.valid_until
-            if self.subject:
-                payload['sub'] = self.subject
 
-            return payload
+        payload = self._generate_payload().copy()
+        payload['iss'] = self.issuer
+        payload['nbf'] = self.nbf or int(time.time())
+        payload['exp'] = int(time.time()) + self.ttl
+        if self.valid_until:
+            payload['exp'] = self.valid_until
+        if self.subject:
+            payload['sub'] = self.subject
+
+        return payload
 
     @property
     def headers(self):
         if self.__decoded_headers:
             return self.__decoded_headers
-        else:
-            headers = self._generate_headers().copy()
-            headers['typ'] = 'JWT'
-            headers['alg'] = self.algorithm
-            return headers
+
+        headers = self._generate_headers().copy()
+        headers['typ'] = 'JWT'
+        headers['alg'] = self.algorithm
+        return headers
 
     def to_jwt(self, algorithm=None, ttl=None):
         """
-        Encode this Jwt object into a Jwt string
-        :param str algorithm: override the algorithm used to encode the jwt
+        Encode this JWT object into a JWT string
+        :param str algorithm: override the algorithm used to encode the JWT
         :param int ttl: override the ttl configured in the constructor
-        :rtype: str The Jwt string
+        :rtype: str The JWT string
         """
 
         if not self.secret_key:
-            raise ValueError('Jwt does not have a signing key configured.')
+            raise ValueError('JWT does not have a signing key configured.')
 
         headers = self.headers.copy()
         if algorithm:
@@ -124,11 +124,11 @@ class Jwt(object):
     @classmethod
     def from_jwt(cls, jwt, key=''):
         """
-        Decode a Jwt string into a Jwt object
-        :param str jwt: jwt string
-        :param Optional[str] key: key used to verify jwt signature, if not provided then validation
+        Decode a JWT string into a Jwt object
+        :param str jwt: JWT string
+        :param Optional[str] key: key used to verify JWT signature, if not provided then validation
                                   is skipped.
-        :raises JwtDecodeError if decoding jwt fails for any reason.
+        :raises JwtDecodeError if decoding JWT fails for any reason.
         :return: A DecodedJwt object containing the jwt information.
         """
         verify = True if key else False

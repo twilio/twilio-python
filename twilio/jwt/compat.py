@@ -1,12 +1,12 @@
-
-
-#
-# PyJWT expects hmac.compare_digest to exist for all Python 3.x, however it was added in Python > 3.3
-# Copied from: https://github.com/python/cpython/commit/6cea65555caf2716b4633827715004ab0291a282#diff-c49659257ec1b129707ce47a98adc96eL16
-#
 def compare_digest(a, b):
-    """Returns the equivalent of 'a == b', but avoids content based short
-    circuiting to reduce the vulnerability to timing attacks."""
+    """
+    PyJWT expects hmac.compare_digest to exist for all Python 3.x, however it was added in Python > 3.3
+    It has a fallback for Python 2.x but not for Pythons between 2.x and 3.3
+    Copied from: https://github.com/python/cpython/commit/6cea65555caf2716b4633827715004ab0291a282#diff-c49659257ec1b129707ce47a98adc96eL16
+
+    Returns the equivalent of 'a == b', but avoids content based short
+    circuiting to reduce the vulnerability to timing attacks.
+    """
     # Consistent timing matters more here than data type flexibility
     if not (isinstance(a, bytes) and isinstance(b, bytes)):
         raise TypeError("inputs must be bytes instances")
