@@ -1,7 +1,9 @@
-##
-## PyJWT expects hmac.compare_digest to exist for all Python 3.x, however it was added in Python > 3.3
-## Copied from: https://github.com/python/cpython/commit/6cea65555caf2716b4633827715004ab0291a282#diff-c49659257ec1b129707ce47a98adc96eL16
-##
+
+
+#
+# PyJWT expects hmac.compare_digest to exist for all Python 3.x, however it was added in Python > 3.3
+# Copied from: https://github.com/python/cpython/commit/6cea65555caf2716b4633827715004ab0291a282#diff-c49659257ec1b129707ce47a98adc96eL16
+#
 def compare_digest(a, b):
     """Returns the equivalent of 'a == b', but avoids content based short
     circuiting to reduce the vulnerability to timing attacks."""

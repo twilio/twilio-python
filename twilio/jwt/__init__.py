@@ -15,24 +15,9 @@ except ImportError:
     import simplejson as json
 
 import time
-import base64
-from six import b
 
 
 __all__ = ['Jwt', 'JwtDecodeError']
-
-
-def base64url_encode(input):
-    return base64.urlsafe_b64encode(input).decode('utf-8').replace('=', '')
-
-
-def base64url_decode(input):
-    input += b('=') * (4 - (len(input) % 4))
-    return base64.urlsafe_b64decode(input)
-
-
-def binary(txt):
-    return txt.encode('utf-8')
 
 
 class JwtDecodeError(Exception):
