@@ -20,7 +20,7 @@ class Connection(object):
 
     @classmethod
     def set_proxy_info(cls, proxy_host, proxy_port,
-                       proxy_type=PROXY_TYPE_HTTP, proxy_rdns=None,
+                       proxy_type=PROXY_TYPE_HTTP, proxy_rdns=True,
                        proxy_user=None, proxy_pass=None):
         '''Set proxy configuration for future REST API calls.
 
