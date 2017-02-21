@@ -94,12 +94,20 @@ class TaskRouterCapabilityTest(unittest.TestCase):
                 'post_filter': {},
             },
             {
+                'url': 'https://taskrouter.twilio.com/v1/Workspaces/{0}/Workers/{1}/Channels/**'.format(self.workspace_sid, self.worker_sid),
+                'method': 'GET',
+                'allow': True,
+                'query_filter': {},
+                'post_filter': {},
+            },
+            {
                 'url': 'https://taskrouter.twilio.com/v1/Workspaces/{0}/Workers/{1}'.format(self.workspace_sid, self.worker_sid),
                 'method': 'GET',
                 'allow': True,
                 'query_filter': {},
                 'post_filter': {},
             }
+
         ]
         self.assertEqual(expected, decoded['policies'])
 

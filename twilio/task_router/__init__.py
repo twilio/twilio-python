@@ -71,6 +71,9 @@ class TaskRouterCapability(object):
             worker_reservations_url = self.resource_url + "/Reservations/**"
             self.allow(worker_reservations_url, "GET")
 
+            channel_url = self.resource_url + "/Channels/**"
+            self.allow(channel_url, "GET")
+
         elif self.channel_prefix == "WQ":
             self.resource_url = "{0}/TaskQueues/{1}".format(
                 self.base_url, self.channel_id)
@@ -219,12 +222,14 @@ class TaskRouterWorkerCapability(TaskRouterCapability):
         self.activity_url = self.base_url + "/Activities"
         self.reservations_url = self.base_url + "/Tasks/**"
         self.worker_reservations_url = self.resource_url + "/Reservations/**"
+        self.channel_url = self.resource_url + "/Channels/**"
 
         # add permissions to fetch the
         # list of activities, tasks, and worker reservations
         self.allow(self.activity_url, "GET")
         self.allow(self.reservations_url, "GET")
         self.allow(self.worker_reservations_url, "GET")
+        self.allow(self.channel_url, "GET")
 
     def setup_resource(self):
         self.resource_url = self.base_url + "/Workers/" + self.channel_id
