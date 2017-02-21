@@ -7,6 +7,9 @@
             "pending": 0,
             "assigned": 1,
             "reserved": 0
+        },
+        "tasks_by_priority": {
+            "5":1
         }
     },
     "account_sid": "ACe0228445f532b79547997ce0a552cc7a",
