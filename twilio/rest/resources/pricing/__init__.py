@@ -12,6 +12,8 @@ from .phone_numbers import (
     PhoneNumbers,
 )
 
-from .messaging_countries import (
+from .messaging import (
+    Messaging,
+    MessagingCountry,
     MessagingCountries
 )
