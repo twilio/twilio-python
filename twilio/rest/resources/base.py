@@ -176,6 +176,7 @@ class Resource(object):
         self.base_uri = base_uri
         self.auth = auth
         self.timeout = timeout
+        self.content = {}
 
     def __eq__(self, other):
         return (isinstance(other, self.__class__) and
@@ -210,6 +211,9 @@ class Resource(object):
     def uri(self):
         format = (self.base_uri, self.name)
         return "%s/%s" % format
+
+    def serialize(self):
+        return self.content
 
 
 class InstanceResource(Resource):
@@ -249,6 +253,7 @@ class InstanceResource(Resource):
                 entries[key] = self._parse_date(entries[key])
 
         self.__dict__.update(entries)
+        self.content.update(entries)
 
     def load_subresources(self):
         """
@@ -261,6 +266,7 @@ class InstanceResource(Resource):
                 self.parent.timeout
             )
             self.__dict__[list_resource.key] = list_resource
+            self.content[list_resource.key] = list_resource
 
     def update_instance(self, **kwargs):
         """ Make a POST request to the API to update an object's properties
@@ -269,7 +275,7 @@ class InstanceResource(Resource):
         :raises: a :class:`~twilio.rest.RestException` on failure
         """
         a = self.parent.update(self.name, **kwargs)
-        self.load(a.__dict__)
+        self.load(a.content)
 
     def delete_instance(self):
         """ Make a DELETE request to the API to delete the object
