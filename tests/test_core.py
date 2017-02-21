@@ -9,6 +9,7 @@ from twilio.rest.resources import convert_keys
 from twilio.rest.resources import convert_case
 from twilio.rest.resources import convert_boolean
 from twilio.rest.resources import normalize_dates
+from twilio.rest.resources import normalize_next_gen_dates
 
 
 def test_date():
@@ -71,6 +72,24 @@ def test_normalize_dates():
     assert_equal(d["after"], "2009-10-10")
     assert_equal(d["before"], "2009-10-10")
 
+
+def test_normalize_next_gen_dates():
+
+    @normalize_next_gen_dates
+    def foo(on=None, before=None, after=None):
+        return {
+            "on": on,
+            "before": before,
+            "after": after,
+        }
+
+    d = foo(on="2015-05-29T14:38:08.225180",
+            before=datetime(2015, 05, 29, 14, 38, 8, 225180),
+            after=date(2015, 05, 29))
+
+    assert_equal(d["on"], "2015-05-29T14:38:08.225180")
+    assert_equal(d["before"], "2015-05-29T14:38:08.225180")
+    assert_equal(d["after"], "2015-05-29")
 
 def test_convert_case():
     assert_equal(convert_case("from_"), "From")

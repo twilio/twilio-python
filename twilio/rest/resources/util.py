@@ -48,6 +48,19 @@ def parse_date(d):
         return d
 
 
+def parse_next_gen_date(d):
+    """
+    Return a string representation of datetime that the Twilio API understands
+    Format is YYYY-MM-DDTHH:MM:SS.mmmmmm (ISO 8601)
+    """
+    if isinstance(d, datetime.datetime):
+        return d.isoformat()
+    elif isinstance(d, datetime.date):
+        return str(d)
+    elif isinstance(d, str):
+        return d
+
+
 def parse_rfc2822_date(s):
     """
     Parses an RFC 2822 date string and returns a time zone naive datetime
@@ -120,6 +133,18 @@ def normalize_dates(myfunc):
             res = [True for s in ["after", "before", "on"] if s in k]
             if len(res):
                 kwargs[k] = parse_date(v)
+        return myfunc(*args, **kwargs)
+    inner_func.__doc__ = myfunc.__doc__
+    inner_func.__repr__ = myfunc.__repr__
+    return inner_func
+
+
+def normalize_next_gen_dates(myfunc):
+    def inner_func(*args, **kwargs):
+        for k, v in iteritems(kwargs):
+            res = [True for s in ["after", "before", "on"] if s in k]
+            if len(res):
+                kwargs[k] = parse_next_gen_date(v)
         return myfunc(*args, **kwargs)
     inner_func.__doc__ = myfunc.__doc__
     inner_func.__repr__ = myfunc.__repr__

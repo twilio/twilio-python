@@ -22,6 +22,8 @@ from .util import (
     parse_rfc2822_date,
     transform_params,
     UNSET_TIMEOUT,
+    normalize_dates,
+    normalize_next_gen_dates,
 )
 
 logger = logging.getLogger('twilio')
@@ -391,6 +393,7 @@ class ListResource(Resource):
         resp, entry = self.request("POST", uri, data=transform_params(body))
         return self.load_instance(entry)
 
+    @normalize_dates
     def iter(self, **kwargs):
         """ Return all instance resources using an iterator
 
@@ -452,6 +455,7 @@ class NextGenListResource(ListResource):
     def __init__(self, *args, **kwargs):
         super(NextGenListResource, self).__init__(*args, **kwargs)
 
+    @normalize_next_gen_dates
     def iter(self, **kwargs):
         """ Return all instance resources using an iterator
 
