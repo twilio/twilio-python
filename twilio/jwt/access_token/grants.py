@@ -1,10 +1,8 @@
-import json
-import time
-from twilio import jwt
+from twilio.jwt.access_token import AccessTokenGrant
 
 
-class IpMessagingGrant(object):
-    """ Grant to access Twilio IP Messaging """
+class IpMessagingGrant(AccessTokenGrant):
+    """Grant to access Twilio IP Messaging"""
     def __init__(self, service_sid=None, endpoint_id=None,
                  deployment_role_sid=None, push_credential_sid=None):
         self.service_sid = service_sid
@@ -30,8 +28,8 @@ class IpMessagingGrant(object):
         return grant
 
 
-class SyncGrant(object):
-    """ Grant to access Twilio Sync """
+class SyncGrant(AccessTokenGrant):
+    """Grant to access Twilio Sync"""
     def __init__(self, service_sid=None, endpoint_id=None):
         self.service_sid = service_sid
         self.endpoint_id = endpoint_id
@@ -50,8 +48,8 @@ class SyncGrant(object):
         return grant
 
 
-class ConversationsGrant(object):
-    """ Grant to access Twilio Conversations """
+class ConversationsGrant(AccessTokenGrant):
+    """Grant to access Twilio Conversations"""
     def __init__(self, configuration_profile_sid=None):
         self.configuration_profile_sid = configuration_profile_sid
 
@@ -67,8 +65,8 @@ class ConversationsGrant(object):
         return grant
 
 
-class VoiceGrant(object):
-    """ Grant to access Twilio Programmable Voice"""
+class VoiceGrant(AccessTokenGrant):
+    """Grant to access Twilio Programmable Voice"""
     def __init__(self,
                  outgoing_application_sid=None,
                  outgoing_application_params=None,
@@ -105,8 +103,8 @@ class VoiceGrant(object):
         return grant
 
 
-class VideoGrant(object):
-    """ Grant to access Twilio Video """
+class VideoGrant(AccessTokenGrant):
+    """Grant to access Twilio Video"""
     def __init__(self, configuration_profile_sid=None):
         self.configuration_profile_sid = configuration_profile_sid
 
@@ -120,51 +118,3 @@ class VideoGrant(object):
             grant['configuration_profile_sid'] = self.configuration_profile_sid
 
         return grant
-
-
-class AccessToken(object):
-    """ Access Token used to access Twilio Resources """
-    def __init__(self, account_sid, signing_key_sid, secret,
-                 identity=None, ttl=3600, nbf=None):
-        self.account_sid = account_sid
-        self.signing_key_sid = signing_key_sid
-        self.secret = secret
-
-        self.identity = identity
-        self.ttl = ttl
-        self.nbf = nbf
-        self.grants = []
-
-    def add_grant(self, grant):
-        self.grants.append(grant)
-
-    def to_jwt(self, algorithm='HS256'):
-        now = int(time.time())
-        headers = {
-            "typ": "JWT",
-            "cty": "twilio-fpa;v=1"
-        }
-
-        grants = {}
-        if self.identity:
-            grants["identity"] = self.identity
-
-        for grant in self.grants:
-            grants[grant.key] = grant.to_payload()
-
-        payload = {
-            "jti": '{0}-{1}'.format(self.signing_key_sid, now),
-            "iss": self.signing_key_sid,
-            "sub": self.account_sid,
-            "exp": now + self.ttl,
-            "grants": grants
-        }
-
-        if self.nbf is not None:
-            payload['nbf'] = self.nbf
-
-        return jwt.encode(payload, self.secret, headers=headers,
-                          algorithm=algorithm)
-
-    def __str__(self):
-        return self.to_jwt()

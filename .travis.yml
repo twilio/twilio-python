@@ -5,8 +5,7 @@ python:
   - "3.3"
   - "3.4"
 install:
-  - pip install .
-  - pip install -r requirements.txt
-  - pip install -r tests/requirements.txt
+  - make install
+  - make test-install
 script: 
-  - make ci
+  - make test

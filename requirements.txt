@@ -1,3 +1,4 @@
 six
 httplib2
 socksipy-branch
+PyJWT==1.4.2
