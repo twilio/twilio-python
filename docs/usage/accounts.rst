@@ -45,7 +45,7 @@ Subaccounts are easy to make.
     AUTH_TOKEN = "YYYYYYYYYYYYYYYYYY"
 
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
-    subaccount = client.accounts.create(name="My Awesome SubAccount")
+    subaccount = client.accounts.create(friendly_name="My Awesome SubAccount")
 
 
 Managing Subaccounts
