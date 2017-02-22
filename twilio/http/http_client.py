@@ -37,6 +37,3 @@ class TwilioHttpClient(HttpClient):
         )
 
         return Response(int(response.status_code), response.content.decode('utf-8'))
-
-
-
