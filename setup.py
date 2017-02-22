@@ -13,7 +13,7 @@ with open('twilio/__init__.py') as f:
 #
 # You need to have the setuptools module installed. Try reading the setuptools
 # documentation: http://pypi.python.org/pypi/setuptools
-REQUIRES = ["requests == 2.10.0", "six", "pytz", "PyJWT == 1.4.2"]
+REQUIRES = ["requests", "six", "pytz", "PyJWT == 1.4.2"]
 
 if sys.version_info < (2, 6):
     REQUIRES.append('simplejson')
@@ -31,7 +31,6 @@ setup(
     install_requires = REQUIRES,
     # bdist conditional requirements support
     extras_require={
-        ':python_version=="3.2"': ['pysocks'],
         ':python_version=="3.3"': ['pysocks'],
         ':python_version=="3.4"': ['pysocks'],
         ':python_version=="3.5"': ['pysocks'],
@@ -45,8 +44,8 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
+        "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3.2",
         "Programming Language :: Python :: 3.3",
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
