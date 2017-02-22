@@ -1,4 +1,4 @@
 six
-httplib2
+requests
 socksipy-branch
 PyJWT==1.4.2
