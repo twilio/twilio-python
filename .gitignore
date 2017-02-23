@@ -33,3 +33,6 @@ cover
 
 #htmlcov
 *htmlcov*
+
+# PyEnv
+.python-version
