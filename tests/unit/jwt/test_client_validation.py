@@ -19,7 +19,7 @@ class ClientValidationJwtTest(unittest.TestCase):
     def test_generate_payload_basic(self):
         vp = ValidationPayload(
             method='GET',
-            url='https://api.twilio.com/',
+            path='https://api.twilio.com/',
             query_string='q1=v1',
             signed_headers=['headerb', 'headera'],
             all_headers={'head': 'toe', 'headera': 'vala', 'headerb': 'valb'},
@@ -47,7 +47,7 @@ class ClientValidationJwtTest(unittest.TestCase):
     def test_generate_payload_complex(self):
         vp = ValidationPayload(
             method='GET',
-            url='https://api.twilio.com/',
+            path='https://api.twilio.com/',
             query_string='q1=v1&q2=v2&a=b',
             signed_headers=['headerb', 'headera'],
             all_headers={'head': 'toe', 'Headerb': 'valb', 'yeezy': 'weezy'},
@@ -74,7 +74,7 @@ class ClientValidationJwtTest(unittest.TestCase):
     def test_generate_payload_no_query_string(self):
         vp = ValidationPayload(
             method='GET',
-            url='https://api.twilio.com/',
+            path='https://api.twilio.com/',
             query_string='',
             signed_headers=['headerb', 'headera'],
             all_headers={'head': 'toe', 'Headerb': 'valb', 'yeezy': 'weezy'},
@@ -101,11 +101,11 @@ class ClientValidationJwtTest(unittest.TestCase):
     def test_generate_payload_no_req_body(self):
         vp = ValidationPayload(
             method='GET',
-            url='https://api.twilio.com/',
+            path='https://api.twilio.com/',
             query_string='q1=v1',
             signed_headers=['headerb', 'headera'],
             all_headers={'head': 'toe', 'headera': 'vala', 'headerb': 'valb'},
-            body=None
+            body=''
         )
 
         expected_payload = '\n'.join([
@@ -116,6 +116,7 @@ class ClientValidationJwtTest(unittest.TestCase):
             'headerb:valb',
             '',
             'headera;headerb',
+            ''
         ])
         expected_payload = ClientValidationJwt._hash(expected_payload)
 
@@ -128,7 +129,7 @@ class ClientValidationJwtTest(unittest.TestCase):
     def test_generate_payload_header_keys_lowercased(self):
         vp = ValidationPayload(
             method='GET',
-            url='https://api.twilio.com/',
+            path='https://api.twilio.com/',
             query_string='q1=v1',
             signed_headers=['headerb', 'headera'],
             all_headers={'head': 'toe', 'Headera': 'vala', 'Headerb': 'valb'},
@@ -156,7 +157,7 @@ class ClientValidationJwtTest(unittest.TestCase):
     def test_generate_payload_no_headers(self):
         vp = ValidationPayload(
             method='GET',
-            url='https://api.twilio.com/',
+            path='https://api.twilio.com/',
             query_string='q1=v1',
             signed_headers=['headerb', 'headera'],
             all_headers={},
@@ -179,11 +180,11 @@ class ClientValidationJwtTest(unittest.TestCase):
         self.assertEqual('headera;headerb', actual_payload['hrh'])
         self.assertEqual(expected_payload, actual_payload['rqh'])
 
-    def test_generate_payload_schema_correct(self):
+    def test_generate_payload_schema_correct_1(self):
         """Test against a known good rqh payload hash"""
         vp = ValidationPayload(
             method='GET',
-            url='/Messages',
+            path='/Messages',
             query_string='PageSize=5&Limit=10',
             signed_headers=['authorization', 'host'],
             all_headers={'authorization': 'foobar', 'host': 'api.twilio.com'},
@@ -198,10 +199,29 @@ class ClientValidationJwtTest(unittest.TestCase):
         self.assertEqual('authorization;host', actual_payload['hrh'])
         self.assertEqual(expected_hash, actual_payload['rqh'])
 
+    def test_generate_payload_schema_correct_2(self):
+        """Test against a known good rqh payload hash"""
+        vp = ValidationPayload(
+            method='POST',
+            path='/Messages',
+            query_string='',
+            signed_headers=['authorization', 'host'],
+            all_headers={'authorization': 'foobar', 'host': 'api.twilio.com'},
+            body='testbody'
+        )
+
+        expected_hash = 'bd792c967c20d546c738b94068f5f72758a10d26c12979677501e1eefe58c65a'
+
+        jwt = ClientValidationJwt('AC123', 'SK123', 'CR123', 'secret', vp)
+
+        actual_payload = jwt._generate_payload()
+        self.assertEqual('authorization;host', actual_payload['hrh'])
+        self.assertEqual(expected_hash, actual_payload['rqh'])
+
     def test_jwt_payload(self):
         vp = ValidationPayload(
             method='GET',
-            url='/Messages',
+            path='/Messages',
             query_string='PageSize=5&Limit=10',
             signed_headers=['authorization', 'host'],
             all_headers={'authorization': 'foobar', 'host': 'api.twilio.com'},
@@ -229,7 +249,7 @@ class ClientValidationJwtTest(unittest.TestCase):
     def test_jwt_signing(self):
         vp = ValidationPayload(
             method='GET',
-            url='/Messages',
+            path='/Messages',
             query_string='PageSize=5&Limit=10',
             signed_headers=['authorization', 'host'],
             all_headers={'authorization': 'foobar', 'host': 'api.twilio.com'},

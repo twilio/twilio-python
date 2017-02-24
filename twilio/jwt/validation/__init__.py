@@ -48,13 +48,13 @@ class ClientValidationJwt(Jwt):
         query_string = self.validation_payload.query_string.split('&')
         query_string = self._sort_and_join(query_string, '&')
 
-        req_body_hash = self._hash(self.validation_payload.body)
+        req_body_hash = self._hash(self.validation_payload.body) or ''
 
         signed_headers_str = ';'.join(signed_headers)
 
         signed_payload = [
             self.validation_payload.method,
-            self.validation_payload.url,
+            self.validation_payload.path,
             query_string,
         ]
 
@@ -62,9 +62,7 @@ class ClientValidationJwt(Jwt):
             signed_payload.append(headers_str)
         signed_payload.append('')
         signed_payload.append(signed_headers_str)
-
-        if req_body_hash:
-            signed_payload.append(req_body_hash)
+        signed_payload.append(req_body_hash)
 
         signed_payload = '\n'.join(signed_payload)
 
@@ -81,8 +79,8 @@ class ClientValidationJwt(Jwt):
 
     @classmethod
     def _hash(self, input_str):
-        if input_str is None:
-            return None
+        if not input_str:
+            return input_str
 
         if not isinstance(input_str, bytes):
             input_str = input_str.encode('utf-8')

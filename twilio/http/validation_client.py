@@ -1,3 +1,5 @@
+from urlparse import urlparse
+
 from collections import namedtuple
 
 from requests import Request, Session
@@ -7,7 +9,7 @@ from twilio.http.response import Response
 from twilio.jwt.validation import ClientValidationJwt
 
 
-ValidationPayload = namedtuple('ValidationPayload', ['method', 'url', 'query_string', 'all_headers',
+ValidationPayload = namedtuple('ValidationPayload', ['method', 'path', 'query_string', 'all_headers',
                                                      'signed_headers', 'body'])
 
 
@@ -54,7 +56,10 @@ class ValidationClient(HttpClient):
         request = Request(method.upper(), url, params=params, data=data, headers=headers, auth=auth)
         prepared_request = session.prepare_request(request)
 
-        validation_payload = self.__build_validation_payload(prepared_request)
+        if 'Host' not in prepared_request.headers and 'host' not in prepared_request.headers:
+            prepared_request.headers['Host'] = self._get_host(prepared_request)
+
+        validation_payload = self._build_validation_payload(prepared_request)
         jwt = ClientValidationJwt(self.account_sid, self.api_key_sid, self.credential_sid,
                                   self.private_key, validation_payload)
         prepared_request.headers['Twilio-Client-Validation'] = jwt.to_jwt()
@@ -67,23 +72,26 @@ class ValidationClient(HttpClient):
 
         return Response(int(response.status_code), response.content.decode('utf-8'))
 
-    def __build_validation_payload(self, request):
+    def _build_validation_payload(self, request):
         """
         Extract relevant information from request to build a ClientValidationJWT
         :param PreparedRequest request: request we will extract information from.
         :return: ValidationPayload
         """
-        try:
-            url, query_string = request.url.split('?', 1)
-        except ValueError:
-            url = request.url
-            query_string = ''
+        parsed = urlparse(request.url)
+        path = parsed.path
+        query_string = parsed.query or ''
 
         return ValidationPayload(
             method=request.method,
-            url=url,
+            path=path,
             query_string=query_string,
             all_headers=request.headers,
             signed_headers=ValidationClient.__SIGNED_HEADERS,
-            body=request.body
+            body=request.body or ''
         )
+
+    def _get_host(self, request):
+        """Pull the Host out of the request"""
+        parsed = urlparse(request.url)
+        return parsed.netloc
