@@ -356,6 +356,52 @@ class TestConference(TwilioTest):
         self.assertEqual(self.conf.get('endConferenceOnExit'), "true")
 
 
+class TestConferenceEnqueueTask(TwilioTest):
+
+    def setUp(self):
+        r = Response()
+        with r.dial() as dial:
+            with dial.conference("TestConferenceAttributes", beep=False, waitUrl="", startConferenceOnEnter=True, endConferenceOnExit=True) as conf:
+                conf.task('{"selected_language":"en"}', priority="10", timeout="50", workflowSid="Workflow1")
+
+        xml = r.toxml()
+
+        # parse twiml XML string with Element Tree and inspect structure
+        tree = ET.fromstring(xml)
+        self.conf = tree.find(".//Conference")
+        self.task = self.conf.find(".//Task")
+
+    def test_conf_text(self):
+        self.assertEqual(self.conf.text.strip(), "TestConferenceAttributes")
+
+    def test_conf_beep(self):
+        self.assertEqual(self.conf.get('beep'), "false")
+
+    def test_conf_waiturl(self):
+        self.assertEqual(self.conf.get('waitUrl'), "")
+
+    def test_conf_start_conference(self):
+        self.assertEqual(self.conf.get('startConferenceOnEnter'), "true")
+
+    def test_conf_end_conference(self):
+        self.assertEqual(self.conf.get('endConferenceOnExit'), "true")
+
+    def test_found_task(self):
+        self.assertNotEqual(None, self.task)
+
+    def test_enqueue_workflow_sid(self):
+        self.assertEqual(self.task.get('workflowSid'), "Workflow1")
+
+    def test_enqueue_task_attributes(self):
+        self.assertEqual(self.task.text.strip(), '{"selected_language":"en"}')
+
+    def test_enqueue_task_priority(self):
+        self.assertEqual(self.task.get('priority'), "10")
+
+    def test_enqueue_task_timeout(self):
+        self.assertEqual(self.task.get('timeout'), "50")
+
+
 class TestQueue(TwilioTest):
 
     def setUp(self):
