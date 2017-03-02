@@ -15,4 +15,3 @@ try:
 except ImportError:
     # python 3
     izip = zip
-
