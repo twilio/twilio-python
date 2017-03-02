@@ -30,7 +30,7 @@ class Api(Domain):
     def v2010(self):
         """
         :returns: Version v2010 of api
-        :rtype: twilio.rest.api.v2010.V2010
+        :rtype: V2010
         """
         if self._v2010 is None:
             self._v2010 = V2010(self)
@@ -47,175 +47,175 @@ class Api(Domain):
     @property
     def accounts(self):
         """
-        :rtype: twilio.rest.api.v2010.account.AccountList
+        :rtype: AccountList
         """
         return self.v2010.accounts
 
     @property
     def addresses(self):
         """
-        :rtype: twilio.rest.api.v2010.address.AddressList
+        :rtype: AddressList
         """
         return self.account.addresses
 
     @property
     def applications(self):
         """
-        :rtype: twilio.rest.api.v2010.application.ApplicationList
+        :rtype: ApplicationList
         """
         return self.account.applications
 
     @property
     def authorized_connect_apps(self):
         """
-        :rtype: twilio.rest.api.v2010.authorized_connect_app.AuthorizedConnectAppList
+        :rtype: AuthorizedConnectAppList
         """
         return self.account.authorized_connect_apps
 
     @property
     def available_phone_numbers(self):
         """
-        :rtype: twilio.rest.api.v2010.available_phone_number_country.AvailablePhoneNumberCountryList
+        :rtype: AvailablePhoneNumberCountryList
         """
         return self.account.available_phone_numbers
 
     @property
     def calls(self):
         """
-        :rtype: twilio.rest.api.v2010.call.CallList
+        :rtype: CallList
         """
         return self.account.calls
 
     @property
     def conferences(self):
         """
-        :rtype: twilio.rest.api.v2010.conference.ConferenceList
+        :rtype: ConferenceList
         """
         return self.account.conferences
 
     @property
     def connect_apps(self):
         """
-        :rtype: twilio.rest.api.v2010.connect_app.ConnectAppList
+        :rtype: ConnectAppList
         """
         return self.account.connect_apps
 
     @property
     def incoming_phone_numbers(self):
         """
-        :rtype: twilio.rest.api.v2010.incoming_phone_number.IncomingPhoneNumberList
+        :rtype: IncomingPhoneNumberList
         """
         return self.account.incoming_phone_numbers
 
     @property
     def keys(self):
         """
-        :rtype: twilio.rest.api.v2010.key.KeyList
+        :rtype: KeyList
         """
         return self.account.keys
 
     @property
     def messages(self):
         """
-        :rtype: twilio.rest.api.v2010.message.MessageList
+        :rtype: MessageList
         """
         return self.account.messages
 
     @property
     def new_keys(self):
         """
-        :rtype: twilio.rest.api.v2010.new_key.NewKeyList
+        :rtype: NewKeyList
         """
         return self.account.new_keys
 
     @property
     def new_signing_keys(self):
         """
-        :rtype: twilio.rest.api.v2010.new_signing_key.NewSigningKeyList
+        :rtype: NewSigningKeyList
         """
         return self.account.new_signing_keys
 
     @property
     def notifications(self):
         """
-        :rtype: twilio.rest.api.v2010.notification.NotificationList
+        :rtype: NotificationList
         """
         return self.account.notifications
 
     @property
     def outgoing_caller_ids(self):
         """
-        :rtype: twilio.rest.api.v2010.outgoing_caller_id.OutgoingCallerIdList
+        :rtype: OutgoingCallerIdList
         """
         return self.account.outgoing_caller_ids
 
     @property
     def queues(self):
         """
-        :rtype: twilio.rest.api.v2010.queue.QueueList
+        :rtype: QueueList
         """
         return self.account.queues
 
     @property
     def recordings(self):
         """
-        :rtype: twilio.rest.api.v2010.recording.RecordingList
+        :rtype: RecordingList
         """
         return self.account.recordings
 
     @property
     def sandbox(self):
         """
-        :rtype: twilio.rest.api.v2010.sandbox.SandboxList
+        :rtype: SandboxList
         """
         return self.account.sandbox
 
     @property
     def signing_keys(self):
         """
-        :rtype: twilio.rest.api.v2010.signing_key.SigningKeyList
+        :rtype: SigningKeyList
         """
         return self.account.signing_keys
 
     @property
     def sip(self):
         """
-        :rtype: twilio.rest.api.v2010.sip.SipList
+        :rtype: SipList
         """
         return self.account.sip
 
     @property
     def short_codes(self):
         """
-        :rtype: twilio.rest.api.v2010.short_code.ShortCodeList
+        :rtype: ShortCodeList
         """
         return self.account.short_codes
 
     @property
     def tokens(self):
         """
-        :rtype: twilio.rest.api.v2010.token.TokenList
+        :rtype: TokenList
         """
         return self.account.tokens
 
     @property
     def transcriptions(self):
         """
-        :rtype: twilio.rest.api.v2010.transcription.TranscriptionList
+        :rtype: TranscriptionList
         """
         return self.account.transcriptions
 
     @property
     def usage(self):
         """
-        :rtype: twilio.rest.api.v2010.usage.UsageList
+        :rtype: UsageList
         """
         return self.account.usage
 
     @property
     def validation_requests(self):
         """
-        :rtype: twilio.rest.api.v2010.validation_request.ValidationRequestList
+        :rtype: ValidationRequestList
         """
         return self.account.validation_requests
 

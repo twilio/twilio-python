@@ -30,7 +30,7 @@ class Pricing(Domain):
     def v1(self):
         """
         :returns: Version v1 of pricing
-        :rtype: twilio.rest.pricing.v1.V1
+        :rtype: V1
         """
         if self._v1 is None:
             self._v1 = V1(self)
@@ -39,21 +39,21 @@ class Pricing(Domain):
     @property
     def messaging(self):
         """
-        :rtype: twilio.rest.pricing.v1.messaging.MessagingList
+        :rtype: MessagingList
         """
         return self.v1.messaging
 
     @property
     def phone_numbers(self):
         """
-        :rtype: twilio.rest.pricing.v1.phone_number.PhoneNumberList
+        :rtype: PhoneNumberList
         """
         return self.v1.phone_numbers
 
     @property
     def voice(self):
         """
-        :rtype: twilio.rest.pricing.v1.voice.VoiceList
+        :rtype: VoiceList
         """
         return self.v1.voice
 

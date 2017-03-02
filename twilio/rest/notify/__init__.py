@@ -30,7 +30,7 @@ class Notify(Domain):
     def v1(self):
         """
         :returns: Version v1 of notify
-        :rtype: twilio.rest.notify.v1.V1
+        :rtype: V1
         """
         if self._v1 is None:
             self._v1 = V1(self)
@@ -39,14 +39,14 @@ class Notify(Domain):
     @property
     def credentials(self):
         """
-        :rtype: twilio.rest.notify.v1.credential.CredentialList
+        :rtype: CredentialList
         """
         return self.v1.credentials
 
     @property
     def services(self):
         """
-        :rtype: twilio.rest.notify.v1.service.ServiceList
+        :rtype: ServiceList
         """
         return self.v1.services
 

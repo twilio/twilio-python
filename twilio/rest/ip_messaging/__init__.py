@@ -30,7 +30,7 @@ class IpMessaging(Domain):
     def v1(self):
         """
         :returns: Version v1 of ip_messaging
-        :rtype: twilio.rest.ip_messaging.v1.V1
+        :rtype: V1
         """
         if self._v1 is None:
             self._v1 = V1(self)
@@ -39,14 +39,14 @@ class IpMessaging(Domain):
     @property
     def credentials(self):
         """
-        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialList
+        :rtype: CredentialList
         """
         return self.v1.credentials
 
     @property
     def services(self):
         """
-        :rtype: twilio.rest.ip_messaging.v1.service.ServiceList
+        :rtype: ServiceList
         """
         return self.v1.services
 

@@ -26,7 +26,7 @@ class V1(Version):
     @property
     def workspaces(self):
         """
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceList
+        :rtype: WorkspaceList
         """
         if self._workspaces is None:
             self._workspaces = WorkspaceList(self)

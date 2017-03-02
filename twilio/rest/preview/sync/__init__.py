@@ -26,7 +26,7 @@ class Sync(Version):
     @property
     def services(self):
         """
-        :rtype: twilio.rest.preview.sync.service.ServiceList
+        :rtype: ServiceList
         """
         if self._services is None:
             self._services = ServiceList(self)

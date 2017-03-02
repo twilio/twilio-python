@@ -30,7 +30,7 @@ class Wireless(Version):
     @property
     def commands(self):
         """
-        :rtype: twilio.rest.preview.wireless.command.CommandList
+        :rtype: CommandList
         """
         if self._commands is None:
             self._commands = CommandList(self)
@@ -39,7 +39,7 @@ class Wireless(Version):
     @property
     def rate_plans(self):
         """
-        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanList
+        :rtype: RatePlanList
         """
         if self._rate_plans is None:
             self._rate_plans = RatePlanList(self)
@@ -48,7 +48,7 @@ class Wireless(Version):
     @property
     def sims(self):
         """
-        :rtype: twilio.rest.preview.wireless.sim.SimList
+        :rtype: SimList
         """
         if self._sims is None:
             self._sims = SimList(self)

@@ -1,7 +1,6 @@
 import datetime
 import unittest
 
-from twilio import values
 from twilio.base import serialize, values
 
 

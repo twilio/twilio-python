@@ -30,7 +30,7 @@ class Monitor(Domain):
     def v1(self):
         """
         :returns: Version v1 of monitor
-        :rtype: twilio.rest.monitor.v1.V1
+        :rtype: V1
         """
         if self._v1 is None:
             self._v1 = V1(self)
@@ -39,14 +39,14 @@ class Monitor(Domain):
     @property
     def alerts(self):
         """
-        :rtype: twilio.rest.monitor.v1.alert.AlertList
+        :rtype: AlertList
         """
         return self.v1.alerts
 
     @property
     def events(self):
         """
-        :rtype: twilio.rest.monitor.v1.event.EventList
+        :rtype: EventList
         """
         return self.v1.events
 
