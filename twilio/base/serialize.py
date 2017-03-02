@@ -1,6 +1,6 @@
 import datetime
 
-from twilio import values
+from twilio.base import values
 
 
 def iso8601_date(d):

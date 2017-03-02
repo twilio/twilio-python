@@ -1,6 +1,6 @@
 import os
 
-from twilio.exceptions import TwilioException
+from twilio.base.exceptions import TwilioException
 
 
 def get_cert_file():

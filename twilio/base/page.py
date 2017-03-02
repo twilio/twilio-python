@@ -1,5 +1,6 @@
 import json
-from twilio.exceptions import TwilioException
+
+from twilio.base.exceptions import TwilioException
 
 
 class Page(object):
