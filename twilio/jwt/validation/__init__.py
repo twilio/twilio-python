@@ -86,4 +86,3 @@ class ClientValidationJwt(Jwt):
             input_str = input_str.encode('utf-8')
 
         return sha256(input_str).hexdigest()
-

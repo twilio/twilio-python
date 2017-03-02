@@ -238,7 +238,7 @@ class ClientValidationJwtTest(unittest.TestCase):
             'sub': 'AC123',
         }, jwt.payload)
         self.assertGreaterEqual(jwt.payload['exp'], time.time(), 'JWT exp is before now')
-        self.assertLessEqual(jwt.payload['exp'], time.time() + 501, 'JWT exp is after now + 5mins')
+        self.assertLessEqual(jwt.payload['exp'], time.time() + 301, 'JWT exp is after now + 5mins')
         self.assertDictEqual({
             'alg': 'RS256',
             'typ': 'JWT',

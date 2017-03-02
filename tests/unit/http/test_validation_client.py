@@ -50,7 +50,7 @@ class TestValidationClientHelpers(unittest.TestCase):
 
     def test_build_validation_payload_complex(self):
         self.request.body = 'foobar'
-        self.request.url = self.request.url + '?WestCoast=BestCoast&EastCoast=LeastCoast'
+        self.request.url = self.request.url + '?QueryParam=Value&OtherQueryParam=OtherValue'
 
         validation_payload = self.client._build_validation_payload(self.request)
 
@@ -58,7 +58,7 @@ class TestValidationClientHelpers(unittest.TestCase):
         self.assertEqual('/2010-04-01/Accounts/AC123/Messages', validation_payload.path)
         self.assertEqual(['authorization', 'host'], validation_payload.signed_headers)
         self.assertEqual('foobar', validation_payload.body)
-        self.assertEqual('WestCoast=BestCoast&EastCoast=LeastCoast',
+        self.assertEqual('QueryParam=Value&OtherQueryParam=OtherValue',
                          validation_payload.query_string)
 
     def test_get_host(self):
