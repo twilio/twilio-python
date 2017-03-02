@@ -5,10 +5,11 @@ from twilio.http.response import Response
 
 
 class TwilioHttpClient(HttpClient):
+    """General purpose HTTP Client for interacting with the Twilio API"""
     def request(self, method, url, params=None, data=None, headers=None, auth=None, timeout=None,
                 allow_redirects=False):
         """
-        General purpose HTTP client to make an HTTP request
+        Make an HTTP Request with parameters provided.
 
         :param str method: The HTTP method to use
         :param str url: The URL to request
@@ -18,11 +19,10 @@ class TwilioHttpClient(HttpClient):
         :param tuple auth: Basic Auth arguments
         :param float timeout: Socket/Read timeout for the request
         :param boolean allow_redirects: Whether or not to allow redirects
+        See the requests documentation for explanation of all these parameters
 
         :return: An http response
         :rtype: A :class:`Response <twilio.rest.http.response.Response>` object
-
-        See the requests documentation for explanation of all these parameters
         """
         session = Session()
         session.verify = get_cert_file()
