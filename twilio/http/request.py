@@ -2,6 +2,9 @@ from twilio.compat import urlencode
 
 
 class Request(object):
+    """
+    An HTTP request.
+    """
     ANY = '*'
 
     def __init__(self,
@@ -71,4 +74,3 @@ class Request(object):
 
     def __repr__(self):
         return str(self)
-
