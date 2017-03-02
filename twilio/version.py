@@ -6,6 +6,9 @@ from twilio.exceptions import TwilioRestException
 
 
 class Version(object):
+    """
+    Represents an API version.
+    """
     MAX_PAGE_SIZE = 1000
 
     def __init__(self, domain):
@@ -17,13 +20,22 @@ class Version(object):
         self.version = None
 
     def absolute_url(self, uri):
+        """
+        Turns a relative uri into an absolute url.
+        """
         return self.domain.absolute_url(self.relative_uri(uri))
 
     def relative_uri(self, uri):
+        """
+        Turns a relative uri into a versioned relative uri.
+        """
         return '{}/{}'.format(self.version.strip('/'), uri.strip('/'))
 
     def request(self, method, uri, params=None, data=None, headers=None,
                 auth=None, timeout=None, allow_redirects=False):
+        """
+        Make an HTTP request.
+        """
         url = self.relative_uri(uri)
         return self.domain.request(
             method,
@@ -38,6 +50,9 @@ class Version(object):
 
     @classmethod
     def exception(cls, method, uri, response, message):
+        """
+        Wraps an exceptional response in a `TwilioRestException`.
+        """
         # noinspection PyBroadException
         try:
             error_payload = json.loads(response.content)
@@ -50,6 +65,9 @@ class Version(object):
 
     def fetch(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
               allow_redirects=False):
+        """
+        Fetch a resource instance.
+        """
         response = self.request(
             method,
             uri,
@@ -68,6 +86,9 @@ class Version(object):
 
     def update(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
                allow_redirects=False):
+        """
+        Update a resource instance.
+        """
         response = self.request(
             method,
             uri,
@@ -86,6 +107,9 @@ class Version(object):
 
     def delete(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
                allow_redirects=False):
+        """
+        Delete a resource.
+        """
         response = self.request(
             method,
             uri,
@@ -103,12 +127,21 @@ class Version(object):
         return response.status_code == 204
 
     def read_limits(self, limit=None, page_size=None):
+        """
+        Takes a limit on the max number of records to read and a max page_size
+        and calculates the max number of pages to read.
+
+        :param int limit: Max number of records to read.
+        :param int page_size: Max page size.
+        :return dict: A dictionary of paging limits.
+        """
         page_limit = values.unset
 
         if limit is not None:
 
             if page_size is None:
-                # If there is no user-specified page_size, pick the most network efficient size
+                # If there is no user-specified page_size, pick the most
+                # network efficient size
                 page_size = min(limit, self.MAX_PAGE_SIZE)
 
             page_limit = int(ceil(limit / float(page_size)))
@@ -121,6 +154,9 @@ class Version(object):
 
     def page(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
              allow_redirects=False):
+        """
+        Makes an HTTP request.
+        """
         return self.request(
             method,
             uri,
@@ -133,6 +169,13 @@ class Version(object):
         )
 
     def stream(self, page, limit=None, page_limit=None):
+        """
+        Generates records one a time from a page, stopping at prescribed limits.
+
+        :param Page page: The page to stream.
+        :param int limit: The max number of records to read.
+        :param int page_imit: The max number of pages to read.
+        """
         current_record = 1
         current_page = 1
 
@@ -151,6 +194,9 @@ class Version(object):
 
     def create(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
                allow_redirects=False):
+        """
+        Create a resource instance.
+        """
         response = self.request(
             method,
             uri,
