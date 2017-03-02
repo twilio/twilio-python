@@ -3,6 +3,12 @@ from twilio.exceptions import TwilioException
 
 
 class Page(object):
+    """
+    Represents a page of records in a collection.
+
+    A `Page` lets you iterate over its records and fetch the next and previous
+    pages in the collection.
+    """
     META_KEYS = {
         'end',
         'first_page_uri',
@@ -26,22 +32,40 @@ class Page(object):
         self._records = iter(self.load_page(payload))
 
     def __iter__(self):
+        """
+        A `Page` is a valid iterator.
+        """
         return self
 
     def __next__(self):
         return self.next()
 
     def next(self):
+        """
+        Returns the next record in the `Page`.
+        """
         return self.get_instance(next(self._records))
 
     @classmethod
     def process_response(self, response):
+        """
+        Load a JSON response.
+
+        :param Response response: The HTTP response.
+        :return dict: The JSON-loaded content.
+        """
         if response.status_code != 200:
             raise TwilioException('Unable to fetch page', response)
 
         return json.loads(response.content)
 
     def load_page(self, payload):
+        """
+        Parses the collection of records out of a list payload.
+
+        :param dict payload: The JSON-loaded content.
+        :return list: The list of records.
+        """
         if 'meta' in payload and 'key' in payload['meta']:
             return payload[payload['meta']['key']]
         else:
@@ -54,6 +78,9 @@ class Page(object):
 
     @property
     def previous_page_url(self):
+        """
+        :return str: Returns a link to the previous_page_url or None if doesn't exist.
+        """
         if 'meta' in self._payload and 'previous_page_url' in self._payload['meta']:
             return self._payload['meta']['previous_page_url']
         elif 'previous_page_uri' in self._payload and self._payload['previous_page_uri']:
@@ -63,6 +90,9 @@ class Page(object):
 
     @property
     def next_page_url(self):
+        """
+        :return str: Returns a link to the next_page_url or None if doesn't exist.
+        """
         if 'meta' in self._payload and 'next_page_url' in self._payload['meta']:
             return self._payload['meta']['next_page_url']
         elif 'next_page_uri' in self._payload and self._payload['next_page_uri']:
@@ -71,9 +101,17 @@ class Page(object):
         return None
 
     def get_instance(self, payload):
+        """
+        :param dict payload: A JSON-loaded representation of an instance record.
+        :return: A rich, resource-dependent object.
+        """
         raise TwilioException('Page.get_instance() must be implemented in the derived class')
 
     def next_page(self):
+        """
+        Return the `Page` after this one.
+        :return Page: The next page.
+        """
         if not self.next_page_url:
             return None
 
@@ -82,6 +120,10 @@ class Page(object):
         return cls(self._version, response, self._solution)
 
     def previous_page(self):
+        """
+        Return the `Page` before this one.
+        :return Page: The previous page.
+        """
         if not self.previous_page_url:
             return None
 
@@ -91,4 +133,3 @@ class Page(object):
 
     def __repr__(self):
         return '<Page>'
-
