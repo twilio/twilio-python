@@ -14,15 +14,19 @@ def example():
     """
     client = Client(ACCOUNT_SID, AUTH_TOKEN)
 
-    print('Get all the messages...')
+    # Get all messages
     all_messages = client.messages.list()
     print('There are {} messages in your account.'.format(len(all_messages)))
 
-    print('Get only last 10 messages...')
+    # Get only last 10 messages...
     some_messages = client.messages.list(limit=10)
+    print('Here are the last 10 messages in your account:')
+    for m in some_messages:
+        print(m)
 
-    print('Get messages in smaller pages...')
-    some_messages = client.messages.list(page_size=10)
+    # Get messages in smaller pages...
+    all_messages = client.messages.list(page_size=10)
+    print('There are {} messages in your account.'.format(len(all_messages)))
 
     print('Sending a message...')
     new_message = client.messages.create(to='XXXX', from_='YYYY', body='Twilio rocks!')
