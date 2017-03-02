@@ -61,10 +61,3 @@ class RequestValidator(object):
         :returns: True if the request passes validation, False if not
         """
         return compare(self.compute_signature(uri, params), signature)
-
-
-
-
-
-
-
