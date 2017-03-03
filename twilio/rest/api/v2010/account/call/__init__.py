@@ -114,7 +114,9 @@ class CallList(ListResource):
 
     def stream(self, to=values.unset, from_=values.unset,
                parent_call_sid=values.unset, status=values.unset,
-               start_time=values.unset, end_time=values.unset, limit=None,
+               start_time_before=values.unset, start_time=values.unset,
+               start_time_after=values.unset, end_time_before=values.unset,
+               end_time=values.unset, end_time_after=values.unset, limit=None,
                page_size=None):
         """
         Streams CallInstance records from the API as a generator stream.
@@ -126,8 +128,12 @@ class CallList(ListResource):
         :param unicode from_: Phone number or Client identifier to filter `from` on
         :param unicode parent_call_sid: Parent Call Sid to filter on
         :param call.status status: Status to filter on
+        :param datetime start_time_before: StartTime to filter on
         :param datetime start_time: StartTime to filter on
+        :param datetime start_time_after: StartTime to filter on
+        :param datetime end_time_before: EndTime to filter on
         :param datetime end_time: EndTime to filter on
+        :param datetime end_time_after: EndTime to filter on
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -145,8 +151,12 @@ class CallList(ListResource):
             from_=from_,
             parent_call_sid=parent_call_sid,
             status=status,
+            start_time_before=start_time_before,
             start_time=start_time,
+            start_time_after=start_time_after,
+            end_time_before=end_time_before,
             end_time=end_time,
+            end_time_after=end_time_after,
             page_size=limits['page_size'],
         )
 
@@ -154,7 +164,9 @@ class CallList(ListResource):
 
     def list(self, to=values.unset, from_=values.unset,
              parent_call_sid=values.unset, status=values.unset,
-             start_time=values.unset, end_time=values.unset, limit=None,
+             start_time_before=values.unset, start_time=values.unset,
+             start_time_after=values.unset, end_time_before=values.unset,
+             end_time=values.unset, end_time_after=values.unset, limit=None,
              page_size=None):
         """
         Lists CallInstance records from the API as a list.
@@ -165,8 +177,12 @@ class CallList(ListResource):
         :param unicode from_: Phone number or Client identifier to filter `from` on
         :param unicode parent_call_sid: Parent Call Sid to filter on
         :param call.status status: Status to filter on
+        :param datetime start_time_before: StartTime to filter on
         :param datetime start_time: StartTime to filter on
+        :param datetime start_time_after: StartTime to filter on
+        :param datetime end_time_before: EndTime to filter on
         :param datetime end_time: EndTime to filter on
+        :param datetime end_time_after: EndTime to filter on
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -182,15 +198,21 @@ class CallList(ListResource):
             from_=from_,
             parent_call_sid=parent_call_sid,
             status=status,
+            start_time_before=start_time_before,
             start_time=start_time,
+            start_time_after=start_time_after,
+            end_time_before=end_time_before,
             end_time=end_time,
+            end_time_after=end_time_after,
             limit=limit,
             page_size=page_size,
         ))
 
     def page(self, to=values.unset, from_=values.unset,
              parent_call_sid=values.unset, status=values.unset,
-             start_time=values.unset, end_time=values.unset,
+             start_time_before=values.unset, start_time=values.unset,
+             start_time_after=values.unset, end_time_before=values.unset,
+             end_time=values.unset, end_time_after=values.unset,
              page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
         """
@@ -201,8 +223,12 @@ class CallList(ListResource):
         :param unicode from_: Phone number or Client identifier to filter `from` on
         :param unicode parent_call_sid: Parent Call Sid to filter on
         :param call.status status: Status to filter on
+        :param datetime start_time_before: StartTime to filter on
         :param datetime start_time: StartTime to filter on
+        :param datetime start_time_after: StartTime to filter on
+        :param datetime end_time_before: EndTime to filter on
         :param datetime end_time: EndTime to filter on
+        :param datetime end_time_after: EndTime to filter on
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -215,8 +241,12 @@ class CallList(ListResource):
             'From': from_,
             'ParentCallSid': parent_call_sid,
             'Status': status,
+            'StartTime<': serialize.iso8601_datetime(start_time_before),
             'StartTime': serialize.iso8601_datetime(start_time),
+            'StartTime>': serialize.iso8601_datetime(start_time_after),
+            'EndTime<': serialize.iso8601_datetime(end_time_before),
             'EndTime': serialize.iso8601_datetime(end_time),
+            'EndTime>': serialize.iso8601_datetime(end_time_after),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
