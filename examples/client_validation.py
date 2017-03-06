@@ -38,7 +38,7 @@ def example():
         key_size=2048,
         backend=default_backend()
     )
-    public_key = key_pair.public_key().public_bytes(Encoding.PEM, PublicFormat.PKCS1)
+    public_key = key_pair.public_key().public_bytes(Encoding.PEM, PublicFormat.SubjectPublicKeyInfo)
     private_key = key_pair.private_bytes(Encoding.PEM, PrivateFormat.PKCS8, NoEncryption())
 
     # Register the public key with Twilio
