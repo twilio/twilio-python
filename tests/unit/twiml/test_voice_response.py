@@ -29,6 +29,18 @@ class TestResponse(TwilioTest):
             '<?xml version="1.0" encoding="UTF-8"?><Response><Hangup /><Leave /><Sms from="+10987654321" to="+11234567890">twilio sms</Sms></Response>'
         )
 
+    def test_response_chain(self):
+        r = VoiceResponse().hangup().leave().sms(
+            'twilio sms',
+            to='+11234567890',
+            from_='+10987654321'
+        )
+
+        assert_equal(
+            self.strip(r),
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Hangup /><Leave /><Sms from="+10987654321" to="+11234567890">twilio sms</Sms></Response>'
+        )
+
 
 class TestSay(TwilioTest):
 

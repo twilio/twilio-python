@@ -22,6 +22,14 @@ class TestResponse(TwilioTest):
             '<?xml version="1.0" encoding="UTF-8"?><Response><Message>Hello</Message><Redirect url="example.com" /></Response>'
         )
 
+    def test_response_chain(self):
+        r = MessagingResponse().message('Hello').redirect(url='example.com')
+
+        assert_equal(
+            self.strip(r),
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Message>Hello</Message><Redirect url="example.com" /></Response>'
+        )
+
 
 class TestMessage(TwilioTest):
 

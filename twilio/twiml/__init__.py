@@ -73,4 +73,4 @@ class TwiML(object):
 
     def append(self, verb):
         self.verbs.append(verb)
-        return verb
+        return self
