@@ -1,8 +1,8 @@
 import json
 from math import ceil
 
-from twilio import values
-from twilio.exceptions import TwilioRestException
+from twilio.base import values
+from twilio.base.exceptions import TwilioRestException
 
 
 class Version(object):
