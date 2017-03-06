@@ -37,7 +37,8 @@ class RecordingList(ListResource):
         }
         self._uri = '/Accounts/{account_sid}/Recordings.json'.format(**self._solution)
 
-    def stream(self, date_created=values.unset, call_sid=values.unset, limit=None,
+    def stream(self, date_created_before=values.unset, date_created=values.unset,
+               date_created_after=values.unset, call_sid=values.unset, limit=None,
                page_size=None):
         """
         Streams RecordingInstance records from the API as a generator stream.
@@ -45,7 +46,9 @@ class RecordingList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
+        :param datetime date_created_before: Filter by date created
         :param datetime date_created: Filter by date created
+        :param datetime date_created_after: Filter by date created
         :param unicode call_sid: Filter by call_sid
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
@@ -60,21 +63,26 @@ class RecordingList(ListResource):
         limits = self._version.read_limits(limit, page_size)
 
         page = self.page(
+            date_created_before=date_created_before,
             date_created=date_created,
+            date_created_after=date_created_after,
             call_sid=call_sid,
             page_size=limits['page_size'],
         )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def list(self, date_created=values.unset, call_sid=values.unset, limit=None,
+    def list(self, date_created_before=values.unset, date_created=values.unset,
+             date_created_after=values.unset, call_sid=values.unset, limit=None,
              page_size=None):
         """
         Lists RecordingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
+        :param datetime date_created_before: Filter by date created
         :param datetime date_created: Filter by date created
+        :param datetime date_created_after: Filter by date created
         :param unicode call_sid: Filter by call_sid
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
@@ -87,20 +95,25 @@ class RecordingList(ListResource):
         :rtype: generator
         """
         return list(self.stream(
+            date_created_before=date_created_before,
             date_created=date_created,
+            date_created_after=date_created_after,
             call_sid=call_sid,
             limit=limit,
             page_size=page_size,
         ))
 
-    def page(self, date_created=values.unset, call_sid=values.unset,
+    def page(self, date_created_before=values.unset, date_created=values.unset,
+             date_created_after=values.unset, call_sid=values.unset,
              page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
         """
         Retrieve a single page of RecordingInstance records from the API.
         Request is executed immediately
 
+        :param datetime date_created_before: Filter by date created
         :param datetime date_created: Filter by date created
+        :param datetime date_created_after: Filter by date created
         :param unicode call_sid: Filter by call_sid
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
@@ -110,7 +123,9 @@ class RecordingList(ListResource):
         :rtype: Page
         """
         params = values.of({
+            'DateCreated<': serialize.iso8601_datetime(date_created_before),
             'DateCreated': serialize.iso8601_datetime(date_created),
+            'DateCreated>': serialize.iso8601_datetime(date_created_after),
             'CallSid': call_sid,
             'PageToken': page_token,
             'Page': page_number,

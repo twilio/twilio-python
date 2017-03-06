@@ -81,8 +81,9 @@ class MessageList(ListResource):
             account_sid=self._solution['account_sid'],
         )
 
-    def stream(self, to=values.unset, from_=values.unset, date_sent=values.unset,
-               limit=None, page_size=None):
+    def stream(self, to=values.unset, from_=values.unset,
+               date_sent_before=values.unset, date_sent=values.unset,
+               date_sent_after=values.unset, limit=None, page_size=None):
         """
         Streams MessageInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -91,7 +92,9 @@ class MessageList(ListResource):
 
         :param unicode to: Filter by messages to this number
         :param unicode from_: Filter by from number
+        :param datetime date_sent_before: Filter by date sent
         :param datetime date_sent: Filter by date sent
+        :param datetime date_sent_after: Filter by date sent
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -107,14 +110,17 @@ class MessageList(ListResource):
         page = self.page(
             to=to,
             from_=from_,
+            date_sent_before=date_sent_before,
             date_sent=date_sent,
+            date_sent_after=date_sent_after,
             page_size=limits['page_size'],
         )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def list(self, to=values.unset, from_=values.unset, date_sent=values.unset,
-             limit=None, page_size=None):
+    def list(self, to=values.unset, from_=values.unset,
+             date_sent_before=values.unset, date_sent=values.unset,
+             date_sent_after=values.unset, limit=None, page_size=None):
         """
         Lists MessageInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -122,7 +128,9 @@ class MessageList(ListResource):
 
         :param unicode to: Filter by messages to this number
         :param unicode from_: Filter by from number
+        :param datetime date_sent_before: Filter by date sent
         :param datetime date_sent: Filter by date sent
+        :param datetime date_sent_after: Filter by date sent
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -136,21 +144,26 @@ class MessageList(ListResource):
         return list(self.stream(
             to=to,
             from_=from_,
+            date_sent_before=date_sent_before,
             date_sent=date_sent,
+            date_sent_after=date_sent_after,
             limit=limit,
             page_size=page_size,
         ))
 
-    def page(self, to=values.unset, from_=values.unset, date_sent=values.unset,
-             page_token=values.unset, page_number=values.unset,
-             page_size=values.unset):
+    def page(self, to=values.unset, from_=values.unset,
+             date_sent_before=values.unset, date_sent=values.unset,
+             date_sent_after=values.unset, page_token=values.unset,
+             page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of MessageInstance records from the API.
         Request is executed immediately
 
         :param unicode to: Filter by messages to this number
         :param unicode from_: Filter by from number
+        :param datetime date_sent_before: Filter by date sent
         :param datetime date_sent: Filter by date sent
+        :param datetime date_sent_after: Filter by date sent
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -161,7 +174,9 @@ class MessageList(ListResource):
         params = values.of({
             'To': to,
             'From': from_,
+            'DateSent<': serialize.iso8601_datetime(date_sent_before),
             'DateSent': serialize.iso8601_datetime(date_sent),
+            'DateSent>': serialize.iso8601_datetime(date_sent_after),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
