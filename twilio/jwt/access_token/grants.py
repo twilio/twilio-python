@@ -48,23 +48,6 @@ class SyncGrant(AccessTokenGrant):
         return grant
 
 
-class ConversationsGrant(AccessTokenGrant):
-    """Grant to access Twilio Conversations"""
-    def __init__(self, configuration_profile_sid=None):
-        self.configuration_profile_sid = configuration_profile_sid
-
-    @property
-    def key(self):
-        return "rtc"
-
-    def to_payload(self):
-        grant = {}
-        if self.configuration_profile_sid:
-            grant['configuration_profile_sid'] = self.configuration_profile_sid
-
-        return grant
-
-
 class VoiceGrant(AccessTokenGrant):
     """Grant to access Twilio Programmable Voice"""
     def __init__(self,
@@ -105,8 +88,8 @@ class VoiceGrant(AccessTokenGrant):
 
 class VideoGrant(AccessTokenGrant):
     """Grant to access Twilio Video"""
-    def __init__(self, configuration_profile_sid=None):
-        self.configuration_profile_sid = configuration_profile_sid
+    def __init__(self, room=None):
+        self.room = room
 
     @property
     def key(self):
@@ -114,7 +97,30 @@ class VideoGrant(AccessTokenGrant):
 
     def to_payload(self):
         grant = {}
-        if self.configuration_profile_sid:
-            grant['configuration_profile_sid'] = self.configuration_profile_sid
+        if self.room:
+            grant['room'] = self.room
+
+        return grant
+
+
+class TaskRouterGrant(AccessTokenGrant):
+    """Grant to access Twilio TaskRouter"""
+    def __init__(self, workspace_sid=None, worker_sid=None, role=None):
+        self.workspace_sid = workspace_sid
+        self.worker_sid = worker_sid
+        self.role = role
+
+    @property
+    def key(self):
+        return "task_router"
+
+    def to_payload(self):
+        grant = {}
+        if self.workspace_sid:
+            grant['workspace_sid'] = self.workspace_sid
+        if self.worker_sid:
+            grant['worker_sid'] = self.worker_sid
+        if self.role:
+            grant['role'] = self.role
 
         return grant

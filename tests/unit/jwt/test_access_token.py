@@ -6,11 +6,11 @@ from nose.tools import assert_equal
 
 from twilio.jwt.access_token import AccessToken
 from twilio.jwt.access_token.grants import (
-    ConversationsGrant,
     IpMessagingGrant,
     SyncGrant,
     VoiceGrant,
-    VideoGrant
+    VideoGrant,
+    TaskRouterGrant
 )
 
 ACCOUNT_SID = 'AC123'
@@ -80,22 +80,9 @@ class AccessTokenTest(unittest.TestCase):
             'identity': 'test@twilio.com'
         }, decoded_token.payload['grants'])
 
-    def test_conversations_grant(self):
-        scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
-        scat.add_grant(ConversationsGrant(configuration_profile_sid='CP123'))
-
-        token = scat.to_jwt()
-        assert_is_not_none(token)
-        decoded_token = AccessToken.from_jwt(token, 'secret')
-        self._validate_claims(decoded_token.payload)
-        assert_equal(1, len(decoded_token.payload['grants']))
-        assert_equal({
-            'configuration_profile_sid': 'CP123'
-        }, decoded_token.payload['grants']['rtc'])
-
     def test_video_grant(self):
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
-        scat.add_grant(VideoGrant(configuration_profile_sid='CP123'))
+        scat.add_grant(VideoGrant(room='CP123'))
 
         token = scat.to_jwt()
         assert_is_not_none(token)
@@ -103,7 +90,7 @@ class AccessTokenTest(unittest.TestCase):
         self._validate_claims(decoded_token.payload)
         assert_equal(1, len(decoded_token.payload['grants']))
         assert_equal({
-            'configuration_profile_sid': 'CP123'
+            'room': 'CP123'
         }, decoded_token.payload['grants']['video'])
 
     def test_ip_messaging_grant(self):
@@ -138,7 +125,7 @@ class AccessTokenTest(unittest.TestCase):
 
     def test_grants(self):
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
-        scat.add_grant(ConversationsGrant())
+        scat.add_grant(VideoGrant())
         scat.add_grant(IpMessagingGrant())
 
         token = scat.to_jwt()
@@ -146,7 +133,7 @@ class AccessTokenTest(unittest.TestCase):
         decoded_token = AccessToken.from_jwt(token, 'secret')
         self._validate_claims(decoded_token.payload)
         assert_equal(2, len(decoded_token.payload['grants']))
-        assert_equal({}, decoded_token.payload['grants']['rtc'])
+        assert_equal({}, decoded_token.payload['grants']['video'])
         assert_equal({}, decoded_token.payload['grants']['ip_messaging'])
 
     def test_programmable_voice_grant(self):
@@ -174,9 +161,30 @@ class AccessTokenTest(unittest.TestCase):
             }
         }, decoded_token.payload['grants']['voice'])
 
+    def test_task_router_grant(self):
+        grant = TaskRouterGrant(
+            workspace_sid='WS123',
+            worker_sid='WK123',
+            role='worker'
+        )
+
+        scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
+        scat.add_grant(grant)
+
+        token = scat.to_jwt()
+        assert_is_not_none(token)
+        decoded_token = AccessToken.from_jwt(token, 'secret')
+        self._validate_claims(decoded_token.payload)
+        assert_equal(1, len(decoded_token.payload['grants']))
+        assert_equal({
+            'workspace_sid': 'WS123',
+            'worker_sid': 'WK123',
+            'role': 'worker'
+        }, decoded_token.payload['grants']['task_router'])
+
     def test_pass_grants_in_constructor(self):
         grants = [
-            ConversationsGrant(),
+            VideoGrant(),
             IpMessagingGrant()
         ]
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret', grants=grants)
@@ -187,15 +195,15 @@ class AccessTokenTest(unittest.TestCase):
         decoded_token = AccessToken.from_jwt(token, 'secret')
         self._validate_claims(decoded_token.payload)
         assert_equal(2, len(decoded_token.payload['grants']))
-        assert_equal({}, decoded_token.payload['grants']['rtc'])
+        assert_equal({}, decoded_token.payload['grants']['video'])
         assert_equal({}, decoded_token.payload['grants']['ip_messaging'])
 
     def test_constructor_validates_grants(self):
-        grants = [ConversationsGrant, 'GrantMeAccessToEverything']
+        grants = [VideoGrant, 'GrantMeAccessToEverything']
         self.assertRaises(ValueError, AccessToken, ACCOUNT_SID, SIGNING_KEY_SID, 'secret',
                           grants=grants)
 
     def test_add_grant_validates_grant(self):
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
-        scat.add_grant(ConversationsGrant())
+        scat.add_grant(VideoGrant())
         self.assertRaises(ValueError, scat.add_grant, 'GrantRootAccess')
