@@ -9,6 +9,10 @@ def lower_camel(string):
     return result[0].lower() + result[1:]
 
 
+class TwiMLException(Exception):
+    pass
+
+
 class TwiML(object):
     """
     Twilio basic verb object.
@@ -50,7 +54,23 @@ class TwiML(object):
         else:
             return xml
 
+    def append(self, verb):
+        """
+        Add a TwiML doc
+        :param verb: TwiML Document
+        :return:
+        """
+        if not isinstance(verb, TwiML):
+            raise TwiMLException()
+
+        self.verbs.append(verb)
+        return self
+
     def xml(self):
+        """
+        Convert to XML
+        :return: Generated TwiML
+        """
         el = ET.Element(self.name)
 
         keys = self.attrs.keys()
@@ -70,7 +90,3 @@ class TwiML(object):
             el.append(verb.xml())
 
         return el
-
-    def append(self, verb):
-        self.verbs.append(verb)
-        return self
