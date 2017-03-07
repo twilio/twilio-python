@@ -61,7 +61,7 @@ class TwiML(object):
         :return:
         """
         if not isinstance(verb, TwiML):
-            raise TwiMLException()
+            raise TwiMLException('Only appending of TwiML is allowed')
 
         self.verbs.append(verb)
         return self
