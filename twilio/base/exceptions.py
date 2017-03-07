@@ -8,10 +8,6 @@ class TwilioException(Exception):
     pass
 
 
-class TwimlException(Exception):
-    pass
-
-
 class TwilioRestException(TwilioException):
     """ A generic 400 or 500 level exception from the Twilio API
 
