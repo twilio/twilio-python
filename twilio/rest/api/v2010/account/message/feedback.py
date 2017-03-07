@@ -23,8 +23,8 @@ class FeedbackList(ListResource):
         :param account_sid: The account_sid
         :param message_sid: The message_sid
 
-        :returns: FeedbackList
-        :rtype: FeedbackList
+        :returns: twilio.rest.api.v2010.account.message.feedback.FeedbackList
+        :rtype: twilio.rest.api.v2010.account.message.feedback.FeedbackList
         """
         super(FeedbackList, self).__init__(version)
 
@@ -42,7 +42,7 @@ class FeedbackList(ListResource):
         :param feedback.outcome outcome: The outcome
 
         :returns: Newly created FeedbackInstance
-        :rtype: FeedbackInstance
+        :rtype: twilio.rest.api.v2010.account.message.feedback.FeedbackInstance
         """
         data = values.of({
             'Outcome': outcome,
@@ -82,8 +82,8 @@ class FeedbackPage(Page):
         :param account_sid: The account_sid
         :param message_sid: The message_sid
 
-        :returns: FeedbackPage
-        :rtype: FeedbackPage
+        :returns: twilio.rest.api.v2010.account.message.feedback.FeedbackPage
+        :rtype: twilio.rest.api.v2010.account.message.feedback.FeedbackPage
         """
         super(FeedbackPage, self).__init__(version, response)
 
@@ -96,8 +96,8 @@ class FeedbackPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: FeedbackInstance
-        :rtype: FeedbackInstance
+        :returns: twilio.rest.api.v2010.account.message.feedback.FeedbackInstance
+        :rtype: twilio.rest.api.v2010.account.message.feedback.FeedbackInstance
         """
         return FeedbackInstance(
             self._version,
@@ -122,8 +122,8 @@ class FeedbackInstance(InstanceResource):
         """
         Initialize the FeedbackInstance
 
-        :returns: FeedbackInstance
-        :rtype: FeedbackInstance
+        :returns: twilio.rest.api.v2010.account.message.feedback.FeedbackInstance
+        :rtype: twilio.rest.api.v2010.account.message.feedback.FeedbackInstance
         """
         super(FeedbackInstance, self).__init__(version)
 

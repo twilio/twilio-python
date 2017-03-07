@@ -30,7 +30,7 @@ class Trunking(Domain):
     def v1(self):
         """
         :returns: Version v1 of trunking
-        :rtype: V1
+        :rtype: twilio.rest.trunking.v1.V1
         """
         if self._v1 is None:
             self._v1 = V1(self)
@@ -39,7 +39,7 @@ class Trunking(Domain):
     @property
     def trunks(self):
         """
-        :rtype: TrunkList
+        :rtype: twilio.rest.trunking.v1.trunk.TrunkList
         """
         return self.v1.trunks
 

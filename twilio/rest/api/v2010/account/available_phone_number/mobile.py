@@ -23,8 +23,8 @@ class MobileList(ListResource):
         :param account_sid: The 34 character string that uniquely identifies your account.
         :param country_code: The ISO Country code to lookup phone numbers for.
 
-        :returns: MobileList
-        :rtype: MobileList
+        :returns: twilio.rest.api.v2010.account.available_phone_number.mobile.MobileList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.mobile.MobileList
         """
         super(MobileList, self).__init__(version)
 
@@ -250,8 +250,8 @@ class MobilePage(Page):
         :param account_sid: The 34 character string that uniquely identifies your account.
         :param country_code: The ISO Country code to lookup phone numbers for.
 
-        :returns: MobilePage
-        :rtype: MobilePage
+        :returns: twilio.rest.api.v2010.account.available_phone_number.mobile.MobilePage
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.mobile.MobilePage
         """
         super(MobilePage, self).__init__(version, response)
 
@@ -264,8 +264,8 @@ class MobilePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: MobileInstance
-        :rtype: MobileInstance
+        :returns: twilio.rest.api.v2010.account.available_phone_number.mobile.MobileInstance
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.mobile.MobileInstance
         """
         return MobileInstance(
             self._version,
@@ -290,8 +290,8 @@ class MobileInstance(InstanceResource):
         """
         Initialize the MobileInstance
 
-        :returns: MobileInstance
-        :rtype: MobileInstance
+        :returns: twilio.rest.api.v2010.account.available_phone_number.mobile.MobileInstance
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.mobile.MobileInstance
         """
         super(MobileInstance, self).__init__(version)
 

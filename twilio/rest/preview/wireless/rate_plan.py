@@ -22,8 +22,8 @@ class RatePlanList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: RatePlanList
-        :rtype: RatePlanList
+        :returns: twilio.rest.preview.wireless.rate_plan.RatePlanList
+        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanList
         """
         super(RatePlanList, self).__init__(version)
 
@@ -120,7 +120,7 @@ class RatePlanList(ListResource):
         :param unicode renewal: The renewal
 
         :returns: Newly created RatePlanInstance
-        :rtype: RatePlanInstance
+        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
         """
         data = values.of({
             'UniqueName': unique_name,
@@ -149,8 +149,8 @@ class RatePlanList(ListResource):
 
         :param sid: The sid
 
-        :returns: RatePlanContext
-        :rtype: RatePlanContext
+        :returns: twilio.rest.preview.wireless.rate_plan.RatePlanContext
+        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanContext
         """
         return RatePlanContext(
             self._version,
@@ -163,8 +163,8 @@ class RatePlanList(ListResource):
 
         :param sid: The sid
 
-        :returns: RatePlanContext
-        :rtype: RatePlanContext
+        :returns: twilio.rest.preview.wireless.rate_plan.RatePlanContext
+        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanContext
         """
         return RatePlanContext(
             self._version,
@@ -190,8 +190,8 @@ class RatePlanPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: RatePlanPage
-        :rtype: RatePlanPage
+        :returns: twilio.rest.preview.wireless.rate_plan.RatePlanPage
+        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanPage
         """
         super(RatePlanPage, self).__init__(version, response)
 
@@ -204,8 +204,8 @@ class RatePlanPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: RatePlanInstance
-        :rtype: RatePlanInstance
+        :returns: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
+        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
         """
         return RatePlanInstance(
             self._version,
@@ -231,8 +231,8 @@ class RatePlanContext(InstanceContext):
         :param Version version: Version that contains the resource
         :param sid: The sid
 
-        :returns: RatePlanContext
-        :rtype: RatePlanContext
+        :returns: twilio.rest.preview.wireless.rate_plan.RatePlanContext
+        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanContext
         """
         super(RatePlanContext, self).__init__(version)
 
@@ -247,7 +247,7 @@ class RatePlanContext(InstanceContext):
         Fetch a RatePlanInstance
 
         :returns: Fetched RatePlanInstance
-        :rtype: RatePlanInstance
+        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
         """
         params = values.of({})
 
@@ -271,7 +271,7 @@ class RatePlanContext(InstanceContext):
         :param unicode friendly_name: The friendly_name
 
         :returns: Updated RatePlanInstance
-        :rtype: RatePlanInstance
+        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
         """
         data = values.of({
             'UniqueName': unique_name,
@@ -307,8 +307,8 @@ class RatePlanInstance(InstanceResource):
         """
         Initialize the RatePlanInstance
 
-        :returns: RatePlanInstance
-        :rtype: RatePlanInstance
+        :returns: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
+        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
         """
         super(RatePlanInstance, self).__init__(version)
 
@@ -340,7 +340,7 @@ class RatePlanInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: RatePlanContext for this RatePlanInstance
-        :rtype: RatePlanContext
+        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanContext
         """
         if self._context is None:
             self._context = RatePlanContext(
@@ -442,7 +442,7 @@ class RatePlanInstance(InstanceResource):
         Fetch a RatePlanInstance
 
         :returns: Fetched RatePlanInstance
-        :rtype: RatePlanInstance
+        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
         """
         return self._proxy.fetch()
 
@@ -454,7 +454,7 @@ class RatePlanInstance(InstanceResource):
         :param unicode friendly_name: The friendly_name
 
         :returns: Updated RatePlanInstance
-        :rtype: RatePlanInstance
+        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
         """
         return self._proxy.update(
             unique_name=unique_name,

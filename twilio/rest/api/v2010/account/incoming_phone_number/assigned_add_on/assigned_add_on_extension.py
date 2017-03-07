@@ -24,8 +24,8 @@ class AssignedAddOnExtensionList(ListResource):
         :param resource_sid: The Phone Number id that has installed this Add-on
         :param assigned_add_on_sid: A string that uniquely identifies the assigned Add-on installation
 
-        :returns: AssignedAddOnExtensionList
-        :rtype: AssignedAddOnExtensionList
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionList
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionList
         """
         super(AssignedAddOnExtensionList, self).__init__(version)
 
@@ -116,8 +116,8 @@ class AssignedAddOnExtensionList(ListResource):
 
         :param sid: The unique Extension Sid
 
-        :returns: AssignedAddOnExtensionContext
-        :rtype: AssignedAddOnExtensionContext
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionContext
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionContext
         """
         return AssignedAddOnExtensionContext(
             self._version,
@@ -133,8 +133,8 @@ class AssignedAddOnExtensionList(ListResource):
 
         :param sid: The unique Extension Sid
 
-        :returns: AssignedAddOnExtensionContext
-        :rtype: AssignedAddOnExtensionContext
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionContext
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionContext
         """
         return AssignedAddOnExtensionContext(
             self._version,
@@ -166,8 +166,8 @@ class AssignedAddOnExtensionPage(Page):
         :param resource_sid: The Phone Number id that has installed this Add-on
         :param assigned_add_on_sid: A string that uniquely identifies the assigned Add-on installation
 
-        :returns: AssignedAddOnExtensionPage
-        :rtype: AssignedAddOnExtensionPage
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionPage
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionPage
         """
         super(AssignedAddOnExtensionPage, self).__init__(version, response)
 
@@ -180,8 +180,8 @@ class AssignedAddOnExtensionPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: AssignedAddOnExtensionInstance
-        :rtype: AssignedAddOnExtensionInstance
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance
         """
         return AssignedAddOnExtensionInstance(
             self._version,
@@ -214,8 +214,8 @@ class AssignedAddOnExtensionContext(InstanceContext):
         :param assigned_add_on_sid: The assigned_add_on_sid
         :param sid: The unique Extension Sid
 
-        :returns: AssignedAddOnExtensionContext
-        :rtype: AssignedAddOnExtensionContext
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionContext
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionContext
         """
         super(AssignedAddOnExtensionContext, self).__init__(version)
 
@@ -233,7 +233,7 @@ class AssignedAddOnExtensionContext(InstanceContext):
         Fetch a AssignedAddOnExtensionInstance
 
         :returns: Fetched AssignedAddOnExtensionInstance
-        :rtype: AssignedAddOnExtensionInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance
         """
         params = values.of({})
 
@@ -270,8 +270,8 @@ class AssignedAddOnExtensionInstance(InstanceResource):
         """
         Initialize the AssignedAddOnExtensionInstance
 
-        :returns: AssignedAddOnExtensionInstance
-        :rtype: AssignedAddOnExtensionInstance
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance
         """
         super(AssignedAddOnExtensionInstance, self).__init__(version)
 
@@ -304,7 +304,7 @@ class AssignedAddOnExtensionInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: AssignedAddOnExtensionContext for this AssignedAddOnExtensionInstance
-        :rtype: AssignedAddOnExtensionContext
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionContext
         """
         if self._context is None:
             self._context = AssignedAddOnExtensionContext(
@@ -393,7 +393,7 @@ class AssignedAddOnExtensionInstance(InstanceResource):
         Fetch a AssignedAddOnExtensionInstance
 
         :returns: Fetched AssignedAddOnExtensionInstance
-        :rtype: AssignedAddOnExtensionInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance
         """
         return self._proxy.fetch()
 

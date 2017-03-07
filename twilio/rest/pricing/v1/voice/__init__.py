@@ -21,8 +21,8 @@ class VoiceList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: VoiceList
-        :rtype: VoiceList
+        :returns: twilio.rest.pricing.v1.voice.VoiceList
+        :rtype: twilio.rest.pricing.v1.voice.VoiceList
         """
         super(VoiceList, self).__init__(version)
 
@@ -38,8 +38,8 @@ class VoiceList(ListResource):
         """
         Access the numbers
 
-        :returns: NumberList
-        :rtype: NumberList
+        :returns: twilio.rest.pricing.v1.voice.number.NumberList
+        :rtype: twilio.rest.pricing.v1.voice.number.NumberList
         """
         if self._numbers is None:
             self._numbers = NumberList(
@@ -52,8 +52,8 @@ class VoiceList(ListResource):
         """
         Access the countries
 
-        :returns: CountryList
-        :rtype: CountryList
+        :returns: twilio.rest.pricing.v1.voice.country.CountryList
+        :rtype: twilio.rest.pricing.v1.voice.country.CountryList
         """
         if self._countries is None:
             self._countries = CountryList(
@@ -80,8 +80,8 @@ class VoicePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: VoicePage
-        :rtype: VoicePage
+        :returns: twilio.rest.pricing.v1.voice.VoicePage
+        :rtype: twilio.rest.pricing.v1.voice.VoicePage
         """
         super(VoicePage, self).__init__(version, response)
 
@@ -94,8 +94,8 @@ class VoicePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: VoiceInstance
-        :rtype: VoiceInstance
+        :returns: twilio.rest.pricing.v1.voice.VoiceInstance
+        :rtype: twilio.rest.pricing.v1.voice.VoiceInstance
         """
         return VoiceInstance(
             self._version,
@@ -118,8 +118,8 @@ class VoiceInstance(InstanceResource):
         """
         Initialize the VoiceInstance
 
-        :returns: VoiceInstance
-        :rtype: VoiceInstance
+        :returns: twilio.rest.pricing.v1.voice.VoiceInstance
+        :rtype: twilio.rest.pricing.v1.voice.VoiceInstance
         """
         super(VoiceInstance, self).__init__(version)
 

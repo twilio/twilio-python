@@ -21,8 +21,8 @@ class NumberList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: NumberList
-        :rtype: NumberList
+        :returns: twilio.rest.pricing.v1.voice.number.NumberList
+        :rtype: twilio.rest.pricing.v1.voice.number.NumberList
         """
         super(NumberList, self).__init__(version)
 
@@ -35,8 +35,8 @@ class NumberList(ListResource):
 
         :param number: The number
 
-        :returns: NumberContext
-        :rtype: NumberContext
+        :returns: twilio.rest.pricing.v1.voice.number.NumberContext
+        :rtype: twilio.rest.pricing.v1.voice.number.NumberContext
         """
         return NumberContext(
             self._version,
@@ -49,8 +49,8 @@ class NumberList(ListResource):
 
         :param number: The number
 
-        :returns: NumberContext
-        :rtype: NumberContext
+        :returns: twilio.rest.pricing.v1.voice.number.NumberContext
+        :rtype: twilio.rest.pricing.v1.voice.number.NumberContext
         """
         return NumberContext(
             self._version,
@@ -76,8 +76,8 @@ class NumberPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: NumberPage
-        :rtype: NumberPage
+        :returns: twilio.rest.pricing.v1.voice.number.NumberPage
+        :rtype: twilio.rest.pricing.v1.voice.number.NumberPage
         """
         super(NumberPage, self).__init__(version, response)
 
@@ -90,8 +90,8 @@ class NumberPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: NumberInstance
-        :rtype: NumberInstance
+        :returns: twilio.rest.pricing.v1.voice.number.NumberInstance
+        :rtype: twilio.rest.pricing.v1.voice.number.NumberInstance
         """
         return NumberInstance(
             self._version,
@@ -117,8 +117,8 @@ class NumberContext(InstanceContext):
         :param Version version: Version that contains the resource
         :param number: The number
 
-        :returns: NumberContext
-        :rtype: NumberContext
+        :returns: twilio.rest.pricing.v1.voice.number.NumberContext
+        :rtype: twilio.rest.pricing.v1.voice.number.NumberContext
         """
         super(NumberContext, self).__init__(version)
 
@@ -133,7 +133,7 @@ class NumberContext(InstanceContext):
         Fetch a NumberInstance
 
         :returns: Fetched NumberInstance
-        :rtype: NumberInstance
+        :rtype: twilio.rest.pricing.v1.voice.number.NumberInstance
         """
         params = values.of({})
 
@@ -166,8 +166,8 @@ class NumberInstance(InstanceResource):
         """
         Initialize the NumberInstance
 
-        :returns: NumberInstance
-        :rtype: NumberInstance
+        :returns: twilio.rest.pricing.v1.voice.number.NumberInstance
+        :rtype: twilio.rest.pricing.v1.voice.number.NumberInstance
         """
         super(NumberInstance, self).__init__(version)
 
@@ -195,7 +195,7 @@ class NumberInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: NumberContext for this NumberInstance
-        :rtype: NumberContext
+        :rtype: twilio.rest.pricing.v1.voice.number.NumberContext
         """
         if self._context is None:
             self._context = NumberContext(
@@ -265,7 +265,7 @@ class NumberInstance(InstanceResource):
         Fetch a NumberInstance
 
         :returns: Fetched NumberInstance
-        :rtype: NumberInstance
+        :rtype: twilio.rest.pricing.v1.voice.number.NumberInstance
         """
         return self._proxy.fetch()
 

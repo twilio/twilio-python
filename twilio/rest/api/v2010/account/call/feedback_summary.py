@@ -24,8 +24,8 @@ class FeedbackSummaryList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: The unique id of the Account responsible for creating this Call
 
-        :returns: FeedbackSummaryList
-        :rtype: FeedbackSummaryList
+        :returns: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryList
+        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryList
         """
         super(FeedbackSummaryList, self).__init__(version)
 
@@ -47,7 +47,7 @@ class FeedbackSummaryList(ListResource):
         :param unicode status_callback_method: The status_callback_method
 
         :returns: Newly created FeedbackSummaryInstance
-        :rtype: FeedbackSummaryInstance
+        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance
         """
         data = values.of({
             'StartDate': serialize.iso8601_date(start_date),
@@ -75,8 +75,8 @@ class FeedbackSummaryList(ListResource):
 
         :param sid: The sid
 
-        :returns: FeedbackSummaryContext
-        :rtype: FeedbackSummaryContext
+        :returns: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
+        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
         """
         return FeedbackSummaryContext(
             self._version,
@@ -90,8 +90,8 @@ class FeedbackSummaryList(ListResource):
 
         :param sid: The sid
 
-        :returns: FeedbackSummaryContext
-        :rtype: FeedbackSummaryContext
+        :returns: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
+        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
         """
         return FeedbackSummaryContext(
             self._version,
@@ -119,8 +119,8 @@ class FeedbackSummaryPage(Page):
         :param Response response: Response from the API
         :param account_sid: The unique id of the Account responsible for creating this Call
 
-        :returns: FeedbackSummaryPage
-        :rtype: FeedbackSummaryPage
+        :returns: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryPage
+        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryPage
         """
         super(FeedbackSummaryPage, self).__init__(version, response)
 
@@ -133,8 +133,8 @@ class FeedbackSummaryPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: FeedbackSummaryInstance
-        :rtype: FeedbackSummaryInstance
+        :returns: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance
+        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance
         """
         return FeedbackSummaryInstance(
             self._version,
@@ -162,8 +162,8 @@ class FeedbackSummaryContext(InstanceContext):
         :param account_sid: The account_sid
         :param sid: The sid
 
-        :returns: FeedbackSummaryContext
-        :rtype: FeedbackSummaryContext
+        :returns: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
+        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
         """
         super(FeedbackSummaryContext, self).__init__(version)
 
@@ -179,7 +179,7 @@ class FeedbackSummaryContext(InstanceContext):
         Fetch a FeedbackSummaryInstance
 
         :returns: Fetched FeedbackSummaryInstance
-        :rtype: FeedbackSummaryInstance
+        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance
         """
         params = values.of({})
 
@@ -222,8 +222,8 @@ class FeedbackSummaryInstance(InstanceResource):
         """
         Initialize the FeedbackSummaryInstance
 
-        :returns: FeedbackSummaryInstance
-        :rtype: FeedbackSummaryInstance
+        :returns: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance
+        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance
         """
         super(FeedbackSummaryInstance, self).__init__(version)
 
@@ -259,7 +259,7 @@ class FeedbackSummaryInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: FeedbackSummaryContext for this FeedbackSummaryInstance
-        :rtype: FeedbackSummaryContext
+        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
         """
         if self._context is None:
             self._context = FeedbackSummaryContext(
@@ -386,7 +386,7 @@ class FeedbackSummaryInstance(InstanceResource):
         Fetch a FeedbackSummaryInstance
 
         :returns: Fetched FeedbackSummaryInstance
-        :rtype: FeedbackSummaryInstance
+        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance
         """
         return self._proxy.fetch()
 

@@ -23,8 +23,8 @@ class ActivityList(ListResource):
         :param Version version: Version that contains the resource
         :param workspace_sid: The workspace_sid
 
-        :returns: ActivityList
-        :rtype: ActivityList
+        :returns: twilio.rest.taskrouter.v1.workspace.activity.ActivityList
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityList
         """
         super(ActivityList, self).__init__(version)
 
@@ -130,7 +130,7 @@ class ActivityList(ListResource):
         :param bool available: The available
 
         :returns: Newly created ActivityInstance
-        :rtype: ActivityInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -155,8 +155,8 @@ class ActivityList(ListResource):
 
         :param sid: The sid
 
-        :returns: ActivityContext
-        :rtype: ActivityContext
+        :returns: twilio.rest.taskrouter.v1.workspace.activity.ActivityContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityContext
         """
         return ActivityContext(
             self._version,
@@ -170,8 +170,8 @@ class ActivityList(ListResource):
 
         :param sid: The sid
 
-        :returns: ActivityContext
-        :rtype: ActivityContext
+        :returns: twilio.rest.taskrouter.v1.workspace.activity.ActivityContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityContext
         """
         return ActivityContext(
             self._version,
@@ -199,8 +199,8 @@ class ActivityPage(Page):
         :param Response response: Response from the API
         :param workspace_sid: The workspace_sid
 
-        :returns: ActivityPage
-        :rtype: ActivityPage
+        :returns: twilio.rest.taskrouter.v1.workspace.activity.ActivityPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityPage
         """
         super(ActivityPage, self).__init__(version, response)
 
@@ -213,8 +213,8 @@ class ActivityPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: ActivityInstance
-        :rtype: ActivityInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
         """
         return ActivityInstance(
             self._version,
@@ -242,8 +242,8 @@ class ActivityContext(InstanceContext):
         :param workspace_sid: The workspace_sid
         :param sid: The sid
 
-        :returns: ActivityContext
-        :rtype: ActivityContext
+        :returns: twilio.rest.taskrouter.v1.workspace.activity.ActivityContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityContext
         """
         super(ActivityContext, self).__init__(version)
 
@@ -259,7 +259,7 @@ class ActivityContext(InstanceContext):
         Fetch a ActivityInstance
 
         :returns: Fetched ActivityInstance
-        :rtype: ActivityInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
         """
         params = values.of({})
 
@@ -283,7 +283,7 @@ class ActivityContext(InstanceContext):
         :param unicode friendly_name: The friendly_name
 
         :returns: Updated ActivityInstance
-        :rtype: ActivityInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -328,8 +328,8 @@ class ActivityInstance(InstanceResource):
         """
         Initialize the ActivityInstance
 
-        :returns: ActivityInstance
-        :rtype: ActivityInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
         """
         super(ActivityInstance, self).__init__(version)
 
@@ -359,7 +359,7 @@ class ActivityInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: ActivityContext for this ActivityInstance
-        :rtype: ActivityContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityContext
         """
         if self._context is None:
             self._context = ActivityContext(
@@ -438,7 +438,7 @@ class ActivityInstance(InstanceResource):
         Fetch a ActivityInstance
 
         :returns: Fetched ActivityInstance
-        :rtype: ActivityInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
         """
         return self._proxy.fetch()
 
@@ -449,7 +449,7 @@ class ActivityInstance(InstanceResource):
         :param unicode friendly_name: The friendly_name
 
         :returns: Updated ActivityInstance
-        :rtype: ActivityInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,

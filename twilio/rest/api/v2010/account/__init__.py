@@ -28,7 +28,6 @@ from twilio.rest.api.v2010.account.notification import NotificationList
 from twilio.rest.api.v2010.account.outgoing_caller_id import OutgoingCallerIdList
 from twilio.rest.api.v2010.account.queue import QueueList
 from twilio.rest.api.v2010.account.recording import RecordingList
-from twilio.rest.api.v2010.account.sandbox import SandboxList
 from twilio.rest.api.v2010.account.short_code import ShortCodeList
 from twilio.rest.api.v2010.account.signing_key import SigningKeyList
 from twilio.rest.api.v2010.account.sip import SipList
@@ -46,8 +45,8 @@ class AccountList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: AccountList
-        :rtype: AccountList
+        :returns: twilio.rest.api.v2010.account.AccountList
+        :rtype: twilio.rest.api.v2010.account.AccountList
         """
         super(AccountList, self).__init__(version)
 
@@ -62,7 +61,7 @@ class AccountList(ListResource):
         :param unicode friendly_name: A human readable description of the account
 
         :returns: Newly created AccountInstance
-        :rtype: AccountInstance
+        :rtype: twilio.rest.api.v2010.account.AccountInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -173,8 +172,8 @@ class AccountList(ListResource):
 
         :param sid: Fetch by unique Account Sid
 
-        :returns: AccountContext
-        :rtype: AccountContext
+        :returns: twilio.rest.api.v2010.account.AccountContext
+        :rtype: twilio.rest.api.v2010.account.AccountContext
         """
         return AccountContext(
             self._version,
@@ -187,8 +186,8 @@ class AccountList(ListResource):
 
         :param sid: Fetch by unique Account Sid
 
-        :returns: AccountContext
-        :rtype: AccountContext
+        :returns: twilio.rest.api.v2010.account.AccountContext
+        :rtype: twilio.rest.api.v2010.account.AccountContext
         """
         return AccountContext(
             self._version,
@@ -214,8 +213,8 @@ class AccountPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: AccountPage
-        :rtype: AccountPage
+        :returns: twilio.rest.api.v2010.account.AccountPage
+        :rtype: twilio.rest.api.v2010.account.AccountPage
         """
         super(AccountPage, self).__init__(version, response)
 
@@ -228,8 +227,8 @@ class AccountPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: AccountInstance
-        :rtype: AccountInstance
+        :returns: twilio.rest.api.v2010.account.AccountInstance
+        :rtype: twilio.rest.api.v2010.account.AccountInstance
         """
         return AccountInstance(
             self._version,
@@ -255,8 +254,8 @@ class AccountContext(InstanceContext):
         :param Version version: Version that contains the resource
         :param sid: Fetch by unique Account Sid
 
-        :returns: AccountContext
-        :rtype: AccountContext
+        :returns: twilio.rest.api.v2010.account.AccountContext
+        :rtype: twilio.rest.api.v2010.account.AccountContext
         """
         super(AccountContext, self).__init__(version)
 
@@ -283,7 +282,6 @@ class AccountContext(InstanceContext):
         self._outgoing_caller_ids = None
         self._queues = None
         self._recordings = None
-        self._sandbox = None
         self._signing_keys = None
         self._sip = None
         self._short_codes = None
@@ -297,7 +295,7 @@ class AccountContext(InstanceContext):
         Fetch a AccountInstance
 
         :returns: Fetched AccountInstance
-        :rtype: AccountInstance
+        :rtype: twilio.rest.api.v2010.account.AccountInstance
         """
         params = values.of({})
 
@@ -321,7 +319,7 @@ class AccountContext(InstanceContext):
         :param account.status status: Status to update the Account with
 
         :returns: Updated AccountInstance
-        :rtype: AccountInstance
+        :rtype: twilio.rest.api.v2010.account.AccountInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -345,8 +343,8 @@ class AccountContext(InstanceContext):
         """
         Access the addresses
 
-        :returns: AddressList
-        :rtype: AddressList
+        :returns: twilio.rest.api.v2010.account.address.AddressList
+        :rtype: twilio.rest.api.v2010.account.address.AddressList
         """
         if self._addresses is None:
             self._addresses = AddressList(
@@ -360,8 +358,8 @@ class AccountContext(InstanceContext):
         """
         Access the applications
 
-        :returns: ApplicationList
-        :rtype: ApplicationList
+        :returns: twilio.rest.api.v2010.account.application.ApplicationList
+        :rtype: twilio.rest.api.v2010.account.application.ApplicationList
         """
         if self._applications is None:
             self._applications = ApplicationList(
@@ -375,8 +373,8 @@ class AccountContext(InstanceContext):
         """
         Access the authorized_connect_apps
 
-        :returns: AuthorizedConnectAppList
-        :rtype: AuthorizedConnectAppList
+        :returns: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppList
+        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppList
         """
         if self._authorized_connect_apps is None:
             self._authorized_connect_apps = AuthorizedConnectAppList(
@@ -390,8 +388,8 @@ class AccountContext(InstanceContext):
         """
         Access the available_phone_numbers
 
-        :returns: AvailablePhoneNumberCountryList
-        :rtype: AvailablePhoneNumberCountryList
+        :returns: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryList
         """
         if self._available_phone_numbers is None:
             self._available_phone_numbers = AvailablePhoneNumberCountryList(
@@ -405,8 +403,8 @@ class AccountContext(InstanceContext):
         """
         Access the calls
 
-        :returns: CallList
-        :rtype: CallList
+        :returns: twilio.rest.api.v2010.account.call.CallList
+        :rtype: twilio.rest.api.v2010.account.call.CallList
         """
         if self._calls is None:
             self._calls = CallList(
@@ -420,8 +418,8 @@ class AccountContext(InstanceContext):
         """
         Access the conferences
 
-        :returns: ConferenceList
-        :rtype: ConferenceList
+        :returns: twilio.rest.api.v2010.account.conference.ConferenceList
+        :rtype: twilio.rest.api.v2010.account.conference.ConferenceList
         """
         if self._conferences is None:
             self._conferences = ConferenceList(
@@ -435,8 +433,8 @@ class AccountContext(InstanceContext):
         """
         Access the connect_apps
 
-        :returns: ConnectAppList
-        :rtype: ConnectAppList
+        :returns: twilio.rest.api.v2010.account.connect_app.ConnectAppList
+        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppList
         """
         if self._connect_apps is None:
             self._connect_apps = ConnectAppList(
@@ -450,8 +448,8 @@ class AccountContext(InstanceContext):
         """
         Access the incoming_phone_numbers
 
-        :returns: IncomingPhoneNumberList
-        :rtype: IncomingPhoneNumberList
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberList
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberList
         """
         if self._incoming_phone_numbers is None:
             self._incoming_phone_numbers = IncomingPhoneNumberList(
@@ -465,8 +463,8 @@ class AccountContext(InstanceContext):
         """
         Access the keys
 
-        :returns: KeyList
-        :rtype: KeyList
+        :returns: twilio.rest.api.v2010.account.key.KeyList
+        :rtype: twilio.rest.api.v2010.account.key.KeyList
         """
         if self._keys is None:
             self._keys = KeyList(
@@ -480,8 +478,8 @@ class AccountContext(InstanceContext):
         """
         Access the messages
 
-        :returns: MessageList
-        :rtype: MessageList
+        :returns: twilio.rest.api.v2010.account.message.MessageList
+        :rtype: twilio.rest.api.v2010.account.message.MessageList
         """
         if self._messages is None:
             self._messages = MessageList(
@@ -495,8 +493,8 @@ class AccountContext(InstanceContext):
         """
         Access the new_keys
 
-        :returns: NewKeyList
-        :rtype: NewKeyList
+        :returns: twilio.rest.api.v2010.account.new_key.NewKeyList
+        :rtype: twilio.rest.api.v2010.account.new_key.NewKeyList
         """
         if self._new_keys is None:
             self._new_keys = NewKeyList(
@@ -510,8 +508,8 @@ class AccountContext(InstanceContext):
         """
         Access the new_signing_keys
 
-        :returns: NewSigningKeyList
-        :rtype: NewSigningKeyList
+        :returns: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyList
+        :rtype: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyList
         """
         if self._new_signing_keys is None:
             self._new_signing_keys = NewSigningKeyList(
@@ -525,8 +523,8 @@ class AccountContext(InstanceContext):
         """
         Access the notifications
 
-        :returns: NotificationList
-        :rtype: NotificationList
+        :returns: twilio.rest.api.v2010.account.notification.NotificationList
+        :rtype: twilio.rest.api.v2010.account.notification.NotificationList
         """
         if self._notifications is None:
             self._notifications = NotificationList(
@@ -540,8 +538,8 @@ class AccountContext(InstanceContext):
         """
         Access the outgoing_caller_ids
 
-        :returns: OutgoingCallerIdList
-        :rtype: OutgoingCallerIdList
+        :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdList
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdList
         """
         if self._outgoing_caller_ids is None:
             self._outgoing_caller_ids = OutgoingCallerIdList(
@@ -555,8 +553,8 @@ class AccountContext(InstanceContext):
         """
         Access the queues
 
-        :returns: QueueList
-        :rtype: QueueList
+        :returns: twilio.rest.api.v2010.account.queue.QueueList
+        :rtype: twilio.rest.api.v2010.account.queue.QueueList
         """
         if self._queues is None:
             self._queues = QueueList(
@@ -570,8 +568,8 @@ class AccountContext(InstanceContext):
         """
         Access the recordings
 
-        :returns: RecordingList
-        :rtype: RecordingList
+        :returns: twilio.rest.api.v2010.account.recording.RecordingList
+        :rtype: twilio.rest.api.v2010.account.recording.RecordingList
         """
         if self._recordings is None:
             self._recordings = RecordingList(
@@ -581,27 +579,12 @@ class AccountContext(InstanceContext):
         return self._recordings
 
     @property
-    def sandbox(self):
-        """
-        Access the sandbox
-
-        :returns: SandboxList
-        :rtype: SandboxList
-        """
-        if self._sandbox is None:
-            self._sandbox = SandboxList(
-                self._version,
-                account_sid=self._solution['sid'],
-            )
-        return self._sandbox
-
-    @property
     def signing_keys(self):
         """
         Access the signing_keys
 
-        :returns: SigningKeyList
-        :rtype: SigningKeyList
+        :returns: twilio.rest.api.v2010.account.signing_key.SigningKeyList
+        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyList
         """
         if self._signing_keys is None:
             self._signing_keys = SigningKeyList(
@@ -615,8 +598,8 @@ class AccountContext(InstanceContext):
         """
         Access the sip
 
-        :returns: SipList
-        :rtype: SipList
+        :returns: twilio.rest.api.v2010.account.sip.SipList
+        :rtype: twilio.rest.api.v2010.account.sip.SipList
         """
         if self._sip is None:
             self._sip = SipList(
@@ -630,8 +613,8 @@ class AccountContext(InstanceContext):
         """
         Access the short_codes
 
-        :returns: ShortCodeList
-        :rtype: ShortCodeList
+        :returns: twilio.rest.api.v2010.account.short_code.ShortCodeList
+        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeList
         """
         if self._short_codes is None:
             self._short_codes = ShortCodeList(
@@ -645,8 +628,8 @@ class AccountContext(InstanceContext):
         """
         Access the tokens
 
-        :returns: TokenList
-        :rtype: TokenList
+        :returns: twilio.rest.api.v2010.account.token.TokenList
+        :rtype: twilio.rest.api.v2010.account.token.TokenList
         """
         if self._tokens is None:
             self._tokens = TokenList(
@@ -660,8 +643,8 @@ class AccountContext(InstanceContext):
         """
         Access the transcriptions
 
-        :returns: TranscriptionList
-        :rtype: TranscriptionList
+        :returns: twilio.rest.api.v2010.account.transcription.TranscriptionList
+        :rtype: twilio.rest.api.v2010.account.transcription.TranscriptionList
         """
         if self._transcriptions is None:
             self._transcriptions = TranscriptionList(
@@ -675,8 +658,8 @@ class AccountContext(InstanceContext):
         """
         Access the usage
 
-        :returns: UsageList
-        :rtype: UsageList
+        :returns: twilio.rest.api.v2010.account.usage.UsageList
+        :rtype: twilio.rest.api.v2010.account.usage.UsageList
         """
         if self._usage is None:
             self._usage = UsageList(
@@ -690,8 +673,8 @@ class AccountContext(InstanceContext):
         """
         Access the validation_requests
 
-        :returns: ValidationRequestList
-        :rtype: ValidationRequestList
+        :returns: twilio.rest.api.v2010.account.validation_request.ValidationRequestList
+        :rtype: twilio.rest.api.v2010.account.validation_request.ValidationRequestList
         """
         if self._validation_requests is None:
             self._validation_requests = ValidationRequestList(
@@ -717,8 +700,8 @@ class AccountInstance(InstanceResource):
         """
         Initialize the AccountInstance
 
-        :returns: AccountInstance
-        :rtype: AccountInstance
+        :returns: twilio.rest.api.v2010.account.AccountInstance
+        :rtype: twilio.rest.api.v2010.account.AccountInstance
         """
         super(AccountInstance, self).__init__(version)
 
@@ -749,7 +732,7 @@ class AccountInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: AccountContext for this AccountInstance
-        :rtype: AccountContext
+        :rtype: twilio.rest.api.v2010.account.AccountContext
         """
         if self._context is None:
             self._context = AccountContext(
@@ -843,7 +826,7 @@ class AccountInstance(InstanceResource):
         Fetch a AccountInstance
 
         :returns: Fetched AccountInstance
-        :rtype: AccountInstance
+        :rtype: twilio.rest.api.v2010.account.AccountInstance
         """
         return self._proxy.fetch()
 
@@ -855,7 +838,7 @@ class AccountInstance(InstanceResource):
         :param account.status status: Status to update the Account with
 
         :returns: Updated AccountInstance
-        :rtype: AccountInstance
+        :rtype: twilio.rest.api.v2010.account.AccountInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
@@ -867,8 +850,8 @@ class AccountInstance(InstanceResource):
         """
         Access the addresses
 
-        :returns: addresses
-        :rtype: addresses
+        :returns: twilio.rest.api.v2010.account.address.AddressList
+        :rtype: twilio.rest.api.v2010.account.address.AddressList
         """
         return self._proxy.addresses
 
@@ -877,8 +860,8 @@ class AccountInstance(InstanceResource):
         """
         Access the applications
 
-        :returns: applications
-        :rtype: applications
+        :returns: twilio.rest.api.v2010.account.application.ApplicationList
+        :rtype: twilio.rest.api.v2010.account.application.ApplicationList
         """
         return self._proxy.applications
 
@@ -887,8 +870,8 @@ class AccountInstance(InstanceResource):
         """
         Access the authorized_connect_apps
 
-        :returns: authorized_connect_apps
-        :rtype: authorized_connect_apps
+        :returns: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppList
+        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppList
         """
         return self._proxy.authorized_connect_apps
 
@@ -897,8 +880,8 @@ class AccountInstance(InstanceResource):
         """
         Access the available_phone_numbers
 
-        :returns: available_phone_numbers
-        :rtype: available_phone_numbers
+        :returns: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryList
         """
         return self._proxy.available_phone_numbers
 
@@ -907,8 +890,8 @@ class AccountInstance(InstanceResource):
         """
         Access the calls
 
-        :returns: calls
-        :rtype: calls
+        :returns: twilio.rest.api.v2010.account.call.CallList
+        :rtype: twilio.rest.api.v2010.account.call.CallList
         """
         return self._proxy.calls
 
@@ -917,8 +900,8 @@ class AccountInstance(InstanceResource):
         """
         Access the conferences
 
-        :returns: conferences
-        :rtype: conferences
+        :returns: twilio.rest.api.v2010.account.conference.ConferenceList
+        :rtype: twilio.rest.api.v2010.account.conference.ConferenceList
         """
         return self._proxy.conferences
 
@@ -927,8 +910,8 @@ class AccountInstance(InstanceResource):
         """
         Access the connect_apps
 
-        :returns: connect_apps
-        :rtype: connect_apps
+        :returns: twilio.rest.api.v2010.account.connect_app.ConnectAppList
+        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppList
         """
         return self._proxy.connect_apps
 
@@ -937,8 +920,8 @@ class AccountInstance(InstanceResource):
         """
         Access the incoming_phone_numbers
 
-        :returns: incoming_phone_numbers
-        :rtype: incoming_phone_numbers
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberList
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberList
         """
         return self._proxy.incoming_phone_numbers
 
@@ -947,8 +930,8 @@ class AccountInstance(InstanceResource):
         """
         Access the keys
 
-        :returns: keys
-        :rtype: keys
+        :returns: twilio.rest.api.v2010.account.key.KeyList
+        :rtype: twilio.rest.api.v2010.account.key.KeyList
         """
         return self._proxy.keys
 
@@ -957,8 +940,8 @@ class AccountInstance(InstanceResource):
         """
         Access the messages
 
-        :returns: messages
-        :rtype: messages
+        :returns: twilio.rest.api.v2010.account.message.MessageList
+        :rtype: twilio.rest.api.v2010.account.message.MessageList
         """
         return self._proxy.messages
 
@@ -967,8 +950,8 @@ class AccountInstance(InstanceResource):
         """
         Access the new_keys
 
-        :returns: new_keys
-        :rtype: new_keys
+        :returns: twilio.rest.api.v2010.account.new_key.NewKeyList
+        :rtype: twilio.rest.api.v2010.account.new_key.NewKeyList
         """
         return self._proxy.new_keys
 
@@ -977,8 +960,8 @@ class AccountInstance(InstanceResource):
         """
         Access the new_signing_keys
 
-        :returns: new_signing_keys
-        :rtype: new_signing_keys
+        :returns: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyList
+        :rtype: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyList
         """
         return self._proxy.new_signing_keys
 
@@ -987,8 +970,8 @@ class AccountInstance(InstanceResource):
         """
         Access the notifications
 
-        :returns: notifications
-        :rtype: notifications
+        :returns: twilio.rest.api.v2010.account.notification.NotificationList
+        :rtype: twilio.rest.api.v2010.account.notification.NotificationList
         """
         return self._proxy.notifications
 
@@ -997,8 +980,8 @@ class AccountInstance(InstanceResource):
         """
         Access the outgoing_caller_ids
 
-        :returns: outgoing_caller_ids
-        :rtype: outgoing_caller_ids
+        :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdList
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdList
         """
         return self._proxy.outgoing_caller_ids
 
@@ -1007,8 +990,8 @@ class AccountInstance(InstanceResource):
         """
         Access the queues
 
-        :returns: queues
-        :rtype: queues
+        :returns: twilio.rest.api.v2010.account.queue.QueueList
+        :rtype: twilio.rest.api.v2010.account.queue.QueueList
         """
         return self._proxy.queues
 
@@ -1017,28 +1000,18 @@ class AccountInstance(InstanceResource):
         """
         Access the recordings
 
-        :returns: recordings
-        :rtype: recordings
+        :returns: twilio.rest.api.v2010.account.recording.RecordingList
+        :rtype: twilio.rest.api.v2010.account.recording.RecordingList
         """
         return self._proxy.recordings
-
-    @property
-    def sandbox(self):
-        """
-        Access the sandbox
-
-        :returns: sandbox
-        :rtype: sandbox
-        """
-        return self._proxy.sandbox
 
     @property
     def signing_keys(self):
         """
         Access the signing_keys
 
-        :returns: signing_keys
-        :rtype: signing_keys
+        :returns: twilio.rest.api.v2010.account.signing_key.SigningKeyList
+        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyList
         """
         return self._proxy.signing_keys
 
@@ -1047,8 +1020,8 @@ class AccountInstance(InstanceResource):
         """
         Access the sip
 
-        :returns: sip
-        :rtype: sip
+        :returns: twilio.rest.api.v2010.account.sip.SipList
+        :rtype: twilio.rest.api.v2010.account.sip.SipList
         """
         return self._proxy.sip
 
@@ -1057,8 +1030,8 @@ class AccountInstance(InstanceResource):
         """
         Access the short_codes
 
-        :returns: short_codes
-        :rtype: short_codes
+        :returns: twilio.rest.api.v2010.account.short_code.ShortCodeList
+        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeList
         """
         return self._proxy.short_codes
 
@@ -1067,8 +1040,8 @@ class AccountInstance(InstanceResource):
         """
         Access the tokens
 
-        :returns: tokens
-        :rtype: tokens
+        :returns: twilio.rest.api.v2010.account.token.TokenList
+        :rtype: twilio.rest.api.v2010.account.token.TokenList
         """
         return self._proxy.tokens
 
@@ -1077,8 +1050,8 @@ class AccountInstance(InstanceResource):
         """
         Access the transcriptions
 
-        :returns: transcriptions
-        :rtype: transcriptions
+        :returns: twilio.rest.api.v2010.account.transcription.TranscriptionList
+        :rtype: twilio.rest.api.v2010.account.transcription.TranscriptionList
         """
         return self._proxy.transcriptions
 
@@ -1087,8 +1060,8 @@ class AccountInstance(InstanceResource):
         """
         Access the usage
 
-        :returns: usage
-        :rtype: usage
+        :returns: twilio.rest.api.v2010.account.usage.UsageList
+        :rtype: twilio.rest.api.v2010.account.usage.UsageList
         """
         return self._proxy.usage
 
@@ -1097,8 +1070,8 @@ class AccountInstance(InstanceResource):
         """
         Access the validation_requests
 
-        :returns: validation_requests
-        :rtype: validation_requests
+        :returns: twilio.rest.api.v2010.account.validation_request.ValidationRequestList
+        :rtype: twilio.rest.api.v2010.account.validation_request.ValidationRequestList
         """
         return self._proxy.validation_requests
 

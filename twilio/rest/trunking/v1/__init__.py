@@ -26,7 +26,7 @@ class V1(Version):
     @property
     def trunks(self):
         """
-        :rtype: TrunkList
+        :rtype: twilio.rest.trunking.v1.trunk.TrunkList
         """
         if self._trunks is None:
             self._trunks = TrunkList(self)

@@ -22,8 +22,8 @@ class InstalledAddOnExtensionList(ListResource):
         :param Version version: Version that contains the resource
         :param installed_add_on_sid: The installed_add_on_sid
 
-        :returns: InstalledAddOnExtensionList
-        :rtype: InstalledAddOnExtensionList
+        :returns: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionList
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionList
         """
         super(InstalledAddOnExtensionList, self).__init__(version)
 
@@ -112,8 +112,8 @@ class InstalledAddOnExtensionList(ListResource):
 
         :param sid: The unique Extension Sid
 
-        :returns: InstalledAddOnExtensionContext
-        :rtype: InstalledAddOnExtensionContext
+        :returns: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionContext
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionContext
         """
         return InstalledAddOnExtensionContext(
             self._version,
@@ -127,8 +127,8 @@ class InstalledAddOnExtensionList(ListResource):
 
         :param sid: The unique Extension Sid
 
-        :returns: InstalledAddOnExtensionContext
-        :rtype: InstalledAddOnExtensionContext
+        :returns: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionContext
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionContext
         """
         return InstalledAddOnExtensionContext(
             self._version,
@@ -156,8 +156,8 @@ class InstalledAddOnExtensionPage(Page):
         :param Response response: Response from the API
         :param installed_add_on_sid: The installed_add_on_sid
 
-        :returns: InstalledAddOnExtensionPage
-        :rtype: InstalledAddOnExtensionPage
+        :returns: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionPage
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionPage
         """
         super(InstalledAddOnExtensionPage, self).__init__(version, response)
 
@@ -170,8 +170,8 @@ class InstalledAddOnExtensionPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: InstalledAddOnExtensionInstance
-        :rtype: InstalledAddOnExtensionInstance
+        :returns: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
         """
         return InstalledAddOnExtensionInstance(
             self._version,
@@ -199,8 +199,8 @@ class InstalledAddOnExtensionContext(InstanceContext):
         :param installed_add_on_sid: The installed_add_on_sid
         :param sid: The unique Extension Sid
 
-        :returns: InstalledAddOnExtensionContext
-        :rtype: InstalledAddOnExtensionContext
+        :returns: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionContext
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionContext
         """
         super(InstalledAddOnExtensionContext, self).__init__(version)
 
@@ -216,7 +216,7 @@ class InstalledAddOnExtensionContext(InstanceContext):
         Fetch a InstalledAddOnExtensionInstance
 
         :returns: Fetched InstalledAddOnExtensionInstance
-        :rtype: InstalledAddOnExtensionInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
         """
         params = values.of({})
 
@@ -240,7 +240,7 @@ class InstalledAddOnExtensionContext(InstanceContext):
         :param bool enabled: A Boolean indicating if the Extension will be invoked
 
         :returns: Updated InstalledAddOnExtensionInstance
-        :rtype: InstalledAddOnExtensionInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
         """
         data = values.of({
             'Enabled': enabled,
@@ -276,8 +276,8 @@ class InstalledAddOnExtensionInstance(InstanceResource):
         """
         Initialize the InstalledAddOnExtensionInstance
 
-        :returns: InstalledAddOnExtensionInstance
-        :rtype: InstalledAddOnExtensionInstance
+        :returns: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
         """
         super(InstalledAddOnExtensionInstance, self).__init__(version)
 
@@ -306,7 +306,7 @@ class InstalledAddOnExtensionInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: InstalledAddOnExtensionContext for this InstalledAddOnExtensionInstance
-        :rtype: InstalledAddOnExtensionContext
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionContext
         """
         if self._context is None:
             self._context = InstalledAddOnExtensionContext(
@@ -377,7 +377,7 @@ class InstalledAddOnExtensionInstance(InstanceResource):
         Fetch a InstalledAddOnExtensionInstance
 
         :returns: Fetched InstalledAddOnExtensionInstance
-        :rtype: InstalledAddOnExtensionInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
         """
         return self._proxy.fetch()
 
@@ -388,7 +388,7 @@ class InstalledAddOnExtensionInstance(InstanceResource):
         :param bool enabled: A Boolean indicating if the Extension will be invoked
 
         :returns: Updated InstalledAddOnExtensionInstance
-        :rtype: InstalledAddOnExtensionInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
         """
         return self._proxy.update(
             enabled,

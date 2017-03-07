@@ -21,8 +21,8 @@ class CountryList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: CountryList
-        :rtype: CountryList
+        :returns: twilio.rest.pricing.v1.phone_number.country.CountryList
+        :rtype: twilio.rest.pricing.v1.phone_number.country.CountryList
         """
         super(CountryList, self).__init__(version)
 
@@ -109,8 +109,8 @@ class CountryList(ListResource):
 
         :param iso_country: The iso_country
 
-        :returns: CountryContext
-        :rtype: CountryContext
+        :returns: twilio.rest.pricing.v1.phone_number.country.CountryContext
+        :rtype: twilio.rest.pricing.v1.phone_number.country.CountryContext
         """
         return CountryContext(
             self._version,
@@ -123,8 +123,8 @@ class CountryList(ListResource):
 
         :param iso_country: The iso_country
 
-        :returns: CountryContext
-        :rtype: CountryContext
+        :returns: twilio.rest.pricing.v1.phone_number.country.CountryContext
+        :rtype: twilio.rest.pricing.v1.phone_number.country.CountryContext
         """
         return CountryContext(
             self._version,
@@ -150,8 +150,8 @@ class CountryPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: CountryPage
-        :rtype: CountryPage
+        :returns: twilio.rest.pricing.v1.phone_number.country.CountryPage
+        :rtype: twilio.rest.pricing.v1.phone_number.country.CountryPage
         """
         super(CountryPage, self).__init__(version, response)
 
@@ -164,8 +164,8 @@ class CountryPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: CountryInstance
-        :rtype: CountryInstance
+        :returns: twilio.rest.pricing.v1.phone_number.country.CountryInstance
+        :rtype: twilio.rest.pricing.v1.phone_number.country.CountryInstance
         """
         return CountryInstance(
             self._version,
@@ -191,8 +191,8 @@ class CountryContext(InstanceContext):
         :param Version version: Version that contains the resource
         :param iso_country: The iso_country
 
-        :returns: CountryContext
-        :rtype: CountryContext
+        :returns: twilio.rest.pricing.v1.phone_number.country.CountryContext
+        :rtype: twilio.rest.pricing.v1.phone_number.country.CountryContext
         """
         super(CountryContext, self).__init__(version)
 
@@ -207,7 +207,7 @@ class CountryContext(InstanceContext):
         Fetch a CountryInstance
 
         :returns: Fetched CountryInstance
-        :rtype: CountryInstance
+        :rtype: twilio.rest.pricing.v1.phone_number.country.CountryInstance
         """
         params = values.of({})
 
@@ -240,8 +240,8 @@ class CountryInstance(InstanceResource):
         """
         Initialize the CountryInstance
 
-        :returns: CountryInstance
-        :rtype: CountryInstance
+        :returns: twilio.rest.pricing.v1.phone_number.country.CountryInstance
+        :rtype: twilio.rest.pricing.v1.phone_number.country.CountryInstance
         """
         super(CountryInstance, self).__init__(version)
 
@@ -267,7 +267,7 @@ class CountryInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: CountryContext for this CountryInstance
-        :rtype: CountryContext
+        :rtype: twilio.rest.pricing.v1.phone_number.country.CountryContext
         """
         if self._context is None:
             self._context = CountryContext(
@@ -321,7 +321,7 @@ class CountryInstance(InstanceResource):
         Fetch a CountryInstance
 
         :returns: Fetched CountryInstance
-        :rtype: CountryInstance
+        :rtype: twilio.rest.pricing.v1.phone_number.country.CountryInstance
         """
         return self._proxy.fetch()
 

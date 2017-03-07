@@ -30,7 +30,7 @@ class Lookups(Domain):
     def v1(self):
         """
         :returns: Version v1 of lookups
-        :rtype: V1
+        :rtype: twilio.rest.lookups.v1.V1
         """
         if self._v1 is None:
             self._v1 = V1(self)
@@ -39,7 +39,7 @@ class Lookups(Domain):
     @property
     def phone_numbers(self):
         """
-        :rtype: PhoneNumberList
+        :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberList
         """
         return self.v1.phone_numbers
 

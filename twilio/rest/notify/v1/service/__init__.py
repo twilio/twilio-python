@@ -24,8 +24,8 @@ class ServiceList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: ServiceList
-        :rtype: ServiceList
+        :returns: twilio.rest.notify.v1.service.ServiceList
+        :rtype: twilio.rest.notify.v1.service.ServiceList
         """
         super(ServiceList, self).__init__(version)
 
@@ -54,7 +54,7 @@ class ServiceList(ListResource):
         :param unicode default_fcm_notification_protocol_version: The default_fcm_notification_protocol_version
 
         :returns: Newly created ServiceInstance
-        :rtype: ServiceInstance
+        :rtype: twilio.rest.notify.v1.service.ServiceInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -164,8 +164,8 @@ class ServiceList(ListResource):
 
         :param sid: The sid
 
-        :returns: ServiceContext
-        :rtype: ServiceContext
+        :returns: twilio.rest.notify.v1.service.ServiceContext
+        :rtype: twilio.rest.notify.v1.service.ServiceContext
         """
         return ServiceContext(
             self._version,
@@ -178,8 +178,8 @@ class ServiceList(ListResource):
 
         :param sid: The sid
 
-        :returns: ServiceContext
-        :rtype: ServiceContext
+        :returns: twilio.rest.notify.v1.service.ServiceContext
+        :rtype: twilio.rest.notify.v1.service.ServiceContext
         """
         return ServiceContext(
             self._version,
@@ -205,8 +205,8 @@ class ServicePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: ServicePage
-        :rtype: ServicePage
+        :returns: twilio.rest.notify.v1.service.ServicePage
+        :rtype: twilio.rest.notify.v1.service.ServicePage
         """
         super(ServicePage, self).__init__(version, response)
 
@@ -219,8 +219,8 @@ class ServicePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: ServiceInstance
-        :rtype: ServiceInstance
+        :returns: twilio.rest.notify.v1.service.ServiceInstance
+        :rtype: twilio.rest.notify.v1.service.ServiceInstance
         """
         return ServiceInstance(
             self._version,
@@ -246,8 +246,8 @@ class ServiceContext(InstanceContext):
         :param Version version: Version that contains the resource
         :param sid: The sid
 
-        :returns: ServiceContext
-        :rtype: ServiceContext
+        :returns: twilio.rest.notify.v1.service.ServiceContext
+        :rtype: twilio.rest.notify.v1.service.ServiceContext
         """
         super(ServiceContext, self).__init__(version)
 
@@ -275,7 +275,7 @@ class ServiceContext(InstanceContext):
         Fetch a ServiceInstance
 
         :returns: Fetched ServiceInstance
-        :rtype: ServiceInstance
+        :rtype: twilio.rest.notify.v1.service.ServiceInstance
         """
         params = values.of({})
 
@@ -312,7 +312,7 @@ class ServiceContext(InstanceContext):
         :param unicode default_fcm_notification_protocol_version: The default_fcm_notification_protocol_version
 
         :returns: Updated ServiceInstance
-        :rtype: ServiceInstance
+        :rtype: twilio.rest.notify.v1.service.ServiceInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -343,8 +343,8 @@ class ServiceContext(InstanceContext):
         """
         Access the bindings
 
-        :returns: BindingList
-        :rtype: BindingList
+        :returns: twilio.rest.notify.v1.service.binding.BindingList
+        :rtype: twilio.rest.notify.v1.service.binding.BindingList
         """
         if self._bindings is None:
             self._bindings = BindingList(
@@ -358,8 +358,8 @@ class ServiceContext(InstanceContext):
         """
         Access the notifications
 
-        :returns: NotificationList
-        :rtype: NotificationList
+        :returns: twilio.rest.notify.v1.service.notification.NotificationList
+        :rtype: twilio.rest.notify.v1.service.notification.NotificationList
         """
         if self._notifications is None:
             self._notifications = NotificationList(
@@ -385,8 +385,8 @@ class ServiceInstance(InstanceResource):
         """
         Initialize the ServiceInstance
 
-        :returns: ServiceInstance
-        :rtype: ServiceInstance
+        :returns: twilio.rest.notify.v1.service.ServiceInstance
+        :rtype: twilio.rest.notify.v1.service.ServiceInstance
         """
         super(ServiceInstance, self).__init__(version)
 
@@ -422,7 +422,7 @@ class ServiceInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: ServiceContext for this ServiceInstance
-        :rtype: ServiceContext
+        :rtype: twilio.rest.notify.v1.service.ServiceContext
         """
         if self._context is None:
             self._context = ServiceContext(
@@ -565,7 +565,7 @@ class ServiceInstance(InstanceResource):
         Fetch a ServiceInstance
 
         :returns: Fetched ServiceInstance
-        :rtype: ServiceInstance
+        :rtype: twilio.rest.notify.v1.service.ServiceInstance
         """
         return self._proxy.fetch()
 
@@ -590,7 +590,7 @@ class ServiceInstance(InstanceResource):
         :param unicode default_fcm_notification_protocol_version: The default_fcm_notification_protocol_version
 
         :returns: Updated ServiceInstance
-        :rtype: ServiceInstance
+        :rtype: twilio.rest.notify.v1.service.ServiceInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
@@ -609,8 +609,8 @@ class ServiceInstance(InstanceResource):
         """
         Access the bindings
 
-        :returns: bindings
-        :rtype: bindings
+        :returns: twilio.rest.notify.v1.service.binding.BindingList
+        :rtype: twilio.rest.notify.v1.service.binding.BindingList
         """
         return self._proxy.bindings
 
@@ -619,8 +619,8 @@ class ServiceInstance(InstanceResource):
         """
         Access the notifications
 
-        :returns: notifications
-        :rtype: notifications
+        :returns: twilio.rest.notify.v1.service.notification.NotificationList
+        :rtype: twilio.rest.notify.v1.service.notification.NotificationList
         """
         return self._proxy.notifications
 

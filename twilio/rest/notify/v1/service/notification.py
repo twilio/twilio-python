@@ -22,8 +22,8 @@ class NotificationList(ListResource):
         :param Version version: Version that contains the resource
         :param service_sid: The service_sid
 
-        :returns: NotificationList
-        :rtype: NotificationList
+        :returns: twilio.rest.notify.v1.service.notification.NotificationList
+        :rtype: twilio.rest.notify.v1.service.notification.NotificationList
         """
         super(NotificationList, self).__init__(version)
 
@@ -57,7 +57,7 @@ class NotificationList(ListResource):
         :param unicode tag: The tag
 
         :returns: Newly created NotificationInstance
-        :rtype: NotificationInstance
+        :rtype: twilio.rest.notify.v1.service.notification.NotificationInstance
         """
         data = values.of({
             'Identity': identity,
@@ -108,8 +108,8 @@ class NotificationPage(Page):
         :param Response response: Response from the API
         :param service_sid: The service_sid
 
-        :returns: NotificationPage
-        :rtype: NotificationPage
+        :returns: twilio.rest.notify.v1.service.notification.NotificationPage
+        :rtype: twilio.rest.notify.v1.service.notification.NotificationPage
         """
         super(NotificationPage, self).__init__(version, response)
 
@@ -122,8 +122,8 @@ class NotificationPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: NotificationInstance
-        :rtype: NotificationInstance
+        :returns: twilio.rest.notify.v1.service.notification.NotificationInstance
+        :rtype: twilio.rest.notify.v1.service.notification.NotificationInstance
         """
         return NotificationInstance(
             self._version,
@@ -147,8 +147,8 @@ class NotificationInstance(InstanceResource):
         """
         Initialize the NotificationInstance
 
-        :returns: NotificationInstance
-        :rtype: NotificationInstance
+        :returns: twilio.rest.notify.v1.service.notification.NotificationInstance
+        :rtype: twilio.rest.notify.v1.service.notification.NotificationInstance
         """
         super(NotificationInstance, self).__init__(version)
 

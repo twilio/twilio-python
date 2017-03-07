@@ -25,8 +25,8 @@ class ConferenceList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: The unique sid that identifies this account
 
-        :returns: ConferenceList
-        :rtype: ConferenceList
+        :returns: twilio.rest.api.v2010.account.conference.ConferenceList
+        :rtype: twilio.rest.api.v2010.account.conference.ConferenceList
         """
         super(ConferenceList, self).__init__(version)
 
@@ -175,8 +175,8 @@ class ConferenceList(ListResource):
 
         :param sid: Fetch by unique conference Sid
 
-        :returns: ConferenceContext
-        :rtype: ConferenceContext
+        :returns: twilio.rest.api.v2010.account.conference.ConferenceContext
+        :rtype: twilio.rest.api.v2010.account.conference.ConferenceContext
         """
         return ConferenceContext(
             self._version,
@@ -190,8 +190,8 @@ class ConferenceList(ListResource):
 
         :param sid: Fetch by unique conference Sid
 
-        :returns: ConferenceContext
-        :rtype: ConferenceContext
+        :returns: twilio.rest.api.v2010.account.conference.ConferenceContext
+        :rtype: twilio.rest.api.v2010.account.conference.ConferenceContext
         """
         return ConferenceContext(
             self._version,
@@ -219,8 +219,8 @@ class ConferencePage(Page):
         :param Response response: Response from the API
         :param account_sid: The unique sid that identifies this account
 
-        :returns: ConferencePage
-        :rtype: ConferencePage
+        :returns: twilio.rest.api.v2010.account.conference.ConferencePage
+        :rtype: twilio.rest.api.v2010.account.conference.ConferencePage
         """
         super(ConferencePage, self).__init__(version, response)
 
@@ -233,8 +233,8 @@ class ConferencePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: ConferenceInstance
-        :rtype: ConferenceInstance
+        :returns: twilio.rest.api.v2010.account.conference.ConferenceInstance
+        :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
         """
         return ConferenceInstance(
             self._version,
@@ -262,8 +262,8 @@ class ConferenceContext(InstanceContext):
         :param account_sid: The account_sid
         :param sid: Fetch by unique conference Sid
 
-        :returns: ConferenceContext
-        :rtype: ConferenceContext
+        :returns: twilio.rest.api.v2010.account.conference.ConferenceContext
+        :rtype: twilio.rest.api.v2010.account.conference.ConferenceContext
         """
         super(ConferenceContext, self).__init__(version)
 
@@ -282,7 +282,7 @@ class ConferenceContext(InstanceContext):
         Fetch a ConferenceInstance
 
         :returns: Fetched ConferenceInstance
-        :rtype: ConferenceInstance
+        :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
         """
         params = values.of({})
 
@@ -306,7 +306,7 @@ class ConferenceContext(InstanceContext):
         :param conference.update_status status: The status
 
         :returns: Updated ConferenceInstance
-        :rtype: ConferenceInstance
+        :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
         """
         data = values.of({
             'Status': status,
@@ -330,8 +330,8 @@ class ConferenceContext(InstanceContext):
         """
         Access the participants
 
-        :returns: ParticipantList
-        :rtype: ParticipantList
+        :returns: twilio.rest.api.v2010.account.conference.participant.ParticipantList
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantList
         """
         if self._participants is None:
             self._participants = ParticipantList(
@@ -358,8 +358,8 @@ class ConferenceInstance(InstanceResource):
         """
         Initialize the ConferenceInstance
 
-        :returns: ConferenceInstance
-        :rtype: ConferenceInstance
+        :returns: twilio.rest.api.v2010.account.conference.ConferenceInstance
+        :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
         """
         super(ConferenceInstance, self).__init__(version)
 
@@ -391,7 +391,7 @@ class ConferenceInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: ConferenceContext for this ConferenceInstance
-        :rtype: ConferenceContext
+        :rtype: twilio.rest.api.v2010.account.conference.ConferenceContext
         """
         if self._context is None:
             self._context = ConferenceContext(
@@ -486,7 +486,7 @@ class ConferenceInstance(InstanceResource):
         Fetch a ConferenceInstance
 
         :returns: Fetched ConferenceInstance
-        :rtype: ConferenceInstance
+        :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
         """
         return self._proxy.fetch()
 
@@ -497,7 +497,7 @@ class ConferenceInstance(InstanceResource):
         :param conference.update_status status: The status
 
         :returns: Updated ConferenceInstance
-        :rtype: ConferenceInstance
+        :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
         """
         return self._proxy.update(
             status=status,
@@ -508,8 +508,8 @@ class ConferenceInstance(InstanceResource):
         """
         Access the participants
 
-        :returns: participants
-        :rtype: participants
+        :returns: twilio.rest.api.v2010.account.conference.participant.ParticipantList
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantList
         """
         return self._proxy.participants
 

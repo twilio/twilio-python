@@ -24,8 +24,8 @@ class QueueList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: The account_sid
 
-        :returns: QueueList
-        :rtype: QueueList
+        :returns: twilio.rest.api.v2010.account.queue.QueueList
+        :rtype: twilio.rest.api.v2010.account.queue.QueueList
         """
         super(QueueList, self).__init__(version)
 
@@ -116,7 +116,7 @@ class QueueList(ListResource):
         :param unicode max_size: The max number of calls allowed in the queue
 
         :returns: Newly created QueueInstance
-        :rtype: QueueInstance
+        :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -141,8 +141,8 @@ class QueueList(ListResource):
 
         :param sid: Fetch by unique queue Sid
 
-        :returns: QueueContext
-        :rtype: QueueContext
+        :returns: twilio.rest.api.v2010.account.queue.QueueContext
+        :rtype: twilio.rest.api.v2010.account.queue.QueueContext
         """
         return QueueContext(
             self._version,
@@ -156,8 +156,8 @@ class QueueList(ListResource):
 
         :param sid: Fetch by unique queue Sid
 
-        :returns: QueueContext
-        :rtype: QueueContext
+        :returns: twilio.rest.api.v2010.account.queue.QueueContext
+        :rtype: twilio.rest.api.v2010.account.queue.QueueContext
         """
         return QueueContext(
             self._version,
@@ -185,8 +185,8 @@ class QueuePage(Page):
         :param Response response: Response from the API
         :param account_sid: The account_sid
 
-        :returns: QueuePage
-        :rtype: QueuePage
+        :returns: twilio.rest.api.v2010.account.queue.QueuePage
+        :rtype: twilio.rest.api.v2010.account.queue.QueuePage
         """
         super(QueuePage, self).__init__(version, response)
 
@@ -199,8 +199,8 @@ class QueuePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: QueueInstance
-        :rtype: QueueInstance
+        :returns: twilio.rest.api.v2010.account.queue.QueueInstance
+        :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
         """
         return QueueInstance(
             self._version,
@@ -228,8 +228,8 @@ class QueueContext(InstanceContext):
         :param account_sid: The account_sid
         :param sid: Fetch by unique queue Sid
 
-        :returns: QueueContext
-        :rtype: QueueContext
+        :returns: twilio.rest.api.v2010.account.queue.QueueContext
+        :rtype: twilio.rest.api.v2010.account.queue.QueueContext
         """
         super(QueueContext, self).__init__(version)
 
@@ -248,7 +248,7 @@ class QueueContext(InstanceContext):
         Fetch a QueueInstance
 
         :returns: Fetched QueueInstance
-        :rtype: QueueInstance
+        :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
         """
         params = values.of({})
 
@@ -273,7 +273,7 @@ class QueueContext(InstanceContext):
         :param unicode max_size: The max number of members allowed in the queue
 
         :returns: Updated QueueInstance
-        :rtype: QueueInstance
+        :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -307,8 +307,8 @@ class QueueContext(InstanceContext):
         """
         Access the members
 
-        :returns: MemberList
-        :rtype: MemberList
+        :returns: twilio.rest.api.v2010.account.queue.member.MemberList
+        :rtype: twilio.rest.api.v2010.account.queue.member.MemberList
         """
         if self._members is None:
             self._members = MemberList(
@@ -335,8 +335,8 @@ class QueueInstance(InstanceResource):
         """
         Initialize the QueueInstance
 
-        :returns: QueueInstance
-        :rtype: QueueInstance
+        :returns: twilio.rest.api.v2010.account.queue.QueueInstance
+        :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
         """
         super(QueueInstance, self).__init__(version)
 
@@ -367,7 +367,7 @@ class QueueInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: QueueContext for this QueueInstance
-        :rtype: QueueContext
+        :rtype: twilio.rest.api.v2010.account.queue.QueueContext
         """
         if self._context is None:
             self._context = QueueContext(
@@ -454,7 +454,7 @@ class QueueInstance(InstanceResource):
         Fetch a QueueInstance
 
         :returns: Fetched QueueInstance
-        :rtype: QueueInstance
+        :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
         """
         return self._proxy.fetch()
 
@@ -466,7 +466,7 @@ class QueueInstance(InstanceResource):
         :param unicode max_size: The max number of members allowed in the queue
 
         :returns: Updated QueueInstance
-        :rtype: QueueInstance
+        :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
@@ -487,8 +487,8 @@ class QueueInstance(InstanceResource):
         """
         Access the members
 
-        :returns: members
-        :rtype: members
+        :returns: twilio.rest.api.v2010.account.queue.member.MemberList
+        :rtype: twilio.rest.api.v2010.account.queue.member.MemberList
         """
         return self._proxy.members
 

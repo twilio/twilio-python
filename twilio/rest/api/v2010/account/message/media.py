@@ -25,8 +25,8 @@ class MediaList(ListResource):
         :param account_sid: The unique sid that identifies this account
         :param message_sid: A string that uniquely identifies this message
 
-        :returns: MediaList
-        :rtype: MediaList
+        :returns: twilio.rest.api.v2010.account.message.media.MediaList
+        :rtype: twilio.rest.api.v2010.account.message.media.MediaList
         """
         super(MediaList, self).__init__(version)
 
@@ -137,8 +137,8 @@ class MediaList(ListResource):
 
         :param sid: Fetch by unique media Sid
 
-        :returns: MediaContext
-        :rtype: MediaContext
+        :returns: twilio.rest.api.v2010.account.message.media.MediaContext
+        :rtype: twilio.rest.api.v2010.account.message.media.MediaContext
         """
         return MediaContext(
             self._version,
@@ -153,8 +153,8 @@ class MediaList(ListResource):
 
         :param sid: Fetch by unique media Sid
 
-        :returns: MediaContext
-        :rtype: MediaContext
+        :returns: twilio.rest.api.v2010.account.message.media.MediaContext
+        :rtype: twilio.rest.api.v2010.account.message.media.MediaContext
         """
         return MediaContext(
             self._version,
@@ -184,8 +184,8 @@ class MediaPage(Page):
         :param account_sid: The unique sid that identifies this account
         :param message_sid: A string that uniquely identifies this message
 
-        :returns: MediaPage
-        :rtype: MediaPage
+        :returns: twilio.rest.api.v2010.account.message.media.MediaPage
+        :rtype: twilio.rest.api.v2010.account.message.media.MediaPage
         """
         super(MediaPage, self).__init__(version, response)
 
@@ -198,8 +198,8 @@ class MediaPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: MediaInstance
-        :rtype: MediaInstance
+        :returns: twilio.rest.api.v2010.account.message.media.MediaInstance
+        :rtype: twilio.rest.api.v2010.account.message.media.MediaInstance
         """
         return MediaInstance(
             self._version,
@@ -229,8 +229,8 @@ class MediaContext(InstanceContext):
         :param message_sid: The message_sid
         :param sid: Fetch by unique media Sid
 
-        :returns: MediaContext
-        :rtype: MediaContext
+        :returns: twilio.rest.api.v2010.account.message.media.MediaContext
+        :rtype: twilio.rest.api.v2010.account.message.media.MediaContext
         """
         super(MediaContext, self).__init__(version)
 
@@ -256,7 +256,7 @@ class MediaContext(InstanceContext):
         Fetch a MediaInstance
 
         :returns: Fetched MediaInstance
-        :rtype: MediaInstance
+        :rtype: twilio.rest.api.v2010.account.message.media.MediaInstance
         """
         params = values.of({})
 
@@ -291,8 +291,8 @@ class MediaInstance(InstanceResource):
         """
         Initialize the MediaInstance
 
-        :returns: MediaInstance
-        :rtype: MediaInstance
+        :returns: twilio.rest.api.v2010.account.message.media.MediaInstance
+        :rtype: twilio.rest.api.v2010.account.message.media.MediaInstance
         """
         super(MediaInstance, self).__init__(version)
 
@@ -322,7 +322,7 @@ class MediaInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: MediaContext for this MediaInstance
-        :rtype: MediaContext
+        :rtype: twilio.rest.api.v2010.account.message.media.MediaContext
         """
         if self._context is None:
             self._context = MediaContext(
@@ -403,7 +403,7 @@ class MediaInstance(InstanceResource):
         Fetch a MediaInstance
 
         :returns: Fetched MediaInstance
-        :rtype: MediaInstance
+        :rtype: twilio.rest.api.v2010.account.message.media.MediaInstance
         """
         return self._proxy.fetch()
 

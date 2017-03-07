@@ -24,8 +24,8 @@ class IpAccessControlListMappingList(ListResource):
         :param account_sid: The account_sid
         :param domain_sid: A string that uniquely identifies the SIP Domain
 
-        :returns: IpAccessControlListMappingList
-        :rtype: IpAccessControlListMappingList
+        :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingList
+        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingList
         """
         super(IpAccessControlListMappingList, self).__init__(version)
 
@@ -43,7 +43,7 @@ class IpAccessControlListMappingList(ListResource):
         :param unicode ip_access_control_list_sid: The ip_access_control_list_sid
 
         :returns: Newly created IpAccessControlListMappingInstance
-        :rtype: IpAccessControlListMappingInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance
         """
         data = values.of({
             'IpAccessControlListSid': ip_access_control_list_sid,
@@ -141,8 +141,8 @@ class IpAccessControlListMappingList(ListResource):
 
         :param sid: The sid
 
-        :returns: IpAccessControlListMappingContext
-        :rtype: IpAccessControlListMappingContext
+        :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingContext
+        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingContext
         """
         return IpAccessControlListMappingContext(
             self._version,
@@ -157,8 +157,8 @@ class IpAccessControlListMappingList(ListResource):
 
         :param sid: The sid
 
-        :returns: IpAccessControlListMappingContext
-        :rtype: IpAccessControlListMappingContext
+        :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingContext
+        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingContext
         """
         return IpAccessControlListMappingContext(
             self._version,
@@ -188,8 +188,8 @@ class IpAccessControlListMappingPage(Page):
         :param account_sid: The account_sid
         :param domain_sid: A string that uniquely identifies the SIP Domain
 
-        :returns: IpAccessControlListMappingPage
-        :rtype: IpAccessControlListMappingPage
+        :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingPage
+        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingPage
         """
         super(IpAccessControlListMappingPage, self).__init__(version, response)
 
@@ -202,8 +202,8 @@ class IpAccessControlListMappingPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: IpAccessControlListMappingInstance
-        :rtype: IpAccessControlListMappingInstance
+        :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance
         """
         return IpAccessControlListMappingInstance(
             self._version,
@@ -233,8 +233,8 @@ class IpAccessControlListMappingContext(InstanceContext):
         :param domain_sid: The domain_sid
         :param sid: The sid
 
-        :returns: IpAccessControlListMappingContext
-        :rtype: IpAccessControlListMappingContext
+        :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingContext
+        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingContext
         """
         super(IpAccessControlListMappingContext, self).__init__(version)
 
@@ -251,7 +251,7 @@ class IpAccessControlListMappingContext(InstanceContext):
         Fetch a IpAccessControlListMappingInstance
 
         :returns: Fetched IpAccessControlListMappingInstance
-        :rtype: IpAccessControlListMappingInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance
         """
         params = values.of({})
 
@@ -295,8 +295,8 @@ class IpAccessControlListMappingInstance(InstanceResource):
         """
         Initialize the IpAccessControlListMappingInstance
 
-        :returns: IpAccessControlListMappingInstance
-        :rtype: IpAccessControlListMappingInstance
+        :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance
         """
         super(IpAccessControlListMappingInstance, self).__init__(version)
 
@@ -326,7 +326,7 @@ class IpAccessControlListMappingInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: IpAccessControlListMappingContext for this IpAccessControlListMappingInstance
-        :rtype: IpAccessControlListMappingContext
+        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingContext
         """
         if self._context is None:
             self._context = IpAccessControlListMappingContext(
@@ -398,7 +398,7 @@ class IpAccessControlListMappingInstance(InstanceResource):
         Fetch a IpAccessControlListMappingInstance
 
         :returns: Fetched IpAccessControlListMappingInstance
-        :rtype: IpAccessControlListMappingInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance
         """
         return self._proxy.fetch()
 

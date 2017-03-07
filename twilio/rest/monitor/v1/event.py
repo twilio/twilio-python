@@ -23,8 +23,8 @@ class EventList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: EventList
-        :rtype: EventList
+        :returns: twilio.rest.monitor.v1.event.EventList
+        :rtype: twilio.rest.monitor.v1.event.EventList
         """
         super(EventList, self).__init__(version)
 
@@ -156,8 +156,8 @@ class EventList(ListResource):
 
         :param sid: The sid
 
-        :returns: EventContext
-        :rtype: EventContext
+        :returns: twilio.rest.monitor.v1.event.EventContext
+        :rtype: twilio.rest.monitor.v1.event.EventContext
         """
         return EventContext(
             self._version,
@@ -170,8 +170,8 @@ class EventList(ListResource):
 
         :param sid: The sid
 
-        :returns: EventContext
-        :rtype: EventContext
+        :returns: twilio.rest.monitor.v1.event.EventContext
+        :rtype: twilio.rest.monitor.v1.event.EventContext
         """
         return EventContext(
             self._version,
@@ -197,8 +197,8 @@ class EventPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: EventPage
-        :rtype: EventPage
+        :returns: twilio.rest.monitor.v1.event.EventPage
+        :rtype: twilio.rest.monitor.v1.event.EventPage
         """
         super(EventPage, self).__init__(version, response)
 
@@ -211,8 +211,8 @@ class EventPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: EventInstance
-        :rtype: EventInstance
+        :returns: twilio.rest.monitor.v1.event.EventInstance
+        :rtype: twilio.rest.monitor.v1.event.EventInstance
         """
         return EventInstance(
             self._version,
@@ -238,8 +238,8 @@ class EventContext(InstanceContext):
         :param Version version: Version that contains the resource
         :param sid: The sid
 
-        :returns: EventContext
-        :rtype: EventContext
+        :returns: twilio.rest.monitor.v1.event.EventContext
+        :rtype: twilio.rest.monitor.v1.event.EventContext
         """
         super(EventContext, self).__init__(version)
 
@@ -254,7 +254,7 @@ class EventContext(InstanceContext):
         Fetch a EventInstance
 
         :returns: Fetched EventInstance
-        :rtype: EventInstance
+        :rtype: twilio.rest.monitor.v1.event.EventInstance
         """
         params = values.of({})
 
@@ -287,8 +287,8 @@ class EventInstance(InstanceResource):
         """
         Initialize the EventInstance
 
-        :returns: EventInstance
-        :rtype: EventInstance
+        :returns: twilio.rest.monitor.v1.event.EventInstance
+        :rtype: twilio.rest.monitor.v1.event.EventInstance
         """
         super(EventInstance, self).__init__(version)
 
@@ -323,7 +323,7 @@ class EventInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: EventContext for this EventInstance
-        :rtype: EventContext
+        :rtype: twilio.rest.monitor.v1.event.EventContext
         """
         if self._context is None:
             self._context = EventContext(
@@ -449,7 +449,7 @@ class EventInstance(InstanceResource):
         Fetch a EventInstance
 
         :returns: Fetched EventInstance
-        :rtype: EventInstance
+        :rtype: twilio.rest.monitor.v1.event.EventInstance
         """
         return self._proxy.fetch()
 

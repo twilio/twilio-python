@@ -23,8 +23,8 @@ class LastMonthList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: LastMonthList
-        :rtype: LastMonthList
+        :returns: twilio.rest.api.v2010.account.usage.record.last_month.LastMonthList
+        :rtype: twilio.rest.api.v2010.account.usage.record.last_month.LastMonthList
         """
         super(LastMonthList, self).__init__(version)
 
@@ -148,8 +148,8 @@ class LastMonthPage(Page):
         :param Response response: Response from the API
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: LastMonthPage
-        :rtype: LastMonthPage
+        :returns: twilio.rest.api.v2010.account.usage.record.last_month.LastMonthPage
+        :rtype: twilio.rest.api.v2010.account.usage.record.last_month.LastMonthPage
         """
         super(LastMonthPage, self).__init__(version, response)
 
@@ -162,8 +162,8 @@ class LastMonthPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: LastMonthInstance
-        :rtype: LastMonthInstance
+        :returns: twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance
         """
         return LastMonthInstance(
             self._version,
@@ -187,8 +187,8 @@ class LastMonthInstance(InstanceResource):
         """
         Initialize the LastMonthInstance
 
-        :returns: LastMonthInstance
-        :rtype: LastMonthInstance
+        :returns: twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance
         """
         super(LastMonthInstance, self).__init__(version)
 

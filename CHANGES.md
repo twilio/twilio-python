@@ -3,6 +3,23 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+Version 6.0rc13
+--------------
+
+Released March 07, 2017:
+
+- Support regional Twilio hostnames.
+- Improve `rtype` documentation throughout.
+- Remove obsolete Sandbox resource.
+- Improve TwiML helper resources.
+- Support date inequality parameters by expanding into before, equal, after parameters in python.
+- Reorganize common modules into `base` folder.
+- Add TaskRouter grant.
+- Document handwritten classes.
+- Switch to using `requests` library over `httplib2`.
+- Fix docs generation.
+- Support client validation.
+
 Version 6.0rc8
 -------------
 

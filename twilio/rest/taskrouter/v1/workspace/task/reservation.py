@@ -24,8 +24,8 @@ class ReservationList(ListResource):
         :param workspace_sid: The workspace_sid
         :param task_sid: The task_sid
 
-        :returns: ReservationList
-        :rtype: ReservationList
+        :returns: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationList
         """
         super(ReservationList, self).__init__(version)
 
@@ -121,8 +121,8 @@ class ReservationList(ListResource):
 
         :param sid: The sid
 
-        :returns: ReservationContext
-        :rtype: ReservationContext
+        :returns: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationContext
         """
         return ReservationContext(
             self._version,
@@ -137,8 +137,8 @@ class ReservationList(ListResource):
 
         :param sid: The sid
 
-        :returns: ReservationContext
-        :rtype: ReservationContext
+        :returns: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationContext
         """
         return ReservationContext(
             self._version,
@@ -168,8 +168,8 @@ class ReservationPage(Page):
         :param workspace_sid: The workspace_sid
         :param task_sid: The task_sid
 
-        :returns: ReservationPage
-        :rtype: ReservationPage
+        :returns: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationPage
         """
         super(ReservationPage, self).__init__(version, response)
 
@@ -182,8 +182,8 @@ class ReservationPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: ReservationInstance
-        :rtype: ReservationInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationInstance
         """
         return ReservationInstance(
             self._version,
@@ -213,8 +213,8 @@ class ReservationContext(InstanceContext):
         :param task_sid: The task_sid
         :param sid: The sid
 
-        :returns: ReservationContext
-        :rtype: ReservationContext
+        :returns: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationContext
         """
         super(ReservationContext, self).__init__(version)
 
@@ -231,7 +231,7 @@ class ReservationContext(InstanceContext):
         Fetch a ReservationInstance
 
         :returns: Fetched ReservationInstance
-        :rtype: ReservationInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationInstance
         """
         params = values.of({})
 
@@ -284,7 +284,7 @@ class ReservationContext(InstanceContext):
         :param unicode redirect_url: The redirect_url
 
         :returns: Updated ReservationInstance
-        :rtype: ReservationInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationInstance
         """
         data = values.of({
             'ReservationStatus': reservation_status,
@@ -339,8 +339,8 @@ class ReservationInstance(InstanceResource):
         """
         Initialize the ReservationInstance
 
-        :returns: ReservationInstance
-        :rtype: ReservationInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationInstance
         """
         super(ReservationInstance, self).__init__(version)
 
@@ -374,7 +374,7 @@ class ReservationInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: ReservationContext for this ReservationInstance
-        :rtype: ReservationContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationContext
         """
         if self._context is None:
             self._context = ReservationContext(
@@ -478,7 +478,7 @@ class ReservationInstance(InstanceResource):
         Fetch a ReservationInstance
 
         :returns: Fetched ReservationInstance
-        :rtype: ReservationInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationInstance
         """
         return self._proxy.fetch()
 
@@ -517,7 +517,7 @@ class ReservationInstance(InstanceResource):
         :param unicode redirect_url: The redirect_url
 
         :returns: Updated ReservationInstance
-        :rtype: ReservationInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationInstance
         """
         return self._proxy.update(
             reservation_status=reservation_status,

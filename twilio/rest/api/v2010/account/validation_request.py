@@ -22,8 +22,8 @@ class ValidationRequestList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: The account_sid
 
-        :returns: ValidationRequestList
-        :rtype: ValidationRequestList
+        :returns: twilio.rest.api.v2010.account.validation_request.ValidationRequestList
+        :rtype: twilio.rest.api.v2010.account.validation_request.ValidationRequestList
         """
         super(ValidationRequestList, self).__init__(version)
 
@@ -47,7 +47,7 @@ class ValidationRequestList(ListResource):
         :param unicode status_callback_method: The status_callback_method
 
         :returns: Newly created ValidationRequestInstance
-        :rtype: ValidationRequestInstance
+        :rtype: twilio.rest.api.v2010.account.validation_request.ValidationRequestInstance
         """
         data = values.of({
             'PhoneNumber': phone_number,
@@ -90,8 +90,8 @@ class ValidationRequestPage(Page):
         :param Response response: Response from the API
         :param account_sid: The account_sid
 
-        :returns: ValidationRequestPage
-        :rtype: ValidationRequestPage
+        :returns: twilio.rest.api.v2010.account.validation_request.ValidationRequestPage
+        :rtype: twilio.rest.api.v2010.account.validation_request.ValidationRequestPage
         """
         super(ValidationRequestPage, self).__init__(version, response)
 
@@ -104,8 +104,8 @@ class ValidationRequestPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: ValidationRequestInstance
-        :rtype: ValidationRequestInstance
+        :returns: twilio.rest.api.v2010.account.validation_request.ValidationRequestInstance
+        :rtype: twilio.rest.api.v2010.account.validation_request.ValidationRequestInstance
         """
         return ValidationRequestInstance(
             self._version,
@@ -129,8 +129,8 @@ class ValidationRequestInstance(InstanceResource):
         """
         Initialize the ValidationRequestInstance
 
-        :returns: ValidationRequestInstance
-        :rtype: ValidationRequestInstance
+        :returns: twilio.rest.api.v2010.account.validation_request.ValidationRequestInstance
+        :rtype: twilio.rest.api.v2010.account.validation_request.ValidationRequestInstance
         """
         super(ValidationRequestInstance, self).__init__(version)
 

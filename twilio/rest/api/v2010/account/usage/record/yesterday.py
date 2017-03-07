@@ -23,8 +23,8 @@ class YesterdayList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: YesterdayList
-        :rtype: YesterdayList
+        :returns: twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayList
+        :rtype: twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayList
         """
         super(YesterdayList, self).__init__(version)
 
@@ -148,8 +148,8 @@ class YesterdayPage(Page):
         :param Response response: Response from the API
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: YesterdayPage
-        :rtype: YesterdayPage
+        :returns: twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayPage
+        :rtype: twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayPage
         """
         super(YesterdayPage, self).__init__(version, response)
 
@@ -162,8 +162,8 @@ class YesterdayPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: YesterdayInstance
-        :rtype: YesterdayInstance
+        :returns: twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance
         """
         return YesterdayInstance(
             self._version,
@@ -187,8 +187,8 @@ class YesterdayInstance(InstanceResource):
         """
         Initialize the YesterdayInstance
 
-        :returns: YesterdayInstance
-        :rtype: YesterdayInstance
+        :returns: twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance
         """
         super(YesterdayInstance, self).__init__(version)
 

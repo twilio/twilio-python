@@ -24,8 +24,8 @@ class TaskList(ListResource):
         :param Version version: Version that contains the resource
         :param workspace_sid: The workspace_sid
 
-        :returns: TaskList
-        :rtype: TaskList
+        :returns: twilio.rest.taskrouter.v1.workspace.task.TaskList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskList
         """
         super(TaskList, self).__init__(version)
 
@@ -187,7 +187,7 @@ class TaskList(ListResource):
         :param unicode attributes: The attributes
 
         :returns: Newly created TaskInstance
-        :rtype: TaskInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         """
         data = values.of({
             'Timeout': timeout,
@@ -215,8 +215,8 @@ class TaskList(ListResource):
 
         :param sid: The sid
 
-        :returns: TaskContext
-        :rtype: TaskContext
+        :returns: twilio.rest.taskrouter.v1.workspace.task.TaskContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskContext
         """
         return TaskContext(
             self._version,
@@ -230,8 +230,8 @@ class TaskList(ListResource):
 
         :param sid: The sid
 
-        :returns: TaskContext
-        :rtype: TaskContext
+        :returns: twilio.rest.taskrouter.v1.workspace.task.TaskContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskContext
         """
         return TaskContext(
             self._version,
@@ -259,8 +259,8 @@ class TaskPage(Page):
         :param Response response: Response from the API
         :param workspace_sid: The workspace_sid
 
-        :returns: TaskPage
-        :rtype: TaskPage
+        :returns: twilio.rest.taskrouter.v1.workspace.task.TaskPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskPage
         """
         super(TaskPage, self).__init__(version, response)
 
@@ -273,8 +273,8 @@ class TaskPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: TaskInstance
-        :rtype: TaskInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         """
         return TaskInstance(
             self._version,
@@ -302,8 +302,8 @@ class TaskContext(InstanceContext):
         :param workspace_sid: The workspace_sid
         :param sid: The sid
 
-        :returns: TaskContext
-        :rtype: TaskContext
+        :returns: twilio.rest.taskrouter.v1.workspace.task.TaskContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskContext
         """
         super(TaskContext, self).__init__(version)
 
@@ -322,7 +322,7 @@ class TaskContext(InstanceContext):
         Fetch a TaskInstance
 
         :returns: Fetched TaskInstance
-        :rtype: TaskInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         """
         params = values.of({})
 
@@ -352,7 +352,7 @@ class TaskContext(InstanceContext):
         :param unicode task_channel: The task_channel
 
         :returns: Updated TaskInstance
-        :rtype: TaskInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         """
         data = values.of({
             'Attributes': attributes,
@@ -389,8 +389,8 @@ class TaskContext(InstanceContext):
         """
         Access the reservations
 
-        :returns: ReservationList
-        :rtype: ReservationList
+        :returns: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationList
         """
         if self._reservations is None:
             self._reservations = ReservationList(
@@ -417,8 +417,8 @@ class TaskInstance(InstanceResource):
         """
         Initialize the TaskInstance
 
-        :returns: TaskInstance
-        :rtype: TaskInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         """
         super(TaskInstance, self).__init__(version)
 
@@ -460,7 +460,7 @@ class TaskInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: TaskContext for this TaskInstance
-        :rtype: TaskContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskContext
         """
         if self._context is None:
             self._context = TaskContext(
@@ -635,7 +635,7 @@ class TaskInstance(InstanceResource):
         Fetch a TaskInstance
 
         :returns: Fetched TaskInstance
-        :rtype: TaskInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         """
         return self._proxy.fetch()
 
@@ -652,7 +652,7 @@ class TaskInstance(InstanceResource):
         :param unicode task_channel: The task_channel
 
         :returns: Updated TaskInstance
-        :rtype: TaskInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         """
         return self._proxy.update(
             attributes=attributes,
@@ -676,8 +676,8 @@ class TaskInstance(InstanceResource):
         """
         Access the reservations
 
-        :returns: reservations
-        :rtype: reservations
+        :returns: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationList
         """
         return self._proxy.reservations
 

@@ -24,8 +24,8 @@ class ParticipantList(ListResource):
         :param account_sid: The unique sid that identifies this account
         :param conference_sid: A string that uniquely identifies this conference
 
-        :returns: ParticipantList
-        :rtype: ParticipantList
+        :returns: twilio.rest.api.v2010.account.conference.participant.ParticipantList
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantList
         """
         super(ParticipantList, self).__init__(version)
 
@@ -73,7 +73,7 @@ class ParticipantList(ListResource):
         :param unicode conference_status_callback_event: The conference_status_callback_event
 
         :returns: Newly created ParticipantInstance
-        :rtype: ParticipantInstance
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
         """
         data = values.of({
             'From': from_,
@@ -204,8 +204,8 @@ class ParticipantList(ListResource):
 
         :param call_sid: The call_sid
 
-        :returns: ParticipantContext
-        :rtype: ParticipantContext
+        :returns: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
         """
         return ParticipantContext(
             self._version,
@@ -220,8 +220,8 @@ class ParticipantList(ListResource):
 
         :param call_sid: The call_sid
 
-        :returns: ParticipantContext
-        :rtype: ParticipantContext
+        :returns: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
         """
         return ParticipantContext(
             self._version,
@@ -251,8 +251,8 @@ class ParticipantPage(Page):
         :param account_sid: The unique sid that identifies this account
         :param conference_sid: A string that uniquely identifies this conference
 
-        :returns: ParticipantPage
-        :rtype: ParticipantPage
+        :returns: twilio.rest.api.v2010.account.conference.participant.ParticipantPage
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantPage
         """
         super(ParticipantPage, self).__init__(version, response)
 
@@ -265,8 +265,8 @@ class ParticipantPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: ParticipantInstance
-        :rtype: ParticipantInstance
+        :returns: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
         """
         return ParticipantInstance(
             self._version,
@@ -296,8 +296,8 @@ class ParticipantContext(InstanceContext):
         :param conference_sid: The string that uniquely identifies this conference
         :param call_sid: The call_sid
 
-        :returns: ParticipantContext
-        :rtype: ParticipantContext
+        :returns: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
         """
         super(ParticipantContext, self).__init__(version)
 
@@ -314,7 +314,7 @@ class ParticipantContext(InstanceContext):
         Fetch a ParticipantInstance
 
         :returns: Fetched ParticipantInstance
-        :rtype: ParticipantInstance
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
         """
         params = values.of({})
 
@@ -343,7 +343,7 @@ class ParticipantContext(InstanceContext):
         :param unicode hold_method: The hold_method
 
         :returns: Updated ParticipantInstance
-        :rtype: ParticipantInstance
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
         """
         data = values.of({
             'Muted': muted,
@@ -393,8 +393,8 @@ class ParticipantInstance(InstanceResource):
         """
         Initialize the ParticipantInstance
 
-        :returns: ParticipantInstance
-        :rtype: ParticipantInstance
+        :returns: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
         """
         super(ParticipantInstance, self).__init__(version)
 
@@ -428,7 +428,7 @@ class ParticipantInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: ParticipantContext for this ParticipantInstance
-        :rtype: ParticipantContext
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
         """
         if self._context is None:
             self._context = ParticipantContext(
@@ -532,7 +532,7 @@ class ParticipantInstance(InstanceResource):
         Fetch a ParticipantInstance
 
         :returns: Fetched ParticipantInstance
-        :rtype: ParticipantInstance
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
         """
         return self._proxy.fetch()
 
@@ -547,7 +547,7 @@ class ParticipantInstance(InstanceResource):
         :param unicode hold_method: The hold_method
 
         :returns: Updated ParticipantInstance
-        :rtype: ParticipantInstance
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
         """
         return self._proxy.update(
             muted=muted,

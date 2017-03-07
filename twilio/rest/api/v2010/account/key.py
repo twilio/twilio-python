@@ -23,8 +23,8 @@ class KeyList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: KeyList
-        :rtype: KeyList
+        :returns: twilio.rest.api.v2010.account.key.KeyList
+        :rtype: twilio.rest.api.v2010.account.key.KeyList
         """
         super(KeyList, self).__init__(version)
 
@@ -113,8 +113,8 @@ class KeyList(ListResource):
 
         :param sid: The sid
 
-        :returns: KeyContext
-        :rtype: KeyContext
+        :returns: twilio.rest.api.v2010.account.key.KeyContext
+        :rtype: twilio.rest.api.v2010.account.key.KeyContext
         """
         return KeyContext(
             self._version,
@@ -128,8 +128,8 @@ class KeyList(ListResource):
 
         :param sid: The sid
 
-        :returns: KeyContext
-        :rtype: KeyContext
+        :returns: twilio.rest.api.v2010.account.key.KeyContext
+        :rtype: twilio.rest.api.v2010.account.key.KeyContext
         """
         return KeyContext(
             self._version,
@@ -157,8 +157,8 @@ class KeyPage(Page):
         :param Response response: Response from the API
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: KeyPage
-        :rtype: KeyPage
+        :returns: twilio.rest.api.v2010.account.key.KeyPage
+        :rtype: twilio.rest.api.v2010.account.key.KeyPage
         """
         super(KeyPage, self).__init__(version, response)
 
@@ -171,8 +171,8 @@ class KeyPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: KeyInstance
-        :rtype: KeyInstance
+        :returns: twilio.rest.api.v2010.account.key.KeyInstance
+        :rtype: twilio.rest.api.v2010.account.key.KeyInstance
         """
         return KeyInstance(
             self._version,
@@ -200,8 +200,8 @@ class KeyContext(InstanceContext):
         :param account_sid: The account_sid
         :param sid: The sid
 
-        :returns: KeyContext
-        :rtype: KeyContext
+        :returns: twilio.rest.api.v2010.account.key.KeyContext
+        :rtype: twilio.rest.api.v2010.account.key.KeyContext
         """
         super(KeyContext, self).__init__(version)
 
@@ -217,7 +217,7 @@ class KeyContext(InstanceContext):
         Fetch a KeyInstance
 
         :returns: Fetched KeyInstance
-        :rtype: KeyInstance
+        :rtype: twilio.rest.api.v2010.account.key.KeyInstance
         """
         params = values.of({})
 
@@ -241,7 +241,7 @@ class KeyContext(InstanceContext):
         :param unicode friendly_name: The friendly_name
 
         :returns: Updated KeyInstance
-        :rtype: KeyInstance
+        :rtype: twilio.rest.api.v2010.account.key.KeyInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -286,8 +286,8 @@ class KeyInstance(InstanceResource):
         """
         Initialize the KeyInstance
 
-        :returns: KeyInstance
-        :rtype: KeyInstance
+        :returns: twilio.rest.api.v2010.account.key.KeyInstance
+        :rtype: twilio.rest.api.v2010.account.key.KeyInstance
         """
         super(KeyInstance, self).__init__(version)
 
@@ -313,7 +313,7 @@ class KeyInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: KeyContext for this KeyInstance
-        :rtype: KeyContext
+        :rtype: twilio.rest.api.v2010.account.key.KeyContext
         """
         if self._context is None:
             self._context = KeyContext(
@@ -360,7 +360,7 @@ class KeyInstance(InstanceResource):
         Fetch a KeyInstance
 
         :returns: Fetched KeyInstance
-        :rtype: KeyInstance
+        :rtype: twilio.rest.api.v2010.account.key.KeyInstance
         """
         return self._proxy.fetch()
 
@@ -371,7 +371,7 @@ class KeyInstance(InstanceResource):
         :param unicode friendly_name: The friendly_name
 
         :returns: Updated KeyInstance
-        :rtype: KeyInstance
+        :rtype: twilio.rest.api.v2010.account.key.KeyInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,

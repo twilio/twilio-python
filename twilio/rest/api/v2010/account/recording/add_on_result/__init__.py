@@ -25,8 +25,8 @@ class AddOnResultList(ListResource):
         :param account_sid: The unique sid that identifies this account
         :param reference_sid: A string that uniquely identifies the recording.
 
-        :returns: AddOnResultList
-        :rtype: AddOnResultList
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultList
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultList
         """
         super(AddOnResultList, self).__init__(version)
 
@@ -116,8 +116,8 @@ class AddOnResultList(ListResource):
 
         :param sid: Fetch by unique result Sid
 
-        :returns: AddOnResultContext
-        :rtype: AddOnResultContext
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
         """
         return AddOnResultContext(
             self._version,
@@ -132,8 +132,8 @@ class AddOnResultList(ListResource):
 
         :param sid: Fetch by unique result Sid
 
-        :returns: AddOnResultContext
-        :rtype: AddOnResultContext
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
         """
         return AddOnResultContext(
             self._version,
@@ -163,8 +163,8 @@ class AddOnResultPage(Page):
         :param account_sid: The unique sid that identifies this account
         :param reference_sid: A string that uniquely identifies the recording.
 
-        :returns: AddOnResultPage
-        :rtype: AddOnResultPage
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultPage
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultPage
         """
         super(AddOnResultPage, self).__init__(version, response)
 
@@ -177,8 +177,8 @@ class AddOnResultPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: AddOnResultInstance
-        :rtype: AddOnResultInstance
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
         """
         return AddOnResultInstance(
             self._version,
@@ -208,8 +208,8 @@ class AddOnResultContext(InstanceContext):
         :param reference_sid: The reference_sid
         :param sid: Fetch by unique result Sid
 
-        :returns: AddOnResultContext
-        :rtype: AddOnResultContext
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
         """
         super(AddOnResultContext, self).__init__(version)
 
@@ -229,7 +229,7 @@ class AddOnResultContext(InstanceContext):
         Fetch a AddOnResultInstance
 
         :returns: Fetched AddOnResultInstance
-        :rtype: AddOnResultInstance
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
         """
         params = values.of({})
 
@@ -261,8 +261,8 @@ class AddOnResultContext(InstanceContext):
         """
         Access the payloads
 
-        :returns: PayloadList
-        :rtype: PayloadList
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadList
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadList
         """
         if self._payloads is None:
             self._payloads = PayloadList(
@@ -290,8 +290,8 @@ class AddOnResultInstance(InstanceResource):
         """
         Initialize the AddOnResultInstance
 
-        :returns: AddOnResultInstance
-        :rtype: AddOnResultInstance
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
         """
         super(AddOnResultInstance, self).__init__(version)
 
@@ -324,7 +324,7 @@ class AddOnResultInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: AddOnResultContext for this AddOnResultInstance
-        :rtype: AddOnResultContext
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
         """
         if self._context is None:
             self._context = AddOnResultContext(
@@ -420,7 +420,7 @@ class AddOnResultInstance(InstanceResource):
         Fetch a AddOnResultInstance
 
         :returns: Fetched AddOnResultInstance
-        :rtype: AddOnResultInstance
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
         """
         return self._proxy.fetch()
 
@@ -438,8 +438,8 @@ class AddOnResultInstance(InstanceResource):
         """
         Access the payloads
 
-        :returns: payloads
-        :rtype: payloads
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadList
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadList
         """
         return self._proxy.payloads
 

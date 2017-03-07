@@ -25,8 +25,8 @@ class NotificationList(ListResource):
         :param account_sid: The account_sid
         :param call_sid: The call_sid
 
-        :returns: NotificationList
-        :rtype: NotificationList
+        :returns: twilio.rest.api.v2010.account.call.notification.NotificationList
+        :rtype: twilio.rest.api.v2010.account.call.notification.NotificationList
         """
         super(NotificationList, self).__init__(version)
 
@@ -146,8 +146,8 @@ class NotificationList(ListResource):
 
         :param sid: The sid
 
-        :returns: NotificationContext
-        :rtype: NotificationContext
+        :returns: twilio.rest.api.v2010.account.call.notification.NotificationContext
+        :rtype: twilio.rest.api.v2010.account.call.notification.NotificationContext
         """
         return NotificationContext(
             self._version,
@@ -162,8 +162,8 @@ class NotificationList(ListResource):
 
         :param sid: The sid
 
-        :returns: NotificationContext
-        :rtype: NotificationContext
+        :returns: twilio.rest.api.v2010.account.call.notification.NotificationContext
+        :rtype: twilio.rest.api.v2010.account.call.notification.NotificationContext
         """
         return NotificationContext(
             self._version,
@@ -193,8 +193,8 @@ class NotificationPage(Page):
         :param account_sid: The account_sid
         :param call_sid: The call_sid
 
-        :returns: NotificationPage
-        :rtype: NotificationPage
+        :returns: twilio.rest.api.v2010.account.call.notification.NotificationPage
+        :rtype: twilio.rest.api.v2010.account.call.notification.NotificationPage
         """
         super(NotificationPage, self).__init__(version, response)
 
@@ -207,8 +207,8 @@ class NotificationPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: NotificationInstance
-        :rtype: NotificationInstance
+        :returns: twilio.rest.api.v2010.account.call.notification.NotificationInstance
+        :rtype: twilio.rest.api.v2010.account.call.notification.NotificationInstance
         """
         return NotificationInstance(
             self._version,
@@ -238,8 +238,8 @@ class NotificationContext(InstanceContext):
         :param call_sid: The call_sid
         :param sid: The sid
 
-        :returns: NotificationContext
-        :rtype: NotificationContext
+        :returns: twilio.rest.api.v2010.account.call.notification.NotificationContext
+        :rtype: twilio.rest.api.v2010.account.call.notification.NotificationContext
         """
         super(NotificationContext, self).__init__(version)
 
@@ -256,7 +256,7 @@ class NotificationContext(InstanceContext):
         Fetch a NotificationInstance
 
         :returns: Fetched NotificationInstance
-        :rtype: NotificationInstance
+        :rtype: twilio.rest.api.v2010.account.call.notification.NotificationInstance
         """
         params = values.of({})
 
@@ -300,8 +300,8 @@ class NotificationInstance(InstanceResource):
         """
         Initialize the NotificationInstance
 
-        :returns: NotificationInstance
-        :rtype: NotificationInstance
+        :returns: twilio.rest.api.v2010.account.call.notification.NotificationInstance
+        :rtype: twilio.rest.api.v2010.account.call.notification.NotificationInstance
         """
         super(NotificationInstance, self).__init__(version)
 
@@ -341,7 +341,7 @@ class NotificationInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: NotificationContext for this NotificationInstance
-        :rtype: NotificationContext
+        :rtype: twilio.rest.api.v2010.account.call.notification.NotificationContext
         """
         if self._context is None:
             self._context = NotificationContext(
@@ -493,7 +493,7 @@ class NotificationInstance(InstanceResource):
         Fetch a NotificationInstance
 
         :returns: Fetched NotificationInstance
-        :rtype: NotificationInstance
+        :rtype: twilio.rest.api.v2010.account.call.notification.NotificationInstance
         """
         return self._proxy.fetch()
 

@@ -24,8 +24,8 @@ class BindingList(ListResource):
         :param Version version: Version that contains the resource
         :param service_sid: The service_sid
 
-        :returns: BindingList
-        :rtype: BindingList
+        :returns: twilio.rest.notify.v1.service.binding.BindingList
+        :rtype: twilio.rest.notify.v1.service.binding.BindingList
         """
         super(BindingList, self).__init__(version)
 
@@ -50,7 +50,7 @@ class BindingList(ListResource):
         :param unicode credential_sid: The credential_sid
 
         :returns: Newly created BindingInstance
-        :rtype: BindingInstance
+        :rtype: twilio.rest.notify.v1.service.binding.BindingInstance
         """
         data = values.of({
             'Endpoint': endpoint,
@@ -180,8 +180,8 @@ class BindingList(ListResource):
 
         :param sid: The sid
 
-        :returns: BindingContext
-        :rtype: BindingContext
+        :returns: twilio.rest.notify.v1.service.binding.BindingContext
+        :rtype: twilio.rest.notify.v1.service.binding.BindingContext
         """
         return BindingContext(
             self._version,
@@ -195,8 +195,8 @@ class BindingList(ListResource):
 
         :param sid: The sid
 
-        :returns: BindingContext
-        :rtype: BindingContext
+        :returns: twilio.rest.notify.v1.service.binding.BindingContext
+        :rtype: twilio.rest.notify.v1.service.binding.BindingContext
         """
         return BindingContext(
             self._version,
@@ -224,8 +224,8 @@ class BindingPage(Page):
         :param Response response: Response from the API
         :param service_sid: The service_sid
 
-        :returns: BindingPage
-        :rtype: BindingPage
+        :returns: twilio.rest.notify.v1.service.binding.BindingPage
+        :rtype: twilio.rest.notify.v1.service.binding.BindingPage
         """
         super(BindingPage, self).__init__(version, response)
 
@@ -238,8 +238,8 @@ class BindingPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: BindingInstance
-        :rtype: BindingInstance
+        :returns: twilio.rest.notify.v1.service.binding.BindingInstance
+        :rtype: twilio.rest.notify.v1.service.binding.BindingInstance
         """
         return BindingInstance(
             self._version,
@@ -267,8 +267,8 @@ class BindingContext(InstanceContext):
         :param service_sid: The service_sid
         :param sid: The sid
 
-        :returns: BindingContext
-        :rtype: BindingContext
+        :returns: twilio.rest.notify.v1.service.binding.BindingContext
+        :rtype: twilio.rest.notify.v1.service.binding.BindingContext
         """
         super(BindingContext, self).__init__(version)
 
@@ -284,7 +284,7 @@ class BindingContext(InstanceContext):
         Fetch a BindingInstance
 
         :returns: Fetched BindingInstance
-        :rtype: BindingInstance
+        :rtype: twilio.rest.notify.v1.service.binding.BindingInstance
         """
         params = values.of({})
 
@@ -327,8 +327,8 @@ class BindingInstance(InstanceResource):
         """
         Initialize the BindingInstance
 
-        :returns: BindingInstance
-        :rtype: BindingInstance
+        :returns: twilio.rest.notify.v1.service.binding.BindingInstance
+        :rtype: twilio.rest.notify.v1.service.binding.BindingInstance
         """
         super(BindingInstance, self).__init__(version)
 
@@ -363,7 +363,7 @@ class BindingInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: BindingContext for this BindingInstance
-        :rtype: BindingContext
+        :rtype: twilio.rest.notify.v1.service.binding.BindingContext
         """
         if self._context is None:
             self._context = BindingContext(
@@ -482,7 +482,7 @@ class BindingInstance(InstanceResource):
         Fetch a BindingInstance
 
         :returns: Fetched BindingInstance
-        :rtype: BindingInstance
+        :rtype: twilio.rest.notify.v1.service.binding.BindingInstance
         """
         return self._proxy.fetch()
 

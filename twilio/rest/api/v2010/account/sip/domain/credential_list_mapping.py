@@ -24,8 +24,8 @@ class CredentialListMappingList(ListResource):
         :param account_sid: The account_sid
         :param domain_sid: A string that uniquely identifies the SIP Domain
 
-        :returns: CredentialListMappingList
-        :rtype: CredentialListMappingList
+        :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingList
+        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingList
         """
         super(CredentialListMappingList, self).__init__(version)
 
@@ -43,7 +43,7 @@ class CredentialListMappingList(ListResource):
         :param unicode credential_list_sid: The credential_list_sid
 
         :returns: Newly created CredentialListMappingInstance
-        :rtype: CredentialListMappingInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
         """
         data = values.of({
             'CredentialListSid': credential_list_sid,
@@ -141,8 +141,8 @@ class CredentialListMappingList(ListResource):
 
         :param sid: The sid
 
-        :returns: CredentialListMappingContext
-        :rtype: CredentialListMappingContext
+        :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingContext
+        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingContext
         """
         return CredentialListMappingContext(
             self._version,
@@ -157,8 +157,8 @@ class CredentialListMappingList(ListResource):
 
         :param sid: The sid
 
-        :returns: CredentialListMappingContext
-        :rtype: CredentialListMappingContext
+        :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingContext
+        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingContext
         """
         return CredentialListMappingContext(
             self._version,
@@ -188,8 +188,8 @@ class CredentialListMappingPage(Page):
         :param account_sid: The account_sid
         :param domain_sid: A string that uniquely identifies the SIP Domain
 
-        :returns: CredentialListMappingPage
-        :rtype: CredentialListMappingPage
+        :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingPage
+        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingPage
         """
         super(CredentialListMappingPage, self).__init__(version, response)
 
@@ -202,8 +202,8 @@ class CredentialListMappingPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: CredentialListMappingInstance
-        :rtype: CredentialListMappingInstance
+        :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
         """
         return CredentialListMappingInstance(
             self._version,
@@ -233,8 +233,8 @@ class CredentialListMappingContext(InstanceContext):
         :param domain_sid: The domain_sid
         :param sid: The sid
 
-        :returns: CredentialListMappingContext
-        :rtype: CredentialListMappingContext
+        :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingContext
+        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingContext
         """
         super(CredentialListMappingContext, self).__init__(version)
 
@@ -251,7 +251,7 @@ class CredentialListMappingContext(InstanceContext):
         Fetch a CredentialListMappingInstance
 
         :returns: Fetched CredentialListMappingInstance
-        :rtype: CredentialListMappingInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
         """
         params = values.of({})
 
@@ -295,8 +295,8 @@ class CredentialListMappingInstance(InstanceResource):
         """
         Initialize the CredentialListMappingInstance
 
-        :returns: CredentialListMappingInstance
-        :rtype: CredentialListMappingInstance
+        :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
         """
         super(CredentialListMappingInstance, self).__init__(version)
 
@@ -326,7 +326,7 @@ class CredentialListMappingInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: CredentialListMappingContext for this CredentialListMappingInstance
-        :rtype: CredentialListMappingContext
+        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingContext
         """
         if self._context is None:
             self._context = CredentialListMappingContext(
@@ -398,7 +398,7 @@ class CredentialListMappingInstance(InstanceResource):
         Fetch a CredentialListMappingInstance
 
         :returns: Fetched CredentialListMappingInstance
-        :rtype: CredentialListMappingInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
         """
         return self._proxy.fetch()
 

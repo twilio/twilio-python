@@ -24,8 +24,8 @@ class DocumentList(ListResource):
         :param Version version: Version that contains the resource
         :param service_sid: The service_sid
 
-        :returns: DocumentList
-        :rtype: DocumentList
+        :returns: twilio.rest.preview.sync.service.document.DocumentList
+        :rtype: twilio.rest.preview.sync.service.document.DocumentList
         """
         super(DocumentList, self).__init__(version)
 
@@ -43,7 +43,7 @@ class DocumentList(ListResource):
         :param dict data: The data
 
         :returns: Newly created DocumentInstance
-        :rtype: DocumentInstance
+        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
         """
         data = values.of({
             'UniqueName': unique_name,
@@ -141,8 +141,8 @@ class DocumentList(ListResource):
 
         :param sid: The sid
 
-        :returns: DocumentContext
-        :rtype: DocumentContext
+        :returns: twilio.rest.preview.sync.service.document.DocumentContext
+        :rtype: twilio.rest.preview.sync.service.document.DocumentContext
         """
         return DocumentContext(
             self._version,
@@ -156,8 +156,8 @@ class DocumentList(ListResource):
 
         :param sid: The sid
 
-        :returns: DocumentContext
-        :rtype: DocumentContext
+        :returns: twilio.rest.preview.sync.service.document.DocumentContext
+        :rtype: twilio.rest.preview.sync.service.document.DocumentContext
         """
         return DocumentContext(
             self._version,
@@ -185,8 +185,8 @@ class DocumentPage(Page):
         :param Response response: Response from the API
         :param service_sid: The service_sid
 
-        :returns: DocumentPage
-        :rtype: DocumentPage
+        :returns: twilio.rest.preview.sync.service.document.DocumentPage
+        :rtype: twilio.rest.preview.sync.service.document.DocumentPage
         """
         super(DocumentPage, self).__init__(version, response)
 
@@ -199,8 +199,8 @@ class DocumentPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: DocumentInstance
-        :rtype: DocumentInstance
+        :returns: twilio.rest.preview.sync.service.document.DocumentInstance
+        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
         """
         return DocumentInstance(
             self._version,
@@ -228,8 +228,8 @@ class DocumentContext(InstanceContext):
         :param service_sid: The service_sid
         :param sid: The sid
 
-        :returns: DocumentContext
-        :rtype: DocumentContext
+        :returns: twilio.rest.preview.sync.service.document.DocumentContext
+        :rtype: twilio.rest.preview.sync.service.document.DocumentContext
         """
         super(DocumentContext, self).__init__(version)
 
@@ -248,7 +248,7 @@ class DocumentContext(InstanceContext):
         Fetch a DocumentInstance
 
         :returns: Fetched DocumentInstance
-        :rtype: DocumentInstance
+        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
         """
         params = values.of({})
 
@@ -281,7 +281,7 @@ class DocumentContext(InstanceContext):
         :param dict data: The data
 
         :returns: Updated DocumentInstance
-        :rtype: DocumentInstance
+        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
         """
         data = values.of({
             'Data': data,
@@ -305,8 +305,8 @@ class DocumentContext(InstanceContext):
         """
         Access the document_permissions
 
-        :returns: DocumentPermissionList
-        :rtype: DocumentPermissionList
+        :returns: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionList
+        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionList
         """
         if self._document_permissions is None:
             self._document_permissions = DocumentPermissionList(
@@ -333,8 +333,8 @@ class DocumentInstance(InstanceResource):
         """
         Initialize the DocumentInstance
 
-        :returns: DocumentInstance
-        :rtype: DocumentInstance
+        :returns: twilio.rest.preview.sync.service.document.DocumentInstance
+        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
         """
         super(DocumentInstance, self).__init__(version)
 
@@ -367,7 +367,7 @@ class DocumentInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: DocumentContext for this DocumentInstance
-        :rtype: DocumentContext
+        :rtype: twilio.rest.preview.sync.service.document.DocumentContext
         """
         if self._context is None:
             self._context = DocumentContext(
@@ -470,7 +470,7 @@ class DocumentInstance(InstanceResource):
         Fetch a DocumentInstance
 
         :returns: Fetched DocumentInstance
-        :rtype: DocumentInstance
+        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
         """
         return self._proxy.fetch()
 
@@ -490,7 +490,7 @@ class DocumentInstance(InstanceResource):
         :param dict data: The data
 
         :returns: Updated DocumentInstance
-        :rtype: DocumentInstance
+        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
         """
         return self._proxy.update(
             data,
@@ -501,8 +501,8 @@ class DocumentInstance(InstanceResource):
         """
         Access the document_permissions
 
-        :returns: document_permissions
-        :rtype: document_permissions
+        :returns: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionList
+        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionList
         """
         return self._proxy.document_permissions
 

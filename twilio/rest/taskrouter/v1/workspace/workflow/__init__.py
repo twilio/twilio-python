@@ -24,8 +24,8 @@ class WorkflowList(ListResource):
         :param Version version: Version that contains the resource
         :param workspace_sid: The workspace_sid
 
-        :returns: WorkflowList
-        :rtype: WorkflowList
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowList
         """
         super(WorkflowList, self).__init__(version)
 
@@ -128,7 +128,7 @@ class WorkflowList(ListResource):
         :param unicode task_reservation_timeout: The task_reservation_timeout
 
         :returns: Newly created WorkflowInstance
-        :rtype: WorkflowInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -156,8 +156,8 @@ class WorkflowList(ListResource):
 
         :param sid: The sid
 
-        :returns: WorkflowContext
-        :rtype: WorkflowContext
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
         """
         return WorkflowContext(
             self._version,
@@ -171,8 +171,8 @@ class WorkflowList(ListResource):
 
         :param sid: The sid
 
-        :returns: WorkflowContext
-        :rtype: WorkflowContext
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
         """
         return WorkflowContext(
             self._version,
@@ -200,8 +200,8 @@ class WorkflowPage(Page):
         :param Response response: Response from the API
         :param workspace_sid: The workspace_sid
 
-        :returns: WorkflowPage
-        :rtype: WorkflowPage
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowPage
         """
         super(WorkflowPage, self).__init__(version, response)
 
@@ -214,8 +214,8 @@ class WorkflowPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: WorkflowInstance
-        :rtype: WorkflowInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         """
         return WorkflowInstance(
             self._version,
@@ -243,8 +243,8 @@ class WorkflowContext(InstanceContext):
         :param workspace_sid: The workspace_sid
         :param sid: The sid
 
-        :returns: WorkflowContext
-        :rtype: WorkflowContext
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
         """
         super(WorkflowContext, self).__init__(version)
 
@@ -263,7 +263,7 @@ class WorkflowContext(InstanceContext):
         Fetch a WorkflowInstance
 
         :returns: Fetched WorkflowInstance
-        :rtype: WorkflowInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         """
         params = values.of({})
 
@@ -294,7 +294,7 @@ class WorkflowContext(InstanceContext):
         :param unicode task_reservation_timeout: The task_reservation_timeout
 
         :returns: Updated WorkflowInstance
-        :rtype: WorkflowInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -331,8 +331,8 @@ class WorkflowContext(InstanceContext):
         """
         Access the statistics
 
-        :returns: WorkflowStatisticsList
-        :rtype: WorkflowStatisticsList
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics.WorkflowStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics.WorkflowStatisticsList
         """
         if self._statistics is None:
             self._statistics = WorkflowStatisticsList(
@@ -359,8 +359,8 @@ class WorkflowInstance(InstanceResource):
         """
         Initialize the WorkflowInstance
 
-        :returns: WorkflowInstance
-        :rtype: WorkflowInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         """
         super(WorkflowInstance, self).__init__(version)
 
@@ -395,7 +395,7 @@ class WorkflowInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: WorkflowContext for this WorkflowInstance
-        :rtype: WorkflowContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
         """
         if self._context is None:
             self._context = WorkflowContext(
@@ -514,7 +514,7 @@ class WorkflowInstance(InstanceResource):
         Fetch a WorkflowInstance
 
         :returns: Fetched WorkflowInstance
-        :rtype: WorkflowInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         """
         return self._proxy.fetch()
 
@@ -532,7 +532,7 @@ class WorkflowInstance(InstanceResource):
         :param unicode task_reservation_timeout: The task_reservation_timeout
 
         :returns: Updated WorkflowInstance
-        :rtype: WorkflowInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
@@ -556,8 +556,8 @@ class WorkflowInstance(InstanceResource):
         """
         Access the statistics
 
-        :returns: statistics
-        :rtype: statistics
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics.WorkflowStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics.WorkflowStatisticsList
         """
         return self._proxy.statistics
 

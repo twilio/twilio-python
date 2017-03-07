@@ -24,8 +24,8 @@ class IpAddressList(ListResource):
         :param account_sid: The account_sid
         :param ip_access_control_list_sid: The ip_access_control_list_sid
 
-        :returns: IpAddressList
-        :rtype: IpAddressList
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressList
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressList
         """
         super(IpAddressList, self).__init__(version)
 
@@ -117,7 +117,7 @@ class IpAddressList(ListResource):
         :param unicode ip_address: The ip_address
 
         :returns: Newly created IpAddressInstance
-        :rtype: IpAddressInstance
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -143,8 +143,8 @@ class IpAddressList(ListResource):
 
         :param sid: The sid
 
-        :returns: IpAddressContext
-        :rtype: IpAddressContext
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
         """
         return IpAddressContext(
             self._version,
@@ -159,8 +159,8 @@ class IpAddressList(ListResource):
 
         :param sid: The sid
 
-        :returns: IpAddressContext
-        :rtype: IpAddressContext
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
         """
         return IpAddressContext(
             self._version,
@@ -190,8 +190,8 @@ class IpAddressPage(Page):
         :param account_sid: The account_sid
         :param ip_access_control_list_sid: The ip_access_control_list_sid
 
-        :returns: IpAddressPage
-        :rtype: IpAddressPage
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressPage
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressPage
         """
         super(IpAddressPage, self).__init__(version, response)
 
@@ -204,8 +204,8 @@ class IpAddressPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: IpAddressInstance
-        :rtype: IpAddressInstance
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
         """
         return IpAddressInstance(
             self._version,
@@ -235,8 +235,8 @@ class IpAddressContext(InstanceContext):
         :param ip_access_control_list_sid: The ip_access_control_list_sid
         :param sid: The sid
 
-        :returns: IpAddressContext
-        :rtype: IpAddressContext
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
         """
         super(IpAddressContext, self).__init__(version)
 
@@ -253,7 +253,7 @@ class IpAddressContext(InstanceContext):
         Fetch a IpAddressInstance
 
         :returns: Fetched IpAddressInstance
-        :rtype: IpAddressInstance
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
         """
         params = values.of({})
 
@@ -279,7 +279,7 @@ class IpAddressContext(InstanceContext):
         :param unicode friendly_name: The friendly_name
 
         :returns: Updated IpAddressInstance
-        :rtype: IpAddressInstance
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
         """
         data = values.of({
             'IpAddress': ip_address,
@@ -327,8 +327,8 @@ class IpAddressInstance(InstanceResource):
         """
         Initialize the IpAddressInstance
 
-        :returns: IpAddressInstance
-        :rtype: IpAddressInstance
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
         """
         super(IpAddressInstance, self).__init__(version)
 
@@ -359,7 +359,7 @@ class IpAddressInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: IpAddressContext for this IpAddressInstance
-        :rtype: IpAddressContext
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
         """
         if self._context is None:
             self._context = IpAddressContext(
@@ -439,7 +439,7 @@ class IpAddressInstance(InstanceResource):
         Fetch a IpAddressInstance
 
         :returns: Fetched IpAddressInstance
-        :rtype: IpAddressInstance
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
         """
         return self._proxy.fetch()
 
@@ -451,7 +451,7 @@ class IpAddressInstance(InstanceResource):
         :param unicode friendly_name: The friendly_name
 
         :returns: Updated IpAddressInstance
-        :rtype: IpAddressInstance
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
         """
         return self._proxy.update(
             ip_address=ip_address,

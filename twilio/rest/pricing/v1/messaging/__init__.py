@@ -20,8 +20,8 @@ class MessagingList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: MessagingList
-        :rtype: MessagingList
+        :returns: twilio.rest.pricing.v1.messaging.MessagingList
+        :rtype: twilio.rest.pricing.v1.messaging.MessagingList
         """
         super(MessagingList, self).__init__(version)
 
@@ -36,8 +36,8 @@ class MessagingList(ListResource):
         """
         Access the countries
 
-        :returns: CountryList
-        :rtype: CountryList
+        :returns: twilio.rest.pricing.v1.messaging.country.CountryList
+        :rtype: twilio.rest.pricing.v1.messaging.country.CountryList
         """
         if self._countries is None:
             self._countries = CountryList(
@@ -64,8 +64,8 @@ class MessagingPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: MessagingPage
-        :rtype: MessagingPage
+        :returns: twilio.rest.pricing.v1.messaging.MessagingPage
+        :rtype: twilio.rest.pricing.v1.messaging.MessagingPage
         """
         super(MessagingPage, self).__init__(version, response)
 
@@ -78,8 +78,8 @@ class MessagingPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: MessagingInstance
-        :rtype: MessagingInstance
+        :returns: twilio.rest.pricing.v1.messaging.MessagingInstance
+        :rtype: twilio.rest.pricing.v1.messaging.MessagingInstance
         """
         return MessagingInstance(
             self._version,
@@ -102,8 +102,8 @@ class MessagingInstance(InstanceResource):
         """
         Initialize the MessagingInstance
 
-        :returns: MessagingInstance
-        :rtype: MessagingInstance
+        :returns: twilio.rest.pricing.v1.messaging.MessagingInstance
+        :rtype: twilio.rest.pricing.v1.messaging.MessagingInstance
         """
         super(MessagingInstance, self).__init__(version)
 

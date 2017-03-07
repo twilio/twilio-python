@@ -25,8 +25,8 @@ class DomainList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: DomainList
-        :rtype: DomainList
+        :returns: twilio.rest.api.v2010.account.sip.domain.DomainList
+        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainList
         """
         super(DomainList, self).__init__(version)
 
@@ -129,7 +129,7 @@ class DomainList(ListResource):
         :param unicode voice_status_callback_method: The voice_status_callback_method
 
         :returns: Newly created DomainInstance
-        :rtype: DomainInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
         data = values.of({
             'DomainName': domain_name,
@@ -161,8 +161,8 @@ class DomainList(ListResource):
 
         :param sid: Fetch by unique Domain Sid
 
-        :returns: DomainContext
-        :rtype: DomainContext
+        :returns: twilio.rest.api.v2010.account.sip.domain.DomainContext
+        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainContext
         """
         return DomainContext(
             self._version,
@@ -176,8 +176,8 @@ class DomainList(ListResource):
 
         :param sid: Fetch by unique Domain Sid
 
-        :returns: DomainContext
-        :rtype: DomainContext
+        :returns: twilio.rest.api.v2010.account.sip.domain.DomainContext
+        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainContext
         """
         return DomainContext(
             self._version,
@@ -205,8 +205,8 @@ class DomainPage(Page):
         :param Response response: Response from the API
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: DomainPage
-        :rtype: DomainPage
+        :returns: twilio.rest.api.v2010.account.sip.domain.DomainPage
+        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainPage
         """
         super(DomainPage, self).__init__(version, response)
 
@@ -219,8 +219,8 @@ class DomainPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: DomainInstance
-        :rtype: DomainInstance
+        :returns: twilio.rest.api.v2010.account.sip.domain.DomainInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
         return DomainInstance(
             self._version,
@@ -248,8 +248,8 @@ class DomainContext(InstanceContext):
         :param account_sid: The account_sid
         :param sid: Fetch by unique Domain Sid
 
-        :returns: DomainContext
-        :rtype: DomainContext
+        :returns: twilio.rest.api.v2010.account.sip.domain.DomainContext
+        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainContext
         """
         super(DomainContext, self).__init__(version)
 
@@ -269,7 +269,7 @@ class DomainContext(InstanceContext):
         Fetch a DomainInstance
 
         :returns: Fetched DomainInstance
-        :rtype: DomainInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
         params = values.of({})
 
@@ -303,7 +303,7 @@ class DomainContext(InstanceContext):
         :param unicode voice_url: The voice_url
 
         :returns: Updated DomainInstance
-        :rtype: DomainInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
         data = values.of({
             'AuthType': auth_type,
@@ -343,8 +343,8 @@ class DomainContext(InstanceContext):
         """
         Access the ip_access_control_list_mappings
 
-        :returns: IpAccessControlListMappingList
-        :rtype: IpAccessControlListMappingList
+        :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingList
+        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingList
         """
         if self._ip_access_control_list_mappings is None:
             self._ip_access_control_list_mappings = IpAccessControlListMappingList(
@@ -359,8 +359,8 @@ class DomainContext(InstanceContext):
         """
         Access the credential_list_mappings
 
-        :returns: CredentialListMappingList
-        :rtype: CredentialListMappingList
+        :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingList
+        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingList
         """
         if self._credential_list_mappings is None:
             self._credential_list_mappings = CredentialListMappingList(
@@ -387,8 +387,8 @@ class DomainInstance(InstanceResource):
         """
         Initialize the DomainInstance
 
-        :returns: DomainInstance
-        :rtype: DomainInstance
+        :returns: twilio.rest.api.v2010.account.sip.domain.DomainInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
         super(DomainInstance, self).__init__(version)
 
@@ -426,7 +426,7 @@ class DomainInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: DomainContext for this DomainInstance
-        :rtype: DomainContext
+        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainContext
         """
         if self._context is None:
             self._context = DomainContext(
@@ -569,7 +569,7 @@ class DomainInstance(InstanceResource):
         Fetch a DomainInstance
 
         :returns: Fetched DomainInstance
-        :rtype: DomainInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
         return self._proxy.fetch()
 
@@ -590,7 +590,7 @@ class DomainInstance(InstanceResource):
         :param unicode voice_url: The voice_url
 
         :returns: Updated DomainInstance
-        :rtype: DomainInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
         return self._proxy.update(
             auth_type=auth_type,
@@ -617,8 +617,8 @@ class DomainInstance(InstanceResource):
         """
         Access the ip_access_control_list_mappings
 
-        :returns: ip_access_control_list_mappings
-        :rtype: ip_access_control_list_mappings
+        :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingList
+        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingList
         """
         return self._proxy.ip_access_control_list_mappings
 
@@ -627,8 +627,8 @@ class DomainInstance(InstanceResource):
         """
         Access the credential_list_mappings
 
-        :returns: credential_list_mappings
-        :rtype: credential_list_mappings
+        :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingList
+        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingList
         """
         return self._proxy.credential_list_mappings
 

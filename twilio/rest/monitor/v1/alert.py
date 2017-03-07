@@ -23,8 +23,8 @@ class AlertList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: AlertList
-        :rtype: AlertList
+        :returns: twilio.rest.monitor.v1.alert.AlertList
+        :rtype: twilio.rest.monitor.v1.alert.AlertList
         """
         super(AlertList, self).__init__(version)
 
@@ -132,8 +132,8 @@ class AlertList(ListResource):
 
         :param sid: The sid
 
-        :returns: AlertContext
-        :rtype: AlertContext
+        :returns: twilio.rest.monitor.v1.alert.AlertContext
+        :rtype: twilio.rest.monitor.v1.alert.AlertContext
         """
         return AlertContext(
             self._version,
@@ -146,8 +146,8 @@ class AlertList(ListResource):
 
         :param sid: The sid
 
-        :returns: AlertContext
-        :rtype: AlertContext
+        :returns: twilio.rest.monitor.v1.alert.AlertContext
+        :rtype: twilio.rest.monitor.v1.alert.AlertContext
         """
         return AlertContext(
             self._version,
@@ -173,8 +173,8 @@ class AlertPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: AlertPage
-        :rtype: AlertPage
+        :returns: twilio.rest.monitor.v1.alert.AlertPage
+        :rtype: twilio.rest.monitor.v1.alert.AlertPage
         """
         super(AlertPage, self).__init__(version, response)
 
@@ -187,8 +187,8 @@ class AlertPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: AlertInstance
-        :rtype: AlertInstance
+        :returns: twilio.rest.monitor.v1.alert.AlertInstance
+        :rtype: twilio.rest.monitor.v1.alert.AlertInstance
         """
         return AlertInstance(
             self._version,
@@ -214,8 +214,8 @@ class AlertContext(InstanceContext):
         :param Version version: Version that contains the resource
         :param sid: The sid
 
-        :returns: AlertContext
-        :rtype: AlertContext
+        :returns: twilio.rest.monitor.v1.alert.AlertContext
+        :rtype: twilio.rest.monitor.v1.alert.AlertContext
         """
         super(AlertContext, self).__init__(version)
 
@@ -230,7 +230,7 @@ class AlertContext(InstanceContext):
         Fetch a AlertInstance
 
         :returns: Fetched AlertInstance
-        :rtype: AlertInstance
+        :rtype: twilio.rest.monitor.v1.alert.AlertInstance
         """
         params = values.of({})
 
@@ -272,8 +272,8 @@ class AlertInstance(InstanceResource):
         """
         Initialize the AlertInstance
 
-        :returns: AlertInstance
-        :rtype: AlertInstance
+        :returns: twilio.rest.monitor.v1.alert.AlertInstance
+        :rtype: twilio.rest.monitor.v1.alert.AlertInstance
         """
         super(AlertInstance, self).__init__(version)
 
@@ -311,7 +311,7 @@ class AlertInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: AlertContext for this AlertInstance
-        :rtype: AlertContext
+        :rtype: twilio.rest.monitor.v1.alert.AlertContext
         """
         if self._context is None:
             self._context = AlertContext(
@@ -461,7 +461,7 @@ class AlertInstance(InstanceResource):
         Fetch a AlertInstance
 
         :returns: Fetched AlertInstance
-        :rtype: AlertInstance
+        :rtype: twilio.rest.monitor.v1.alert.AlertInstance
         """
         return self._proxy.fetch()
 

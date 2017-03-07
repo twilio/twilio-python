@@ -23,8 +23,8 @@ class CredentialListList(ListResource):
         :param Version version: Version that contains the resource
         :param trunk_sid: The trunk_sid
 
-        :returns: CredentialListList
-        :rtype: CredentialListList
+        :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListList
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListList
         """
         super(CredentialListList, self).__init__(version)
 
@@ -41,7 +41,7 @@ class CredentialListList(ListResource):
         :param unicode credential_list_sid: The credential_list_sid
 
         :returns: Newly created CredentialListInstance
-        :rtype: CredentialListInstance
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
         """
         data = values.of({
             'CredentialListSid': credential_list_sid,
@@ -138,8 +138,8 @@ class CredentialListList(ListResource):
 
         :param sid: The sid
 
-        :returns: CredentialListContext
-        :rtype: CredentialListContext
+        :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListContext
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListContext
         """
         return CredentialListContext(
             self._version,
@@ -153,8 +153,8 @@ class CredentialListList(ListResource):
 
         :param sid: The sid
 
-        :returns: CredentialListContext
-        :rtype: CredentialListContext
+        :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListContext
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListContext
         """
         return CredentialListContext(
             self._version,
@@ -182,8 +182,8 @@ class CredentialListPage(Page):
         :param Response response: Response from the API
         :param trunk_sid: The trunk_sid
 
-        :returns: CredentialListPage
-        :rtype: CredentialListPage
+        :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListPage
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListPage
         """
         super(CredentialListPage, self).__init__(version, response)
 
@@ -196,8 +196,8 @@ class CredentialListPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: CredentialListInstance
-        :rtype: CredentialListInstance
+        :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
         """
         return CredentialListInstance(
             self._version,
@@ -225,8 +225,8 @@ class CredentialListContext(InstanceContext):
         :param trunk_sid: The trunk_sid
         :param sid: The sid
 
-        :returns: CredentialListContext
-        :rtype: CredentialListContext
+        :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListContext
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListContext
         """
         super(CredentialListContext, self).__init__(version)
 
@@ -242,7 +242,7 @@ class CredentialListContext(InstanceContext):
         Fetch a CredentialListInstance
 
         :returns: Fetched CredentialListInstance
-        :rtype: CredentialListInstance
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
         """
         params = values.of({})
 
@@ -285,8 +285,8 @@ class CredentialListInstance(InstanceResource):
         """
         Initialize the CredentialListInstance
 
-        :returns: CredentialListInstance
-        :rtype: CredentialListInstance
+        :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
         """
         super(CredentialListInstance, self).__init__(version)
 
@@ -315,7 +315,7 @@ class CredentialListInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: CredentialListContext for this CredentialListInstance
-        :rtype: CredentialListContext
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListContext
         """
         if self._context is None:
             self._context = CredentialListContext(
@@ -386,7 +386,7 @@ class CredentialListInstance(InstanceResource):
         Fetch a CredentialListInstance
 
         :returns: Fetched CredentialListInstance
-        :rtype: CredentialListInstance
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
         """
         return self._proxy.fetch()
 

@@ -25,8 +25,8 @@ class ServiceList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: ServiceList
-        :rtype: ServiceList
+        :returns: twilio.rest.preview.sync.service.ServiceList
+        :rtype: twilio.rest.preview.sync.service.ServiceList
         """
         super(ServiceList, self).__init__(version)
 
@@ -46,7 +46,7 @@ class ServiceList(ListResource):
         :param bool acl_enabled: The acl_enabled
 
         :returns: Newly created ServiceInstance
-        :rtype: ServiceInstance
+        :rtype: twilio.rest.preview.sync.service.ServiceInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -145,8 +145,8 @@ class ServiceList(ListResource):
 
         :param sid: The sid
 
-        :returns: ServiceContext
-        :rtype: ServiceContext
+        :returns: twilio.rest.preview.sync.service.ServiceContext
+        :rtype: twilio.rest.preview.sync.service.ServiceContext
         """
         return ServiceContext(
             self._version,
@@ -159,8 +159,8 @@ class ServiceList(ListResource):
 
         :param sid: The sid
 
-        :returns: ServiceContext
-        :rtype: ServiceContext
+        :returns: twilio.rest.preview.sync.service.ServiceContext
+        :rtype: twilio.rest.preview.sync.service.ServiceContext
         """
         return ServiceContext(
             self._version,
@@ -186,8 +186,8 @@ class ServicePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: ServicePage
-        :rtype: ServicePage
+        :returns: twilio.rest.preview.sync.service.ServicePage
+        :rtype: twilio.rest.preview.sync.service.ServicePage
         """
         super(ServicePage, self).__init__(version, response)
 
@@ -200,8 +200,8 @@ class ServicePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: ServiceInstance
-        :rtype: ServiceInstance
+        :returns: twilio.rest.preview.sync.service.ServiceInstance
+        :rtype: twilio.rest.preview.sync.service.ServiceInstance
         """
         return ServiceInstance(
             self._version,
@@ -227,8 +227,8 @@ class ServiceContext(InstanceContext):
         :param Version version: Version that contains the resource
         :param sid: The sid
 
-        :returns: ServiceContext
-        :rtype: ServiceContext
+        :returns: twilio.rest.preview.sync.service.ServiceContext
+        :rtype: twilio.rest.preview.sync.service.ServiceContext
         """
         super(ServiceContext, self).__init__(version)
 
@@ -248,7 +248,7 @@ class ServiceContext(InstanceContext):
         Fetch a ServiceInstance
 
         :returns: Fetched ServiceInstance
-        :rtype: ServiceInstance
+        :rtype: twilio.rest.preview.sync.service.ServiceInstance
         """
         params = values.of({})
 
@@ -285,7 +285,7 @@ class ServiceContext(InstanceContext):
         :param bool acl_enabled: The acl_enabled
 
         :returns: Updated ServiceInstance
-        :rtype: ServiceInstance
+        :rtype: twilio.rest.preview.sync.service.ServiceInstance
         """
         data = values.of({
             'WebhookUrl': webhook_url,
@@ -311,8 +311,8 @@ class ServiceContext(InstanceContext):
         """
         Access the documents
 
-        :returns: DocumentList
-        :rtype: DocumentList
+        :returns: twilio.rest.preview.sync.service.document.DocumentList
+        :rtype: twilio.rest.preview.sync.service.document.DocumentList
         """
         if self._documents is None:
             self._documents = DocumentList(
@@ -326,8 +326,8 @@ class ServiceContext(InstanceContext):
         """
         Access the sync_lists
 
-        :returns: SyncListList
-        :rtype: SyncListList
+        :returns: twilio.rest.preview.sync.service.sync_list.SyncListList
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListList
         """
         if self._sync_lists is None:
             self._sync_lists = SyncListList(
@@ -341,8 +341,8 @@ class ServiceContext(InstanceContext):
         """
         Access the sync_maps
 
-        :returns: SyncMapList
-        :rtype: SyncMapList
+        :returns: twilio.rest.preview.sync.service.sync_map.SyncMapList
+        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapList
         """
         if self._sync_maps is None:
             self._sync_maps = SyncMapList(
@@ -368,8 +368,8 @@ class ServiceInstance(InstanceResource):
         """
         Initialize the ServiceInstance
 
-        :returns: ServiceInstance
-        :rtype: ServiceInstance
+        :returns: twilio.rest.preview.sync.service.ServiceInstance
+        :rtype: twilio.rest.preview.sync.service.ServiceInstance
         """
         super(ServiceInstance, self).__init__(version)
 
@@ -400,7 +400,7 @@ class ServiceInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: ServiceContext for this ServiceInstance
-        :rtype: ServiceContext
+        :rtype: twilio.rest.preview.sync.service.ServiceContext
         """
         if self._context is None:
             self._context = ServiceContext(
@@ -494,7 +494,7 @@ class ServiceInstance(InstanceResource):
         Fetch a ServiceInstance
 
         :returns: Fetched ServiceInstance
-        :rtype: ServiceInstance
+        :rtype: twilio.rest.preview.sync.service.ServiceInstance
         """
         return self._proxy.fetch()
 
@@ -519,7 +519,7 @@ class ServiceInstance(InstanceResource):
         :param bool acl_enabled: The acl_enabled
 
         :returns: Updated ServiceInstance
-        :rtype: ServiceInstance
+        :rtype: twilio.rest.preview.sync.service.ServiceInstance
         """
         return self._proxy.update(
             webhook_url=webhook_url,
@@ -533,8 +533,8 @@ class ServiceInstance(InstanceResource):
         """
         Access the documents
 
-        :returns: documents
-        :rtype: documents
+        :returns: twilio.rest.preview.sync.service.document.DocumentList
+        :rtype: twilio.rest.preview.sync.service.document.DocumentList
         """
         return self._proxy.documents
 
@@ -543,8 +543,8 @@ class ServiceInstance(InstanceResource):
         """
         Access the sync_lists
 
-        :returns: sync_lists
-        :rtype: sync_lists
+        :returns: twilio.rest.preview.sync.service.sync_list.SyncListList
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListList
         """
         return self._proxy.sync_lists
 
@@ -553,8 +553,8 @@ class ServiceInstance(InstanceResource):
         """
         Access the sync_maps
 
-        :returns: sync_maps
-        :rtype: sync_maps
+        :returns: twilio.rest.preview.sync.service.sync_map.SyncMapList
+        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapList
         """
         return self._proxy.sync_maps
 

@@ -23,8 +23,8 @@ class ApplicationList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: A string that uniquely identifies this resource
 
-        :returns: ApplicationList
-        :rtype: ApplicationList
+        :returns: twilio.rest.api.v2010.account.application.ApplicationList
+        :rtype: twilio.rest.api.v2010.account.application.ApplicationList
         """
         super(ApplicationList, self).__init__(version)
 
@@ -62,7 +62,7 @@ class ApplicationList(ListResource):
         :param unicode message_status_callback: URL to make requests to with status updates
 
         :returns: Newly created ApplicationInstance
-        :rtype: ApplicationInstance
+        :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -179,8 +179,8 @@ class ApplicationList(ListResource):
 
         :param sid: Fetch by unique Application Sid
 
-        :returns: ApplicationContext
-        :rtype: ApplicationContext
+        :returns: twilio.rest.api.v2010.account.application.ApplicationContext
+        :rtype: twilio.rest.api.v2010.account.application.ApplicationContext
         """
         return ApplicationContext(
             self._version,
@@ -194,8 +194,8 @@ class ApplicationList(ListResource):
 
         :param sid: Fetch by unique Application Sid
 
-        :returns: ApplicationContext
-        :rtype: ApplicationContext
+        :returns: twilio.rest.api.v2010.account.application.ApplicationContext
+        :rtype: twilio.rest.api.v2010.account.application.ApplicationContext
         """
         return ApplicationContext(
             self._version,
@@ -223,8 +223,8 @@ class ApplicationPage(Page):
         :param Response response: Response from the API
         :param account_sid: A string that uniquely identifies this resource
 
-        :returns: ApplicationPage
-        :rtype: ApplicationPage
+        :returns: twilio.rest.api.v2010.account.application.ApplicationPage
+        :rtype: twilio.rest.api.v2010.account.application.ApplicationPage
         """
         super(ApplicationPage, self).__init__(version, response)
 
@@ -237,8 +237,8 @@ class ApplicationPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: ApplicationInstance
-        :rtype: ApplicationInstance
+        :returns: twilio.rest.api.v2010.account.application.ApplicationInstance
+        :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
         return ApplicationInstance(
             self._version,
@@ -266,8 +266,8 @@ class ApplicationContext(InstanceContext):
         :param account_sid: The account_sid
         :param sid: Fetch by unique Application Sid
 
-        :returns: ApplicationContext
-        :rtype: ApplicationContext
+        :returns: twilio.rest.api.v2010.account.application.ApplicationContext
+        :rtype: twilio.rest.api.v2010.account.application.ApplicationContext
         """
         super(ApplicationContext, self).__init__(version)
 
@@ -292,7 +292,7 @@ class ApplicationContext(InstanceContext):
         Fetch a ApplicationInstance
 
         :returns: Fetched ApplicationInstance
-        :rtype: ApplicationInstance
+        :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
         params = values.of({})
 
@@ -337,7 +337,7 @@ class ApplicationContext(InstanceContext):
         :param unicode message_status_callback: URL to make requests to with status updates
 
         :returns: Updated ApplicationInstance
-        :rtype: ApplicationInstance
+        :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -387,8 +387,8 @@ class ApplicationInstance(InstanceResource):
         """
         Initialize the ApplicationInstance
 
-        :returns: ApplicationInstance
-        :rtype: ApplicationInstance
+        :returns: twilio.rest.api.v2010.account.application.ApplicationInstance
+        :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
         super(ApplicationInstance, self).__init__(version)
 
@@ -430,7 +430,7 @@ class ApplicationInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: ApplicationContext for this ApplicationInstance
-        :rtype: ApplicationContext
+        :rtype: twilio.rest.api.v2010.account.application.ApplicationContext
         """
         if self._context is None:
             self._context = ApplicationContext(
@@ -614,7 +614,7 @@ class ApplicationInstance(InstanceResource):
         Fetch a ApplicationInstance
 
         :returns: Fetched ApplicationInstance
-        :rtype: ApplicationInstance
+        :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
         return self._proxy.fetch()
 
@@ -646,7 +646,7 @@ class ApplicationInstance(InstanceResource):
         :param unicode message_status_callback: URL to make requests to with status updates
 
         :returns: Updated ApplicationInstance
-        :rtype: ApplicationInstance
+        :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,

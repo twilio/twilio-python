@@ -30,8 +30,8 @@ class WorkspaceList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: WorkspaceList
-        :rtype: WorkspaceList
+        :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceList
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceList
         """
         super(WorkspaceList, self).__init__(version)
 
@@ -132,7 +132,7 @@ class WorkspaceList(ListResource):
         :param workspace.queue_order prioritize_queue_order: The prioritize_queue_order
 
         :returns: Newly created WorkspaceInstance
-        :rtype: WorkspaceInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -160,8 +160,8 @@ class WorkspaceList(ListResource):
 
         :param sid: The sid
 
-        :returns: WorkspaceContext
-        :rtype: WorkspaceContext
+        :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
         """
         return WorkspaceContext(
             self._version,
@@ -174,8 +174,8 @@ class WorkspaceList(ListResource):
 
         :param sid: The sid
 
-        :returns: WorkspaceContext
-        :rtype: WorkspaceContext
+        :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
         """
         return WorkspaceContext(
             self._version,
@@ -201,8 +201,8 @@ class WorkspacePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: WorkspacePage
-        :rtype: WorkspacePage
+        :returns: twilio.rest.taskrouter.v1.workspace.WorkspacePage
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspacePage
         """
         super(WorkspacePage, self).__init__(version, response)
 
@@ -215,8 +215,8 @@ class WorkspacePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: WorkspaceInstance
-        :rtype: WorkspaceInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
         """
         return WorkspaceInstance(
             self._version,
@@ -242,8 +242,8 @@ class WorkspaceContext(InstanceContext):
         :param Version version: Version that contains the resource
         :param sid: The sid
 
-        :returns: WorkspaceContext
-        :rtype: WorkspaceContext
+        :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
         """
         super(WorkspaceContext, self).__init__(version)
 
@@ -268,7 +268,7 @@ class WorkspaceContext(InstanceContext):
         Fetch a WorkspaceInstance
 
         :returns: Fetched WorkspaceInstance
-        :rtype: WorkspaceInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
         """
         params = values.of({})
 
@@ -301,7 +301,7 @@ class WorkspaceContext(InstanceContext):
         :param workspace.queue_order prioritize_queue_order: The prioritize_queue_order
 
         :returns: Updated WorkspaceInstance
-        :rtype: WorkspaceInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
         """
         data = values.of({
             'DefaultActivitySid': default_activity_sid,
@@ -339,8 +339,8 @@ class WorkspaceContext(InstanceContext):
         """
         Access the activities
 
-        :returns: ActivityList
-        :rtype: ActivityList
+        :returns: twilio.rest.taskrouter.v1.workspace.activity.ActivityList
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityList
         """
         if self._activities is None:
             self._activities = ActivityList(
@@ -354,8 +354,8 @@ class WorkspaceContext(InstanceContext):
         """
         Access the events
 
-        :returns: EventList
-        :rtype: EventList
+        :returns: twilio.rest.taskrouter.v1.workspace.event.EventList
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventList
         """
         if self._events is None:
             self._events = EventList(
@@ -369,8 +369,8 @@ class WorkspaceContext(InstanceContext):
         """
         Access the tasks
 
-        :returns: TaskList
-        :rtype: TaskList
+        :returns: twilio.rest.taskrouter.v1.workspace.task.TaskList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskList
         """
         if self._tasks is None:
             self._tasks = TaskList(
@@ -384,8 +384,8 @@ class WorkspaceContext(InstanceContext):
         """
         Access the task_queues
 
-        :returns: TaskQueueList
-        :rtype: TaskQueueList
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueList
         """
         if self._task_queues is None:
             self._task_queues = TaskQueueList(
@@ -399,8 +399,8 @@ class WorkspaceContext(InstanceContext):
         """
         Access the workers
 
-        :returns: WorkerList
-        :rtype: WorkerList
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerList
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerList
         """
         if self._workers is None:
             self._workers = WorkerList(
@@ -414,8 +414,8 @@ class WorkspaceContext(InstanceContext):
         """
         Access the workflows
 
-        :returns: WorkflowList
-        :rtype: WorkflowList
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowList
         """
         if self._workflows is None:
             self._workflows = WorkflowList(
@@ -429,8 +429,8 @@ class WorkspaceContext(InstanceContext):
         """
         Access the statistics
 
-        :returns: WorkspaceStatisticsList
-        :rtype: WorkspaceStatisticsList
+        :returns: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsList
         """
         if self._statistics is None:
             self._statistics = WorkspaceStatisticsList(
@@ -444,8 +444,8 @@ class WorkspaceContext(InstanceContext):
         """
         Access the task_channels
 
-        :returns: TaskChannelList
-        :rtype: TaskChannelList
+        :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelList
         """
         if self._task_channels is None:
             self._task_channels = TaskChannelList(
@@ -471,8 +471,8 @@ class WorkspaceInstance(InstanceResource):
         """
         Initialize the WorkspaceInstance
 
-        :returns: WorkspaceInstance
-        :rtype: WorkspaceInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
         """
         super(WorkspaceInstance, self).__init__(version)
 
@@ -508,7 +508,7 @@ class WorkspaceInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: WorkspaceContext for this WorkspaceInstance
-        :rtype: WorkspaceContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
         """
         if self._context is None:
             self._context = WorkspaceContext(
@@ -642,7 +642,7 @@ class WorkspaceInstance(InstanceResource):
         Fetch a WorkspaceInstance
 
         :returns: Fetched WorkspaceInstance
-        :rtype: WorkspaceInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
         """
         return self._proxy.fetch()
 
@@ -663,7 +663,7 @@ class WorkspaceInstance(InstanceResource):
         :param workspace.queue_order prioritize_queue_order: The prioritize_queue_order
 
         :returns: Updated WorkspaceInstance
-        :rtype: WorkspaceInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
         """
         return self._proxy.update(
             default_activity_sid=default_activity_sid,
@@ -689,8 +689,8 @@ class WorkspaceInstance(InstanceResource):
         """
         Access the activities
 
-        :returns: activities
-        :rtype: activities
+        :returns: twilio.rest.taskrouter.v1.workspace.activity.ActivityList
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityList
         """
         return self._proxy.activities
 
@@ -699,8 +699,8 @@ class WorkspaceInstance(InstanceResource):
         """
         Access the events
 
-        :returns: events
-        :rtype: events
+        :returns: twilio.rest.taskrouter.v1.workspace.event.EventList
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventList
         """
         return self._proxy.events
 
@@ -709,8 +709,8 @@ class WorkspaceInstance(InstanceResource):
         """
         Access the tasks
 
-        :returns: tasks
-        :rtype: tasks
+        :returns: twilio.rest.taskrouter.v1.workspace.task.TaskList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskList
         """
         return self._proxy.tasks
 
@@ -719,8 +719,8 @@ class WorkspaceInstance(InstanceResource):
         """
         Access the task_queues
 
-        :returns: task_queues
-        :rtype: task_queues
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueList
         """
         return self._proxy.task_queues
 
@@ -729,8 +729,8 @@ class WorkspaceInstance(InstanceResource):
         """
         Access the workers
 
-        :returns: workers
-        :rtype: workers
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerList
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerList
         """
         return self._proxy.workers
 
@@ -739,8 +739,8 @@ class WorkspaceInstance(InstanceResource):
         """
         Access the workflows
 
-        :returns: workflows
-        :rtype: workflows
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowList
         """
         return self._proxy.workflows
 
@@ -749,8 +749,8 @@ class WorkspaceInstance(InstanceResource):
         """
         Access the statistics
 
-        :returns: statistics
-        :rtype: statistics
+        :returns: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsList
         """
         return self._proxy.statistics
 
@@ -759,8 +759,8 @@ class WorkspaceInstance(InstanceResource):
         """
         Access the task_channels
 
-        :returns: task_channels
-        :rtype: task_channels
+        :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelList
         """
         return self._proxy.task_channels
 

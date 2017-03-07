@@ -23,8 +23,8 @@ class DocumentPermissionList(ListResource):
         :param service_sid: Sync Service Instance SID.
         :param document_sid: Sync Document SID.
 
-        :returns: DocumentPermissionList
-        :rtype: DocumentPermissionList
+        :returns: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionList
+        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionList
         """
         super(DocumentPermissionList, self).__init__(version)
 
@@ -114,8 +114,8 @@ class DocumentPermissionList(ListResource):
 
         :param identity: Identity of the user to whom the Sync Document Permission applies.
 
-        :returns: DocumentPermissionContext
-        :rtype: DocumentPermissionContext
+        :returns: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionContext
+        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionContext
         """
         return DocumentPermissionContext(
             self._version,
@@ -130,8 +130,8 @@ class DocumentPermissionList(ListResource):
 
         :param identity: Identity of the user to whom the Sync Document Permission applies.
 
-        :returns: DocumentPermissionContext
-        :rtype: DocumentPermissionContext
+        :returns: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionContext
+        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionContext
         """
         return DocumentPermissionContext(
             self._version,
@@ -161,8 +161,8 @@ class DocumentPermissionPage(Page):
         :param service_sid: Sync Service Instance SID.
         :param document_sid: Sync Document SID.
 
-        :returns: DocumentPermissionPage
-        :rtype: DocumentPermissionPage
+        :returns: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionPage
+        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionPage
         """
         super(DocumentPermissionPage, self).__init__(version, response)
 
@@ -175,8 +175,8 @@ class DocumentPermissionPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: DocumentPermissionInstance
-        :rtype: DocumentPermissionInstance
+        :returns: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionInstance
+        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionInstance
         """
         return DocumentPermissionInstance(
             self._version,
@@ -206,8 +206,8 @@ class DocumentPermissionContext(InstanceContext):
         :param document_sid: Sync Document SID or unique name.
         :param identity: Identity of the user to whom the Sync Document Permission applies.
 
-        :returns: DocumentPermissionContext
-        :rtype: DocumentPermissionContext
+        :returns: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionContext
+        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionContext
         """
         super(DocumentPermissionContext, self).__init__(version)
 
@@ -224,7 +224,7 @@ class DocumentPermissionContext(InstanceContext):
         Fetch a DocumentPermissionInstance
 
         :returns: Fetched DocumentPermissionInstance
-        :rtype: DocumentPermissionInstance
+        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionInstance
         """
         params = values.of({})
 
@@ -260,7 +260,7 @@ class DocumentPermissionContext(InstanceContext):
         :param bool manage: Manage access.
 
         :returns: Updated DocumentPermissionInstance
-        :rtype: DocumentPermissionInstance
+        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionInstance
         """
         data = values.of({
             'Read': read,
@@ -299,8 +299,8 @@ class DocumentPermissionInstance(InstanceResource):
         """
         Initialize the DocumentPermissionInstance
 
-        :returns: DocumentPermissionInstance
-        :rtype: DocumentPermissionInstance
+        :returns: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionInstance
+        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionInstance
         """
         super(DocumentPermissionInstance, self).__init__(version)
 
@@ -331,7 +331,7 @@ class DocumentPermissionInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: DocumentPermissionContext for this DocumentPermissionInstance
-        :rtype: DocumentPermissionContext
+        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionContext
         """
         if self._context is None:
             self._context = DocumentPermissionContext(
@@ -411,7 +411,7 @@ class DocumentPermissionInstance(InstanceResource):
         Fetch a DocumentPermissionInstance
 
         :returns: Fetched DocumentPermissionInstance
-        :rtype: DocumentPermissionInstance
+        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionInstance
         """
         return self._proxy.fetch()
 
@@ -433,7 +433,7 @@ class DocumentPermissionInstance(InstanceResource):
         :param bool manage: Manage access.
 
         :returns: Updated DocumentPermissionInstance
-        :rtype: DocumentPermissionInstance
+        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionInstance
         """
         return self._proxy.update(
             read,

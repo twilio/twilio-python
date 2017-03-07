@@ -23,8 +23,8 @@ class TaskChannelList(ListResource):
         :param Version version: Version that contains the resource
         :param workspace_sid: The workspace_sid
 
-        :returns: TaskChannelList
-        :rtype: TaskChannelList
+        :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelList
         """
         super(TaskChannelList, self).__init__(version)
 
@@ -113,8 +113,8 @@ class TaskChannelList(ListResource):
 
         :param sid: The sid
 
-        :returns: TaskChannelContext
-        :rtype: TaskChannelContext
+        :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
         """
         return TaskChannelContext(
             self._version,
@@ -128,8 +128,8 @@ class TaskChannelList(ListResource):
 
         :param sid: The sid
 
-        :returns: TaskChannelContext
-        :rtype: TaskChannelContext
+        :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
         """
         return TaskChannelContext(
             self._version,
@@ -157,8 +157,8 @@ class TaskChannelPage(Page):
         :param Response response: Response from the API
         :param workspace_sid: The workspace_sid
 
-        :returns: TaskChannelPage
-        :rtype: TaskChannelPage
+        :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelPage
         """
         super(TaskChannelPage, self).__init__(version, response)
 
@@ -171,8 +171,8 @@ class TaskChannelPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: TaskChannelInstance
-        :rtype: TaskChannelInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
         """
         return TaskChannelInstance(
             self._version,
@@ -200,8 +200,8 @@ class TaskChannelContext(InstanceContext):
         :param workspace_sid: The workspace_sid
         :param sid: The sid
 
-        :returns: TaskChannelContext
-        :rtype: TaskChannelContext
+        :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
         """
         super(TaskChannelContext, self).__init__(version)
 
@@ -217,7 +217,7 @@ class TaskChannelContext(InstanceContext):
         Fetch a TaskChannelInstance
 
         :returns: Fetched TaskChannelInstance
-        :rtype: TaskChannelInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
         """
         params = values.of({})
 
@@ -251,8 +251,8 @@ class TaskChannelInstance(InstanceResource):
         """
         Initialize the TaskChannelInstance
 
-        :returns: TaskChannelInstance
-        :rtype: TaskChannelInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
         """
         super(TaskChannelInstance, self).__init__(version)
 
@@ -282,7 +282,7 @@ class TaskChannelInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: TaskChannelContext for this TaskChannelInstance
-        :rtype: TaskChannelContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
         """
         if self._context is None:
             self._context = TaskChannelContext(
@@ -361,7 +361,7 @@ class TaskChannelInstance(InstanceResource):
         Fetch a TaskChannelInstance
 
         :returns: Fetched TaskChannelInstance
-        :rtype: TaskChannelInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
         """
         return self._proxy.fetch()
 

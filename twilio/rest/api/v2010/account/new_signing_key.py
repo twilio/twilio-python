@@ -22,8 +22,8 @@ class NewSigningKeyList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: NewSigningKeyList
-        :rtype: NewSigningKeyList
+        :returns: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyList
+        :rtype: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyList
         """
         super(NewSigningKeyList, self).__init__(version)
 
@@ -40,7 +40,7 @@ class NewSigningKeyList(ListResource):
         :param unicode friendly_name: The friendly_name
 
         :returns: Newly created NewSigningKeyInstance
-        :rtype: NewSigningKeyInstance
+        :rtype: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -78,8 +78,8 @@ class NewSigningKeyPage(Page):
         :param Response response: Response from the API
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: NewSigningKeyPage
-        :rtype: NewSigningKeyPage
+        :returns: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyPage
+        :rtype: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyPage
         """
         super(NewSigningKeyPage, self).__init__(version, response)
 
@@ -92,8 +92,8 @@ class NewSigningKeyPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: NewSigningKeyInstance
-        :rtype: NewSigningKeyInstance
+        :returns: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyInstance
+        :rtype: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyInstance
         """
         return NewSigningKeyInstance(
             self._version,
@@ -117,8 +117,8 @@ class NewSigningKeyInstance(InstanceResource):
         """
         Initialize the NewSigningKeyInstance
 
-        :returns: NewSigningKeyInstance
-        :rtype: NewSigningKeyInstance
+        :returns: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyInstance
+        :rtype: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyInstance
         """
         super(NewSigningKeyInstance, self).__init__(version)
 

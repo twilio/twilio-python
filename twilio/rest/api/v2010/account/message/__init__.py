@@ -26,8 +26,8 @@ class MessageList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: The unique sid that identifies this account
 
-        :returns: MessageList
-        :rtype: MessageList
+        :returns: twilio.rest.api.v2010.account.message.MessageList
+        :rtype: twilio.rest.api.v2010.account.message.MessageList
         """
         super(MessageList, self).__init__(version)
 
@@ -55,7 +55,7 @@ class MessageList(ListResource):
         :param unicode media_url: The media_url
 
         :returns: Newly created MessageInstance
-        :rtype: MessageInstance
+        :rtype: twilio.rest.api.v2010.account.message.MessageInstance
         """
         data = values.of({
             'To': to,
@@ -196,8 +196,8 @@ class MessageList(ListResource):
 
         :param sid: Fetch by unique message Sid
 
-        :returns: MessageContext
-        :rtype: MessageContext
+        :returns: twilio.rest.api.v2010.account.message.MessageContext
+        :rtype: twilio.rest.api.v2010.account.message.MessageContext
         """
         return MessageContext(
             self._version,
@@ -211,8 +211,8 @@ class MessageList(ListResource):
 
         :param sid: Fetch by unique message Sid
 
-        :returns: MessageContext
-        :rtype: MessageContext
+        :returns: twilio.rest.api.v2010.account.message.MessageContext
+        :rtype: twilio.rest.api.v2010.account.message.MessageContext
         """
         return MessageContext(
             self._version,
@@ -240,8 +240,8 @@ class MessagePage(Page):
         :param Response response: Response from the API
         :param account_sid: The unique sid that identifies this account
 
-        :returns: MessagePage
-        :rtype: MessagePage
+        :returns: twilio.rest.api.v2010.account.message.MessagePage
+        :rtype: twilio.rest.api.v2010.account.message.MessagePage
         """
         super(MessagePage, self).__init__(version, response)
 
@@ -254,8 +254,8 @@ class MessagePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: MessageInstance
-        :rtype: MessageInstance
+        :returns: twilio.rest.api.v2010.account.message.MessageInstance
+        :rtype: twilio.rest.api.v2010.account.message.MessageInstance
         """
         return MessageInstance(
             self._version,
@@ -283,8 +283,8 @@ class MessageContext(InstanceContext):
         :param account_sid: The account_sid
         :param sid: Fetch by unique message Sid
 
-        :returns: MessageContext
-        :rtype: MessageContext
+        :returns: twilio.rest.api.v2010.account.message.MessageContext
+        :rtype: twilio.rest.api.v2010.account.message.MessageContext
         """
         super(MessageContext, self).__init__(version)
 
@@ -313,7 +313,7 @@ class MessageContext(InstanceContext):
         Fetch a MessageInstance
 
         :returns: Fetched MessageInstance
-        :rtype: MessageInstance
+        :rtype: twilio.rest.api.v2010.account.message.MessageInstance
         """
         params = values.of({})
 
@@ -337,7 +337,7 @@ class MessageContext(InstanceContext):
         :param unicode body: The body
 
         :returns: Updated MessageInstance
-        :rtype: MessageInstance
+        :rtype: twilio.rest.api.v2010.account.message.MessageInstance
         """
         data = values.of({
             'Body': body,
@@ -361,8 +361,8 @@ class MessageContext(InstanceContext):
         """
         Access the media
 
-        :returns: MediaList
-        :rtype: MediaList
+        :returns: twilio.rest.api.v2010.account.message.media.MediaList
+        :rtype: twilio.rest.api.v2010.account.message.media.MediaList
         """
         if self._media is None:
             self._media = MediaList(
@@ -377,8 +377,8 @@ class MessageContext(InstanceContext):
         """
         Access the feedback
 
-        :returns: FeedbackList
-        :rtype: FeedbackList
+        :returns: twilio.rest.api.v2010.account.message.feedback.FeedbackList
+        :rtype: twilio.rest.api.v2010.account.message.feedback.FeedbackList
         """
         if self._feedback is None:
             self._feedback = FeedbackList(
@@ -405,8 +405,8 @@ class MessageInstance(InstanceResource):
         """
         Initialize the MessageInstance
 
-        :returns: MessageInstance
-        :rtype: MessageInstance
+        :returns: twilio.rest.api.v2010.account.message.MessageInstance
+        :rtype: twilio.rest.api.v2010.account.message.MessageInstance
         """
         super(MessageInstance, self).__init__(version)
 
@@ -448,7 +448,7 @@ class MessageInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: MessageContext for this MessageInstance
-        :rtype: MessageContext
+        :rtype: twilio.rest.api.v2010.account.message.MessageContext
         """
         if self._context is None:
             self._context = MessageContext(
@@ -632,7 +632,7 @@ class MessageInstance(InstanceResource):
         Fetch a MessageInstance
 
         :returns: Fetched MessageInstance
-        :rtype: MessageInstance
+        :rtype: twilio.rest.api.v2010.account.message.MessageInstance
         """
         return self._proxy.fetch()
 
@@ -643,7 +643,7 @@ class MessageInstance(InstanceResource):
         :param unicode body: The body
 
         :returns: Updated MessageInstance
-        :rtype: MessageInstance
+        :rtype: twilio.rest.api.v2010.account.message.MessageInstance
         """
         return self._proxy.update(
             body,
@@ -654,8 +654,8 @@ class MessageInstance(InstanceResource):
         """
         Access the media
 
-        :returns: media
-        :rtype: media
+        :returns: twilio.rest.api.v2010.account.message.media.MediaList
+        :rtype: twilio.rest.api.v2010.account.message.media.MediaList
         """
         return self._proxy.media
 
@@ -664,8 +664,8 @@ class MessageInstance(InstanceResource):
         """
         Access the feedback
 
-        :returns: feedback
-        :rtype: feedback
+        :returns: twilio.rest.api.v2010.account.message.feedback.FeedbackList
+        :rtype: twilio.rest.api.v2010.account.message.feedback.FeedbackList
         """
         return self._proxy.feedback
 

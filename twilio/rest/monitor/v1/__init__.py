@@ -28,7 +28,7 @@ class V1(Version):
     @property
     def alerts(self):
         """
-        :rtype: AlertList
+        :rtype: twilio.rest.monitor.v1.alert.AlertList
         """
         if self._alerts is None:
             self._alerts = AlertList(self)
@@ -37,7 +37,7 @@ class V1(Version):
     @property
     def events(self):
         """
-        :rtype: EventList
+        :rtype: twilio.rest.monitor.v1.event.EventList
         """
         if self._events is None:
             self._events = EventList(self)

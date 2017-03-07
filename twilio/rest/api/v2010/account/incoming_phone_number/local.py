@@ -22,8 +22,8 @@ class LocalList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: The unique sid that identifies this account
 
-        :returns: LocalList
-        :rtype: LocalList
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.local.LocalList
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.local.LocalList
         """
         super(LocalList, self).__init__(version)
 
@@ -157,7 +157,7 @@ class LocalList(ListResource):
         :param unicode voice_url: The voice_url
 
         :returns: Newly created LocalInstance
-        :rtype: LocalInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.local.LocalInstance
         """
         data = values.of({
             'PhoneNumber': phone_number,
@@ -210,8 +210,8 @@ class LocalPage(Page):
         :param Response response: Response from the API
         :param account_sid: The unique sid that identifies this account
 
-        :returns: LocalPage
-        :rtype: LocalPage
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.local.LocalPage
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.local.LocalPage
         """
         super(LocalPage, self).__init__(version, response)
 
@@ -224,8 +224,8 @@ class LocalPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: LocalInstance
-        :rtype: LocalInstance
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.local.LocalInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.local.LocalInstance
         """
         return LocalInstance(
             self._version,
@@ -249,8 +249,8 @@ class LocalInstance(InstanceResource):
         """
         Initialize the LocalInstance
 
-        :returns: LocalInstance
-        :rtype: LocalInstance
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.local.LocalInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.local.LocalInstance
         """
         super(LocalInstance, self).__init__(version)
 

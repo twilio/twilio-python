@@ -30,7 +30,7 @@ class V1(Version):
     @property
     def messaging(self):
         """
-        :rtype: MessagingList
+        :rtype: twilio.rest.pricing.v1.messaging.MessagingList
         """
         if self._messaging is None:
             self._messaging = MessagingList(self)
@@ -39,7 +39,7 @@ class V1(Version):
     @property
     def phone_numbers(self):
         """
-        :rtype: PhoneNumberList
+        :rtype: twilio.rest.pricing.v1.phone_number.PhoneNumberList
         """
         if self._phone_numbers is None:
             self._phone_numbers = PhoneNumberList(self)
@@ -48,7 +48,7 @@ class V1(Version):
     @property
     def voice(self):
         """
-        :rtype: VoiceList
+        :rtype: twilio.rest.pricing.v1.voice.VoiceList
         """
         if self._voice is None:
             self._voice = VoiceList(self)

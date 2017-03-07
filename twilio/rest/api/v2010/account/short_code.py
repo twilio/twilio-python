@@ -23,8 +23,8 @@ class ShortCodeList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: The unique sid that identifies this account
 
-        :returns: ShortCodeList
-        :rtype: ShortCodeList
+        :returns: twilio.rest.api.v2010.account.short_code.ShortCodeList
+        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeList
         """
         super(ShortCodeList, self).__init__(version)
 
@@ -128,8 +128,8 @@ class ShortCodeList(ListResource):
 
         :param sid: Fetch by unique short-code Sid
 
-        :returns: ShortCodeContext
-        :rtype: ShortCodeContext
+        :returns: twilio.rest.api.v2010.account.short_code.ShortCodeContext
+        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeContext
         """
         return ShortCodeContext(
             self._version,
@@ -143,8 +143,8 @@ class ShortCodeList(ListResource):
 
         :param sid: Fetch by unique short-code Sid
 
-        :returns: ShortCodeContext
-        :rtype: ShortCodeContext
+        :returns: twilio.rest.api.v2010.account.short_code.ShortCodeContext
+        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeContext
         """
         return ShortCodeContext(
             self._version,
@@ -172,8 +172,8 @@ class ShortCodePage(Page):
         :param Response response: Response from the API
         :param account_sid: The unique sid that identifies this account
 
-        :returns: ShortCodePage
-        :rtype: ShortCodePage
+        :returns: twilio.rest.api.v2010.account.short_code.ShortCodePage
+        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodePage
         """
         super(ShortCodePage, self).__init__(version, response)
 
@@ -186,8 +186,8 @@ class ShortCodePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: ShortCodeInstance
-        :rtype: ShortCodeInstance
+        :returns: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
+        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
         """
         return ShortCodeInstance(
             self._version,
@@ -215,8 +215,8 @@ class ShortCodeContext(InstanceContext):
         :param account_sid: The account_sid
         :param sid: Fetch by unique short-code Sid
 
-        :returns: ShortCodeContext
-        :rtype: ShortCodeContext
+        :returns: twilio.rest.api.v2010.account.short_code.ShortCodeContext
+        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeContext
         """
         super(ShortCodeContext, self).__init__(version)
 
@@ -232,7 +232,7 @@ class ShortCodeContext(InstanceContext):
         Fetch a ShortCodeInstance
 
         :returns: Fetched ShortCodeInstance
-        :rtype: ShortCodeInstance
+        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
         """
         params = values.of({})
 
@@ -263,7 +263,7 @@ class ShortCodeContext(InstanceContext):
         :param unicode sms_fallback_method: HTTP method Twilio will use with sms fallback url
 
         :returns: Updated ShortCodeInstance
-        :rtype: ShortCodeInstance
+        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -304,8 +304,8 @@ class ShortCodeInstance(InstanceResource):
         """
         Initialize the ShortCodeInstance
 
-        :returns: ShortCodeInstance
-        :rtype: ShortCodeInstance
+        :returns: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
+        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
         """
         super(ShortCodeInstance, self).__init__(version)
 
@@ -339,7 +339,7 @@ class ShortCodeInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: ShortCodeContext for this ShortCodeInstance
-        :rtype: ShortCodeContext
+        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeContext
         """
         if self._context is None:
             self._context = ShortCodeContext(
@@ -450,7 +450,7 @@ class ShortCodeInstance(InstanceResource):
         Fetch a ShortCodeInstance
 
         :returns: Fetched ShortCodeInstance
-        :rtype: ShortCodeInstance
+        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
         """
         return self._proxy.fetch()
 
@@ -468,7 +468,7 @@ class ShortCodeInstance(InstanceResource):
         :param unicode sms_fallback_method: HTTP method Twilio will use with sms fallback url
 
         :returns: Updated ShortCodeInstance
-        :rtype: ShortCodeInstance
+        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,

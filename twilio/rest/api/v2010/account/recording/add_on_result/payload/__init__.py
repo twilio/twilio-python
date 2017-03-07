@@ -25,8 +25,8 @@ class PayloadList(ListResource):
         :param reference_sid: A string that uniquely identifies the recording.
         :param add_on_result_sid: A string that uniquely identifies the result
 
-        :returns: PayloadList
-        :rtype: PayloadList
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadList
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadList
         """
         super(PayloadList, self).__init__(version)
 
@@ -117,8 +117,8 @@ class PayloadList(ListResource):
 
         :param sid: Fetch by unique payload Sid
 
-        :returns: PayloadContext
-        :rtype: PayloadContext
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
         """
         return PayloadContext(
             self._version,
@@ -134,8 +134,8 @@ class PayloadList(ListResource):
 
         :param sid: Fetch by unique payload Sid
 
-        :returns: PayloadContext
-        :rtype: PayloadContext
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
         """
         return PayloadContext(
             self._version,
@@ -167,8 +167,8 @@ class PayloadPage(Page):
         :param reference_sid: A string that uniquely identifies the recording.
         :param add_on_result_sid: A string that uniquely identifies the result
 
-        :returns: PayloadPage
-        :rtype: PayloadPage
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadPage
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadPage
         """
         super(PayloadPage, self).__init__(version, response)
 
@@ -181,8 +181,8 @@ class PayloadPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: PayloadInstance
-        :rtype: PayloadInstance
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
         """
         return PayloadInstance(
             self._version,
@@ -214,8 +214,8 @@ class PayloadContext(InstanceContext):
         :param add_on_result_sid: The add_on_result_sid
         :param sid: Fetch by unique payload Sid
 
-        :returns: PayloadContext
-        :rtype: PayloadContext
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
         """
         super(PayloadContext, self).__init__(version)
 
@@ -233,7 +233,7 @@ class PayloadContext(InstanceContext):
         Fetch a PayloadInstance
 
         :returns: Fetched PayloadInstance
-        :rtype: PayloadInstance
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
         """
         params = values.of({})
 
@@ -279,8 +279,8 @@ class PayloadInstance(InstanceResource):
         """
         Initialize the PayloadInstance
 
-        :returns: PayloadInstance
-        :rtype: PayloadInstance
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
         """
         super(PayloadInstance, self).__init__(version)
 
@@ -315,7 +315,7 @@ class PayloadInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: PayloadContext for this PayloadInstance
-        :rtype: PayloadContext
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
         """
         if self._context is None:
             self._context = PayloadContext(
@@ -420,7 +420,7 @@ class PayloadInstance(InstanceResource):
         Fetch a PayloadInstance
 
         :returns: Fetched PayloadInstance
-        :rtype: PayloadInstance
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
         """
         return self._proxy.fetch()
 

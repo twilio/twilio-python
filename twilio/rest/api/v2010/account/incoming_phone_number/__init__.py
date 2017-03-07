@@ -27,8 +27,8 @@ class IncomingPhoneNumberList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: The unique sid that identifies this account
 
-        :returns: IncomingPhoneNumberList
-        :rtype: IncomingPhoneNumberList
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberList
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberList
         """
         super(IncomingPhoneNumberList, self).__init__(version)
 
@@ -174,7 +174,7 @@ class IncomingPhoneNumberList(ListResource):
         :param unicode area_code: The desired area code for the new number
 
         :returns: Newly created IncomingPhoneNumberInstance
-        :rtype: IncomingPhoneNumberInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
         """
         data = values.of({
             'PhoneNumber': phone_number,
@@ -216,8 +216,8 @@ class IncomingPhoneNumberList(ListResource):
         """
         Access the local
 
-        :returns: LocalList
-        :rtype: LocalList
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.local.LocalList
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.local.LocalList
         """
         if self._local is None:
             self._local = LocalList(
@@ -231,8 +231,8 @@ class IncomingPhoneNumberList(ListResource):
         """
         Access the mobile
 
-        :returns: MobileList
-        :rtype: MobileList
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.mobile.MobileList
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.mobile.MobileList
         """
         if self._mobile is None:
             self._mobile = MobileList(
@@ -246,8 +246,8 @@ class IncomingPhoneNumberList(ListResource):
         """
         Access the toll_free
 
-        :returns: TollFreeList
-        :rtype: TollFreeList
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreeList
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreeList
         """
         if self._toll_free is None:
             self._toll_free = TollFreeList(
@@ -262,8 +262,8 @@ class IncomingPhoneNumberList(ListResource):
 
         :param sid: Fetch by unique incoming-phone-number Sid
 
-        :returns: IncomingPhoneNumberContext
-        :rtype: IncomingPhoneNumberContext
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberContext
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberContext
         """
         return IncomingPhoneNumberContext(
             self._version,
@@ -277,8 +277,8 @@ class IncomingPhoneNumberList(ListResource):
 
         :param sid: Fetch by unique incoming-phone-number Sid
 
-        :returns: IncomingPhoneNumberContext
-        :rtype: IncomingPhoneNumberContext
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberContext
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberContext
         """
         return IncomingPhoneNumberContext(
             self._version,
@@ -306,8 +306,8 @@ class IncomingPhoneNumberPage(Page):
         :param Response response: Response from the API
         :param account_sid: The unique sid that identifies this account
 
-        :returns: IncomingPhoneNumberPage
-        :rtype: IncomingPhoneNumberPage
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberPage
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberPage
         """
         super(IncomingPhoneNumberPage, self).__init__(version, response)
 
@@ -320,8 +320,8 @@ class IncomingPhoneNumberPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: IncomingPhoneNumberInstance
-        :rtype: IncomingPhoneNumberInstance
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
         """
         return IncomingPhoneNumberInstance(
             self._version,
@@ -349,8 +349,8 @@ class IncomingPhoneNumberContext(InstanceContext):
         :param account_sid: The account_sid
         :param sid: Fetch by unique incoming-phone-number Sid
 
-        :returns: IncomingPhoneNumberContext
-        :rtype: IncomingPhoneNumberContext
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberContext
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberContext
         """
         super(IncomingPhoneNumberContext, self).__init__(version)
 
@@ -398,7 +398,7 @@ class IncomingPhoneNumberContext(InstanceContext):
         :param unicode trunk_sid: Unique string to identify the trunk
 
         :returns: Updated IncomingPhoneNumberInstance
-        :rtype: IncomingPhoneNumberInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
         """
         data = values.of({
             'ApiVersion': api_version,
@@ -439,7 +439,7 @@ class IncomingPhoneNumberContext(InstanceContext):
         Fetch a IncomingPhoneNumberInstance
 
         :returns: Fetched IncomingPhoneNumberInstance
-        :rtype: IncomingPhoneNumberInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
         """
         params = values.of({})
 
@@ -470,8 +470,8 @@ class IncomingPhoneNumberContext(InstanceContext):
         """
         Access the assigned_add_ons
 
-        :returns: AssignedAddOnList
-        :rtype: AssignedAddOnList
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnList
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnList
         """
         if self._assigned_add_ons is None:
             self._assigned_add_ons = AssignedAddOnList(
@@ -498,8 +498,8 @@ class IncomingPhoneNumberInstance(InstanceResource):
         """
         Initialize the IncomingPhoneNumberInstance
 
-        :returns: IncomingPhoneNumberInstance
-        :rtype: IncomingPhoneNumberInstance
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
         """
         super(IncomingPhoneNumberInstance, self).__init__(version)
 
@@ -548,7 +548,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: IncomingPhoneNumberContext for this IncomingPhoneNumberInstance
-        :rtype: IncomingPhoneNumberContext
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberContext
         """
         if self._context is None:
             self._context = IncomingPhoneNumberContext(
@@ -808,7 +808,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
         :param unicode trunk_sid: Unique string to identify the trunk
 
         :returns: Updated IncomingPhoneNumberInstance
-        :rtype: IncomingPhoneNumberInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
         """
         return self._proxy.update(
             api_version=api_version,
@@ -836,7 +836,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
         Fetch a IncomingPhoneNumberInstance
 
         :returns: Fetched IncomingPhoneNumberInstance
-        :rtype: IncomingPhoneNumberInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
         """
         return self._proxy.fetch()
 
@@ -854,8 +854,8 @@ class IncomingPhoneNumberInstance(InstanceResource):
         """
         Access the assigned_add_ons
 
-        :returns: assigned_add_ons
-        :rtype: assigned_add_ons
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnList
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnList
         """
         return self._proxy.assigned_add_ons
 

@@ -24,8 +24,8 @@ class MemberList(ListResource):
         :param service_sid: The service_sid
         :param channel_sid: The channel_sid
 
-        :returns: MemberList
-        :rtype: MemberList
+        :returns: twilio.rest.ip_messaging.v1.service.channel.member.MemberList
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberList
         """
         super(MemberList, self).__init__(version)
 
@@ -44,7 +44,7 @@ class MemberList(ListResource):
         :param unicode role_sid: The role_sid
 
         :returns: Newly created MemberInstance
-        :rtype: MemberInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberInstance
         """
         data = values.of({
             'Identity': identity,
@@ -149,8 +149,8 @@ class MemberList(ListResource):
 
         :param sid: The sid
 
-        :returns: MemberContext
-        :rtype: MemberContext
+        :returns: twilio.rest.ip_messaging.v1.service.channel.member.MemberContext
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberContext
         """
         return MemberContext(
             self._version,
@@ -165,8 +165,8 @@ class MemberList(ListResource):
 
         :param sid: The sid
 
-        :returns: MemberContext
-        :rtype: MemberContext
+        :returns: twilio.rest.ip_messaging.v1.service.channel.member.MemberContext
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberContext
         """
         return MemberContext(
             self._version,
@@ -196,8 +196,8 @@ class MemberPage(Page):
         :param service_sid: The service_sid
         :param channel_sid: The channel_sid
 
-        :returns: MemberPage
-        :rtype: MemberPage
+        :returns: twilio.rest.ip_messaging.v1.service.channel.member.MemberPage
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberPage
         """
         super(MemberPage, self).__init__(version, response)
 
@@ -210,8 +210,8 @@ class MemberPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: MemberInstance
-        :rtype: MemberInstance
+        :returns: twilio.rest.ip_messaging.v1.service.channel.member.MemberInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberInstance
         """
         return MemberInstance(
             self._version,
@@ -241,8 +241,8 @@ class MemberContext(InstanceContext):
         :param channel_sid: The channel_sid
         :param sid: The sid
 
-        :returns: MemberContext
-        :rtype: MemberContext
+        :returns: twilio.rest.ip_messaging.v1.service.channel.member.MemberContext
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberContext
         """
         super(MemberContext, self).__init__(version)
 
@@ -259,7 +259,7 @@ class MemberContext(InstanceContext):
         Fetch a MemberInstance
 
         :returns: Fetched MemberInstance
-        :rtype: MemberInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberInstance
         """
         params = values.of({})
 
@@ -295,7 +295,7 @@ class MemberContext(InstanceContext):
         :param unicode last_consumed_message_index: The last_consumed_message_index
 
         :returns: Updated MemberInstance
-        :rtype: MemberInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberInstance
         """
         data = values.of({
             'RoleSid': role_sid,
@@ -333,8 +333,8 @@ class MemberInstance(InstanceResource):
         """
         Initialize the MemberInstance
 
-        :returns: MemberInstance
-        :rtype: MemberInstance
+        :returns: twilio.rest.ip_messaging.v1.service.channel.member.MemberInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberInstance
         """
         super(MemberInstance, self).__init__(version)
 
@@ -368,7 +368,7 @@ class MemberInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: MemberContext for this MemberInstance
-        :rtype: MemberContext
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberContext
         """
         if self._context is None:
             self._context = MemberContext(
@@ -472,7 +472,7 @@ class MemberInstance(InstanceResource):
         Fetch a MemberInstance
 
         :returns: Fetched MemberInstance
-        :rtype: MemberInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberInstance
         """
         return self._proxy.fetch()
 
@@ -494,7 +494,7 @@ class MemberInstance(InstanceResource):
         :param unicode last_consumed_message_index: The last_consumed_message_index
 
         :returns: Updated MemberInstance
-        :rtype: MemberInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberInstance
         """
         return self._proxy.update(
             role_sid=role_sid,

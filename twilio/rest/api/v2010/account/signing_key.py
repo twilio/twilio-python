@@ -23,8 +23,8 @@ class SigningKeyList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: SigningKeyList
-        :rtype: SigningKeyList
+        :returns: twilio.rest.api.v2010.account.signing_key.SigningKeyList
+        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyList
         """
         super(SigningKeyList, self).__init__(version)
 
@@ -113,8 +113,8 @@ class SigningKeyList(ListResource):
 
         :param sid: The sid
 
-        :returns: SigningKeyContext
-        :rtype: SigningKeyContext
+        :returns: twilio.rest.api.v2010.account.signing_key.SigningKeyContext
+        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyContext
         """
         return SigningKeyContext(
             self._version,
@@ -128,8 +128,8 @@ class SigningKeyList(ListResource):
 
         :param sid: The sid
 
-        :returns: SigningKeyContext
-        :rtype: SigningKeyContext
+        :returns: twilio.rest.api.v2010.account.signing_key.SigningKeyContext
+        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyContext
         """
         return SigningKeyContext(
             self._version,
@@ -157,8 +157,8 @@ class SigningKeyPage(Page):
         :param Response response: Response from the API
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: SigningKeyPage
-        :rtype: SigningKeyPage
+        :returns: twilio.rest.api.v2010.account.signing_key.SigningKeyPage
+        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyPage
         """
         super(SigningKeyPage, self).__init__(version, response)
 
@@ -171,8 +171,8 @@ class SigningKeyPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: SigningKeyInstance
-        :rtype: SigningKeyInstance
+        :returns: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
+        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
         """
         return SigningKeyInstance(
             self._version,
@@ -200,8 +200,8 @@ class SigningKeyContext(InstanceContext):
         :param account_sid: The account_sid
         :param sid: The sid
 
-        :returns: SigningKeyContext
-        :rtype: SigningKeyContext
+        :returns: twilio.rest.api.v2010.account.signing_key.SigningKeyContext
+        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyContext
         """
         super(SigningKeyContext, self).__init__(version)
 
@@ -217,7 +217,7 @@ class SigningKeyContext(InstanceContext):
         Fetch a SigningKeyInstance
 
         :returns: Fetched SigningKeyInstance
-        :rtype: SigningKeyInstance
+        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
         """
         params = values.of({})
 
@@ -241,7 +241,7 @@ class SigningKeyContext(InstanceContext):
         :param unicode friendly_name: The friendly_name
 
         :returns: Updated SigningKeyInstance
-        :rtype: SigningKeyInstance
+        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -286,8 +286,8 @@ class SigningKeyInstance(InstanceResource):
         """
         Initialize the SigningKeyInstance
 
-        :returns: SigningKeyInstance
-        :rtype: SigningKeyInstance
+        :returns: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
+        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
         """
         super(SigningKeyInstance, self).__init__(version)
 
@@ -313,7 +313,7 @@ class SigningKeyInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: SigningKeyContext for this SigningKeyInstance
-        :rtype: SigningKeyContext
+        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyContext
         """
         if self._context is None:
             self._context = SigningKeyContext(
@@ -360,7 +360,7 @@ class SigningKeyInstance(InstanceResource):
         Fetch a SigningKeyInstance
 
         :returns: Fetched SigningKeyInstance
-        :rtype: SigningKeyInstance
+        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
         """
         return self._proxy.fetch()
 
@@ -371,7 +371,7 @@ class SigningKeyInstance(InstanceResource):
         :param unicode friendly_name: The friendly_name
 
         :returns: Updated SigningKeyInstance
-        :rtype: SigningKeyInstance
+        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,

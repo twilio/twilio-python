@@ -23,8 +23,8 @@ class SyncListPermissionList(ListResource):
         :param service_sid: Sync Service Instance SID.
         :param list_sid: Sync List SID.
 
-        :returns: SyncListPermissionList
-        :rtype: SyncListPermissionList
+        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionList
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionList
         """
         super(SyncListPermissionList, self).__init__(version)
 
@@ -114,8 +114,8 @@ class SyncListPermissionList(ListResource):
 
         :param identity: Identity of the user to whom the Sync List Permission applies.
 
-        :returns: SyncListPermissionContext
-        :rtype: SyncListPermissionContext
+        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionContext
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionContext
         """
         return SyncListPermissionContext(
             self._version,
@@ -130,8 +130,8 @@ class SyncListPermissionList(ListResource):
 
         :param identity: Identity of the user to whom the Sync List Permission applies.
 
-        :returns: SyncListPermissionContext
-        :rtype: SyncListPermissionContext
+        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionContext
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionContext
         """
         return SyncListPermissionContext(
             self._version,
@@ -161,8 +161,8 @@ class SyncListPermissionPage(Page):
         :param service_sid: Sync Service Instance SID.
         :param list_sid: Sync List SID.
 
-        :returns: SyncListPermissionPage
-        :rtype: SyncListPermissionPage
+        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionPage
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionPage
         """
         super(SyncListPermissionPage, self).__init__(version, response)
 
@@ -175,8 +175,8 @@ class SyncListPermissionPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: SyncListPermissionInstance
-        :rtype: SyncListPermissionInstance
+        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance
         """
         return SyncListPermissionInstance(
             self._version,
@@ -206,8 +206,8 @@ class SyncListPermissionContext(InstanceContext):
         :param list_sid: Sync List SID or unique name.
         :param identity: Identity of the user to whom the Sync List Permission applies.
 
-        :returns: SyncListPermissionContext
-        :rtype: SyncListPermissionContext
+        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionContext
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionContext
         """
         super(SyncListPermissionContext, self).__init__(version)
 
@@ -224,7 +224,7 @@ class SyncListPermissionContext(InstanceContext):
         Fetch a SyncListPermissionInstance
 
         :returns: Fetched SyncListPermissionInstance
-        :rtype: SyncListPermissionInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance
         """
         params = values.of({})
 
@@ -260,7 +260,7 @@ class SyncListPermissionContext(InstanceContext):
         :param bool manage: Manage access.
 
         :returns: Updated SyncListPermissionInstance
-        :rtype: SyncListPermissionInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance
         """
         data = values.of({
             'Read': read,
@@ -299,8 +299,8 @@ class SyncListPermissionInstance(InstanceResource):
         """
         Initialize the SyncListPermissionInstance
 
-        :returns: SyncListPermissionInstance
-        :rtype: SyncListPermissionInstance
+        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance
         """
         super(SyncListPermissionInstance, self).__init__(version)
 
@@ -331,7 +331,7 @@ class SyncListPermissionInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: SyncListPermissionContext for this SyncListPermissionInstance
-        :rtype: SyncListPermissionContext
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionContext
         """
         if self._context is None:
             self._context = SyncListPermissionContext(
@@ -411,7 +411,7 @@ class SyncListPermissionInstance(InstanceResource):
         Fetch a SyncListPermissionInstance
 
         :returns: Fetched SyncListPermissionInstance
-        :rtype: SyncListPermissionInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance
         """
         return self._proxy.fetch()
 
@@ -433,7 +433,7 @@ class SyncListPermissionInstance(InstanceResource):
         :param bool manage: Manage access.
 
         :returns: Updated SyncListPermissionInstance
-        :rtype: SyncListPermissionInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance
         """
         return self._proxy.update(
             read,

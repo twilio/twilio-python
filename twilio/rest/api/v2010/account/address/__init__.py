@@ -24,8 +24,8 @@ class AddressList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: The account_sid
 
-        :returns: AddressList
-        :rtype: AddressList
+        :returns: twilio.rest.api.v2010.account.address.AddressList
+        :rtype: twilio.rest.api.v2010.account.address.AddressList
         """
         super(AddressList, self).__init__(version)
 
@@ -50,7 +50,7 @@ class AddressList(ListResource):
         :param bool emergency_enabled: The emergency_enabled
 
         :returns: Newly created AddressInstance
-        :rtype: AddressInstance
+        :rtype: twilio.rest.api.v2010.account.address.AddressInstance
         """
         data = values.of({
             'CustomerName': customer_name,
@@ -175,8 +175,8 @@ class AddressList(ListResource):
 
         :param sid: The sid
 
-        :returns: AddressContext
-        :rtype: AddressContext
+        :returns: twilio.rest.api.v2010.account.address.AddressContext
+        :rtype: twilio.rest.api.v2010.account.address.AddressContext
         """
         return AddressContext(
             self._version,
@@ -190,8 +190,8 @@ class AddressList(ListResource):
 
         :param sid: The sid
 
-        :returns: AddressContext
-        :rtype: AddressContext
+        :returns: twilio.rest.api.v2010.account.address.AddressContext
+        :rtype: twilio.rest.api.v2010.account.address.AddressContext
         """
         return AddressContext(
             self._version,
@@ -219,8 +219,8 @@ class AddressPage(Page):
         :param Response response: Response from the API
         :param account_sid: The account_sid
 
-        :returns: AddressPage
-        :rtype: AddressPage
+        :returns: twilio.rest.api.v2010.account.address.AddressPage
+        :rtype: twilio.rest.api.v2010.account.address.AddressPage
         """
         super(AddressPage, self).__init__(version, response)
 
@@ -233,8 +233,8 @@ class AddressPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: AddressInstance
-        :rtype: AddressInstance
+        :returns: twilio.rest.api.v2010.account.address.AddressInstance
+        :rtype: twilio.rest.api.v2010.account.address.AddressInstance
         """
         return AddressInstance(
             self._version,
@@ -262,8 +262,8 @@ class AddressContext(InstanceContext):
         :param account_sid: The account_sid
         :param sid: The sid
 
-        :returns: AddressContext
-        :rtype: AddressContext
+        :returns: twilio.rest.api.v2010.account.address.AddressContext
+        :rtype: twilio.rest.api.v2010.account.address.AddressContext
         """
         super(AddressContext, self).__init__(version)
 
@@ -291,7 +291,7 @@ class AddressContext(InstanceContext):
         Fetch a AddressInstance
 
         :returns: Fetched AddressInstance
-        :rtype: AddressInstance
+        :rtype: twilio.rest.api.v2010.account.address.AddressInstance
         """
         params = values.of({})
 
@@ -323,7 +323,7 @@ class AddressContext(InstanceContext):
         :param bool emergency_enabled: The emergency_enabled
 
         :returns: Updated AddressInstance
-        :rtype: AddressInstance
+        :rtype: twilio.rest.api.v2010.account.address.AddressInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -353,8 +353,8 @@ class AddressContext(InstanceContext):
         """
         Access the dependent_phone_numbers
 
-        :returns: DependentPhoneNumberList
-        :rtype: DependentPhoneNumberList
+        :returns: twilio.rest.api.v2010.account.address.dependent_phone_number.DependentPhoneNumberList
+        :rtype: twilio.rest.api.v2010.account.address.dependent_phone_number.DependentPhoneNumberList
         """
         if self._dependent_phone_numbers is None:
             self._dependent_phone_numbers = DependentPhoneNumberList(
@@ -381,8 +381,8 @@ class AddressInstance(InstanceResource):
         """
         Initialize the AddressInstance
 
-        :returns: AddressInstance
-        :rtype: AddressInstance
+        :returns: twilio.rest.api.v2010.account.address.AddressInstance
+        :rtype: twilio.rest.api.v2010.account.address.AddressInstance
         """
         super(AddressInstance, self).__init__(version)
 
@@ -418,7 +418,7 @@ class AddressInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: AddressContext for this AddressInstance
-        :rtype: AddressContext
+        :rtype: twilio.rest.api.v2010.account.address.AddressContext
         """
         if self._context is None:
             self._context = AddressContext(
@@ -554,7 +554,7 @@ class AddressInstance(InstanceResource):
         Fetch a AddressInstance
 
         :returns: Fetched AddressInstance
-        :rtype: AddressInstance
+        :rtype: twilio.rest.api.v2010.account.address.AddressInstance
         """
         return self._proxy.fetch()
 
@@ -573,7 +573,7 @@ class AddressInstance(InstanceResource):
         :param bool emergency_enabled: The emergency_enabled
 
         :returns: Updated AddressInstance
-        :rtype: AddressInstance
+        :rtype: twilio.rest.api.v2010.account.address.AddressInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
@@ -590,8 +590,8 @@ class AddressInstance(InstanceResource):
         """
         Access the dependent_phone_numbers
 
-        :returns: dependent_phone_numbers
-        :rtype: dependent_phone_numbers
+        :returns: twilio.rest.api.v2010.account.address.dependent_phone_number.DependentPhoneNumberList
+        :rtype: twilio.rest.api.v2010.account.address.dependent_phone_number.DependentPhoneNumberList
         """
         return self._proxy.dependent_phone_numbers
 

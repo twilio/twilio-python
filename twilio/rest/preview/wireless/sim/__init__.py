@@ -23,8 +23,8 @@ class SimList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: SimList
-        :rtype: SimList
+        :returns: twilio.rest.preview.wireless.sim.SimList
+        :rtype: twilio.rest.preview.wireless.sim.SimList
         """
         super(SimList, self).__init__(version)
 
@@ -147,8 +147,8 @@ class SimList(ListResource):
 
         :param sid: The sid
 
-        :returns: SimContext
-        :rtype: SimContext
+        :returns: twilio.rest.preview.wireless.sim.SimContext
+        :rtype: twilio.rest.preview.wireless.sim.SimContext
         """
         return SimContext(
             self._version,
@@ -161,8 +161,8 @@ class SimList(ListResource):
 
         :param sid: The sid
 
-        :returns: SimContext
-        :rtype: SimContext
+        :returns: twilio.rest.preview.wireless.sim.SimContext
+        :rtype: twilio.rest.preview.wireless.sim.SimContext
         """
         return SimContext(
             self._version,
@@ -188,8 +188,8 @@ class SimPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: SimPage
-        :rtype: SimPage
+        :returns: twilio.rest.preview.wireless.sim.SimPage
+        :rtype: twilio.rest.preview.wireless.sim.SimPage
         """
         super(SimPage, self).__init__(version, response)
 
@@ -202,8 +202,8 @@ class SimPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: SimInstance
-        :rtype: SimInstance
+        :returns: twilio.rest.preview.wireless.sim.SimInstance
+        :rtype: twilio.rest.preview.wireless.sim.SimInstance
         """
         return SimInstance(
             self._version,
@@ -229,8 +229,8 @@ class SimContext(InstanceContext):
         :param Version version: Version that contains the resource
         :param sid: The sid
 
-        :returns: SimContext
-        :rtype: SimContext
+        :returns: twilio.rest.preview.wireless.sim.SimContext
+        :rtype: twilio.rest.preview.wireless.sim.SimContext
         """
         super(SimContext, self).__init__(version)
 
@@ -248,7 +248,7 @@ class SimContext(InstanceContext):
         Fetch a SimInstance
 
         :returns: Fetched SimInstance
-        :rtype: SimInstance
+        :rtype: twilio.rest.preview.wireless.sim.SimInstance
         """
         params = values.of({})
 
@@ -282,7 +282,7 @@ class SimContext(InstanceContext):
         :param unicode commands_callback_url: The commands_callback_url
 
         :returns: Updated SimInstance
-        :rtype: SimInstance
+        :rtype: twilio.rest.preview.wireless.sim.SimInstance
         """
         data = values.of({
             'UniqueName': unique_name,
@@ -312,8 +312,8 @@ class SimContext(InstanceContext):
         """
         Access the usage
 
-        :returns: UsageList
-        :rtype: UsageList
+        :returns: twilio.rest.preview.wireless.sim.usage.UsageList
+        :rtype: twilio.rest.preview.wireless.sim.usage.UsageList
         """
         if self._usage is None:
             self._usage = UsageList(
@@ -339,8 +339,8 @@ class SimInstance(InstanceResource):
         """
         Initialize the SimInstance
 
-        :returns: SimInstance
-        :rtype: SimInstance
+        :returns: twilio.rest.preview.wireless.sim.SimInstance
+        :rtype: twilio.rest.preview.wireless.sim.SimInstance
         """
         super(SimInstance, self).__init__(version)
 
@@ -375,7 +375,7 @@ class SimInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: SimContext for this SimInstance
-        :rtype: SimContext
+        :rtype: twilio.rest.preview.wireless.sim.SimContext
         """
         if self._context is None:
             self._context = SimContext(
@@ -501,7 +501,7 @@ class SimInstance(InstanceResource):
         Fetch a SimInstance
 
         :returns: Fetched SimInstance
-        :rtype: SimInstance
+        :rtype: twilio.rest.preview.wireless.sim.SimInstance
         """
         return self._proxy.fetch()
 
@@ -523,7 +523,7 @@ class SimInstance(InstanceResource):
         :param unicode commands_callback_url: The commands_callback_url
 
         :returns: Updated SimInstance
-        :rtype: SimInstance
+        :rtype: twilio.rest.preview.wireless.sim.SimInstance
         """
         return self._proxy.update(
             unique_name=unique_name,
@@ -541,8 +541,8 @@ class SimInstance(InstanceResource):
         """
         Access the usage
 
-        :returns: usage
-        :rtype: usage
+        :returns: twilio.rest.preview.wireless.sim.usage.UsageList
+        :rtype: twilio.rest.preview.wireless.sim.usage.UsageList
         """
         return self._proxy.usage
 

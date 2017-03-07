@@ -25,8 +25,8 @@ class RecordingList(ListResource):
         :param account_sid: The account_sid
         :param call_sid: The call_sid
 
-        :returns: RecordingList
-        :rtype: RecordingList
+        :returns: twilio.rest.api.v2010.account.call.recording.RecordingList
+        :rtype: twilio.rest.api.v2010.account.call.recording.RecordingList
         """
         super(RecordingList, self).__init__(version)
 
@@ -137,8 +137,8 @@ class RecordingList(ListResource):
 
         :param sid: The sid
 
-        :returns: RecordingContext
-        :rtype: RecordingContext
+        :returns: twilio.rest.api.v2010.account.call.recording.RecordingContext
+        :rtype: twilio.rest.api.v2010.account.call.recording.RecordingContext
         """
         return RecordingContext(
             self._version,
@@ -153,8 +153,8 @@ class RecordingList(ListResource):
 
         :param sid: The sid
 
-        :returns: RecordingContext
-        :rtype: RecordingContext
+        :returns: twilio.rest.api.v2010.account.call.recording.RecordingContext
+        :rtype: twilio.rest.api.v2010.account.call.recording.RecordingContext
         """
         return RecordingContext(
             self._version,
@@ -184,8 +184,8 @@ class RecordingPage(Page):
         :param account_sid: The account_sid
         :param call_sid: The call_sid
 
-        :returns: RecordingPage
-        :rtype: RecordingPage
+        :returns: twilio.rest.api.v2010.account.call.recording.RecordingPage
+        :rtype: twilio.rest.api.v2010.account.call.recording.RecordingPage
         """
         super(RecordingPage, self).__init__(version, response)
 
@@ -198,8 +198,8 @@ class RecordingPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: RecordingInstance
-        :rtype: RecordingInstance
+        :returns: twilio.rest.api.v2010.account.call.recording.RecordingInstance
+        :rtype: twilio.rest.api.v2010.account.call.recording.RecordingInstance
         """
         return RecordingInstance(
             self._version,
@@ -229,8 +229,8 @@ class RecordingContext(InstanceContext):
         :param call_sid: The call_sid
         :param sid: The sid
 
-        :returns: RecordingContext
-        :rtype: RecordingContext
+        :returns: twilio.rest.api.v2010.account.call.recording.RecordingContext
+        :rtype: twilio.rest.api.v2010.account.call.recording.RecordingContext
         """
         super(RecordingContext, self).__init__(version)
 
@@ -247,7 +247,7 @@ class RecordingContext(InstanceContext):
         Fetch a RecordingInstance
 
         :returns: Fetched RecordingInstance
-        :rtype: RecordingInstance
+        :rtype: twilio.rest.api.v2010.account.call.recording.RecordingInstance
         """
         params = values.of({})
 
@@ -291,8 +291,8 @@ class RecordingInstance(InstanceResource):
         """
         Initialize the RecordingInstance
 
-        :returns: RecordingInstance
-        :rtype: RecordingInstance
+        :returns: twilio.rest.api.v2010.account.call.recording.RecordingInstance
+        :rtype: twilio.rest.api.v2010.account.call.recording.RecordingInstance
         """
         super(RecordingInstance, self).__init__(version)
 
@@ -324,7 +324,7 @@ class RecordingInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: RecordingContext for this RecordingInstance
-        :rtype: RecordingContext
+        :rtype: twilio.rest.api.v2010.account.call.recording.RecordingContext
         """
         if self._context is None:
             self._context = RecordingContext(
@@ -412,7 +412,7 @@ class RecordingInstance(InstanceResource):
         Fetch a RecordingInstance
 
         :returns: Fetched RecordingInstance
-        :rtype: RecordingInstance
+        :rtype: twilio.rest.api.v2010.account.call.recording.RecordingInstance
         """
         return self._proxy.fetch()
 

@@ -26,7 +26,7 @@ class V1(Version):
     @property
     def rooms(self):
         """
-        :rtype: RoomList
+        :rtype: twilio.rest.video.v1.room.RoomList
         """
         if self._rooms is None:
             self._rooms = RoomList(self)

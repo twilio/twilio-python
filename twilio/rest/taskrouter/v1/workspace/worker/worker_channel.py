@@ -24,8 +24,8 @@ class WorkerChannelList(ListResource):
         :param workspace_sid: The workspace_sid
         :param worker_sid: The worker_sid
 
-        :returns: WorkerChannelList
-        :rtype: WorkerChannelList
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelList
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelList
         """
         super(WorkerChannelList, self).__init__(version)
 
@@ -115,8 +115,8 @@ class WorkerChannelList(ListResource):
 
         :param sid: The sid
 
-        :returns: WorkerChannelContext
-        :rtype: WorkerChannelContext
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelContext
         """
         return WorkerChannelContext(
             self._version,
@@ -131,8 +131,8 @@ class WorkerChannelList(ListResource):
 
         :param sid: The sid
 
-        :returns: WorkerChannelContext
-        :rtype: WorkerChannelContext
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelContext
         """
         return WorkerChannelContext(
             self._version,
@@ -162,8 +162,8 @@ class WorkerChannelPage(Page):
         :param workspace_sid: The workspace_sid
         :param worker_sid: The worker_sid
 
-        :returns: WorkerChannelPage
-        :rtype: WorkerChannelPage
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelPage
         """
         super(WorkerChannelPage, self).__init__(version, response)
 
@@ -176,8 +176,8 @@ class WorkerChannelPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: WorkerChannelInstance
-        :rtype: WorkerChannelInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
         """
         return WorkerChannelInstance(
             self._version,
@@ -207,8 +207,8 @@ class WorkerChannelContext(InstanceContext):
         :param worker_sid: The worker_sid
         :param sid: The sid
 
-        :returns: WorkerChannelContext
-        :rtype: WorkerChannelContext
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelContext
         """
         super(WorkerChannelContext, self).__init__(version)
 
@@ -225,7 +225,7 @@ class WorkerChannelContext(InstanceContext):
         Fetch a WorkerChannelInstance
 
         :returns: Fetched WorkerChannelInstance
-        :rtype: WorkerChannelInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
         """
         params = values.of({})
 
@@ -251,7 +251,7 @@ class WorkerChannelContext(InstanceContext):
         :param bool available: The available
 
         :returns: Updated WorkerChannelInstance
-        :rtype: WorkerChannelInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
         """
         data = values.of({
             'Capacity': capacity,
@@ -289,8 +289,8 @@ class WorkerChannelInstance(InstanceResource):
         """
         Initialize the WorkerChannelInstance
 
-        :returns: WorkerChannelInstance
-        :rtype: WorkerChannelInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
         """
         super(WorkerChannelInstance, self).__init__(version)
 
@@ -327,7 +327,7 @@ class WorkerChannelInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: WorkerChannelContext for this WorkerChannelInstance
-        :rtype: WorkerChannelContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelContext
         """
         if self._context is None:
             self._context = WorkerChannelContext(
@@ -455,7 +455,7 @@ class WorkerChannelInstance(InstanceResource):
         Fetch a WorkerChannelInstance
 
         :returns: Fetched WorkerChannelInstance
-        :rtype: WorkerChannelInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
         """
         return self._proxy.fetch()
 
@@ -467,7 +467,7 @@ class WorkerChannelInstance(InstanceResource):
         :param bool available: The available
 
         :returns: Updated WorkerChannelInstance
-        :rtype: WorkerChannelInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
         """
         return self._proxy.update(
             capacity=capacity,

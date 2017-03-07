@@ -20,8 +20,8 @@ class PhoneNumberList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: PhoneNumberList
-        :rtype: PhoneNumberList
+        :returns: twilio.rest.pricing.v1.phone_number.PhoneNumberList
+        :rtype: twilio.rest.pricing.v1.phone_number.PhoneNumberList
         """
         super(PhoneNumberList, self).__init__(version)
 
@@ -36,8 +36,8 @@ class PhoneNumberList(ListResource):
         """
         Access the countries
 
-        :returns: CountryList
-        :rtype: CountryList
+        :returns: twilio.rest.pricing.v1.phone_number.country.CountryList
+        :rtype: twilio.rest.pricing.v1.phone_number.country.CountryList
         """
         if self._countries is None:
             self._countries = CountryList(
@@ -64,8 +64,8 @@ class PhoneNumberPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: PhoneNumberPage
-        :rtype: PhoneNumberPage
+        :returns: twilio.rest.pricing.v1.phone_number.PhoneNumberPage
+        :rtype: twilio.rest.pricing.v1.phone_number.PhoneNumberPage
         """
         super(PhoneNumberPage, self).__init__(version, response)
 
@@ -78,8 +78,8 @@ class PhoneNumberPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: PhoneNumberInstance
-        :rtype: PhoneNumberInstance
+        :returns: twilio.rest.pricing.v1.phone_number.PhoneNumberInstance
+        :rtype: twilio.rest.pricing.v1.phone_number.PhoneNumberInstance
         """
         return PhoneNumberInstance(
             self._version,
@@ -102,8 +102,8 @@ class PhoneNumberInstance(InstanceResource):
         """
         Initialize the PhoneNumberInstance
 
-        :returns: PhoneNumberInstance
-        :rtype: PhoneNumberInstance
+        :returns: twilio.rest.pricing.v1.phone_number.PhoneNumberInstance
+        :rtype: twilio.rest.pricing.v1.phone_number.PhoneNumberInstance
         """
         super(PhoneNumberInstance, self).__init__(version)
 

@@ -26,8 +26,8 @@ class RecordingList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: The unique sid that identifies this account
 
-        :returns: RecordingList
-        :rtype: RecordingList
+        :returns: twilio.rest.api.v2010.account.recording.RecordingList
+        :rtype: twilio.rest.api.v2010.account.recording.RecordingList
         """
         super(RecordingList, self).__init__(version)
 
@@ -146,8 +146,8 @@ class RecordingList(ListResource):
 
         :param sid: Fetch by unique recording Sid
 
-        :returns: RecordingContext
-        :rtype: RecordingContext
+        :returns: twilio.rest.api.v2010.account.recording.RecordingContext
+        :rtype: twilio.rest.api.v2010.account.recording.RecordingContext
         """
         return RecordingContext(
             self._version,
@@ -161,8 +161,8 @@ class RecordingList(ListResource):
 
         :param sid: Fetch by unique recording Sid
 
-        :returns: RecordingContext
-        :rtype: RecordingContext
+        :returns: twilio.rest.api.v2010.account.recording.RecordingContext
+        :rtype: twilio.rest.api.v2010.account.recording.RecordingContext
         """
         return RecordingContext(
             self._version,
@@ -190,8 +190,8 @@ class RecordingPage(Page):
         :param Response response: Response from the API
         :param account_sid: The unique sid that identifies this account
 
-        :returns: RecordingPage
-        :rtype: RecordingPage
+        :returns: twilio.rest.api.v2010.account.recording.RecordingPage
+        :rtype: twilio.rest.api.v2010.account.recording.RecordingPage
         """
         super(RecordingPage, self).__init__(version, response)
 
@@ -204,8 +204,8 @@ class RecordingPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: RecordingInstance
-        :rtype: RecordingInstance
+        :returns: twilio.rest.api.v2010.account.recording.RecordingInstance
+        :rtype: twilio.rest.api.v2010.account.recording.RecordingInstance
         """
         return RecordingInstance(
             self._version,
@@ -233,8 +233,8 @@ class RecordingContext(InstanceContext):
         :param account_sid: The account_sid
         :param sid: Fetch by unique recording Sid
 
-        :returns: RecordingContext
-        :rtype: RecordingContext
+        :returns: twilio.rest.api.v2010.account.recording.RecordingContext
+        :rtype: twilio.rest.api.v2010.account.recording.RecordingContext
         """
         super(RecordingContext, self).__init__(version)
 
@@ -254,7 +254,7 @@ class RecordingContext(InstanceContext):
         Fetch a RecordingInstance
 
         :returns: Fetched RecordingInstance
-        :rtype: RecordingInstance
+        :rtype: twilio.rest.api.v2010.account.recording.RecordingInstance
         """
         params = values.of({})
 
@@ -285,8 +285,8 @@ class RecordingContext(InstanceContext):
         """
         Access the transcriptions
 
-        :returns: TranscriptionList
-        :rtype: TranscriptionList
+        :returns: twilio.rest.api.v2010.account.recording.transcription.TranscriptionList
+        :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionList
         """
         if self._transcriptions is None:
             self._transcriptions = TranscriptionList(
@@ -301,8 +301,8 @@ class RecordingContext(InstanceContext):
         """
         Access the add_on_results
 
-        :returns: AddOnResultList
-        :rtype: AddOnResultList
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultList
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultList
         """
         if self._add_on_results is None:
             self._add_on_results = AddOnResultList(
@@ -329,8 +329,8 @@ class RecordingInstance(InstanceResource):
         """
         Initialize the RecordingInstance
 
-        :returns: RecordingInstance
-        :rtype: RecordingInstance
+        :returns: twilio.rest.api.v2010.account.recording.RecordingInstance
+        :rtype: twilio.rest.api.v2010.account.recording.RecordingInstance
         """
         super(RecordingInstance, self).__init__(version)
 
@@ -365,7 +365,7 @@ class RecordingInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: RecordingContext for this RecordingInstance
-        :rtype: RecordingContext
+        :rtype: twilio.rest.api.v2010.account.recording.RecordingContext
         """
         if self._context is None:
             self._context = RecordingContext(
@@ -484,7 +484,7 @@ class RecordingInstance(InstanceResource):
         Fetch a RecordingInstance
 
         :returns: Fetched RecordingInstance
-        :rtype: RecordingInstance
+        :rtype: twilio.rest.api.v2010.account.recording.RecordingInstance
         """
         return self._proxy.fetch()
 
@@ -502,8 +502,8 @@ class RecordingInstance(InstanceResource):
         """
         Access the transcriptions
 
-        :returns: transcriptions
-        :rtype: transcriptions
+        :returns: twilio.rest.api.v2010.account.recording.transcription.TranscriptionList
+        :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionList
         """
         return self._proxy.transcriptions
 
@@ -512,8 +512,8 @@ class RecordingInstance(InstanceResource):
         """
         Access the add_on_results
 
-        :returns: add_on_results
-        :rtype: add_on_results
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultList
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultList
         """
         return self._proxy.add_on_results
 

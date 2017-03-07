@@ -23,8 +23,8 @@ class DependentPhoneNumberList(ListResource):
         :param account_sid: The account_sid
         :param address_sid: The sid
 
-        :returns: DependentPhoneNumberList
-        :rtype: DependentPhoneNumberList
+        :returns: twilio.rest.api.v2010.account.address.dependent_phone_number.DependentPhoneNumberList
+        :rtype: twilio.rest.api.v2010.account.address.dependent_phone_number.DependentPhoneNumberList
         """
         super(DependentPhoneNumberList, self).__init__(version)
 
@@ -129,8 +129,8 @@ class DependentPhoneNumberPage(Page):
         :param account_sid: The account_sid
         :param address_sid: The sid
 
-        :returns: DependentPhoneNumberPage
-        :rtype: DependentPhoneNumberPage
+        :returns: twilio.rest.api.v2010.account.address.dependent_phone_number.DependentPhoneNumberPage
+        :rtype: twilio.rest.api.v2010.account.address.dependent_phone_number.DependentPhoneNumberPage
         """
         super(DependentPhoneNumberPage, self).__init__(version, response)
 
@@ -143,8 +143,8 @@ class DependentPhoneNumberPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: DependentPhoneNumberInstance
-        :rtype: DependentPhoneNumberInstance
+        :returns: twilio.rest.api.v2010.account.address.dependent_phone_number.DependentPhoneNumberInstance
+        :rtype: twilio.rest.api.v2010.account.address.dependent_phone_number.DependentPhoneNumberInstance
         """
         return DependentPhoneNumberInstance(
             self._version,
@@ -169,8 +169,8 @@ class DependentPhoneNumberInstance(InstanceResource):
         """
         Initialize the DependentPhoneNumberInstance
 
-        :returns: DependentPhoneNumberInstance
-        :rtype: DependentPhoneNumberInstance
+        :returns: twilio.rest.api.v2010.account.address.dependent_phone_number.DependentPhoneNumberInstance
+        :rtype: twilio.rest.api.v2010.account.address.dependent_phone_number.DependentPhoneNumberInstance
         """
         super(DependentPhoneNumberInstance, self).__init__(version)
 

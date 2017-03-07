@@ -23,8 +23,8 @@ class AllTimeList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: AllTimeList
-        :rtype: AllTimeList
+        :returns: twilio.rest.api.v2010.account.usage.record.all_time.AllTimeList
+        :rtype: twilio.rest.api.v2010.account.usage.record.all_time.AllTimeList
         """
         super(AllTimeList, self).__init__(version)
 
@@ -148,8 +148,8 @@ class AllTimePage(Page):
         :param Response response: Response from the API
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: AllTimePage
-        :rtype: AllTimePage
+        :returns: twilio.rest.api.v2010.account.usage.record.all_time.AllTimePage
+        :rtype: twilio.rest.api.v2010.account.usage.record.all_time.AllTimePage
         """
         super(AllTimePage, self).__init__(version, response)
 
@@ -162,8 +162,8 @@ class AllTimePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: AllTimeInstance
-        :rtype: AllTimeInstance
+        :returns: twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance
         """
         return AllTimeInstance(
             self._version,
@@ -187,8 +187,8 @@ class AllTimeInstance(InstanceResource):
         """
         Initialize the AllTimeInstance
 
-        :returns: AllTimeInstance
-        :rtype: AllTimeInstance
+        :returns: twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance
         """
         super(AllTimeInstance, self).__init__(version)
 

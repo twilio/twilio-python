@@ -24,8 +24,8 @@ class IpAccessControlListList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: IpAccessControlListList
-        :rtype: IpAccessControlListList
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListList
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListList
         """
         super(IpAccessControlListList, self).__init__(version)
 
@@ -115,7 +115,7 @@ class IpAccessControlListList(ListResource):
         :param unicode friendly_name: A human readable description of this resource
 
         :returns: Newly created IpAccessControlListInstance
-        :rtype: IpAccessControlListInstance
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -139,8 +139,8 @@ class IpAccessControlListList(ListResource):
 
         :param sid: Fetch by unique ip-access-control-list Sid
 
-        :returns: IpAccessControlListContext
-        :rtype: IpAccessControlListContext
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext
         """
         return IpAccessControlListContext(
             self._version,
@@ -154,8 +154,8 @@ class IpAccessControlListList(ListResource):
 
         :param sid: Fetch by unique ip-access-control-list Sid
 
-        :returns: IpAccessControlListContext
-        :rtype: IpAccessControlListContext
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext
         """
         return IpAccessControlListContext(
             self._version,
@@ -183,8 +183,8 @@ class IpAccessControlListPage(Page):
         :param Response response: Response from the API
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: IpAccessControlListPage
-        :rtype: IpAccessControlListPage
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListPage
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListPage
         """
         super(IpAccessControlListPage, self).__init__(version, response)
 
@@ -197,8 +197,8 @@ class IpAccessControlListPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: IpAccessControlListInstance
-        :rtype: IpAccessControlListInstance
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance
         """
         return IpAccessControlListInstance(
             self._version,
@@ -226,8 +226,8 @@ class IpAccessControlListContext(InstanceContext):
         :param account_sid: The account_sid
         :param sid: Fetch by unique ip-access-control-list Sid
 
-        :returns: IpAccessControlListContext
-        :rtype: IpAccessControlListContext
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext
         """
         super(IpAccessControlListContext, self).__init__(version)
 
@@ -246,7 +246,7 @@ class IpAccessControlListContext(InstanceContext):
         Fetch a IpAccessControlListInstance
 
         :returns: Fetched IpAccessControlListInstance
-        :rtype: IpAccessControlListInstance
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance
         """
         params = values.of({})
 
@@ -270,7 +270,7 @@ class IpAccessControlListContext(InstanceContext):
         :param unicode friendly_name: A human readable description of this resource
 
         :returns: Updated IpAccessControlListInstance
-        :rtype: IpAccessControlListInstance
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -303,8 +303,8 @@ class IpAccessControlListContext(InstanceContext):
         """
         Access the ip_addresses
 
-        :returns: IpAddressList
-        :rtype: IpAddressList
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressList
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressList
         """
         if self._ip_addresses is None:
             self._ip_addresses = IpAddressList(
@@ -331,8 +331,8 @@ class IpAccessControlListInstance(InstanceResource):
         """
         Initialize the IpAccessControlListInstance
 
-        :returns: IpAccessControlListInstance
-        :rtype: IpAccessControlListInstance
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance
         """
         super(IpAccessControlListInstance, self).__init__(version)
 
@@ -361,7 +361,7 @@ class IpAccessControlListInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: IpAccessControlListContext for this IpAccessControlListInstance
-        :rtype: IpAccessControlListContext
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext
         """
         if self._context is None:
             self._context = IpAccessControlListContext(
@@ -432,7 +432,7 @@ class IpAccessControlListInstance(InstanceResource):
         Fetch a IpAccessControlListInstance
 
         :returns: Fetched IpAccessControlListInstance
-        :rtype: IpAccessControlListInstance
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance
         """
         return self._proxy.fetch()
 
@@ -443,7 +443,7 @@ class IpAccessControlListInstance(InstanceResource):
         :param unicode friendly_name: A human readable description of this resource
 
         :returns: Updated IpAccessControlListInstance
-        :rtype: IpAccessControlListInstance
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance
         """
         return self._proxy.update(
             friendly_name,
@@ -463,8 +463,8 @@ class IpAccessControlListInstance(InstanceResource):
         """
         Access the ip_addresses
 
-        :returns: ip_addresses
-        :rtype: ip_addresses
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressList
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressList
         """
         return self._proxy.ip_addresses
 

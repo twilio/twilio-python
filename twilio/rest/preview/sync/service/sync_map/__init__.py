@@ -25,8 +25,8 @@ class SyncMapList(ListResource):
         :param Version version: Version that contains the resource
         :param service_sid: The service_sid
 
-        :returns: SyncMapList
-        :rtype: SyncMapList
+        :returns: twilio.rest.preview.sync.service.sync_map.SyncMapList
+        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapList
         """
         super(SyncMapList, self).__init__(version)
 
@@ -43,7 +43,7 @@ class SyncMapList(ListResource):
         :param unicode unique_name: The unique_name
 
         :returns: Newly created SyncMapInstance
-        :rtype: SyncMapInstance
+        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapInstance
         """
         data = values.of({
             'UniqueName': unique_name,
@@ -140,8 +140,8 @@ class SyncMapList(ListResource):
 
         :param sid: The sid
 
-        :returns: SyncMapContext
-        :rtype: SyncMapContext
+        :returns: twilio.rest.preview.sync.service.sync_map.SyncMapContext
+        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapContext
         """
         return SyncMapContext(
             self._version,
@@ -155,8 +155,8 @@ class SyncMapList(ListResource):
 
         :param sid: The sid
 
-        :returns: SyncMapContext
-        :rtype: SyncMapContext
+        :returns: twilio.rest.preview.sync.service.sync_map.SyncMapContext
+        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapContext
         """
         return SyncMapContext(
             self._version,
@@ -184,8 +184,8 @@ class SyncMapPage(Page):
         :param Response response: Response from the API
         :param service_sid: The service_sid
 
-        :returns: SyncMapPage
-        :rtype: SyncMapPage
+        :returns: twilio.rest.preview.sync.service.sync_map.SyncMapPage
+        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapPage
         """
         super(SyncMapPage, self).__init__(version, response)
 
@@ -198,8 +198,8 @@ class SyncMapPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: SyncMapInstance
-        :rtype: SyncMapInstance
+        :returns: twilio.rest.preview.sync.service.sync_map.SyncMapInstance
+        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapInstance
         """
         return SyncMapInstance(
             self._version,
@@ -227,8 +227,8 @@ class SyncMapContext(InstanceContext):
         :param service_sid: The service_sid
         :param sid: The sid
 
-        :returns: SyncMapContext
-        :rtype: SyncMapContext
+        :returns: twilio.rest.preview.sync.service.sync_map.SyncMapContext
+        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapContext
         """
         super(SyncMapContext, self).__init__(version)
 
@@ -248,7 +248,7 @@ class SyncMapContext(InstanceContext):
         Fetch a SyncMapInstance
 
         :returns: Fetched SyncMapInstance
-        :rtype: SyncMapInstance
+        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapInstance
         """
         params = values.of({})
 
@@ -279,8 +279,8 @@ class SyncMapContext(InstanceContext):
         """
         Access the sync_map_items
 
-        :returns: SyncMapItemList
-        :rtype: SyncMapItemList
+        :returns: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemList
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemList
         """
         if self._sync_map_items is None:
             self._sync_map_items = SyncMapItemList(
@@ -295,8 +295,8 @@ class SyncMapContext(InstanceContext):
         """
         Access the sync_map_permissions
 
-        :returns: SyncMapPermissionList
-        :rtype: SyncMapPermissionList
+        :returns: twilio.rest.preview.sync.service.sync_map.sync_map_permission.SyncMapPermissionList
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_permission.SyncMapPermissionList
         """
         if self._sync_map_permissions is None:
             self._sync_map_permissions = SyncMapPermissionList(
@@ -323,8 +323,8 @@ class SyncMapInstance(InstanceResource):
         """
         Initialize the SyncMapInstance
 
-        :returns: SyncMapInstance
-        :rtype: SyncMapInstance
+        :returns: twilio.rest.preview.sync.service.sync_map.SyncMapInstance
+        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapInstance
         """
         super(SyncMapInstance, self).__init__(version)
 
@@ -356,7 +356,7 @@ class SyncMapInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: SyncMapContext for this SyncMapInstance
-        :rtype: SyncMapContext
+        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapContext
         """
         if self._context is None:
             self._context = SyncMapContext(
@@ -451,7 +451,7 @@ class SyncMapInstance(InstanceResource):
         Fetch a SyncMapInstance
 
         :returns: Fetched SyncMapInstance
-        :rtype: SyncMapInstance
+        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapInstance
         """
         return self._proxy.fetch()
 
@@ -469,8 +469,8 @@ class SyncMapInstance(InstanceResource):
         """
         Access the sync_map_items
 
-        :returns: sync_map_items
-        :rtype: sync_map_items
+        :returns: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemList
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemList
         """
         return self._proxy.sync_map_items
 
@@ -479,8 +479,8 @@ class SyncMapInstance(InstanceResource):
         """
         Access the sync_map_permissions
 
-        :returns: sync_map_permissions
-        :rtype: sync_map_permissions
+        :returns: twilio.rest.preview.sync.service.sync_map.sync_map_permission.SyncMapPermissionList
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_permission.SyncMapPermissionList
         """
         return self._proxy.sync_map_permissions
 

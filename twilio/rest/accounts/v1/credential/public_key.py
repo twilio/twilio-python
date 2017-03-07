@@ -22,8 +22,8 @@ class PublicKeyList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: PublicKeyList
-        :rtype: PublicKeyList
+        :returns: twilio.rest.accounts.v1.credential.public_key.PublicKeyList
+        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyList
         """
         super(PublicKeyList, self).__init__(version)
 
@@ -114,7 +114,7 @@ class PublicKeyList(ListResource):
         :param unicode account_sid: The Subaccount this Credential should be associated with.
 
         :returns: Newly created PublicKeyInstance
-        :rtype: PublicKeyInstance
+        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
         data = values.of({
             'PublicKey': public_key,
@@ -139,8 +139,8 @@ class PublicKeyList(ListResource):
 
         :param sid: Fetch by unique Credential Sid
 
-        :returns: PublicKeyContext
-        :rtype: PublicKeyContext
+        :returns: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
+        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
         """
         return PublicKeyContext(
             self._version,
@@ -153,8 +153,8 @@ class PublicKeyList(ListResource):
 
         :param sid: Fetch by unique Credential Sid
 
-        :returns: PublicKeyContext
-        :rtype: PublicKeyContext
+        :returns: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
+        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
         """
         return PublicKeyContext(
             self._version,
@@ -180,8 +180,8 @@ class PublicKeyPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: PublicKeyPage
-        :rtype: PublicKeyPage
+        :returns: twilio.rest.accounts.v1.credential.public_key.PublicKeyPage
+        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyPage
         """
         super(PublicKeyPage, self).__init__(version, response)
 
@@ -194,8 +194,8 @@ class PublicKeyPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: PublicKeyInstance
-        :rtype: PublicKeyInstance
+        :returns: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
+        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
         return PublicKeyInstance(
             self._version,
@@ -221,8 +221,8 @@ class PublicKeyContext(InstanceContext):
         :param Version version: Version that contains the resource
         :param sid: Fetch by unique Credential Sid
 
-        :returns: PublicKeyContext
-        :rtype: PublicKeyContext
+        :returns: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
+        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
         """
         super(PublicKeyContext, self).__init__(version)
 
@@ -237,7 +237,7 @@ class PublicKeyContext(InstanceContext):
         Fetch a PublicKeyInstance
 
         :returns: Fetched PublicKeyInstance
-        :rtype: PublicKeyInstance
+        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
         params = values.of({})
 
@@ -260,7 +260,7 @@ class PublicKeyContext(InstanceContext):
         :param unicode friendly_name: A human readable description of this resource
 
         :returns: Updated PublicKeyInstance
-        :rtype: PublicKeyInstance
+        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -304,8 +304,8 @@ class PublicKeyInstance(InstanceResource):
         """
         Initialize the PublicKeyInstance
 
-        :returns: PublicKeyInstance
-        :rtype: PublicKeyInstance
+        :returns: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
+        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
         super(PublicKeyInstance, self).__init__(version)
 
@@ -332,7 +332,7 @@ class PublicKeyInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: PublicKeyContext for this PublicKeyInstance
-        :rtype: PublicKeyContext
+        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
         """
         if self._context is None:
             self._context = PublicKeyContext(
@@ -394,7 +394,7 @@ class PublicKeyInstance(InstanceResource):
         Fetch a PublicKeyInstance
 
         :returns: Fetched PublicKeyInstance
-        :rtype: PublicKeyInstance
+        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
         return self._proxy.fetch()
 
@@ -405,7 +405,7 @@ class PublicKeyInstance(InstanceResource):
         :param unicode friendly_name: A human readable description of this resource
 
         :returns: Updated PublicKeyInstance
-        :rtype: PublicKeyInstance
+        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,

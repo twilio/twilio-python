@@ -23,8 +23,8 @@ class TriggerList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: TriggerList
-        :rtype: TriggerList
+        :returns: twilio.rest.api.v2010.account.usage.trigger.TriggerList
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerList
         """
         super(TriggerList, self).__init__(version)
 
@@ -49,7 +49,7 @@ class TriggerList(ListResource):
         :param trigger.trigger_field trigger_by: The field in the UsageRecord that fires the trigger
 
         :returns: Newly created TriggerInstance
-        :rtype: TriggerInstance
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
         """
         data = values.of({
             'CallbackUrl': callback_url,
@@ -173,8 +173,8 @@ class TriggerList(ListResource):
 
         :param sid: Fetch by unique usage-trigger Sid
 
-        :returns: TriggerContext
-        :rtype: TriggerContext
+        :returns: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
         """
         return TriggerContext(
             self._version,
@@ -188,8 +188,8 @@ class TriggerList(ListResource):
 
         :param sid: Fetch by unique usage-trigger Sid
 
-        :returns: TriggerContext
-        :rtype: TriggerContext
+        :returns: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
         """
         return TriggerContext(
             self._version,
@@ -217,8 +217,8 @@ class TriggerPage(Page):
         :param Response response: Response from the API
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: TriggerPage
-        :rtype: TriggerPage
+        :returns: twilio.rest.api.v2010.account.usage.trigger.TriggerPage
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerPage
         """
         super(TriggerPage, self).__init__(version, response)
 
@@ -231,8 +231,8 @@ class TriggerPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: TriggerInstance
-        :rtype: TriggerInstance
+        :returns: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
         """
         return TriggerInstance(
             self._version,
@@ -260,8 +260,8 @@ class TriggerContext(InstanceContext):
         :param account_sid: The account_sid
         :param sid: Fetch by unique usage-trigger Sid
 
-        :returns: TriggerContext
-        :rtype: TriggerContext
+        :returns: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
         """
         super(TriggerContext, self).__init__(version)
 
@@ -277,7 +277,7 @@ class TriggerContext(InstanceContext):
         Fetch a TriggerInstance
 
         :returns: Fetched TriggerInstance
-        :rtype: TriggerInstance
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
         """
         params = values.of({})
 
@@ -304,7 +304,7 @@ class TriggerContext(InstanceContext):
         :param unicode friendly_name: A user-specified, human-readable name for the trigger.
 
         :returns: Updated TriggerInstance
-        :rtype: TriggerInstance
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
         """
         data = values.of({
             'CallbackMethod': callback_method,
@@ -351,8 +351,8 @@ class TriggerInstance(InstanceResource):
         """
         Initialize the TriggerInstance
 
-        :returns: TriggerInstance
-        :rtype: TriggerInstance
+        :returns: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
         """
         super(TriggerInstance, self).__init__(version)
 
@@ -390,7 +390,7 @@ class TriggerInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: TriggerContext for this TriggerInstance
-        :rtype: TriggerContext
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
         """
         if self._context is None:
             self._context = TriggerContext(
@@ -533,7 +533,7 @@ class TriggerInstance(InstanceResource):
         Fetch a TriggerInstance
 
         :returns: Fetched TriggerInstance
-        :rtype: TriggerInstance
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
         """
         return self._proxy.fetch()
 
@@ -547,7 +547,7 @@ class TriggerInstance(InstanceResource):
         :param unicode friendly_name: A user-specified, human-readable name for the trigger.
 
         :returns: Updated TriggerInstance
-        :rtype: TriggerInstance
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
         """
         return self._proxy.update(
             callback_method=callback_method,

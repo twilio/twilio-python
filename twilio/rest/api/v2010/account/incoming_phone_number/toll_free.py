@@ -22,8 +22,8 @@ class TollFreeList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: The unique sid that identifies this account
 
-        :returns: TollFreeList
-        :rtype: TollFreeList
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreeList
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreeList
         """
         super(TollFreeList, self).__init__(version)
 
@@ -157,7 +157,7 @@ class TollFreeList(ListResource):
         :param unicode voice_url: The voice_url
 
         :returns: Newly created TollFreeInstance
-        :rtype: TollFreeInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreeInstance
         """
         data = values.of({
             'PhoneNumber': phone_number,
@@ -210,8 +210,8 @@ class TollFreePage(Page):
         :param Response response: Response from the API
         :param account_sid: The unique sid that identifies this account
 
-        :returns: TollFreePage
-        :rtype: TollFreePage
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreePage
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreePage
         """
         super(TollFreePage, self).__init__(version, response)
 
@@ -224,8 +224,8 @@ class TollFreePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: TollFreeInstance
-        :rtype: TollFreeInstance
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreeInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreeInstance
         """
         return TollFreeInstance(
             self._version,
@@ -249,8 +249,8 @@ class TollFreeInstance(InstanceResource):
         """
         Initialize the TollFreeInstance
 
-        :returns: TollFreeInstance
-        :rtype: TollFreeInstance
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreeInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreeInstance
         """
         super(TollFreeInstance, self).__init__(version)
 

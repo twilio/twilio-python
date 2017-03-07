@@ -23,8 +23,8 @@ class SipList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: SipList
-        :rtype: SipList
+        :returns: twilio.rest.api.v2010.account.sip.SipList
+        :rtype: twilio.rest.api.v2010.account.sip.SipList
         """
         super(SipList, self).__init__(version)
 
@@ -44,8 +44,8 @@ class SipList(ListResource):
         """
         Access the domains
 
-        :returns: DomainList
-        :rtype: DomainList
+        :returns: twilio.rest.api.v2010.account.sip.domain.DomainList
+        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainList
         """
         if self._domains is None:
             self._domains = DomainList(
@@ -59,8 +59,8 @@ class SipList(ListResource):
         """
         Access the ip_access_control_lists
 
-        :returns: IpAccessControlListList
-        :rtype: IpAccessControlListList
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListList
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListList
         """
         if self._ip_access_control_lists is None:
             self._ip_access_control_lists = IpAccessControlListList(
@@ -74,8 +74,8 @@ class SipList(ListResource):
         """
         Access the credential_lists
 
-        :returns: CredentialListList
-        :rtype: CredentialListList
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.CredentialListList
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListList
         """
         if self._credential_lists is None:
             self._credential_lists = CredentialListList(
@@ -104,8 +104,8 @@ class SipPage(Page):
         :param Response response: Response from the API
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: SipPage
-        :rtype: SipPage
+        :returns: twilio.rest.api.v2010.account.sip.SipPage
+        :rtype: twilio.rest.api.v2010.account.sip.SipPage
         """
         super(SipPage, self).__init__(version, response)
 
@@ -118,8 +118,8 @@ class SipPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: SipInstance
-        :rtype: SipInstance
+        :returns: twilio.rest.api.v2010.account.sip.SipInstance
+        :rtype: twilio.rest.api.v2010.account.sip.SipInstance
         """
         return SipInstance(
             self._version,
@@ -143,8 +143,8 @@ class SipInstance(InstanceResource):
         """
         Initialize the SipInstance
 
-        :returns: SipInstance
-        :rtype: SipInstance
+        :returns: twilio.rest.api.v2010.account.sip.SipInstance
+        :rtype: twilio.rest.api.v2010.account.sip.SipInstance
         """
         super(SipInstance, self).__init__(version)
 

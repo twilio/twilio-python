@@ -30,7 +30,7 @@ class Accounts(Domain):
     def v1(self):
         """
         :returns: Version v1 of accounts
-        :rtype: V1
+        :rtype: twilio.rest.accounts.v1.V1
         """
         if self._v1 is None:
             self._v1 = V1(self)
@@ -39,7 +39,7 @@ class Accounts(Domain):
     @property
     def credentials(self):
         """
-        :rtype: CredentialList
+        :rtype: twilio.rest.accounts.v1.credential.CredentialList
         """
         return self.v1.credentials
 

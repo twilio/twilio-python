@@ -22,8 +22,8 @@ class PhoneNumberList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: PhoneNumberList
-        :rtype: PhoneNumberList
+        :returns: twilio.rest.lookups.v1.phone_number.PhoneNumberList
+        :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberList
         """
         super(PhoneNumberList, self).__init__(version)
 
@@ -36,8 +36,8 @@ class PhoneNumberList(ListResource):
 
         :param phone_number: The phone_number
 
-        :returns: PhoneNumberContext
-        :rtype: PhoneNumberContext
+        :returns: twilio.rest.lookups.v1.phone_number.PhoneNumberContext
+        :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberContext
         """
         return PhoneNumberContext(
             self._version,
@@ -50,8 +50,8 @@ class PhoneNumberList(ListResource):
 
         :param phone_number: The phone_number
 
-        :returns: PhoneNumberContext
-        :rtype: PhoneNumberContext
+        :returns: twilio.rest.lookups.v1.phone_number.PhoneNumberContext
+        :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberContext
         """
         return PhoneNumberContext(
             self._version,
@@ -77,8 +77,8 @@ class PhoneNumberPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: PhoneNumberPage
-        :rtype: PhoneNumberPage
+        :returns: twilio.rest.lookups.v1.phone_number.PhoneNumberPage
+        :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberPage
         """
         super(PhoneNumberPage, self).__init__(version, response)
 
@@ -91,8 +91,8 @@ class PhoneNumberPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: PhoneNumberInstance
-        :rtype: PhoneNumberInstance
+        :returns: twilio.rest.lookups.v1.phone_number.PhoneNumberInstance
+        :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberInstance
         """
         return PhoneNumberInstance(
             self._version,
@@ -118,8 +118,8 @@ class PhoneNumberContext(InstanceContext):
         :param Version version: Version that contains the resource
         :param phone_number: The phone_number
 
-        :returns: PhoneNumberContext
-        :rtype: PhoneNumberContext
+        :returns: twilio.rest.lookups.v1.phone_number.PhoneNumberContext
+        :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberContext
         """
         super(PhoneNumberContext, self).__init__(version)
 
@@ -140,7 +140,7 @@ class PhoneNumberContext(InstanceContext):
         :param dict add_ons_data: The add_ons_data
 
         :returns: Fetched PhoneNumberInstance
-        :rtype: PhoneNumberInstance
+        :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberInstance
         """
         params = values.of({
             'CountryCode': country_code,
@@ -178,8 +178,8 @@ class PhoneNumberInstance(InstanceResource):
         """
         Initialize the PhoneNumberInstance
 
-        :returns: PhoneNumberInstance
-        :rtype: PhoneNumberInstance
+        :returns: twilio.rest.lookups.v1.phone_number.PhoneNumberInstance
+        :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberInstance
         """
         super(PhoneNumberInstance, self).__init__(version)
 
@@ -207,7 +207,7 @@ class PhoneNumberInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: PhoneNumberContext for this PhoneNumberInstance
-        :rtype: PhoneNumberContext
+        :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberContext
         """
         if self._context is None:
             self._context = PhoneNumberContext(
@@ -283,7 +283,7 @@ class PhoneNumberInstance(InstanceResource):
         :param dict add_ons_data: The add_ons_data
 
         :returns: Fetched PhoneNumberInstance
-        :rtype: PhoneNumberInstance
+        :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberInstance
         """
         return self._proxy.fetch(
             country_code=country_code,

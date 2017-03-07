@@ -24,8 +24,8 @@ class SyncListItemList(ListResource):
         :param service_sid: The service_sid
         :param list_sid: The list_sid
 
-        :returns: SyncListItemList
-        :rtype: SyncListItemList
+        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemList
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemList
         """
         super(SyncListItemList, self).__init__(version)
 
@@ -43,7 +43,7 @@ class SyncListItemList(ListResource):
         :param dict data: The data
 
         :returns: Newly created SyncListItemInstance
-        :rtype: SyncListItemInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance
         """
         data = values.of({
             'Data': data,
@@ -162,8 +162,8 @@ class SyncListItemList(ListResource):
 
         :param index: The index
 
-        :returns: SyncListItemContext
-        :rtype: SyncListItemContext
+        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemContext
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemContext
         """
         return SyncListItemContext(
             self._version,
@@ -178,8 +178,8 @@ class SyncListItemList(ListResource):
 
         :param index: The index
 
-        :returns: SyncListItemContext
-        :rtype: SyncListItemContext
+        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemContext
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemContext
         """
         return SyncListItemContext(
             self._version,
@@ -209,8 +209,8 @@ class SyncListItemPage(Page):
         :param service_sid: The service_sid
         :param list_sid: The list_sid
 
-        :returns: SyncListItemPage
-        :rtype: SyncListItemPage
+        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemPage
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemPage
         """
         super(SyncListItemPage, self).__init__(version, response)
 
@@ -223,8 +223,8 @@ class SyncListItemPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: SyncListItemInstance
-        :rtype: SyncListItemInstance
+        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance
         """
         return SyncListItemInstance(
             self._version,
@@ -254,8 +254,8 @@ class SyncListItemContext(InstanceContext):
         :param list_sid: The list_sid
         :param index: The index
 
-        :returns: SyncListItemContext
-        :rtype: SyncListItemContext
+        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemContext
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemContext
         """
         super(SyncListItemContext, self).__init__(version)
 
@@ -272,7 +272,7 @@ class SyncListItemContext(InstanceContext):
         Fetch a SyncListItemInstance
 
         :returns: Fetched SyncListItemInstance
-        :rtype: SyncListItemInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance
         """
         params = values.of({})
 
@@ -306,7 +306,7 @@ class SyncListItemContext(InstanceContext):
         :param dict data: The data
 
         :returns: Updated SyncListItemInstance
-        :rtype: SyncListItemInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance
         """
         data = values.of({
             'Data': data,
@@ -343,8 +343,8 @@ class SyncListItemInstance(InstanceResource):
         """
         Initialize the SyncListItemInstance
 
-        :returns: SyncListItemInstance
-        :rtype: SyncListItemInstance
+        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance
         """
         super(SyncListItemInstance, self).__init__(version)
 
@@ -377,7 +377,7 @@ class SyncListItemInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: SyncListItemContext for this SyncListItemInstance
-        :rtype: SyncListItemContext
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemContext
         """
         if self._context is None:
             self._context = SyncListItemContext(
@@ -473,7 +473,7 @@ class SyncListItemInstance(InstanceResource):
         Fetch a SyncListItemInstance
 
         :returns: Fetched SyncListItemInstance
-        :rtype: SyncListItemInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance
         """
         return self._proxy.fetch()
 
@@ -493,7 +493,7 @@ class SyncListItemInstance(InstanceResource):
         :param dict data: The data
 
         :returns: Updated SyncListItemInstance
-        :rtype: SyncListItemInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance
         """
         return self._proxy.update(
             data,

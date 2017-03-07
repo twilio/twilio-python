@@ -30,7 +30,7 @@ class Taskrouter(Domain):
     def v1(self):
         """
         :returns: Version v1 of taskrouter
-        :rtype: V1
+        :rtype: twilio.rest.taskrouter.v1.V1
         """
         if self._v1 is None:
             self._v1 = V1(self)
@@ -39,7 +39,7 @@ class Taskrouter(Domain):
     @property
     def workspaces(self):
         """
-        :rtype: WorkspaceList
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceList
         """
         return self.v1.workspaces
 

@@ -23,8 +23,8 @@ class DailyList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: DailyList
-        :rtype: DailyList
+        :returns: twilio.rest.api.v2010.account.usage.record.daily.DailyList
+        :rtype: twilio.rest.api.v2010.account.usage.record.daily.DailyList
         """
         super(DailyList, self).__init__(version)
 
@@ -148,8 +148,8 @@ class DailyPage(Page):
         :param Response response: Response from the API
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: DailyPage
-        :rtype: DailyPage
+        :returns: twilio.rest.api.v2010.account.usage.record.daily.DailyPage
+        :rtype: twilio.rest.api.v2010.account.usage.record.daily.DailyPage
         """
         super(DailyPage, self).__init__(version, response)
 
@@ -162,8 +162,8 @@ class DailyPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: DailyInstance
-        :rtype: DailyInstance
+        :returns: twilio.rest.api.v2010.account.usage.record.daily.DailyInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.daily.DailyInstance
         """
         return DailyInstance(
             self._version,
@@ -187,8 +187,8 @@ class DailyInstance(InstanceResource):
         """
         Initialize the DailyInstance
 
-        :returns: DailyInstance
-        :rtype: DailyInstance
+        :returns: twilio.rest.api.v2010.account.usage.record.daily.DailyInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.daily.DailyInstance
         """
         super(DailyInstance, self).__init__(version)
 

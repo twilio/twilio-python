@@ -22,8 +22,8 @@ class ConnectAppList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: The unique sid that identifies this account
 
-        :returns: ConnectAppList
-        :rtype: ConnectAppList
+        :returns: twilio.rest.api.v2010.account.connect_app.ConnectAppList
+        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppList
         """
         super(ConnectAppList, self).__init__(version)
 
@@ -112,8 +112,8 @@ class ConnectAppList(ListResource):
 
         :param sid: Fetch by unique connect-app Sid
 
-        :returns: ConnectAppContext
-        :rtype: ConnectAppContext
+        :returns: twilio.rest.api.v2010.account.connect_app.ConnectAppContext
+        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppContext
         """
         return ConnectAppContext(
             self._version,
@@ -127,8 +127,8 @@ class ConnectAppList(ListResource):
 
         :param sid: Fetch by unique connect-app Sid
 
-        :returns: ConnectAppContext
-        :rtype: ConnectAppContext
+        :returns: twilio.rest.api.v2010.account.connect_app.ConnectAppContext
+        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppContext
         """
         return ConnectAppContext(
             self._version,
@@ -156,8 +156,8 @@ class ConnectAppPage(Page):
         :param Response response: Response from the API
         :param account_sid: The unique sid that identifies this account
 
-        :returns: ConnectAppPage
-        :rtype: ConnectAppPage
+        :returns: twilio.rest.api.v2010.account.connect_app.ConnectAppPage
+        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppPage
         """
         super(ConnectAppPage, self).__init__(version, response)
 
@@ -170,8 +170,8 @@ class ConnectAppPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: ConnectAppInstance
-        :rtype: ConnectAppInstance
+        :returns: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
+        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
         """
         return ConnectAppInstance(
             self._version,
@@ -199,8 +199,8 @@ class ConnectAppContext(InstanceContext):
         :param account_sid: The account_sid
         :param sid: Fetch by unique connect-app Sid
 
-        :returns: ConnectAppContext
-        :rtype: ConnectAppContext
+        :returns: twilio.rest.api.v2010.account.connect_app.ConnectAppContext
+        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppContext
         """
         super(ConnectAppContext, self).__init__(version)
 
@@ -216,7 +216,7 @@ class ConnectAppContext(InstanceContext):
         Fetch a ConnectAppInstance
 
         :returns: Fetched ConnectAppInstance
-        :rtype: ConnectAppInstance
+        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
         """
         params = values.of({})
 
@@ -251,7 +251,7 @@ class ConnectAppContext(InstanceContext):
         :param connect_app.permission permissions: The set of permissions that your ConnectApp requests.
 
         :returns: Updated ConnectAppInstance
-        :rtype: ConnectAppInstance
+        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
         """
         data = values.of({
             'AuthorizeRedirectUrl': authorize_redirect_url,
@@ -294,8 +294,8 @@ class ConnectAppInstance(InstanceResource):
         """
         Initialize the ConnectAppInstance
 
-        :returns: ConnectAppInstance
-        :rtype: ConnectAppInstance
+        :returns: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
+        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
         """
         super(ConnectAppInstance, self).__init__(version)
 
@@ -328,7 +328,7 @@ class ConnectAppInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: ConnectAppContext for this ConnectAppInstance
-        :rtype: ConnectAppContext
+        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppContext
         """
         if self._context is None:
             self._context = ConnectAppContext(
@@ -431,7 +431,7 @@ class ConnectAppInstance(InstanceResource):
         Fetch a ConnectAppInstance
 
         :returns: Fetched ConnectAppInstance
-        :rtype: ConnectAppInstance
+        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
         """
         return self._proxy.fetch()
 
@@ -453,7 +453,7 @@ class ConnectAppInstance(InstanceResource):
         :param connect_app.permission permissions: The set of permissions that your ConnectApp requests.
 
         :returns: Updated ConnectAppInstance
-        :rtype: ConnectAppInstance
+        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
         """
         return self._proxy.update(
             authorize_redirect_url=authorize_redirect_url,

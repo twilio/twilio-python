@@ -25,8 +25,8 @@ class TaskQueueList(ListResource):
         :param Version version: Version that contains the resource
         :param workspace_sid: The workspace_sid
 
-        :returns: TaskQueueList
-        :rtype: TaskQueueList
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueList
         """
         super(TaskQueueList, self).__init__(version)
 
@@ -147,7 +147,7 @@ class TaskQueueList(ListResource):
         :param task_queue.task_order task_order: The task_order
 
         :returns: Newly created TaskQueueInstance
-        :rtype: TaskQueueInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -176,8 +176,8 @@ class TaskQueueList(ListResource):
 
         :param sid: The sid
 
-        :returns: TaskQueueContext
-        :rtype: TaskQueueContext
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
         """
         return TaskQueueContext(
             self._version,
@@ -191,8 +191,8 @@ class TaskQueueList(ListResource):
 
         :param sid: The sid
 
-        :returns: TaskQueueContext
-        :rtype: TaskQueueContext
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
         """
         return TaskQueueContext(
             self._version,
@@ -220,8 +220,8 @@ class TaskQueuePage(Page):
         :param Response response: Response from the API
         :param workspace_sid: The workspace_sid
 
-        :returns: TaskQueuePage
-        :rtype: TaskQueuePage
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueuePage
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueuePage
         """
         super(TaskQueuePage, self).__init__(version, response)
 
@@ -234,8 +234,8 @@ class TaskQueuePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: TaskQueueInstance
-        :rtype: TaskQueueInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
         """
         return TaskQueueInstance(
             self._version,
@@ -263,8 +263,8 @@ class TaskQueueContext(InstanceContext):
         :param workspace_sid: The workspace_sid
         :param sid: The sid
 
-        :returns: TaskQueueContext
-        :rtype: TaskQueueContext
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
         """
         super(TaskQueueContext, self).__init__(version)
 
@@ -284,7 +284,7 @@ class TaskQueueContext(InstanceContext):
         Fetch a TaskQueueInstance
 
         :returns: Fetched TaskQueueInstance
-        :rtype: TaskQueueInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
         """
         params = values.of({})
 
@@ -316,7 +316,7 @@ class TaskQueueContext(InstanceContext):
         :param task_queue.task_order task_order: The task_order
 
         :returns: Updated TaskQueueInstance
-        :rtype: TaskQueueInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -354,8 +354,8 @@ class TaskQueueContext(InstanceContext):
         """
         Access the task_queues_statistics
 
-        :returns: TaskQueuesStatisticsList
-        :rtype: TaskQueuesStatisticsList
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsList
         """
         if self._task_queues_statistics is None:
             self._task_queues_statistics = TaskQueuesStatisticsList(
@@ -369,8 +369,8 @@ class TaskQueueContext(InstanceContext):
         """
         Access the task_queue_statistics
 
-        :returns: TaskQueueStatisticsList
-        :rtype: TaskQueueStatisticsList
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsList
         """
         if self._task_queue_statistics is None:
             self._task_queue_statistics = TaskQueueStatisticsList(
@@ -397,8 +397,8 @@ class TaskQueueInstance(InstanceResource):
         """
         Initialize the TaskQueueInstance
 
-        :returns: TaskQueueInstance
-        :rtype: TaskQueueInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
         """
         super(TaskQueueInstance, self).__init__(version)
 
@@ -435,7 +435,7 @@ class TaskQueueInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: TaskQueueContext for this TaskQueueInstance
-        :rtype: TaskQueueContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
         """
         if self._context is None:
             self._context = TaskQueueContext(
@@ -570,7 +570,7 @@ class TaskQueueInstance(InstanceResource):
         Fetch a TaskQueueInstance
 
         :returns: Fetched TaskQueueInstance
-        :rtype: TaskQueueInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
         """
         return self._proxy.fetch()
 
@@ -589,7 +589,7 @@ class TaskQueueInstance(InstanceResource):
         :param task_queue.task_order task_order: The task_order
 
         :returns: Updated TaskQueueInstance
-        :rtype: TaskQueueInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
@@ -614,8 +614,8 @@ class TaskQueueInstance(InstanceResource):
         """
         Access the task_queues_statistics
 
-        :returns: task_queues_statistics
-        :rtype: task_queues_statistics
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsList
         """
         return self._proxy.task_queues_statistics
 
@@ -624,8 +624,8 @@ class TaskQueueInstance(InstanceResource):
         """
         Access the task_queue_statistics
 
-        :returns: task_queue_statistics
-        :rtype: task_queue_statistics
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsList
         """
         return self._proxy.task_queue_statistics
 

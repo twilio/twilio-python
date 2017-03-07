@@ -20,8 +20,8 @@ class CredentialList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: CredentialList
-        :rtype: CredentialList
+        :returns: twilio.rest.accounts.v1.credential.CredentialList
+        :rtype: twilio.rest.accounts.v1.credential.CredentialList
         """
         super(CredentialList, self).__init__(version)
 
@@ -36,8 +36,8 @@ class CredentialList(ListResource):
         """
         Access the public_key
 
-        :returns: PublicKeyList
-        :rtype: PublicKeyList
+        :returns: twilio.rest.accounts.v1.credential.public_key.PublicKeyList
+        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyList
         """
         if self._public_key is None:
             self._public_key = PublicKeyList(
@@ -64,8 +64,8 @@ class CredentialPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: CredentialPage
-        :rtype: CredentialPage
+        :returns: twilio.rest.accounts.v1.credential.CredentialPage
+        :rtype: twilio.rest.accounts.v1.credential.CredentialPage
         """
         super(CredentialPage, self).__init__(version, response)
 
@@ -78,8 +78,8 @@ class CredentialPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: CredentialInstance
-        :rtype: CredentialInstance
+        :returns: twilio.rest.accounts.v1.credential.CredentialInstance
+        :rtype: twilio.rest.accounts.v1.credential.CredentialInstance
         """
         return CredentialInstance(
             self._version,
@@ -102,8 +102,8 @@ class CredentialInstance(InstanceResource):
         """
         Initialize the CredentialInstance
 
-        :returns: CredentialInstance
-        :rtype: CredentialInstance
+        :returns: twilio.rest.accounts.v1.credential.CredentialInstance
+        :rtype: twilio.rest.accounts.v1.credential.CredentialInstance
         """
         super(CredentialInstance, self).__init__(version)
 

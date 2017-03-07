@@ -26,8 +26,8 @@ class TrunkList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: TrunkList
-        :rtype: TrunkList
+        :returns: twilio.rest.trunking.v1.trunk.TrunkList
+        :rtype: twilio.rest.trunking.v1.trunk.TrunkList
         """
         super(TrunkList, self).__init__(version)
 
@@ -50,7 +50,7 @@ class TrunkList(ListResource):
         :param bool secure: The secure
 
         :returns: Newly created TrunkInstance
-        :rtype: TrunkInstance
+        :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -151,8 +151,8 @@ class TrunkList(ListResource):
 
         :param sid: The sid
 
-        :returns: TrunkContext
-        :rtype: TrunkContext
+        :returns: twilio.rest.trunking.v1.trunk.TrunkContext
+        :rtype: twilio.rest.trunking.v1.trunk.TrunkContext
         """
         return TrunkContext(
             self._version,
@@ -165,8 +165,8 @@ class TrunkList(ListResource):
 
         :param sid: The sid
 
-        :returns: TrunkContext
-        :rtype: TrunkContext
+        :returns: twilio.rest.trunking.v1.trunk.TrunkContext
+        :rtype: twilio.rest.trunking.v1.trunk.TrunkContext
         """
         return TrunkContext(
             self._version,
@@ -192,8 +192,8 @@ class TrunkPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: TrunkPage
-        :rtype: TrunkPage
+        :returns: twilio.rest.trunking.v1.trunk.TrunkPage
+        :rtype: twilio.rest.trunking.v1.trunk.TrunkPage
         """
         super(TrunkPage, self).__init__(version, response)
 
@@ -206,8 +206,8 @@ class TrunkPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: TrunkInstance
-        :rtype: TrunkInstance
+        :returns: twilio.rest.trunking.v1.trunk.TrunkInstance
+        :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
         """
         return TrunkInstance(
             self._version,
@@ -233,8 +233,8 @@ class TrunkContext(InstanceContext):
         :param Version version: Version that contains the resource
         :param sid: The sid
 
-        :returns: TrunkContext
-        :rtype: TrunkContext
+        :returns: twilio.rest.trunking.v1.trunk.TrunkContext
+        :rtype: twilio.rest.trunking.v1.trunk.TrunkContext
         """
         super(TrunkContext, self).__init__(version)
 
@@ -255,7 +255,7 @@ class TrunkContext(InstanceContext):
         Fetch a TrunkInstance
 
         :returns: Fetched TrunkInstance
-        :rtype: TrunkInstance
+        :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
         """
         params = values.of({})
 
@@ -295,7 +295,7 @@ class TrunkContext(InstanceContext):
         :param bool secure: The secure
 
         :returns: Updated TrunkInstance
-        :rtype: TrunkInstance
+        :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -323,8 +323,8 @@ class TrunkContext(InstanceContext):
         """
         Access the origination_urls
 
-        :returns: OriginationUrlList
-        :rtype: OriginationUrlList
+        :returns: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlList
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlList
         """
         if self._origination_urls is None:
             self._origination_urls = OriginationUrlList(
@@ -338,8 +338,8 @@ class TrunkContext(InstanceContext):
         """
         Access the credentials_lists
 
-        :returns: CredentialListList
-        :rtype: CredentialListList
+        :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListList
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListList
         """
         if self._credentials_lists is None:
             self._credentials_lists = CredentialListList(
@@ -353,8 +353,8 @@ class TrunkContext(InstanceContext):
         """
         Access the ip_access_control_lists
 
-        :returns: IpAccessControlListList
-        :rtype: IpAccessControlListList
+        :returns: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListList
+        :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListList
         """
         if self._ip_access_control_lists is None:
             self._ip_access_control_lists = IpAccessControlListList(
@@ -368,8 +368,8 @@ class TrunkContext(InstanceContext):
         """
         Access the phone_numbers
 
-        :returns: PhoneNumberList
-        :rtype: PhoneNumberList
+        :returns: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberList
+        :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberList
         """
         if self._phone_numbers is None:
             self._phone_numbers = PhoneNumberList(
@@ -395,8 +395,8 @@ class TrunkInstance(InstanceResource):
         """
         Initialize the TrunkInstance
 
-        :returns: TrunkInstance
-        :rtype: TrunkInstance
+        :returns: twilio.rest.trunking.v1.trunk.TrunkInstance
+        :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
         """
         super(TrunkInstance, self).__init__(version)
 
@@ -431,7 +431,7 @@ class TrunkInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: TrunkContext for this TrunkInstance
-        :rtype: TrunkContext
+        :rtype: twilio.rest.trunking.v1.trunk.TrunkContext
         """
         if self._context is None:
             self._context = TrunkContext(
@@ -557,7 +557,7 @@ class TrunkInstance(InstanceResource):
         Fetch a TrunkInstance
 
         :returns: Fetched TrunkInstance
-        :rtype: TrunkInstance
+        :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
         """
         return self._proxy.fetch()
 
@@ -585,7 +585,7 @@ class TrunkInstance(InstanceResource):
         :param bool secure: The secure
 
         :returns: Updated TrunkInstance
-        :rtype: TrunkInstance
+        :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
@@ -601,8 +601,8 @@ class TrunkInstance(InstanceResource):
         """
         Access the origination_urls
 
-        :returns: origination_urls
-        :rtype: origination_urls
+        :returns: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlList
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlList
         """
         return self._proxy.origination_urls
 
@@ -611,8 +611,8 @@ class TrunkInstance(InstanceResource):
         """
         Access the credentials_lists
 
-        :returns: credentials_lists
-        :rtype: credentials_lists
+        :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListList
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListList
         """
         return self._proxy.credentials_lists
 
@@ -621,8 +621,8 @@ class TrunkInstance(InstanceResource):
         """
         Access the ip_access_control_lists
 
-        :returns: ip_access_control_lists
-        :rtype: ip_access_control_lists
+        :returns: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListList
+        :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListList
         """
         return self._proxy.ip_access_control_lists
 
@@ -631,8 +631,8 @@ class TrunkInstance(InstanceResource):
         """
         Access the phone_numbers
 
-        :returns: phone_numbers
-        :rtype: phone_numbers
+        :returns: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberList
+        :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberList
         """
         return self._proxy.phone_numbers
 

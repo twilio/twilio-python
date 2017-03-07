@@ -22,8 +22,8 @@ class NewKeyList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: NewKeyList
-        :rtype: NewKeyList
+        :returns: twilio.rest.api.v2010.account.new_key.NewKeyList
+        :rtype: twilio.rest.api.v2010.account.new_key.NewKeyList
         """
         super(NewKeyList, self).__init__(version)
 
@@ -40,7 +40,7 @@ class NewKeyList(ListResource):
         :param unicode friendly_name: The friendly_name
 
         :returns: Newly created NewKeyInstance
-        :rtype: NewKeyInstance
+        :rtype: twilio.rest.api.v2010.account.new_key.NewKeyInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -78,8 +78,8 @@ class NewKeyPage(Page):
         :param Response response: Response from the API
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: NewKeyPage
-        :rtype: NewKeyPage
+        :returns: twilio.rest.api.v2010.account.new_key.NewKeyPage
+        :rtype: twilio.rest.api.v2010.account.new_key.NewKeyPage
         """
         super(NewKeyPage, self).__init__(version, response)
 
@@ -92,8 +92,8 @@ class NewKeyPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: NewKeyInstance
-        :rtype: NewKeyInstance
+        :returns: twilio.rest.api.v2010.account.new_key.NewKeyInstance
+        :rtype: twilio.rest.api.v2010.account.new_key.NewKeyInstance
         """
         return NewKeyInstance(
             self._version,
@@ -117,8 +117,8 @@ class NewKeyInstance(InstanceResource):
         """
         Initialize the NewKeyInstance
 
-        :returns: NewKeyInstance
-        :rtype: NewKeyInstance
+        :returns: twilio.rest.api.v2010.account.new_key.NewKeyInstance
+        :rtype: twilio.rest.api.v2010.account.new_key.NewKeyInstance
         """
         super(NewKeyInstance, self).__init__(version)
 

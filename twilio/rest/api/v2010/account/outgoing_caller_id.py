@@ -23,8 +23,8 @@ class OutgoingCallerIdList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: The unique sid that identifies this account
 
-        :returns: OutgoingCallerIdList
-        :rtype: OutgoingCallerIdList
+        :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdList
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdList
         """
         super(OutgoingCallerIdList, self).__init__(version)
 
@@ -128,8 +128,8 @@ class OutgoingCallerIdList(ListResource):
 
         :param sid: Fetch by unique outgoing-caller-id Sid
 
-        :returns: OutgoingCallerIdContext
-        :rtype: OutgoingCallerIdContext
+        :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
         """
         return OutgoingCallerIdContext(
             self._version,
@@ -143,8 +143,8 @@ class OutgoingCallerIdList(ListResource):
 
         :param sid: Fetch by unique outgoing-caller-id Sid
 
-        :returns: OutgoingCallerIdContext
-        :rtype: OutgoingCallerIdContext
+        :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
         """
         return OutgoingCallerIdContext(
             self._version,
@@ -172,8 +172,8 @@ class OutgoingCallerIdPage(Page):
         :param Response response: Response from the API
         :param account_sid: The unique sid that identifies this account
 
-        :returns: OutgoingCallerIdPage
-        :rtype: OutgoingCallerIdPage
+        :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdPage
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdPage
         """
         super(OutgoingCallerIdPage, self).__init__(version, response)
 
@@ -186,8 +186,8 @@ class OutgoingCallerIdPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: OutgoingCallerIdInstance
-        :rtype: OutgoingCallerIdInstance
+        :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
         """
         return OutgoingCallerIdInstance(
             self._version,
@@ -215,8 +215,8 @@ class OutgoingCallerIdContext(InstanceContext):
         :param account_sid: The account_sid
         :param sid: Fetch by unique outgoing-caller-id Sid
 
-        :returns: OutgoingCallerIdContext
-        :rtype: OutgoingCallerIdContext
+        :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
         """
         super(OutgoingCallerIdContext, self).__init__(version)
 
@@ -232,7 +232,7 @@ class OutgoingCallerIdContext(InstanceContext):
         Fetch a OutgoingCallerIdInstance
 
         :returns: Fetched OutgoingCallerIdInstance
-        :rtype: OutgoingCallerIdInstance
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
         """
         params = values.of({})
 
@@ -256,7 +256,7 @@ class OutgoingCallerIdContext(InstanceContext):
         :param unicode friendly_name: A human readable description of the caller ID
 
         :returns: Updated OutgoingCallerIdInstance
-        :rtype: OutgoingCallerIdInstance
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -301,8 +301,8 @@ class OutgoingCallerIdInstance(InstanceResource):
         """
         Initialize the OutgoingCallerIdInstance
 
-        :returns: OutgoingCallerIdInstance
-        :rtype: OutgoingCallerIdInstance
+        :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
         """
         super(OutgoingCallerIdInstance, self).__init__(version)
 
@@ -331,7 +331,7 @@ class OutgoingCallerIdInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: OutgoingCallerIdContext for this OutgoingCallerIdInstance
-        :rtype: OutgoingCallerIdContext
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
         """
         if self._context is None:
             self._context = OutgoingCallerIdContext(
@@ -402,7 +402,7 @@ class OutgoingCallerIdInstance(InstanceResource):
         Fetch a OutgoingCallerIdInstance
 
         :returns: Fetched OutgoingCallerIdInstance
-        :rtype: OutgoingCallerIdInstance
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
         """
         return self._proxy.fetch()
 
@@ -413,7 +413,7 @@ class OutgoingCallerIdInstance(InstanceResource):
         :param unicode friendly_name: A human readable description of the caller ID
 
         :returns: Updated OutgoingCallerIdInstance
-        :rtype: OutgoingCallerIdInstance
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,

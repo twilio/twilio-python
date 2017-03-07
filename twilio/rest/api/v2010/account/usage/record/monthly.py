@@ -23,8 +23,8 @@ class MonthlyList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: MonthlyList
-        :rtype: MonthlyList
+        :returns: twilio.rest.api.v2010.account.usage.record.monthly.MonthlyList
+        :rtype: twilio.rest.api.v2010.account.usage.record.monthly.MonthlyList
         """
         super(MonthlyList, self).__init__(version)
 
@@ -148,8 +148,8 @@ class MonthlyPage(Page):
         :param Response response: Response from the API
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: MonthlyPage
-        :rtype: MonthlyPage
+        :returns: twilio.rest.api.v2010.account.usage.record.monthly.MonthlyPage
+        :rtype: twilio.rest.api.v2010.account.usage.record.monthly.MonthlyPage
         """
         super(MonthlyPage, self).__init__(version, response)
 
@@ -162,8 +162,8 @@ class MonthlyPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: MonthlyInstance
-        :rtype: MonthlyInstance
+        :returns: twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance
         """
         return MonthlyInstance(
             self._version,
@@ -187,8 +187,8 @@ class MonthlyInstance(InstanceResource):
         """
         Initialize the MonthlyInstance
 
-        :returns: MonthlyInstance
-        :rtype: MonthlyInstance
+        :returns: twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance
         """
         super(MonthlyInstance, self).__init__(version)
 

@@ -24,8 +24,8 @@ class NotificationList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: The unique sid that identifies this account
 
-        :returns: NotificationList
-        :rtype: NotificationList
+        :returns: twilio.rest.api.v2010.account.notification.NotificationList
+        :rtype: twilio.rest.api.v2010.account.notification.NotificationList
         """
         super(NotificationList, self).__init__(version)
 
@@ -144,8 +144,8 @@ class NotificationList(ListResource):
 
         :param sid: Fetch by unique notification Sid
 
-        :returns: NotificationContext
-        :rtype: NotificationContext
+        :returns: twilio.rest.api.v2010.account.notification.NotificationContext
+        :rtype: twilio.rest.api.v2010.account.notification.NotificationContext
         """
         return NotificationContext(
             self._version,
@@ -159,8 +159,8 @@ class NotificationList(ListResource):
 
         :param sid: Fetch by unique notification Sid
 
-        :returns: NotificationContext
-        :rtype: NotificationContext
+        :returns: twilio.rest.api.v2010.account.notification.NotificationContext
+        :rtype: twilio.rest.api.v2010.account.notification.NotificationContext
         """
         return NotificationContext(
             self._version,
@@ -188,8 +188,8 @@ class NotificationPage(Page):
         :param Response response: Response from the API
         :param account_sid: The unique sid that identifies this account
 
-        :returns: NotificationPage
-        :rtype: NotificationPage
+        :returns: twilio.rest.api.v2010.account.notification.NotificationPage
+        :rtype: twilio.rest.api.v2010.account.notification.NotificationPage
         """
         super(NotificationPage, self).__init__(version, response)
 
@@ -202,8 +202,8 @@ class NotificationPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: NotificationInstance
-        :rtype: NotificationInstance
+        :returns: twilio.rest.api.v2010.account.notification.NotificationInstance
+        :rtype: twilio.rest.api.v2010.account.notification.NotificationInstance
         """
         return NotificationInstance(
             self._version,
@@ -231,8 +231,8 @@ class NotificationContext(InstanceContext):
         :param account_sid: The account_sid
         :param sid: Fetch by unique notification Sid
 
-        :returns: NotificationContext
-        :rtype: NotificationContext
+        :returns: twilio.rest.api.v2010.account.notification.NotificationContext
+        :rtype: twilio.rest.api.v2010.account.notification.NotificationContext
         """
         super(NotificationContext, self).__init__(version)
 
@@ -248,7 +248,7 @@ class NotificationContext(InstanceContext):
         Fetch a NotificationInstance
 
         :returns: Fetched NotificationInstance
-        :rtype: NotificationInstance
+        :rtype: twilio.rest.api.v2010.account.notification.NotificationInstance
         """
         params = values.of({})
 
@@ -291,8 +291,8 @@ class NotificationInstance(InstanceResource):
         """
         Initialize the NotificationInstance
 
-        :returns: NotificationInstance
-        :rtype: NotificationInstance
+        :returns: twilio.rest.api.v2010.account.notification.NotificationInstance
+        :rtype: twilio.rest.api.v2010.account.notification.NotificationInstance
         """
         super(NotificationInstance, self).__init__(version)
 
@@ -331,7 +331,7 @@ class NotificationInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: NotificationContext for this NotificationInstance
-        :rtype: NotificationContext
+        :rtype: twilio.rest.api.v2010.account.notification.NotificationContext
         """
         if self._context is None:
             self._context = NotificationContext(
@@ -482,7 +482,7 @@ class NotificationInstance(InstanceResource):
         Fetch a NotificationInstance
 
         :returns: Fetched NotificationInstance
-        :rtype: NotificationInstance
+        :rtype: twilio.rest.api.v2010.account.notification.NotificationInstance
         """
         return self._proxy.fetch()
 

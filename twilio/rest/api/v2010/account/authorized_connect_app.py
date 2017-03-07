@@ -23,8 +23,8 @@ class AuthorizedConnectAppList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: The unique sid that identifies this account
 
-        :returns: AuthorizedConnectAppList
-        :rtype: AuthorizedConnectAppList
+        :returns: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppList
+        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppList
         """
         super(AuthorizedConnectAppList, self).__init__(version)
 
@@ -113,8 +113,8 @@ class AuthorizedConnectAppList(ListResource):
 
         :param connect_app_sid: The connect_app_sid
 
-        :returns: AuthorizedConnectAppContext
-        :rtype: AuthorizedConnectAppContext
+        :returns: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppContext
+        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppContext
         """
         return AuthorizedConnectAppContext(
             self._version,
@@ -128,8 +128,8 @@ class AuthorizedConnectAppList(ListResource):
 
         :param connect_app_sid: The connect_app_sid
 
-        :returns: AuthorizedConnectAppContext
-        :rtype: AuthorizedConnectAppContext
+        :returns: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppContext
+        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppContext
         """
         return AuthorizedConnectAppContext(
             self._version,
@@ -157,8 +157,8 @@ class AuthorizedConnectAppPage(Page):
         :param Response response: Response from the API
         :param account_sid: The unique sid that identifies this account
 
-        :returns: AuthorizedConnectAppPage
-        :rtype: AuthorizedConnectAppPage
+        :returns: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppPage
+        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppPage
         """
         super(AuthorizedConnectAppPage, self).__init__(version, response)
 
@@ -171,8 +171,8 @@ class AuthorizedConnectAppPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: AuthorizedConnectAppInstance
-        :rtype: AuthorizedConnectAppInstance
+        :returns: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance
+        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance
         """
         return AuthorizedConnectAppInstance(
             self._version,
@@ -200,8 +200,8 @@ class AuthorizedConnectAppContext(InstanceContext):
         :param account_sid: The account_sid
         :param connect_app_sid: The connect_app_sid
 
-        :returns: AuthorizedConnectAppContext
-        :rtype: AuthorizedConnectAppContext
+        :returns: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppContext
+        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppContext
         """
         super(AuthorizedConnectAppContext, self).__init__(version)
 
@@ -217,7 +217,7 @@ class AuthorizedConnectAppContext(InstanceContext):
         Fetch a AuthorizedConnectAppInstance
 
         :returns: Fetched AuthorizedConnectAppInstance
-        :rtype: AuthorizedConnectAppInstance
+        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance
         """
         params = values.of({})
 
@@ -251,8 +251,8 @@ class AuthorizedConnectAppInstance(InstanceResource):
         """
         Initialize the AuthorizedConnectAppInstance
 
-        :returns: AuthorizedConnectAppInstance
-        :rtype: AuthorizedConnectAppInstance
+        :returns: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance
+        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance
         """
         super(AuthorizedConnectAppInstance, self).__init__(version)
 
@@ -284,7 +284,7 @@ class AuthorizedConnectAppInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: AuthorizedConnectAppContext for this AuthorizedConnectAppInstance
-        :rtype: AuthorizedConnectAppContext
+        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppContext
         """
         if self._context is None:
             self._context = AuthorizedConnectAppContext(
@@ -379,7 +379,7 @@ class AuthorizedConnectAppInstance(InstanceResource):
         Fetch a AuthorizedConnectAppInstance
 
         :returns: Fetched AuthorizedConnectAppInstance
-        :rtype: AuthorizedConnectAppInstance
+        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance
         """
         return self._proxy.fetch()
 

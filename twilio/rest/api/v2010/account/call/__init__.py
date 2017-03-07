@@ -28,8 +28,8 @@ class CallList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: The unique id of the Account responsible for creating this Call
 
-        :returns: CallList
-        :rtype: CallList
+        :returns: twilio.rest.api.v2010.account.call.CallList
+        :rtype: twilio.rest.api.v2010.account.call.CallList
         """
         super(CallList, self).__init__(version)
 
@@ -76,7 +76,7 @@ class CallList(ListResource):
         :param unicode application_sid: ApplicationSid that configures from where to fetch TwiML
 
         :returns: Newly created CallInstance
-        :rtype: CallInstance
+        :rtype: twilio.rest.api.v2010.account.call.CallInstance
         """
         data = values.of({
             'To': to,
@@ -265,8 +265,8 @@ class CallList(ListResource):
         """
         Access the feedback_summaries
 
-        :returns: FeedbackSummaryList
-        :rtype: FeedbackSummaryList
+        :returns: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryList
+        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryList
         """
         if self._feedback_summaries is None:
             self._feedback_summaries = FeedbackSummaryList(
@@ -281,8 +281,8 @@ class CallList(ListResource):
 
         :param sid: Call Sid that uniquely identifies the Call to fetch
 
-        :returns: CallContext
-        :rtype: CallContext
+        :returns: twilio.rest.api.v2010.account.call.CallContext
+        :rtype: twilio.rest.api.v2010.account.call.CallContext
         """
         return CallContext(
             self._version,
@@ -296,8 +296,8 @@ class CallList(ListResource):
 
         :param sid: Call Sid that uniquely identifies the Call to fetch
 
-        :returns: CallContext
-        :rtype: CallContext
+        :returns: twilio.rest.api.v2010.account.call.CallContext
+        :rtype: twilio.rest.api.v2010.account.call.CallContext
         """
         return CallContext(
             self._version,
@@ -325,8 +325,8 @@ class CallPage(Page):
         :param Response response: Response from the API
         :param account_sid: The unique id of the Account responsible for creating this Call
 
-        :returns: CallPage
-        :rtype: CallPage
+        :returns: twilio.rest.api.v2010.account.call.CallPage
+        :rtype: twilio.rest.api.v2010.account.call.CallPage
         """
         super(CallPage, self).__init__(version, response)
 
@@ -339,8 +339,8 @@ class CallPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: CallInstance
-        :rtype: CallInstance
+        :returns: twilio.rest.api.v2010.account.call.CallInstance
+        :rtype: twilio.rest.api.v2010.account.call.CallInstance
         """
         return CallInstance(
             self._version,
@@ -368,8 +368,8 @@ class CallContext(InstanceContext):
         :param account_sid: The account_sid
         :param sid: Call Sid that uniquely identifies the Call to fetch
 
-        :returns: CallContext
-        :rtype: CallContext
+        :returns: twilio.rest.api.v2010.account.call.CallContext
+        :rtype: twilio.rest.api.v2010.account.call.CallContext
         """
         super(CallContext, self).__init__(version)
 
@@ -399,7 +399,7 @@ class CallContext(InstanceContext):
         Fetch a CallInstance
 
         :returns: Fetched CallInstance
-        :rtype: CallInstance
+        :rtype: twilio.rest.api.v2010.account.call.CallInstance
         """
         params = values.of({})
 
@@ -431,7 +431,7 @@ class CallContext(InstanceContext):
         :param unicode status_callback_method: HTTP Method to use with StatusCallback
 
         :returns: Updated CallInstance
-        :rtype: CallInstance
+        :rtype: twilio.rest.api.v2010.account.call.CallInstance
         """
         data = values.of({
             'Url': url,
@@ -461,8 +461,8 @@ class CallContext(InstanceContext):
         """
         Access the recordings
 
-        :returns: RecordingList
-        :rtype: RecordingList
+        :returns: twilio.rest.api.v2010.account.call.recording.RecordingList
+        :rtype: twilio.rest.api.v2010.account.call.recording.RecordingList
         """
         if self._recordings is None:
             self._recordings = RecordingList(
@@ -477,8 +477,8 @@ class CallContext(InstanceContext):
         """
         Access the notifications
 
-        :returns: NotificationList
-        :rtype: NotificationList
+        :returns: twilio.rest.api.v2010.account.call.notification.NotificationList
+        :rtype: twilio.rest.api.v2010.account.call.notification.NotificationList
         """
         if self._notifications is None:
             self._notifications = NotificationList(
@@ -493,8 +493,8 @@ class CallContext(InstanceContext):
         """
         Access the feedback
 
-        :returns: FeedbackList
-        :rtype: FeedbackList
+        :returns: twilio.rest.api.v2010.account.call.feedback.FeedbackList
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackList
         """
         if self._feedback is None:
             self._feedback = FeedbackList(
@@ -521,8 +521,8 @@ class CallInstance(InstanceResource):
         """
         Initialize the CallInstance
 
-        :returns: CallInstance
-        :rtype: CallInstance
+        :returns: twilio.rest.api.v2010.account.call.CallInstance
+        :rtype: twilio.rest.api.v2010.account.call.CallInstance
         """
         super(CallInstance, self).__init__(version)
 
@@ -569,7 +569,7 @@ class CallInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: CallContext for this CallInstance
-        :rtype: CallContext
+        :rtype: twilio.rest.api.v2010.account.call.CallContext
         """
         if self._context is None:
             self._context = CallContext(
@@ -793,7 +793,7 @@ class CallInstance(InstanceResource):
         Fetch a CallInstance
 
         :returns: Fetched CallInstance
-        :rtype: CallInstance
+        :rtype: twilio.rest.api.v2010.account.call.CallInstance
         """
         return self._proxy.fetch()
 
@@ -812,7 +812,7 @@ class CallInstance(InstanceResource):
         :param unicode status_callback_method: HTTP Method to use with StatusCallback
 
         :returns: Updated CallInstance
-        :rtype: CallInstance
+        :rtype: twilio.rest.api.v2010.account.call.CallInstance
         """
         return self._proxy.update(
             url=url,
@@ -829,8 +829,8 @@ class CallInstance(InstanceResource):
         """
         Access the recordings
 
-        :returns: recordings
-        :rtype: recordings
+        :returns: twilio.rest.api.v2010.account.call.recording.RecordingList
+        :rtype: twilio.rest.api.v2010.account.call.recording.RecordingList
         """
         return self._proxy.recordings
 
@@ -839,8 +839,8 @@ class CallInstance(InstanceResource):
         """
         Access the notifications
 
-        :returns: notifications
-        :rtype: notifications
+        :returns: twilio.rest.api.v2010.account.call.notification.NotificationList
+        :rtype: twilio.rest.api.v2010.account.call.notification.NotificationList
         """
         return self._proxy.notifications
 
@@ -849,8 +849,8 @@ class CallInstance(InstanceResource):
         """
         Access the feedback
 
-        :returns: feedback
-        :rtype: feedback
+        :returns: twilio.rest.api.v2010.account.call.feedback.FeedbackList
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackList
         """
         return self._proxy.feedback
 

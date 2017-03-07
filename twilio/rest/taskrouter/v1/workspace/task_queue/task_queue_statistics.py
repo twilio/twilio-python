@@ -24,8 +24,8 @@ class TaskQueueStatisticsList(ListResource):
         :param workspace_sid: The workspace_sid
         :param task_queue_sid: The task_queue_sid
 
-        :returns: TaskQueueStatisticsList
-        :rtype: TaskQueueStatisticsList
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsList
         """
         super(TaskQueueStatisticsList, self).__init__(version)
 
@@ -39,8 +39,8 @@ class TaskQueueStatisticsList(ListResource):
         """
         Constructs a TaskQueueStatisticsContext
 
-        :returns: TaskQueueStatisticsContext
-        :rtype: TaskQueueStatisticsContext
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsContext
         """
         return TaskQueueStatisticsContext(
             self._version,
@@ -52,8 +52,8 @@ class TaskQueueStatisticsList(ListResource):
         """
         Constructs a TaskQueueStatisticsContext
 
-        :returns: TaskQueueStatisticsContext
-        :rtype: TaskQueueStatisticsContext
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsContext
         """
         return TaskQueueStatisticsContext(
             self._version,
@@ -82,8 +82,8 @@ class TaskQueueStatisticsPage(Page):
         :param workspace_sid: The workspace_sid
         :param task_queue_sid: The task_queue_sid
 
-        :returns: TaskQueueStatisticsPage
-        :rtype: TaskQueueStatisticsPage
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsPage
         """
         super(TaskQueueStatisticsPage, self).__init__(version, response)
 
@@ -96,8 +96,8 @@ class TaskQueueStatisticsPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: TaskQueueStatisticsInstance
-        :rtype: TaskQueueStatisticsInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsInstance
         """
         return TaskQueueStatisticsInstance(
             self._version,
@@ -126,8 +126,8 @@ class TaskQueueStatisticsContext(InstanceContext):
         :param workspace_sid: The workspace_sid
         :param task_queue_sid: The task_queue_sid
 
-        :returns: TaskQueueStatisticsContext
-        :rtype: TaskQueueStatisticsContext
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsContext
         """
         super(TaskQueueStatisticsContext, self).__init__(version)
 
@@ -148,7 +148,7 @@ class TaskQueueStatisticsContext(InstanceContext):
         :param datetime start_date: The start_date
 
         :returns: Fetched TaskQueueStatisticsInstance
-        :rtype: TaskQueueStatisticsInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsInstance
         """
         params = values.of({
             'EndDate': serialize.iso8601_datetime(end_date),
@@ -186,8 +186,8 @@ class TaskQueueStatisticsInstance(InstanceResource):
         """
         Initialize the TaskQueueStatisticsInstance
 
-        :returns: TaskQueueStatisticsInstance
-        :rtype: TaskQueueStatisticsInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsInstance
         """
         super(TaskQueueStatisticsInstance, self).__init__(version)
 
@@ -215,7 +215,7 @@ class TaskQueueStatisticsInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: TaskQueueStatisticsContext for this TaskQueueStatisticsInstance
-        :rtype: TaskQueueStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsContext
         """
         if self._context is None:
             self._context = TaskQueueStatisticsContext(
@@ -283,7 +283,7 @@ class TaskQueueStatisticsInstance(InstanceResource):
         :param datetime start_date: The start_date
 
         :returns: Fetched TaskQueueStatisticsInstance
-        :rtype: TaskQueueStatisticsInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsInstance
         """
         return self._proxy.fetch(
             end_date=end_date,

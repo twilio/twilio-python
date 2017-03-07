@@ -23,8 +23,8 @@ class TollFreeList(ListResource):
         :param account_sid: The 34 character string that uniquely identifies your account.
         :param country_code: The ISO Country code to lookup phone numbers for.
 
-        :returns: TollFreeList
-        :rtype: TollFreeList
+        :returns: twilio.rest.api.v2010.account.available_phone_number.toll_free.TollFreeList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.toll_free.TollFreeList
         """
         super(TollFreeList, self).__init__(version)
 
@@ -250,8 +250,8 @@ class TollFreePage(Page):
         :param account_sid: The 34 character string that uniquely identifies your account.
         :param country_code: The ISO Country code to lookup phone numbers for.
 
-        :returns: TollFreePage
-        :rtype: TollFreePage
+        :returns: twilio.rest.api.v2010.account.available_phone_number.toll_free.TollFreePage
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.toll_free.TollFreePage
         """
         super(TollFreePage, self).__init__(version, response)
 
@@ -264,8 +264,8 @@ class TollFreePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: TollFreeInstance
-        :rtype: TollFreeInstance
+        :returns: twilio.rest.api.v2010.account.available_phone_number.toll_free.TollFreeInstance
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.toll_free.TollFreeInstance
         """
         return TollFreeInstance(
             self._version,
@@ -290,8 +290,8 @@ class TollFreeInstance(InstanceResource):
         """
         Initialize the TollFreeInstance
 
-        :returns: TollFreeInstance
-        :rtype: TollFreeInstance
+        :returns: twilio.rest.api.v2010.account.available_phone_number.toll_free.TollFreeInstance
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.toll_free.TollFreeInstance
         """
         super(TollFreeInstance, self).__init__(version)
 

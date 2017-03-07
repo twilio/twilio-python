@@ -23,8 +23,8 @@ class RoomList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: RoomList
-        :rtype: RoomList
+        :returns: twilio.rest.video.v1.room.RoomList
+        :rtype: twilio.rest.video.v1.room.RoomList
         """
         super(RoomList, self).__init__(version)
 
@@ -46,7 +46,7 @@ class RoomList(ListResource):
         :param unicode max_participants: The max_participants
 
         :returns: Newly created RoomInstance
-        :rtype: RoomInstance
+        :rtype: twilio.rest.video.v1.room.RoomInstance
         """
         data = values.of({
             'EnableTurn': enable_turn,
@@ -177,8 +177,8 @@ class RoomList(ListResource):
 
         :param sid: The sid
 
-        :returns: RoomContext
-        :rtype: RoomContext
+        :returns: twilio.rest.video.v1.room.RoomContext
+        :rtype: twilio.rest.video.v1.room.RoomContext
         """
         return RoomContext(
             self._version,
@@ -191,8 +191,8 @@ class RoomList(ListResource):
 
         :param sid: The sid
 
-        :returns: RoomContext
-        :rtype: RoomContext
+        :returns: twilio.rest.video.v1.room.RoomContext
+        :rtype: twilio.rest.video.v1.room.RoomContext
         """
         return RoomContext(
             self._version,
@@ -218,8 +218,8 @@ class RoomPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: RoomPage
-        :rtype: RoomPage
+        :returns: twilio.rest.video.v1.room.RoomPage
+        :rtype: twilio.rest.video.v1.room.RoomPage
         """
         super(RoomPage, self).__init__(version, response)
 
@@ -232,8 +232,8 @@ class RoomPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: RoomInstance
-        :rtype: RoomInstance
+        :returns: twilio.rest.video.v1.room.RoomInstance
+        :rtype: twilio.rest.video.v1.room.RoomInstance
         """
         return RoomInstance(
             self._version,
@@ -259,8 +259,8 @@ class RoomContext(InstanceContext):
         :param Version version: Version that contains the resource
         :param sid: The sid
 
-        :returns: RoomContext
-        :rtype: RoomContext
+        :returns: twilio.rest.video.v1.room.RoomContext
+        :rtype: twilio.rest.video.v1.room.RoomContext
         """
         super(RoomContext, self).__init__(version)
 
@@ -275,7 +275,7 @@ class RoomContext(InstanceContext):
         Fetch a RoomInstance
 
         :returns: Fetched RoomInstance
-        :rtype: RoomInstance
+        :rtype: twilio.rest.video.v1.room.RoomInstance
         """
         params = values.of({})
 
@@ -298,7 +298,7 @@ class RoomContext(InstanceContext):
         :param room.room_status status: The status
 
         :returns: Updated RoomInstance
-        :rtype: RoomInstance
+        :rtype: twilio.rest.video.v1.room.RoomInstance
         """
         data = values.of({
             'Status': status,
@@ -333,8 +333,8 @@ class RoomInstance(InstanceResource):
         """
         Initialize the RoomInstance
 
-        :returns: RoomInstance
-        :rtype: RoomInstance
+        :returns: twilio.rest.video.v1.room.RoomInstance
+        :rtype: twilio.rest.video.v1.room.RoomInstance
         """
         super(RoomInstance, self).__init__(version)
 
@@ -370,7 +370,7 @@ class RoomInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: RoomContext for this RoomInstance
-        :rtype: RoomContext
+        :rtype: twilio.rest.video.v1.room.RoomContext
         """
         if self._context is None:
             self._context = RoomContext(
@@ -504,7 +504,7 @@ class RoomInstance(InstanceResource):
         Fetch a RoomInstance
 
         :returns: Fetched RoomInstance
-        :rtype: RoomInstance
+        :rtype: twilio.rest.video.v1.room.RoomInstance
         """
         return self._proxy.fetch()
 
@@ -515,7 +515,7 @@ class RoomInstance(InstanceResource):
         :param room.room_status status: The status
 
         :returns: Updated RoomInstance
-        :rtype: RoomInstance
+        :rtype: twilio.rest.video.v1.room.RoomInstance
         """
         return self._proxy.update(
             status,

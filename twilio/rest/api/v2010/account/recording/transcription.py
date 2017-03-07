@@ -24,8 +24,8 @@ class TranscriptionList(ListResource):
         :param account_sid: The account_sid
         :param recording_sid: The recording_sid
 
-        :returns: TranscriptionList
-        :rtype: TranscriptionList
+        :returns: twilio.rest.api.v2010.account.recording.transcription.TranscriptionList
+        :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionList
         """
         super(TranscriptionList, self).__init__(version)
 
@@ -115,8 +115,8 @@ class TranscriptionList(ListResource):
 
         :param sid: The sid
 
-        :returns: TranscriptionContext
-        :rtype: TranscriptionContext
+        :returns: twilio.rest.api.v2010.account.recording.transcription.TranscriptionContext
+        :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionContext
         """
         return TranscriptionContext(
             self._version,
@@ -131,8 +131,8 @@ class TranscriptionList(ListResource):
 
         :param sid: The sid
 
-        :returns: TranscriptionContext
-        :rtype: TranscriptionContext
+        :returns: twilio.rest.api.v2010.account.recording.transcription.TranscriptionContext
+        :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionContext
         """
         return TranscriptionContext(
             self._version,
@@ -162,8 +162,8 @@ class TranscriptionPage(Page):
         :param account_sid: The account_sid
         :param recording_sid: The recording_sid
 
-        :returns: TranscriptionPage
-        :rtype: TranscriptionPage
+        :returns: twilio.rest.api.v2010.account.recording.transcription.TranscriptionPage
+        :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionPage
         """
         super(TranscriptionPage, self).__init__(version, response)
 
@@ -176,8 +176,8 @@ class TranscriptionPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: TranscriptionInstance
-        :rtype: TranscriptionInstance
+        :returns: twilio.rest.api.v2010.account.recording.transcription.TranscriptionInstance
+        :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionInstance
         """
         return TranscriptionInstance(
             self._version,
@@ -207,8 +207,8 @@ class TranscriptionContext(InstanceContext):
         :param recording_sid: The recording_sid
         :param sid: The sid
 
-        :returns: TranscriptionContext
-        :rtype: TranscriptionContext
+        :returns: twilio.rest.api.v2010.account.recording.transcription.TranscriptionContext
+        :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionContext
         """
         super(TranscriptionContext, self).__init__(version)
 
@@ -225,7 +225,7 @@ class TranscriptionContext(InstanceContext):
         Fetch a TranscriptionInstance
 
         :returns: Fetched TranscriptionInstance
-        :rtype: TranscriptionInstance
+        :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionInstance
         """
         params = values.of({})
 
@@ -269,8 +269,8 @@ class TranscriptionInstance(InstanceResource):
         """
         Initialize the TranscriptionInstance
 
-        :returns: TranscriptionInstance
-        :rtype: TranscriptionInstance
+        :returns: twilio.rest.api.v2010.account.recording.transcription.TranscriptionInstance
+        :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionInstance
         """
         super(TranscriptionInstance, self).__init__(version)
 
@@ -306,7 +306,7 @@ class TranscriptionInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: TranscriptionContext for this TranscriptionInstance
-        :rtype: TranscriptionContext
+        :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionContext
         """
         if self._context is None:
             self._context = TranscriptionContext(
@@ -426,7 +426,7 @@ class TranscriptionInstance(InstanceResource):
         Fetch a TranscriptionInstance
 
         :returns: Fetched TranscriptionInstance
-        :rtype: TranscriptionInstance
+        :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionInstance
         """
         return self._proxy.fetch()
 

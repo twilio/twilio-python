@@ -23,8 +23,8 @@ class InstalledAddOnList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: InstalledAddOnList
-        :rtype: InstalledAddOnList
+        :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnList
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnList
         """
         super(InstalledAddOnList, self).__init__(version)
 
@@ -43,7 +43,7 @@ class InstalledAddOnList(ListResource):
         :param unicode unique_name: The string that uniquely identifies this Add-on installation
 
         :returns: Newly created InstalledAddOnInstance
-        :rtype: InstalledAddOnInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
         """
         data = values.of({
             'AvailableAddOnSid': available_add_on_sid,
@@ -142,8 +142,8 @@ class InstalledAddOnList(ListResource):
 
         :param sid: The unique Installed Add-on Sid
 
-        :returns: InstalledAddOnContext
-        :rtype: InstalledAddOnContext
+        :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
         """
         return InstalledAddOnContext(
             self._version,
@@ -156,8 +156,8 @@ class InstalledAddOnList(ListResource):
 
         :param sid: The unique Installed Add-on Sid
 
-        :returns: InstalledAddOnContext
-        :rtype: InstalledAddOnContext
+        :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
         """
         return InstalledAddOnContext(
             self._version,
@@ -183,8 +183,8 @@ class InstalledAddOnPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: InstalledAddOnPage
-        :rtype: InstalledAddOnPage
+        :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnPage
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnPage
         """
         super(InstalledAddOnPage, self).__init__(version, response)
 
@@ -197,8 +197,8 @@ class InstalledAddOnPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: InstalledAddOnInstance
-        :rtype: InstalledAddOnInstance
+        :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
         """
         return InstalledAddOnInstance(
             self._version,
@@ -224,8 +224,8 @@ class InstalledAddOnContext(InstanceContext):
         :param Version version: Version that contains the resource
         :param sid: The unique Installed Add-on Sid
 
-        :returns: InstalledAddOnContext
-        :rtype: InstalledAddOnContext
+        :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
         """
         super(InstalledAddOnContext, self).__init__(version)
 
@@ -252,7 +252,7 @@ class InstalledAddOnContext(InstanceContext):
         Fetch a InstalledAddOnInstance
 
         :returns: Fetched InstalledAddOnInstance
-        :rtype: InstalledAddOnInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
         """
         params = values.of({})
 
@@ -276,7 +276,7 @@ class InstalledAddOnContext(InstanceContext):
         :param unicode unique_name: The string that uniquely identifies this Add-on installation
 
         :returns: Updated InstalledAddOnInstance
-        :rtype: InstalledAddOnInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
         """
         data = values.of({
             'Configuration': configuration,
@@ -300,8 +300,8 @@ class InstalledAddOnContext(InstanceContext):
         """
         Access the extensions
 
-        :returns: InstalledAddOnExtensionList
-        :rtype: InstalledAddOnExtensionList
+        :returns: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionList
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionList
         """
         if self._extensions is None:
             self._extensions = InstalledAddOnExtensionList(
@@ -327,8 +327,8 @@ class InstalledAddOnInstance(InstanceResource):
         """
         Initialize the InstalledAddOnInstance
 
-        :returns: InstalledAddOnInstance
-        :rtype: InstalledAddOnInstance
+        :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
         """
         super(InstalledAddOnInstance, self).__init__(version)
 
@@ -359,7 +359,7 @@ class InstalledAddOnInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: InstalledAddOnContext for this InstalledAddOnInstance
-        :rtype: InstalledAddOnContext
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
         """
         if self._context is None:
             self._context = InstalledAddOnContext(
@@ -462,7 +462,7 @@ class InstalledAddOnInstance(InstanceResource):
         Fetch a InstalledAddOnInstance
 
         :returns: Fetched InstalledAddOnInstance
-        :rtype: InstalledAddOnInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
         """
         return self._proxy.fetch()
 
@@ -474,7 +474,7 @@ class InstalledAddOnInstance(InstanceResource):
         :param unicode unique_name: The string that uniquely identifies this Add-on installation
 
         :returns: Updated InstalledAddOnInstance
-        :rtype: InstalledAddOnInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
         """
         return self._proxy.update(
             configuration=configuration,
@@ -486,8 +486,8 @@ class InstalledAddOnInstance(InstanceResource):
         """
         Access the extensions
 
-        :returns: extensions
-        :rtype: extensions
+        :returns: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionList
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionList
         """
         return self._proxy.extensions
 

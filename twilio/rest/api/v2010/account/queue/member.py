@@ -24,8 +24,8 @@ class MemberList(ListResource):
         :param account_sid: The account_sid
         :param queue_sid: A string that uniquely identifies this queue
 
-        :returns: MemberList
-        :rtype: MemberList
+        :returns: twilio.rest.api.v2010.account.queue.member.MemberList
+        :rtype: twilio.rest.api.v2010.account.queue.member.MemberList
         """
         super(MemberList, self).__init__(version)
 
@@ -115,8 +115,8 @@ class MemberList(ListResource):
 
         :param call_sid: The call_sid
 
-        :returns: MemberContext
-        :rtype: MemberContext
+        :returns: twilio.rest.api.v2010.account.queue.member.MemberContext
+        :rtype: twilio.rest.api.v2010.account.queue.member.MemberContext
         """
         return MemberContext(
             self._version,
@@ -131,8 +131,8 @@ class MemberList(ListResource):
 
         :param call_sid: The call_sid
 
-        :returns: MemberContext
-        :rtype: MemberContext
+        :returns: twilio.rest.api.v2010.account.queue.member.MemberContext
+        :rtype: twilio.rest.api.v2010.account.queue.member.MemberContext
         """
         return MemberContext(
             self._version,
@@ -162,8 +162,8 @@ class MemberPage(Page):
         :param account_sid: The account_sid
         :param queue_sid: A string that uniquely identifies this queue
 
-        :returns: MemberPage
-        :rtype: MemberPage
+        :returns: twilio.rest.api.v2010.account.queue.member.MemberPage
+        :rtype: twilio.rest.api.v2010.account.queue.member.MemberPage
         """
         super(MemberPage, self).__init__(version, response)
 
@@ -176,8 +176,8 @@ class MemberPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: MemberInstance
-        :rtype: MemberInstance
+        :returns: twilio.rest.api.v2010.account.queue.member.MemberInstance
+        :rtype: twilio.rest.api.v2010.account.queue.member.MemberInstance
         """
         return MemberInstance(
             self._version,
@@ -207,8 +207,8 @@ class MemberContext(InstanceContext):
         :param queue_sid: The Queue in which to find the members
         :param call_sid: The call_sid
 
-        :returns: MemberContext
-        :rtype: MemberContext
+        :returns: twilio.rest.api.v2010.account.queue.member.MemberContext
+        :rtype: twilio.rest.api.v2010.account.queue.member.MemberContext
         """
         super(MemberContext, self).__init__(version)
 
@@ -225,7 +225,7 @@ class MemberContext(InstanceContext):
         Fetch a MemberInstance
 
         :returns: Fetched MemberInstance
-        :rtype: MemberInstance
+        :rtype: twilio.rest.api.v2010.account.queue.member.MemberInstance
         """
         params = values.of({})
 
@@ -251,7 +251,7 @@ class MemberContext(InstanceContext):
         :param unicode method: The method
 
         :returns: Updated MemberInstance
-        :rtype: MemberInstance
+        :rtype: twilio.rest.api.v2010.account.queue.member.MemberInstance
         """
         data = values.of({
             'Url': url,
@@ -289,8 +289,8 @@ class MemberInstance(InstanceResource):
         """
         Initialize the MemberInstance
 
-        :returns: MemberInstance
-        :rtype: MemberInstance
+        :returns: twilio.rest.api.v2010.account.queue.member.MemberInstance
+        :rtype: twilio.rest.api.v2010.account.queue.member.MemberInstance
         """
         super(MemberInstance, self).__init__(version)
 
@@ -318,7 +318,7 @@ class MemberInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: MemberContext for this MemberInstance
-        :rtype: MemberContext
+        :rtype: twilio.rest.api.v2010.account.queue.member.MemberContext
         """
         if self._context is None:
             self._context = MemberContext(
@@ -374,7 +374,7 @@ class MemberInstance(InstanceResource):
         Fetch a MemberInstance
 
         :returns: Fetched MemberInstance
-        :rtype: MemberInstance
+        :rtype: twilio.rest.api.v2010.account.queue.member.MemberInstance
         """
         return self._proxy.fetch()
 
@@ -386,7 +386,7 @@ class MemberInstance(InstanceResource):
         :param unicode method: The method
 
         :returns: Updated MemberInstance
-        :rtype: MemberInstance
+        :rtype: twilio.rest.api.v2010.account.queue.member.MemberInstance
         """
         return self._proxy.update(
             url,

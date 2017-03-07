@@ -23,8 +23,8 @@ class PhoneNumberList(ListResource):
         :param Version version: Version that contains the resource
         :param trunk_sid: The trunk_sid
 
-        :returns: PhoneNumberList
-        :rtype: PhoneNumberList
+        :returns: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberList
+        :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberList
         """
         super(PhoneNumberList, self).__init__(version)
 
@@ -41,7 +41,7 @@ class PhoneNumberList(ListResource):
         :param unicode phone_number_sid: The phone_number_sid
 
         :returns: Newly created PhoneNumberInstance
-        :rtype: PhoneNumberInstance
+        :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberInstance
         """
         data = values.of({
             'PhoneNumberSid': phone_number_sid,
@@ -138,8 +138,8 @@ class PhoneNumberList(ListResource):
 
         :param sid: The sid
 
-        :returns: PhoneNumberContext
-        :rtype: PhoneNumberContext
+        :returns: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberContext
+        :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberContext
         """
         return PhoneNumberContext(
             self._version,
@@ -153,8 +153,8 @@ class PhoneNumberList(ListResource):
 
         :param sid: The sid
 
-        :returns: PhoneNumberContext
-        :rtype: PhoneNumberContext
+        :returns: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberContext
+        :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberContext
         """
         return PhoneNumberContext(
             self._version,
@@ -182,8 +182,8 @@ class PhoneNumberPage(Page):
         :param Response response: Response from the API
         :param trunk_sid: The trunk_sid
 
-        :returns: PhoneNumberPage
-        :rtype: PhoneNumberPage
+        :returns: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberPage
+        :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberPage
         """
         super(PhoneNumberPage, self).__init__(version, response)
 
@@ -196,8 +196,8 @@ class PhoneNumberPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: PhoneNumberInstance
-        :rtype: PhoneNumberInstance
+        :returns: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberInstance
+        :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberInstance
         """
         return PhoneNumberInstance(
             self._version,
@@ -225,8 +225,8 @@ class PhoneNumberContext(InstanceContext):
         :param trunk_sid: The trunk_sid
         :param sid: The sid
 
-        :returns: PhoneNumberContext
-        :rtype: PhoneNumberContext
+        :returns: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberContext
+        :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberContext
         """
         super(PhoneNumberContext, self).__init__(version)
 
@@ -242,7 +242,7 @@ class PhoneNumberContext(InstanceContext):
         Fetch a PhoneNumberInstance
 
         :returns: Fetched PhoneNumberInstance
-        :rtype: PhoneNumberInstance
+        :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberInstance
         """
         params = values.of({})
 
@@ -285,8 +285,8 @@ class PhoneNumberInstance(InstanceResource):
         """
         Initialize the PhoneNumberInstance
 
-        :returns: PhoneNumberInstance
-        :rtype: PhoneNumberInstance
+        :returns: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberInstance
+        :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberInstance
         """
         super(PhoneNumberInstance, self).__init__(version)
 
@@ -334,7 +334,7 @@ class PhoneNumberInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: PhoneNumberContext for this PhoneNumberInstance
-        :rtype: PhoneNumberContext
+        :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberContext
         """
         if self._context is None:
             self._context = PhoneNumberContext(
@@ -557,7 +557,7 @@ class PhoneNumberInstance(InstanceResource):
         Fetch a PhoneNumberInstance
 
         :returns: Fetched PhoneNumberInstance
-        :rtype: PhoneNumberInstance
+        :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberInstance
         """
         return self._proxy.fetch()
 

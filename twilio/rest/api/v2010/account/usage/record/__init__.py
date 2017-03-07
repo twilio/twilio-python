@@ -31,8 +31,8 @@ class RecordList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: RecordList
-        :rtype: RecordList
+        :returns: twilio.rest.api.v2010.account.usage.record.RecordList
+        :rtype: twilio.rest.api.v2010.account.usage.record.RecordList
         """
         super(RecordList, self).__init__(version)
 
@@ -151,8 +151,8 @@ class RecordList(ListResource):
         """
         Access the all_time
 
-        :returns: AllTimeList
-        :rtype: AllTimeList
+        :returns: twilio.rest.api.v2010.account.usage.record.all_time.AllTimeList
+        :rtype: twilio.rest.api.v2010.account.usage.record.all_time.AllTimeList
         """
         if self._all_time is None:
             self._all_time = AllTimeList(
@@ -166,8 +166,8 @@ class RecordList(ListResource):
         """
         Access the daily
 
-        :returns: DailyList
-        :rtype: DailyList
+        :returns: twilio.rest.api.v2010.account.usage.record.daily.DailyList
+        :rtype: twilio.rest.api.v2010.account.usage.record.daily.DailyList
         """
         if self._daily is None:
             self._daily = DailyList(
@@ -181,8 +181,8 @@ class RecordList(ListResource):
         """
         Access the last_month
 
-        :returns: LastMonthList
-        :rtype: LastMonthList
+        :returns: twilio.rest.api.v2010.account.usage.record.last_month.LastMonthList
+        :rtype: twilio.rest.api.v2010.account.usage.record.last_month.LastMonthList
         """
         if self._last_month is None:
             self._last_month = LastMonthList(
@@ -196,8 +196,8 @@ class RecordList(ListResource):
         """
         Access the monthly
 
-        :returns: MonthlyList
-        :rtype: MonthlyList
+        :returns: twilio.rest.api.v2010.account.usage.record.monthly.MonthlyList
+        :rtype: twilio.rest.api.v2010.account.usage.record.monthly.MonthlyList
         """
         if self._monthly is None:
             self._monthly = MonthlyList(
@@ -211,8 +211,8 @@ class RecordList(ListResource):
         """
         Access the this_month
 
-        :returns: ThisMonthList
-        :rtype: ThisMonthList
+        :returns: twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthList
+        :rtype: twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthList
         """
         if self._this_month is None:
             self._this_month = ThisMonthList(
@@ -226,8 +226,8 @@ class RecordList(ListResource):
         """
         Access the today
 
-        :returns: TodayList
-        :rtype: TodayList
+        :returns: twilio.rest.api.v2010.account.usage.record.today.TodayList
+        :rtype: twilio.rest.api.v2010.account.usage.record.today.TodayList
         """
         if self._today is None:
             self._today = TodayList(
@@ -241,8 +241,8 @@ class RecordList(ListResource):
         """
         Access the yearly
 
-        :returns: YearlyList
-        :rtype: YearlyList
+        :returns: twilio.rest.api.v2010.account.usage.record.yearly.YearlyList
+        :rtype: twilio.rest.api.v2010.account.usage.record.yearly.YearlyList
         """
         if self._yearly is None:
             self._yearly = YearlyList(
@@ -256,8 +256,8 @@ class RecordList(ListResource):
         """
         Access the yesterday
 
-        :returns: YesterdayList
-        :rtype: YesterdayList
+        :returns: twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayList
+        :rtype: twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayList
         """
         if self._yesterday is None:
             self._yesterday = YesterdayList(
@@ -286,8 +286,8 @@ class RecordPage(Page):
         :param Response response: Response from the API
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: RecordPage
-        :rtype: RecordPage
+        :returns: twilio.rest.api.v2010.account.usage.record.RecordPage
+        :rtype: twilio.rest.api.v2010.account.usage.record.RecordPage
         """
         super(RecordPage, self).__init__(version, response)
 
@@ -300,8 +300,8 @@ class RecordPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: RecordInstance
-        :rtype: RecordInstance
+        :returns: twilio.rest.api.v2010.account.usage.record.RecordInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.RecordInstance
         """
         return RecordInstance(
             self._version,
@@ -325,8 +325,8 @@ class RecordInstance(InstanceResource):
         """
         Initialize the RecordInstance
 
-        :returns: RecordInstance
-        :rtype: RecordInstance
+        :returns: twilio.rest.api.v2010.account.usage.record.RecordInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.RecordInstance
         """
         super(RecordInstance, self).__init__(version)
 

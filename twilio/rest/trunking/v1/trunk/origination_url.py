@@ -23,8 +23,8 @@ class OriginationUrlList(ListResource):
         :param Version version: Version that contains the resource
         :param trunk_sid: The trunk_sid
 
-        :returns: OriginationUrlList
-        :rtype: OriginationUrlList
+        :returns: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlList
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlList
         """
         super(OriginationUrlList, self).__init__(version)
 
@@ -45,7 +45,7 @@ class OriginationUrlList(ListResource):
         :param unicode sip_url: The sip_url
 
         :returns: Newly created OriginationUrlInstance
-        :rtype: OriginationUrlInstance
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
         """
         data = values.of({
             'Weight': weight,
@@ -146,8 +146,8 @@ class OriginationUrlList(ListResource):
 
         :param sid: The sid
 
-        :returns: OriginationUrlContext
-        :rtype: OriginationUrlContext
+        :returns: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlContext
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlContext
         """
         return OriginationUrlContext(
             self._version,
@@ -161,8 +161,8 @@ class OriginationUrlList(ListResource):
 
         :param sid: The sid
 
-        :returns: OriginationUrlContext
-        :rtype: OriginationUrlContext
+        :returns: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlContext
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlContext
         """
         return OriginationUrlContext(
             self._version,
@@ -190,8 +190,8 @@ class OriginationUrlPage(Page):
         :param Response response: Response from the API
         :param trunk_sid: The trunk_sid
 
-        :returns: OriginationUrlPage
-        :rtype: OriginationUrlPage
+        :returns: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlPage
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlPage
         """
         super(OriginationUrlPage, self).__init__(version, response)
 
@@ -204,8 +204,8 @@ class OriginationUrlPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: OriginationUrlInstance
-        :rtype: OriginationUrlInstance
+        :returns: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
         """
         return OriginationUrlInstance(
             self._version,
@@ -233,8 +233,8 @@ class OriginationUrlContext(InstanceContext):
         :param trunk_sid: The trunk_sid
         :param sid: The sid
 
-        :returns: OriginationUrlContext
-        :rtype: OriginationUrlContext
+        :returns: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlContext
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlContext
         """
         super(OriginationUrlContext, self).__init__(version)
 
@@ -250,7 +250,7 @@ class OriginationUrlContext(InstanceContext):
         Fetch a OriginationUrlInstance
 
         :returns: Fetched OriginationUrlInstance
-        :rtype: OriginationUrlInstance
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
         """
         params = values.of({})
 
@@ -289,7 +289,7 @@ class OriginationUrlContext(InstanceContext):
         :param unicode sip_url: The sip_url
 
         :returns: Updated OriginationUrlInstance
-        :rtype: OriginationUrlInstance
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
         """
         data = values.of({
             'Weight': weight,
@@ -329,8 +329,8 @@ class OriginationUrlInstance(InstanceResource):
         """
         Initialize the OriginationUrlInstance
 
-        :returns: OriginationUrlInstance
-        :rtype: OriginationUrlInstance
+        :returns: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
         """
         super(OriginationUrlInstance, self).__init__(version)
 
@@ -363,7 +363,7 @@ class OriginationUrlInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: OriginationUrlContext for this OriginationUrlInstance
-        :rtype: OriginationUrlContext
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlContext
         """
         if self._context is None:
             self._context = OriginationUrlContext(
@@ -466,7 +466,7 @@ class OriginationUrlInstance(InstanceResource):
         Fetch a OriginationUrlInstance
 
         :returns: Fetched OriginationUrlInstance
-        :rtype: OriginationUrlInstance
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
         """
         return self._proxy.fetch()
 
@@ -492,7 +492,7 @@ class OriginationUrlInstance(InstanceResource):
         :param unicode sip_url: The sip_url
 
         :returns: Updated OriginationUrlInstance
-        :rtype: OriginationUrlInstance
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
         """
         return self._proxy.update(
             weight=weight,

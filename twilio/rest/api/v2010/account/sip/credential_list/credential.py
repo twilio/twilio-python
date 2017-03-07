@@ -24,8 +24,8 @@ class CredentialList(ListResource):
         :param account_sid: The account_sid
         :param credential_list_sid: The credential_list_sid
 
-        :returns: CredentialList
-        :rtype: CredentialList
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialList
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialList
         """
         super(CredentialList, self).__init__(version)
 
@@ -117,7 +117,7 @@ class CredentialList(ListResource):
         :param unicode password: The password
 
         :returns: Newly created CredentialInstance
-        :rtype: CredentialInstance
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
         """
         data = values.of({
             'Username': username,
@@ -143,8 +143,8 @@ class CredentialList(ListResource):
 
         :param sid: The sid
 
-        :returns: CredentialContext
-        :rtype: CredentialContext
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialContext
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialContext
         """
         return CredentialContext(
             self._version,
@@ -159,8 +159,8 @@ class CredentialList(ListResource):
 
         :param sid: The sid
 
-        :returns: CredentialContext
-        :rtype: CredentialContext
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialContext
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialContext
         """
         return CredentialContext(
             self._version,
@@ -190,8 +190,8 @@ class CredentialPage(Page):
         :param account_sid: The account_sid
         :param credential_list_sid: The credential_list_sid
 
-        :returns: CredentialPage
-        :rtype: CredentialPage
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialPage
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialPage
         """
         super(CredentialPage, self).__init__(version, response)
 
@@ -204,8 +204,8 @@ class CredentialPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: CredentialInstance
-        :rtype: CredentialInstance
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
         """
         return CredentialInstance(
             self._version,
@@ -235,8 +235,8 @@ class CredentialContext(InstanceContext):
         :param credential_list_sid: The credential_list_sid
         :param sid: The sid
 
-        :returns: CredentialContext
-        :rtype: CredentialContext
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialContext
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialContext
         """
         super(CredentialContext, self).__init__(version)
 
@@ -253,7 +253,7 @@ class CredentialContext(InstanceContext):
         Fetch a CredentialInstance
 
         :returns: Fetched CredentialInstance
-        :rtype: CredentialInstance
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
         """
         params = values.of({})
 
@@ -278,7 +278,7 @@ class CredentialContext(InstanceContext):
         :param unicode password: The password
 
         :returns: Updated CredentialInstance
-        :rtype: CredentialInstance
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
         """
         data = values.of({
             'Password': password,
@@ -325,8 +325,8 @@ class CredentialInstance(InstanceResource):
         """
         Initialize the CredentialInstance
 
-        :returns: CredentialInstance
-        :rtype: CredentialInstance
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
         """
         super(CredentialInstance, self).__init__(version)
 
@@ -356,7 +356,7 @@ class CredentialInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: CredentialContext for this CredentialInstance
-        :rtype: CredentialContext
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialContext
         """
         if self._context is None:
             self._context = CredentialContext(
@@ -428,7 +428,7 @@ class CredentialInstance(InstanceResource):
         Fetch a CredentialInstance
 
         :returns: Fetched CredentialInstance
-        :rtype: CredentialInstance
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
         """
         return self._proxy.fetch()
 
@@ -439,7 +439,7 @@ class CredentialInstance(InstanceResource):
         :param unicode password: The password
 
         :returns: Updated CredentialInstance
-        :rtype: CredentialInstance
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
         """
         return self._proxy.update(
             password=password,

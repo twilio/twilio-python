@@ -24,8 +24,8 @@ class CredentialListList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: CredentialListList
-        :rtype: CredentialListList
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.CredentialListList
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListList
         """
         super(CredentialListList, self).__init__(version)
 
@@ -115,7 +115,7 @@ class CredentialListList(ListResource):
         :param unicode friendly_name: The friendly_name
 
         :returns: Newly created CredentialListInstance
-        :rtype: CredentialListInstance
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -139,8 +139,8 @@ class CredentialListList(ListResource):
 
         :param sid: Fetch by unique credential Sid
 
-        :returns: CredentialListContext
-        :rtype: CredentialListContext
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.CredentialListContext
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListContext
         """
         return CredentialListContext(
             self._version,
@@ -154,8 +154,8 @@ class CredentialListList(ListResource):
 
         :param sid: Fetch by unique credential Sid
 
-        :returns: CredentialListContext
-        :rtype: CredentialListContext
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.CredentialListContext
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListContext
         """
         return CredentialListContext(
             self._version,
@@ -183,8 +183,8 @@ class CredentialListPage(Page):
         :param Response response: Response from the API
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: CredentialListPage
-        :rtype: CredentialListPage
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.CredentialListPage
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListPage
         """
         super(CredentialListPage, self).__init__(version, response)
 
@@ -197,8 +197,8 @@ class CredentialListPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: CredentialListInstance
-        :rtype: CredentialListInstance
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance
         """
         return CredentialListInstance(
             self._version,
@@ -226,8 +226,8 @@ class CredentialListContext(InstanceContext):
         :param account_sid: The account_sid
         :param sid: Fetch by unique credential Sid
 
-        :returns: CredentialListContext
-        :rtype: CredentialListContext
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.CredentialListContext
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListContext
         """
         super(CredentialListContext, self).__init__(version)
 
@@ -246,7 +246,7 @@ class CredentialListContext(InstanceContext):
         Fetch a CredentialListInstance
 
         :returns: Fetched CredentialListInstance
-        :rtype: CredentialListInstance
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance
         """
         params = values.of({})
 
@@ -270,7 +270,7 @@ class CredentialListContext(InstanceContext):
         :param unicode friendly_name: The friendly_name
 
         :returns: Updated CredentialListInstance
-        :rtype: CredentialListInstance
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -303,8 +303,8 @@ class CredentialListContext(InstanceContext):
         """
         Access the credentials
 
-        :returns: CredentialList
-        :rtype: CredentialList
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialList
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialList
         """
         if self._credentials is None:
             self._credentials = CredentialList(
@@ -331,8 +331,8 @@ class CredentialListInstance(InstanceResource):
         """
         Initialize the CredentialListInstance
 
-        :returns: CredentialListInstance
-        :rtype: CredentialListInstance
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance
         """
         super(CredentialListInstance, self).__init__(version)
 
@@ -361,7 +361,7 @@ class CredentialListInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: CredentialListContext for this CredentialListInstance
-        :rtype: CredentialListContext
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListContext
         """
         if self._context is None:
             self._context = CredentialListContext(
@@ -432,7 +432,7 @@ class CredentialListInstance(InstanceResource):
         Fetch a CredentialListInstance
 
         :returns: Fetched CredentialListInstance
-        :rtype: CredentialListInstance
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance
         """
         return self._proxy.fetch()
 
@@ -443,7 +443,7 @@ class CredentialListInstance(InstanceResource):
         :param unicode friendly_name: The friendly_name
 
         :returns: Updated CredentialListInstance
-        :rtype: CredentialListInstance
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance
         """
         return self._proxy.update(
             friendly_name,
@@ -463,8 +463,8 @@ class CredentialListInstance(InstanceResource):
         """
         Access the credentials
 
-        :returns: credentials
-        :rtype: credentials
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialList
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialList
         """
         return self._proxy.credentials
 

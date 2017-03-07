@@ -22,8 +22,8 @@ class UsageList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: UsageList
-        :rtype: UsageList
+        :returns: twilio.rest.api.v2010.account.usage.UsageList
+        :rtype: twilio.rest.api.v2010.account.usage.UsageList
         """
         super(UsageList, self).__init__(version)
 
@@ -41,8 +41,8 @@ class UsageList(ListResource):
         """
         Access the records
 
-        :returns: RecordList
-        :rtype: RecordList
+        :returns: twilio.rest.api.v2010.account.usage.record.RecordList
+        :rtype: twilio.rest.api.v2010.account.usage.record.RecordList
         """
         if self._records is None:
             self._records = RecordList(
@@ -56,8 +56,8 @@ class UsageList(ListResource):
         """
         Access the triggers
 
-        :returns: TriggerList
-        :rtype: TriggerList
+        :returns: twilio.rest.api.v2010.account.usage.trigger.TriggerList
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerList
         """
         if self._triggers is None:
             self._triggers = TriggerList(
@@ -86,8 +86,8 @@ class UsagePage(Page):
         :param Response response: Response from the API
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: UsagePage
-        :rtype: UsagePage
+        :returns: twilio.rest.api.v2010.account.usage.UsagePage
+        :rtype: twilio.rest.api.v2010.account.usage.UsagePage
         """
         super(UsagePage, self).__init__(version, response)
 
@@ -100,8 +100,8 @@ class UsagePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: UsageInstance
-        :rtype: UsageInstance
+        :returns: twilio.rest.api.v2010.account.usage.UsageInstance
+        :rtype: twilio.rest.api.v2010.account.usage.UsageInstance
         """
         return UsageInstance(
             self._version,
@@ -125,8 +125,8 @@ class UsageInstance(InstanceResource):
         """
         Initialize the UsageInstance
 
-        :returns: UsageInstance
-        :rtype: UsageInstance
+        :returns: twilio.rest.api.v2010.account.usage.UsageInstance
+        :rtype: twilio.rest.api.v2010.account.usage.UsageInstance
         """
         super(UsageInstance, self).__init__(version)
 

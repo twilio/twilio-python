@@ -24,8 +24,8 @@ class SyncMapItemList(ListResource):
         :param service_sid: The service_sid
         :param map_sid: The map_sid
 
-        :returns: SyncMapItemList
-        :rtype: SyncMapItemList
+        :returns: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemList
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemList
         """
         super(SyncMapItemList, self).__init__(version)
 
@@ -44,7 +44,7 @@ class SyncMapItemList(ListResource):
         :param dict data: The data
 
         :returns: Newly created SyncMapItemInstance
-        :rtype: SyncMapItemInstance
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
         """
         data = values.of({
             'Key': key,
@@ -164,8 +164,8 @@ class SyncMapItemList(ListResource):
 
         :param key: The key
 
-        :returns: SyncMapItemContext
-        :rtype: SyncMapItemContext
+        :returns: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemContext
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemContext
         """
         return SyncMapItemContext(
             self._version,
@@ -180,8 +180,8 @@ class SyncMapItemList(ListResource):
 
         :param key: The key
 
-        :returns: SyncMapItemContext
-        :rtype: SyncMapItemContext
+        :returns: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemContext
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemContext
         """
         return SyncMapItemContext(
             self._version,
@@ -211,8 +211,8 @@ class SyncMapItemPage(Page):
         :param service_sid: The service_sid
         :param map_sid: The map_sid
 
-        :returns: SyncMapItemPage
-        :rtype: SyncMapItemPage
+        :returns: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemPage
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemPage
         """
         super(SyncMapItemPage, self).__init__(version, response)
 
@@ -225,8 +225,8 @@ class SyncMapItemPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: SyncMapItemInstance
-        :rtype: SyncMapItemInstance
+        :returns: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
         """
         return SyncMapItemInstance(
             self._version,
@@ -256,8 +256,8 @@ class SyncMapItemContext(InstanceContext):
         :param map_sid: The map_sid
         :param key: The key
 
-        :returns: SyncMapItemContext
-        :rtype: SyncMapItemContext
+        :returns: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemContext
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemContext
         """
         super(SyncMapItemContext, self).__init__(version)
 
@@ -274,7 +274,7 @@ class SyncMapItemContext(InstanceContext):
         Fetch a SyncMapItemInstance
 
         :returns: Fetched SyncMapItemInstance
-        :rtype: SyncMapItemInstance
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
         """
         params = values.of({})
 
@@ -308,7 +308,7 @@ class SyncMapItemContext(InstanceContext):
         :param dict data: The data
 
         :returns: Updated SyncMapItemInstance
-        :rtype: SyncMapItemInstance
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
         """
         data = values.of({
             'Data': data,
@@ -345,8 +345,8 @@ class SyncMapItemInstance(InstanceResource):
         """
         Initialize the SyncMapItemInstance
 
-        :returns: SyncMapItemInstance
-        :rtype: SyncMapItemInstance
+        :returns: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
         """
         super(SyncMapItemInstance, self).__init__(version)
 
@@ -379,7 +379,7 @@ class SyncMapItemInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: SyncMapItemContext for this SyncMapItemInstance
-        :rtype: SyncMapItemContext
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemContext
         """
         if self._context is None:
             self._context = SyncMapItemContext(
@@ -475,7 +475,7 @@ class SyncMapItemInstance(InstanceResource):
         Fetch a SyncMapItemInstance
 
         :returns: Fetched SyncMapItemInstance
-        :rtype: SyncMapItemInstance
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
         """
         return self._proxy.fetch()
 
@@ -495,7 +495,7 @@ class SyncMapItemInstance(InstanceResource):
         :param dict data: The data
 
         :returns: Updated SyncMapItemInstance
-        :rtype: SyncMapItemInstance
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
         """
         return self._proxy.update(
             data,

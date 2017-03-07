@@ -25,8 +25,8 @@ class SyncListList(ListResource):
         :param Version version: Version that contains the resource
         :param service_sid: The service_sid
 
-        :returns: SyncListList
-        :rtype: SyncListList
+        :returns: twilio.rest.preview.sync.service.sync_list.SyncListList
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListList
         """
         super(SyncListList, self).__init__(version)
 
@@ -43,7 +43,7 @@ class SyncListList(ListResource):
         :param unicode unique_name: The unique_name
 
         :returns: Newly created SyncListInstance
-        :rtype: SyncListInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListInstance
         """
         data = values.of({
             'UniqueName': unique_name,
@@ -140,8 +140,8 @@ class SyncListList(ListResource):
 
         :param sid: The sid
 
-        :returns: SyncListContext
-        :rtype: SyncListContext
+        :returns: twilio.rest.preview.sync.service.sync_list.SyncListContext
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListContext
         """
         return SyncListContext(
             self._version,
@@ -155,8 +155,8 @@ class SyncListList(ListResource):
 
         :param sid: The sid
 
-        :returns: SyncListContext
-        :rtype: SyncListContext
+        :returns: twilio.rest.preview.sync.service.sync_list.SyncListContext
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListContext
         """
         return SyncListContext(
             self._version,
@@ -184,8 +184,8 @@ class SyncListPage(Page):
         :param Response response: Response from the API
         :param service_sid: The service_sid
 
-        :returns: SyncListPage
-        :rtype: SyncListPage
+        :returns: twilio.rest.preview.sync.service.sync_list.SyncListPage
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListPage
         """
         super(SyncListPage, self).__init__(version, response)
 
@@ -198,8 +198,8 @@ class SyncListPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: SyncListInstance
-        :rtype: SyncListInstance
+        :returns: twilio.rest.preview.sync.service.sync_list.SyncListInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListInstance
         """
         return SyncListInstance(
             self._version,
@@ -227,8 +227,8 @@ class SyncListContext(InstanceContext):
         :param service_sid: The service_sid
         :param sid: The sid
 
-        :returns: SyncListContext
-        :rtype: SyncListContext
+        :returns: twilio.rest.preview.sync.service.sync_list.SyncListContext
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListContext
         """
         super(SyncListContext, self).__init__(version)
 
@@ -248,7 +248,7 @@ class SyncListContext(InstanceContext):
         Fetch a SyncListInstance
 
         :returns: Fetched SyncListInstance
-        :rtype: SyncListInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListInstance
         """
         params = values.of({})
 
@@ -279,8 +279,8 @@ class SyncListContext(InstanceContext):
         """
         Access the sync_list_items
 
-        :returns: SyncListItemList
-        :rtype: SyncListItemList
+        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemList
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemList
         """
         if self._sync_list_items is None:
             self._sync_list_items = SyncListItemList(
@@ -295,8 +295,8 @@ class SyncListContext(InstanceContext):
         """
         Access the sync_list_permissions
 
-        :returns: SyncListPermissionList
-        :rtype: SyncListPermissionList
+        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionList
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionList
         """
         if self._sync_list_permissions is None:
             self._sync_list_permissions = SyncListPermissionList(
@@ -323,8 +323,8 @@ class SyncListInstance(InstanceResource):
         """
         Initialize the SyncListInstance
 
-        :returns: SyncListInstance
-        :rtype: SyncListInstance
+        :returns: twilio.rest.preview.sync.service.sync_list.SyncListInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListInstance
         """
         super(SyncListInstance, self).__init__(version)
 
@@ -356,7 +356,7 @@ class SyncListInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: SyncListContext for this SyncListInstance
-        :rtype: SyncListContext
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListContext
         """
         if self._context is None:
             self._context = SyncListContext(
@@ -451,7 +451,7 @@ class SyncListInstance(InstanceResource):
         Fetch a SyncListInstance
 
         :returns: Fetched SyncListInstance
-        :rtype: SyncListInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListInstance
         """
         return self._proxy.fetch()
 
@@ -469,8 +469,8 @@ class SyncListInstance(InstanceResource):
         """
         Access the sync_list_items
 
-        :returns: sync_list_items
-        :rtype: sync_list_items
+        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemList
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemList
         """
         return self._proxy.sync_list_items
 
@@ -479,8 +479,8 @@ class SyncListInstance(InstanceResource):
         """
         Access the sync_list_permissions
 
-        :returns: sync_list_permissions
-        :rtype: sync_list_permissions
+        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionList
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionList
         """
         return self._proxy.sync_list_permissions
 

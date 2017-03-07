@@ -23,8 +23,8 @@ class YearlyList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: YearlyList
-        :rtype: YearlyList
+        :returns: twilio.rest.api.v2010.account.usage.record.yearly.YearlyList
+        :rtype: twilio.rest.api.v2010.account.usage.record.yearly.YearlyList
         """
         super(YearlyList, self).__init__(version)
 
@@ -148,8 +148,8 @@ class YearlyPage(Page):
         :param Response response: Response from the API
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: YearlyPage
-        :rtype: YearlyPage
+        :returns: twilio.rest.api.v2010.account.usage.record.yearly.YearlyPage
+        :rtype: twilio.rest.api.v2010.account.usage.record.yearly.YearlyPage
         """
         super(YearlyPage, self).__init__(version, response)
 
@@ -162,8 +162,8 @@ class YearlyPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: YearlyInstance
-        :rtype: YearlyInstance
+        :returns: twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance
         """
         return YearlyInstance(
             self._version,
@@ -187,8 +187,8 @@ class YearlyInstance(InstanceResource):
         """
         Initialize the YearlyInstance
 
-        :returns: YearlyInstance
-        :rtype: YearlyInstance
+        :returns: twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance
         """
         super(YearlyInstance, self).__init__(version)
 

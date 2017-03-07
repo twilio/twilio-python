@@ -24,8 +24,8 @@ class FeedbackList(ListResource):
         :param account_sid: The account_sid
         :param call_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: FeedbackList
-        :rtype: FeedbackList
+        :returns: twilio.rest.api.v2010.account.call.feedback.FeedbackList
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackList
         """
         super(FeedbackList, self).__init__(version)
 
@@ -39,8 +39,8 @@ class FeedbackList(ListResource):
         """
         Constructs a FeedbackContext
 
-        :returns: FeedbackContext
-        :rtype: FeedbackContext
+        :returns: twilio.rest.api.v2010.account.call.feedback.FeedbackContext
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackContext
         """
         return FeedbackContext(
             self._version,
@@ -52,8 +52,8 @@ class FeedbackList(ListResource):
         """
         Constructs a FeedbackContext
 
-        :returns: FeedbackContext
-        :rtype: FeedbackContext
+        :returns: twilio.rest.api.v2010.account.call.feedback.FeedbackContext
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackContext
         """
         return FeedbackContext(
             self._version,
@@ -82,8 +82,8 @@ class FeedbackPage(Page):
         :param account_sid: The account_sid
         :param call_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: FeedbackPage
-        :rtype: FeedbackPage
+        :returns: twilio.rest.api.v2010.account.call.feedback.FeedbackPage
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackPage
         """
         super(FeedbackPage, self).__init__(version, response)
 
@@ -96,8 +96,8 @@ class FeedbackPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: FeedbackInstance
-        :rtype: FeedbackInstance
+        :returns: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
         """
         return FeedbackInstance(
             self._version,
@@ -126,8 +126,8 @@ class FeedbackContext(InstanceContext):
         :param account_sid: The account_sid
         :param call_sid: The call sid that uniquely identifies the call
 
-        :returns: FeedbackContext
-        :rtype: FeedbackContext
+        :returns: twilio.rest.api.v2010.account.call.feedback.FeedbackContext
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackContext
         """
         super(FeedbackContext, self).__init__(version)
 
@@ -146,7 +146,7 @@ class FeedbackContext(InstanceContext):
         :param feedback.issues issue: The issue
 
         :returns: Newly created FeedbackInstance
-        :rtype: FeedbackInstance
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
         """
         data = values.of({
             'QualityScore': quality_score,
@@ -171,7 +171,7 @@ class FeedbackContext(InstanceContext):
         Fetch a FeedbackInstance
 
         :returns: Fetched FeedbackInstance
-        :rtype: FeedbackInstance
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
         """
         params = values.of({})
 
@@ -196,7 +196,7 @@ class FeedbackContext(InstanceContext):
         :param feedback.issues issue: Issues experienced during the call
 
         :returns: Updated FeedbackInstance
-        :rtype: FeedbackInstance
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
         """
         data = values.of({
             'QualityScore': quality_score,
@@ -233,8 +233,8 @@ class FeedbackInstance(InstanceResource):
         """
         Initialize the FeedbackInstance
 
-        :returns: FeedbackInstance
-        :rtype: FeedbackInstance
+        :returns: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
         """
         super(FeedbackInstance, self).__init__(version)
 
@@ -262,7 +262,7 @@ class FeedbackInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: FeedbackContext for this FeedbackInstance
-        :rtype: FeedbackContext
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackContext
         """
         if self._context is None:
             self._context = FeedbackContext(
@@ -328,7 +328,7 @@ class FeedbackInstance(InstanceResource):
         :param feedback.issues issue: The issue
 
         :returns: Newly created FeedbackInstance
-        :rtype: FeedbackInstance
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
         """
         return self._proxy.create(
             quality_score,
@@ -340,7 +340,7 @@ class FeedbackInstance(InstanceResource):
         Fetch a FeedbackInstance
 
         :returns: Fetched FeedbackInstance
-        :rtype: FeedbackInstance
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
         """
         return self._proxy.fetch()
 
@@ -352,7 +352,7 @@ class FeedbackInstance(InstanceResource):
         :param feedback.issues issue: Issues experienced during the call
 
         :returns: Updated FeedbackInstance
-        :rtype: FeedbackInstance
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
         """
         return self._proxy.update(
             quality_score,

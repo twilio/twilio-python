@@ -23,8 +23,8 @@ class WorkspaceStatisticsList(ListResource):
         :param Version version: Version that contains the resource
         :param workspace_sid: The workspace_sid
 
-        :returns: WorkspaceStatisticsList
-        :rtype: WorkspaceStatisticsList
+        :returns: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsList
         """
         super(WorkspaceStatisticsList, self).__init__(version)
 
@@ -37,8 +37,8 @@ class WorkspaceStatisticsList(ListResource):
         """
         Constructs a WorkspaceStatisticsContext
 
-        :returns: WorkspaceStatisticsContext
-        :rtype: WorkspaceStatisticsContext
+        :returns: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsContext
         """
         return WorkspaceStatisticsContext(
             self._version,
@@ -49,8 +49,8 @@ class WorkspaceStatisticsList(ListResource):
         """
         Constructs a WorkspaceStatisticsContext
 
-        :returns: WorkspaceStatisticsContext
-        :rtype: WorkspaceStatisticsContext
+        :returns: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsContext
         """
         return WorkspaceStatisticsContext(
             self._version,
@@ -77,8 +77,8 @@ class WorkspaceStatisticsPage(Page):
         :param Response response: Response from the API
         :param workspace_sid: The workspace_sid
 
-        :returns: WorkspaceStatisticsPage
-        :rtype: WorkspaceStatisticsPage
+        :returns: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsPage
         """
         super(WorkspaceStatisticsPage, self).__init__(version, response)
 
@@ -91,8 +91,8 @@ class WorkspaceStatisticsPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: WorkspaceStatisticsInstance
-        :rtype: WorkspaceStatisticsInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsInstance
         """
         return WorkspaceStatisticsInstance(
             self._version,
@@ -119,8 +119,8 @@ class WorkspaceStatisticsContext(InstanceContext):
         :param Version version: Version that contains the resource
         :param workspace_sid: The workspace_sid
 
-        :returns: WorkspaceStatisticsContext
-        :rtype: WorkspaceStatisticsContext
+        :returns: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsContext
         """
         super(WorkspaceStatisticsContext, self).__init__(version)
 
@@ -140,7 +140,7 @@ class WorkspaceStatisticsContext(InstanceContext):
         :param datetime end_date: The end_date
 
         :returns: Fetched WorkspaceStatisticsInstance
-        :rtype: WorkspaceStatisticsInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsInstance
         """
         params = values.of({
             'Minutes': minutes,
@@ -177,8 +177,8 @@ class WorkspaceStatisticsInstance(InstanceResource):
         """
         Initialize the WorkspaceStatisticsInstance
 
-        :returns: WorkspaceStatisticsInstance
-        :rtype: WorkspaceStatisticsInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsInstance
         """
         super(WorkspaceStatisticsInstance, self).__init__(version)
 
@@ -204,7 +204,7 @@ class WorkspaceStatisticsInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: WorkspaceStatisticsContext for this WorkspaceStatisticsInstance
-        :rtype: WorkspaceStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsContext
         """
         if self._context is None:
             self._context = WorkspaceStatisticsContext(
@@ -263,7 +263,7 @@ class WorkspaceStatisticsInstance(InstanceResource):
         :param datetime end_date: The end_date
 
         :returns: Fetched WorkspaceStatisticsInstance
-        :rtype: WorkspaceStatisticsInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsInstance
         """
         return self._proxy.fetch(
             minutes=minutes,

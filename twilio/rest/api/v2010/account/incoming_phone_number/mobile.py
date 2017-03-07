@@ -22,8 +22,8 @@ class MobileList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: The unique sid that identifies this account
 
-        :returns: MobileList
-        :rtype: MobileList
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.mobile.MobileList
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.mobile.MobileList
         """
         super(MobileList, self).__init__(version)
 
@@ -157,7 +157,7 @@ class MobileList(ListResource):
         :param unicode voice_url: The voice_url
 
         :returns: Newly created MobileInstance
-        :rtype: MobileInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.mobile.MobileInstance
         """
         data = values.of({
             'PhoneNumber': phone_number,
@@ -210,8 +210,8 @@ class MobilePage(Page):
         :param Response response: Response from the API
         :param account_sid: The unique sid that identifies this account
 
-        :returns: MobilePage
-        :rtype: MobilePage
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.mobile.MobilePage
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.mobile.MobilePage
         """
         super(MobilePage, self).__init__(version, response)
 
@@ -224,8 +224,8 @@ class MobilePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: MobileInstance
-        :rtype: MobileInstance
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.mobile.MobileInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.mobile.MobileInstance
         """
         return MobileInstance(
             self._version,
@@ -249,8 +249,8 @@ class MobileInstance(InstanceResource):
         """
         Initialize the MobileInstance
 
-        :returns: MobileInstance
-        :rtype: MobileInstance
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.mobile.MobileInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.mobile.MobileInstance
         """
         super(MobileInstance, self).__init__(version)
 

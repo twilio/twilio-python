@@ -25,8 +25,8 @@ class AvailablePhoneNumberCountryList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: AvailablePhoneNumberCountryList
-        :rtype: AvailablePhoneNumberCountryList
+        :returns: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryList
         """
         super(AvailablePhoneNumberCountryList, self).__init__(version)
 
@@ -115,8 +115,8 @@ class AvailablePhoneNumberCountryList(ListResource):
 
         :param country_code: The country_code
 
-        :returns: AvailablePhoneNumberCountryContext
-        :rtype: AvailablePhoneNumberCountryContext
+        :returns: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryContext
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryContext
         """
         return AvailablePhoneNumberCountryContext(
             self._version,
@@ -130,8 +130,8 @@ class AvailablePhoneNumberCountryList(ListResource):
 
         :param country_code: The country_code
 
-        :returns: AvailablePhoneNumberCountryContext
-        :rtype: AvailablePhoneNumberCountryContext
+        :returns: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryContext
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryContext
         """
         return AvailablePhoneNumberCountryContext(
             self._version,
@@ -159,8 +159,8 @@ class AvailablePhoneNumberCountryPage(Page):
         :param Response response: Response from the API
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: AvailablePhoneNumberCountryPage
-        :rtype: AvailablePhoneNumberCountryPage
+        :returns: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryPage
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryPage
         """
         super(AvailablePhoneNumberCountryPage, self).__init__(version, response)
 
@@ -173,8 +173,8 @@ class AvailablePhoneNumberCountryPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: AvailablePhoneNumberCountryInstance
-        :rtype: AvailablePhoneNumberCountryInstance
+        :returns: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryInstance
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryInstance
         """
         return AvailablePhoneNumberCountryInstance(
             self._version,
@@ -202,8 +202,8 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         :param account_sid: The account_sid
         :param country_code: The country_code
 
-        :returns: AvailablePhoneNumberCountryContext
-        :rtype: AvailablePhoneNumberCountryContext
+        :returns: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryContext
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryContext
         """
         super(AvailablePhoneNumberCountryContext, self).__init__(version)
 
@@ -224,7 +224,7 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         Fetch a AvailablePhoneNumberCountryInstance
 
         :returns: Fetched AvailablePhoneNumberCountryInstance
-        :rtype: AvailablePhoneNumberCountryInstance
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryInstance
         """
         params = values.of({})
 
@@ -246,8 +246,8 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         """
         Access the local
 
-        :returns: LocalList
-        :rtype: LocalList
+        :returns: twilio.rest.api.v2010.account.available_phone_number.local.LocalList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.local.LocalList
         """
         if self._local is None:
             self._local = LocalList(
@@ -262,8 +262,8 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         """
         Access the toll_free
 
-        :returns: TollFreeList
-        :rtype: TollFreeList
+        :returns: twilio.rest.api.v2010.account.available_phone_number.toll_free.TollFreeList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.toll_free.TollFreeList
         """
         if self._toll_free is None:
             self._toll_free = TollFreeList(
@@ -278,8 +278,8 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         """
         Access the mobile
 
-        :returns: MobileList
-        :rtype: MobileList
+        :returns: twilio.rest.api.v2010.account.available_phone_number.mobile.MobileList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.mobile.MobileList
         """
         if self._mobile is None:
             self._mobile = MobileList(
@@ -306,8 +306,8 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
         """
         Initialize the AvailablePhoneNumberCountryInstance
 
-        :returns: AvailablePhoneNumberCountryInstance
-        :rtype: AvailablePhoneNumberCountryInstance
+        :returns: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryInstance
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryInstance
         """
         super(AvailablePhoneNumberCountryInstance, self).__init__(version)
 
@@ -334,7 +334,7 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: AvailablePhoneNumberCountryContext for this AvailablePhoneNumberCountryInstance
-        :rtype: AvailablePhoneNumberCountryContext
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryContext
         """
         if self._context is None:
             self._context = AvailablePhoneNumberCountryContext(
@@ -389,7 +389,7 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
         Fetch a AvailablePhoneNumberCountryInstance
 
         :returns: Fetched AvailablePhoneNumberCountryInstance
-        :rtype: AvailablePhoneNumberCountryInstance
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryInstance
         """
         return self._proxy.fetch()
 
@@ -398,8 +398,8 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
         """
         Access the local
 
-        :returns: local
-        :rtype: local
+        :returns: twilio.rest.api.v2010.account.available_phone_number.local.LocalList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.local.LocalList
         """
         return self._proxy.local
 
@@ -408,8 +408,8 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
         """
         Access the toll_free
 
-        :returns: toll_free
-        :rtype: toll_free
+        :returns: twilio.rest.api.v2010.account.available_phone_number.toll_free.TollFreeList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.toll_free.TollFreeList
         """
         return self._proxy.toll_free
 
@@ -418,8 +418,8 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
         """
         Access the mobile
 
-        :returns: mobile
-        :rtype: mobile
+        :returns: twilio.rest.api.v2010.account.available_phone_number.mobile.MobileList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.mobile.MobileList
         """
         return self._proxy.mobile
 

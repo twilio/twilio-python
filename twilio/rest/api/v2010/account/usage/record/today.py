@@ -23,8 +23,8 @@ class TodayList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: TodayList
-        :rtype: TodayList
+        :returns: twilio.rest.api.v2010.account.usage.record.today.TodayList
+        :rtype: twilio.rest.api.v2010.account.usage.record.today.TodayList
         """
         super(TodayList, self).__init__(version)
 
@@ -148,8 +148,8 @@ class TodayPage(Page):
         :param Response response: Response from the API
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: TodayPage
-        :rtype: TodayPage
+        :returns: twilio.rest.api.v2010.account.usage.record.today.TodayPage
+        :rtype: twilio.rest.api.v2010.account.usage.record.today.TodayPage
         """
         super(TodayPage, self).__init__(version, response)
 
@@ -162,8 +162,8 @@ class TodayPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: TodayInstance
-        :rtype: TodayInstance
+        :returns: twilio.rest.api.v2010.account.usage.record.today.TodayInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.today.TodayInstance
         """
         return TodayInstance(
             self._version,
@@ -187,8 +187,8 @@ class TodayInstance(InstanceResource):
         """
         Initialize the TodayInstance
 
-        :returns: TodayInstance
-        :rtype: TodayInstance
+        :returns: twilio.rest.api.v2010.account.usage.record.today.TodayInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.today.TodayInstance
         """
         super(TodayInstance, self).__init__(version)
 

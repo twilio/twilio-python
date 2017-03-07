@@ -24,8 +24,8 @@ class InviteList(ListResource):
         :param service_sid: The service_sid
         :param channel_sid: The channel_sid
 
-        :returns: InviteList
-        :rtype: InviteList
+        :returns: twilio.rest.ip_messaging.v1.service.channel.invite.InviteList
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.invite.InviteList
         """
         super(InviteList, self).__init__(version)
 
@@ -44,7 +44,7 @@ class InviteList(ListResource):
         :param unicode role_sid: The role_sid
 
         :returns: Newly created InviteInstance
-        :rtype: InviteInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.invite.InviteInstance
         """
         data = values.of({
             'Identity': identity,
@@ -149,8 +149,8 @@ class InviteList(ListResource):
 
         :param sid: The sid
 
-        :returns: InviteContext
-        :rtype: InviteContext
+        :returns: twilio.rest.ip_messaging.v1.service.channel.invite.InviteContext
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.invite.InviteContext
         """
         return InviteContext(
             self._version,
@@ -165,8 +165,8 @@ class InviteList(ListResource):
 
         :param sid: The sid
 
-        :returns: InviteContext
-        :rtype: InviteContext
+        :returns: twilio.rest.ip_messaging.v1.service.channel.invite.InviteContext
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.invite.InviteContext
         """
         return InviteContext(
             self._version,
@@ -196,8 +196,8 @@ class InvitePage(Page):
         :param service_sid: The service_sid
         :param channel_sid: The channel_sid
 
-        :returns: InvitePage
-        :rtype: InvitePage
+        :returns: twilio.rest.ip_messaging.v1.service.channel.invite.InvitePage
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.invite.InvitePage
         """
         super(InvitePage, self).__init__(version, response)
 
@@ -210,8 +210,8 @@ class InvitePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: InviteInstance
-        :rtype: InviteInstance
+        :returns: twilio.rest.ip_messaging.v1.service.channel.invite.InviteInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.invite.InviteInstance
         """
         return InviteInstance(
             self._version,
@@ -241,8 +241,8 @@ class InviteContext(InstanceContext):
         :param channel_sid: The channel_sid
         :param sid: The sid
 
-        :returns: InviteContext
-        :rtype: InviteContext
+        :returns: twilio.rest.ip_messaging.v1.service.channel.invite.InviteContext
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.invite.InviteContext
         """
         super(InviteContext, self).__init__(version)
 
@@ -259,7 +259,7 @@ class InviteContext(InstanceContext):
         Fetch a InviteInstance
 
         :returns: Fetched InviteInstance
-        :rtype: InviteInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.invite.InviteInstance
         """
         params = values.of({})
 
@@ -303,8 +303,8 @@ class InviteInstance(InstanceResource):
         """
         Initialize the InviteInstance
 
-        :returns: InviteInstance
-        :rtype: InviteInstance
+        :returns: twilio.rest.ip_messaging.v1.service.channel.invite.InviteInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.invite.InviteInstance
         """
         super(InviteInstance, self).__init__(version)
 
@@ -337,7 +337,7 @@ class InviteInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: InviteContext for this InviteInstance
-        :rtype: InviteContext
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.invite.InviteContext
         """
         if self._context is None:
             self._context = InviteContext(
@@ -433,7 +433,7 @@ class InviteInstance(InstanceResource):
         Fetch a InviteInstance
 
         :returns: Fetched InviteInstance
-        :rtype: InviteInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.invite.InviteInstance
         """
         return self._proxy.fetch()
 

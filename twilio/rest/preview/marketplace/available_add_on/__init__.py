@@ -22,8 +22,8 @@ class AvailableAddOnList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: AvailableAddOnList
-        :rtype: AvailableAddOnList
+        :returns: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnList
+        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnList
         """
         super(AvailableAddOnList, self).__init__(version)
 
@@ -110,8 +110,8 @@ class AvailableAddOnList(ListResource):
 
         :param sid: The unique Available Add-on Sid
 
-        :returns: AvailableAddOnContext
-        :rtype: AvailableAddOnContext
+        :returns: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnContext
+        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnContext
         """
         return AvailableAddOnContext(
             self._version,
@@ -124,8 +124,8 @@ class AvailableAddOnList(ListResource):
 
         :param sid: The unique Available Add-on Sid
 
-        :returns: AvailableAddOnContext
-        :rtype: AvailableAddOnContext
+        :returns: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnContext
+        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnContext
         """
         return AvailableAddOnContext(
             self._version,
@@ -151,8 +151,8 @@ class AvailableAddOnPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: AvailableAddOnPage
-        :rtype: AvailableAddOnPage
+        :returns: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnPage
+        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnPage
         """
         super(AvailableAddOnPage, self).__init__(version, response)
 
@@ -165,8 +165,8 @@ class AvailableAddOnPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: AvailableAddOnInstance
-        :rtype: AvailableAddOnInstance
+        :returns: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnInstance
+        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnInstance
         """
         return AvailableAddOnInstance(
             self._version,
@@ -192,8 +192,8 @@ class AvailableAddOnContext(InstanceContext):
         :param Version version: Version that contains the resource
         :param sid: The unique Available Add-on Sid
 
-        :returns: AvailableAddOnContext
-        :rtype: AvailableAddOnContext
+        :returns: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnContext
+        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnContext
         """
         super(AvailableAddOnContext, self).__init__(version)
 
@@ -211,7 +211,7 @@ class AvailableAddOnContext(InstanceContext):
         Fetch a AvailableAddOnInstance
 
         :returns: Fetched AvailableAddOnInstance
-        :rtype: AvailableAddOnInstance
+        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnInstance
         """
         params = values.of({})
 
@@ -232,8 +232,8 @@ class AvailableAddOnContext(InstanceContext):
         """
         Access the extensions
 
-        :returns: AvailableAddOnExtensionList
-        :rtype: AvailableAddOnExtensionList
+        :returns: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionList
+        :rtype: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionList
         """
         if self._extensions is None:
             self._extensions = AvailableAddOnExtensionList(
@@ -259,8 +259,8 @@ class AvailableAddOnInstance(InstanceResource):
         """
         Initialize the AvailableAddOnInstance
 
-        :returns: AvailableAddOnInstance
-        :rtype: AvailableAddOnInstance
+        :returns: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnInstance
+        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnInstance
         """
         super(AvailableAddOnInstance, self).__init__(version)
 
@@ -288,7 +288,7 @@ class AvailableAddOnInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: AvailableAddOnContext for this AvailableAddOnInstance
-        :rtype: AvailableAddOnContext
+        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnContext
         """
         if self._context is None:
             self._context = AvailableAddOnContext(
@@ -358,7 +358,7 @@ class AvailableAddOnInstance(InstanceResource):
         Fetch a AvailableAddOnInstance
 
         :returns: Fetched AvailableAddOnInstance
-        :rtype: AvailableAddOnInstance
+        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnInstance
         """
         return self._proxy.fetch()
 
@@ -367,8 +367,8 @@ class AvailableAddOnInstance(InstanceResource):
         """
         Access the extensions
 
-        :returns: extensions
-        :rtype: extensions
+        :returns: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionList
+        :rtype: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionList
         """
         return self._proxy.extensions
 

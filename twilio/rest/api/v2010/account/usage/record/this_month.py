@@ -23,8 +23,8 @@ class ThisMonthList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: ThisMonthList
-        :rtype: ThisMonthList
+        :returns: twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthList
+        :rtype: twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthList
         """
         super(ThisMonthList, self).__init__(version)
 
@@ -148,8 +148,8 @@ class ThisMonthPage(Page):
         :param Response response: Response from the API
         :param account_sid: A 34 character string that uniquely identifies this resource.
 
-        :returns: ThisMonthPage
-        :rtype: ThisMonthPage
+        :returns: twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthPage
+        :rtype: twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthPage
         """
         super(ThisMonthPage, self).__init__(version, response)
 
@@ -162,8 +162,8 @@ class ThisMonthPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: ThisMonthInstance
-        :rtype: ThisMonthInstance
+        :returns: twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance
         """
         return ThisMonthInstance(
             self._version,
@@ -187,8 +187,8 @@ class ThisMonthInstance(InstanceResource):
         """
         Initialize the ThisMonthInstance
 
-        :returns: ThisMonthInstance
-        :rtype: ThisMonthInstance
+        :returns: twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance
         """
         super(ThisMonthInstance, self).__init__(version)
 

@@ -22,8 +22,8 @@ class TokenList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: The unique sid that identifies this account
 
-        :returns: TokenList
-        :rtype: TokenList
+        :returns: twilio.rest.api.v2010.account.token.TokenList
+        :rtype: twilio.rest.api.v2010.account.token.TokenList
         """
         super(TokenList, self).__init__(version)
 
@@ -40,7 +40,7 @@ class TokenList(ListResource):
         :param unicode ttl: The duration in seconds the credentials are valid
 
         :returns: Newly created TokenInstance
-        :rtype: TokenInstance
+        :rtype: twilio.rest.api.v2010.account.token.TokenInstance
         """
         data = values.of({
             'Ttl': ttl,
@@ -78,8 +78,8 @@ class TokenPage(Page):
         :param Response response: Response from the API
         :param account_sid: The unique sid that identifies this account
 
-        :returns: TokenPage
-        :rtype: TokenPage
+        :returns: twilio.rest.api.v2010.account.token.TokenPage
+        :rtype: twilio.rest.api.v2010.account.token.TokenPage
         """
         super(TokenPage, self).__init__(version, response)
 
@@ -92,8 +92,8 @@ class TokenPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: TokenInstance
-        :rtype: TokenInstance
+        :returns: twilio.rest.api.v2010.account.token.TokenInstance
+        :rtype: twilio.rest.api.v2010.account.token.TokenInstance
         """
         return TokenInstance(
             self._version,
@@ -117,8 +117,8 @@ class TokenInstance(InstanceResource):
         """
         Initialize the TokenInstance
 
-        :returns: TokenInstance
-        :rtype: TokenInstance
+        :returns: twilio.rest.api.v2010.account.token.TokenInstance
+        :rtype: twilio.rest.api.v2010.account.token.TokenInstance
         """
         super(TokenInstance, self).__init__(version)
 

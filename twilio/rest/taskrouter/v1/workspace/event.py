@@ -24,8 +24,8 @@ class EventList(ListResource):
         :param Version version: Version that contains the resource
         :param workspace_sid: The sid
 
-        :returns: EventList
-        :rtype: EventList
+        :returns: twilio.rest.taskrouter.v1.workspace.event.EventList
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventList
         """
         super(EventList, self).__init__(version)
 
@@ -180,8 +180,8 @@ class EventList(ListResource):
 
         :param sid: The sid
 
-        :returns: EventContext
-        :rtype: EventContext
+        :returns: twilio.rest.taskrouter.v1.workspace.event.EventContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventContext
         """
         return EventContext(
             self._version,
@@ -195,8 +195,8 @@ class EventList(ListResource):
 
         :param sid: The sid
 
-        :returns: EventContext
-        :rtype: EventContext
+        :returns: twilio.rest.taskrouter.v1.workspace.event.EventContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventContext
         """
         return EventContext(
             self._version,
@@ -224,8 +224,8 @@ class EventPage(Page):
         :param Response response: Response from the API
         :param workspace_sid: The sid
 
-        :returns: EventPage
-        :rtype: EventPage
+        :returns: twilio.rest.taskrouter.v1.workspace.event.EventPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventPage
         """
         super(EventPage, self).__init__(version, response)
 
@@ -238,8 +238,8 @@ class EventPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: EventInstance
-        :rtype: EventInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.event.EventInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventInstance
         """
         return EventInstance(
             self._version,
@@ -267,8 +267,8 @@ class EventContext(InstanceContext):
         :param workspace_sid: The workspace_sid
         :param sid: The sid
 
-        :returns: EventContext
-        :rtype: EventContext
+        :returns: twilio.rest.taskrouter.v1.workspace.event.EventContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventContext
         """
         super(EventContext, self).__init__(version)
 
@@ -284,7 +284,7 @@ class EventContext(InstanceContext):
         Fetch a EventInstance
 
         :returns: Fetched EventInstance
-        :rtype: EventInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventInstance
         """
         params = values.of({})
 
@@ -318,8 +318,8 @@ class EventInstance(InstanceResource):
         """
         Initialize the EventInstance
 
-        :returns: EventInstance
-        :rtype: EventInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.event.EventInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventInstance
         """
         super(EventInstance, self).__init__(version)
 
@@ -356,7 +356,7 @@ class EventInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: EventContext for this EventInstance
-        :rtype: EventContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventContext
         """
         if self._context is None:
             self._context = EventContext(
@@ -491,7 +491,7 @@ class EventInstance(InstanceResource):
         Fetch a EventInstance
 
         :returns: Fetched EventInstance
-        :rtype: EventInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventInstance
         """
         return self._proxy.fetch()
 

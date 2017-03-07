@@ -22,8 +22,8 @@ class CommandList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: CommandList
-        :rtype: CommandList
+        :returns: twilio.rest.preview.wireless.command.CommandList
+        :rtype: twilio.rest.preview.wireless.command.CommandList
         """
         super(CommandList, self).__init__(version)
 
@@ -146,7 +146,7 @@ class CommandList(ListResource):
         :param unicode include_sid: The include_sid
 
         :returns: Newly created CommandInstance
-        :rtype: CommandInstance
+        :rtype: twilio.rest.preview.wireless.command.CommandInstance
         """
         data = values.of({
             'Command': command,
@@ -175,8 +175,8 @@ class CommandList(ListResource):
 
         :param sid: The sid
 
-        :returns: CommandContext
-        :rtype: CommandContext
+        :returns: twilio.rest.preview.wireless.command.CommandContext
+        :rtype: twilio.rest.preview.wireless.command.CommandContext
         """
         return CommandContext(
             self._version,
@@ -189,8 +189,8 @@ class CommandList(ListResource):
 
         :param sid: The sid
 
-        :returns: CommandContext
-        :rtype: CommandContext
+        :returns: twilio.rest.preview.wireless.command.CommandContext
+        :rtype: twilio.rest.preview.wireless.command.CommandContext
         """
         return CommandContext(
             self._version,
@@ -216,8 +216,8 @@ class CommandPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: CommandPage
-        :rtype: CommandPage
+        :returns: twilio.rest.preview.wireless.command.CommandPage
+        :rtype: twilio.rest.preview.wireless.command.CommandPage
         """
         super(CommandPage, self).__init__(version, response)
 
@@ -230,8 +230,8 @@ class CommandPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: CommandInstance
-        :rtype: CommandInstance
+        :returns: twilio.rest.preview.wireless.command.CommandInstance
+        :rtype: twilio.rest.preview.wireless.command.CommandInstance
         """
         return CommandInstance(
             self._version,
@@ -257,8 +257,8 @@ class CommandContext(InstanceContext):
         :param Version version: Version that contains the resource
         :param sid: The sid
 
-        :returns: CommandContext
-        :rtype: CommandContext
+        :returns: twilio.rest.preview.wireless.command.CommandContext
+        :rtype: twilio.rest.preview.wireless.command.CommandContext
         """
         super(CommandContext, self).__init__(version)
 
@@ -273,7 +273,7 @@ class CommandContext(InstanceContext):
         Fetch a CommandInstance
 
         :returns: Fetched CommandInstance
-        :rtype: CommandInstance
+        :rtype: twilio.rest.preview.wireless.command.CommandInstance
         """
         params = values.of({})
 
@@ -306,8 +306,8 @@ class CommandInstance(InstanceResource):
         """
         Initialize the CommandInstance
 
-        :returns: CommandInstance
-        :rtype: CommandInstance
+        :returns: twilio.rest.preview.wireless.command.CommandInstance
+        :rtype: twilio.rest.preview.wireless.command.CommandInstance
         """
         super(CommandInstance, self).__init__(version)
 
@@ -339,7 +339,7 @@ class CommandInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: CommandContext for this CommandInstance
-        :rtype: CommandContext
+        :rtype: twilio.rest.preview.wireless.command.CommandContext
         """
         if self._context is None:
             self._context = CommandContext(
@@ -441,7 +441,7 @@ class CommandInstance(InstanceResource):
         Fetch a CommandInstance
 
         :returns: Fetched CommandInstance
-        :rtype: CommandInstance
+        :rtype: twilio.rest.preview.wireless.command.CommandInstance
         """
         return self._proxy.fetch()
 

@@ -26,7 +26,7 @@ class V1(Version):
     @property
     def credentials(self):
         """
-        :rtype: CredentialList
+        :rtype: twilio.rest.accounts.v1.credential.CredentialList
         """
         if self._credentials is None:
             self._credentials = CredentialList(self)

@@ -22,8 +22,8 @@ class TaskQueuesStatisticsList(ListResource):
         :param Version version: Version that contains the resource
         :param workspace_sid: The workspace_sid
 
-        :returns: TaskQueuesStatisticsList
-        :rtype: TaskQueuesStatisticsList
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsList
         """
         super(TaskQueuesStatisticsList, self).__init__(version)
 
@@ -155,8 +155,8 @@ class TaskQueuesStatisticsPage(Page):
         :param Response response: Response from the API
         :param workspace_sid: The workspace_sid
 
-        :returns: TaskQueuesStatisticsPage
-        :rtype: TaskQueuesStatisticsPage
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsPage
         """
         super(TaskQueuesStatisticsPage, self).__init__(version, response)
 
@@ -169,8 +169,8 @@ class TaskQueuesStatisticsPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: TaskQueuesStatisticsInstance
-        :rtype: TaskQueuesStatisticsInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsInstance
         """
         return TaskQueuesStatisticsInstance(
             self._version,
@@ -194,8 +194,8 @@ class TaskQueuesStatisticsInstance(InstanceResource):
         """
         Initialize the TaskQueuesStatisticsInstance
 
-        :returns: TaskQueuesStatisticsInstance
-        :rtype: TaskQueuesStatisticsInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsInstance
         """
         super(TaskQueuesStatisticsInstance, self).__init__(version)
 

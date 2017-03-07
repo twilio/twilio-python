@@ -22,8 +22,8 @@ class UsageList(ListResource):
         :param Version version: Version that contains the resource
         :param sim_sid: The sim_sid
 
-        :returns: UsageList
-        :rtype: UsageList
+        :returns: twilio.rest.preview.wireless.sim.usage.UsageList
+        :rtype: twilio.rest.preview.wireless.sim.usage.UsageList
         """
         super(UsageList, self).__init__(version)
 
@@ -36,8 +36,8 @@ class UsageList(ListResource):
         """
         Constructs a UsageContext
 
-        :returns: UsageContext
-        :rtype: UsageContext
+        :returns: twilio.rest.preview.wireless.sim.usage.UsageContext
+        :rtype: twilio.rest.preview.wireless.sim.usage.UsageContext
         """
         return UsageContext(
             self._version,
@@ -48,8 +48,8 @@ class UsageList(ListResource):
         """
         Constructs a UsageContext
 
-        :returns: UsageContext
-        :rtype: UsageContext
+        :returns: twilio.rest.preview.wireless.sim.usage.UsageContext
+        :rtype: twilio.rest.preview.wireless.sim.usage.UsageContext
         """
         return UsageContext(
             self._version,
@@ -76,8 +76,8 @@ class UsagePage(Page):
         :param Response response: Response from the API
         :param sim_sid: The sim_sid
 
-        :returns: UsagePage
-        :rtype: UsagePage
+        :returns: twilio.rest.preview.wireless.sim.usage.UsagePage
+        :rtype: twilio.rest.preview.wireless.sim.usage.UsagePage
         """
         super(UsagePage, self).__init__(version, response)
 
@@ -90,8 +90,8 @@ class UsagePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: UsageInstance
-        :rtype: UsageInstance
+        :returns: twilio.rest.preview.wireless.sim.usage.UsageInstance
+        :rtype: twilio.rest.preview.wireless.sim.usage.UsageInstance
         """
         return UsageInstance(
             self._version,
@@ -118,8 +118,8 @@ class UsageContext(InstanceContext):
         :param Version version: Version that contains the resource
         :param sim_sid: The sim_sid
 
-        :returns: UsageContext
-        :rtype: UsageContext
+        :returns: twilio.rest.preview.wireless.sim.usage.UsageContext
+        :rtype: twilio.rest.preview.wireless.sim.usage.UsageContext
         """
         super(UsageContext, self).__init__(version)
 
@@ -137,7 +137,7 @@ class UsageContext(InstanceContext):
         :param unicode start: The start
 
         :returns: Fetched UsageInstance
-        :rtype: UsageInstance
+        :rtype: twilio.rest.preview.wireless.sim.usage.UsageInstance
         """
         params = values.of({
             'End': end,
@@ -173,8 +173,8 @@ class UsageInstance(InstanceResource):
         """
         Initialize the UsageInstance
 
-        :returns: UsageInstance
-        :rtype: UsageInstance
+        :returns: twilio.rest.preview.wireless.sim.usage.UsageInstance
+        :rtype: twilio.rest.preview.wireless.sim.usage.UsageInstance
         """
         super(UsageInstance, self).__init__(version)
 
@@ -204,7 +204,7 @@ class UsageInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: UsageContext for this UsageInstance
-        :rtype: UsageContext
+        :rtype: twilio.rest.preview.wireless.sim.usage.UsageContext
         """
         if self._context is None:
             self._context = UsageContext(
@@ -293,7 +293,7 @@ class UsageInstance(InstanceResource):
         :param unicode start: The start
 
         :returns: Fetched UsageInstance
-        :rtype: UsageInstance
+        :rtype: twilio.rest.preview.wireless.sim.usage.UsageInstance
         """
         return self._proxy.fetch(
             end=end,
