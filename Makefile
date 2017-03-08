@@ -29,7 +29,7 @@ docs-install:
 	. venv/bin/activate; pip install pdoc
 
 docs:
-	. venv/bin/activate; pdoc twilio --html --html-dir docs
+	. venv/bin/activate; pdoc twilio --overwrite --html --html-dir docs
 
 release:
 	. venv/bin/activate; python setup.py sdist upload
