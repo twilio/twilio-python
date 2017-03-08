@@ -41,7 +41,7 @@ class TaskQueueCapabilityTokenTest(unittest.TestCase):
         decoded = TaskQueueCapabilityToken.from_jwt(token, self.auth_token)
         self.assertNotEqual(None, decoded)
 
-        self.assertEqual(int(time.time()) + 3600, decoded.valid_until)
+        self.assertAlmostEqual(int(time.time()) + 3600, decoded.valid_until, delta=5)
 
     def test_generate_token_with_custom_ttl(self):
         ttl = 10000
@@ -52,7 +52,7 @@ class TaskQueueCapabilityTokenTest(unittest.TestCase):
         decoded = TaskQueueCapabilityToken.from_jwt(token, self.auth_token)
         self.assertNotEqual(None, decoded)
 
-        self.assertEqual(int(time.time()) + 10000, decoded.valid_until)
+        self.assertAlmostEqual(int(time.time()) + 10000, decoded.valid_until, delta=5)
 
     def test_default(self):
         token = self.capability.to_jwt()
@@ -199,7 +199,7 @@ class WorkerCapabilityTokenTest(unittest.TestCase):
 
         decoded = WorkerCapabilityToken.from_jwt(token, self.auth_token)
         self.assertNotEqual(None, decoded)
-        self.assertEqual(int(time.time()) + 3600, decoded.valid_until)
+        self.assertAlmostEqual(int(time.time()) + 3600, decoded.valid_until, delta=5)
 
     def test_generate_token_with_custom_ttl(self):
         ttl = 10000
@@ -209,7 +209,7 @@ class WorkerCapabilityTokenTest(unittest.TestCase):
 
         decoded = WorkerCapabilityToken.from_jwt(token, self.auth_token)
         self.assertNotEqual(None, decoded)
-        self.assertEqual(int(time.time()) + 10000, decoded.valid_until)
+        self.assertAlmostEqual(int(time.time()) + 10000, decoded.valid_until, delta=5)
 
     def test_defaults(self):
         token = self.capability.to_jwt()
@@ -353,7 +353,7 @@ class WorkspaceCapabilityTokenTest(unittest.TestCase):
         decoded = WorkspaceCapabilityToken.from_jwt(token, self.auth_token)
         self.assertNotEqual(None, decoded)
 
-        self.assertEqual(int(time.time()) + 3600, decoded.valid_until)
+        self.assertAlmostEqual(int(time.time()) + 3600, decoded.valid_until, delta=5)
 
     def test_generate_token_with_custom_ttl(self):
         ttl = 10000
@@ -364,7 +364,7 @@ class WorkspaceCapabilityTokenTest(unittest.TestCase):
         decoded = WorkspaceCapabilityToken.from_jwt(token, self.auth_token)
         self.assertNotEqual(None, decoded)
 
-        self.assertEqual(int(time.time()) + 10000, decoded.valid_until)
+        self.assertAlmostEqual(int(time.time()) + 10000, decoded.valid_until, delta=5)
 
     def test_default(self):
         token = self.capability.to_jwt()
