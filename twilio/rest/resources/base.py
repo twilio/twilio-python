@@ -354,6 +354,29 @@ class ListResource(Resource):
             raise TwilioException("Key %s not present in response" % self.key)
 
         return [self.load_instance(ir) for ir in page[self.key]]
+        
+    def get_number_pages(self, params):
+        """
+        Query the list resource for a list of InstanceResources and return
+        number of pages in results.
+
+        Raises a TwilioRestException if requesting a page of results that does
+        not exist.
+
+        :param dict params: List of URL parameters to be included in request
+        :param int page: The page of results to retrieve (most recent at 0)
+        :param int page_size: The number of results to be returned.
+
+        :returns: -- number of pages in results
+        """
+        params = transform_params(params)
+
+        resp, page = self.request("GET", self.uri, params=params)
+
+        if self.key not in page:
+            raise TwilioException("Key %s not present in response" % self.key)
+
+        return page["num_pages"]
 
     def create_instance(self, body):
         """
