@@ -29,23 +29,6 @@ class IpMessagingGrant(object):
         return grant
 
 
-class ConversationsGrant(object):
-    """ Grant to access Twilio Conversations """
-    def __init__(self, configuration_profile_sid=None):
-        self.configuration_profile_sid = configuration_profile_sid
-
-    @property
-    def key(self):
-        return "rtc"
-
-    def to_payload(self):
-        grant = {}
-        if self.configuration_profile_sid:
-            grant['configuration_profile_sid'] = self.configuration_profile_sid
-
-        return grant
-
-
 class VoiceGrant(object):
     """ Grant to access Twilio Programmable Voice"""
     def __init__(self,
@@ -87,8 +70,8 @@ class VoiceGrant(object):
 
 class VideoGrant(object):
     """ Grant to access Twilio Video """
-    def __init__(self, configuration_profile_sid=None):
-        self.configuration_profile_sid = configuration_profile_sid
+    def __init__(self, room=None):
+        self.room = room
 
     @property
     def key(self):
@@ -96,8 +79,8 @@ class VideoGrant(object):
 
     def to_payload(self):
         grant = {}
-        if self.configuration_profile_sid:
-            grant['configuration_profile_sid'] = self.configuration_profile_sid
+        if self.room:
+            grant['room'] = self.room
 
         return grant
 
