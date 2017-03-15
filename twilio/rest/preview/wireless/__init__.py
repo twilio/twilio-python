@@ -19,7 +19,7 @@ class Wireless(Version):
         Initialize the Wireless version of Preview
 
         :returns: Wireless version of Preview
-        :rtype: Wireless
+        :rtype: twilio.rest.preview.wireless.Wireless.Wireless
         """
         super(Wireless, self).__init__(domain)
         self.version = 'wireless'

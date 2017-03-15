@@ -73,7 +73,7 @@ class ServiceList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.ip_messaging.v1.service.ServiceInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -97,7 +97,7 @@ class ServiceList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.ip_messaging.v1.service.ServiceInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -115,7 +115,7 @@ class ServiceList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
-        :rtype: Page
+        :rtype: twilio.rest.ip_messaging.v1.service.ServicePage
         """
         params = values.of({
             'PageToken': page_token,
@@ -329,7 +329,9 @@ class ServiceContext(InstanceContext):
                webhooks_on_member_added_format=values.unset,
                webhooks_on_member_removed_url=values.unset,
                webhooks_on_member_removed_method=values.unset,
-               webhooks_on_member_removed_format=values.unset):
+               webhooks_on_member_removed_format=values.unset,
+               limits_channel_members=values.unset,
+               limits_user_channels=values.unset):
         """
         Update the ServiceInstance
 
@@ -401,6 +403,8 @@ class ServiceContext(InstanceContext):
         :param unicode webhooks_on_member_removed_url: The webhooks.on_member_removed.url
         :param unicode webhooks_on_member_removed_method: The webhooks.on_member_removed.method
         :param unicode webhooks_on_member_removed_format: The webhooks.on_member_removed.format
+        :param unicode limits_channel_members: The limits.channel_members
+        :param unicode limits_user_channels: The limits.user_channels
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.ip_messaging.v1.service.ServiceInstance
@@ -474,6 +478,8 @@ class ServiceContext(InstanceContext):
             'Webhooks.OnMemberRemoved.Url': webhooks_on_member_removed_url,
             'Webhooks.OnMemberRemoved.Method': webhooks_on_member_removed_method,
             'Webhooks.OnMemberRemoved.Format': webhooks_on_member_removed_format,
+            'Limits.ChannelMembers': limits_channel_members,
+            'Limits.UserChannels': limits_user_channels,
         })
 
         payload = self._version.update(
@@ -569,6 +575,7 @@ class ServiceInstance(InstanceResource):
             'reachability_enabled': payload['reachability_enabled'],
             'typing_indicator_timeout': deserialize.integer(payload['typing_indicator_timeout']),
             'consumption_report_interval': deserialize.integer(payload['consumption_report_interval']),
+            'limits': payload['limits'],
             'webhooks': payload['webhooks'],
             'pre_webhook_url': payload['pre_webhook_url'],
             'post_webhook_url': payload['post_webhook_url'],
@@ -696,6 +703,14 @@ class ServiceInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['consumption_report_interval']
+
+    @property
+    def limits(self):
+        """
+        :returns: The limits
+        :rtype: dict
+        """
+        return self._properties['limits']
 
     @property
     def webhooks(self):
@@ -843,7 +858,9 @@ class ServiceInstance(InstanceResource):
                webhooks_on_member_added_format=values.unset,
                webhooks_on_member_removed_url=values.unset,
                webhooks_on_member_removed_method=values.unset,
-               webhooks_on_member_removed_format=values.unset):
+               webhooks_on_member_removed_format=values.unset,
+               limits_channel_members=values.unset,
+               limits_user_channels=values.unset):
         """
         Update the ServiceInstance
 
@@ -915,6 +932,8 @@ class ServiceInstance(InstanceResource):
         :param unicode webhooks_on_member_removed_url: The webhooks.on_member_removed.url
         :param unicode webhooks_on_member_removed_method: The webhooks.on_member_removed.method
         :param unicode webhooks_on_member_removed_format: The webhooks.on_member_removed.format
+        :param unicode limits_channel_members: The limits.channel_members
+        :param unicode limits_user_channels: The limits.user_channels
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.ip_messaging.v1.service.ServiceInstance
@@ -988,6 +1007,8 @@ class ServiceInstance(InstanceResource):
             webhooks_on_member_removed_url=webhooks_on_member_removed_url,
             webhooks_on_member_removed_method=webhooks_on_member_removed_method,
             webhooks_on_member_removed_format=webhooks_on_member_removed_format,
+            limits_channel_members=limits_channel_members,
+            limits_user_channels=limits_user_channels,
         )
 
     @property

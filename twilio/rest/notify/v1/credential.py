@@ -46,7 +46,7 @@ class CredentialList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.notify.v1.credential.CredentialInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -70,7 +70,7 @@ class CredentialList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.notify.v1.credential.CredentialInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -88,7 +88,7 @@ class CredentialList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CredentialInstance
-        :rtype: Page
+        :rtype: twilio.rest.notify.v1.credential.CredentialPage
         """
         params = values.of({
             'PageToken': page_token,

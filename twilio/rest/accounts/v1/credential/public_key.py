@@ -46,7 +46,7 @@ class PublicKeyList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -70,7 +70,7 @@ class PublicKeyList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -88,7 +88,7 @@ class PublicKeyList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of PublicKeyInstance
-        :rtype: Page
+        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyPage
         """
         params = values.of({
             'PageToken': page_token,

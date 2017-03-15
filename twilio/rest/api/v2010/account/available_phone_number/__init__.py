@@ -51,7 +51,7 @@ class AvailablePhoneNumberCountryList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -75,7 +75,7 @@ class AvailablePhoneNumberCountryList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -93,7 +93,7 @@ class AvailablePhoneNumberCountryList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AvailablePhoneNumberCountryInstance
-        :rtype: Page
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryPage
         """
         params = values.of({
             'PageToken': page_token,

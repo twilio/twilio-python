@@ -18,7 +18,7 @@ class V1(Version):
         Initialize the V1 version of Chat
 
         :returns: V1 version of Chat
-        :rtype: V1
+        :rtype: twilio.rest.chat.v1.V1.V1
         """
         super(V1, self).__init__(domain)
         self.version = 'v1'

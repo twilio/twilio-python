@@ -58,7 +58,7 @@ class NotificationList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.api.v2010.account.call.notification.NotificationInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -92,7 +92,7 @@ class NotificationList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.api.v2010.account.call.notification.NotificationInstance]
         """
         return list(self.stream(
             log=log,
@@ -120,7 +120,7 @@ class NotificationList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of NotificationInstance
-        :rtype: Page
+        :rtype: twilio.rest.api.v2010.account.call.notification.NotificationPage
         """
         params = values.of({
             'Log': log,

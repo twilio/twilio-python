@@ -66,7 +66,7 @@ class WorkerList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -107,7 +107,7 @@ class WorkerList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance]
         """
         return list(self.stream(
             activity_name=activity_name,
@@ -142,7 +142,7 @@ class WorkerList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of WorkerInstance
-        :rtype: Page
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerPage
         """
         params = values.of({
             'ActivityName': activity_name,

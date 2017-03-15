@@ -17,7 +17,7 @@ class Sync(Version):
         Initialize the Sync version of Preview
 
         :returns: Sync version of Preview
-        :rtype: Sync
+        :rtype: twilio.rest.preview.sync.Sync.Sync
         """
         super(Sync, self).__init__(domain)
         self.version = 'Sync'

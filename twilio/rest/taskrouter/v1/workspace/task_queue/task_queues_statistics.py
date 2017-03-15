@@ -54,7 +54,7 @@ class TaskQueuesStatisticsList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -88,7 +88,7 @@ class TaskQueuesStatisticsList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsInstance]
         """
         return list(self.stream(
             end_date=end_date,
@@ -115,7 +115,7 @@ class TaskQueuesStatisticsList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TaskQueuesStatisticsInstance
-        :rtype: Page
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsPage
         """
         params = values.of({
             'EndDate': serialize.iso8601_datetime(end_date),

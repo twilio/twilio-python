@@ -54,7 +54,7 @@ class SimList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.preview.wireless.sim.SimInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -90,7 +90,7 @@ class SimList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.preview.wireless.sim.SimInstance]
         """
         return list(self.stream(
             status=status,
@@ -120,7 +120,7 @@ class SimList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SimInstance
-        :rtype: Page
+        :rtype: twilio.rest.preview.wireless.sim.SimPage
         """
         params = values.of({
             'Status': status,

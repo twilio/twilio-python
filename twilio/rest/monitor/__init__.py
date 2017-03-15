@@ -17,7 +17,7 @@ class Monitor(Domain):
         Initialize the Monitor Domain
 
         :returns: Domain for Monitor
-        :rtype: Monitor
+        :rtype: twilio.rest.monitor.Monitor
         """
         super(Monitor, self).__init__(twilio)
 

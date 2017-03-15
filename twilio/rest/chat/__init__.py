@@ -17,7 +17,7 @@ class Chat(Domain):
         Initialize the Chat Domain
 
         :returns: Domain for Chat
-        :rtype: Chat
+        :rtype: twilio.rest.chat.Chat
         """
         super(Chat, self).__init__(twilio)
 

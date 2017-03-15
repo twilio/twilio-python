@@ -58,7 +58,7 @@ class RecordingList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.api.v2010.account.recording.RecordingInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -92,7 +92,7 @@ class RecordingList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.api.v2010.account.recording.RecordingInstance]
         """
         return list(self.stream(
             date_created_before=date_created_before,
@@ -120,7 +120,7 @@ class RecordingList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of RecordingInstance
-        :rtype: Page
+        :rtype: twilio.rest.api.v2010.account.recording.RecordingPage
         """
         params = values.of({
             'DateCreated<': serialize.iso8601_datetime(date_created_before),

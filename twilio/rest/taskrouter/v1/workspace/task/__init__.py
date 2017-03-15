@@ -63,7 +63,7 @@ class TaskList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.task.TaskInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -109,7 +109,7 @@ class TaskList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.task.TaskInstance]
         """
         return list(self.stream(
             priority=priority,
@@ -149,7 +149,7 @@ class TaskList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TaskInstance
-        :rtype: Page
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskPage
         """
         params = values.of({
             'Priority': priority,

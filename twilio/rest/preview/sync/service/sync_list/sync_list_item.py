@@ -81,7 +81,7 @@ class SyncListItemList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -112,7 +112,7 @@ class SyncListItemList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance]
         """
         return list(self.stream(
             order=order,
@@ -137,7 +137,7 @@ class SyncListItemList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SyncListItemInstance
-        :rtype: Page
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemPage
         """
         params = values.of({
             'Order': order,

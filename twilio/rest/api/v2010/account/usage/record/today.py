@@ -53,7 +53,7 @@ class TodayList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.api.v2010.account.usage.record.today.TodayInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -84,7 +84,7 @@ class TodayList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.api.v2010.account.usage.record.today.TodayInstance]
         """
         return list(self.stream(
             category=category,
@@ -109,7 +109,7 @@ class TodayList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TodayInstance
-        :rtype: Page
+        :rtype: twilio.rest.api.v2010.account.usage.record.today.TodayPage
         """
         params = values.of({
             'Category': category,

@@ -80,7 +80,7 @@ class InviteList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.ip_messaging.v1.service.channel.invite.InviteInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -106,7 +106,7 @@ class InviteList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.ip_messaging.v1.service.channel.invite.InviteInstance]
         """
         return list(self.stream(
             identity=identity,
@@ -126,7 +126,7 @@ class InviteList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of InviteInstance
-        :rtype: Page
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.invite.InvitePage
         """
         params = values.of({
             'Identity': identity,

@@ -63,6 +63,7 @@ class Client(object):
         self._taskrouter = None
         self._trunking = None
         self._video = None
+        self._messaging = None
 
     def request(self, method, uri, params=None, data=None, headers=None, auth=None,
                 timeout=None, allow_redirects=False):
@@ -119,7 +120,7 @@ class Client(object):
         Access the Accounts Twilio Domain
 
         :returns: Accounts Twilio Domain
-        :rtype: Accounts
+        :rtype: twilio.rest.accounts.Accounts
         """
         if self._accounts is None:
             from twilio.rest.accounts import Accounts
@@ -132,7 +133,7 @@ class Client(object):
         Access the Api Twilio Domain
 
         :returns: Api Twilio Domain
-        :rtype: Api
+        :rtype: twilio.rest.api.Api
         """
         if self._api is None:
             from twilio.rest.api import Api
@@ -145,7 +146,7 @@ class Client(object):
         Access the Chat Twilio Domain
 
         :returns: Chat Twilio Domain
-        :rtype: Chat
+        :rtype: twilio.rest.chat.Chat
         """
         if self._chat is None:
             from twilio.rest.chat import Chat
@@ -158,7 +159,7 @@ class Client(object):
         Access the IpMessaging Twilio Domain
 
         :returns: IpMessaging Twilio Domain
-        :rtype: IpMessaging
+        :rtype: twilio.rest.ip_messaging.IpMessaging
         """
         if self._ip_messaging is None:
             from twilio.rest.ip_messaging import IpMessaging
@@ -171,7 +172,7 @@ class Client(object):
         Access the Lookups Twilio Domain
 
         :returns: Lookups Twilio Domain
-        :rtype: Lookups
+        :rtype: twilio.rest.lookups.Lookups
         """
         if self._lookups is None:
             from twilio.rest.lookups import Lookups
@@ -184,7 +185,7 @@ class Client(object):
         Access the Monitor Twilio Domain
 
         :returns: Monitor Twilio Domain
-        :rtype: Monitor
+        :rtype: twilio.rest.monitor.Monitor
         """
         if self._monitor is None:
             from twilio.rest.monitor import Monitor
@@ -197,7 +198,7 @@ class Client(object):
         Access the Notify Twilio Domain
 
         :returns: Notify Twilio Domain
-        :rtype: Notify
+        :rtype: twilio.rest.notify.Notify
         """
         if self._notify is None:
             from twilio.rest.notify import Notify
@@ -210,7 +211,7 @@ class Client(object):
         Access the Preview Twilio Domain
 
         :returns: Preview Twilio Domain
-        :rtype: Preview
+        :rtype: twilio.rest.preview.Preview
         """
         if self._preview is None:
             from twilio.rest.preview import Preview
@@ -223,7 +224,7 @@ class Client(object):
         Access the Pricing Twilio Domain
 
         :returns: Pricing Twilio Domain
-        :rtype: Pricing
+        :rtype: twilio.rest.pricing.Pricing
         """
         if self._pricing is None:
             from twilio.rest.pricing import Pricing
@@ -236,7 +237,7 @@ class Client(object):
         Access the Taskrouter Twilio Domain
 
         :returns: Taskrouter Twilio Domain
-        :rtype: Taskrouter
+        :rtype: twilio.rest.taskrouter.Taskrouter
         """
         if self._taskrouter is None:
             from twilio.rest.taskrouter import Taskrouter
@@ -249,7 +250,7 @@ class Client(object):
         Access the Trunking Twilio Domain
 
         :returns: Trunking Twilio Domain
-        :rtype: Trunking
+        :rtype: twilio.rest.trunking.Trunking
         """
         if self._trunking is None:
             from twilio.rest.trunking import Trunking
@@ -262,7 +263,7 @@ class Client(object):
         Access the Video Twilio Domain
 
         :returns: Video Twilio Domain
-        :rtype: Video
+        :rtype: twilio.rest.video.Video
         """
         if self._video is None:
             from twilio.rest.video import Video
@@ -270,12 +271,17 @@ class Client(object):
         return self._video
 
     @property
-    def account(self):
+    def messaging(self):
         """
-        :returns: Account provided as the authenticating account
-        :rtype: AccountContext
+        Access the Messaging Twilio Domain
+
+        :returns: Messaging Twilio Domain
+        :rtype: twilio.rest.messaging.Messaging
         """
-        return self.api.v2010.account
+        if self._messaging is None:
+            from twilio.rest.messaging import Messaging
+            self._messaging = Messaging(self)
+        return self._messaging
 
     @property
     def addresses(self):

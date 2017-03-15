@@ -17,7 +17,7 @@ class Pricing(Domain):
         Initialize the Pricing Domain
 
         :returns: Domain for Pricing
-        :rtype: Pricing
+        :rtype: twilio.rest.pricing.Pricing
         """
         super(Pricing, self).__init__(twilio)
 

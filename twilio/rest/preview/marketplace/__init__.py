@@ -18,7 +18,7 @@ class Marketplace(Version):
         Initialize the Marketplace version of Preview
 
         :returns: Marketplace version of Preview
-        :rtype: Marketplace
+        :rtype: twilio.rest.preview.marketplace.Marketplace.Marketplace
         """
         super(Marketplace, self).__init__(domain)
         self.version = 'marketplace'

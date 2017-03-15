@@ -52,7 +52,7 @@ class AssignedAddOnExtensionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -76,7 +76,7 @@ class AssignedAddOnExtensionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -94,7 +94,7 @@ class AssignedAddOnExtensionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AssignedAddOnExtensionInstance
-        :rtype: Page
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionPage
         """
         params = values.of({
             'PageToken': page_token,

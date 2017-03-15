@@ -50,7 +50,7 @@ class SyncMapPermissionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.preview.sync.service.sync_map.sync_map_permission.SyncMapPermissionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -74,7 +74,7 @@ class SyncMapPermissionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.preview.sync.service.sync_map.sync_map_permission.SyncMapPermissionInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -92,7 +92,7 @@ class SyncMapPermissionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SyncMapPermissionInstance
-        :rtype: Page
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_permission.SyncMapPermissionPage
         """
         params = values.of({
             'PageToken': page_token,

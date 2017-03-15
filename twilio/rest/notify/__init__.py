@@ -17,7 +17,7 @@ class Notify(Domain):
         Initialize the Notify Domain
 
         :returns: Domain for Notify
-        :rtype: Notify
+        :rtype: twilio.rest.notify.Notify
         """
         super(Notify, self).__init__(twilio)
 

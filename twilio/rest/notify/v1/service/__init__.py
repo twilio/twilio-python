@@ -95,7 +95,7 @@ class ServiceList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.notify.v1.service.ServiceInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -121,7 +121,7 @@ class ServiceList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.notify.v1.service.ServiceInstance]
         """
         return list(self.stream(
             friendly_name=friendly_name,
@@ -141,7 +141,7 @@ class ServiceList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
-        :rtype: Page
+        :rtype: twilio.rest.notify.v1.service.ServicePage
         """
         params = values.of({
             'FriendlyName': friendly_name,

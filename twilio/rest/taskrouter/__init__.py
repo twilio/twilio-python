@@ -17,7 +17,7 @@ class Taskrouter(Domain):
         Initialize the Taskrouter Domain
 
         :returns: Domain for Taskrouter
-        :rtype: Taskrouter
+        :rtype: twilio.rest.taskrouter.Taskrouter
         """
         super(Taskrouter, self).__init__(twilio)
 

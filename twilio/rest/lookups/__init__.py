@@ -17,7 +17,7 @@ class Lookups(Domain):
         Initialize the Lookups Domain
 
         :returns: Domain for Lookups
-        :rtype: Lookups
+        :rtype: twilio.rest.lookups.Lookups
         """
         super(Lookups, self).__init__(twilio)
 

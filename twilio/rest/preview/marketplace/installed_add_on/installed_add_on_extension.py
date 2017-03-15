@@ -48,7 +48,7 @@ class InstalledAddOnExtensionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -72,7 +72,7 @@ class InstalledAddOnExtensionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -90,7 +90,7 @@ class InstalledAddOnExtensionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of InstalledAddOnExtensionInstance
-        :rtype: Page
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionPage
         """
         params = values.of({
             'PageToken': page_token,

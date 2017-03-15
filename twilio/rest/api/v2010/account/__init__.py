@@ -96,7 +96,7 @@ class AccountList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.api.v2010.account.AccountInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -125,7 +125,7 @@ class AccountList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.api.v2010.account.AccountInstance]
         """
         return list(self.stream(
             friendly_name=friendly_name,
@@ -148,7 +148,7 @@ class AccountList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AccountInstance
-        :rtype: Page
+        :rtype: twilio.rest.api.v2010.account.AccountPage
         """
         params = values.of({
             'FriendlyName': friendly_name,

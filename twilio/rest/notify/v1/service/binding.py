@@ -94,7 +94,7 @@ class BindingList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.notify.v1.service.binding.BindingInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -127,7 +127,7 @@ class BindingList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.notify.v1.service.binding.BindingInstance]
         """
         return list(self.stream(
             start_date=start_date,
@@ -154,7 +154,7 @@ class BindingList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of BindingInstance
-        :rtype: Page
+        :rtype: twilio.rest.notify.v1.service.binding.BindingPage
         """
         params = values.of({
             'StartDate': serialize.iso8601_date(start_date),

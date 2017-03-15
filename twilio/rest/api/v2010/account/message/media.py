@@ -56,7 +56,7 @@ class MediaList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.api.v2010.account.message.media.MediaInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -87,7 +87,7 @@ class MediaList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.api.v2010.account.message.media.MediaInstance]
         """
         return list(self.stream(
             date_created_before=date_created_before,
@@ -112,7 +112,7 @@ class MediaList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of MediaInstance
-        :rtype: Page
+        :rtype: twilio.rest.api.v2010.account.message.media.MediaPage
         """
         params = values.of({
             'DateCreated<': serialize.iso8601_datetime(date_created_before),

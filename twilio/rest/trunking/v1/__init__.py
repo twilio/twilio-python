@@ -17,7 +17,7 @@ class V1(Version):
         Initialize the V1 version of Trunking
 
         :returns: V1 version of Trunking
-        :rtype: V1
+        :rtype: twilio.rest.trunking.v1.V1.V1
         """
         super(V1, self).__init__(domain)
         self.version = 'v1'

@@ -56,7 +56,7 @@ class EventList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.monitor.v1.event.EventInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -95,7 +95,7 @@ class EventList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.monitor.v1.event.EventInstance]
         """
         return list(self.stream(
             actor_sid=actor_sid,
@@ -128,7 +128,7 @@ class EventList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of EventInstance
-        :rtype: Page
+        :rtype: twilio.rest.monitor.v1.event.EventPage
         """
         params = values.of({
             'ActorSid': actor_sid,

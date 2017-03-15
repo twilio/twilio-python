@@ -56,7 +56,7 @@ class TaskQueueList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -88,7 +88,7 @@ class TaskQueueList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance]
         """
         return list(self.stream(
             friendly_name=friendly_name,
@@ -114,7 +114,7 @@ class TaskQueueList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TaskQueueInstance
-        :rtype: Page
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueuePage
         """
         params = values.of({
             'FriendlyName': friendly_name,

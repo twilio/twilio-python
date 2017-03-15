@@ -17,7 +17,7 @@ class V1(Version):
         Initialize the V1 version of Accounts
 
         :returns: V1 version of Accounts
-        :rtype: V1
+        :rtype: twilio.rest.accounts.v1.V1.V1
         """
         super(V1, self).__init__(domain)
         self.version = 'v1'

@@ -142,7 +142,7 @@ class CallList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.api.v2010.account.call.CallInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -191,7 +191,7 @@ class CallList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.api.v2010.account.call.CallInstance]
         """
         return list(self.stream(
             to=to,
@@ -234,7 +234,7 @@ class CallList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CallInstance
-        :rtype: Page
+        :rtype: twilio.rest.api.v2010.account.call.CallPage
         """
         params = values.of({
             'To': to,

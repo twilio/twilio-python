@@ -17,7 +17,7 @@ class Video(Domain):
         Initialize the Video Domain
 
         :returns: Domain for Video
-        :rtype: Video
+        :rtype: twilio.rest.video.Video
         """
         super(Video, self).__init__(twilio)
 
@@ -35,6 +35,13 @@ class Video(Domain):
         if self._v1 is None:
             self._v1 = V1(self)
         return self._v1
+
+    @property
+    def recordings(self):
+        """
+        :rtype: twilio.rest.video.v1.recording.RecordingList
+        """
+        return self.v1.recordings
 
     @property
     def rooms(self):

@@ -34,7 +34,8 @@ class RoomList(ListResource):
 
     def create(self, enable_turn=values.unset, type=values.unset,
                unique_name=values.unset, status_callback=values.unset,
-               status_callback_method=values.unset, max_participants=values.unset):
+               status_callback_method=values.unset, max_participants=values.unset,
+               record_participants_on_connect=values.unset):
         """
         Create a new RoomInstance
 
@@ -44,6 +45,7 @@ class RoomList(ListResource):
         :param unicode status_callback: The status_callback
         :param unicode status_callback_method: The status_callback_method
         :param unicode max_participants: The max_participants
+        :param bool record_participants_on_connect: The record_participants_on_connect
 
         :returns: Newly created RoomInstance
         :rtype: twilio.rest.video.v1.room.RoomInstance
@@ -55,6 +57,7 @@ class RoomList(ListResource):
             'StatusCallback': status_callback,
             'StatusCallbackMethod': status_callback_method,
             'MaxParticipants': max_participants,
+            'RecordParticipantsOnConnect': record_participants_on_connect,
         })
 
         payload = self._version.create(
@@ -89,7 +92,7 @@ class RoomList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.video.v1.room.RoomInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -123,7 +126,7 @@ class RoomList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.video.v1.room.RoomInstance]
         """
         return list(self.stream(
             status=status,
@@ -151,7 +154,7 @@ class RoomList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of RoomInstance
-        :rtype: Page
+        :rtype: twilio.rest.video.v1.room.RoomPage
         """
         params = values.of({
             'Status': status,
@@ -354,6 +357,7 @@ class RoomInstance(InstanceResource):
             'duration': deserialize.integer(payload['duration']),
             'type': payload['type'],
             'max_participants': deserialize.integer(payload['max_participants']),
+            'record_participants_on_connect': payload['record_participants_on_connect'],
             'url': payload['url'],
         }
 
@@ -490,6 +494,14 @@ class RoomInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['max_participants']
+
+    @property
+    def record_participants_on_connect(self):
+        """
+        :returns: The record_participants_on_connect
+        :rtype: bool
+        """
+        return self._properties['record_participants_on_connect']
 
     @property
     def url(self):

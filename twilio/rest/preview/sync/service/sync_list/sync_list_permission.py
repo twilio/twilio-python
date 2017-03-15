@@ -50,7 +50,7 @@ class SyncListPermissionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -74,7 +74,7 @@ class SyncListPermissionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -92,7 +92,7 @@ class SyncListPermissionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SyncListPermissionInstance
-        :rtype: Page
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionPage
         """
         params = values.of({
             'PageToken': page_token,

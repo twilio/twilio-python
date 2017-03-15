@@ -63,7 +63,7 @@ class ConferenceList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.api.v2010.account.conference.ConferenceInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -107,7 +107,7 @@ class ConferenceList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.api.v2010.account.conference.ConferenceInstance]
         """
         return list(self.stream(
             date_created_before=date_created_before,
@@ -145,7 +145,7 @@ class ConferenceList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ConferenceInstance
-        :rtype: Page
+        :rtype: twilio.rest.api.v2010.account.conference.ConferencePage
         """
         params = values.of({
             'DateCreated<': serialize.iso8601_date(date_created_before),

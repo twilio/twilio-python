@@ -19,7 +19,7 @@ class Preview(Domain):
         Initialize the Preview Domain
 
         :returns: Domain for Preview
-        :rtype: Preview
+        :rtype: twilio.rest.preview.Preview
         """
         super(Preview, self).__init__(twilio)
 

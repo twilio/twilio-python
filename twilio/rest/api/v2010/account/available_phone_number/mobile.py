@@ -75,7 +75,7 @@ class MobileList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.api.v2010.account.available_phone_number.mobile.MobileInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -139,7 +139,7 @@ class MobileList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.api.v2010.account.available_phone_number.mobile.MobileInstance]
         """
         return list(self.stream(
             area_code=area_code,
@@ -197,7 +197,7 @@ class MobileList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of MobileInstance
-        :rtype: Page
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.mobile.MobilePage
         """
         params = values.of({
             'AreaCode': area_code,

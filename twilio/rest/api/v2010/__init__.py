@@ -18,7 +18,7 @@ class V2010(Version):
         Initialize the V2010 version of Api
 
         :returns: V2010 version of Api
-        :rtype: V2010
+        :rtype: twilio.rest.api.v2010.V2010.V2010
         """
         super(V2010, self).__init__(domain)
         self.version = '2010-04-01'

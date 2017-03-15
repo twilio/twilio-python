@@ -83,7 +83,7 @@ class SyncMapItemList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -114,7 +114,7 @@ class SyncMapItemList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance]
         """
         return list(self.stream(
             order=order,
@@ -139,7 +139,7 @@ class SyncMapItemList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SyncMapItemInstance
-        :rtype: Page
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemPage
         """
         params = values.of({
             'Order': order,

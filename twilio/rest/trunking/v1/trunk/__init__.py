@@ -87,7 +87,7 @@ class TrunkList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.trunking.v1.trunk.TrunkInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -111,7 +111,7 @@ class TrunkList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.trunking.v1.trunk.TrunkInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -129,7 +129,7 @@ class TrunkList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TrunkInstance
-        :rtype: Page
+        :rtype: twilio.rest.trunking.v1.trunk.TrunkPage
         """
         params = values.of({
             'PageToken': page_token,

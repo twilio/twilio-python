@@ -52,7 +52,7 @@ class ActivityList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -81,7 +81,7 @@ class ActivityList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance]
         """
         return list(self.stream(
             friendly_name=friendly_name,
@@ -104,7 +104,7 @@ class ActivityList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ActivityInstance
-        :rtype: Page
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityPage
         """
         params = values.of({
             'FriendlyName': friendly_name,

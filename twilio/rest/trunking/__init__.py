@@ -17,7 +17,7 @@ class Trunking(Domain):
         Initialize the Trunking Domain
 
         :returns: Domain for Trunking
-        :rtype: Trunking
+        :rtype: twilio.rest.trunking.Trunking
         """
         super(Trunking, self).__init__(twilio)
 

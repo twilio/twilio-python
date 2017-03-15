@@ -74,7 +74,7 @@ class PhoneNumberList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -98,7 +98,7 @@ class PhoneNumberList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -116,7 +116,7 @@ class PhoneNumberList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of PhoneNumberInstance
-        :rtype: Page
+        :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberPage
         """
         params = values.of({
             'PageToken': page_token,

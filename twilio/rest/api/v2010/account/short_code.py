@@ -52,7 +52,7 @@ class ShortCodeList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.api.v2010.account.short_code.ShortCodeInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -81,7 +81,7 @@ class ShortCodeList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.api.v2010.account.short_code.ShortCodeInstance]
         """
         return list(self.stream(
             friendly_name=friendly_name,
@@ -104,7 +104,7 @@ class ShortCodeList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ShortCodeInstance
-        :rtype: Page
+        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodePage
         """
         params = values.of({
             'FriendlyName': friendly_name,

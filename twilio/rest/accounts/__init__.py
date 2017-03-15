@@ -17,7 +17,7 @@ class Accounts(Domain):
         Initialize the Accounts Domain
 
         :returns: Domain for Accounts
-        :rtype: Accounts
+        :rtype: twilio.rest.accounts.Accounts
         """
         super(Accounts, self).__init__(twilio)
 

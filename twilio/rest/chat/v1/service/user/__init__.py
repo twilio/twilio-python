@@ -82,7 +82,7 @@ class UserList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.ip_messaging.v1.service.user.UserInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -106,7 +106,7 @@ class UserList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.ip_messaging.v1.service.user.UserInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -124,7 +124,7 @@ class UserList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of UserInstance
-        :rtype: Page
+        :rtype: twilio.rest.ip_messaging.v1.service.user.UserPage
         """
         params = values.of({
             'PageToken': page_token,
@@ -361,6 +361,7 @@ class UserInstance(InstanceResource):
             'is_notifiable': payload['is_notifiable'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
+            'joined_channels_count': deserialize.integer(payload['joined_channels_count']),
             'links': payload['links'],
             'url': payload['url'],
         }
@@ -476,6 +477,14 @@ class UserInstance(InstanceResource):
         :rtype: datetime
         """
         return self._properties['date_updated']
+
+    @property
+    def joined_channels_count(self):
+        """
+        :returns: The joined_channels_count
+        :rtype: unicode
+        """
+        return self._properties['joined_channels_count']
 
     @property
     def links(self):

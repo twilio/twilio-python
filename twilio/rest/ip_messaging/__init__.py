@@ -17,7 +17,7 @@ class IpMessaging(Domain):
         Initialize the IpMessaging Domain
 
         :returns: Domain for IpMessaging
-        :rtype: IpMessaging
+        :rtype: twilio.rest.ip_messaging.IpMessaging
         """
         super(IpMessaging, self).__init__(twilio)
 

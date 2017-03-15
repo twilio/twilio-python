@@ -17,7 +17,7 @@ class Api(Domain):
         Initialize the Api Domain
 
         :returns: Domain for Api
-        :rtype: Api
+        :rtype: twilio.rest.api.Api
         """
         super(Api, self).__init__(twilio)
 

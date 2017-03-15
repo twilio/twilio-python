@@ -52,7 +52,7 @@ class ReservationList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -78,7 +78,7 @@ class ReservationList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationInstance]
         """
         return list(self.stream(
             reservation_status=reservation_status,
@@ -98,7 +98,7 @@ class ReservationList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ReservationInstance
-        :rtype: Page
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationPage
         """
         params = values.of({
             'ReservationStatus': reservation_status,

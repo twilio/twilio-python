@@ -18,7 +18,7 @@ class V1(Version):
         Initialize the V1 version of IpMessaging
 
         :returns: V1 version of IpMessaging
-        :rtype: V1
+        :rtype: twilio.rest.ip_messaging.v1.V1.V1
         """
         super(V1, self).__init__(domain)
         self.version = 'v1'

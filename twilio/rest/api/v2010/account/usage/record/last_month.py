@@ -53,7 +53,7 @@ class LastMonthList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -84,7 +84,7 @@ class LastMonthList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance]
         """
         return list(self.stream(
             category=category,
@@ -109,7 +109,7 @@ class LastMonthList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of LastMonthInstance
-        :rtype: Page
+        :rtype: twilio.rest.api.v2010.account.usage.record.last_month.LastMonthPage
         """
         params = values.of({
             'Category': category,

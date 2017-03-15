@@ -62,7 +62,7 @@ class IncomingPhoneNumberList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -93,7 +93,7 @@ class IncomingPhoneNumberList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance]
         """
         return list(self.stream(
             beta=beta,
@@ -118,7 +118,7 @@ class IncomingPhoneNumberList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of IncomingPhoneNumberInstance
-        :rtype: Page
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberPage
         """
         params = values.of({
             'Beta': beta,
@@ -401,6 +401,7 @@ class IncomingPhoneNumberContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
         """
         data = values.of({
+            'AccountSid': account_sid,
             'ApiVersion': api_version,
             'FriendlyName': friendly_name,
             'SmsApplicationSid': sms_application_sid,

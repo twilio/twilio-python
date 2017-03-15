@@ -45,7 +45,7 @@ class ApplicationList(ListResource):
         """
         Create a new ApplicationInstance
 
-        :param unicode friendly_name: Human readable description of this resource
+        :param unicode friendly_name: The friendly_name
         :param unicode api_version: The API version to use
         :param unicode voice_url: URL Twilio will make requests to when relieving a call
         :param unicode voice_method: HTTP method to use with the URL
@@ -110,7 +110,7 @@ class ApplicationList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.api.v2010.account.application.ApplicationInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -136,7 +136,7 @@ class ApplicationList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: generator
+        :rtype: list[twilio.rest.api.v2010.account.application.ApplicationInstance]
         """
         return list(self.stream(
             friendly_name=friendly_name,
@@ -156,7 +156,7 @@ class ApplicationList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ApplicationInstance
-        :rtype: Page
+        :rtype: twilio.rest.api.v2010.account.application.ApplicationPage
         """
         params = values.of({
             'FriendlyName': friendly_name,
