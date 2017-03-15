@@ -364,11 +364,11 @@ class IncomingPhoneNumberContext(InstanceContext):
         # Dependents
         self._assigned_add_ons = None
 
-    def update(self, api_version=values.unset, friendly_name=values.unset,
-               sms_application_sid=values.unset, sms_fallback_method=values.unset,
-               sms_fallback_url=values.unset, sms_method=values.unset,
-               sms_url=values.unset, status_callback=values.unset,
-               status_callback_method=values.unset,
+    def update(self, account_sid=values.unset, api_version=values.unset,
+               friendly_name=values.unset, sms_application_sid=values.unset,
+               sms_fallback_method=values.unset, sms_fallback_url=values.unset,
+               sms_method=values.unset, sms_url=values.unset,
+               status_callback=values.unset, status_callback_method=values.unset,
                voice_application_sid=values.unset,
                voice_caller_id_lookup=values.unset,
                voice_fallback_method=values.unset, voice_fallback_url=values.unset,
@@ -378,6 +378,7 @@ class IncomingPhoneNumberContext(InstanceContext):
         """
         Update the IncomingPhoneNumberInstance
 
+        :param unicode account_sid: The new owner of the phone number
         :param unicode api_version: The Twilio REST API version to use
         :param unicode friendly_name: A human readable description of this resource
         :param unicode sms_application_sid: Unique string that identifies the application
@@ -775,11 +776,11 @@ class IncomingPhoneNumberInstance(InstanceResource):
         """
         return self._properties['emergency_address_sid']
 
-    def update(self, api_version=values.unset, friendly_name=values.unset,
-               sms_application_sid=values.unset, sms_fallback_method=values.unset,
-               sms_fallback_url=values.unset, sms_method=values.unset,
-               sms_url=values.unset, status_callback=values.unset,
-               status_callback_method=values.unset,
+    def update(self, account_sid=values.unset, api_version=values.unset,
+               friendly_name=values.unset, sms_application_sid=values.unset,
+               sms_fallback_method=values.unset, sms_fallback_url=values.unset,
+               sms_method=values.unset, sms_url=values.unset,
+               status_callback=values.unset, status_callback_method=values.unset,
                voice_application_sid=values.unset,
                voice_caller_id_lookup=values.unset,
                voice_fallback_method=values.unset, voice_fallback_url=values.unset,
@@ -789,6 +790,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
         """
         Update the IncomingPhoneNumberInstance
 
+        :param unicode account_sid: The new owner of the phone number
         :param unicode api_version: The Twilio REST API version to use
         :param unicode friendly_name: A human readable description of this resource
         :param unicode sms_application_sid: Unique string that identifies the application
@@ -812,6 +814,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
         """
         return self._proxy.update(
+            account_sid=account_sid,
             api_version=api_version,
             friendly_name=friendly_name,
             sms_application_sid=sms_application_sid,
