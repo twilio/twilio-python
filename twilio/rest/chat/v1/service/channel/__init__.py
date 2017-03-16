@@ -381,6 +381,10 @@ class ChannelContext(InstanceContext):
 
 class ChannelInstance(InstanceResource):
 
+    class ChannelType(object):
+        PUBLIC = "public"
+        PRIVATE = "private"
+
     def __init__(self, version, payload, service_sid, sid=None):
         """
         Initialize the ChannelInstance

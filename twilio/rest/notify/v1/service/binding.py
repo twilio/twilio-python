@@ -323,6 +323,13 @@ class BindingContext(InstanceContext):
 
 class BindingInstance(InstanceResource):
 
+    class BindingType(object):
+        APN = "apn"
+        GCM = "gcm"
+        SMS = "sms"
+        FCM = "fcm"
+        FACEBOOK_MESSENGER = "facebook-messenger"
+
     def __init__(self, version, payload, service_sid, sid=None):
         """
         Initialize the BindingInstance

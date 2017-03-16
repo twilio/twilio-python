@@ -413,6 +413,13 @@ class TaskContext(InstanceContext):
 
 class TaskInstance(InstanceResource):
 
+    class Status(object):
+        PENDING = "pending"
+        RESERVED = "reserved"
+        ASSIGNED = "assigned"
+        CANCELED = "canceled"
+        COMPLETED = "completed"
+
     def __init__(self, version, payload, workspace_sid, sid=None):
         """
         Initialize the TaskInstance

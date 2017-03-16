@@ -339,6 +339,14 @@ class SyncListItemContext(InstanceContext):
 
 class SyncListItemInstance(InstanceResource):
 
+    class QueryResultOrder(object):
+        ASC = "asc"
+        DESC = "desc"
+
+    class QueryFromBoundType(object):
+        INCLUSIVE = "inclusive"
+        EXCLUSIVE = "exclusive"
+
     def __init__(self, version, payload, service_sid, list_sid, index=None):
         """
         Initialize the SyncListItemInstance

@@ -321,6 +321,11 @@ class CredentialContext(InstanceContext):
 
 class CredentialInstance(InstanceResource):
 
+    class PushService(object):
+        GCM = "gcm"
+        APN = "apn"
+        FCM = "fcm"
+
     def __init__(self, version, payload, sid=None):
         """
         Initialize the CredentialInstance

@@ -174,6 +174,11 @@ class PhoneNumberContext(InstanceContext):
 
 class PhoneNumberInstance(InstanceResource):
 
+    class Type(object):
+        LANDLINE = "landline"
+        MOBILE = "mobile"
+        VOIP = "voip"
+
     def __init__(self, version, payload, phone_number=None):
         """
         Initialize the PhoneNumberInstance

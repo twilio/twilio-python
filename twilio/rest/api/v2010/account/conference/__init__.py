@@ -354,6 +354,14 @@ class ConferenceContext(InstanceContext):
 
 class ConferenceInstance(InstanceResource):
 
+    class Status(object):
+        INIT = "init"
+        IN_PROGRESS = "in-progress"
+        COMPLETED = "completed"
+
+    class UpdateStatus(object):
+        COMPLETED = "completed"
+
     def __init__(self, version, payload, account_sid, sid=None):
         """
         Initialize the ConferenceInstance

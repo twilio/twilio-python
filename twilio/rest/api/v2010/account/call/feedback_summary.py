@@ -218,6 +218,12 @@ class FeedbackSummaryContext(InstanceContext):
 
 class FeedbackSummaryInstance(InstanceResource):
 
+    class Status(object):
+        QUEUED = "queued"
+        IN_PROGRESS = "in-progress"
+        COMPLETED = "completed"
+        FAILED = "failed"
+
     def __init__(self, version, payload, account_sid, sid=None):
         """
         Initialize the FeedbackSummaryInstance

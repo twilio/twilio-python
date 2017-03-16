@@ -330,6 +330,10 @@ class MessageContext(InstanceContext):
 
 class MessageInstance(InstanceResource):
 
+    class OrderType(object):
+        ASC = "asc"
+        DESC = "desc"
+
     def __init__(self, version, payload, service_sid, channel_sid, sid=None):
         """
         Initialize the MessageInstance

@@ -118,6 +118,10 @@ class FeedbackPage(Page):
 
 class FeedbackInstance(InstanceResource):
 
+    class Outcome(object):
+        CONFIRMED = "confirmed"
+        UMCONFIRMED = "umconfirmed"
+
     def __init__(self, version, payload, account_sid, message_sid):
         """
         Initialize the FeedbackInstance

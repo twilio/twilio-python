@@ -245,6 +245,12 @@ class TollFreePage(Page):
 
 class TollFreeInstance(InstanceResource):
 
+    class AddressRequirement(object):
+        NONE = "none"
+        ANY = "any"
+        LOCAL = "local"
+        FOREIGN = "foreign"
+
     def __init__(self, version, payload, account_sid):
         """
         Initialize the TollFreeInstance

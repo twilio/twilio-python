@@ -517,6 +517,26 @@ class CallContext(InstanceContext):
 
 class CallInstance(InstanceResource):
 
+    class Event(object):
+        INITIATED = "initiated"
+        RINGING = "ringing"
+        ANSWERED = "answered"
+        COMPLETED = "completed"
+
+    class Status(object):
+        QUEUED = "queued"
+        RINGING = "ringing"
+        IN_PROGRESS = "in-progress"
+        COMPLETED = "completed"
+        BUSY = "busy"
+        FAILED = "failed"
+        NO_ANSWER = "no-answer"
+        CANCELED = "canceled"
+
+    class UpdateStatus(object):
+        CANCELED = "canceled"
+        COMPLETED = "completed"
+
     def __init__(self, version, payload, account_sid, sid=None):
         """
         Initialize the CallInstance
@@ -743,7 +763,7 @@ class CallInstance(InstanceResource):
     def status(self):
         """
         :returns: The status
-        :rtype: call.status
+        :rtype: CallInstance.Status
         """
         return self._properties['status']
 

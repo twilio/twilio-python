@@ -496,6 +496,16 @@ class IncomingPhoneNumberContext(InstanceContext):
 
 class IncomingPhoneNumberInstance(InstanceResource):
 
+    class AddressRequirement(object):
+        NONE = "none"
+        ANY = "any"
+        LOCAL = "local"
+        FOREIGN = "foreign"
+
+    class EmergencyStatus(object):
+        ACTIVE = "Active"
+        INACTIVE = "Inactive"
+
     def __init__(self, version, payload, account_sid, sid=None):
         """
         Initialize the IncomingPhoneNumberInstance

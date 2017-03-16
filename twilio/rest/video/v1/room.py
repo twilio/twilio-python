@@ -332,6 +332,15 @@ class RoomContext(InstanceContext):
 
 class RoomInstance(InstanceResource):
 
+    class RoomStatus(object):
+        IN_PROGRESS = "in-progress"
+        COMPLETED = "completed"
+        FAILED = "failed"
+
+    class RoomType(object):
+        PEER_TO_PEER = "peer-to-peer"
+        GROUP = "group"
+
     def __init__(self, version, payload, sid=None):
         """
         Initialize the RoomInstance

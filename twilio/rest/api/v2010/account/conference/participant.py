@@ -388,6 +388,24 @@ class ParticipantContext(InstanceContext):
 
 class ParticipantInstance(InstanceResource):
 
+    class Status(object):
+        QUEUED = "queued"
+        CONNECTING = "connecting"
+        RINGING = "ringing"
+        CONNECTED = "connected"
+        COMPLETE = "complete"
+        FAILED = "failed"
+
+    class Beep(object):
+        TRUE = "true"
+        FALSE = "false"
+        ONENTER = "onEnter"
+        ONEXIT = "onExit"
+
+    class ConferenceRecord(object):
+        DO_NOT_RECORD = "do-not-record"
+        RECORD_FROM_START = "record-from-start"
+
     def __init__(self, version, payload, account_sid, conference_sid,
                  call_sid=None):
         """

@@ -290,6 +290,10 @@ class ConnectAppContext(InstanceContext):
 
 class ConnectAppInstance(InstanceResource):
 
+    class Permission(object):
+        GET_ALL = "get-all"
+        POST_ALL = "post-all"
+
     def __init__(self, version, payload, account_sid, sid=None):
         """
         Initialize the ConnectAppInstance

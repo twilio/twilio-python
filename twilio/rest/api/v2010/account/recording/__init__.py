@@ -325,6 +325,17 @@ class RecordingContext(InstanceContext):
 
 class RecordingInstance(InstanceResource):
 
+    class Source(object):
+        DIALVERB = "DialVerb"
+        CONFERENCE = "Conference"
+        OUTBOUNDAPI = "OutboundAPI"
+        TRUNKING = "Trunking"
+        RECORDVERB = "RecordVerb"
+
+    class Status(object):
+        PROCESSING = "processing"
+        COMPLETED = "completed"
+
     def __init__(self, version, payload, account_sid, sid=None):
         """
         Initialize the RecordingInstance

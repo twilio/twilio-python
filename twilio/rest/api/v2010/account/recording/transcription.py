@@ -265,6 +265,11 @@ class TranscriptionContext(InstanceContext):
 
 class TranscriptionInstance(InstanceResource):
 
+    class Status(object):
+        IN_PROGRESS = "in-progress"
+        COMPLETED = "completed"
+        FAILED = "failed"
+
     def __init__(self, version, payload, account_sid, recording_sid, sid=None):
         """
         Initialize the TranscriptionInstance

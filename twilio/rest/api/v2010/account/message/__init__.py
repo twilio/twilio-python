@@ -401,6 +401,22 @@ class MessageContext(InstanceContext):
 
 class MessageInstance(InstanceResource):
 
+    class Status(object):
+        QUEUED = "queued"
+        SENDING = "sending"
+        SENT = "sent"
+        FAILED = "failed"
+        DELIVERED = "delivered"
+        UNDELIVERED = "undelivered"
+        RECEIVING = "receiving"
+        RECEIVED = "received"
+
+    class Direction(object):
+        INBOUND = "inbound"
+        OUTBOUND_API = "outbound-api"
+        OUTBOUND_CALL = "outbound-call"
+        OUTBOUND_REPLY = "outbound-reply"
+
     def __init__(self, version, payload, account_sid, sid=None):
         """
         Initialize the MessageInstance

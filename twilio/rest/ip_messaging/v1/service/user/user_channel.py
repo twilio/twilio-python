@@ -165,6 +165,11 @@ class UserChannelPage(Page):
 
 class UserChannelInstance(InstanceResource):
 
+    class ChannelStatus(object):
+        JOINED = "joined"
+        INVITED = "invited"
+        NOT_PARTICIPATING = "not_participating"
+
     def __init__(self, version, payload, service_sid, user_sid):
         """
         Initialize the UserChannelInstance

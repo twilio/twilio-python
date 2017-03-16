@@ -143,6 +143,10 @@ class NotificationPage(Page):
 
 class NotificationInstance(InstanceResource):
 
+    class Priority(object):
+        HIGH = "high"
+        LOW = "low"
+
     def __init__(self, version, payload, service_sid):
         """
         Initialize the NotificationInstance
