@@ -72,9 +72,9 @@ class SyncMapItemList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param sync_map_item.query_result_order order: The order
+        :param SyncMapItemInstance.QueryResultOrder order: The order
         :param unicode from_: The from
-        :param sync_map_item.query_from_bound_type bounds: The bounds
+        :param SyncMapItemInstance.QueryFromBoundType bounds: The bounds
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -103,9 +103,9 @@ class SyncMapItemList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param sync_map_item.query_result_order order: The order
+        :param SyncMapItemInstance.QueryResultOrder order: The order
         :param unicode from_: The from
-        :param sync_map_item.query_from_bound_type bounds: The bounds
+        :param SyncMapItemInstance.QueryFromBoundType bounds: The bounds
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -131,9 +131,9 @@ class SyncMapItemList(ListResource):
         Retrieve a single page of SyncMapItemInstance records from the API.
         Request is executed immediately
 
-        :param sync_map_item.query_result_order order: The order
+        :param SyncMapItemInstance.QueryResultOrder order: The order
         :param unicode from_: The from
-        :param sync_map_item.query_from_bound_type bounds: The bounds
+        :param SyncMapItemInstance.QueryFromBoundType bounds: The bounds
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50

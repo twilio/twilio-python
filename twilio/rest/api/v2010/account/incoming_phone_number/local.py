@@ -307,7 +307,7 @@ class LocalInstance(InstanceResource):
     def address_requirements(self):
         """
         :returns: The address_requirements
-        :rtype: local.address_requirement
+        :rtype: LocalInstance.AddressRequirement
         """
         return self._properties['address_requirements']
 

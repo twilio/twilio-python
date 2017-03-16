@@ -143,7 +143,7 @@ class FeedbackContext(InstanceContext):
         Create a new FeedbackInstance
 
         :param unicode quality_score: The quality_score
-        :param feedback.issues issue: The issue
+        :param FeedbackInstance.Issues issue: The issue
 
         :returns: Newly created FeedbackInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
@@ -193,7 +193,7 @@ class FeedbackContext(InstanceContext):
         Update the FeedbackInstance
 
         :param unicode quality_score: An integer from 1 to 5
-        :param feedback.issues issue: Issues experienced during the call
+        :param FeedbackInstance.Issues issue: Issues experienced during the call
 
         :returns: Updated FeedbackInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
@@ -310,7 +310,7 @@ class FeedbackInstance(InstanceResource):
     def issues(self):
         """
         :returns: The issues
-        :rtype: feedback.issues
+        :rtype: FeedbackInstance.Issues
         """
         return self._properties['issues']
 
@@ -335,7 +335,7 @@ class FeedbackInstance(InstanceResource):
         Create a new FeedbackInstance
 
         :param unicode quality_score: The quality_score
-        :param feedback.issues issue: The issue
+        :param FeedbackInstance.Issues issue: The issue
 
         :returns: Newly created FeedbackInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
@@ -359,7 +359,7 @@ class FeedbackInstance(InstanceResource):
         Update the FeedbackInstance
 
         :param unicode quality_score: An integer from 1 to 5
-        :param feedback.issues issue: Issues experienced during the call
+        :param FeedbackInstance.Issues issue: Issues experienced during the call
 
         :returns: Updated FeedbackInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance

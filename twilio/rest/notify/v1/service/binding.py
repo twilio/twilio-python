@@ -43,7 +43,7 @@ class BindingList(ListResource):
 
         :param unicode endpoint: The endpoint
         :param unicode identity: The identity
-        :param binding.binding_type binding_type: The binding_type
+        :param BindingInstance.BindingType binding_type: The binding_type
         :param unicode address: The address
         :param unicode tag: The tag
         :param unicode notification_protocol_version: The notification_protocol_version

@@ -307,7 +307,7 @@ class MobileInstance(InstanceResource):
     def address_requirements(self):
         """
         :returns: The address_requirements
-        :rtype: mobile.address_requirement
+        :rtype: MobileInstance.AddressRequirement
         """
         return self._properties['address_requirements']
 

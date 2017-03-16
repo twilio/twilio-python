@@ -59,14 +59,14 @@ class ParticipantList(ListResource):
         :param unicode timeout: The timeout
         :param bool record: The record
         :param bool muted: The muted
-        :param participant.beep beep: The beep
+        :param ParticipantInstance.Beep beep: The beep
         :param bool start_conference_on_enter: The start_conference_on_enter
         :param bool end_conference_on_exit: The end_conference_on_exit
         :param unicode wait_url: The wait_url
         :param unicode wait_method: The wait_method
         :param bool early_media: The early_media
         :param unicode max_participants: The max_participants
-        :param participant.conference_record conference_record: The conference_record
+        :param ParticipantInstance.ConferenceRecord conference_record: The conference_record
         :param unicode conference_trim: The conference_trim
         :param unicode conference_status_callback: The conference_status_callback
         :param unicode conference_status_callback_method: The conference_status_callback_method
@@ -533,7 +533,7 @@ class ParticipantInstance(InstanceResource):
     def status(self):
         """
         :returns: The status
-        :rtype: participant.status
+        :rtype: ParticipantInstance.Status
         """
         return self._properties['status']
 

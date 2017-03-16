@@ -42,11 +42,11 @@ class TriggerList(ListResource):
 
         :param unicode callback_url: URL Twilio will request when the trigger fires
         :param unicode trigger_value: the value at which the trigger will fire
-        :param trigger.usage_category usage_category: The usage category the trigger watches
+        :param TriggerInstance.UsageCategory usage_category: The usage category the trigger watches
         :param unicode callback_method: HTTP method to use with callback_url
         :param unicode friendly_name: A user-specified, human-readable name for the trigger.
-        :param trigger.recurring recurring: How this trigger recurs
-        :param trigger.trigger_field trigger_by: The field in the UsageRecord that fires the trigger
+        :param TriggerInstance.Recurring recurring: How this trigger recurs
+        :param TriggerInstance.TriggerField trigger_by: The field in the UsageRecord that fires the trigger
 
         :returns: Newly created TriggerInstance
         :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
@@ -81,9 +81,9 @@ class TriggerList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param trigger.recurring recurring: Filter by recurring
-        :param trigger.trigger_field trigger_by: Filter by trigger by
-        :param trigger.usage_category usage_category: Filter by Usage Category
+        :param TriggerInstance.Recurring recurring: Filter by recurring
+        :param TriggerInstance.TriggerField trigger_by: Filter by trigger by
+        :param TriggerInstance.UsageCategory usage_category: Filter by Usage Category
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -112,9 +112,9 @@ class TriggerList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param trigger.recurring recurring: Filter by recurring
-        :param trigger.trigger_field trigger_by: Filter by trigger by
-        :param trigger.usage_category usage_category: Filter by Usage Category
+        :param TriggerInstance.Recurring recurring: Filter by recurring
+        :param TriggerInstance.TriggerField trigger_by: Filter by trigger by
+        :param TriggerInstance.UsageCategory usage_category: Filter by Usage Category
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -140,9 +140,9 @@ class TriggerList(ListResource):
         Retrieve a single page of TriggerInstance records from the API.
         Request is executed immediately
 
-        :param trigger.recurring recurring: Filter by recurring
-        :param trigger.trigger_field trigger_by: Filter by trigger by
-        :param trigger.usage_category usage_category: Filter by Usage Category
+        :param TriggerInstance.Recurring recurring: Filter by recurring
+        :param TriggerInstance.TriggerField trigger_by: Filter by trigger by
+        :param TriggerInstance.UsageCategory usage_category: Filter by Usage Category
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -579,7 +579,7 @@ class TriggerInstance(InstanceResource):
     def recurring(self):
         """
         :returns: How this trigger recurs
-        :rtype: trigger.recurring
+        :rtype: TriggerInstance.Recurring
         """
         return self._properties['recurring']
 
@@ -595,7 +595,7 @@ class TriggerInstance(InstanceResource):
     def trigger_by(self):
         """
         :returns: The field in the UsageRecord that fires the trigger
-        :rtype: trigger.trigger_field
+        :rtype: TriggerInstance.TriggerField
         """
         return self._properties['trigger_by']
 
@@ -619,7 +619,7 @@ class TriggerInstance(InstanceResource):
     def usage_category(self):
         """
         :returns: The usage category the trigger watches
-        :rtype: trigger.usage_category
+        :rtype: TriggerInstance.UsageCategory
         """
         return self._properties['usage_category']
 

@@ -307,7 +307,7 @@ class TollFreeInstance(InstanceResource):
     def address_requirements(self):
         """
         :returns: The address_requirements
-        :rtype: toll_free.address_requirement
+        :rtype: TollFreeInstance.AddressRequirement
         """
         return self._properties['address_requirements']
 

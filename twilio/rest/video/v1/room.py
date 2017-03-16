@@ -40,7 +40,7 @@ class RoomList(ListResource):
         Create a new RoomInstance
 
         :param bool enable_turn: The enable_turn
-        :param room.room_type type: The type
+        :param RoomInstance.RoomType type: The type
         :param unicode unique_name: The unique_name
         :param unicode status_callback: The status_callback
         :param unicode status_callback_method: The status_callback_method
@@ -80,7 +80,7 @@ class RoomList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param room.room_status status: The status
+        :param RoomInstance.RoomStatus status: The status
         :param datetime start_time_after: The start_time_after
         :param datetime start_time_before: The start_time_before
         :param unicode unique_name: The unique_name
@@ -114,7 +114,7 @@ class RoomList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param room.room_status status: The status
+        :param RoomInstance.RoomStatus status: The status
         :param datetime start_time_after: The start_time_after
         :param datetime start_time_before: The start_time_before
         :param unicode unique_name: The unique_name
@@ -145,7 +145,7 @@ class RoomList(ListResource):
         Retrieve a single page of RoomInstance records from the API.
         Request is executed immediately
 
-        :param room.room_status status: The status
+        :param RoomInstance.RoomStatus status: The status
         :param datetime start_time_after: The start_time_after
         :param datetime start_time_before: The start_time_before
         :param unicode unique_name: The unique_name
@@ -298,7 +298,7 @@ class RoomContext(InstanceContext):
         """
         Update the RoomInstance
 
-        :param room.room_status status: The status
+        :param RoomInstance.RoomStatus status: The status
 
         :returns: Updated RoomInstance
         :rtype: twilio.rest.video.v1.room.RoomInstance
@@ -404,7 +404,7 @@ class RoomInstance(InstanceResource):
     def status(self):
         """
         :returns: The status
-        :rtype: room.room_status
+        :rtype: RoomInstance.RoomStatus
         """
         return self._properties['status']
 
@@ -492,7 +492,7 @@ class RoomInstance(InstanceResource):
     def type(self):
         """
         :returns: The type
-        :rtype: room.room_type
+        :rtype: RoomInstance.RoomType
         """
         return self._properties['type']
 
@@ -533,7 +533,7 @@ class RoomInstance(InstanceResource):
         """
         Update the RoomInstance
 
-        :param room.room_status status: The status
+        :param RoomInstance.RoomStatus status: The status
 
         :returns: Updated RoomInstance
         :rtype: twilio.rest.video.v1.room.RoomInstance

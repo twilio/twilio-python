@@ -365,7 +365,7 @@ class AddOnResultInstance(InstanceResource):
     def status(self):
         """
         :returns: The status of this result.
-        :rtype: add_on_result.status
+        :rtype: AddOnResultInstance.Status
         """
         return self._properties['status']
 

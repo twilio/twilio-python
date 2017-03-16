@@ -144,7 +144,7 @@ class TaskQueueList(ListResource):
         :param unicode assignment_activity_sid: The assignment_activity_sid
         :param unicode target_workers: The target_workers
         :param unicode max_reserved_workers: The max_reserved_workers
-        :param task_queue.task_order task_order: The task_order
+        :param TaskQueueInstance.TaskOrder task_order: The task_order
 
         :returns: Newly created TaskQueueInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
@@ -313,7 +313,7 @@ class TaskQueueContext(InstanceContext):
         :param unicode reservation_activity_sid: The reservation_activity_sid
         :param unicode assignment_activity_sid: The assignment_activity_sid
         :param unicode max_reserved_workers: The max_reserved_workers
-        :param task_queue.task_order task_order: The task_order
+        :param TaskQueueInstance.TaskOrder task_order: The task_order
 
         :returns: Updated TaskQueueInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
@@ -541,7 +541,7 @@ class TaskQueueInstance(InstanceResource):
     def task_order(self):
         """
         :returns: The task_order
-        :rtype: task_queue.task_order
+        :rtype: TaskQueueInstance.TaskOrder
         """
         return self._properties['task_order']
 
@@ -590,7 +590,7 @@ class TaskQueueInstance(InstanceResource):
         :param unicode reservation_activity_sid: The reservation_activity_sid
         :param unicode assignment_activity_sid: The assignment_activity_sid
         :param unicode max_reserved_workers: The max_reserved_workers
-        :param task_queue.task_order task_order: The task_order
+        :param TaskQueueInstance.TaskOrder task_order: The task_order
 
         :returns: Updated TaskQueueInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance

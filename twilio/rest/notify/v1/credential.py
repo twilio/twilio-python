@@ -110,7 +110,7 @@ class CredentialList(ListResource):
         """
         Create a new CredentialInstance
 
-        :param credential.push_service type: The type
+        :param CredentialInstance.PushService type: The type
         :param unicode friendly_name: The friendly_name
         :param unicode certificate: The certificate
         :param unicode private_key: The private_key
@@ -397,7 +397,7 @@ class CredentialInstance(InstanceResource):
     def type(self):
         """
         :returns: The type
-        :rtype: credential.push_service
+        :rtype: CredentialInstance.PushService
         """
         return self._properties['type']
 

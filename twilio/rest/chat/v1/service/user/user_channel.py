@@ -234,7 +234,7 @@ class UserChannelInstance(InstanceResource):
     def status(self):
         """
         :returns: The status
-        :rtype: user_channel.channel_status
+        :rtype: UserChannelInstance.ChannelStatus
         """
         return self._properties['status']
 

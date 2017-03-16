@@ -42,7 +42,7 @@ class NotificationList(ListResource):
         Create a new NotificationInstance
 
         :param unicode body: The body
-        :param notification.priority priority: The priority
+        :param NotificationInstance.Priority priority: The priority
         :param unicode ttl: The ttl
         :param unicode title: The title
         :param unicode sound: The sound
@@ -236,7 +236,7 @@ class NotificationInstance(InstanceResource):
     def priority(self):
         """
         :returns: The priority
-        :rtype: notification.priority
+        :rtype: NotificationInstance.Priority
         """
         return self._properties['priority']
 

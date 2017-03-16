@@ -398,7 +398,7 @@ class TranscriptionInstance(InstanceResource):
     def status(self):
         """
         :returns: The status
-        :rtype: transcription.status
+        :rtype: TranscriptionInstance.Status
         """
         return self._properties['status']
 

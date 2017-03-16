@@ -39,7 +39,7 @@ class RoleList(ListResource):
         Create a new RoleInstance
 
         :param unicode friendly_name: The friendly_name
-        :param role.role_type type: The type
+        :param RoleInstance.RoleType type: The type
         :param unicode permission: The permission
 
         :returns: Newly created RoleInstance
@@ -397,7 +397,7 @@ class RoleInstance(InstanceResource):
     def type(self):
         """
         :returns: The type
-        :rtype: role.role_type
+        :rtype: RoleInstance.RoleType
         """
         return self._properties['type']
 

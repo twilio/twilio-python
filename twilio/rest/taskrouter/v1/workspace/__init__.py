@@ -129,7 +129,7 @@ class WorkspaceList(ListResource):
         :param unicode events_filter: The events_filter
         :param bool multi_task_enabled: The multi_task_enabled
         :param unicode template: The template
-        :param workspace.queue_order prioritize_queue_order: The prioritize_queue_order
+        :param WorkspaceInstance.QueueOrder prioritize_queue_order: The prioritize_queue_order
 
         :returns: Newly created WorkspaceInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
@@ -298,7 +298,7 @@ class WorkspaceContext(InstanceContext):
         :param unicode friendly_name: The friendly_name
         :param bool multi_task_enabled: The multi_task_enabled
         :param unicode timeout_activity_sid: The timeout_activity_sid
-        :param workspace.queue_order prioritize_queue_order: The prioritize_queue_order
+        :param WorkspaceInstance.QueueOrder prioritize_queue_order: The prioritize_queue_order
 
         :returns: Updated WorkspaceInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
@@ -621,7 +621,7 @@ class WorkspaceInstance(InstanceResource):
     def prioritize_queue_order(self):
         """
         :returns: The prioritize_queue_order
-        :rtype: workspace.queue_order
+        :rtype: WorkspaceInstance.QueueOrder
         """
         return self._properties['prioritize_queue_order']
 
@@ -664,7 +664,7 @@ class WorkspaceInstance(InstanceResource):
         :param unicode friendly_name: The friendly_name
         :param bool multi_task_enabled: The multi_task_enabled
         :param unicode timeout_activity_sid: The timeout_activity_sid
-        :param workspace.queue_order prioritize_queue_order: The prioritize_queue_order
+        :param WorkspaceInstance.QueueOrder prioritize_queue_order: The prioritize_queue_order
 
         :returns: Updated WorkspaceInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance

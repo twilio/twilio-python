@@ -45,7 +45,7 @@ class ChannelList(ListResource):
         :param unicode friendly_name: The friendly_name
         :param unicode unique_name: The unique_name
         :param unicode attributes: The attributes
-        :param channel.channel_type type: The type
+        :param ChannelInstance.ChannelType type: The type
 
         :returns: Newly created ChannelInstance
         :rtype: twilio.rest.ip_messaging.v1.service.channel.ChannelInstance
@@ -76,7 +76,7 @@ class ChannelList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param channel.channel_type type: The type
+        :param ChannelInstance.ChannelType type: The type
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -102,7 +102,7 @@ class ChannelList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param channel.channel_type type: The type
+        :param ChannelInstance.ChannelType type: The type
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -125,7 +125,7 @@ class ChannelList(ListResource):
         Retrieve a single page of ChannelInstance records from the API.
         Request is executed immediately
 
-        :param channel.channel_type type: The type
+        :param ChannelInstance.ChannelType type: The type
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -488,7 +488,7 @@ class ChannelInstance(InstanceResource):
     def type(self):
         """
         :returns: The type
-        :rtype: channel.channel_type
+        :rtype: ChannelInstance.ChannelType
         """
         return self._properties['type']
 

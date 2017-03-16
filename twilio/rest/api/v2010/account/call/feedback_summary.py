@@ -383,7 +383,7 @@ class FeedbackSummaryInstance(InstanceResource):
     def status(self):
         """
         :returns: The status
-        :rtype: feedback_summary.status
+        :rtype: FeedbackSummaryInstance.Status
         """
         return self._properties['status']
 

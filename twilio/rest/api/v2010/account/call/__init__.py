@@ -127,7 +127,7 @@ class CallList(ListResource):
         :param unicode to: Phone number or Client identifier to filter `to` on
         :param unicode from_: Phone number or Client identifier to filter `from` on
         :param unicode parent_call_sid: Parent Call Sid to filter on
-        :param call.status status: Status to filter on
+        :param CallInstance.Status status: Status to filter on
         :param datetime start_time_before: StartTime to filter on
         :param datetime start_time: StartTime to filter on
         :param datetime start_time_after: StartTime to filter on
@@ -176,7 +176,7 @@ class CallList(ListResource):
         :param unicode to: Phone number or Client identifier to filter `to` on
         :param unicode from_: Phone number or Client identifier to filter `from` on
         :param unicode parent_call_sid: Parent Call Sid to filter on
-        :param call.status status: Status to filter on
+        :param CallInstance.Status status: Status to filter on
         :param datetime start_time_before: StartTime to filter on
         :param datetime start_time: StartTime to filter on
         :param datetime start_time_after: StartTime to filter on
@@ -222,7 +222,7 @@ class CallList(ListResource):
         :param unicode to: Phone number or Client identifier to filter `to` on
         :param unicode from_: Phone number or Client identifier to filter `from` on
         :param unicode parent_call_sid: Parent Call Sid to filter on
-        :param call.status status: Status to filter on
+        :param CallInstance.Status status: Status to filter on
         :param datetime start_time_before: StartTime to filter on
         :param datetime start_time: StartTime to filter on
         :param datetime start_time_after: StartTime to filter on
@@ -424,7 +424,7 @@ class CallContext(InstanceContext):
 
         :param unicode url: URL that returns TwiML
         :param unicode method: HTTP method to use to fetch TwiML
-        :param call.update_status status: Status to update the Call with
+        :param CallInstance.UpdateStatus status: Status to update the Call with
         :param unicode fallback_url: Fallback URL in case of error
         :param unicode fallback_method: HTTP Method to use with FallbackUrl
         :param unicode status_callback: Status Callback URL
@@ -825,7 +825,7 @@ class CallInstance(InstanceResource):
 
         :param unicode url: URL that returns TwiML
         :param unicode method: HTTP method to use to fetch TwiML
-        :param call.update_status status: Status to update the Call with
+        :param CallInstance.UpdateStatus status: Status to update the Call with
         :param unicode fallback_url: Fallback URL in case of error
         :param unicode fallback_method: HTTP Method to use with FallbackUrl
         :param unicode status_callback: Status Callback URL

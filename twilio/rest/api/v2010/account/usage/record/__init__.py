@@ -60,7 +60,7 @@ class RecordList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param record.category category: Only include usage of a given category
+        :param RecordInstance.Category category: Only include usage of a given category
         :param date start_date: Filter by start date
         :param date end_date: Filter by end date
         :param int limit: Upper limit for the number of records to return. stream()
@@ -91,7 +91,7 @@ class RecordList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param record.category category: Only include usage of a given category
+        :param RecordInstance.Category category: Only include usage of a given category
         :param date start_date: Filter by start date
         :param date end_date: Filter by end date
         :param int limit: Upper limit for the number of records to return. list() guarantees
@@ -119,7 +119,7 @@ class RecordList(ListResource):
         Retrieve a single page of RecordInstance records from the API.
         Request is executed immediately
 
-        :param record.category category: Only include usage of a given category
+        :param RecordInstance.Category category: Only include usage of a given category
         :param date start_date: Filter by start date
         :param date end_date: Filter by end date
         :param str page_token: PageToken provided by the API
@@ -466,7 +466,7 @@ class RecordInstance(InstanceResource):
     def category(self):
         """
         :returns: The category of usage
-        :rtype: record.category
+        :rtype: RecordInstance.Category
         """
         return self._properties['category']
 

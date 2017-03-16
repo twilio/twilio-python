@@ -42,7 +42,7 @@ class TodayList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param today.category category: The category
+        :param TodayInstance.Category category: The category
         :param date start_date: The start_date
         :param date end_date: The end_date
         :param int limit: Upper limit for the number of records to return. stream()
@@ -73,7 +73,7 @@ class TodayList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param today.category category: The category
+        :param TodayInstance.Category category: The category
         :param date start_date: The start_date
         :param date end_date: The end_date
         :param int limit: Upper limit for the number of records to return. list() guarantees
@@ -101,7 +101,7 @@ class TodayList(ListResource):
         Retrieve a single page of TodayInstance records from the API.
         Request is executed immediately
 
-        :param today.category category: The category
+        :param TodayInstance.Category category: The category
         :param date start_date: The start_date
         :param date end_date: The end_date
         :param str page_token: PageToken provided by the API
@@ -328,7 +328,7 @@ class TodayInstance(InstanceResource):
     def category(self):
         """
         :returns: The category
-        :rtype: today.category
+        :rtype: TodayInstance.Category
         """
         return self._properties['category']
 

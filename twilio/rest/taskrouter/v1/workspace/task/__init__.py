@@ -346,7 +346,7 @@ class TaskContext(InstanceContext):
         Update the TaskInstance
 
         :param unicode attributes: The attributes
-        :param task.status assignment_status: The assignment_status
+        :param TaskInstance.Status assignment_status: The assignment_status
         :param unicode reason: The reason
         :param unicode priority: The priority
         :param unicode task_channel: The task_channel
@@ -497,7 +497,7 @@ class TaskInstance(InstanceResource):
     def assignment_status(self):
         """
         :returns: The assignment_status
-        :rtype: task.status
+        :rtype: TaskInstance.Status
         """
         return self._properties['assignment_status']
 
@@ -653,7 +653,7 @@ class TaskInstance(InstanceResource):
         Update the TaskInstance
 
         :param unicode attributes: The attributes
-        :param task.status assignment_status: The assignment_status
+        :param TaskInstance.Status assignment_status: The assignment_status
         :param unicode reason: The reason
         :param unicode priority: The priority
         :param unicode task_channel: The task_channel

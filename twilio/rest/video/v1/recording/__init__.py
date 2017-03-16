@@ -39,7 +39,7 @@ class RecordingList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param recording.status status: The status
+        :param RecordingInstance.Status status: The status
         :param unicode source_sid: The source_sid
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
@@ -68,7 +68,7 @@ class RecordingList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param recording.status status: The status
+        :param RecordingInstance.Status status: The status
         :param unicode source_sid: The source_sid
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
@@ -94,7 +94,7 @@ class RecordingList(ListResource):
         Retrieve a single page of RecordingInstance records from the API.
         Request is executed immediately
 
-        :param recording.status status: The status
+        :param RecordingInstance.Status status: The status
         :param unicode source_sid: The source_sid
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
@@ -341,7 +341,7 @@ class RecordingInstance(InstanceResource):
     def status(self):
         """
         :returns: The status
-        :rtype: recording.status
+        :rtype: RecordingInstance.Status
         """
         return self._properties['status']
 
@@ -389,7 +389,7 @@ class RecordingInstance(InstanceResource):
     def type(self):
         """
         :returns: The type
-        :rtype: recording.type
+        :rtype: RecordingInstance.Type
         """
         return self._properties['type']
 
@@ -405,7 +405,7 @@ class RecordingInstance(InstanceResource):
     def container_format(self):
         """
         :returns: The container_format
-        :rtype: recording.format
+        :rtype: RecordingInstance.Format
         """
         return self._properties['container_format']
 
@@ -413,7 +413,7 @@ class RecordingInstance(InstanceResource):
     def codec(self):
         """
         :returns: The codec
-        :rtype: recording.codec
+        :rtype: RecordingInstance.Codec
         """
         return self._properties['codec']
 

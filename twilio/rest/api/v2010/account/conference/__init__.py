@@ -54,7 +54,7 @@ class ConferenceList(ListResource):
         :param date date_updated: Filter by date updated
         :param date date_updated_after: Filter by date updated
         :param unicode friendly_name: Filter by friendly name
-        :param conference.status status: The status of the conference
+        :param ConferenceInstance.Status status: The status of the conference
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -98,7 +98,7 @@ class ConferenceList(ListResource):
         :param date date_updated: Filter by date updated
         :param date date_updated_after: Filter by date updated
         :param unicode friendly_name: Filter by friendly name
-        :param conference.status status: The status of the conference
+        :param ConferenceInstance.Status status: The status of the conference
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -139,7 +139,7 @@ class ConferenceList(ListResource):
         :param date date_updated: Filter by date updated
         :param date date_updated_after: Filter by date updated
         :param unicode friendly_name: Filter by friendly name
-        :param conference.status status: The status of the conference
+        :param ConferenceInstance.Status status: The status of the conference
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -303,7 +303,7 @@ class ConferenceContext(InstanceContext):
         """
         Update the ConferenceInstance
 
-        :param conference.update_status status: The status
+        :param ConferenceInstance.UpdateStatus status: The status
 
         :returns: Updated ConferenceInstance
         :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
@@ -469,7 +469,7 @@ class ConferenceInstance(InstanceResource):
     def status(self):
         """
         :returns: The status of the conference
-        :rtype: conference.status
+        :rtype: ConferenceInstance.Status
         """
         return self._properties['status']
 
@@ -502,7 +502,7 @@ class ConferenceInstance(InstanceResource):
         """
         Update the ConferenceInstance
 
-        :param conference.update_status status: The status
+        :param ConferenceInstance.UpdateStatus status: The status
 
         :returns: Updated ConferenceInstance
         :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance

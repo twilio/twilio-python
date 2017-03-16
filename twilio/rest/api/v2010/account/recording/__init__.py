@@ -462,7 +462,7 @@ class RecordingInstance(InstanceResource):
     def status(self):
         """
         :returns: The status
-        :rtype: recording.status
+        :rtype: RecordingInstance.Status
         """
         return self._properties['status']
 
@@ -478,7 +478,7 @@ class RecordingInstance(InstanceResource):
     def source(self):
         """
         :returns: The source
-        :rtype: recording.source
+        :rtype: RecordingInstance.Source
         """
         return self._properties['source']
 

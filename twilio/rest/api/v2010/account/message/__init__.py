@@ -526,7 +526,7 @@ class MessageInstance(InstanceResource):
     def direction(self):
         """
         :returns: The direction of the message
-        :rtype: message.direction
+        :rtype: MessageInstance.Direction
         """
         return self._properties['direction']
 
@@ -606,7 +606,7 @@ class MessageInstance(InstanceResource):
     def status(self):
         """
         :returns: The status of this message
-        :rtype: message.status
+        :rtype: MessageInstance.Status
         """
         return self._properties['status']
 

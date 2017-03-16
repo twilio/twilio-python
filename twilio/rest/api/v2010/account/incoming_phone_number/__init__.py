@@ -167,7 +167,7 @@ class IncomingPhoneNumberList(ListResource):
         :param unicode voice_fallback_url: URL Twilio will request when an error occurs in TwiML
         :param unicode voice_method: HTTP method used with the voice url
         :param unicode voice_url: URL Twilio will request when receiving a call
-        :param incoming_phone_number.emergency_status emergency_status: The emergency_status
+        :param IncomingPhoneNumberInstance.EmergencyStatus emergency_status: The emergency_status
         :param unicode emergency_address_sid: The emergency_address_sid
         :param unicode trunk_sid: Unique string to identify the trunk
         :param unicode phone_number: The phone number
@@ -394,7 +394,7 @@ class IncomingPhoneNumberContext(InstanceContext):
         :param unicode voice_fallback_url: URL Twilio will request when an error occurs in TwiML
         :param unicode voice_method: HTTP method used with the voice url
         :param unicode voice_url: URL Twilio will request when receiving a call
-        :param incoming_phone_number.emergency_status emergency_status: The emergency_status
+        :param IncomingPhoneNumberInstance.EmergencyStatus emergency_status: The emergency_status
         :param unicode emergency_address_sid: The emergency_address_sid
         :param unicode trunk_sid: Unique string to identify the trunk
 
@@ -582,7 +582,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
     def address_requirements(self):
         """
         :returns: Indicates if the customer requires an address
-        :rtype: incoming_phone_number.address_requirement
+        :rtype: IncomingPhoneNumberInstance.AddressRequirement
         """
         return self._properties['address_requirements']
 
@@ -774,7 +774,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
     def emergency_status(self):
         """
         :returns: The emergency_status
-        :rtype: incoming_phone_number.emergency_status
+        :rtype: IncomingPhoneNumberInstance.EmergencyStatus
         """
         return self._properties['emergency_status']
 
@@ -816,7 +816,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
         :param unicode voice_fallback_url: URL Twilio will request when an error occurs in TwiML
         :param unicode voice_method: HTTP method used with the voice url
         :param unicode voice_url: URL Twilio will request when receiving a call
-        :param incoming_phone_number.emergency_status emergency_status: The emergency_status
+        :param IncomingPhoneNumberInstance.EmergencyStatus emergency_status: The emergency_status
         :param unicode emergency_address_sid: The emergency_address_sid
         :param unicode trunk_sid: Unique string to identify the trunk
 

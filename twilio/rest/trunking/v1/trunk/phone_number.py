@@ -362,7 +362,7 @@ class PhoneNumberInstance(InstanceResource):
     def address_requirements(self):
         """
         :returns: The address_requirements
-        :rtype: phone_number.address_requirement
+        :rtype: PhoneNumberInstance.AddressRequirement
         """
         return self._properties['address_requirements']
 

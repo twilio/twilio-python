@@ -366,7 +366,7 @@ class AuthorizedConnectAppInstance(InstanceResource):
     def permissions(self):
         """
         :returns: Permissions authorized to this app
-        :rtype: authorized_connect_app.permission
+        :rtype: AuthorizedConnectAppInstance.Permission
         """
         return self._properties['permissions']
 

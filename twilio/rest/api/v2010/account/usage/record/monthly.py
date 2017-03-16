@@ -42,7 +42,7 @@ class MonthlyList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param monthly.category category: The category
+        :param MonthlyInstance.Category category: The category
         :param date start_date: The start_date
         :param date end_date: The end_date
         :param int limit: Upper limit for the number of records to return. stream()
@@ -73,7 +73,7 @@ class MonthlyList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param monthly.category category: The category
+        :param MonthlyInstance.Category category: The category
         :param date start_date: The start_date
         :param date end_date: The end_date
         :param int limit: Upper limit for the number of records to return. list() guarantees
@@ -101,7 +101,7 @@ class MonthlyList(ListResource):
         Retrieve a single page of MonthlyInstance records from the API.
         Request is executed immediately
 
-        :param monthly.category category: The category
+        :param MonthlyInstance.Category category: The category
         :param date start_date: The start_date
         :param date end_date: The end_date
         :param str page_token: PageToken provided by the API
@@ -328,7 +328,7 @@ class MonthlyInstance(InstanceResource):
     def category(self):
         """
         :returns: The category
-        :rtype: monthly.category
+        :rtype: MonthlyInstance.Category
         """
         return self._properties['category']
 
