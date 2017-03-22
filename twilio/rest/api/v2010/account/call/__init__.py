@@ -51,7 +51,9 @@ class CallList(ListResource):
                recording_status_callback=values.unset,
                recording_status_callback_method=values.unset,
                sip_auth_username=values.unset, sip_auth_password=values.unset,
-               url=values.unset, application_sid=values.unset):
+               machine_detection=values.unset,
+               machine_detection_timeout=values.unset, url=values.unset,
+               application_sid=values.unset):
         """
         Create a new CallInstance
 
@@ -72,6 +74,8 @@ class CallList(ListResource):
         :param unicode recording_status_callback_method: The recording_status_callback_method
         :param unicode sip_auth_username: The sip_auth_username
         :param unicode sip_auth_password: The sip_auth_password
+        :param unicode machine_detection: Enable machine detection or end of greeting detection
+        :param unicode machine_detection_timeout: Number of miliseconds to wait for machine detection
         :param unicode url: Url from which to fetch TwiML
         :param unicode application_sid: ApplicationSid that configures from where to fetch TwiML
 
@@ -98,6 +102,8 @@ class CallList(ListResource):
             'RecordingStatusCallbackMethod': recording_status_callback_method,
             'SipAuthUsername': sip_auth_username,
             'SipAuthPassword': sip_auth_password,
+            'MachineDetection': machine_detection,
+            'MachineDetectionTimeout': machine_detection_timeout,
         })
 
         payload = self._version.create(

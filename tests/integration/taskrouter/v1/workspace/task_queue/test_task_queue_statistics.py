@@ -87,7 +87,8 @@ class TaskQueueStatisticsTestCase(IntegrationTestCase):
                     "tasks_by_status": {
                         "assigned": 0,
                         "pending": 0,
-                        "reserved": 0
+                        "reserved": 0,
+                        "wrapping": 0
                     },
                     "total_available_workers": 0,
                     "total_eligible_workers": 0,

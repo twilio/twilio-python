@@ -52,7 +52,8 @@ class WorkflowStatisticsTestCase(IntegrationTestCase):
                     "tasks_by_status": {
                         "assigned": 1,
                         "pending": 0,
-                        "reserved": 0
+                        "reserved": 0,
+                        "wrapping": 0
                     },
                     "total_tasks": 1
                 },

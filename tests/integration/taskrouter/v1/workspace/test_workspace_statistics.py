@@ -87,7 +87,8 @@ class WorkspaceStatisticsTestCase(IntegrationTestCase):
                     "tasks_by_status": {
                         "assigned": 0,
                         "pending": 0,
-                        "reserved": 0
+                        "reserved": 0,
+                        "wrapping": 0
                     },
                     "total_tasks": 0,
                     "total_workers": 1
