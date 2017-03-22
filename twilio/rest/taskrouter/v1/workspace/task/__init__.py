@@ -419,6 +419,7 @@ class TaskInstance(InstanceResource):
         ASSIGNED = "assigned"
         CANCELED = "canceled"
         COMPLETED = "completed"
+        WRAPPING = "wrapping"
 
     def __init__(self, version, payload, workspace_sid, sid=None):
         """
