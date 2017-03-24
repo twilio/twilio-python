@@ -85,6 +85,10 @@ class Verb(object):
         self.verbs.append(verb)
         return verb
 
+    def prepend(self, verb):
+        self.verbs.insert(0, verb)
+        return verb
+
 
 class Response(Verb):
     """Twilio response object."""
