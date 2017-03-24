@@ -204,7 +204,7 @@ class Resource(object):
         if method == "DELETE":
             return resp, {}
         else:
-            return resp, json.loads(resp.content)
+            return resp, json.loads(resp.content.decode('utf-8'))
 
     @property
     def uri(self):
