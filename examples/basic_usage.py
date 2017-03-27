@@ -1,8 +1,7 @@
 import os
 
-from twilio.twiml import Response
-
 from twilio.rest import Client
+from twilio.twiml.voice_response import VoiceResponse
 
 ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
 AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
@@ -35,10 +34,10 @@ def example():
     new_call = client.calls.create(to='XXXX', from_='YYYY', method='GET')
 
     print('Serving TwiML')
-    twiml_response = Response()
+    twiml_response = VoiceResponse()
     twiml_response.say('Hello!')
     twiml_response.hangup()
-    twiml_xml = twiml_response.toxml()
+    twiml_xml = twiml_response.to_xml()
     print('Generated twiml: {}'.format(twiml_xml))
 
 

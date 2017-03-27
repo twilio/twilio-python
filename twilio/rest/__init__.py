@@ -99,9 +99,12 @@ class Client(object):
         if 'Accept' not in headers:
             headers['Accept'] = 'application/json'
 
+
         if self.region:
             head, tail = uri.split('.', 1)
-            uri = '.'.join([head, self.region, tail])
+
+            if not tail.startswith(self.region):
+                uri = '.'.join([head, self.region, tail])
 
         return self.http_client.request(
             method,
