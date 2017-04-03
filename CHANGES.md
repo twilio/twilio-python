@@ -3,8 +3,8 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
-[2017-04-03] Version 6.0.0
---------------------------
+[2017-04-03] Version 6.0.0-alpha-1
+----------------------------------
 **New Major Version**
 
 The newest version of the `twilio-python` helper library!
