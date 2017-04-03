@@ -54,12 +54,17 @@ class Client(object):
         self._accounts = None
         self._api = None
         self._chat = None
+        self._fax = None
         self._ip_messaging = None
         self._lookups = None
         self._monitor = None
+        self._notify = None
+        self._preview = None
         self._pricing = None
         self._taskrouter = None
         self._trunking = None
+        self._video = None
+        self._messaging = None
 
     def request(self, method, uri, params=None, data=None, headers=None, auth=None,
                 timeout=None, allow_redirects=False):
@@ -152,6 +157,19 @@ class Client(object):
         return self._chat
 
     @property
+    def fax(self):
+        """
+        Access the Fax Twilio Domain
+
+        :returns: Fax Twilio Domain
+        :rtype: twilio.rest.fax.Fax
+        """
+        if self._fax is None:
+            from twilio.rest.fax import Fax
+            self._fax = Fax(self)
+        return self._fax
+
+    @property
     def ip_messaging(self):
         """
         Access the IpMessaging Twilio Domain
@@ -191,6 +209,32 @@ class Client(object):
         return self._monitor
 
     @property
+    def notify(self):
+        """
+        Access the Notify Twilio Domain
+
+        :returns: Notify Twilio Domain
+        :rtype: twilio.rest.notify.Notify
+        """
+        if self._notify is None:
+            from twilio.rest.notify import Notify
+            self._notify = Notify(self)
+        return self._notify
+
+    @property
+    def preview(self):
+        """
+        Access the Preview Twilio Domain
+
+        :returns: Preview Twilio Domain
+        :rtype: twilio.rest.preview.Preview
+        """
+        if self._preview is None:
+            from twilio.rest.preview import Preview
+            self._preview = Preview(self)
+        return self._preview
+
+    @property
     def pricing(self):
         """
         Access the Pricing Twilio Domain
@@ -228,6 +272,32 @@ class Client(object):
             from twilio.rest.trunking import Trunking
             self._trunking = Trunking(self)
         return self._trunking
+
+    @property
+    def video(self):
+        """
+        Access the Video Twilio Domain
+
+        :returns: Video Twilio Domain
+        :rtype: twilio.rest.video.Video
+        """
+        if self._video is None:
+            from twilio.rest.video import Video
+            self._video = Video(self)
+        return self._video
+
+    @property
+    def messaging(self):
+        """
+        Access the Messaging Twilio Domain
+
+        :returns: Messaging Twilio Domain
+        :rtype: twilio.rest.messaging.Messaging
+        """
+        if self._messaging is None:
+            from twilio.rest.messaging import Messaging
+            self._messaging = Messaging(self)
+        return self._messaging
 
     @property
     def addresses(self):
