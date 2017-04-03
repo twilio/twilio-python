@@ -19,7 +19,7 @@ class TestResponse(TwilioTest):
 
         assert_equal(
             self.strip(r),
-            '<?xml version="1.0" encoding="UTF-8"?><Response><Message>Hello</Message><Redirect url="example.com" /></Response>'
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Message>Hello</Message><Redirect>example.com</Redirect></Response>'
         )
 
     def test_response_chain(self):
@@ -27,7 +27,7 @@ class TestResponse(TwilioTest):
 
         assert_equal(
             self.strip(r),
-            '<?xml version="1.0" encoding="UTF-8"?><Response><Message>Hello</Message><Redirect url="example.com" /></Response>'
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Message>Hello</Message><Redirect>example.com</Redirect></Response>'
         )
 
 
@@ -74,5 +74,5 @@ class TestRedirect(TwilioTest):
 
         assert_equal(
             self.strip(r),
-            '<?xml version="1.0" encoding="UTF-8"?><Response><Redirect url="example.com" /></Response>'
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Redirect>example.com</Redirect></Response>'
         )

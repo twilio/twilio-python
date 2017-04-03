@@ -42,12 +42,12 @@ class MessagingResponse(TwiML):
             **kwargs
         ))
 
-    def redirect(self, method=None, url=None, **kwargs):
+    def redirect(self, url, method=None, **kwargs):
         """
         Add a <Redirect> element
 
-        :param method: HTTP method
         :param url: URL to redirect to
+        :param method: HTTP method
         :param kwargs: other attributes
         :return: <Redirect> element
         """
@@ -124,5 +124,12 @@ class Redirect(TwiML):
     """
     <Redirect> element
     """
-    pass
+    def __init__(self, url, **kwargs):
+        """
+        Create a new <Redirect> element
+
+        :param url: redirect URL location
+        """
+        super(Redirect, self).__init__(**kwargs)
+        self.value = url
 
