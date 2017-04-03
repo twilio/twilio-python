@@ -6,15 +6,14 @@
 
 A module for using the Twilio REST API and generating valid
 [TwiML](http://www.twilio.com/docs/api/twiml/ "TwiML -
-Twilio Markup Language"). [Click here to read the full
-documentation.][documentation]
+Twilio Markup Language").
 
 ## Installation
 
 Install from PyPi using [pip](http://www.pip-installer.org/en/latest/), a
 package manager for Python.
 
-    pip install twilio==6.0.0rc13
+    pip install twilio
 
 Don't have pip installed? Try installing it, by running this from the command
 line:
@@ -34,9 +33,6 @@ You may need to run the above commands with `sudo`.
 
 ## Feedback
 Report any feedback or problems with this Release Candidate to the [Github Issues](https://github.com/twilio/twilio-python/issues) for twilio-python.
-
-## Documentation
-[Here][documentation]
 
 ## Getting Started
 
@@ -105,9 +101,9 @@ To control phone calls, your application needs to output
 Language"). Use `twilio.twiml.Response` to easily create such responses.
 
 ```python
-from twilio import twiml
+from twilio.twilio.voice_response import VoiceResponse
 
-r = twiml.Response()
+r = VoiceResponse()
 r.say("Welcome to twilio!")
 print(str(r))
 ```
@@ -116,25 +112,3 @@ print(str(r))
 <?xml version="1.0" encoding="utf-8"?>
 <Response><Say>Welcome to twilio!</Say></Response>
 ```
-
-### Digging Deeper
-
-The full power of the Twilio API is at your fingertips. The [full
-documentation][documentation] explains all the awesome features available to
-use.
-
-* [Retrieve Call Records][calls]
-* [Retrieve Message Records][messages]
-* [Search for a Phone Number][number]
-* [Buy a Number][number]
-* [Validate a Phone Number][validate]
-* [List Recordings][recordings]
-
-[number]: http://twilio-python.readthedocs.org/en/latest/usage/phone-numbers.html#searching-and-buying-a-number
-[validate]: http://twilio-python.readthedocs.org/en/latest/usage/caller-ids.html
-[recordings]: http://twilio-python.readthedocs.org/en/latest/usage/recordings.html#listing-your-recordings
-[messages]: http://twilio-python.readthedocs.org/en/latest/usage/messages.html#retrieving-sent-messages
-[calls]: http://twilio-python.readthedocs.org/en/latest/usage/phone-calls.html#retrieve-a-call-record
-[issues]: https://github.com/twilio/twilio-python/issues
-[documentation]: http://twilio-python.readthedocs.org/en/release-6x/
-[upgrade]: https://github.com/twilio/twilio-python/wiki/Python-Version-6.x-Upgrade-Guide

@@ -3,63 +3,16 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
-Version 6.0rc13
---------------
+[2017-04-03] Version 6.0.0
+--------------------------
+**New Major Version**
 
-Released March 07, 2017:
+The newest version of the `twilio-python` helper library!
 
-- Support regional Twilio hostnames.
-- Improve `rtype` documentation throughout.
-- Remove obsolete Sandbox resource.
-- Improve TwiML helper resources.
-- Support date inequality parameters by expanding into before, equal, after parameters in python.
-- Reorganize common modules into `base` folder.
-- Add TaskRouter grant.
-- Document handwritten classes.
-- Switch to using `requests` library over `httplib2`.
-- Fix docs generation.
-- Support client validation.
+This version brings a host of changes to update and modernize the `twilio-python` helper library. It is auto-generated to produce a more consistent and correct product.
 
-Version 6.0rc8
--------------
-
-Released July 8, 2016:
-
-- Add SMS and Facebook Messenger for Notify
-
-Version 6.0rc7
--------------
-
-Released June 9, 2016:
-
-- Add messaging feedback preview
-
-Version 6.0rc5
--------------
-
-Released May 27, 2016:
-
-- Add wireless preview
-
-Version 6.0rc4
--------------
-
-Released March 29, 2016:
-
-- Add notifications.twilio.com subdomain
-
-Version 6.0.0
--------------
-
-Released January 29, 2016:
-
-- First class paging support
-- Streaming auto-paging functionality
-- Separation between strict paging and streaming, with network-efficient defaults
-- Fully configurable and swappable HTTP Client interfaces
-- Normalization of mounts -> endpoints relations, with first-class unified support for subdomains and multi-version support
-- Fixed URL pathing of subresources, preventing edge case errors with path building via mounting
-- Proper serialization/deserialization of types (integers, dates, etc.) 
+- [Full API Documentation](https://twilio.github.io/twilio-python/)
+- [General Documentation](https://www.twilio.com/docs/libraries/python)
 
 Version 4.4.0
 -------------
