@@ -23,7 +23,7 @@ class TwiML(object):
 
     def __init__(self, **kwargs):
         self.name = self.__class__.__name__
-        self.body = None
+        self.value = None
         self.verbs = []
         self.attrs = {}
 
@@ -83,8 +83,8 @@ class TwiML(object):
             else:
                 el.set(a, str(value))
 
-        if self.body:
-            el.text = self.body
+        if self.value:
+            el.text = self.value
 
         for verb in self.verbs:
             el.append(verb.xml())

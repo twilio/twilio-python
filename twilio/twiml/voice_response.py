@@ -293,7 +293,7 @@ class Dial(TwiML):
         """
         super(Dial, self).__init__(**kwargs)
         if number:
-            self.body = number
+            self.value = number
 
     def client(self,
                name,
@@ -493,7 +493,7 @@ class Client(TwiML):
         :param kwargs: attributes
         """
         super(Client, self).__init__(**kwargs)
-        self.body = name
+        self.value = name
 
 
 class Conference(TwiML):
@@ -508,7 +508,7 @@ class Conference(TwiML):
         :param kwargs: attributes
         """
         super(Conference, self).__init__(**kwargs)
-        self.body = name
+        self.value = name
 
 
 class Number(TwiML):
@@ -523,7 +523,7 @@ class Number(TwiML):
         :param kwargs: attributes
         """
         super(Number, self).__init__(**kwargs)
-        self.body = number
+        self.value = number
 
 
 class Queue(TwiML):
@@ -538,7 +538,7 @@ class Queue(TwiML):
         :param kwargs: attributes
         """
         super(Queue, self).__init__(**kwargs)
-        self.body = queue_name
+        self.value = queue_name
 
 
 class Sip(TwiML):
@@ -553,7 +553,7 @@ class Sip(TwiML):
         :param kwargs: attributes
         """
         super(Sip, self).__init__(**kwargs)
-        self.body = uri
+        self.value = uri
 
 
 class Enqueue(TwiML):
@@ -568,7 +568,7 @@ class Enqueue(TwiML):
         :param kwargs: attributes
         """
         super(Enqueue, self).__init__(**kwargs)
-        self.body = name
+        self.value = name
 
 
 class Gather(TwiML):
@@ -656,7 +656,7 @@ class Play(TwiML):
         :param kwargs: additional attributes
         """
         super(Play, self).__init__(**kwargs)
-        self.body = url
+        self.value = url
 
 
 class Say(TwiML):
@@ -671,7 +671,7 @@ class Say(TwiML):
         :param kwargs: attributes
         """
         super(Say, self).__init__(**kwargs)
-        self.body = body
+        self.value = body
 
 
 class Hangup(TwiML):
@@ -707,7 +707,7 @@ class Redirect(TwiML):
         :param kwargs: attributes
         """
         super(Redirect, self).__init__(**kwargs)
-        self.body = url
+        self.value = url
 
 
 class Reject(TwiML):
@@ -729,4 +729,4 @@ class Sms(TwiML):
         :param kwargs: attributes
         """
         super(Sms, self).__init__(**kwargs)
-        self.body = body
+        self.value = body

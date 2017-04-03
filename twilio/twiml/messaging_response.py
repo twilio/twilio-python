@@ -71,7 +71,7 @@ class Message(TwiML):
         """
         super(Message, self).__init__(**kwargs)
         if body:
-            self.body = body
+            self.value = body
 
     def body(self, body):
         """
@@ -103,7 +103,7 @@ class Body(TwiML):
         :param body: message body
         """
         super(Body, self).__init__()
-        self.body = body
+        self.value = body
 
 
 class Media(TwiML):
@@ -117,7 +117,7 @@ class Media(TwiML):
         :param url: media URL location
         """
         super(Media, self).__init__()
-        self.body = url
+        self.value = url
 
 
 class Redirect(TwiML):

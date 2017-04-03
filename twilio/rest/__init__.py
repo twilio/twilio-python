@@ -99,7 +99,6 @@ class Client(object):
         if 'Accept' not in headers:
             headers['Accept'] = 'application/json'
 
-
         if self.region:
             head, tail = uri.split('.', 1)
 
