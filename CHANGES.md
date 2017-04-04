@@ -3,99 +3,16 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
-Version 5.4.0
--------------
+[2017-04-03] Version 6.0.0
+--------------------------
+**New Major Version**
 
-Released February 29, 2016:
+The newest version of the `twilio-python` helper library!
 
-- Add support for API Key auth
+This version brings a host of changes to update and modernize the `twilio-python` helper library. It is auto-generated to produce a more consistent and correct product.
 
-Version 5.3.0
--------------
-
-Released January 28, 2016:
-
-- Add support for filter_friendly_name in WorkflowConfig
-- Load reservations by default in TaskRouter
-
-Version 5.2.0
--------------
-
-Released December 17, 2015:
-
-- Add support for IP Messaging
-
-Version 5.1.0
--------------
-
-Released December 11, 2015:
-
-- Remove pyjwt dependency
-
-Version 5.0.0
--------------
-
-Released December 8, 2015:
-
-- Update Access Tokens so that NBF is a optional parameter
-
-Version 4.10.0
--------------
-
-Released December 3, 2015:
-
-- Add Access Tokens
-
-Version 4.9.2
--------------
-
-Released November 25, 2015:
-
-- Fix for SIP Trunking bug
-
-Version 4.9.1
--------------
-
-Released November 18, 2015:
-
-- Addresses bug with SMS Pricing country
-
-Version 4.9.0
--------------
-
-Released November 3, 2015:
-
-- Add support for SIP Trunking
-
-Version 4.8.0
--------------
-
-- Add support for SMS pricing
-
-
-Version 4.6.0
--------------
-
-- Add /Keys endpoint
-
-Version 4.6.0
--------------
-
-Released September 23, 2015:
-
-- Allow fetching TaskRouter reservations by Worker
-- Add missing Enqueue->Task TwiML generation
-- Add Worflow construction
-
-Version 4.5.0
--------------
-
-Released August 11, 2015:
-
-- Add support for new Taskrouter JWT Functionality, JWTs now grant access to
-  - Workspace
-  - Worker
-  - TaskQueue
+- [Full API Documentation](https://twilio.github.io/twilio-python/)
+- [General Documentation](https://www.twilio.com/docs/libraries/python)
 
 Version 4.4.0
 -------------

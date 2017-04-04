@@ -23,13 +23,15 @@ pip-log.txt
 
 .DS_Store
 
-# Sphinx
-docs/tmp
-docs/_build
-cover
+docs/
 
 # PyCharm/IntelliJ
 .idea
 
 #htmlcov
 *htmlcov*
+
+# PyEnv
+.python-version
+
+README.md.bak
