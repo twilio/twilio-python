@@ -101,7 +101,7 @@ To control phone calls, your application needs to output
 Language"). Use `twilio.twiml.Response` to easily create such responses.
 
 ```python
-from twilio.twilio.voice_response import VoiceResponse
+from twilio.twiml.voice_response import VoiceResponse
 
 r = VoiceResponse()
 r.say("Welcome to twilio!")
