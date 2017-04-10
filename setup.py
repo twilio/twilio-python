@@ -38,7 +38,7 @@ setup(
         ':python_version=="3.5"': ['pysocks'],
         ':python_version=="3.6"': ['pysocks'],
     },
-    packages = find_packages(),
+    packages = find_packages(exclude=['tests', 'tests.*']),
     include_package_data=True,
     classifiers = [
         "Development Status :: 5 - Production/Stable",
