@@ -29,7 +29,7 @@ source code") for `twilio-python`, and then run:
 You may need to run the above commands with `sudo`.
 
 ### Migrate from 5.x
-[Upgrade Guide][upgrade]
+Please consult the [official migration guide](https://www.twilio.com/docs/libraries/python/migration-guide) for information on upgrading your application using twilio-python 5.x to 6.x
 
 ## Feedback
 Report any feedback or problems with this Release Candidate to the [Github Issues](https://github.com/twilio/twilio-python/issues) for twilio-python.
