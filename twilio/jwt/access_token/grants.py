@@ -1,4 +1,23 @@
 from twilio.jwt.access_token import AccessTokenGrant
+import warnings
+import functools
+
+
+def deprecated(func):
+    '''This is a decorator which can be used to mark functions
+    as deprecated. It will result in a warning being emitted
+    when the function is used.'''
+
+    @functools.wraps(func)
+    def new_func(*args, **kwargs):
+        warnings.warn_explicit(
+            "Call to deprecated function {}.".format(func.__name__),
+            category=DeprecationWarning,
+            filename=func.func_code.co_filename,
+            lineno=func.func_code.co_firstlineno + 1
+        )
+        return func(*args, **kwargs)
+    return new_func
 
 
 class IpMessagingGrant(AccessTokenGrant):
@@ -82,6 +101,24 @@ class VoiceGrant(AccessTokenGrant):
 
         if self.endpoint_id:
             grant['endpoint_id'] = self.endpoint_id
+
+        return grant
+
+
+class ConversationsGrant(AccessTokenGrant):
+    """Grant to access Twilio Conversations"""
+    @deprecated
+    def __init__(self, configuration_profile_sid=None):
+        self.configuration_profile_sid = configuration_profile_sid
+
+    @property
+    def key(self):
+        return "rtc"
+
+    def to_payload(self):
+        grant = {}
+        if self.configuration_profile_sid:
+            grant['configuration_profile_sid'] = self.configuration_profile_sid
 
         return grant
 
