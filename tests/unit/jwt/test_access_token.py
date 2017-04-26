@@ -10,6 +10,7 @@ from twilio.jwt.access_token.grants import (
     SyncGrant,
     VoiceGrant,
     VideoGrant,
+    ConversationsGrant,
     TaskRouterGrant
 )
 
@@ -80,9 +81,9 @@ class AccessTokenTest(unittest.TestCase):
             'identity': 'test@twilio.com'
         }, decoded_token.payload['grants'])
 
-    def test_video_grant(self):
+    def test_conversations_grant(self):
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
-        scat.add_grant(VideoGrant(room='CP123'))
+        scat.add_grant(ConversationsGrant(configuration_profile_sid='CP123'))
 
         token = scat.to_jwt()
         assert_is_not_none(token)
@@ -90,7 +91,20 @@ class AccessTokenTest(unittest.TestCase):
         self._validate_claims(decoded_token.payload)
         assert_equal(1, len(decoded_token.payload['grants']))
         assert_equal({
-            'room': 'CP123'
+            'configuration_profile_sid': 'CP123'
+        }, decoded_token.payload['grants']['rtc'])
+
+    def test_video_grant(self):
+        scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
+        scat.add_grant(VideoGrant(room='RM123'))
+
+        token = scat.to_jwt()
+        assert_is_not_none(token)
+        decoded_token = AccessToken.from_jwt(token, 'secret')
+        self._validate_claims(decoded_token.payload)
+        assert_equal(1, len(decoded_token.payload['grants']))
+        assert_equal({
+            'room': 'RM123'
         }, decoded_token.payload['grants']['video'])
 
     def test_ip_messaging_grant(self):
