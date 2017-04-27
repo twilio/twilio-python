@@ -37,7 +37,8 @@ class ServiceList(ListResource):
     def create(self, friendly_name, inbound_request_url=values.unset,
                inbound_method=values.unset, fallback_url=values.unset,
                fallback_method=values.unset, status_callback=values.unset,
-               sticky_sender=values.unset, mms_converter=values.unset):
+               sticky_sender=values.unset, mms_converter=values.unset,
+               smart_encoding=values.unset):
         """
         Create a new ServiceInstance
 
@@ -49,6 +50,7 @@ class ServiceList(ListResource):
         :param unicode status_callback: The status_callback
         :param bool sticky_sender: The sticky_sender
         :param bool mms_converter: The mms_converter
+        :param bool smart_encoding: The smart_encoding
 
         :returns: Newly created ServiceInstance
         :rtype: twilio.rest.messaging.v1.service.ServiceInstance
@@ -62,6 +64,7 @@ class ServiceList(ListResource):
             'StatusCallback': status_callback,
             'StickySender': sticky_sender,
             'MmsConverter': mms_converter,
+            'SmartEncoding': smart_encoding,
         })
 
         payload = self._version.create(
@@ -255,7 +258,8 @@ class ServiceContext(InstanceContext):
     def update(self, friendly_name=values.unset, inbound_request_url=values.unset,
                inbound_method=values.unset, fallback_url=values.unset,
                fallback_method=values.unset, status_callback=values.unset,
-               sticky_sender=values.unset, mms_converter=values.unset):
+               sticky_sender=values.unset, mms_converter=values.unset,
+               smart_encoding=values.unset):
         """
         Update the ServiceInstance
 
@@ -267,6 +271,7 @@ class ServiceContext(InstanceContext):
         :param unicode status_callback: The status_callback
         :param bool sticky_sender: The sticky_sender
         :param bool mms_converter: The mms_converter
+        :param bool smart_encoding: The smart_encoding
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.messaging.v1.service.ServiceInstance
@@ -280,6 +285,7 @@ class ServiceContext(InstanceContext):
             'StatusCallback': status_callback,
             'StickySender': sticky_sender,
             'MmsConverter': mms_converter,
+            'SmartEncoding': smart_encoding,
         })
 
         payload = self._version.update(
@@ -405,6 +411,7 @@ class ServiceInstance(InstanceResource):
             'status_callback': payload['status_callback'],
             'sticky_sender': payload['sticky_sender'],
             'mms_converter': payload['mms_converter'],
+            'smart_encoding': payload['smart_encoding'],
             'url': payload['url'],
             'links': payload['links'],
         }
@@ -528,6 +535,14 @@ class ServiceInstance(InstanceResource):
         return self._properties['mms_converter']
 
     @property
+    def smart_encoding(self):
+        """
+        :returns: The smart_encoding
+        :rtype: bool
+        """
+        return self._properties['smart_encoding']
+
+    @property
     def url(self):
         """
         :returns: The url
@@ -546,7 +561,8 @@ class ServiceInstance(InstanceResource):
     def update(self, friendly_name=values.unset, inbound_request_url=values.unset,
                inbound_method=values.unset, fallback_url=values.unset,
                fallback_method=values.unset, status_callback=values.unset,
-               sticky_sender=values.unset, mms_converter=values.unset):
+               sticky_sender=values.unset, mms_converter=values.unset,
+               smart_encoding=values.unset):
         """
         Update the ServiceInstance
 
@@ -558,6 +574,7 @@ class ServiceInstance(InstanceResource):
         :param unicode status_callback: The status_callback
         :param bool sticky_sender: The sticky_sender
         :param bool mms_converter: The mms_converter
+        :param bool smart_encoding: The smart_encoding
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.messaging.v1.service.ServiceInstance
@@ -571,6 +588,7 @@ class ServiceInstance(InstanceResource):
             status_callback=status_callback,
             sticky_sender=sticky_sender,
             mms_converter=mms_converter,
+            smart_encoding=smart_encoding,
         )
 
     def fetch(self):

@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2017-04-03] Version 6.1.0-alpha-1
+----------------------------------
+
+- Add chat v2.
+- Add new Conference parameters.
+- Add `ValidityPeriod` parameter to Messages.
+
 [2017-04-03] Version 6.0.0-alpha-1
 ----------------------------------
 **New Major Version**

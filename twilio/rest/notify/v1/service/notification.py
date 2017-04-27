@@ -37,7 +37,7 @@ class NotificationList(ListResource):
                title=values.unset, sound=values.unset, action=values.unset,
                data=values.unset, apn=values.unset, gcm=values.unset,
                sms=values.unset, facebook_messenger=values.unset, fcm=values.unset,
-               identity=values.unset, tag=values.unset):
+               segment=values.unset, identity=values.unset, tag=values.unset):
         """
         Create a new NotificationInstance
 
@@ -53,6 +53,7 @@ class NotificationList(ListResource):
         :param unicode sms: The sms
         :param dict facebook_messenger: The facebook_messenger
         :param unicode fcm: The fcm
+        :param unicode segment: The segment
         :param unicode identity: The identity
         :param unicode tag: The tag
 
@@ -74,6 +75,7 @@ class NotificationList(ListResource):
             'Sms': sms,
             'FacebookMessenger': facebook_messenger,
             'Fcm': fcm,
+            'Segment': segment,
         })
 
         payload = self._version.create(
@@ -164,6 +166,7 @@ class NotificationInstance(InstanceResource):
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'identities': payload['identities'],
             'tags': payload['tags'],
+            'segments': payload['segments'],
             'priority': payload['priority'],
             'ttl': deserialize.integer(payload['ttl']),
             'title': payload['title'],
@@ -231,6 +234,14 @@ class NotificationInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['tags']
+
+    @property
+    def segments(self):
+        """
+        :returns: The segments
+        :rtype: unicode
+        """
+        return self._properties['segments']
 
     @property
     def priority(self):

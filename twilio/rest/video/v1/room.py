@@ -71,9 +71,9 @@ class RoomList(ListResource):
             payload,
         )
 
-    def stream(self, status=values.unset, start_time_after=values.unset,
-               start_time_before=values.unset, unique_name=values.unset, limit=None,
-               page_size=None):
+    def stream(self, status=values.unset, unique_name=values.unset,
+               date_created_after=values.unset, date_created_before=values.unset,
+               limit=None, page_size=None):
         """
         Streams RoomInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -81,9 +81,9 @@ class RoomList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param RoomInstance.RoomStatus status: The status
-        :param datetime start_time_after: The start_time_after
-        :param datetime start_time_before: The start_time_before
         :param unicode unique_name: The unique_name
+        :param datetime date_created_after: The date_created_after
+        :param datetime date_created_before: The date_created_before
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -98,26 +98,26 @@ class RoomList(ListResource):
 
         page = self.page(
             status=status,
-            start_time_after=start_time_after,
-            start_time_before=start_time_before,
             unique_name=unique_name,
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
             page_size=limits['page_size'],
         )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def list(self, status=values.unset, start_time_after=values.unset,
-             start_time_before=values.unset, unique_name=values.unset, limit=None,
-             page_size=None):
+    def list(self, status=values.unset, unique_name=values.unset,
+             date_created_after=values.unset, date_created_before=values.unset,
+             limit=None, page_size=None):
         """
         Lists RoomInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
         :param RoomInstance.RoomStatus status: The status
-        :param datetime start_time_after: The start_time_after
-        :param datetime start_time_before: The start_time_before
         :param unicode unique_name: The unique_name
+        :param datetime date_created_after: The date_created_after
+        :param datetime date_created_before: The date_created_before
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -130,15 +130,15 @@ class RoomList(ListResource):
         """
         return list(self.stream(
             status=status,
-            start_time_after=start_time_after,
-            start_time_before=start_time_before,
             unique_name=unique_name,
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
             limit=limit,
             page_size=page_size,
         ))
 
-    def page(self, status=values.unset, start_time_after=values.unset,
-             start_time_before=values.unset, unique_name=values.unset,
+    def page(self, status=values.unset, unique_name=values.unset,
+             date_created_after=values.unset, date_created_before=values.unset,
              page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
         """
@@ -146,9 +146,9 @@ class RoomList(ListResource):
         Request is executed immediately
 
         :param RoomInstance.RoomStatus status: The status
-        :param datetime start_time_after: The start_time_after
-        :param datetime start_time_before: The start_time_before
         :param unicode unique_name: The unique_name
+        :param datetime date_created_after: The date_created_after
+        :param datetime date_created_before: The date_created_before
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -158,9 +158,9 @@ class RoomList(ListResource):
         """
         params = values.of({
             'Status': status,
-            'StartTimeAfter': serialize.iso8601_datetime(start_time_after),
-            'StartTimeBefore': serialize.iso8601_datetime(start_time_before),
             'UniqueName': unique_name,
+            'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
+            'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -361,7 +361,6 @@ class RoomInstance(InstanceResource):
             'unique_name': payload['unique_name'],
             'status_callback': payload['status_callback'],
             'status_callback_method': payload['status_callback_method'],
-            'start_time': deserialize.iso8601_datetime(payload['start_time']),
             'end_time': deserialize.iso8601_datetime(payload['end_time']),
             'duration': deserialize.integer(payload['duration']),
             'type': payload['type'],
@@ -463,14 +462,6 @@ class RoomInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['status_callback_method']
-
-    @property
-    def start_time(self):
-        """
-        :returns: The start_time
-        :rtype: datetime
-        """
-        return self._properties['start_time']
 
     @property
     def end_time(self):

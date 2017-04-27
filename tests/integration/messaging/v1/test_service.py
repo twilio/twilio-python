@@ -46,6 +46,7 @@ class ServiceTestCase(IntegrationTestCase):
                 "fallback_method": "GET",
                 "status_callback": "https://www.example.com",
                 "sticky_sender": true,
+                "smart_encoding": false,
                 "mms_converter": true,
                 "links": {
                     "phone_numbers": "https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers",
@@ -84,6 +85,7 @@ class ServiceTestCase(IntegrationTestCase):
                 "date_updated": "2015-07-30T20:12:33Z",
                 "sticky_sender": false,
                 "mms_converter": true,
+                "smart_encoding": false,
                 "inbound_request_url": "https://www.example.com",
                 "inbound_method": "POST",
                 "fallback_url": null,
@@ -137,6 +139,7 @@ class ServiceTestCase(IntegrationTestCase):
                         "date_updated": "2015-07-30T20:12:33Z",
                         "sticky_sender": true,
                         "mms_converter": true,
+                        "smart_encoding": false,
                         "inbound_request_url": "https://www.example.com/",
                         "inbound_method": "POST",
                         "fallback_url": null,
@@ -186,6 +189,7 @@ class ServiceTestCase(IntegrationTestCase):
                 "status_callback": "https://www.example.com",
                 "sticky_sender": true,
                 "mms_converter": true,
+                "smart_encoding": false,
                 "links": {
                     "phone_numbers": "https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers",
                     "short_codes": "https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ShortCodes",

@@ -45,6 +45,9 @@ class BindingTestCase(IntegrationTestCase):
                 "tags": [
                     "26607274"
                 ],
+                "links": {
+                    "user": "https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/24987039"
+                },
                 "url": "https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
@@ -83,10 +86,9 @@ class BindingTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.notify.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .bindings.create(endpoint="endpoint", identity="identity", binding_type="apn", address="address")
+                                 .bindings.create(identity="identity", binding_type="apn", address="address")
 
         values = {
-            'Endpoint': "endpoint",
             'Identity': "identity",
             'BindingType': "apn",
             'Address': "address",
@@ -117,13 +119,16 @@ class BindingTestCase(IntegrationTestCase):
                 "tags": [
                     "26607274"
                 ],
+                "links": {
+                    "user": "https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/24987039"
+                },
                 "url": "https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
         ))
 
         actual = self.client.notify.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .bindings.create(endpoint="endpoint", identity="identity", binding_type="apn", address="address")
+                                      .bindings.create(identity="identity", binding_type="apn", address="address")
 
         self.assertIsNotNone(actual)
 
@@ -184,6 +189,9 @@ class BindingTestCase(IntegrationTestCase):
                         "tags": [
                             "26607274"
                         ],
+                        "links": {
+                            "user": "https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/24987039"
+                        },
                         "url": "https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     }
                 ],

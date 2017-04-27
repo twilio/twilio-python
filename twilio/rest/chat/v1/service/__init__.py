@@ -25,8 +25,8 @@ class ServiceList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: twilio.rest.ip_messaging.v1.service.ServiceList
-        :rtype: twilio.rest.ip_messaging.v1.service.ServiceList
+        :returns: twilio.rest.chat.v1.service.ServiceList
+        :rtype: twilio.rest.chat.v1.service.ServiceList
         """
         super(ServiceList, self).__init__(version)
 
@@ -41,7 +41,7 @@ class ServiceList(ListResource):
         :param unicode friendly_name: The friendly_name
 
         :returns: Newly created ServiceInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.ServiceInstance
+        :rtype: twilio.rest.chat.v1.service.ServiceInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -73,7 +73,7 @@ class ServiceList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v1.service.ServiceInstance]
+        :rtype: list[twilio.rest.chat.v1.service.ServiceInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -97,7 +97,7 @@ class ServiceList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v1.service.ServiceInstance]
+        :rtype: list[twilio.rest.chat.v1.service.ServiceInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -115,7 +115,7 @@ class ServiceList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.ServicePage
+        :rtype: twilio.rest.chat.v1.service.ServicePage
         """
         params = values.of({
             'PageToken': page_token,
@@ -137,8 +137,8 @@ class ServiceList(ListResource):
 
         :param sid: The sid
 
-        :returns: twilio.rest.ip_messaging.v1.service.ServiceContext
-        :rtype: twilio.rest.ip_messaging.v1.service.ServiceContext
+        :returns: twilio.rest.chat.v1.service.ServiceContext
+        :rtype: twilio.rest.chat.v1.service.ServiceContext
         """
         return ServiceContext(
             self._version,
@@ -151,8 +151,8 @@ class ServiceList(ListResource):
 
         :param sid: The sid
 
-        :returns: twilio.rest.ip_messaging.v1.service.ServiceContext
-        :rtype: twilio.rest.ip_messaging.v1.service.ServiceContext
+        :returns: twilio.rest.chat.v1.service.ServiceContext
+        :rtype: twilio.rest.chat.v1.service.ServiceContext
         """
         return ServiceContext(
             self._version,
@@ -178,8 +178,8 @@ class ServicePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.ip_messaging.v1.service.ServicePage
-        :rtype: twilio.rest.ip_messaging.v1.service.ServicePage
+        :returns: twilio.rest.chat.v1.service.ServicePage
+        :rtype: twilio.rest.chat.v1.service.ServicePage
         """
         super(ServicePage, self).__init__(version, response)
 
@@ -192,8 +192,8 @@ class ServicePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.ip_messaging.v1.service.ServiceInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.ServiceInstance
+        :returns: twilio.rest.chat.v1.service.ServiceInstance
+        :rtype: twilio.rest.chat.v1.service.ServiceInstance
         """
         return ServiceInstance(
             self._version,
@@ -219,8 +219,8 @@ class ServiceContext(InstanceContext):
         :param Version version: Version that contains the resource
         :param sid: The sid
 
-        :returns: twilio.rest.ip_messaging.v1.service.ServiceContext
-        :rtype: twilio.rest.ip_messaging.v1.service.ServiceContext
+        :returns: twilio.rest.chat.v1.service.ServiceContext
+        :rtype: twilio.rest.chat.v1.service.ServiceContext
         """
         super(ServiceContext, self).__init__(version)
 
@@ -240,7 +240,7 @@ class ServiceContext(InstanceContext):
         Fetch a ServiceInstance
 
         :returns: Fetched ServiceInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.ServiceInstance
+        :rtype: twilio.rest.chat.v1.service.ServiceInstance
         """
         params = values.of({})
 
@@ -407,7 +407,7 @@ class ServiceContext(InstanceContext):
         :param unicode limits_user_channels: The limits.user_channels
 
         :returns: Updated ServiceInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.ServiceInstance
+        :rtype: twilio.rest.chat.v1.service.ServiceInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -499,8 +499,8 @@ class ServiceContext(InstanceContext):
         """
         Access the channels
 
-        :returns: twilio.rest.ip_messaging.v1.service.channel.ChannelList
-        :rtype: twilio.rest.ip_messaging.v1.service.channel.ChannelList
+        :returns: twilio.rest.chat.v1.service.channel.ChannelList
+        :rtype: twilio.rest.chat.v1.service.channel.ChannelList
         """
         if self._channels is None:
             self._channels = ChannelList(
@@ -514,8 +514,8 @@ class ServiceContext(InstanceContext):
         """
         Access the roles
 
-        :returns: twilio.rest.ip_messaging.v1.service.role.RoleList
-        :rtype: twilio.rest.ip_messaging.v1.service.role.RoleList
+        :returns: twilio.rest.chat.v1.service.role.RoleList
+        :rtype: twilio.rest.chat.v1.service.role.RoleList
         """
         if self._roles is None:
             self._roles = RoleList(
@@ -529,8 +529,8 @@ class ServiceContext(InstanceContext):
         """
         Access the users
 
-        :returns: twilio.rest.ip_messaging.v1.service.user.UserList
-        :rtype: twilio.rest.ip_messaging.v1.service.user.UserList
+        :returns: twilio.rest.chat.v1.service.user.UserList
+        :rtype: twilio.rest.chat.v1.service.user.UserList
         """
         if self._users is None:
             self._users = UserList(
@@ -556,8 +556,8 @@ class ServiceInstance(InstanceResource):
         """
         Initialize the ServiceInstance
 
-        :returns: twilio.rest.ip_messaging.v1.service.ServiceInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.ServiceInstance
+        :returns: twilio.rest.chat.v1.service.ServiceInstance
+        :rtype: twilio.rest.chat.v1.service.ServiceInstance
         """
         super(ServiceInstance, self).__init__(version)
 
@@ -599,7 +599,7 @@ class ServiceInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: ServiceContext for this ServiceInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.ServiceContext
+        :rtype: twilio.rest.chat.v1.service.ServiceContext
         """
         if self._context is None:
             self._context = ServiceContext(
@@ -781,7 +781,7 @@ class ServiceInstance(InstanceResource):
         Fetch a ServiceInstance
 
         :returns: Fetched ServiceInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.ServiceInstance
+        :rtype: twilio.rest.chat.v1.service.ServiceInstance
         """
         return self._proxy.fetch()
 
@@ -936,7 +936,7 @@ class ServiceInstance(InstanceResource):
         :param unicode limits_user_channels: The limits.user_channels
 
         :returns: Updated ServiceInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.ServiceInstance
+        :rtype: twilio.rest.chat.v1.service.ServiceInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
@@ -1016,8 +1016,8 @@ class ServiceInstance(InstanceResource):
         """
         Access the channels
 
-        :returns: twilio.rest.ip_messaging.v1.service.channel.ChannelList
-        :rtype: twilio.rest.ip_messaging.v1.service.channel.ChannelList
+        :returns: twilio.rest.chat.v1.service.channel.ChannelList
+        :rtype: twilio.rest.chat.v1.service.channel.ChannelList
         """
         return self._proxy.channels
 
@@ -1026,8 +1026,8 @@ class ServiceInstance(InstanceResource):
         """
         Access the roles
 
-        :returns: twilio.rest.ip_messaging.v1.service.role.RoleList
-        :rtype: twilio.rest.ip_messaging.v1.service.role.RoleList
+        :returns: twilio.rest.chat.v1.service.role.RoleList
+        :rtype: twilio.rest.chat.v1.service.role.RoleList
         """
         return self._proxy.roles
 
@@ -1036,8 +1036,8 @@ class ServiceInstance(InstanceResource):
         """
         Access the users
 
-        :returns: twilio.rest.ip_messaging.v1.service.user.UserList
-        :rtype: twilio.rest.ip_messaging.v1.service.user.UserList
+        :returns: twilio.rest.chat.v1.service.user.UserList
+        :rtype: twilio.rest.chat.v1.service.user.UserList
         """
         return self._proxy.users
 

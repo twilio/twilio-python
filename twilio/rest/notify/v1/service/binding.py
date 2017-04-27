@@ -35,31 +35,31 @@ class BindingList(ListResource):
         }
         self._uri = '/Services/{service_sid}/Bindings'.format(**self._solution)
 
-    def create(self, endpoint, identity, binding_type, address, tag=values.unset,
+    def create(self, identity, binding_type, address, tag=values.unset,
                notification_protocol_version=values.unset,
-               credential_sid=values.unset):
+               credential_sid=values.unset, endpoint=values.unset):
         """
         Create a new BindingInstance
 
-        :param unicode endpoint: The endpoint
         :param unicode identity: The identity
         :param BindingInstance.BindingType binding_type: The binding_type
         :param unicode address: The address
         :param unicode tag: The tag
         :param unicode notification_protocol_version: The notification_protocol_version
         :param unicode credential_sid: The credential_sid
+        :param unicode endpoint: The endpoint
 
         :returns: Newly created BindingInstance
         :rtype: twilio.rest.notify.v1.service.binding.BindingInstance
         """
         data = values.of({
-            'Endpoint': endpoint,
             'Identity': identity,
             'BindingType': binding_type,
             'Address': address,
             'Tag': tag,
             'NotificationProtocolVersion': notification_protocol_version,
             'CredentialSid': credential_sid,
+            'Endpoint': endpoint,
         })
 
         payload = self._version.create(
@@ -329,6 +329,7 @@ class BindingInstance(InstanceResource):
         SMS = "sms"
         FCM = "fcm"
         FACEBOOK_MESSENGER = "facebook-messenger"
+        ALEXA = "alexa"
 
     def __init__(self, version, payload, service_sid, sid=None):
         """
@@ -354,6 +355,7 @@ class BindingInstance(InstanceResource):
             'address': payload['address'],
             'tags': payload['tags'],
             'url': payload['url'],
+            'links': payload['links'],
         }
 
         # Context
@@ -483,6 +485,14 @@ class BindingInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['url']
+
+    @property
+    def links(self):
+        """
+        :returns: The links
+        :rtype: unicode
+        """
+        return self._properties['links']
 
     def fetch(self):
         """

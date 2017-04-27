@@ -22,8 +22,8 @@ class CredentialList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: twilio.rest.ip_messaging.v1.credential.CredentialList
-        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialList
+        :returns: twilio.rest.chat.v1.credential.CredentialList
+        :rtype: twilio.rest.chat.v1.credential.CredentialList
         """
         super(CredentialList, self).__init__(version)
 
@@ -46,7 +46,7 @@ class CredentialList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v1.credential.CredentialInstance]
+        :rtype: list[twilio.rest.chat.v1.credential.CredentialInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -70,7 +70,7 @@ class CredentialList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v1.credential.CredentialInstance]
+        :rtype: list[twilio.rest.chat.v1.credential.CredentialInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -88,7 +88,7 @@ class CredentialList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CredentialInstance
-        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialPage
+        :rtype: twilio.rest.chat.v1.credential.CredentialPage
         """
         params = values.of({
             'PageToken': page_token,
@@ -119,7 +119,7 @@ class CredentialList(ListResource):
         :param unicode secret: The secret
 
         :returns: Newly created CredentialInstance
-        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialInstance
+        :rtype: twilio.rest.chat.v1.credential.CredentialInstance
         """
         data = values.of({
             'Type': type,
@@ -148,8 +148,8 @@ class CredentialList(ListResource):
 
         :param sid: The sid
 
-        :returns: twilio.rest.ip_messaging.v1.credential.CredentialContext
-        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialContext
+        :returns: twilio.rest.chat.v1.credential.CredentialContext
+        :rtype: twilio.rest.chat.v1.credential.CredentialContext
         """
         return CredentialContext(
             self._version,
@@ -162,8 +162,8 @@ class CredentialList(ListResource):
 
         :param sid: The sid
 
-        :returns: twilio.rest.ip_messaging.v1.credential.CredentialContext
-        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialContext
+        :returns: twilio.rest.chat.v1.credential.CredentialContext
+        :rtype: twilio.rest.chat.v1.credential.CredentialContext
         """
         return CredentialContext(
             self._version,
@@ -189,8 +189,8 @@ class CredentialPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.ip_messaging.v1.credential.CredentialPage
-        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialPage
+        :returns: twilio.rest.chat.v1.credential.CredentialPage
+        :rtype: twilio.rest.chat.v1.credential.CredentialPage
         """
         super(CredentialPage, self).__init__(version, response)
 
@@ -203,8 +203,8 @@ class CredentialPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.ip_messaging.v1.credential.CredentialInstance
-        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialInstance
+        :returns: twilio.rest.chat.v1.credential.CredentialInstance
+        :rtype: twilio.rest.chat.v1.credential.CredentialInstance
         """
         return CredentialInstance(
             self._version,
@@ -230,8 +230,8 @@ class CredentialContext(InstanceContext):
         :param Version version: Version that contains the resource
         :param sid: The sid
 
-        :returns: twilio.rest.ip_messaging.v1.credential.CredentialContext
-        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialContext
+        :returns: twilio.rest.chat.v1.credential.CredentialContext
+        :rtype: twilio.rest.chat.v1.credential.CredentialContext
         """
         super(CredentialContext, self).__init__(version)
 
@@ -246,7 +246,7 @@ class CredentialContext(InstanceContext):
         Fetch a CredentialInstance
 
         :returns: Fetched CredentialInstance
-        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialInstance
+        :rtype: twilio.rest.chat.v1.credential.CredentialInstance
         """
         params = values.of({})
 
@@ -276,7 +276,7 @@ class CredentialContext(InstanceContext):
         :param unicode secret: The secret
 
         :returns: Updated CredentialInstance
-        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialInstance
+        :rtype: twilio.rest.chat.v1.credential.CredentialInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -330,8 +330,8 @@ class CredentialInstance(InstanceResource):
         """
         Initialize the CredentialInstance
 
-        :returns: twilio.rest.ip_messaging.v1.credential.CredentialInstance
-        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialInstance
+        :returns: twilio.rest.chat.v1.credential.CredentialInstance
+        :rtype: twilio.rest.chat.v1.credential.CredentialInstance
         """
         super(CredentialInstance, self).__init__(version)
 
@@ -360,7 +360,7 @@ class CredentialInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: CredentialContext for this CredentialInstance
-        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialContext
+        :rtype: twilio.rest.chat.v1.credential.CredentialContext
         """
         if self._context is None:
             self._context = CredentialContext(
@@ -438,7 +438,7 @@ class CredentialInstance(InstanceResource):
         Fetch a CredentialInstance
 
         :returns: Fetched CredentialInstance
-        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialInstance
+        :rtype: twilio.rest.chat.v1.credential.CredentialInstance
         """
         return self._proxy.fetch()
 
@@ -456,7 +456,7 @@ class CredentialInstance(InstanceResource):
         :param unicode secret: The secret
 
         :returns: Updated CredentialInstance
-        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialInstance
+        :rtype: twilio.rest.chat.v1.credential.CredentialInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,

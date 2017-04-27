@@ -43,7 +43,6 @@ class RoomTestCase(IntegrationTestCase):
                 "status_callback_method": "POST",
                 "status_callback": "",
                 "record_participants_on_connect": false,
-                "start_time": "2015-07-30T20:00:00Z",
                 "end_time": "2015-07-30T20:00:00Z",
                 "url": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
@@ -83,7 +82,6 @@ class RoomTestCase(IntegrationTestCase):
                 "status_callback_method": "POST",
                 "status_callback": "",
                 "record_participants_on_connect": false,
-                "start_time": "2015-07-30T20:00:00Z",
                 "end_time": "2015-07-30T20:00:00Z",
                 "url": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
@@ -111,6 +109,47 @@ class RoomTestCase(IntegrationTestCase):
             '''
             {
                 "rooms": [],
+                "meta": {
+                    "page": 0,
+                    "page_size": 50,
+                    "first_page_url": "https://video.twilio.com/v1/Rooms?PageSize=50&Page=0",
+                    "previous_page_url": null,
+                    "url": "https://video.twilio.com/v1/Rooms?PageSize=50&Page=0",
+                    "next_page_url": null,
+                    "key": "rooms"
+                }
+            }
+            '''
+        ))
+
+        actual = self.client.video.v1.rooms.list()
+
+        self.assertIsNotNone(actual)
+
+    def test_read_with_status_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "rooms": [
+                    {
+                        "sid": "RM4070b618362c1682b2385b1f9982833c",
+                        "status": "completed",
+                        "date_created": "2017-04-03T22:21:49Z",
+                        "date_updated": "2017-04-03T22:21:51Z",
+                        "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "type": "peer-to-peer",
+                        "enable_turn": true,
+                        "unique_name": "RM4070b618362c1682b2385b1f9982833c",
+                        "status_callback": null,
+                        "status_callback_method": "POST",
+                        "end_time": "2017-04-03T22:21:51Z",
+                        "duration": 2,
+                        "max_participants": 10,
+                        "record_participants_on_connect": false,
+                        "url": "https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c"
+                    }
+                ],
                 "meta": {
                     "page": 0,
                     "page_size": 50,
@@ -161,7 +200,6 @@ class RoomTestCase(IntegrationTestCase):
                 "status_callback_method": "POST",
                 "status_callback": "",
                 "record_participants_on_connect": false,
-                "start_time": "2015-07-30T20:00:00Z",
                 "end_time": "2015-07-30T20:00:00Z",
                 "duration": 10,
                 "url": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"

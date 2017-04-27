@@ -31,8 +31,8 @@ class RecordingList(ListResource):
         self._solution = {}
         self._uri = '/Recordings'.format(**self._solution)
 
-    def stream(self, status=values.unset, source_sid=values.unset, limit=None,
-               page_size=None):
+    def stream(self, status=values.unset, source_sid=values.unset,
+               grouping_sid=values.unset, limit=None, page_size=None):
         """
         Streams RecordingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -41,6 +41,7 @@ class RecordingList(ListResource):
 
         :param RecordingInstance.Status status: The status
         :param unicode source_sid: The source_sid
+        :param unicode grouping_sid: The grouping_sid
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -56,13 +57,14 @@ class RecordingList(ListResource):
         page = self.page(
             status=status,
             source_sid=source_sid,
+            grouping_sid=grouping_sid,
             page_size=limits['page_size'],
         )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def list(self, status=values.unset, source_sid=values.unset, limit=None,
-             page_size=None):
+    def list(self, status=values.unset, source_sid=values.unset,
+             grouping_sid=values.unset, limit=None, page_size=None):
         """
         Lists RecordingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -70,6 +72,7 @@ class RecordingList(ListResource):
 
         :param RecordingInstance.Status status: The status
         :param unicode source_sid: The source_sid
+        :param unicode grouping_sid: The grouping_sid
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -83,19 +86,21 @@ class RecordingList(ListResource):
         return list(self.stream(
             status=status,
             source_sid=source_sid,
+            grouping_sid=grouping_sid,
             limit=limit,
             page_size=page_size,
         ))
 
     def page(self, status=values.unset, source_sid=values.unset,
-             page_token=values.unset, page_number=values.unset,
-             page_size=values.unset):
+             grouping_sid=values.unset, page_token=values.unset,
+             page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of RecordingInstance records from the API.
         Request is executed immediately
 
         :param RecordingInstance.Status status: The status
         :param unicode source_sid: The source_sid
+        :param unicode grouping_sid: The grouping_sid
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -106,6 +111,7 @@ class RecordingList(ListResource):
         params = values.of({
             'Status': status,
             'SourceSid': source_sid,
+            'GroupingSid': grouping_sid,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -304,6 +310,7 @@ class RecordingInstance(InstanceResource):
             'duration': deserialize.integer(payload['duration']),
             'container_format': payload['container_format'],
             'codec': payload['codec'],
+            'grouping_sids': payload['grouping_sids'],
             'links': payload['links'],
         }
 
@@ -416,6 +423,14 @@ class RecordingInstance(InstanceResource):
         :rtype: RecordingInstance.Codec
         """
         return self._properties['codec']
+
+    @property
+    def grouping_sids(self):
+        """
+        :returns: The grouping_sids
+        :rtype: dict
+        """
+        return self._properties['grouping_sids']
 
     @property
     def links(self):

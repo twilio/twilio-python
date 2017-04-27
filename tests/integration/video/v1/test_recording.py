@@ -41,6 +41,9 @@ class RecordingTestCase(IntegrationTestCase):
                 "duration": 0,
                 "container_format": "mka",
                 "codec": "OPUS",
+                "grouping_sids": {
+                    "room_sid": "RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                },
                 "links": {
                     "media": "https://video.twilio.com/v1/Recordings/RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media"
                 }

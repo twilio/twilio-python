@@ -290,6 +290,15 @@ class RatePlanContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
+    def delete(self):
+        """
+        Deletes the RatePlanInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete('delete', self._uri)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -460,6 +469,15 @@ class RatePlanInstance(InstanceResource):
             unique_name=unique_name,
             friendly_name=friendly_name,
         )
+
+    def delete(self):
+        """
+        Deletes the RatePlanInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
 
     def __repr__(self):
         """

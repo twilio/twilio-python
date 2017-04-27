@@ -14,6 +14,8 @@ from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
 from twilio.rest.notify.v1.service.binding import BindingList
 from twilio.rest.notify.v1.service.notification import NotificationList
+from twilio.rest.notify.v1.service.segment import SegmentList
+from twilio.rest.notify.v1.service.user import UserList
 
 
 class ServiceList(ListResource):
@@ -39,7 +41,8 @@ class ServiceList(ListResource):
                default_apn_notification_protocol_version=values.unset,
                default_gcm_notification_protocol_version=values.unset,
                fcm_credential_sid=values.unset,
-               default_fcm_notification_protocol_version=values.unset):
+               default_fcm_notification_protocol_version=values.unset,
+               log_enabled=values.unset):
         """
         Create a new ServiceInstance
 
@@ -52,6 +55,7 @@ class ServiceList(ListResource):
         :param unicode default_gcm_notification_protocol_version: The default_gcm_notification_protocol_version
         :param unicode fcm_credential_sid: The fcm_credential_sid
         :param unicode default_fcm_notification_protocol_version: The default_fcm_notification_protocol_version
+        :param bool log_enabled: The log_enabled
 
         :returns: Newly created ServiceInstance
         :rtype: twilio.rest.notify.v1.service.ServiceInstance
@@ -66,6 +70,7 @@ class ServiceList(ListResource):
             'DefaultGcmNotificationProtocolVersion': default_gcm_notification_protocol_version,
             'FcmCredentialSid': fcm_credential_sid,
             'DefaultFcmNotificationProtocolVersion': default_fcm_notification_protocol_version,
+            'LogEnabled': log_enabled,
         })
 
         payload = self._version.create(
@@ -260,6 +265,8 @@ class ServiceContext(InstanceContext):
         # Dependents
         self._bindings = None
         self._notifications = None
+        self._users = None
+        self._segments = None
 
     def delete(self):
         """
@@ -297,7 +304,8 @@ class ServiceContext(InstanceContext):
                default_apn_notification_protocol_version=values.unset,
                default_gcm_notification_protocol_version=values.unset,
                fcm_credential_sid=values.unset,
-               default_fcm_notification_protocol_version=values.unset):
+               default_fcm_notification_protocol_version=values.unset,
+               log_enabled=values.unset):
         """
         Update the ServiceInstance
 
@@ -310,6 +318,7 @@ class ServiceContext(InstanceContext):
         :param unicode default_gcm_notification_protocol_version: The default_gcm_notification_protocol_version
         :param unicode fcm_credential_sid: The fcm_credential_sid
         :param unicode default_fcm_notification_protocol_version: The default_fcm_notification_protocol_version
+        :param bool log_enabled: The log_enabled
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.notify.v1.service.ServiceInstance
@@ -324,6 +333,7 @@ class ServiceContext(InstanceContext):
             'DefaultGcmNotificationProtocolVersion': default_gcm_notification_protocol_version,
             'FcmCredentialSid': fcm_credential_sid,
             'DefaultFcmNotificationProtocolVersion': default_fcm_notification_protocol_version,
+            'LogEnabled': log_enabled,
         })
 
         payload = self._version.update(
@@ -368,6 +378,36 @@ class ServiceContext(InstanceContext):
             )
         return self._notifications
 
+    @property
+    def users(self):
+        """
+        Access the users
+
+        :returns: twilio.rest.notify.v1.service.user.UserList
+        :rtype: twilio.rest.notify.v1.service.user.UserList
+        """
+        if self._users is None:
+            self._users = UserList(
+                self._version,
+                service_sid=self._solution['sid'],
+            )
+        return self._users
+
+    @property
+    def segments(self):
+        """
+        Access the segments
+
+        :returns: twilio.rest.notify.v1.service.segment.SegmentList
+        :rtype: twilio.rest.notify.v1.service.segment.SegmentList
+        """
+        if self._segments is None:
+            self._segments = SegmentList(
+                self._version,
+                service_sid=self._solution['sid'],
+            )
+        return self._segments
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -405,6 +445,7 @@ class ServiceInstance(InstanceResource):
             'default_apn_notification_protocol_version': payload['default_apn_notification_protocol_version'],
             'default_gcm_notification_protocol_version': payload['default_gcm_notification_protocol_version'],
             'default_fcm_notification_protocol_version': payload['default_fcm_notification_protocol_version'],
+            'log_enabled': payload['log_enabled'],
             'url': payload['url'],
             'links': payload['links'],
         }
@@ -536,6 +577,14 @@ class ServiceInstance(InstanceResource):
         return self._properties['default_fcm_notification_protocol_version']
 
     @property
+    def log_enabled(self):
+        """
+        :returns: The log_enabled
+        :rtype: bool
+        """
+        return self._properties['log_enabled']
+
+    @property
     def url(self):
         """
         :returns: The url
@@ -575,7 +624,8 @@ class ServiceInstance(InstanceResource):
                default_apn_notification_protocol_version=values.unset,
                default_gcm_notification_protocol_version=values.unset,
                fcm_credential_sid=values.unset,
-               default_fcm_notification_protocol_version=values.unset):
+               default_fcm_notification_protocol_version=values.unset,
+               log_enabled=values.unset):
         """
         Update the ServiceInstance
 
@@ -588,6 +638,7 @@ class ServiceInstance(InstanceResource):
         :param unicode default_gcm_notification_protocol_version: The default_gcm_notification_protocol_version
         :param unicode fcm_credential_sid: The fcm_credential_sid
         :param unicode default_fcm_notification_protocol_version: The default_fcm_notification_protocol_version
+        :param bool log_enabled: The log_enabled
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.notify.v1.service.ServiceInstance
@@ -602,6 +653,7 @@ class ServiceInstance(InstanceResource):
             default_gcm_notification_protocol_version=default_gcm_notification_protocol_version,
             fcm_credential_sid=fcm_credential_sid,
             default_fcm_notification_protocol_version=default_fcm_notification_protocol_version,
+            log_enabled=log_enabled,
         )
 
     @property
@@ -623,6 +675,26 @@ class ServiceInstance(InstanceResource):
         :rtype: twilio.rest.notify.v1.service.notification.NotificationList
         """
         return self._proxy.notifications
+
+    @property
+    def users(self):
+        """
+        Access the users
+
+        :returns: twilio.rest.notify.v1.service.user.UserList
+        :rtype: twilio.rest.notify.v1.service.user.UserList
+        """
+        return self._proxy.users
+
+    @property
+    def segments(self):
+        """
+        Access the segments
+
+        :returns: twilio.rest.notify.v1.service.segment.SegmentList
+        :rtype: twilio.rest.notify.v1.service.segment.SegmentList
+        """
+        return self._proxy.segments
 
     def __repr__(self):
         """
