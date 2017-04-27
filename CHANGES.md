@@ -15,6 +15,11 @@ Here you can see the full list of changes between each twilio-python release.
 - Add `conference_recording_status_callback` parameter to Participant create and update.
 - Add `conference_recording_status_callback_method` parameter to Participant create and update.
 - Add `validity_period` parameter to Messages.
+- Make `endpoint` an optional parameter when creating notify bindings.
+- Add `User`, `Segment`, `UserBinding`, and `SegmentMembership` resources to Notify.
+- Update Usage API categories.
+- Add `start_time_before`/`start_time_after` to the Video Rooms API.
+- Allow deletion of Wireless `RatePlan`s.
 
 [2017-04-03] Version 6.0.0-alpha-1
 ----------------------------------
