@@ -6,10 +6,15 @@ Here you can see the full list of changes between each twilio-python release.
 [2017-04-27] Version 6.1.0
 --------------------------
 
-- Add chat v2.
-- Update Usage API categories.
-- Add new Conference parameters.
-- Add new ValidityPeriod parameter to Messages
+- Add v2 of chat.twilio.com.
+- Add `recording_channels` parameter to Participant create and update.
+- Add `recording_status_callback` parameter to Participant create and update.
+- Add `recording_status_callback_method` parameter to Participant create and update.
+- Add `sip_auth_username` parameter to Participant create and update.
+- Add `region` parameter to Participant create and update.
+- Add `conference_recording_status_callback` parameter to Participant create and update.
+- Add `conference_recording_status_callback_method` parameter to Participant create and update.
+- Add `validity_period` parameter to Messages.
 
 [2017-04-03] Version 6.0.0
 --------------------------
