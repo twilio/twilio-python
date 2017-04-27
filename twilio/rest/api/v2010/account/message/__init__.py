@@ -39,8 +39,9 @@ class MessageList(ListResource):
 
     def create(self, to, status_callback=values.unset, application_sid=values.unset,
                max_price=values.unset, provide_feedback=values.unset,
-               from_=values.unset, messaging_service_sid=values.unset,
-               body=values.unset, media_url=values.unset):
+               validity_period=values.unset, from_=values.unset,
+               messaging_service_sid=values.unset, body=values.unset,
+               media_url=values.unset):
         """
         Create a new MessageInstance
 
@@ -49,6 +50,7 @@ class MessageList(ListResource):
         :param unicode application_sid: The application to use for callbacks
         :param unicode max_price: The max_price
         :param bool provide_feedback: The provide_feedback
+        :param unicode validity_period: The validity_period
         :param unicode from_: The phone number that initiated the message
         :param unicode messaging_service_sid: The messaging_service_sid
         :param unicode body: The body
@@ -67,6 +69,7 @@ class MessageList(ListResource):
             'ApplicationSid': application_sid,
             'MaxPrice': max_price,
             'ProvideFeedback': provide_feedback,
+            'ValidityPeriod': validity_period,
         })
 
         payload = self._version.create(

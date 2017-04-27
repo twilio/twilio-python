@@ -24,8 +24,8 @@ class UserList(ListResource):
         :param Version version: Version that contains the resource
         :param service_sid: The service_sid
 
-        :returns: twilio.rest.ip_messaging.v1.service.user.UserList
-        :rtype: twilio.rest.ip_messaging.v1.service.user.UserList
+        :returns: twilio.rest.chat.v1.service.user.UserList
+        :rtype: twilio.rest.chat.v1.service.user.UserList
         """
         super(UserList, self).__init__(version)
 
@@ -46,7 +46,7 @@ class UserList(ListResource):
         :param unicode friendly_name: The friendly_name
 
         :returns: Newly created UserInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.user.UserInstance
+        :rtype: twilio.rest.chat.v1.service.user.UserInstance
         """
         data = values.of({
             'Identity': identity,
@@ -82,7 +82,7 @@ class UserList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v1.service.user.UserInstance]
+        :rtype: list[twilio.rest.chat.v1.service.user.UserInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -106,7 +106,7 @@ class UserList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v1.service.user.UserInstance]
+        :rtype: list[twilio.rest.chat.v1.service.user.UserInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -124,7 +124,7 @@ class UserList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of UserInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.user.UserPage
+        :rtype: twilio.rest.chat.v1.service.user.UserPage
         """
         params = values.of({
             'PageToken': page_token,
@@ -146,8 +146,8 @@ class UserList(ListResource):
 
         :param sid: The sid
 
-        :returns: twilio.rest.ip_messaging.v1.service.user.UserContext
-        :rtype: twilio.rest.ip_messaging.v1.service.user.UserContext
+        :returns: twilio.rest.chat.v1.service.user.UserContext
+        :rtype: twilio.rest.chat.v1.service.user.UserContext
         """
         return UserContext(
             self._version,
@@ -161,8 +161,8 @@ class UserList(ListResource):
 
         :param sid: The sid
 
-        :returns: twilio.rest.ip_messaging.v1.service.user.UserContext
-        :rtype: twilio.rest.ip_messaging.v1.service.user.UserContext
+        :returns: twilio.rest.chat.v1.service.user.UserContext
+        :rtype: twilio.rest.chat.v1.service.user.UserContext
         """
         return UserContext(
             self._version,
@@ -190,8 +190,8 @@ class UserPage(Page):
         :param Response response: Response from the API
         :param service_sid: The service_sid
 
-        :returns: twilio.rest.ip_messaging.v1.service.user.UserPage
-        :rtype: twilio.rest.ip_messaging.v1.service.user.UserPage
+        :returns: twilio.rest.chat.v1.service.user.UserPage
+        :rtype: twilio.rest.chat.v1.service.user.UserPage
         """
         super(UserPage, self).__init__(version, response)
 
@@ -204,8 +204,8 @@ class UserPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.ip_messaging.v1.service.user.UserInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.user.UserInstance
+        :returns: twilio.rest.chat.v1.service.user.UserInstance
+        :rtype: twilio.rest.chat.v1.service.user.UserInstance
         """
         return UserInstance(
             self._version,
@@ -233,8 +233,8 @@ class UserContext(InstanceContext):
         :param service_sid: The service_sid
         :param sid: The sid
 
-        :returns: twilio.rest.ip_messaging.v1.service.user.UserContext
-        :rtype: twilio.rest.ip_messaging.v1.service.user.UserContext
+        :returns: twilio.rest.chat.v1.service.user.UserContext
+        :rtype: twilio.rest.chat.v1.service.user.UserContext
         """
         super(UserContext, self).__init__(version)
 
@@ -253,7 +253,7 @@ class UserContext(InstanceContext):
         Fetch a UserInstance
 
         :returns: Fetched UserInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.user.UserInstance
+        :rtype: twilio.rest.chat.v1.service.user.UserInstance
         """
         params = values.of({})
 
@@ -289,7 +289,7 @@ class UserContext(InstanceContext):
         :param unicode friendly_name: The friendly_name
 
         :returns: Updated UserInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.user.UserInstance
+        :rtype: twilio.rest.chat.v1.service.user.UserInstance
         """
         data = values.of({
             'RoleSid': role_sid,
@@ -315,8 +315,8 @@ class UserContext(InstanceContext):
         """
         Access the user_channels
 
-        :returns: twilio.rest.ip_messaging.v1.service.user.user_channel.UserChannelList
-        :rtype: twilio.rest.ip_messaging.v1.service.user.user_channel.UserChannelList
+        :returns: twilio.rest.chat.v1.service.user.user_channel.UserChannelList
+        :rtype: twilio.rest.chat.v1.service.user.user_channel.UserChannelList
         """
         if self._user_channels is None:
             self._user_channels = UserChannelList(
@@ -343,8 +343,8 @@ class UserInstance(InstanceResource):
         """
         Initialize the UserInstance
 
-        :returns: twilio.rest.ip_messaging.v1.service.user.UserInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.user.UserInstance
+        :returns: twilio.rest.chat.v1.service.user.UserInstance
+        :rtype: twilio.rest.chat.v1.service.user.UserInstance
         """
         super(UserInstance, self).__init__(version)
 
@@ -380,7 +380,7 @@ class UserInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: UserContext for this UserInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.user.UserContext
+        :rtype: twilio.rest.chat.v1.service.user.UserContext
         """
         if self._context is None:
             self._context = UserContext(
@@ -507,7 +507,7 @@ class UserInstance(InstanceResource):
         Fetch a UserInstance
 
         :returns: Fetched UserInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.user.UserInstance
+        :rtype: twilio.rest.chat.v1.service.user.UserInstance
         """
         return self._proxy.fetch()
 
@@ -530,7 +530,7 @@ class UserInstance(InstanceResource):
         :param unicode friendly_name: The friendly_name
 
         :returns: Updated UserInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.user.UserInstance
+        :rtype: twilio.rest.chat.v1.service.user.UserInstance
         """
         return self._proxy.update(
             role_sid=role_sid,
@@ -543,8 +543,8 @@ class UserInstance(InstanceResource):
         """
         Access the user_channels
 
-        :returns: twilio.rest.ip_messaging.v1.service.user.user_channel.UserChannelList
-        :rtype: twilio.rest.ip_messaging.v1.service.user.user_channel.UserChannelList
+        :returns: twilio.rest.chat.v1.service.user.user_channel.UserChannelList
+        :rtype: twilio.rest.chat.v1.service.user.user_channel.UserChannelList
         """
         return self._proxy.user_channels
 

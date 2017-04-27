@@ -47,7 +47,14 @@ class ParticipantList(ListResource):
                conference_trim=values.unset,
                conference_status_callback=values.unset,
                conference_status_callback_method=values.unset,
-               conference_status_callback_event=values.unset):
+               conference_status_callback_event=values.unset,
+               recording_channels=values.unset,
+               recording_status_callback=values.unset,
+               recording_status_callback_method=values.unset,
+               sip_auth_username=values.unset, sip_auth_password=values.unset,
+               region=values.unset,
+               conference_recording_status_callback=values.unset,
+               conference_recording_status_callback_method=values.unset):
         """
         Create a new ParticipantInstance
 
@@ -59,18 +66,26 @@ class ParticipantList(ListResource):
         :param unicode timeout: The timeout
         :param bool record: The record
         :param bool muted: The muted
-        :param ParticipantInstance.Beep beep: The beep
+        :param unicode beep: The beep
         :param bool start_conference_on_enter: The start_conference_on_enter
         :param bool end_conference_on_exit: The end_conference_on_exit
         :param unicode wait_url: The wait_url
         :param unicode wait_method: The wait_method
         :param bool early_media: The early_media
         :param unicode max_participants: The max_participants
-        :param ParticipantInstance.ConferenceRecord conference_record: The conference_record
+        :param unicode conference_record: The conference_record
         :param unicode conference_trim: The conference_trim
         :param unicode conference_status_callback: The conference_status_callback
         :param unicode conference_status_callback_method: The conference_status_callback_method
         :param unicode conference_status_callback_event: The conference_status_callback_event
+        :param unicode recording_channels: The recording_channels
+        :param unicode recording_status_callback: The recording_status_callback
+        :param unicode recording_status_callback_method: The recording_status_callback_method
+        :param unicode sip_auth_username: The sip_auth_username
+        :param unicode sip_auth_password: The sip_auth_password
+        :param unicode region: The region
+        :param unicode conference_recording_status_callback: The conference_recording_status_callback
+        :param unicode conference_recording_status_callback_method: The conference_recording_status_callback_method
 
         :returns: Newly created ParticipantInstance
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
@@ -96,6 +111,14 @@ class ParticipantList(ListResource):
             'ConferenceStatusCallback': conference_status_callback,
             'ConferenceStatusCallbackMethod': conference_status_callback_method,
             'ConferenceStatusCallbackEvent': conference_status_callback_event,
+            'RecordingChannels': recording_channels,
+            'RecordingStatusCallback': recording_status_callback,
+            'RecordingStatusCallbackMethod': recording_status_callback_method,
+            'SipAuthUsername': sip_auth_username,
+            'SipAuthPassword': sip_auth_password,
+            'Region': region,
+            'ConferenceRecordingStatusCallback': conference_recording_status_callback,
+            'ConferenceRecordingStatusCallbackMethod': conference_recording_status_callback_method,
         })
 
         payload = self._version.create(
@@ -395,16 +418,6 @@ class ParticipantInstance(InstanceResource):
         CONNECTED = "connected"
         COMPLETE = "complete"
         FAILED = "failed"
-
-    class Beep(object):
-        TRUE = "true"
-        FALSE = "false"
-        ONENTER = "onEnter"
-        ONEXIT = "onExit"
-
-    class ConferenceRecord(object):
-        DO_NOT_RECORD = "do-not-record"
-        RECORD_FROM_START = "record-from-start"
 
     def __init__(self, version, payload, account_sid, conference_sid,
                  call_sid=None):

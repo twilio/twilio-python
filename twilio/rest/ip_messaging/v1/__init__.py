@@ -28,7 +28,7 @@ class V1(Version):
     @property
     def credentials(self):
         """
-        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialList
+        :rtype: twilio.rest.chat.v1.credential.CredentialList
         """
         if self._credentials is None:
             self._credentials = CredentialList(self)
@@ -37,7 +37,7 @@ class V1(Version):
     @property
     def services(self):
         """
-        :rtype: twilio.rest.ip_messaging.v1.service.ServiceList
+        :rtype: twilio.rest.chat.v1.service.ServiceList
         """
         if self._services is None:
             self._services = ServiceList(self)
