@@ -1,3 +1,5 @@
+import json
+
 from twilio.twiml import TwiML
 
 
@@ -54,6 +56,15 @@ class VoiceResponse(TwiML):
             trim=trim,
             recording_status_callback=recording_status_callback,
             recording_status_callback_method=recording_status_callback_method,
+            **kwargs
+        ))
+
+    def echo(self,
+             **kwargs):
+        """
+        Add a new <Echo> element
+        """
+        return self.append(Echo(
             **kwargs
         ))
 
@@ -444,6 +455,19 @@ class Dial(TwiML):
             **kwargs
         ))
 
+    def sim(self,
+            sid,
+            **kwargs):
+        """
+        Add a <Sim> element
+
+        :param sid: sim sid
+        """
+        return self.append(Sim(
+            sid,
+            **kwargs
+        ))
+
     def sip(self,
             uri,
             username=None,
@@ -541,6 +565,20 @@ class Queue(TwiML):
         self.value = queue_name
 
 
+class Sim(TwiML):
+    """
+    <Sim> element
+    """
+    def __init__(self, sid, **kwargs):
+        """
+        Create a new <Sim> element
+
+        :param sid: sim sid
+        """
+        super(Sim, self).__init__(**kwargs)
+        self.value = sid
+
+
 class Sip(TwiML):
     """
     <Sip> element
@@ -556,6 +594,17 @@ class Sip(TwiML):
         self.value = uri
 
 
+class Echo(TwiML):
+    """
+    <Echo> element
+    """
+    def __init__(self, **kwargs):
+        """
+        Create a new <Echo> element
+        """
+        super(Echo, self).__init__(**kwargs)
+
+
 class Enqueue(TwiML):
     """
     <Enqueue> element
@@ -569,6 +618,32 @@ class Enqueue(TwiML):
         """
         super(Enqueue, self).__init__(**kwargs)
         self.value = name
+
+    def task(self, attributes, **kwargs):
+        """
+        Add a <Task> element
+
+        :param attributes: Attributes for a task
+        :return: <Task> element
+        """
+        return self.append(Task(attributes, **kwargs))
+
+
+class Task(TwiML):
+    """
+    <Task> element
+    """
+    def __init__(self, attributes, **kwargs):
+        """
+        Create a new <Task> element
+
+        :param attributes: Attributes for a task
+        """
+        super(Task, self).__init__(**kwargs)
+        if isinstance(attributes, basestring):
+            self.value = attributes
+        else:
+            self.value = json.dumps(attributes)
 
 
 class Gather(TwiML):
