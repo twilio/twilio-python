@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2017-05-10] Version 6.1.1
+----------------------------------
+
+- Add Task verb to VoiceResponse
+- Add Echo verb to VoiceResponse
+- Add Sim verb to VoiceResponse
+
 [2017-04-27] Version 6.1.0
 --------------------------
 
