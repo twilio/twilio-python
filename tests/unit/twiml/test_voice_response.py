@@ -2,7 +2,7 @@
 from nose.tools import assert_equal
 from six import u
 from tests.unit.twiml import TwilioTest
-from twilio.twiml.voice_response import VoiceResponse, Dial, Gather
+from twilio.twiml.voice_response import VoiceResponse, Dial, Enqueue, Gather
 
 
 class TestResponse(TwilioTest):
@@ -349,6 +349,18 @@ class TestQueue(TwilioTest):
         )
 
 
+class TestEcho(TwilioTest):
+
+    def test_echo(self):
+        r = VoiceResponse()
+        r.echo()
+
+        assert_equal(
+            self.strip(r),
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Echo /></Response>'
+        )
+
+
 class TestEnqueue(TwilioTest):
 
     def test_enqueue(self):
@@ -366,6 +378,30 @@ class TestEnqueue(TwilioTest):
             '<?xml version="1.0" encoding="UTF-8"?><Response><Enqueue action="act" method="GET" waitUrl="wait" waitUrlMethod="POST">TestEnqueueAttribute</Enqueue></Response>'
         )
 
+    def test_task_string(self):
+        e = Enqueue(None, workflowSid='123123123')
+        e.task('{"account_sid": "AC123123123"}')
+
+        r = VoiceResponse()
+        r.append(e)
+
+        assert_equal(
+            self.strip(r),
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Enqueue workflowsid="123123123"><Task>{"account_sid": "AC123123123"}</Task></Enqueue></Response>'
+        )
+
+    def test_task_dict(self):
+        e = Enqueue(None, workflowSid='123123123')
+        e.task({"account_sid": "AC123123123"})
+
+        r = VoiceResponse()
+        r.append(e)
+
+        assert_equal(
+            self.strip(r),
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Enqueue workflowsid="123123123"><Task>{"account_sid": "AC123123123"}</Task></Enqueue></Response>'
+        )
+
 
 class TestDial(TwilioTest):
 
@@ -377,6 +413,18 @@ class TestDial(TwilioTest):
         assert_equal(
             self.strip(r),
             '<?xml version="1.0" encoding="UTF-8"?><Response><Dial>1231231234</Dial></Response>'
+        )
+
+    def test_sim(self):
+        d = Dial()
+        d.sim('123123123')
+
+        r = VoiceResponse()
+        r.append(d)
+
+        assert_equal(
+            self.strip(r),
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Sim>123123123</Sim></Dial></Response>'
         )
 
     def test_sip(self):
