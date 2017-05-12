@@ -104,6 +104,12 @@ class VoiceResponse(TwiML):
                timeout=None,
                finish_on_key=None,
                num_digits=None,
+               partial_result_callback=None,
+               partial_result_callback_method=None,
+               language=None,
+               hints=None,
+               barge_in=None,
+               acknowledge_sound_url=None,
                **kwargs):
         """
         Add a new <Gather> element
@@ -113,6 +119,12 @@ class VoiceResponse(TwiML):
         :param timeout: time to wait while gathering input
         :param finish_on_key: finish on key press
         :param num_digits: digits to collect
+        :param partial_result_callback: callback url
+        :param partial_result_callback_method: callback method
+        :param language: locale string
+        :param hints: speech recognition hints
+        :param barge_in: stop playing media upon speech
+        :param acknowledge_sound_url: url to hit when sound starts
         :param kwargs: additional attributes
         :return: <Gather> element
         """
@@ -122,6 +134,13 @@ class VoiceResponse(TwiML):
             timeout=timeout,
             finish_on_key=finish_on_key,
             num_digits=num_digits,
+            partial_result_callback=partial_result_callback,
+            partial_result_callback_method=partial_result_callback_method,
+            language=language,
+            hints=hints,
+            barge_in=barge_in,
+            acknowledge_sound_url=acknowledge_sound_url,
+            **kwargs
         ))
 
     def hangup(self):
