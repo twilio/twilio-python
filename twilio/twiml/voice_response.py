@@ -122,6 +122,7 @@ class VoiceResponse(TwiML):
             timeout=timeout,
             finish_on_key=finish_on_key,
             num_digits=num_digits,
+            **kwargs
         ))
 
     def hangup(self):
