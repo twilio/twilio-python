@@ -3,7 +3,7 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
-[2017-05-12] Version 6.1.2
+[2017-05-12] Version 6.1.2-alpha-1
 ----------------------------------
 
 - Support *kwargs in Gather TwiML
