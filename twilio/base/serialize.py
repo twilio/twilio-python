@@ -52,3 +52,13 @@ def prefixed_collapsible_map(m, prefix):
         return {'{}.{}'.format(prefix, k): v for k, v in flattened.items()}
 
     return {}
+
+
+def json(obj):
+    """
+    Return a jsonified string represenation of obj if obj is jsonifiable else
+    return obj untouched
+    """
+    if isinstance(obj, dict) or isinstance(obj, list):
+        return json.dumps(obj)
+    return obj
