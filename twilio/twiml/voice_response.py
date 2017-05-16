@@ -1,4 +1,5 @@
 import json
+from six import string_types
 
 from twilio.twiml import TwiML
 
@@ -641,7 +642,7 @@ class Task(TwiML):
         :param attributes: Attributes for a task
         """
         super(Task, self).__init__(**kwargs)
-        if isinstance(attributes, basestring):
+        if isinstance(attributes, string_types):
             self.value = attributes
         else:
             self.value = json.dumps(attributes)
