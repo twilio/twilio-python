@@ -1,4 +1,5 @@
 import datetime
+import json
 
 from twilio.base import values
 
@@ -54,7 +55,7 @@ def prefixed_collapsible_map(m, prefix):
     return {}
 
 
-def json(obj):
+def object(obj):
     """
     Return a jsonified string represenation of obj if obj is jsonifiable else
     return obj untouched
