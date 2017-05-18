@@ -107,3 +107,18 @@ class PrefixedCollapsibleMapTestCase(unittest.TestCase):
         ]
         actual = serialize.prefixed_collapsible_map(value, 'Prefix')
         self.assertEqual({}, actual)
+
+
+class ObjectTestCase(unittest.TestCase):
+    def test_object(self):
+        actual = serialize.object({'twilio': 'rocks'})
+        self.assertEqual('{"twilio": "rocks"}', actual)
+
+    def test_list(self):
+        actual = serialize.object(['twilio', 'rocks'])
+        self.assertEqual('["twilio", "rocks"]', actual)
+
+    def test_does_not_change_other_types(self):
+        actual = serialize.object('{"attribute":"value"}')
+        self.assertEqual('{"attribute":"value"}', actual)
+
