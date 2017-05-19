@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2017-05-19] Version 6.2.0
+--------------------------
+
+- Add video domain.
+- Update usage record categories.
+- Add `get_page` method for reentrant paging.
+
 [2017-05-12] Version 6.1.2
 ----------------------------------
 
