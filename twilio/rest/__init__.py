@@ -60,6 +60,7 @@ class Client(object):
         self._pricing = None
         self._taskrouter = None
         self._trunking = None
+        self._video = None
 
     def request(self, method, uri, params=None, data=None, headers=None, auth=None,
                 timeout=None, allow_redirects=False):
@@ -228,6 +229,19 @@ class Client(object):
             from twilio.rest.trunking import Trunking
             self._trunking = Trunking(self)
         return self._trunking
+
+    @property
+    def video(self):
+        """
+        Access the Video Twilio Domain
+
+        :returns: Video Twilio Domain
+        :rtype: twilio.rest.video.Video
+        """
+        if self._video is None:
+            from twilio.rest.video import Video
+            self._video = Video(self)
+        return self._video
 
     @property
     def addresses(self):

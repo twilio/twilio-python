@@ -1,4 +1,5 @@
 import json
+from six import string_types
 
 from twilio.twiml import TwiML
 
@@ -134,12 +135,6 @@ class VoiceResponse(TwiML):
             timeout=timeout,
             finish_on_key=finish_on_key,
             num_digits=num_digits,
-            partial_result_callback=partial_result_callback,
-            partial_result_callback_method=partial_result_callback_method,
-            language=language,
-            hints=hints,
-            barge_in=barge_in,
-            acknowledge_sound_url=acknowledge_sound_url,
             **kwargs
         ))
 
@@ -659,7 +654,7 @@ class Task(TwiML):
         :param attributes: Attributes for a task
         """
         super(Task, self).__init__(**kwargs)
-        if isinstance(attributes, basestring):
+        if isinstance(attributes, string_types):
             self.value = attributes
         else:
             self.value = json.dumps(attributes)
