@@ -13,7 +13,6 @@ Here you can see the full list of changes between each twilio-python release.
 - Add fax domain.
 - Add sync domain.
 - Add `area_code_geomatch` to messaging `Service`.
-- Add `Exports` API to preview.
 
 [2017-05-12] Version 6.1.2-alpha-1
 ----------------------------------
