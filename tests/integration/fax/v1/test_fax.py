@@ -37,6 +37,7 @@ class FaxTestCase(IntegrationTestCase):
                 "direction": "outbound",
                 "from": "+14155551234",
                 "media_url": "https://www.example.com/fax.pdf",
+                "media_sid": "MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "num_pages": null,
                 "price": null,
                 "price_unit": null,
@@ -45,6 +46,9 @@ class FaxTestCase(IntegrationTestCase):
                 "status": "queued",
                 "to": "+14155554321",
                 "duration": null,
+                "links": {
+                    "media": "https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media"
+                },
                 "url": "https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
@@ -102,6 +106,7 @@ class FaxTestCase(IntegrationTestCase):
                         "direction": "outbound",
                         "from": "+14155551234",
                         "media_url": "https://www.example.com/fax.pdf",
+                        "media_sid": "MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "num_pages": null,
                         "price": null,
                         "price_unit": null,
@@ -110,6 +115,9 @@ class FaxTestCase(IntegrationTestCase):
                         "status": "queued",
                         "to": "+14155554321",
                         "duration": null,
+                        "links": {
+                            "media": "https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media"
+                        },
                         "url": "https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     }
                 ],
@@ -134,10 +142,9 @@ class FaxTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.fax.v1.faxes.create(from_="from_", to="to", media_url="https://example.com")
+            self.client.fax.v1.faxes.create(to="to", media_url="https://example.com")
 
         values = {
-            'From': "from_",
             'To': "to",
             'MediaUrl': "https://example.com",
         }
@@ -160,6 +167,7 @@ class FaxTestCase(IntegrationTestCase):
                 "direction": "outbound",
                 "from": "+14155551234",
                 "media_url": null,
+                "media_sid": null,
                 "num_pages": null,
                 "price": null,
                 "price_unit": null,
@@ -168,12 +176,15 @@ class FaxTestCase(IntegrationTestCase):
                 "status": "queued",
                 "to": "+14155554321",
                 "duration": null,
+                "links": {
+                    "media": "https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media"
+                },
                 "url": "https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
         ))
 
-        actual = self.client.fax.v1.faxes.create(from_="from_", to="to", media_url="https://example.com")
+        actual = self.client.fax.v1.faxes.create(to="to", media_url="https://example.com")
 
         self.assertIsNotNone(actual)
 
@@ -200,6 +211,7 @@ class FaxTestCase(IntegrationTestCase):
                 "direction": "outbound",
                 "from": "+14155551234",
                 "media_url": null,
+                "media_sid": null,
                 "num_pages": null,
                 "price": null,
                 "price_unit": null,
@@ -208,6 +220,9 @@ class FaxTestCase(IntegrationTestCase):
                 "status": "canceled",
                 "to": "+14155554321",
                 "duration": null,
+                "links": {
+                    "media": "https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media"
+                },
                 "url": "https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
@@ -216,3 +231,24 @@ class FaxTestCase(IntegrationTestCase):
         actual = self.client.fax.v1.faxes(sid="FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
 
         self.assertIsNotNone(actual)
+
+    def test_delete_request(self):
+        self.holodeck.mock(Response(500, ''))
+
+        with self.assertRaises(TwilioException):
+            self.client.fax.v1.faxes(sid="FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+
+        self.holodeck.assert_has_request(Request(
+            'delete',
+            'https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        ))
+
+    def test_delete_response(self):
+        self.holodeck.mock(Response(
+            204,
+            None,
+        ))
+
+        actual = self.client.fax.v1.faxes(sid="FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+
+        self.assertTrue(actual)

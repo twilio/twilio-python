@@ -3,6 +3,19 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2017-05-22] Version 6.2.0-alpha-1
+----------------------------------
+
+- Update usage record categories.
+- Add `get_page` method for reentrant paging.
+- Add video domain.
+- Add wireless domain.
+- Add fax domain.
+- Add sync domain.
+- Rename `Conversations` to `Sessions`.
+- Add `area_code_geomatch` to messaging `Service`.
+- Add `Exports` API to preview.
+
 [2017-05-12] Version 6.1.2-alpha-1
 ----------------------------------
 

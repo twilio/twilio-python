@@ -44,7 +44,10 @@ class RoomTestCase(IntegrationTestCase):
                 "status_callback": "",
                 "record_participants_on_connect": false,
                 "end_time": "2015-07-30T20:00:00Z",
-                "url": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                "url": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "links": {
+                    "recordings": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings"
+                }
             }
             '''
         ))
@@ -83,7 +86,10 @@ class RoomTestCase(IntegrationTestCase):
                 "status_callback": "",
                 "record_participants_on_connect": false,
                 "end_time": "2015-07-30T20:00:00Z",
-                "url": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                "url": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "links": {
+                    "recordings": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings"
+                }
             }
             '''
         ))
@@ -147,7 +153,10 @@ class RoomTestCase(IntegrationTestCase):
                         "duration": 2,
                         "max_participants": 10,
                         "record_participants_on_connect": false,
-                        "url": "https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c"
+                        "url": "https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c",
+                        "links": {
+                            "recordings": "https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/Recordings"
+                        }
                     }
                 ],
                 "meta": {
@@ -202,7 +211,10 @@ class RoomTestCase(IntegrationTestCase):
                 "record_participants_on_connect": false,
                 "end_time": "2015-07-30T20:00:00Z",
                 "duration": 10,
-                "url": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                "url": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "links": {
+                    "recordings": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings"
+                }
             }
             '''
         ))
