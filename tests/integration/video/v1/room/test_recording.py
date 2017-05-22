@@ -12,7 +12,7 @@ from twilio.base.exceptions import TwilioException
 from twilio.http.response import Response
 
 
-class RecordingTestCase(IntegrationTestCase):
+class RoomRecordingTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
         self.holodeck.mock(Response(500, ''))
