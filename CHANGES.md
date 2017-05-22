@@ -12,7 +12,6 @@ Here you can see the full list of changes between each twilio-python release.
 - Add wireless domain.
 - Add fax domain.
 - Add sync domain.
-- Rename `Conversations` to `Sessions`.
 - Add `area_code_geomatch` to messaging `Service`.
 - Add `Exports` API to preview.
 
