@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-05-24] Version 6.3.0-alpha-1
+----------------------------------
+
+- Add HostedNumbers preview support.
+- Add Proxy preview support.
+- Add BulkExports preview support.
+
 [2017-05-22] Version 6.2.0-alpha-1
 ----------------------------------
 

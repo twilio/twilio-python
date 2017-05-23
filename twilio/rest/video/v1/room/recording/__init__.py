@@ -15,19 +15,19 @@ from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
 
 
-class RecordingList(ListResource):
+class RoomRecordingList(ListResource):
 
     def __init__(self, version, room_sid):
         """
-        Initialize the RecordingList
+        Initialize the RoomRecordingList
 
         :param Version version: Version that contains the resource
         :param room_sid: The room_sid
 
-        :returns: twilio.rest.video.v1.room.recording.RecordingList
-        :rtype: twilio.rest.video.v1.room.recording.RecordingList
+        :returns: twilio.rest.video.v1.room.recording.RoomRecordingList
+        :rtype: twilio.rest.video.v1.room.recording.RoomRecordingList
         """
-        super(RecordingList, self).__init__(version)
+        super(RoomRecordingList, self).__init__(version)
 
         # Path Solution
         self._solution = {
@@ -37,7 +37,7 @@ class RecordingList(ListResource):
 
     def stream(self, limit=None, page_size=None):
         """
-        Streams RecordingInstance records from the API as a generator stream.
+        Streams RoomRecordingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -50,7 +50,7 @@ class RecordingList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.room.recording.RecordingInstance]
+        :rtype: list[twilio.rest.video.v1.room.recording.RoomRecordingInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -62,7 +62,7 @@ class RecordingList(ListResource):
 
     def list(self, limit=None, page_size=None):
         """
-        Lists RecordingInstance records from the API as a list.
+        Lists RoomRecordingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
@@ -74,7 +74,7 @@ class RecordingList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.room.recording.RecordingInstance]
+        :rtype: list[twilio.rest.video.v1.room.recording.RoomRecordingInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -84,15 +84,15 @@ class RecordingList(ListResource):
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
         """
-        Retrieve a single page of RecordingInstance records from the API.
+        Retrieve a single page of RoomRecordingInstance records from the API.
         Request is executed immediately
 
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
-        :returns: Page of RecordingInstance
-        :rtype: twilio.rest.video.v1.room.recording.RecordingPage
+        :returns: Page of RoomRecordingInstance
+        :rtype: twilio.rest.video.v1.room.recording.RoomRecordingPage
         """
         params = values.of({
             'PageToken': page_token,
@@ -106,39 +106,39 @@ class RecordingList(ListResource):
             params=params,
         )
 
-        return RecordingPage(self._version, response, self._solution)
+        return RoomRecordingPage(self._version, response, self._solution)
 
     def get_page(self, target_url):
         """
-        Retrieve a specific page of RecordingInstance records from the API.
+        Retrieve a specific page of RoomRecordingInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
 
-        :returns: Page of RecordingInstance
-        :rtype: twilio.rest.video.v1.room.recording.RecordingPage
+        :returns: Page of RoomRecordingInstance
+        :rtype: twilio.rest.video.v1.room.recording.RoomRecordingPage
         """
         resource_url = self._version.absolute_url(self._uri)
         if not target_url.startswith(resource_url):
-            raise TwilioException('Invalid target_url for RecordingInstance resource.')
+            raise TwilioException('Invalid target_url for RoomRecordingInstance resource.')
 
         response = self._version.domain.twilio.request(
             'GET',
             target_url,
         )
 
-        return RecordingPage(self._version, response, self._solution)
+        return RoomRecordingPage(self._version, response, self._solution)
 
     def get(self, sid):
         """
-        Constructs a RecordingContext
+        Constructs a RoomRecordingContext
 
         :param sid: The sid
 
-        :returns: twilio.rest.video.v1.room.recording.RecordingContext
-        :rtype: twilio.rest.video.v1.room.recording.RecordingContext
+        :returns: twilio.rest.video.v1.room.recording.RoomRecordingContext
+        :rtype: twilio.rest.video.v1.room.recording.RoomRecordingContext
         """
-        return RecordingContext(
+        return RoomRecordingContext(
             self._version,
             room_sid=self._solution['room_sid'],
             sid=sid,
@@ -146,14 +146,14 @@ class RecordingList(ListResource):
 
     def __call__(self, sid):
         """
-        Constructs a RecordingContext
+        Constructs a RoomRecordingContext
 
         :param sid: The sid
 
-        :returns: twilio.rest.video.v1.room.recording.RecordingContext
-        :rtype: twilio.rest.video.v1.room.recording.RecordingContext
+        :returns: twilio.rest.video.v1.room.recording.RoomRecordingContext
+        :rtype: twilio.rest.video.v1.room.recording.RoomRecordingContext
         """
-        return RecordingContext(
+        return RoomRecordingContext(
             self._version,
             room_sid=self._solution['room_sid'],
             sid=sid,
@@ -166,37 +166,37 @@ class RecordingList(ListResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Video.V1.RecordingList>'
+        return '<Twilio.Video.V1.RoomRecordingList>'
 
 
-class RecordingPage(Page):
+class RoomRecordingPage(Page):
 
     def __init__(self, version, response, solution):
         """
-        Initialize the RecordingPage
+        Initialize the RoomRecordingPage
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
         :param room_sid: The room_sid
 
-        :returns: twilio.rest.video.v1.room.recording.RecordingPage
-        :rtype: twilio.rest.video.v1.room.recording.RecordingPage
+        :returns: twilio.rest.video.v1.room.recording.RoomRecordingPage
+        :rtype: twilio.rest.video.v1.room.recording.RoomRecordingPage
         """
-        super(RecordingPage, self).__init__(version, response)
+        super(RoomRecordingPage, self).__init__(version, response)
 
         # Path Solution
         self._solution = solution
 
     def get_instance(self, payload):
         """
-        Build an instance of RecordingInstance
+        Build an instance of RoomRecordingInstance
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.video.v1.room.recording.RecordingInstance
-        :rtype: twilio.rest.video.v1.room.recording.RecordingInstance
+        :returns: twilio.rest.video.v1.room.recording.RoomRecordingInstance
+        :rtype: twilio.rest.video.v1.room.recording.RoomRecordingInstance
         """
-        return RecordingInstance(
+        return RoomRecordingInstance(
             self._version,
             payload,
             room_sid=self._solution['room_sid'],
@@ -209,23 +209,23 @@ class RecordingPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Video.V1.RecordingPage>'
+        return '<Twilio.Video.V1.RoomRecordingPage>'
 
 
-class RecordingContext(InstanceContext):
+class RoomRecordingContext(InstanceContext):
 
     def __init__(self, version, room_sid, sid):
         """
-        Initialize the RecordingContext
+        Initialize the RoomRecordingContext
 
         :param Version version: Version that contains the resource
         :param room_sid: The room_sid
         :param sid: The sid
 
-        :returns: twilio.rest.video.v1.room.recording.RecordingContext
-        :rtype: twilio.rest.video.v1.room.recording.RecordingContext
+        :returns: twilio.rest.video.v1.room.recording.RoomRecordingContext
+        :rtype: twilio.rest.video.v1.room.recording.RoomRecordingContext
         """
-        super(RecordingContext, self).__init__(version)
+        super(RoomRecordingContext, self).__init__(version)
 
         # Path Solution
         self._solution = {
@@ -236,10 +236,10 @@ class RecordingContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a RecordingInstance
+        Fetch a RoomRecordingInstance
 
-        :returns: Fetched RecordingInstance
-        :rtype: twilio.rest.video.v1.room.recording.RecordingInstance
+        :returns: Fetched RoomRecordingInstance
+        :rtype: twilio.rest.video.v1.room.recording.RoomRecordingInstance
         """
         params = values.of({})
 
@@ -249,7 +249,7 @@ class RecordingContext(InstanceContext):
             params=params,
         )
 
-        return RecordingInstance(
+        return RoomRecordingInstance(
             self._version,
             payload,
             room_sid=self._solution['room_sid'],
@@ -264,10 +264,10 @@ class RecordingContext(InstanceContext):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Video.V1.RecordingContext {}>'.format(context)
+        return '<Twilio.Video.V1.RoomRecordingContext {}>'.format(context)
 
 
-class RecordingInstance(InstanceResource):
+class RoomRecordingInstance(InstanceResource):
 
     class Status(object):
         PROCESSING = "processing"
@@ -292,12 +292,12 @@ class RecordingInstance(InstanceResource):
 
     def __init__(self, version, payload, room_sid, sid=None):
         """
-        Initialize the RecordingInstance
+        Initialize the RoomRecordingInstance
 
-        :returns: twilio.rest.video.v1.room.recording.RecordingInstance
-        :rtype: twilio.rest.video.v1.room.recording.RecordingInstance
+        :returns: twilio.rest.video.v1.room.recording.RoomRecordingInstance
+        :rtype: twilio.rest.video.v1.room.recording.RoomRecordingInstance
         """
-        super(RecordingInstance, self).__init__(version)
+        super(RoomRecordingInstance, self).__init__(version)
 
         # Marshaled Properties
         self._properties = {
@@ -330,11 +330,11 @@ class RecordingInstance(InstanceResource):
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
 
-        :returns: RecordingContext for this RecordingInstance
-        :rtype: twilio.rest.video.v1.room.recording.RecordingContext
+        :returns: RoomRecordingContext for this RoomRecordingInstance
+        :rtype: twilio.rest.video.v1.room.recording.RoomRecordingContext
         """
         if self._context is None:
-            self._context = RecordingContext(
+            self._context = RoomRecordingContext(
                 self._version,
                 room_sid=self._solution['room_sid'],
                 sid=self._solution['sid'],
@@ -353,7 +353,7 @@ class RecordingInstance(InstanceResource):
     def status(self):
         """
         :returns: The status
-        :rtype: RecordingInstance.Status
+        :rtype: RoomRecordingInstance.Status
         """
         return self._properties['status']
 
@@ -393,7 +393,7 @@ class RecordingInstance(InstanceResource):
     def type(self):
         """
         :returns: The type
-        :rtype: RecordingInstance.Type
+        :rtype: RoomRecordingInstance.Type
         """
         return self._properties['type']
 
@@ -409,7 +409,7 @@ class RecordingInstance(InstanceResource):
     def container_format(self):
         """
         :returns: The container_format
-        :rtype: RecordingInstance.Format
+        :rtype: RoomRecordingInstance.Format
         """
         return self._properties['container_format']
 
@@ -417,7 +417,7 @@ class RecordingInstance(InstanceResource):
     def codec(self):
         """
         :returns: The codec
-        :rtype: RecordingInstance.Codec
+        :rtype: RoomRecordingInstance.Codec
         """
         return self._properties['codec']
 
@@ -455,10 +455,10 @@ class RecordingInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a RecordingInstance
+        Fetch a RoomRecordingInstance
 
-        :returns: Fetched RecordingInstance
-        :rtype: twilio.rest.video.v1.room.recording.RecordingInstance
+        :returns: Fetched RoomRecordingInstance
+        :rtype: twilio.rest.video.v1.room.recording.RoomRecordingInstance
         """
         return self._proxy.fetch()
 
@@ -470,4 +470,4 @@ class RecordingInstance(InstanceResource):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Video.V1.RecordingInstance {}>'.format(context)
+        return '<Twilio.Video.V1.RoomRecordingInstance {}>'.format(context)
