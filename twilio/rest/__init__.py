@@ -65,6 +65,8 @@ class Client(object):
         self._trunking = None
         self._video = None
         self._messaging = None
+        self._wireless = None
+        self._sync = None
 
     def request(self, method, uri, params=None, data=None, headers=None, auth=None,
                 timeout=None, allow_redirects=False):
@@ -298,6 +300,32 @@ class Client(object):
             from twilio.rest.messaging import Messaging
             self._messaging = Messaging(self)
         return self._messaging
+
+    @property
+    def wireless(self):
+        """
+        Access the Wireless Twilio Domain
+
+        :returns: Wireless Twilio Domain
+        :rtype: twilio.rest.wireless.Wireless
+        """
+        if self._wireless is None:
+            from twilio.rest.wireless import Wireless
+            self._wireless = Wireless(self)
+        return self._wireless
+
+    @property
+    def sync(self):
+        """
+        Access the Sync Twilio Domain
+
+        :returns: Sync Twilio Domain
+        :rtype: twilio.rest.sync.Sync
+        """
+        if self._sync is None:
+            from twilio.rest.sync import Sync
+            self._sync = Sync(self)
+        return self._sync
 
     @property
     def addresses(self):
