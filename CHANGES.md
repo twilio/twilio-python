@@ -3,6 +3,11 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2017-05-24] Version 6.3.0
+--------------------------
+
+- Rename RoomList to RoomRecordingsList.
+
 [2017-05-19] Version 6.2.0
 --------------------------
 
