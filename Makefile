@@ -42,5 +42,5 @@ build: test-install
 clean:
 	rm -rf venv
 
-deploy:
-	. venv/bin/activate; python deploy.py
+nopyc:
+	find . -name \*.pyc -delete
