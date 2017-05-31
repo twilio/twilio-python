@@ -1,0 +1,9 @@
+{
+  "sid": "MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "channel_sid": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "space_sid": "SPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "id": "carl@twilio.com",
+  "role": "admin",
+  "url": "/v1/Spaces/SPxx/Channels/CHxx/Members/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}

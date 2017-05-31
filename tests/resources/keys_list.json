@@ -1,0 +1,18 @@
+{
+   "keys":[
+      {
+         "sid":"SK932e398ac43ca670b1609b05ee301e8c",
+         "friendly_name":"Fuzzy Lumpkins' SigningKey",
+         "date_created":"Fri, 13 Mar 2015 13:24:01 +0000",
+         "date_updated":"Fri, 13 Mar 2015 13:24:01 +0000"
+      }
+   ],
+   "first_page_uri":"/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Keys.json?PageSize=50&Page=0",
+   "uri":"/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Keys.json?PageSize=50&Page=0",
+   "next_page_uri":null,
+   "previous_page_uri":null,
+   "page":0,
+   "page_size":50,
+   "start":0,
+   "end":1
+}
