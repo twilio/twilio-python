@@ -129,14 +129,15 @@ class VoiceResponse(TwiML):
         :param kwargs: additional attributes
         :return: <Gather> element
         """
-        return self.append(Gather(
+        return Gather(
+            response=self,
             action=action,
             method=method,
             timeout=timeout,
             finish_on_key=finish_on_key,
             num_digits=num_digits,
             **kwargs
-        ))
+        )
 
     def hangup(self):
         """
@@ -664,12 +665,16 @@ class Gather(TwiML):
     """
     <Gather> element
     """
-    def __init__(self, **kwargs):
+    def __init__(self, response, **kwargs):
         """
         Create a new <Gather> element
         :param kwargs: attributes
         """
         super(Gather, self).__init__(**kwargs)
+        self.response = response
+
+    def __exit__(self, type, value, traceback):
+        self.response.append(self)
 
     def say(self,
             body,
