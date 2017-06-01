@@ -392,6 +392,7 @@ class Dial(TwiML):
         """
         return self.append(Conference(
             name,
+            muted=muted,
             start_conference_on_enter=start_conference_on_enter,
             end_conference_on_exit=end_conference_on_exit,
             max_participants=max_participants,
