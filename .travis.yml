@@ -7,7 +7,8 @@ python:
   - "3.5"
   - "3.6"
 install:
+  - pip install virtualenv --upgrade
   - make install
   - make test-install
-script: 
+script:
   - make test
