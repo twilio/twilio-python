@@ -544,6 +544,26 @@ class TestGather(TwilioTest):
             '<?xml version="1.0" encoding="UTF-8"?><Response><Gather /></Response>'
         )
 
+    def test_gather_full(self):
+        r = VoiceResponse()
+        r.gather(
+            action='action',
+            method='method',
+            timeout='timeout',
+            finish_on_key='finish_on_key',
+            num_digits='num_digits',
+            partial_result_callback='partial_result_callback',
+            partial_result_callback_method='partial_result_callback_method',
+            language='language',
+            hints='hints',
+            barge_in='barge_in',
+            acknowledge_sound_url='acknowledge_sound_url',
+        )
+        assert_equal(
+            self.strip(r),
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Gather acknowledgeSoundUrl="acknowledge_sound_url" action="action" bargeIn="barge_in" finishOnKey="finish_on_key" hints="hints" language="language" method="method" numDigits="num_digits" partialResultCallback="partial_result_callback" partialResultCallbackMethod="partial_result_callback_method" timeout="timeout" /></Response>'
+        )
+
     def test_gather_say(self):
         g = Gather()
         g.say('Hello')
