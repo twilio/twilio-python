@@ -32,6 +32,7 @@ class DomainTestCase(IntegrationTestCase):
             200,
             '''
             {
+                "count": 1,
                 "domains": [
                     {
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -76,6 +77,7 @@ class DomainTestCase(IntegrationTestCase):
             200,
             '''
             {
+                "count": 0,
                 "domains": [],
                 "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains.json?PageSize=50&Page=0",
                 "next_page_uri": null,

@@ -83,6 +83,7 @@ class TaskChannelTestCase(IntegrationTestCase):
                     "last_page_url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskChannels?PageSize=50&Page=0",
                     "next_page_url": null,
                     "page": 0,
+                    "count": 1,
                     "page_size": 1,
                     "previous_page_url": null,
                     "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskChannels?PageSize=50&Page=0"
@@ -108,6 +109,7 @@ class TaskChannelTestCase(IntegrationTestCase):
                     "last_page_url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskChannels?PageSize=50&Page=0",
                     "next_page_url": null,
                     "page": 0,
+                    "count": 0,
                     "page_size": 50,
                     "previous_page_url": null,
                     "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskChannels?PageSize=50&Page=0"

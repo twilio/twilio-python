@@ -43,6 +43,7 @@ class CountryTestCase(IntegrationTestCase):
                     "key": "countries",
                     "next_page_url": null,
                     "page": 0,
+                    "count": 1,
                     "page_size": 1,
                     "previous_page_url": null,
                     "url": "https://pricing.twilio.com/v1/Voice/Countries?PageSize=1&Page=0"
@@ -67,6 +68,7 @@ class CountryTestCase(IntegrationTestCase):
                     "key": "countries",
                     "next_page_url": null,
                     "page": 0,
+                    "count": 0,
                     "page_size": 1,
                     "previous_page_url": null,
                     "url": "https://pricing.twilio.com/v1/Voice/Countries?PageSize=1&Page=0"

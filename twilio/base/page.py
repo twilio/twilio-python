@@ -11,6 +11,7 @@ class Page(object):
     pages in the collection.
     """
     META_KEYS = {
+        'count',
         'end',
         'first_page_uri',
         'next_page_uri',

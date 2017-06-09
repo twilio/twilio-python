@@ -117,6 +117,7 @@ class RoomTestCase(IntegrationTestCase):
                 "rooms": [],
                 "meta": {
                     "page": 0,
+                    "count": 0,
                     "page_size": 50,
                     "first_page_url": "https://video.twilio.com/v1/Rooms?PageSize=50&Page=0",
                     "previous_page_url": null,
@@ -161,6 +162,7 @@ class RoomTestCase(IntegrationTestCase):
                 ],
                 "meta": {
                     "page": 0,
+                    "count": 1,
                     "page_size": 50,
                     "first_page_url": "https://video.twilio.com/v1/Rooms?PageSize=50&Page=0",
                     "previous_page_url": null,

@@ -32,6 +32,7 @@ class MobileTestCase(IntegrationTestCase):
             200,
             '''
             {
+                "count": 1,
                 "end": 0,
                 "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Mobile.json?Page=0&PageSize=50",
                 "incoming_phone_numbers": [
@@ -49,6 +50,7 @@ class MobileTestCase(IntegrationTestCase):
                         "date_updated": "Tue, 08 Sep 2015 16:21:16 +0000",
                         "friendly_name": "61429099450",
                         "phone_number": "+61429099450",
+                        "origin": "origin",
                         "sid": "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "sms_application_sid": "",
                         "sms_fallback_method": "POST",
@@ -91,6 +93,7 @@ class MobileTestCase(IntegrationTestCase):
             200,
             '''
             {
+                "count": 0,
                 "end": 0,
                 "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Mobile.json?Page=0&PageSize=50",
                 "incoming_phone_numbers": [],
@@ -149,6 +152,7 @@ class MobileTestCase(IntegrationTestCase):
                 "date_updated": "Thu, 30 Jul 2015 23:19:04 +0000",
                 "friendly_name": "(808) 925-5327",
                 "phone_number": "+18089255327",
+                "origin": "origin",
                 "sid": "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "sms_application_sid": "",
                 "sms_fallback_method": "POST",

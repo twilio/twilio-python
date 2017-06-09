@@ -31,22 +31,24 @@ class WorkspaceTestCase(IntegrationTestCase):
             '''
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "date_created": "2015-08-03T17:31:38Z",
-                "date_updated": "2015-08-03T17:31:38Z",
+                "date_created": "2016-08-01T22:10:40Z",
+                "date_updated": "2016-08-01T22:10:40Z",
                 "default_activity_name": "Offline",
                 "default_activity_sid": "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "event_callback_url": "",
-                "events_filter": "",
-                "friendly_name": "8064de33-3a05-11e5-8bae-98e0d9a1eb73",
+                "events_filter": null,
+                "friendly_name": "new",
                 "links": {
                     "activities": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Activities",
                     "statistics": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Statistics",
                     "task_queues": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues",
                     "tasks": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks",
                     "workers": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers",
-                    "workflows": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows"
+                    "workflows": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows",
+                    "task_channels": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskChannels",
+                    "events": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Events"
                 },
-                "multi_task_enabled": "false",
+                "multi_task_enabled": false,
                 "prioritize_queue_order": "FIFO",
                 "sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "timeout_activity_name": "Offline",
@@ -77,22 +79,24 @@ class WorkspaceTestCase(IntegrationTestCase):
             '''
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "date_created": "2015-08-03T17:31:38Z",
-                "date_updated": "2015-08-03T17:31:38Z",
+                "date_created": "2016-08-01T22:10:40Z",
+                "date_updated": "2016-08-01T22:10:40Z",
                 "default_activity_name": "Offline",
                 "default_activity_sid": "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "event_callback_url": "",
-                "events_filter": "",
-                "friendly_name": "8064de33-3a05-11e5-8bae-98e0d9a1eb73",
+                "events_filter": null,
+                "friendly_name": "new",
                 "links": {
                     "activities": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Activities",
                     "statistics": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Statistics",
                     "task_queues": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues",
                     "tasks": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks",
                     "workers": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers",
-                    "workflows": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows"
+                    "workflows": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows",
+                    "task_channels": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskChannels",
+                    "events": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Events"
                 },
-                "multi_task_enabled": "false",
+                "multi_task_enabled": false,
                 "prioritize_queue_order": "FIFO",
                 "sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "timeout_activity_name": "Offline",
@@ -123,33 +127,36 @@ class WorkspaceTestCase(IntegrationTestCase):
             '''
             {
                 "meta": {
-                    "first_page_url": "https://taskrouter.twilio.com/v1/Workspaces?PageSize=1&Page=0",
+                    "first_page_url": "https://taskrouter.twilio.com/v1/Workspaces?PageSize=50&Page=0",
                     "key": "workspaces",
                     "next_page_url": null,
                     "page": 0,
-                    "page_size": 1,
+                    "count": 1,
+                    "page_size": 50,
                     "previous_page_url": null,
-                    "url": "https://taskrouter.twilio.com/v1/Workspaces?PageSize=1&Page=0"
+                    "url": "https://taskrouter.twilio.com/v1/Workspaces?PageSize=50&Page=0"
                 },
                 "workspaces": [
                     {
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                        "date_created": "2015-05-27T00:48:50Z",
-                        "date_updated": "2015-05-27T00:48:50Z",
+                        "date_created": "2016-08-01T22:10:40Z",
+                        "date_updated": "2016-08-01T22:10:40Z",
                         "default_activity_name": "Offline",
                         "default_activity_sid": "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "event_callback_url": "",
-                        "events_filter": "",
-                        "friendly_name": "cce151db-4644-4d48-95a1-d962829b69f0",
+                        "events_filter": null,
+                        "friendly_name": "new",
                         "links": {
                             "activities": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Activities",
                             "statistics": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Statistics",
                             "task_queues": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues",
                             "tasks": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks",
                             "workers": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers",
-                            "workflows": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows"
+                            "workflows": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows",
+                            "task_channels": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskChannels",
+                            "events": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Events"
                         },
-                        "multi_task_enabled": "false",
+                        "multi_task_enabled": false,
                         "prioritize_queue_order": "FIFO",
                         "sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "timeout_activity_name": "Offline",
@@ -171,13 +178,14 @@ class WorkspaceTestCase(IntegrationTestCase):
             '''
             {
                 "meta": {
-                    "first_page_url": "https://taskrouter.twilio.com/v1/Workspaces?PageSize=1&Page=0",
+                    "first_page_url": "https://taskrouter.twilio.com/v1/Workspaces?PageSize=50&Page=0",
                     "key": "workspaces",
                     "next_page_url": null,
                     "page": 0,
-                    "page_size": 1,
+                    "count": 0,
+                    "page_size": 50,
                     "previous_page_url": null,
-                    "url": "https://taskrouter.twilio.com/v1/Workspaces?PageSize=1&Page=0"
+                    "url": "https://taskrouter.twilio.com/v1/Workspaces?PageSize=50&Page=0"
                 },
                 "workspaces": []
             }
@@ -210,22 +218,24 @@ class WorkspaceTestCase(IntegrationTestCase):
             '''
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "date_created": "2015-08-03T17:31:38Z",
-                "date_updated": "2015-08-03T17:31:38Z",
+                "date_created": "2016-08-01T22:10:40Z",
+                "date_updated": "2016-08-01T22:10:40Z",
                 "default_activity_name": "Offline",
                 "default_activity_sid": "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "event_callback_url": "",
-                "events_filter": "",
-                "friendly_name": "8064de33-3a05-11e5-8bae-98e0d9a1eb73",
+                "events_filter": null,
+                "friendly_name": "new",
                 "links": {
                     "activities": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Activities",
                     "statistics": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Statistics",
                     "task_queues": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues",
                     "tasks": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks",
                     "workers": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers",
-                    "workflows": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows"
+                    "workflows": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows",
+                    "task_channels": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskChannels",
+                    "events": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Events"
                 },
-                "multi_task_enabled": "false",
+                "multi_task_enabled": false,
                 "prioritize_queue_order": "FIFO",
                 "sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "timeout_activity_name": "Offline",
