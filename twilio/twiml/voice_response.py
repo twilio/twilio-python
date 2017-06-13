@@ -10,7 +10,7 @@ class VoiceResponse(TwiML):
     """
     def __init__(self):
         """
-        Create a new <Response>
+        Create a new <VoiceResponse>
         """
         super(VoiceResponse, self).__init__()
         self.name = 'Response'
@@ -43,7 +43,7 @@ class VoiceResponse(TwiML):
         :param recording_status_callback: status callback URL
         :param recording_status_callback_method: status callback URL method
         :param kwargs: additional attributes
-        :return: <Dial> element
+        :return: <VoiceResponse> element
         """
         return self.append(Dial(
             number=number,
@@ -64,6 +64,8 @@ class VoiceResponse(TwiML):
              **kwargs):
         """
         Add a new <Echo> element
+
+        :return: <VoiceResponse> element
         """
         return self.append(Echo(
             **kwargs
@@ -87,7 +89,7 @@ class VoiceResponse(TwiML):
         :param wait_url_method: wait URL method
         :param workflow_sid: TaskRouter workflow SID
         :param kwargs: additional attributes
-        :return: <Enqueue> element
+        :return: <VoiceResponse> element
         """
         return self.append(Enqueue(
             name,
@@ -127,7 +129,7 @@ class VoiceResponse(TwiML):
         :param barge_in: stop playing media upon speech
         :param acknowledge_sound_url: url to hit when sound starts
         :param kwargs: additional attributes
-        :return: <Gather> element
+        :return: <VoiceResponse> element
         """
         return self.append(Gather(
             action=action,
@@ -142,7 +144,7 @@ class VoiceResponse(TwiML):
         """
         Add a new <Hangup> element
 
-        :return: <Hangup> element
+        :return: <VoiceResponse> element
         """
         return self.append(Hangup())
 
@@ -150,7 +152,7 @@ class VoiceResponse(TwiML):
         """
         Add a new <Leave> element
 
-        :return: <Leave> element
+        :return: <VoiceResponse> element
         """
         return self.append(Leave())
 
@@ -159,7 +161,7 @@ class VoiceResponse(TwiML):
         Add a new <Pause> element
 
         :param length: time in seconds to pause
-        :return: <Pause> element
+        :return: <VoiceResponse> element
         """
         return self.append(Pause(length=length))
 
@@ -175,7 +177,7 @@ class VoiceResponse(TwiML):
         :param loop: times to loop
         :param digits: play DTMF tones during a call
         :param kwargs: additional attributes
-        :return: <Play> element
+        :return: <VoiceResponse> element
         """
         return self.append(Play(
             url,
@@ -212,7 +214,7 @@ class VoiceResponse(TwiML):
         :param transcribe: transcribe the recording
         :param transcribe_callback: transcribe callback URL
         :param kwargs: additional attributes
-        :return: <Record> element
+        :return: <VoiceResponse> element
         """
         return self.append(Record(
             action=action,
@@ -236,7 +238,7 @@ class VoiceResponse(TwiML):
         :param url: redirect url
         :param method: redirect method
         :param kwargs: additional attributes
-        :return: <Redirect> element
+        :return: <VoiceResponse> element
         """
         return self.append(Redirect(url, method=method, **kwargs))
 
@@ -246,7 +248,7 @@ class VoiceResponse(TwiML):
 
         :param reason: rejection reason
         :param kwargs: additional attributes
-        :return: <Reject> element
+        :return: <VoiceResponse> element
         """
         return self.append(Reject(reason=reason, **kwargs))
 
@@ -264,7 +266,7 @@ class VoiceResponse(TwiML):
         :param language: language of message
         :param voice: voice to use
         :param kwargs: additional attributes
-        :return: <Say> element
+        :return: <VoiceResponse> element
         """
         return self.append(Say(
             body,
@@ -292,7 +294,7 @@ class VoiceResponse(TwiML):
         :param action: action URL
         :param status_callback: status callback URL
         :param kwargs: additional attributes
-        :return: <Sms> element
+        :return: <VoiceResponse> element
         """
         return self.append(Sms(
             body,
@@ -338,7 +340,7 @@ class Dial(TwiML):
         :param status_callback_method: status callback URL method
         :param status_callback: status callback URL
         :param kwargs: additional attributes
-        :return: <Client> element
+        :return: <Dial> element
         """
         return self.append(Client(
             name,
@@ -388,7 +390,7 @@ class Dial(TwiML):
         :param recording_status_callback: recording status callback URL
         :param recording_status_callback_method: recording status callback URL method
         :param kwargs: additional attributes
-        :return: <Conference> element
+        :return: <Dial> element
         """
         return self.append(Conference(
             name,
@@ -429,7 +431,7 @@ class Dial(TwiML):
         :param status_callback: status callback URL
         :param status_callback_method: status callback URL method
         :param kwargs: additional attributes
-        :return: <Number> element
+        :return: <Dial> element
         """
         return self.append(Number(
             number,
@@ -458,7 +460,7 @@ class Dial(TwiML):
         :param reservation_sid: TaskRouter reservation SID
         :param post_work_activity_sid: TaskRouter activity SID
         :param kwargs: additional attributes
-        :return: <Queue> element
+        :return: <Dial> element
         """
         return self.append(Queue(
             queue_name,
@@ -476,6 +478,7 @@ class Dial(TwiML):
         Add a <Sim> element
 
         :param sid: sim sid
+        :return: <Dial> element
         """
         return self.append(Sim(
             sid,
@@ -504,7 +507,7 @@ class Dial(TwiML):
         :param status_callback: status callback URL
         :param status_callback_method: status callback URL method
         :param kwargs: additional attributes
-        :return: <Sip> element
+        :return: <Dial> element
         """
         return self.append(Sip(
             uri,
@@ -685,7 +688,7 @@ class Gather(TwiML):
         :param language: message language
         :param voice: voice to use
         :param kwargs: additional attributes
-        :return: <Say> element
+        :return: <Gather> element
         """
         return self.append(Say(
             body,
@@ -707,7 +710,7 @@ class Gather(TwiML):
         :param loop: times to loop
         :param digits: digits to simulate
         :param kwargs: additional attributes
-        :return: <Play> element
+        :return: <Gather> element
         """
         return self.append(Play(
             url,
@@ -721,7 +724,7 @@ class Gather(TwiML):
         Add a new <Pause> element
 
         :param length: time to pause
-        :return: <Pause> element
+        :return: <Gather> element
         """
         return self.append(Pause(length=length))
 
