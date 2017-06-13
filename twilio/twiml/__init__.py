@@ -1,3 +1,4 @@
+import re
 import xml.etree.ElementTree as ET
 
 
@@ -7,6 +8,21 @@ def lower_camel(string):
         return result
 
     return result[0].lower() + result[1:]
+
+
+def format_language(language):
+    """
+    Attempt to format language parameter as 'ww-WW'.
+
+    :param string language: language parameter
+    """
+    if not language:
+        return language
+
+    if not re.match('^\w\w[_-]\w\w$', language):
+        raise TwiMLException('Invalid value for language parameter.')
+
+    return language[0:2].lower() + '-' + language[3:5].upper()
 
 
 class TwiMLException(Exception):
