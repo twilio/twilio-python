@@ -333,6 +333,25 @@ class TestConference(TwilioTest):
             '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Conference beep="false" endConferenceOnExit="true" startConferenceOnEnter="true" waitUrl="">TestConferenceAttributes</Conference></Dial></Response>'
         )
 
+    def test_muted_conference(self):
+        d = Dial()
+        d.conference(
+            'TestConferenceMutedAttribute',
+            beep=False,
+            muted=True,
+            wait_url='',
+            start_conference_on_enter=True,
+            end_conference_on_exit=True
+        )
+
+        r = VoiceResponse()
+        r.append(d)
+
+        assert_equal(
+            self.strip(r),
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Conference beep="false" endConferenceOnExit="true" muted="true" startConferenceOnEnter="true" waitUrl="">TestConferenceMutedAttribute</Conference></Dial></Response>'
+        )
+
 
 class TestQueue(TwilioTest):
 

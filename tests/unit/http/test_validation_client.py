@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+
+import six
+
 import unittest
 
 import mock
@@ -76,7 +80,7 @@ class TestValidationClientRequest(unittest.TestCase):
         self.request_mock = Mock()
 
         self.session_mock.prepare_request.return_value = self.request_mock
-        self.session_mock.send.return_value = Mock(status_code=200, content='test')
+        self.session_mock.send.return_value = Mock(status_code=200, content=six.u('testΩ'))
         self.validation_token.return_value.to_jwt.return_value = 'test-token'
         self.request_mock.headers = {}
 
@@ -105,3 +109,14 @@ class TestValidationClientRequest(unittest.TestCase):
 
         self.assertEqual('other.twilio.com', self.request_mock.headers['Host'])
         self.assertEqual('test-token', self.request_mock.headers['Twilio-Client-Validation'])
+
+    def test_request_with_unicode_response(self):
+        self.request_mock.url = 'https://api.twilio.com/'
+        self.request_mock.headers = {'Host': 'other.twilio.com'}
+
+        response = self.client.request('doesnt matter', 'doesnt matter')
+
+        self.assertEqual('other.twilio.com', self.request_mock.headers['Host'])
+        self.assertEqual('test-token', self.request_mock.headers['Twilio-Client-Validation'])
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(six.u('testΩ'), response.content)
