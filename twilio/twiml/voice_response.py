@@ -135,6 +135,12 @@ class VoiceResponse(TwiML):
             timeout=timeout,
             finish_on_key=finish_on_key,
             num_digits=num_digits,
+            partial_result_callback=partial_result_callback,
+            partial_result_callback_method=partial_result_callback_method,
+            language=language,
+            hints=hints,
+            barge_in=barge_in,
+            acknowledge_sound_url=acknowledge_sound_url,
             **kwargs
         ))
 
