@@ -164,7 +164,7 @@ class VoiceResponse(TwiML):
         return self.append(Pause(length=length))
 
     def play(self,
-             url,
+             url=None,
              loop=None,
              digits=None,
              **kwargs):
@@ -178,7 +178,7 @@ class VoiceResponse(TwiML):
         :return: <Play> element
         """
         return self.append(Play(
-            url,
+            url=url,
             loop=loop,
             digits=digits,
             **kwargs
@@ -697,7 +697,7 @@ class Gather(TwiML):
         ))
 
     def play(self,
-             url,
+             url=None,
              loop=None,
              digits=None,
              **kwargs):
@@ -711,7 +711,7 @@ class Gather(TwiML):
         :return: <Play> element
         """
         return self.append(Play(
-            url,
+            url=url,
             loop=loop,
             digits=digits,
             **kwargs
@@ -738,12 +738,12 @@ class Play(TwiML):
     """
     <Play> element
     """
-    def __init__(self, url, **kwargs):
+    def __init__(self, url=None, **kwargs):
         """
         Create a new <Play> element
 
-        :param url: media URL
-        :param kwargs: additional attributes
+        :param url: optional media URL
+        :param kwargs: attributes
         """
         super(Play, self).__init__(**kwargs)
         self.value = url
