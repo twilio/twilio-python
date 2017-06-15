@@ -14,11 +14,24 @@ with open('twilio/__init__.py') as f:
 # You need to have the setuptools module installed. Try reading the setuptools
 # documentation: http://pypi.python.org/pypi/setuptools
 REQUIRES = ["requests >= 2.0.0", "six", "pytz", "PyJWT >= 1.4.2"]
+REQUIRES_PY2 = ["cryptography >= 1.3.4", "idna >= 2.0.0", "pyOpenSSL >= 0.14"]
+REQUIRES_PY3 = ['pysocks']
 
-if sys.version_info < (3, 0):
-    REQUIRES.extend(["cryptography >= 1.3.4", "idna >= 2.0.0", "pyOpenSSL >= 0.14"])
-if sys.version_info >= (3, 0):
-    REQUIRES.append('pysocks')
+if 'bdist_wheel' not in sys.argv:
+    # Since wheels don't have setup.py but a static list of dependencies,
+    # if install_requires is once made it's fixed to a wheel file.
+    # To prevent fixing the following conditional dependencies, opt-out them
+    # when building wheels and use "environment markers" instead  (see below).
+    if sys.version_info < (3, 0):
+        REQUIRES.extend(REQUIRES_PY2)
+    if sys.version_info >= (3, 0):
+        REQUIRES.extend(REQUIRES_PY3)
+
+# Environment markers
+extras_require = {
+    ":python_version<'3.0'": REQUIRES_PY2,
+    ":python_version>='3.0'": REQUIRES_PY3,
+}
 
 setup(
     name = "twilio",
@@ -30,12 +43,7 @@ setup(
     keywords = ["twilio","twiml"],
     install_requires = REQUIRES,
     # bdist conditional requirements support
-    extras_require={
-        ':python_version=="3.3"': ['pysocks'],
-        ':python_version=="3.4"': ['pysocks'],
-        ':python_version=="3.5"': ['pysocks'],
-        ':python_version=="3.6"': ['pysocks'],
-    },
+    extras_require = extras_require,
     packages = find_packages(exclude=['tests', 'tests.*']),
     include_package_data=True,
     classifiers = [
