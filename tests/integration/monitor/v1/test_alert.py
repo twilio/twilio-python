@@ -98,7 +98,6 @@ class AlertTestCase(IntegrationTestCase):
                     "key": "alerts",
                     "next_page_url": null,
                     "page": 0,
-                    "count": 0,
                     "page_size": 0,
                     "previous_page_url": null,
                     "url": "https://monitor.twilio.com/v1/Alerts"
@@ -139,7 +138,6 @@ class AlertTestCase(IntegrationTestCase):
                     "key": "alerts",
                     "next_page_url": null,
                     "page": 0,
-                    "count": 1,
                     "page_size": 1,
                     "previous_page_url": null,
                     "url": "https://monitor.twilio.com/v1/Alerts"

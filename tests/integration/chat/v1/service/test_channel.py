@@ -169,7 +169,6 @@ class ChannelTestCase(IntegrationTestCase):
                 ],
                 "meta": {
                     "page": 0,
-                    "count": 1,
                     "page_size": 50,
                     "first_page_url": "https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels?PageSize=50&Page=0",
                     "previous_page_url": null,
@@ -194,7 +193,6 @@ class ChannelTestCase(IntegrationTestCase):
                 "channels": [],
                 "meta": {
                     "page": 0,
-                    "count": 0,
                     "page_size": 50,
                     "first_page_url": "https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels?PageSize=50&Page=0",
                     "previous_page_url": null,

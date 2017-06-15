@@ -129,8 +129,7 @@ class KeyTestCase(IntegrationTestCase):
                 "page_size": 50,
                 "start": 0,
                 "next_page_uri": null,
-                "page": 0,
-                "count": 1
+                "page": 0
             }
             '''
         ))
@@ -153,8 +152,7 @@ class KeyTestCase(IntegrationTestCase):
                 "page_size": 50,
                 "start": 0,
                 "next_page_uri": null,
-                "page": 0,
-                "count": 0
+                "page": 0
             }
             '''
         ))

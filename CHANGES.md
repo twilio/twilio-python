@@ -3,6 +3,18 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2017-06-15] Version 6.4.0
+--------------------------
+
+- Remove support for Python 2.6.
+- Add `locality` field to `AvailablePhoneNumbers`.
+- Add `origin` field to `IncomingPhoneNumbers`.
+- Add `in_locality` parameter to `AvailablePhoneNumbers`.
+- Add `origin` parameter to `IncomingPhoneNumbers`.
+- Add new sync categories to `UsageRecords`.
+- Support unicode in `validation_client`.
+- Add `muted` parameter to `<Conference>` Twiml.
+
 [2017-05-24] Version 6.3.0
 --------------------------
 

@@ -170,7 +170,6 @@ class IncomingPhoneNumberTestCase(IntegrationTestCase):
             200,
             '''
             {
-                "count": 1,
                 "end": 0,
                 "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json?PageSize=1&Page=0",
                 "incoming_phone_numbers": [
@@ -232,7 +231,6 @@ class IncomingPhoneNumberTestCase(IntegrationTestCase):
             200,
             '''
             {
-                "count": 0,
                 "end": 0,
                 "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json?PageSize=1&Page=0",
                 "incoming_phone_numbers": [],

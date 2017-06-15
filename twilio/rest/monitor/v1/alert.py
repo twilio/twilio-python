@@ -45,7 +45,10 @@ class AlertList(ListResource):
         :param date end_date: The end_date
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.monitor.v1.alert.AlertInstance]
@@ -73,7 +76,10 @@ class AlertList(ListResource):
         :param date end_date: The end_date
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.monitor.v1.alert.AlertInstance]

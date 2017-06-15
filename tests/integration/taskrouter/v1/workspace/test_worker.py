@@ -33,7 +33,6 @@ class WorkerTestCase(IntegrationTestCase):
             {
                 "meta": {
                     "page": 0,
-                    "count": 1,
                     "page_size": 50,
                     "first_page_url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers?PageSize=50&Page=0",
                     "previous_page_url": null,
@@ -84,7 +83,6 @@ class WorkerTestCase(IntegrationTestCase):
                     "key": "workers",
                     "next_page_url": null,
                     "page": 0,
-                    "count": 0,
                     "page_size": 50,
                     "previous_page_url": null,
                     "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers?PageSize=50&Page=0"

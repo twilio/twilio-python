@@ -180,7 +180,6 @@ class PhoneNumberTestCase(IntegrationTestCase):
                     "key": "phone_numbers",
                     "next_page_url": null,
                     "page": 0,
-                    "count": 1,
                     "page_size": 1,
                     "previous_page_url": null,
                     "url": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers?PageSize=1&Page=0"
@@ -240,7 +239,6 @@ class PhoneNumberTestCase(IntegrationTestCase):
                     "key": "phone_numbers",
                     "next_page_url": null,
                     "page": 0,
-                    "count": 0,
                     "page_size": 1,
                     "previous_page_url": null,
                     "url": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers?PageSize=1&Page=0"

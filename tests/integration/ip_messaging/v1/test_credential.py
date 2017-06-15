@@ -44,7 +44,6 @@ class CredentialTestCase(IntegrationTestCase):
                 ],
                 "meta": {
                     "page": 0,
-                    "count": 1,
                     "page_size": 1,
                     "first_page_url": "https://chat.twilio.com/v1/Credentials?PageSize=1&Page=0",
                     "previous_page_url": null,
@@ -68,7 +67,6 @@ class CredentialTestCase(IntegrationTestCase):
                 "credentials": [],
                 "meta": {
                     "page": 0,
-                    "count": 0,
                     "page_size": 1,
                     "first_page_url": "https://chat.twilio.com/v1/Credentials?PageSize=1&Page=0",
                     "previous_page_url": null,

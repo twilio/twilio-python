@@ -72,7 +72,6 @@ class AddOnResultTestCase(IntegrationTestCase):
             200,
             '''
             {
-                "count": 1,
                 "end": 0,
                 "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AddOnResults.json?PageSize=50&Page=0",
                 "next_page_uri": null,
@@ -112,7 +111,6 @@ class AddOnResultTestCase(IntegrationTestCase):
             200,
             '''
             {
-                "count": 0,
                 "end": 0,
                 "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AddOnResults.json?PageSize=50&Page=0",
                 "next_page_uri": null,

@@ -1,7 +1,7 @@
 .PHONY: clean install analysis test test-install develop docs docs-install
 
 venv:
-	virtualenv venv
+	virtualenv --python=python venv
 
 install: venv
 	. venv/bin/activate; pip install .

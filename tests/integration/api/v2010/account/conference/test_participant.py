@@ -206,7 +206,6 @@ class ParticipantTestCase(IntegrationTestCase):
             200,
             '''
             {
-                "count": 1,
                 "end": 0,
                 "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants.json?Page=0&PageSize=50",
                 "next_page_uri": null,
@@ -245,7 +244,6 @@ class ParticipantTestCase(IntegrationTestCase):
             200,
             '''
             {
-                "count": 0,
                 "end": 0,
                 "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants.json?Page=0&PageSize=50",
                 "next_page_uri": null,
