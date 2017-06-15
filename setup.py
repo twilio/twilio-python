@@ -31,7 +31,8 @@ if 'bdist_wheel' not in sys.argv:
 extras_require = {
     # Older versions of pip don't support operators other than ==/!=
     ":python_version=='2.6' or python_version=='2.7'": REQUIRES_PY2,
-    ":python_version!='2.6' and python_version!='2.7'": REQUIRES_PY3,
+    (":python_version=='3.3' or python_version=='3.4' or"
+     " python_version=='3.5' or python_version=='3.6'"): REQUIRES_PY3,
 }
 
 setup(
