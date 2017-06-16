@@ -1,7 +1,7 @@
 import json
 from six import string_types
 
-from twilio.twiml import TwiML
+from twilio.twiml import TwiML, format_language
 
 
 class VoiceResponse(TwiML):
@@ -113,6 +113,7 @@ class VoiceResponse(TwiML):
                hints=None,
                barge_in=None,
                acknowledge_sound_url=None,
+               input=None,
                **kwargs):
         """
         Add a new <Gather> element
@@ -128,6 +129,7 @@ class VoiceResponse(TwiML):
         :param hints: speech recognition hints
         :param barge_in: stop playing media upon speech
         :param acknowledge_sound_url: url to hit when sound starts
+        :param input: type Twilio should accept "dtfm", "speech", "dtfm speech"
         :param kwargs: additional attributes
         :return: <Response> element
         """
@@ -137,6 +139,13 @@ class VoiceResponse(TwiML):
             timeout=timeout,
             finish_on_key=finish_on_key,
             num_digits=num_digits,
+            partial_result_callback=partial_result_callback,
+            partial_result_callback_method=partial_result_callback_method,
+            language=format_language(language),
+            hints=hints,
+            barge_in=barge_in,
+            acknowledge_sound_url=acknowledge_sound_url,
+            input=input,
             **kwargs
         ))
 
