@@ -1,7 +1,6 @@
 .PHONY: clean install analysis test test-install develop docs docs-install
 
 venv:
-	echo "Using python: "; python --version
 	virtualenv --python=python venv
 
 install: venv
