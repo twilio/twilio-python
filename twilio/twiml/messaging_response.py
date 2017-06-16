@@ -7,7 +7,7 @@ class MessagingResponse(TwiML):
     """
     def __init__(self):
         """
-        Create a new <MessagingResponse>
+        Create a new <Response>
         """
         super(MessagingResponse, self).__init__()
         self.name = 'Response'
@@ -30,7 +30,7 @@ class MessagingResponse(TwiML):
         :param action: action URL
         :param status_callback: callback URL
         :param kwargs: other attributes
-        :return: <MessagingResponse> element
+        :return: <Response> element
         """
         return self.append(Message(
             body=body,
@@ -49,7 +49,7 @@ class MessagingResponse(TwiML):
         :param url: URL to redirect to
         :param method: HTTP method
         :param kwargs: other attributes
-        :return: <MessagingResponse> element
+        :return: <Response> element
         """
         return self.append(Redirect(
             method=method,
