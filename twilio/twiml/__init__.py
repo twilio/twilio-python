@@ -19,7 +19,7 @@ def format_language(language):
     if not language:
         return language
 
-    if not re.match('^\w\w[_-]\w\w$', language):
+    if not re.match('^[a-zA-Z]{2}[_-][a-zA-Z]{2}$', language):
         raise TwiMLException('Invalid value for language parameter.')
 
     return language[0:2].lower() + '-' + language[3:5].upper()
