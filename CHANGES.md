@@ -10,7 +10,7 @@ Here you can see the full list of changes between each twilio-python release.
     - `partial_result_callback`
     - `partial_result_callback_method`
     - `language`
-    - `hints
+    - `hints`
     - `barge_in`
     - `acknowledge_sound_url`
     - `input`
