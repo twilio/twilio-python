@@ -3,6 +3,21 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2017-06-16] Version 6.4.1
+--------------------------
+
+- Add several missing `<Gather>` attributes.
+    - `partial_result_callback`
+    - `partial_result_callback_method`
+    - `language`
+    - `hints
+    - `barge_in`
+    - `acknowledge_sound_url`
+    - `input`
+- Remove client-side max page size validation.
+- Support `announce_url` and `announce_url_method` on Conference Participants.
+- TwiML docstring corrections.
+
 [2017-06-15] Version 6.4.0
 --------------------------
 
