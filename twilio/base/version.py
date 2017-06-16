@@ -9,7 +9,6 @@ class Version(object):
     """
     Represents an API version.
     """
-    MAX_PAGE_SIZE = 1000
 
     def __init__(self, domain):
         """
@@ -140,9 +139,7 @@ class Version(object):
         if limit is not None:
 
             if page_size is None:
-                # If there is no user-specified page_size, pick the most
-                # network efficient size
-                page_size = min(limit, self.MAX_PAGE_SIZE)
+                page_size = limit
 
             page_limit = int(ceil(limit / float(page_size)))
 
