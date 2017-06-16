@@ -51,7 +51,8 @@ class NotificationTestCase(IntegrationTestCase):
                 "fcm": null,
                 "gcm": null,
                 "sms": null,
-                "facebook_messenger": null
+                "facebook_messenger": null,
+                "alexa": null
             }
             '''
         ))

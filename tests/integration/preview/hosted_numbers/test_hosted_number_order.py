@@ -210,12 +210,11 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.hosted_numbers.hosted_number_orders.create(address_sid="ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", phone_number="+987654321", type="local", iso_country="iso_country", sms_capability=True, email="email")
+            self.client.preview.hosted_numbers.hosted_number_orders.create(address_sid="ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", phone_number="+987654321", iso_country="iso_country", sms_capability=True, email="email")
 
         values = {
             'AddressSid': "ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
             'PhoneNumber': "+987654321",
-            'Type': "local",
             'IsoCountry': "iso_country",
             'SmsCapability': True,
             'Email': "email",
@@ -254,6 +253,6 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.hosted_numbers.hosted_number_orders.create(address_sid="ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", phone_number="+987654321", type="local", iso_country="iso_country", sms_capability=True, email="email")
+        actual = self.client.preview.hosted_numbers.hosted_number_orders.create(address_sid="ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", phone_number="+987654321", iso_country="iso_country", sms_capability=True, email="email")
 
         self.assertIsNotNone(actual)

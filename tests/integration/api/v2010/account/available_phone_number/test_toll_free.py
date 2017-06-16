@@ -45,6 +45,7 @@ class TollFreeTestCase(IntegrationTestCase):
                         "iso_country": "US",
                         "lata": null,
                         "latitude": null,
+                        "locality": null,
                         "longitude": null,
                         "phone_number": "+18001000052",
                         "postal_code": null,

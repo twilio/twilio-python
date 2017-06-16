@@ -120,7 +120,7 @@ class TestPlay(TwilioTest):
     def test_empty_play(self):
         """ should play hello monkey """
         r = VoiceResponse()
-        r.play('')
+        r.play()
 
         assert_equal(
             self.strip(r),
@@ -130,7 +130,7 @@ class TestPlay(TwilioTest):
     def test_play_hello(self):
         """ should play hello monkey """
         r = VoiceResponse()
-        r.play('http://hellomonkey.mp3')
+        r.play(url='http://hellomonkey.mp3')
 
         assert_equal(
             self.strip(r),
@@ -140,7 +140,7 @@ class TestPlay(TwilioTest):
     def test_play_hello_loop(self):
         """ should play hello monkey loop """
         r = VoiceResponse()
-        r.play('http://hellomonkey.mp3', loop=3)
+        r.play(url='http://hellomonkey.mp3', loop=3)
 
         assert_equal(
             self.strip(r),
@@ -150,7 +150,7 @@ class TestPlay(TwilioTest):
     def test_play_digits(self):
         """ should play digits """
         r = VoiceResponse()
-        r.play('', digits='w123')
+        r.play(digits='w123')
 
         assert_equal(
             self.strip(r),
@@ -331,6 +331,25 @@ class TestConference(TwilioTest):
         assert_equal(
             self.strip(r),
             '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Conference beep="false" endConferenceOnExit="true" startConferenceOnEnter="true" waitUrl="">TestConferenceAttributes</Conference></Dial></Response>'
+        )
+
+    def test_muted_conference(self):
+        d = Dial()
+        d.conference(
+            'TestConferenceMutedAttribute',
+            beep=False,
+            muted=True,
+            wait_url='',
+            start_conference_on_enter=True,
+            end_conference_on_exit=True
+        )
+
+        r = VoiceResponse()
+        r.append(d)
+
+        assert_equal(
+            self.strip(r),
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Conference beep="false" endConferenceOnExit="true" muted="true" startConferenceOnEnter="true" waitUrl="">TestConferenceMutedAttribute</Conference></Dial></Response>'
         )
 
 
@@ -560,7 +579,7 @@ class TestGather(TwilioTest):
         """ a gather with a say, play, and pause """
         g = Gather()
         g.say('Hey')
-        g.play('hey.mp3')
+        g.play(url='hey.mp3')
         g.pause()
 
         r = VoiceResponse()
