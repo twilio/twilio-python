@@ -58,7 +58,7 @@ class Page(object):
         if response.status_code != 200:
             raise TwilioException('Unable to fetch page', response)
 
-        return json.loads(response.content)
+        return json.loads(response.content.decode('utf-8'))
 
     def load_page(self, payload):
         """
