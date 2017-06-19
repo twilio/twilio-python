@@ -2,6 +2,7 @@ import unittest
 
 from tests.holodeck import Holodeck
 from twilio.rest import Client
+from twilio.http.response import Response
 
 
 class IntegrationTestCase(unittest.TestCase):
@@ -13,3 +14,9 @@ class IntegrationTestCase(unittest.TestCase):
         self.client = Client(username=self.account_sid,
                              password=self.auth_token,
                              http_client=self.holodeck)
+
+
+class MockResponse(Response):
+    def __init__(self, status, content):
+        # Fancy bytes/string logic.
+        pass
