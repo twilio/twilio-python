@@ -5,6 +5,21 @@ from twilio.base import values
 from twilio.base.exceptions import TwilioRestException
 
 
+def json_bytes_str_compatible(func):
+    def decorator(response_content):
+        # Python 2.7
+        if isinstance(response_content, str):
+            return func(response_content)
+        # Python 3.*
+        return func(response_content.decode('utf-8'))
+    return decorator
+
+
+@json_bytes_str_compatible
+def encode_to_json(content):
+    return json.loads(content)
+
+
 class Version(object):
     """
     Represents an API version.
@@ -81,7 +96,7 @@ class Version(object):
         if response.status_code < 200 or response.status_code >= 300:
             raise self.exception(method, uri, response, 'Unable to fetch record')
 
-        return json.loads(response.content)
+        return encode_to_json(response.content)
 
     def update(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
                allow_redirects=False):
@@ -102,7 +117,7 @@ class Version(object):
         if response.status_code < 200 or response.status_code >= 300:
             raise self.exception(method, uri, response, 'Unable to update record')
 
-        return json.loads(response.content)
+        return encode_to_json(response.content)
 
     def delete(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
                allow_redirects=False):
@@ -208,5 +223,4 @@ class Version(object):
         if response.status_code < 200 or response.status_code >= 300:
             raise self.exception(method, uri, response, 'Unable to create record')
 
-        return json.loads(response.content)
-
+        return encode_to_json(response.content)
