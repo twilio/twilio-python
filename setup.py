@@ -13,7 +13,7 @@ with open('twilio/__init__.py') as f:
 #
 # You need to have the setuptools module installed. Try reading the setuptools
 # documentation: http://pypi.python.org/pypi/setuptools
-REQUIRES = ["requests >= 2.0.0", "six", "pytz", "PyJWT >= 1.4.2"]
+REQUIRES = ["requests >= 2.0.0", "six", "pytz", "PyJWT == 1.5.1"]
 
 if sys.version_info < (3, 0):
     REQUIRES.extend(["cryptography >= 1.3.4", "idna >= 2.0.0", "pyOpenSSL >= 0.14"])
