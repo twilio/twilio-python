@@ -155,7 +155,8 @@ class FaxList(ListResource):
 
     def create(self, to, media_url, quality=values.unset,
                status_callback=values.unset, from_=values.unset,
-               sip_auth_username=values.unset, sip_auth_password=values.unset):
+               sip_auth_username=values.unset, sip_auth_password=values.unset,
+               store_media=values.unset):
         """
         Create a new FaxInstance
 
@@ -166,6 +167,7 @@ class FaxList(ListResource):
         :param unicode from_: Twilio number from which to originate the fax
         :param unicode sip_auth_username: Username for SIP authentication
         :param unicode sip_auth_password: Password for SIP authentication
+        :param bool store_media: Whether or not to store media
 
         :returns: Newly created FaxInstance
         :rtype: twilio.rest.fax.v1.fax.FaxInstance
@@ -178,6 +180,7 @@ class FaxList(ListResource):
             'From': from_,
             'SipAuthUsername': sip_auth_username,
             'SipAuthPassword': sip_auth_password,
+            'StoreMedia': store_media,
         })
 
         payload = self._version.create(

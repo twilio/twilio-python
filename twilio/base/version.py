@@ -54,7 +54,7 @@ class Version(object):
         """
         # noinspection PyBroadException
         try:
-            error_payload = json.loads(response.content)
+            error_payload = json.loads(response.text)
             if 'message' in error_payload:
                 message = '{}: {}'.format(message, error_payload['message'])
             code = error_payload.get('code', response.status_code)
@@ -81,7 +81,7 @@ class Version(object):
         if response.status_code < 200 or response.status_code >= 300:
             raise self.exception(method, uri, response, 'Unable to fetch record')
 
-        return json.loads(response.content)
+        return json.loads(response.text)
 
     def update(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
                allow_redirects=False):
@@ -102,7 +102,7 @@ class Version(object):
         if response.status_code < 200 or response.status_code >= 300:
             raise self.exception(method, uri, response, 'Unable to update record')
 
-        return json.loads(response.content)
+        return json.loads(response.text)
 
     def delete(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
                allow_redirects=False):
@@ -208,5 +208,4 @@ class Version(object):
         if response.status_code < 200 or response.status_code >= 300:
             raise self.exception(method, uri, response, 'Unable to create record')
 
-        return json.loads(response.content)
-
+        return json.loads(response.text)

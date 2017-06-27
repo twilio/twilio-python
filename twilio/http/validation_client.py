@@ -69,7 +69,7 @@ class ValidationClient(HttpClient):
             timeout=timeout,
         )
 
-        return Response(int(response.status_code), response.content)
+        return Response(int(response.status_code), response.text)
 
     def _build_validation_payload(self, request):
         """

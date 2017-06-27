@@ -38,4 +38,4 @@ class TwilioHttpClient(HttpClient):
             timeout=timeout,
         )
 
-        return Response(int(response.status_code), response.content)
+        return Response(int(response.status_code), response.text)
