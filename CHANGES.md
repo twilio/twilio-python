@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2017-06-15] Version 6.4.2-alpha-1
+--------------------------
+
+- Pin PyJWT to below version `1.5.1` to fix broken build.
+- Fix json load error for python 3.3 - 3.5
+- Add `StoreMedia` support to Faxes.
+
 [2017-06-15] Version 6.4.1-alpha-1
 --------------------------
 
