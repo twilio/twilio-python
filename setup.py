@@ -13,12 +13,12 @@ with open('twilio/__init__.py') as f:
 #
 # You need to have the setuptools module installed. Try reading the setuptools
 # documentation: http://pypi.python.org/pypi/setuptools
-REQUIRES = ["requests >= 2.0.0", "six", "pytz", "PyJWT >= 1.4.2"]
+# REQUIRES =
 
-if sys.version_info < (3, 0):
-    REQUIRES.extend(["cryptography >= 1.3.4", "idna >= 2.0.0", "pyOpenSSL >= 0.14"])
-if sys.version_info >= (3, 0):
-    REQUIRES.append('pysocks')
+# if sys.version_info < (3, 0):
+#     REQUIRES.extend(["cryptography >= 1.3.4", "idna >= 2.0.0", "pyOpenSSL >= 0.14"])
+# if sys.version_info >= (3, 0):
+#     REQUIRES.append('pysocks')
 
 setup(
     name = "twilio",
@@ -28,14 +28,35 @@ setup(
     author_email = "help@twilio.com",
     url = "https://github.com/twilio/twilio-python/",
     keywords = ["twilio","twiml"],
-    install_requires = REQUIRES,
-    # bdist conditional requirements support
-    extras_require={
-        ':python_version=="3.3"': ['pysocks'],
-        ':python_version=="3.4"': ['pysocks'],
-        ':python_version=="3.5"': ['pysocks'],
-        ':python_version=="3.6"': ['pysocks'],
-    },
+    install_requires = [
+        # "requests >= 2.0.0",
+        "six",
+        "pytz",
+        "PyJWT >= 1.4.2, <1.5.1",
+        # Python 2 dependencies
+        "requests[security] >= 2.0.0;python_version<'3'",
+        # "cryptography >= 1.3.4;python_version<'3'",
+        # "idna >= 2.0.0;python_version<'3'",
+        # "pyOpenSSL >= 0.14;python_version<'3'",
+        # Python 3 dependencies
+        "requests >= 2.0.0;python_version>='3'",
+        "pysocks;python_version>='3'"
+    ],
+    dependency_links=[
+        'https://pypi.python.org/pypi',
+        'https://pypi.python.org/pypi/six',
+        'https://pypi.python.org/pypi/pytz',
+        'https://pypi.python.org/pypi/pyjwt',
+        'https://pypi.python.org/pypi/requests',
+        'https://pypi.python.org/pypi/pysocks'
+    ],
+    # # bdist conditional requirements support
+    # extras_require={
+    #     ':python_version=="3.3"': ['pysocks'],
+    #     ':python_version=="3.4"': ['pysocks'],
+    #     ':python_version=="3.5"': ['pysocks'],
+    #     ':python_version=="3.6"': ['pysocks'],
+    # },
     packages = find_packages(exclude=['tests', 'tests.*']),
     include_package_data=True,
     classifiers = [
