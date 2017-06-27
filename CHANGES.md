@@ -3,6 +3,12 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2017-06-27] Version 6.4.2
+--------------------------
+
+- Pin PyJWT to below version `1.5.1` to fix broken build.
+- Fix json load error for python 3.3 - 3.5
+
 [2017-06-16] Version 6.4.1
 --------------------------
 
