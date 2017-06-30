@@ -74,11 +74,22 @@ class TwiML(object):
         """
         Add a TwiML doc
         :param verb: TwiML Document
-        :return:
+        :return: self
         """
         if not isinstance(verb, TwiML):
             raise TwiMLException('Only appending of TwiML is allowed')
 
+        self.verbs.append(verb)
+        return self
+
+    def nest(self, verb):
+        """
+        Add a TwiML doc. Unlike `append()`, this returns the created verb.
+        :param verb: TwiML verb
+        :return: the TwiML verb
+        """
+        if not isinstance(verb, TwiML):
+            raise TwiMLException('Only nesting of TwiML is allowed')
         self.verbs.append(verb)
         return verb
 
