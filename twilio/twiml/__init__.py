@@ -80,7 +80,7 @@ class TwiML(object):
             raise TwiMLException('Only appending of TwiML is allowed')
 
         self.verbs.append(verb)
-        return self
+        return verb
 
     def xml(self):
         """

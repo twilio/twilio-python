@@ -30,15 +30,28 @@ class TestResponse(TwilioTest):
         )
 
     def test_response_chain(self):
-        r = VoiceResponse().hangup().leave().sms(
-            'twilio sms',
-            to='+11234567890',
-            from_='+10987654321'
-        )
+        with VoiceResponse() as r:
+            r.hangup()
+            r.leave()
+            r.sms(
+                'twilio sms',
+                to='+11234567890',
+                from_='+10987654321'
+            )
 
         assert_equal(
             self.strip(r),
             '<?xml version="1.0" encoding="UTF-8"?><Response><Hangup /><Leave /><Sms from="+10987654321" to="+11234567890">twilio sms</Sms></Response>'
+        )
+
+    def test_nested_verbs(self):
+        with VoiceResponse() as r:
+            with r.gather() as g:
+                g.say('Hello', voice='man')
+
+        assert_equal(
+            self.strip(r),
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Gather><Say voice="man">Hello</Say></Gather></Response>'
         )
 
 
