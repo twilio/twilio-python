@@ -6,7 +6,10 @@ venv:
 install: venv
 	. venv/bin/activate; pip install .
 
-test-install: install
+pre-test-install:
+	@`python --version` || (echo "Python is not installed, please install Python 2 or Python 3"; exit 1)
+
+test-install: pre-test-install install
 	. venv/bin/activate; pip install -r tests/requirements.txt
 
 develop: venv
