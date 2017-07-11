@@ -1,13 +1,11 @@
-.PHONY: clean install analysis test test-install develop docs docs-install
+.PHONY: clean venv install analysis test test-install develop docs docs-install
 
 venv:
+	@python --version || (echo "Python is not installed, please install Python 2 or Python 3"; exit 1);
 	virtualenv --python=python venv
 
-install: pre-test-install venv
+install: venv
 	. venv/bin/activate; pip install .
-
-pre-test-install:
-	@python --version || (echo "Python is not installed, please install Python 2 or Python 3"; exit 1)
 
 test-install: install
 	. venv/bin/activate; pip install -r tests/requirements.txt
