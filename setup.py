@@ -42,14 +42,6 @@ setup(
         "requests >= 2.0.0;python_version>='3'",
         "pysocks;python_version>='3'"
     ],
-    dependency_links=[
-        'https://pypi.python.org/pypi',
-        'https://pypi.python.org/pypi/six',
-        'https://pypi.python.org/pypi/pytz',
-        'https://pypi.python.org/pypi/pyjwt',
-        'https://pypi.python.org/pypi/requests',
-        'https://pypi.python.org/pypi/pysocks'
-    ],
     # # bdist conditional requirements support
     # extras_require={
     #     ':python_version=="3.3"': ['pysocks'],
