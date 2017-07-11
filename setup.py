@@ -26,12 +26,16 @@ setup(
         "six",
         "pytz",
         "PyJWT >= 1.4.2, <1.5.1",
-        # Python 2 dependencies
-        "requests[security] >= 2.0.0;python_version<'3'",
-        # Python 3 dependencies
-        "requests >= 2.0.0;python_version>='3'",
-        "pysocks;python_version>='3'"
     ],
+    extras_require={
+        ':python_version=="2.7"': [
+            "requests[security] >= 2.0.0",
+        ],
+        ':python_version>="3.3"': [
+            "requests >= 2.0.0",
+            "pysocks",
+        ],
+    },
     packages = find_packages(exclude=['tests', 'tests.*']),
     include_package_data=True,
     classifiers = [
