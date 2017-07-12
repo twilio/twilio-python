@@ -45,7 +45,7 @@ class VoiceResponse(TwiML):
         :param kwargs: additional attributes
         :return: <Response> element
         """
-        return self.append(Dial(
+        return self.nest(Dial(
             number=number,
             action=action,
             method=method,
@@ -67,7 +67,7 @@ class VoiceResponse(TwiML):
 
         :return: <Response> element
         """
-        return self.append(Echo(
+        return self.nest(Echo(
             **kwargs
         ))
 
@@ -91,7 +91,7 @@ class VoiceResponse(TwiML):
         :param kwargs: additional attributes
         :return: <Response> element
         """
-        return self.append(Enqueue(
+        return self.nest(Enqueue(
             name,
             action=action,
             method=method,
@@ -133,7 +133,7 @@ class VoiceResponse(TwiML):
         :param kwargs: additional attributes
         :return: <Response> element
         """
-        return self.append(Gather(
+        return self.nest(Gather(
             action=action,
             method=method,
             timeout=timeout,
@@ -155,7 +155,7 @@ class VoiceResponse(TwiML):
 
         :return: <Response> element
         """
-        return self.append(Hangup())
+        return self.nest(Hangup())
 
     def leave(self):
         """
@@ -163,7 +163,7 @@ class VoiceResponse(TwiML):
 
         :return: <Response> element
         """
-        return self.append(Leave())
+        return self.nest(Leave())
 
     def pause(self, length=None):
         """
@@ -172,7 +172,7 @@ class VoiceResponse(TwiML):
         :param length: time in seconds to pause
         :return: <Response> element
         """
-        return self.append(Pause(length=length))
+        return self.nest(Pause(length=length))
 
     def play(self,
              url=None,
@@ -188,7 +188,7 @@ class VoiceResponse(TwiML):
         :param kwargs: additional attributes
         :return: <Response> element
         """
-        return self.append(Play(
+        return self.nest(Play(
             url=url,
             loop=loop,
             digits=digits,
@@ -225,7 +225,7 @@ class VoiceResponse(TwiML):
         :param kwargs: additional attributes
         :return: <Response> element
         """
-        return self.append(Record(
+        return self.nest(Record(
             action=action,
             method=method,
             timeout=timeout,
@@ -249,7 +249,7 @@ class VoiceResponse(TwiML):
         :param kwargs: additional attributes
         :return: <Response> element
         """
-        return self.append(Redirect(url, method=method, **kwargs))
+        return self.nest(Redirect(url, method=method, **kwargs))
 
     def reject(self, reason=None, **kwargs):
         """
@@ -259,7 +259,7 @@ class VoiceResponse(TwiML):
         :param kwargs: additional attributes
         :return: <Response> element
         """
-        return self.append(Reject(reason=reason, **kwargs))
+        return self.nest(Reject(reason=reason, **kwargs))
 
     def say(self,
             body,
@@ -277,7 +277,7 @@ class VoiceResponse(TwiML):
         :param kwargs: additional attributes
         :return: <Response> element
         """
-        return self.append(Say(
+        return self.nest(Say(
             body,
             loop=loop,
             language=language,
@@ -305,7 +305,7 @@ class VoiceResponse(TwiML):
         :param kwargs: additional attributes
         :return: <Response> element
         """
-        return self.append(Sms(
+        return self.nest(Sms(
             body,
             to=to,
             from_=from_,
@@ -351,7 +351,7 @@ class Dial(TwiML):
         :param kwargs: additional attributes
         :return: <Dial> element
         """
-        return self.append(Client(
+        return self.nest(Client(
             name,
             method=method,
             url=url,
@@ -401,7 +401,7 @@ class Dial(TwiML):
         :param kwargs: additional attributes
         :return: <Dial> element
         """
-        return self.append(Conference(
+        return self.nest(Conference(
             name,
             muted=muted,
             start_conference_on_enter=start_conference_on_enter,
@@ -443,7 +443,7 @@ class Dial(TwiML):
         :param kwargs: additional attributes
         :return: <Dial> element
         """
-        return self.append(Number(
+        return self.nest(Number(
             number,
             send_digits=send_digits,
             url=url,
@@ -472,7 +472,7 @@ class Dial(TwiML):
         :param kwargs: additional attributes
         :return: <Dial> element
         """
-        return self.append(Queue(
+        return self.nest(Queue(
             queue_name,
             url=url,
             method=method,
@@ -490,7 +490,7 @@ class Dial(TwiML):
         :param sid: sim sid
         :return: <Dial> element
         """
-        return self.append(Sim(
+        return self.nest(Sim(
             sid,
             **kwargs
         ))
@@ -519,7 +519,7 @@ class Dial(TwiML):
         :param kwargs: additional attributes
         :return: <Dial> element
         """
-        return self.append(Sip(
+        return self.nest(Sip(
             uri,
             username=username,
             password=password,
@@ -653,7 +653,7 @@ class Enqueue(TwiML):
         :param attributes: Attributes for a task
         :return: <Task> element
         """
-        return self.append(Task(attributes, **kwargs))
+        return self.nest(Task(attributes, **kwargs))
 
 
 class Task(TwiML):
@@ -700,7 +700,7 @@ class Gather(TwiML):
         :param kwargs: additional attributes
         :return: <Gather> element
         """
-        return self.append(Say(
+        return self.nest(Say(
             body,
             loop=loop,
             language=language,
@@ -722,7 +722,7 @@ class Gather(TwiML):
         :param kwargs: additional attributes
         :return: <Gather> element
         """
-        return self.append(Play(
+        return self.nest(Play(
             url=url,
             loop=loop,
             digits=digits,
@@ -736,7 +736,7 @@ class Gather(TwiML):
         :param length: time to pause
         :return: <Gather> element
         """
-        return self.append(Pause(length=length))
+        return self.nest(Pause(length=length))
 
 
 class Pause(TwiML):
