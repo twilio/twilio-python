@@ -106,13 +106,14 @@ class RoomRecordingTestCase(IntegrationTestCase):
                         "date_created": "2015-07-30T20:00:00Z",
                         "sid": "RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "source_sid": "MTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                        "size": 0,
+                        "size": 23,
                         "type": "audio",
-                        "duration": 0,
+                        "duration": 10,
                         "container_format": "mka",
                         "codec": "OPUS",
                         "grouping_sids": {
-                            "room_sid": "RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                            "room_sid": "RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                            "participant_sid": "PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                         },
                         "room_sid": "RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "url": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",

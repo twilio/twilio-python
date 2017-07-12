@@ -377,6 +377,8 @@ class RecordingInstance(InstanceResource):
             'channels': deserialize.integer(payload['channels']),
             'source': payload['source'],
             'uri': payload['uri'],
+            'encryption_type': payload['encryption_type'],
+            'encryption_details': payload['encryption_details'],
         }
 
         # Context
@@ -506,6 +508,22 @@ class RecordingInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['uri']
+
+    @property
+    def encryption_type(self):
+        """
+        :returns: The type of encryption used for this resource.
+        :rtype: unicode
+        """
+        return self._properties['encryption_type']
+
+    @property
+    def encryption_details(self):
+        """
+        :returns: The encryption_details
+        :rtype: dict
+        """
+        return self._properties['encryption_details']
 
     def fetch(self):
         """

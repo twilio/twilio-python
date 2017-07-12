@@ -374,7 +374,7 @@ class ParticipantContext(InstanceContext):
 
     def update(self, muted=values.unset, hold=values.unset, hold_url=values.unset,
                hold_method=values.unset, announce_url=values.unset,
-               announce_url_method=values.unset):
+               announce_method=values.unset):
         """
         Update the ParticipantInstance
 
@@ -383,7 +383,7 @@ class ParticipantContext(InstanceContext):
         :param unicode hold_url: The hold_url
         :param unicode hold_method: The hold_method
         :param unicode announce_url: The announce_url
-        :param unicode announce_url_method: The announce_url_method
+        :param unicode announce_method: The announce_method
 
         :returns: Updated ParticipantInstance
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
@@ -394,7 +394,7 @@ class ParticipantContext(InstanceContext):
             'HoldUrl': hold_url,
             'HoldMethod': hold_method,
             'AnnounceUrl': announce_url,
-            'AnnounceUrlMethod': announce_url_method,
+            'AnnounceMethod': announce_method,
         })
 
         payload = self._version.update(
@@ -591,7 +591,7 @@ class ParticipantInstance(InstanceResource):
 
     def update(self, muted=values.unset, hold=values.unset, hold_url=values.unset,
                hold_method=values.unset, announce_url=values.unset,
-               announce_url_method=values.unset):
+               announce_method=values.unset):
         """
         Update the ParticipantInstance
 
@@ -600,7 +600,7 @@ class ParticipantInstance(InstanceResource):
         :param unicode hold_url: The hold_url
         :param unicode hold_method: The hold_method
         :param unicode announce_url: The announce_url
-        :param unicode announce_url_method: The announce_url_method
+        :param unicode announce_method: The announce_method
 
         :returns: Updated ParticipantInstance
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
@@ -611,7 +611,7 @@ class ParticipantInstance(InstanceResource):
             hold_url=hold_url,
             hold_method=hold_method,
             announce_url=announce_url,
-            announce_url_method=announce_url_method,
+            announce_method=announce_method,
         )
 
     def delete(self):
