@@ -32,7 +32,7 @@ class MessagingResponse(TwiML):
         :param kwargs: other attributes
         :return: <Response> element
         """
-        return self.append(Message(
+        return self.nest(Message(
             body=body,
             to=to,
             from_=from_,
@@ -51,7 +51,7 @@ class MessagingResponse(TwiML):
         :param kwargs: other attributes
         :return: <Response> element
         """
-        return self.append(Redirect(
+        return self.nest(Redirect(
             method=method,
             url=url,
             **kwargs
@@ -80,7 +80,7 @@ class Message(TwiML):
         :param body: body of message
         :return: <Message> element
         """
-        return self.append(Body(body))
+        return self.nest(Body(body))
 
     def media(self, url):
         """
@@ -89,7 +89,7 @@ class Message(TwiML):
         :param url: media URL
         :return: <Message> element
         """
-        return self.append(Media(url))
+        return self.nest(Media(url))
 
 
 class Body(TwiML):
