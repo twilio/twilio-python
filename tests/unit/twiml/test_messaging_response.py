@@ -23,11 +23,23 @@ class TestResponse(TwilioTest):
         )
 
     def test_response_chain(self):
-        r = MessagingResponse().message('Hello').redirect(url='example.com')
+        with MessagingResponse() as r:
+            r.message('Hello')
+            r.redirect(url='example.com')
 
         assert_equal(
             self.strip(r),
             '<?xml version="1.0" encoding="UTF-8"?><Response><Message>Hello</Message><Redirect>example.com</Redirect></Response>'
+        )
+
+    def test_nested_verbs(self):
+        with MessagingResponse() as r:
+            with r.message('Hello') as m:
+                m.media('example.com')
+
+        assert_equal(
+            self.strip(r),
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Message>Hello<Media>example.com</Media></Message></Response>'
         )
 
 
