@@ -633,7 +633,7 @@ class MessageInstance(InstanceResource):
     @property
     def subresource_uris(self):
         """
-        :returns: The subresource_uris
+        :returns: The URI for any subresources
         :rtype: unicode
         """
         return self._properties['subresource_uris']

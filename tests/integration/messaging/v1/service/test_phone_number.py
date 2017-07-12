@@ -54,6 +54,33 @@ class PhoneNumberTestCase(IntegrationTestCase):
 
         self.assertIsNotNone(actual)
 
+    def test_create_with_capabilities_response(self):
+        self.holodeck.mock(Response(
+            201,
+            '''
+            {
+                "sid": "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "service_sid": "MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_created": "2015-07-30T20:12:31Z",
+                "date_updated": "2015-07-30T20:12:33Z",
+                "phone_number": "+987654321",
+                "country_code": "US",
+                "capabilities": [
+                    "MMS",
+                    "SMS",
+                    "Voice"
+                ],
+                "url": "https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
+
+        actual = self.client.messaging.v1.services(sid="MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                         .phone_numbers.create(phone_number_sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+
+        self.assertIsNotNone(actual)
+
     def test_delete_request(self):
         self.holodeck.mock(Response(500, ''))
 

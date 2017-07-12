@@ -125,7 +125,9 @@ class RatePlanList(ListResource):
                data_enabled=values.unset, data_limit=values.unset,
                data_metering=values.unset, messaging_enabled=values.unset,
                voice_enabled=values.unset, national_roaming_enabled=values.unset,
-               international_roaming=values.unset):
+               international_roaming=values.unset,
+               national_roaming_data_limit=values.unset,
+               international_roaming_data_limit=values.unset):
         """
         Create a new RatePlanInstance
 
@@ -138,6 +140,8 @@ class RatePlanList(ListResource):
         :param bool voice_enabled: The voice_enabled
         :param bool national_roaming_enabled: The national_roaming_enabled
         :param unicode international_roaming: The international_roaming
+        :param unicode national_roaming_data_limit: The national_roaming_data_limit
+        :param unicode international_roaming_data_limit: The international_roaming_data_limit
 
         :returns: Newly created RatePlanInstance
         :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanInstance
@@ -152,6 +156,8 @@ class RatePlanList(ListResource):
             'VoiceEnabled': voice_enabled,
             'NationalRoamingEnabled': national_roaming_enabled,
             'InternationalRoaming': international_roaming,
+            'NationalRoamingDataLimit': national_roaming_data_limit,
+            'InternationalRoamingDataLimit': international_roaming_data_limit,
         })
 
         payload = self._version.create(
@@ -355,7 +361,9 @@ class RatePlanInstance(InstanceResource):
             'messaging_enabled': payload['messaging_enabled'],
             'voice_enabled': payload['voice_enabled'],
             'national_roaming_enabled': payload['national_roaming_enabled'],
+            'national_roaming_data_limit': deserialize.integer(payload['national_roaming_data_limit']),
             'international_roaming': payload['international_roaming'],
+            'international_roaming_data_limit': deserialize.integer(payload['international_roaming_data_limit']),
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
             'url': payload['url'],
@@ -464,12 +472,28 @@ class RatePlanInstance(InstanceResource):
         return self._properties['national_roaming_enabled']
 
     @property
+    def national_roaming_data_limit(self):
+        """
+        :returns: The national_roaming_data_limit
+        :rtype: unicode
+        """
+        return self._properties['national_roaming_data_limit']
+
+    @property
     def international_roaming(self):
         """
         :returns: The international_roaming
         :rtype: unicode
         """
         return self._properties['international_roaming']
+
+    @property
+    def international_roaming_data_limit(self):
+        """
+        :returns: The international_roaming_data_limit
+        :rtype: unicode
+        """
+        return self._properties['international_roaming_data_limit']
 
     @property
     def date_created(self):

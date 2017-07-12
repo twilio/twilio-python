@@ -38,8 +38,8 @@ class NotificationList(ListResource):
                title=values.unset, sound=values.unset, action=values.unset,
                data=values.unset, apn=values.unset, gcm=values.unset,
                sms=values.unset, facebook_messenger=values.unset, fcm=values.unset,
-               segment=values.unset, alexa=values.unset, identity=values.unset,
-               tag=values.unset):
+               segment=values.unset, alexa=values.unset, to_binding=values.unset,
+               identity=values.unset, tag=values.unset):
         """
         Create a new NotificationInstance
 
@@ -57,6 +57,7 @@ class NotificationList(ListResource):
         :param unicode fcm: The fcm
         :param unicode segment: The segment
         :param unicode alexa: The alexa
+        :param unicode to_binding: The to_binding
         :param unicode identity: The identity
         :param unicode tag: The tag
 
@@ -80,6 +81,7 @@ class NotificationList(ListResource):
             'Fcm': fcm,
             'Segment': segment,
             'Alexa': alexa,
+            'ToBinding': to_binding,
         })
 
         payload = self._version.create(

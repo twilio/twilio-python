@@ -3,6 +3,30 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2017-07-12] Version 6.4.3a1
+-----------------------------
+**Api**
+- Update `AnnounceMethod` parameter naming for consistency
+
+**Messaging**
+- Fix incorrectly typed capabilities property for PhoneNumbers.
+
+**Notify**
+- Add `ToBinding` optional parameter on Notifications resource creation. Accepted values are json strings.
+
+**Preview**
+- Add `verification_attempts` to HostedNumberOrders.
+- Add `status_callback_url` and `status_callback_method` to HostedNumberOrders.
+
+**Video**
+- Filter recordings by date using the parameters `DateCreatedAfter` and `DateCreatedBefore`.
+- Override the default time-to-live of a recording's media URL through the `Ttl` parameter (in seconds, default value is 3600).
+- Add query parameters `SourceSid`, `Status`, `DateCreatedAfter` and `DateCreatedBefore` to the convenience method for retrieving Room recordings.
+
+**Wireless**
+- Added national and international data limits to the RatePlans resource.
+
+
 [2017-06-15] Version 6.4.2-alpha-1
 --------------------------
 

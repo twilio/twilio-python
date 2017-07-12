@@ -61,3 +61,37 @@ class NotificationTestCase(IntegrationTestCase):
                                       .notifications.create()
 
         self.assertIsNotNone(actual)
+
+    def test_create_direct_notification_response(self):
+        self.holodeck.mock(Response(
+            201,
+            '''
+            {
+                "sid": "NOb8021351170b4e1286adaac3fdd6d082",
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "service_sid": "IS699b53e02da45a1ba9d13b7d7d2766af",
+                "date_created": "2016-03-24T23:42:28Z",
+                "identities": [],
+                "tags": [],
+                "segments": [],
+                "priority": "high",
+                "ttl": 2419200,
+                "title": null,
+                "body": "body",
+                "sound": null,
+                "action": null,
+                "data": null,
+                "apn": null,
+                "fcm": null,
+                "gcm": null,
+                "sms": null,
+                "facebook_messenger": null,
+                "alexa": null
+            }
+            '''
+        ))
+
+        actual = self.client.notify.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                      .notifications.create()
+
+        self.assertIsNotNone(actual)

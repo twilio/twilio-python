@@ -40,7 +40,7 @@ class ServiceList(ListResource):
                sticky_sender=values.unset, mms_converter=values.unset,
                smart_encoding=values.unset, scan_message_content=values.unset,
                fallback_to_long_code=values.unset, area_code_geomatch=values.unset,
-               validity_period=values.unset):
+               validity_period=values.unset, synchronous_validation=values.unset):
         """
         Create a new ServiceInstance
 
@@ -57,6 +57,7 @@ class ServiceList(ListResource):
         :param bool fallback_to_long_code: The fallback_to_long_code
         :param bool area_code_geomatch: The area_code_geomatch
         :param unicode validity_period: The validity_period
+        :param bool synchronous_validation: The synchronous_validation
 
         :returns: Newly created ServiceInstance
         :rtype: twilio.rest.messaging.v1.service.ServiceInstance
@@ -75,6 +76,7 @@ class ServiceList(ListResource):
             'FallbackToLongCode': fallback_to_long_code,
             'AreaCodeGeomatch': area_code_geomatch,
             'ValidityPeriod': validity_period,
+            'SynchronousValidation': synchronous_validation,
         })
 
         payload = self._version.create(
@@ -288,7 +290,7 @@ class ServiceContext(InstanceContext):
                sticky_sender=values.unset, mms_converter=values.unset,
                smart_encoding=values.unset, scan_message_content=values.unset,
                fallback_to_long_code=values.unset, area_code_geomatch=values.unset,
-               validity_period=values.unset):
+               validity_period=values.unset, synchronous_validation=values.unset):
         """
         Update the ServiceInstance
 
@@ -305,6 +307,7 @@ class ServiceContext(InstanceContext):
         :param bool fallback_to_long_code: The fallback_to_long_code
         :param bool area_code_geomatch: The area_code_geomatch
         :param unicode validity_period: The validity_period
+        :param bool synchronous_validation: The synchronous_validation
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.messaging.v1.service.ServiceInstance
@@ -323,6 +326,7 @@ class ServiceContext(InstanceContext):
             'FallbackToLongCode': fallback_to_long_code,
             'AreaCodeGeomatch': area_code_geomatch,
             'ValidityPeriod': validity_period,
+            'SynchronousValidation': synchronous_validation,
         })
 
         payload = self._version.update(
@@ -457,6 +461,7 @@ class ServiceInstance(InstanceResource):
             'scan_message_content': payload['scan_message_content'],
             'fallback_to_long_code': payload['fallback_to_long_code'],
             'area_code_geomatch': payload['area_code_geomatch'],
+            'synchronous_validation': payload['synchronous_validation'],
             'validity_period': deserialize.integer(payload['validity_period']),
             'url': payload['url'],
             'links': payload['links'],
@@ -613,6 +618,14 @@ class ServiceInstance(InstanceResource):
         return self._properties['area_code_geomatch']
 
     @property
+    def synchronous_validation(self):
+        """
+        :returns: The synchronous_validation
+        :rtype: bool
+        """
+        return self._properties['synchronous_validation']
+
+    @property
     def validity_period(self):
         """
         :returns: The validity_period
@@ -642,7 +655,7 @@ class ServiceInstance(InstanceResource):
                sticky_sender=values.unset, mms_converter=values.unset,
                smart_encoding=values.unset, scan_message_content=values.unset,
                fallback_to_long_code=values.unset, area_code_geomatch=values.unset,
-               validity_period=values.unset):
+               validity_period=values.unset, synchronous_validation=values.unset):
         """
         Update the ServiceInstance
 
@@ -659,6 +672,7 @@ class ServiceInstance(InstanceResource):
         :param bool fallback_to_long_code: The fallback_to_long_code
         :param bool area_code_geomatch: The area_code_geomatch
         :param unicode validity_period: The validity_period
+        :param bool synchronous_validation: The synchronous_validation
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.messaging.v1.service.ServiceInstance
@@ -677,6 +691,7 @@ class ServiceInstance(InstanceResource):
             fallback_to_long_code=fallback_to_long_code,
             area_code_geomatch=area_code_geomatch,
             validity_period=validity_period,
+            synchronous_validation=synchronous_validation,
         )
 
     def fetch(self):

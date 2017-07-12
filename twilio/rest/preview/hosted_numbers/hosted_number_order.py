@@ -161,7 +161,9 @@ class HostedNumberOrderList(ListResource):
                account_sid=values.unset, friendly_name=values.unset,
                unique_name=values.unset, cc_emails=values.unset,
                sms_url=values.unset, sms_method=values.unset,
-               sms_fallback_url=values.unset, sms_fallback_method=values.unset):
+               sms_fallback_url=values.unset, sms_fallback_method=values.unset,
+               status_callback_url=values.unset,
+               status_callback_method=values.unset):
         """
         Create a new HostedNumberOrderInstance
 
@@ -178,6 +180,8 @@ class HostedNumberOrderList(ListResource):
         :param unicode sms_method: SMS Method.
         :param unicode sms_fallback_url: SMS Fallback URL.
         :param unicode sms_fallback_method: SMS Fallback Method.
+        :param unicode status_callback_url: Status Callback URL.
+        :param unicode status_callback_method: Status Callback Method.
 
         :returns: Newly created HostedNumberOrderInstance
         :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance
@@ -196,6 +200,8 @@ class HostedNumberOrderList(ListResource):
             'SmsMethod': sms_method,
             'SmsFallbackUrl': sms_fallback_url,
             'SmsFallbackMethod': sms_fallback_method,
+            'StatusCallbackUrl': status_callback_url,
+            'StatusCallbackMethod': status_callback_method,
         })
 
         payload = self._version.create(
@@ -339,7 +345,8 @@ class HostedNumberOrderContext(InstanceContext):
         return self._version.delete('delete', self._uri)
 
     def update(self, friendly_name=values.unset, unique_name=values.unset,
-               email=values.unset, cc_emails=values.unset, status=values.unset):
+               email=values.unset, cc_emails=values.unset, status=values.unset,
+               verification_code=values.unset):
         """
         Update the HostedNumberOrderInstance
 
@@ -348,6 +355,7 @@ class HostedNumberOrderContext(InstanceContext):
         :param unicode email: Email.
         :param unicode cc_emails: A list of emails.
         :param HostedNumberOrderInstance.Status status: The Status of this HostedNumberOrder.
+        :param unicode verification_code: A verification code.
 
         :returns: Updated HostedNumberOrderInstance
         :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance
@@ -358,6 +366,7 @@ class HostedNumberOrderContext(InstanceContext):
             'Email': email,
             'CcEmails': cc_emails,
             'Status': status,
+            'VerificationCode': verification_code,
         })
 
         payload = self._version.update(
@@ -387,6 +396,8 @@ class HostedNumberOrderInstance(InstanceResource):
 
     class Status(object):
         RECEIVED = "received"
+        PENDING_VERIFICATION = "pending-verification"
+        VERIFIED = "verified"
         PENDING_LOA = "pending-loa"
         CARRIER_PROCESSING = "carrier-processing"
         TESTING = "testing"
@@ -417,6 +428,7 @@ class HostedNumberOrderInstance(InstanceResource):
             'status': payload['status'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
+            'verification_attempts': deserialize.integer(payload['verification_attempts']),
             'email': payload['email'],
             'cc_emails': payload['cc_emails'],
             'url': payload['url'],
@@ -541,6 +553,14 @@ class HostedNumberOrderInstance(InstanceResource):
         return self._properties['date_updated']
 
     @property
+    def verification_attempts(self):
+        """
+        :returns: The number of verification attempts made to verify ownership of the phone number.
+        :rtype: unicode
+        """
+        return self._properties['verification_attempts']
+
+    @property
     def email(self):
         """
         :returns: Email.
@@ -583,7 +603,8 @@ class HostedNumberOrderInstance(InstanceResource):
         return self._proxy.delete()
 
     def update(self, friendly_name=values.unset, unique_name=values.unset,
-               email=values.unset, cc_emails=values.unset, status=values.unset):
+               email=values.unset, cc_emails=values.unset, status=values.unset,
+               verification_code=values.unset):
         """
         Update the HostedNumberOrderInstance
 
@@ -592,6 +613,7 @@ class HostedNumberOrderInstance(InstanceResource):
         :param unicode email: Email.
         :param unicode cc_emails: A list of emails.
         :param HostedNumberOrderInstance.Status status: The Status of this HostedNumberOrder.
+        :param unicode verification_code: A verification code.
 
         :returns: Updated HostedNumberOrderInstance
         :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance
@@ -602,6 +624,7 @@ class HostedNumberOrderInstance(InstanceResource):
             email=email,
             cc_emails=cc_emails,
             status=status,
+            verification_code=verification_code,
         )
 
     def __repr__(self):
