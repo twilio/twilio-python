@@ -28,10 +28,10 @@ setup(
         "PyJWT >= 1.4.2, <1.5.1",
     ],
     extras_require={
-        ':python_version=="2.7"': [
+        ':python_version<"3.0"': [
             "requests[security] >= 2.0.0",
         ],
-        ':python_version>="3.3"': [
+        ':python_version>="3.0"': [
             "requests >= 2.0.0",
             "pysocks",
         ],
