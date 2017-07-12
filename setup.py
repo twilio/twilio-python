@@ -13,12 +13,6 @@ with open('twilio/__init__.py') as f:
 #
 # You need to have the setuptools module installed. Try reading the setuptools
 # documentation: http://pypi.python.org/pypi/setuptools
-REQUIRES = ["requests >= 2.0.0", "six", "pytz", "PyJWT >= 1.4.2,<1.5.1"]
-
-if sys.version_info < (3, 0):
-    REQUIRES.extend(["cryptography >= 1.3.4", "idna >= 2.0.0", "pyOpenSSL >= 0.14"])
-if sys.version_info >= (3, 0):
-    REQUIRES.append('pysocks')
 
 setup(
     name = "twilio",
@@ -28,13 +22,19 @@ setup(
     author_email = "help@twilio.com",
     url = "https://github.com/twilio/twilio-python/",
     keywords = ["twilio","twiml"],
-    install_requires = REQUIRES,
-    # bdist conditional requirements support
+    install_requires = [
+        "six",
+        "pytz",
+        "PyJWT >= 1.4.2, <1.5.1",
+    ],
     extras_require={
-        ':python_version=="3.3"': ['pysocks'],
-        ':python_version=="3.4"': ['pysocks'],
-        ':python_version=="3.5"': ['pysocks'],
-        ':python_version=="3.6"': ['pysocks'],
+        ':python_version<"3.0"': [
+            "requests[security] >= 2.0.0",
+        ],
+        ':python_version>="3.0"': [
+            "requests >= 2.0.0",
+            "pysocks",
+        ],
     },
     packages = find_packages(exclude=['tests', 'tests.*']),
     include_package_data=True,
