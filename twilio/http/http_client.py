@@ -8,6 +8,13 @@ class TwilioHttpClient(HttpClient):
     """
     General purpose HTTP Client for interacting with the Twilio API
     """
+    def __init__(self, connection_pool=True):
+        if connection_pool:
+            self.session = Session()
+            self.session.verify = get_cert_file()
+        else: 
+            self.session = None
+            
     def request(self, method, url, params=None, data=None, headers=None, auth=None, timeout=None,
                 allow_redirects=False):
         """
@@ -26,8 +33,10 @@ class TwilioHttpClient(HttpClient):
         :return: An http response
         :rtype: A :class:`Response <twilio.rest.http.response.Response>` object
         """
-        session = Session()
-        session.verify = get_cert_file()
+        session = self.session
+        if session is None:
+            session = Session()
+            session.verify = get_cert_file()
 
         request = Request(method.upper(), url, params=params, data=data, headers=headers, auth=auth)
 
