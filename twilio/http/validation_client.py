@@ -3,7 +3,7 @@ from collections import namedtuple
 from requests import Request, Session
 
 from twilio.compat import urlparse
-from twilio.http import HttpClient, get_cert_file
+from twilio.http import HttpClient
 from twilio.http.response import Response
 from twilio.jwt.validation import ClientValidationJwt
 
@@ -50,8 +50,6 @@ class ValidationClient(HttpClient):
         :rtype: A :class:`Response <twilio.rest.http.response.Response>` object
         """
         session = Session()
-        session.verify = get_cert_file()
-
         request = Request(method.upper(), url, params=params, data=data, headers=headers, auth=auth)
         prepared_request = session.prepare_request(request)
 

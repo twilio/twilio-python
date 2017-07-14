@@ -1,6 +1,6 @@
 from requests import Request, Session
 
-from twilio.http import HttpClient, get_cert_file
+from twilio.http import HttpClient
 from twilio.http.response import Response
 
 
@@ -27,8 +27,6 @@ class TwilioHttpClient(HttpClient):
         :rtype: A :class:`Response <twilio.rest.http.response.Response>` object
         """
         session = Session()
-        session.verify = get_cert_file()
-
         request = Request(method.upper(), url, params=params, data=data, headers=headers, auth=auth)
 
         prepped_request = session.prepare_request(request)
