@@ -3,6 +3,22 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2017-07-14] Version 6.5.0
+---------------------------
+- Add connection pooling. This is enabled by default and will use one Session for all requests
+in Client.
+    - To disable this, you can turn this off when creating your Twilio client.
+```python
+from twilio.rest import Client
+from twilio.http.http_client import TwilioHttpClient
+
+client = Client(
+    username, 
+    password, 
+    http_client=TwilioHttpClient(pool_connections=False)
+)
+```
+
 [2017-07-12] Version 6.4.3
 ---------------------------
 **Api**
