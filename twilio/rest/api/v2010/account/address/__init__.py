@@ -16,6 +16,7 @@ from twilio.rest.api.v2010.account.address.dependent_phone_number import Depende
 
 
 class AddressList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid):
         """
@@ -227,6 +228,7 @@ class AddressList(ListResource):
 
 
 class AddressPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -270,6 +272,7 @@ class AddressPage(Page):
 
 
 class AddressContext(InstanceContext):
+    """  """
 
     def __init__(self, version, account_sid, sid):
         """
@@ -393,6 +396,7 @@ class AddressContext(InstanceContext):
 
 
 class AddressInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, account_sid, sid=None):
         """

@@ -16,6 +16,7 @@ from twilio.base.page import Page
 
 
 class EventList(ListResource):
+    """  """
 
     def __init__(self, version, workspace_sid):
         """
@@ -232,6 +233,7 @@ class EventList(ListResource):
 
 
 class EventPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -275,6 +277,7 @@ class EventPage(Page):
 
 
 class EventContext(InstanceContext):
+    """  """
 
     def __init__(self, version, workspace_sid, sid):
         """
@@ -330,6 +333,7 @@ class EventContext(InstanceContext):
 
 
 class EventInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, workspace_sid, sid=None):
         """

@@ -23,6 +23,7 @@ from twilio.rest.api.v2010.account.usage.record.yesterday import YesterdayList
 
 
 class RecordList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid):
         """
@@ -294,6 +295,7 @@ class RecordList(ListResource):
 
 
 class RecordPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -337,6 +339,7 @@ class RecordPage(Page):
 
 
 class RecordInstance(InstanceResource):
+    """  """
 
     class Category(object):
         ANSWERING_MACHINE_DETECTION = "answering-machine-detection"

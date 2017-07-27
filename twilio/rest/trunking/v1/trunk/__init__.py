@@ -19,6 +19,7 @@ from twilio.rest.trunking.v1.trunk.phone_number import PhoneNumberList
 
 
 class TrunkList(ListResource):
+    """  """
 
     def __init__(self, version):
         """
@@ -201,6 +202,7 @@ class TrunkList(ListResource):
 
 
 class TrunkPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -242,6 +244,7 @@ class TrunkPage(Page):
 
 
 class TrunkContext(InstanceContext):
+    """  """
 
     def __init__(self, version, sid):
         """
@@ -407,6 +410,7 @@ class TrunkContext(InstanceContext):
 
 
 class TrunkInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, sid=None):
         """

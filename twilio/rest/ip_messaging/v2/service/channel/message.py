@@ -15,6 +15,7 @@ from twilio.base.page import Page
 
 
 class MessageList(ListResource):
+    """  """
 
     def __init__(self, version, service_sid, channel_sid):
         """
@@ -205,6 +206,7 @@ class MessageList(ListResource):
 
 
 class MessagePage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -250,6 +252,7 @@ class MessagePage(Page):
 
 
 class MessageContext(InstanceContext):
+    """  """
 
     def __init__(self, version, service_sid, channel_sid, sid):
         """
@@ -346,6 +349,7 @@ class MessageContext(InstanceContext):
 
 
 class MessageInstance(InstanceResource):
+    """  """
 
     class OrderType(object):
         ASC = "asc"

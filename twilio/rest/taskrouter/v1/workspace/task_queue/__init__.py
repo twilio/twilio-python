@@ -17,6 +17,7 @@ from twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics impor
 
 
 class TaskQueueList(ListResource):
+    """  """
 
     def __init__(self, version, workspace_sid):
         """
@@ -228,6 +229,7 @@ class TaskQueueList(ListResource):
 
 
 class TaskQueuePage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -271,6 +273,7 @@ class TaskQueuePage(Page):
 
 
 class TaskQueueContext(InstanceContext):
+    """  """
 
     def __init__(self, version, workspace_sid, sid):
         """
@@ -409,6 +412,7 @@ class TaskQueueContext(InstanceContext):
 
 
 class TaskQueueInstance(InstanceResource):
+    """  """
 
     class TaskOrder(object):
         FIFO = "FIFO"

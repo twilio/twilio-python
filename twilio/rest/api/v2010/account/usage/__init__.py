@@ -14,6 +14,7 @@ from twilio.rest.api.v2010.account.usage.trigger import TriggerList
 
 
 class UsageList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid):
         """
@@ -77,6 +78,7 @@ class UsageList(ListResource):
 
 
 class UsagePage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -120,6 +122,7 @@ class UsagePage(Page):
 
 
 class UsageInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, account_sid):
         """

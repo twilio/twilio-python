@@ -15,6 +15,7 @@ from twilio.base.page import Page
 
 
 class YearlyList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid):
         """
@@ -156,6 +157,7 @@ class YearlyList(ListResource):
 
 
 class YearlyPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -199,6 +201,7 @@ class YearlyPage(Page):
 
 
 class YearlyInstance(InstanceResource):
+    """  """
 
     class Category(object):
         ANSWERING_MACHINE_DETECTION = "answering-machine-detection"

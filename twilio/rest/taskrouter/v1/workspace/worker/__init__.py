@@ -19,6 +19,7 @@ from twilio.rest.taskrouter.v1.workspace.worker.workers_statistics import Worker
 
 
 class WorkerList(ListResource):
+    """  """
 
     def __init__(self, version, workspace_sid):
         """
@@ -268,6 +269,7 @@ class WorkerList(ListResource):
 
 
 class WorkerPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -311,6 +313,7 @@ class WorkerPage(Page):
 
 
 class WorkerContext(InstanceContext):
+    """  """
 
     def __init__(self, version, workspace_sid, sid):
         """
@@ -459,6 +462,7 @@ class WorkerContext(InstanceContext):
 
 
 class WorkerInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, workspace_sid, sid=None):
         """

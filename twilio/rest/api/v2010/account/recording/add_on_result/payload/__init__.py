@@ -15,6 +15,7 @@ from twilio.base.page import Page
 
 
 class PayloadList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid, reference_sid, add_on_result_sid):
         """
@@ -173,6 +174,7 @@ class PayloadList(ListResource):
 
 
 class PayloadPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -220,6 +222,7 @@ class PayloadPage(Page):
 
 
 class PayloadContext(InstanceContext):
+    """  """
 
     def __init__(self, version, account_sid, reference_sid, add_on_result_sid, sid):
         """
@@ -290,6 +293,7 @@ class PayloadContext(InstanceContext):
 
 
 class PayloadInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, account_sid, reference_sid,
                  add_on_result_sid, sid=None):

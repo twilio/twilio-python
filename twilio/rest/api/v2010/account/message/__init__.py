@@ -18,6 +18,7 @@ from twilio.rest.api.v2010.account.message.media import MediaList
 
 
 class MessageList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid):
         """
@@ -39,9 +40,11 @@ class MessageList(ListResource):
 
     def create(self, to, status_callback=values.unset, application_sid=values.unset,
                max_price=values.unset, provide_feedback=values.unset,
-               validity_period=values.unset, from_=values.unset,
-               messaging_service_sid=values.unset, body=values.unset,
-               media_url=values.unset):
+               validity_period=values.unset, max_rate=values.unset,
+               force_delivery=values.unset, provider_sid=values.unset,
+               content_retention=values.unset, address_retention=values.unset,
+               from_=values.unset, messaging_service_sid=values.unset,
+               body=values.unset, media_url=values.unset):
         """
         Create a new MessageInstance
 
@@ -51,6 +54,11 @@ class MessageList(ListResource):
         :param unicode max_price: The max_price
         :param bool provide_feedback: The provide_feedback
         :param unicode validity_period: The validity_period
+        :param unicode max_rate: The max_rate
+        :param bool force_delivery: The force_delivery
+        :param unicode provider_sid: The provider_sid
+        :param MessageInstance.ContentRetention content_retention: The content_retention
+        :param MessageInstance.AddressRetention address_retention: The address_retention
         :param unicode from_: The phone number that initiated the message
         :param unicode messaging_service_sid: The messaging_service_sid
         :param unicode body: The body
@@ -70,6 +78,11 @@ class MessageList(ListResource):
             'MaxPrice': max_price,
             'ProvideFeedback': provide_feedback,
             'ValidityPeriod': validity_period,
+            'MaxRate': max_rate,
+            'ForceDelivery': force_delivery,
+            'ProviderSid': provider_sid,
+            'ContentRetention': content_retention,
+            'AddressRetention': address_retention,
         })
 
         payload = self._version.create(
@@ -251,6 +264,7 @@ class MessageList(ListResource):
 
 
 class MessagePage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -294,6 +308,7 @@ class MessagePage(Page):
 
 
 class MessageContext(InstanceContext):
+    """  """
 
     def __init__(self, version, account_sid, sid):
         """
@@ -420,6 +435,7 @@ class MessageContext(InstanceContext):
 
 
 class MessageInstance(InstanceResource):
+    """  """
 
     class Status(object):
         QUEUED = "queued"
@@ -430,12 +446,21 @@ class MessageInstance(InstanceResource):
         UNDELIVERED = "undelivered"
         RECEIVING = "receiving"
         RECEIVED = "received"
+        ACCEPTED = "accepted"
 
     class Direction(object):
         INBOUND = "inbound"
         OUTBOUND_API = "outbound-api"
         OUTBOUND_CALL = "outbound-call"
         OUTBOUND_REPLY = "outbound-reply"
+
+    class ContentRetention(object):
+        RETAIN = "retain"
+        DISCARD = "discard"
+
+    class AddressRetention(object):
+        RETAIN = "retain"
+        DISCARD = "discard"
 
     def __init__(self, version, payload, account_sid, sid=None):
         """

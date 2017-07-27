@@ -15,6 +15,7 @@ from twilio.base.page import Page
 
 
 class InviteList(ListResource):
+    """  """
 
     def __init__(self, version, service_sid, channel_sid):
         """
@@ -203,6 +204,7 @@ class InviteList(ListResource):
 
 
 class InvitePage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -248,6 +250,7 @@ class InvitePage(Page):
 
 
 class InviteContext(InstanceContext):
+    """  """
 
     def __init__(self, version, service_sid, channel_sid, sid):
         """
@@ -315,6 +318,7 @@ class InviteContext(InstanceContext):
 
 
 class InviteInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, service_sid, channel_sid, sid=None):
         """

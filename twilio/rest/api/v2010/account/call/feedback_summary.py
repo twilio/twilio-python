@@ -16,6 +16,7 @@ from twilio.base.page import Page
 
 
 class FeedbackSummaryList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid):
         """
@@ -110,6 +111,7 @@ class FeedbackSummaryList(ListResource):
 
 
 class FeedbackSummaryPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -153,6 +155,7 @@ class FeedbackSummaryPage(Page):
 
 
 class FeedbackSummaryContext(InstanceContext):
+    """  """
 
     def __init__(self, version, account_sid, sid):
         """
@@ -217,6 +220,7 @@ class FeedbackSummaryContext(InstanceContext):
 
 
 class FeedbackSummaryInstance(InstanceResource):
+    """  """
 
     class Status(object):
         QUEUED = "queued"

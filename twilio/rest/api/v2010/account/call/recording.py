@@ -16,6 +16,7 @@ from twilio.base.page import Page
 
 
 class RecordingList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid, call_sid):
         """
@@ -191,6 +192,7 @@ class RecordingList(ListResource):
 
 
 class RecordingPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -236,6 +238,7 @@ class RecordingPage(Page):
 
 
 class RecordingContext(InstanceContext):
+    """  """
 
     def __init__(self, version, account_sid, call_sid, sid):
         """
@@ -303,6 +306,7 @@ class RecordingContext(InstanceContext):
 
 
 class RecordingInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, account_sid, call_sid, sid=None):
         """
@@ -324,7 +328,6 @@ class RecordingInstance(InstanceResource):
             'sid': payload['sid'],
             'price': deserialize.decimal(payload['price']),
             'uri': payload['uri'],
-            'encryption_type': payload['encryption_type'],
             'encryption_details': payload['encryption_details'],
         }
 
@@ -425,14 +428,6 @@ class RecordingInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['uri']
-
-    @property
-    def encryption_type(self):
-        """
-        :returns: The encryption_type
-        :rtype: unicode
-        """
-        return self._properties['encryption_type']
 
     @property
     def encryption_details(self):

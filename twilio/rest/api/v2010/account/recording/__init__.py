@@ -18,6 +18,7 @@ from twilio.rest.api.v2010.account.recording.transcription import TranscriptionL
 
 
 class RecordingList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid):
         """
@@ -198,6 +199,7 @@ class RecordingList(ListResource):
 
 
 class RecordingPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -241,6 +243,7 @@ class RecordingPage(Page):
 
 
 class RecordingContext(InstanceContext):
+    """  """
 
     def __init__(self, version, account_sid, sid):
         """
@@ -341,6 +344,7 @@ class RecordingContext(InstanceContext):
 
 
 class RecordingInstance(InstanceResource):
+    """  """
 
     class Source(object):
         DIALVERB = "DialVerb"
@@ -377,7 +381,6 @@ class RecordingInstance(InstanceResource):
             'channels': deserialize.integer(payload['channels']),
             'source': payload['source'],
             'uri': payload['uri'],
-            'encryption_type': payload['encryption_type'],
             'encryption_details': payload['encryption_details'],
         }
 
@@ -508,14 +511,6 @@ class RecordingInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['uri']
-
-    @property
-    def encryption_type(self):
-        """
-        :returns: The type of encryption used for this resource.
-        :rtype: unicode
-        """
-        return self._properties['encryption_type']
 
     @property
     def encryption_details(self):

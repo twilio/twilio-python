@@ -15,6 +15,7 @@ from twilio.base.page import Page
 
 
 class PhoneNumberList(ListResource):
+    """  """
 
     def __init__(self, version):
         """
@@ -69,6 +70,7 @@ class PhoneNumberList(ListResource):
 
 
 class PhoneNumberPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -110,6 +112,7 @@ class PhoneNumberPage(Page):
 
 
 class PhoneNumberContext(InstanceContext):
+    """  """
 
     def __init__(self, version, phone_number):
         """
@@ -173,6 +176,7 @@ class PhoneNumberContext(InstanceContext):
 
 
 class PhoneNumberInstance(InstanceResource):
+    """  """
 
     class Type(object):
         LANDLINE = "landline"

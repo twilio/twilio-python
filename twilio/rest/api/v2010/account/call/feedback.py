@@ -15,6 +15,7 @@ from twilio.base.page import Page
 
 
 class FeedbackList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid, call_sid):
         """
@@ -72,6 +73,7 @@ class FeedbackList(ListResource):
 
 
 class FeedbackPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -117,6 +119,7 @@ class FeedbackPage(Page):
 
 
 class FeedbackContext(InstanceContext):
+    """  """
 
     def __init__(self, version, account_sid, call_sid):
         """
@@ -228,6 +231,7 @@ class FeedbackContext(InstanceContext):
 
 
 class FeedbackInstance(InstanceResource):
+    """  """
 
     class Issues(object):
         AUDIO_LATENCY = "audio-latency"

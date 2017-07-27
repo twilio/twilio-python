@@ -16,6 +16,7 @@ from twilio.base.page import Page
 
 
 class MediaList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid, message_sid):
         """
@@ -191,6 +192,7 @@ class MediaList(ListResource):
 
 
 class MediaPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -236,6 +238,7 @@ class MediaPage(Page):
 
 
 class MediaContext(InstanceContext):
+    """  """
 
     def __init__(self, version, account_sid, message_sid, sid):
         """
@@ -303,6 +306,7 @@ class MediaContext(InstanceContext):
 
 
 class MediaInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, account_sid, message_sid, sid=None):
         """

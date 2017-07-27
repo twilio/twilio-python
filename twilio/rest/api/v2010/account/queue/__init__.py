@@ -16,6 +16,7 @@ from twilio.rest.api.v2010.account.queue.member import MemberList
 
 
 class QueueList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid):
         """
@@ -193,6 +194,7 @@ class QueueList(ListResource):
 
 
 class QueuePage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -236,6 +238,7 @@ class QueuePage(Page):
 
 
 class QueueContext(InstanceContext):
+    """  """
 
     def __init__(self, version, account_sid, sid):
         """
@@ -347,6 +350,7 @@ class QueueContext(InstanceContext):
 
 
 class QueueInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, account_sid, sid=None):
         """

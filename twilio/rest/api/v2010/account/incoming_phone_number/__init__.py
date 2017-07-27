@@ -12,12 +12,14 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on import AssignedAddOnList
 from twilio.rest.api.v2010.account.incoming_phone_number.local import LocalList
 from twilio.rest.api.v2010.account.incoming_phone_number.mobile import MobileList
 from twilio.rest.api.v2010.account.incoming_phone_number.toll_free import TollFreeList
 
 
 class IncomingPhoneNumberList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid):
         """
@@ -322,6 +324,7 @@ class IncomingPhoneNumberList(ListResource):
 
 
 class IncomingPhoneNumberPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -365,6 +368,7 @@ class IncomingPhoneNumberPage(Page):
 
 
 class IncomingPhoneNumberContext(InstanceContext):
+    """  """
 
     def __init__(self, version, account_sid, sid):
         """
@@ -385,6 +389,9 @@ class IncomingPhoneNumberContext(InstanceContext):
             'sid': sid,
         }
         self._uri = '/Accounts/{account_sid}/IncomingPhoneNumbers/{sid}.json'.format(**self._solution)
+
+        # Dependents
+        self._assigned_add_ons = None
 
     def update(self, account_sid=values.unset, api_version=values.unset,
                friendly_name=values.unset, sms_application_sid=values.unset,
@@ -489,6 +496,22 @@ class IncomingPhoneNumberContext(InstanceContext):
         """
         return self._version.delete('delete', self._uri)
 
+    @property
+    def assigned_add_ons(self):
+        """
+        Access the assigned_add_ons
+
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnList
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnList
+        """
+        if self._assigned_add_ons is None:
+            self._assigned_add_ons = AssignedAddOnList(
+                self._version,
+                account_sid=self._solution['account_sid'],
+                resource_sid=self._solution['sid'],
+            )
+        return self._assigned_add_ons
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -501,6 +524,7 @@ class IncomingPhoneNumberContext(InstanceContext):
 
 
 class IncomingPhoneNumberInstance(InstanceResource):
+    """  """
 
     class AddressRequirement(object):
         NONE = "none"
@@ -877,6 +901,16 @@ class IncomingPhoneNumberInstance(InstanceResource):
         :rtype: bool
         """
         return self._proxy.delete()
+
+    @property
+    def assigned_add_ons(self):
+        """
+        Access the assigned_add_ons
+
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnList
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnList
+        """
+        return self._proxy.assigned_add_ons
 
     def __repr__(self):
         """
