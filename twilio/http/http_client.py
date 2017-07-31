@@ -12,9 +12,9 @@ class TwilioHttpClient(HttpClient):
         if connection_pool:
             self.session = Session()
             self.session.verify = get_cert_file()
-        else: 
+        else:
             self.session = None
-            
+
     def request(self, method, url, params=None, data=None, headers=None, auth=None, timeout=None,
                 allow_redirects=False):
         """
@@ -46,5 +46,8 @@ class TwilioHttpClient(HttpClient):
             allow_redirects=allow_redirects,
             timeout=timeout,
         )
+
+        self.last_request = request
+        self.last_response = response
 
         return Response(int(response.status_code), response.text)
