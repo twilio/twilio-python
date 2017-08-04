@@ -9,6 +9,9 @@ class TwilioHttpClient(HttpClient):
     General purpose HTTP Client for interacting with the Twilio API
     """
     def __init__(self, connection_pool=True):
+        self.last_request = None
+        self.last_response = None
+
         if connection_pool:
             self.session = Session()
             self.session.verify = get_cert_file()

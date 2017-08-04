@@ -40,6 +40,8 @@ class TestHttpClientRequest(unittest.TestCase):
         self.client.request('doesnt matter', 'doesnt matter')
 
         self.assertEqual('other.twilio.com', self.request_mock.headers['Host'])
+        self.assertIsNotNone(self.client.last_request)
+        self.assertIsNotNone(self.client.last_response)
 
     def test_request_with_unicode_response(self):
         self.request_mock.url = 'https://api.twilio.com/'
