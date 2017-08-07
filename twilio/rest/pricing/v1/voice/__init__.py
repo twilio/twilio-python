@@ -14,6 +14,7 @@ from twilio.rest.pricing.v1.voice.number import NumberList
 
 
 class VoiceList(ListResource):
+    """  """
 
     def __init__(self, version):
         """
@@ -72,6 +73,7 @@ class VoiceList(ListResource):
 
 
 class VoicePage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -113,6 +115,7 @@ class VoicePage(Page):
 
 
 class VoiceInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload):
         """

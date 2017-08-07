@@ -15,6 +15,7 @@ from twilio.base.page import Page
 
 
 class TodayList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid):
         """
@@ -156,6 +157,7 @@ class TodayList(ListResource):
 
 
 class TodayPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -199,6 +201,7 @@ class TodayPage(Page):
 
 
 class TodayInstance(InstanceResource):
+    """  """
 
     class Category(object):
         ANSWERING_MACHINE_DETECTION = "answering-machine-detection"

@@ -18,6 +18,7 @@ from twilio.rest.ip_messaging.v2.service.channel.message import MessageList
 
 
 class ChannelList(ListResource):
+    """  """
 
     def __init__(self, version, service_sid):
         """
@@ -206,6 +207,7 @@ class ChannelList(ListResource):
 
 
 class ChannelPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -249,6 +251,7 @@ class ChannelPage(Page):
 
 
 class ChannelContext(InstanceContext):
+    """  """
 
     def __init__(self, version, service_sid, sid):
         """
@@ -397,6 +400,7 @@ class ChannelContext(InstanceContext):
 
 
 class ChannelInstance(InstanceResource):
+    """  """
 
     class ChannelType(object):
         PUBLIC = "public"

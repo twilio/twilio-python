@@ -16,6 +16,7 @@ from twilio.rest.chat.v1.service.user.user_channel import UserChannelList
 
 
 class UserList(ListResource):
+    """  """
 
     def __init__(self, version, service_sid):
         """
@@ -198,6 +199,7 @@ class UserList(ListResource):
 
 
 class UserPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -241,6 +243,7 @@ class UserPage(Page):
 
 
 class UserContext(InstanceContext):
+    """  """
 
     def __init__(self, version, service_sid, sid):
         """
@@ -355,6 +358,7 @@ class UserContext(InstanceContext):
 
 
 class UserInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, service_sid, sid=None):
         """

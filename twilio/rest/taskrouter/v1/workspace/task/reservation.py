@@ -15,6 +15,7 @@ from twilio.base.page import Page
 
 
 class ReservationList(ListResource):
+    """  """
 
     def __init__(self, version, workspace_sid, task_sid):
         """
@@ -175,6 +176,7 @@ class ReservationList(ListResource):
 
 
 class ReservationPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -220,6 +222,7 @@ class ReservationPage(Page):
 
 
 class ReservationContext(InstanceContext):
+    """  """
 
     def __init__(self, version, workspace_sid, task_sid, sid):
         """
@@ -276,7 +279,27 @@ class ReservationContext(InstanceContext):
                call_to=values.unset, call_url=values.unset,
                call_status_callback_url=values.unset, call_accept=values.unset,
                redirect_call_sid=values.unset, redirect_accept=values.unset,
-               redirect_url=values.unset):
+               redirect_url=values.unset, to=values.unset, from_=values.unset,
+               status_callback=values.unset, status_callback_method=values.unset,
+               status_callback_event=values.unset, timeout=values.unset,
+               record=values.unset, muted=values.unset, beep=values.unset,
+               start_conference_on_enter=values.unset,
+               end_conference_on_exit=values.unset, wait_url=values.unset,
+               wait_method=values.unset, early_media=values.unset,
+               max_participants=values.unset,
+               conference_status_callback=values.unset,
+               conference_status_callback_method=values.unset,
+               conference_status_callback_event=values.unset,
+               conference_record=values.unset, conference_trim=values.unset,
+               recording_channels=values.unset,
+               recording_status_callback=values.unset,
+               recording_status_callback_method=values.unset,
+               conference_recording_status_callback=values.unset,
+               conference_recording_status_callback_method=values.unset,
+               region=values.unset, sip_auth_username=values.unset,
+               sip_auth_password=values.unset,
+               dequeue_status_callback_event=values.unset,
+               post_work_activity_sid=values.unset):
         """
         Update the ReservationInstance
 
@@ -299,6 +322,36 @@ class ReservationContext(InstanceContext):
         :param unicode redirect_call_sid: The redirect_call_sid
         :param bool redirect_accept: The redirect_accept
         :param unicode redirect_url: The redirect_url
+        :param unicode to: The to
+        :param unicode from_: The from
+        :param unicode status_callback: The status_callback
+        :param unicode status_callback_method: The status_callback_method
+        :param ReservationInstance.CallStatus status_callback_event: The status_callback_event
+        :param unicode timeout: The timeout
+        :param bool record: The record
+        :param bool muted: The muted
+        :param unicode beep: The beep
+        :param bool start_conference_on_enter: The start_conference_on_enter
+        :param bool end_conference_on_exit: The end_conference_on_exit
+        :param unicode wait_url: The wait_url
+        :param unicode wait_method: The wait_method
+        :param bool early_media: The early_media
+        :param unicode max_participants: The max_participants
+        :param unicode conference_status_callback: The conference_status_callback
+        :param unicode conference_status_callback_method: The conference_status_callback_method
+        :param ReservationInstance.ConferenceEvent conference_status_callback_event: The conference_status_callback_event
+        :param unicode conference_record: The conference_record
+        :param unicode conference_trim: The conference_trim
+        :param unicode recording_channels: The recording_channels
+        :param unicode recording_status_callback: The recording_status_callback
+        :param unicode recording_status_callback_method: The recording_status_callback_method
+        :param unicode conference_recording_status_callback: The conference_recording_status_callback
+        :param unicode conference_recording_status_callback_method: The conference_recording_status_callback_method
+        :param unicode region: The region
+        :param unicode sip_auth_username: The sip_auth_username
+        :param unicode sip_auth_password: The sip_auth_password
+        :param unicode dequeue_status_callback_event: The dequeue_status_callback_event
+        :param unicode post_work_activity_sid: The post_work_activity_sid
 
         :returns: Updated ReservationInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationInstance
@@ -323,6 +376,36 @@ class ReservationContext(InstanceContext):
             'RedirectCallSid': redirect_call_sid,
             'RedirectAccept': redirect_accept,
             'RedirectUrl': redirect_url,
+            'To': to,
+            'From': from_,
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
+            'StatusCallbackEvent': status_callback_event,
+            'Timeout': timeout,
+            'Record': record,
+            'Muted': muted,
+            'Beep': beep,
+            'StartConferenceOnEnter': start_conference_on_enter,
+            'EndConferenceOnExit': end_conference_on_exit,
+            'WaitUrl': wait_url,
+            'WaitMethod': wait_method,
+            'EarlyMedia': early_media,
+            'MaxParticipants': max_participants,
+            'ConferenceStatusCallback': conference_status_callback,
+            'ConferenceStatusCallbackMethod': conference_status_callback_method,
+            'ConferenceStatusCallbackEvent': conference_status_callback_event,
+            'ConferenceRecord': conference_record,
+            'ConferenceTrim': conference_trim,
+            'RecordingChannels': recording_channels,
+            'RecordingStatusCallback': recording_status_callback,
+            'RecordingStatusCallbackMethod': recording_status_callback_method,
+            'ConferenceRecordingStatusCallback': conference_recording_status_callback,
+            'ConferenceRecordingStatusCallbackMethod': conference_recording_status_callback_method,
+            'Region': region,
+            'SipAuthUsername': sip_auth_username,
+            'SipAuthPassword': sip_auth_password,
+            'DequeueStatusCallbackEvent': dequeue_status_callback_event,
+            'PostWorkActivitySid': post_work_activity_sid,
         })
 
         payload = self._version.update(
@@ -351,6 +434,7 @@ class ReservationContext(InstanceContext):
 
 
 class ReservationInstance(InstanceResource):
+    """  """
 
     class Status(object):
         PENDING = "pending"
@@ -359,6 +443,21 @@ class ReservationInstance(InstanceResource):
         TIMEOUT = "timeout"
         CANCELED = "canceled"
         RESCINDED = "rescinded"
+
+    class CallStatus(object):
+        INITIATED = "initiated"
+        RINGING = "ringing"
+        ANSWERED = "answered"
+        COMPLETED = "completed"
+
+    class ConferenceEvent(object):
+        START = "start"
+        END = "end"
+        JOIN = "join"
+        LEAVE = "leave"
+        MUTE = "mute"
+        HOLD = "hold"
+        SPEAKER = "speaker"
 
     def __init__(self, version, payload, workspace_sid, task_sid, sid=None):
         """
@@ -517,7 +616,27 @@ class ReservationInstance(InstanceResource):
                call_to=values.unset, call_url=values.unset,
                call_status_callback_url=values.unset, call_accept=values.unset,
                redirect_call_sid=values.unset, redirect_accept=values.unset,
-               redirect_url=values.unset):
+               redirect_url=values.unset, to=values.unset, from_=values.unset,
+               status_callback=values.unset, status_callback_method=values.unset,
+               status_callback_event=values.unset, timeout=values.unset,
+               record=values.unset, muted=values.unset, beep=values.unset,
+               start_conference_on_enter=values.unset,
+               end_conference_on_exit=values.unset, wait_url=values.unset,
+               wait_method=values.unset, early_media=values.unset,
+               max_participants=values.unset,
+               conference_status_callback=values.unset,
+               conference_status_callback_method=values.unset,
+               conference_status_callback_event=values.unset,
+               conference_record=values.unset, conference_trim=values.unset,
+               recording_channels=values.unset,
+               recording_status_callback=values.unset,
+               recording_status_callback_method=values.unset,
+               conference_recording_status_callback=values.unset,
+               conference_recording_status_callback_method=values.unset,
+               region=values.unset, sip_auth_username=values.unset,
+               sip_auth_password=values.unset,
+               dequeue_status_callback_event=values.unset,
+               post_work_activity_sid=values.unset):
         """
         Update the ReservationInstance
 
@@ -540,6 +659,36 @@ class ReservationInstance(InstanceResource):
         :param unicode redirect_call_sid: The redirect_call_sid
         :param bool redirect_accept: The redirect_accept
         :param unicode redirect_url: The redirect_url
+        :param unicode to: The to
+        :param unicode from_: The from
+        :param unicode status_callback: The status_callback
+        :param unicode status_callback_method: The status_callback_method
+        :param ReservationInstance.CallStatus status_callback_event: The status_callback_event
+        :param unicode timeout: The timeout
+        :param bool record: The record
+        :param bool muted: The muted
+        :param unicode beep: The beep
+        :param bool start_conference_on_enter: The start_conference_on_enter
+        :param bool end_conference_on_exit: The end_conference_on_exit
+        :param unicode wait_url: The wait_url
+        :param unicode wait_method: The wait_method
+        :param bool early_media: The early_media
+        :param unicode max_participants: The max_participants
+        :param unicode conference_status_callback: The conference_status_callback
+        :param unicode conference_status_callback_method: The conference_status_callback_method
+        :param ReservationInstance.ConferenceEvent conference_status_callback_event: The conference_status_callback_event
+        :param unicode conference_record: The conference_record
+        :param unicode conference_trim: The conference_trim
+        :param unicode recording_channels: The recording_channels
+        :param unicode recording_status_callback: The recording_status_callback
+        :param unicode recording_status_callback_method: The recording_status_callback_method
+        :param unicode conference_recording_status_callback: The conference_recording_status_callback
+        :param unicode conference_recording_status_callback_method: The conference_recording_status_callback_method
+        :param unicode region: The region
+        :param unicode sip_auth_username: The sip_auth_username
+        :param unicode sip_auth_password: The sip_auth_password
+        :param unicode dequeue_status_callback_event: The dequeue_status_callback_event
+        :param unicode post_work_activity_sid: The post_work_activity_sid
 
         :returns: Updated ReservationInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationInstance
@@ -564,6 +713,36 @@ class ReservationInstance(InstanceResource):
             redirect_call_sid=redirect_call_sid,
             redirect_accept=redirect_accept,
             redirect_url=redirect_url,
+            to=to,
+            from_=from_,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            status_callback_event=status_callback_event,
+            timeout=timeout,
+            record=record,
+            muted=muted,
+            beep=beep,
+            start_conference_on_enter=start_conference_on_enter,
+            end_conference_on_exit=end_conference_on_exit,
+            wait_url=wait_url,
+            wait_method=wait_method,
+            early_media=early_media,
+            max_participants=max_participants,
+            conference_status_callback=conference_status_callback,
+            conference_status_callback_method=conference_status_callback_method,
+            conference_status_callback_event=conference_status_callback_event,
+            conference_record=conference_record,
+            conference_trim=conference_trim,
+            recording_channels=recording_channels,
+            recording_status_callback=recording_status_callback,
+            recording_status_callback_method=recording_status_callback_method,
+            conference_recording_status_callback=conference_recording_status_callback,
+            conference_recording_status_callback_method=conference_recording_status_callback_method,
+            region=region,
+            sip_auth_username=sip_auth_username,
+            sip_auth_password=sip_auth_password,
+            dequeue_status_callback_event=dequeue_status_callback_event,
+            post_work_activity_sid=post_work_activity_sid,
         )
 
     def __repr__(self):

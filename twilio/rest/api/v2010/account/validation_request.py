@@ -14,6 +14,7 @@ from twilio.base.page import Page
 
 
 class ValidationRequestList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid):
         """
@@ -81,6 +82,7 @@ class ValidationRequestList(ListResource):
 
 
 class ValidationRequestPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -124,6 +126,7 @@ class ValidationRequestPage(Page):
 
 
 class ValidationRequestInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, account_sid):
         """

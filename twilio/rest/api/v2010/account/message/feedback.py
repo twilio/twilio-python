@@ -14,6 +14,7 @@ from twilio.base.page import Page
 
 
 class FeedbackList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid, message_sid):
         """
@@ -72,6 +73,7 @@ class FeedbackList(ListResource):
 
 
 class FeedbackPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -117,6 +119,7 @@ class FeedbackPage(Page):
 
 
 class FeedbackInstance(InstanceResource):
+    """  """
 
     class Outcome(object):
         CONFIRMED = "confirmed"

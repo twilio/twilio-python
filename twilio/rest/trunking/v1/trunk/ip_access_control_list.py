@@ -15,6 +15,7 @@ from twilio.base.page import Page
 
 
 class IpAccessControlListList(ListResource):
+    """  """
 
     def __init__(self, version, trunk_sid):
         """
@@ -190,6 +191,7 @@ class IpAccessControlListList(ListResource):
 
 
 class IpAccessControlListPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -233,6 +235,7 @@ class IpAccessControlListPage(Page):
 
 
 class IpAccessControlListContext(InstanceContext):
+    """  """
 
     def __init__(self, version, trunk_sid, sid):
         """
@@ -297,6 +300,7 @@ class IpAccessControlListContext(InstanceContext):
 
 
 class IpAccessControlListInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, trunk_sid, sid=None):
         """

@@ -16,6 +16,7 @@ from twilio.rest.api.v2010.account.recording.add_on_result.payload import Payloa
 
 
 class AddOnResultList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid, reference_sid):
         """
@@ -170,6 +171,7 @@ class AddOnResultList(ListResource):
 
 
 class AddOnResultPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -215,6 +217,7 @@ class AddOnResultPage(Page):
 
 
 class AddOnResultContext(InstanceContext):
+    """  """
 
     def __init__(self, version, account_sid, reference_sid, sid):
         """
@@ -302,6 +305,7 @@ class AddOnResultContext(InstanceContext):
 
 
 class AddOnResultInstance(InstanceResource):
+    """  """
 
     class Status(object):
         CANCELED = "canceled"

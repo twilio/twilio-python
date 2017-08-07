@@ -14,6 +14,7 @@ from twilio.base.page import Page
 
 
 class DependentPhoneNumberList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid, address_sid):
         """
@@ -136,6 +137,7 @@ class DependentPhoneNumberList(ListResource):
 
 
 class DependentPhoneNumberPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -181,6 +183,7 @@ class DependentPhoneNumberPage(Page):
 
 
 class DependentPhoneNumberInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, account_sid, address_sid):
         """

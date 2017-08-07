@@ -3,7 +3,7 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
-[2017-07-14] Version 6.5.0
+[2017-08-07] Version 6.6.0
 ---------------------------
 - Add connection pooling. This is enabled by default and will use one Session for all requests
 in Client.
@@ -18,6 +18,32 @@ client = Client(
     http_client=TwilioHttpClient(pool_connections=False)
 )
 ```
+
+[2017-07-27] Version 6.5.0
+---------------------------
+This release adds Beta and Preview products to main artifact.
+
+Previously, Beta and Preview products were only included in the `alpha`
+artifact. They are now being included in the main artifact to ease product
+discoverability and the collective operational overhead of maintaining multiple
+artifacts per library.
+
+**Api**
+- Remove unused `encryption_type` property on Recordings *(breaking change)*
+- Update `status` enum for Messages to include 'accepted'
+
+**Messaging**
+- Fix incorrectly typed capabilities property for PhoneNumbers.
+
+**Notify**
+- Add `ToBinding` optional parameter on Notifications resource creation. Accepted values are json strings.
+
+**Preview**
+- Add `sms_application_sid` to HostedNumberOrders.
+
+**Taskrouter**
+- Fully support conference functionality in reservations.
+
 
 [2017-07-12] Version 6.4.3
 ---------------------------

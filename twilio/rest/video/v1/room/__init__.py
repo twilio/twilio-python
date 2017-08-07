@@ -17,6 +17,7 @@ from twilio.rest.video.v1.room.recording import RoomRecordingList
 
 
 class RoomList(ListResource):
+    """  """
 
     def __init__(self, version):
         """
@@ -231,6 +232,7 @@ class RoomList(ListResource):
 
 
 class RoomPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -272,6 +274,7 @@ class RoomPage(Page):
 
 
 class RoomContext(InstanceContext):
+    """  """
 
     def __init__(self, version, sid):
         """
@@ -367,6 +370,7 @@ class RoomContext(InstanceContext):
 
 
 class RoomInstance(InstanceResource):
+    """  """
 
     class RoomStatus(object):
         IN_PROGRESS = "in-progress"

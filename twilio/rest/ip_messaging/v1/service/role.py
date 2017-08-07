@@ -15,6 +15,7 @@ from twilio.base.page import Page
 
 
 class RoleList(ListResource):
+    """  """
 
     def __init__(self, version, service_sid):
         """
@@ -194,6 +195,7 @@ class RoleList(ListResource):
 
 
 class RolePage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -237,6 +239,7 @@ class RolePage(Page):
 
 
 class RoleContext(InstanceContext):
+    """  """
 
     def __init__(self, version, service_sid, sid):
         """
@@ -327,6 +330,7 @@ class RoleContext(InstanceContext):
 
 
 class RoleInstance(InstanceResource):
+    """  """
 
     class RoleType(object):
         CHANNEL = "channel"
