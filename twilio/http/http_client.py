@@ -43,6 +43,8 @@ class TwilioHttpClient(HttpClient):
 
         request = Request(method.upper(), url, params=params, data=data, headers=headers, auth=auth)
 
+        self.last_request = request
+
         prepped_request = session.prepare_request(request)
         response = session.send(
             prepped_request,
@@ -50,7 +52,6 @@ class TwilioHttpClient(HttpClient):
             timeout=timeout,
         )
 
-        self.last_request = request
         self.last_response = response
 
         return Response(int(response.status_code), response.text)
