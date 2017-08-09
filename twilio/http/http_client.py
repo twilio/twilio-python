@@ -4,6 +4,7 @@ from twilio.http import HttpClient, get_cert_file
 from twilio.http.response import Response
 import logging
 import json
+from urllib.parse import urlencode
 
 _logger = logging.getLogger('twilio.http_client')
 
