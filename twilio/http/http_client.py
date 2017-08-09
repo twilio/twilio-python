@@ -5,9 +5,9 @@ from twilio.http.response import Response
 import logging
 import json
 try:
-    from urllib.parse import urlparse
+    from urllib.parse import urlencode
 except ImportError:
-     from urlparse import urlparse
+     from urlparse import urlencode
 
 _logger = logging.getLogger('twilio.http_client')
 
