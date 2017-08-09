@@ -7,7 +7,7 @@ import json
 try:
     from urllib.parse import urlencode
 except ImportError:
-     from urlparse import urlencode
+    from urlparse import urlencode
 
 _logger = logging.getLogger('twilio.http_client')
 
