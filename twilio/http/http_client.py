@@ -8,6 +8,7 @@ from urllib.parse import urlencode
 
 _logger = logging.getLogger('twilio.http_client')
 
+
 class TwilioHttpClient(HttpClient):
     """
     General purpose HTTP Client for interacting with the Twilio API
@@ -77,7 +78,7 @@ class TwilioHttpClient(HttpClient):
         else:
             text = response.text
 
-        _logger.info(u'{method} Response: {status} {text}'\
-            .format(method=method, status=response.status_code, text=text))
+        _logger.info(u'{method} Response: {status} {text}'
+                    .format(method=method, status=response.status_code, text=text))
 
         return Response(int(response.status_code), response.text)
