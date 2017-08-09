@@ -78,7 +78,6 @@ class TwilioHttpClient(HttpClient):
         else:
             text = response.text
 
-        _logger.info(u'{method} Response: {status} {text}'
-                    .format(method=method, status=response.status_code, text=text))
+        _logger.info(u'{method} Response: {status} {text}'.format(method=method, status=response.status_code, text=text))
 
         return Response(int(response.status_code), response.text)
