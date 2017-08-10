@@ -37,7 +37,8 @@ class AddressList(ListResource):
         self._uri = '/Accounts/{account_sid}/Addresses.json'.format(**self._solution)
 
     def create(self, customer_name, street, city, region, postal_code, iso_country,
-               friendly_name=values.unset, emergency_enabled=values.unset):
+               friendly_name=values.unset, emergency_enabled=values.unset,
+               auto_correct_address=values.unset):
         """
         Create a new AddressInstance
 
@@ -49,6 +50,7 @@ class AddressList(ListResource):
         :param unicode iso_country: The iso_country
         :param unicode friendly_name: The friendly_name
         :param bool emergency_enabled: The emergency_enabled
+        :param bool auto_correct_address: The auto_correct_address
 
         :returns: Newly created AddressInstance
         :rtype: twilio.rest.api.v2010.account.address.AddressInstance
@@ -62,6 +64,7 @@ class AddressList(ListResource):
             'IsoCountry': iso_country,
             'FriendlyName': friendly_name,
             'EmergencyEnabled': emergency_enabled,
+            'AutoCorrectAddress': auto_correct_address,
         })
 
         payload = self._version.create(
@@ -330,7 +333,8 @@ class AddressContext(InstanceContext):
 
     def update(self, friendly_name=values.unset, customer_name=values.unset,
                street=values.unset, city=values.unset, region=values.unset,
-               postal_code=values.unset, emergency_enabled=values.unset):
+               postal_code=values.unset, emergency_enabled=values.unset,
+               auto_correct_address=values.unset):
         """
         Update the AddressInstance
 
@@ -341,6 +345,7 @@ class AddressContext(InstanceContext):
         :param unicode region: The region
         :param unicode postal_code: The postal_code
         :param bool emergency_enabled: The emergency_enabled
+        :param bool auto_correct_address: The auto_correct_address
 
         :returns: Updated AddressInstance
         :rtype: twilio.rest.api.v2010.account.address.AddressInstance
@@ -353,6 +358,7 @@ class AddressContext(InstanceContext):
             'Region': region,
             'PostalCode': postal_code,
             'EmergencyEnabled': emergency_enabled,
+            'AutoCorrectAddress': auto_correct_address,
         })
 
         payload = self._version.update(
@@ -581,7 +587,8 @@ class AddressInstance(InstanceResource):
 
     def update(self, friendly_name=values.unset, customer_name=values.unset,
                street=values.unset, city=values.unset, region=values.unset,
-               postal_code=values.unset, emergency_enabled=values.unset):
+               postal_code=values.unset, emergency_enabled=values.unset,
+               auto_correct_address=values.unset):
         """
         Update the AddressInstance
 
@@ -592,6 +599,7 @@ class AddressInstance(InstanceResource):
         :param unicode region: The region
         :param unicode postal_code: The postal_code
         :param bool emergency_enabled: The emergency_enabled
+        :param bool auto_correct_address: The auto_correct_address
 
         :returns: Updated AddressInstance
         :rtype: twilio.rest.api.v2010.account.address.AddressInstance
@@ -604,6 +612,7 @@ class AddressInstance(InstanceResource):
             region=region,
             postal_code=postal_code,
             emergency_enabled=emergency_enabled,
+            auto_correct_address=auto_correct_address,
         )
 
     @property
