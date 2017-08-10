@@ -11,7 +11,8 @@ from twilio.jwt.access_token.grants import (
     VoiceGrant,
     VideoGrant,
     ConversationsGrant,
-    TaskRouterGrant
+    TaskRouterGrant,
+    ChatGrant
 )
 
 ACCOUNT_SID = 'AC123'
@@ -120,6 +121,20 @@ class AccessTokenTest(unittest.TestCase):
             'service_sid': 'IS123',
             'push_credential_sid': 'CR123'
         }, decoded_token.payload['grants']['ip_messaging'])
+
+    def test_chat_grant(self):
+        scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
+        scat.add_grant(ChatGrant(service_sid='IS123', push_credential_sid='CR123'))
+
+        token = scat.to_jwt()
+        assert_is_not_none(token)
+        decoded_token = AccessToken.from_jwt(token, 'secret')
+        self._validate_claims(decoded_token.payload)
+        assert_equal(1, len(decoded_token.payload['grants']))
+        assert_equal({
+            'service_sid': 'IS123',
+            'push_credential_sid': 'CR123'
+        }, decoded_token.payload['grants']['chat'])
 
     def test_sync_grant(self):
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
