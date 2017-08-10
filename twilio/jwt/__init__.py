@@ -134,8 +134,8 @@ class Jwt(object):
         verify = True if key else False
 
         try:
-            payload = jwt_lib.decode(bytes(jwt), key, verify=verify, options={
-                'verify_signature': True,
+            payload = jwt_lib.decode(bytes(jwt), key, options={
+                'verify_signature': verify,
                 'verify_exp': True,
                 'verify_nbf': True,
             })
