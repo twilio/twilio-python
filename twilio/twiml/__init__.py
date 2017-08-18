@@ -1,3 +1,4 @@
+import json
 import re
 import xml.etree.ElementTree as ET
 
@@ -111,6 +112,9 @@ class TwiML(object):
                 el.set(a, str(value))
 
         if self.value:
+            if isinstance(self.value, dict):
+                self.value = json.dumps(self.value)
+
             el.text = self.value
 
         for verb in self.verbs:
