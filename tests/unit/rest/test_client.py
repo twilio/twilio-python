@@ -9,37 +9,37 @@ from twilio.rest import (
     TwilioTaskRouterClient,
     TwilioTrunkingClient,
 )
-
+from twilio.base.obsolete import ObsoleteException
 
 class TestDummyClients(unittest.TestCase):
-    def test_deprecation_error_twilioclient(self):
-        self.assertRaises(DeprecationWarning, TwilioClient,
-                          "Expected raised DeprecationWarning")
+    def test_obsolete_exception_twilioclient(self):
+        self.assertRaises(ObsoleteException, TwilioClient,
+                          "Expected raised ObsoleteException")
 
-    def test_deprecation_error_twiliorestclient(self):
-        self.assertRaises(DeprecationWarning, TwilioRestClient,
-                          "Expected raised DeprecationWarning")
+    def test_obsolete_exception_twiliorestclient(self):
+        self.assertRaises(ObsoleteException, TwilioRestClient,
+                          "Expected raised ObsoleteException")
 
-    def test_deprecation_error_twilioipmessagingclient(self):
-        self.assertRaises(DeprecationWarning, TwilioIpMessagingClient,
-                          "Expected raised DeprecationWarning")
+    def test_obsolete_exception_twilioipmessagingclient(self):
+        self.assertRaises(ObsoleteException, TwilioIpMessagingClient,
+                          "Expected raised ObsoleteException")
 
-    def test_deprecation_error_twiliolookupsclient(self):
-        self.assertRaises(DeprecationWarning, TwilioLookupsClient,
-                          "Expected raised DeprecationWarning")
+    def test_obsolete_exception_twiliolookupsclient(self):
+        self.assertRaises(ObsoleteException, TwilioLookupsClient,
+                          "Expected raised ObsoleteException")
 
-    def test_deprecation_error_twiliomonitorclient(self):
-        self.assertRaises(DeprecationWarning, TwilioMonitorClient,
-                          "Expected raised DeprecationWarning")
+    def test_obsolete_exception_twiliomonitorclient(self):
+        self.assertRaises(ObsoleteException, TwilioMonitorClient,
+                          "Expected raised ObsoleteException")
 
-    def test_deprecation_error_twiliopricingclient(self):
-        self.assertRaises(DeprecationWarning, TwilioPricingClient,
-                          "Expected raised DeprecationWarning")
+    def test_obsolete_exception_twiliopricingclient(self):
+        self.assertRaises(ObsoleteException, TwilioPricingClient,
+                          "Expected raised ObsoleteException")
 
-    def test_deprecation_error_twiliotaskrouterclient(self):
-        self.assertRaises(DeprecationWarning, TwilioTaskRouterClient,
-                          "Expected raised DeprecationWarning")
+    def test_obsolete_exception_twiliotaskrouterclient(self):
+        self.assertRaises(ObsoleteException, TwilioTaskRouterClient,
+                          "Expected raised ObsoleteException")
 
-    def test_deprecation_error_twiliotrunkingclient(self):
-        self.assertRaises(DeprecationWarning, TwilioTrunkingClient,
-                          "Expected raised DeprecationWarning")
+    def test_obsolete_exception_twiliotrunkingclient(self):
+        self.assertRaises(ObsoleteException, TwilioTrunkingClient,
+                          "Expected raised ObsoleteException")

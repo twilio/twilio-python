@@ -17,6 +17,5 @@ def obsolete_client(func):
         raise ObsoleteException("{} has been removed from this version of the library. "
                               "Please refer to current documentation for guidance."
                               .format(func.__name__))
-        return func(*args, **kwargs)
 
     return new_func
