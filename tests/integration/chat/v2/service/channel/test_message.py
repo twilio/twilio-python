@@ -44,6 +44,43 @@ class MessageTestCase(IntegrationTestCase):
                 "attributes": "{}",
                 "body": "Hello",
                 "index": 0,
+                "type": "text",
+                "media": null,
+                "url": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
+
+        actual = self.client.chat.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                    .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                    .messages(sid="IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+
+        self.assertIsNotNone(actual)
+
+    def test_fetch_media_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "sid": "IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "service_sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "to": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "channel_sid": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_created": "2016-03-24T20:37:57Z",
+                "date_updated": "2016-03-24T20:37:57Z",
+                "was_edited": false,
+                "from": "system",
+                "attributes": "{}",
+                "body": "Hello",
+                "index": 0,
+                "type": "media",
+                "media": {
+                    "sid": "MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "size": 99999999999999,
+                    "content_type": "application/pdf",
+                    "filename": "hello.pdf"
+                },
                 "url": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
@@ -90,6 +127,8 @@ class MessageTestCase(IntegrationTestCase):
                 "from": "system",
                 "body": "Hello",
                 "index": 0,
+                "type": "text",
+                "media": null,
                 "url": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
@@ -118,6 +157,8 @@ class MessageTestCase(IntegrationTestCase):
                 "attributes": "{}",
                 "body": "Hello",
                 "index": 0,
+                "type": "text",
+                "media": null,
                 "url": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
@@ -170,6 +211,30 @@ class MessageTestCase(IntegrationTestCase):
                         "attributes": "{}",
                         "body": "Hello",
                         "index": 0,
+                        "type": "text",
+                        "media": null,
+                        "url": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    },
+                    {
+                        "sid": "IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "service_sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "to": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "channel_sid": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "date_created": "2016-03-24T20:37:57Z",
+                        "date_updated": "2016-03-24T20:37:57Z",
+                        "was_edited": false,
+                        "from": "system",
+                        "attributes": "{}",
+                        "body": "Hello",
+                        "index": 0,
+                        "type": "media",
+                        "media": {
+                            "sid": "MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                            "size": 99999999999999,
+                            "content_type": "application/pdf",
+                            "filename": "hello.pdf"
+                        },
                         "url": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     }
                 ]
@@ -263,6 +328,8 @@ class MessageTestCase(IntegrationTestCase):
                 "from": "system",
                 "body": "Hello",
                 "index": 0,
+                "type": "text",
+                "media": null,
                 "url": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''

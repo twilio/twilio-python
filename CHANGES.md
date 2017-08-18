@@ -3,6 +3,23 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2017-08-18] Version 6.5.2
+---------------------------
+**Api**
+- Add VoiceReceiveMode {'voice', 'fax'} option to IncomingPhoneNumber UPDATE requests
+
+**Chat**
+- Add channel message media information
+- Add service instance message media information
+
+**Preview**
+- Removed 'email' from bulk_exports configuration api [bi]. No migration plan needed because api has not been used yet.
+- Add AvailableNumbers resource.
+
+**Sync**
+- Add support for Service Instance unique names
+
+
 [2017-08-18] Version 6.6.0
 ---------------------------
 - Add connection pooling. This is enabled by default and will use one Session for all requests

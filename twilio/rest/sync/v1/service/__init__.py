@@ -401,6 +401,7 @@ class ServiceInstance(InstanceResource):
         # Marshaled Properties
         self._properties = {
             'sid': payload['sid'],
+            'unique_name': payload['unique_name'],
             'account_sid': payload['account_sid'],
             'friendly_name': payload['friendly_name'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
@@ -441,6 +442,14 @@ class ServiceInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['sid']
+
+    @property
+    def unique_name(self):
+        """
+        :returns: The unique_name
+        :rtype: unicode
+        """
+        return self._properties['unique_name']
 
     @property
     def account_sid(self):

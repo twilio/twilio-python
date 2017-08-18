@@ -159,14 +159,13 @@ class ExportConfigurationContext(InstanceContext):
         )
 
     def update(self, enabled=values.unset, webhook_url=values.unset,
-               webhook_method=values.unset, email=values.unset):
+               webhook_method=values.unset):
         """
         Update the ExportConfigurationInstance
 
         :param bool enabled: The enabled
         :param unicode webhook_url: The webhook_url
         :param unicode webhook_method: The webhook_method
-        :param unicode email: The email
 
         :returns: Updated ExportConfigurationInstance
         :rtype: twilio.rest.preview.bulk_exports.export_configuration.ExportConfigurationInstance
@@ -175,7 +174,6 @@ class ExportConfigurationContext(InstanceContext):
             'Enabled': enabled,
             'WebhookUrl': webhook_url,
             'WebhookMethod': webhook_method,
-            'Email': email,
         })
 
         payload = self._version.update(
@@ -220,7 +218,6 @@ class ExportConfigurationInstance(InstanceResource):
             'enabled': payload['enabled'],
             'webhook_url': payload['webhook_url'],
             'webhook_method': payload['webhook_method'],
-            'email': payload['email'],
             'resource_type': payload['resource_type'],
             'url': payload['url'],
         }
@@ -272,14 +269,6 @@ class ExportConfigurationInstance(InstanceResource):
         return self._properties['webhook_method']
 
     @property
-    def email(self):
-        """
-        :returns: The email
-        :rtype: unicode
-        """
-        return self._properties['email']
-
-    @property
     def resource_type(self):
         """
         :returns: The resource_type
@@ -305,14 +294,13 @@ class ExportConfigurationInstance(InstanceResource):
         return self._proxy.fetch()
 
     def update(self, enabled=values.unset, webhook_url=values.unset,
-               webhook_method=values.unset, email=values.unset):
+               webhook_method=values.unset):
         """
         Update the ExportConfigurationInstance
 
         :param bool enabled: The enabled
         :param unicode webhook_url: The webhook_url
         :param unicode webhook_method: The webhook_method
-        :param unicode email: The email
 
         :returns: Updated ExportConfigurationInstance
         :rtype: twilio.rest.preview.bulk_exports.export_configuration.ExportConfigurationInstance
@@ -321,7 +309,6 @@ class ExportConfigurationInstance(InstanceResource):
             enabled=enabled,
             webhook_url=webhook_url,
             webhook_method=webhook_method,
-            email=email,
         )
 
     def __repr__(self):

@@ -378,6 +378,8 @@ class MessageInstance(InstanceResource):
             'from_': payload['from'],
             'body': payload['body'],
             'index': deserialize.integer(payload['index']),
+            'type': payload['type'],
+            'media': payload['media'],
             'url': payload['url'],
         }
 
@@ -502,6 +504,22 @@ class MessageInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['index']
+
+    @property
+    def type(self):
+        """
+        :returns: The type
+        :rtype: unicode
+        """
+        return self._properties['type']
+
+    @property
+    def media(self):
+        """
+        :returns: The media
+        :rtype: dict
+        """
+        return self._properties['media']
 
     @property
     def url(self):

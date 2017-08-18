@@ -40,6 +40,7 @@ class ServiceTestCase(IntegrationTestCase):
                     "maps": "https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Maps"
                 },
                 "sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "unique_name": "unique_name",
                 "url": "https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "webhook_url": "http://www.example.com",
                 "reachability_webhooks_enabled": false,
@@ -99,6 +100,7 @@ class ServiceTestCase(IntegrationTestCase):
                     "maps": "https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Maps"
                 },
                 "sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "unique_name": "unique_name",
                 "url": "https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "webhook_url": "http://www.example.com",
                 "reachability_webhooks_enabled": false,
@@ -171,6 +173,7 @@ class ServiceTestCase(IntegrationTestCase):
                             "maps": "https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Maps"
                         },
                         "sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "unique_name": "unique_name",
                         "url": "https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "webhook_url": "http://www.example.com",
                         "reachability_webhooks_enabled": false,
@@ -211,6 +214,7 @@ class ServiceTestCase(IntegrationTestCase):
                     "maps": "https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Maps"
                 },
                 "sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "unique_name": "unique_name",
                 "url": "https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "webhook_url": "http://www.example.com",
                 "reachability_webhooks_enabled": false,
