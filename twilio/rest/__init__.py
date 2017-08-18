@@ -502,7 +502,7 @@ class Client(object):
 @obsolete_client
 class TwilioClient(object):
     """ Dummy client which provides no functionality. Please use
-    Twilio.Rest.Client instead. """
+    twilio.rest.Client instead. """
 
     def __init__(self, *args):
         pass
@@ -511,7 +511,7 @@ class TwilioClient(object):
 @obsolete_client
 class TwilioRestClient(object):
     """ Dummy client which provides no functionality. Please use
-    Twilio.Rest.Client instead. """
+    twilio.rest.Client instead. """
 
     def __init__(self, *args):
         pass
@@ -520,7 +520,7 @@ class TwilioRestClient(object):
 @obsolete_client
 class TwilioIpMessagingClient(object):
     """ Dummy client which provides no functionality. Please use
-    Twilio.Rest.Client instead. """
+    twilio.rest.Client instead. """
 
     def __init__(self, *args):
         pass
@@ -529,7 +529,7 @@ class TwilioIpMessagingClient(object):
 @obsolete_client
 class TwilioLookupsClient(object):
     """ Dummy client which provides no functionality. Please use
-    Twilio.Rest.Client instead. """
+    twilio.rest.Client instead. """
 
     def __init__(self, *args):
         pass
@@ -538,7 +538,7 @@ class TwilioLookupsClient(object):
 @obsolete_client
 class TwilioMonitorClient(object):
     """ Dummy client which provides no functionality. Please use
-    Twilio.Rest.Client instead. """
+    twilio.rest.Client instead. """
 
     def __init__(self, *args):
         pass
@@ -547,7 +547,7 @@ class TwilioMonitorClient(object):
 @obsolete_client
 class TwilioPricingClient(object):
     """ Dummy client which provides no functionality. Please use
-    Twilio.Rest.Client instead. """
+    twilio.rest.Client instead. """
 
     def __init__(self, *args):
         pass
@@ -556,7 +556,7 @@ class TwilioPricingClient(object):
 @obsolete_client
 class TwilioTaskRouterClient(object):
     """ Dummy client which provides no functionality. Please use
-    Twilio.Rest.Client instead. """
+    twilio.rest.Client instead. """
 
     def __init__(self, *args):
         pass
@@ -565,7 +565,7 @@ class TwilioTaskRouterClient(object):
 @obsolete_client
 class TwilioTrunkingClient(object):
     """ Dummy client which provides no functionality. Please use
-    Twilio.Rest.Client instead. """
+    twilio.rest.Client instead. """
 
     def __init__(self, *args):
         pass
