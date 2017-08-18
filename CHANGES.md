@@ -3,6 +3,22 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2017-08-18] Version 6.6.0
+---------------------------
+- Add connection pooling. This is enabled by default and will use one Session for all requests
+in Client.
+    - To disable this, you can turn this off when creating your Twilio client.
+```python
+from twilio.rest import Client
+from twilio.http.http_client import TwilioHttpClient
+
+client = Client(
+    username, 
+    password, 
+    http_client=TwilioHttpClient(pool_connections=False)
+)
+```
+
 [2017-08-10] Version 6.5.1
 ---------------------------
 Fixed PyJWT >= 1.5.1 exception
@@ -16,7 +32,6 @@ Fixed PyJWT >= 1.5.1 exception
 **Video**
 - Add `video_codec` enum and `video_codecs` parameter, which can be set to either `VP8` or `H264` during room creation.
 - Restrict recordings page size to 100
-
 
 [2017-07-27] Version 6.5.0
 ---------------------------

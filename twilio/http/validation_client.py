@@ -3,7 +3,7 @@ from collections import namedtuple
 from requests import Request, Session
 
 from twilio.compat import urlparse
-from twilio.http import HttpClient, get_cert_file
+from twilio.http import HttpClient
 from twilio.http.response import Response
 from twilio.jwt.validation import ClientValidationJwt
 
@@ -15,7 +15,7 @@ ValidationPayload = namedtuple('ValidationPayload', ['method', 'path', 'query_st
 class ValidationClient(HttpClient):
     __SIGNED_HEADERS = ['authorization', 'host']
 
-    def __init__(self, account_sid, api_key_sid, credential_sid, private_key):
+    def __init__(self, account_sid, api_key_sid, credential_sid, private_key, pool_connections=True):
         """
         Build a ValidationClient which signs requests with private_key and allows Twilio to
         validate request has not been tampered with.
@@ -30,6 +30,7 @@ class ValidationClient(HttpClient):
         self.credential_sid = credential_sid
         self.api_key_sid = api_key_sid
         self.private_key = private_key
+        self.session = Session() if pool_connections else None
 
     def request(self, method, url, params=None, data=None, headers=None, auth=None, timeout=None,
                 allow_redirects=False):
@@ -49,9 +50,7 @@ class ValidationClient(HttpClient):
         :return: An http response
         :rtype: A :class:`Response <twilio.rest.http.response.Response>` object
         """
-        session = Session()
-        session.verify = get_cert_file()
-
+        session = self.session or Session()
         request = Request(method.upper(), url, params=params, data=data, headers=headers, auth=auth)
         prepared_request = session.prepare_request(request)
 
