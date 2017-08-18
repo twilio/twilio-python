@@ -15,6 +15,7 @@ Here you can see the full list of changes between each twilio-python release.
 **Preview**
 - Removed 'email' from bulk_exports configuration api [bi]. No migration plan needed because api has not been used yet.
 - Add AvailableNumbers resource.
+- Add DeployedDevices.
 
 **Sync**
 - Add support for Service Instance unique names
@@ -30,8 +31,8 @@ from twilio.rest import Client
 from twilio.http.http_client import TwilioHttpClient
 
 client = Client(
-    username, 
-    password, 
+    username,
+    password,
     http_client=TwilioHttpClient(pool_connections=False)
 )
 ```
