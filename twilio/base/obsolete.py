@@ -2,7 +2,7 @@ import warnings
 import functools
 
 
-class ObsoleteWarning(Warning):
+class ObsoleteException(BaseException):
     """ Base class for warnings about obsolete features. """
     pass
 
@@ -14,11 +14,9 @@ def obsolete_client(func):
 
     @functools.wraps(func)
     def new_func(*args, **kwargs):
-        warnings.simplefilter('error', ObsoleteWarning)
-        warnings.warn("{} has been removed from this version of the library. "
-                      "Please refer to current documentation for guidance."
-                      .format(func.__name__),
-                      category=ObsoleteWarning)
+        raise ObsoleteException("{} has been removed from this version of the library. "
+                              "Please refer to current documentation for guidance."
+                              .format(func.__name__))
         return func(*args, **kwargs)
 
     return new_func
