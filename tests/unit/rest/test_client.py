@@ -11,6 +11,7 @@ from twilio.rest import (
 )
 from twilio.base.obsolete import ObsoleteException
 
+
 class TestDummyClients(unittest.TestCase):
     def test_obsolete_exception_twilioclient(self):
         self.assertRaises(ObsoleteException, TwilioClient,
