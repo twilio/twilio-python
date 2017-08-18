@@ -3,7 +3,7 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
-[2017-08-07] Version 6.6.0
+[2017-08-18] Version 6.6.0
 ---------------------------
 - Add connection pooling. This is enabled by default and will use one Session for all requests
 in Client.
@@ -18,6 +18,20 @@ client = Client(
     http_client=TwilioHttpClient(pool_connections=False)
 )
 ```
+
+[2017-08-10] Version 6.5.1
+---------------------------
+Fixed PyJWT >= 1.5.1 exception
+
+
+**Api**
+- Add New wireless usage keys added
+- Add `auto_correct_address` param for Addresses create and update
+- Add ChatGrant grant and deprecate IpMessagingGrant
+
+**Video**
+- Add `video_codec` enum and `video_codecs` parameter, which can be set to either `VP8` or `H264` during room creation.
+- Restrict recordings page size to 100
 
 [2017-07-27] Version 6.5.0
 ---------------------------
