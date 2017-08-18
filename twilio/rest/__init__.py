@@ -10,6 +10,7 @@ import os
 import platform
 from twilio import __version__
 from twilio.base.exceptions import TwilioException
+from twilio.base.obsolete import obsolete_client
 from twilio.http.http_client import TwilioHttpClient
 
 
@@ -496,3 +497,75 @@ class Client(object):
         :rtype: str
         """
         return '<Twilio {}>'.format(self.account_sid)
+
+
+@obsolete_client
+class TwilioClient(object):
+    """ Dummy client which provides no functionality. Please use
+    twilio.rest.Client instead. """
+
+    def __init__(self, *args):
+        pass
+
+
+@obsolete_client
+class TwilioRestClient(object):
+    """ Dummy client which provides no functionality. Please use
+    twilio.rest.Client instead. """
+
+    def __init__(self, *args):
+        pass
+
+
+@obsolete_client
+class TwilioIpMessagingClient(object):
+    """ Dummy client which provides no functionality. Please use
+    twilio.rest.Client instead. """
+
+    def __init__(self, *args):
+        pass
+
+
+@obsolete_client
+class TwilioLookupsClient(object):
+    """ Dummy client which provides no functionality. Please use
+    twilio.rest.Client instead. """
+
+    def __init__(self, *args):
+        pass
+
+
+@obsolete_client
+class TwilioMonitorClient(object):
+    """ Dummy client which provides no functionality. Please use
+    twilio.rest.Client instead. """
+
+    def __init__(self, *args):
+        pass
+
+
+@obsolete_client
+class TwilioPricingClient(object):
+    """ Dummy client which provides no functionality. Please use
+    twilio.rest.Client instead. """
+
+    def __init__(self, *args):
+        pass
+
+
+@obsolete_client
+class TwilioTaskRouterClient(object):
+    """ Dummy client which provides no functionality. Please use
+    twilio.rest.Client instead. """
+
+    def __init__(self, *args):
+        pass
+
+
+@obsolete_client
+class TwilioTrunkingClient(object):
+    """ Dummy client which provides no functionality. Please use
+    twilio.rest.Client instead. """
+
+    def __init__(self, *args):
+        pass

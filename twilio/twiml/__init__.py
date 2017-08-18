@@ -1,5 +1,6 @@
 import re
 import xml.etree.ElementTree as ET
+from twilio.base.obsolete import obsolete_client
 
 
 def lower_camel(string):
@@ -117,3 +118,11 @@ class TwiML(object):
             el.append(verb.xml())
 
         return el
+
+
+@obsolete_client
+class Client(object):
+    """ Dummy client which provides no functionality. """
+
+    def __init__(self, *args):
+        pass
