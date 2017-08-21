@@ -5,6 +5,22 @@ Here you can see the full list of changes between each twilio-python release.
 
 [2017-08-18] Version 6.5.2
 ---------------------------
+**Library**
+- Remove bundled certificates, use `certifi` package via `requests`.
+- Add option to use connection pooling. This is enabled by default and will use one Session for all requests
+in Client.
+    - To disable this, pass `pool_connections` parameter when creating your Twilio client.
+```python
+from twilio.rest import Client
+from twilio.http.http_client import TwilioHttpClient
+
+client = Client(
+    username,
+    password,
+    http_client=TwilioHttpClient(pool_connections=False)
+)
+```
+
 **Api**
 - Add VoiceReceiveMode {'voice', 'fax'} option to IncomingPhoneNumber UPDATE requests
 
@@ -18,23 +34,6 @@ Here you can see the full list of changes between each twilio-python release.
 
 **Sync**
 - Add support for Service Instance unique names
-
-
-[2017-08-18] Version 6.6.0
----------------------------
-- Add connection pooling. This is enabled by default and will use one Session for all requests
-in Client.
-    - To disable this, you can turn this off when creating your Twilio client.
-```python
-from twilio.rest import Client
-from twilio.http.http_client import TwilioHttpClient
-
-client = Client(
-    username,
-    password,
-    http_client=TwilioHttpClient(pool_connections=False)
-)
-```
 
 [2017-08-10] Version 6.5.1
 ---------------------------
