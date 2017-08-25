@@ -26,7 +26,9 @@ class JwtDecodeError(Exception):
 
 class Jwt(object):
     """Base class for building a Json Web Token"""
-    def __init__(self, secret_key, issuer, subject=None, algorithm='HS256', nbf=None,
+    GENERATE = object()
+
+    def __init__(self, secret_key, issuer, subject=None, algorithm='HS256', nbf=GENERATE,
                  ttl=3600, valid_until=None):
         self.secret_key = secret_key
         """:type str: The secret used to encode the JWT"""
@@ -80,8 +82,12 @@ class Jwt(object):
 
         payload = self._generate_payload().copy()
         payload['iss'] = self.issuer
-        payload['nbf'] = self.nbf or int(time.time())
         payload['exp'] = int(time.time()) + self.ttl
+        if self.nbf is not None:
+            if self.nbf == self.GENERATE:
+                payload['nbf'] = int(time.time())
+            else:
+                payload['nbf'] = self.nbf
         if self.valid_until:
             payload['exp'] = self.valid_until
         if self.subject:
