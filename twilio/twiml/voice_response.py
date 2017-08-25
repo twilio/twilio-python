@@ -95,6 +95,7 @@ class VoiceResponse(TwiML):
         ))
 
     def gather(self, input=None, action=None, method=None, timeout=None,
+               speech_timeout=None, max_speech_time=None, profanity_filter=None,
                finish_on_key=None, num_digits=None, partial_result_callback=None,
                partial_result_callback_method=None, language=None, hints=None,
                barge_in=None, **kwargs):
@@ -105,6 +106,9 @@ class VoiceResponse(TwiML):
         :param action: Action URL
         :param method: Action URL method
         :param timeout: Time to wait to gather input
+        :param speech_timeout: Time to wait to gather speech input and it should be either auto or a positive integer.
+        :param max_speech_time: Max allowed time for speech input
+        :param profanity_filter: Profanity Filter on speech
         :param finish_on_key: Finish gather on key
         :param num_digits: Number of digits to collect
         :param partial_result_callback: Partial result callback URL
@@ -121,6 +125,9 @@ class VoiceResponse(TwiML):
             action=action,
             method=method,
             timeout=timeout,
+            speech_timeout=speech_timeout,
+            max_speech_time=max_speech_time,
+            profanity_filter=profanity_filter,
             finish_on_key=finish_on_key,
             num_digits=num_digits,
             partial_result_callback=partial_result_callback,

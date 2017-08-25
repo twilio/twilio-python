@@ -38,7 +38,7 @@ class RoomList(ListResource):
                unique_name=values.unset, status_callback=values.unset,
                status_callback_method=values.unset, max_participants=values.unset,
                record_participants_on_connect=values.unset,
-               video_codecs=values.unset):
+               video_codecs=values.unset, media_region=values.unset):
         """
         Create a new RoomInstance
 
@@ -50,6 +50,7 @@ class RoomList(ListResource):
         :param unicode max_participants: The max_participants
         :param bool record_participants_on_connect: The record_participants_on_connect
         :param RoomInstance.VideoCodec video_codecs: The video_codecs
+        :param unicode media_region: The media_region
 
         :returns: Newly created RoomInstance
         :rtype: twilio.rest.video.v1.room.RoomInstance
@@ -63,6 +64,7 @@ class RoomList(ListResource):
             'MaxParticipants': max_participants,
             'RecordParticipantsOnConnect': record_participants_on_connect,
             'VideoCodecs': video_codecs,
+            'MediaRegion': media_region,
         })
 
         payload = self._version.create(
