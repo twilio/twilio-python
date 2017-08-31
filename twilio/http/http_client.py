@@ -2,6 +2,7 @@ from requests import Request, Session
 
 from twilio.http import HttpClient, get_cert_file
 from twilio.http.response import Response
+from twilio.http.request import Request as TwilioRequest
 
 
 class TwilioHttpClient(HttpClient):
@@ -36,14 +37,16 @@ class TwilioHttpClient(HttpClient):
         :return: An http response
         :rtype: A :class:`Response <twilio.rest.http.response.Response>` object
         """
+
+        self.last_response = None
         session = self.session
         if session is None:
             session = Session()
             session.verify = get_cert_file()
 
         request = Request(method.upper(), url, params=params, data=data, headers=headers, auth=auth)
-
-        self.last_request = request
+        self.last_request = TwilioRequest(method.upper(), url, auth=auth, params=params, data=data,
+                                          headers=headers)
 
         prepped_request = session.prepare_request(request)
         response = session.send(
@@ -52,6 +55,6 @@ class TwilioHttpClient(HttpClient):
             timeout=timeout,
         )
 
-        self.last_response = response
+        self.last_response = Response(int(response.status_code), response.text)
 
-        return Response(int(response.status_code), response.text)
+        return self.last_response
