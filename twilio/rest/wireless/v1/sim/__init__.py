@@ -12,6 +12,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.wireless.v1.sim.data_session import DataSessionList
 from twilio.rest.wireless.v1.sim.usage_record import UsageRecordList
 
 
@@ -265,6 +266,7 @@ class SimContext(InstanceContext):
 
         # Dependents
         self._usage_records = None
+        self._data_sessions = None
 
     def fetch(self):
         """
@@ -364,6 +366,21 @@ class SimContext(InstanceContext):
                 sim_sid=self._solution['sid'],
             )
         return self._usage_records
+
+    @property
+    def data_sessions(self):
+        """
+        Access the data_sessions
+
+        :returns: twilio.rest.wireless.v1.sim.data_session.DataSessionList
+        :rtype: twilio.rest.wireless.v1.sim.data_session.DataSessionList
+        """
+        if self._data_sessions is None:
+            self._data_sessions = DataSessionList(
+                self._version,
+                sim_sid=self._solution['sid'],
+            )
+        return self._data_sessions
 
     def __repr__(self):
         """
@@ -692,6 +709,16 @@ class SimInstance(InstanceResource):
         :rtype: twilio.rest.wireless.v1.sim.usage_record.UsageRecordList
         """
         return self._proxy.usage_records
+
+    @property
+    def data_sessions(self):
+        """
+        Access the data_sessions
+
+        :returns: twilio.rest.wireless.v1.sim.data_session.DataSessionList
+        :rtype: twilio.rest.wireless.v1.sim.data_session.DataSessionList
+        """
+        return self._proxy.data_sessions
 
     def __repr__(self):
         """

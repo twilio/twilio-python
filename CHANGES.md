@@ -3,6 +3,15 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2017-09-01] Version 6.6.1
+---------------------------
+**Sync**
+- Add support for Streams
+
+**Wireless**
+- Added DataSessions sub-resource to Sims.
+
+
 [2017-08-25] Version 6.6.0
 ---------------------------
 **Library**
