@@ -329,6 +329,7 @@ class RecordingInstance(InstanceResource):
             'price': deserialize.decimal(payload['price']),
             'uri': payload['uri'],
             'encryption_details': payload['encryption_details'],
+            'error_code': deserialize.integer(payload['error_code']),
         }
 
         # Context
@@ -436,6 +437,14 @@ class RecordingInstance(InstanceResource):
         :rtype: dict
         """
         return self._properties['encryption_details']
+
+    @property
+    def error_code(self):
+        """
+        :returns: The error_code
+        :rtype: unicode
+        """
+        return self._properties['error_code']
 
     def fetch(self):
         """

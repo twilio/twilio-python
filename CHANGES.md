@@ -3,6 +3,80 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2017-09-01] Version 6.6.1
+---------------------------
+**Sync**
+- Add support for Streams
+
+**Wireless**
+- Added DataSessions sub-resource to Sims.
+
+
+[2017-08-25] Version 6.6.0
+---------------------------
+**Library**
+- Allow creating AccessTokens/Jwts without generating `nbf`. Passing `None` in the constructor will remove `nbf` from jwt payload.
+
+**Api**
+- Update `status` enum for Recordings to include 'failed'
+- Add `error_code` property on Recordings
+
+**Chat**
+- Add mutable parameters for channel, members and messages
+
+**Video**
+- New `media_region` parameter when creating a room, which controls which region media will be served out of.
+
+**Twiml**
+- Add support for `speech_timeout`, `max_speech_time`, and `profanity_filter` attributes on Gather verb.
+
+
+[2017-08-18] Version 6.5.2
+---------------------------
+**Library**
+- Remove bundled certificates, use `certifi` package via `requests`.
+- Add option to use connection pooling. This is enabled by default and will use one Session for all requests
+in Client.
+    - To disable this, pass `pool_connections` parameter when creating your Twilio client.
+```python
+from twilio.rest import Client
+from twilio.http.http_client import TwilioHttpClient
+
+client = Client(
+    username,
+    password,
+    http_client=TwilioHttpClient(pool_connections=False)
+)
+```
+
+**Api**
+- Add VoiceReceiveMode {'voice', 'fax'} option to IncomingPhoneNumber UPDATE requests
+
+**Chat**
+- Add channel message media information
+- Add service instance message media information
+
+**Preview**
+- Removed 'email' from bulk_exports configuration api [bi]. No migration plan needed because api has not been used yet.
+- Add DeployedDevices.
+
+**Sync**
+- Add support for Service Instance unique names
+
+[2017-08-10] Version 6.5.1
+---------------------------
+Fixed PyJWT >= 1.5.1 exception
+
+
+**Api**
+- Add New wireless usage keys added
+- Add `auto_correct_address` param for Addresses create and update
+- Add ChatGrant grant and deprecate IpMessagingGrant
+
+**Video**
+- Add `video_codec` enum and `video_codecs` parameter, which can be set to either `VP8` or `H264` during room creation.
+- Restrict recordings page size to 100
+
 [2017-07-27] Version 6.5.0
 ---------------------------
 This release adds Beta and Preview products to main artifact.

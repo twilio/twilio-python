@@ -403,7 +403,7 @@ class IncomingPhoneNumberContext(InstanceContext):
                voice_fallback_method=values.unset, voice_fallback_url=values.unset,
                voice_method=values.unset, voice_url=values.unset,
                emergency_status=values.unset, emergency_address_sid=values.unset,
-               trunk_sid=values.unset):
+               trunk_sid=values.unset, voice_receive_mode=values.unset):
         """
         Update the IncomingPhoneNumberInstance
 
@@ -426,6 +426,7 @@ class IncomingPhoneNumberContext(InstanceContext):
         :param IncomingPhoneNumberInstance.EmergencyStatus emergency_status: The emergency_status
         :param unicode emergency_address_sid: The emergency_address_sid
         :param unicode trunk_sid: Unique string to identify the trunk
+        :param IncomingPhoneNumberInstance.VoiceReceiveMode voice_receive_mode: The voice_receive_mode
 
         :returns: Updated IncomingPhoneNumberInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
@@ -450,6 +451,7 @@ class IncomingPhoneNumberContext(InstanceContext):
             'EmergencyStatus': emergency_status,
             'EmergencyAddressSid': emergency_address_sid,
             'TrunkSid': trunk_sid,
+            'VoiceReceiveMode': voice_receive_mode,
         })
 
         payload = self._version.update(
@@ -535,6 +537,10 @@ class IncomingPhoneNumberInstance(InstanceResource):
     class EmergencyStatus(object):
         ACTIVE = "Active"
         INACTIVE = "Inactive"
+
+    class VoiceReceiveMode(object):
+        VOICE = "voice"
+        FAX = "fax"
 
     def __init__(self, version, payload, account_sid, sid=None):
         """
@@ -835,7 +841,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
                voice_fallback_method=values.unset, voice_fallback_url=values.unset,
                voice_method=values.unset, voice_url=values.unset,
                emergency_status=values.unset, emergency_address_sid=values.unset,
-               trunk_sid=values.unset):
+               trunk_sid=values.unset, voice_receive_mode=values.unset):
         """
         Update the IncomingPhoneNumberInstance
 
@@ -858,6 +864,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
         :param IncomingPhoneNumberInstance.EmergencyStatus emergency_status: The emergency_status
         :param unicode emergency_address_sid: The emergency_address_sid
         :param unicode trunk_sid: Unique string to identify the trunk
+        :param IncomingPhoneNumberInstance.VoiceReceiveMode voice_receive_mode: The voice_receive_mode
 
         :returns: Updated IncomingPhoneNumberInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
@@ -882,6 +889,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
             emergency_status=emergency_status,
             emergency_address_sid=emergency_address_sid,
             trunk_sid=trunk_sid,
+            voice_receive_mode=voice_receive_mode,
         )
 
     def fetch(self):

@@ -21,7 +21,7 @@ class AccessTokenGrant(object):
 class AccessToken(Jwt):
     """Access Token containing one or more AccessTokenGrants used to access Twilio Resources"""
     def __init__(self, account_sid, signing_key_sid, secret, grants=None,
-                 identity=None, nbf=None, ttl=3600, valid_until=None):
+                 identity=None, nbf=Jwt.GENERATE, ttl=3600, valid_until=None):
         grants = grants or []
         if any(not isinstance(g, AccessTokenGrant) for g in grants):
             raise ValueError('Grants must be instances of AccessTokenGrant.')

@@ -58,7 +58,11 @@ class ServiceTestCase(IntegrationTestCase):
                 "webhook_filters": [
                     "webhook_filters"
                 ],
-                "webhook_method": "webhook_method"
+                "webhook_method": "webhook_method",
+                "media": {
+                    "size_limit_mb": 150,
+                    "compatibility_message": "media compatibility message"
+                }
             }
             '''
         ))
@@ -137,7 +141,11 @@ class ServiceTestCase(IntegrationTestCase):
                 "webhook_filters": [
                     "webhook_filters"
                 ],
-                "webhook_method": "webhook_method"
+                "webhook_method": "webhook_method",
+                "media": {
+                    "size_limit_mb": 150,
+                    "compatibility_message": "media compatibility message"
+                }
             }
             '''
         ))
@@ -224,7 +232,11 @@ class ServiceTestCase(IntegrationTestCase):
                         "webhook_filters": [
                             "webhook_filters"
                         ],
-                        "webhook_method": "webhook_method"
+                        "webhook_method": "webhook_method",
+                        "media": {
+                            "size_limit_mb": 150,
+                            "compatibility_message": "media compatibility message"
+                        }
                     }
                 ]
             }
@@ -297,7 +309,11 @@ class ServiceTestCase(IntegrationTestCase):
                 "webhook_filters": [
                     "webhook_filters"
                 ],
-                "webhook_method": "webhook_method"
+                "webhook_method": "webhook_method",
+                "media": {
+                    "size_limit_mb": 150,
+                    "compatibility_message": "new media compatibility message"
+                }
             }
             '''
         ))

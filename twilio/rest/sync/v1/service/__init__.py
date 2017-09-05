@@ -15,6 +15,7 @@ from twilio.base.page import Page
 from twilio.rest.sync.v1.service.document import DocumentList
 from twilio.rest.sync.v1.service.sync_list import SyncListList
 from twilio.rest.sync.v1.service.sync_map import SyncMapList
+from twilio.rest.sync.v1.service.sync_stream import SyncStreamList
 
 
 class ServiceList(ListResource):
@@ -265,6 +266,7 @@ class ServiceContext(InstanceContext):
         self._documents = None
         self._sync_lists = None
         self._sync_maps = None
+        self._sync_streams = None
 
     def fetch(self):
         """
@@ -374,6 +376,21 @@ class ServiceContext(InstanceContext):
             )
         return self._sync_maps
 
+    @property
+    def sync_streams(self):
+        """
+        Access the sync_streams
+
+        :returns: twilio.rest.sync.v1.service.sync_stream.SyncStreamList
+        :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamList
+        """
+        if self._sync_streams is None:
+            self._sync_streams = SyncStreamList(
+                self._version,
+                service_sid=self._solution['sid'],
+            )
+        return self._sync_streams
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -401,6 +418,7 @@ class ServiceInstance(InstanceResource):
         # Marshaled Properties
         self._properties = {
             'sid': payload['sid'],
+            'unique_name': payload['unique_name'],
             'account_sid': payload['account_sid'],
             'friendly_name': payload['friendly_name'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
@@ -441,6 +459,14 @@ class ServiceInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['sid']
+
+    @property
+    def unique_name(self):
+        """
+        :returns: The unique_name
+        :rtype: unicode
+        """
+        return self._properties['unique_name']
 
     @property
     def account_sid(self):
@@ -582,6 +608,16 @@ class ServiceInstance(InstanceResource):
         :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapList
         """
         return self._proxy.sync_maps
+
+    @property
+    def sync_streams(self):
+        """
+        Access the sync_streams
+
+        :returns: twilio.rest.sync.v1.service.sync_stream.SyncStreamList
+        :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamList
+        """
+        return self._proxy.sync_streams
 
     def __repr__(self):
         """

@@ -356,6 +356,7 @@ class RecordingInstance(InstanceResource):
     class Status(object):
         PROCESSING = "processing"
         COMPLETED = "completed"
+        FAILED = "failed"
 
     def __init__(self, version, payload, account_sid, sid=None):
         """
@@ -382,6 +383,7 @@ class RecordingInstance(InstanceResource):
             'source': payload['source'],
             'uri': payload['uri'],
             'encryption_details': payload['encryption_details'],
+            'error_code': deserialize.integer(payload['error_code']),
         }
 
         # Context
@@ -519,6 +521,14 @@ class RecordingInstance(InstanceResource):
         :rtype: dict
         """
         return self._properties['encryption_details']
+
+    @property
+    def error_code(self):
+        """
+        :returns: More information about the recording failure, if Status is failed.
+        :rtype: unicode
+        """
+        return self._properties['error_code']
 
     def fetch(self):
         """

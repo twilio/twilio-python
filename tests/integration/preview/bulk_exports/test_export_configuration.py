@@ -34,8 +34,7 @@ class ExportConfigurationTestCase(IntegrationTestCase):
                 "enabled": true,
                 "webhook_url": "",
                 "webhook_method": "",
-                "resource_type": "Calls",
-                "email": ""
+                "resource_type": "Calls"
             }
             '''
         ))
@@ -62,7 +61,6 @@ class ExportConfigurationTestCase(IntegrationTestCase):
             {
                 "url": "https://preview.twilio.com/BulkExports/Exports/Calls/Configuration",
                 "enabled": true,
-                "email": "bogus@twilio.com",
                 "webhook_url": "",
                 "resource_type": "Calls",
                 "webhook_method": ""
