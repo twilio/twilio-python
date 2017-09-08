@@ -14,7 +14,6 @@ from twilio.http.response import Response
 
 
 class TestHttpClientRequest(unittest.TestCase):
-
     def setUp(self):
         self.session_patcher = patch('twilio.http.http_client.Session')
 
@@ -40,6 +39,8 @@ class TestHttpClientRequest(unittest.TestCase):
         self.client.request('doesnt matter', 'doesnt matter')
 
         self.assertEqual('other.twilio.com', self.request_mock.headers['Host'])
+        self.assertIsNotNone(self.client.last_request)
+        self.assertIsNotNone(self.client.last_response)
 
     def test_request_with_unicode_response(self):
         self.request_mock.url = 'https://api.twilio.com/'
@@ -50,6 +51,38 @@ class TestHttpClientRequest(unittest.TestCase):
         self.assertEqual('other.twilio.com', self.request_mock.headers['Host'])
         self.assertEqual(200, response.status_code)
         self.assertEqual('testing-unicode: Ω≈ç√, 💩', response.content)
+
+    def test_last_request_last_response_exist(self):
+        self.request_mock.url = 'https://api.twilio.com/'
+        self.request_mock.headers = {'Host': 'other.twilio.com'}
+
+        self.client.request('doesnt-matter-method',
+                            'doesnt-matter-url',
+                            {'params-value': 'params-key'},
+                            {'data-value': 'data-key'},
+                            {'headers-value': 'headers-key'},
+                            ['a', 'b'])
+
+        self.assertIsNotNone(self.client.last_request)
+        self.assertEqual('doesnt-matter-url', self.client.last_request.url)
+        self.assertEqual('DOESNT-MATTER-METHOD', self.client.last_request.method)
+        self.assertEqual({'params-value': 'params-key'}, self.client.last_request.params)
+        self.assertEqual({'data-value': 'data-key'}, self.client.last_request.data)
+        self.assertEqual({'headers-value': 'headers-key'}, self.client.last_request.headers)
+        self.assertEqual(['a', 'b'], self.client.last_request.auth)
+
+        self.assertIsNotNone(self.client.last_response)
+        self.assertEqual(200, self.client.last_response.status_code)
+        self.assertEqual('testing-unicode: Ω≈ç√, 💩', self.client.last_response.text)
+
+    def test_last_response_empty_on_error(self):
+        self.session_mock.send.side_effect = Exception('voltron')
+
+        with self.assertRaises(Exception):
+            self.client.request('doesnt-matter', 'doesnt-matter')
+
+            self.assertIsNotNone(self.client.last_request)
+            self.assertIsNone(self.client.last_response)
 
 
 class TestHttpClientSession(unittest.TestCase):
