@@ -3,6 +3,10 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2017-09-01] Version 6.6.2
+---------------------------
+- Added last_response and last_request to http_client
+
 [2017-09-01] Version 6.6.1
 ---------------------------
 **Sync**
