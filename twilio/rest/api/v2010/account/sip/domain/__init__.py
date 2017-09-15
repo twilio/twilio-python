@@ -132,7 +132,8 @@ class DomainList(ListResource):
                voice_method=values.unset, voice_fallback_url=values.unset,
                voice_fallback_method=values.unset,
                voice_status_callback_url=values.unset,
-               voice_status_callback_method=values.unset):
+               voice_status_callback_method=values.unset,
+               sip_registration=values.unset):
         """
         Create a new DomainInstance
 
@@ -145,6 +146,7 @@ class DomainList(ListResource):
         :param unicode voice_fallback_method: HTTP method used with voice_fallback_url
         :param unicode voice_status_callback_url: URL that Twilio will request with status updates
         :param unicode voice_status_callback_method: The voice_status_callback_method
+        :param bool sip_registration: The sip_registration
 
         :returns: Newly created DomainInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
@@ -159,6 +161,7 @@ class DomainList(ListResource):
             'VoiceFallbackMethod': voice_fallback_method,
             'VoiceStatusCallbackUrl': voice_status_callback_url,
             'VoiceStatusCallbackMethod': voice_status_callback_method,
+            'SipRegistration': sip_registration,
         })
 
         payload = self._version.create(
@@ -309,7 +312,8 @@ class DomainContext(InstanceContext):
     def update(self, auth_type=values.unset, friendly_name=values.unset,
                voice_fallback_method=values.unset, voice_fallback_url=values.unset,
                voice_method=values.unset, voice_status_callback_method=values.unset,
-               voice_status_callback_url=values.unset, voice_url=values.unset):
+               voice_status_callback_url=values.unset, voice_url=values.unset,
+               sip_registration=values.unset):
         """
         Update the DomainInstance
 
@@ -321,6 +325,7 @@ class DomainContext(InstanceContext):
         :param unicode voice_status_callback_method: The voice_status_callback_method
         :param unicode voice_status_callback_url: The voice_status_callback_url
         :param unicode voice_url: The voice_url
+        :param bool sip_registration: The sip_registration
 
         :returns: Updated DomainInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
@@ -334,6 +339,7 @@ class DomainContext(InstanceContext):
             'VoiceStatusCallbackMethod': voice_status_callback_method,
             'VoiceStatusCallbackUrl': voice_status_callback_url,
             'VoiceUrl': voice_url,
+            'SipRegistration': sip_registration,
         })
 
         payload = self._version.update(
@@ -431,6 +437,7 @@ class DomainInstance(InstanceResource):
             'voice_status_callback_url': payload['voice_status_callback_url'],
             'voice_url': payload['voice_url'],
             'subresource_uris': payload['subresource_uris'],
+            'sip_registration': payload['sip_registration'],
         }
 
         # Context
@@ -585,6 +592,14 @@ class DomainInstance(InstanceResource):
         """
         return self._properties['subresource_uris']
 
+    @property
+    def sip_registration(self):
+        """
+        :returns: If SIP registration is allowed
+        :rtype: bool
+        """
+        return self._properties['sip_registration']
+
     def fetch(self):
         """
         Fetch a DomainInstance
@@ -597,7 +612,8 @@ class DomainInstance(InstanceResource):
     def update(self, auth_type=values.unset, friendly_name=values.unset,
                voice_fallback_method=values.unset, voice_fallback_url=values.unset,
                voice_method=values.unset, voice_status_callback_method=values.unset,
-               voice_status_callback_url=values.unset, voice_url=values.unset):
+               voice_status_callback_url=values.unset, voice_url=values.unset,
+               sip_registration=values.unset):
         """
         Update the DomainInstance
 
@@ -609,6 +625,7 @@ class DomainInstance(InstanceResource):
         :param unicode voice_status_callback_method: The voice_status_callback_method
         :param unicode voice_status_callback_url: The voice_status_callback_url
         :param unicode voice_url: The voice_url
+        :param bool sip_registration: The sip_registration
 
         :returns: Updated DomainInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
@@ -622,6 +639,7 @@ class DomainInstance(InstanceResource):
             voice_status_callback_method=voice_status_callback_method,
             voice_status_callback_url=voice_status_callback_url,
             voice_url=voice_url,
+            sip_registration=sip_registration,
         )
 
     def delete(self):

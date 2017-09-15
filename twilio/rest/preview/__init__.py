@@ -30,13 +30,63 @@ class Preview(Domain):
         self.base_url = 'https://preview.twilio.com'
 
         # Versions
+        self._bulk_exports = None
+        self._deployed_devices = None
+        self._hosted_numbers = None
+        self._marketplace = None
+        self._proxy = None
         self._sync = None
         self._wireless = None
-        self._deployed_devices = None
-        self._marketplace = None
-        self._bulk_exports = None
-        self._proxy = None
-        self._hosted_numbers = None
+
+    @property
+    def bulk_exports(self):
+        """
+        :returns: Version bulk_exports of preview
+        :rtype: twilio.rest.preview.bulk_exports.BulkExports
+        """
+        if self._bulk_exports is None:
+            self._bulk_exports = BulkExports(self)
+        return self._bulk_exports
+
+    @property
+    def deployed_devices(self):
+        """
+        :returns: Version deployed_devices of preview
+        :rtype: twilio.rest.preview.deployed_devices.DeployedDevices
+        """
+        if self._deployed_devices is None:
+            self._deployed_devices = DeployedDevices(self)
+        return self._deployed_devices
+
+    @property
+    def hosted_numbers(self):
+        """
+        :returns: Version hosted_numbers of preview
+        :rtype: twilio.rest.preview.hosted_numbers.HostedNumbers
+        """
+        if self._hosted_numbers is None:
+            self._hosted_numbers = HostedNumbers(self)
+        return self._hosted_numbers
+
+    @property
+    def marketplace(self):
+        """
+        :returns: Version marketplace of preview
+        :rtype: twilio.rest.preview.marketplace.Marketplace
+        """
+        if self._marketplace is None:
+            self._marketplace = Marketplace(self)
+        return self._marketplace
+
+    @property
+    def proxy(self):
+        """
+        :returns: Version proxy of preview
+        :rtype: twilio.rest.preview.proxy.Proxy
+        """
+        if self._proxy is None:
+            self._proxy = Proxy(self)
+        return self._proxy
 
     @property
     def sync(self):
@@ -59,61 +109,53 @@ class Preview(Domain):
         return self._wireless
 
     @property
-    def deployed_devices(self):
+    def exports(self):
         """
-        :returns: Version deployed_devices of preview
-        :rtype: twilio.rest.preview.deployed_devices.DeployedDevices
+        :rtype: twilio.rest.preview.bulk_exports.export.ExportList
         """
-        if self._deployed_devices is None:
-            self._deployed_devices = DeployedDevices(self)
-        return self._deployed_devices
+        return self.bulk_exports.exports
 
     @property
-    def marketplace(self):
+    def export_configuration(self):
         """
-        :returns: Version marketplace of preview
-        :rtype: twilio.rest.preview.marketplace.Marketplace
+        :rtype: twilio.rest.preview.bulk_exports.export_configuration.ExportConfigurationList
         """
-        if self._marketplace is None:
-            self._marketplace = Marketplace(self)
-        return self._marketplace
+        return self.bulk_exports.export_configuration
 
     @property
-    def bulk_exports(self):
+    def fleets(self):
         """
-        :returns: Version bulk_exports of preview
-        :rtype: twilio.rest.preview.bulk_exports.BulkExports
+        :rtype: twilio.rest.preview.deployed_devices.fleet.FleetList
         """
-        if self._bulk_exports is None:
-            self._bulk_exports = BulkExports(self)
-        return self._bulk_exports
+        return self.deployed_devices.fleets
 
     @property
-    def proxy(self):
+    def hosted_number_orders(self):
         """
-        :returns: Version proxy of preview
-        :rtype: twilio.rest.preview.proxy.Proxy
+        :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderList
         """
-        if self._proxy is None:
-            self._proxy = Proxy(self)
-        return self._proxy
+        return self.hosted_numbers.hosted_number_orders
 
     @property
-    def hosted_numbers(self):
+    def available_add_ons(self):
         """
-        :returns: Version hosted_numbers of preview
-        :rtype: twilio.rest.preview.hosted_numbers.HostedNumbers
+        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnList
         """
-        if self._hosted_numbers is None:
-            self._hosted_numbers = HostedNumbers(self)
-        return self._hosted_numbers
+        return self.marketplace.available_add_ons
+
+    @property
+    def installed_add_ons(self):
+        """
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnList
+        """
+        return self.marketplace.installed_add_ons
 
     @property
     def services(self):
         """
-        :rtype: twilio.rest.preview.proxy.service.ServiceList
+        :rtype: twilio.rest.preview.sync.service.ServiceList
         """
-        return self.proxy.services
+        return self.sync.services
 
     @property
     def commands(self):
@@ -135,48 +177,6 @@ class Preview(Domain):
         :rtype: twilio.rest.preview.wireless.sim.SimList
         """
         return self.wireless.sims
-
-    @property
-    def fleets(self):
-        """
-        :rtype: twilio.rest.preview.deployed_devices.fleet.FleetList
-        """
-        return self.deployed_devices.fleets
-
-    @property
-    def available_add_ons(self):
-        """
-        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnList
-        """
-        return self.marketplace.available_add_ons
-
-    @property
-    def installed_add_ons(self):
-        """
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnList
-        """
-        return self.marketplace.installed_add_ons
-
-    @property
-    def exports(self):
-        """
-        :rtype: twilio.rest.preview.bulk_exports.export.ExportList
-        """
-        return self.bulk_exports.exports
-
-    @property
-    def export_configuration(self):
-        """
-        :rtype: twilio.rest.preview.bulk_exports.export_configuration.ExportConfigurationList
-        """
-        return self.bulk_exports.export_configuration
-
-    @property
-    def hosted_number_orders(self):
-        """
-        :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderList
-        """
-        return self.hosted_numbers.hosted_number_orders
 
     def __repr__(self):
         """

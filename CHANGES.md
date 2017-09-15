@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2017-09-15] Version 6.6.3
+---------------------------
+**Api**
+- Add `sip_registration` property on SIP Domains
+- Add new video and market usage category keys
+
+
 [2017-09-01] Version 6.6.2
 ---------------------------
 - Added last_response and last_request to http_client
