@@ -5,10 +5,7 @@ from twilio.http.response import Response
 from twilio.http.request import Request as TwilioRequest
 import logging
 import json
-try:
-    from urllib.parse import urlencode
-except ImportError:
-    from urllib import urlencode
+from twilio.compat import urlencode
 
 _logger = logging.getLogger('twilio.http_client')
 
