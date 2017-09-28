@@ -19,6 +19,8 @@ from twilio.rest.taskrouter.v1.workspace.task_channel import TaskChannelList
 from twilio.rest.taskrouter.v1.workspace.task_queue import TaskQueueList
 from twilio.rest.taskrouter.v1.workspace.worker import WorkerList
 from twilio.rest.taskrouter.v1.workspace.workflow import WorkflowList
+from twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics import WorkspaceCumulativeStatisticsList
+from twilio.rest.taskrouter.v1.workspace.workspace_real_time_statistics import WorkspaceRealTimeStatisticsList
 from twilio.rest.taskrouter.v1.workspace.workspace_statistics import WorkspaceStatisticsList
 
 
@@ -281,6 +283,8 @@ class WorkspaceContext(InstanceContext):
         self._workers = None
         self._workflows = None
         self._statistics = None
+        self._workspace_real_time_statistics = None
+        self._workspace_cumulative_statistics = None
         self._task_channels = None
 
     def fetch(self):
@@ -458,6 +462,36 @@ class WorkspaceContext(InstanceContext):
                 workspace_sid=self._solution['sid'],
             )
         return self._statistics
+
+    @property
+    def workspace_real_time_statistics(self):
+        """
+        Access the workspace_real_time_statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workspace_real_time_statistics.WorkspaceRealTimeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_real_time_statistics.WorkspaceRealTimeStatisticsList
+        """
+        if self._workspace_real_time_statistics is None:
+            self._workspace_real_time_statistics = WorkspaceRealTimeStatisticsList(
+                self._version,
+                workspace_sid=self._solution['sid'],
+            )
+        return self._workspace_real_time_statistics
+
+    @property
+    def workspace_cumulative_statistics(self):
+        """
+        Access the workspace_cumulative_statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics.WorkspaceCumulativeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics.WorkspaceCumulativeStatisticsList
+        """
+        if self._workspace_cumulative_statistics is None:
+            self._workspace_cumulative_statistics = WorkspaceCumulativeStatisticsList(
+                self._version,
+                workspace_sid=self._solution['sid'],
+            )
+        return self._workspace_cumulative_statistics
 
     @property
     def task_channels(self):
@@ -778,6 +812,26 @@ class WorkspaceInstance(InstanceResource):
         :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsList
         """
         return self._proxy.statistics
+
+    @property
+    def workspace_real_time_statistics(self):
+        """
+        Access the workspace_real_time_statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workspace_real_time_statistics.WorkspaceRealTimeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_real_time_statistics.WorkspaceRealTimeStatisticsList
+        """
+        return self._proxy.workspace_real_time_statistics
+
+    @property
+    def workspace_cumulative_statistics(self):
+        """
+        Access the workspace_cumulative_statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics.WorkspaceCumulativeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics.WorkspaceCumulativeStatisticsList
+        """
+        return self._proxy.workspace_cumulative_statistics
 
     @property
     def task_channels(self):

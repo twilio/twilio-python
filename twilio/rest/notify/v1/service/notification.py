@@ -51,14 +51,14 @@ class NotificationList(ListResource):
         :param unicode title: The title
         :param unicode sound: The sound
         :param unicode action: The action
-        :param unicode data: The data
-        :param unicode apn: The apn
-        :param unicode gcm: The gcm
-        :param unicode sms: The sms
+        :param dict data: The data
+        :param dict apn: The apn
+        :param dict gcm: The gcm
+        :param dict sms: The sms
         :param dict facebook_messenger: The facebook_messenger
-        :param unicode fcm: The fcm
+        :param dict fcm: The fcm
         :param unicode segment: The segment
-        :param unicode alexa: The alexa
+        :param dict alexa: The alexa
         :param unicode to_binding: The to_binding
         :param unicode identity: The identity
         :param unicode tag: The tag
@@ -75,14 +75,14 @@ class NotificationList(ListResource):
             'Title': title,
             'Sound': sound,
             'Action': action,
-            'Data': data,
-            'Apn': apn,
-            'Gcm': gcm,
-            'Sms': sms,
+            'Data': serialize.object(data),
+            'Apn': serialize.object(apn),
+            'Gcm': serialize.object(gcm),
+            'Sms': serialize.object(sms),
             'FacebookMessenger': serialize.object(facebook_messenger),
-            'Fcm': fcm,
+            'Fcm': serialize.object(fcm),
             'Segment': segment,
-            'Alexa': alexa,
+            'Alexa': serialize.object(alexa),
             'ToBinding': to_binding,
         })
 

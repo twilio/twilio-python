@@ -12,6 +12,8 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.taskrouter.v1.workspace.workflow.workflow_cumulative_statistics import WorkflowCumulativeStatisticsList
+from twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics import WorkflowRealTimeStatisticsList
 from twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics import WorkflowStatisticsList
 
 
@@ -277,6 +279,8 @@ class WorkflowContext(InstanceContext):
 
         # Dependents
         self._statistics = None
+        self._workflow_real_time_statistics = None
+        self._workflow_cumulative_statistics = None
 
     def fetch(self):
         """
@@ -361,6 +365,38 @@ class WorkflowContext(InstanceContext):
                 workflow_sid=self._solution['sid'],
             )
         return self._statistics
+
+    @property
+    def workflow_real_time_statistics(self):
+        """
+        Access the workflow_real_time_statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsList
+        """
+        if self._workflow_real_time_statistics is None:
+            self._workflow_real_time_statistics = WorkflowRealTimeStatisticsList(
+                self._version,
+                workspace_sid=self._solution['workspace_sid'],
+                workflow_sid=self._solution['sid'],
+            )
+        return self._workflow_real_time_statistics
+
+    @property
+    def workflow_cumulative_statistics(self):
+        """
+        Access the workflow_cumulative_statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_cumulative_statistics.WorkflowCumulativeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_cumulative_statistics.WorkflowCumulativeStatisticsList
+        """
+        if self._workflow_cumulative_statistics is None:
+            self._workflow_cumulative_statistics = WorkflowCumulativeStatisticsList(
+                self._version,
+                workspace_sid=self._solution['workspace_sid'],
+                workflow_sid=self._solution['sid'],
+            )
+        return self._workflow_cumulative_statistics
 
     def __repr__(self):
         """
@@ -581,6 +617,26 @@ class WorkflowInstance(InstanceResource):
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics.WorkflowStatisticsList
         """
         return self._proxy.statistics
+
+    @property
+    def workflow_real_time_statistics(self):
+        """
+        Access the workflow_real_time_statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsList
+        """
+        return self._proxy.workflow_real_time_statistics
+
+    @property
+    def workflow_cumulative_statistics(self):
+        """
+        Access the workflow_cumulative_statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_cumulative_statistics.WorkflowCumulativeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_cumulative_statistics.WorkflowCumulativeStatisticsList
+        """
+        return self._proxy.workflow_cumulative_statistics
 
     def __repr__(self):
         """

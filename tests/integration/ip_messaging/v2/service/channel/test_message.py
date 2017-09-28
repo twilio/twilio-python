@@ -100,16 +100,11 @@ class MessageTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.ip_messaging.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                        .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                       .messages.create(body="body")
-
-        values = {
-            'Body': "body",
-        }
+                                       .messages.create()
 
         self.holodeck.assert_has_request(Request(
             'post',
             'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages',
-            data=values,
         ))
 
     def test_create_response(self):
@@ -139,7 +134,7 @@ class MessageTestCase(IntegrationTestCase):
 
         actual = self.client.ip_messaging.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                             .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                            .messages.create(body="body")
+                                            .messages.create()
 
         self.assertIsNotNone(actual)
 
@@ -170,7 +165,43 @@ class MessageTestCase(IntegrationTestCase):
 
         actual = self.client.ip_messaging.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                             .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                            .messages.create(body="body")
+                                            .messages.create()
+
+        self.assertIsNotNone(actual)
+
+    def test_create_media_response(self):
+        self.holodeck.mock(Response(
+            201,
+            '''
+            {
+                "sid": "IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "service_sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "to": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "channel_sid": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "attributes": null,
+                "date_created": "2016-03-24T20:37:57Z",
+                "date_updated": "2016-03-24T20:37:57Z",
+                "last_updated_by": "system",
+                "was_edited": false,
+                "from": "system",
+                "body": "Hello",
+                "index": 0,
+                "type": "text",
+                "media": {
+                    "sid": "MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "size": 99999999999999,
+                    "content_type": "application/pdf",
+                    "filename": "hello.pdf"
+                },
+                "url": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
+
+        actual = self.client.ip_messaging.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                            .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                            .messages.create()
 
         self.assertIsNotNone(actual)
 

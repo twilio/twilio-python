@@ -309,7 +309,9 @@ class ServiceContext(InstanceContext):
                webhook_method=values.unset, webhook_filters=values.unset,
                limits_channel_members=values.unset,
                limits_user_channels=values.unset,
-               media_compatibility_message=values.unset):
+               media_compatibility_message=values.unset,
+               pre_webhook_retry_count=values.unset,
+               post_webhook_retry_count=values.unset):
         """
         Update the ServiceInstance
 
@@ -341,6 +343,8 @@ class ServiceContext(InstanceContext):
         :param unicode limits_channel_members: The limits.channel_members
         :param unicode limits_user_channels: The limits.user_channels
         :param unicode media_compatibility_message: The media.compatibility_message
+        :param unicode pre_webhook_retry_count: The pre_webhook_retry_count
+        :param unicode post_webhook_retry_count: The post_webhook_retry_count
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.chat.v2.service.ServiceInstance
@@ -374,6 +378,8 @@ class ServiceContext(InstanceContext):
             'Limits.ChannelMembers': limits_channel_members,
             'Limits.UserChannels': limits_user_channels,
             'Media.CompatibilityMessage': media_compatibility_message,
+            'PreWebhookRetryCount': pre_webhook_retry_count,
+            'PostWebhookRetryCount': post_webhook_retry_count,
         })
 
         payload = self._version.update(
@@ -475,6 +481,8 @@ class ServiceInstance(InstanceResource):
             'post_webhook_url': payload['post_webhook_url'],
             'webhook_method': payload['webhook_method'],
             'webhook_filters': payload['webhook_filters'],
+            'pre_webhook_retry_count': deserialize.integer(payload['pre_webhook_retry_count']),
+            'post_webhook_retry_count': deserialize.integer(payload['post_webhook_retry_count']),
             'notifications': payload['notifications'],
             'media': payload['media'],
             'url': payload['url'],
@@ -640,6 +648,22 @@ class ServiceInstance(InstanceResource):
         return self._properties['webhook_filters']
 
     @property
+    def pre_webhook_retry_count(self):
+        """
+        :returns: The pre_webhook_retry_count
+        :rtype: unicode
+        """
+        return self._properties['pre_webhook_retry_count']
+
+    @property
+    def post_webhook_retry_count(self):
+        """
+        :returns: The post_webhook_retry_count
+        :rtype: unicode
+        """
+        return self._properties['post_webhook_retry_count']
+
+    @property
     def notifications(self):
         """
         :returns: The notifications
@@ -713,7 +737,9 @@ class ServiceInstance(InstanceResource):
                webhook_method=values.unset, webhook_filters=values.unset,
                limits_channel_members=values.unset,
                limits_user_channels=values.unset,
-               media_compatibility_message=values.unset):
+               media_compatibility_message=values.unset,
+               pre_webhook_retry_count=values.unset,
+               post_webhook_retry_count=values.unset):
         """
         Update the ServiceInstance
 
@@ -745,6 +771,8 @@ class ServiceInstance(InstanceResource):
         :param unicode limits_channel_members: The limits.channel_members
         :param unicode limits_user_channels: The limits.user_channels
         :param unicode media_compatibility_message: The media.compatibility_message
+        :param unicode pre_webhook_retry_count: The pre_webhook_retry_count
+        :param unicode post_webhook_retry_count: The post_webhook_retry_count
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.chat.v2.service.ServiceInstance
@@ -778,6 +806,8 @@ class ServiceInstance(InstanceResource):
             limits_channel_members=limits_channel_members,
             limits_user_channels=limits_user_channels,
             media_compatibility_message=media_compatibility_message,
+            pre_webhook_retry_count=pre_webhook_retry_count,
+            post_webhook_retry_count=post_webhook_retry_count,
         )
 
     @property

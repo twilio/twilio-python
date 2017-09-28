@@ -135,7 +135,8 @@ class WorkersStatisticsContext(InstanceContext):
 
     def fetch(self, minutes=values.unset, start_date=values.unset,
               end_date=values.unset, task_queue_sid=values.unset,
-              task_queue_name=values.unset, friendly_name=values.unset):
+              task_queue_name=values.unset, friendly_name=values.unset,
+              task_channel=values.unset):
         """
         Fetch a WorkersStatisticsInstance
 
@@ -145,6 +146,7 @@ class WorkersStatisticsContext(InstanceContext):
         :param unicode task_queue_sid: The task_queue_sid
         :param unicode task_queue_name: The task_queue_name
         :param unicode friendly_name: The friendly_name
+        :param unicode task_channel: The task_channel
 
         :returns: Fetched WorkersStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_statistics.WorkersStatisticsInstance
@@ -156,6 +158,7 @@ class WorkersStatisticsContext(InstanceContext):
             'TaskQueueSid': task_queue_sid,
             'TaskQueueName': task_queue_name,
             'FriendlyName': friendly_name,
+            'TaskChannel': task_channel,
         })
 
         payload = self._version.fetch(
@@ -195,9 +198,9 @@ class WorkersStatisticsInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'cumulative': payload['cumulative'],
             'realtime': payload['realtime'],
+            'cumulative': payload['cumulative'],
+            'account_sid': payload['account_sid'],
             'workspace_sid': payload['workspace_sid'],
             'url': payload['url'],
         }
@@ -225,12 +228,12 @@ class WorkersStatisticsInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def realtime(self):
         """
-        :returns: The account_sid
-        :rtype: unicode
+        :returns: The realtime
+        :rtype: dict
         """
-        return self._properties['account_sid']
+        return self._properties['realtime']
 
     @property
     def cumulative(self):
@@ -241,12 +244,12 @@ class WorkersStatisticsInstance(InstanceResource):
         return self._properties['cumulative']
 
     @property
-    def realtime(self):
+    def account_sid(self):
         """
-        :returns: The realtime
-        :rtype: dict
+        :returns: The account_sid
+        :rtype: unicode
         """
-        return self._properties['realtime']
+        return self._properties['account_sid']
 
     @property
     def workspace_sid(self):
@@ -266,7 +269,8 @@ class WorkersStatisticsInstance(InstanceResource):
 
     def fetch(self, minutes=values.unset, start_date=values.unset,
               end_date=values.unset, task_queue_sid=values.unset,
-              task_queue_name=values.unset, friendly_name=values.unset):
+              task_queue_name=values.unset, friendly_name=values.unset,
+              task_channel=values.unset):
         """
         Fetch a WorkersStatisticsInstance
 
@@ -276,6 +280,7 @@ class WorkersStatisticsInstance(InstanceResource):
         :param unicode task_queue_sid: The task_queue_sid
         :param unicode task_queue_name: The task_queue_name
         :param unicode friendly_name: The friendly_name
+        :param unicode task_channel: The task_channel
 
         :returns: Fetched WorkersStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_statistics.WorkersStatisticsInstance
@@ -287,6 +292,7 @@ class WorkersStatisticsInstance(InstanceResource):
             task_queue_sid=task_queue_sid,
             task_queue_name=task_queue_name,
             friendly_name=friendly_name,
+            task_channel=task_channel,
         )
 
     def __repr__(self):

@@ -142,13 +142,14 @@ class WorkerStatisticsContext(InstanceContext):
         self._uri = '/Workspaces/{workspace_sid}/Workers/{worker_sid}/Statistics'.format(**self._solution)
 
     def fetch(self, minutes=values.unset, start_date=values.unset,
-              end_date=values.unset):
+              end_date=values.unset, task_channel=values.unset):
         """
         Fetch a WorkerStatisticsInstance
 
         :param unicode minutes: The minutes
         :param datetime start_date: The start_date
         :param datetime end_date: The end_date
+        :param unicode task_channel: The task_channel
 
         :returns: Fetched WorkerStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_statistics.WorkerStatisticsInstance
@@ -157,6 +158,7 @@ class WorkerStatisticsContext(InstanceContext):
             'Minutes': minutes,
             'StartDate': serialize.iso8601_datetime(start_date),
             'EndDate': serialize.iso8601_datetime(end_date),
+            'TaskChannel': task_channel,
         })
 
         payload = self._version.fetch(
@@ -269,13 +271,14 @@ class WorkerStatisticsInstance(InstanceResource):
         return self._properties['url']
 
     def fetch(self, minutes=values.unset, start_date=values.unset,
-              end_date=values.unset):
+              end_date=values.unset, task_channel=values.unset):
         """
         Fetch a WorkerStatisticsInstance
 
         :param unicode minutes: The minutes
         :param datetime start_date: The start_date
         :param datetime end_date: The end_date
+        :param unicode task_channel: The task_channel
 
         :returns: Fetched WorkerStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_statistics.WorkerStatisticsInstance
@@ -284,6 +287,7 @@ class WorkerStatisticsInstance(InstanceResource):
             minutes=minutes,
             start_date=start_date,
             end_date=end_date,
+            task_channel=task_channel,
         )
 
     def __repr__(self):

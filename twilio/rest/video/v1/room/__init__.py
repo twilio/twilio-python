@@ -415,6 +415,7 @@ class RoomInstance(InstanceResource):
             'type': payload['type'],
             'max_participants': deserialize.integer(payload['max_participants']),
             'record_participants_on_connect': payload['record_participants_on_connect'],
+            'video_codecs': payload['video_codecs'],
             'url': payload['url'],
             'links': payload['links'],
         }
@@ -552,6 +553,14 @@ class RoomInstance(InstanceResource):
         :rtype: bool
         """
         return self._properties['record_participants_on_connect']
+
+    @property
+    def video_codecs(self):
+        """
+        :returns: The video_codecs
+        :rtype: RoomInstance.VideoCodec
+        """
+        return self._properties['video_codecs']
 
     @property
     def url(self):

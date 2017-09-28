@@ -38,29 +38,32 @@ class MessageList(ListResource):
         }
         self._uri = '/Services/{service_sid}/Channels/{channel_sid}/Messages'.format(**self._solution)
 
-    def create(self, body, from_=values.unset, attributes=values.unset,
+    def create(self, from_=values.unset, attributes=values.unset,
                date_created=values.unset, date_updated=values.unset,
-               last_updated_by=values.unset):
+               last_updated_by=values.unset, body=values.unset,
+               media_sid=values.unset):
         """
         Create a new MessageInstance
 
-        :param unicode body: The body
         :param unicode from_: The from
         :param unicode attributes: The attributes
         :param datetime date_created: The date_created
         :param datetime date_updated: The date_updated
         :param unicode last_updated_by: The last_updated_by
+        :param unicode body: The body
+        :param unicode media_sid: The media_sid
 
         :returns: Newly created MessageInstance
         :rtype: twilio.rest.chat.v2.service.channel.message.MessageInstance
         """
         data = values.of({
-            'Body': body,
             'From': from_,
             'Attributes': attributes,
             'DateCreated': serialize.iso8601_datetime(date_created),
             'DateUpdated': serialize.iso8601_datetime(date_updated),
             'LastUpdatedBy': last_updated_by,
+            'Body': body,
+            'MediaSid': media_sid,
         })
 
         payload = self._version.create(
