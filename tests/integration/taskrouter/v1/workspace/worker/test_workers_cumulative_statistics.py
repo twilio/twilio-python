@@ -20,7 +20,7 @@ class WorkersCumulativeStatisticsTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                      .workers(sid="WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                     .workers_cumulative_statistics().fetch()
+                                     .cumulative_statistics().fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -83,6 +83,6 @@ class WorkersCumulativeStatisticsTestCase(IntegrationTestCase):
 
         actual = self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                           .workers(sid="WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                          .workers_cumulative_statistics().fetch()
+                                          .cumulative_statistics().fetch()
 
         self.assertIsNotNone(actual)

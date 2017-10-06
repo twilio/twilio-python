@@ -338,8 +338,8 @@ class WorkerContext(InstanceContext):
         self._uri = '/Workspaces/{workspace_sid}/Workers/{sid}'.format(**self._solution)
 
         # Dependents
-        self._workers_real_time_statistics = None
-        self._workers_cumulative_statistics = None
+        self._real_time_statistics = None
+        self._cumulative_statistics = None
         self._statistics = None
         self._reservations = None
         self._worker_channels = None
@@ -407,34 +407,34 @@ class WorkerContext(InstanceContext):
         return self._version.delete('delete', self._uri)
 
     @property
-    def workers_real_time_statistics(self):
+    def real_time_statistics(self):
         """
-        Access the workers_real_time_statistics
+        Access the real_time_statistics
 
         :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsList
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsList
         """
-        if self._workers_real_time_statistics is None:
-            self._workers_real_time_statistics = WorkersRealTimeStatisticsList(
+        if self._real_time_statistics is None:
+            self._real_time_statistics = WorkersRealTimeStatisticsList(
                 self._version,
                 workspace_sid=self._solution['workspace_sid'],
             )
-        return self._workers_real_time_statistics
+        return self._real_time_statistics
 
     @property
-    def workers_cumulative_statistics(self):
+    def cumulative_statistics(self):
         """
-        Access the workers_cumulative_statistics
+        Access the cumulative_statistics
 
         :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsList
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsList
         """
-        if self._workers_cumulative_statistics is None:
-            self._workers_cumulative_statistics = WorkersCumulativeStatisticsList(
+        if self._cumulative_statistics is None:
+            self._cumulative_statistics = WorkersCumulativeStatisticsList(
                 self._version,
                 workspace_sid=self._solution['workspace_sid'],
             )
-        return self._workers_cumulative_statistics
+        return self._cumulative_statistics
 
     @property
     def statistics(self):
@@ -689,24 +689,24 @@ class WorkerInstance(InstanceResource):
         return self._proxy.delete()
 
     @property
-    def workers_real_time_statistics(self):
+    def real_time_statistics(self):
         """
-        Access the workers_real_time_statistics
+        Access the real_time_statistics
 
         :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsList
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsList
         """
-        return self._proxy.workers_real_time_statistics
+        return self._proxy.real_time_statistics
 
     @property
-    def workers_cumulative_statistics(self):
+    def cumulative_statistics(self):
         """
-        Access the workers_cumulative_statistics
+        Access the cumulative_statistics
 
         :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsList
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsList
         """
-        return self._proxy.workers_cumulative_statistics
+        return self._proxy.cumulative_statistics
 
     @property
     def statistics(self):

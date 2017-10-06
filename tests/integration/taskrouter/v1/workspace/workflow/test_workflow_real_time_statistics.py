@@ -20,7 +20,7 @@ class WorkflowRealTimeStatisticsTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                      .workflows(sid="WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                     .workflow_real_time_statistics().fetch()
+                                     .real_time_statistics().fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -51,6 +51,6 @@ class WorkflowRealTimeStatisticsTestCase(IntegrationTestCase):
 
         actual = self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                           .workflows(sid="WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                          .workflow_real_time_statistics().fetch()
+                                          .real_time_statistics().fetch()
 
         self.assertIsNotNone(actual)

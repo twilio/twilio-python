@@ -39,6 +39,9 @@ class TaskQueueList(ListResource):
         }
         self._uri = '/Workspaces/{workspace_sid}/TaskQueues'.format(**self._solution)
 
+        # Components
+        self._statistics = None
+
     def stream(self, friendly_name=values.unset,
                evaluate_worker_attributes=values.unset, worker_sid=values.unset,
                limit=None, page_size=None):
@@ -190,6 +193,21 @@ class TaskQueueList(ListResource):
             workspace_sid=self._solution['workspace_sid'],
         )
 
+    @property
+    def statistics(self):
+        """
+        Access the statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsList
+        """
+        if self._statistics is None:
+            self._statistics = TaskQueuesStatisticsList(
+                self._version,
+                workspace_sid=self._solution['workspace_sid'],
+            )
+        return self._statistics
+
     def get(self, sid):
         """
         Constructs a TaskQueueContext
@@ -298,10 +316,9 @@ class TaskQueueContext(InstanceContext):
         self._uri = '/Workspaces/{workspace_sid}/TaskQueues/{sid}'.format(**self._solution)
 
         # Dependents
-        self._task_queues_statistics = None
-        self._task_queue_statistics = None
-        self._task_queue_real_time_statistics = None
-        self._task_queue_cumulative_statistics = None
+        self._statistics = None
+        self._real_time_statistics = None
+        self._cumulative_statistics = None
 
     def fetch(self):
         """
@@ -374,67 +391,52 @@ class TaskQueueContext(InstanceContext):
         return self._version.delete('delete', self._uri)
 
     @property
-    def task_queues_statistics(self):
+    def statistics(self):
         """
-        Access the task_queues_statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsList
-        """
-        if self._task_queues_statistics is None:
-            self._task_queues_statistics = TaskQueuesStatisticsList(
-                self._version,
-                workspace_sid=self._solution['workspace_sid'],
-            )
-        return self._task_queues_statistics
-
-    @property
-    def task_queue_statistics(self):
-        """
-        Access the task_queue_statistics
+        Access the statistics
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsList
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsList
         """
-        if self._task_queue_statistics is None:
-            self._task_queue_statistics = TaskQueueStatisticsList(
+        if self._statistics is None:
+            self._statistics = TaskQueueStatisticsList(
                 self._version,
                 workspace_sid=self._solution['workspace_sid'],
                 task_queue_sid=self._solution['sid'],
             )
-        return self._task_queue_statistics
+        return self._statistics
 
     @property
-    def task_queue_real_time_statistics(self):
+    def real_time_statistics(self):
         """
-        Access the task_queue_real_time_statistics
+        Access the real_time_statistics
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsList
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsList
         """
-        if self._task_queue_real_time_statistics is None:
-            self._task_queue_real_time_statistics = TaskQueueRealTimeStatisticsList(
+        if self._real_time_statistics is None:
+            self._real_time_statistics = TaskQueueRealTimeStatisticsList(
                 self._version,
                 workspace_sid=self._solution['workspace_sid'],
                 task_queue_sid=self._solution['sid'],
             )
-        return self._task_queue_real_time_statistics
+        return self._real_time_statistics
 
     @property
-    def task_queue_cumulative_statistics(self):
+    def cumulative_statistics(self):
         """
-        Access the task_queue_cumulative_statistics
+        Access the cumulative_statistics
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_cumulative_statistics.TaskQueueCumulativeStatisticsList
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_cumulative_statistics.TaskQueueCumulativeStatisticsList
         """
-        if self._task_queue_cumulative_statistics is None:
-            self._task_queue_cumulative_statistics = TaskQueueCumulativeStatisticsList(
+        if self._cumulative_statistics is None:
+            self._cumulative_statistics = TaskQueueCumulativeStatisticsList(
                 self._version,
                 workspace_sid=self._solution['workspace_sid'],
                 task_queue_sid=self._solution['sid'],
             )
-        return self._task_queue_cumulative_statistics
+        return self._cumulative_statistics
 
     def __repr__(self):
         """
@@ -671,44 +673,34 @@ class TaskQueueInstance(InstanceResource):
         return self._proxy.delete()
 
     @property
-    def task_queues_statistics(self):
+    def statistics(self):
         """
-        Access the task_queues_statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsList
-        """
-        return self._proxy.task_queues_statistics
-
-    @property
-    def task_queue_statistics(self):
-        """
-        Access the task_queue_statistics
+        Access the statistics
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsList
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsList
         """
-        return self._proxy.task_queue_statistics
+        return self._proxy.statistics
 
     @property
-    def task_queue_real_time_statistics(self):
+    def real_time_statistics(self):
         """
-        Access the task_queue_real_time_statistics
+        Access the real_time_statistics
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsList
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsList
         """
-        return self._proxy.task_queue_real_time_statistics
+        return self._proxy.real_time_statistics
 
     @property
-    def task_queue_cumulative_statistics(self):
+    def cumulative_statistics(self):
         """
-        Access the task_queue_cumulative_statistics
+        Access the cumulative_statistics
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_cumulative_statistics.TaskQueueCumulativeStatisticsList
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_cumulative_statistics.TaskQueueCumulativeStatisticsList
         """
-        return self._proxy.task_queue_cumulative_statistics
+        return self._proxy.cumulative_statistics
 
     def __repr__(self):
         """

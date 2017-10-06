@@ -20,7 +20,7 @@ class WorkflowCumulativeStatisticsTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                      .workflows(sid="WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                     .workflow_cumulative_statistics().fetch()
+                                     .cumulative_statistics().fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -91,6 +91,6 @@ class WorkflowCumulativeStatisticsTestCase(IntegrationTestCase):
 
         actual = self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                           .workflows(sid="WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                          .workflow_cumulative_statistics().fetch()
+                                          .cumulative_statistics().fetch()
 
         self.assertIsNotNone(actual)
