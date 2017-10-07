@@ -4,7 +4,7 @@ from hashlib import sha1
 
 from six import PY3
 
-from twilio.compat import izip
+from twilio.compat import izip, urlparse
 
 
 def compare(string1, string2):
@@ -22,6 +22,19 @@ def compare(string1, string2):
     for c1, c2 in izip(string1, string2):
         result &= c1 == c2
     return result
+
+
+def reomve_port(uri):
+    """Remove the port number from a URI
+
+    :param uri: full URI that Twilio requested on your server
+
+    :returns: full URI without a port number
+    :rtype: str
+    """
+    new_netloc = uri.netloc.split(':')[0]
+    new_uri = uri._replace(netloc=new_netloc)
+    return new_uri.geturl()
 
 
 class RequestValidator(object):
@@ -60,4 +73,7 @@ class RequestValidator(object):
 
         :returns: True if the request passes validation, False if not
         """
+        parsed_uri = urlparse(uri)
+        if parsed_uri.scheme == "https" and parsed_uri.port:
+            uri = reomve_port(parsed_uri)
         return compare(self.compute_signature(uri, params), signature)
