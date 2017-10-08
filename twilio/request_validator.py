@@ -24,7 +24,7 @@ def compare(string1, string2):
     return result
 
 
-def reomve_port(uri):
+def remove_port(uri):
     """Remove the port number from a URI
 
     :param uri: full URI that Twilio requested on your server
@@ -75,5 +75,5 @@ class RequestValidator(object):
         """
         parsed_uri = urlparse(uri)
         if parsed_uri.scheme == "https" and parsed_uri.port:
-            uri = reomve_port(parsed_uri)
+            uri = remove_port(parsed_uri)
         return compare(self.compute_signature(uri, params), signature)
