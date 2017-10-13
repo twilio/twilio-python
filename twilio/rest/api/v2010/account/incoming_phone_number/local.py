@@ -162,7 +162,8 @@ class LocalList(ListResource):
                voice_application_sid=values.unset,
                voice_caller_id_lookup=values.unset,
                voice_fallback_method=values.unset, voice_fallback_url=values.unset,
-               voice_method=values.unset, voice_url=values.unset):
+               voice_method=values.unset, voice_url=values.unset,
+               identity_sid=values.unset):
         """
         Create a new LocalInstance
 
@@ -182,6 +183,7 @@ class LocalList(ListResource):
         :param unicode voice_fallback_url: The voice_fallback_url
         :param unicode voice_method: The voice_method
         :param unicode voice_url: The voice_url
+        :param unicode identity_sid: The identity_sid
 
         :returns: Newly created LocalInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.local.LocalInstance
@@ -203,6 +205,7 @@ class LocalList(ListResource):
             'VoiceFallbackUrl': voice_fallback_url,
             'VoiceMethod': voice_method,
             'VoiceUrl': voice_url,
+            'IdentitySid': identity_sid,
         })
 
         payload = self._version.create(
@@ -299,6 +302,7 @@ class LocalInstance(InstanceResource):
             'date_created': deserialize.rfc2822_datetime(payload['date_created']),
             'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
             'friendly_name': payload['friendly_name'],
+            'identity_sid': payload['identity_sid'],
             'phone_number': payload['phone_number'],
             'origin': payload['origin'],
             'sid': payload['sid'],
@@ -388,6 +392,14 @@ class LocalInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['friendly_name']
+
+    @property
+    def identity_sid(self):
+        """
+        :returns: The identity_sid
+        :rtype: unicode
+        """
+        return self._properties['identity_sid']
 
     @property
     def phone_number(self):

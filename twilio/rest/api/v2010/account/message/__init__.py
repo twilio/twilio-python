@@ -43,8 +43,9 @@ class MessageList(ListResource):
                validity_period=values.unset, max_rate=values.unset,
                force_delivery=values.unset, provider_sid=values.unset,
                content_retention=values.unset, address_retention=values.unset,
-               from_=values.unset, messaging_service_sid=values.unset,
-               body=values.unset, media_url=values.unset):
+               smart_encoded=values.unset, from_=values.unset,
+               messaging_service_sid=values.unset, body=values.unset,
+               media_url=values.unset):
         """
         Create a new MessageInstance
 
@@ -59,6 +60,7 @@ class MessageList(ListResource):
         :param unicode provider_sid: The provider_sid
         :param MessageInstance.ContentRetention content_retention: The content_retention
         :param MessageInstance.AddressRetention address_retention: The address_retention
+        :param bool smart_encoded: The smart_encoded
         :param unicode from_: The phone number that initiated the message
         :param unicode messaging_service_sid: The messaging_service_sid
         :param unicode body: The body
@@ -83,6 +85,7 @@ class MessageList(ListResource):
             'ProviderSid': provider_sid,
             'ContentRetention': content_retention,
             'AddressRetention': address_retention,
+            'SmartEncoded': smart_encoded,
         })
 
         payload = self._version.create(

@@ -160,22 +160,21 @@ class HostedNumberOrderList(ListResource):
 
         return HostedNumberOrderPage(self._version, response, self._solution)
 
-    def create(self, address_sid, phone_number, iso_country, sms_capability, email,
+    def create(self, phone_number, iso_country, sms_capability,
                account_sid=values.unset, friendly_name=values.unset,
                unique_name=values.unset, cc_emails=values.unset,
                sms_url=values.unset, sms_method=values.unset,
                sms_fallback_url=values.unset, sms_fallback_method=values.unset,
                status_callback_url=values.unset,
                status_callback_method=values.unset,
-               sms_application_sid=values.unset):
+               sms_application_sid=values.unset, address_sid=values.unset,
+               email=values.unset):
         """
         Create a new HostedNumberOrderInstance
 
-        :param unicode address_sid: Address sid.
         :param unicode phone_number: An E164 formatted phone number.
         :param unicode iso_country: ISO country code.
         :param bool sms_capability: Specify SMS capability to host.
-        :param unicode email: Email.
         :param unicode account_sid: Account Sid.
         :param unicode friendly_name: A human readable description of this resource.
         :param unicode unique_name: A unique, developer assigned name of this HostedNumberOrder.
@@ -187,16 +186,16 @@ class HostedNumberOrderList(ListResource):
         :param unicode status_callback_url: Status Callback URL.
         :param unicode status_callback_method: Status Callback Method.
         :param unicode sms_application_sid: SMS Application Sid.
+        :param unicode address_sid: Address sid.
+        :param unicode email: Email.
 
         :returns: Newly created HostedNumberOrderInstance
         :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance
         """
         data = values.of({
-            'AddressSid': address_sid,
             'PhoneNumber': phone_number,
             'IsoCountry': iso_country,
             'SmsCapability': sms_capability,
-            'Email': email,
             'AccountSid': account_sid,
             'FriendlyName': friendly_name,
             'UniqueName': unique_name,
@@ -208,6 +207,8 @@ class HostedNumberOrderList(ListResource):
             'StatusCallbackUrl': status_callback_url,
             'StatusCallbackMethod': status_callback_method,
             'SmsApplicationSid': sms_application_sid,
+            'AddressSid': address_sid,
+            'Email': email,
         })
 
         payload = self._version.create(

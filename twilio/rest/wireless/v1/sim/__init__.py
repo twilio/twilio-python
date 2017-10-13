@@ -440,6 +440,7 @@ class SimInstance(InstanceResource):
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
             'url': payload['url'],
             'links': payload['links'],
+            'ip_address': payload['ip_address'],
         }
 
         # Context
@@ -639,6 +640,14 @@ class SimInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['links']
+
+    @property
+    def ip_address(self):
+        """
+        :returns: The ip_address
+        :rtype: unicode
+        """
+        return self._properties['ip_address']
 
     def fetch(self):
         """

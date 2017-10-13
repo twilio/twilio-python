@@ -20,12 +20,12 @@ class MessagingResponse(TwiML):
         super(MessagingResponse, self).__init__(**kwargs)
         self.name = 'Response'
 
-    def message(self, message=None, to=None, from_=None, action=None, method=None,
+    def message(self, body=None, to=None, from_=None, action=None, method=None,
                 **kwargs):
         """
         Create a <Message> element
 
-        :param message: Message Body
+        :param body: Message Body
         :param to: Phone Number to send Message to
         :param from: Phone Number to send Message from
         :param action: Action URL
@@ -35,7 +35,7 @@ class MessagingResponse(TwiML):
         :returns: <Message> element
         """
         return self.nest(Message(
-            message=message,
+            body=body,
             to=to,
             from_=from_,
             action=action,
@@ -72,11 +72,11 @@ class Redirect(TwiML):
 class Message(TwiML):
     """ <Message> TwiML Verb """
 
-    def __init__(self, message=None, **kwargs):
+    def __init__(self, body=None, **kwargs):
         super(Message, self).__init__(**kwargs)
         self.name = 'Message'
-        if message:
-            self.value = message
+        if body:
+            self.value = body
 
     def body(self, message, **kwargs):
         """
