@@ -142,6 +142,13 @@ class Preview(Domain):
         return self.deployed_devices.fleets
 
     @property
+    def authorization_documents(self):
+        """
+        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentList
+        """
+        return self.hosted_numbers.authorization_documents
+
+    @property
     def hosted_number_orders(self):
         """
         :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderList

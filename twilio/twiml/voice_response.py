@@ -23,7 +23,8 @@ class VoiceResponse(TwiML):
     def dial(self, number=None, action=None, method=None, timeout=None,
              hangup_on_star=None, time_limit=None, caller_id=None, record=None,
              trim=None, recording_status_callback=None,
-             recording_status_callback_method=None, **kwargs):
+             recording_status_callback_method=None, answer_on_bridge=None,
+             ring_tone=None, **kwargs):
         """
         Create a <Dial> element
 
@@ -38,6 +39,8 @@ class VoiceResponse(TwiML):
         :param trim: Trim the recording
         :param recording_status_callback: Recording status callback URL
         :param recording_status_callback_method: Recording status callback URL method
+        :param answer_on_bridge: Preserve the ringing behavior of the inbound call until the Dialed call picks up
+        :param ring_tone: Ringtone allows you to override the ringback tone that Twilio will play back to the caller while executing the Dial
         :param kwargs: additional attributes
 
         :returns: <Dial> element
@@ -54,6 +57,8 @@ class VoiceResponse(TwiML):
             trim=trim,
             recording_status_callback=recording_status_callback,
             recording_status_callback_method=recording_status_callback_method,
+            answer_on_bridge=answer_on_bridge,
+            ring_tone=ring_tone,
             **kwargs
         ))
 
@@ -607,13 +612,13 @@ class Dial(TwiML):
             **kwargs
         ))
 
-    def number(self, number, send_digits=None, url=None, method=None,
+    def number(self, phone_number, send_digits=None, url=None, method=None,
                status_callback_event=None, status_callback=None,
                status_callback_method=None, **kwargs):
         """
         Create a <Number> element
 
-        :param number: Phone Number to dial
+        :param phone_number: Phone Number to dial
         :param send_digits: DTMF tones to play when the call is answered
         :param url: TwiML URL
         :param method: TwiML URL method
@@ -625,7 +630,7 @@ class Dial(TwiML):
         :returns: <Number> element
         """
         return self.nest(Number(
-            number,
+            phone_number,
             send_digits=send_digits,
             url=url,
             method=method,
@@ -724,10 +729,10 @@ class Sim(TwiML):
 class Number(TwiML):
     """ <Number> TwiML Noun """
 
-    def __init__(self, number, **kwargs):
+    def __init__(self, phone_number, **kwargs):
         super(Number, self).__init__(**kwargs)
         self.name = 'Number'
-        self.value = number
+        self.value = phone_number
 
 
 class Conference(TwiML):

@@ -213,14 +213,12 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.hosted_numbers.hosted_number_orders.create(address_sid="ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", phone_number="+987654321", iso_country="iso_country", sms_capability=True, email="email")
+            self.client.preview.hosted_numbers.hosted_number_orders.create(phone_number="+987654321", iso_country="iso_country", sms_capability=True)
 
         values = {
-            'AddressSid': "ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
             'PhoneNumber': "+987654321",
             'IsoCountry': "iso_country",
             'SmsCapability': True,
-            'Email': "email",
         }
 
         self.holodeck.assert_has_request(Request(
@@ -257,6 +255,38 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.hosted_numbers.hosted_number_orders.create(address_sid="ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", phone_number="+987654321", iso_country="iso_country", sms_capability=True, email="email")
+        actual = self.client.preview.hosted_numbers.hosted_number_orders.create(phone_number="+987654321", iso_country="iso_country", sms_capability=True)
+
+        self.assertIsNotNone(actual)
+
+    def test_create_without_optional_loa_fields_response(self):
+        self.holodeck.mock(Response(
+            201,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "address_sid": null,
+                "capabilities": {
+                    "sms": true,
+                    "voice": false
+                },
+                "cc_emails": [],
+                "date_created": "2017-03-28T20:06:39Z",
+                "date_updated": "2017-03-28T20:06:39Z",
+                "email": null,
+                "friendly_name": null,
+                "incoming_phone_number_sid": "PN11111111111111111111111111111111",
+                "phone_number": "+14153608311",
+                "sid": "HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "signing_document_sid": null,
+                "status": "received",
+                "unique_name": null,
+                "url": "https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "verification_attempts": 0
+            }
+            '''
+        ))
+
+        actual = self.client.preview.hosted_numbers.hosted_number_orders.create(phone_number="+987654321", iso_country="iso_country", sms_capability=True)
 
         self.assertIsNotNone(actual)

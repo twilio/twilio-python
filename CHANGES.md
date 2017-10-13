@@ -3,6 +3,27 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2017-10-13] Version 6.8.0
+---------------------------
+**Api**
+- Add `smart_encoded` param for Messages
+- Add `identity_sid` param to IncomingPhoneNumbers create and update
+
+**Preview**
+- Make 'address_sid' and 'email' optional fields when creating a HostedNumberOrder
+- Add AuthorizationDocuments preview API.
+
+**Proxy**
+- Initial Release
+
+**Wireless**
+- Added `ip_address` to sim resource
+
+**Twiml**
+- Rename `number` to `phone_number` in Voice Number TwiML. *(breaking change)*
+- Rename `message` to `body` in Messaging TwiML. *(breaking change)*
+
+
 [2017-10-06] Version 6.7.1
 ---------------------------
 **Preview**

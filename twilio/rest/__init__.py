@@ -62,6 +62,7 @@ class Client(object):
         self._notify = None
         self._preview = None
         self._pricing = None
+        self._proxy = None
         self._taskrouter = None
         self._trunking = None
         self._video = None
@@ -249,6 +250,19 @@ class Client(object):
             from twilio.rest.pricing import Pricing
             self._pricing = Pricing(self)
         return self._pricing
+
+    @property
+    def proxy(self):
+        """
+        Access the Proxy Twilio Domain
+
+        :returns: Proxy Twilio Domain
+        :rtype: twilio.rest.proxy.Proxy
+        """
+        if self._proxy is None:
+            from twilio.rest.proxy import Proxy
+            self._proxy = Proxy(self)
+        return self._proxy
 
     @property
     def taskrouter(self):
