@@ -13,7 +13,8 @@ class Request(object):
                  auth=ANY,
                  params=ANY,
                  data=ANY,
-                 headers=ANY):
+                 headers=ANY,
+                 **kwargs):
         self.method = method.upper()
         self.url = url
         self.auth = auth

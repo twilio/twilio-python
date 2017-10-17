@@ -4,7 +4,6 @@ from twilio.http import HttpClient
 from twilio.http.response import Response
 from twilio.http.request import Request as TwilioRequest
 import logging
-import json
 from twilio.compat import urlencode
 
 _logger = logging.getLogger('twilio.http_client')
@@ -39,15 +38,15 @@ class TwilioHttpClient(HttpClient):
         :rtype: A :class:`Response <twilio.rest.http.response.Response>` object
         """
 
-        kwargs = dict(
-            method=method.upper(),
-            url=url,
-            params=params,
-            data=data,
-            headers=headers,
-            auth=auth,
-            hooks=self.request_hooks
-        )
+        kwargs = {
+            'method': method.upper(),
+            'url': url,
+            'params': params,
+            'data': data,
+            'headers': headers,
+            'auth': auth,
+            'hooks': self.request_hooks
+        }
 
         if params:
             _logger.info('{method} Request: {url}?{query}'.format(query=urlencode(params), **kwargs))
@@ -60,8 +59,7 @@ class TwilioHttpClient(HttpClient):
         self.last_response = None
         session = self.session or Session()
         request = Request(**kwargs)
-        self.last_request = TwilioRequest(method.upper(), url, auth=auth, params=params, data=data,
-                                          headers=headers)
+        self.last_request = TwilioRequest(**kwargs)
 
         prepped_request = session.prepare_request(request)
         response = session.send(
