@@ -41,7 +41,7 @@ class ValidationTest(unittest.TestCase):
             "ToCountry": "US",
             "ToState": "CA",
             "ToZip": "94612",
-            }
+        }
 
     def test_compute_signature_bytecode(self):
         expected = b("fF+xx6dTinOaCdZ0aIeNkHr/ZAA=")
@@ -59,4 +59,9 @@ class ValidationTest(unittest.TestCase):
 
     def test_validation(self):
         expected = "fF+xx6dTinOaCdZ0aIeNkHr/ZAA="
+        assert_true(self.validator.validate(self.uri, self.params, expected))
+
+    def test_validation_removes_port_on_https(self):
+        self.uri = "https://www.postbin.org:1234/1ed898x"
+        expected = "Y7MeICc5ECftd1G11Fc8qoxAn0A="
         assert_true(self.validator.validate(self.uri, self.params, expected))
