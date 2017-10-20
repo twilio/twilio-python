@@ -5,6 +5,10 @@ Here you can see the full list of changes between each twilio-python release.
 
 [2017-10-20] Version 6.8.1
 ---------------------------
+**Library**
+- #394 Update request validator to remove port numbers from https urls. Thanks @Brodan!
+- #385 Add request logging and hooking. Thanks @tysonholub!
+
 **Api**
 - Add `address_sid` param to IncomingPhoneNumbers create and update
 - Add 'fax_enabled' option for Phone Number Search
