@@ -7,3 +7,4 @@ flake8
 mccabe
 wheel>=0.22.0
 cryptography
+twine
