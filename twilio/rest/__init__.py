@@ -18,7 +18,7 @@ class Client(object):
     """ A client for accessing the Twilio API. """
 
     def __init__(self, username=None, password=None, account_sid=None, region=None,
-                 http_client=None, environment=None, request_hooks=None):
+                 http_client=None, environment=None):
         """
         Initializes the Twilio Client
 
@@ -48,7 +48,7 @@ class Client(object):
 
         self.auth = (self.username, self.password)
         """ :type : tuple(str, str) """
-        self.http_client = http_client or TwilioHttpClient(request_hooks=request_hooks)
+        self.http_client = http_client or TwilioHttpClient()
         """ :type : HttpClient """
 
         # Domains

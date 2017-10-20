@@ -163,7 +163,7 @@ class LocalList(ListResource):
                voice_caller_id_lookup=values.unset,
                voice_fallback_method=values.unset, voice_fallback_url=values.unset,
                voice_method=values.unset, voice_url=values.unset,
-               identity_sid=values.unset):
+               identity_sid=values.unset, address_sid=values.unset):
         """
         Create a new LocalInstance
 
@@ -184,6 +184,7 @@ class LocalList(ListResource):
         :param unicode voice_method: The voice_method
         :param unicode voice_url: The voice_url
         :param unicode identity_sid: The identity_sid
+        :param unicode address_sid: The address_sid
 
         :returns: Newly created LocalInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.local.LocalInstance
@@ -206,6 +207,7 @@ class LocalList(ListResource):
             'VoiceMethod': voice_method,
             'VoiceUrl': voice_url,
             'IdentitySid': identity_sid,
+            'AddressSid': address_sid,
         })
 
         payload = self._version.create(
@@ -295,6 +297,7 @@ class LocalInstance(InstanceResource):
         # Marshaled Properties
         self._properties = {
             'account_sid': payload['account_sid'],
+            'address_sid': payload['address_sid'],
             'address_requirements': payload['address_requirements'],
             'api_version': payload['api_version'],
             'beta': payload['beta'],
@@ -336,6 +339,14 @@ class LocalInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['account_sid']
+
+    @property
+    def address_sid(self):
+        """
+        :returns: The address_sid
+        :rtype: unicode
+        """
+        return self._properties['address_sid']
 
     @property
     def address_requirements(self):
