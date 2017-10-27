@@ -100,10 +100,7 @@ class ParticipantTestCase(IntegrationTestCase):
                                  .conferences(sid="CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .participants.create(from_="+987654321", to="+123456789")
 
-        values = {
-            'From': "+987654321",
-            'To': "+123456789",
-        }
+        values = {'From': "+987654321", 'To': "+123456789",}
 
         self.holodeck.assert_has_request(Request(
             'post',

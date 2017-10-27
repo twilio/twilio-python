@@ -20,9 +20,7 @@ class ServiceTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.preview.acc_security.services.create(name="name")
 
-        values = {
-            'Name': "name",
-        }
+        values = {'Name': "name",}
 
         self.holodeck.assert_has_request(Request(
             'post',

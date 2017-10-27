@@ -41,9 +41,7 @@ class PhoneNumberList(ListResource):
         :rtype: twilio.rest.pricing.v1.phone_number.country.CountryList
         """
         if self._countries is None:
-            self._countries = CountryList(
-                self._version,
-            )
+            self._countries = CountryList(self._version,)
         return self._countries
 
     def __repr__(self):
@@ -83,10 +81,7 @@ class PhoneNumberPage(Page):
         :returns: twilio.rest.pricing.v1.phone_number.PhoneNumberInstance
         :rtype: twilio.rest.pricing.v1.phone_number.PhoneNumberInstance
         """
-        return PhoneNumberInstance(
-            self._version,
-            payload,
-        )
+        return PhoneNumberInstance(self._version, payload,)
 
     def __repr__(self):
         """
@@ -111,11 +106,7 @@ class PhoneNumberInstance(InstanceResource):
         super(PhoneNumberInstance, self).__init__(version)
 
         # Marshaled Properties
-        self._properties = {
-            'name': payload['name'],
-            'url': payload['url'],
-            'links': payload['links'],
-        }
+        self._properties = {'name': payload['name'], 'url': payload['url'], 'links': payload['links'],}
 
         # Context
         self._context = None

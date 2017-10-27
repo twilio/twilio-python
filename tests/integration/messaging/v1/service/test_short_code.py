@@ -21,9 +21,7 @@ class ShortCodeTestCase(IntegrationTestCase):
             self.client.messaging.v1.services(sid="MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                     .short_codes.create(short_code_sid="SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 
-        values = {
-            'ShortCodeSid': "SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-        }
+        values = {'ShortCodeSid': "SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",}
 
         self.holodeck.assert_has_request(Request(
             'post',

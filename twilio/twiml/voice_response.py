@@ -70,9 +70,7 @@ class VoiceResponse(TwiML):
 
         :returns: <Echo> element
         """
-        return self.nest(Echo(
-            **kwargs
-        ))
+        return self.nest(Echo(**kwargs))
 
     def enqueue(self, name=None, action=None, method=None, wait_url=None,
                 wait_url_method=None, workflow_sid=None, **kwargs):
@@ -151,9 +149,7 @@ class VoiceResponse(TwiML):
 
         :returns: <Hangup> element
         """
-        return self.nest(Hangup(
-            **kwargs
-        ))
+        return self.nest(Hangup(**kwargs))
 
     def leave(self, **kwargs):
         """
@@ -163,9 +159,7 @@ class VoiceResponse(TwiML):
 
         :returns: <Leave> element
         """
-        return self.nest(Leave(
-            **kwargs
-        ))
+        return self.nest(Leave(**kwargs))
 
     def pause(self, length=None, **kwargs):
         """
@@ -176,10 +170,7 @@ class VoiceResponse(TwiML):
 
         :returns: <Pause> element
         """
-        return self.nest(Pause(
-            length=length,
-            **kwargs
-        ))
+        return self.nest(Pause(length=length, **kwargs))
 
     def play(self, url=None, loop=None, digits=None, **kwargs):
         """
@@ -192,12 +183,7 @@ class VoiceResponse(TwiML):
 
         :returns: <Play> element
         """
-        return self.nest(Play(
-            url=url,
-            loop=loop,
-            digits=digits,
-            **kwargs
-        ))
+        return self.nest(Play(url=url, loop=loop, digits=digits, **kwargs))
 
     def queue(self, name, url=None, method=None, reservation_sid=None,
               post_work_activity_sid=None, **kwargs):
@@ -270,11 +256,7 @@ class VoiceResponse(TwiML):
 
         :returns: <Redirect> element
         """
-        return self.nest(Redirect(
-            url,
-            method=method,
-            **kwargs
-        ))
+        return self.nest(Redirect(url, method=method, **kwargs))
 
     def reject(self, reason=None, **kwargs):
         """
@@ -285,10 +267,7 @@ class VoiceResponse(TwiML):
 
         :returns: <Reject> element
         """
-        return self.nest(Reject(
-            reason=reason,
-            **kwargs
-        ))
+        return self.nest(Reject(reason=reason, **kwargs))
 
     def say(self, message, voice=None, loop=None, language=None, **kwargs):
         """
@@ -302,13 +281,7 @@ class VoiceResponse(TwiML):
 
         :returns: <Say> element
         """
-        return self.nest(Say(
-            message,
-            voice=voice,
-            loop=loop,
-            language=language,
-            **kwargs
-        ))
+        return self.nest(Say(message, voice=voice, loop=loop, language=language, **kwargs))
 
     def sms(self, message, to=None, from_=None, action=None, method=None,
             status_callback=None, **kwargs):
@@ -441,13 +414,7 @@ class Gather(TwiML):
 
         :returns: <Say> element
         """
-        return self.nest(Say(
-            message,
-            voice=voice,
-            loop=loop,
-            language=language,
-            **kwargs
-        ))
+        return self.nest(Say(message, voice=voice, loop=loop, language=language, **kwargs))
 
     def pause(self, length=None, **kwargs):
         """
@@ -458,10 +425,7 @@ class Gather(TwiML):
 
         :returns: <Pause> element
         """
-        return self.nest(Pause(
-            length=length,
-            **kwargs
-        ))
+        return self.nest(Pause(length=length, **kwargs))
 
     def play(self, url=None, loop=None, digits=None, **kwargs):
         """
@@ -474,12 +438,7 @@ class Gather(TwiML):
 
         :returns: <Play> element
         """
-        return self.nest(Play(
-            url=url,
-            loop=loop,
-            digits=digits,
-            **kwargs
-        ))
+        return self.nest(Play(url=url, loop=loop, digits=digits, **kwargs))
 
 
 class Enqueue(TwiML):
@@ -500,10 +459,7 @@ class Enqueue(TwiML):
 
         :returns: <Task> element
         """
-        return self.nest(Task(
-            body,
-            **kwargs
-        ))
+        return self.nest(Task(body, **kwargs))
 
 
 class Task(TwiML):
@@ -672,10 +628,7 @@ class Dial(TwiML):
 
         :returns: <Sim> element
         """
-        return self.nest(Sim(
-            sim_sid,
-            **kwargs
-        ))
+        return self.nest(Sim(sim_sid, **kwargs))
 
     def sip(self, sip_url, username=None, password=None, url=None, method=None,
             status_callback_event=None, status_callback=None,

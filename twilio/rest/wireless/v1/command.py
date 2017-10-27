@@ -56,12 +56,7 @@ class CommandList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            sim=sim,
-            status=status,
-            direction=direction,
-            page_size=limits['page_size'],
-        )
+        page = self.page(sim=sim, status=status, direction=direction, page_size=limits['page_size'],)
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -85,13 +80,7 @@ class CommandList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.wireless.v1.command.CommandInstance]
         """
-        return list(self.stream(
-            sim=sim,
-            status=status,
-            direction=direction,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(sim=sim, status=status, direction=direction, limit=limit, page_size=page_size,))
 
     def page(self, sim=values.unset, status=values.unset, direction=values.unset,
              page_token=values.unset, page_number=values.unset,
@@ -175,10 +164,7 @@ class CommandList(ListResource):
             data=data,
         )
 
-        return CommandInstance(
-            self._version,
-            payload,
-        )
+        return CommandInstance(self._version, payload,)
 
     def get(self, sid):
         """
@@ -189,10 +175,7 @@ class CommandList(ListResource):
         :returns: twilio.rest.wireless.v1.command.CommandContext
         :rtype: twilio.rest.wireless.v1.command.CommandContext
         """
-        return CommandContext(
-            self._version,
-            sid=sid,
-        )
+        return CommandContext(self._version, sid=sid,)
 
     def __call__(self, sid):
         """
@@ -203,10 +186,7 @@ class CommandList(ListResource):
         :returns: twilio.rest.wireless.v1.command.CommandContext
         :rtype: twilio.rest.wireless.v1.command.CommandContext
         """
-        return CommandContext(
-            self._version,
-            sid=sid,
-        )
+        return CommandContext(self._version, sid=sid,)
 
     def __repr__(self):
         """
@@ -246,10 +226,7 @@ class CommandPage(Page):
         :returns: twilio.rest.wireless.v1.command.CommandInstance
         :rtype: twilio.rest.wireless.v1.command.CommandInstance
         """
-        return CommandInstance(
-            self._version,
-            payload,
-        )
+        return CommandInstance(self._version, payload,)
 
     def __repr__(self):
         """
@@ -278,9 +255,7 @@ class CommandContext(InstanceContext):
         super(CommandContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'sid': sid,
-        }
+        self._solution = {'sid': sid,}
         self._uri = '/Commands/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -298,11 +273,7 @@ class CommandContext(InstanceContext):
             params=params,
         )
 
-        return CommandInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-        )
+        return CommandInstance(self._version, payload, sid=self._solution['sid'],)
 
     def __repr__(self):
         """
@@ -359,9 +330,7 @@ class CommandInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):
@@ -373,10 +342,7 @@ class CommandInstance(InstanceResource):
         :rtype: twilio.rest.wireless.v1.command.CommandContext
         """
         if self._context is None:
-            self._context = CommandContext(
-                self._version,
-                sid=self._solution['sid'],
-            )
+            self._context = CommandContext(self._version, sid=self._solution['sid'],)
         return self._context
 
     @property

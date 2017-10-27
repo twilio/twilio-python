@@ -33,9 +33,7 @@ class WorkflowList(ListResource):
         super(WorkflowList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid,}
         self._uri = '/Workspaces/{workspace_sid}/Workflows'.format(**self._solution)
 
     def stream(self, friendly_name=values.unset, limit=None, page_size=None):
@@ -58,10 +56,7 @@ class WorkflowList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            friendly_name=friendly_name,
-            page_size=limits['page_size'],
-        )
+        page = self.page(friendly_name=friendly_name, page_size=limits['page_size'],)
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -82,11 +77,7 @@ class WorkflowList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance]
         """
-        return list(self.stream(
-            friendly_name=friendly_name,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(friendly_name=friendly_name, limit=limit, page_size=page_size,))
 
     def page(self, friendly_name=values.unset, page_token=values.unset,
              page_number=values.unset, page_size=values.unset):
@@ -164,11 +155,7 @@ class WorkflowList(ListResource):
             data=data,
         )
 
-        return WorkflowInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-        )
+        return WorkflowInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'],)
 
     def get(self, sid):
         """
@@ -179,11 +166,7 @@ class WorkflowList(ListResource):
         :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
         """
-        return WorkflowContext(
-            self._version,
-            workspace_sid=self._solution['workspace_sid'],
-            sid=sid,
-        )
+        return WorkflowContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid,)
 
     def __call__(self, sid):
         """
@@ -194,11 +177,7 @@ class WorkflowList(ListResource):
         :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
         """
-        return WorkflowContext(
-            self._version,
-            workspace_sid=self._solution['workspace_sid'],
-            sid=sid,
-        )
+        return WorkflowContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid,)
 
     def __repr__(self):
         """
@@ -238,11 +217,7 @@ class WorkflowPage(Page):
         :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         """
-        return WorkflowInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-        )
+        return WorkflowInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'],)
 
     def __repr__(self):
         """
@@ -271,10 +246,7 @@ class WorkflowContext(InstanceContext):
         super(WorkflowContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'sid': sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'sid': sid,}
         self._uri = '/Workspaces/{workspace_sid}/Workflows/{sid}'.format(**self._solution)
 
         # Dependents
@@ -440,10 +412,7 @@ class WorkflowInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):

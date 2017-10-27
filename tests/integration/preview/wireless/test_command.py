@@ -126,9 +126,7 @@ class CommandTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.preview.wireless.commands.create(command="command")
 
-        values = {
-            'Command': "command",
-        }
+        values = {'Command': "command",}
 
         self.holodeck.assert_has_request(Request(
             'post',

@@ -31,10 +31,7 @@ class TaskQueueRealTimeStatisticsList(ListResource):
         super(TaskQueueRealTimeStatisticsList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'task_queue_sid': task_queue_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'task_queue_sid': task_queue_sid,}
 
     def get(self):
         """
@@ -135,10 +132,7 @@ class TaskQueueRealTimeStatisticsContext(InstanceContext):
         super(TaskQueueRealTimeStatisticsContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'task_queue_sid': task_queue_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'task_queue_sid': task_queue_sid,}
         self._uri = '/Workspaces/{workspace_sid}/TaskQueues/{task_queue_sid}/RealTimeStatistics'.format(**self._solution)
 
     def fetch(self, task_channel=values.unset):
@@ -150,9 +144,7 @@ class TaskQueueRealTimeStatisticsContext(InstanceContext):
         :returns: Fetched TaskQueueRealTimeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsInstance
         """
-        params = values.of({
-            'TaskChannel': task_channel,
-        })
+        params = values.of({'TaskChannel': task_channel,})
 
         payload = self._version.fetch(
             'GET',
@@ -207,10 +199,7 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'task_queue_sid': task_queue_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'task_queue_sid': task_queue_sid,}
 
     @property
     def _proxy(self):
@@ -326,9 +315,7 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
         :returns: Fetched TaskQueueRealTimeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsInstance
         """
-        return self._proxy.fetch(
-            task_channel=task_channel,
-        )
+        return self._proxy.fetch(task_channel=task_channel,)
 
     def __repr__(self):
         """

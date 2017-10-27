@@ -30,9 +30,7 @@ class SegmentList(ListResource):
         super(SegmentList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'service_sid': service_sid,
-        }
+        self._solution = {'service_sid': service_sid,}
         self._uri = '/Services/{service_sid}/Segments'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
@@ -54,9 +52,7 @@ class SegmentList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            page_size=limits['page_size'],
-        )
+        page = self.page(page_size=limits['page_size'],)
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -76,10 +72,7 @@ class SegmentList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.notify.v1.service.segment.SegmentInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(limit=limit, page_size=page_size,))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -94,11 +87,7 @@ class SegmentList(ListResource):
         :returns: Page of SegmentInstance
         :rtype: twilio.rest.notify.v1.service.segment.SegmentPage
         """
-        params = values.of({
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
 
         response = self._version.page(
             'GET',
@@ -164,11 +153,7 @@ class SegmentPage(Page):
         :returns: twilio.rest.notify.v1.service.segment.SegmentInstance
         :rtype: twilio.rest.notify.v1.service.segment.SegmentInstance
         """
-        return SegmentInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-        )
+        return SegmentInstance(self._version, payload, service_sid=self._solution['service_sid'],)
 
     def __repr__(self):
         """
@@ -205,9 +190,7 @@ class SegmentInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'service_sid': service_sid,
-        }
+        self._solution = {'service_sid': service_sid,}
 
     @property
     def sid(self):

@@ -124,9 +124,7 @@ class LocalTestCase(IntegrationTestCase):
                                  .incoming_phone_numbers \
                                  .local.create(phone_number="+987654321")
 
-        values = {
-            'PhoneNumber': "+987654321",
-        }
+        values = {'PhoneNumber': "+987654321",}
 
         self.holodeck.assert_has_request(Request(
             'post',

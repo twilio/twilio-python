@@ -22,9 +22,7 @@ class SegmentMembershipTestCase(IntegrationTestCase):
                                  .users(identity="NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .segment_memberships.create(segment="segment")
 
-        values = {
-            'Segment': "segment",
-        }
+        values = {'Segment': "segment",}
 
         self.holodeck.assert_has_request(Request(
             'post',

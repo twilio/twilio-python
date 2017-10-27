@@ -30,9 +30,7 @@ class WorkspaceStatisticsList(ListResource):
         super(WorkspaceStatisticsList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid,}
 
     def get(self):
         """
@@ -41,10 +39,7 @@ class WorkspaceStatisticsList(ListResource):
         :returns: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsContext
         :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsContext
         """
-        return WorkspaceStatisticsContext(
-            self._version,
-            workspace_sid=self._solution['workspace_sid'],
-        )
+        return WorkspaceStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'],)
 
     def __call__(self):
         """
@@ -53,10 +48,7 @@ class WorkspaceStatisticsList(ListResource):
         :returns: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsContext
         :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsContext
         """
-        return WorkspaceStatisticsContext(
-            self._version,
-            workspace_sid=self._solution['workspace_sid'],
-        )
+        return WorkspaceStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'],)
 
     def __repr__(self):
         """
@@ -128,9 +120,7 @@ class WorkspaceStatisticsContext(InstanceContext):
         super(WorkspaceStatisticsContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid,}
         self._uri = '/Workspaces/{workspace_sid}/Statistics'.format(**self._solution)
 
     def fetch(self, minutes=values.unset, start_date=values.unset,
@@ -202,9 +192,7 @@ class WorkspaceStatisticsInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'workspace_sid': workspace_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid,}
 
     @property
     def _proxy(self):

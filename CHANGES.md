@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2017-10-27] Version 6.8.2
+---------------------------
+**Chat**
+- Add Binding resource
+- Add UserBinding resource
+
+
 [2017-10-20] Version 6.8.1
 ---------------------------
 **Library**

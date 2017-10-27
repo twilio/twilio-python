@@ -31,10 +31,7 @@ class MessageList(ListResource):
         super(MessageList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'service_sid': service_sid,
-            'channel_sid': channel_sid,
-        }
+        self._solution = {'service_sid': service_sid, 'channel_sid': channel_sid,}
         self._uri = '/Services/{service_sid}/Channels/{channel_sid}/Messages'.format(**self._solution)
 
     def create(self, body, from_=values.unset, attributes=values.unset):
@@ -48,11 +45,7 @@ class MessageList(ListResource):
         :returns: Newly created MessageInstance
         :rtype: twilio.rest.chat.v1.service.channel.message.MessageInstance
         """
-        data = values.of({
-            'Body': body,
-            'From': from_,
-            'Attributes': attributes,
-        })
+        data = values.of({'Body': body, 'From': from_, 'Attributes': attributes,})
 
         payload = self._version.create(
             'POST',
@@ -87,10 +80,7 @@ class MessageList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            order=order,
-            page_size=limits['page_size'],
-        )
+        page = self.page(order=order, page_size=limits['page_size'],)
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -111,11 +101,7 @@ class MessageList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.chat.v1.service.channel.message.MessageInstance]
         """
-        return list(self.stream(
-            order=order,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(order=order, limit=limit, page_size=page_size,))
 
     def page(self, order=values.unset, page_token=values.unset,
              page_number=values.unset, page_size=values.unset):
@@ -269,11 +255,7 @@ class MessageContext(InstanceContext):
         super(MessageContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'service_sid': service_sid,
-            'channel_sid': channel_sid,
-            'sid': sid,
-        }
+        self._solution = {'service_sid': service_sid, 'channel_sid': channel_sid, 'sid': sid,}
         self._uri = '/Services/{service_sid}/Channels/{channel_sid}/Messages/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -318,10 +300,7 @@ class MessageContext(InstanceContext):
         :returns: Updated MessageInstance
         :rtype: twilio.rest.chat.v1.service.channel.message.MessageInstance
         """
-        data = values.of({
-            'Body': body,
-            'Attributes': attributes,
-        })
+        data = values.of({'Body': body, 'Attributes': attributes,})
 
         payload = self._version.update(
             'POST',
@@ -539,10 +518,7 @@ class MessageInstance(InstanceResource):
         :returns: Updated MessageInstance
         :rtype: twilio.rest.chat.v1.service.channel.message.MessageInstance
         """
-        return self._proxy.update(
-            body=body,
-            attributes=attributes,
-        )
+        return self._proxy.update(body=body, attributes=attributes,)
 
     def __repr__(self):
         """

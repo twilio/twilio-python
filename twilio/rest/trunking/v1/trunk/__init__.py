@@ -68,10 +68,7 @@ class TrunkList(ListResource):
             data=data,
         )
 
-        return TrunkInstance(
-            self._version,
-            payload,
-        )
+        return TrunkInstance(self._version, payload,)
 
     def stream(self, limit=None, page_size=None):
         """
@@ -92,9 +89,7 @@ class TrunkList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            page_size=limits['page_size'],
-        )
+        page = self.page(page_size=limits['page_size'],)
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -114,10 +109,7 @@ class TrunkList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.trunking.v1.trunk.TrunkInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(limit=limit, page_size=page_size,))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -132,11 +124,7 @@ class TrunkList(ListResource):
         :returns: Page of TrunkInstance
         :rtype: twilio.rest.trunking.v1.trunk.TrunkPage
         """
-        params = values.of({
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
 
         response = self._version.page(
             'GET',
@@ -172,10 +160,7 @@ class TrunkList(ListResource):
         :returns: twilio.rest.trunking.v1.trunk.TrunkContext
         :rtype: twilio.rest.trunking.v1.trunk.TrunkContext
         """
-        return TrunkContext(
-            self._version,
-            sid=sid,
-        )
+        return TrunkContext(self._version, sid=sid,)
 
     def __call__(self, sid):
         """
@@ -186,10 +171,7 @@ class TrunkList(ListResource):
         :returns: twilio.rest.trunking.v1.trunk.TrunkContext
         :rtype: twilio.rest.trunking.v1.trunk.TrunkContext
         """
-        return TrunkContext(
-            self._version,
-            sid=sid,
-        )
+        return TrunkContext(self._version, sid=sid,)
 
     def __repr__(self):
         """
@@ -228,10 +210,7 @@ class TrunkPage(Page):
         :returns: twilio.rest.trunking.v1.trunk.TrunkInstance
         :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
         """
-        return TrunkInstance(
-            self._version,
-            payload,
-        )
+        return TrunkInstance(self._version, payload,)
 
     def __repr__(self):
         """
@@ -259,9 +238,7 @@ class TrunkContext(InstanceContext):
         super(TrunkContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'sid': sid,
-        }
+        self._solution = {'sid': sid,}
         self._uri = '/Trunks/{sid}'.format(**self._solution)
 
         # Dependents
@@ -285,11 +262,7 @@ class TrunkContext(InstanceContext):
             params=params,
         )
 
-        return TrunkInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-        )
+        return TrunkInstance(self._version, payload, sid=self._solution['sid'],)
 
     def delete(self):
         """
@@ -332,11 +305,7 @@ class TrunkContext(InstanceContext):
             data=data,
         )
 
-        return TrunkInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-        )
+        return TrunkInstance(self._version, payload, sid=self._solution['sid'],)
 
     @property
     def origination_urls(self):
@@ -347,10 +316,7 @@ class TrunkContext(InstanceContext):
         :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlList
         """
         if self._origination_urls is None:
-            self._origination_urls = OriginationUrlList(
-                self._version,
-                trunk_sid=self._solution['sid'],
-            )
+            self._origination_urls = OriginationUrlList(self._version, trunk_sid=self._solution['sid'],)
         return self._origination_urls
 
     @property
@@ -362,10 +328,7 @@ class TrunkContext(InstanceContext):
         :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListList
         """
         if self._credentials_lists is None:
-            self._credentials_lists = CredentialListList(
-                self._version,
-                trunk_sid=self._solution['sid'],
-            )
+            self._credentials_lists = CredentialListList(self._version, trunk_sid=self._solution['sid'],)
         return self._credentials_lists
 
     @property
@@ -392,10 +355,7 @@ class TrunkContext(InstanceContext):
         :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberList
         """
         if self._phone_numbers is None:
-            self._phone_numbers = PhoneNumberList(
-                self._version,
-                trunk_sid=self._solution['sid'],
-            )
+            self._phone_numbers = PhoneNumberList(self._version, trunk_sid=self._solution['sid'],)
         return self._phone_numbers
 
     def __repr__(self):
@@ -441,9 +401,7 @@ class TrunkInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):
@@ -455,10 +413,7 @@ class TrunkInstance(InstanceResource):
         :rtype: twilio.rest.trunking.v1.trunk.TrunkContext
         """
         if self._context is None:
-            self._context = TrunkContext(
-                self._version,
-                sid=self._solution['sid'],
-            )
+            self._context = TrunkContext(self._version, sid=self._solution['sid'],)
         return self._context
 
     @property

@@ -30,10 +30,7 @@ class FeedbackList(ListResource):
         super(FeedbackList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'message_sid': message_sid,
-        }
+        self._solution = {'account_sid': account_sid, 'message_sid': message_sid,}
         self._uri = '/Accounts/{account_sid}/Messages/{message_sid}/Feedback.json'.format(**self._solution)
 
     def create(self, outcome=values.unset):
@@ -45,9 +42,7 @@ class FeedbackList(ListResource):
         :returns: Newly created FeedbackInstance
         :rtype: twilio.rest.api.v2010.account.message.feedback.FeedbackInstance
         """
-        data = values.of({
-            'Outcome': outcome,
-        })
+        data = values.of({'Outcome': outcome,})
 
         payload = self._version.create(
             'POST',
@@ -146,10 +141,7 @@ class FeedbackInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'account_sid': account_sid,
-            'message_sid': message_sid,
-        }
+        self._solution = {'account_sid': account_sid, 'message_sid': message_sid,}
 
     @property
     def account_sid(self):

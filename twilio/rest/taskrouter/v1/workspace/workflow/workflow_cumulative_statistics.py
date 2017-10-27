@@ -32,10 +32,7 @@ class WorkflowCumulativeStatisticsList(ListResource):
         super(WorkflowCumulativeStatisticsList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'workflow_sid': workflow_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'workflow_sid': workflow_sid,}
 
     def get(self):
         """
@@ -136,10 +133,7 @@ class WorkflowCumulativeStatisticsContext(InstanceContext):
         super(WorkflowCumulativeStatisticsContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'workflow_sid': workflow_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'workflow_sid': workflow_sid,}
         self._uri = '/Workspaces/{workspace_sid}/Workflows/{workflow_sid}/CumulativeStatistics'.format(**self._solution)
 
     def fetch(self, end_date=values.unset, minutes=values.unset,
@@ -229,10 +223,7 @@ class WorkflowCumulativeStatisticsInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'workflow_sid': workflow_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'workflow_sid': workflow_sid,}
 
     @property
     def _proxy(self):

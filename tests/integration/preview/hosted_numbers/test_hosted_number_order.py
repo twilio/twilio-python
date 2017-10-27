@@ -215,11 +215,7 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.preview.hosted_numbers.hosted_number_orders.create(phone_number="+987654321", iso_country="iso_country", sms_capability=True)
 
-        values = {
-            'PhoneNumber': "+987654321",
-            'IsoCountry': "iso_country",
-            'SmsCapability': True,
-        }
+        values = {'PhoneNumber': "+987654321", 'IsoCountry': "iso_country", 'SmsCapability': True,}
 
         self.holodeck.assert_has_request(Request(
             'post',

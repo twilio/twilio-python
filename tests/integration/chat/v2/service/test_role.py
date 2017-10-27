@@ -84,11 +84,7 @@ class RoleTestCase(IntegrationTestCase):
             self.client.chat.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                .roles.create(friendly_name="friendly_name", type="channel", permission=['permission'])
 
-        values = {
-            'FriendlyName': "friendly_name",
-            'Type': "channel",
-            'Permission': ['permission'],
-        }
+        values = {'FriendlyName': "friendly_name", 'Type': "channel", 'Permission': ['permission'],}
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -208,9 +204,7 @@ class RoleTestCase(IntegrationTestCase):
             self.client.chat.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                .roles(sid="RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(permission=['permission'])
 
-        values = {
-            'Permission': ['permission'],
-        }
+        values = {'Permission': ['permission'],}
 
         self.holodeck.assert_has_request(Request(
             'post',

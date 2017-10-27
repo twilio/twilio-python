@@ -30,9 +30,7 @@ class IpAccessControlListList(ListResource):
         super(IpAccessControlListList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'trunk_sid': trunk_sid,
-        }
+        self._solution = {'trunk_sid': trunk_sid,}
         self._uri = '/Trunks/{trunk_sid}/IpAccessControlLists'.format(**self._solution)
 
     def create(self, ip_access_control_list_sid):
@@ -44,9 +42,7 @@ class IpAccessControlListList(ListResource):
         :returns: Newly created IpAccessControlListInstance
         :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance
         """
-        data = values.of({
-            'IpAccessControlListSid': ip_access_control_list_sid,
-        })
+        data = values.of({'IpAccessControlListSid': ip_access_control_list_sid,})
 
         payload = self._version.create(
             'POST',
@@ -54,11 +50,7 @@ class IpAccessControlListList(ListResource):
             data=data,
         )
 
-        return IpAccessControlListInstance(
-            self._version,
-            payload,
-            trunk_sid=self._solution['trunk_sid'],
-        )
+        return IpAccessControlListInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'],)
 
     def stream(self, limit=None, page_size=None):
         """
@@ -79,9 +71,7 @@ class IpAccessControlListList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            page_size=limits['page_size'],
-        )
+        page = self.page(page_size=limits['page_size'],)
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -101,10 +91,7 @@ class IpAccessControlListList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(limit=limit, page_size=page_size,))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -119,11 +106,7 @@ class IpAccessControlListList(ListResource):
         :returns: Page of IpAccessControlListInstance
         :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListPage
         """
-        params = values.of({
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
 
         response = self._version.page(
             'GET',
@@ -159,11 +142,7 @@ class IpAccessControlListList(ListResource):
         :returns: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListContext
         :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListContext
         """
-        return IpAccessControlListContext(
-            self._version,
-            trunk_sid=self._solution['trunk_sid'],
-            sid=sid,
-        )
+        return IpAccessControlListContext(self._version, trunk_sid=self._solution['trunk_sid'], sid=sid,)
 
     def __call__(self, sid):
         """
@@ -174,11 +153,7 @@ class IpAccessControlListList(ListResource):
         :returns: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListContext
         :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListContext
         """
-        return IpAccessControlListContext(
-            self._version,
-            trunk_sid=self._solution['trunk_sid'],
-            sid=sid,
-        )
+        return IpAccessControlListContext(self._version, trunk_sid=self._solution['trunk_sid'], sid=sid,)
 
     def __repr__(self):
         """
@@ -218,11 +193,7 @@ class IpAccessControlListPage(Page):
         :returns: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance
         :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance
         """
-        return IpAccessControlListInstance(
-            self._version,
-            payload,
-            trunk_sid=self._solution['trunk_sid'],
-        )
+        return IpAccessControlListInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'],)
 
     def __repr__(self):
         """
@@ -251,10 +222,7 @@ class IpAccessControlListContext(InstanceContext):
         super(IpAccessControlListContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'trunk_sid': trunk_sid,
-            'sid': sid,
-        }
+        self._solution = {'trunk_sid': trunk_sid, 'sid': sid,}
         self._uri = '/Trunks/{trunk_sid}/IpAccessControlLists/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -324,10 +292,7 @@ class IpAccessControlListInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'trunk_sid': trunk_sid,
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'trunk_sid': trunk_sid, 'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):

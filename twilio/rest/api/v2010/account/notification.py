@@ -31,9 +31,7 @@ class NotificationList(ListResource):
         super(NotificationList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
         self._uri = '/Accounts/{account_sid}/Notifications.json'.format(**self._solution)
 
     def stream(self, log=values.unset, message_date_before=values.unset,
@@ -165,11 +163,7 @@ class NotificationList(ListResource):
         :returns: twilio.rest.api.v2010.account.notification.NotificationContext
         :rtype: twilio.rest.api.v2010.account.notification.NotificationContext
         """
-        return NotificationContext(
-            self._version,
-            account_sid=self._solution['account_sid'],
-            sid=sid,
-        )
+        return NotificationContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
 
     def __call__(self, sid):
         """
@@ -180,11 +174,7 @@ class NotificationList(ListResource):
         :returns: twilio.rest.api.v2010.account.notification.NotificationContext
         :rtype: twilio.rest.api.v2010.account.notification.NotificationContext
         """
-        return NotificationContext(
-            self._version,
-            account_sid=self._solution['account_sid'],
-            sid=sid,
-        )
+        return NotificationContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
 
     def __repr__(self):
         """
@@ -224,11 +214,7 @@ class NotificationPage(Page):
         :returns: twilio.rest.api.v2010.account.notification.NotificationInstance
         :rtype: twilio.rest.api.v2010.account.notification.NotificationInstance
         """
-        return NotificationInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return NotificationInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def __repr__(self):
         """
@@ -257,10 +243,7 @@ class NotificationContext(InstanceContext):
         super(NotificationContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'sid': sid,
-        }
+        self._solution = {'account_sid': account_sid, 'sid': sid,}
         self._uri = '/Accounts/{account_sid}/Notifications/{sid}.json'.format(**self._solution)
 
     def fetch(self):
@@ -340,10 +323,7 @@ class NotificationInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'account_sid': account_sid,
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):

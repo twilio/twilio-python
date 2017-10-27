@@ -93,10 +93,7 @@ class UserBindingTestCase(IntegrationTestCase):
                                  .users(identity="NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .bindings.create(binding_type="apn", address="address")
 
-        values = {
-            'BindingType': "apn",
-            'Address': "address",
-        }
+        values = {'BindingType': "apn", 'Address': "address",}
 
         self.holodeck.assert_has_request(Request(
             'post',

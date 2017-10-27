@@ -31,10 +31,7 @@ class WorkflowRealTimeStatisticsList(ListResource):
         super(WorkflowRealTimeStatisticsList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'workflow_sid': workflow_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'workflow_sid': workflow_sid,}
 
     def get(self):
         """
@@ -135,10 +132,7 @@ class WorkflowRealTimeStatisticsContext(InstanceContext):
         super(WorkflowRealTimeStatisticsContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'workflow_sid': workflow_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'workflow_sid': workflow_sid,}
         self._uri = '/Workspaces/{workspace_sid}/Workflows/{workflow_sid}/RealTimeStatistics'.format(**self._solution)
 
     def fetch(self, task_channel=values.unset):
@@ -150,9 +144,7 @@ class WorkflowRealTimeStatisticsContext(InstanceContext):
         :returns: Fetched WorkflowRealTimeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsInstance
         """
-        params = values.of({
-            'TaskChannel': task_channel,
-        })
+        params = values.of({'TaskChannel': task_channel,})
 
         payload = self._version.fetch(
             'GET',
@@ -204,10 +196,7 @@ class WorkflowRealTimeStatisticsInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'workflow_sid': workflow_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'workflow_sid': workflow_sid,}
 
     @property
     def _proxy(self):
@@ -299,9 +288,7 @@ class WorkflowRealTimeStatisticsInstance(InstanceResource):
         :returns: Fetched WorkflowRealTimeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsInstance
         """
-        return self._proxy.fetch(
-            task_channel=task_channel,
-        )
+        return self._proxy.fetch(task_channel=task_channel,)
 
     def __repr__(self):
         """

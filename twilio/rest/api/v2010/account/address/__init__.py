@@ -31,9 +31,7 @@ class AddressList(ListResource):
         super(AddressList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
         self._uri = '/Accounts/{account_sid}/Addresses.json'.format(**self._solution)
 
     def create(self, customer_name, street, city, region, postal_code, iso_country,
@@ -73,11 +71,7 @@ class AddressList(ListResource):
             data=data,
         )
 
-        return AddressInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return AddressInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def stream(self, customer_name=values.unset, friendly_name=values.unset,
                iso_country=values.unset, limit=None, page_size=None):
@@ -199,11 +193,7 @@ class AddressList(ListResource):
         :returns: twilio.rest.api.v2010.account.address.AddressContext
         :rtype: twilio.rest.api.v2010.account.address.AddressContext
         """
-        return AddressContext(
-            self._version,
-            account_sid=self._solution['account_sid'],
-            sid=sid,
-        )
+        return AddressContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
 
     def __call__(self, sid):
         """
@@ -214,11 +204,7 @@ class AddressList(ListResource):
         :returns: twilio.rest.api.v2010.account.address.AddressContext
         :rtype: twilio.rest.api.v2010.account.address.AddressContext
         """
-        return AddressContext(
-            self._version,
-            account_sid=self._solution['account_sid'],
-            sid=sid,
-        )
+        return AddressContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
 
     def __repr__(self):
         """
@@ -258,11 +244,7 @@ class AddressPage(Page):
         :returns: twilio.rest.api.v2010.account.address.AddressInstance
         :rtype: twilio.rest.api.v2010.account.address.AddressInstance
         """
-        return AddressInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return AddressInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def __repr__(self):
         """
@@ -291,10 +273,7 @@ class AddressContext(InstanceContext):
         super(AddressContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'sid': sid,
-        }
+        self._solution = {'account_sid': account_sid, 'sid': sid,}
         self._uri = '/Accounts/{account_sid}/Addresses/{sid}.json'.format(**self._solution)
 
         # Dependents
@@ -433,10 +412,7 @@ class AddressInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'account_sid': account_sid,
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):

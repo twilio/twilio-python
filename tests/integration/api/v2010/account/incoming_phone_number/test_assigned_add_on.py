@@ -144,9 +144,7 @@ class AssignedAddOnTestCase(IntegrationTestCase):
                                  .incoming_phone_numbers(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .assigned_add_ons.create(installed_add_on_sid="XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 
-        values = {
-            'InstalledAddOnSid': "XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-        }
+        values = {'InstalledAddOnSid': "XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",}
 
         self.holodeck.assert_has_request(Request(
             'post',

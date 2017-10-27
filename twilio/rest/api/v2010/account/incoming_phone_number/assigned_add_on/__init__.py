@@ -33,10 +33,7 @@ class AssignedAddOnList(ListResource):
         super(AssignedAddOnList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'resource_sid': resource_sid,
-        }
+        self._solution = {'account_sid': account_sid, 'resource_sid': resource_sid,}
         self._uri = '/Accounts/{account_sid}/IncomingPhoneNumbers/{resource_sid}/AssignedAddOns.json'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
@@ -58,9 +55,7 @@ class AssignedAddOnList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            page_size=limits['page_size'],
-        )
+        page = self.page(page_size=limits['page_size'],)
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -80,10 +75,7 @@ class AssignedAddOnList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(limit=limit, page_size=page_size,))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -98,11 +90,7 @@ class AssignedAddOnList(ListResource):
         :returns: Page of AssignedAddOnInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnPage
         """
-        params = values.of({
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
 
         response = self._version.page(
             'GET',
@@ -138,9 +126,7 @@ class AssignedAddOnList(ListResource):
         :returns: Newly created AssignedAddOnInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance
         """
-        data = values.of({
-            'InstalledAddOnSid': installed_add_on_sid,
-        })
+        data = values.of({'InstalledAddOnSid': installed_add_on_sid,})
 
         payload = self._version.create(
             'POST',
@@ -263,11 +249,7 @@ class AssignedAddOnContext(InstanceContext):
         super(AssignedAddOnContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'resource_sid': resource_sid,
-            'sid': sid,
-        }
+        self._solution = {'account_sid': account_sid, 'resource_sid': resource_sid, 'sid': sid,}
         self._uri = '/Accounts/{account_sid}/IncomingPhoneNumbers/{resource_sid}/AssignedAddOns/{sid}.json'.format(**self._solution)
 
         # Dependents

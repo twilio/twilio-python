@@ -177,10 +177,7 @@ class EventList(ListResource):
         :returns: twilio.rest.monitor.v1.event.EventContext
         :rtype: twilio.rest.monitor.v1.event.EventContext
         """
-        return EventContext(
-            self._version,
-            sid=sid,
-        )
+        return EventContext(self._version, sid=sid,)
 
     def __call__(self, sid):
         """
@@ -191,10 +188,7 @@ class EventList(ListResource):
         :returns: twilio.rest.monitor.v1.event.EventContext
         :rtype: twilio.rest.monitor.v1.event.EventContext
         """
-        return EventContext(
-            self._version,
-            sid=sid,
-        )
+        return EventContext(self._version, sid=sid,)
 
     def __repr__(self):
         """
@@ -233,10 +227,7 @@ class EventPage(Page):
         :returns: twilio.rest.monitor.v1.event.EventInstance
         :rtype: twilio.rest.monitor.v1.event.EventInstance
         """
-        return EventInstance(
-            self._version,
-            payload,
-        )
+        return EventInstance(self._version, payload,)
 
     def __repr__(self):
         """
@@ -264,9 +255,7 @@ class EventContext(InstanceContext):
         super(EventContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'sid': sid,
-        }
+        self._solution = {'sid': sid,}
         self._uri = '/Events/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -284,11 +273,7 @@ class EventContext(InstanceContext):
             params=params,
         )
 
-        return EventInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-        )
+        return EventInstance(self._version, payload, sid=self._solution['sid'],)
 
     def __repr__(self):
         """
@@ -333,9 +318,7 @@ class EventInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):
@@ -347,10 +330,7 @@ class EventInstance(InstanceResource):
         :rtype: twilio.rest.monitor.v1.event.EventContext
         """
         if self._context is None:
-            self._context = EventContext(
-                self._version,
-                sid=self._solution['sid'],
-            )
+            self._context = EventContext(self._version, sid=self._solution['sid'],)
         return self._context
 
     @property

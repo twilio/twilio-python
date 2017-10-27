@@ -31,10 +31,7 @@ class DocumentPermissionList(ListResource):
         super(DocumentPermissionList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'service_sid': service_sid,
-            'document_sid': document_sid,
-        }
+        self._solution = {'service_sid': service_sid, 'document_sid': document_sid,}
         self._uri = '/Services/{service_sid}/Documents/{document_sid}/Permissions'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
@@ -56,9 +53,7 @@ class DocumentPermissionList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            page_size=limits['page_size'],
-        )
+        page = self.page(page_size=limits['page_size'],)
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -78,10 +73,7 @@ class DocumentPermissionList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(limit=limit, page_size=page_size,))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -96,11 +88,7 @@ class DocumentPermissionList(ListResource):
         :returns: Page of DocumentPermissionInstance
         :rtype: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionPage
         """
-        params = values.of({
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
 
         response = self._version.page(
             'GET',
@@ -235,11 +223,7 @@ class DocumentPermissionContext(InstanceContext):
         super(DocumentPermissionContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'service_sid': service_sid,
-            'document_sid': document_sid,
-            'identity': identity,
-        }
+        self._solution = {'service_sid': service_sid, 'document_sid': document_sid, 'identity': identity,}
         self._uri = '/Services/{service_sid}/Documents/{document_sid}/Permissions/{identity}'.format(**self._solution)
 
     def fetch(self):
@@ -285,11 +269,7 @@ class DocumentPermissionContext(InstanceContext):
         :returns: Updated DocumentPermissionInstance
         :rtype: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionInstance
         """
-        data = values.of({
-            'Read': read,
-            'Write': write,
-            'Manage': manage,
-        })
+        data = values.of({'Read': read, 'Write': write, 'Manage': manage,})
 
         payload = self._version.update(
             'POST',
@@ -460,11 +440,7 @@ class DocumentPermissionInstance(InstanceResource):
         :returns: Updated DocumentPermissionInstance
         :rtype: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionInstance
         """
-        return self._proxy.update(
-            read,
-            write,
-            manage,
-        )
+        return self._proxy.update(read, write, manage,)
 
     def __repr__(self):
         """

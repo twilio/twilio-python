@@ -31,9 +31,7 @@ class VerificationList(ListResource):
         super(VerificationList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'service_sid': service_sid,
-        }
+        self._solution = {'service_sid': service_sid,}
         self._uri = '/Services/{service_sid}/Verifications'.format(**self._solution)
 
     def create(self, to, channel, custom_message=values.unset):
@@ -47,11 +45,7 @@ class VerificationList(ListResource):
         :returns: Newly created VerificationInstance
         :rtype: twilio.rest.preview.acc_security.service.verification.VerificationInstance
         """
-        data = values.of({
-            'To': to,
-            'Channel': channel,
-            'CustomMessage': custom_message,
-        })
+        data = values.of({'To': to, 'Channel': channel, 'CustomMessage': custom_message,})
 
         payload = self._version.create(
             'POST',
@@ -59,11 +53,7 @@ class VerificationList(ListResource):
             data=data,
         )
 
-        return VerificationInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-        )
+        return VerificationInstance(self._version, payload, service_sid=self._solution['service_sid'],)
 
     def __repr__(self):
         """
@@ -105,11 +95,7 @@ class VerificationPage(Page):
         :returns: twilio.rest.preview.acc_security.service.verification.VerificationInstance
         :rtype: twilio.rest.preview.acc_security.service.verification.VerificationInstance
         """
-        return VerificationInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-        )
+        return VerificationInstance(self._version, payload, service_sid=self._solution['service_sid'],)
 
     def __repr__(self):
         """
@@ -154,9 +140,7 @@ class VerificationInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'service_sid': service_sid,
-        }
+        self._solution = {'service_sid': service_sid,}
 
     @property
     def sid(self):

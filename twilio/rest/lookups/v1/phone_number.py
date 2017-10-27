@@ -40,10 +40,7 @@ class PhoneNumberList(ListResource):
         :returns: twilio.rest.lookups.v1.phone_number.PhoneNumberContext
         :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberContext
         """
-        return PhoneNumberContext(
-            self._version,
-            phone_number=phone_number,
-        )
+        return PhoneNumberContext(self._version, phone_number=phone_number,)
 
     def __call__(self, phone_number):
         """
@@ -54,10 +51,7 @@ class PhoneNumberList(ListResource):
         :returns: twilio.rest.lookups.v1.phone_number.PhoneNumberContext
         :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberContext
         """
-        return PhoneNumberContext(
-            self._version,
-            phone_number=phone_number,
-        )
+        return PhoneNumberContext(self._version, phone_number=phone_number,)
 
     def __repr__(self):
         """
@@ -96,10 +90,7 @@ class PhoneNumberPage(Page):
         :returns: twilio.rest.lookups.v1.phone_number.PhoneNumberInstance
         :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberInstance
         """
-        return PhoneNumberInstance(
-            self._version,
-            payload,
-        )
+        return PhoneNumberInstance(self._version, payload,)
 
     def __repr__(self):
         """
@@ -127,9 +118,7 @@ class PhoneNumberContext(InstanceContext):
         super(PhoneNumberContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'phone_number': phone_number,
-        }
+        self._solution = {'phone_number': phone_number,}
         self._uri = '/PhoneNumbers/{phone_number}'.format(**self._solution)
 
     def fetch(self, country_code=values.unset, type=values.unset,
@@ -145,11 +134,7 @@ class PhoneNumberContext(InstanceContext):
         :returns: Fetched PhoneNumberInstance
         :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberInstance
         """
-        params = values.of({
-            'CountryCode': country_code,
-            'Type': type,
-            'AddOns': add_ons,
-        })
+        params = values.of({'CountryCode': country_code, 'Type': type, 'AddOns': add_ons,})
 
         params.update(serialize.prefixed_collapsible_map(add_ons_data, 'AddOns'))
         payload = self._version.fetch(
@@ -158,11 +143,7 @@ class PhoneNumberContext(InstanceContext):
             params=params,
         )
 
-        return PhoneNumberInstance(
-            self._version,
-            payload,
-            phone_number=self._solution['phone_number'],
-        )
+        return PhoneNumberInstance(self._version, payload, phone_number=self._solution['phone_number'],)
 
     def __repr__(self):
         """
@@ -205,9 +186,7 @@ class PhoneNumberInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'phone_number': phone_number or self._properties['phone_number'],
-        }
+        self._solution = {'phone_number': phone_number or self._properties['phone_number'],}
 
     @property
     def _proxy(self):
@@ -219,10 +198,7 @@ class PhoneNumberInstance(InstanceResource):
         :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberContext
         """
         if self._context is None:
-            self._context = PhoneNumberContext(
-                self._version,
-                phone_number=self._solution['phone_number'],
-            )
+            self._context = PhoneNumberContext(self._version, phone_number=self._solution['phone_number'],)
         return self._context
 
     @property

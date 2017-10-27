@@ -29,9 +29,7 @@ class MobileList(ListResource):
         super(MobileList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
         self._uri = '/Accounts/{account_sid}/IncomingPhoneNumbers/Mobile.json'.format(**self._solution)
 
     def stream(self, beta=values.unset, friendly_name=values.unset,
@@ -216,11 +214,7 @@ class MobileList(ListResource):
             data=data,
         )
 
-        return MobileInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return MobileInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def __repr__(self):
         """
@@ -260,11 +254,7 @@ class MobilePage(Page):
         :returns: twilio.rest.api.v2010.account.incoming_phone_number.mobile.MobileInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.mobile.MobileInstance
         """
-        return MobileInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return MobileInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def __repr__(self):
         """
@@ -328,9 +318,7 @@ class MobileInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
 
     @property
     def account_sid(self):

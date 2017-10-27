@@ -102,9 +102,7 @@ class ParticipantTestCase(IntegrationTestCase):
                                      .sessions(sid="KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                      .participants.create(identifier="identifier")
 
-        values = {
-            'Identifier': "identifier",
-        }
+        values = {'Identifier': "identifier",}
 
         self.holodeck.assert_has_request(Request(
             'post',

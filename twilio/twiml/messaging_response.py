@@ -34,14 +34,7 @@ class MessagingResponse(TwiML):
 
         :returns: <Message> element
         """
-        return self.nest(Message(
-            body=body,
-            to=to,
-            from_=from_,
-            action=action,
-            method=method,
-            **kwargs
-        ))
+        return self.nest(Message(body=body, to=to, from_=from_, action=action, method=method, **kwargs))
 
     def redirect(self, url, method=None, **kwargs):
         """
@@ -53,11 +46,7 @@ class MessagingResponse(TwiML):
 
         :returns: <Redirect> element
         """
-        return self.nest(Redirect(
-            url,
-            method=method,
-            **kwargs
-        ))
+        return self.nest(Redirect(url, method=method, **kwargs))
 
 
 class Redirect(TwiML):
@@ -87,10 +76,7 @@ class Message(TwiML):
 
         :returns: <Body> element
         """
-        return self.nest(Body(
-            message,
-            **kwargs
-        ))
+        return self.nest(Body(message, **kwargs))
 
     def media(self, url, **kwargs):
         """
@@ -101,10 +87,7 @@ class Message(TwiML):
 
         :returns: <Media> element
         """
-        return self.nest(Media(
-            url,
-            **kwargs
-        ))
+        return self.nest(Media(url, **kwargs))
 
 
 class Media(TwiML):

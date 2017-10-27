@@ -31,9 +31,7 @@ class DayList(ListResource):
         super(DayList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'resource_type': resource_type,
-        }
+        self._solution = {'resource_type': resource_type,}
         self._uri = '/Exports/{resource_type}/Days'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
@@ -55,9 +53,7 @@ class DayList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            page_size=limits['page_size'],
-        )
+        page = self.page(page_size=limits['page_size'],)
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -77,10 +73,7 @@ class DayList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.bulk_exports.export.day.DayInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(limit=limit, page_size=page_size,))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -95,11 +88,7 @@ class DayList(ListResource):
         :returns: Page of DayInstance
         :rtype: twilio.rest.preview.bulk_exports.export.day.DayPage
         """
-        params = values.of({
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
 
         response = self._version.page(
             'GET',
@@ -166,11 +155,7 @@ class DayPage(Page):
         :returns: twilio.rest.preview.bulk_exports.export.day.DayInstance
         :rtype: twilio.rest.preview.bulk_exports.export.day.DayInstance
         """
-        return DayInstance(
-            self._version,
-            payload,
-            resource_type=self._solution['resource_type'],
-        )
+        return DayInstance(self._version, payload, resource_type=self._solution['resource_type'],)
 
     def __repr__(self):
         """
@@ -206,9 +191,7 @@ class DayInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'resource_type': resource_type,
-        }
+        self._solution = {'resource_type': resource_type,}
 
     @property
     def redirect_to(self):

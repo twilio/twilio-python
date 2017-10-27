@@ -30,10 +30,7 @@ class LocalList(ListResource):
         super(LocalList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'country_code': country_code,
-        }
+        self._solution = {'account_sid': account_sid, 'country_code': country_code,}
         self._uri = '/Accounts/{account_sid}/AvailablePhoneNumbers/{country_code}/Local.json'.format(**self._solution)
 
     def stream(self, area_code=values.unset, contains=values.unset,
@@ -349,10 +346,7 @@ class LocalInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'account_sid': account_sid,
-            'country_code': country_code,
-        }
+        self._solution = {'account_sid': account_sid, 'country_code': country_code,}
 
     @property
     def friendly_name(self):

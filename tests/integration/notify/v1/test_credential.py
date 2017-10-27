@@ -88,9 +88,7 @@ class CredentialTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.notify.v1.credentials.create(type="gcm")
 
-        values = {
-            'Type': "gcm",
-        }
+        values = {'Type': "gcm",}
 
         self.holodeck.assert_has_request(Request(
             'post',

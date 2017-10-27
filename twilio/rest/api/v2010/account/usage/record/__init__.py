@@ -38,9 +38,7 @@ class RecordList(ListResource):
         super(RecordList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
         self._uri = '/Accounts/{account_sid}/Usage/Records.json'.format(**self._solution)
 
         # Components
@@ -173,10 +171,7 @@ class RecordList(ListResource):
         :rtype: twilio.rest.api.v2010.account.usage.record.all_time.AllTimeList
         """
         if self._all_time is None:
-            self._all_time = AllTimeList(
-                self._version,
-                account_sid=self._solution['account_sid'],
-            )
+            self._all_time = AllTimeList(self._version, account_sid=self._solution['account_sid'],)
         return self._all_time
 
     @property
@@ -188,10 +183,7 @@ class RecordList(ListResource):
         :rtype: twilio.rest.api.v2010.account.usage.record.daily.DailyList
         """
         if self._daily is None:
-            self._daily = DailyList(
-                self._version,
-                account_sid=self._solution['account_sid'],
-            )
+            self._daily = DailyList(self._version, account_sid=self._solution['account_sid'],)
         return self._daily
 
     @property
@@ -203,10 +195,7 @@ class RecordList(ListResource):
         :rtype: twilio.rest.api.v2010.account.usage.record.last_month.LastMonthList
         """
         if self._last_month is None:
-            self._last_month = LastMonthList(
-                self._version,
-                account_sid=self._solution['account_sid'],
-            )
+            self._last_month = LastMonthList(self._version, account_sid=self._solution['account_sid'],)
         return self._last_month
 
     @property
@@ -218,10 +207,7 @@ class RecordList(ListResource):
         :rtype: twilio.rest.api.v2010.account.usage.record.monthly.MonthlyList
         """
         if self._monthly is None:
-            self._monthly = MonthlyList(
-                self._version,
-                account_sid=self._solution['account_sid'],
-            )
+            self._monthly = MonthlyList(self._version, account_sid=self._solution['account_sid'],)
         return self._monthly
 
     @property
@@ -233,10 +219,7 @@ class RecordList(ListResource):
         :rtype: twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthList
         """
         if self._this_month is None:
-            self._this_month = ThisMonthList(
-                self._version,
-                account_sid=self._solution['account_sid'],
-            )
+            self._this_month = ThisMonthList(self._version, account_sid=self._solution['account_sid'],)
         return self._this_month
 
     @property
@@ -248,10 +231,7 @@ class RecordList(ListResource):
         :rtype: twilio.rest.api.v2010.account.usage.record.today.TodayList
         """
         if self._today is None:
-            self._today = TodayList(
-                self._version,
-                account_sid=self._solution['account_sid'],
-            )
+            self._today = TodayList(self._version, account_sid=self._solution['account_sid'],)
         return self._today
 
     @property
@@ -263,10 +243,7 @@ class RecordList(ListResource):
         :rtype: twilio.rest.api.v2010.account.usage.record.yearly.YearlyList
         """
         if self._yearly is None:
-            self._yearly = YearlyList(
-                self._version,
-                account_sid=self._solution['account_sid'],
-            )
+            self._yearly = YearlyList(self._version, account_sid=self._solution['account_sid'],)
         return self._yearly
 
     @property
@@ -278,10 +255,7 @@ class RecordList(ListResource):
         :rtype: twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayList
         """
         if self._yesterday is None:
-            self._yesterday = YesterdayList(
-                self._version,
-                account_sid=self._solution['account_sid'],
-            )
+            self._yesterday = YesterdayList(self._version, account_sid=self._solution['account_sid'],)
         return self._yesterday
 
     def __repr__(self):
@@ -322,11 +296,7 @@ class RecordPage(Page):
         :returns: twilio.rest.api.v2010.account.usage.record.RecordInstance
         :rtype: twilio.rest.api.v2010.account.usage.record.RecordInstance
         """
-        return RecordInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return RecordInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def __repr__(self):
         """
@@ -593,9 +563,7 @@ class RecordInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
 
     @property
     def account_sid(self):

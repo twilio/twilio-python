@@ -33,9 +33,7 @@ class RecordingList(ListResource):
         super(RecordingList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
         self._uri = '/Accounts/{account_sid}/Recordings.json'.format(**self._solution)
 
     def stream(self, date_created_before=values.unset, date_created=values.unset,
@@ -167,11 +165,7 @@ class RecordingList(ListResource):
         :returns: twilio.rest.api.v2010.account.recording.RecordingContext
         :rtype: twilio.rest.api.v2010.account.recording.RecordingContext
         """
-        return RecordingContext(
-            self._version,
-            account_sid=self._solution['account_sid'],
-            sid=sid,
-        )
+        return RecordingContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
 
     def __call__(self, sid):
         """
@@ -182,11 +176,7 @@ class RecordingList(ListResource):
         :returns: twilio.rest.api.v2010.account.recording.RecordingContext
         :rtype: twilio.rest.api.v2010.account.recording.RecordingContext
         """
-        return RecordingContext(
-            self._version,
-            account_sid=self._solution['account_sid'],
-            sid=sid,
-        )
+        return RecordingContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
 
     def __repr__(self):
         """
@@ -226,11 +216,7 @@ class RecordingPage(Page):
         :returns: twilio.rest.api.v2010.account.recording.RecordingInstance
         :rtype: twilio.rest.api.v2010.account.recording.RecordingInstance
         """
-        return RecordingInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return RecordingInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def __repr__(self):
         """
@@ -259,10 +245,7 @@ class RecordingContext(InstanceContext):
         super(RecordingContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'sid': sid,
-        }
+        self._solution = {'account_sid': account_sid, 'sid': sid,}
         self._uri = '/Accounts/{account_sid}/Recordings/{sid}.json'.format(**self._solution)
 
         # Dependents
@@ -388,10 +371,7 @@ class RecordingInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'account_sid': account_sid,
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):

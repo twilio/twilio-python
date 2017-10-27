@@ -29,9 +29,7 @@ class ValidationRequestList(ListResource):
         super(ValidationRequestList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
         self._uri = '/Accounts/{account_sid}/OutgoingCallerIds.json'.format(**self._solution)
 
     def create(self, phone_number, friendly_name=values.unset,
@@ -65,11 +63,7 @@ class ValidationRequestList(ListResource):
             data=data,
         )
 
-        return ValidationRequestInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return ValidationRequestInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def __repr__(self):
         """
@@ -109,11 +103,7 @@ class ValidationRequestPage(Page):
         :returns: twilio.rest.api.v2010.account.validation_request.ValidationRequestInstance
         :rtype: twilio.rest.api.v2010.account.validation_request.ValidationRequestInstance
         """
-        return ValidationRequestInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return ValidationRequestInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def __repr__(self):
         """
@@ -148,9 +138,7 @@ class ValidationRequestInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
 
     @property
     def account_sid(self):

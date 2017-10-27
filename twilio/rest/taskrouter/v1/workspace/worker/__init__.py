@@ -36,9 +36,7 @@ class WorkerList(ListResource):
         super(WorkerList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid,}
         self._uri = '/Workspaces/{workspace_sid}/Workers'.format(**self._solution)
 
         # Components
@@ -209,11 +207,7 @@ class WorkerList(ListResource):
             data=data,
         )
 
-        return WorkerInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-        )
+        return WorkerInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'],)
 
     @property
     def statistics(self):
@@ -239,11 +233,7 @@ class WorkerList(ListResource):
         :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
         """
-        return WorkerContext(
-            self._version,
-            workspace_sid=self._solution['workspace_sid'],
-            sid=sid,
-        )
+        return WorkerContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid,)
 
     def __call__(self, sid):
         """
@@ -254,11 +244,7 @@ class WorkerList(ListResource):
         :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
         """
-        return WorkerContext(
-            self._version,
-            workspace_sid=self._solution['workspace_sid'],
-            sid=sid,
-        )
+        return WorkerContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid,)
 
     def __repr__(self):
         """
@@ -298,11 +284,7 @@ class WorkerPage(Page):
         :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
         """
-        return WorkerInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-        )
+        return WorkerInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'],)
 
     def __repr__(self):
         """
@@ -331,10 +313,7 @@ class WorkerContext(InstanceContext):
         super(WorkerContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'sid': sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'sid': sid,}
         self._uri = '/Workspaces/{workspace_sid}/Workers/{sid}'.format(**self._solution)
 
         # Dependents
@@ -526,10 +505,7 @@ class WorkerInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):

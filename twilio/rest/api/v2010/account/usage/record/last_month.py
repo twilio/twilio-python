@@ -30,9 +30,7 @@ class LastMonthList(ListResource):
         super(LastMonthList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
         self._uri = '/Accounts/{account_sid}/Usage/Records/LastMonth.json'.format(**self._solution)
 
     def stream(self, category=values.unset, start_date=values.unset,
@@ -184,11 +182,7 @@ class LastMonthPage(Page):
         :returns: twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance
         :rtype: twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance
         """
-        return LastMonthInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return LastMonthInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def __repr__(self):
         """
@@ -455,9 +449,7 @@ class LastMonthInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
 
     @property
     def account_sid(self):

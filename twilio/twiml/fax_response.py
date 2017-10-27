@@ -30,11 +30,7 @@ class FaxResponse(TwiML):
 
         :returns: <Receive> element
         """
-        return self.nest(Receive(
-            action=action,
-            method=method,
-            **kwargs
-        ))
+        return self.nest(Receive(action=action, method=method, **kwargs))
 
 
 class Receive(TwiML):

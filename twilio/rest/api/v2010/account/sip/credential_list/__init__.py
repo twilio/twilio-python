@@ -31,9 +31,7 @@ class CredentialListList(ListResource):
         super(CredentialListList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
         self._uri = '/Accounts/{account_sid}/SIP/CredentialLists.json'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
@@ -55,9 +53,7 @@ class CredentialListList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            page_size=limits['page_size'],
-        )
+        page = self.page(page_size=limits['page_size'],)
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -77,10 +73,7 @@ class CredentialListList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(limit=limit, page_size=page_size,))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -95,11 +88,7 @@ class CredentialListList(ListResource):
         :returns: Page of CredentialListInstance
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListPage
         """
-        params = values.of({
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
 
         response = self._version.page(
             'GET',
@@ -135,9 +124,7 @@ class CredentialListList(ListResource):
         :returns: Newly created CredentialListInstance
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance
         """
-        data = values.of({
-            'FriendlyName': friendly_name,
-        })
+        data = values.of({'FriendlyName': friendly_name,})
 
         payload = self._version.create(
             'POST',
@@ -145,11 +132,7 @@ class CredentialListList(ListResource):
             data=data,
         )
 
-        return CredentialListInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return CredentialListInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def get(self, sid):
         """
@@ -160,11 +143,7 @@ class CredentialListList(ListResource):
         :returns: twilio.rest.api.v2010.account.sip.credential_list.CredentialListContext
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListContext
         """
-        return CredentialListContext(
-            self._version,
-            account_sid=self._solution['account_sid'],
-            sid=sid,
-        )
+        return CredentialListContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
 
     def __call__(self, sid):
         """
@@ -175,11 +154,7 @@ class CredentialListList(ListResource):
         :returns: twilio.rest.api.v2010.account.sip.credential_list.CredentialListContext
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListContext
         """
-        return CredentialListContext(
-            self._version,
-            account_sid=self._solution['account_sid'],
-            sid=sid,
-        )
+        return CredentialListContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
 
     def __repr__(self):
         """
@@ -219,11 +194,7 @@ class CredentialListPage(Page):
         :returns: twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance
         """
-        return CredentialListInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return CredentialListInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def __repr__(self):
         """
@@ -252,10 +223,7 @@ class CredentialListContext(InstanceContext):
         super(CredentialListContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'sid': sid,
-        }
+        self._solution = {'account_sid': account_sid, 'sid': sid,}
         self._uri = '/Accounts/{account_sid}/SIP/CredentialLists/{sid}.json'.format(**self._solution)
 
         # Dependents
@@ -292,9 +260,7 @@ class CredentialListContext(InstanceContext):
         :returns: Updated CredentialListInstance
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance
         """
-        data = values.of({
-            'FriendlyName': friendly_name,
-        })
+        data = values.of({'FriendlyName': friendly_name,})
 
         payload = self._version.update(
             'POST',
@@ -370,10 +336,7 @@ class CredentialListInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'account_sid': account_sid,
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):
@@ -466,9 +429,7 @@ class CredentialListInstance(InstanceResource):
         :returns: Updated CredentialListInstance
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance
         """
-        return self._proxy.update(
-            friendly_name,
-        )
+        return self._proxy.update(friendly_name,)
 
     def delete(self):
         """

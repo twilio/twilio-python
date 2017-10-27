@@ -21,9 +21,7 @@ class PhoneNumberTestCase(IntegrationTestCase):
             self.client.preview.proxy.services(sid="KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                      .phone_numbers.create(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 
-        values = {
-            'Sid': "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-        }
+        values = {'Sid': "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",}
 
         self.holodeck.assert_has_request(Request(
             'post',

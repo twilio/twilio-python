@@ -21,9 +21,7 @@ class AlphaSenderTestCase(IntegrationTestCase):
             self.client.messaging.v1.services(sid="MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                     .alpha_senders.create(alpha_sender="alpha_sender")
 
-        values = {
-            'AlphaSender': "alpha_sender",
-        }
+        values = {'AlphaSender': "alpha_sender",}
 
         self.holodeck.assert_has_request(Request(
             'post',

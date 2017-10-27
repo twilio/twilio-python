@@ -30,10 +30,7 @@ class DependentPhoneNumberList(ListResource):
         super(DependentPhoneNumberList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'address_sid': address_sid,
-        }
+        self._solution = {'account_sid': account_sid, 'address_sid': address_sid,}
         self._uri = '/Accounts/{account_sid}/Addresses/{address_sid}/DependentPhoneNumbers.json'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
@@ -55,9 +52,7 @@ class DependentPhoneNumberList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            page_size=limits['page_size'],
-        )
+        page = self.page(page_size=limits['page_size'],)
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -77,10 +72,7 @@ class DependentPhoneNumberList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.api.v2010.account.address.dependent_phone_number.DependentPhoneNumberInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(limit=limit, page_size=page_size,))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -95,11 +87,7 @@ class DependentPhoneNumberList(ListResource):
         :returns: Page of DependentPhoneNumberInstance
         :rtype: twilio.rest.api.v2010.account.address.dependent_phone_number.DependentPhoneNumberPage
         """
-        params = values.of({
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
 
         response = self._version.page(
             'GET',
@@ -211,10 +199,7 @@ class DependentPhoneNumberInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'account_sid': account_sid,
-            'address_sid': address_sid,
-        }
+        self._solution = {'account_sid': account_sid, 'address_sid': address_sid,}
 
     @property
     def friendly_name(self):

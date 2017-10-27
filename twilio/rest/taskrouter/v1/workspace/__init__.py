@@ -62,10 +62,7 @@ class WorkspaceList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            friendly_name=friendly_name,
-            page_size=limits['page_size'],
-        )
+        page = self.page(friendly_name=friendly_name, page_size=limits['page_size'],)
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -86,11 +83,7 @@ class WorkspaceList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.taskrouter.v1.workspace.WorkspaceInstance]
         """
-        return list(self.stream(
-            friendly_name=friendly_name,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(friendly_name=friendly_name, limit=limit, page_size=page_size,))
 
     def page(self, friendly_name=values.unset, page_token=values.unset,
              page_number=values.unset, page_size=values.unset):
@@ -169,10 +162,7 @@ class WorkspaceList(ListResource):
             data=data,
         )
 
-        return WorkspaceInstance(
-            self._version,
-            payload,
-        )
+        return WorkspaceInstance(self._version, payload,)
 
     def get(self, sid):
         """
@@ -183,10 +173,7 @@ class WorkspaceList(ListResource):
         :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
         :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
         """
-        return WorkspaceContext(
-            self._version,
-            sid=sid,
-        )
+        return WorkspaceContext(self._version, sid=sid,)
 
     def __call__(self, sid):
         """
@@ -197,10 +184,7 @@ class WorkspaceList(ListResource):
         :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
         :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
         """
-        return WorkspaceContext(
-            self._version,
-            sid=sid,
-        )
+        return WorkspaceContext(self._version, sid=sid,)
 
     def __repr__(self):
         """
@@ -239,10 +223,7 @@ class WorkspacePage(Page):
         :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
         """
-        return WorkspaceInstance(
-            self._version,
-            payload,
-        )
+        return WorkspaceInstance(self._version, payload,)
 
     def __repr__(self):
         """
@@ -270,9 +251,7 @@ class WorkspaceContext(InstanceContext):
         super(WorkspaceContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'sid': sid,
-        }
+        self._solution = {'sid': sid,}
         self._uri = '/Workspaces/{sid}'.format(**self._solution)
 
         # Dependents
@@ -302,11 +281,7 @@ class WorkspaceContext(InstanceContext):
             params=params,
         )
 
-        return WorkspaceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-        )
+        return WorkspaceInstance(self._version, payload, sid=self._solution['sid'],)
 
     def update(self, default_activity_sid=values.unset,
                event_callback_url=values.unset, events_filter=values.unset,
@@ -343,11 +318,7 @@ class WorkspaceContext(InstanceContext):
             data=data,
         )
 
-        return WorkspaceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-        )
+        return WorkspaceInstance(self._version, payload, sid=self._solution['sid'],)
 
     def delete(self):
         """
@@ -367,10 +338,7 @@ class WorkspaceContext(InstanceContext):
         :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityList
         """
         if self._activities is None:
-            self._activities = ActivityList(
-                self._version,
-                workspace_sid=self._solution['sid'],
-            )
+            self._activities = ActivityList(self._version, workspace_sid=self._solution['sid'],)
         return self._activities
 
     @property
@@ -382,10 +350,7 @@ class WorkspaceContext(InstanceContext):
         :rtype: twilio.rest.taskrouter.v1.workspace.event.EventList
         """
         if self._events is None:
-            self._events = EventList(
-                self._version,
-                workspace_sid=self._solution['sid'],
-            )
+            self._events = EventList(self._version, workspace_sid=self._solution['sid'],)
         return self._events
 
     @property
@@ -397,10 +362,7 @@ class WorkspaceContext(InstanceContext):
         :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskList
         """
         if self._tasks is None:
-            self._tasks = TaskList(
-                self._version,
-                workspace_sid=self._solution['sid'],
-            )
+            self._tasks = TaskList(self._version, workspace_sid=self._solution['sid'],)
         return self._tasks
 
     @property
@@ -412,10 +374,7 @@ class WorkspaceContext(InstanceContext):
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueList
         """
         if self._task_queues is None:
-            self._task_queues = TaskQueueList(
-                self._version,
-                workspace_sid=self._solution['sid'],
-            )
+            self._task_queues = TaskQueueList(self._version, workspace_sid=self._solution['sid'],)
         return self._task_queues
 
     @property
@@ -427,10 +386,7 @@ class WorkspaceContext(InstanceContext):
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerList
         """
         if self._workers is None:
-            self._workers = WorkerList(
-                self._version,
-                workspace_sid=self._solution['sid'],
-            )
+            self._workers = WorkerList(self._version, workspace_sid=self._solution['sid'],)
         return self._workers
 
     @property
@@ -442,10 +398,7 @@ class WorkspaceContext(InstanceContext):
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowList
         """
         if self._workflows is None:
-            self._workflows = WorkflowList(
-                self._version,
-                workspace_sid=self._solution['sid'],
-            )
+            self._workflows = WorkflowList(self._version, workspace_sid=self._solution['sid'],)
         return self._workflows
 
     @property
@@ -457,10 +410,7 @@ class WorkspaceContext(InstanceContext):
         :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsList
         """
         if self._statistics is None:
-            self._statistics = WorkspaceStatisticsList(
-                self._version,
-                workspace_sid=self._solution['sid'],
-            )
+            self._statistics = WorkspaceStatisticsList(self._version, workspace_sid=self._solution['sid'],)
         return self._statistics
 
     @property
@@ -502,10 +452,7 @@ class WorkspaceContext(InstanceContext):
         :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelList
         """
         if self._task_channels is None:
-            self._task_channels = TaskChannelList(
-                self._version,
-                workspace_sid=self._solution['sid'],
-            )
+            self._task_channels = TaskChannelList(self._version, workspace_sid=self._solution['sid'],)
         return self._task_channels
 
     def __repr__(self):
@@ -556,9 +503,7 @@ class WorkspaceInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):
@@ -570,10 +515,7 @@ class WorkspaceInstance(InstanceResource):
         :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
         """
         if self._context is None:
-            self._context = WorkspaceContext(
-                self._version,
-                sid=self._solution['sid'],
-            )
+            self._context = WorkspaceContext(self._version, sid=self._solution['sid'],)
         return self._context
 
     @property

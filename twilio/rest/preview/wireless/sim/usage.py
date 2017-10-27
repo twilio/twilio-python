@@ -31,9 +31,7 @@ class UsageList(ListResource):
         super(UsageList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'sim_sid': sim_sid,
-        }
+        self._solution = {'sim_sid': sim_sid,}
 
     def get(self):
         """
@@ -42,10 +40,7 @@ class UsageList(ListResource):
         :returns: twilio.rest.preview.wireless.sim.usage.UsageContext
         :rtype: twilio.rest.preview.wireless.sim.usage.UsageContext
         """
-        return UsageContext(
-            self._version,
-            sim_sid=self._solution['sim_sid'],
-        )
+        return UsageContext(self._version, sim_sid=self._solution['sim_sid'],)
 
     def __call__(self):
         """
@@ -54,10 +49,7 @@ class UsageList(ListResource):
         :returns: twilio.rest.preview.wireless.sim.usage.UsageContext
         :rtype: twilio.rest.preview.wireless.sim.usage.UsageContext
         """
-        return UsageContext(
-            self._version,
-            sim_sid=self._solution['sim_sid'],
-        )
+        return UsageContext(self._version, sim_sid=self._solution['sim_sid'],)
 
     def __repr__(self):
         """
@@ -99,11 +91,7 @@ class UsagePage(Page):
         :returns: twilio.rest.preview.wireless.sim.usage.UsageInstance
         :rtype: twilio.rest.preview.wireless.sim.usage.UsageInstance
         """
-        return UsageInstance(
-            self._version,
-            payload,
-            sim_sid=self._solution['sim_sid'],
-        )
+        return UsageInstance(self._version, payload, sim_sid=self._solution['sim_sid'],)
 
     def __repr__(self):
         """
@@ -133,9 +121,7 @@ class UsageContext(InstanceContext):
         super(UsageContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'sim_sid': sim_sid,
-        }
+        self._solution = {'sim_sid': sim_sid,}
         self._uri = '/Sims/{sim_sid}/Usage'.format(**self._solution)
 
     def fetch(self, end=values.unset, start=values.unset):
@@ -148,10 +134,7 @@ class UsageContext(InstanceContext):
         :returns: Fetched UsageInstance
         :rtype: twilio.rest.preview.wireless.sim.usage.UsageInstance
         """
-        params = values.of({
-            'End': end,
-            'Start': start,
-        })
+        params = values.of({'End': end, 'Start': start,})
 
         payload = self._version.fetch(
             'GET',
@@ -159,11 +142,7 @@ class UsageContext(InstanceContext):
             params=params,
         )
 
-        return UsageInstance(
-            self._version,
-            payload,
-            sim_sid=self._solution['sim_sid'],
-        )
+        return UsageInstance(self._version, payload, sim_sid=self._solution['sim_sid'],)
 
     def __repr__(self):
         """
@@ -205,9 +184,7 @@ class UsageInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'sim_sid': sim_sid,
-        }
+        self._solution = {'sim_sid': sim_sid,}
 
     @property
     def _proxy(self):
@@ -219,10 +196,7 @@ class UsageInstance(InstanceResource):
         :rtype: twilio.rest.preview.wireless.sim.usage.UsageContext
         """
         if self._context is None:
-            self._context = UsageContext(
-                self._version,
-                sim_sid=self._solution['sim_sid'],
-            )
+            self._context = UsageContext(self._version, sim_sid=self._solution['sim_sid'],)
         return self._context
 
     @property
@@ -307,10 +281,7 @@ class UsageInstance(InstanceResource):
         :returns: Fetched UsageInstance
         :rtype: twilio.rest.preview.wireless.sim.usage.UsageInstance
         """
-        return self._proxy.fetch(
-            end=end,
-            start=start,
-        )
+        return self._proxy.fetch(end=end, start=start,)
 
     def __repr__(self):
         """

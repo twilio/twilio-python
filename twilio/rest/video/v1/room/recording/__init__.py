@@ -31,9 +31,7 @@ class RoomRecordingList(ListResource):
         super(RoomRecordingList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'room_sid': room_sid,
-        }
+        self._solution = {'room_sid': room_sid,}
         self._uri = '/Rooms/{room_sid}/Recordings'.format(**self._solution)
 
     def stream(self, status=values.unset, source_sid=values.unset,
@@ -165,11 +163,7 @@ class RoomRecordingList(ListResource):
         :returns: twilio.rest.video.v1.room.recording.RoomRecordingContext
         :rtype: twilio.rest.video.v1.room.recording.RoomRecordingContext
         """
-        return RoomRecordingContext(
-            self._version,
-            room_sid=self._solution['room_sid'],
-            sid=sid,
-        )
+        return RoomRecordingContext(self._version, room_sid=self._solution['room_sid'], sid=sid,)
 
     def __call__(self, sid):
         """
@@ -180,11 +174,7 @@ class RoomRecordingList(ListResource):
         :returns: twilio.rest.video.v1.room.recording.RoomRecordingContext
         :rtype: twilio.rest.video.v1.room.recording.RoomRecordingContext
         """
-        return RoomRecordingContext(
-            self._version,
-            room_sid=self._solution['room_sid'],
-            sid=sid,
-        )
+        return RoomRecordingContext(self._version, room_sid=self._solution['room_sid'], sid=sid,)
 
     def __repr__(self):
         """
@@ -224,11 +214,7 @@ class RoomRecordingPage(Page):
         :returns: twilio.rest.video.v1.room.recording.RoomRecordingInstance
         :rtype: twilio.rest.video.v1.room.recording.RoomRecordingInstance
         """
-        return RoomRecordingInstance(
-            self._version,
-            payload,
-            room_sid=self._solution['room_sid'],
-        )
+        return RoomRecordingInstance(self._version, payload, room_sid=self._solution['room_sid'],)
 
     def __repr__(self):
         """
@@ -257,10 +243,7 @@ class RoomRecordingContext(InstanceContext):
         super(RoomRecordingContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'room_sid': room_sid,
-            'sid': sid,
-        }
+        self._solution = {'room_sid': room_sid, 'sid': sid,}
         self._uri = '/Rooms/{room_sid}/Recordings/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -349,10 +332,7 @@ class RoomRecordingInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'room_sid': room_sid,
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'room_sid': room_sid, 'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):

@@ -86,9 +86,7 @@ class SyncListItemTestCase(IntegrationTestCase):
                                     .sync_lists(sid="ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                     .sync_list_items.create(data="{}")
 
-        values = {
-            'Data': serialize.object("{}"),
-        }
+        values = {'Data': serialize.object("{}"),}
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -205,9 +203,7 @@ class SyncListItemTestCase(IntegrationTestCase):
                                     .sync_lists(sid="ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                     .sync_list_items(index=1).update(data="{}")
 
-        values = {
-            'Data': serialize.object("{}"),
-        }
+        values = {'Data': serialize.object("{}"),}
 
         self.holodeck.assert_has_request(Request(
             'post',

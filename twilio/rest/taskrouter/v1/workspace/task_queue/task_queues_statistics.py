@@ -29,9 +29,7 @@ class TaskQueuesStatisticsList(ListResource):
         super(TaskQueuesStatisticsList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid,}
         self._uri = '/Workspaces/{workspace_sid}/TaskQueues/Statistics'.format(**self._solution)
 
     def stream(self, end_date=values.unset, friendly_name=values.unset,
@@ -246,9 +244,7 @@ class TaskQueuesStatisticsInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'workspace_sid': workspace_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid,}
 
     @property
     def account_sid(self):

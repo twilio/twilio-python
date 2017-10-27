@@ -30,9 +30,7 @@ class AuthorizedConnectAppList(ListResource):
         super(AuthorizedConnectAppList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
         self._uri = '/Accounts/{account_sid}/AuthorizedConnectApps.json'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
@@ -54,9 +52,7 @@ class AuthorizedConnectAppList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            page_size=limits['page_size'],
-        )
+        page = self.page(page_size=limits['page_size'],)
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -76,10 +72,7 @@ class AuthorizedConnectAppList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(limit=limit, page_size=page_size,))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -94,11 +87,7 @@ class AuthorizedConnectAppList(ListResource):
         :returns: Page of AuthorizedConnectAppInstance
         :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppPage
         """
-        params = values.of({
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
 
         response = self._version.page(
             'GET',
@@ -193,11 +182,7 @@ class AuthorizedConnectAppPage(Page):
         :returns: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance
         :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance
         """
-        return AuthorizedConnectAppInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return AuthorizedConnectAppInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def __repr__(self):
         """
@@ -226,10 +211,7 @@ class AuthorizedConnectAppContext(InstanceContext):
         super(AuthorizedConnectAppContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'connect_app_sid': connect_app_sid,
-        }
+        self._solution = {'account_sid': account_sid, 'connect_app_sid': connect_app_sid,}
         self._uri = '/Accounts/{account_sid}/AuthorizedConnectApps/{connect_app_sid}.json'.format(**self._solution)
 
     def fetch(self):

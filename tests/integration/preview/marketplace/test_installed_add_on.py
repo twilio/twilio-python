@@ -20,10 +20,7 @@ class InstalledAddOnTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.preview.marketplace.installed_add_ons.create(available_add_on_sid="XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", accept_terms_of_service=True)
 
-        values = {
-            'AvailableAddOnSid': "XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-            'AcceptTermsOfService': True,
-        }
+        values = {'AvailableAddOnSid': "XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 'AcceptTermsOfService': True,}
 
         self.holodeck.assert_has_request(Request(
             'post',

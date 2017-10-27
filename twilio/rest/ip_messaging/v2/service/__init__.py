@@ -12,6 +12,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.ip_messaging.v2.service.binding import BindingList
 from twilio.rest.ip_messaging.v2.service.channel import ChannelList
 from twilio.rest.ip_messaging.v2.service.role import RoleList
 from twilio.rest.ip_messaging.v2.service.user import UserList
@@ -44,9 +45,7 @@ class ServiceList(ListResource):
         :returns: Newly created ServiceInstance
         :rtype: twilio.rest.chat.v2.service.ServiceInstance
         """
-        data = values.of({
-            'FriendlyName': friendly_name,
-        })
+        data = values.of({'FriendlyName': friendly_name,})
 
         payload = self._version.create(
             'POST',
@@ -54,10 +53,7 @@ class ServiceList(ListResource):
             data=data,
         )
 
-        return ServiceInstance(
-            self._version,
-            payload,
-        )
+        return ServiceInstance(self._version, payload,)
 
     def stream(self, limit=None, page_size=None):
         """
@@ -78,9 +74,7 @@ class ServiceList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            page_size=limits['page_size'],
-        )
+        page = self.page(page_size=limits['page_size'],)
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -100,10 +94,7 @@ class ServiceList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.chat.v2.service.ServiceInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(limit=limit, page_size=page_size,))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -118,11 +109,7 @@ class ServiceList(ListResource):
         :returns: Page of ServiceInstance
         :rtype: twilio.rest.chat.v2.service.ServicePage
         """
-        params = values.of({
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
 
         response = self._version.page(
             'GET',
@@ -158,10 +145,7 @@ class ServiceList(ListResource):
         :returns: twilio.rest.chat.v2.service.ServiceContext
         :rtype: twilio.rest.chat.v2.service.ServiceContext
         """
-        return ServiceContext(
-            self._version,
-            sid=sid,
-        )
+        return ServiceContext(self._version, sid=sid,)
 
     def __call__(self, sid):
         """
@@ -172,10 +156,7 @@ class ServiceList(ListResource):
         :returns: twilio.rest.chat.v2.service.ServiceContext
         :rtype: twilio.rest.chat.v2.service.ServiceContext
         """
-        return ServiceContext(
-            self._version,
-            sid=sid,
-        )
+        return ServiceContext(self._version, sid=sid,)
 
     def __repr__(self):
         """
@@ -214,10 +195,7 @@ class ServicePage(Page):
         :returns: twilio.rest.chat.v2.service.ServiceInstance
         :rtype: twilio.rest.chat.v2.service.ServiceInstance
         """
-        return ServiceInstance(
-            self._version,
-            payload,
-        )
+        return ServiceInstance(self._version, payload,)
 
     def __repr__(self):
         """
@@ -245,15 +223,14 @@ class ServiceContext(InstanceContext):
         super(ServiceContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'sid': sid,
-        }
+        self._solution = {'sid': sid,}
         self._uri = '/Services/{sid}'.format(**self._solution)
 
         # Dependents
         self._channels = None
         self._roles = None
         self._users = None
+        self._bindings = None
 
     def fetch(self):
         """
@@ -270,11 +247,7 @@ class ServiceContext(InstanceContext):
             params=params,
         )
 
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-        )
+        return ServiceInstance(self._version, payload, sid=self._solution['sid'],)
 
     def delete(self):
         """
@@ -388,11 +361,7 @@ class ServiceContext(InstanceContext):
             data=data,
         )
 
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-        )
+        return ServiceInstance(self._version, payload, sid=self._solution['sid'],)
 
     @property
     def channels(self):
@@ -403,10 +372,7 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.chat.v2.service.channel.ChannelList
         """
         if self._channels is None:
-            self._channels = ChannelList(
-                self._version,
-                service_sid=self._solution['sid'],
-            )
+            self._channels = ChannelList(self._version, service_sid=self._solution['sid'],)
         return self._channels
 
     @property
@@ -418,10 +384,7 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.chat.v2.service.role.RoleList
         """
         if self._roles is None:
-            self._roles = RoleList(
-                self._version,
-                service_sid=self._solution['sid'],
-            )
+            self._roles = RoleList(self._version, service_sid=self._solution['sid'],)
         return self._roles
 
     @property
@@ -433,11 +396,20 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.chat.v2.service.user.UserList
         """
         if self._users is None:
-            self._users = UserList(
-                self._version,
-                service_sid=self._solution['sid'],
-            )
+            self._users = UserList(self._version, service_sid=self._solution['sid'],)
         return self._users
+
+    @property
+    def bindings(self):
+        """
+        Access the bindings
+
+        :returns: twilio.rest.chat.v2.service.binding.BindingList
+        :rtype: twilio.rest.chat.v2.service.binding.BindingList
+        """
+        if self._bindings is None:
+            self._bindings = BindingList(self._version, service_sid=self._solution['sid'],)
+        return self._bindings
 
     def __repr__(self):
         """
@@ -491,9 +463,7 @@ class ServiceInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):
@@ -505,10 +475,7 @@ class ServiceInstance(InstanceResource):
         :rtype: twilio.rest.chat.v2.service.ServiceContext
         """
         if self._context is None:
-            self._context = ServiceContext(
-                self._version,
-                sid=self._solution['sid'],
-            )
+            self._context = ServiceContext(self._version, sid=self._solution['sid'],)
         return self._context
 
     @property
@@ -839,6 +806,16 @@ class ServiceInstance(InstanceResource):
         :rtype: twilio.rest.chat.v2.service.user.UserList
         """
         return self._proxy.users
+
+    @property
+    def bindings(self):
+        """
+        Access the bindings
+
+        :returns: twilio.rest.chat.v2.service.binding.BindingList
+        :rtype: twilio.rest.chat.v2.service.binding.BindingList
+        """
+        return self._proxy.bindings
 
     def __repr__(self):
         """

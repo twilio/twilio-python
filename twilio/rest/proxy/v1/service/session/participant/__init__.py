@@ -33,10 +33,7 @@ class ParticipantList(ListResource):
         super(ParticipantList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'service_sid': service_sid,
-            'session_sid': session_sid,
-        }
+        self._solution = {'service_sid': service_sid, 'session_sid': session_sid,}
         self._uri = '/Services/{service_sid}/Sessions/{session_sid}/Participants'.format(**self._solution)
 
     def stream(self, participant_type=values.unset, identifier=values.unset,
@@ -288,11 +285,7 @@ class ParticipantContext(InstanceContext):
         super(ParticipantContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'service_sid': service_sid,
-            'session_sid': session_sid,
-            'sid': sid,
-        }
+        self._solution = {'service_sid': service_sid, 'session_sid': session_sid, 'sid': sid,}
         self._uri = '/Services/{service_sid}/Sessions/{session_sid}/Participants/{sid}'.format(**self._solution)
 
         # Dependents

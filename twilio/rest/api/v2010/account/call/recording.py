@@ -32,10 +32,7 @@ class RecordingList(ListResource):
         super(RecordingList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'call_sid': call_sid,
-        }
+        self._solution = {'account_sid': account_sid, 'call_sid': call_sid,}
         self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Recordings.json'.format(**self._solution)
 
     def stream(self, date_created_before=values.unset, date_created=values.unset,
@@ -255,11 +252,7 @@ class RecordingContext(InstanceContext):
         super(RecordingContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'call_sid': call_sid,
-            'sid': sid,
-        }
+        self._solution = {'account_sid': account_sid, 'call_sid': call_sid, 'sid': sid,}
         self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Recordings/{sid}.json'.format(**self._solution)
 
     def fetch(self):

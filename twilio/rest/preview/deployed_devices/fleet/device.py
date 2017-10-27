@@ -32,9 +32,7 @@ class DeviceList(ListResource):
         super(DeviceList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'fleet_sid': fleet_sid,
-        }
+        self._solution = {'fleet_sid': fleet_sid,}
         self._uri = '/Fleets/{fleet_sid}/Devices'.format(**self._solution)
 
     def create(self, unique_name=values.unset, friendly_name=values.unset,
@@ -66,11 +64,7 @@ class DeviceList(ListResource):
             data=data,
         )
 
-        return DeviceInstance(
-            self._version,
-            payload,
-            fleet_sid=self._solution['fleet_sid'],
-        )
+        return DeviceInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'],)
 
     def stream(self, deployment_sid=values.unset, limit=None, page_size=None):
         """
@@ -92,10 +86,7 @@ class DeviceList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            deployment_sid=deployment_sid,
-            page_size=limits['page_size'],
-        )
+        page = self.page(deployment_sid=deployment_sid, page_size=limits['page_size'],)
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -116,11 +107,7 @@ class DeviceList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance]
         """
-        return list(self.stream(
-            deployment_sid=deployment_sid,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(deployment_sid=deployment_sid, limit=limit, page_size=page_size,))
 
     def page(self, deployment_sid=values.unset, page_token=values.unset,
              page_number=values.unset, page_size=values.unset):
@@ -177,11 +164,7 @@ class DeviceList(ListResource):
         :returns: twilio.rest.preview.deployed_devices.fleet.device.DeviceContext
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceContext
         """
-        return DeviceContext(
-            self._version,
-            fleet_sid=self._solution['fleet_sid'],
-            sid=sid,
-        )
+        return DeviceContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid,)
 
     def __call__(self, sid):
         """
@@ -192,11 +175,7 @@ class DeviceList(ListResource):
         :returns: twilio.rest.preview.deployed_devices.fleet.device.DeviceContext
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceContext
         """
-        return DeviceContext(
-            self._version,
-            fleet_sid=self._solution['fleet_sid'],
-            sid=sid,
-        )
+        return DeviceContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid,)
 
     def __repr__(self):
         """
@@ -238,11 +217,7 @@ class DevicePage(Page):
         :returns: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
         """
-        return DeviceInstance(
-            self._version,
-            payload,
-            fleet_sid=self._solution['fleet_sid'],
-        )
+        return DeviceInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'],)
 
     def __repr__(self):
         """
@@ -273,10 +248,7 @@ class DeviceContext(InstanceContext):
         super(DeviceContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'fleet_sid': fleet_sid,
-            'sid': sid,
-        }
+        self._solution = {'fleet_sid': fleet_sid, 'sid': sid,}
         self._uri = '/Fleets/{fleet_sid}/Devices/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -386,10 +358,7 @@ class DeviceInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'fleet_sid': fleet_sid,
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'fleet_sid': fleet_sid, 'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):

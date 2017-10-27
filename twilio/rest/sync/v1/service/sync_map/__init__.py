@@ -33,9 +33,7 @@ class SyncMapList(ListResource):
         super(SyncMapList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'service_sid': service_sid,
-        }
+        self._solution = {'service_sid': service_sid,}
         self._uri = '/Services/{service_sid}/Maps'.format(**self._solution)
 
     def create(self, unique_name=values.unset):
@@ -47,9 +45,7 @@ class SyncMapList(ListResource):
         :returns: Newly created SyncMapInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapInstance
         """
-        data = values.of({
-            'UniqueName': unique_name,
-        })
+        data = values.of({'UniqueName': unique_name,})
 
         payload = self._version.create(
             'POST',
@@ -57,11 +53,7 @@ class SyncMapList(ListResource):
             data=data,
         )
 
-        return SyncMapInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-        )
+        return SyncMapInstance(self._version, payload, service_sid=self._solution['service_sid'],)
 
     def stream(self, limit=None, page_size=None):
         """
@@ -82,9 +74,7 @@ class SyncMapList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            page_size=limits['page_size'],
-        )
+        page = self.page(page_size=limits['page_size'],)
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -104,10 +94,7 @@ class SyncMapList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.sync.v1.service.sync_map.SyncMapInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(limit=limit, page_size=page_size,))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -122,11 +109,7 @@ class SyncMapList(ListResource):
         :returns: Page of SyncMapInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapPage
         """
-        params = values.of({
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
 
         response = self._version.page(
             'GET',
@@ -162,11 +145,7 @@ class SyncMapList(ListResource):
         :returns: twilio.rest.sync.v1.service.sync_map.SyncMapContext
         :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapContext
         """
-        return SyncMapContext(
-            self._version,
-            service_sid=self._solution['service_sid'],
-            sid=sid,
-        )
+        return SyncMapContext(self._version, service_sid=self._solution['service_sid'], sid=sid,)
 
     def __call__(self, sid):
         """
@@ -177,11 +156,7 @@ class SyncMapList(ListResource):
         :returns: twilio.rest.sync.v1.service.sync_map.SyncMapContext
         :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapContext
         """
-        return SyncMapContext(
-            self._version,
-            service_sid=self._solution['service_sid'],
-            sid=sid,
-        )
+        return SyncMapContext(self._version, service_sid=self._solution['service_sid'], sid=sid,)
 
     def __repr__(self):
         """
@@ -222,11 +197,7 @@ class SyncMapPage(Page):
         :returns: twilio.rest.sync.v1.service.sync_map.SyncMapInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapInstance
         """
-        return SyncMapInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-        )
+        return SyncMapInstance(self._version, payload, service_sid=self._solution['service_sid'],)
 
     def __repr__(self):
         """
@@ -256,10 +227,7 @@ class SyncMapContext(InstanceContext):
         super(SyncMapContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'service_sid': service_sid,
-            'sid': sid,
-        }
+        self._solution = {'service_sid': service_sid, 'sid': sid,}
         self._uri = '/Services/{service_sid}/Maps/{sid}'.format(**self._solution)
 
         # Dependents
@@ -369,10 +337,7 @@ class SyncMapInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'service_sid': service_sid,
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'service_sid': service_sid, 'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):
