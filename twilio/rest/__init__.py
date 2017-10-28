@@ -12,13 +12,14 @@ from twilio import __version__
 from twilio.base.exceptions import TwilioException
 from twilio.base.obsolete import obsolete_client
 from twilio.http.http_client import TwilioHttpClient
+from twilio.http.http_proxy_client import TwilioHttpProxyClient
 
 
 class Client(object):
     """ A client for accessing the Twilio API. """
 
     def __init__(self, username=None, password=None, account_sid=None, region=None,
-                 http_client=None, environment=None):
+                 http_client=None, environment=None, proxies=None):
         """
         Initializes the Twilio Client
 
@@ -48,7 +49,10 @@ class Client(object):
 
         self.auth = (self.username, self.password)
         """ :type : tuple(str, str) """
-        self.http_client = http_client or TwilioHttpClient()
+        if proxies:
+            self.http_client = TwilioHttpProxyClient(proxies=proxies)
+        else:
+            self.http_client = http_client or TwilioHttpClient()
         """ :type : HttpClient """
 
         # Domains

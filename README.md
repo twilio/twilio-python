@@ -71,6 +71,23 @@ Alternately, a `Client` constructor without these parameters will
 look for `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN` variables inside the
 current environment.
 
+#### Proxy Configuration
+
+If you need to configure a proxy to access the Internet, you can set the
+environment variables `HTTP_PROXY` and/or `HTTPS_PROXY`, or alternatively
+pass in a dictionary with the proxy configuration to the client.
+
+```python
+from twilio.rest import Client
+
+proxy_config = {'http': 'http://user:password@example.com:80'}
+account = 'ACXXXXXXXXXXXXX'
+token = 'YYYYYYYYYYYYYYYYY'
+client = Client(account, token, proxies=proxy_config)
+```
+
+Note: proxy urls must include the scheme.
+
 We suggest storing your credentials as environment variables. Why? You'll never
 have to worry about committing your credentials and accidentally posting them
 somewhere public.
