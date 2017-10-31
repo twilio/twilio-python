@@ -63,3 +63,13 @@ def object(obj):
     if isinstance(obj, dict) or isinstance(obj, list):
         return json.dumps(obj)
     return obj
+
+
+def map(serialize_func, lst):
+    """
+    Applies serialize_func to every element in lst
+    """
+    if not isinstance(lst, list):
+        return lst
+    return [serialize_func(e) for e in lst]
+
