@@ -65,7 +65,7 @@ def object(obj):
     return obj
 
 
-def map(serialize_func, lst):
+def map(lst, serialize_func):
     """
     Applies serialize_func to every element in lst
     """
