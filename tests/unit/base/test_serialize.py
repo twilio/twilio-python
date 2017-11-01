@@ -122,3 +122,18 @@ class ObjectTestCase(unittest.TestCase):
         actual = serialize.object('{"attribute":"value"}')
         self.assertEqual('{"attribute":"value"}', actual)
 
+
+class MapTestCase(unittest.TestCase):
+    def test_maps_func_to_list(self):
+        actual = serialize.map(lambda e: e * 2, [1, 2, 3])
+        self.assertEqual([2, 4, 6], actual)
+
+    def test_does_not_change_other_types(self):
+        actual = serialize.map(lambda e: e * 2, "abc")
+        self.assertEqual("abc", actual)
+
+        actual = serialize.map(lambda e: e * 2, 123)
+        self.assertEqual(123, actual)
+
+        actual = serialize.map(lambda e: e * 2, {'some': 'val'})
+        self.assertEqual({'some': 'val'}, actual)
