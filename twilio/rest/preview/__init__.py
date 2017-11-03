@@ -14,6 +14,7 @@ from twilio.rest.preview.hosted_numbers import HostedNumbers
 from twilio.rest.preview.marketplace import Marketplace
 from twilio.rest.preview.proxy import Proxy
 from twilio.rest.preview.sync import Sync
+from twilio.rest.preview.understand import Understand
 from twilio.rest.preview.wireless import Wireless
 
 
@@ -38,6 +39,7 @@ class Preview(Domain):
         self._proxy = None
         self._acc_security = None
         self._sync = None
+        self._understand = None
         self._wireless = None
 
     @property
@@ -111,6 +113,16 @@ class Preview(Domain):
         return self._sync
 
     @property
+    def understand(self):
+        """
+        :returns: Version understand of preview
+        :rtype: twilio.rest.preview.understand.Understand
+        """
+        if self._understand is None:
+            self._understand = Understand(self)
+        return self._understand
+
+    @property
     def wireless(self):
         """
         :returns: Version wireless of preview
@@ -172,9 +184,9 @@ class Preview(Domain):
     @property
     def services(self):
         """
-        :rtype: twilio.rest.preview.sync.service.ServiceList
+        :rtype: twilio.rest.preview.understand.service.ServiceList
         """
-        return self.sync.services
+        return self.understand.services
 
     @property
     def commands(self):

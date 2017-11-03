@@ -14,6 +14,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
 from twilio.rest.video.v1.room.recording import RoomRecordingList
+from twilio.rest.video.v1.room.room_participant import RoomParticipantList
 
 
 class RoomList(ListResource):
@@ -63,7 +64,7 @@ class RoomList(ListResource):
             'StatusCallbackMethod': status_callback_method,
             'MaxParticipants': max_participants,
             'RecordParticipantsOnConnect': record_participants_on_connect,
-            'VideoCodecs': video_codecs,
+            'VideoCodecs': serialize.map(video_codecs, lambda e: e),
             'MediaRegion': media_region,
         })
 
@@ -287,6 +288,7 @@ class RoomContext(InstanceContext):
 
         # Dependents
         self._recordings = None
+        self._participants = None
 
     def fetch(self):
         """
@@ -335,6 +337,18 @@ class RoomContext(InstanceContext):
         if self._recordings is None:
             self._recordings = RoomRecordingList(self._version, room_sid=self._solution['sid'],)
         return self._recordings
+
+    @property
+    def participants(self):
+        """
+        Access the participants
+
+        :returns: twilio.rest.video.v1.room.room_participant.RoomParticipantList
+        :rtype: twilio.rest.video.v1.room.room_participant.RoomParticipantList
+        """
+        if self._participants is None:
+            self._participants = RoomParticipantList(self._version, room_sid=self._solution['sid'],)
+        return self._participants
 
     def __repr__(self):
         """
@@ -575,6 +589,16 @@ class RoomInstance(InstanceResource):
         :rtype: twilio.rest.video.v1.room.recording.RoomRecordingList
         """
         return self._proxy.recordings
+
+    @property
+    def participants(self):
+        """
+        Access the participants
+
+        :returns: twilio.rest.video.v1.room.room_participant.RoomParticipantList
+        :rtype: twilio.rest.video.v1.room.room_participant.RoomParticipantList
+        """
+        return self._proxy.participants
 
     def __repr__(self):
         """

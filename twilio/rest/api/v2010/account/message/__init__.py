@@ -72,7 +72,7 @@ class MessageList(ListResource):
             'From': from_,
             'MessagingServiceSid': messaging_service_sid,
             'Body': body,
-            'MediaUrl': media_url,
+            'MediaUrl': serialize.map(media_url, lambda e: e),
             'StatusCallback': status_callback,
             'ApplicationSid': application_sid,
             'MaxPrice': max_price,

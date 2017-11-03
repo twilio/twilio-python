@@ -3,6 +3,15 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2017-11-03] Version 6.8.3
+---------------------------
+**Api**
+- Add programmable video keys
+
+**Video**
+- Add `Participants`
+
+
 [2017-10-27] Version 6.8.2
 ---------------------------
 **Chat**

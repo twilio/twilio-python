@@ -126,7 +126,7 @@ class RecordingList(ListResource):
         params = values.of({
             'Status': status,
             'SourceSid': source_sid,
-            'GroupingSid': grouping_sid,
+            'GroupingSid': serialize.map(grouping_sid, lambda e: e),
             'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
             'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
             'PageToken': page_token,

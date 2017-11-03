@@ -152,7 +152,7 @@ class SessionList(ListResource):
             'DateExpiry': serialize.iso8601_datetime(date_expiry),
             'Ttl': ttl,
             'Status': status,
-            'Participants': participants,
+            'Participants': serialize.map(participants, lambda e: e),
         })
 
         payload = self._version.create(
@@ -311,7 +311,7 @@ class SessionContext(InstanceContext):
             'DateExpiry': serialize.iso8601_datetime(date_expiry),
             'Ttl': ttl,
             'Status': status,
-            'Participants': participants,
+            'Participants': serialize.map(participants, lambda e: e),
         })
 
         payload = self._version.update(

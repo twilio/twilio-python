@@ -55,7 +55,7 @@ class UserBindingList(ListResource):
         data = values.of({
             'BindingType': binding_type,
             'Address': address,
-            'Tag': tag,
+            'Tag': serialize.map(tag, lambda e: e),
             'NotificationProtocolVersion': notification_protocol_version,
             'CredentialSid': credential_sid,
             'Endpoint': endpoint,
@@ -149,7 +149,7 @@ class UserBindingList(ListResource):
         params = values.of({
             'StartDate': serialize.iso8601_date(start_date),
             'EndDate': serialize.iso8601_date(end_date),
-            'Tag': tag,
+            'Tag': serialize.map(tag, lambda e: e),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,

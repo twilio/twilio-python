@@ -134,7 +134,11 @@ class PhoneNumberContext(InstanceContext):
         :returns: Fetched PhoneNumberInstance
         :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberInstance
         """
-        params = values.of({'CountryCode': country_code, 'Type': type, 'AddOns': add_ons,})
+        params = values.of({
+            'CountryCode': country_code,
+            'Type': serialize.map(type, lambda e: e),
+            'AddOns': serialize.map(add_ons, lambda e: e),
+        })
 
         params.update(serialize.prefixed_collapsible_map(add_ons_data, 'AddOns'))
         payload = self._version.fetch(

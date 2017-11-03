@@ -65,8 +65,8 @@ class NotificationList(ListResource):
         :rtype: twilio.rest.notify.v1.service.notification.NotificationInstance
         """
         data = values.of({
-            'Identity': identity,
-            'Tag': tag,
+            'Identity': serialize.map(identity, lambda e: e),
+            'Tag': serialize.map(tag, lambda e: e),
             'Body': body,
             'Priority': priority,
             'Ttl': ttl,
@@ -79,9 +79,9 @@ class NotificationList(ListResource):
             'Sms': serialize.object(sms),
             'FacebookMessenger': serialize.object(facebook_messenger),
             'Fcm': serialize.object(fcm),
-            'Segment': segment,
+            'Segment': serialize.map(segment, lambda e: e),
             'Alexa': serialize.object(alexa),
-            'ToBinding': to_binding,
+            'ToBinding': serialize.map(to_binding, lambda e: e),
         })
 
         payload = self._version.create(

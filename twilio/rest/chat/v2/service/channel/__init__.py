@@ -130,7 +130,12 @@ class ChannelList(ListResource):
         :returns: Page of ChannelInstance
         :rtype: twilio.rest.chat.v2.service.channel.ChannelPage
         """
-        params = values.of({'Type': type, 'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
+        params = values.of({
+            'Type': serialize.map(type, lambda e: e),
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
         response = self._version.page(
             'GET',
