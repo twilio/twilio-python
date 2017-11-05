@@ -15,6 +15,7 @@ from twilio.base.page import Page
 
 
 class PayloadList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid, reference_sid, add_on_result_sid):
         """
@@ -57,9 +58,7 @@ class PayloadList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            page_size=limits['page_size'],
-        )
+        page = self.page(page_size=limits['page_size'],)
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -79,10 +78,7 @@ class PayloadList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(limit=limit, page_size=page_size,))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -97,11 +93,7 @@ class PayloadList(ListResource):
         :returns: Page of PayloadInstance
         :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadPage
         """
-        params = values.of({
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
 
         response = self._version.page(
             'GET',
@@ -173,6 +165,7 @@ class PayloadList(ListResource):
 
 
 class PayloadPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -220,6 +213,7 @@ class PayloadPage(Page):
 
 
 class PayloadContext(InstanceContext):
+    """  """
 
     def __init__(self, version, account_sid, reference_sid, add_on_result_sid, sid):
         """
@@ -290,6 +284,7 @@ class PayloadContext(InstanceContext):
 
 
 class PayloadInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, account_sid, reference_sid,
                  add_on_result_sid, sid=None):

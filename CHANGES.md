@@ -3,6 +3,197 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2017-11-03] Version 6.8.3
+---------------------------
+**Api**
+- Add programmable video keys
+
+**Video**
+- Add `Participants`
+
+
+[2017-10-27] Version 6.8.2
+---------------------------
+**Chat**
+- Add Binding resource
+- Add UserBinding resource
+
+
+[2017-10-20] Version 6.8.1
+---------------------------
+**Library**
+- #394 Update request validator to remove port numbers from https urls. Thanks @Brodan!
+- #385 Add request logging and hooking. Thanks @tysonholub!
+
+**Api**
+- Add `address_sid` param to IncomingPhoneNumbers create and update
+- Add 'fax_enabled' option for Phone Number Search
+
+
+[2017-10-13] Version 6.8.0
+---------------------------
+**Api**
+- Add `smart_encoded` param for Messages
+- Add `identity_sid` param to IncomingPhoneNumbers create and update
+
+**Preview**
+- Make 'address_sid' and 'email' optional fields when creating a HostedNumberOrder
+- Add AuthorizationDocuments preview API.
+
+**Proxy**
+- Initial Release
+
+**Wireless**
+- Added `ip_address` to sim resource
+
+**Twiml**
+- Rename `number` to `phone_number` in Voice Number TwiML. *(breaking change)*
+- Rename `message` to `body` in Messaging TwiML. *(breaking change)*
+
+
+[2017-10-06] Version 6.7.1
+---------------------------
+**Preview**
+- Add `acc_security` (authy-phone-verification) initial api-definitions
+
+**Taskrouter**
+- [bi] Less verbose naming of cumulative and real time statistics
+
+
+[2017-09-28] Version 6.7.0
+---------------------------
+**Chat**
+- Make member accessible through identity
+- Make channel subresources accessible by channel unique name
+- Set get list 'max_page_size' parameter to 100
+- Add service instance webhook retry configuration
+- Add media message capability
+- Make `body` an optional parameter on Message creation. *(breaking change)*
+
+**Notify**
+- `data`, `apn`, `gcm`, `fcm`, `sms` parameters in `Notifications` create resource are dicts/objects instead of strings. Passing manually stringified json will continue to work.
+
+**Taskrouter**
+- Add new query ability by TaskChannelSid or TaskChannelUniqueName
+- Move Events, Worker, Workers endpoint over to CPR
+- Add new RealTime and Cumulative Statistics endpoints
+
+**Video**
+- Create should allow an array of video_codecs.
+- Add video_codecs as a property of room to make it externally visible.
+
+
+[2017-09-15] Version 6.6.3
+---------------------------
+**Api**
+- Add `sip_registration` property on SIP Domains
+- Add new video and market usage category keys
+
+
+[2017-09-01] Version 6.6.2
+---------------------------
+- Added last_response and last_request to http_client
+
+[2017-09-01] Version 6.6.1
+---------------------------
+**Sync**
+- Add support for Streams
+
+**Wireless**
+- Added DataSessions sub-resource to Sims.
+
+
+[2017-08-25] Version 6.6.0
+---------------------------
+**Library**
+- Allow creating AccessTokens/Jwts without generating `nbf`. Passing `None` in the constructor will remove `nbf` from jwt payload.
+
+**Api**
+- Update `status` enum for Recordings to include 'failed'
+- Add `error_code` property on Recordings
+
+**Chat**
+- Add mutable parameters for channel, members and messages
+
+**Video**
+- New `media_region` parameter when creating a room, which controls which region media will be served out of.
+
+**Twiml**
+- Add support for `speech_timeout`, `max_speech_time`, and `profanity_filter` attributes on Gather verb.
+
+
+[2017-08-18] Version 6.5.2
+---------------------------
+**Library**
+- Remove bundled certificates, use `certifi` package via `requests`.
+- Add option to use connection pooling. This is enabled by default and will use one Session for all requests
+in Client.
+    - To disable this, pass `pool_connections` parameter when creating your Twilio client.
+```python
+from twilio.rest import Client
+from twilio.http.http_client import TwilioHttpClient
+
+client = Client(
+    username,
+    password,
+    http_client=TwilioHttpClient(pool_connections=False)
+)
+```
+
+**Api**
+- Add VoiceReceiveMode {'voice', 'fax'} option to IncomingPhoneNumber UPDATE requests
+
+**Chat**
+- Add channel message media information
+- Add service instance message media information
+
+**Preview**
+- Removed 'email' from bulk_exports configuration api [bi]. No migration plan needed because api has not been used yet.
+- Add DeployedDevices.
+
+**Sync**
+- Add support for Service Instance unique names
+
+[2017-08-10] Version 6.5.1
+---------------------------
+Fixed PyJWT >= 1.5.1 exception
+
+
+**Api**
+- Add New wireless usage keys added
+- Add `auto_correct_address` param for Addresses create and update
+- Add ChatGrant grant and deprecate IpMessagingGrant
+
+**Video**
+- Add `video_codec` enum and `video_codecs` parameter, which can be set to either `VP8` or `H264` during room creation.
+- Restrict recordings page size to 100
+
+[2017-07-27] Version 6.5.0
+---------------------------
+This release adds Beta and Preview products to main artifact.
+
+Previously, Beta and Preview products were only included in the `alpha`
+artifact. They are now being included in the main artifact to ease product
+discoverability and the collective operational overhead of maintaining multiple
+artifacts per library.
+
+**Api**
+- Remove unused `encryption_type` property on Recordings *(breaking change)*
+- Update `status` enum for Messages to include 'accepted'
+
+**Messaging**
+- Fix incorrectly typed capabilities property for PhoneNumbers.
+
+**Notify**
+- Add `ToBinding` optional parameter on Notifications resource creation. Accepted values are json strings.
+
+**Preview**
+- Add `sms_application_sid` to HostedNumberOrders.
+
+**Taskrouter**
+- Fully support conference functionality in reservations.
+
+
 [2017-07-12] Version 6.4.3
 ---------------------------
 **Api**

@@ -16,6 +16,7 @@ from twilio.rest.api.v2010.account.address.dependent_phone_number import Depende
 
 
 class AddressList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid):
         """
@@ -30,13 +31,12 @@ class AddressList(ListResource):
         super(AddressList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
         self._uri = '/Accounts/{account_sid}/Addresses.json'.format(**self._solution)
 
     def create(self, customer_name, street, city, region, postal_code, iso_country,
-               friendly_name=values.unset, emergency_enabled=values.unset):
+               friendly_name=values.unset, emergency_enabled=values.unset,
+               auto_correct_address=values.unset):
         """
         Create a new AddressInstance
 
@@ -48,6 +48,7 @@ class AddressList(ListResource):
         :param unicode iso_country: The iso_country
         :param unicode friendly_name: The friendly_name
         :param bool emergency_enabled: The emergency_enabled
+        :param bool auto_correct_address: The auto_correct_address
 
         :returns: Newly created AddressInstance
         :rtype: twilio.rest.api.v2010.account.address.AddressInstance
@@ -61,6 +62,7 @@ class AddressList(ListResource):
             'IsoCountry': iso_country,
             'FriendlyName': friendly_name,
             'EmergencyEnabled': emergency_enabled,
+            'AutoCorrectAddress': auto_correct_address,
         })
 
         payload = self._version.create(
@@ -69,11 +71,7 @@ class AddressList(ListResource):
             data=data,
         )
 
-        return AddressInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return AddressInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def stream(self, customer_name=values.unset, friendly_name=values.unset,
                iso_country=values.unset, limit=None, page_size=None):
@@ -195,11 +193,7 @@ class AddressList(ListResource):
         :returns: twilio.rest.api.v2010.account.address.AddressContext
         :rtype: twilio.rest.api.v2010.account.address.AddressContext
         """
-        return AddressContext(
-            self._version,
-            account_sid=self._solution['account_sid'],
-            sid=sid,
-        )
+        return AddressContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
 
     def __call__(self, sid):
         """
@@ -210,11 +204,7 @@ class AddressList(ListResource):
         :returns: twilio.rest.api.v2010.account.address.AddressContext
         :rtype: twilio.rest.api.v2010.account.address.AddressContext
         """
-        return AddressContext(
-            self._version,
-            account_sid=self._solution['account_sid'],
-            sid=sid,
-        )
+        return AddressContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
 
     def __repr__(self):
         """
@@ -227,6 +217,7 @@ class AddressList(ListResource):
 
 
 class AddressPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -253,11 +244,7 @@ class AddressPage(Page):
         :returns: twilio.rest.api.v2010.account.address.AddressInstance
         :rtype: twilio.rest.api.v2010.account.address.AddressInstance
         """
-        return AddressInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return AddressInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def __repr__(self):
         """
@@ -270,6 +257,7 @@ class AddressPage(Page):
 
 
 class AddressContext(InstanceContext):
+    """  """
 
     def __init__(self, version, account_sid, sid):
         """
@@ -285,10 +273,7 @@ class AddressContext(InstanceContext):
         super(AddressContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'sid': sid,
-        }
+        self._solution = {'account_sid': account_sid, 'sid': sid,}
         self._uri = '/Accounts/{account_sid}/Addresses/{sid}.json'.format(**self._solution)
 
         # Dependents
@@ -327,7 +312,8 @@ class AddressContext(InstanceContext):
 
     def update(self, friendly_name=values.unset, customer_name=values.unset,
                street=values.unset, city=values.unset, region=values.unset,
-               postal_code=values.unset, emergency_enabled=values.unset):
+               postal_code=values.unset, emergency_enabled=values.unset,
+               auto_correct_address=values.unset):
         """
         Update the AddressInstance
 
@@ -338,6 +324,7 @@ class AddressContext(InstanceContext):
         :param unicode region: The region
         :param unicode postal_code: The postal_code
         :param bool emergency_enabled: The emergency_enabled
+        :param bool auto_correct_address: The auto_correct_address
 
         :returns: Updated AddressInstance
         :rtype: twilio.rest.api.v2010.account.address.AddressInstance
@@ -350,6 +337,7 @@ class AddressContext(InstanceContext):
             'Region': region,
             'PostalCode': postal_code,
             'EmergencyEnabled': emergency_enabled,
+            'AutoCorrectAddress': auto_correct_address,
         })
 
         payload = self._version.update(
@@ -393,6 +381,7 @@ class AddressContext(InstanceContext):
 
 
 class AddressInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, account_sid, sid=None):
         """
@@ -423,10 +412,7 @@ class AddressInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'account_sid': account_sid,
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):
@@ -577,7 +563,8 @@ class AddressInstance(InstanceResource):
 
     def update(self, friendly_name=values.unset, customer_name=values.unset,
                street=values.unset, city=values.unset, region=values.unset,
-               postal_code=values.unset, emergency_enabled=values.unset):
+               postal_code=values.unset, emergency_enabled=values.unset,
+               auto_correct_address=values.unset):
         """
         Update the AddressInstance
 
@@ -588,6 +575,7 @@ class AddressInstance(InstanceResource):
         :param unicode region: The region
         :param unicode postal_code: The postal_code
         :param bool emergency_enabled: The emergency_enabled
+        :param bool auto_correct_address: The auto_correct_address
 
         :returns: Updated AddressInstance
         :rtype: twilio.rest.api.v2010.account.address.AddressInstance
@@ -600,6 +588,7 @@ class AddressInstance(InstanceResource):
             region=region,
             postal_code=postal_code,
             emergency_enabled=emergency_enabled,
+            auto_correct_address=auto_correct_address,
         )
 
     @property

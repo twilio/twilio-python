@@ -15,6 +15,7 @@ from twilio.base.page import Page
 
 
 class OriginationUrlList(ListResource):
+    """  """
 
     def __init__(self, version, trunk_sid):
         """
@@ -29,9 +30,7 @@ class OriginationUrlList(ListResource):
         super(OriginationUrlList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'trunk_sid': trunk_sid,
-        }
+        self._solution = {'trunk_sid': trunk_sid,}
         self._uri = '/Trunks/{trunk_sid}/OriginationUrls'.format(**self._solution)
 
     def create(self, weight, priority, enabled, friendly_name, sip_url):
@@ -61,11 +60,7 @@ class OriginationUrlList(ListResource):
             data=data,
         )
 
-        return OriginationUrlInstance(
-            self._version,
-            payload,
-            trunk_sid=self._solution['trunk_sid'],
-        )
+        return OriginationUrlInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'],)
 
     def stream(self, limit=None, page_size=None):
         """
@@ -86,9 +81,7 @@ class OriginationUrlList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            page_size=limits['page_size'],
-        )
+        page = self.page(page_size=limits['page_size'],)
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -108,10 +101,7 @@ class OriginationUrlList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(limit=limit, page_size=page_size,))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -126,11 +116,7 @@ class OriginationUrlList(ListResource):
         :returns: Page of OriginationUrlInstance
         :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlPage
         """
-        params = values.of({
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
 
         response = self._version.page(
             'GET',
@@ -166,11 +152,7 @@ class OriginationUrlList(ListResource):
         :returns: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlContext
         :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlContext
         """
-        return OriginationUrlContext(
-            self._version,
-            trunk_sid=self._solution['trunk_sid'],
-            sid=sid,
-        )
+        return OriginationUrlContext(self._version, trunk_sid=self._solution['trunk_sid'], sid=sid,)
 
     def __call__(self, sid):
         """
@@ -181,11 +163,7 @@ class OriginationUrlList(ListResource):
         :returns: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlContext
         :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlContext
         """
-        return OriginationUrlContext(
-            self._version,
-            trunk_sid=self._solution['trunk_sid'],
-            sid=sid,
-        )
+        return OriginationUrlContext(self._version, trunk_sid=self._solution['trunk_sid'], sid=sid,)
 
     def __repr__(self):
         """
@@ -198,6 +176,7 @@ class OriginationUrlList(ListResource):
 
 
 class OriginationUrlPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -224,11 +203,7 @@ class OriginationUrlPage(Page):
         :returns: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
         :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
         """
-        return OriginationUrlInstance(
-            self._version,
-            payload,
-            trunk_sid=self._solution['trunk_sid'],
-        )
+        return OriginationUrlInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'],)
 
     def __repr__(self):
         """
@@ -241,6 +216,7 @@ class OriginationUrlPage(Page):
 
 
 class OriginationUrlContext(InstanceContext):
+    """  """
 
     def __init__(self, version, trunk_sid, sid):
         """
@@ -256,10 +232,7 @@ class OriginationUrlContext(InstanceContext):
         super(OriginationUrlContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'trunk_sid': trunk_sid,
-            'sid': sid,
-        }
+        self._solution = {'trunk_sid': trunk_sid, 'sid': sid,}
         self._uri = '/Trunks/{trunk_sid}/OriginationUrls/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -341,6 +314,7 @@ class OriginationUrlContext(InstanceContext):
 
 
 class OriginationUrlInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, trunk_sid, sid=None):
         """
@@ -368,10 +342,7 @@ class OriginationUrlInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'trunk_sid': trunk_sid,
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'trunk_sid': trunk_sid, 'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):

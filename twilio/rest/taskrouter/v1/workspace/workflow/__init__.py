@@ -12,10 +12,13 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.taskrouter.v1.workspace.workflow.workflow_cumulative_statistics import WorkflowCumulativeStatisticsList
+from twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics import WorkflowRealTimeStatisticsList
 from twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics import WorkflowStatisticsList
 
 
 class WorkflowList(ListResource):
+    """  """
 
     def __init__(self, version, workspace_sid):
         """
@@ -30,9 +33,7 @@ class WorkflowList(ListResource):
         super(WorkflowList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid,}
         self._uri = '/Workspaces/{workspace_sid}/Workflows'.format(**self._solution)
 
     def stream(self, friendly_name=values.unset, limit=None, page_size=None):
@@ -55,10 +56,7 @@ class WorkflowList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            friendly_name=friendly_name,
-            page_size=limits['page_size'],
-        )
+        page = self.page(friendly_name=friendly_name, page_size=limits['page_size'],)
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -79,11 +77,7 @@ class WorkflowList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance]
         """
-        return list(self.stream(
-            friendly_name=friendly_name,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(friendly_name=friendly_name, limit=limit, page_size=page_size,))
 
     def page(self, friendly_name=values.unset, page_token=values.unset,
              page_number=values.unset, page_size=values.unset):
@@ -161,11 +155,7 @@ class WorkflowList(ListResource):
             data=data,
         )
 
-        return WorkflowInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-        )
+        return WorkflowInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'],)
 
     def get(self, sid):
         """
@@ -176,11 +166,7 @@ class WorkflowList(ListResource):
         :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
         """
-        return WorkflowContext(
-            self._version,
-            workspace_sid=self._solution['workspace_sid'],
-            sid=sid,
-        )
+        return WorkflowContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid,)
 
     def __call__(self, sid):
         """
@@ -191,11 +177,7 @@ class WorkflowList(ListResource):
         :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
         """
-        return WorkflowContext(
-            self._version,
-            workspace_sid=self._solution['workspace_sid'],
-            sid=sid,
-        )
+        return WorkflowContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid,)
 
     def __repr__(self):
         """
@@ -208,6 +190,7 @@ class WorkflowList(ListResource):
 
 
 class WorkflowPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -234,11 +217,7 @@ class WorkflowPage(Page):
         :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         """
-        return WorkflowInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-        )
+        return WorkflowInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'],)
 
     def __repr__(self):
         """
@@ -251,6 +230,7 @@ class WorkflowPage(Page):
 
 
 class WorkflowContext(InstanceContext):
+    """  """
 
     def __init__(self, version, workspace_sid, sid):
         """
@@ -266,14 +246,13 @@ class WorkflowContext(InstanceContext):
         super(WorkflowContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'sid': sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'sid': sid,}
         self._uri = '/Workspaces/{workspace_sid}/Workflows/{sid}'.format(**self._solution)
 
         # Dependents
         self._statistics = None
+        self._real_time_statistics = None
+        self._cumulative_statistics = None
 
     def fetch(self):
         """
@@ -359,6 +338,38 @@ class WorkflowContext(InstanceContext):
             )
         return self._statistics
 
+    @property
+    def real_time_statistics(self):
+        """
+        Access the real_time_statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsList
+        """
+        if self._real_time_statistics is None:
+            self._real_time_statistics = WorkflowRealTimeStatisticsList(
+                self._version,
+                workspace_sid=self._solution['workspace_sid'],
+                workflow_sid=self._solution['sid'],
+            )
+        return self._real_time_statistics
+
+    @property
+    def cumulative_statistics(self):
+        """
+        Access the cumulative_statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_cumulative_statistics.WorkflowCumulativeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_cumulative_statistics.WorkflowCumulativeStatisticsList
+        """
+        if self._cumulative_statistics is None:
+            self._cumulative_statistics = WorkflowCumulativeStatisticsList(
+                self._version,
+                workspace_sid=self._solution['workspace_sid'],
+                workflow_sid=self._solution['sid'],
+            )
+        return self._cumulative_statistics
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -371,6 +382,7 @@ class WorkflowContext(InstanceContext):
 
 
 class WorkflowInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, workspace_sid, sid=None):
         """
@@ -400,10 +412,7 @@ class WorkflowInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):
@@ -577,6 +586,26 @@ class WorkflowInstance(InstanceResource):
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics.WorkflowStatisticsList
         """
         return self._proxy.statistics
+
+    @property
+    def real_time_statistics(self):
+        """
+        Access the real_time_statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsList
+        """
+        return self._proxy.real_time_statistics
+
+    @property
+    def cumulative_statistics(self):
+        """
+        Access the cumulative_statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_cumulative_statistics.WorkflowCumulativeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_cumulative_statistics.WorkflowCumulativeStatisticsList
+        """
+        return self._proxy.cumulative_statistics
 
     def __repr__(self):
         """

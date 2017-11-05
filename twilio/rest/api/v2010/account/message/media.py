@@ -16,6 +16,7 @@ from twilio.base.page import Page
 
 
 class MediaList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid, message_sid):
         """
@@ -31,10 +32,7 @@ class MediaList(ListResource):
         super(MediaList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'message_sid': message_sid,
-        }
+        self._solution = {'account_sid': account_sid, 'message_sid': message_sid,}
         self._uri = '/Accounts/{account_sid}/Messages/{message_sid}/Media.json'.format(**self._solution)
 
     def stream(self, date_created_before=values.unset, date_created=values.unset,
@@ -191,6 +189,7 @@ class MediaList(ListResource):
 
 
 class MediaPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -236,6 +235,7 @@ class MediaPage(Page):
 
 
 class MediaContext(InstanceContext):
+    """  """
 
     def __init__(self, version, account_sid, message_sid, sid):
         """
@@ -252,11 +252,7 @@ class MediaContext(InstanceContext):
         super(MediaContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'message_sid': message_sid,
-            'sid': sid,
-        }
+        self._solution = {'account_sid': account_sid, 'message_sid': message_sid, 'sid': sid,}
         self._uri = '/Accounts/{account_sid}/Messages/{message_sid}/Media/{sid}.json'.format(**self._solution)
 
     def delete(self):
@@ -303,6 +299,7 @@ class MediaContext(InstanceContext):
 
 
 class MediaInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, account_sid, message_sid, sid=None):
         """

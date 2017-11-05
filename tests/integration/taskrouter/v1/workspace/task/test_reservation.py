@@ -39,7 +39,7 @@ class ReservationTestCase(IntegrationTestCase):
                     "page": 0,
                     "page_size": 50,
                     "previous_page_url": null,
-                    "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations"
+                    "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations?PageSize=50&Page=0"
                 },
                 "reservations": [
                     {
@@ -51,7 +51,7 @@ class ReservationTestCase(IntegrationTestCase):
                             "worker": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                             "workspace": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                         },
-                        "reservation_status": "reserved",
+                        "reservation_status": "accepted",
                         "sid": "WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "task_sid": "WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -82,7 +82,7 @@ class ReservationTestCase(IntegrationTestCase):
                     "page": 0,
                     "page_size": 50,
                     "previous_page_url": null,
-                    "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations"
+                    "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations?PageSize=50&Page=0"
                 },
                 "reservations": []
             }
@@ -121,7 +121,7 @@ class ReservationTestCase(IntegrationTestCase):
                     "worker": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                     "workspace": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                 },
-                "reservation_status": "reserved",
+                "reservation_status": "accepted",
                 "sid": "WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "task_sid": "WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -164,7 +164,7 @@ class ReservationTestCase(IntegrationTestCase):
                     "worker": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                     "workspace": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                 },
-                "reservation_status": "reserved",
+                "reservation_status": "accepted",
                 "sid": "WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "task_sid": "WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",

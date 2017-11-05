@@ -7,7 +7,8 @@ from twilio.compat import urlencode
 class ClientCapabilityToken(Jwt):
     """A token to control permissions with Twilio Client"""
 
-    def __init__(self, account_sid, auth_token, nbf=None, ttl=3600, valid_until=None, **kwargs):
+    def __init__(self, account_sid, auth_token, nbf=Jwt.GENERATE, ttl=3600, valid_until=None,
+                 **kwargs):
         """
         :param str account_sid: The account sid to which this token is granted access.
         :param str auth_token: The secret key used to sign the token. Note, this auth token is not

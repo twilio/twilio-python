@@ -12,6 +12,7 @@ We'd like to thank the following people who have contributed to the
 - Dan Yang <dsyang92@gmail.com>
 - Dennis Pilarinos <dennispi@gmail.com>
 - Doug Black <dblack@gmail.com>
+- Evan Fossier <evan.fossier@gmail.com>
 - Fabian Topfstedt <topfstedt@schneevonmorgen.com>
 - Florian Le Goff <florian@9h37.fr>
 - Frank Tobia <frank.tobia@gmail.com>
@@ -35,3 +36,5 @@ We'd like to thank the following people who have contributed to the
 - isbo <jrandh@gmail.com>
 - negeorge <negeorge@gmail.com>
 - Evan Cooke
+- tysonholub
+- Brodan

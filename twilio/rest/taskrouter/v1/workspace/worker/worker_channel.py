@@ -15,6 +15,7 @@ from twilio.base.page import Page
 
 
 class WorkerChannelList(ListResource):
+    """  """
 
     def __init__(self, version, workspace_sid, worker_sid):
         """
@@ -30,10 +31,7 @@ class WorkerChannelList(ListResource):
         super(WorkerChannelList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'worker_sid': worker_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'worker_sid': worker_sid,}
         self._uri = '/Workspaces/{workspace_sid}/Workers/{worker_sid}/Channels'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
@@ -55,9 +53,7 @@ class WorkerChannelList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            page_size=limits['page_size'],
-        )
+        page = self.page(page_size=limits['page_size'],)
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -77,10 +73,7 @@ class WorkerChannelList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(limit=limit, page_size=page_size,))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -95,11 +88,7 @@ class WorkerChannelList(ListResource):
         :returns: Page of WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelPage
         """
-        params = values.of({
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
 
         response = self._version.page(
             'GET',
@@ -169,6 +158,7 @@ class WorkerChannelList(ListResource):
 
 
 class WorkerChannelPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -214,6 +204,7 @@ class WorkerChannelPage(Page):
 
 
 class WorkerChannelContext(InstanceContext):
+    """  """
 
     def __init__(self, version, workspace_sid, worker_sid, sid):
         """
@@ -230,11 +221,7 @@ class WorkerChannelContext(InstanceContext):
         super(WorkerChannelContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'worker_sid': worker_sid,
-            'sid': sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'worker_sid': worker_sid, 'sid': sid,}
         self._uri = '/Workspaces/{workspace_sid}/Workers/{worker_sid}/Channels/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -270,10 +257,7 @@ class WorkerChannelContext(InstanceContext):
         :returns: Updated WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
         """
-        data = values.of({
-            'Capacity': capacity,
-            'Available': available,
-        })
+        data = values.of({'Capacity': capacity, 'Available': available,})
 
         payload = self._version.update(
             'POST',
@@ -301,6 +285,7 @@ class WorkerChannelContext(InstanceContext):
 
 
 class WorkerChannelInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, workspace_sid, worker_sid, sid=None):
         """
@@ -486,10 +471,7 @@ class WorkerChannelInstance(InstanceResource):
         :returns: Updated WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
         """
-        return self._proxy.update(
-            capacity=capacity,
-            available=available,
-        )
+        return self._proxy.update(capacity=capacity, available=available,)
 
     def __repr__(self):
         """

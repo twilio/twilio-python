@@ -14,6 +14,7 @@ from twilio.base.page import Page
 
 
 class MobileList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid):
         """
@@ -28,9 +29,7 @@ class MobileList(ListResource):
         super(MobileList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
         self._uri = '/Accounts/{account_sid}/IncomingPhoneNumbers/Mobile.json'.format(**self._solution)
 
     def stream(self, beta=values.unset, friendly_name=values.unset,
@@ -161,7 +160,8 @@ class MobileList(ListResource):
                voice_application_sid=values.unset,
                voice_caller_id_lookup=values.unset,
                voice_fallback_method=values.unset, voice_fallback_url=values.unset,
-               voice_method=values.unset, voice_url=values.unset):
+               voice_method=values.unset, voice_url=values.unset,
+               identity_sid=values.unset, address_sid=values.unset):
         """
         Create a new MobileInstance
 
@@ -181,6 +181,8 @@ class MobileList(ListResource):
         :param unicode voice_fallback_url: The voice_fallback_url
         :param unicode voice_method: The voice_method
         :param unicode voice_url: The voice_url
+        :param unicode identity_sid: The identity_sid
+        :param unicode address_sid: The address_sid
 
         :returns: Newly created MobileInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.mobile.MobileInstance
@@ -202,6 +204,8 @@ class MobileList(ListResource):
             'VoiceFallbackUrl': voice_fallback_url,
             'VoiceMethod': voice_method,
             'VoiceUrl': voice_url,
+            'IdentitySid': identity_sid,
+            'AddressSid': address_sid,
         })
 
         payload = self._version.create(
@@ -210,11 +214,7 @@ class MobileList(ListResource):
             data=data,
         )
 
-        return MobileInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return MobileInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def __repr__(self):
         """
@@ -227,6 +227,7 @@ class MobileList(ListResource):
 
 
 class MobilePage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -253,11 +254,7 @@ class MobilePage(Page):
         :returns: twilio.rest.api.v2010.account.incoming_phone_number.mobile.MobileInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.mobile.MobileInstance
         """
-        return MobileInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return MobileInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def __repr__(self):
         """
@@ -270,6 +267,7 @@ class MobilePage(Page):
 
 
 class MobileInstance(InstanceResource):
+    """  """
 
     class AddressRequirement(object):
         NONE = "none"
@@ -289,6 +287,7 @@ class MobileInstance(InstanceResource):
         # Marshaled Properties
         self._properties = {
             'account_sid': payload['account_sid'],
+            'address_sid': payload['address_sid'],
             'address_requirements': payload['address_requirements'],
             'api_version': payload['api_version'],
             'beta': payload['beta'],
@@ -296,6 +295,7 @@ class MobileInstance(InstanceResource):
             'date_created': deserialize.rfc2822_datetime(payload['date_created']),
             'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
             'friendly_name': payload['friendly_name'],
+            'identity_sid': payload['identity_sid'],
             'phone_number': payload['phone_number'],
             'origin': payload['origin'],
             'sid': payload['sid'],
@@ -318,9 +318,7 @@ class MobileInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
 
     @property
     def account_sid(self):
@@ -329,6 +327,14 @@ class MobileInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['account_sid']
+
+    @property
+    def address_sid(self):
+        """
+        :returns: The address_sid
+        :rtype: unicode
+        """
+        return self._properties['address_sid']
 
     @property
     def address_requirements(self):
@@ -385,6 +391,14 @@ class MobileInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['friendly_name']
+
+    @property
+    def identity_sid(self):
+        """
+        :returns: The identity_sid
+        :rtype: unicode
+        """
+        return self._properties['identity_sid']
 
     @property
     def phone_number(self):

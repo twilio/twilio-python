@@ -38,6 +38,7 @@ class TollFreeTestCase(IntegrationTestCase):
                     {
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "address_requirements": "none",
+                        "address_sid": "ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "api_version": "2010-04-01",
                         "beta": null,
                         "capabilities": {
@@ -48,6 +49,7 @@ class TollFreeTestCase(IntegrationTestCase):
                         "date_created": "Thu, 30 Jul 2015 23:19:04 +0000",
                         "date_updated": "Thu, 30 Jul 2015 23:19:04 +0000",
                         "friendly_name": "(808) 925-5327",
+                        "identity_sid": "RIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "phone_number": "+18089255327",
                         "origin": "origin",
                         "sid": "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -122,9 +124,7 @@ class TollFreeTestCase(IntegrationTestCase):
                                  .incoming_phone_numbers \
                                  .toll_free.create(phone_number="+987654321")
 
-        values = {
-            'PhoneNumber': "+987654321",
-        }
+        values = {'PhoneNumber': "+987654321",}
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -139,6 +139,7 @@ class TollFreeTestCase(IntegrationTestCase):
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "address_requirements": "none",
+                "address_sid": "ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "api_version": "2010-04-01",
                 "beta": false,
                 "capabilities": {
@@ -149,6 +150,7 @@ class TollFreeTestCase(IntegrationTestCase):
                 "date_created": "Thu, 30 Jul 2015 23:19:04 +0000",
                 "date_updated": "Thu, 30 Jul 2015 23:19:04 +0000",
                 "friendly_name": "(808) 925-5327",
+                "identity_sid": "RIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "phone_number": "+18089255327",
                 "origin": "origin",
                 "sid": "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",

@@ -13,6 +13,7 @@ from twilio.rest.accounts.v1.credential.public_key import PublicKeyList
 
 
 class CredentialList(ListResource):
+    """  """
 
     def __init__(self, version):
         """
@@ -40,9 +41,7 @@ class CredentialList(ListResource):
         :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyList
         """
         if self._public_key is None:
-            self._public_key = PublicKeyList(
-                self._version,
-            )
+            self._public_key = PublicKeyList(self._version,)
         return self._public_key
 
     def __repr__(self):
@@ -56,6 +55,7 @@ class CredentialList(ListResource):
 
 
 class CredentialPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -81,10 +81,7 @@ class CredentialPage(Page):
         :returns: twilio.rest.accounts.v1.credential.CredentialInstance
         :rtype: twilio.rest.accounts.v1.credential.CredentialInstance
         """
-        return CredentialInstance(
-            self._version,
-            payload,
-        )
+        return CredentialInstance(self._version, payload,)
 
     def __repr__(self):
         """
@@ -97,6 +94,7 @@ class CredentialPage(Page):
 
 
 class CredentialInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload):
         """

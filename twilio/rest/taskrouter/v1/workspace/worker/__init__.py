@@ -15,10 +15,13 @@ from twilio.base.page import Page
 from twilio.rest.taskrouter.v1.workspace.worker.reservation import ReservationList
 from twilio.rest.taskrouter.v1.workspace.worker.worker_channel import WorkerChannelList
 from twilio.rest.taskrouter.v1.workspace.worker.worker_statistics import WorkerStatisticsList
+from twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics import WorkersCumulativeStatisticsList
+from twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics import WorkersRealTimeStatisticsList
 from twilio.rest.taskrouter.v1.workspace.worker.workers_statistics import WorkersStatisticsList
 
 
 class WorkerList(ListResource):
+    """  """
 
     def __init__(self, version, workspace_sid):
         """
@@ -33,9 +36,7 @@ class WorkerList(ListResource):
         super(WorkerList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid,}
         self._uri = '/Workspaces/{workspace_sid}/Workers'.format(**self._solution)
 
         # Components
@@ -206,11 +207,7 @@ class WorkerList(ListResource):
             data=data,
         )
 
-        return WorkerInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-        )
+        return WorkerInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'],)
 
     @property
     def statistics(self):
@@ -236,11 +233,7 @@ class WorkerList(ListResource):
         :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
         """
-        return WorkerContext(
-            self._version,
-            workspace_sid=self._solution['workspace_sid'],
-            sid=sid,
-        )
+        return WorkerContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid,)
 
     def __call__(self, sid):
         """
@@ -251,11 +244,7 @@ class WorkerList(ListResource):
         :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
         """
-        return WorkerContext(
-            self._version,
-            workspace_sid=self._solution['workspace_sid'],
-            sid=sid,
-        )
+        return WorkerContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid,)
 
     def __repr__(self):
         """
@@ -268,6 +257,7 @@ class WorkerList(ListResource):
 
 
 class WorkerPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -294,11 +284,7 @@ class WorkerPage(Page):
         :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
         """
-        return WorkerInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-        )
+        return WorkerInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'],)
 
     def __repr__(self):
         """
@@ -311,6 +297,7 @@ class WorkerPage(Page):
 
 
 class WorkerContext(InstanceContext):
+    """  """
 
     def __init__(self, version, workspace_sid, sid):
         """
@@ -326,13 +313,12 @@ class WorkerContext(InstanceContext):
         super(WorkerContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'sid': sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'sid': sid,}
         self._uri = '/Workspaces/{workspace_sid}/Workers/{sid}'.format(**self._solution)
 
         # Dependents
+        self._real_time_statistics = None
+        self._cumulative_statistics = None
         self._statistics = None
         self._reservations = None
         self._worker_channels = None
@@ -400,6 +386,36 @@ class WorkerContext(InstanceContext):
         return self._version.delete('delete', self._uri)
 
     @property
+    def real_time_statistics(self):
+        """
+        Access the real_time_statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsList
+        """
+        if self._real_time_statistics is None:
+            self._real_time_statistics = WorkersRealTimeStatisticsList(
+                self._version,
+                workspace_sid=self._solution['workspace_sid'],
+            )
+        return self._real_time_statistics
+
+    @property
+    def cumulative_statistics(self):
+        """
+        Access the cumulative_statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsList
+        """
+        if self._cumulative_statistics is None:
+            self._cumulative_statistics = WorkersCumulativeStatisticsList(
+                self._version,
+                workspace_sid=self._solution['workspace_sid'],
+            )
+        return self._cumulative_statistics
+
+    @property
     def statistics(self):
         """
         Access the statistics
@@ -459,6 +475,7 @@ class WorkerContext(InstanceContext):
 
 
 class WorkerInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, workspace_sid, sid=None):
         """
@@ -488,10 +505,7 @@ class WorkerInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):
@@ -649,6 +663,26 @@ class WorkerInstance(InstanceResource):
         :rtype: bool
         """
         return self._proxy.delete()
+
+    @property
+    def real_time_statistics(self):
+        """
+        Access the real_time_statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsList
+        """
+        return self._proxy.real_time_statistics
+
+    @property
+    def cumulative_statistics(self):
+        """
+        Access the cumulative_statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsList
+        """
+        return self._proxy.cumulative_statistics
 
     @property
     def statistics(self):

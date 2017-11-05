@@ -22,9 +22,7 @@ class FeedbackTestCase(IntegrationTestCase):
                                  .calls(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .feedback().create(quality_score=1)
 
-        values = {
-            'QualityScore': 1,
-        }
+        values = {'QualityScore': 1,}
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -101,9 +99,7 @@ class FeedbackTestCase(IntegrationTestCase):
                                  .calls(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .feedback().update(quality_score=1)
 
-        values = {
-            'QualityScore': 1,
-        }
+        values = {'QualityScore': 1,}
 
         self.holodeck.assert_has_request(Request(
             'post',

@@ -12,12 +12,14 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on import AssignedAddOnList
 from twilio.rest.api.v2010.account.incoming_phone_number.local import LocalList
 from twilio.rest.api.v2010.account.incoming_phone_number.mobile import MobileList
 from twilio.rest.api.v2010.account.incoming_phone_number.toll_free import TollFreeList
 
 
 class IncomingPhoneNumberList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid):
         """
@@ -32,9 +34,7 @@ class IncomingPhoneNumberList(ListResource):
         super(IncomingPhoneNumberList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
         self._uri = '/Accounts/{account_sid}/IncomingPhoneNumbers.json'.format(**self._solution)
 
         # Components
@@ -172,7 +172,8 @@ class IncomingPhoneNumberList(ListResource):
                voice_fallback_method=values.unset, voice_fallback_url=values.unset,
                voice_method=values.unset, voice_url=values.unset,
                emergency_status=values.unset, emergency_address_sid=values.unset,
-               trunk_sid=values.unset, phone_number=values.unset,
+               trunk_sid=values.unset, identity_sid=values.unset,
+               address_sid=values.unset, phone_number=values.unset,
                area_code=values.unset):
         """
         Create a new IncomingPhoneNumberInstance
@@ -195,6 +196,8 @@ class IncomingPhoneNumberList(ListResource):
         :param IncomingPhoneNumberInstance.EmergencyStatus emergency_status: The emergency_status
         :param unicode emergency_address_sid: The emergency_address_sid
         :param unicode trunk_sid: Unique string to identify the trunk
+        :param unicode identity_sid: Unique string that identifies the identity associated with number
+        :param unicode address_sid: Unique string that identifies the address associated with number
         :param unicode phone_number: The phone number
         :param unicode area_code: The desired area code for the new number
 
@@ -222,6 +225,8 @@ class IncomingPhoneNumberList(ListResource):
             'EmergencyStatus': emergency_status,
             'EmergencyAddressSid': emergency_address_sid,
             'TrunkSid': trunk_sid,
+            'IdentitySid': identity_sid,
+            'AddressSid': address_sid,
         })
 
         payload = self._version.create(
@@ -230,11 +235,7 @@ class IncomingPhoneNumberList(ListResource):
             data=data,
         )
 
-        return IncomingPhoneNumberInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return IncomingPhoneNumberInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     @property
     def local(self):
@@ -245,10 +246,7 @@ class IncomingPhoneNumberList(ListResource):
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.local.LocalList
         """
         if self._local is None:
-            self._local = LocalList(
-                self._version,
-                account_sid=self._solution['account_sid'],
-            )
+            self._local = LocalList(self._version, account_sid=self._solution['account_sid'],)
         return self._local
 
     @property
@@ -260,10 +258,7 @@ class IncomingPhoneNumberList(ListResource):
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.mobile.MobileList
         """
         if self._mobile is None:
-            self._mobile = MobileList(
-                self._version,
-                account_sid=self._solution['account_sid'],
-            )
+            self._mobile = MobileList(self._version, account_sid=self._solution['account_sid'],)
         return self._mobile
 
     @property
@@ -275,10 +270,7 @@ class IncomingPhoneNumberList(ListResource):
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreeList
         """
         if self._toll_free is None:
-            self._toll_free = TollFreeList(
-                self._version,
-                account_sid=self._solution['account_sid'],
-            )
+            self._toll_free = TollFreeList(self._version, account_sid=self._solution['account_sid'],)
         return self._toll_free
 
     def get(self, sid):
@@ -290,11 +282,7 @@ class IncomingPhoneNumberList(ListResource):
         :returns: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberContext
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberContext
         """
-        return IncomingPhoneNumberContext(
-            self._version,
-            account_sid=self._solution['account_sid'],
-            sid=sid,
-        )
+        return IncomingPhoneNumberContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
 
     def __call__(self, sid):
         """
@@ -305,11 +293,7 @@ class IncomingPhoneNumberList(ListResource):
         :returns: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberContext
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberContext
         """
-        return IncomingPhoneNumberContext(
-            self._version,
-            account_sid=self._solution['account_sid'],
-            sid=sid,
-        )
+        return IncomingPhoneNumberContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
 
     def __repr__(self):
         """
@@ -322,6 +306,7 @@ class IncomingPhoneNumberList(ListResource):
 
 
 class IncomingPhoneNumberPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -348,11 +333,7 @@ class IncomingPhoneNumberPage(Page):
         :returns: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
         """
-        return IncomingPhoneNumberInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return IncomingPhoneNumberInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def __repr__(self):
         """
@@ -365,6 +346,7 @@ class IncomingPhoneNumberPage(Page):
 
 
 class IncomingPhoneNumberContext(InstanceContext):
+    """  """
 
     def __init__(self, version, account_sid, sid):
         """
@@ -380,11 +362,11 @@ class IncomingPhoneNumberContext(InstanceContext):
         super(IncomingPhoneNumberContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'sid': sid,
-        }
+        self._solution = {'account_sid': account_sid, 'sid': sid,}
         self._uri = '/Accounts/{account_sid}/IncomingPhoneNumbers/{sid}.json'.format(**self._solution)
+
+        # Dependents
+        self._assigned_add_ons = None
 
     def update(self, account_sid=values.unset, api_version=values.unset,
                friendly_name=values.unset, sms_application_sid=values.unset,
@@ -396,7 +378,8 @@ class IncomingPhoneNumberContext(InstanceContext):
                voice_fallback_method=values.unset, voice_fallback_url=values.unset,
                voice_method=values.unset, voice_url=values.unset,
                emergency_status=values.unset, emergency_address_sid=values.unset,
-               trunk_sid=values.unset):
+               trunk_sid=values.unset, voice_receive_mode=values.unset,
+               identity_sid=values.unset, address_sid=values.unset):
         """
         Update the IncomingPhoneNumberInstance
 
@@ -419,6 +402,9 @@ class IncomingPhoneNumberContext(InstanceContext):
         :param IncomingPhoneNumberInstance.EmergencyStatus emergency_status: The emergency_status
         :param unicode emergency_address_sid: The emergency_address_sid
         :param unicode trunk_sid: Unique string to identify the trunk
+        :param IncomingPhoneNumberInstance.VoiceReceiveMode voice_receive_mode: The voice_receive_mode
+        :param unicode identity_sid: Unique string that identifies the identity associated with number
+        :param unicode address_sid: Unique string that identifies the address associated with number
 
         :returns: Updated IncomingPhoneNumberInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
@@ -443,6 +429,9 @@ class IncomingPhoneNumberContext(InstanceContext):
             'EmergencyStatus': emergency_status,
             'EmergencyAddressSid': emergency_address_sid,
             'TrunkSid': trunk_sid,
+            'VoiceReceiveMode': voice_receive_mode,
+            'IdentitySid': identity_sid,
+            'AddressSid': address_sid,
         })
 
         payload = self._version.update(
@@ -489,6 +478,22 @@ class IncomingPhoneNumberContext(InstanceContext):
         """
         return self._version.delete('delete', self._uri)
 
+    @property
+    def assigned_add_ons(self):
+        """
+        Access the assigned_add_ons
+
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnList
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnList
+        """
+        if self._assigned_add_ons is None:
+            self._assigned_add_ons = AssignedAddOnList(
+                self._version,
+                account_sid=self._solution['account_sid'],
+                resource_sid=self._solution['sid'],
+            )
+        return self._assigned_add_ons
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -501,6 +506,7 @@ class IncomingPhoneNumberContext(InstanceContext):
 
 
 class IncomingPhoneNumberInstance(InstanceResource):
+    """  """
 
     class AddressRequirement(object):
         NONE = "none"
@@ -511,6 +517,10 @@ class IncomingPhoneNumberInstance(InstanceResource):
     class EmergencyStatus(object):
         ACTIVE = "Active"
         INACTIVE = "Inactive"
+
+    class VoiceReceiveMode(object):
+        VOICE = "voice"
+        FAX = "fax"
 
     def __init__(self, version, payload, account_sid, sid=None):
         """
@@ -524,6 +534,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
         # Marshaled Properties
         self._properties = {
             'account_sid': payload['account_sid'],
+            'address_sid': payload['address_sid'],
             'address_requirements': payload['address_requirements'],
             'api_version': payload['api_version'],
             'beta': payload['beta'],
@@ -531,6 +542,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
             'date_created': deserialize.rfc2822_datetime(payload['date_created']),
             'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
             'friendly_name': payload['friendly_name'],
+            'identity_sid': payload['identity_sid'],
             'phone_number': payload['phone_number'],
             'origin': payload['origin'],
             'sid': payload['sid'],
@@ -555,10 +567,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'account_sid': account_sid,
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):
@@ -584,6 +593,14 @@ class IncomingPhoneNumberInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['account_sid']
+
+    @property
+    def address_sid(self):
+        """
+        :returns: Unique string that identifies the address associated with number
+        :rtype: unicode
+        """
+        return self._properties['address_sid']
 
     @property
     def address_requirements(self):
@@ -640,6 +657,14 @@ class IncomingPhoneNumberInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['friendly_name']
+
+    @property
+    def identity_sid(self):
+        """
+        :returns: Unique string that identifies the identity associated with number
+        :rtype: unicode
+        """
+        return self._properties['identity_sid']
 
     @property
     def phone_number(self):
@@ -811,7 +836,8 @@ class IncomingPhoneNumberInstance(InstanceResource):
                voice_fallback_method=values.unset, voice_fallback_url=values.unset,
                voice_method=values.unset, voice_url=values.unset,
                emergency_status=values.unset, emergency_address_sid=values.unset,
-               trunk_sid=values.unset):
+               trunk_sid=values.unset, voice_receive_mode=values.unset,
+               identity_sid=values.unset, address_sid=values.unset):
         """
         Update the IncomingPhoneNumberInstance
 
@@ -834,6 +860,9 @@ class IncomingPhoneNumberInstance(InstanceResource):
         :param IncomingPhoneNumberInstance.EmergencyStatus emergency_status: The emergency_status
         :param unicode emergency_address_sid: The emergency_address_sid
         :param unicode trunk_sid: Unique string to identify the trunk
+        :param IncomingPhoneNumberInstance.VoiceReceiveMode voice_receive_mode: The voice_receive_mode
+        :param unicode identity_sid: Unique string that identifies the identity associated with number
+        :param unicode address_sid: Unique string that identifies the address associated with number
 
         :returns: Updated IncomingPhoneNumberInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
@@ -858,6 +887,9 @@ class IncomingPhoneNumberInstance(InstanceResource):
             emergency_status=emergency_status,
             emergency_address_sid=emergency_address_sid,
             trunk_sid=trunk_sid,
+            voice_receive_mode=voice_receive_mode,
+            identity_sid=identity_sid,
+            address_sid=address_sid,
         )
 
     def fetch(self):
@@ -877,6 +909,16 @@ class IncomingPhoneNumberInstance(InstanceResource):
         :rtype: bool
         """
         return self._proxy.delete()
+
+    @property
+    def assigned_add_ons(self):
+        """
+        Access the assigned_add_ons
+
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnList
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnList
+        """
+        return self._proxy.assigned_add_ons
 
     def __repr__(self):
         """

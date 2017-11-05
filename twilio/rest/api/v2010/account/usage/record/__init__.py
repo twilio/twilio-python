@@ -23,6 +23,7 @@ from twilio.rest.api.v2010.account.usage.record.yesterday import YesterdayList
 
 
 class RecordList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid):
         """
@@ -37,9 +38,7 @@ class RecordList(ListResource):
         super(RecordList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
         self._uri = '/Accounts/{account_sid}/Usage/Records.json'.format(**self._solution)
 
         # Components
@@ -172,10 +171,7 @@ class RecordList(ListResource):
         :rtype: twilio.rest.api.v2010.account.usage.record.all_time.AllTimeList
         """
         if self._all_time is None:
-            self._all_time = AllTimeList(
-                self._version,
-                account_sid=self._solution['account_sid'],
-            )
+            self._all_time = AllTimeList(self._version, account_sid=self._solution['account_sid'],)
         return self._all_time
 
     @property
@@ -187,10 +183,7 @@ class RecordList(ListResource):
         :rtype: twilio.rest.api.v2010.account.usage.record.daily.DailyList
         """
         if self._daily is None:
-            self._daily = DailyList(
-                self._version,
-                account_sid=self._solution['account_sid'],
-            )
+            self._daily = DailyList(self._version, account_sid=self._solution['account_sid'],)
         return self._daily
 
     @property
@@ -202,10 +195,7 @@ class RecordList(ListResource):
         :rtype: twilio.rest.api.v2010.account.usage.record.last_month.LastMonthList
         """
         if self._last_month is None:
-            self._last_month = LastMonthList(
-                self._version,
-                account_sid=self._solution['account_sid'],
-            )
+            self._last_month = LastMonthList(self._version, account_sid=self._solution['account_sid'],)
         return self._last_month
 
     @property
@@ -217,10 +207,7 @@ class RecordList(ListResource):
         :rtype: twilio.rest.api.v2010.account.usage.record.monthly.MonthlyList
         """
         if self._monthly is None:
-            self._monthly = MonthlyList(
-                self._version,
-                account_sid=self._solution['account_sid'],
-            )
+            self._monthly = MonthlyList(self._version, account_sid=self._solution['account_sid'],)
         return self._monthly
 
     @property
@@ -232,10 +219,7 @@ class RecordList(ListResource):
         :rtype: twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthList
         """
         if self._this_month is None:
-            self._this_month = ThisMonthList(
-                self._version,
-                account_sid=self._solution['account_sid'],
-            )
+            self._this_month = ThisMonthList(self._version, account_sid=self._solution['account_sid'],)
         return self._this_month
 
     @property
@@ -247,10 +231,7 @@ class RecordList(ListResource):
         :rtype: twilio.rest.api.v2010.account.usage.record.today.TodayList
         """
         if self._today is None:
-            self._today = TodayList(
-                self._version,
-                account_sid=self._solution['account_sid'],
-            )
+            self._today = TodayList(self._version, account_sid=self._solution['account_sid'],)
         return self._today
 
     @property
@@ -262,10 +243,7 @@ class RecordList(ListResource):
         :rtype: twilio.rest.api.v2010.account.usage.record.yearly.YearlyList
         """
         if self._yearly is None:
-            self._yearly = YearlyList(
-                self._version,
-                account_sid=self._solution['account_sid'],
-            )
+            self._yearly = YearlyList(self._version, account_sid=self._solution['account_sid'],)
         return self._yearly
 
     @property
@@ -277,10 +255,7 @@ class RecordList(ListResource):
         :rtype: twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayList
         """
         if self._yesterday is None:
-            self._yesterday = YesterdayList(
-                self._version,
-                account_sid=self._solution['account_sid'],
-            )
+            self._yesterday = YesterdayList(self._version, account_sid=self._solution['account_sid'],)
         return self._yesterday
 
     def __repr__(self):
@@ -294,6 +269,7 @@ class RecordList(ListResource):
 
 
 class RecordPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -320,11 +296,7 @@ class RecordPage(Page):
         :returns: twilio.rest.api.v2010.account.usage.record.RecordInstance
         :rtype: twilio.rest.api.v2010.account.usage.record.RecordInstance
         """
-        return RecordInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return RecordInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def __repr__(self):
         """
@@ -337,6 +309,7 @@ class RecordPage(Page):
 
 
 class RecordInstance(InstanceResource):
+    """  """
 
     class Category(object):
         ANSWERING_MACHINE_DETECTION = "answering-machine-detection"
@@ -369,6 +342,13 @@ class RecordInstance(InstanceResource):
         CONVERSATIONS_PARTICIPANT_EVENTS = "conversations-participant-events"
         CONVERSATIONS_PARTICIPANTS = "conversations-participants"
         CPS = "cps"
+        GROUP_ROOMS = "group-rooms"
+        GROUP_ROOMS_MEDIA_DOWNLOADED = "group-rooms-media-downloaded"
+        GROUP_ROOMS_MEDIA_RECORDED = "group-rooms-media-recorded"
+        GROUP_ROOMS_MEDIA_ROUTED = "group-rooms-media-routed"
+        GROUP_ROOMS_MEDIA_STORED = "group-rooms-media-stored"
+        GROUP_ROOMS_PARTICIPANT_MINUTES = "group-rooms-participant-minutes"
+        GROUP_ROOMS_RECORDED_MINUTES = "group-rooms-recorded-minutes"
         IP_MESSAGING = "ip-messaging"
         IP_MESSAGING_COMMANDS = "ip-messaging-commands"
         IP_MESSAGING_DATA_STORAGE = "ip-messaging-data-storage"
@@ -384,6 +364,11 @@ class RecordInstance(InstanceResource):
         MARKETPLACE_IBM_WATSON_RECORDING_ANALYSIS = "marketplace-ibm-watson-recording-analysis"
         MARKETPLACE_ICEHOOK_SYSTEMS_SCOUT = "marketplace-icehook-systems-scout"
         MARKETPLACE_INFOGROUP_DATAAXLE_BIZINFO = "marketplace-infogroup-dataaxle-bizinfo"
+        MARKETPLACE_CADENCE_TRANSCRIPTION = "marketplace-cadence-transcription"
+        MARKETPLACE_CADENCE_TRANSLATION = "marketplace-cadence-translation"
+        MARKETPLACE_CAPIO_SPEECH_TO_TEXT = "marketplace-capio-speech-to-text"
+        MARKETPLACE_FACEBOOK_OFFLINE_CONVERSIONS = "marketplace-facebook-offline-conversions"
+        MARKETPLACE_KEEN_IO_CONTACT_CENTER_ANALYTICS = "marketplace-keen-io-contact-center-analytics"
         MARKETPLACE_MARCHEX_CLEANCALL = "marketplace-marchex-cleancall"
         MARKETPLACE_MARCHEX_SENTIMENT_ANALYSIS_FOR_SMS = "marketplace-marchex-sentiment-analysis-for-sms"
         MARKETPLACE_MARKETPLACE_NEXTCALLER_SOCIAL_ID = "marketplace-marketplace-nextcaller-social-id"
@@ -408,6 +393,8 @@ class RecordInstance(InstanceResource):
         MARKETPLACE_IBM_WATSON_TONE_ANALYZER = "marketplace-ibm-watson-tone-analyzer"
         MARKETPLACE_REMEETING_AUTOMATIC_SPEECH_RECOGNITION = "marketplace-remeeting-automatic-speech-recognition"
         MARKETPLACE_TCPA_DEFENSE_SOLUTIONS_BLACKLIST_FEED = "marketplace-tcpa-defense-solutions-blacklist-feed"
+        MARKETPLACE_VOICEBASE_TRANSCRIPTION_CUSTOM_VOCABULARY = "marketplace-voicebase-transcription-custom-vocabulary"
+        MARKETPLACE_YTICA_CONTACT_CENTER_REPORTING_ANALYTICS = "marketplace-ytica-contact-center-reporting-analytics"
         MEDIASTORAGE = "mediastorage"
         MMS = "mms"
         MMS_INBOUND = "mms-inbound"
@@ -430,6 +417,7 @@ class RecordInstance(InstanceResource):
         PCHAT_READS = "pchat-reads"
         PCHAT_USERS = "pchat-users"
         PCHAT_MESSAGES = "pchat-messages"
+        PEER_TO_PEER_ROOMS_PARTICIPANT_MINUTES = "peer-to-peer-rooms-participant-minutes"
         PFAX = "pfax"
         PFAX_MINUTES = "pfax-minutes"
         PFAX_MINUTES_INBOUND = "pfax-minutes-inbound"
@@ -495,31 +483,48 @@ class RecordInstance(InstanceResource):
         TURNMEGABYTES = "turnmegabytes"
         TURNMEGABYTES_AUSTRALIA = "turnmegabytes-australia"
         TURNMEGABYTES_BRASIL = "turnmegabytes-brasil"
+        TURNMEGABYTES_INDIA = "turnmegabytes-india"
         TURNMEGABYTES_IRELAND = "turnmegabytes-ireland"
         TURNMEGABYTES_JAPAN = "turnmegabytes-japan"
         TURNMEGABYTES_SINGAPORE = "turnmegabytes-singapore"
         TURNMEGABYTES_USEAST = "turnmegabytes-useast"
         TURNMEGABYTES_USWEST = "turnmegabytes-uswest"
         TWILIO_INTERCONNECT = "twilio-interconnect"
+        VIDEO_RECORDINGS = "video-recordings"
         VOICE_INSIGHTS = "voice-insights"
+        VOICE_INSIGHTS_AUDIO_TRACE = "voice-insights-audio-trace"
+        VOICE_INSIGHTS_CARRIER_CALLS = "voice-insights-carrier-calls"
         WIRELESS = "wireless"
         WIRELESS_ORDERS = "wireless-orders"
+        WIRELESS_ORDERS_ARTWORK = "wireless-orders-artwork"
         WIRELESS_ORDERS_BULK = "wireless-orders-bulk"
         WIRELESS_ORDERS_ESIM = "wireless-orders-esim"
         WIRELESS_ORDERS_STARTER = "wireless-orders-starter"
         WIRELESS_USAGE = "wireless-usage"
         WIRELESS_USAGE_COMMANDS = "wireless-usage-commands"
+        WIRELESS_USAGE_COMMANDS_AFRICA = "wireless-usage-commands-africa"
+        WIRELESS_USAGE_COMMANDS_ASIA = "wireless-usage-commands-asia"
+        WIRELESS_USAGE_COMMANDS_CENTRALANDSOUTHAMERICA = "wireless-usage-commands-centralandsouthamerica"
+        WIRELESS_USAGE_COMMANDS_EUROPE = "wireless-usage-commands-europe"
         WIRELESS_USAGE_COMMANDS_HOME = "wireless-usage-commands-home"
+        WIRELESS_USAGE_COMMANDS_NORTHAMERICA = "wireless-usage-commands-northamerica"
+        WIRELESS_USAGE_COMMANDS_OCEANIA = "wireless-usage-commands-oceania"
         WIRELESS_USAGE_COMMANDS_ROAMING = "wireless-usage-commands-roaming"
         WIRELESS_USAGE_DATA = "wireless-usage-data"
+        WIRELESS_USAGE_DATA_AFRICA = "wireless-usage-data-africa"
+        WIRELESS_USAGE_DATA_ASIA = "wireless-usage-data-asia"
+        WIRELESS_USAGE_DATA_CENTRALANDSOUTHAMERICA = "wireless-usage-data-centralandsouthamerica"
         WIRELESS_USAGE_DATA_CUSTOM_ADDITIONALMB = "wireless-usage-data-custom-additionalmb"
         WIRELESS_USAGE_DATA_CUSTOM_FIRST5MB = "wireless-usage-data-custom-first5mb"
         WIRELESS_USAGE_DATA_DOMESTIC_ROAMING = "wireless-usage-data-domestic-roaming"
+        WIRELESS_USAGE_DATA_EUROPE = "wireless-usage-data-europe"
         WIRELESS_USAGE_DATA_INDIVIDUAL_ADDITIONALGB = "wireless-usage-data-individual-additionalgb"
         WIRELESS_USAGE_DATA_INDIVIDUAL_FIRSTGB = "wireless-usage-data-individual-firstgb"
         WIRELESS_USAGE_DATA_INTERNATIONAL_ROAMING_CANADA = "wireless-usage-data-international-roaming-canada"
         WIRELESS_USAGE_DATA_INTERNATIONAL_ROAMING_INDIA = "wireless-usage-data-international-roaming-india"
         WIRELESS_USAGE_DATA_INTERNATIONAL_ROAMING_MEXICO = "wireless-usage-data-international-roaming-mexico"
+        WIRELESS_USAGE_DATA_NORTHAMERICA = "wireless-usage-data-northamerica"
+        WIRELESS_USAGE_DATA_OCEANIA = "wireless-usage-data-oceania"
         WIRELESS_USAGE_DATA_POOLED = "wireless-usage-data-pooled"
         WIRELESS_USAGE_DATA_POOLED_DOWNLINK = "wireless-usage-data-pooled-downlink"
         WIRELESS_USAGE_DATA_POOLED_UPLINK = "wireless-usage-data-pooled-uplink"
@@ -527,6 +532,9 @@ class RecordInstance(InstanceResource):
         WIRELESS_USAGE_MRC_CUSTOM = "wireless-usage-mrc-custom"
         WIRELESS_USAGE_MRC_INDIVIDUAL = "wireless-usage-mrc-individual"
         WIRELESS_USAGE_MRC_POOLED = "wireless-usage-mrc-pooled"
+        WIRELESS_USAGE_MRC_SUSPENDED = "wireless-usage-mrc-suspended"
+        WIRELESS_USAGE_VOICE = "wireless-usage-voice"
+        WIRELESS_USAGE_SMS = "wireless-usage-sms"
 
     def __init__(self, version, payload, account_sid):
         """
@@ -557,9 +565,7 @@ class RecordInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
 
     @property
     def account_sid(self):

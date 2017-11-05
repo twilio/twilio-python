@@ -16,6 +16,7 @@ from twilio.base.page import Page
 
 
 class RecordingList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid, call_sid):
         """
@@ -31,10 +32,7 @@ class RecordingList(ListResource):
         super(RecordingList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'call_sid': call_sid,
-        }
+        self._solution = {'account_sid': account_sid, 'call_sid': call_sid,}
         self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Recordings.json'.format(**self._solution)
 
     def stream(self, date_created_before=values.unset, date_created=values.unset,
@@ -191,6 +189,7 @@ class RecordingList(ListResource):
 
 
 class RecordingPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -236,6 +235,7 @@ class RecordingPage(Page):
 
 
 class RecordingContext(InstanceContext):
+    """  """
 
     def __init__(self, version, account_sid, call_sid, sid):
         """
@@ -252,11 +252,7 @@ class RecordingContext(InstanceContext):
         super(RecordingContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'call_sid': call_sid,
-            'sid': sid,
-        }
+        self._solution = {'account_sid': account_sid, 'call_sid': call_sid, 'sid': sid,}
         self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Recordings/{sid}.json'.format(**self._solution)
 
     def fetch(self):
@@ -303,6 +299,7 @@ class RecordingContext(InstanceContext):
 
 
 class RecordingInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, account_sid, call_sid, sid=None):
         """
@@ -324,8 +321,8 @@ class RecordingInstance(InstanceResource):
             'sid': payload['sid'],
             'price': deserialize.decimal(payload['price']),
             'uri': payload['uri'],
-            'encryption_type': payload['encryption_type'],
             'encryption_details': payload['encryption_details'],
+            'error_code': deserialize.integer(payload['error_code']),
         }
 
         # Context
@@ -427,20 +424,20 @@ class RecordingInstance(InstanceResource):
         return self._properties['uri']
 
     @property
-    def encryption_type(self):
-        """
-        :returns: The encryption_type
-        :rtype: unicode
-        """
-        return self._properties['encryption_type']
-
-    @property
     def encryption_details(self):
         """
         :returns: The encryption_details
         :rtype: dict
         """
         return self._properties['encryption_details']
+
+    @property
+    def error_code(self):
+        """
+        :returns: The error_code
+        :rtype: unicode
+        """
+        return self._properties['error_code']
 
     def fetch(self):
         """

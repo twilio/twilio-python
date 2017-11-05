@@ -16,6 +16,7 @@ from twilio.rest.api.v2010.account.recording.add_on_result.payload import Payloa
 
 
 class AddOnResultList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid, reference_sid):
         """
@@ -31,10 +32,7 @@ class AddOnResultList(ListResource):
         super(AddOnResultList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'reference_sid': reference_sid,
-        }
+        self._solution = {'account_sid': account_sid, 'reference_sid': reference_sid,}
         self._uri = '/Accounts/{account_sid}/Recordings/{reference_sid}/AddOnResults.json'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
@@ -56,9 +54,7 @@ class AddOnResultList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            page_size=limits['page_size'],
-        )
+        page = self.page(page_size=limits['page_size'],)
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -78,10 +74,7 @@ class AddOnResultList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(limit=limit, page_size=page_size,))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -96,11 +89,7 @@ class AddOnResultList(ListResource):
         :returns: Page of AddOnResultInstance
         :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultPage
         """
-        params = values.of({
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
 
         response = self._version.page(
             'GET',
@@ -170,6 +159,7 @@ class AddOnResultList(ListResource):
 
 
 class AddOnResultPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -215,6 +205,7 @@ class AddOnResultPage(Page):
 
 
 class AddOnResultContext(InstanceContext):
+    """  """
 
     def __init__(self, version, account_sid, reference_sid, sid):
         """
@@ -231,11 +222,7 @@ class AddOnResultContext(InstanceContext):
         super(AddOnResultContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'reference_sid': reference_sid,
-            'sid': sid,
-        }
+        self._solution = {'account_sid': account_sid, 'reference_sid': reference_sid, 'sid': sid,}
         self._uri = '/Accounts/{account_sid}/Recordings/{reference_sid}/AddOnResults/{sid}.json'.format(**self._solution)
 
         # Dependents
@@ -302,6 +289,7 @@ class AddOnResultContext(InstanceContext):
 
 
 class AddOnResultInstance(InstanceResource):
+    """  """
 
     class Status(object):
         CANCELED = "canceled"

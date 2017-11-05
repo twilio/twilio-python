@@ -15,6 +15,7 @@ from twilio.rest.api.v2010.account.sip.ip_access_control_list import IpAccessCon
 
 
 class SipList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid):
         """
@@ -29,9 +30,7 @@ class SipList(ListResource):
         super(SipList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
 
         # Components
         self._domains = None
@@ -48,10 +47,7 @@ class SipList(ListResource):
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainList
         """
         if self._domains is None:
-            self._domains = DomainList(
-                self._version,
-                account_sid=self._solution['account_sid'],
-            )
+            self._domains = DomainList(self._version, account_sid=self._solution['account_sid'],)
         return self._domains
 
     @property
@@ -78,10 +74,7 @@ class SipList(ListResource):
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListList
         """
         if self._credential_lists is None:
-            self._credential_lists = CredentialListList(
-                self._version,
-                account_sid=self._solution['account_sid'],
-            )
+            self._credential_lists = CredentialListList(self._version, account_sid=self._solution['account_sid'],)
         return self._credential_lists
 
     def __repr__(self):
@@ -95,6 +88,7 @@ class SipList(ListResource):
 
 
 class SipPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -121,11 +115,7 @@ class SipPage(Page):
         :returns: twilio.rest.api.v2010.account.sip.SipInstance
         :rtype: twilio.rest.api.v2010.account.sip.SipInstance
         """
-        return SipInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return SipInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def __repr__(self):
         """
@@ -138,6 +128,7 @@ class SipPage(Page):
 
 
 class SipInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, account_sid):
         """
@@ -150,9 +141,7 @@ class SipInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
 
     def __repr__(self):
         """

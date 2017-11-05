@@ -14,6 +14,7 @@ from twilio.base.page import Page
 
 
 class NewKeyList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid):
         """
@@ -28,9 +29,7 @@ class NewKeyList(ListResource):
         super(NewKeyList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
         self._uri = '/Accounts/{account_sid}/Keys.json'.format(**self._solution)
 
     def create(self, friendly_name=values.unset):
@@ -42,9 +41,7 @@ class NewKeyList(ListResource):
         :returns: Newly created NewKeyInstance
         :rtype: twilio.rest.api.v2010.account.new_key.NewKeyInstance
         """
-        data = values.of({
-            'FriendlyName': friendly_name,
-        })
+        data = values.of({'FriendlyName': friendly_name,})
 
         payload = self._version.create(
             'POST',
@@ -52,11 +49,7 @@ class NewKeyList(ListResource):
             data=data,
         )
 
-        return NewKeyInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return NewKeyInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def __repr__(self):
         """
@@ -69,6 +62,7 @@ class NewKeyList(ListResource):
 
 
 class NewKeyPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -95,11 +89,7 @@ class NewKeyPage(Page):
         :returns: twilio.rest.api.v2010.account.new_key.NewKeyInstance
         :rtype: twilio.rest.api.v2010.account.new_key.NewKeyInstance
         """
-        return NewKeyInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return NewKeyInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def __repr__(self):
         """
@@ -112,6 +102,7 @@ class NewKeyPage(Page):
 
 
 class NewKeyInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, account_sid):
         """
@@ -133,9 +124,7 @@ class NewKeyInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
 
     @property
     def sid(self):

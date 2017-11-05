@@ -15,6 +15,7 @@ from twilio.base.page import Page
 
 
 class PublicKeyList(ListResource):
+    """  """
 
     def __init__(self, version):
         """
@@ -50,9 +51,7 @@ class PublicKeyList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            page_size=limits['page_size'],
-        )
+        page = self.page(page_size=limits['page_size'],)
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -72,10 +71,7 @@ class PublicKeyList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(limit=limit, page_size=page_size,))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -90,11 +86,7 @@ class PublicKeyList(ListResource):
         :returns: Page of PublicKeyInstance
         :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyPage
         """
-        params = values.of({
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
 
         response = self._version.page(
             'GET',
@@ -133,11 +125,7 @@ class PublicKeyList(ListResource):
         :returns: Newly created PublicKeyInstance
         :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
-        data = values.of({
-            'PublicKey': public_key,
-            'FriendlyName': friendly_name,
-            'AccountSid': account_sid,
-        })
+        data = values.of({'PublicKey': public_key, 'FriendlyName': friendly_name, 'AccountSid': account_sid,})
 
         payload = self._version.create(
             'POST',
@@ -145,10 +133,7 @@ class PublicKeyList(ListResource):
             data=data,
         )
 
-        return PublicKeyInstance(
-            self._version,
-            payload,
-        )
+        return PublicKeyInstance(self._version, payload,)
 
     def get(self, sid):
         """
@@ -159,10 +144,7 @@ class PublicKeyList(ListResource):
         :returns: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
         :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
         """
-        return PublicKeyContext(
-            self._version,
-            sid=sid,
-        )
+        return PublicKeyContext(self._version, sid=sid,)
 
     def __call__(self, sid):
         """
@@ -173,10 +155,7 @@ class PublicKeyList(ListResource):
         :returns: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
         :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
         """
-        return PublicKeyContext(
-            self._version,
-            sid=sid,
-        )
+        return PublicKeyContext(self._version, sid=sid,)
 
     def __repr__(self):
         """
@@ -189,6 +168,7 @@ class PublicKeyList(ListResource):
 
 
 class PublicKeyPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -214,10 +194,7 @@ class PublicKeyPage(Page):
         :returns: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
-        return PublicKeyInstance(
-            self._version,
-            payload,
-        )
+        return PublicKeyInstance(self._version, payload,)
 
     def __repr__(self):
         """
@@ -230,6 +207,7 @@ class PublicKeyPage(Page):
 
 
 class PublicKeyContext(InstanceContext):
+    """  """
 
     def __init__(self, version, sid):
         """
@@ -244,9 +222,7 @@ class PublicKeyContext(InstanceContext):
         super(PublicKeyContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'sid': sid,
-        }
+        self._solution = {'sid': sid,}
         self._uri = '/Credentials/PublicKeys/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -264,11 +240,7 @@ class PublicKeyContext(InstanceContext):
             params=params,
         )
 
-        return PublicKeyInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-        )
+        return PublicKeyInstance(self._version, payload, sid=self._solution['sid'],)
 
     def update(self, friendly_name=values.unset):
         """
@@ -279,9 +251,7 @@ class PublicKeyContext(InstanceContext):
         :returns: Updated PublicKeyInstance
         :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
-        data = values.of({
-            'FriendlyName': friendly_name,
-        })
+        data = values.of({'FriendlyName': friendly_name,})
 
         payload = self._version.update(
             'POST',
@@ -289,11 +259,7 @@ class PublicKeyContext(InstanceContext):
             data=data,
         )
 
-        return PublicKeyInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-        )
+        return PublicKeyInstance(self._version, payload, sid=self._solution['sid'],)
 
     def delete(self):
         """
@@ -316,6 +282,7 @@ class PublicKeyContext(InstanceContext):
 
 
 class PublicKeyInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, sid=None):
         """
@@ -338,9 +305,7 @@ class PublicKeyInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):
@@ -352,10 +317,7 @@ class PublicKeyInstance(InstanceResource):
         :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
         """
         if self._context is None:
-            self._context = PublicKeyContext(
-                self._version,
-                sid=self._solution['sid'],
-            )
+            self._context = PublicKeyContext(self._version, sid=self._solution['sid'],)
         return self._context
 
     @property
@@ -424,9 +386,7 @@ class PublicKeyInstance(InstanceResource):
         :returns: Updated PublicKeyInstance
         :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
-        return self._proxy.update(
-            friendly_name=friendly_name,
-        )
+        return self._proxy.update(friendly_name=friendly_name,)
 
     def delete(self):
         """

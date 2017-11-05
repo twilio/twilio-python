@@ -14,6 +14,7 @@ from twilio.base.page import Page
 
 
 class MobileList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid, country_code):
         """
@@ -29,10 +30,7 @@ class MobileList(ListResource):
         super(MobileList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'country_code': country_code,
-        }
+        self._solution = {'account_sid': account_sid, 'country_code': country_code,}
         self._uri = '/Accounts/{account_sid}/AvailablePhoneNumbers/{country_code}/Mobile.json'.format(**self._solution)
 
     def stream(self, area_code=values.unset, contains=values.unset,
@@ -44,8 +42,8 @@ class MobileList(ListResource):
                near_number=values.unset, near_lat_long=values.unset,
                distance=values.unset, in_postal_code=values.unset,
                in_region=values.unset, in_rate_center=values.unset,
-               in_lata=values.unset, in_locality=values.unset, limit=None,
-               page_size=None):
+               in_lata=values.unset, in_locality=values.unset,
+               fax_enabled=values.unset, limit=None, page_size=None):
         """
         Streams MobileInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -69,6 +67,7 @@ class MobileList(ListResource):
         :param unicode in_rate_center: The in_rate_center
         :param unicode in_lata: The in_lata
         :param unicode in_locality: The in_locality
+        :param bool fax_enabled: The fax_enabled
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -99,6 +98,7 @@ class MobileList(ListResource):
             in_rate_center=in_rate_center,
             in_lata=in_lata,
             in_locality=in_locality,
+            fax_enabled=fax_enabled,
             page_size=limits['page_size'],
         )
 
@@ -112,8 +112,8 @@ class MobileList(ListResource):
              near_number=values.unset, near_lat_long=values.unset,
              distance=values.unset, in_postal_code=values.unset,
              in_region=values.unset, in_rate_center=values.unset,
-             in_lata=values.unset, in_locality=values.unset, limit=None,
-             page_size=None):
+             in_lata=values.unset, in_locality=values.unset,
+             fax_enabled=values.unset, limit=None, page_size=None):
         """
         Lists MobileInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -136,6 +136,7 @@ class MobileList(ListResource):
         :param unicode in_rate_center: The in_rate_center
         :param unicode in_lata: The in_lata
         :param unicode in_locality: The in_locality
+        :param bool fax_enabled: The fax_enabled
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -164,6 +165,7 @@ class MobileList(ListResource):
             in_rate_center=in_rate_center,
             in_lata=in_lata,
             in_locality=in_locality,
+            fax_enabled=fax_enabled,
             limit=limit,
             page_size=page_size,
         ))
@@ -177,8 +179,8 @@ class MobileList(ListResource):
              distance=values.unset, in_postal_code=values.unset,
              in_region=values.unset, in_rate_center=values.unset,
              in_lata=values.unset, in_locality=values.unset,
-             page_token=values.unset, page_number=values.unset,
-             page_size=values.unset):
+             fax_enabled=values.unset, page_token=values.unset,
+             page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of MobileInstance records from the API.
         Request is executed immediately
@@ -200,6 +202,7 @@ class MobileList(ListResource):
         :param unicode in_rate_center: The in_rate_center
         :param unicode in_lata: The in_lata
         :param unicode in_locality: The in_locality
+        :param bool fax_enabled: The fax_enabled
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -225,6 +228,7 @@ class MobileList(ListResource):
             'InRateCenter': in_rate_center,
             'InLata': in_lata,
             'InLocality': in_locality,
+            'FaxEnabled': fax_enabled,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -266,6 +270,7 @@ class MobileList(ListResource):
 
 
 class MobilePage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -311,6 +316,7 @@ class MobilePage(Page):
 
 
 class MobileInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, account_sid, country_code):
         """
@@ -340,10 +346,7 @@ class MobileInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'account_sid': account_sid,
-            'country_code': country_code,
-        }
+        self._solution = {'account_sid': account_sid, 'country_code': country_code,}
 
     @property
     def friendly_name(self):

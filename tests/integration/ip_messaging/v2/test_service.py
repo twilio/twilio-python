@@ -45,11 +45,14 @@ class ServiceTestCase(IntegrationTestCase):
                 "links": {
                     "channels": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels",
                     "users": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users",
-                    "roles": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles"
+                    "roles": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles",
+                    "bindings": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings"
                 },
                 "notifications": {},
                 "post_webhook_url": "post_webhook_url",
                 "pre_webhook_url": "pre_webhook_url",
+                "pre_webhook_retry_count": 2,
+                "post_webhook_retry_count": 3,
                 "reachability_enabled": false,
                 "read_status_enabled": false,
                 "sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -58,7 +61,11 @@ class ServiceTestCase(IntegrationTestCase):
                 "webhook_filters": [
                     "webhook_filters"
                 ],
-                "webhook_method": "webhook_method"
+                "webhook_method": "webhook_method",
+                "media": {
+                    "size_limit_mb": 150,
+                    "compatibility_message": "media compatibility message"
+                }
             }
             '''
         ))
@@ -94,9 +101,7 @@ class ServiceTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.ip_messaging.v2.services.create(friendly_name="friendly_name")
 
-        values = {
-            'FriendlyName': "friendly_name",
-        }
+        values = {'FriendlyName': "friendly_name",}
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -124,11 +129,14 @@ class ServiceTestCase(IntegrationTestCase):
                 "links": {
                     "channels": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels",
                     "users": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users",
-                    "roles": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles"
+                    "roles": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles",
+                    "bindings": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings"
                 },
                 "notifications": {},
                 "post_webhook_url": "post_webhook_url",
                 "pre_webhook_url": "pre_webhook_url",
+                "pre_webhook_retry_count": 2,
+                "post_webhook_retry_count": 3,
                 "reachability_enabled": false,
                 "read_status_enabled": false,
                 "sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -137,7 +145,11 @@ class ServiceTestCase(IntegrationTestCase):
                 "webhook_filters": [
                     "webhook_filters"
                 ],
-                "webhook_method": "webhook_method"
+                "webhook_method": "webhook_method",
+                "media": {
+                    "size_limit_mb": 150,
+                    "compatibility_message": "media compatibility message"
+                }
             }
             '''
         ))
@@ -211,11 +223,14 @@ class ServiceTestCase(IntegrationTestCase):
                         "links": {
                             "channels": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels",
                             "users": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users",
-                            "roles": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles"
+                            "roles": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles",
+                            "bindings": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings"
                         },
                         "notifications": {},
                         "post_webhook_url": "post_webhook_url",
                         "pre_webhook_url": "pre_webhook_url",
+                        "pre_webhook_retry_count": 2,
+                        "post_webhook_retry_count": 3,
                         "reachability_enabled": false,
                         "read_status_enabled": false,
                         "sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -224,7 +239,11 @@ class ServiceTestCase(IntegrationTestCase):
                         "webhook_filters": [
                             "webhook_filters"
                         ],
-                        "webhook_method": "webhook_method"
+                        "webhook_method": "webhook_method",
+                        "media": {
+                            "size_limit_mb": 150,
+                            "compatibility_message": "media compatibility message"
+                        }
                     }
                 ]
             }
@@ -266,7 +285,8 @@ class ServiceTestCase(IntegrationTestCase):
                 "links": {
                     "channels": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels",
                     "users": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users",
-                    "roles": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles"
+                    "roles": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles",
+                    "bindings": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings"
                 },
                 "notifications": {
                     "added_to_channel": {
@@ -289,6 +309,8 @@ class ServiceTestCase(IntegrationTestCase):
                 },
                 "post_webhook_url": "post_webhook_url",
                 "pre_webhook_url": "pre_webhook_url",
+                "pre_webhook_retry_count": 2,
+                "post_webhook_retry_count": 3,
                 "reachability_enabled": false,
                 "read_status_enabled": false,
                 "sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -297,7 +319,11 @@ class ServiceTestCase(IntegrationTestCase):
                 "webhook_filters": [
                     "webhook_filters"
                 ],
-                "webhook_method": "webhook_method"
+                "webhook_method": "webhook_method",
+                "media": {
+                    "size_limit_mb": 150,
+                    "compatibility_message": "new media compatibility message"
+                }
             }
             '''
         ))

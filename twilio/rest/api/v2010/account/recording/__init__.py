@@ -18,6 +18,7 @@ from twilio.rest.api.v2010.account.recording.transcription import TranscriptionL
 
 
 class RecordingList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid):
         """
@@ -32,9 +33,7 @@ class RecordingList(ListResource):
         super(RecordingList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
         self._uri = '/Accounts/{account_sid}/Recordings.json'.format(**self._solution)
 
     def stream(self, date_created_before=values.unset, date_created=values.unset,
@@ -166,11 +165,7 @@ class RecordingList(ListResource):
         :returns: twilio.rest.api.v2010.account.recording.RecordingContext
         :rtype: twilio.rest.api.v2010.account.recording.RecordingContext
         """
-        return RecordingContext(
-            self._version,
-            account_sid=self._solution['account_sid'],
-            sid=sid,
-        )
+        return RecordingContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
 
     def __call__(self, sid):
         """
@@ -181,11 +176,7 @@ class RecordingList(ListResource):
         :returns: twilio.rest.api.v2010.account.recording.RecordingContext
         :rtype: twilio.rest.api.v2010.account.recording.RecordingContext
         """
-        return RecordingContext(
-            self._version,
-            account_sid=self._solution['account_sid'],
-            sid=sid,
-        )
+        return RecordingContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
 
     def __repr__(self):
         """
@@ -198,6 +189,7 @@ class RecordingList(ListResource):
 
 
 class RecordingPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -224,11 +216,7 @@ class RecordingPage(Page):
         :returns: twilio.rest.api.v2010.account.recording.RecordingInstance
         :rtype: twilio.rest.api.v2010.account.recording.RecordingInstance
         """
-        return RecordingInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return RecordingInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def __repr__(self):
         """
@@ -241,6 +229,7 @@ class RecordingPage(Page):
 
 
 class RecordingContext(InstanceContext):
+    """  """
 
     def __init__(self, version, account_sid, sid):
         """
@@ -256,10 +245,7 @@ class RecordingContext(InstanceContext):
         super(RecordingContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'sid': sid,
-        }
+        self._solution = {'account_sid': account_sid, 'sid': sid,}
         self._uri = '/Accounts/{account_sid}/Recordings/{sid}.json'.format(**self._solution)
 
         # Dependents
@@ -341,6 +327,7 @@ class RecordingContext(InstanceContext):
 
 
 class RecordingInstance(InstanceResource):
+    """  """
 
     class Source(object):
         DIALVERB = "DialVerb"
@@ -352,6 +339,7 @@ class RecordingInstance(InstanceResource):
     class Status(object):
         PROCESSING = "processing"
         COMPLETED = "completed"
+        FAILED = "failed"
 
     def __init__(self, version, payload, account_sid, sid=None):
         """
@@ -377,16 +365,13 @@ class RecordingInstance(InstanceResource):
             'channels': deserialize.integer(payload['channels']),
             'source': payload['source'],
             'uri': payload['uri'],
-            'encryption_type': payload['encryption_type'],
             'encryption_details': payload['encryption_details'],
+            'error_code': deserialize.integer(payload['error_code']),
         }
 
         # Context
         self._context = None
-        self._solution = {
-            'account_sid': account_sid,
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):
@@ -510,20 +495,20 @@ class RecordingInstance(InstanceResource):
         return self._properties['uri']
 
     @property
-    def encryption_type(self):
-        """
-        :returns: The type of encryption used for this resource.
-        :rtype: unicode
-        """
-        return self._properties['encryption_type']
-
-    @property
     def encryption_details(self):
         """
         :returns: The encryption_details
         :rtype: dict
         """
         return self._properties['encryption_details']
+
+    @property
+    def error_code(self):
+        """
+        :returns: More information about the recording failure, if Status is failed.
+        :rtype: unicode
+        """
+        return self._properties['error_code']
 
     def fetch(self):
         """

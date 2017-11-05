@@ -16,6 +16,7 @@ from twilio.base.page import Page
 
 
 class NotificationList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid, call_sid):
         """
@@ -31,10 +32,7 @@ class NotificationList(ListResource):
         super(NotificationList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'call_sid': call_sid,
-        }
+        self._solution = {'account_sid': account_sid, 'call_sid': call_sid,}
         self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Notifications.json'.format(**self._solution)
 
     def stream(self, log=values.unset, message_date_before=values.unset,
@@ -200,6 +198,7 @@ class NotificationList(ListResource):
 
 
 class NotificationPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -245,6 +244,7 @@ class NotificationPage(Page):
 
 
 class NotificationContext(InstanceContext):
+    """  """
 
     def __init__(self, version, account_sid, call_sid, sid):
         """
@@ -261,11 +261,7 @@ class NotificationContext(InstanceContext):
         super(NotificationContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'call_sid': call_sid,
-            'sid': sid,
-        }
+        self._solution = {'account_sid': account_sid, 'call_sid': call_sid, 'sid': sid,}
         self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Notifications/{sid}.json'.format(**self._solution)
 
     def fetch(self):
@@ -312,6 +308,7 @@ class NotificationContext(InstanceContext):
 
 
 class NotificationInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, account_sid, call_sid, sid=None):
         """

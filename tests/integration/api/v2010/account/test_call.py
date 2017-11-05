@@ -21,10 +21,7 @@ class CallTestCase(IntegrationTestCase):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .calls.create(to="+123456789", from_="+987654321")
 
-        values = {
-            'To': "+123456789",
-            'From': "+987654321",
-        }
+        values = {'To': "+123456789", 'From': "+987654321",}
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -60,7 +57,9 @@ class CallTestCase(IntegrationTestCase):
                 "status": "completed",
                 "subresource_uris": {
                     "notifications": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json",
-                    "recordings": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json"
+                    "recordings": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json",
+                    "feedback": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Feedback.json",
+                    "feedback_summaries": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/FeedbackSummary.json"
                 },
                 "to": "+14158675309",
                 "to_formatted": "(415) 867-5309",
@@ -202,14 +201,11 @@ class CallTestCase(IntegrationTestCase):
                 ],
                 "end": 0,
                 "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?PageSize=1&Page=0",
-                "last_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?PageSize=1&Page=9690",
                 "next_page_uri": null,
-                "num_pages": 9691,
                 "page": 0,
                 "page_size": 1,
                 "previous_page_uri": null,
                 "start": 0,
-                "total": 9691,
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?PageSize=1&Page=0"
             }
             '''
@@ -228,14 +224,11 @@ class CallTestCase(IntegrationTestCase):
                 "calls": [],
                 "end": 0,
                 "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?PageSize=1&Page=0",
-                "last_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?PageSize=1&Page=9690",
                 "next_page_uri": null,
-                "num_pages": 9691,
                 "page": 0,
                 "page_size": 1,
                 "previous_page_uri": null,
                 "start": 0,
-                "total": 9691,
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?PageSize=1&Page=0"
             }
             '''

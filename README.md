@@ -8,6 +8,21 @@ A module for using the Twilio REST API and generating valid
 [TwiML](http://www.twilio.com/docs/api/twiml/ "TwiML -
 Twilio Markup Language").
 
+## Recent Update
+
+As of release 6.5.0, Beta and Developer Preview products are now exposed via
+the main `twilio-python` artifact. Releases of the `alpha` branch have been
+discontinued.
+
+If you were using the `alpha` release line, you should be able to switch back
+to the normal release line without issue.
+
+If you were using the normal release line, you should now see several new
+product lines that were historically hidden from you due to their Beta or
+Developer Preview status. Such products are explicitly documented as
+Beta/Developer Preview both in the Twilio docs and console, as well as through
+in-line code documentation here in the library.
+
 ## Installation
 
 Install from PyPi using [pip](http://www.pip-installer.org/en/latest/), a

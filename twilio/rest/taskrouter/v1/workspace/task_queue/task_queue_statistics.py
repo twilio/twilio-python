@@ -15,6 +15,7 @@ from twilio.base.page import Page
 
 
 class TaskQueueStatisticsList(ListResource):
+    """  """
 
     def __init__(self, version, workspace_sid, task_queue_sid):
         """
@@ -30,10 +31,7 @@ class TaskQueueStatisticsList(ListResource):
         super(TaskQueueStatisticsList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'task_queue_sid': task_queue_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'task_queue_sid': task_queue_sid,}
 
     def get(self):
         """
@@ -72,6 +70,7 @@ class TaskQueueStatisticsList(ListResource):
 
 
 class TaskQueueStatisticsPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -117,6 +116,7 @@ class TaskQueueStatisticsPage(Page):
 
 
 class TaskQueueStatisticsContext(InstanceContext):
+    """  """
 
     def __init__(self, version, workspace_sid, task_queue_sid):
         """
@@ -132,20 +132,20 @@ class TaskQueueStatisticsContext(InstanceContext):
         super(TaskQueueStatisticsContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'task_queue_sid': task_queue_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'task_queue_sid': task_queue_sid,}
         self._uri = '/Workspaces/{workspace_sid}/TaskQueues/{task_queue_sid}/Statistics'.format(**self._solution)
 
     def fetch(self, end_date=values.unset, minutes=values.unset,
-              start_date=values.unset):
+              start_date=values.unset, task_channel=values.unset,
+              split_by_wait_time=values.unset):
         """
         Fetch a TaskQueueStatisticsInstance
 
         :param datetime end_date: The end_date
         :param unicode minutes: The minutes
         :param datetime start_date: The start_date
+        :param unicode task_channel: The task_channel
+        :param unicode split_by_wait_time: The split_by_wait_time
 
         :returns: Fetched TaskQueueStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsInstance
@@ -154,6 +154,8 @@ class TaskQueueStatisticsContext(InstanceContext):
             'EndDate': serialize.iso8601_datetime(end_date),
             'Minutes': minutes,
             'StartDate': serialize.iso8601_datetime(start_date),
+            'TaskChannel': task_channel,
+            'SplitByWaitTime': split_by_wait_time,
         })
 
         payload = self._version.fetch(
@@ -181,6 +183,7 @@ class TaskQueueStatisticsContext(InstanceContext):
 
 
 class TaskQueueStatisticsInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, workspace_sid, task_queue_sid):
         """
@@ -203,10 +206,7 @@ class TaskQueueStatisticsInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'task_queue_sid': task_queue_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'task_queue_sid': task_queue_sid,}
 
     @property
     def _proxy(self):
@@ -274,13 +274,16 @@ class TaskQueueStatisticsInstance(InstanceResource):
         return self._properties['url']
 
     def fetch(self, end_date=values.unset, minutes=values.unset,
-              start_date=values.unset):
+              start_date=values.unset, task_channel=values.unset,
+              split_by_wait_time=values.unset):
         """
         Fetch a TaskQueueStatisticsInstance
 
         :param datetime end_date: The end_date
         :param unicode minutes: The minutes
         :param datetime start_date: The start_date
+        :param unicode task_channel: The task_channel
+        :param unicode split_by_wait_time: The split_by_wait_time
 
         :returns: Fetched TaskQueueStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsInstance
@@ -289,6 +292,8 @@ class TaskQueueStatisticsInstance(InstanceResource):
             end_date=end_date,
             minutes=minutes,
             start_date=start_date,
+            task_channel=task_channel,
+            split_by_wait_time=split_by_wait_time,
         )
 
     def __repr__(self):

@@ -29,7 +29,7 @@ class TaskRouterCapabilityToken(Jwt):
             secret_key=auth_token,
             issuer=account_sid,
             algorithm='HS256',
-            nbf=kwargs.get('nbf', None),
+            nbf=kwargs.get('nbf', Jwt.GENERATE),
             ttl=kwargs.get('ttl', 3600),
             valid_until=kwargs.get('valid_until', None),
         )

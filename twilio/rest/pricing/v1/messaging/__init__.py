@@ -13,6 +13,7 @@ from twilio.rest.pricing.v1.messaging.country import CountryList
 
 
 class MessagingList(ListResource):
+    """  """
 
     def __init__(self, version):
         """
@@ -40,9 +41,7 @@ class MessagingList(ListResource):
         :rtype: twilio.rest.pricing.v1.messaging.country.CountryList
         """
         if self._countries is None:
-            self._countries = CountryList(
-                self._version,
-            )
+            self._countries = CountryList(self._version,)
         return self._countries
 
     def __repr__(self):
@@ -56,6 +55,7 @@ class MessagingList(ListResource):
 
 
 class MessagingPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -81,10 +81,7 @@ class MessagingPage(Page):
         :returns: twilio.rest.pricing.v1.messaging.MessagingInstance
         :rtype: twilio.rest.pricing.v1.messaging.MessagingInstance
         """
-        return MessagingInstance(
-            self._version,
-            payload,
-        )
+        return MessagingInstance(self._version, payload,)
 
     def __repr__(self):
         """
@@ -97,6 +94,7 @@ class MessagingPage(Page):
 
 
 class MessagingInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload):
         """
@@ -108,11 +106,7 @@ class MessagingInstance(InstanceResource):
         super(MessagingInstance, self).__init__(version)
 
         # Marshaled Properties
-        self._properties = {
-            'name': payload['name'],
-            'url': payload['url'],
-            'links': payload['links'],
-        }
+        self._properties = {'name': payload['name'], 'url': payload['url'], 'links': payload['links'],}
 
         # Context
         self._context = None

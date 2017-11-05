@@ -17,6 +17,7 @@ from twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping imp
 
 
 class DomainList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid):
         """
@@ -31,9 +32,7 @@ class DomainList(ListResource):
         super(DomainList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
         self._uri = '/Accounts/{account_sid}/SIP/Domains.json'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
@@ -55,9 +54,7 @@ class DomainList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            page_size=limits['page_size'],
-        )
+        page = self.page(page_size=limits['page_size'],)
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -77,10 +74,7 @@ class DomainList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.api.v2010.account.sip.domain.DomainInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(limit=limit, page_size=page_size,))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -95,11 +89,7 @@ class DomainList(ListResource):
         :returns: Page of DomainInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainPage
         """
-        params = values.of({
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
 
         response = self._version.page(
             'GET',
@@ -131,7 +121,8 @@ class DomainList(ListResource):
                voice_method=values.unset, voice_fallback_url=values.unset,
                voice_fallback_method=values.unset,
                voice_status_callback_url=values.unset,
-               voice_status_callback_method=values.unset):
+               voice_status_callback_method=values.unset,
+               sip_registration=values.unset):
         """
         Create a new DomainInstance
 
@@ -144,6 +135,7 @@ class DomainList(ListResource):
         :param unicode voice_fallback_method: HTTP method used with voice_fallback_url
         :param unicode voice_status_callback_url: URL that Twilio will request with status updates
         :param unicode voice_status_callback_method: The voice_status_callback_method
+        :param bool sip_registration: The sip_registration
 
         :returns: Newly created DomainInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
@@ -158,6 +150,7 @@ class DomainList(ListResource):
             'VoiceFallbackMethod': voice_fallback_method,
             'VoiceStatusCallbackUrl': voice_status_callback_url,
             'VoiceStatusCallbackMethod': voice_status_callback_method,
+            'SipRegistration': sip_registration,
         })
 
         payload = self._version.create(
@@ -166,11 +159,7 @@ class DomainList(ListResource):
             data=data,
         )
 
-        return DomainInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return DomainInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def get(self, sid):
         """
@@ -181,11 +170,7 @@ class DomainList(ListResource):
         :returns: twilio.rest.api.v2010.account.sip.domain.DomainContext
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainContext
         """
-        return DomainContext(
-            self._version,
-            account_sid=self._solution['account_sid'],
-            sid=sid,
-        )
+        return DomainContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
 
     def __call__(self, sid):
         """
@@ -196,11 +181,7 @@ class DomainList(ListResource):
         :returns: twilio.rest.api.v2010.account.sip.domain.DomainContext
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainContext
         """
-        return DomainContext(
-            self._version,
-            account_sid=self._solution['account_sid'],
-            sid=sid,
-        )
+        return DomainContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
 
     def __repr__(self):
         """
@@ -213,6 +194,7 @@ class DomainList(ListResource):
 
 
 class DomainPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -239,11 +221,7 @@ class DomainPage(Page):
         :returns: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
-        return DomainInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return DomainInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def __repr__(self):
         """
@@ -256,6 +234,7 @@ class DomainPage(Page):
 
 
 class DomainContext(InstanceContext):
+    """  """
 
     def __init__(self, version, account_sid, sid):
         """
@@ -271,10 +250,7 @@ class DomainContext(InstanceContext):
         super(DomainContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'sid': sid,
-        }
+        self._solution = {'account_sid': account_sid, 'sid': sid,}
         self._uri = '/Accounts/{account_sid}/SIP/Domains/{sid}.json'.format(**self._solution)
 
         # Dependents
@@ -306,7 +282,8 @@ class DomainContext(InstanceContext):
     def update(self, auth_type=values.unset, friendly_name=values.unset,
                voice_fallback_method=values.unset, voice_fallback_url=values.unset,
                voice_method=values.unset, voice_status_callback_method=values.unset,
-               voice_status_callback_url=values.unset, voice_url=values.unset):
+               voice_status_callback_url=values.unset, voice_url=values.unset,
+               sip_registration=values.unset):
         """
         Update the DomainInstance
 
@@ -318,6 +295,7 @@ class DomainContext(InstanceContext):
         :param unicode voice_status_callback_method: The voice_status_callback_method
         :param unicode voice_status_callback_url: The voice_status_callback_url
         :param unicode voice_url: The voice_url
+        :param bool sip_registration: The sip_registration
 
         :returns: Updated DomainInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
@@ -331,6 +309,7 @@ class DomainContext(InstanceContext):
             'VoiceStatusCallbackMethod': voice_status_callback_method,
             'VoiceStatusCallbackUrl': voice_status_callback_url,
             'VoiceUrl': voice_url,
+            'SipRegistration': sip_registration,
         })
 
         payload = self._version.update(
@@ -399,6 +378,7 @@ class DomainContext(InstanceContext):
 
 
 class DomainInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, account_sid, sid=None):
         """
@@ -427,14 +407,12 @@ class DomainInstance(InstanceResource):
             'voice_status_callback_url': payload['voice_status_callback_url'],
             'voice_url': payload['voice_url'],
             'subresource_uris': payload['subresource_uris'],
+            'sip_registration': payload['sip_registration'],
         }
 
         # Context
         self._context = None
-        self._solution = {
-            'account_sid': account_sid,
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):
@@ -581,6 +559,14 @@ class DomainInstance(InstanceResource):
         """
         return self._properties['subresource_uris']
 
+    @property
+    def sip_registration(self):
+        """
+        :returns: If SIP registration is allowed
+        :rtype: bool
+        """
+        return self._properties['sip_registration']
+
     def fetch(self):
         """
         Fetch a DomainInstance
@@ -593,7 +579,8 @@ class DomainInstance(InstanceResource):
     def update(self, auth_type=values.unset, friendly_name=values.unset,
                voice_fallback_method=values.unset, voice_fallback_url=values.unset,
                voice_method=values.unset, voice_status_callback_method=values.unset,
-               voice_status_callback_url=values.unset, voice_url=values.unset):
+               voice_status_callback_url=values.unset, voice_url=values.unset,
+               sip_registration=values.unset):
         """
         Update the DomainInstance
 
@@ -605,6 +592,7 @@ class DomainInstance(InstanceResource):
         :param unicode voice_status_callback_method: The voice_status_callback_method
         :param unicode voice_status_callback_url: The voice_status_callback_url
         :param unicode voice_url: The voice_url
+        :param bool sip_registration: The sip_registration
 
         :returns: Updated DomainInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
@@ -618,6 +606,7 @@ class DomainInstance(InstanceResource):
             voice_status_callback_method=voice_status_callback_method,
             voice_status_callback_url=voice_status_callback_url,
             voice_url=voice_url,
+            sip_registration=sip_registration,
         )
 
     def delete(self):

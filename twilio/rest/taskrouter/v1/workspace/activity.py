@@ -15,6 +15,7 @@ from twilio.base.page import Page
 
 
 class ActivityList(ListResource):
+    """  """
 
     def __init__(self, version, workspace_sid):
         """
@@ -29,9 +30,7 @@ class ActivityList(ListResource):
         super(ActivityList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid,}
         self._uri = '/Workspaces/{workspace_sid}/Activities'.format(**self._solution)
 
     def stream(self, friendly_name=values.unset, available=values.unset, limit=None,
@@ -56,11 +55,7 @@ class ActivityList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            friendly_name=friendly_name,
-            available=available,
-            page_size=limits['page_size'],
-        )
+        page = self.page(friendly_name=friendly_name, available=available, page_size=limits['page_size'],)
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -149,10 +144,7 @@ class ActivityList(ListResource):
         :returns: Newly created ActivityInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
         """
-        data = values.of({
-            'FriendlyName': friendly_name,
-            'Available': available,
-        })
+        data = values.of({'FriendlyName': friendly_name, 'Available': available,})
 
         payload = self._version.create(
             'POST',
@@ -160,11 +152,7 @@ class ActivityList(ListResource):
             data=data,
         )
 
-        return ActivityInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-        )
+        return ActivityInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'],)
 
     def get(self, sid):
         """
@@ -175,11 +163,7 @@ class ActivityList(ListResource):
         :returns: twilio.rest.taskrouter.v1.workspace.activity.ActivityContext
         :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityContext
         """
-        return ActivityContext(
-            self._version,
-            workspace_sid=self._solution['workspace_sid'],
-            sid=sid,
-        )
+        return ActivityContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid,)
 
     def __call__(self, sid):
         """
@@ -190,11 +174,7 @@ class ActivityList(ListResource):
         :returns: twilio.rest.taskrouter.v1.workspace.activity.ActivityContext
         :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityContext
         """
-        return ActivityContext(
-            self._version,
-            workspace_sid=self._solution['workspace_sid'],
-            sid=sid,
-        )
+        return ActivityContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid,)
 
     def __repr__(self):
         """
@@ -207,6 +187,7 @@ class ActivityList(ListResource):
 
 
 class ActivityPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -233,11 +214,7 @@ class ActivityPage(Page):
         :returns: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
         """
-        return ActivityInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-        )
+        return ActivityInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'],)
 
     def __repr__(self):
         """
@@ -250,6 +227,7 @@ class ActivityPage(Page):
 
 
 class ActivityContext(InstanceContext):
+    """  """
 
     def __init__(self, version, workspace_sid, sid):
         """
@@ -265,10 +243,7 @@ class ActivityContext(InstanceContext):
         super(ActivityContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'sid': sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'sid': sid,}
         self._uri = '/Workspaces/{workspace_sid}/Activities/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -302,9 +277,7 @@ class ActivityContext(InstanceContext):
         :returns: Updated ActivityInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
         """
-        data = values.of({
-            'FriendlyName': friendly_name,
-        })
+        data = values.of({'FriendlyName': friendly_name,})
 
         payload = self._version.update(
             'POST',
@@ -340,6 +313,7 @@ class ActivityContext(InstanceContext):
 
 
 class ActivityInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, workspace_sid, sid=None):
         """
@@ -364,10 +338,7 @@ class ActivityInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):
@@ -468,9 +439,7 @@ class ActivityInstance(InstanceResource):
         :returns: Updated ActivityInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
         """
-        return self._proxy.update(
-            friendly_name=friendly_name,
-        )
+        return self._proxy.update(friendly_name=friendly_name,)
 
     def delete(self):
         """

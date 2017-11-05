@@ -16,6 +16,7 @@ from twilio.base.page import Page
 
 
 class EventList(ListResource):
+    """  """
 
     def __init__(self, version, workspace_sid):
         """
@@ -30,9 +31,7 @@ class EventList(ListResource):
         super(EventList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid,}
         self._uri = '/Workspaces/{workspace_sid}/Events'.format(**self._solution)
 
     def stream(self, end_date=values.unset, event_type=values.unset,
@@ -200,11 +199,7 @@ class EventList(ListResource):
         :returns: twilio.rest.taskrouter.v1.workspace.event.EventContext
         :rtype: twilio.rest.taskrouter.v1.workspace.event.EventContext
         """
-        return EventContext(
-            self._version,
-            workspace_sid=self._solution['workspace_sid'],
-            sid=sid,
-        )
+        return EventContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid,)
 
     def __call__(self, sid):
         """
@@ -215,11 +210,7 @@ class EventList(ListResource):
         :returns: twilio.rest.taskrouter.v1.workspace.event.EventContext
         :rtype: twilio.rest.taskrouter.v1.workspace.event.EventContext
         """
-        return EventContext(
-            self._version,
-            workspace_sid=self._solution['workspace_sid'],
-            sid=sid,
-        )
+        return EventContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid,)
 
     def __repr__(self):
         """
@@ -232,6 +223,7 @@ class EventList(ListResource):
 
 
 class EventPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -258,11 +250,7 @@ class EventPage(Page):
         :returns: twilio.rest.taskrouter.v1.workspace.event.EventInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.event.EventInstance
         """
-        return EventInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-        )
+        return EventInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'],)
 
     def __repr__(self):
         """
@@ -275,6 +263,7 @@ class EventPage(Page):
 
 
 class EventContext(InstanceContext):
+    """  """
 
     def __init__(self, version, workspace_sid, sid):
         """
@@ -290,10 +279,7 @@ class EventContext(InstanceContext):
         super(EventContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'sid': sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'sid': sid,}
         self._uri = '/Workspaces/{workspace_sid}/Events/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -330,6 +316,7 @@ class EventContext(InstanceContext):
 
 
 class EventInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, workspace_sid, sid=None):
         """
@@ -361,10 +348,7 @@ class EventInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):

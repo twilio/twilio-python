@@ -15,6 +15,7 @@ from twilio.base.page import Page
 
 
 class IpAddressList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid, ip_access_control_list_sid):
         """
@@ -55,9 +56,7 @@ class IpAddressList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            page_size=limits['page_size'],
-        )
+        page = self.page(page_size=limits['page_size'],)
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -77,10 +76,7 @@ class IpAddressList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(limit=limit, page_size=page_size,))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -95,11 +91,7 @@ class IpAddressList(ListResource):
         :returns: Page of IpAddressInstance
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressPage
         """
-        params = values.of({
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
 
         response = self._version.page(
             'GET',
@@ -136,10 +128,7 @@ class IpAddressList(ListResource):
         :returns: Newly created IpAddressInstance
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
         """
-        data = values.of({
-            'FriendlyName': friendly_name,
-            'IpAddress': ip_address,
-        })
+        data = values.of({'FriendlyName': friendly_name, 'IpAddress': ip_address,})
 
         payload = self._version.create(
             'POST',
@@ -197,6 +186,7 @@ class IpAddressList(ListResource):
 
 
 class IpAddressPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -242,6 +232,7 @@ class IpAddressPage(Page):
 
 
 class IpAddressContext(InstanceContext):
+    """  """
 
     def __init__(self, version, account_sid, ip_access_control_list_sid, sid):
         """
@@ -298,10 +289,7 @@ class IpAddressContext(InstanceContext):
         :returns: Updated IpAddressInstance
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
         """
-        data = values.of({
-            'IpAddress': ip_address,
-            'FriendlyName': friendly_name,
-        })
+        data = values.of({'IpAddress': ip_address, 'FriendlyName': friendly_name,})
 
         payload = self._version.update(
             'POST',
@@ -338,6 +326,7 @@ class IpAddressContext(InstanceContext):
 
 
 class IpAddressInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, account_sid, ip_access_control_list_sid,
                  sid=None):
@@ -470,10 +459,7 @@ class IpAddressInstance(InstanceResource):
         :returns: Updated IpAddressInstance
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
         """
-        return self._proxy.update(
-            ip_address=ip_address,
-            friendly_name=friendly_name,
-        )
+        return self._proxy.update(ip_address=ip_address, friendly_name=friendly_name,)
 
     def delete(self):
         """

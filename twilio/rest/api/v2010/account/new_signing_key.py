@@ -14,6 +14,7 @@ from twilio.base.page import Page
 
 
 class NewSigningKeyList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid):
         """
@@ -28,9 +29,7 @@ class NewSigningKeyList(ListResource):
         super(NewSigningKeyList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
         self._uri = '/Accounts/{account_sid}/SigningKeys.json'.format(**self._solution)
 
     def create(self, friendly_name=values.unset):
@@ -42,9 +41,7 @@ class NewSigningKeyList(ListResource):
         :returns: Newly created NewSigningKeyInstance
         :rtype: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyInstance
         """
-        data = values.of({
-            'FriendlyName': friendly_name,
-        })
+        data = values.of({'FriendlyName': friendly_name,})
 
         payload = self._version.create(
             'POST',
@@ -52,11 +49,7 @@ class NewSigningKeyList(ListResource):
             data=data,
         )
 
-        return NewSigningKeyInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return NewSigningKeyInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def __repr__(self):
         """
@@ -69,6 +62,7 @@ class NewSigningKeyList(ListResource):
 
 
 class NewSigningKeyPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -95,11 +89,7 @@ class NewSigningKeyPage(Page):
         :returns: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyInstance
         :rtype: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyInstance
         """
-        return NewSigningKeyInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return NewSigningKeyInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def __repr__(self):
         """
@@ -112,6 +102,7 @@ class NewSigningKeyPage(Page):
 
 
 class NewSigningKeyInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, account_sid):
         """
@@ -133,9 +124,7 @@ class NewSigningKeyInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
 
     @property
     def sid(self):

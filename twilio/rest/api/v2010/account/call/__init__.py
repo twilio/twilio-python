@@ -20,6 +20,7 @@ from twilio.rest.api.v2010.account.call.recording import RecordingList
 
 
 class CallList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid):
         """
@@ -34,9 +35,7 @@ class CallList(ListResource):
         super(CallList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
         self._uri = '/Accounts/{account_sid}/Calls.json'.format(**self._solution)
 
         # Components
@@ -91,7 +90,7 @@ class CallList(ListResource):
             'FallbackUrl': fallback_url,
             'FallbackMethod': fallback_method,
             'StatusCallback': status_callback,
-            'StatusCallbackEvent': status_callback_event,
+            'StatusCallbackEvent': serialize.map(status_callback_event, lambda e: e),
             'StatusCallbackMethod': status_callback_method,
             'SendDigits': send_digits,
             'IfMachine': if_machine,
@@ -112,11 +111,7 @@ class CallList(ListResource):
             data=data,
         )
 
-        return CallInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return CallInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def stream(self, to=values.unset, from_=values.unset,
                parent_call_sid=values.unset, status=values.unset,
@@ -307,11 +302,7 @@ class CallList(ListResource):
         :returns: twilio.rest.api.v2010.account.call.CallContext
         :rtype: twilio.rest.api.v2010.account.call.CallContext
         """
-        return CallContext(
-            self._version,
-            account_sid=self._solution['account_sid'],
-            sid=sid,
-        )
+        return CallContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
 
     def __call__(self, sid):
         """
@@ -322,11 +313,7 @@ class CallList(ListResource):
         :returns: twilio.rest.api.v2010.account.call.CallContext
         :rtype: twilio.rest.api.v2010.account.call.CallContext
         """
-        return CallContext(
-            self._version,
-            account_sid=self._solution['account_sid'],
-            sid=sid,
-        )
+        return CallContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
 
     def __repr__(self):
         """
@@ -339,6 +326,7 @@ class CallList(ListResource):
 
 
 class CallPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -365,11 +353,7 @@ class CallPage(Page):
         :returns: twilio.rest.api.v2010.account.call.CallInstance
         :rtype: twilio.rest.api.v2010.account.call.CallInstance
         """
-        return CallInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return CallInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def __repr__(self):
         """
@@ -382,6 +366,7 @@ class CallPage(Page):
 
 
 class CallContext(InstanceContext):
+    """  """
 
     def __init__(self, version, account_sid, sid):
         """
@@ -397,10 +382,7 @@ class CallContext(InstanceContext):
         super(CallContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'sid': sid,
-        }
+        self._solution = {'account_sid': account_sid, 'sid': sid,}
         self._uri = '/Accounts/{account_sid}/Calls/{sid}.json'.format(**self._solution)
 
         # Dependents
@@ -539,6 +521,7 @@ class CallContext(InstanceContext):
 
 
 class CallInstance(InstanceResource):
+    """  """
 
     class Event(object):
         INITIATED = "initiated"
@@ -600,10 +583,7 @@ class CallInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'account_sid': account_sid,
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):

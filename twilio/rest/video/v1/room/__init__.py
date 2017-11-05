@@ -14,9 +14,11 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
 from twilio.rest.video.v1.room.recording import RoomRecordingList
+from twilio.rest.video.v1.room.room_participant import RoomParticipantList
 
 
 class RoomList(ListResource):
+    """  """
 
     def __init__(self, version):
         """
@@ -36,7 +38,8 @@ class RoomList(ListResource):
     def create(self, enable_turn=values.unset, type=values.unset,
                unique_name=values.unset, status_callback=values.unset,
                status_callback_method=values.unset, max_participants=values.unset,
-               record_participants_on_connect=values.unset):
+               record_participants_on_connect=values.unset,
+               video_codecs=values.unset, media_region=values.unset):
         """
         Create a new RoomInstance
 
@@ -47,6 +50,8 @@ class RoomList(ListResource):
         :param unicode status_callback_method: The status_callback_method
         :param unicode max_participants: The max_participants
         :param bool record_participants_on_connect: The record_participants_on_connect
+        :param RoomInstance.VideoCodec video_codecs: The video_codecs
+        :param unicode media_region: The media_region
 
         :returns: Newly created RoomInstance
         :rtype: twilio.rest.video.v1.room.RoomInstance
@@ -59,6 +64,8 @@ class RoomList(ListResource):
             'StatusCallbackMethod': status_callback_method,
             'MaxParticipants': max_participants,
             'RecordParticipantsOnConnect': record_participants_on_connect,
+            'VideoCodecs': serialize.map(video_codecs, lambda e: e),
+            'MediaRegion': media_region,
         })
 
         payload = self._version.create(
@@ -67,10 +74,7 @@ class RoomList(ListResource):
             data=data,
         )
 
-        return RoomInstance(
-            self._version,
-            payload,
-        )
+        return RoomInstance(self._version, payload,)
 
     def stream(self, status=values.unset, unique_name=values.unset,
                date_created_after=values.unset, date_created_before=values.unset,
@@ -201,10 +205,7 @@ class RoomList(ListResource):
         :returns: twilio.rest.video.v1.room.RoomContext
         :rtype: twilio.rest.video.v1.room.RoomContext
         """
-        return RoomContext(
-            self._version,
-            sid=sid,
-        )
+        return RoomContext(self._version, sid=sid,)
 
     def __call__(self, sid):
         """
@@ -215,10 +216,7 @@ class RoomList(ListResource):
         :returns: twilio.rest.video.v1.room.RoomContext
         :rtype: twilio.rest.video.v1.room.RoomContext
         """
-        return RoomContext(
-            self._version,
-            sid=sid,
-        )
+        return RoomContext(self._version, sid=sid,)
 
     def __repr__(self):
         """
@@ -231,6 +229,7 @@ class RoomList(ListResource):
 
 
 class RoomPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -256,10 +255,7 @@ class RoomPage(Page):
         :returns: twilio.rest.video.v1.room.RoomInstance
         :rtype: twilio.rest.video.v1.room.RoomInstance
         """
-        return RoomInstance(
-            self._version,
-            payload,
-        )
+        return RoomInstance(self._version, payload,)
 
     def __repr__(self):
         """
@@ -272,6 +268,7 @@ class RoomPage(Page):
 
 
 class RoomContext(InstanceContext):
+    """  """
 
     def __init__(self, version, sid):
         """
@@ -286,13 +283,12 @@ class RoomContext(InstanceContext):
         super(RoomContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'sid': sid,
-        }
+        self._solution = {'sid': sid,}
         self._uri = '/Rooms/{sid}'.format(**self._solution)
 
         # Dependents
         self._recordings = None
+        self._participants = None
 
     def fetch(self):
         """
@@ -309,11 +305,7 @@ class RoomContext(InstanceContext):
             params=params,
         )
 
-        return RoomInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-        )
+        return RoomInstance(self._version, payload, sid=self._solution['sid'],)
 
     def update(self, status):
         """
@@ -324,9 +316,7 @@ class RoomContext(InstanceContext):
         :returns: Updated RoomInstance
         :rtype: twilio.rest.video.v1.room.RoomInstance
         """
-        data = values.of({
-            'Status': status,
-        })
+        data = values.of({'Status': status,})
 
         payload = self._version.update(
             'POST',
@@ -334,11 +324,7 @@ class RoomContext(InstanceContext):
             data=data,
         )
 
-        return RoomInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-        )
+        return RoomInstance(self._version, payload, sid=self._solution['sid'],)
 
     @property
     def recordings(self):
@@ -349,11 +335,20 @@ class RoomContext(InstanceContext):
         :rtype: twilio.rest.video.v1.room.recording.RoomRecordingList
         """
         if self._recordings is None:
-            self._recordings = RoomRecordingList(
-                self._version,
-                room_sid=self._solution['sid'],
-            )
+            self._recordings = RoomRecordingList(self._version, room_sid=self._solution['sid'],)
         return self._recordings
+
+    @property
+    def participants(self):
+        """
+        Access the participants
+
+        :returns: twilio.rest.video.v1.room.room_participant.RoomParticipantList
+        :rtype: twilio.rest.video.v1.room.room_participant.RoomParticipantList
+        """
+        if self._participants is None:
+            self._participants = RoomParticipantList(self._version, room_sid=self._solution['sid'],)
+        return self._participants
 
     def __repr__(self):
         """
@@ -367,6 +362,7 @@ class RoomContext(InstanceContext):
 
 
 class RoomInstance(InstanceResource):
+    """  """
 
     class RoomStatus(object):
         IN_PROGRESS = "in-progress"
@@ -376,6 +372,10 @@ class RoomInstance(InstanceResource):
     class RoomType(object):
         PEER_TO_PEER = "peer-to-peer"
         GROUP = "group"
+
+    class VideoCodec(object):
+        VP8 = "VP8"
+        H264 = "H264"
 
     def __init__(self, version, payload, sid=None):
         """
@@ -402,15 +402,14 @@ class RoomInstance(InstanceResource):
             'type': payload['type'],
             'max_participants': deserialize.integer(payload['max_participants']),
             'record_participants_on_connect': payload['record_participants_on_connect'],
+            'video_codecs': payload['video_codecs'],
             'url': payload['url'],
             'links': payload['links'],
         }
 
         # Context
         self._context = None
-        self._solution = {
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):
@@ -422,10 +421,7 @@ class RoomInstance(InstanceResource):
         :rtype: twilio.rest.video.v1.room.RoomContext
         """
         if self._context is None:
-            self._context = RoomContext(
-                self._version,
-                sid=self._solution['sid'],
-            )
+            self._context = RoomContext(self._version, sid=self._solution['sid'],)
         return self._context
 
     @property
@@ -541,6 +537,14 @@ class RoomInstance(InstanceResource):
         return self._properties['record_participants_on_connect']
 
     @property
+    def video_codecs(self):
+        """
+        :returns: The video_codecs
+        :rtype: RoomInstance.VideoCodec
+        """
+        return self._properties['video_codecs']
+
+    @property
     def url(self):
         """
         :returns: The url
@@ -574,9 +578,7 @@ class RoomInstance(InstanceResource):
         :returns: Updated RoomInstance
         :rtype: twilio.rest.video.v1.room.RoomInstance
         """
-        return self._proxy.update(
-            status,
-        )
+        return self._proxy.update(status,)
 
     @property
     def recordings(self):
@@ -587,6 +589,16 @@ class RoomInstance(InstanceResource):
         :rtype: twilio.rest.video.v1.room.recording.RoomRecordingList
         """
         return self._proxy.recordings
+
+    @property
+    def participants(self):
+        """
+        Access the participants
+
+        :returns: twilio.rest.video.v1.room.room_participant.RoomParticipantList
+        :rtype: twilio.rest.video.v1.room.room_participant.RoomParticipantList
+        """
+        return self._proxy.participants
 
     def __repr__(self):
         """

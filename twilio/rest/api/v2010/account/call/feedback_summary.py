@@ -16,6 +16,7 @@ from twilio.base.page import Page
 
 
 class FeedbackSummaryList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid):
         """
@@ -30,9 +31,7 @@ class FeedbackSummaryList(ListResource):
         super(FeedbackSummaryList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
         self._uri = '/Accounts/{account_sid}/Calls/FeedbackSummary.json'.format(**self._solution)
 
     def create(self, start_date, end_date, include_subaccounts=values.unset,
@@ -63,11 +62,7 @@ class FeedbackSummaryList(ListResource):
             data=data,
         )
 
-        return FeedbackSummaryInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return FeedbackSummaryInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def get(self, sid):
         """
@@ -78,11 +73,7 @@ class FeedbackSummaryList(ListResource):
         :returns: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
         :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
         """
-        return FeedbackSummaryContext(
-            self._version,
-            account_sid=self._solution['account_sid'],
-            sid=sid,
-        )
+        return FeedbackSummaryContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
 
     def __call__(self, sid):
         """
@@ -93,11 +84,7 @@ class FeedbackSummaryList(ListResource):
         :returns: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
         :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
         """
-        return FeedbackSummaryContext(
-            self._version,
-            account_sid=self._solution['account_sid'],
-            sid=sid,
-        )
+        return FeedbackSummaryContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
 
     def __repr__(self):
         """
@@ -110,6 +97,7 @@ class FeedbackSummaryList(ListResource):
 
 
 class FeedbackSummaryPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -136,11 +124,7 @@ class FeedbackSummaryPage(Page):
         :returns: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance
         """
-        return FeedbackSummaryInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return FeedbackSummaryInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def __repr__(self):
         """
@@ -153,6 +137,7 @@ class FeedbackSummaryPage(Page):
 
 
 class FeedbackSummaryContext(InstanceContext):
+    """  """
 
     def __init__(self, version, account_sid, sid):
         """
@@ -168,10 +153,7 @@ class FeedbackSummaryContext(InstanceContext):
         super(FeedbackSummaryContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'sid': sid,
-        }
+        self._solution = {'account_sid': account_sid, 'sid': sid,}
         self._uri = '/Accounts/{account_sid}/Calls/FeedbackSummary/{sid}.json'.format(**self._solution)
 
     def fetch(self):
@@ -217,6 +199,7 @@ class FeedbackSummaryContext(InstanceContext):
 
 
 class FeedbackSummaryInstance(InstanceResource):
+    """  """
 
     class Status(object):
         QUEUED = "queued"
@@ -253,10 +236,7 @@ class FeedbackSummaryInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'account_sid': account_sid,
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):

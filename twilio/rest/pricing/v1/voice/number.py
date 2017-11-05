@@ -14,6 +14,7 @@ from twilio.base.page import Page
 
 
 class NumberList(ListResource):
+    """  """
 
     def __init__(self, version):
         """
@@ -38,10 +39,7 @@ class NumberList(ListResource):
         :returns: twilio.rest.pricing.v1.voice.number.NumberContext
         :rtype: twilio.rest.pricing.v1.voice.number.NumberContext
         """
-        return NumberContext(
-            self._version,
-            number=number,
-        )
+        return NumberContext(self._version, number=number,)
 
     def __call__(self, number):
         """
@@ -52,10 +50,7 @@ class NumberList(ListResource):
         :returns: twilio.rest.pricing.v1.voice.number.NumberContext
         :rtype: twilio.rest.pricing.v1.voice.number.NumberContext
         """
-        return NumberContext(
-            self._version,
-            number=number,
-        )
+        return NumberContext(self._version, number=number,)
 
     def __repr__(self):
         """
@@ -68,6 +63,7 @@ class NumberList(ListResource):
 
 
 class NumberPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -93,10 +89,7 @@ class NumberPage(Page):
         :returns: twilio.rest.pricing.v1.voice.number.NumberInstance
         :rtype: twilio.rest.pricing.v1.voice.number.NumberInstance
         """
-        return NumberInstance(
-            self._version,
-            payload,
-        )
+        return NumberInstance(self._version, payload,)
 
     def __repr__(self):
         """
@@ -109,6 +102,7 @@ class NumberPage(Page):
 
 
 class NumberContext(InstanceContext):
+    """  """
 
     def __init__(self, version, number):
         """
@@ -123,9 +117,7 @@ class NumberContext(InstanceContext):
         super(NumberContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'number': number,
-        }
+        self._solution = {'number': number,}
         self._uri = '/Voice/Numbers/{number}'.format(**self._solution)
 
     def fetch(self):
@@ -143,11 +135,7 @@ class NumberContext(InstanceContext):
             params=params,
         )
 
-        return NumberInstance(
-            self._version,
-            payload,
-            number=self._solution['number'],
-        )
+        return NumberInstance(self._version, payload, number=self._solution['number'],)
 
     def __repr__(self):
         """
@@ -161,6 +149,7 @@ class NumberContext(InstanceContext):
 
 
 class NumberInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, number=None):
         """
@@ -184,9 +173,7 @@ class NumberInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'number': number or self._properties['number'],
-        }
+        self._solution = {'number': number or self._properties['number'],}
 
     @property
     def _proxy(self):
@@ -198,10 +185,7 @@ class NumberInstance(InstanceResource):
         :rtype: twilio.rest.pricing.v1.voice.number.NumberContext
         """
         if self._context is None:
-            self._context = NumberContext(
-                self._version,
-                number=self._solution['number'],
-            )
+            self._context = NumberContext(self._version, number=self._solution['number'],)
         return self._context
 
     @property

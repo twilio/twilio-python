@@ -38,6 +38,7 @@ class MobileTestCase(IntegrationTestCase):
                     {
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "address_requirements": "none",
+                        "address_sid": "ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "api_version": "2010-04-01",
                         "beta": null,
                         "capabilities": {
@@ -48,6 +49,7 @@ class MobileTestCase(IntegrationTestCase):
                         "date_created": "Tue, 08 Sep 2015 16:21:16 +0000",
                         "date_updated": "Tue, 08 Sep 2015 16:21:16 +0000",
                         "friendly_name": "61429099450",
+                        "identity_sid": "RIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "phone_number": "+61429099450",
                         "origin": "origin",
                         "sid": "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -122,9 +124,7 @@ class MobileTestCase(IntegrationTestCase):
                                  .incoming_phone_numbers \
                                  .mobile.create(phone_number="+987654321")
 
-        values = {
-            'PhoneNumber': "+987654321",
-        }
+        values = {'PhoneNumber': "+987654321",}
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -139,6 +139,7 @@ class MobileTestCase(IntegrationTestCase):
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "address_requirements": "none",
+                "address_sid": "ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "api_version": "2010-04-01",
                 "beta": false,
                 "capabilities": {
@@ -148,6 +149,7 @@ class MobileTestCase(IntegrationTestCase):
                 },
                 "date_created": "Thu, 30 Jul 2015 23:19:04 +0000",
                 "date_updated": "Thu, 30 Jul 2015 23:19:04 +0000",
+                "identity_sid": "RIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "friendly_name": "(808) 925-5327",
                 "phone_number": "+18089255327",
                 "origin": "origin",

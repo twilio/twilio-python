@@ -14,6 +14,7 @@ from twilio.base.page import Page
 
 
 class TokenList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid):
         """
@@ -28,9 +29,7 @@ class TokenList(ListResource):
         super(TokenList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
         self._uri = '/Accounts/{account_sid}/Tokens.json'.format(**self._solution)
 
     def create(self, ttl=values.unset):
@@ -42,9 +41,7 @@ class TokenList(ListResource):
         :returns: Newly created TokenInstance
         :rtype: twilio.rest.api.v2010.account.token.TokenInstance
         """
-        data = values.of({
-            'Ttl': ttl,
-        })
+        data = values.of({'Ttl': ttl,})
 
         payload = self._version.create(
             'POST',
@@ -52,11 +49,7 @@ class TokenList(ListResource):
             data=data,
         )
 
-        return TokenInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return TokenInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def __repr__(self):
         """
@@ -69,6 +62,7 @@ class TokenList(ListResource):
 
 
 class TokenPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -95,11 +89,7 @@ class TokenPage(Page):
         :returns: twilio.rest.api.v2010.account.token.TokenInstance
         :rtype: twilio.rest.api.v2010.account.token.TokenInstance
         """
-        return TokenInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return TokenInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def __repr__(self):
         """
@@ -112,6 +102,7 @@ class TokenPage(Page):
 
 
 class TokenInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, account_sid):
         """
@@ -135,9 +126,7 @@ class TokenInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
 
     @property
     def account_sid(self):

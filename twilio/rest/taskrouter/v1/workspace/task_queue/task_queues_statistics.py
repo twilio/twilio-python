@@ -14,6 +14,7 @@ from twilio.base.page import Page
 
 
 class TaskQueuesStatisticsList(ListResource):
+    """  """
 
     def __init__(self, version, workspace_sid):
         """
@@ -28,14 +29,13 @@ class TaskQueuesStatisticsList(ListResource):
         super(TaskQueuesStatisticsList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid,}
         self._uri = '/Workspaces/{workspace_sid}/TaskQueues/Statistics'.format(**self._solution)
 
     def stream(self, end_date=values.unset, friendly_name=values.unset,
-               minutes=values.unset, start_date=values.unset, limit=None,
-               page_size=None):
+               minutes=values.unset, start_date=values.unset,
+               task_channel=values.unset, split_by_wait_time=values.unset,
+               limit=None, page_size=None):
         """
         Streams TaskQueuesStatisticsInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -46,6 +46,8 @@ class TaskQueuesStatisticsList(ListResource):
         :param unicode friendly_name: The friendly_name
         :param unicode minutes: The minutes
         :param datetime start_date: The start_date
+        :param unicode task_channel: The task_channel
+        :param unicode split_by_wait_time: The split_by_wait_time
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -63,13 +65,16 @@ class TaskQueuesStatisticsList(ListResource):
             friendly_name=friendly_name,
             minutes=minutes,
             start_date=start_date,
+            task_channel=task_channel,
+            split_by_wait_time=split_by_wait_time,
             page_size=limits['page_size'],
         )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
     def list(self, end_date=values.unset, friendly_name=values.unset,
-             minutes=values.unset, start_date=values.unset, limit=None,
+             minutes=values.unset, start_date=values.unset,
+             task_channel=values.unset, split_by_wait_time=values.unset, limit=None,
              page_size=None):
         """
         Lists TaskQueuesStatisticsInstance records from the API as a list.
@@ -80,6 +85,8 @@ class TaskQueuesStatisticsList(ListResource):
         :param unicode friendly_name: The friendly_name
         :param unicode minutes: The minutes
         :param datetime start_date: The start_date
+        :param unicode task_channel: The task_channel
+        :param unicode split_by_wait_time: The split_by_wait_time
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -95,13 +102,17 @@ class TaskQueuesStatisticsList(ListResource):
             friendly_name=friendly_name,
             minutes=minutes,
             start_date=start_date,
+            task_channel=task_channel,
+            split_by_wait_time=split_by_wait_time,
             limit=limit,
             page_size=page_size,
         ))
 
     def page(self, end_date=values.unset, friendly_name=values.unset,
-             minutes=values.unset, start_date=values.unset, page_token=values.unset,
-             page_number=values.unset, page_size=values.unset):
+             minutes=values.unset, start_date=values.unset,
+             task_channel=values.unset, split_by_wait_time=values.unset,
+             page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of TaskQueuesStatisticsInstance records from the API.
         Request is executed immediately
@@ -110,6 +121,8 @@ class TaskQueuesStatisticsList(ListResource):
         :param unicode friendly_name: The friendly_name
         :param unicode minutes: The minutes
         :param datetime start_date: The start_date
+        :param unicode task_channel: The task_channel
+        :param unicode split_by_wait_time: The split_by_wait_time
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -122,6 +135,8 @@ class TaskQueuesStatisticsList(ListResource):
             'FriendlyName': friendly_name,
             'Minutes': minutes,
             'StartDate': serialize.iso8601_datetime(start_date),
+            'TaskChannel': task_channel,
+            'SplitByWaitTime': split_by_wait_time,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -163,6 +178,7 @@ class TaskQueuesStatisticsList(ListResource):
 
 
 class TaskQueuesStatisticsPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -206,6 +222,7 @@ class TaskQueuesStatisticsPage(Page):
 
 
 class TaskQueuesStatisticsInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, workspace_sid):
         """
@@ -227,9 +244,7 @@ class TaskQueuesStatisticsInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'workspace_sid': workspace_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid,}
 
     @property
     def account_sid(self):

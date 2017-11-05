@@ -59,7 +59,7 @@ class Version(object):
                 message = '{}: {}'.format(message, error_payload['message'])
             code = error_payload.get('code', response.status_code)
             return TwilioRestException(response.status_code, uri, message, code, method)
-        except:
+        except Exception:
             return TwilioRestException(response.status_code, uri, message, response.status_code, method)
 
     def fetch(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,

@@ -15,6 +15,7 @@ from twilio.base.page import Page
 
 
 class PhoneNumberList(ListResource):
+    """  """
 
     def __init__(self, version):
         """
@@ -39,10 +40,7 @@ class PhoneNumberList(ListResource):
         :returns: twilio.rest.lookups.v1.phone_number.PhoneNumberContext
         :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberContext
         """
-        return PhoneNumberContext(
-            self._version,
-            phone_number=phone_number,
-        )
+        return PhoneNumberContext(self._version, phone_number=phone_number,)
 
     def __call__(self, phone_number):
         """
@@ -53,10 +51,7 @@ class PhoneNumberList(ListResource):
         :returns: twilio.rest.lookups.v1.phone_number.PhoneNumberContext
         :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberContext
         """
-        return PhoneNumberContext(
-            self._version,
-            phone_number=phone_number,
-        )
+        return PhoneNumberContext(self._version, phone_number=phone_number,)
 
     def __repr__(self):
         """
@@ -69,6 +64,7 @@ class PhoneNumberList(ListResource):
 
 
 class PhoneNumberPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -94,10 +90,7 @@ class PhoneNumberPage(Page):
         :returns: twilio.rest.lookups.v1.phone_number.PhoneNumberInstance
         :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberInstance
         """
-        return PhoneNumberInstance(
-            self._version,
-            payload,
-        )
+        return PhoneNumberInstance(self._version, payload,)
 
     def __repr__(self):
         """
@@ -110,6 +103,7 @@ class PhoneNumberPage(Page):
 
 
 class PhoneNumberContext(InstanceContext):
+    """  """
 
     def __init__(self, version, phone_number):
         """
@@ -124,9 +118,7 @@ class PhoneNumberContext(InstanceContext):
         super(PhoneNumberContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'phone_number': phone_number,
-        }
+        self._solution = {'phone_number': phone_number,}
         self._uri = '/PhoneNumbers/{phone_number}'.format(**self._solution)
 
     def fetch(self, country_code=values.unset, type=values.unset,
@@ -144,8 +136,8 @@ class PhoneNumberContext(InstanceContext):
         """
         params = values.of({
             'CountryCode': country_code,
-            'Type': type,
-            'AddOns': add_ons,
+            'Type': serialize.map(type, lambda e: e),
+            'AddOns': serialize.map(add_ons, lambda e: e),
         })
 
         params.update(serialize.prefixed_collapsible_map(add_ons_data, 'AddOns'))
@@ -155,11 +147,7 @@ class PhoneNumberContext(InstanceContext):
             params=params,
         )
 
-        return PhoneNumberInstance(
-            self._version,
-            payload,
-            phone_number=self._solution['phone_number'],
-        )
+        return PhoneNumberInstance(self._version, payload, phone_number=self._solution['phone_number'],)
 
     def __repr__(self):
         """
@@ -173,6 +161,7 @@ class PhoneNumberContext(InstanceContext):
 
 
 class PhoneNumberInstance(InstanceResource):
+    """  """
 
     class Type(object):
         LANDLINE = "landline"
@@ -201,9 +190,7 @@ class PhoneNumberInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'phone_number': phone_number or self._properties['phone_number'],
-        }
+        self._solution = {'phone_number': phone_number or self._properties['phone_number'],}
 
     @property
     def _proxy(self):
@@ -215,10 +202,7 @@ class PhoneNumberInstance(InstanceResource):
         :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberContext
         """
         if self._context is None:
-            self._context = PhoneNumberContext(
-                self._version,
-                phone_number=self._solution['phone_number'],
-            )
+            self._context = PhoneNumberContext(self._version, phone_number=self._solution['phone_number'],)
         return self._context
 
     @property

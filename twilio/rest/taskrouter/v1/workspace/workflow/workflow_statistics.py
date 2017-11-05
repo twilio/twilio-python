@@ -15,6 +15,7 @@ from twilio.base.page import Page
 
 
 class WorkflowStatisticsList(ListResource):
+    """  """
 
     def __init__(self, version, workspace_sid, workflow_sid):
         """
@@ -30,10 +31,7 @@ class WorkflowStatisticsList(ListResource):
         super(WorkflowStatisticsList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'workflow_sid': workflow_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'workflow_sid': workflow_sid,}
 
     def get(self):
         """
@@ -72,6 +70,7 @@ class WorkflowStatisticsList(ListResource):
 
 
 class WorkflowStatisticsPage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -117,6 +116,7 @@ class WorkflowStatisticsPage(Page):
 
 
 class WorkflowStatisticsContext(InstanceContext):
+    """  """
 
     def __init__(self, version, workspace_sid, workflow_sid):
         """
@@ -132,20 +132,20 @@ class WorkflowStatisticsContext(InstanceContext):
         super(WorkflowStatisticsContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'workflow_sid': workflow_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'workflow_sid': workflow_sid,}
         self._uri = '/Workspaces/{workspace_sid}/Workflows/{workflow_sid}/Statistics'.format(**self._solution)
 
     def fetch(self, minutes=values.unset, start_date=values.unset,
-              end_date=values.unset):
+              end_date=values.unset, task_channel=values.unset,
+              split_by_wait_time=values.unset):
         """
         Fetch a WorkflowStatisticsInstance
 
         :param unicode minutes: The minutes
         :param datetime start_date: The start_date
         :param datetime end_date: The end_date
+        :param unicode task_channel: The task_channel
+        :param unicode split_by_wait_time: The split_by_wait_time
 
         :returns: Fetched WorkflowStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics.WorkflowStatisticsInstance
@@ -154,6 +154,8 @@ class WorkflowStatisticsContext(InstanceContext):
             'Minutes': minutes,
             'StartDate': serialize.iso8601_datetime(start_date),
             'EndDate': serialize.iso8601_datetime(end_date),
+            'TaskChannel': task_channel,
+            'SplitByWaitTime': split_by_wait_time,
         })
 
         payload = self._version.fetch(
@@ -181,6 +183,7 @@ class WorkflowStatisticsContext(InstanceContext):
 
 
 class WorkflowStatisticsInstance(InstanceResource):
+    """  """
 
     def __init__(self, version, payload, workspace_sid, workflow_sid):
         """
@@ -203,10 +206,7 @@ class WorkflowStatisticsInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'workspace_sid': workspace_sid,
-            'workflow_sid': workflow_sid,
-        }
+        self._solution = {'workspace_sid': workspace_sid, 'workflow_sid': workflow_sid,}
 
     @property
     def _proxy(self):
@@ -274,13 +274,16 @@ class WorkflowStatisticsInstance(InstanceResource):
         return self._properties['url']
 
     def fetch(self, minutes=values.unset, start_date=values.unset,
-              end_date=values.unset):
+              end_date=values.unset, task_channel=values.unset,
+              split_by_wait_time=values.unset):
         """
         Fetch a WorkflowStatisticsInstance
 
         :param unicode minutes: The minutes
         :param datetime start_date: The start_date
         :param datetime end_date: The end_date
+        :param unicode task_channel: The task_channel
+        :param unicode split_by_wait_time: The split_by_wait_time
 
         :returns: Fetched WorkflowStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics.WorkflowStatisticsInstance
@@ -289,6 +292,8 @@ class WorkflowStatisticsInstance(InstanceResource):
             minutes=minutes,
             start_date=start_date,
             end_date=end_date,
+            task_channel=task_channel,
+            split_by_wait_time=split_by_wait_time,
         )
 
     def __repr__(self):

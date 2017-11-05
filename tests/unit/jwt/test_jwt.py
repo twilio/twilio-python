@@ -10,8 +10,8 @@ from twilio.jwt import Jwt, JwtDecodeError
 
 class DummyJwt(Jwt):
     """Jwt implementation that allows setting arbitrary payload and headers for testing."""
-    def __init__(self, secret_key, issuer, subject=None, algorithm='HS256', nbf=None, ttl=3600,
-                 valid_until=None, headers=None, payload=None):
+    def __init__(self, secret_key, issuer, subject=None, algorithm='HS256', nbf=Jwt.GENERATE,
+                 ttl=3600, valid_until=None, headers=None, payload=None):
         super(DummyJwt, self).__init__(
             secret_key=secret_key,
             issuer=issuer,
@@ -71,6 +71,18 @@ class JwtTest(unittest.TestCase):
             jwt.to_jwt(), 'secret_key',
             expected_headers={'typ': 'JWT', 'alg': 'HS256'},
             expected_payload={'iss': 'issuer', 'exp': 3600, 'nbf': 0, 'sub': 'subject'},
+        )
+
+    @patch('time.time')
+    def test_encode_without_nbf(self, time_mock):
+        time_mock.return_value = 0.0
+
+        jwt = DummyJwt('secret_key', 'issuer', subject='subject', headers={}, payload={}, nbf=None)
+
+        self.assertJwtsEqual(
+            jwt.to_jwt(), 'secret_key',
+            expected_headers={'typ': 'JWT', 'alg': 'HS256'},
+            expected_payload={'iss': 'issuer', 'exp': 3600, 'sub': 'subject'},
         )
 
     @patch('time.time')

@@ -18,6 +18,7 @@ from twilio.rest.api.v2010.account.message.media import MediaList
 
 
 class MessageList(ListResource):
+    """  """
 
     def __init__(self, version, account_sid):
         """
@@ -32,14 +33,15 @@ class MessageList(ListResource):
         super(MessageList, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-        }
+        self._solution = {'account_sid': account_sid,}
         self._uri = '/Accounts/{account_sid}/Messages.json'.format(**self._solution)
 
     def create(self, to, status_callback=values.unset, application_sid=values.unset,
                max_price=values.unset, provide_feedback=values.unset,
-               validity_period=values.unset, from_=values.unset,
+               validity_period=values.unset, max_rate=values.unset,
+               force_delivery=values.unset, provider_sid=values.unset,
+               content_retention=values.unset, address_retention=values.unset,
+               smart_encoded=values.unset, from_=values.unset,
                messaging_service_sid=values.unset, body=values.unset,
                media_url=values.unset):
         """
@@ -51,6 +53,12 @@ class MessageList(ListResource):
         :param unicode max_price: The max_price
         :param bool provide_feedback: The provide_feedback
         :param unicode validity_period: The validity_period
+        :param unicode max_rate: The max_rate
+        :param bool force_delivery: The force_delivery
+        :param unicode provider_sid: The provider_sid
+        :param MessageInstance.ContentRetention content_retention: The content_retention
+        :param MessageInstance.AddressRetention address_retention: The address_retention
+        :param bool smart_encoded: The smart_encoded
         :param unicode from_: The phone number that initiated the message
         :param unicode messaging_service_sid: The messaging_service_sid
         :param unicode body: The body
@@ -64,12 +72,18 @@ class MessageList(ListResource):
             'From': from_,
             'MessagingServiceSid': messaging_service_sid,
             'Body': body,
-            'MediaUrl': media_url,
+            'MediaUrl': serialize.map(media_url, lambda e: e),
             'StatusCallback': status_callback,
             'ApplicationSid': application_sid,
             'MaxPrice': max_price,
             'ProvideFeedback': provide_feedback,
             'ValidityPeriod': validity_period,
+            'MaxRate': max_rate,
+            'ForceDelivery': force_delivery,
+            'ProviderSid': provider_sid,
+            'ContentRetention': content_retention,
+            'AddressRetention': address_retention,
+            'SmartEncoded': smart_encoded,
         })
 
         payload = self._version.create(
@@ -78,11 +92,7 @@ class MessageList(ListResource):
             data=data,
         )
 
-        return MessageInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return MessageInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def stream(self, to=values.unset, from_=values.unset,
                date_sent_before=values.unset, date_sent=values.unset,
@@ -219,11 +229,7 @@ class MessageList(ListResource):
         :returns: twilio.rest.api.v2010.account.message.MessageContext
         :rtype: twilio.rest.api.v2010.account.message.MessageContext
         """
-        return MessageContext(
-            self._version,
-            account_sid=self._solution['account_sid'],
-            sid=sid,
-        )
+        return MessageContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
 
     def __call__(self, sid):
         """
@@ -234,11 +240,7 @@ class MessageList(ListResource):
         :returns: twilio.rest.api.v2010.account.message.MessageContext
         :rtype: twilio.rest.api.v2010.account.message.MessageContext
         """
-        return MessageContext(
-            self._version,
-            account_sid=self._solution['account_sid'],
-            sid=sid,
-        )
+        return MessageContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
 
     def __repr__(self):
         """
@@ -251,6 +253,7 @@ class MessageList(ListResource):
 
 
 class MessagePage(Page):
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -277,11 +280,7 @@ class MessagePage(Page):
         :returns: twilio.rest.api.v2010.account.message.MessageInstance
         :rtype: twilio.rest.api.v2010.account.message.MessageInstance
         """
-        return MessageInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-        )
+        return MessageInstance(self._version, payload, account_sid=self._solution['account_sid'],)
 
     def __repr__(self):
         """
@@ -294,6 +293,7 @@ class MessagePage(Page):
 
 
 class MessageContext(InstanceContext):
+    """  """
 
     def __init__(self, version, account_sid, sid):
         """
@@ -309,10 +309,7 @@ class MessageContext(InstanceContext):
         super(MessageContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {
-            'account_sid': account_sid,
-            'sid': sid,
-        }
+        self._solution = {'account_sid': account_sid, 'sid': sid,}
         self._uri = '/Accounts/{account_sid}/Messages/{sid}.json'.format(**self._solution)
 
         # Dependents
@@ -359,9 +356,7 @@ class MessageContext(InstanceContext):
         :returns: Updated MessageInstance
         :rtype: twilio.rest.api.v2010.account.message.MessageInstance
         """
-        data = values.of({
-            'Body': body,
-        })
+        data = values.of({'Body': body,})
 
         payload = self._version.update(
             'POST',
@@ -420,6 +415,7 @@ class MessageContext(InstanceContext):
 
 
 class MessageInstance(InstanceResource):
+    """  """
 
     class Status(object):
         QUEUED = "queued"
@@ -430,12 +426,21 @@ class MessageInstance(InstanceResource):
         UNDELIVERED = "undelivered"
         RECEIVING = "receiving"
         RECEIVED = "received"
+        ACCEPTED = "accepted"
 
     class Direction(object):
         INBOUND = "inbound"
         OUTBOUND_API = "outbound-api"
         OUTBOUND_CALL = "outbound-call"
         OUTBOUND_REPLY = "outbound-reply"
+
+    class ContentRetention(object):
+        RETAIN = "retain"
+        DISCARD = "discard"
+
+    class AddressRetention(object):
+        RETAIN = "retain"
+        DISCARD = "discard"
 
     def __init__(self, version, payload, account_sid, sid=None):
         """
@@ -472,10 +477,7 @@ class MessageInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'account_sid': account_sid,
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid'],}
 
     @property
     def _proxy(self):
@@ -681,9 +683,7 @@ class MessageInstance(InstanceResource):
         :returns: Updated MessageInstance
         :rtype: twilio.rest.api.v2010.account.message.MessageInstance
         """
-        return self._proxy.update(
-            body,
-        )
+        return self._proxy.update(body,)
 
     @property
     def media(self):
