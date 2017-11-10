@@ -168,7 +168,7 @@ class RecordingList(ListResource):
         :returns: twilio.rest.video.v1.recording.RecordingContext
         :rtype: twilio.rest.video.v1.recording.RecordingContext
         """
-        return RecordingContext(self._version, sid=sid,)
+        return RecordingContext(self._version, sid=sid)
 
     def __call__(self, sid):
         """
@@ -179,7 +179,7 @@ class RecordingList(ListResource):
         :returns: twilio.rest.video.v1.recording.RecordingContext
         :rtype: twilio.rest.video.v1.recording.RecordingContext
         """
-        return RecordingContext(self._version, sid=sid,)
+        return RecordingContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -218,7 +218,7 @@ class RecordingPage(Page):
         :returns: twilio.rest.video.v1.recording.RecordingInstance
         :rtype: twilio.rest.video.v1.recording.RecordingInstance
         """
-        return RecordingInstance(self._version, payload,)
+        return RecordingInstance(self._version, payload)
 
     def __repr__(self):
         """
@@ -246,7 +246,7 @@ class RecordingContext(InstanceContext):
         super(RecordingContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'sid': sid,}
+        self._solution = {'sid': sid}
         self._uri = '/Recordings/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -264,7 +264,7 @@ class RecordingContext(InstanceContext):
             params=params,
         )
 
-        return RecordingInstance(self._version, payload, sid=self._solution['sid'],)
+        return RecordingInstance(self._version, payload, sid=self._solution['sid'])
 
     def delete(self):
         """
@@ -338,7 +338,7 @@ class RecordingInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'sid': sid or self._properties['sid'],}
+        self._solution = {'sid': sid or self._properties['sid']}
 
     @property
     def _proxy(self):
@@ -350,7 +350,7 @@ class RecordingInstance(InstanceResource):
         :rtype: twilio.rest.video.v1.recording.RecordingContext
         """
         if self._context is None:
-            self._context = RecordingContext(self._version, sid=self._solution['sid'],)
+            self._context = RecordingContext(self._version, sid=self._solution['sid'])
         return self._context
 
     @property

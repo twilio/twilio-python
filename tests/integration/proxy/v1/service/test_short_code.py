@@ -21,7 +21,7 @@ class ShortCodeTestCase(IntegrationTestCase):
             self.client.proxy.v1.services(sid="KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                 .short_codes.create(sid="SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 
-        values = {'Sid': "SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",}
+        values = {'Sid': "SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -41,7 +41,10 @@ class ShortCodeTestCase(IntegrationTestCase):
                 "date_updated": "2015-07-30T20:00:00Z",
                 "short_code": "12345",
                 "iso_country": "US",
-                "capabilities": [],
+                "capabilities": {
+                    "sms_outbound": true,
+                    "voice_inbound": false
+                },
                 "url": "https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ShortCodes/SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
@@ -110,7 +113,10 @@ class ShortCodeTestCase(IntegrationTestCase):
                         "date_updated": "2015-07-30T20:00:00Z",
                         "short_code": "12345",
                         "iso_country": "US",
-                        "capabilities": [],
+                        "capabilities": {
+                            "sms_outbound": true,
+                            "voice_inbound": false
+                        },
                         "url": "https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ShortCodes/SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     }
                 ]
@@ -147,7 +153,10 @@ class ShortCodeTestCase(IntegrationTestCase):
                 "date_updated": "2015-07-30T20:00:00Z",
                 "short_code": "12345",
                 "iso_country": "US",
-                "capabilities": [],
+                "capabilities": {
+                    "sms_outbound": true,
+                    "voice_inbound": false
+                },
                 "url": "https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ShortCodes/SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''

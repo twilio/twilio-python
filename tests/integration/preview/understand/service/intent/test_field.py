@@ -134,7 +134,7 @@ class FieldTestCase(IntegrationTestCase):
                                           .intents(sid="UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                           .fields.create(field_type="field_type", unique_name="unique_name")
 
-        values = {'FieldType': "field_type", 'UniqueName': "unique_name",}
+        values = {'FieldType': "field_type", 'UniqueName': "unique_name"}
 
         self.holodeck.assert_has_request(Request(
             'post',

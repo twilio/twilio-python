@@ -29,7 +29,7 @@ class UsageList(ListResource):
         super(UsageList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid,}
+        self._solution = {'account_sid': account_sid}
 
         # Components
         self._records = None
@@ -44,7 +44,7 @@ class UsageList(ListResource):
         :rtype: twilio.rest.api.v2010.account.usage.record.RecordList
         """
         if self._records is None:
-            self._records = RecordList(self._version, account_sid=self._solution['account_sid'],)
+            self._records = RecordList(self._version, account_sid=self._solution['account_sid'])
         return self._records
 
     @property
@@ -56,7 +56,7 @@ class UsageList(ListResource):
         :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerList
         """
         if self._triggers is None:
-            self._triggers = TriggerList(self._version, account_sid=self._solution['account_sid'],)
+            self._triggers = TriggerList(self._version, account_sid=self._solution['account_sid'])
         return self._triggers
 
     def __repr__(self):
@@ -97,7 +97,7 @@ class UsagePage(Page):
         :returns: twilio.rest.api.v2010.account.usage.UsageInstance
         :rtype: twilio.rest.api.v2010.account.usage.UsageInstance
         """
-        return UsageInstance(self._version, payload, account_sid=self._solution['account_sid'],)
+        return UsageInstance(self._version, payload, account_sid=self._solution['account_sid'])
 
     def __repr__(self):
         """
@@ -123,7 +123,7 @@ class UsageInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'account_sid': account_sid,}
+        self._solution = {'account_sid': account_sid}
 
     def __repr__(self):
         """

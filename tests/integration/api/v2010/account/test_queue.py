@@ -190,7 +190,7 @@ class QueueTestCase(IntegrationTestCase):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .queues.create(friendly_name="friendly_name")
 
-        values = {'FriendlyName': "friendly_name",}
+        values = {'FriendlyName': "friendly_name"}
 
         self.holodeck.assert_has_request(Request(
             'post',

@@ -30,7 +30,7 @@ class MonthlyList(ListResource):
         super(MonthlyList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid,}
+        self._solution = {'account_sid': account_sid}
         self._uri = '/Accounts/{account_sid}/Usage/Records/Monthly.json'.format(**self._solution)
 
     def stream(self, category=values.unset, start_date=values.unset,
@@ -182,7 +182,7 @@ class MonthlyPage(Page):
         :returns: twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance
         :rtype: twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance
         """
-        return MonthlyInstance(self._version, payload, account_sid=self._solution['account_sid'],)
+        return MonthlyInstance(self._version, payload, account_sid=self._solution['account_sid'])
 
     def __repr__(self):
         """
@@ -451,7 +451,7 @@ class MonthlyInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'account_sid': account_sid,}
+        self._solution = {'account_sid': account_sid}
 
     @property
     def account_sid(self):

@@ -64,7 +64,7 @@ class AccountList(ListResource):
         :returns: Newly created AccountInstance
         :rtype: twilio.rest.api.v2010.account.AccountInstance
         """
-        data = values.of({'FriendlyName': friendly_name,})
+        data = values.of({'FriendlyName': friendly_name})
 
         payload = self._version.create(
             'POST',
@@ -72,7 +72,7 @@ class AccountList(ListResource):
             data=data,
         )
 
-        return AccountInstance(self._version, payload,)
+        return AccountInstance(self._version, payload)
 
     def stream(self, friendly_name=values.unset, status=values.unset, limit=None,
                page_size=None):
@@ -96,7 +96,7 @@ class AccountList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(friendly_name=friendly_name, status=status, page_size=limits['page_size'],)
+        page = self.page(friendly_name=friendly_name, status=status, page_size=limits['page_size'])
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -119,7 +119,7 @@ class AccountList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.api.v2010.account.AccountInstance]
         """
-        return list(self.stream(friendly_name=friendly_name, status=status, limit=limit, page_size=page_size,))
+        return list(self.stream(friendly_name=friendly_name, status=status, limit=limit, page_size=page_size))
 
     def page(self, friendly_name=values.unset, status=values.unset,
              page_token=values.unset, page_number=values.unset,
@@ -179,7 +179,7 @@ class AccountList(ListResource):
         :returns: twilio.rest.api.v2010.account.AccountContext
         :rtype: twilio.rest.api.v2010.account.AccountContext
         """
-        return AccountContext(self._version, sid=sid,)
+        return AccountContext(self._version, sid=sid)
 
     def __call__(self, sid):
         """
@@ -190,7 +190,7 @@ class AccountList(ListResource):
         :returns: twilio.rest.api.v2010.account.AccountContext
         :rtype: twilio.rest.api.v2010.account.AccountContext
         """
-        return AccountContext(self._version, sid=sid,)
+        return AccountContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -229,7 +229,7 @@ class AccountPage(Page):
         :returns: twilio.rest.api.v2010.account.AccountInstance
         :rtype: twilio.rest.api.v2010.account.AccountInstance
         """
-        return AccountInstance(self._version, payload,)
+        return AccountInstance(self._version, payload)
 
     def __repr__(self):
         """
@@ -257,7 +257,7 @@ class AccountContext(InstanceContext):
         super(AccountContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'sid': sid,}
+        self._solution = {'sid': sid}
         self._uri = '/Accounts/{sid}.json'.format(**self._solution)
 
         # Dependents
@@ -300,7 +300,7 @@ class AccountContext(InstanceContext):
             params=params,
         )
 
-        return AccountInstance(self._version, payload, sid=self._solution['sid'],)
+        return AccountInstance(self._version, payload, sid=self._solution['sid'])
 
     def update(self, friendly_name=values.unset, status=values.unset):
         """
@@ -312,7 +312,7 @@ class AccountContext(InstanceContext):
         :returns: Updated AccountInstance
         :rtype: twilio.rest.api.v2010.account.AccountInstance
         """
-        data = values.of({'FriendlyName': friendly_name, 'Status': status,})
+        data = values.of({'FriendlyName': friendly_name, 'Status': status})
 
         payload = self._version.update(
             'POST',
@@ -320,7 +320,7 @@ class AccountContext(InstanceContext):
             data=data,
         )
 
-        return AccountInstance(self._version, payload, sid=self._solution['sid'],)
+        return AccountInstance(self._version, payload, sid=self._solution['sid'])
 
     @property
     def addresses(self):
@@ -331,7 +331,7 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.address.AddressList
         """
         if self._addresses is None:
-            self._addresses = AddressList(self._version, account_sid=self._solution['sid'],)
+            self._addresses = AddressList(self._version, account_sid=self._solution['sid'])
         return self._addresses
 
     @property
@@ -343,7 +343,7 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.application.ApplicationList
         """
         if self._applications is None:
-            self._applications = ApplicationList(self._version, account_sid=self._solution['sid'],)
+            self._applications = ApplicationList(self._version, account_sid=self._solution['sid'])
         return self._applications
 
     @property
@@ -385,7 +385,7 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.call.CallList
         """
         if self._calls is None:
-            self._calls = CallList(self._version, account_sid=self._solution['sid'],)
+            self._calls = CallList(self._version, account_sid=self._solution['sid'])
         return self._calls
 
     @property
@@ -397,7 +397,7 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.conference.ConferenceList
         """
         if self._conferences is None:
-            self._conferences = ConferenceList(self._version, account_sid=self._solution['sid'],)
+            self._conferences = ConferenceList(self._version, account_sid=self._solution['sid'])
         return self._conferences
 
     @property
@@ -409,7 +409,7 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppList
         """
         if self._connect_apps is None:
-            self._connect_apps = ConnectAppList(self._version, account_sid=self._solution['sid'],)
+            self._connect_apps = ConnectAppList(self._version, account_sid=self._solution['sid'])
         return self._connect_apps
 
     @property
@@ -436,7 +436,7 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.key.KeyList
         """
         if self._keys is None:
-            self._keys = KeyList(self._version, account_sid=self._solution['sid'],)
+            self._keys = KeyList(self._version, account_sid=self._solution['sid'])
         return self._keys
 
     @property
@@ -448,7 +448,7 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.message.MessageList
         """
         if self._messages is None:
-            self._messages = MessageList(self._version, account_sid=self._solution['sid'],)
+            self._messages = MessageList(self._version, account_sid=self._solution['sid'])
         return self._messages
 
     @property
@@ -460,7 +460,7 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.new_key.NewKeyList
         """
         if self._new_keys is None:
-            self._new_keys = NewKeyList(self._version, account_sid=self._solution['sid'],)
+            self._new_keys = NewKeyList(self._version, account_sid=self._solution['sid'])
         return self._new_keys
 
     @property
@@ -472,7 +472,7 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyList
         """
         if self._new_signing_keys is None:
-            self._new_signing_keys = NewSigningKeyList(self._version, account_sid=self._solution['sid'],)
+            self._new_signing_keys = NewSigningKeyList(self._version, account_sid=self._solution['sid'])
         return self._new_signing_keys
 
     @property
@@ -484,7 +484,7 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.notification.NotificationList
         """
         if self._notifications is None:
-            self._notifications = NotificationList(self._version, account_sid=self._solution['sid'],)
+            self._notifications = NotificationList(self._version, account_sid=self._solution['sid'])
         return self._notifications
 
     @property
@@ -496,7 +496,7 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdList
         """
         if self._outgoing_caller_ids is None:
-            self._outgoing_caller_ids = OutgoingCallerIdList(self._version, account_sid=self._solution['sid'],)
+            self._outgoing_caller_ids = OutgoingCallerIdList(self._version, account_sid=self._solution['sid'])
         return self._outgoing_caller_ids
 
     @property
@@ -508,7 +508,7 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.queue.QueueList
         """
         if self._queues is None:
-            self._queues = QueueList(self._version, account_sid=self._solution['sid'],)
+            self._queues = QueueList(self._version, account_sid=self._solution['sid'])
         return self._queues
 
     @property
@@ -520,7 +520,7 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.recording.RecordingList
         """
         if self._recordings is None:
-            self._recordings = RecordingList(self._version, account_sid=self._solution['sid'],)
+            self._recordings = RecordingList(self._version, account_sid=self._solution['sid'])
         return self._recordings
 
     @property
@@ -532,7 +532,7 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyList
         """
         if self._signing_keys is None:
-            self._signing_keys = SigningKeyList(self._version, account_sid=self._solution['sid'],)
+            self._signing_keys = SigningKeyList(self._version, account_sid=self._solution['sid'])
         return self._signing_keys
 
     @property
@@ -544,7 +544,7 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.sip.SipList
         """
         if self._sip is None:
-            self._sip = SipList(self._version, account_sid=self._solution['sid'],)
+            self._sip = SipList(self._version, account_sid=self._solution['sid'])
         return self._sip
 
     @property
@@ -556,7 +556,7 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeList
         """
         if self._short_codes is None:
-            self._short_codes = ShortCodeList(self._version, account_sid=self._solution['sid'],)
+            self._short_codes = ShortCodeList(self._version, account_sid=self._solution['sid'])
         return self._short_codes
 
     @property
@@ -568,7 +568,7 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.token.TokenList
         """
         if self._tokens is None:
-            self._tokens = TokenList(self._version, account_sid=self._solution['sid'],)
+            self._tokens = TokenList(self._version, account_sid=self._solution['sid'])
         return self._tokens
 
     @property
@@ -580,7 +580,7 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.transcription.TranscriptionList
         """
         if self._transcriptions is None:
-            self._transcriptions = TranscriptionList(self._version, account_sid=self._solution['sid'],)
+            self._transcriptions = TranscriptionList(self._version, account_sid=self._solution['sid'])
         return self._transcriptions
 
     @property
@@ -592,7 +592,7 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.usage.UsageList
         """
         if self._usage is None:
-            self._usage = UsageList(self._version, account_sid=self._solution['sid'],)
+            self._usage = UsageList(self._version, account_sid=self._solution['sid'])
         return self._usage
 
     @property
@@ -604,7 +604,7 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.validation_request.ValidationRequestList
         """
         if self._validation_requests is None:
-            self._validation_requests = ValidationRequestList(self._version, account_sid=self._solution['sid'],)
+            self._validation_requests = ValidationRequestList(self._version, account_sid=self._solution['sid'])
         return self._validation_requests
 
     def __repr__(self):
@@ -655,7 +655,7 @@ class AccountInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'sid': sid or self._properties['sid'],}
+        self._solution = {'sid': sid or self._properties['sid']}
 
     @property
     def _proxy(self):
@@ -667,7 +667,7 @@ class AccountInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.AccountContext
         """
         if self._context is None:
-            self._context = AccountContext(self._version, sid=self._solution['sid'],)
+            self._context = AccountContext(self._version, sid=self._solution['sid'])
         return self._context
 
     @property
@@ -769,7 +769,7 @@ class AccountInstance(InstanceResource):
         :returns: Updated AccountInstance
         :rtype: twilio.rest.api.v2010.account.AccountInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, status=status,)
+        return self._proxy.update(friendly_name=friendly_name, status=status)
 
     @property
     def addresses(self):

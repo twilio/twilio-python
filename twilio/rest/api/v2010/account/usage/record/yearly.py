@@ -30,7 +30,7 @@ class YearlyList(ListResource):
         super(YearlyList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid,}
+        self._solution = {'account_sid': account_sid}
         self._uri = '/Accounts/{account_sid}/Usage/Records/Yearly.json'.format(**self._solution)
 
     def stream(self, category=values.unset, start_date=values.unset,
@@ -182,7 +182,7 @@ class YearlyPage(Page):
         :returns: twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance
         :rtype: twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance
         """
-        return YearlyInstance(self._version, payload, account_sid=self._solution['account_sid'],)
+        return YearlyInstance(self._version, payload, account_sid=self._solution['account_sid'])
 
     def __repr__(self):
         """
@@ -451,7 +451,7 @@ class YearlyInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'account_sid': account_sid,}
+        self._solution = {'account_sid': account_sid}
 
     @property
     def account_sid(self):

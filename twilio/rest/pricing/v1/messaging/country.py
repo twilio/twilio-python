@@ -50,7 +50,7 @@ class CountryList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'],)
+        page = self.page(page_size=limits['page_size'])
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -70,7 +70,7 @@ class CountryList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.pricing.v1.messaging.country.CountryInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size,))
+        return list(self.stream(limit=limit, page_size=page_size))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -85,7 +85,7 @@ class CountryList(ListResource):
         :returns: Page of CountryInstance
         :rtype: twilio.rest.pricing.v1.messaging.country.CountryPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
 
         response = self._version.page(
             'GET',
@@ -121,7 +121,7 @@ class CountryList(ListResource):
         :returns: twilio.rest.pricing.v1.messaging.country.CountryContext
         :rtype: twilio.rest.pricing.v1.messaging.country.CountryContext
         """
-        return CountryContext(self._version, iso_country=iso_country,)
+        return CountryContext(self._version, iso_country=iso_country)
 
     def __call__(self, iso_country):
         """
@@ -132,7 +132,7 @@ class CountryList(ListResource):
         :returns: twilio.rest.pricing.v1.messaging.country.CountryContext
         :rtype: twilio.rest.pricing.v1.messaging.country.CountryContext
         """
-        return CountryContext(self._version, iso_country=iso_country,)
+        return CountryContext(self._version, iso_country=iso_country)
 
     def __repr__(self):
         """
@@ -171,7 +171,7 @@ class CountryPage(Page):
         :returns: twilio.rest.pricing.v1.messaging.country.CountryInstance
         :rtype: twilio.rest.pricing.v1.messaging.country.CountryInstance
         """
-        return CountryInstance(self._version, payload,)
+        return CountryInstance(self._version, payload)
 
     def __repr__(self):
         """
@@ -199,7 +199,7 @@ class CountryContext(InstanceContext):
         super(CountryContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'iso_country': iso_country,}
+        self._solution = {'iso_country': iso_country}
         self._uri = '/Messaging/Countries/{iso_country}'.format(**self._solution)
 
     def fetch(self):
@@ -217,7 +217,7 @@ class CountryContext(InstanceContext):
             params=params,
         )
 
-        return CountryInstance(self._version, payload, iso_country=self._solution['iso_country'],)
+        return CountryInstance(self._version, payload, iso_country=self._solution['iso_country'])
 
     def __repr__(self):
         """
@@ -254,7 +254,7 @@ class CountryInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'iso_country': iso_country or self._properties['iso_country'],}
+        self._solution = {'iso_country': iso_country or self._properties['iso_country']}
 
     @property
     def _proxy(self):
@@ -266,7 +266,7 @@ class CountryInstance(InstanceResource):
         :rtype: twilio.rest.pricing.v1.messaging.country.CountryContext
         """
         if self._context is None:
-            self._context = CountryContext(self._version, iso_country=self._solution['iso_country'],)
+            self._context = CountryContext(self._version, iso_country=self._solution['iso_country'])
         return self._context
 
     @property

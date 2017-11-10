@@ -31,7 +31,7 @@ class WorkerStatisticsList(ListResource):
         super(WorkerStatisticsList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'workspace_sid': workspace_sid, 'worker_sid': worker_sid,}
+        self._solution = {'workspace_sid': workspace_sid, 'worker_sid': worker_sid}
 
     def get(self):
         """
@@ -132,7 +132,7 @@ class WorkerStatisticsContext(InstanceContext):
         super(WorkerStatisticsContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'workspace_sid': workspace_sid, 'worker_sid': worker_sid,}
+        self._solution = {'workspace_sid': workspace_sid, 'worker_sid': worker_sid}
         self._uri = '/Workspaces/{workspace_sid}/Workers/{worker_sid}/Statistics'.format(**self._solution)
 
     def fetch(self, minutes=values.unset, start_date=values.unset,
@@ -202,7 +202,7 @@ class WorkerStatisticsInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'workspace_sid': workspace_sid, 'worker_sid': worker_sid,}
+        self._solution = {'workspace_sid': workspace_sid, 'worker_sid': worker_sid}
 
     @property
     def _proxy(self):

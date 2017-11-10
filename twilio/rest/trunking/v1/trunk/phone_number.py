@@ -30,7 +30,7 @@ class PhoneNumberList(ListResource):
         super(PhoneNumberList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'trunk_sid': trunk_sid,}
+        self._solution = {'trunk_sid': trunk_sid}
         self._uri = '/Trunks/{trunk_sid}/PhoneNumbers'.format(**self._solution)
 
     def create(self, phone_number_sid):
@@ -42,7 +42,7 @@ class PhoneNumberList(ListResource):
         :returns: Newly created PhoneNumberInstance
         :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberInstance
         """
-        data = values.of({'PhoneNumberSid': phone_number_sid,})
+        data = values.of({'PhoneNumberSid': phone_number_sid})
 
         payload = self._version.create(
             'POST',
@@ -50,7 +50,7 @@ class PhoneNumberList(ListResource):
             data=data,
         )
 
-        return PhoneNumberInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'],)
+        return PhoneNumberInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'])
 
     def stream(self, limit=None, page_size=None):
         """
@@ -71,7 +71,7 @@ class PhoneNumberList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'],)
+        page = self.page(page_size=limits['page_size'])
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -91,7 +91,7 @@ class PhoneNumberList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size,))
+        return list(self.stream(limit=limit, page_size=page_size))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -106,7 +106,7 @@ class PhoneNumberList(ListResource):
         :returns: Page of PhoneNumberInstance
         :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
 
         response = self._version.page(
             'GET',
@@ -142,7 +142,7 @@ class PhoneNumberList(ListResource):
         :returns: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberContext
         :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberContext
         """
-        return PhoneNumberContext(self._version, trunk_sid=self._solution['trunk_sid'], sid=sid,)
+        return PhoneNumberContext(self._version, trunk_sid=self._solution['trunk_sid'], sid=sid)
 
     def __call__(self, sid):
         """
@@ -153,7 +153,7 @@ class PhoneNumberList(ListResource):
         :returns: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberContext
         :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberContext
         """
-        return PhoneNumberContext(self._version, trunk_sid=self._solution['trunk_sid'], sid=sid,)
+        return PhoneNumberContext(self._version, trunk_sid=self._solution['trunk_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -193,7 +193,7 @@ class PhoneNumberPage(Page):
         :returns: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberInstance
         :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberInstance
         """
-        return PhoneNumberInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'],)
+        return PhoneNumberInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'])
 
     def __repr__(self):
         """
@@ -222,7 +222,7 @@ class PhoneNumberContext(InstanceContext):
         super(PhoneNumberContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'trunk_sid': trunk_sid, 'sid': sid,}
+        self._solution = {'trunk_sid': trunk_sid, 'sid': sid}
         self._uri = '/Trunks/{trunk_sid}/PhoneNumbers/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -317,7 +317,7 @@ class PhoneNumberInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'trunk_sid': trunk_sid, 'sid': sid or self._properties['sid'],}
+        self._solution = {'trunk_sid': trunk_sid, 'sid': sid or self._properties['sid']}
 
     @property
     def _proxy(self):

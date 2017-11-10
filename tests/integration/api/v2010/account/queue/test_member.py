@@ -55,7 +55,7 @@ class MemberTestCase(IntegrationTestCase):
                                  .queues(sid="QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .members(call_sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(url="https://example.com", method="GET")
 
-        values = {'Url': "https://example.com", 'Method': "GET",}
+        values = {'Url': "https://example.com", 'Method': "GET"}
 
         self.holodeck.assert_has_request(Request(
             'post',

@@ -33,18 +33,16 @@ class ParticipantList(ListResource):
         super(ParticipantList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'session_sid': session_sid,}
+        self._solution = {'service_sid': service_sid, 'session_sid': session_sid}
         self._uri = '/Services/{service_sid}/Sessions/{session_sid}/Participants'.format(**self._solution)
 
-    def stream(self, participant_type=values.unset, identifier=values.unset,
-               limit=None, page_size=None):
+    def stream(self, identifier=values.unset, limit=None, page_size=None):
         """
         Streams ParticipantInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param ParticipantInstance.ParticipantType participant_type: The participant_type
         :param unicode identifier: The identifier
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
@@ -58,22 +56,16 @@ class ParticipantList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            participant_type=participant_type,
-            identifier=identifier,
-            page_size=limits['page_size'],
-        )
+        page = self.page(identifier=identifier, page_size=limits['page_size'])
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def list(self, participant_type=values.unset, identifier=values.unset,
-             limit=None, page_size=None):
+    def list(self, identifier=values.unset, limit=None, page_size=None):
         """
         Lists ParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param ParticipantInstance.ParticipantType participant_type: The participant_type
         :param unicode identifier: The identifier
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
@@ -85,21 +77,14 @@ class ParticipantList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.proxy.v1.service.session.participant.ParticipantInstance]
         """
-        return list(self.stream(
-            participant_type=participant_type,
-            identifier=identifier,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(identifier=identifier, limit=limit, page_size=page_size))
 
-    def page(self, participant_type=values.unset, identifier=values.unset,
-             page_token=values.unset, page_number=values.unset,
-             page_size=values.unset):
+    def page(self, identifier=values.unset, page_token=values.unset,
+             page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of ParticipantInstance records from the API.
         Request is executed immediately
 
-        :param ParticipantInstance.ParticipantType participant_type: The participant_type
         :param unicode identifier: The identifier
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
@@ -109,7 +94,6 @@ class ParticipantList(ListResource):
         :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantPage
         """
         params = values.of({
-            'ParticipantType': participant_type,
             'Identifier': identifier,
             'PageToken': page_token,
             'Page': page_number,
@@ -142,14 +126,12 @@ class ParticipantList(ListResource):
         return ParticipantPage(self._version, response, self._solution)
 
     def create(self, identifier, friendly_name=values.unset,
-               participant_type=values.unset, proxy_identifier=values.unset,
-               proxy_identifier_sid=values.unset):
+               proxy_identifier=values.unset, proxy_identifier_sid=values.unset):
         """
         Create a new ParticipantInstance
 
         :param unicode identifier: The phone number of this Participant.
         :param unicode friendly_name: A human readable description of this resource.
-        :param ParticipantInstance.ParticipantType participant_type: The Participant Type of this Participant
         :param unicode proxy_identifier: The proxy phone number for this Participant.
         :param unicode proxy_identifier_sid: Proxy Identifier Sid.
 
@@ -159,7 +141,6 @@ class ParticipantList(ListResource):
         data = values.of({
             'Identifier': identifier,
             'FriendlyName': friendly_name,
-            'ParticipantType': participant_type,
             'ProxyIdentifier': proxy_identifier,
             'ProxyIdentifierSid': proxy_identifier_sid,
         })
@@ -285,7 +266,7 @@ class ParticipantContext(InstanceContext):
         super(ParticipantContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'session_sid': session_sid, 'sid': sid,}
+        self._solution = {'service_sid': service_sid, 'session_sid': session_sid, 'sid': sid}
         self._uri = '/Services/{service_sid}/Sessions/{session_sid}/Participants/{sid}'.format(**self._solution)
 
         # Dependents
@@ -323,13 +304,11 @@ class ParticipantContext(InstanceContext):
         """
         return self._version.delete('delete', self._uri)
 
-    def update(self, participant_type=values.unset, identifier=values.unset,
-               friendly_name=values.unset, proxy_identifier=values.unset,
-               proxy_identifier_sid=values.unset):
+    def update(self, identifier=values.unset, friendly_name=values.unset,
+               proxy_identifier=values.unset, proxy_identifier_sid=values.unset):
         """
         Update the ParticipantInstance
 
-        :param ParticipantInstance.ParticipantType participant_type: The Participant Type of this Participant
         :param unicode identifier: The phone number of this Participant.
         :param unicode friendly_name: A human readable description of this resource.
         :param unicode proxy_identifier: The proxy phone number for this Participant.
@@ -339,7 +318,6 @@ class ParticipantContext(InstanceContext):
         :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
         """
         data = values.of({
-            'ParticipantType': participant_type,
             'Identifier': identifier,
             'FriendlyName': friendly_name,
             'ProxyIdentifier': proxy_identifier,
@@ -392,11 +370,6 @@ class ParticipantInstance(InstanceResource):
     """ PLEASE NOTE that this class contains beta products that are subject to
     change. Use them with caution. """
 
-    class ParticipantType(object):
-        MESSAGE_ONLY = "message-only"
-        VOICE_ONLY = "voice-only"
-        VOICE_AND_MESSAGE = "voice-and-message"
-
     def __init__(self, version, payload, service_sid, session_sid, sid=None):
         """
         Initialize the ParticipantInstance
@@ -413,7 +386,6 @@ class ParticipantInstance(InstanceResource):
             'service_sid': payload['service_sid'],
             'account_sid': payload['account_sid'],
             'friendly_name': payload['friendly_name'],
-            'participant_type': payload['participant_type'],
             'identifier': payload['identifier'],
             'proxy_identifier': payload['proxy_identifier'],
             'proxy_identifier_sid': payload['proxy_identifier_sid'],
@@ -491,14 +463,6 @@ class ParticipantInstance(InstanceResource):
         return self._properties['friendly_name']
 
     @property
-    def participant_type(self):
-        """
-        :returns: The Participant Type of this Participant
-        :rtype: ParticipantInstance.ParticipantType
-        """
-        return self._properties['participant_type']
-
-    @property
     def identifier(self):
         """
         :returns: The phone number of this Participant.
@@ -509,7 +473,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def proxy_identifier(self):
         """
-        :returns: The proxy phone number for this Participant.
+        :returns: The proxy_identifier
         :rtype: unicode
         """
         return self._properties['proxy_identifier']
@@ -580,13 +544,11 @@ class ParticipantInstance(InstanceResource):
         """
         return self._proxy.delete()
 
-    def update(self, participant_type=values.unset, identifier=values.unset,
-               friendly_name=values.unset, proxy_identifier=values.unset,
-               proxy_identifier_sid=values.unset):
+    def update(self, identifier=values.unset, friendly_name=values.unset,
+               proxy_identifier=values.unset, proxy_identifier_sid=values.unset):
         """
         Update the ParticipantInstance
 
-        :param ParticipantInstance.ParticipantType participant_type: The Participant Type of this Participant
         :param unicode identifier: The phone number of this Participant.
         :param unicode friendly_name: A human readable description of this resource.
         :param unicode proxy_identifier: The proxy phone number for this Participant.
@@ -596,7 +558,6 @@ class ParticipantInstance(InstanceResource):
         :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
         """
         return self._proxy.update(
-            participant_type=participant_type,
             identifier=identifier,
             friendly_name=friendly_name,
             proxy_identifier=proxy_identifier,

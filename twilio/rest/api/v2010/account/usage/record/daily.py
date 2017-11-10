@@ -30,7 +30,7 @@ class DailyList(ListResource):
         super(DailyList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid,}
+        self._solution = {'account_sid': account_sid}
         self._uri = '/Accounts/{account_sid}/Usage/Records/Daily.json'.format(**self._solution)
 
     def stream(self, category=values.unset, start_date=values.unset,
@@ -182,7 +182,7 @@ class DailyPage(Page):
         :returns: twilio.rest.api.v2010.account.usage.record.daily.DailyInstance
         :rtype: twilio.rest.api.v2010.account.usage.record.daily.DailyInstance
         """
-        return DailyInstance(self._version, payload, account_sid=self._solution['account_sid'],)
+        return DailyInstance(self._version, payload, account_sid=self._solution['account_sid'])
 
     def __repr__(self):
         """
@@ -451,7 +451,7 @@ class DailyInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'account_sid': account_sid,}
+        self._solution = {'account_sid': account_sid}
 
     @property
     def account_sid(self):

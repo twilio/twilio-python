@@ -55,7 +55,7 @@ class ServiceList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'],)
+        page = self.page(page_size=limits['page_size'])
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -75,7 +75,7 @@ class ServiceList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.proxy.v1.service.ServiceInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size,))
+        return list(self.stream(limit=limit, page_size=page_size))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -90,7 +90,7 @@ class ServiceList(ListResource):
         :returns: Page of ServiceInstance
         :rtype: twilio.rest.proxy.v1.service.ServicePage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
 
         response = self._version.page(
             'GET',
@@ -118,13 +118,20 @@ class ServiceList(ListResource):
         return ServicePage(self._version, response, self._solution)
 
     def create(self, friendly_name=values.unset, default_ttl=values.unset,
-               callback_url=values.unset):
+               callback_url=values.unset, geo_match_level=values.unset,
+               number_selection_behavior=values.unset,
+               intercept_callback_url=values.unset,
+               out_of_session_callback_url=values.unset):
         """
         Create a new ServiceInstance
 
         :param unicode friendly_name: A human readable description of this resource.
         :param unicode default_ttl: Default TTL for a Session, in seconds.
         :param unicode callback_url: URL Twilio will send callbacks to
+        :param ServiceInstance.GeoMatchLevel geo_match_level: Whether to find proxy numbers in the same areacode.
+        :param ServiceInstance.NumberSelectionBehavior number_selection_behavior: What behavior to use when choosing a proxy number.
+        :param unicode intercept_callback_url: A URL for Twilio call before each Interaction.
+        :param unicode out_of_session_callback_url: A URL for Twilio call when a new Interaction has no Session.
 
         :returns: Newly created ServiceInstance
         :rtype: twilio.rest.proxy.v1.service.ServiceInstance
@@ -133,6 +140,10 @@ class ServiceList(ListResource):
             'FriendlyName': friendly_name,
             'DefaultTtl': default_ttl,
             'CallbackUrl': callback_url,
+            'GeoMatchLevel': geo_match_level,
+            'NumberSelectionBehavior': number_selection_behavior,
+            'InterceptCallbackUrl': intercept_callback_url,
+            'OutOfSessionCallbackUrl': out_of_session_callback_url,
         })
 
         payload = self._version.create(
@@ -141,7 +152,7 @@ class ServiceList(ListResource):
             data=data,
         )
 
-        return ServiceInstance(self._version, payload,)
+        return ServiceInstance(self._version, payload)
 
     def get(self, sid):
         """
@@ -152,7 +163,7 @@ class ServiceList(ListResource):
         :returns: twilio.rest.proxy.v1.service.ServiceContext
         :rtype: twilio.rest.proxy.v1.service.ServiceContext
         """
-        return ServiceContext(self._version, sid=sid,)
+        return ServiceContext(self._version, sid=sid)
 
     def __call__(self, sid):
         """
@@ -163,7 +174,7 @@ class ServiceList(ListResource):
         :returns: twilio.rest.proxy.v1.service.ServiceContext
         :rtype: twilio.rest.proxy.v1.service.ServiceContext
         """
-        return ServiceContext(self._version, sid=sid,)
+        return ServiceContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -203,7 +214,7 @@ class ServicePage(Page):
         :returns: twilio.rest.proxy.v1.service.ServiceInstance
         :rtype: twilio.rest.proxy.v1.service.ServiceInstance
         """
-        return ServiceInstance(self._version, payload,)
+        return ServiceInstance(self._version, payload)
 
     def __repr__(self):
         """
@@ -232,7 +243,7 @@ class ServiceContext(InstanceContext):
         super(ServiceContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'sid': sid,}
+        self._solution = {'sid': sid}
         self._uri = '/Services/{sid}'.format(**self._solution)
 
         # Dependents
@@ -255,7 +266,7 @@ class ServiceContext(InstanceContext):
             params=params,
         )
 
-        return ServiceInstance(self._version, payload, sid=self._solution['sid'],)
+        return ServiceInstance(self._version, payload, sid=self._solution['sid'])
 
     def delete(self):
         """
@@ -267,13 +278,20 @@ class ServiceContext(InstanceContext):
         return self._version.delete('delete', self._uri)
 
     def update(self, friendly_name=values.unset, default_ttl=values.unset,
-               callback_url=values.unset):
+               callback_url=values.unset, geo_match_level=values.unset,
+               number_selection_behavior=values.unset,
+               intercept_callback_url=values.unset,
+               out_of_session_callback_url=values.unset):
         """
         Update the ServiceInstance
 
         :param unicode friendly_name: A human readable description of this resource.
         :param unicode default_ttl: Default TTL for a Session, in seconds.
         :param unicode callback_url: URL Twilio will send callbacks to
+        :param ServiceInstance.GeoMatchLevel geo_match_level: Whether to find proxy numbers in the same areacode.
+        :param ServiceInstance.NumberSelectionBehavior number_selection_behavior: What behavior to use when choosing a proxy number.
+        :param unicode intercept_callback_url: A URL for Twilio call before each Interaction.
+        :param unicode out_of_session_callback_url: A URL for Twilio call when a new Interaction has no Session.
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.proxy.v1.service.ServiceInstance
@@ -282,6 +300,10 @@ class ServiceContext(InstanceContext):
             'FriendlyName': friendly_name,
             'DefaultTtl': default_ttl,
             'CallbackUrl': callback_url,
+            'GeoMatchLevel': geo_match_level,
+            'NumberSelectionBehavior': number_selection_behavior,
+            'InterceptCallbackUrl': intercept_callback_url,
+            'OutOfSessionCallbackUrl': out_of_session_callback_url,
         })
 
         payload = self._version.update(
@@ -290,7 +312,7 @@ class ServiceContext(InstanceContext):
             data=data,
         )
 
-        return ServiceInstance(self._version, payload, sid=self._solution['sid'],)
+        return ServiceInstance(self._version, payload, sid=self._solution['sid'])
 
     @property
     def sessions(self):
@@ -301,7 +323,7 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.proxy.v1.service.session.SessionList
         """
         if self._sessions is None:
-            self._sessions = SessionList(self._version, service_sid=self._solution['sid'],)
+            self._sessions = SessionList(self._version, service_sid=self._solution['sid'])
         return self._sessions
 
     @property
@@ -313,7 +335,7 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberList
         """
         if self._phone_numbers is None:
-            self._phone_numbers = PhoneNumberList(self._version, service_sid=self._solution['sid'],)
+            self._phone_numbers = PhoneNumberList(self._version, service_sid=self._solution['sid'])
         return self._phone_numbers
 
     @property
@@ -325,7 +347,7 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeList
         """
         if self._short_codes is None:
-            self._short_codes = ShortCodeList(self._version, service_sid=self._solution['sid'],)
+            self._short_codes = ShortCodeList(self._version, service_sid=self._solution['sid'])
         return self._short_codes
 
     def __repr__(self):
@@ -343,6 +365,16 @@ class ServiceInstance(InstanceResource):
     """ PLEASE NOTE that this class contains beta products that are subject to
     change. Use them with caution. """
 
+    class GeoMatchLevel(object):
+        AREA_CODE = "area_code"
+        OVERLAY = "overlay"
+        RADIUS = "radius"
+        COUNTRY = "country"
+
+    class NumberSelectionBehavior(object):
+        AVOID_STICKY = "avoid_sticky"
+        PREFER_STICKY = "prefer_sticky"
+
     def __init__(self, version, payload, sid=None):
         """
         Initialize the ServiceInstance
@@ -359,6 +391,10 @@ class ServiceInstance(InstanceResource):
             'account_sid': payload['account_sid'],
             'callback_url': payload['callback_url'],
             'default_ttl': deserialize.integer(payload['default_ttl']),
+            'number_selection_behavior': payload['number_selection_behavior'],
+            'geo_match_level': payload['geo_match_level'],
+            'intercept_callback_url': payload['intercept_callback_url'],
+            'out_of_session_callback_url': payload['out_of_session_callback_url'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
             'url': payload['url'],
@@ -367,7 +403,7 @@ class ServiceInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'sid': sid or self._properties['sid'],}
+        self._solution = {'sid': sid or self._properties['sid']}
 
     @property
     def _proxy(self):
@@ -379,7 +415,7 @@ class ServiceInstance(InstanceResource):
         :rtype: twilio.rest.proxy.v1.service.ServiceContext
         """
         if self._context is None:
-            self._context = ServiceContext(self._version, sid=self._solution['sid'],)
+            self._context = ServiceContext(self._version, sid=self._solution['sid'])
         return self._context
 
     @property
@@ -421,6 +457,38 @@ class ServiceInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['default_ttl']
+
+    @property
+    def number_selection_behavior(self):
+        """
+        :returns: What behavior to use when choosing a proxy number.
+        :rtype: ServiceInstance.NumberSelectionBehavior
+        """
+        return self._properties['number_selection_behavior']
+
+    @property
+    def geo_match_level(self):
+        """
+        :returns: Whether to find proxy numbers in the same areacode.
+        :rtype: ServiceInstance.GeoMatchLevel
+        """
+        return self._properties['geo_match_level']
+
+    @property
+    def intercept_callback_url(self):
+        """
+        :returns: A URL for Twilio call before each Interaction.
+        :rtype: unicode
+        """
+        return self._properties['intercept_callback_url']
+
+    @property
+    def out_of_session_callback_url(self):
+        """
+        :returns: A URL for Twilio call when a new Interaction has no Session.
+        :rtype: unicode
+        """
+        return self._properties['out_of_session_callback_url']
 
     @property
     def date_created(self):
@@ -473,13 +541,20 @@ class ServiceInstance(InstanceResource):
         return self._proxy.delete()
 
     def update(self, friendly_name=values.unset, default_ttl=values.unset,
-               callback_url=values.unset):
+               callback_url=values.unset, geo_match_level=values.unset,
+               number_selection_behavior=values.unset,
+               intercept_callback_url=values.unset,
+               out_of_session_callback_url=values.unset):
         """
         Update the ServiceInstance
 
         :param unicode friendly_name: A human readable description of this resource.
         :param unicode default_ttl: Default TTL for a Session, in seconds.
         :param unicode callback_url: URL Twilio will send callbacks to
+        :param ServiceInstance.GeoMatchLevel geo_match_level: Whether to find proxy numbers in the same areacode.
+        :param ServiceInstance.NumberSelectionBehavior number_selection_behavior: What behavior to use when choosing a proxy number.
+        :param unicode intercept_callback_url: A URL for Twilio call before each Interaction.
+        :param unicode out_of_session_callback_url: A URL for Twilio call when a new Interaction has no Session.
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.proxy.v1.service.ServiceInstance
@@ -488,6 +563,10 @@ class ServiceInstance(InstanceResource):
             friendly_name=friendly_name,
             default_ttl=default_ttl,
             callback_url=callback_url,
+            geo_match_level=geo_match_level,
+            number_selection_behavior=number_selection_behavior,
+            intercept_callback_url=intercept_callback_url,
+            out_of_session_callback_url=out_of_session_callback_url,
         )
 
     @property

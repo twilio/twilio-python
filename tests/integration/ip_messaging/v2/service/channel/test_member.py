@@ -61,7 +61,7 @@ class MemberTestCase(IntegrationTestCase):
                                        .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                        .members.create(identity="identity")
 
-        values = {'Identity': "identity",}
+        values = {'Identity': "identity"}
 
         self.holodeck.assert_has_request(Request(
             'post',

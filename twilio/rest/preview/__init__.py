@@ -13,6 +13,7 @@ from twilio.rest.preview.deployed_devices import DeployedDevices
 from twilio.rest.preview.hosted_numbers import HostedNumbers
 from twilio.rest.preview.marketplace import Marketplace
 from twilio.rest.preview.proxy import Proxy
+from twilio.rest.preview.studio import Studio
 from twilio.rest.preview.sync import Sync
 from twilio.rest.preview.understand import Understand
 from twilio.rest.preview.wireless import Wireless
@@ -37,6 +38,7 @@ class Preview(Domain):
         self._hosted_numbers = None
         self._marketplace = None
         self._proxy = None
+        self._studio = None
         self._acc_security = None
         self._sync = None
         self._understand = None
@@ -91,6 +93,16 @@ class Preview(Domain):
         if self._proxy is None:
             self._proxy = Proxy(self)
         return self._proxy
+
+    @property
+    def studio(self):
+        """
+        :returns: Version studio of preview
+        :rtype: twilio.rest.preview.studio.Studio
+        """
+        if self._studio is None:
+            self._studio = Studio(self)
+        return self._studio
 
     @property
     def acc_security(self):
@@ -187,6 +199,13 @@ class Preview(Domain):
         :rtype: twilio.rest.preview.understand.service.ServiceList
         """
         return self.understand.services
+
+    @property
+    def flows(self):
+        """
+        :rtype: twilio.rest.preview.studio.flow.FlowList
+        """
+        return self.studio.flows
 
     @property
     def commands(self):

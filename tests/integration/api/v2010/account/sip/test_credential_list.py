@@ -91,7 +91,7 @@ class CredentialListTestCase(IntegrationTestCase):
                                  .sip \
                                  .credential_lists.create(friendly_name="friendly_name")
 
-        values = {'FriendlyName': "friendly_name",}
+        values = {'FriendlyName': "friendly_name"}
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -168,7 +168,7 @@ class CredentialListTestCase(IntegrationTestCase):
                                  .sip \
                                  .credential_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(friendly_name="friendly_name")
 
-        values = {'FriendlyName': "friendly_name",}
+        values = {'FriendlyName': "friendly_name"}
 
         self.holodeck.assert_has_request(Request(
             'post',

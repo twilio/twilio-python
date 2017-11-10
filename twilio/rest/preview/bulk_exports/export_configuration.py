@@ -41,7 +41,7 @@ class ExportConfigurationList(ListResource):
         :returns: twilio.rest.preview.bulk_exports.export_configuration.ExportConfigurationContext
         :rtype: twilio.rest.preview.bulk_exports.export_configuration.ExportConfigurationContext
         """
-        return ExportConfigurationContext(self._version, resource_type=resource_type,)
+        return ExportConfigurationContext(self._version, resource_type=resource_type)
 
     def __call__(self, resource_type):
         """
@@ -52,7 +52,7 @@ class ExportConfigurationList(ListResource):
         :returns: twilio.rest.preview.bulk_exports.export_configuration.ExportConfigurationContext
         :rtype: twilio.rest.preview.bulk_exports.export_configuration.ExportConfigurationContext
         """
-        return ExportConfigurationContext(self._version, resource_type=resource_type,)
+        return ExportConfigurationContext(self._version, resource_type=resource_type)
 
     def __repr__(self):
         """
@@ -93,7 +93,7 @@ class ExportConfigurationPage(Page):
         :returns: twilio.rest.preview.bulk_exports.export_configuration.ExportConfigurationInstance
         :rtype: twilio.rest.preview.bulk_exports.export_configuration.ExportConfigurationInstance
         """
-        return ExportConfigurationInstance(self._version, payload,)
+        return ExportConfigurationInstance(self._version, payload)
 
     def __repr__(self):
         """
@@ -123,7 +123,7 @@ class ExportConfigurationContext(InstanceContext):
         super(ExportConfigurationContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'resource_type': resource_type,}
+        self._solution = {'resource_type': resource_type}
         self._uri = '/Exports/{resource_type}/Configuration'.format(**self._solution)
 
     def fetch(self):
@@ -159,7 +159,7 @@ class ExportConfigurationContext(InstanceContext):
         :returns: Updated ExportConfigurationInstance
         :rtype: twilio.rest.preview.bulk_exports.export_configuration.ExportConfigurationInstance
         """
-        data = values.of({'Enabled': enabled, 'WebhookUrl': webhook_url, 'WebhookMethod': webhook_method,})
+        data = values.of({'Enabled': enabled, 'WebhookUrl': webhook_url, 'WebhookMethod': webhook_method})
 
         payload = self._version.update(
             'POST',
@@ -209,7 +209,7 @@ class ExportConfigurationInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'resource_type': resource_type or self._properties['resource_type'],}
+        self._solution = {'resource_type': resource_type or self._properties['resource_type']}
 
     @property
     def _proxy(self):
@@ -288,7 +288,7 @@ class ExportConfigurationInstance(InstanceResource):
         :returns: Updated ExportConfigurationInstance
         :rtype: twilio.rest.preview.bulk_exports.export_configuration.ExportConfigurationInstance
         """
-        return self._proxy.update(enabled=enabled, webhook_url=webhook_url, webhook_method=webhook_method,)
+        return self._proxy.update(enabled=enabled, webhook_url=webhook_url, webhook_method=webhook_method)
 
     def __repr__(self):
         """

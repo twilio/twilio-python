@@ -87,7 +87,7 @@ class ServiceList(ListResource):
             data=data,
         )
 
-        return ServiceInstance(self._version, payload,)
+        return ServiceInstance(self._version, payload)
 
     def stream(self, limit=None, page_size=None):
         """
@@ -108,7 +108,7 @@ class ServiceList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'],)
+        page = self.page(page_size=limits['page_size'])
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -128,7 +128,7 @@ class ServiceList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.messaging.v1.service.ServiceInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size,))
+        return list(self.stream(limit=limit, page_size=page_size))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -143,7 +143,7 @@ class ServiceList(ListResource):
         :returns: Page of ServiceInstance
         :rtype: twilio.rest.messaging.v1.service.ServicePage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
 
         response = self._version.page(
             'GET',
@@ -179,7 +179,7 @@ class ServiceList(ListResource):
         :returns: twilio.rest.messaging.v1.service.ServiceContext
         :rtype: twilio.rest.messaging.v1.service.ServiceContext
         """
-        return ServiceContext(self._version, sid=sid,)
+        return ServiceContext(self._version, sid=sid)
 
     def __call__(self, sid):
         """
@@ -190,7 +190,7 @@ class ServiceList(ListResource):
         :returns: twilio.rest.messaging.v1.service.ServiceContext
         :rtype: twilio.rest.messaging.v1.service.ServiceContext
         """
-        return ServiceContext(self._version, sid=sid,)
+        return ServiceContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -230,7 +230,7 @@ class ServicePage(Page):
         :returns: twilio.rest.messaging.v1.service.ServiceInstance
         :rtype: twilio.rest.messaging.v1.service.ServiceInstance
         """
-        return ServiceInstance(self._version, payload,)
+        return ServiceInstance(self._version, payload)
 
     def __repr__(self):
         """
@@ -259,7 +259,7 @@ class ServiceContext(InstanceContext):
         super(ServiceContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'sid': sid,}
+        self._solution = {'sid': sid}
         self._uri = '/Services/{sid}'.format(**self._solution)
 
         # Dependents
@@ -318,7 +318,7 @@ class ServiceContext(InstanceContext):
             data=data,
         )
 
-        return ServiceInstance(self._version, payload, sid=self._solution['sid'],)
+        return ServiceInstance(self._version, payload, sid=self._solution['sid'])
 
     def fetch(self):
         """
@@ -335,7 +335,7 @@ class ServiceContext(InstanceContext):
             params=params,
         )
 
-        return ServiceInstance(self._version, payload, sid=self._solution['sid'],)
+        return ServiceInstance(self._version, payload, sid=self._solution['sid'])
 
     def delete(self):
         """
@@ -355,7 +355,7 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberList
         """
         if self._phone_numbers is None:
-            self._phone_numbers = PhoneNumberList(self._version, service_sid=self._solution['sid'],)
+            self._phone_numbers = PhoneNumberList(self._version, service_sid=self._solution['sid'])
         return self._phone_numbers
 
     @property
@@ -367,7 +367,7 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeList
         """
         if self._short_codes is None:
-            self._short_codes = ShortCodeList(self._version, service_sid=self._solution['sid'],)
+            self._short_codes = ShortCodeList(self._version, service_sid=self._solution['sid'])
         return self._short_codes
 
     @property
@@ -379,7 +379,7 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderList
         """
         if self._alpha_senders is None:
-            self._alpha_senders = AlphaSenderList(self._version, service_sid=self._solution['sid'],)
+            self._alpha_senders = AlphaSenderList(self._version, service_sid=self._solution['sid'])
         return self._alpha_senders
 
     def __repr__(self):
@@ -437,7 +437,7 @@ class ServiceInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'sid': sid or self._properties['sid'],}
+        self._solution = {'sid': sid or self._properties['sid']}
 
     @property
     def _proxy(self):
@@ -449,7 +449,7 @@ class ServiceInstance(InstanceResource):
         :rtype: twilio.rest.messaging.v1.service.ServiceContext
         """
         if self._context is None:
-            self._context = ServiceContext(self._version, sid=self._solution['sid'],)
+            self._context = ServiceContext(self._version, sid=self._solution['sid'])
         return self._context
 
     @property

@@ -153,7 +153,7 @@ class AlertList(ListResource):
         :returns: twilio.rest.monitor.v1.alert.AlertContext
         :rtype: twilio.rest.monitor.v1.alert.AlertContext
         """
-        return AlertContext(self._version, sid=sid,)
+        return AlertContext(self._version, sid=sid)
 
     def __call__(self, sid):
         """
@@ -164,7 +164,7 @@ class AlertList(ListResource):
         :returns: twilio.rest.monitor.v1.alert.AlertContext
         :rtype: twilio.rest.monitor.v1.alert.AlertContext
         """
-        return AlertContext(self._version, sid=sid,)
+        return AlertContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -203,7 +203,7 @@ class AlertPage(Page):
         :returns: twilio.rest.monitor.v1.alert.AlertInstance
         :rtype: twilio.rest.monitor.v1.alert.AlertInstance
         """
-        return AlertInstance(self._version, payload,)
+        return AlertInstance(self._version, payload)
 
     def __repr__(self):
         """
@@ -231,7 +231,7 @@ class AlertContext(InstanceContext):
         super(AlertContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'sid': sid,}
+        self._solution = {'sid': sid}
         self._uri = '/Alerts/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -249,7 +249,7 @@ class AlertContext(InstanceContext):
             params=params,
         )
 
-        return AlertInstance(self._version, payload, sid=self._solution['sid'],)
+        return AlertInstance(self._version, payload, sid=self._solution['sid'])
 
     def delete(self):
         """
@@ -306,7 +306,7 @@ class AlertInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'sid': sid or self._properties['sid'],}
+        self._solution = {'sid': sid or self._properties['sid']}
 
     @property
     def _proxy(self):
@@ -318,7 +318,7 @@ class AlertInstance(InstanceResource):
         :rtype: twilio.rest.monitor.v1.alert.AlertContext
         """
         if self._context is None:
-            self._context = AlertContext(self._version, sid=self._solution['sid'],)
+            self._context = AlertContext(self._version, sid=self._solution['sid'])
         return self._context
 
     @property

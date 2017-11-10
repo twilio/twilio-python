@@ -32,7 +32,7 @@ class KeyList(ListResource):
         super(KeyList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'fleet_sid': fleet_sid,}
+        self._solution = {'fleet_sid': fleet_sid}
         self._uri = '/Fleets/{fleet_sid}/Keys'.format(**self._solution)
 
     def create(self, friendly_name=values.unset, device_sid=values.unset):
@@ -45,7 +45,7 @@ class KeyList(ListResource):
         :returns: Newly created KeyInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
         """
-        data = values.of({'FriendlyName': friendly_name, 'DeviceSid': device_sid,})
+        data = values.of({'FriendlyName': friendly_name, 'DeviceSid': device_sid})
 
         payload = self._version.create(
             'POST',
@@ -53,7 +53,7 @@ class KeyList(ListResource):
             data=data,
         )
 
-        return KeyInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'],)
+        return KeyInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])
 
     def stream(self, device_sid=values.unset, limit=None, page_size=None):
         """
@@ -75,7 +75,7 @@ class KeyList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(device_sid=device_sid, page_size=limits['page_size'],)
+        page = self.page(device_sid=device_sid, page_size=limits['page_size'])
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -96,7 +96,7 @@ class KeyList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.deployed_devices.fleet.key.KeyInstance]
         """
-        return list(self.stream(device_sid=device_sid, limit=limit, page_size=page_size,))
+        return list(self.stream(device_sid=device_sid, limit=limit, page_size=page_size))
 
     def page(self, device_sid=values.unset, page_token=values.unset,
              page_number=values.unset, page_size=values.unset):
@@ -153,7 +153,7 @@ class KeyList(ListResource):
         :returns: twilio.rest.preview.deployed_devices.fleet.key.KeyContext
         :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyContext
         """
-        return KeyContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid,)
+        return KeyContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid)
 
     def __call__(self, sid):
         """
@@ -164,7 +164,7 @@ class KeyList(ListResource):
         :returns: twilio.rest.preview.deployed_devices.fleet.key.KeyContext
         :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyContext
         """
-        return KeyContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid,)
+        return KeyContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -206,7 +206,7 @@ class KeyPage(Page):
         :returns: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
         """
-        return KeyInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'],)
+        return KeyInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])
 
     def __repr__(self):
         """
@@ -237,7 +237,7 @@ class KeyContext(InstanceContext):
         super(KeyContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'fleet_sid': fleet_sid, 'sid': sid,}
+        self._solution = {'fleet_sid': fleet_sid, 'sid': sid}
         self._uri = '/Fleets/{fleet_sid}/Keys/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -281,7 +281,7 @@ class KeyContext(InstanceContext):
         :returns: Updated KeyInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
         """
-        data = values.of({'FriendlyName': friendly_name, 'DeviceSid': device_sid,})
+        data = values.of({'FriendlyName': friendly_name, 'DeviceSid': device_sid})
 
         payload = self._version.update(
             'POST',
@@ -336,7 +336,7 @@ class KeyInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'fleet_sid': fleet_sid, 'sid': sid or self._properties['sid'],}
+        self._solution = {'fleet_sid': fleet_sid, 'sid': sid or self._properties['sid']}
 
     @property
     def _proxy(self):
@@ -455,7 +455,7 @@ class KeyInstance(InstanceResource):
         :returns: Updated KeyInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, device_sid=device_sid,)
+        return self._proxy.update(friendly_name=friendly_name, device_sid=device_sid)
 
     def __repr__(self):
         """

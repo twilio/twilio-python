@@ -32,7 +32,7 @@ class AvailablePhoneNumberCountryList(ListResource):
         super(AvailablePhoneNumberCountryList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid,}
+        self._solution = {'account_sid': account_sid}
         self._uri = '/Accounts/{account_sid}/AvailablePhoneNumbers.json'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
@@ -54,7 +54,7 @@ class AvailablePhoneNumberCountryList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'],)
+        page = self.page(page_size=limits['page_size'])
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -74,7 +74,7 @@ class AvailablePhoneNumberCountryList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size,))
+        return list(self.stream(limit=limit, page_size=page_size))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -89,7 +89,7 @@ class AvailablePhoneNumberCountryList(ListResource):
         :returns: Page of AvailablePhoneNumberCountryInstance
         :rtype: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
 
         response = self._version.page(
             'GET',
@@ -217,7 +217,7 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         super(AvailablePhoneNumberCountryContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid, 'country_code': country_code,}
+        self._solution = {'account_sid': account_sid, 'country_code': country_code}
         self._uri = '/Accounts/{account_sid}/AvailablePhoneNumbers/{country_code}.json'.format(**self._solution)
 
         # Dependents

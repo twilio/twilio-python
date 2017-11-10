@@ -29,7 +29,7 @@ class TollFreeList(ListResource):
         super(TollFreeList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid,}
+        self._solution = {'account_sid': account_sid}
         self._uri = '/Accounts/{account_sid}/IncomingPhoneNumbers/TollFree.json'.format(**self._solution)
 
     def stream(self, beta=values.unset, friendly_name=values.unset,
@@ -214,7 +214,7 @@ class TollFreeList(ListResource):
             data=data,
         )
 
-        return TollFreeInstance(self._version, payload, account_sid=self._solution['account_sid'],)
+        return TollFreeInstance(self._version, payload, account_sid=self._solution['account_sid'])
 
     def __repr__(self):
         """
@@ -254,7 +254,7 @@ class TollFreePage(Page):
         :returns: twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreeInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreeInstance
         """
-        return TollFreeInstance(self._version, payload, account_sid=self._solution['account_sid'],)
+        return TollFreeInstance(self._version, payload, account_sid=self._solution['account_sid'])
 
     def __repr__(self):
         """
@@ -318,7 +318,7 @@ class TollFreeInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'account_sid': account_sid,}
+        self._solution = {'account_sid': account_sid}
 
     @property
     def account_sid(self):

@@ -90,7 +90,7 @@ class PublicKeyTestCase(IntegrationTestCase):
             self.client.accounts.v1.credentials \
                                    .public_key.create(public_key="publickey")
 
-        values = {'PublicKey': "publickey",}
+        values = {'PublicKey': "publickey"}
 
         self.holodeck.assert_has_request(Request(
             'post',

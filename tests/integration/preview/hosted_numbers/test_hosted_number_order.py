@@ -213,9 +213,9 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.hosted_numbers.hosted_number_orders.create(phone_number="+987654321", iso_country="iso_country", sms_capability=True)
+            self.client.preview.hosted_numbers.hosted_number_orders.create(phone_number="+987654321", sms_capability=True)
 
-        values = {'PhoneNumber': "+987654321", 'IsoCountry': "iso_country", 'SmsCapability': True,}
+        values = {'PhoneNumber': "+987654321", 'SmsCapability': True}
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -251,7 +251,7 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.hosted_numbers.hosted_number_orders.create(phone_number="+987654321", iso_country="iso_country", sms_capability=True)
+        actual = self.client.preview.hosted_numbers.hosted_number_orders.create(phone_number="+987654321", sms_capability=True)
 
         self.assertIsNotNone(actual)
 
@@ -283,6 +283,6 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.hosted_numbers.hosted_number_orders.create(phone_number="+987654321", iso_country="iso_country", sms_capability=True)
+        actual = self.client.preview.hosted_numbers.hosted_number_orders.create(phone_number="+987654321", sms_capability=True)
 
         self.assertIsNotNone(actual)

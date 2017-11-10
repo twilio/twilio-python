@@ -34,7 +34,7 @@ class ChannelList(ListResource):
         super(ChannelList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid,}
+        self._solution = {'service_sid': service_sid}
         self._uri = '/Services/{service_sid}/Channels'.format(**self._solution)
 
     def create(self, friendly_name=values.unset, unique_name=values.unset,
@@ -63,7 +63,7 @@ class ChannelList(ListResource):
             data=data,
         )
 
-        return ChannelInstance(self._version, payload, service_sid=self._solution['service_sid'],)
+        return ChannelInstance(self._version, payload, service_sid=self._solution['service_sid'])
 
     def stream(self, type=values.unset, limit=None, page_size=None):
         """
@@ -85,7 +85,7 @@ class ChannelList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(type=type, page_size=limits['page_size'],)
+        page = self.page(type=type, page_size=limits['page_size'])
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -106,7 +106,7 @@ class ChannelList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.chat.v1.service.channel.ChannelInstance]
         """
-        return list(self.stream(type=type, limit=limit, page_size=page_size,))
+        return list(self.stream(type=type, limit=limit, page_size=page_size))
 
     def page(self, type=values.unset, page_token=values.unset,
              page_number=values.unset, page_size=values.unset):
@@ -163,7 +163,7 @@ class ChannelList(ListResource):
         :returns: twilio.rest.chat.v1.service.channel.ChannelContext
         :rtype: twilio.rest.chat.v1.service.channel.ChannelContext
         """
-        return ChannelContext(self._version, service_sid=self._solution['service_sid'], sid=sid,)
+        return ChannelContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __call__(self, sid):
         """
@@ -174,7 +174,7 @@ class ChannelList(ListResource):
         :returns: twilio.rest.chat.v1.service.channel.ChannelContext
         :rtype: twilio.rest.chat.v1.service.channel.ChannelContext
         """
-        return ChannelContext(self._version, service_sid=self._solution['service_sid'], sid=sid,)
+        return ChannelContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -214,7 +214,7 @@ class ChannelPage(Page):
         :returns: twilio.rest.chat.v1.service.channel.ChannelInstance
         :rtype: twilio.rest.chat.v1.service.channel.ChannelInstance
         """
-        return ChannelInstance(self._version, payload, service_sid=self._solution['service_sid'],)
+        return ChannelInstance(self._version, payload, service_sid=self._solution['service_sid'])
 
     def __repr__(self):
         """
@@ -243,7 +243,7 @@ class ChannelContext(InstanceContext):
         super(ChannelContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'sid': sid,}
+        self._solution = {'service_sid': service_sid, 'sid': sid}
         self._uri = '/Services/{service_sid}/Channels/{sid}'.format(**self._solution)
 
         # Dependents
@@ -294,7 +294,7 @@ class ChannelContext(InstanceContext):
         :returns: Updated ChannelInstance
         :rtype: twilio.rest.chat.v1.service.channel.ChannelInstance
         """
-        data = values.of({'FriendlyName': friendly_name, 'UniqueName': unique_name, 'Attributes': attributes,})
+        data = values.of({'FriendlyName': friendly_name, 'UniqueName': unique_name, 'Attributes': attributes})
 
         payload = self._version.update(
             'POST',
@@ -404,7 +404,7 @@ class ChannelInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'service_sid': service_sid, 'sid': sid or self._properties['sid'],}
+        self._solution = {'service_sid': service_sid, 'sid': sid or self._properties['sid']}
 
     @property
     def _proxy(self):
@@ -565,7 +565,7 @@ class ChannelInstance(InstanceResource):
         :returns: Updated ChannelInstance
         :rtype: twilio.rest.chat.v1.service.channel.ChannelInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, unique_name=unique_name, attributes=attributes,)
+        return self._proxy.update(friendly_name=friendly_name, unique_name=unique_name, attributes=attributes)
 
     @property
     def members(self):

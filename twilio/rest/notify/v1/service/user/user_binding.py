@@ -33,7 +33,7 @@ class UserBindingList(ListResource):
         super(UserBindingList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'identity': identity,}
+        self._solution = {'service_sid': service_sid, 'identity': identity}
         self._uri = '/Services/{service_sid}/Users/{identity}/Bindings'.format(**self._solution)
 
     def create(self, binding_type, address, tag=values.unset,
@@ -97,7 +97,7 @@ class UserBindingList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(start_date=start_date, end_date=end_date, tag=tag, page_size=limits['page_size'],)
+        page = self.page(start_date=start_date, end_date=end_date, tag=tag, page_size=limits['page_size'])
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -288,7 +288,7 @@ class UserBindingContext(InstanceContext):
         super(UserBindingContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'identity': identity, 'sid': sid,}
+        self._solution = {'service_sid': service_sid, 'identity': identity, 'sid': sid}
         self._uri = '/Services/{service_sid}/Users/{identity}/Bindings/{sid}'.format(**self._solution)
 
     def fetch(self):

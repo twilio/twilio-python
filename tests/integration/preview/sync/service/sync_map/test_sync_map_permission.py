@@ -157,7 +157,7 @@ class SyncMapPermissionTestCase(IntegrationTestCase):
                                     .sync_maps(sid="MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                     .sync_map_permissions(identity="identity").update(read=True, write=True, manage=True)
 
-        values = {'Read': True, 'Write': True, 'Manage': True,}
+        values = {'Read': True, 'Write': True, 'Manage': True}
 
         self.holodeck.assert_has_request(Request(
             'post',

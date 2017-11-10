@@ -34,7 +34,7 @@ class IncomingPhoneNumberList(ListResource):
         super(IncomingPhoneNumberList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid,}
+        self._solution = {'account_sid': account_sid}
         self._uri = '/Accounts/{account_sid}/IncomingPhoneNumbers.json'.format(**self._solution)
 
         # Components
@@ -235,7 +235,7 @@ class IncomingPhoneNumberList(ListResource):
             data=data,
         )
 
-        return IncomingPhoneNumberInstance(self._version, payload, account_sid=self._solution['account_sid'],)
+        return IncomingPhoneNumberInstance(self._version, payload, account_sid=self._solution['account_sid'])
 
     @property
     def local(self):
@@ -246,7 +246,7 @@ class IncomingPhoneNumberList(ListResource):
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.local.LocalList
         """
         if self._local is None:
-            self._local = LocalList(self._version, account_sid=self._solution['account_sid'],)
+            self._local = LocalList(self._version, account_sid=self._solution['account_sid'])
         return self._local
 
     @property
@@ -258,7 +258,7 @@ class IncomingPhoneNumberList(ListResource):
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.mobile.MobileList
         """
         if self._mobile is None:
-            self._mobile = MobileList(self._version, account_sid=self._solution['account_sid'],)
+            self._mobile = MobileList(self._version, account_sid=self._solution['account_sid'])
         return self._mobile
 
     @property
@@ -270,7 +270,7 @@ class IncomingPhoneNumberList(ListResource):
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreeList
         """
         if self._toll_free is None:
-            self._toll_free = TollFreeList(self._version, account_sid=self._solution['account_sid'],)
+            self._toll_free = TollFreeList(self._version, account_sid=self._solution['account_sid'])
         return self._toll_free
 
     def get(self, sid):
@@ -282,7 +282,7 @@ class IncomingPhoneNumberList(ListResource):
         :returns: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberContext
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberContext
         """
-        return IncomingPhoneNumberContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
+        return IncomingPhoneNumberContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
     def __call__(self, sid):
         """
@@ -293,7 +293,7 @@ class IncomingPhoneNumberList(ListResource):
         :returns: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberContext
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberContext
         """
-        return IncomingPhoneNumberContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
+        return IncomingPhoneNumberContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -333,7 +333,7 @@ class IncomingPhoneNumberPage(Page):
         :returns: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
         """
-        return IncomingPhoneNumberInstance(self._version, payload, account_sid=self._solution['account_sid'],)
+        return IncomingPhoneNumberInstance(self._version, payload, account_sid=self._solution['account_sid'])
 
     def __repr__(self):
         """
@@ -362,7 +362,7 @@ class IncomingPhoneNumberContext(InstanceContext):
         super(IncomingPhoneNumberContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid, 'sid': sid,}
+        self._solution = {'account_sid': account_sid, 'sid': sid}
         self._uri = '/Accounts/{account_sid}/IncomingPhoneNumbers/{sid}.json'.format(**self._solution)
 
         # Dependents
@@ -567,7 +567,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid'],}
+        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid']}
 
     @property
     def _proxy(self):

@@ -32,7 +32,7 @@ class ConferenceList(ListResource):
         super(ConferenceList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid,}
+        self._solution = {'account_sid': account_sid}
         self._uri = '/Accounts/{account_sid}/Conferences.json'.format(**self._solution)
 
     def stream(self, date_created_before=values.unset, date_created=values.unset,
@@ -194,7 +194,7 @@ class ConferenceList(ListResource):
         :returns: twilio.rest.api.v2010.account.conference.ConferenceContext
         :rtype: twilio.rest.api.v2010.account.conference.ConferenceContext
         """
-        return ConferenceContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
+        return ConferenceContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
     def __call__(self, sid):
         """
@@ -205,7 +205,7 @@ class ConferenceList(ListResource):
         :returns: twilio.rest.api.v2010.account.conference.ConferenceContext
         :rtype: twilio.rest.api.v2010.account.conference.ConferenceContext
         """
-        return ConferenceContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
+        return ConferenceContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -245,7 +245,7 @@ class ConferencePage(Page):
         :returns: twilio.rest.api.v2010.account.conference.ConferenceInstance
         :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
         """
-        return ConferenceInstance(self._version, payload, account_sid=self._solution['account_sid'],)
+        return ConferenceInstance(self._version, payload, account_sid=self._solution['account_sid'])
 
     def __repr__(self):
         """
@@ -274,7 +274,7 @@ class ConferenceContext(InstanceContext):
         super(ConferenceContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid, 'sid': sid,}
+        self._solution = {'account_sid': account_sid, 'sid': sid}
         self._uri = '/Accounts/{account_sid}/Conferences/{sid}.json'.format(**self._solution)
 
         # Dependents
@@ -311,7 +311,7 @@ class ConferenceContext(InstanceContext):
         :returns: Updated ConferenceInstance
         :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
         """
-        data = values.of({'Status': status,})
+        data = values.of({'Status': status})
 
         payload = self._version.update(
             'POST',
@@ -389,7 +389,7 @@ class ConferenceInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid'],}
+        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid']}
 
     @property
     def _proxy(self):
@@ -506,7 +506,7 @@ class ConferenceInstance(InstanceResource):
         :returns: Updated ConferenceInstance
         :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
         """
-        return self._proxy.update(status=status,)
+        return self._proxy.update(status=status)
 
     @property
     def participants(self):

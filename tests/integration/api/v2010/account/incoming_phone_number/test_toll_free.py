@@ -124,7 +124,7 @@ class TollFreeTestCase(IntegrationTestCase):
                                  .incoming_phone_numbers \
                                  .toll_free.create(phone_number="+987654321")
 
-        values = {'PhoneNumber': "+987654321",}
+        values = {'PhoneNumber': "+987654321"}
 
         self.holodeck.assert_has_request(Request(
             'post',

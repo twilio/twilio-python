@@ -33,7 +33,7 @@ class FieldList(ListResource):
         super(FieldList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'intent_sid': intent_sid,}
+        self._solution = {'service_sid': service_sid, 'intent_sid': intent_sid}
         self._uri = '/Services/{service_sid}/Intents/{intent_sid}/Fields'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
@@ -55,7 +55,7 @@ class FieldList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'],)
+        page = self.page(page_size=limits['page_size'])
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -75,7 +75,7 @@ class FieldList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.understand.service.intent.field.FieldInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size,))
+        return list(self.stream(limit=limit, page_size=page_size))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -90,7 +90,7 @@ class FieldList(ListResource):
         :returns: Page of FieldInstance
         :rtype: twilio.rest.preview.understand.service.intent.field.FieldPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
 
         response = self._version.page(
             'GET',
@@ -127,7 +127,7 @@ class FieldList(ListResource):
         :returns: Newly created FieldInstance
         :rtype: twilio.rest.preview.understand.service.intent.field.FieldInstance
         """
-        data = values.of({'FieldType': field_type, 'UniqueName': unique_name,})
+        data = values.of({'FieldType': field_type, 'UniqueName': unique_name})
 
         payload = self._version.create(
             'POST',
@@ -252,7 +252,7 @@ class FieldContext(InstanceContext):
         super(FieldContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'intent_sid': intent_sid, 'sid': sid,}
+        self._solution = {'service_sid': service_sid, 'intent_sid': intent_sid, 'sid': sid}
         self._uri = '/Services/{service_sid}/Intents/{intent_sid}/Fields/{sid}'.format(**self._solution)
 
     def fetch(self):

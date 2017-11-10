@@ -206,7 +206,7 @@ class WorkspaceTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.taskrouter.v1.workspaces.create(friendly_name="friendly_name")
 
-        values = {'FriendlyName': "friendly_name",}
+        values = {'FriendlyName': "friendly_name"}
 
         self.holodeck.assert_has_request(Request(
             'post',

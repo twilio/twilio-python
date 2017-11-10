@@ -31,7 +31,7 @@ class AvailableAddOnExtensionList(ListResource):
         super(AvailableAddOnExtensionList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'available_add_on_sid': available_add_on_sid,}
+        self._solution = {'available_add_on_sid': available_add_on_sid}
         self._uri = '/AvailableAddOns/{available_add_on_sid}/Extensions'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
@@ -53,7 +53,7 @@ class AvailableAddOnExtensionList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'],)
+        page = self.page(page_size=limits['page_size'])
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -73,7 +73,7 @@ class AvailableAddOnExtensionList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size,))
+        return list(self.stream(limit=limit, page_size=page_size))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -88,7 +88,7 @@ class AvailableAddOnExtensionList(ListResource):
         :returns: Page of AvailableAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
 
         response = self._version.page(
             'GET',
@@ -220,7 +220,7 @@ class AvailableAddOnExtensionContext(InstanceContext):
         super(AvailableAddOnExtensionContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'available_add_on_sid': available_add_on_sid, 'sid': sid,}
+        self._solution = {'available_add_on_sid': available_add_on_sid, 'sid': sid}
         self._uri = '/AvailableAddOns/{available_add_on_sid}/Extensions/{sid}'.format(**self._solution)
 
     def fetch(self):

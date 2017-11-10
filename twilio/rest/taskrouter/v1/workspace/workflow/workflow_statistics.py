@@ -31,7 +31,7 @@ class WorkflowStatisticsList(ListResource):
         super(WorkflowStatisticsList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'workspace_sid': workspace_sid, 'workflow_sid': workflow_sid,}
+        self._solution = {'workspace_sid': workspace_sid, 'workflow_sid': workflow_sid}
 
     def get(self):
         """
@@ -132,7 +132,7 @@ class WorkflowStatisticsContext(InstanceContext):
         super(WorkflowStatisticsContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'workspace_sid': workspace_sid, 'workflow_sid': workflow_sid,}
+        self._solution = {'workspace_sid': workspace_sid, 'workflow_sid': workflow_sid}
         self._uri = '/Workspaces/{workspace_sid}/Workflows/{workflow_sid}/Statistics'.format(**self._solution)
 
     def fetch(self, minutes=values.unset, start_date=values.unset,
@@ -206,7 +206,7 @@ class WorkflowStatisticsInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'workspace_sid': workspace_sid, 'workflow_sid': workflow_sid,}
+        self._solution = {'workspace_sid': workspace_sid, 'workflow_sid': workflow_sid}
 
     @property
     def _proxy(self):

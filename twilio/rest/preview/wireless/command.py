@@ -184,7 +184,7 @@ class CommandList(ListResource):
             data=data,
         )
 
-        return CommandInstance(self._version, payload,)
+        return CommandInstance(self._version, payload)
 
     def get(self, sid):
         """
@@ -195,7 +195,7 @@ class CommandList(ListResource):
         :returns: twilio.rest.preview.wireless.command.CommandContext
         :rtype: twilio.rest.preview.wireless.command.CommandContext
         """
-        return CommandContext(self._version, sid=sid,)
+        return CommandContext(self._version, sid=sid)
 
     def __call__(self, sid):
         """
@@ -206,7 +206,7 @@ class CommandList(ListResource):
         :returns: twilio.rest.preview.wireless.command.CommandContext
         :rtype: twilio.rest.preview.wireless.command.CommandContext
         """
-        return CommandContext(self._version, sid=sid,)
+        return CommandContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -247,7 +247,7 @@ class CommandPage(Page):
         :returns: twilio.rest.preview.wireless.command.CommandInstance
         :rtype: twilio.rest.preview.wireless.command.CommandInstance
         """
-        return CommandInstance(self._version, payload,)
+        return CommandInstance(self._version, payload)
 
     def __repr__(self):
         """
@@ -277,7 +277,7 @@ class CommandContext(InstanceContext):
         super(CommandContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'sid': sid,}
+        self._solution = {'sid': sid}
         self._uri = '/Commands/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -295,7 +295,7 @@ class CommandContext(InstanceContext):
             params=params,
         )
 
-        return CommandInstance(self._version, payload, sid=self._solution['sid'],)
+        return CommandInstance(self._version, payload, sid=self._solution['sid'])
 
     def __repr__(self):
         """
@@ -339,7 +339,7 @@ class CommandInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'sid': sid or self._properties['sid'],}
+        self._solution = {'sid': sid or self._properties['sid']}
 
     @property
     def _proxy(self):
@@ -351,7 +351,7 @@ class CommandInstance(InstanceResource):
         :rtype: twilio.rest.preview.wireless.command.CommandContext
         """
         if self._context is None:
-            self._context = CommandContext(self._version, sid=self._solution['sid'],)
+            self._context = CommandContext(self._version, sid=self._solution['sid'])
         return self._context
 
     @property

@@ -157,7 +157,7 @@ class SyncListPermissionTestCase(IntegrationTestCase):
                                .sync_lists(sid="ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                .sync_list_permissions(identity="identity").update(read=True, write=True, manage=True)
 
-        values = {'Read': True, 'Write': True, 'Manage': True,}
+        values = {'Read': True, 'Write': True, 'Manage': True}
 
         self.holodeck.assert_has_request(Request(
             'post',

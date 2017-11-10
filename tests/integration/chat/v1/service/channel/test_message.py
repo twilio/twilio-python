@@ -63,7 +63,7 @@ class MessageTestCase(IntegrationTestCase):
                                .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                .messages.create(body="body")
 
-        values = {'Body': "body",}
+        values = {'Body': "body"}
 
         self.holodeck.assert_has_request(Request(
             'post',

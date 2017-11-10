@@ -21,7 +21,7 @@ class MessageTestCase(IntegrationTestCase):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .messages.create(to="+123456789")
 
-        values = {'To': "+123456789",}
+        values = {'To': "+123456789"}
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -232,7 +232,7 @@ class MessageTestCase(IntegrationTestCase):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .messages(sid="MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(body="body")
 
-        values = {'Body': "body",}
+        values = {'Body': "body"}
 
         self.holodeck.assert_has_request(Request(
             'post',

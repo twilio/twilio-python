@@ -160,7 +160,7 @@ class QueryTestCase(IntegrationTestCase):
             self.client.preview.understand.services(sid="UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                           .queries.create(language="language", query="query")
 
-        values = {'Language': "language", 'Query': "query",}
+        values = {'Language': "language", 'Query': "query"}
 
         self.holodeck.assert_has_request(Request(
             'post',

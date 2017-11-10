@@ -36,7 +36,6 @@ class ParticipantTestCase(IntegrationTestCase):
                 "session_sid": "KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "service_sid": "KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "participant_type": "message-only",
                 "identifier": "identifier",
                 "proxy_identifier": "proxy_identifier",
                 "proxy_identifier_sid": "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -104,7 +103,7 @@ class ParticipantTestCase(IntegrationTestCase):
                                 .sessions(sid="KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                 .participants.create(identifier="identifier")
 
-        values = {'Identifier': "identifier",}
+        values = {'Identifier': "identifier"}
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -121,7 +120,6 @@ class ParticipantTestCase(IntegrationTestCase):
                 "session_sid": "KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "service_sid": "KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "participant_type": "message-only",
                 "identifier": "identifier",
                 "proxy_identifier": "proxy_identifier",
                 "proxy_identifier_sid": "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -190,7 +188,6 @@ class ParticipantTestCase(IntegrationTestCase):
                 "session_sid": "KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "service_sid": "KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "participant_type": "message-only",
                 "identifier": "identifier",
                 "proxy_identifier": "proxy_identifier",
                 "proxy_identifier_sid": "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",

@@ -32,7 +32,7 @@ class UserList(ListResource):
         super(UserList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid,}
+        self._solution = {'service_sid': service_sid}
         self._uri = '/Services/{service_sid}/Users'.format(**self._solution)
 
     def create(self, identity, role_sid=values.unset, attributes=values.unset,
@@ -61,7 +61,7 @@ class UserList(ListResource):
             data=data,
         )
 
-        return UserInstance(self._version, payload, service_sid=self._solution['service_sid'],)
+        return UserInstance(self._version, payload, service_sid=self._solution['service_sid'])
 
     def stream(self, limit=None, page_size=None):
         """
@@ -82,7 +82,7 @@ class UserList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'],)
+        page = self.page(page_size=limits['page_size'])
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -102,7 +102,7 @@ class UserList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.chat.v2.service.user.UserInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size,))
+        return list(self.stream(limit=limit, page_size=page_size))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -117,7 +117,7 @@ class UserList(ListResource):
         :returns: Page of UserInstance
         :rtype: twilio.rest.chat.v2.service.user.UserPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
 
         response = self._version.page(
             'GET',
@@ -153,7 +153,7 @@ class UserList(ListResource):
         :returns: twilio.rest.chat.v2.service.user.UserContext
         :rtype: twilio.rest.chat.v2.service.user.UserContext
         """
-        return UserContext(self._version, service_sid=self._solution['service_sid'], sid=sid,)
+        return UserContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __call__(self, sid):
         """
@@ -164,7 +164,7 @@ class UserList(ListResource):
         :returns: twilio.rest.chat.v2.service.user.UserContext
         :rtype: twilio.rest.chat.v2.service.user.UserContext
         """
-        return UserContext(self._version, service_sid=self._solution['service_sid'], sid=sid,)
+        return UserContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -204,7 +204,7 @@ class UserPage(Page):
         :returns: twilio.rest.chat.v2.service.user.UserInstance
         :rtype: twilio.rest.chat.v2.service.user.UserInstance
         """
-        return UserInstance(self._version, payload, service_sid=self._solution['service_sid'],)
+        return UserInstance(self._version, payload, service_sid=self._solution['service_sid'])
 
     def __repr__(self):
         """
@@ -233,7 +233,7 @@ class UserContext(InstanceContext):
         super(UserContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'sid': sid,}
+        self._solution = {'service_sid': service_sid, 'sid': sid}
         self._uri = '/Services/{service_sid}/Users/{sid}'.format(**self._solution)
 
         # Dependents
@@ -283,7 +283,7 @@ class UserContext(InstanceContext):
         :returns: Updated UserInstance
         :rtype: twilio.rest.chat.v2.service.user.UserInstance
         """
-        data = values.of({'RoleSid': role_sid, 'Attributes': attributes, 'FriendlyName': friendly_name,})
+        data = values.of({'RoleSid': role_sid, 'Attributes': attributes, 'FriendlyName': friendly_name})
 
         payload = self._version.update(
             'POST',
@@ -373,7 +373,7 @@ class UserInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'service_sid': service_sid, 'sid': sid or self._properties['sid'],}
+        self._solution = {'service_sid': service_sid, 'sid': sid or self._properties['sid']}
 
     @property
     def _proxy(self):
@@ -534,7 +534,7 @@ class UserInstance(InstanceResource):
         :returns: Updated UserInstance
         :rtype: twilio.rest.chat.v2.service.user.UserInstance
         """
-        return self._proxy.update(role_sid=role_sid, attributes=attributes, friendly_name=friendly_name,)
+        return self._proxy.update(role_sid=role_sid, attributes=attributes, friendly_name=friendly_name)
 
     @property
     def user_channels(self):

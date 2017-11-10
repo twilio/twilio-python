@@ -47,7 +47,7 @@ class FleetList(ListResource):
         :returns: Newly created FleetInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.FleetInstance
         """
-        data = values.of({'FriendlyName': friendly_name,})
+        data = values.of({'FriendlyName': friendly_name})
 
         payload = self._version.create(
             'POST',
@@ -55,7 +55,7 @@ class FleetList(ListResource):
             data=data,
         )
 
-        return FleetInstance(self._version, payload,)
+        return FleetInstance(self._version, payload)
 
     def stream(self, limit=None, page_size=None):
         """
@@ -76,7 +76,7 @@ class FleetList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'],)
+        page = self.page(page_size=limits['page_size'])
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -96,7 +96,7 @@ class FleetList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.deployed_devices.fleet.FleetInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size,))
+        return list(self.stream(limit=limit, page_size=page_size))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -111,7 +111,7 @@ class FleetList(ListResource):
         :returns: Page of FleetInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.FleetPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
 
         response = self._version.page(
             'GET',
@@ -147,7 +147,7 @@ class FleetList(ListResource):
         :returns: twilio.rest.preview.deployed_devices.fleet.FleetContext
         :rtype: twilio.rest.preview.deployed_devices.fleet.FleetContext
         """
-        return FleetContext(self._version, sid=sid,)
+        return FleetContext(self._version, sid=sid)
 
     def __call__(self, sid):
         """
@@ -158,7 +158,7 @@ class FleetList(ListResource):
         :returns: twilio.rest.preview.deployed_devices.fleet.FleetContext
         :rtype: twilio.rest.preview.deployed_devices.fleet.FleetContext
         """
-        return FleetContext(self._version, sid=sid,)
+        return FleetContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -199,7 +199,7 @@ class FleetPage(Page):
         :returns: twilio.rest.preview.deployed_devices.fleet.FleetInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.FleetInstance
         """
-        return FleetInstance(self._version, payload,)
+        return FleetInstance(self._version, payload)
 
     def __repr__(self):
         """
@@ -229,7 +229,7 @@ class FleetContext(InstanceContext):
         super(FleetContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'sid': sid,}
+        self._solution = {'sid': sid}
         self._uri = '/Fleets/{sid}'.format(**self._solution)
 
         # Dependents
@@ -253,7 +253,7 @@ class FleetContext(InstanceContext):
             params=params,
         )
 
-        return FleetInstance(self._version, payload, sid=self._solution['sid'],)
+        return FleetInstance(self._version, payload, sid=self._solution['sid'])
 
     def delete(self):
         """
@@ -275,7 +275,7 @@ class FleetContext(InstanceContext):
         :returns: Updated FleetInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.FleetInstance
         """
-        data = values.of({'FriendlyName': friendly_name, 'DefaultDeploymentSid': default_deployment_sid,})
+        data = values.of({'FriendlyName': friendly_name, 'DefaultDeploymentSid': default_deployment_sid})
 
         payload = self._version.update(
             'POST',
@@ -283,7 +283,7 @@ class FleetContext(InstanceContext):
             data=data,
         )
 
-        return FleetInstance(self._version, payload, sid=self._solution['sid'],)
+        return FleetInstance(self._version, payload, sid=self._solution['sid'])
 
     @property
     def devices(self):
@@ -294,7 +294,7 @@ class FleetContext(InstanceContext):
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceList
         """
         if self._devices is None:
-            self._devices = DeviceList(self._version, fleet_sid=self._solution['sid'],)
+            self._devices = DeviceList(self._version, fleet_sid=self._solution['sid'])
         return self._devices
 
     @property
@@ -306,7 +306,7 @@ class FleetContext(InstanceContext):
         :rtype: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentList
         """
         if self._deployments is None:
-            self._deployments = DeploymentList(self._version, fleet_sid=self._solution['sid'],)
+            self._deployments = DeploymentList(self._version, fleet_sid=self._solution['sid'])
         return self._deployments
 
     @property
@@ -318,7 +318,7 @@ class FleetContext(InstanceContext):
         :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateList
         """
         if self._certificates is None:
-            self._certificates = CertificateList(self._version, fleet_sid=self._solution['sid'],)
+            self._certificates = CertificateList(self._version, fleet_sid=self._solution['sid'])
         return self._certificates
 
     @property
@@ -330,7 +330,7 @@ class FleetContext(InstanceContext):
         :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyList
         """
         if self._keys is None:
-            self._keys = KeyList(self._version, fleet_sid=self._solution['sid'],)
+            self._keys = KeyList(self._version, fleet_sid=self._solution['sid'])
         return self._keys
 
     def __repr__(self):
@@ -373,7 +373,7 @@ class FleetInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'sid': sid or self._properties['sid'],}
+        self._solution = {'sid': sid or self._properties['sid']}
 
     @property
     def _proxy(self):
@@ -385,7 +385,7 @@ class FleetInstance(InstanceResource):
         :rtype: twilio.rest.preview.deployed_devices.fleet.FleetContext
         """
         if self._context is None:
-            self._context = FleetContext(self._version, sid=self._solution['sid'],)
+            self._context = FleetContext(self._version, sid=self._solution['sid'])
         return self._context
 
     @property
@@ -489,7 +489,7 @@ class FleetInstance(InstanceResource):
         :returns: Updated FleetInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.FleetInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, default_deployment_sid=default_deployment_sid,)
+        return self._proxy.update(friendly_name=friendly_name, default_deployment_sid=default_deployment_sid)
 
     @property
     def devices(self):

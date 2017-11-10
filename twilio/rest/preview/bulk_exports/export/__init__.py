@@ -42,7 +42,7 @@ class ExportList(ListResource):
         :returns: twilio.rest.preview.bulk_exports.export.ExportContext
         :rtype: twilio.rest.preview.bulk_exports.export.ExportContext
         """
-        return ExportContext(self._version, resource_type=resource_type,)
+        return ExportContext(self._version, resource_type=resource_type)
 
     def __call__(self, resource_type):
         """
@@ -53,7 +53,7 @@ class ExportList(ListResource):
         :returns: twilio.rest.preview.bulk_exports.export.ExportContext
         :rtype: twilio.rest.preview.bulk_exports.export.ExportContext
         """
-        return ExportContext(self._version, resource_type=resource_type,)
+        return ExportContext(self._version, resource_type=resource_type)
 
     def __repr__(self):
         """
@@ -94,7 +94,7 @@ class ExportPage(Page):
         :returns: twilio.rest.preview.bulk_exports.export.ExportInstance
         :rtype: twilio.rest.preview.bulk_exports.export.ExportInstance
         """
-        return ExportInstance(self._version, payload,)
+        return ExportInstance(self._version, payload)
 
     def __repr__(self):
         """
@@ -124,7 +124,7 @@ class ExportContext(InstanceContext):
         super(ExportContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'resource_type': resource_type,}
+        self._solution = {'resource_type': resource_type}
         self._uri = '/Exports/{resource_type}'.format(**self._solution)
 
         # Dependents
@@ -145,7 +145,7 @@ class ExportContext(InstanceContext):
             params=params,
         )
 
-        return ExportInstance(self._version, payload, resource_type=self._solution['resource_type'],)
+        return ExportInstance(self._version, payload, resource_type=self._solution['resource_type'])
 
     @property
     def days(self):
@@ -156,7 +156,7 @@ class ExportContext(InstanceContext):
         :rtype: twilio.rest.preview.bulk_exports.export.day.DayList
         """
         if self._days is None:
-            self._days = DayList(self._version, resource_type=self._solution['resource_type'],)
+            self._days = DayList(self._version, resource_type=self._solution['resource_type'])
         return self._days
 
     def __repr__(self):
@@ -193,7 +193,7 @@ class ExportInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'resource_type': resource_type or self._properties['resource_type'],}
+        self._solution = {'resource_type': resource_type or self._properties['resource_type']}
 
     @property
     def _proxy(self):
@@ -205,7 +205,7 @@ class ExportInstance(InstanceResource):
         :rtype: twilio.rest.preview.bulk_exports.export.ExportContext
         """
         if self._context is None:
-            self._context = ExportContext(self._version, resource_type=self._solution['resource_type'],)
+            self._context = ExportContext(self._version, resource_type=self._solution['resource_type'])
         return self._context
 
     @property

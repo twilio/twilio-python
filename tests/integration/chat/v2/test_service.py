@@ -101,7 +101,7 @@ class ServiceTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.chat.v2.services.create(friendly_name="friendly_name")
 
-        values = {'FriendlyName': "friendly_name",}
+        values = {'FriendlyName': "friendly_name"}
 
         self.holodeck.assert_has_request(Request(
             'post',

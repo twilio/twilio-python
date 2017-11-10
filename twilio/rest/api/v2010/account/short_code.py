@@ -30,7 +30,7 @@ class ShortCodeList(ListResource):
         super(ShortCodeList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid,}
+        self._solution = {'account_sid': account_sid}
         self._uri = '/Accounts/{account_sid}/SMS/ShortCodes.json'.format(**self._solution)
 
     def stream(self, friendly_name=values.unset, short_code=values.unset,
@@ -55,7 +55,7 @@ class ShortCodeList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(friendly_name=friendly_name, short_code=short_code, page_size=limits['page_size'],)
+        page = self.page(friendly_name=friendly_name, short_code=short_code, page_size=limits['page_size'])
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -143,7 +143,7 @@ class ShortCodeList(ListResource):
         :returns: twilio.rest.api.v2010.account.short_code.ShortCodeContext
         :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeContext
         """
-        return ShortCodeContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
+        return ShortCodeContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
     def __call__(self, sid):
         """
@@ -154,7 +154,7 @@ class ShortCodeList(ListResource):
         :returns: twilio.rest.api.v2010.account.short_code.ShortCodeContext
         :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeContext
         """
-        return ShortCodeContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
+        return ShortCodeContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -194,7 +194,7 @@ class ShortCodePage(Page):
         :returns: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
         :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
         """
-        return ShortCodeInstance(self._version, payload, account_sid=self._solution['account_sid'],)
+        return ShortCodeInstance(self._version, payload, account_sid=self._solution['account_sid'])
 
     def __repr__(self):
         """
@@ -223,7 +223,7 @@ class ShortCodeContext(InstanceContext):
         super(ShortCodeContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid, 'sid': sid,}
+        self._solution = {'account_sid': account_sid, 'sid': sid}
         self._uri = '/Accounts/{account_sid}/SMS/ShortCodes/{sid}.json'.format(**self._solution)
 
     def fetch(self):
@@ -327,7 +327,7 @@ class ShortCodeInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid'],}
+        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid']}
 
     @property
     def _proxy(self):

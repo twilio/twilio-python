@@ -102,7 +102,7 @@ class PhoneNumberTestCase(IntegrationTestCase):
             self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                    .phone_numbers.create(phone_number_sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 
-        values = {'PhoneNumberSid': "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",}
+        values = {'PhoneNumberSid': "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
 
         self.holodeck.assert_has_request(Request(
             'post',

@@ -35,7 +35,7 @@ class CallList(ListResource):
         super(CallList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid,}
+        self._solution = {'account_sid': account_sid}
         self._uri = '/Accounts/{account_sid}/Calls.json'.format(**self._solution)
 
         # Components
@@ -111,7 +111,7 @@ class CallList(ListResource):
             data=data,
         )
 
-        return CallInstance(self._version, payload, account_sid=self._solution['account_sid'],)
+        return CallInstance(self._version, payload, account_sid=self._solution['account_sid'])
 
     def stream(self, to=values.unset, from_=values.unset,
                parent_call_sid=values.unset, status=values.unset,
@@ -302,7 +302,7 @@ class CallList(ListResource):
         :returns: twilio.rest.api.v2010.account.call.CallContext
         :rtype: twilio.rest.api.v2010.account.call.CallContext
         """
-        return CallContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
+        return CallContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
     def __call__(self, sid):
         """
@@ -313,7 +313,7 @@ class CallList(ListResource):
         :returns: twilio.rest.api.v2010.account.call.CallContext
         :rtype: twilio.rest.api.v2010.account.call.CallContext
         """
-        return CallContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
+        return CallContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -353,7 +353,7 @@ class CallPage(Page):
         :returns: twilio.rest.api.v2010.account.call.CallInstance
         :rtype: twilio.rest.api.v2010.account.call.CallInstance
         """
-        return CallInstance(self._version, payload, account_sid=self._solution['account_sid'],)
+        return CallInstance(self._version, payload, account_sid=self._solution['account_sid'])
 
     def __repr__(self):
         """
@@ -382,7 +382,7 @@ class CallContext(InstanceContext):
         super(CallContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid, 'sid': sid,}
+        self._solution = {'account_sid': account_sid, 'sid': sid}
         self._uri = '/Accounts/{account_sid}/Calls/{sid}.json'.format(**self._solution)
 
         # Dependents
@@ -583,7 +583,7 @@ class CallInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid'],}
+        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid']}
 
     @property
     def _proxy(self):

@@ -54,7 +54,7 @@ class RatePlanList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'],)
+        page = self.page(page_size=limits['page_size'])
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -74,7 +74,7 @@ class RatePlanList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.wireless.rate_plan.RatePlanInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size,))
+        return list(self.stream(limit=limit, page_size=page_size))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -89,7 +89,7 @@ class RatePlanList(ListResource):
         :returns: Page of RatePlanInstance
         :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
 
         response = self._version.page(
             'GET',
@@ -158,7 +158,7 @@ class RatePlanList(ListResource):
             data=data,
         )
 
-        return RatePlanInstance(self._version, payload,)
+        return RatePlanInstance(self._version, payload)
 
     def get(self, sid):
         """
@@ -169,7 +169,7 @@ class RatePlanList(ListResource):
         :returns: twilio.rest.preview.wireless.rate_plan.RatePlanContext
         :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanContext
         """
-        return RatePlanContext(self._version, sid=sid,)
+        return RatePlanContext(self._version, sid=sid)
 
     def __call__(self, sid):
         """
@@ -180,7 +180,7 @@ class RatePlanList(ListResource):
         :returns: twilio.rest.preview.wireless.rate_plan.RatePlanContext
         :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanContext
         """
-        return RatePlanContext(self._version, sid=sid,)
+        return RatePlanContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -221,7 +221,7 @@ class RatePlanPage(Page):
         :returns: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
         :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
         """
-        return RatePlanInstance(self._version, payload,)
+        return RatePlanInstance(self._version, payload)
 
     def __repr__(self):
         """
@@ -251,7 +251,7 @@ class RatePlanContext(InstanceContext):
         super(RatePlanContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'sid': sid,}
+        self._solution = {'sid': sid}
         self._uri = '/RatePlans/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -269,7 +269,7 @@ class RatePlanContext(InstanceContext):
             params=params,
         )
 
-        return RatePlanInstance(self._version, payload, sid=self._solution['sid'],)
+        return RatePlanInstance(self._version, payload, sid=self._solution['sid'])
 
     def update(self, unique_name=values.unset, friendly_name=values.unset):
         """
@@ -281,7 +281,7 @@ class RatePlanContext(InstanceContext):
         :returns: Updated RatePlanInstance
         :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
         """
-        data = values.of({'UniqueName': unique_name, 'FriendlyName': friendly_name,})
+        data = values.of({'UniqueName': unique_name, 'FriendlyName': friendly_name})
 
         payload = self._version.update(
             'POST',
@@ -289,7 +289,7 @@ class RatePlanContext(InstanceContext):
             data=data,
         )
 
-        return RatePlanInstance(self._version, payload, sid=self._solution['sid'],)
+        return RatePlanInstance(self._version, payload, sid=self._solution['sid'])
 
     def delete(self):
         """
@@ -345,7 +345,7 @@ class RatePlanInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'sid': sid or self._properties['sid'],}
+        self._solution = {'sid': sid or self._properties['sid']}
 
     @property
     def _proxy(self):
@@ -357,7 +357,7 @@ class RatePlanInstance(InstanceResource):
         :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanContext
         """
         if self._context is None:
-            self._context = RatePlanContext(self._version, sid=self._solution['sid'],)
+            self._context = RatePlanContext(self._version, sid=self._solution['sid'])
         return self._context
 
     @property
@@ -491,7 +491,7 @@ class RatePlanInstance(InstanceResource):
         :returns: Updated RatePlanInstance
         :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
         """
-        return self._proxy.update(unique_name=unique_name, friendly_name=friendly_name,)
+        return self._proxy.update(unique_name=unique_name, friendly_name=friendly_name)
 
     def delete(self):
         """

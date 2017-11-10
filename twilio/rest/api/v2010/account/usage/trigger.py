@@ -30,7 +30,7 @@ class TriggerList(ListResource):
         super(TriggerList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid,}
+        self._solution = {'account_sid': account_sid}
         self._uri = '/Accounts/{account_sid}/Usage/Triggers.json'.format(**self._solution)
 
     def create(self, callback_url, trigger_value, usage_category,
@@ -66,7 +66,7 @@ class TriggerList(ListResource):
             data=data,
         )
 
-        return TriggerInstance(self._version, payload, account_sid=self._solution['account_sid'],)
+        return TriggerInstance(self._version, payload, account_sid=self._solution['account_sid'])
 
     def stream(self, recurring=values.unset, trigger_by=values.unset,
                usage_category=values.unset, limit=None, page_size=None):
@@ -188,7 +188,7 @@ class TriggerList(ListResource):
         :returns: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
         :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
         """
-        return TriggerContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
+        return TriggerContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
     def __call__(self, sid):
         """
@@ -199,7 +199,7 @@ class TriggerList(ListResource):
         :returns: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
         :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
         """
-        return TriggerContext(self._version, account_sid=self._solution['account_sid'], sid=sid,)
+        return TriggerContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -239,7 +239,7 @@ class TriggerPage(Page):
         :returns: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
         :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
         """
-        return TriggerInstance(self._version, payload, account_sid=self._solution['account_sid'],)
+        return TriggerInstance(self._version, payload, account_sid=self._solution['account_sid'])
 
     def __repr__(self):
         """
@@ -268,7 +268,7 @@ class TriggerContext(InstanceContext):
         super(TriggerContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid, 'sid': sid,}
+        self._solution = {'account_sid': account_sid, 'sid': sid}
         self._uri = '/Accounts/{account_sid}/Usage/Triggers/{sid}.json'.format(**self._solution)
 
     def fetch(self):
@@ -614,7 +614,7 @@ class TriggerInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid'],}
+        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid']}
 
     @property
     def _proxy(self):

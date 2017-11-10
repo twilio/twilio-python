@@ -33,7 +33,7 @@ class SyncListList(ListResource):
         super(SyncListList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid,}
+        self._solution = {'service_sid': service_sid}
         self._uri = '/Services/{service_sid}/Lists'.format(**self._solution)
 
     def create(self, unique_name=values.unset):
@@ -45,7 +45,7 @@ class SyncListList(ListResource):
         :returns: Newly created SyncListInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.SyncListInstance
         """
-        data = values.of({'UniqueName': unique_name,})
+        data = values.of({'UniqueName': unique_name})
 
         payload = self._version.create(
             'POST',
@@ -53,7 +53,7 @@ class SyncListList(ListResource):
             data=data,
         )
 
-        return SyncListInstance(self._version, payload, service_sid=self._solution['service_sid'],)
+        return SyncListInstance(self._version, payload, service_sid=self._solution['service_sid'])
 
     def stream(self, limit=None, page_size=None):
         """
@@ -74,7 +74,7 @@ class SyncListList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'],)
+        page = self.page(page_size=limits['page_size'])
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -94,7 +94,7 @@ class SyncListList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.sync.v1.service.sync_list.SyncListInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size,))
+        return list(self.stream(limit=limit, page_size=page_size))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -109,7 +109,7 @@ class SyncListList(ListResource):
         :returns: Page of SyncListInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.SyncListPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
 
         response = self._version.page(
             'GET',
@@ -145,7 +145,7 @@ class SyncListList(ListResource):
         :returns: twilio.rest.sync.v1.service.sync_list.SyncListContext
         :rtype: twilio.rest.sync.v1.service.sync_list.SyncListContext
         """
-        return SyncListContext(self._version, service_sid=self._solution['service_sid'], sid=sid,)
+        return SyncListContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __call__(self, sid):
         """
@@ -156,7 +156,7 @@ class SyncListList(ListResource):
         :returns: twilio.rest.sync.v1.service.sync_list.SyncListContext
         :rtype: twilio.rest.sync.v1.service.sync_list.SyncListContext
         """
-        return SyncListContext(self._version, service_sid=self._solution['service_sid'], sid=sid,)
+        return SyncListContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -197,7 +197,7 @@ class SyncListPage(Page):
         :returns: twilio.rest.sync.v1.service.sync_list.SyncListInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.SyncListInstance
         """
-        return SyncListInstance(self._version, payload, service_sid=self._solution['service_sid'],)
+        return SyncListInstance(self._version, payload, service_sid=self._solution['service_sid'])
 
     def __repr__(self):
         """
@@ -227,7 +227,7 @@ class SyncListContext(InstanceContext):
         super(SyncListContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'sid': sid,}
+        self._solution = {'service_sid': service_sid, 'sid': sid}
         self._uri = '/Services/{service_sid}/Lists/{sid}'.format(**self._solution)
 
         # Dependents
@@ -337,7 +337,7 @@ class SyncListInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'service_sid': service_sid, 'sid': sid or self._properties['sid'],}
+        self._solution = {'service_sid': service_sid, 'sid': sid or self._properties['sid']}
 
     @property
     def _proxy(self):

@@ -30,7 +30,7 @@ class WorkersRealTimeStatisticsList(ListResource):
         super(WorkersRealTimeStatisticsList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'workspace_sid': workspace_sid,}
+        self._solution = {'workspace_sid': workspace_sid}
 
     def get(self):
         """
@@ -39,7 +39,7 @@ class WorkersRealTimeStatisticsList(ListResource):
         :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsContext
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsContext
         """
-        return WorkersRealTimeStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'],)
+        return WorkersRealTimeStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'])
 
     def __call__(self):
         """
@@ -48,7 +48,7 @@ class WorkersRealTimeStatisticsList(ListResource):
         :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsContext
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsContext
         """
-        return WorkersRealTimeStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'],)
+        return WorkersRealTimeStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'])
 
     def __repr__(self):
         """
@@ -120,7 +120,7 @@ class WorkersRealTimeStatisticsContext(InstanceContext):
         super(WorkersRealTimeStatisticsContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'workspace_sid': workspace_sid,}
+        self._solution = {'workspace_sid': workspace_sid}
         self._uri = '/Workspaces/{workspace_sid}/Workers/RealTimeStatistics'.format(**self._solution)
 
     def fetch(self, task_channel=values.unset):
@@ -132,7 +132,7 @@ class WorkersRealTimeStatisticsContext(InstanceContext):
         :returns: Fetched WorkersRealTimeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsInstance
         """
-        params = values.of({'TaskChannel': task_channel,})
+        params = values.of({'TaskChannel': task_channel})
 
         payload = self._version.fetch(
             'GET',
@@ -180,7 +180,7 @@ class WorkersRealTimeStatisticsInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'workspace_sid': workspace_sid,}
+        self._solution = {'workspace_sid': workspace_sid}
 
     @property
     def _proxy(self):
@@ -247,7 +247,7 @@ class WorkersRealTimeStatisticsInstance(InstanceResource):
         :returns: Fetched WorkersRealTimeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsInstance
         """
-        return self._proxy.fetch(task_channel=task_channel,)
+        return self._proxy.fetch(task_channel=task_channel)
 
     def __repr__(self):
         """

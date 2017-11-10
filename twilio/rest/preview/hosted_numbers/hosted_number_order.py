@@ -161,12 +161,11 @@ class HostedNumberOrderList(ListResource):
 
         return HostedNumberOrderPage(self._version, response, self._solution)
 
-    def create(self, phone_number, iso_country, sms_capability,
-               account_sid=values.unset, friendly_name=values.unset,
-               unique_name=values.unset, cc_emails=values.unset,
-               sms_url=values.unset, sms_method=values.unset,
-               sms_fallback_url=values.unset, sms_fallback_method=values.unset,
-               status_callback_url=values.unset,
+    def create(self, phone_number, sms_capability, account_sid=values.unset,
+               friendly_name=values.unset, unique_name=values.unset,
+               cc_emails=values.unset, sms_url=values.unset,
+               sms_method=values.unset, sms_fallback_url=values.unset,
+               sms_fallback_method=values.unset, status_callback_url=values.unset,
                status_callback_method=values.unset,
                sms_application_sid=values.unset, address_sid=values.unset,
                email=values.unset):
@@ -174,7 +173,6 @@ class HostedNumberOrderList(ListResource):
         Create a new HostedNumberOrderInstance
 
         :param unicode phone_number: An E164 formatted phone number.
-        :param unicode iso_country: ISO country code.
         :param bool sms_capability: Specify SMS capability to host.
         :param unicode account_sid: Account Sid.
         :param unicode friendly_name: A human readable description of this resource.
@@ -195,7 +193,6 @@ class HostedNumberOrderList(ListResource):
         """
         data = values.of({
             'PhoneNumber': phone_number,
-            'IsoCountry': iso_country,
             'SmsCapability': sms_capability,
             'AccountSid': account_sid,
             'FriendlyName': friendly_name,
@@ -218,7 +215,7 @@ class HostedNumberOrderList(ListResource):
             data=data,
         )
 
-        return HostedNumberOrderInstance(self._version, payload,)
+        return HostedNumberOrderInstance(self._version, payload)
 
     def get(self, sid):
         """
@@ -229,7 +226,7 @@ class HostedNumberOrderList(ListResource):
         :returns: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderContext
         :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderContext
         """
-        return HostedNumberOrderContext(self._version, sid=sid,)
+        return HostedNumberOrderContext(self._version, sid=sid)
 
     def __call__(self, sid):
         """
@@ -240,7 +237,7 @@ class HostedNumberOrderList(ListResource):
         :returns: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderContext
         :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderContext
         """
-        return HostedNumberOrderContext(self._version, sid=sid,)
+        return HostedNumberOrderContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -281,7 +278,7 @@ class HostedNumberOrderPage(Page):
         :returns: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance
         :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance
         """
-        return HostedNumberOrderInstance(self._version, payload,)
+        return HostedNumberOrderInstance(self._version, payload)
 
     def __repr__(self):
         """
@@ -311,7 +308,7 @@ class HostedNumberOrderContext(InstanceContext):
         super(HostedNumberOrderContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'sid': sid,}
+        self._solution = {'sid': sid}
         self._uri = '/HostedNumberOrders/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -329,7 +326,7 @@ class HostedNumberOrderContext(InstanceContext):
             params=params,
         )
 
-        return HostedNumberOrderInstance(self._version, payload, sid=self._solution['sid'],)
+        return HostedNumberOrderInstance(self._version, payload, sid=self._solution['sid'])
 
     def delete(self):
         """
@@ -371,7 +368,7 @@ class HostedNumberOrderContext(InstanceContext):
             data=data,
         )
 
-        return HostedNumberOrderInstance(self._version, payload, sid=self._solution['sid'],)
+        return HostedNumberOrderInstance(self._version, payload, sid=self._solution['sid'])
 
     def __repr__(self):
         """
@@ -431,7 +428,7 @@ class HostedNumberOrderInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'sid': sid or self._properties['sid'],}
+        self._solution = {'sid': sid or self._properties['sid']}
 
     @property
     def _proxy(self):
@@ -443,7 +440,7 @@ class HostedNumberOrderInstance(InstanceResource):
         :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderContext
         """
         if self._context is None:
-            self._context = HostedNumberOrderContext(self._version, sid=self._solution['sid'],)
+            self._context = HostedNumberOrderContext(self._version, sid=self._solution['sid'])
         return self._context
 
     @property

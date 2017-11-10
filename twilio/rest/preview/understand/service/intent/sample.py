@@ -33,7 +33,7 @@ class SampleList(ListResource):
         super(SampleList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'intent_sid': intent_sid,}
+        self._solution = {'service_sid': service_sid, 'intent_sid': intent_sid}
         self._uri = '/Services/{service_sid}/Intents/{intent_sid}/Samples'.format(**self._solution)
 
     def stream(self, language=values.unset, limit=None, page_size=None):
@@ -56,7 +56,7 @@ class SampleList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(language=language, page_size=limits['page_size'],)
+        page = self.page(language=language, page_size=limits['page_size'])
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -77,7 +77,7 @@ class SampleList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.understand.service.intent.sample.SampleInstance]
         """
-        return list(self.stream(language=language, limit=limit, page_size=page_size,))
+        return list(self.stream(language=language, limit=limit, page_size=page_size))
 
     def page(self, language=values.unset, page_token=values.unset,
              page_number=values.unset, page_size=values.unset):
@@ -135,7 +135,7 @@ class SampleList(ListResource):
         :returns: Newly created SampleInstance
         :rtype: twilio.rest.preview.understand.service.intent.sample.SampleInstance
         """
-        data = values.of({'Language': language, 'TaggedText': tagged_text,})
+        data = values.of({'Language': language, 'TaggedText': tagged_text})
 
         payload = self._version.create(
             'POST',
@@ -260,7 +260,7 @@ class SampleContext(InstanceContext):
         super(SampleContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'intent_sid': intent_sid, 'sid': sid,}
+        self._solution = {'service_sid': service_sid, 'intent_sid': intent_sid, 'sid': sid}
         self._uri = '/Services/{service_sid}/Intents/{intent_sid}/Samples/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -296,7 +296,7 @@ class SampleContext(InstanceContext):
         :returns: Updated SampleInstance
         :rtype: twilio.rest.preview.understand.service.intent.sample.SampleInstance
         """
-        data = values.of({'Language': language, 'TaggedText': tagged_text,})
+        data = values.of({'Language': language, 'TaggedText': tagged_text})
 
         payload = self._version.update(
             'POST',
@@ -476,7 +476,7 @@ class SampleInstance(InstanceResource):
         :returns: Updated SampleInstance
         :rtype: twilio.rest.preview.understand.service.intent.sample.SampleInstance
         """
-        return self._proxy.update(language=language, tagged_text=tagged_text,)
+        return self._proxy.update(language=language, tagged_text=tagged_text)
 
     def delete(self):
         """

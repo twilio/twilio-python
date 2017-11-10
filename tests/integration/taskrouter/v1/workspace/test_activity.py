@@ -185,7 +185,7 @@ class ActivityTestCase(IntegrationTestCase):
             self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                      .activities.create(friendly_name="friendly_name")
 
-        values = {'FriendlyName': "friendly_name",}
+        values = {'FriendlyName': "friendly_name"}
 
         self.holodeck.assert_has_request(Request(
             'post',

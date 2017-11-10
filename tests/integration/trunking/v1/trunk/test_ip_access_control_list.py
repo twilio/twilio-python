@@ -77,7 +77,7 @@ class IpAccessControlListTestCase(IntegrationTestCase):
             self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                    .ip_access_control_lists.create(ip_access_control_list_sid="ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 
-        values = {'IpAccessControlListSid': "ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",}
+        values = {'IpAccessControlListSid': "ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
 
         self.holodeck.assert_has_request(Request(
             'post',

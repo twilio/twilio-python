@@ -21,7 +21,7 @@ class CallTestCase(IntegrationTestCase):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .calls.create(to="+123456789", from_="+987654321")
 
-        values = {'To': "+123456789", 'From': "+987654321",}
+        values = {'To': "+123456789", 'From': "+987654321"}
 
         self.holodeck.assert_has_request(Request(
             'post',

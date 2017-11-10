@@ -31,7 +31,7 @@ class AlphaSenderList(ListResource):
         super(AlphaSenderList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid,}
+        self._solution = {'service_sid': service_sid}
         self._uri = '/Services/{service_sid}/AlphaSenders'.format(**self._solution)
 
     def create(self, alpha_sender):
@@ -43,7 +43,7 @@ class AlphaSenderList(ListResource):
         :returns: Newly created AlphaSenderInstance
         :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance
         """
-        data = values.of({'AlphaSender': alpha_sender,})
+        data = values.of({'AlphaSender': alpha_sender})
 
         payload = self._version.create(
             'POST',
@@ -51,7 +51,7 @@ class AlphaSenderList(ListResource):
             data=data,
         )
 
-        return AlphaSenderInstance(self._version, payload, service_sid=self._solution['service_sid'],)
+        return AlphaSenderInstance(self._version, payload, service_sid=self._solution['service_sid'])
 
     def stream(self, limit=None, page_size=None):
         """
@@ -72,7 +72,7 @@ class AlphaSenderList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'],)
+        page = self.page(page_size=limits['page_size'])
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -92,7 +92,7 @@ class AlphaSenderList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size,))
+        return list(self.stream(limit=limit, page_size=page_size))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -107,7 +107,7 @@ class AlphaSenderList(ListResource):
         :returns: Page of AlphaSenderInstance
         :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size,})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
 
         response = self._version.page(
             'GET',
@@ -143,7 +143,7 @@ class AlphaSenderList(ListResource):
         :returns: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderContext
         :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderContext
         """
-        return AlphaSenderContext(self._version, service_sid=self._solution['service_sid'], sid=sid,)
+        return AlphaSenderContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __call__(self, sid):
         """
@@ -154,7 +154,7 @@ class AlphaSenderList(ListResource):
         :returns: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderContext
         :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderContext
         """
-        return AlphaSenderContext(self._version, service_sid=self._solution['service_sid'], sid=sid,)
+        return AlphaSenderContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -195,7 +195,7 @@ class AlphaSenderPage(Page):
         :returns: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance
         :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance
         """
-        return AlphaSenderInstance(self._version, payload, service_sid=self._solution['service_sid'],)
+        return AlphaSenderInstance(self._version, payload, service_sid=self._solution['service_sid'])
 
     def __repr__(self):
         """
@@ -225,7 +225,7 @@ class AlphaSenderContext(InstanceContext):
         super(AlphaSenderContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'sid': sid,}
+        self._solution = {'service_sid': service_sid, 'sid': sid}
         self._uri = '/Services/{service_sid}/AlphaSenders/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -297,7 +297,7 @@ class AlphaSenderInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'service_sid': service_sid, 'sid': sid or self._properties['sid'],}
+        self._solution = {'service_sid': service_sid, 'sid': sid or self._properties['sid']}
 
     @property
     def _proxy(self):

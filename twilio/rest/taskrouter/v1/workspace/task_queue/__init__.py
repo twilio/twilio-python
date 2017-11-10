@@ -34,7 +34,7 @@ class TaskQueueList(ListResource):
         super(TaskQueueList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'workspace_sid': workspace_sid,}
+        self._solution = {'workspace_sid': workspace_sid}
         self._uri = '/Workspaces/{workspace_sid}/TaskQueues'.format(**self._solution)
 
         # Components
@@ -185,7 +185,7 @@ class TaskQueueList(ListResource):
             data=data,
         )
 
-        return TaskQueueInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'],)
+        return TaskQueueInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
 
     @property
     def statistics(self):
@@ -211,7 +211,7 @@ class TaskQueueList(ListResource):
         :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
         """
-        return TaskQueueContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid,)
+        return TaskQueueContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid)
 
     def __call__(self, sid):
         """
@@ -222,7 +222,7 @@ class TaskQueueList(ListResource):
         :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
         """
-        return TaskQueueContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid,)
+        return TaskQueueContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -262,7 +262,7 @@ class TaskQueuePage(Page):
         :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
         """
-        return TaskQueueInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'],)
+        return TaskQueueInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
 
     def __repr__(self):
         """
@@ -291,7 +291,7 @@ class TaskQueueContext(InstanceContext):
         super(TaskQueueContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'workspace_sid': workspace_sid, 'sid': sid,}
+        self._solution = {'workspace_sid': workspace_sid, 'sid': sid}
         self._uri = '/Workspaces/{workspace_sid}/TaskQueues/{sid}'.format(**self._solution)
 
         # Dependents
@@ -465,7 +465,7 @@ class TaskQueueInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'workspace_sid': workspace_sid, 'sid': sid or self._properties['sid'],}
+        self._solution = {'workspace_sid': workspace_sid, 'sid': sid or self._properties['sid']}
 
     @property
     def _proxy(self):

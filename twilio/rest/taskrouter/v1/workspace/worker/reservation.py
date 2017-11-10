@@ -32,7 +32,7 @@ class ReservationList(ListResource):
         super(ReservationList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'workspace_sid': workspace_sid, 'worker_sid': worker_sid,}
+        self._solution = {'workspace_sid': workspace_sid, 'worker_sid': worker_sid}
         self._uri = '/Workspaces/{workspace_sid}/Workers/{worker_sid}/Reservations'.format(**self._solution)
 
     def stream(self, reservation_status=values.unset, limit=None, page_size=None):
@@ -55,7 +55,7 @@ class ReservationList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(reservation_status=reservation_status, page_size=limits['page_size'],)
+        page = self.page(reservation_status=reservation_status, page_size=limits['page_size'])
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -76,7 +76,7 @@ class ReservationList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance]
         """
-        return list(self.stream(reservation_status=reservation_status, limit=limit, page_size=page_size,))
+        return list(self.stream(reservation_status=reservation_status, limit=limit, page_size=page_size))
 
     def page(self, reservation_status=values.unset, page_token=values.unset,
              page_number=values.unset, page_size=values.unset):
@@ -230,7 +230,7 @@ class ReservationContext(InstanceContext):
         super(ReservationContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'workspace_sid': workspace_sid, 'worker_sid': worker_sid, 'sid': sid,}
+        self._solution = {'workspace_sid': workspace_sid, 'worker_sid': worker_sid, 'sid': sid}
         self._uri = '/Workspaces/{workspace_sid}/Workers/{worker_sid}/Reservations/{sid}'.format(**self._solution)
 
     def fetch(self):

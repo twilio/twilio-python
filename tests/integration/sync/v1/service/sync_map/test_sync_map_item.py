@@ -86,7 +86,7 @@ class SyncMapItemTestCase(IntegrationTestCase):
                                .sync_maps(sid="MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                .sync_map_items.create(key="key", data="{}")
 
-        values = {'Key': "key", 'Data': serialize.object("{}"),}
+        values = {'Key': "key", 'Data': serialize.object("{}")}
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -203,7 +203,7 @@ class SyncMapItemTestCase(IntegrationTestCase):
                                .sync_maps(sid="MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                .sync_map_items(key="key").update(data="{}")
 
-        values = {'Data': serialize.object("{}"),}
+        values = {'Data': serialize.object("{}")}
 
         self.holodeck.assert_has_request(Request(
             'post',

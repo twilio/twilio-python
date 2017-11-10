@@ -21,7 +21,7 @@ class ValidationRequestTestCase(IntegrationTestCase):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .validation_requests.create(phone_number="+987654321")
 
-        values = {'PhoneNumber': "+987654321",}
+        values = {'PhoneNumber': "+987654321"}
 
         self.holodeck.assert_has_request(Request(
             'post',

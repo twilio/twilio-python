@@ -132,7 +132,7 @@ class FieldTypeTestCase(IntegrationTestCase):
             self.client.preview.understand.services(sid="UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                           .field_types.create(unique_name="unique_name")
 
-        values = {'UniqueName': "unique_name",}
+        values = {'UniqueName': "unique_name"}
 
         self.holodeck.assert_has_request(Request(
             'post',

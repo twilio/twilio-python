@@ -134,7 +134,7 @@ class FieldValueTestCase(IntegrationTestCase):
                                           .field_types(sid="UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                           .field_values.create(language="language", value="value")
 
-        values = {'Language': "language", 'Value': "value",}
+        values = {'Language': "language", 'Value': "value"}
 
         self.holodeck.assert_has_request(Request(
             'post',

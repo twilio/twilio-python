@@ -77,7 +77,7 @@ class CredentialListTestCase(IntegrationTestCase):
             self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                    .credentials_lists.create(credential_list_sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 
-        values = {'CredentialListSid': "CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",}
+        values = {'CredentialListSid': "CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
 
         self.holodeck.assert_has_request(Request(
             'post',

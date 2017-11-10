@@ -199,7 +199,7 @@ class DocumentTestCase(IntegrationTestCase):
             self.client.preview.sync.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                     .documents(sid="ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(data="{}")
 
-        values = {'Data': serialize.object("{}"),}
+        values = {'Data': serialize.object("{}")}
 
         self.holodeck.assert_has_request(Request(
             'post',

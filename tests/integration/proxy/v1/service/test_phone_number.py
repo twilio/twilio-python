@@ -19,14 +19,11 @@ class PhoneNumberTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.proxy.v1.services(sid="KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                .phone_numbers.create(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-
-        values = {'Sid': "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",}
+                                .phone_numbers.create()
 
         self.holodeck.assert_has_request(Request(
             'post',
             'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers',
-            data=values,
         ))
 
     def test_create_response(self):
@@ -42,14 +39,17 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 "phone_number": "+987654321",
                 "friendly_name": "Friendly Name",
                 "iso_country": "US",
-                "capabilities": [],
+                "capabilities": {
+                    "sms_outbound": true,
+                    "voice_inbound": false
+                },
                 "url": "https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
         ))
 
         actual = self.client.proxy.v1.services(sid="KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                     .phone_numbers.create(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+                                     .phone_numbers.create()
 
         self.assertIsNotNone(actual)
 
@@ -112,7 +112,10 @@ class PhoneNumberTestCase(IntegrationTestCase):
                         "phone_number": "+987654321",
                         "friendly_name": "Friendly Name",
                         "iso_country": "US",
-                        "capabilities": [],
+                        "capabilities": {
+                            "sms_outbound": true,
+                            "voice_inbound": false
+                        },
                         "url": "https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     }
                 ]
@@ -150,7 +153,10 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 "phone_number": "12345",
                 "friendly_name": "Friendly Name",
                 "iso_country": "US",
-                "capabilities": [],
+                "capabilities": {
+                    "sms_outbound": true,
+                    "voice_inbound": false
+                },
                 "url": "https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
