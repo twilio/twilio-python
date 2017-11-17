@@ -36,6 +36,7 @@ class SyncListItemTestCase(IntegrationTestCase):
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "created_by": "created_by",
                 "data": {},
+                "date_expires": "2015-07-30T21:00:00Z",
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z",
                 "index": 100,
@@ -102,6 +103,7 @@ class SyncListItemTestCase(IntegrationTestCase):
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "created_by": "created_by",
                 "data": {},
+                "date_expires": "2015-07-30T21:00:00Z",
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z",
                 "index": 100,
@@ -167,6 +169,7 @@ class SyncListItemTestCase(IntegrationTestCase):
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "created_by": "created_by",
                         "data": {},
+                        "date_expires": "2015-07-30T21:00:00Z",
                         "date_created": "2015-07-30T20:00:00Z",
                         "date_updated": "2015-07-30T20:00:00Z",
                         "index": 100,
@@ -201,14 +204,11 @@ class SyncListItemTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                .sync_lists(sid="ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .sync_list_items(index=1).update(data="{}")
-
-        values = {'Data': serialize.object("{}")}
+                               .sync_list_items(index=1).update()
 
         self.holodeck.assert_has_request(Request(
             'post',
             'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Lists/ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Items/1',
-            data=values,
         ))
 
     def test_update_response(self):
@@ -219,6 +219,7 @@ class SyncListItemTestCase(IntegrationTestCase):
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "created_by": "created_by",
                 "data": {},
+                "date_expires": "2015-07-30T21:00:00Z",
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z",
                 "index": 100,
@@ -232,6 +233,6 @@ class SyncListItemTestCase(IntegrationTestCase):
 
         actual = self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                     .sync_lists(sid="ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .sync_list_items(index=1).update(data="{}")
+                                    .sync_list_items(index=1).update()
 
         self.assertIsNotNone(actual)

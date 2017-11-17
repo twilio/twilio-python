@@ -14,7 +14,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
 from twilio.rest.video.v1.room.recording import RoomRecordingList
-from twilio.rest.video.v1.room.room_participant import RoomParticipantList
+from twilio.rest.video.v1.room.room_participant import ParticipantList
 
 
 class RoomList(ListResource):
@@ -343,11 +343,11 @@ class RoomContext(InstanceContext):
         """
         Access the participants
 
-        :returns: twilio.rest.video.v1.room.room_participant.RoomParticipantList
-        :rtype: twilio.rest.video.v1.room.room_participant.RoomParticipantList
+        :returns: twilio.rest.video.v1.room.room_participant.ParticipantList
+        :rtype: twilio.rest.video.v1.room.room_participant.ParticipantList
         """
         if self._participants is None:
-            self._participants = RoomParticipantList(self._version, room_sid=self._solution['sid'])
+            self._participants = ParticipantList(self._version, room_sid=self._solution['sid'])
         return self._participants
 
     def __repr__(self):
@@ -595,8 +595,8 @@ class RoomInstance(InstanceResource):
         """
         Access the participants
 
-        :returns: twilio.rest.video.v1.room.room_participant.RoomParticipantList
-        :rtype: twilio.rest.video.v1.room.room_participant.RoomParticipantList
+        :returns: twilio.rest.video.v1.room.room_participant.ParticipantList
+        :rtype: twilio.rest.video.v1.room.room_participant.ParticipantList
         """
         return self._proxy.participants
 

@@ -35,16 +35,17 @@ class SyncStreamList(ListResource):
         self._solution = {'service_sid': service_sid}
         self._uri = '/Services/{service_sid}/Streams'.format(**self._solution)
 
-    def create(self, unique_name=values.unset):
+    def create(self, unique_name=values.unset, ttl=values.unset):
         """
         Create a new SyncStreamInstance
 
         :param unicode unique_name: Stream unique name.
+        :param unicode ttl: Stream TTL.
 
         :returns: Newly created SyncStreamInstance
         :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
         """
-        data = values.of({'UniqueName': unique_name})
+        data = values.of({'UniqueName': unique_name, 'Ttl': ttl})
 
         payload = self._version.create(
             'POST',
@@ -263,6 +264,30 @@ class SyncStreamContext(InstanceContext):
         """
         return self._version.delete('delete', self._uri)
 
+    def update(self, ttl=values.unset):
+        """
+        Update the SyncStreamInstance
+
+        :param unicode ttl: Stream TTL.
+
+        :returns: Updated SyncStreamInstance
+        :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
+        """
+        data = values.of({'Ttl': ttl})
+
+        payload = self._version.update(
+            'POST',
+            self._uri,
+            data=data,
+        )
+
+        return SyncStreamInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+        )
+
     @property
     def stream_messages(self):
         """
@@ -311,6 +336,7 @@ class SyncStreamInstance(InstanceResource):
             'service_sid': payload['service_sid'],
             'url': payload['url'],
             'links': payload['links'],
+            'date_expires': deserialize.iso8601_datetime(payload['date_expires']),
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
             'created_by': payload['created_by'],
@@ -386,6 +412,14 @@ class SyncStreamInstance(InstanceResource):
         return self._properties['links']
 
     @property
+    def date_expires(self):
+        """
+        :returns: The date this Stream expires.
+        :rtype: datetime
+        """
+        return self._properties['date_expires']
+
+    @property
     def date_created(self):
         """
         :returns: The date this Stream was created.
@@ -426,6 +460,17 @@ class SyncStreamInstance(InstanceResource):
         :rtype: bool
         """
         return self._proxy.delete()
+
+    def update(self, ttl=values.unset):
+        """
+        Update the SyncStreamInstance
+
+        :param unicode ttl: Stream TTL.
+
+        :returns: Updated SyncStreamInstance
+        :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
+        """
+        return self._proxy.update(ttl=ttl)
 
     @property
     def stream_messages(self):

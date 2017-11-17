@@ -16,20 +16,20 @@ from twilio.base.page import Page
 from twilio.rest.video.v1.room.room_participant.room_participant_published_track import PublishedTrackList
 
 
-class RoomParticipantList(ListResource):
+class ParticipantList(ListResource):
     """  """
 
     def __init__(self, version, room_sid):
         """
-        Initialize the RoomParticipantList
+        Initialize the ParticipantList
 
         :param Version version: Version that contains the resource
         :param room_sid: The room_sid
 
-        :returns: twilio.rest.video.v1.room.room_participant.RoomParticipantList
-        :rtype: twilio.rest.video.v1.room.room_participant.RoomParticipantList
+        :returns: twilio.rest.video.v1.room.room_participant.ParticipantList
+        :rtype: twilio.rest.video.v1.room.room_participant.ParticipantList
         """
-        super(RoomParticipantList, self).__init__(version)
+        super(ParticipantList, self).__init__(version)
 
         # Path Solution
         self._solution = {'room_sid': room_sid}
@@ -39,12 +39,12 @@ class RoomParticipantList(ListResource):
                date_created_after=values.unset, date_created_before=values.unset,
                limit=None, page_size=None):
         """
-        Streams RoomParticipantInstance records from the API as a generator stream.
+        Streams ParticipantInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param RoomParticipantInstance.Status status: The status
+        :param ParticipantInstance.Status status: The status
         :param unicode identity: The identity
         :param datetime date_created_after: The date_created_after
         :param datetime date_created_before: The date_created_before
@@ -56,7 +56,7 @@ class RoomParticipantList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.room.room_participant.RoomParticipantInstance]
+        :rtype: list[twilio.rest.video.v1.room.room_participant.ParticipantInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -74,11 +74,11 @@ class RoomParticipantList(ListResource):
              date_created_after=values.unset, date_created_before=values.unset,
              limit=None, page_size=None):
         """
-        Lists RoomParticipantInstance records from the API as a list.
+        Lists ParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param RoomParticipantInstance.Status status: The status
+        :param ParticipantInstance.Status status: The status
         :param unicode identity: The identity
         :param datetime date_created_after: The date_created_after
         :param datetime date_created_before: The date_created_before
@@ -90,7 +90,7 @@ class RoomParticipantList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.room.room_participant.RoomParticipantInstance]
+        :rtype: list[twilio.rest.video.v1.room.room_participant.ParticipantInstance]
         """
         return list(self.stream(
             status=status,
@@ -106,10 +106,10 @@ class RoomParticipantList(ListResource):
              page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
         """
-        Retrieve a single page of RoomParticipantInstance records from the API.
+        Retrieve a single page of ParticipantInstance records from the API.
         Request is executed immediately
 
-        :param RoomParticipantInstance.Status status: The status
+        :param ParticipantInstance.Status status: The status
         :param unicode identity: The identity
         :param datetime date_created_after: The date_created_after
         :param datetime date_created_before: The date_created_before
@@ -117,8 +117,8 @@ class RoomParticipantList(ListResource):
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
-        :returns: Page of RoomParticipantInstance
-        :rtype: twilio.rest.video.v1.room.room_participant.RoomParticipantPage
+        :returns: Page of ParticipantInstance
+        :rtype: twilio.rest.video.v1.room.room_participant.ParticipantPage
         """
         params = values.of({
             'Status': status,
@@ -136,46 +136,46 @@ class RoomParticipantList(ListResource):
             params=params,
         )
 
-        return RoomParticipantPage(self._version, response, self._solution)
+        return ParticipantPage(self._version, response, self._solution)
 
     def get_page(self, target_url):
         """
-        Retrieve a specific page of RoomParticipantInstance records from the API.
+        Retrieve a specific page of ParticipantInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
 
-        :returns: Page of RoomParticipantInstance
-        :rtype: twilio.rest.video.v1.room.room_participant.RoomParticipantPage
+        :returns: Page of ParticipantInstance
+        :rtype: twilio.rest.video.v1.room.room_participant.ParticipantPage
         """
         response = self._version.domain.twilio.request(
             'GET',
             target_url,
         )
 
-        return RoomParticipantPage(self._version, response, self._solution)
+        return ParticipantPage(self._version, response, self._solution)
 
     def get(self, sid):
         """
-        Constructs a RoomParticipantContext
+        Constructs a ParticipantContext
 
         :param sid: The sid
 
-        :returns: twilio.rest.video.v1.room.room_participant.RoomParticipantContext
-        :rtype: twilio.rest.video.v1.room.room_participant.RoomParticipantContext
+        :returns: twilio.rest.video.v1.room.room_participant.ParticipantContext
+        :rtype: twilio.rest.video.v1.room.room_participant.ParticipantContext
         """
-        return RoomParticipantContext(self._version, room_sid=self._solution['room_sid'], sid=sid)
+        return ParticipantContext(self._version, room_sid=self._solution['room_sid'], sid=sid)
 
     def __call__(self, sid):
         """
-        Constructs a RoomParticipantContext
+        Constructs a ParticipantContext
 
         :param sid: The sid
 
-        :returns: twilio.rest.video.v1.room.room_participant.RoomParticipantContext
-        :rtype: twilio.rest.video.v1.room.room_participant.RoomParticipantContext
+        :returns: twilio.rest.video.v1.room.room_participant.ParticipantContext
+        :rtype: twilio.rest.video.v1.room.room_participant.ParticipantContext
         """
-        return RoomParticipantContext(self._version, room_sid=self._solution['room_sid'], sid=sid)
+        return ParticipantContext(self._version, room_sid=self._solution['room_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -184,38 +184,38 @@ class RoomParticipantList(ListResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Video.V1.RoomParticipantList>'
+        return '<Twilio.Video.V1.ParticipantList>'
 
 
-class RoomParticipantPage(Page):
+class ParticipantPage(Page):
     """  """
 
     def __init__(self, version, response, solution):
         """
-        Initialize the RoomParticipantPage
+        Initialize the ParticipantPage
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
         :param room_sid: The room_sid
 
-        :returns: twilio.rest.video.v1.room.room_participant.RoomParticipantPage
-        :rtype: twilio.rest.video.v1.room.room_participant.RoomParticipantPage
+        :returns: twilio.rest.video.v1.room.room_participant.ParticipantPage
+        :rtype: twilio.rest.video.v1.room.room_participant.ParticipantPage
         """
-        super(RoomParticipantPage, self).__init__(version, response)
+        super(ParticipantPage, self).__init__(version, response)
 
         # Path Solution
         self._solution = solution
 
     def get_instance(self, payload):
         """
-        Build an instance of RoomParticipantInstance
+        Build an instance of ParticipantInstance
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.video.v1.room.room_participant.RoomParticipantInstance
-        :rtype: twilio.rest.video.v1.room.room_participant.RoomParticipantInstance
+        :returns: twilio.rest.video.v1.room.room_participant.ParticipantInstance
+        :rtype: twilio.rest.video.v1.room.room_participant.ParticipantInstance
         """
-        return RoomParticipantInstance(self._version, payload, room_sid=self._solution['room_sid'])
+        return ParticipantInstance(self._version, payload, room_sid=self._solution['room_sid'])
 
     def __repr__(self):
         """
@@ -224,24 +224,24 @@ class RoomParticipantPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Video.V1.RoomParticipantPage>'
+        return '<Twilio.Video.V1.ParticipantPage>'
 
 
-class RoomParticipantContext(InstanceContext):
+class ParticipantContext(InstanceContext):
     """  """
 
     def __init__(self, version, room_sid, sid):
         """
-        Initialize the RoomParticipantContext
+        Initialize the ParticipantContext
 
         :param Version version: Version that contains the resource
         :param room_sid: The room_sid
         :param sid: The sid
 
-        :returns: twilio.rest.video.v1.room.room_participant.RoomParticipantContext
-        :rtype: twilio.rest.video.v1.room.room_participant.RoomParticipantContext
+        :returns: twilio.rest.video.v1.room.room_participant.ParticipantContext
+        :rtype: twilio.rest.video.v1.room.room_participant.ParticipantContext
         """
-        super(RoomParticipantContext, self).__init__(version)
+        super(ParticipantContext, self).__init__(version)
 
         # Path Solution
         self._solution = {'room_sid': room_sid, 'sid': sid}
@@ -252,10 +252,10 @@ class RoomParticipantContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a RoomParticipantInstance
+        Fetch a ParticipantInstance
 
-        :returns: Fetched RoomParticipantInstance
-        :rtype: twilio.rest.video.v1.room.room_participant.RoomParticipantInstance
+        :returns: Fetched ParticipantInstance
+        :rtype: twilio.rest.video.v1.room.room_participant.ParticipantInstance
         """
         params = values.of({})
 
@@ -265,7 +265,7 @@ class RoomParticipantContext(InstanceContext):
             params=params,
         )
 
-        return RoomParticipantInstance(
+        return ParticipantInstance(
             self._version,
             payload,
             room_sid=self._solution['room_sid'],
@@ -274,12 +274,12 @@ class RoomParticipantContext(InstanceContext):
 
     def update(self, status=values.unset):
         """
-        Update the RoomParticipantInstance
+        Update the ParticipantInstance
 
-        :param RoomParticipantInstance.Status status: The status
+        :param ParticipantInstance.Status status: The status
 
-        :returns: Updated RoomParticipantInstance
-        :rtype: twilio.rest.video.v1.room.room_participant.RoomParticipantInstance
+        :returns: Updated ParticipantInstance
+        :rtype: twilio.rest.video.v1.room.room_participant.ParticipantInstance
         """
         data = values.of({'Status': status})
 
@@ -289,7 +289,7 @@ class RoomParticipantContext(InstanceContext):
             data=data,
         )
 
-        return RoomParticipantInstance(
+        return ParticipantInstance(
             self._version,
             payload,
             room_sid=self._solution['room_sid'],
@@ -320,10 +320,10 @@ class RoomParticipantContext(InstanceContext):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Video.V1.RoomParticipantContext {}>'.format(context)
+        return '<Twilio.Video.V1.ParticipantContext {}>'.format(context)
 
 
-class RoomParticipantInstance(InstanceResource):
+class ParticipantInstance(InstanceResource):
     """  """
 
     class Status(object):
@@ -332,12 +332,12 @@ class RoomParticipantInstance(InstanceResource):
 
     def __init__(self, version, payload, room_sid, sid=None):
         """
-        Initialize the RoomParticipantInstance
+        Initialize the ParticipantInstance
 
-        :returns: twilio.rest.video.v1.room.room_participant.RoomParticipantInstance
-        :rtype: twilio.rest.video.v1.room.room_participant.RoomParticipantInstance
+        :returns: twilio.rest.video.v1.room.room_participant.ParticipantInstance
+        :rtype: twilio.rest.video.v1.room.room_participant.ParticipantInstance
         """
-        super(RoomParticipantInstance, self).__init__(version)
+        super(ParticipantInstance, self).__init__(version)
 
         # Marshaled Properties
         self._properties = {
@@ -365,11 +365,11 @@ class RoomParticipantInstance(InstanceResource):
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
 
-        :returns: RoomParticipantContext for this RoomParticipantInstance
-        :rtype: twilio.rest.video.v1.room.room_participant.RoomParticipantContext
+        :returns: ParticipantContext for this ParticipantInstance
+        :rtype: twilio.rest.video.v1.room.room_participant.ParticipantContext
         """
         if self._context is None:
-            self._context = RoomParticipantContext(
+            self._context = ParticipantContext(
                 self._version,
                 room_sid=self._solution['room_sid'],
                 sid=self._solution['sid'],
@@ -404,7 +404,7 @@ class RoomParticipantInstance(InstanceResource):
     def status(self):
         """
         :returns: The status
-        :rtype: RoomParticipantInstance.Status
+        :rtype: ParticipantInstance.Status
         """
         return self._properties['status']
 
@@ -474,21 +474,21 @@ class RoomParticipantInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a RoomParticipantInstance
+        Fetch a ParticipantInstance
 
-        :returns: Fetched RoomParticipantInstance
-        :rtype: twilio.rest.video.v1.room.room_participant.RoomParticipantInstance
+        :returns: Fetched ParticipantInstance
+        :rtype: twilio.rest.video.v1.room.room_participant.ParticipantInstance
         """
         return self._proxy.fetch()
 
     def update(self, status=values.unset):
         """
-        Update the RoomParticipantInstance
+        Update the ParticipantInstance
 
-        :param RoomParticipantInstance.Status status: The status
+        :param ParticipantInstance.Status status: The status
 
-        :returns: Updated RoomParticipantInstance
-        :rtype: twilio.rest.video.v1.room.room_participant.RoomParticipantInstance
+        :returns: Updated ParticipantInstance
+        :rtype: twilio.rest.video.v1.room.room_participant.ParticipantInstance
         """
         return self._proxy.update(status=status)
 
@@ -510,4 +510,4 @@ class RoomParticipantInstance(InstanceResource):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Video.V1.RoomParticipantInstance {}>'.format(context)
+        return '<Twilio.Video.V1.ParticipantInstance {}>'.format(context)

@@ -36,6 +36,7 @@ class SyncMapItemTestCase(IntegrationTestCase):
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "created_by": "created_by",
                 "data": {},
+                "date_expires": "2015-07-30T21:00:00Z",
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z",
                 "key": "key",
@@ -102,6 +103,7 @@ class SyncMapItemTestCase(IntegrationTestCase):
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "created_by": "created_by",
                 "data": {},
+                "date_expires": "2015-07-30T21:00:00Z",
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z",
                 "key": "key",
@@ -167,6 +169,7 @@ class SyncMapItemTestCase(IntegrationTestCase):
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "created_by": "created_by",
                         "data": {},
+                        "date_expires": "2015-07-30T21:00:00Z",
                         "date_created": "2015-07-30T20:00:00Z",
                         "date_updated": "2015-07-30T20:00:00Z",
                         "key": "key",
@@ -201,14 +204,11 @@ class SyncMapItemTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                .sync_maps(sid="MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .sync_map_items(key="key").update(data="{}")
-
-        values = {'Data': serialize.object("{}")}
+                               .sync_map_items(key="key").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
             'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Maps/MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Items/key',
-            data=values,
         ))
 
     def test_update_response(self):
@@ -219,6 +219,7 @@ class SyncMapItemTestCase(IntegrationTestCase):
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "created_by": "created_by",
                 "data": {},
+                "date_expires": "2015-07-30T21:00:00Z",
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z",
                 "key": "key",
@@ -232,6 +233,6 @@ class SyncMapItemTestCase(IntegrationTestCase):
 
         actual = self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                     .sync_maps(sid="MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .sync_map_items(key="key").update(data="{}")
+                                    .sync_map_items(key="key").update()
 
         self.assertIsNotNone(actual)

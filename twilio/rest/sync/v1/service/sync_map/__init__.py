@@ -36,16 +36,17 @@ class SyncMapList(ListResource):
         self._solution = {'service_sid': service_sid}
         self._uri = '/Services/{service_sid}/Maps'.format(**self._solution)
 
-    def create(self, unique_name=values.unset):
+    def create(self, unique_name=values.unset, ttl=values.unset):
         """
         Create a new SyncMapInstance
 
         :param unicode unique_name: The unique_name
+        :param unicode ttl: The ttl
 
         :returns: Newly created SyncMapInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapInstance
         """
-        data = values.of({'UniqueName': unique_name})
+        data = values.of({'UniqueName': unique_name, 'Ttl': ttl})
 
         payload = self._version.create(
             'POST',
@@ -265,6 +266,30 @@ class SyncMapContext(InstanceContext):
         """
         return self._version.delete('delete', self._uri)
 
+    def update(self, ttl=values.unset):
+        """
+        Update the SyncMapInstance
+
+        :param unicode ttl: The ttl
+
+        :returns: Updated SyncMapInstance
+        :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapInstance
+        """
+        data = values.of({'Ttl': ttl})
+
+        payload = self._version.update(
+            'POST',
+            self._uri,
+            data=data,
+        )
+
+        return SyncMapInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+        )
+
     @property
     def sync_map_items(self):
         """
@@ -330,6 +355,7 @@ class SyncMapInstance(InstanceResource):
             'url': payload['url'],
             'links': payload['links'],
             'revision': payload['revision'],
+            'date_expires': deserialize.iso8601_datetime(payload['date_expires']),
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
             'created_by': payload['created_by'],
@@ -413,6 +439,14 @@ class SyncMapInstance(InstanceResource):
         return self._properties['revision']
 
     @property
+    def date_expires(self):
+        """
+        :returns: The date_expires
+        :rtype: datetime
+        """
+        return self._properties['date_expires']
+
+    @property
     def date_created(self):
         """
         :returns: The date_created
@@ -453,6 +487,17 @@ class SyncMapInstance(InstanceResource):
         :rtype: bool
         """
         return self._proxy.delete()
+
+    def update(self, ttl=values.unset):
+        """
+        Update the SyncMapInstance
+
+        :param unicode ttl: The ttl
+
+        :returns: Updated SyncMapInstance
+        :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapInstance
+        """
+        return self._proxy.update(ttl=ttl)
 
     @property
     def sync_map_items(self):

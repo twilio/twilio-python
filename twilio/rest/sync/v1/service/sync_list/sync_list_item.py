@@ -36,16 +36,17 @@ class SyncListItemList(ListResource):
         self._solution = {'service_sid': service_sid, 'list_sid': list_sid}
         self._uri = '/Services/{service_sid}/Lists/{list_sid}/Items'.format(**self._solution)
 
-    def create(self, data):
+    def create(self, data, ttl=values.unset):
         """
         Create a new SyncListItemInstance
 
         :param dict data: The data
+        :param unicode ttl: The ttl
 
         :returns: Newly created SyncListItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
         """
-        data = values.of({'Data': serialize.object(data)})
+        data = values.of({'Data': serialize.object(data), 'Ttl': ttl})
 
         payload = self._version.create(
             'POST',
@@ -303,16 +304,17 @@ class SyncListItemContext(InstanceContext):
         """
         return self._version.delete('delete', self._uri)
 
-    def update(self, data):
+    def update(self, data=values.unset, ttl=values.unset):
         """
         Update the SyncListItemInstance
 
         :param dict data: The data
+        :param unicode ttl: The ttl
 
         :returns: Updated SyncListItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
         """
-        data = values.of({'Data': serialize.object(data)})
+        data = values.of({'Data': serialize.object(data), 'Ttl': ttl})
 
         payload = self._version.update(
             'POST',
@@ -369,6 +371,7 @@ class SyncListItemInstance(InstanceResource):
             'url': payload['url'],
             'revision': payload['revision'],
             'data': payload['data'],
+            'date_expires': deserialize.iso8601_datetime(payload['date_expires']),
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
             'created_by': payload['created_by'],
@@ -457,6 +460,14 @@ class SyncListItemInstance(InstanceResource):
         return self._properties['data']
 
     @property
+    def date_expires(self):
+        """
+        :returns: The date_expires
+        :rtype: datetime
+        """
+        return self._properties['date_expires']
+
+    @property
     def date_created(self):
         """
         :returns: The date_created
@@ -498,16 +509,17 @@ class SyncListItemInstance(InstanceResource):
         """
         return self._proxy.delete()
 
-    def update(self, data):
+    def update(self, data=values.unset, ttl=values.unset):
         """
         Update the SyncListItemInstance
 
         :param dict data: The data
+        :param unicode ttl: The ttl
 
         :returns: Updated SyncListItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
         """
-        return self._proxy.update(data)
+        return self._proxy.update(data=data, ttl=ttl)
 
     def __repr__(self):
         """
