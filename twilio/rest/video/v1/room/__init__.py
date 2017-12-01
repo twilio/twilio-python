@@ -403,6 +403,7 @@ class RoomInstance(InstanceResource):
             'max_participants': deserialize.integer(payload['max_participants']),
             'record_participants_on_connect': payload['record_participants_on_connect'],
             'video_codecs': payload['video_codecs'],
+            'media_region': payload['media_region'],
             'url': payload['url'],
             'links': payload['links'],
         }
@@ -543,6 +544,14 @@ class RoomInstance(InstanceResource):
         :rtype: RoomInstance.VideoCodec
         """
         return self._properties['video_codecs']
+
+    @property
+    def media_region(self):
+        """
+        :returns: The media_region
+        :rtype: unicode
+        """
+        return self._properties['media_region']
 
     @property
     def url(self):

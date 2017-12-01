@@ -32,7 +32,7 @@ class ServiceTestCase(IntegrationTestCase):
             {
                 "sid": "KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "friendly_name": "friendly_name",
+                "unique_name": "unique_name",
                 "default_ttl": 3600,
                 "callback_url": "http://www.example.com",
                 "geo_match_level": "country",
@@ -93,11 +93,14 @@ class ServiceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.proxy.v1.services.create()
+            self.client.proxy.v1.services.create(unique_name="unique_name")
+
+        values = {'UniqueName': "unique_name"}
 
         self.holodeck.assert_has_request(Request(
             'post',
             'https://proxy.twilio.com/v1/Services',
+            data=values,
         ))
 
     def test_create_response(self):
@@ -107,7 +110,7 @@ class ServiceTestCase(IntegrationTestCase):
             {
                 "sid": "KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "friendly_name": "friendly_name",
+                "unique_name": "unique_name",
                 "default_ttl": 3600,
                 "callback_url": "http://www.example.com",
                 "geo_match_level": "country",
@@ -126,7 +129,7 @@ class ServiceTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.proxy.v1.services.create()
+        actual = self.client.proxy.v1.services.create(unique_name="unique_name")
 
         self.assertIsNotNone(actual)
 
@@ -169,7 +172,7 @@ class ServiceTestCase(IntegrationTestCase):
             {
                 "sid": "KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "friendly_name": "friendly_name",
+                "unique_name": "unique_name",
                 "default_ttl": 3600,
                 "callback_url": "http://www.example.com",
                 "geo_match_level": "country",

@@ -34,21 +34,36 @@ class DependentPhoneNumberTestCase(IntegrationTestCase):
             {
                 "dependent_phone_numbers": [
                     {
+                        "sid": "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "friendly_name": "3197004499318",
+                        "phone_number": "+3197004499318",
+                        "voice_url": null,
+                        "voice_method": "POST",
+                        "voice_fallback_url": null,
+                        "voice_fallback_method": "POST",
+                        "voice_caller_id_lookup": false,
+                        "date_created": "Thu, 23 Feb 2017 10:26:31 -0800",
+                        "date_updated": "Thu, 23 Feb 2017 10:26:31 -0800",
+                        "sms_url": "",
+                        "sms_method": "POST",
+                        "sms_fallback_url": "",
+                        "sms_fallback_method": "POST",
                         "address_requirements": "any",
                         "capabilities": {
-                            "MMS": "false",
-                            "SMS": "true",
-                            "voice": "true"
+                            "Voice": false,
+                            "SMS": true,
+                            "MMS": false
                         },
-                        "friendly_name": "(510) 555-1212",
-                        "iso_country": "US",
-                        "lata": "722",
-                        "latitude": "37.780000",
-                        "longitude": "-122.380000",
-                        "phone_number": "+15105551212",
-                        "postal_code": "94703",
-                        "rate_center": "OKLD TRNID",
-                        "region": "CA"
+                        "status_callback": "",
+                        "status_callback_method": "POST",
+                        "api_version": "2010-04-01",
+                        "voice_application_sid": null,
+                        "sms_application_sid": "",
+                        "trunk_sid": null,
+                        "emergency_status": "Inactive",
+                        "emergency_address_sid": null,
+                        "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
                     }
                 ],
                 "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentPhoneNumbers.json?Page=0&PageSize=50",

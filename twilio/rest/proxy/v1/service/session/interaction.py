@@ -275,6 +275,15 @@ class InteractionContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
+    def delete(self):
+        """
+        Deletes the InteractionInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete('delete', self._uri)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -536,6 +545,15 @@ class InteractionInstance(InstanceResource):
         :rtype: twilio.rest.proxy.v1.service.session.interaction.InteractionInstance
         """
         return self._proxy.fetch()
+
+    def delete(self):
+        """
+        Deletes the InteractionInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
 
     def __repr__(self):
         """

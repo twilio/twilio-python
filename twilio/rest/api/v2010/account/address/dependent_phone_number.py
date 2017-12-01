@@ -173,6 +173,16 @@ class DependentPhoneNumberPage(Page):
 class DependentPhoneNumberInstance(InstanceResource):
     """  """
 
+    class AddressRequirement(object):
+        NONE = "none"
+        ANY = "any"
+        LOCAL = "local"
+        FOREIGN = "foreign"
+
+    class EmergencyStatus(object):
+        ACTIVE = "Active"
+        INACTIVE = "Inactive"
+
     def __init__(self, version, payload, account_sid, address_sid):
         """
         Initialize the DependentPhoneNumberInstance
@@ -184,22 +194,53 @@ class DependentPhoneNumberInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
+            'sid': payload['sid'],
+            'account_sid': payload['account_sid'],
             'friendly_name': payload['friendly_name'],
             'phone_number': payload['phone_number'],
-            'lata': payload['lata'],
-            'rate_center': payload['rate_center'],
-            'latitude': deserialize.decimal(payload['latitude']),
-            'longitude': deserialize.decimal(payload['longitude']),
-            'region': payload['region'],
-            'postal_code': payload['postal_code'],
-            'iso_country': payload['iso_country'],
+            'voice_url': payload['voice_url'],
+            'voice_method': payload['voice_method'],
+            'voice_fallback_method': payload['voice_fallback_method'],
+            'voice_fallback_url': payload['voice_fallback_url'],
+            'voice_caller_id_lookup': payload['voice_caller_id_lookup'],
+            'date_created': deserialize.rfc2822_datetime(payload['date_created']),
+            'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
+            'sms_fallback_method': payload['sms_fallback_method'],
+            'sms_fallback_url': payload['sms_fallback_url'],
+            'sms_method': payload['sms_method'],
+            'sms_url': payload['sms_url'],
             'address_requirements': payload['address_requirements'],
             'capabilities': payload['capabilities'],
+            'status_callback': payload['status_callback'],
+            'status_callback_method': payload['status_callback_method'],
+            'api_version': payload['api_version'],
+            'sms_application_sid': payload['sms_application_sid'],
+            'voice_application_sid': payload['voice_application_sid'],
+            'trunk_sid': payload['trunk_sid'],
+            'emergency_status': payload['emergency_status'],
+            'emergency_address_sid': payload['emergency_address_sid'],
+            'uri': payload['uri'],
         }
 
         # Context
         self._context = None
         self._solution = {'account_sid': account_sid, 'address_sid': address_sid}
+
+    @property
+    def sid(self):
+        """
+        :returns: The sid
+        :rtype: unicode
+        """
+        return self._properties['sid']
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The account_sid
+        :rtype: unicode
+        """
+        return self._properties['account_sid']
 
     @property
     def friendly_name(self):
@@ -218,66 +259,98 @@ class DependentPhoneNumberInstance(InstanceResource):
         return self._properties['phone_number']
 
     @property
-    def lata(self):
+    def voice_url(self):
         """
-        :returns: The lata
+        :returns: The voice_url
         :rtype: unicode
         """
-        return self._properties['lata']
+        return self._properties['voice_url']
 
     @property
-    def rate_center(self):
+    def voice_method(self):
         """
-        :returns: The rate_center
+        :returns: The voice_method
         :rtype: unicode
         """
-        return self._properties['rate_center']
+        return self._properties['voice_method']
 
     @property
-    def latitude(self):
+    def voice_fallback_method(self):
         """
-        :returns: The latitude
+        :returns: The voice_fallback_method
         :rtype: unicode
         """
-        return self._properties['latitude']
+        return self._properties['voice_fallback_method']
 
     @property
-    def longitude(self):
+    def voice_fallback_url(self):
         """
-        :returns: The longitude
+        :returns: The voice_fallback_url
         :rtype: unicode
         """
-        return self._properties['longitude']
+        return self._properties['voice_fallback_url']
 
     @property
-    def region(self):
+    def voice_caller_id_lookup(self):
         """
-        :returns: The region
-        :rtype: unicode
+        :returns: The voice_caller_id_lookup
+        :rtype: bool
         """
-        return self._properties['region']
+        return self._properties['voice_caller_id_lookup']
 
     @property
-    def postal_code(self):
+    def date_created(self):
         """
-        :returns: The postal_code
-        :rtype: unicode
+        :returns: The date_created
+        :rtype: datetime
         """
-        return self._properties['postal_code']
+        return self._properties['date_created']
 
     @property
-    def iso_country(self):
+    def date_updated(self):
         """
-        :returns: The iso_country
+        :returns: The date_updated
+        :rtype: datetime
+        """
+        return self._properties['date_updated']
+
+    @property
+    def sms_fallback_method(self):
+        """
+        :returns: The sms_fallback_method
         :rtype: unicode
         """
-        return self._properties['iso_country']
+        return self._properties['sms_fallback_method']
+
+    @property
+    def sms_fallback_url(self):
+        """
+        :returns: The sms_fallback_url
+        :rtype: unicode
+        """
+        return self._properties['sms_fallback_url']
+
+    @property
+    def sms_method(self):
+        """
+        :returns: The sms_method
+        :rtype: unicode
+        """
+        return self._properties['sms_method']
+
+    @property
+    def sms_url(self):
+        """
+        :returns: The sms_url
+        :rtype: unicode
+        """
+        return self._properties['sms_url']
 
     @property
     def address_requirements(self):
         """
         :returns: The address_requirements
-        :rtype: unicode
+        :rtype: DependentPhoneNumberInstance.AddressRequirement
         """
         return self._properties['address_requirements']
 
@@ -285,9 +358,81 @@ class DependentPhoneNumberInstance(InstanceResource):
     def capabilities(self):
         """
         :returns: The capabilities
-        :rtype: unicode
+        :rtype: dict
         """
         return self._properties['capabilities']
+
+    @property
+    def status_callback(self):
+        """
+        :returns: The status_callback
+        :rtype: unicode
+        """
+        return self._properties['status_callback']
+
+    @property
+    def status_callback_method(self):
+        """
+        :returns: The status_callback_method
+        :rtype: unicode
+        """
+        return self._properties['status_callback_method']
+
+    @property
+    def api_version(self):
+        """
+        :returns: The api_version
+        :rtype: unicode
+        """
+        return self._properties['api_version']
+
+    @property
+    def sms_application_sid(self):
+        """
+        :returns: The sms_application_sid
+        :rtype: unicode
+        """
+        return self._properties['sms_application_sid']
+
+    @property
+    def voice_application_sid(self):
+        """
+        :returns: The voice_application_sid
+        :rtype: unicode
+        """
+        return self._properties['voice_application_sid']
+
+    @property
+    def trunk_sid(self):
+        """
+        :returns: The trunk_sid
+        :rtype: unicode
+        """
+        return self._properties['trunk_sid']
+
+    @property
+    def emergency_status(self):
+        """
+        :returns: The emergency_status
+        :rtype: DependentPhoneNumberInstance.EmergencyStatus
+        """
+        return self._properties['emergency_status']
+
+    @property
+    def emergency_address_sid(self):
+        """
+        :returns: The emergency_address_sid
+        :rtype: unicode
+        """
+        return self._properties['emergency_address_sid']
+
+    @property
+    def uri(self):
+        """
+        :returns: The uri
+        :rtype: unicode
+        """
+        return self._properties['uri']
 
     def __repr__(self):
         """
