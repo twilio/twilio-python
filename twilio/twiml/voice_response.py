@@ -23,7 +23,8 @@ class VoiceResponse(TwiML):
     def dial(self, number=None, action=None, method=None, timeout=None,
              hangup_on_star=None, time_limit=None, caller_id=None, record=None,
              trim=None, recording_status_callback=None,
-             recording_status_callback_method=None, answer_on_bridge=None,
+             recording_status_callback_method=None,
+             recording_status_callback_event=None, answer_on_bridge=None,
              ring_tone=None, **kwargs):
         """
         Create a <Dial> element
@@ -39,6 +40,7 @@ class VoiceResponse(TwiML):
         :param trim: Trim the recording
         :param recording_status_callback: Recording status callback URL
         :param recording_status_callback_method: Recording status callback URL method
+        :param recording_status_callback_event: Recording status callback events
         :param answer_on_bridge: Preserve the ringing behavior of the inbound call until the Dialed call picks up
         :param ring_tone: Ringtone allows you to override the ringback tone that Twilio will play back to the caller while executing the Dial
         :param kwargs: additional attributes
@@ -57,6 +59,7 @@ class VoiceResponse(TwiML):
             trim=trim,
             recording_status_callback=recording_status_callback,
             recording_status_callback_method=recording_status_callback_method,
+            recording_status_callback_event=recording_status_callback_event,
             answer_on_bridge=answer_on_bridge,
             ring_tone=ring_tone,
             **kwargs
@@ -450,16 +453,18 @@ class Enqueue(TwiML):
         if name:
             self.value = name
 
-    def task(self, body, **kwargs):
+    def task(self, body, priority=None, timeout=None, **kwargs):
         """
         Create a <Task> element
 
         :param body: TaskRouter task attributes
+        :param priority: Task priority
+        :param timeout: Timeout associated with task
         :param kwargs: additional attributes
 
         :returns: <Task> element
         """
-        return self.nest(Task(body, **kwargs))
+        return self.nest(Task(body, priority=priority, timeout=timeout, **kwargs))
 
 
 class Task(TwiML):
@@ -519,7 +524,8 @@ class Dial(TwiML):
                    record=None, region=None, whisper=None, trim=None,
                    status_callback_event=None, status_callback=None,
                    status_callback_method=None, recording_status_callback=None,
-                   recording_status_callback_method=None, event_callback_url=None,
+                   recording_status_callback_method=None,
+                   recording_status_callback_event=None, event_callback_url=None,
                    **kwargs):
         """
         Create a <Conference> element
@@ -541,6 +547,7 @@ class Dial(TwiML):
         :param status_callback_method: Status callback URL method
         :param recording_status_callback: Recording status callback URL
         :param recording_status_callback_method: Recording status callback URL method
+        :param recording_status_callback_event: Recording status callback events
         :param event_callback_url: Event callback URL
         :param kwargs: additional attributes
 
@@ -564,6 +571,7 @@ class Dial(TwiML):
             status_callback_method=status_callback_method,
             recording_status_callback=recording_status_callback,
             recording_status_callback_method=recording_status_callback_method,
+            recording_status_callback_event=recording_status_callback_event,
             event_callback_url=event_callback_url,
             **kwargs
         ))

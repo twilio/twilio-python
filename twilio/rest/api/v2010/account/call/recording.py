@@ -301,17 +301,22 @@ class RecordingContext(InstanceContext):
 class RecordingInstance(InstanceResource):
     """  """
 
+    class Status(object):
+        IN_PROGRESS = "in-progress"
+        PAUSED = "paused"
+        STOPPED = "stopped"
+        PROCESSING = "processing"
+        COMPLETED = "completed"
+        FAILED = "failed"
+
     class Source(object):
         DIALVERB = "DialVerb"
         CONFERENCE = "Conference"
         OUTBOUNDAPI = "OutboundAPI"
         TRUNKING = "Trunking"
         RECORDVERB = "RecordVerb"
-
-    class Status(object):
-        PROCESSING = "processing"
-        COMPLETED = "completed"
-        FAILED = "failed"
+        STARTCALLRECORDINGAPI = "StartCallRecordingAPI"
+        STARTCONFERENCERECORDINGAPI = "StartConferenceRecordingAPI"
 
     def __init__(self, version, payload, account_sid, call_sid, sid=None):
         """
@@ -334,11 +339,11 @@ class RecordingInstance(InstanceResource):
             'price': deserialize.decimal(payload['price']),
             'uri': payload['uri'],
             'encryption_details': payload['encryption_details'],
-            'error_code': deserialize.integer(payload['error_code']),
-            'status': payload['status'],
-            'source': payload['source'],
-            'channels': deserialize.integer(payload['channels']),
             'price_unit': payload['price_unit'],
+            'status': payload['status'],
+            'channels': deserialize.integer(payload['channels']),
+            'source': payload['source'],
+            'error_code': deserialize.integer(payload['error_code']),
         }
 
         # Context
@@ -448,12 +453,12 @@ class RecordingInstance(InstanceResource):
         return self._properties['encryption_details']
 
     @property
-    def error_code(self):
+    def price_unit(self):
         """
-        :returns: The error_code
+        :returns: The price_unit
         :rtype: unicode
         """
-        return self._properties['error_code']
+        return self._properties['price_unit']
 
     @property
     def status(self):
@@ -464,14 +469,6 @@ class RecordingInstance(InstanceResource):
         return self._properties['status']
 
     @property
-    def source(self):
-        """
-        :returns: The source
-        :rtype: RecordingInstance.Source
-        """
-        return self._properties['source']
-
-    @property
     def channels(self):
         """
         :returns: The channels
@@ -480,12 +477,20 @@ class RecordingInstance(InstanceResource):
         return self._properties['channels']
 
     @property
-    def price_unit(self):
+    def source(self):
         """
-        :returns: The price_unit
+        :returns: The source
+        :rtype: RecordingInstance.Source
+        """
+        return self._properties['source']
+
+    @property
+    def error_code(self):
+        """
+        :returns: The error_code
         :rtype: unicode
         """
-        return self._properties['price_unit']
+        return self._properties['error_code']
 
     def fetch(self):
         """

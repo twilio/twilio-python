@@ -33,24 +33,27 @@ class RecordingTestCase(IntegrationTestCase):
             '''
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "api_version": "2008-08-01",
+                "api_version": "2010-04-01",
                 "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "date_created": "Mon, 22 Aug 2011 20:58:45 +0000",
-                "date_updated": "Mon, 22 Aug 2011 20:58:45 +0000",
-                "duration": "6",
-                "sid": "REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "price": "0.04",
+                "conference_sid": null,
+                "channels": 2,
+                "date_created": "Fri, 14 Oct 2016 21:56:34 +0000",
+                "date_updated": "Fri, 14 Oct 2016 21:56:38 +0000",
+                "start_time": "Fri, 14 Oct 2016 21:56:34 +0000",
+                "end_time": "Fri, 14 Oct 2016 21:56:38 +0000",
+                "price": "-0.0025",
                 "price_unit": "USD",
-                "status": "completed",
-                "channels": 1,
-                "source": "Trunking",
-                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json",
+                "duration": "4",
+                "sid": "REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "encryption_details": {
                     "encryption_public_key_sid": "CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                     "encryption_cek": "OV4h6zrsxMIW7h0Zfqwfn6TI2GCNl54KALlg8wn8YB8KYZhXt6HlgvBWAmQTlfYVeLWydMiCewY0YkDDT1xmNe5huEo9vjuKBS5OmYK4CZkSx1NVv3XOGrZHpd2Pl/5WJHVhUK//AUO87uh5qnUP2E0KoLh1nyCLeGcEkXU0RfpPn/6nxjof/n6m6OzZOyeIRK4Oed5+rEtjqFDfqT0EVKjs6JAxv+f0DCc1xYRHl2yV8bahUPVKs+bHYdy4PVszFKa76M/Uae4jFA9Lv233JqWcxj+K2UoghuGhAFbV/JQIIswY2CBYI8JlVSifSqNEl9vvsTJ8bkVMm3MKbG2P7Q==",
                     "encryption_iv": "8I2hhNIYNTrwxfHk"
                 },
-                "error_code": null
+                "source": "StartCallRecordingAPI",
+                "status": "completed",
+                "error_code": null,
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
             }
             '''
         ))
@@ -106,37 +109,37 @@ class RecordingTestCase(IntegrationTestCase):
             {
                 "end": 0,
                 "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json?PageSize=50&Page=0",
-                "last_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json?PageSize=50&Page=0",
                 "next_page_uri": null,
-                "num_pages": 1,
                 "page": 0,
                 "page_size": 50,
                 "previous_page_uri": null,
                 "recordings": [
                     {
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                        "api_version": "2008-08-01",
+                        "api_version": "2010-04-01",
                         "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                        "date_created": "Mon, 22 Aug 2011 20:58:45 +0000",
-                        "date_updated": "Mon, 22 Aug 2011 20:58:45 +0000",
-                        "duration": "6",
-                        "sid": "REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                        "price": "0.04",
+                        "conference_sid": null,
+                        "channels": 2,
+                        "date_created": "Fri, 14 Oct 2016 21:56:34 +0000",
+                        "date_updated": "Fri, 14 Oct 2016 21:56:38 +0000",
+                        "start_time": "Fri, 14 Oct 2016 21:56:34 +0000",
+                        "end_time": "Fri, 14 Oct 2016 21:56:38 +0000",
+                        "price": "-0.0025",
                         "price_unit": "USD",
-                        "status": "completed",
-                        "channels": 1,
-                        "source": "Trunking",
-                        "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json",
+                        "duration": "4",
+                        "sid": "REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "encryption_details": {
                             "encryption_public_key_sid": "CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                             "encryption_cek": "OV4h6zrsxMIW7h0Zfqwfn6TI2GCNl54KALlg8wn8YB8KYZhXt6HlgvBWAmQTlfYVeLWydMiCewY0YkDDT1xmNe5huEo9vjuKBS5OmYK4CZkSx1NVv3XOGrZHpd2Pl/5WJHVhUK//AUO87uh5qnUP2E0KoLh1nyCLeGcEkXU0RfpPn/6nxjof/n6m6OzZOyeIRK4Oed5+rEtjqFDfqT0EVKjs6JAxv+f0DCc1xYRHl2yV8bahUPVKs+bHYdy4PVszFKa76M/Uae4jFA9Lv233JqWcxj+K2UoghuGhAFbV/JQIIswY2CBYI8JlVSifSqNEl9vvsTJ8bkVMm3MKbG2P7Q==",
                             "encryption_iv": "8I2hhNIYNTrwxfHk"
                         },
-                        "error_code": null
+                        "source": "StartCallRecordingAPI",
+                        "status": "completed",
+                        "error_code": null,
+                        "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
                     }
                 ],
                 "start": 0,
-                "total": 1,
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json?PageSize=50&Page=0"
             }
             '''
@@ -155,15 +158,12 @@ class RecordingTestCase(IntegrationTestCase):
             {
                 "end": 0,
                 "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json?PageSize=50&Page=0",
-                "last_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json?PageSize=50&Page=0",
                 "next_page_uri": null,
-                "num_pages": 1,
                 "page": 0,
                 "page_size": 50,
                 "previous_page_uri": null,
                 "recordings": [],
                 "start": 0,
-                "total": 1,
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json?PageSize=50&Page=0"
             }
             '''

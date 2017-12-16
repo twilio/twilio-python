@@ -46,6 +46,7 @@ class ServiceTestCase(IntegrationTestCase):
                 "default_fcm_notification_protocol_version": "3",
                 "default_alexa_notification_protocol_version": "3",
                 "log_enabled": true,
+                "type": "S",
                 "url": "https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "links": {
                     "bindings": "https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings",
@@ -114,6 +115,7 @@ class ServiceTestCase(IntegrationTestCase):
                 "default_fcm_notification_protocol_version": "3",
                 "default_alexa_notification_protocol_version": "3",
                 "log_enabled": true,
+                "type": "S",
                 "url": "https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "links": {
                     "bindings": "https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings",
@@ -172,6 +174,7 @@ class ServiceTestCase(IntegrationTestCase):
                         "default_fcm_notification_protocol_version": "3",
                         "default_alexa_notification_protocol_version": "3",
                         "log_enabled": true,
+                        "type": "S",
                         "url": "https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "links": {
                             "bindings": "https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings",
@@ -244,6 +247,7 @@ class ServiceTestCase(IntegrationTestCase):
                 "alexa_skill_id": null,
                 "facebook_messenger_page_id": "4",
                 "log_enabled": true,
+                "type": "S",
                 "url": "https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "links": {
                     "bindings": "https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings",

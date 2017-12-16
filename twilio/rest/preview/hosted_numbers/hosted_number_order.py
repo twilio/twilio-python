@@ -168,7 +168,8 @@ class HostedNumberOrderList(ListResource):
                sms_fallback_method=values.unset, status_callback_url=values.unset,
                status_callback_method=values.unset,
                sms_application_sid=values.unset, address_sid=values.unset,
-               email=values.unset):
+               email=values.unset, verification_type=values.unset,
+               verification_document_sid=values.unset):
         """
         Create a new HostedNumberOrderInstance
 
@@ -187,6 +188,8 @@ class HostedNumberOrderList(ListResource):
         :param unicode sms_application_sid: SMS Application Sid.
         :param unicode address_sid: Address sid.
         :param unicode email: Email.
+        :param HostedNumberOrderInstance.VerificationType verification_type: Verification Type.
+        :param unicode verification_document_sid: Verification Document Sid
 
         :returns: Newly created HostedNumberOrderInstance
         :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance
@@ -207,6 +210,8 @@ class HostedNumberOrderList(ListResource):
             'SmsApplicationSid': sms_application_sid,
             'AddressSid': address_sid,
             'Email': email,
+            'VerificationType': verification_type,
+            'VerificationDocumentSid': verification_document_sid,
         })
 
         payload = self._version.create(
@@ -339,7 +344,8 @@ class HostedNumberOrderContext(InstanceContext):
 
     def update(self, friendly_name=values.unset, unique_name=values.unset,
                email=values.unset, cc_emails=values.unset, status=values.unset,
-               verification_code=values.unset):
+               verification_code=values.unset, verification_type=values.unset,
+               verification_document_sid=values.unset):
         """
         Update the HostedNumberOrderInstance
 
@@ -349,6 +355,8 @@ class HostedNumberOrderContext(InstanceContext):
         :param unicode cc_emails: A list of emails.
         :param HostedNumberOrderInstance.Status status: The Status of this HostedNumberOrder.
         :param unicode verification_code: A verification code.
+        :param HostedNumberOrderInstance.VerificationType verification_type: Verification Type.
+        :param unicode verification_document_sid: Verification Document Sid
 
         :returns: Updated HostedNumberOrderInstance
         :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance
@@ -360,6 +368,8 @@ class HostedNumberOrderContext(InstanceContext):
             'CcEmails': serialize.map(cc_emails, lambda e: e),
             'Status': status,
             'VerificationCode': verification_code,
+            'VerificationType': verification_type,
+            'VerificationDocumentSid': verification_document_sid,
         })
 
         payload = self._version.update(
@@ -397,6 +407,10 @@ class HostedNumberOrderInstance(InstanceResource):
         FAILED = "failed"
         ACTION_REQUIRED = "action-required"
 
+    class VerificationType(object):
+        PHONE_CALL = "phone-call"
+        PHONE_BILL = "phone-bill"
+
     def __init__(self, version, payload, sid=None):
         """
         Initialize the HostedNumberOrderInstance
@@ -424,6 +438,8 @@ class HostedNumberOrderInstance(InstanceResource):
             'email': payload['email'],
             'cc_emails': payload['cc_emails'],
             'url': payload['url'],
+            'verification_type': payload['verification_type'],
+            'verification_document_sid': payload['verification_document_sid'],
         }
 
         # Context
@@ -571,6 +587,22 @@ class HostedNumberOrderInstance(InstanceResource):
         """
         return self._properties['url']
 
+    @property
+    def verification_type(self):
+        """
+        :returns: The method used for verifying ownership of the number to be hosted.
+        :rtype: HostedNumberOrderInstance.VerificationType
+        """
+        return self._properties['verification_type']
+
+    @property
+    def verification_document_sid(self):
+        """
+        :returns: Verification Document Sid.
+        :rtype: unicode
+        """
+        return self._properties['verification_document_sid']
+
     def fetch(self):
         """
         Fetch a HostedNumberOrderInstance
@@ -591,7 +623,8 @@ class HostedNumberOrderInstance(InstanceResource):
 
     def update(self, friendly_name=values.unset, unique_name=values.unset,
                email=values.unset, cc_emails=values.unset, status=values.unset,
-               verification_code=values.unset):
+               verification_code=values.unset, verification_type=values.unset,
+               verification_document_sid=values.unset):
         """
         Update the HostedNumberOrderInstance
 
@@ -601,6 +634,8 @@ class HostedNumberOrderInstance(InstanceResource):
         :param unicode cc_emails: A list of emails.
         :param HostedNumberOrderInstance.Status status: The Status of this HostedNumberOrder.
         :param unicode verification_code: A verification code.
+        :param HostedNumberOrderInstance.VerificationType verification_type: Verification Type.
+        :param unicode verification_document_sid: Verification Document Sid
 
         :returns: Updated HostedNumberOrderInstance
         :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance
@@ -612,6 +647,8 @@ class HostedNumberOrderInstance(InstanceResource):
             cc_emails=cc_emails,
             status=status,
             verification_code=verification_code,
+            verification_type=verification_type,
+            verification_document_sid=verification_document_sid,
         )
 
     def __repr__(self):

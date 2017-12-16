@@ -53,7 +53,9 @@ class ParticipantList(ListResource):
                sip_auth_username=values.unset, sip_auth_password=values.unset,
                region=values.unset,
                conference_recording_status_callback=values.unset,
-               conference_recording_status_callback_method=values.unset):
+               conference_recording_status_callback_method=values.unset,
+               recording_status_callback_event=values.unset,
+               conference_recording_status_callback_event=values.unset):
         """
         Create a new ParticipantInstance
 
@@ -85,6 +87,8 @@ class ParticipantList(ListResource):
         :param unicode region: The region
         :param unicode conference_recording_status_callback: The conference_recording_status_callback
         :param unicode conference_recording_status_callback_method: The conference_recording_status_callback_method
+        :param unicode recording_status_callback_event: The recording_status_callback_event
+        :param unicode conference_recording_status_callback_event: The conference_recording_status_callback_event
 
         :returns: Newly created ParticipantInstance
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
@@ -118,6 +122,8 @@ class ParticipantList(ListResource):
             'Region': region,
             'ConferenceRecordingStatusCallback': conference_recording_status_callback,
             'ConferenceRecordingStatusCallbackMethod': conference_recording_status_callback_method,
+            'RecordingStatusCallbackEvent': serialize.map(recording_status_callback_event, lambda e: e),
+            'ConferenceRecordingStatusCallbackEvent': serialize.map(conference_recording_status_callback_event, lambda e: e),
         })
 
         payload = self._version.create(

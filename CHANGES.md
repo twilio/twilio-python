@@ -3,6 +3,24 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2017-12-15] Version 6.10.0
+----------------------------
+**Api**
+- Add `voip`, `national`, `shared_cost`, and `machine_to_machine` sub-resources to `/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{IsoCountryCode}/`
+- Add programmable video keys
+
+**Preview**
+- Add `verification_type` and `verification_document_sid` to HostedNumberOrders.
+
+**Proxy**
+- Fixed typo in session status enum value
+
+**Twiml**
+- Fix Dial record property incorrectly typed as accepting TrimEnum values when it actually has its own enum of values. *(breaking change)*
+- Add `priority` and `timeout` properties to Task TwiML.
+- Add support for `recording_status_callback_event` for Dial verb and for Conference
+
+
 [2017-12-01] Version 6.9.1
 ---------------------------
 **Api**

@@ -12,8 +12,12 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
 from twilio.rest.api.v2010.account.available_phone_number.local import LocalList
+from twilio.rest.api.v2010.account.available_phone_number.machine_to_machine import MachineToMachineList
 from twilio.rest.api.v2010.account.available_phone_number.mobile import MobileList
+from twilio.rest.api.v2010.account.available_phone_number.national import NationalList
+from twilio.rest.api.v2010.account.available_phone_number.shared_cost import SharedCostList
 from twilio.rest.api.v2010.account.available_phone_number.toll_free import TollFreeList
+from twilio.rest.api.v2010.account.available_phone_number.voip import VoipList
 
 
 class AvailablePhoneNumberCountryList(ListResource):
@@ -224,6 +228,10 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         self._local = None
         self._toll_free = None
         self._mobile = None
+        self._national = None
+        self._voip = None
+        self._shared_cost = None
+        self._machine_to_machine = None
 
     def fetch(self):
         """
@@ -294,6 +302,70 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
                 country_code=self._solution['country_code'],
             )
         return self._mobile
+
+    @property
+    def national(self):
+        """
+        Access the national
+
+        :returns: twilio.rest.api.v2010.account.available_phone_number.national.NationalList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.national.NationalList
+        """
+        if self._national is None:
+            self._national = NationalList(
+                self._version,
+                account_sid=self._solution['account_sid'],
+                country_code=self._solution['country_code'],
+            )
+        return self._national
+
+    @property
+    def voip(self):
+        """
+        Access the voip
+
+        :returns: twilio.rest.api.v2010.account.available_phone_number.voip.VoipList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.voip.VoipList
+        """
+        if self._voip is None:
+            self._voip = VoipList(
+                self._version,
+                account_sid=self._solution['account_sid'],
+                country_code=self._solution['country_code'],
+            )
+        return self._voip
+
+    @property
+    def shared_cost(self):
+        """
+        Access the shared_cost
+
+        :returns: twilio.rest.api.v2010.account.available_phone_number.shared_cost.SharedCostList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.shared_cost.SharedCostList
+        """
+        if self._shared_cost is None:
+            self._shared_cost = SharedCostList(
+                self._version,
+                account_sid=self._solution['account_sid'],
+                country_code=self._solution['country_code'],
+            )
+        return self._shared_cost
+
+    @property
+    def machine_to_machine(self):
+        """
+        Access the machine_to_machine
+
+        :returns: twilio.rest.api.v2010.account.available_phone_number.machine_to_machine.MachineToMachineList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.machine_to_machine.MachineToMachineList
+        """
+        if self._machine_to_machine is None:
+            self._machine_to_machine = MachineToMachineList(
+                self._version,
+                account_sid=self._solution['account_sid'],
+                country_code=self._solution['country_code'],
+            )
+        return self._machine_to_machine
 
     def __repr__(self):
         """
@@ -429,6 +501,46 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.available_phone_number.mobile.MobileList
         """
         return self._proxy.mobile
+
+    @property
+    def national(self):
+        """
+        Access the national
+
+        :returns: twilio.rest.api.v2010.account.available_phone_number.national.NationalList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.national.NationalList
+        """
+        return self._proxy.national
+
+    @property
+    def voip(self):
+        """
+        Access the voip
+
+        :returns: twilio.rest.api.v2010.account.available_phone_number.voip.VoipList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.voip.VoipList
+        """
+        return self._proxy.voip
+
+    @property
+    def shared_cost(self):
+        """
+        Access the shared_cost
+
+        :returns: twilio.rest.api.v2010.account.available_phone_number.shared_cost.SharedCostList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.shared_cost.SharedCostList
+        """
+        return self._proxy.shared_cost
+
+    @property
+    def machine_to_machine(self):
+        """
+        Access the machine_to_machine
+
+        :returns: twilio.rest.api.v2010.account.available_phone_number.machine_to_machine.MachineToMachineList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number.machine_to_machine.MachineToMachineList
+        """
+        return self._proxy.machine_to_machine
 
     def __repr__(self):
         """

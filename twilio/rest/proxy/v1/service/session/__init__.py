@@ -381,7 +381,7 @@ class SessionInstance(InstanceResource):
     change. Use them with caution. """
 
     class Status(object):
-        IN_PROGESS = "in-progess"
+        IN_PROGRESS = "in-progress"
         CLOSED = "closed"
         FAILED = "failed"
         UNKNOWN = "unknown"

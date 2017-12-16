@@ -21,7 +21,7 @@ class MessagingResponse(TwiML):
         self.name = 'Response'
 
     def message(self, body=None, to=None, from_=None, action=None, method=None,
-                **kwargs):
+                status_callback=None, **kwargs):
         """
         Create a <Message> element
 
@@ -30,11 +30,20 @@ class MessagingResponse(TwiML):
         :param from: Phone Number to send Message from
         :param action: Action URL
         :param method: Action URL Method
+        :param status_callback: Status callback URL. Deprecated in favor of action.
         :param kwargs: additional attributes
 
         :returns: <Message> element
         """
-        return self.nest(Message(body=body, to=to, from_=from_, action=action, method=method, **kwargs))
+        return self.nest(Message(
+            body=body,
+            to=to,
+            from_=from_,
+            action=action,
+            method=method,
+            status_callback=status_callback,
+            **kwargs
+        ))
 
     def redirect(self, url, method=None, **kwargs):
         """

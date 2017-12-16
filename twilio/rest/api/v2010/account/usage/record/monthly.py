@@ -229,6 +229,8 @@ class MonthlyInstance(InstanceResource):
         CONVERSATIONS_PARTICIPANTS = "conversations-participants"
         CPS = "cps"
         GROUP_ROOMS = "group-rooms"
+        GROUP_ROOMS_DATA_TRACK = "group-rooms-data-track"
+        GROUP_ROOMS_ENCRYPTED_MEDIA_RECORDED = "group-rooms-encrypted-media-recorded"
         GROUP_ROOMS_MEDIA_DOWNLOADED = "group-rooms-media-downloaded"
         GROUP_ROOMS_MEDIA_RECORDED = "group-rooms-media-recorded"
         GROUP_ROOMS_MEDIA_ROUTED = "group-rooms-media-routed"
