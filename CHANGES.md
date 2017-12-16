@@ -5,6 +5,9 @@ Here you can see the full list of changes between each twilio-python release.
 
 [2017-12-15] Version 6.10.0
 ----------------------------
+**Library**
+- Fix camelCased custom twiml parameters getting converted to lower case. (Issue #349)
+
 **Api**
 - Add `voip`, `national`, `shared_cost`, and `machine_to_machine` sub-resources to `/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{IsoCountryCode}/`
 - Add programmable video keys
