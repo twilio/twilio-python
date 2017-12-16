@@ -419,7 +419,7 @@ class TestEnqueue(TwilioTest):
 
         assert_equal(
             self.strip(r),
-            '<?xml version="1.0" encoding="UTF-8"?><Response><Enqueue workflowsid="123123123"><Task>{"account_sid": "AC123123123"}</Task></Enqueue></Response>'
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Enqueue workflowSid="123123123"><Task>{"account_sid": "AC123123123"}</Task></Enqueue></Response>'
         )
 
     def test_task_dict(self):
@@ -430,8 +430,8 @@ class TestEnqueue(TwilioTest):
         r.append(e)
 
         assert_equal(
-            self.strip(r),
-            '<?xml version="1.0" encoding="UTF-8"?><Response><Enqueue workflowsid="123123123"><Task>{"account_sid": "AC123123123"}</Task></Enqueue></Response>'
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Enqueue workflowSid="123123123"><Task>{"account_sid": "AC123123123"}</Task></Enqueue></Response>',
+            self.strip(r)
         )
 
 

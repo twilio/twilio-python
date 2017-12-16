@@ -12,10 +12,10 @@ import xml.etree.ElementTree as ET
 
 
 def lower_camel(string):
-    result = "".join([x.title() for x in string.split('_')])
-    if not result:
-        return result
+    if not string or '_' not in string:
+        return string
 
+    result = "".join([x.title() for x in string.split('_')])
     return result[0].lower() + result[1:]
 
 
