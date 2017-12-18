@@ -62,6 +62,11 @@ class ValidationTest(unittest.TestCase):
         assert_true(self.validator.validate(self.uri, self.params, expected))
 
     def test_validation_removes_port_on_https(self):
-        self.uri = "https://www.postbin.org:1234/1ed898x"
+        self.uri = "https://www.postbin.org:443/1ed898x"
         expected = "Y7MeICc5ECftd1G11Fc8qoxAn0A="
+        assert_true(self.validator.validate(self.uri, self.params, expected))
+
+    def test_validation_leaves_port_on_non_standard_https(self):
+        self.uri = "https://www.postbin.org:1234/1ed898x"
+        expected = "xrqSgQsuj6s/mVHMrrgDsdWJjiE="
         assert_true(self.validator.validate(self.uri, self.params, expected))

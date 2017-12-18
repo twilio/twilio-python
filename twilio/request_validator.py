@@ -74,6 +74,6 @@ class RequestValidator(object):
         :returns: True if the request passes validation, False if not
         """
         parsed_uri = urlparse(uri)
-        if parsed_uri.scheme == "https" and parsed_uri.port:
+        if parsed_uri.scheme == "https" and parsed_uri.port == 443:
             uri = remove_port(parsed_uri)
         return compare(self.compute_signature(uri, params), signature)
