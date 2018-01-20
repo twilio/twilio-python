@@ -31,7 +31,7 @@ class StreamMessageList(ListResource):
         super(StreamMessageList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'stream_sid': stream_sid}
+        self._solution = {'service_sid': service_sid, 'stream_sid': stream_sid, }
         self._uri = '/Services/{service_sid}/Streams/{stream_sid}/Messages'.format(**self._solution)
 
     def create(self, data):
@@ -43,7 +43,7 @@ class StreamMessageList(ListResource):
         :returns: Newly created StreamMessageInstance
         :rtype: twilio.rest.sync.v1.service.sync_stream.stream_message.StreamMessageInstance
         """
-        data = values.of({'Data': serialize.object(data)})
+        data = values.of({'Data': serialize.object(data), })
 
         payload = self._version.create(
             'POST',
@@ -129,11 +129,11 @@ class StreamMessageInstance(InstanceResource):
         super(StreamMessageInstance, self).__init__(version)
 
         # Marshaled Properties
-        self._properties = {'sid': payload['sid'], 'data': payload['data']}
+        self._properties = {'sid': payload['sid'], 'data': payload['data'], }
 
         # Context
         self._context = None
-        self._solution = {'service_sid': service_sid, 'stream_sid': stream_sid}
+        self._solution = {'service_sid': service_sid, 'stream_sid': stream_sid, }
 
     @property
     def sid(self):

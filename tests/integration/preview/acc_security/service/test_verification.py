@@ -21,7 +21,7 @@ class VerificationTestCase(IntegrationTestCase):
             self.client.preview.acc_security.services(sid="VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                             .verifications.create(to="to", channel="channel")
 
-        values = {'To': "to", 'Channel': "channel"}
+        values = {'To': "to", 'Channel': "channel", }
 
         self.holodeck.assert_has_request(Request(
             'post',

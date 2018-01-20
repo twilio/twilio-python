@@ -32,7 +32,7 @@ class TaskList(ListResource):
         super(TaskList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'workspace_sid': workspace_sid}
+        self._solution = {'workspace_sid': workspace_sid, }
         self._uri = '/Workspaces/{workspace_sid}/Tasks'.format(**self._solution)
 
     def stream(self, priority=values.unset, assignment_status=values.unset,
@@ -220,7 +220,7 @@ class TaskList(ListResource):
             data=data,
         )
 
-        return TaskInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
+        return TaskInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'], )
 
     def get(self, sid):
         """
@@ -231,7 +231,7 @@ class TaskList(ListResource):
         :returns: twilio.rest.taskrouter.v1.workspace.task.TaskContext
         :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskContext
         """
-        return TaskContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid)
+        return TaskContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid, )
 
     def __call__(self, sid):
         """
@@ -242,7 +242,7 @@ class TaskList(ListResource):
         :returns: twilio.rest.taskrouter.v1.workspace.task.TaskContext
         :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskContext
         """
-        return TaskContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid)
+        return TaskContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid, )
 
     def __repr__(self):
         """
@@ -282,7 +282,7 @@ class TaskPage(Page):
         :returns: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         """
-        return TaskInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
+        return TaskInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'], )
 
     def __repr__(self):
         """
@@ -311,7 +311,7 @@ class TaskContext(InstanceContext):
         super(TaskContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'workspace_sid': workspace_sid, 'sid': sid}
+        self._solution = {'workspace_sid': workspace_sid, 'sid': sid, }
         self._uri = '/Workspaces/{workspace_sid}/Tasks/{sid}'.format(**self._solution)
 
         # Dependents
@@ -457,7 +457,7 @@ class TaskInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'workspace_sid': workspace_sid, 'sid': sid or self._properties['sid']}
+        self._solution = {'workspace_sid': workspace_sid, 'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):

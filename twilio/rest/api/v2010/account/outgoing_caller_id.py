@@ -30,7 +30,7 @@ class OutgoingCallerIdList(ListResource):
         super(OutgoingCallerIdList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid}
+        self._solution = {'account_sid': account_sid, }
         self._uri = '/Accounts/{account_sid}/OutgoingCallerIds.json'.format(**self._solution)
 
     def stream(self, phone_number=values.unset, friendly_name=values.unset,
@@ -147,7 +147,7 @@ class OutgoingCallerIdList(ListResource):
         :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
         :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
         """
-        return OutgoingCallerIdContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+        return OutgoingCallerIdContext(self._version, account_sid=self._solution['account_sid'], sid=sid, )
 
     def __call__(self, sid):
         """
@@ -158,7 +158,7 @@ class OutgoingCallerIdList(ListResource):
         :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
         :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
         """
-        return OutgoingCallerIdContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+        return OutgoingCallerIdContext(self._version, account_sid=self._solution['account_sid'], sid=sid, )
 
     def __repr__(self):
         """
@@ -198,7 +198,7 @@ class OutgoingCallerIdPage(Page):
         :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
         :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
         """
-        return OutgoingCallerIdInstance(self._version, payload, account_sid=self._solution['account_sid'])
+        return OutgoingCallerIdInstance(self._version, payload, account_sid=self._solution['account_sid'], )
 
     def __repr__(self):
         """
@@ -227,7 +227,7 @@ class OutgoingCallerIdContext(InstanceContext):
         super(OutgoingCallerIdContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid, 'sid': sid}
+        self._solution = {'account_sid': account_sid, 'sid': sid, }
         self._uri = '/Accounts/{account_sid}/OutgoingCallerIds/{sid}.json'.format(**self._solution)
 
     def fetch(self):
@@ -261,7 +261,7 @@ class OutgoingCallerIdContext(InstanceContext):
         :returns: Updated OutgoingCallerIdInstance
         :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
         """
-        data = values.of({'FriendlyName': friendly_name})
+        data = values.of({'FriendlyName': friendly_name, })
 
         payload = self._version.update(
             'POST',
@@ -321,7 +321,7 @@ class OutgoingCallerIdInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid']}
+        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):
@@ -414,7 +414,7 @@ class OutgoingCallerIdInstance(InstanceResource):
         :returns: Updated OutgoingCallerIdInstance
         :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
         """
-        return self._proxy.update(friendly_name=friendly_name)
+        return self._proxy.update(friendly_name=friendly_name, )
 
     def delete(self):
         """

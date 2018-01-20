@@ -33,7 +33,7 @@ class FieldTypeList(ListResource):
         super(FieldTypeList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid}
+        self._solution = {'service_sid': service_sid, }
         self._uri = '/Services/{service_sid}/FieldTypes'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
@@ -55,7 +55,7 @@ class FieldTypeList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'])
+        page = self.page(page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -75,7 +75,7 @@ class FieldTypeList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.understand.service.field_type.FieldTypeInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size))
+        return list(self.stream(limit=limit, page_size=page_size, ))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -90,7 +90,7 @@ class FieldTypeList(ListResource):
         :returns: Page of FieldTypeInstance
         :rtype: twilio.rest.preview.understand.service.field_type.FieldTypePage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
         response = self._version.page(
             'GET',
@@ -127,7 +127,7 @@ class FieldTypeList(ListResource):
         :returns: Newly created FieldTypeInstance
         :rtype: twilio.rest.preview.understand.service.field_type.FieldTypeInstance
         """
-        data = values.of({'UniqueName': unique_name, 'FriendlyName': friendly_name})
+        data = values.of({'UniqueName': unique_name, 'FriendlyName': friendly_name, })
 
         payload = self._version.create(
             'POST',
@@ -135,7 +135,7 @@ class FieldTypeList(ListResource):
             data=data,
         )
 
-        return FieldTypeInstance(self._version, payload, service_sid=self._solution['service_sid'])
+        return FieldTypeInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
     def get(self, sid):
         """
@@ -146,7 +146,7 @@ class FieldTypeList(ListResource):
         :returns: twilio.rest.preview.understand.service.field_type.FieldTypeContext
         :rtype: twilio.rest.preview.understand.service.field_type.FieldTypeContext
         """
-        return FieldTypeContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+        return FieldTypeContext(self._version, service_sid=self._solution['service_sid'], sid=sid, )
 
     def __call__(self, sid):
         """
@@ -157,7 +157,7 @@ class FieldTypeList(ListResource):
         :returns: twilio.rest.preview.understand.service.field_type.FieldTypeContext
         :rtype: twilio.rest.preview.understand.service.field_type.FieldTypeContext
         """
-        return FieldTypeContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+        return FieldTypeContext(self._version, service_sid=self._solution['service_sid'], sid=sid, )
 
     def __repr__(self):
         """
@@ -199,7 +199,7 @@ class FieldTypePage(Page):
         :returns: twilio.rest.preview.understand.service.field_type.FieldTypeInstance
         :rtype: twilio.rest.preview.understand.service.field_type.FieldTypeInstance
         """
-        return FieldTypeInstance(self._version, payload, service_sid=self._solution['service_sid'])
+        return FieldTypeInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
     def __repr__(self):
         """
@@ -230,7 +230,7 @@ class FieldTypeContext(InstanceContext):
         super(FieldTypeContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'sid': sid}
+        self._solution = {'service_sid': service_sid, 'sid': sid, }
         self._uri = '/Services/{service_sid}/FieldTypes/{sid}'.format(**self._solution)
 
         # Dependents
@@ -268,7 +268,7 @@ class FieldTypeContext(InstanceContext):
         :returns: Updated FieldTypeInstance
         :rtype: twilio.rest.preview.understand.service.field_type.FieldTypeInstance
         """
-        data = values.of({'FriendlyName': friendly_name, 'UniqueName': unique_name})
+        data = values.of({'FriendlyName': friendly_name, 'UniqueName': unique_name, })
 
         payload = self._version.update(
             'POST',
@@ -348,7 +348,7 @@ class FieldTypeInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'service_sid': service_sid, 'sid': sid or self._properties['sid']}
+        self._solution = {'service_sid': service_sid, 'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):
@@ -458,7 +458,7 @@ class FieldTypeInstance(InstanceResource):
         :returns: Updated FieldTypeInstance
         :rtype: twilio.rest.preview.understand.service.field_type.FieldTypeInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, unique_name=unique_name)
+        return self._proxy.update(friendly_name=friendly_name, unique_name=unique_name, )
 
     def delete(self):
         """

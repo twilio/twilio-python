@@ -32,7 +32,7 @@ class InteractionList(ListResource):
         super(InteractionList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'session_sid': session_sid}
+        self._solution = {'service_sid': service_sid, 'session_sid': session_sid, }
         self._uri = '/Services/{service_sid}/Sessions/{session_sid}/Interactions'.format(**self._solution)
 
     def stream(self, inbound_participant_status=values.unset,
@@ -249,7 +249,7 @@ class InteractionContext(InstanceContext):
         super(InteractionContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'session_sid': session_sid, 'sid': sid}
+        self._solution = {'service_sid': service_sid, 'session_sid': session_sid, 'sid': sid, }
         self._uri = '/Services/{service_sid}/Sessions/{session_sid}/Interactions/{sid}'.format(**self._solution)
 
     def fetch(self):

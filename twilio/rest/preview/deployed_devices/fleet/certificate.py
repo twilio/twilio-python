@@ -32,7 +32,7 @@ class CertificateList(ListResource):
         super(CertificateList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'fleet_sid': fleet_sid}
+        self._solution = {'fleet_sid': fleet_sid, }
         self._uri = '/Fleets/{fleet_sid}/Certificates'.format(**self._solution)
 
     def create(self, certificate_data, friendly_name=values.unset,
@@ -59,7 +59,7 @@ class CertificateList(ListResource):
             data=data,
         )
 
-        return CertificateInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])
+        return CertificateInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'], )
 
     def stream(self, device_sid=values.unset, limit=None, page_size=None):
         """
@@ -81,7 +81,7 @@ class CertificateList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(device_sid=device_sid, page_size=limits['page_size'])
+        page = self.page(device_sid=device_sid, page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -102,7 +102,7 @@ class CertificateList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.deployed_devices.fleet.certificate.CertificateInstance]
         """
-        return list(self.stream(device_sid=device_sid, limit=limit, page_size=page_size))
+        return list(self.stream(device_sid=device_sid, limit=limit, page_size=page_size, ))
 
     def page(self, device_sid=values.unset, page_token=values.unset,
              page_number=values.unset, page_size=values.unset):
@@ -159,7 +159,7 @@ class CertificateList(ListResource):
         :returns: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateContext
         :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateContext
         """
-        return CertificateContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid)
+        return CertificateContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid, )
 
     def __call__(self, sid):
         """
@@ -170,7 +170,7 @@ class CertificateList(ListResource):
         :returns: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateContext
         :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateContext
         """
-        return CertificateContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid)
+        return CertificateContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid, )
 
     def __repr__(self):
         """
@@ -212,7 +212,7 @@ class CertificatePage(Page):
         :returns: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateInstance
         """
-        return CertificateInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])
+        return CertificateInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'], )
 
     def __repr__(self):
         """
@@ -243,7 +243,7 @@ class CertificateContext(InstanceContext):
         super(CertificateContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'fleet_sid': fleet_sid, 'sid': sid}
+        self._solution = {'fleet_sid': fleet_sid, 'sid': sid, }
         self._uri = '/Fleets/{fleet_sid}/Certificates/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -287,7 +287,7 @@ class CertificateContext(InstanceContext):
         :returns: Updated CertificateInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateInstance
         """
-        data = values.of({'FriendlyName': friendly_name, 'DeviceSid': device_sid})
+        data = values.of({'FriendlyName': friendly_name, 'DeviceSid': device_sid, })
 
         payload = self._version.update(
             'POST',
@@ -342,7 +342,7 @@ class CertificateInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'fleet_sid': fleet_sid, 'sid': sid or self._properties['sid']}
+        self._solution = {'fleet_sid': fleet_sid, 'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):
@@ -461,7 +461,7 @@ class CertificateInstance(InstanceResource):
         :returns: Updated CertificateInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, device_sid=device_sid)
+        return self._proxy.update(friendly_name=friendly_name, device_sid=device_sid, )
 
     def __repr__(self):
         """

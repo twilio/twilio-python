@@ -209,7 +209,7 @@ class RoleTestCase(IntegrationTestCase):
             self.client.ip_messaging.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                        .roles(sid="RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(permission=['permission'])
 
-        values = {'Permission': serialize.map(['permission'], lambda e: e)}
+        values = {'Permission': serialize.map(['permission'], lambda e: e), }
 
         self.holodeck.assert_has_request(Request(
             'post',

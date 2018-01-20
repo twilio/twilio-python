@@ -21,7 +21,7 @@ class VerificationCheckTestCase(IntegrationTestCase):
             self.client.preview.acc_security.services(sid="VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                             .verification_checks.create(code="code")
 
-        values = {'Code': "code"}
+        values = {'Code': "code", }
 
         self.holodeck.assert_has_request(Request(
             'post',

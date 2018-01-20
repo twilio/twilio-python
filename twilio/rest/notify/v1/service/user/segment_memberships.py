@@ -31,7 +31,7 @@ class SegmentMembershipList(ListResource):
         super(SegmentMembershipList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'identity': identity}
+        self._solution = {'service_sid': service_sid, 'identity': identity, }
         self._uri = '/Services/{service_sid}/Users/{identity}/SegmentMemberships'.format(**self._solution)
 
     def create(self, segment):
@@ -43,7 +43,7 @@ class SegmentMembershipList(ListResource):
         :returns: Newly created SegmentMembershipInstance
         :rtype: twilio.rest.notify.v1.service.user.segment_memberships.SegmentMembershipInstance
         """
-        data = values.of({'Segment': segment})
+        data = values.of({'Segment': segment, })
 
         payload = self._version.create(
             'POST',
@@ -166,7 +166,7 @@ class SegmentMembershipContext(InstanceContext):
         super(SegmentMembershipContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'identity': identity, 'segment': segment}
+        self._solution = {'service_sid': service_sid, 'identity': identity, 'segment': segment, }
         self._uri = '/Services/{service_sid}/Users/{identity}/SegmentMemberships/{segment}'.format(**self._solution)
 
     def delete(self):

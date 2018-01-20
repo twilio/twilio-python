@@ -33,7 +33,7 @@ class DocumentList(ListResource):
         super(DocumentList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid}
+        self._solution = {'service_sid': service_sid, }
         self._uri = '/Services/{service_sid}/Documents'.format(**self._solution)
 
     def create(self, unique_name=values.unset, data=values.unset, ttl=values.unset):
@@ -47,7 +47,7 @@ class DocumentList(ListResource):
         :returns: Newly created DocumentInstance
         :rtype: twilio.rest.sync.v1.service.document.DocumentInstance
         """
-        data = values.of({'UniqueName': unique_name, 'Data': serialize.object(data), 'Ttl': ttl})
+        data = values.of({'UniqueName': unique_name, 'Data': serialize.object(data), 'Ttl': ttl, })
 
         payload = self._version.create(
             'POST',
@@ -55,7 +55,7 @@ class DocumentList(ListResource):
             data=data,
         )
 
-        return DocumentInstance(self._version, payload, service_sid=self._solution['service_sid'])
+        return DocumentInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
     def stream(self, limit=None, page_size=None):
         """
@@ -76,7 +76,7 @@ class DocumentList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'])
+        page = self.page(page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -96,7 +96,7 @@ class DocumentList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.sync.v1.service.document.DocumentInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size))
+        return list(self.stream(limit=limit, page_size=page_size, ))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -111,7 +111,7 @@ class DocumentList(ListResource):
         :returns: Page of DocumentInstance
         :rtype: twilio.rest.sync.v1.service.document.DocumentPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
         response = self._version.page(
             'GET',
@@ -147,7 +147,7 @@ class DocumentList(ListResource):
         :returns: twilio.rest.sync.v1.service.document.DocumentContext
         :rtype: twilio.rest.sync.v1.service.document.DocumentContext
         """
-        return DocumentContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+        return DocumentContext(self._version, service_sid=self._solution['service_sid'], sid=sid, )
 
     def __call__(self, sid):
         """
@@ -158,7 +158,7 @@ class DocumentList(ListResource):
         :returns: twilio.rest.sync.v1.service.document.DocumentContext
         :rtype: twilio.rest.sync.v1.service.document.DocumentContext
         """
-        return DocumentContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+        return DocumentContext(self._version, service_sid=self._solution['service_sid'], sid=sid, )
 
     def __repr__(self):
         """
@@ -199,7 +199,7 @@ class DocumentPage(Page):
         :returns: twilio.rest.sync.v1.service.document.DocumentInstance
         :rtype: twilio.rest.sync.v1.service.document.DocumentInstance
         """
-        return DocumentInstance(self._version, payload, service_sid=self._solution['service_sid'])
+        return DocumentInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
     def __repr__(self):
         """
@@ -229,7 +229,7 @@ class DocumentContext(InstanceContext):
         super(DocumentContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'sid': sid}
+        self._solution = {'service_sid': service_sid, 'sid': sid, }
         self._uri = '/Services/{service_sid}/Documents/{sid}'.format(**self._solution)
 
         # Dependents
@@ -276,7 +276,7 @@ class DocumentContext(InstanceContext):
         :returns: Updated DocumentInstance
         :rtype: twilio.rest.sync.v1.service.document.DocumentInstance
         """
-        data = values.of({'Data': serialize.object(data), 'Ttl': ttl})
+        data = values.of({'Data': serialize.object(data), 'Ttl': ttl, })
 
         payload = self._version.update(
             'POST',
@@ -349,7 +349,7 @@ class DocumentInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'service_sid': service_sid, 'sid': sid or self._properties['sid']}
+        self._solution = {'service_sid': service_sid, 'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):
@@ -492,7 +492,7 @@ class DocumentInstance(InstanceResource):
         :returns: Updated DocumentInstance
         :rtype: twilio.rest.sync.v1.service.document.DocumentInstance
         """
-        return self._proxy.update(data=data, ttl=ttl)
+        return self._proxy.update(data=data, ttl=ttl, )
 
     @property
     def document_permissions(self):

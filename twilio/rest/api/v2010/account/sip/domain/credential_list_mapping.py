@@ -31,7 +31,7 @@ class CredentialListMappingList(ListResource):
         super(CredentialListMappingList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid, 'domain_sid': domain_sid}
+        self._solution = {'account_sid': account_sid, 'domain_sid': domain_sid, }
         self._uri = '/Accounts/{account_sid}/SIP/Domains/{domain_sid}/CredentialListMappings.json'.format(**self._solution)
 
     def create(self, credential_list_sid):
@@ -43,7 +43,7 @@ class CredentialListMappingList(ListResource):
         :returns: Newly created CredentialListMappingInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
         """
-        data = values.of({'CredentialListSid': credential_list_sid})
+        data = values.of({'CredentialListSid': credential_list_sid, })
 
         payload = self._version.create(
             'POST',
@@ -77,7 +77,7 @@ class CredentialListMappingList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'])
+        page = self.page(page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -97,7 +97,7 @@ class CredentialListMappingList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size))
+        return list(self.stream(limit=limit, page_size=page_size, ))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -112,7 +112,7 @@ class CredentialListMappingList(ListResource):
         :returns: Page of CredentialListMappingInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
         response = self._version.page(
             'GET',
@@ -245,7 +245,7 @@ class CredentialListMappingContext(InstanceContext):
         super(CredentialListMappingContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid, 'domain_sid': domain_sid, 'sid': sid}
+        self._solution = {'account_sid': account_sid, 'domain_sid': domain_sid, 'sid': sid, }
         self._uri = '/Accounts/{account_sid}/SIP/Domains/{domain_sid}/CredentialListMappings/{sid}.json'.format(**self._solution)
 
     def fetch(self):

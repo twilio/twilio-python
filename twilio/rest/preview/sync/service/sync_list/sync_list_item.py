@@ -34,7 +34,7 @@ class SyncListItemList(ListResource):
         super(SyncListItemList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'list_sid': list_sid}
+        self._solution = {'service_sid': service_sid, 'list_sid': list_sid, }
         self._uri = '/Services/{service_sid}/Lists/{list_sid}/Items'.format(**self._solution)
 
     def create(self, data):
@@ -46,7 +46,7 @@ class SyncListItemList(ListResource):
         :returns: Newly created SyncListItemInstance
         :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance
         """
-        data = values.of({'Data': serialize.object(data)})
+        data = values.of({'Data': serialize.object(data), })
 
         payload = self._version.create(
             'POST',
@@ -84,7 +84,7 @@ class SyncListItemList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(order=order, from_=from_, bounds=bounds, page_size=limits['page_size'])
+        page = self.page(order=order, from_=from_, bounds=bounds, page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -108,7 +108,7 @@ class SyncListItemList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance]
         """
-        return list(self.stream(order=order, from_=from_, bounds=bounds, limit=limit, page_size=page_size))
+        return list(self.stream(order=order, from_=from_, bounds=bounds, limit=limit, page_size=page_size, ))
 
     def page(self, order=values.unset, from_=values.unset, bounds=values.unset,
              page_token=values.unset, page_number=values.unset,
@@ -271,7 +271,7 @@ class SyncListItemContext(InstanceContext):
         super(SyncListItemContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'list_sid': list_sid, 'index': index}
+        self._solution = {'service_sid': service_sid, 'list_sid': list_sid, 'index': index, }
         self._uri = '/Services/{service_sid}/Lists/{list_sid}/Items/{index}'.format(**self._solution)
 
     def fetch(self):
@@ -315,7 +315,7 @@ class SyncListItemContext(InstanceContext):
         :returns: Updated SyncListItemInstance
         :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance
         """
-        data = values.of({'Data': serialize.object(data)})
+        data = values.of({'Data': serialize.object(data), })
 
         payload = self._version.update(
             'POST',
@@ -511,7 +511,7 @@ class SyncListItemInstance(InstanceResource):
         :returns: Updated SyncListItemInstance
         :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance
         """
-        return self._proxy.update(data)
+        return self._proxy.update(data, )
 
     def __repr__(self):
         """

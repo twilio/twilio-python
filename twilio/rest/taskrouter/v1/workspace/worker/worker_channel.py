@@ -31,7 +31,7 @@ class WorkerChannelList(ListResource):
         super(WorkerChannelList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'workspace_sid': workspace_sid, 'worker_sid': worker_sid}
+        self._solution = {'workspace_sid': workspace_sid, 'worker_sid': worker_sid, }
         self._uri = '/Workspaces/{workspace_sid}/Workers/{worker_sid}/Channels'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
@@ -53,7 +53,7 @@ class WorkerChannelList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'])
+        page = self.page(page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -73,7 +73,7 @@ class WorkerChannelList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size))
+        return list(self.stream(limit=limit, page_size=page_size, ))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -88,7 +88,7 @@ class WorkerChannelList(ListResource):
         :returns: Page of WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
         response = self._version.page(
             'GET',
@@ -221,7 +221,7 @@ class WorkerChannelContext(InstanceContext):
         super(WorkerChannelContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'workspace_sid': workspace_sid, 'worker_sid': worker_sid, 'sid': sid}
+        self._solution = {'workspace_sid': workspace_sid, 'worker_sid': worker_sid, 'sid': sid, }
         self._uri = '/Workspaces/{workspace_sid}/Workers/{worker_sid}/Channels/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -257,7 +257,7 @@ class WorkerChannelContext(InstanceContext):
         :returns: Updated WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
         """
-        data = values.of({'Capacity': capacity, 'Available': available})
+        data = values.of({'Capacity': capacity, 'Available': available, })
 
         payload = self._version.update(
             'POST',
@@ -310,7 +310,6 @@ class WorkerChannelInstance(InstanceResource):
             'task_channel_unique_name': payload['task_channel_unique_name'],
             'worker_sid': payload['worker_sid'],
             'workspace_sid': payload['workspace_sid'],
-            'links': payload['links'],
             'url': payload['url'],
         }
 
@@ -437,14 +436,6 @@ class WorkerChannelInstance(InstanceResource):
         return self._properties['workspace_sid']
 
     @property
-    def links(self):
-        """
-        :returns: The links
-        :rtype: unicode
-        """
-        return self._properties['links']
-
-    @property
     def url(self):
         """
         :returns: The url
@@ -471,7 +462,7 @@ class WorkerChannelInstance(InstanceResource):
         :returns: Updated WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
         """
-        return self._proxy.update(capacity=capacity, available=available)
+        return self._proxy.update(capacity=capacity, available=available, )
 
     def __repr__(self):
         """

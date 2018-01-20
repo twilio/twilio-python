@@ -32,7 +32,7 @@ class DeploymentList(ListResource):
         super(DeploymentList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'fleet_sid': fleet_sid}
+        self._solution = {'fleet_sid': fleet_sid, }
         self._uri = '/Fleets/{fleet_sid}/Deployments'.format(**self._solution)
 
     def create(self, friendly_name=values.unset, sync_service_sid=values.unset):
@@ -45,7 +45,7 @@ class DeploymentList(ListResource):
         :returns: Newly created DeploymentInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentInstance
         """
-        data = values.of({'FriendlyName': friendly_name, 'SyncServiceSid': sync_service_sid})
+        data = values.of({'FriendlyName': friendly_name, 'SyncServiceSid': sync_service_sid, })
 
         payload = self._version.create(
             'POST',
@@ -53,7 +53,7 @@ class DeploymentList(ListResource):
             data=data,
         )
 
-        return DeploymentInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])
+        return DeploymentInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'], )
 
     def stream(self, limit=None, page_size=None):
         """
@@ -74,7 +74,7 @@ class DeploymentList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'])
+        page = self.page(page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -94,7 +94,7 @@ class DeploymentList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size))
+        return list(self.stream(limit=limit, page_size=page_size, ))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -109,7 +109,7 @@ class DeploymentList(ListResource):
         :returns: Page of DeploymentInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
         response = self._version.page(
             'GET',
@@ -145,7 +145,7 @@ class DeploymentList(ListResource):
         :returns: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentContext
         :rtype: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentContext
         """
-        return DeploymentContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid)
+        return DeploymentContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid, )
 
     def __call__(self, sid):
         """
@@ -156,7 +156,7 @@ class DeploymentList(ListResource):
         :returns: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentContext
         :rtype: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentContext
         """
-        return DeploymentContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid)
+        return DeploymentContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid, )
 
     def __repr__(self):
         """
@@ -198,7 +198,7 @@ class DeploymentPage(Page):
         :returns: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentInstance
         """
-        return DeploymentInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])
+        return DeploymentInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'], )
 
     def __repr__(self):
         """
@@ -229,7 +229,7 @@ class DeploymentContext(InstanceContext):
         super(DeploymentContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'fleet_sid': fleet_sid, 'sid': sid}
+        self._solution = {'fleet_sid': fleet_sid, 'sid': sid, }
         self._uri = '/Fleets/{fleet_sid}/Deployments/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -273,7 +273,7 @@ class DeploymentContext(InstanceContext):
         :returns: Updated DeploymentInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentInstance
         """
-        data = values.of({'FriendlyName': friendly_name, 'SyncServiceSid': sync_service_sid})
+        data = values.of({'FriendlyName': friendly_name, 'SyncServiceSid': sync_service_sid, })
 
         payload = self._version.update(
             'POST',
@@ -327,7 +327,7 @@ class DeploymentInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'fleet_sid': fleet_sid, 'sid': sid or self._properties['sid']}
+        self._solution = {'fleet_sid': fleet_sid, 'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):
@@ -438,7 +438,7 @@ class DeploymentInstance(InstanceResource):
         :returns: Updated DeploymentInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, sync_service_sid=sync_service_sid)
+        return self._proxy.update(friendly_name=friendly_name, sync_service_sid=sync_service_sid, )
 
     def __repr__(self):
         """

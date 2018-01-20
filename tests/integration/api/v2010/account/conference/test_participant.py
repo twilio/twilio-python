@@ -98,9 +98,9 @@ class ParticipantTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .conferences(sid="CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .participants.create(from_="+987654321", to="+123456789")
+                                 .participants.create(from_="+15017122661", to="+15558675310")
 
-        values = {'From': "+987654321", 'To': "+123456789"}
+        values = {'From': "+15017122661", 'To': "+15558675310", }
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -130,7 +130,7 @@ class ParticipantTestCase(IntegrationTestCase):
 
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .conferences(sid="CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .participants.create(from_="+987654321", to="+123456789")
+                                      .participants.create(from_="+15017122661", to="+15558675310")
 
         self.assertIsNotNone(actual)
 
@@ -156,7 +156,7 @@ class ParticipantTestCase(IntegrationTestCase):
 
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .conferences(sid="CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .participants.create(from_="+987654321", to="+123456789")
+                                      .participants.create(from_="+15017122661", to="+15558675310")
 
         self.assertIsNotNone(actual)
 

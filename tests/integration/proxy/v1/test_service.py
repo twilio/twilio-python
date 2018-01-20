@@ -95,7 +95,7 @@ class ServiceTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.proxy.v1.services.create(unique_name="unique_name")
 
-        values = {'UniqueName': "unique_name"}
+        values = {'UniqueName': "unique_name", }
 
         self.holodeck.assert_has_request(Request(
             'post',

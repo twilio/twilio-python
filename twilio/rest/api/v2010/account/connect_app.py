@@ -30,7 +30,7 @@ class ConnectAppList(ListResource):
         super(ConnectAppList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid}
+        self._solution = {'account_sid': account_sid, }
         self._uri = '/Accounts/{account_sid}/ConnectApps.json'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
@@ -52,7 +52,7 @@ class ConnectAppList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'])
+        page = self.page(page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -72,7 +72,7 @@ class ConnectAppList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.api.v2010.account.connect_app.ConnectAppInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size))
+        return list(self.stream(limit=limit, page_size=page_size, ))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -87,7 +87,7 @@ class ConnectAppList(ListResource):
         :returns: Page of ConnectAppInstance
         :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
         response = self._version.page(
             'GET',
@@ -123,7 +123,7 @@ class ConnectAppList(ListResource):
         :returns: twilio.rest.api.v2010.account.connect_app.ConnectAppContext
         :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppContext
         """
-        return ConnectAppContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+        return ConnectAppContext(self._version, account_sid=self._solution['account_sid'], sid=sid, )
 
     def __call__(self, sid):
         """
@@ -134,7 +134,7 @@ class ConnectAppList(ListResource):
         :returns: twilio.rest.api.v2010.account.connect_app.ConnectAppContext
         :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppContext
         """
-        return ConnectAppContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+        return ConnectAppContext(self._version, account_sid=self._solution['account_sid'], sid=sid, )
 
     def __repr__(self):
         """
@@ -174,7 +174,7 @@ class ConnectAppPage(Page):
         :returns: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
         :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
         """
-        return ConnectAppInstance(self._version, payload, account_sid=self._solution['account_sid'])
+        return ConnectAppInstance(self._version, payload, account_sid=self._solution['account_sid'], )
 
     def __repr__(self):
         """
@@ -203,7 +203,7 @@ class ConnectAppContext(InstanceContext):
         super(ConnectAppContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid, 'sid': sid}
+        self._solution = {'account_sid': account_sid, 'sid': sid, }
         self._uri = '/Accounts/{account_sid}/ConnectApps/{sid}.json'.format(**self._solution)
 
     def fetch(self):
@@ -316,7 +316,7 @@ class ConnectAppInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid']}
+        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):

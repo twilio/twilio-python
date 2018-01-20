@@ -31,7 +31,7 @@ class RoleList(ListResource):
         super(RoleList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid}
+        self._solution = {'service_sid': service_sid, }
         self._uri = '/Services/{service_sid}/Roles'.format(**self._solution)
 
     def create(self, friendly_name, type, permission):
@@ -57,7 +57,7 @@ class RoleList(ListResource):
             data=data,
         )
 
-        return RoleInstance(self._version, payload, service_sid=self._solution['service_sid'])
+        return RoleInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
     def stream(self, limit=None, page_size=None):
         """
@@ -78,7 +78,7 @@ class RoleList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'])
+        page = self.page(page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -98,7 +98,7 @@ class RoleList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.chat.v2.service.role.RoleInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size))
+        return list(self.stream(limit=limit, page_size=page_size, ))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -113,7 +113,7 @@ class RoleList(ListResource):
         :returns: Page of RoleInstance
         :rtype: twilio.rest.chat.v2.service.role.RolePage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
         response = self._version.page(
             'GET',
@@ -149,7 +149,7 @@ class RoleList(ListResource):
         :returns: twilio.rest.chat.v2.service.role.RoleContext
         :rtype: twilio.rest.chat.v2.service.role.RoleContext
         """
-        return RoleContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+        return RoleContext(self._version, service_sid=self._solution['service_sid'], sid=sid, )
 
     def __call__(self, sid):
         """
@@ -160,7 +160,7 @@ class RoleList(ListResource):
         :returns: twilio.rest.chat.v2.service.role.RoleContext
         :rtype: twilio.rest.chat.v2.service.role.RoleContext
         """
-        return RoleContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+        return RoleContext(self._version, service_sid=self._solution['service_sid'], sid=sid, )
 
     def __repr__(self):
         """
@@ -200,7 +200,7 @@ class RolePage(Page):
         :returns: twilio.rest.chat.v2.service.role.RoleInstance
         :rtype: twilio.rest.chat.v2.service.role.RoleInstance
         """
-        return RoleInstance(self._version, payload, service_sid=self._solution['service_sid'])
+        return RoleInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
     def __repr__(self):
         """
@@ -229,7 +229,7 @@ class RoleContext(InstanceContext):
         super(RoleContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'sid': sid}
+        self._solution = {'service_sid': service_sid, 'sid': sid, }
         self._uri = '/Services/{service_sid}/Roles/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -272,7 +272,7 @@ class RoleContext(InstanceContext):
         :returns: Updated RoleInstance
         :rtype: twilio.rest.chat.v2.service.role.RoleInstance
         """
-        data = values.of({'Permission': serialize.map(permission, lambda e: e)})
+        data = values.of({'Permission': serialize.map(permission, lambda e: e), })
 
         payload = self._version.update(
             'POST',
@@ -329,7 +329,7 @@ class RoleInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'service_sid': service_sid, 'sid': sid or self._properties['sid']}
+        self._solution = {'service_sid': service_sid, 'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):
@@ -447,7 +447,7 @@ class RoleInstance(InstanceResource):
         :returns: Updated RoleInstance
         :rtype: twilio.rest.chat.v2.service.role.RoleInstance
         """
-        return self._proxy.update(permission)
+        return self._proxy.update(permission, )
 
     def __repr__(self):
         """

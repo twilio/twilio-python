@@ -30,7 +30,7 @@ class SigningKeyList(ListResource):
         super(SigningKeyList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid}
+        self._solution = {'account_sid': account_sid, }
         self._uri = '/Accounts/{account_sid}/SigningKeys.json'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
@@ -52,7 +52,7 @@ class SigningKeyList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'])
+        page = self.page(page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -72,7 +72,7 @@ class SigningKeyList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.api.v2010.account.signing_key.SigningKeyInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size))
+        return list(self.stream(limit=limit, page_size=page_size, ))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -87,7 +87,7 @@ class SigningKeyList(ListResource):
         :returns: Page of SigningKeyInstance
         :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
         response = self._version.page(
             'GET',
@@ -123,7 +123,7 @@ class SigningKeyList(ListResource):
         :returns: twilio.rest.api.v2010.account.signing_key.SigningKeyContext
         :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyContext
         """
-        return SigningKeyContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+        return SigningKeyContext(self._version, account_sid=self._solution['account_sid'], sid=sid, )
 
     def __call__(self, sid):
         """
@@ -134,7 +134,7 @@ class SigningKeyList(ListResource):
         :returns: twilio.rest.api.v2010.account.signing_key.SigningKeyContext
         :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyContext
         """
-        return SigningKeyContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+        return SigningKeyContext(self._version, account_sid=self._solution['account_sid'], sid=sid, )
 
     def __repr__(self):
         """
@@ -174,7 +174,7 @@ class SigningKeyPage(Page):
         :returns: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
         :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
         """
-        return SigningKeyInstance(self._version, payload, account_sid=self._solution['account_sid'])
+        return SigningKeyInstance(self._version, payload, account_sid=self._solution['account_sid'], )
 
     def __repr__(self):
         """
@@ -203,7 +203,7 @@ class SigningKeyContext(InstanceContext):
         super(SigningKeyContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid, 'sid': sid}
+        self._solution = {'account_sid': account_sid, 'sid': sid, }
         self._uri = '/Accounts/{account_sid}/SigningKeys/{sid}.json'.format(**self._solution)
 
     def fetch(self):
@@ -237,7 +237,7 @@ class SigningKeyContext(InstanceContext):
         :returns: Updated SigningKeyInstance
         :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
         """
-        data = values.of({'FriendlyName': friendly_name})
+        data = values.of({'FriendlyName': friendly_name, })
 
         payload = self._version.update(
             'POST',
@@ -294,7 +294,7 @@ class SigningKeyInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid']}
+        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):
@@ -363,7 +363,7 @@ class SigningKeyInstance(InstanceResource):
         :returns: Updated SigningKeyInstance
         :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
         """
-        return self._proxy.update(friendly_name=friendly_name)
+        return self._proxy.update(friendly_name=friendly_name, )
 
     def delete(self):
         """

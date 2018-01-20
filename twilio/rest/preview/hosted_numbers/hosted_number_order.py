@@ -220,7 +220,7 @@ class HostedNumberOrderList(ListResource):
             data=data,
         )
 
-        return HostedNumberOrderInstance(self._version, payload)
+        return HostedNumberOrderInstance(self._version, payload, )
 
     def get(self, sid):
         """
@@ -231,7 +231,7 @@ class HostedNumberOrderList(ListResource):
         :returns: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderContext
         :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderContext
         """
-        return HostedNumberOrderContext(self._version, sid=sid)
+        return HostedNumberOrderContext(self._version, sid=sid, )
 
     def __call__(self, sid):
         """
@@ -242,7 +242,7 @@ class HostedNumberOrderList(ListResource):
         :returns: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderContext
         :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderContext
         """
-        return HostedNumberOrderContext(self._version, sid=sid)
+        return HostedNumberOrderContext(self._version, sid=sid, )
 
     def __repr__(self):
         """
@@ -283,7 +283,7 @@ class HostedNumberOrderPage(Page):
         :returns: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance
         :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance
         """
-        return HostedNumberOrderInstance(self._version, payload)
+        return HostedNumberOrderInstance(self._version, payload, )
 
     def __repr__(self):
         """
@@ -313,7 +313,7 @@ class HostedNumberOrderContext(InstanceContext):
         super(HostedNumberOrderContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'sid': sid}
+        self._solution = {'sid': sid, }
         self._uri = '/HostedNumberOrders/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -331,7 +331,7 @@ class HostedNumberOrderContext(InstanceContext):
             params=params,
         )
 
-        return HostedNumberOrderInstance(self._version, payload, sid=self._solution['sid'])
+        return HostedNumberOrderInstance(self._version, payload, sid=self._solution['sid'], )
 
     def delete(self):
         """
@@ -345,7 +345,8 @@ class HostedNumberOrderContext(InstanceContext):
     def update(self, friendly_name=values.unset, unique_name=values.unset,
                email=values.unset, cc_emails=values.unset, status=values.unset,
                verification_code=values.unset, verification_type=values.unset,
-               verification_document_sid=values.unset):
+               verification_document_sid=values.unset, extension=values.unset,
+               call_delay=values.unset):
         """
         Update the HostedNumberOrderInstance
 
@@ -357,6 +358,8 @@ class HostedNumberOrderContext(InstanceContext):
         :param unicode verification_code: A verification code.
         :param HostedNumberOrderInstance.VerificationType verification_type: Verification Type.
         :param unicode verification_document_sid: Verification Document Sid
+        :param unicode extension: The extension
+        :param unicode call_delay: The call_delay
 
         :returns: Updated HostedNumberOrderInstance
         :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance
@@ -370,6 +373,8 @@ class HostedNumberOrderContext(InstanceContext):
             'VerificationCode': verification_code,
             'VerificationType': verification_type,
             'VerificationDocumentSid': verification_document_sid,
+            'Extension': extension,
+            'CallDelay': call_delay,
         })
 
         payload = self._version.update(
@@ -378,7 +383,7 @@ class HostedNumberOrderContext(InstanceContext):
             data=data,
         )
 
-        return HostedNumberOrderInstance(self._version, payload, sid=self._solution['sid'])
+        return HostedNumberOrderInstance(self._version, payload, sid=self._solution['sid'], )
 
     def __repr__(self):
         """
@@ -432,6 +437,7 @@ class HostedNumberOrderInstance(InstanceResource):
             'friendly_name': payload['friendly_name'],
             'unique_name': payload['unique_name'],
             'status': payload['status'],
+            'failure_reason': payload['failure_reason'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
             'verification_attempts': deserialize.integer(payload['verification_attempts']),
@@ -440,11 +446,15 @@ class HostedNumberOrderInstance(InstanceResource):
             'url': payload['url'],
             'verification_type': payload['verification_type'],
             'verification_document_sid': payload['verification_document_sid'],
+            'extension': payload['extension'],
+            'call_delay': deserialize.integer(payload['call_delay']),
+            'verification_code': payload['verification_code'],
+            'verification_call_sids': payload['verification_call_sids'],
         }
 
         # Context
         self._context = None
-        self._solution = {'sid': sid or self._properties['sid']}
+        self._solution = {'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):
@@ -456,7 +466,7 @@ class HostedNumberOrderInstance(InstanceResource):
         :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderContext
         """
         if self._context is None:
-            self._context = HostedNumberOrderContext(self._version, sid=self._solution['sid'])
+            self._context = HostedNumberOrderContext(self._version, sid=self._solution['sid'], )
         return self._context
 
     @property
@@ -540,6 +550,14 @@ class HostedNumberOrderInstance(InstanceResource):
         return self._properties['status']
 
     @property
+    def failure_reason(self):
+        """
+        :returns: Why a hosted_number_order reached status "action-required"
+        :rtype: unicode
+        """
+        return self._properties['failure_reason']
+
+    @property
     def date_created(self):
         """
         :returns: The date this HostedNumberOrder was created.
@@ -558,7 +576,7 @@ class HostedNumberOrderInstance(InstanceResource):
     @property
     def verification_attempts(self):
         """
-        :returns: The number of verification attempts made to verify ownership of the phone number.
+        :returns: The number of attempts made to verify ownership of the phone number.
         :rtype: unicode
         """
         return self._properties['verification_attempts']
@@ -603,6 +621,38 @@ class HostedNumberOrderInstance(InstanceResource):
         """
         return self._properties['verification_document_sid']
 
+    @property
+    def extension(self):
+        """
+        :returns: Phone extension to use for ownership verification call.
+        :rtype: unicode
+        """
+        return self._properties['extension']
+
+    @property
+    def call_delay(self):
+        """
+        :returns: Seconds (0-30) to delay ownership verification call by.
+        :rtype: unicode
+        """
+        return self._properties['call_delay']
+
+    @property
+    def verification_code(self):
+        """
+        :returns: The digits passed during the ownership verification call.
+        :rtype: unicode
+        """
+        return self._properties['verification_code']
+
+    @property
+    def verification_call_sids(self):
+        """
+        :returns: List of IDs for ownership verification calls.
+        :rtype: unicode
+        """
+        return self._properties['verification_call_sids']
+
     def fetch(self):
         """
         Fetch a HostedNumberOrderInstance
@@ -624,7 +674,8 @@ class HostedNumberOrderInstance(InstanceResource):
     def update(self, friendly_name=values.unset, unique_name=values.unset,
                email=values.unset, cc_emails=values.unset, status=values.unset,
                verification_code=values.unset, verification_type=values.unset,
-               verification_document_sid=values.unset):
+               verification_document_sid=values.unset, extension=values.unset,
+               call_delay=values.unset):
         """
         Update the HostedNumberOrderInstance
 
@@ -636,6 +687,8 @@ class HostedNumberOrderInstance(InstanceResource):
         :param unicode verification_code: A verification code.
         :param HostedNumberOrderInstance.VerificationType verification_type: Verification Type.
         :param unicode verification_document_sid: Verification Document Sid
+        :param unicode extension: The extension
+        :param unicode call_delay: The call_delay
 
         :returns: Updated HostedNumberOrderInstance
         :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance
@@ -649,6 +702,8 @@ class HostedNumberOrderInstance(InstanceResource):
             verification_code=verification_code,
             verification_type=verification_type,
             verification_document_sid=verification_document_sid,
+            extension=extension,
+            call_delay=call_delay,
         )
 
     def __repr__(self):

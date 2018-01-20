@@ -32,7 +32,7 @@ class BindingList(ListResource):
         super(BindingList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid}
+        self._solution = {'service_sid': service_sid, }
         self._uri = '/Services/{service_sid}/Bindings'.format(**self._solution)
 
     def create(self, identity, binding_type, address, tag=values.unset,
@@ -68,7 +68,7 @@ class BindingList(ListResource):
             data=data,
         )
 
-        return BindingInstance(self._version, payload, service_sid=self._solution['service_sid'])
+        return BindingInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
     def stream(self, start_date=values.unset, end_date=values.unset,
                identity=values.unset, tag=values.unset, limit=None, page_size=None):
@@ -196,7 +196,7 @@ class BindingList(ListResource):
         :returns: twilio.rest.notify.v1.service.binding.BindingContext
         :rtype: twilio.rest.notify.v1.service.binding.BindingContext
         """
-        return BindingContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+        return BindingContext(self._version, service_sid=self._solution['service_sid'], sid=sid, )
 
     def __call__(self, sid):
         """
@@ -207,7 +207,7 @@ class BindingList(ListResource):
         :returns: twilio.rest.notify.v1.service.binding.BindingContext
         :rtype: twilio.rest.notify.v1.service.binding.BindingContext
         """
-        return BindingContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+        return BindingContext(self._version, service_sid=self._solution['service_sid'], sid=sid, )
 
     def __repr__(self):
         """
@@ -248,7 +248,7 @@ class BindingPage(Page):
         :returns: twilio.rest.notify.v1.service.binding.BindingInstance
         :rtype: twilio.rest.notify.v1.service.binding.BindingInstance
         """
-        return BindingInstance(self._version, payload, service_sid=self._solution['service_sid'])
+        return BindingInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
     def __repr__(self):
         """
@@ -278,7 +278,7 @@ class BindingContext(InstanceContext):
         super(BindingContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'sid': sid}
+        self._solution = {'service_sid': service_sid, 'sid': sid, }
         self._uri = '/Services/{service_sid}/Bindings/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -364,7 +364,7 @@ class BindingInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'service_sid': service_sid, 'sid': sid or self._properties['sid']}
+        self._solution = {'service_sid': service_sid, 'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):

@@ -30,7 +30,7 @@ class UsageRecordList(ListResource):
         super(UsageRecordList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'sim_sid': sim_sid}
+        self._solution = {'sim_sid': sim_sid, }
         self._uri = '/Sims/{sim_sid}/UsageRecords'.format(**self._solution)
 
     def stream(self, end=values.unset, start=values.unset, granularity=values.unset,
@@ -56,7 +56,7 @@ class UsageRecordList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(end=end, start=start, granularity=granularity, page_size=limits['page_size'])
+        page = self.page(end=end, start=start, granularity=granularity, page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -178,7 +178,7 @@ class UsageRecordPage(Page):
         :returns: twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance
         :rtype: twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance
         """
-        return UsageRecordInstance(self._version, payload, sim_sid=self._solution['sim_sid'])
+        return UsageRecordInstance(self._version, payload, sim_sid=self._solution['sim_sid'], )
 
     def __repr__(self):
         """
@@ -219,7 +219,7 @@ class UsageRecordInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'sim_sid': sim_sid}
+        self._solution = {'sim_sid': sim_sid, }
 
     @property
     def sim_sid(self):

@@ -31,7 +31,7 @@ class InstalledAddOnExtensionList(ListResource):
         super(InstalledAddOnExtensionList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'installed_add_on_sid': installed_add_on_sid}
+        self._solution = {'installed_add_on_sid': installed_add_on_sid, }
         self._uri = '/InstalledAddOns/{installed_add_on_sid}/Extensions'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
@@ -53,7 +53,7 @@ class InstalledAddOnExtensionList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'])
+        page = self.page(page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -73,7 +73,7 @@ class InstalledAddOnExtensionList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size))
+        return list(self.stream(limit=limit, page_size=page_size, ))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -88,7 +88,7 @@ class InstalledAddOnExtensionList(ListResource):
         :returns: Page of InstalledAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
         response = self._version.page(
             'GET',
@@ -220,7 +220,7 @@ class InstalledAddOnExtensionContext(InstanceContext):
         super(InstalledAddOnExtensionContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'installed_add_on_sid': installed_add_on_sid, 'sid': sid}
+        self._solution = {'installed_add_on_sid': installed_add_on_sid, 'sid': sid, }
         self._uri = '/InstalledAddOns/{installed_add_on_sid}/Extensions/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -254,7 +254,7 @@ class InstalledAddOnExtensionContext(InstanceContext):
         :returns: Updated InstalledAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
         """
-        data = values.of({'Enabled': enabled})
+        data = values.of({'Enabled': enabled, })
 
         payload = self._version.update(
             'POST',
@@ -403,7 +403,7 @@ class InstalledAddOnExtensionInstance(InstanceResource):
         :returns: Updated InstalledAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
         """
-        return self._proxy.update(enabled)
+        return self._proxy.update(enabled, )
 
     def __repr__(self):
         """

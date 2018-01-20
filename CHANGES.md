@@ -3,6 +3,29 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-01-19] Version 6.10.1
+----------------------------
+**Api**
+- Add `conference_sid` property on Recordings
+- Add proxy and sms usage key
+
+**Chat**
+- Make user channels accessible by identity
+- Add notifications logs flag parameter
+
+**Fax**
+- Added `ttl` parameter
+  `ttl` is the number of minutes a fax is considered valid.
+
+**Preview**
+- Add `call_delay`, `extension`, `verification_code`, and `verification_call_sids`.
+- Add `failure_reason` to HostedNumberOrders.
+- Add DependentHostedNumberOrders endpoint for AuthorizationDocuments preview API.
+
+**Taskrouter**
+- Less verbose naming of cumulative and real time statistics *(breaking change)*
+
+
 [2017-12-15] Version 6.10.0
 ----------------------------
 **Library**

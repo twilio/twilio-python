@@ -52,7 +52,7 @@ class CredentialList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'])
+        page = self.page(page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -72,7 +72,7 @@ class CredentialList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.notify.v1.credential.CredentialInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size))
+        return list(self.stream(limit=limit, page_size=page_size, ))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -87,7 +87,7 @@ class CredentialList(ListResource):
         :returns: Page of CredentialInstance
         :rtype: twilio.rest.notify.v1.credential.CredentialPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
         response = self._version.page(
             'GET',
@@ -147,7 +147,7 @@ class CredentialList(ListResource):
             data=data,
         )
 
-        return CredentialInstance(self._version, payload)
+        return CredentialInstance(self._version, payload, )
 
     def get(self, sid):
         """
@@ -158,7 +158,7 @@ class CredentialList(ListResource):
         :returns: twilio.rest.notify.v1.credential.CredentialContext
         :rtype: twilio.rest.notify.v1.credential.CredentialContext
         """
-        return CredentialContext(self._version, sid=sid)
+        return CredentialContext(self._version, sid=sid, )
 
     def __call__(self, sid):
         """
@@ -169,7 +169,7 @@ class CredentialList(ListResource):
         :returns: twilio.rest.notify.v1.credential.CredentialContext
         :rtype: twilio.rest.notify.v1.credential.CredentialContext
         """
-        return CredentialContext(self._version, sid=sid)
+        return CredentialContext(self._version, sid=sid, )
 
     def __repr__(self):
         """
@@ -209,7 +209,7 @@ class CredentialPage(Page):
         :returns: twilio.rest.notify.v1.credential.CredentialInstance
         :rtype: twilio.rest.notify.v1.credential.CredentialInstance
         """
-        return CredentialInstance(self._version, payload)
+        return CredentialInstance(self._version, payload, )
 
     def __repr__(self):
         """
@@ -238,7 +238,7 @@ class CredentialContext(InstanceContext):
         super(CredentialContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'sid': sid}
+        self._solution = {'sid': sid, }
         self._uri = '/Credentials/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -256,7 +256,7 @@ class CredentialContext(InstanceContext):
             params=params,
         )
 
-        return CredentialInstance(self._version, payload, sid=self._solution['sid'])
+        return CredentialInstance(self._version, payload, sid=self._solution['sid'], )
 
     def update(self, friendly_name=values.unset, certificate=values.unset,
                private_key=values.unset, sandbox=values.unset, api_key=values.unset,
@@ -289,7 +289,7 @@ class CredentialContext(InstanceContext):
             data=data,
         )
 
-        return CredentialInstance(self._version, payload, sid=self._solution['sid'])
+        return CredentialInstance(self._version, payload, sid=self._solution['sid'], )
 
     def delete(self):
         """
@@ -343,7 +343,7 @@ class CredentialInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'sid': sid or self._properties['sid']}
+        self._solution = {'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):
@@ -355,7 +355,7 @@ class CredentialInstance(InstanceResource):
         :rtype: twilio.rest.notify.v1.credential.CredentialContext
         """
         if self._context is None:
-            self._context = CredentialContext(self._version, sid=self._solution['sid'])
+            self._context = CredentialContext(self._version, sid=self._solution['sid'], )
         return self._context
 
     @property

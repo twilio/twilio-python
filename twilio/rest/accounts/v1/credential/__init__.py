@@ -43,7 +43,7 @@ class CredentialList(ListResource):
         :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyList
         """
         if self._public_key is None:
-            self._public_key = PublicKeyList(self._version)
+            self._public_key = PublicKeyList(self._version, )
         return self._public_key
 
     @property
@@ -55,7 +55,7 @@ class CredentialList(ListResource):
         :rtype: twilio.rest.accounts.v1.credential.aws.AwsList
         """
         if self._aws is None:
-            self._aws = AwsList(self._version)
+            self._aws = AwsList(self._version, )
         return self._aws
 
     def __repr__(self):
@@ -95,7 +95,7 @@ class CredentialPage(Page):
         :returns: twilio.rest.accounts.v1.credential.CredentialInstance
         :rtype: twilio.rest.accounts.v1.credential.CredentialInstance
         """
-        return CredentialInstance(self._version, payload)
+        return CredentialInstance(self._version, payload, )
 
     def __repr__(self):
         """

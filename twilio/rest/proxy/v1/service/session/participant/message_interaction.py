@@ -51,7 +51,7 @@ class MessageInteractionList(ListResource):
         :returns: Newly created MessageInteractionInstance
         :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionInstance
         """
-        data = values.of({'Body': body, 'MediaUrl': serialize.map(media_url, lambda e: e)})
+        data = values.of({'Body': body, 'MediaUrl': serialize.map(media_url, lambda e: e), })
 
         payload = self._version.create(
             'POST',
@@ -86,7 +86,7 @@ class MessageInteractionList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'])
+        page = self.page(page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -106,7 +106,7 @@ class MessageInteractionList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size))
+        return list(self.stream(limit=limit, page_size=page_size, ))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -121,7 +121,7 @@ class MessageInteractionList(ListResource):
         :returns: Page of MessageInteractionInstance
         :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
         response = self._version.page(
             'GET',

@@ -33,7 +33,7 @@ class FieldValueList(ListResource):
         super(FieldValueList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'field_type_sid': field_type_sid}
+        self._solution = {'service_sid': service_sid, 'field_type_sid': field_type_sid, }
         self._uri = '/Services/{service_sid}/FieldTypes/{field_type_sid}/FieldValues'.format(**self._solution)
 
     def stream(self, language=values.unset, limit=None, page_size=None):
@@ -56,7 +56,7 @@ class FieldValueList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(language=language, page_size=limits['page_size'])
+        page = self.page(language=language, page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -77,7 +77,7 @@ class FieldValueList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.understand.service.field_type.field_value.FieldValueInstance]
         """
-        return list(self.stream(language=language, limit=limit, page_size=page_size))
+        return list(self.stream(language=language, limit=limit, page_size=page_size, ))
 
     def page(self, language=values.unset, page_token=values.unset,
              page_number=values.unset, page_size=values.unset):
@@ -135,7 +135,7 @@ class FieldValueList(ListResource):
         :returns: Newly created FieldValueInstance
         :rtype: twilio.rest.preview.understand.service.field_type.field_value.FieldValueInstance
         """
-        data = values.of({'Language': language, 'Value': value})
+        data = values.of({'Language': language, 'Value': value, })
 
         payload = self._version.create(
             'POST',
@@ -260,7 +260,7 @@ class FieldValueContext(InstanceContext):
         super(FieldValueContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'field_type_sid': field_type_sid, 'sid': sid}
+        self._solution = {'service_sid': service_sid, 'field_type_sid': field_type_sid, 'sid': sid, }
         self._uri = '/Services/{service_sid}/FieldTypes/{field_type_sid}/FieldValues/{sid}'.format(**self._solution)
 
     def fetch(self):

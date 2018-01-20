@@ -23,7 +23,7 @@ class CredentialListMappingTestCase(IntegrationTestCase):
                                  .domains(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .credential_list_mappings.create(credential_list_sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 
-        values = {'CredentialListSid': "CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
+        values = {'CredentialListSid': "CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", }
 
         self.holodeck.assert_has_request(Request(
             'post',

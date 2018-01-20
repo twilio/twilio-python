@@ -19,9 +19,9 @@ class MessageTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .messages.create(to="+123456789")
+                                 .messages.create(to="+15558675310")
 
-        values = {'To': "+123456789"}
+        values = {'To': "+15558675310", }
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -61,7 +61,7 @@ class MessageTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .messages.create(to="+123456789")
+                                      .messages.create(to="+15558675310")
 
         self.assertIsNotNone(actual)
 
@@ -232,7 +232,7 @@ class MessageTestCase(IntegrationTestCase):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .messages(sid="MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(body="body")
 
-        values = {'Body': "body"}
+        values = {'Body': "body", }
 
         self.holodeck.assert_has_request(Request(
             'post',

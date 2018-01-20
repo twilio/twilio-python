@@ -30,7 +30,7 @@ class UserChannelList(ListResource):
         super(UserChannelList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'user_sid': user_sid}
+        self._solution = {'service_sid': service_sid, 'user_sid': user_sid, }
         self._uri = '/Services/{service_sid}/Users/{user_sid}/Channels'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
@@ -52,7 +52,7 @@ class UserChannelList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'])
+        page = self.page(page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -72,7 +72,7 @@ class UserChannelList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.chat.v1.service.user.user_channel.UserChannelInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size))
+        return list(self.stream(limit=limit, page_size=page_size, ))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -87,7 +87,7 @@ class UserChannelList(ListResource):
         :returns: Page of UserChannelInstance
         :rtype: twilio.rest.chat.v1.service.user.user_channel.UserChannelPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
         response = self._version.page(
             'GET',
@@ -201,7 +201,7 @@ class UserChannelInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'service_sid': service_sid, 'user_sid': user_sid}
+        self._solution = {'service_sid': service_sid, 'user_sid': user_sid, }
 
     @property
     def account_sid(self):

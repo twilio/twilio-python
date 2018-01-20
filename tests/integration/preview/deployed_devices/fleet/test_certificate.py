@@ -79,7 +79,7 @@ class CertificateTestCase(IntegrationTestCase):
             self.client.preview.deployed_devices.fleets(sid="FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                                 .certificates.create(certificate_data="certificate_data")
 
-        values = {'CertificateData': "certificate_data"}
+        values = {'CertificateData': "certificate_data", }
 
         self.holodeck.assert_has_request(Request(
             'post',

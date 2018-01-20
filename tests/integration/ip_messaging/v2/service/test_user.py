@@ -87,7 +87,7 @@ class UserTestCase(IntegrationTestCase):
             self.client.ip_messaging.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                        .users.create(identity="identity")
 
-        values = {'Identity': "identity"}
+        values = {'Identity': "identity", }
 
         self.holodeck.assert_has_request(Request(
             'post',

@@ -30,7 +30,7 @@ class MonthlyList(ListResource):
         super(MonthlyList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid}
+        self._solution = {'account_sid': account_sid, }
         self._uri = '/Accounts/{account_sid}/Usage/Records/Monthly.json'.format(**self._solution)
 
     def stream(self, category=values.unset, start_date=values.unset,
@@ -182,7 +182,7 @@ class MonthlyPage(Page):
         :returns: twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance
         :rtype: twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance
         """
-        return MonthlyInstance(self._version, payload, account_sid=self._solution['account_sid'])
+        return MonthlyInstance(self._version, payload, account_sid=self._solution['account_sid'], )
 
     def __repr__(self):
         """
@@ -319,6 +319,7 @@ class MonthlyInstance(InstanceResource):
         PHONENUMBERS_SETUPS = "phonenumbers-setups"
         PHONENUMBERS_TOLLFREE = "phonenumbers-tollfree"
         PREMIUMSUPPORT = "premiumsupport"
+        PROXY = "proxy"
         PV = "pv"
         PV_ROOM_PARTICIPANTS = "pv-room-participants"
         PV_ROOM_PARTICIPANTS_AU1 = "pv-room-participants-au1"
@@ -351,6 +352,7 @@ class MonthlyInstance(InstanceResource):
         SMS_OUTBOUND_LONGCODE = "sms-outbound-longcode"
         SMS_OUTBOUND_SHORTCODE = "sms-outbound-shortcode"
         SMS_MESSAGES_FEATURES = "sms-messages-features"
+        SMS_MESSAGES_FEATURES_SENDERID = "sms-messages-features-senderid"
         SPEECH_RECOGNITION = "speech-recognition"
         SYNC = "sync"
         SYNC_ACTIONS = "sync-actions"
@@ -453,7 +455,7 @@ class MonthlyInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'account_sid': account_sid}
+        self._solution = {'account_sid': account_sid, }
 
     @property
     def account_sid(self):

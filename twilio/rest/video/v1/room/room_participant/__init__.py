@@ -32,7 +32,7 @@ class ParticipantList(ListResource):
         super(ParticipantList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'room_sid': room_sid}
+        self._solution = {'room_sid': room_sid, }
         self._uri = '/Rooms/{room_sid}/Participants'.format(**self._solution)
 
     def stream(self, status=values.unset, identity=values.unset,
@@ -164,7 +164,7 @@ class ParticipantList(ListResource):
         :returns: twilio.rest.video.v1.room.room_participant.ParticipantContext
         :rtype: twilio.rest.video.v1.room.room_participant.ParticipantContext
         """
-        return ParticipantContext(self._version, room_sid=self._solution['room_sid'], sid=sid)
+        return ParticipantContext(self._version, room_sid=self._solution['room_sid'], sid=sid, )
 
     def __call__(self, sid):
         """
@@ -175,7 +175,7 @@ class ParticipantList(ListResource):
         :returns: twilio.rest.video.v1.room.room_participant.ParticipantContext
         :rtype: twilio.rest.video.v1.room.room_participant.ParticipantContext
         """
-        return ParticipantContext(self._version, room_sid=self._solution['room_sid'], sid=sid)
+        return ParticipantContext(self._version, room_sid=self._solution['room_sid'], sid=sid, )
 
     def __repr__(self):
         """
@@ -215,7 +215,7 @@ class ParticipantPage(Page):
         :returns: twilio.rest.video.v1.room.room_participant.ParticipantInstance
         :rtype: twilio.rest.video.v1.room.room_participant.ParticipantInstance
         """
-        return ParticipantInstance(self._version, payload, room_sid=self._solution['room_sid'])
+        return ParticipantInstance(self._version, payload, room_sid=self._solution['room_sid'], )
 
     def __repr__(self):
         """
@@ -244,7 +244,7 @@ class ParticipantContext(InstanceContext):
         super(ParticipantContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'room_sid': room_sid, 'sid': sid}
+        self._solution = {'room_sid': room_sid, 'sid': sid, }
         self._uri = '/Rooms/{room_sid}/Participants/{sid}'.format(**self._solution)
 
         # Dependents
@@ -281,7 +281,7 @@ class ParticipantContext(InstanceContext):
         :returns: Updated ParticipantInstance
         :rtype: twilio.rest.video.v1.room.room_participant.ParticipantInstance
         """
-        data = values.of({'Status': status})
+        data = values.of({'Status': status, })
 
         payload = self._version.update(
             'POST',
@@ -357,7 +357,7 @@ class ParticipantInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'room_sid': room_sid, 'sid': sid or self._properties['sid']}
+        self._solution = {'room_sid': room_sid, 'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):
@@ -490,7 +490,7 @@ class ParticipantInstance(InstanceResource):
         :returns: Updated ParticipantInstance
         :rtype: twilio.rest.video.v1.room.room_participant.ParticipantInstance
         """
-        return self._proxy.update(status=status)
+        return self._proxy.update(status=status, )
 
     @property
     def published_tracks(self):

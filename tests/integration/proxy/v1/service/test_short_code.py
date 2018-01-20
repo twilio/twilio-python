@@ -21,7 +21,7 @@ class ShortCodeTestCase(IntegrationTestCase):
             self.client.proxy.v1.services(sid="KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                 .short_codes.create(sid="SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 
-        values = {'Sid': "SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
+        values = {'Sid': "SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", }
 
         self.holodeck.assert_has_request(Request(
             'post',

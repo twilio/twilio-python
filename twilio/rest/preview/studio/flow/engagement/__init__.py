@@ -33,7 +33,7 @@ class EngagementList(ListResource):
         super(EngagementList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'flow_sid': flow_sid}
+        self._solution = {'flow_sid': flow_sid, }
         self._uri = '/Flows/{flow_sid}/Engagements'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
@@ -55,7 +55,7 @@ class EngagementList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'])
+        page = self.page(page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -75,7 +75,7 @@ class EngagementList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.studio.flow.engagement.EngagementInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size))
+        return list(self.stream(limit=limit, page_size=page_size, ))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -90,7 +90,7 @@ class EngagementList(ListResource):
         :returns: Page of EngagementInstance
         :rtype: twilio.rest.preview.studio.flow.engagement.EngagementPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
         response = self._version.page(
             'GET',
@@ -128,7 +128,7 @@ class EngagementList(ListResource):
         :returns: Newly created EngagementInstance
         :rtype: twilio.rest.preview.studio.flow.engagement.EngagementInstance
         """
-        data = values.of({'To': to, 'From': from_, 'Parameters': parameters})
+        data = values.of({'To': to, 'From': from_, 'Parameters': parameters, })
 
         payload = self._version.create(
             'POST',
@@ -136,7 +136,7 @@ class EngagementList(ListResource):
             data=data,
         )
 
-        return EngagementInstance(self._version, payload, flow_sid=self._solution['flow_sid'])
+        return EngagementInstance(self._version, payload, flow_sid=self._solution['flow_sid'], )
 
     def get(self, sid):
         """
@@ -147,7 +147,7 @@ class EngagementList(ListResource):
         :returns: twilio.rest.preview.studio.flow.engagement.EngagementContext
         :rtype: twilio.rest.preview.studio.flow.engagement.EngagementContext
         """
-        return EngagementContext(self._version, flow_sid=self._solution['flow_sid'], sid=sid)
+        return EngagementContext(self._version, flow_sid=self._solution['flow_sid'], sid=sid, )
 
     def __call__(self, sid):
         """
@@ -158,7 +158,7 @@ class EngagementList(ListResource):
         :returns: twilio.rest.preview.studio.flow.engagement.EngagementContext
         :rtype: twilio.rest.preview.studio.flow.engagement.EngagementContext
         """
-        return EngagementContext(self._version, flow_sid=self._solution['flow_sid'], sid=sid)
+        return EngagementContext(self._version, flow_sid=self._solution['flow_sid'], sid=sid, )
 
     def __repr__(self):
         """
@@ -200,7 +200,7 @@ class EngagementPage(Page):
         :returns: twilio.rest.preview.studio.flow.engagement.EngagementInstance
         :rtype: twilio.rest.preview.studio.flow.engagement.EngagementInstance
         """
-        return EngagementInstance(self._version, payload, flow_sid=self._solution['flow_sid'])
+        return EngagementInstance(self._version, payload, flow_sid=self._solution['flow_sid'], )
 
     def __repr__(self):
         """
@@ -231,7 +231,7 @@ class EngagementContext(InstanceContext):
         super(EngagementContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'flow_sid': flow_sid, 'sid': sid}
+        self._solution = {'flow_sid': flow_sid, 'sid': sid, }
         self._uri = '/Flows/{flow_sid}/Engagements/{sid}'.format(**self._solution)
 
         # Dependents
@@ -330,7 +330,7 @@ class EngagementInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'flow_sid': flow_sid, 'sid': sid or self._properties['sid']}
+        self._solution = {'flow_sid': flow_sid, 'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):

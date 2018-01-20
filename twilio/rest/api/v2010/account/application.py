@@ -30,7 +30,7 @@ class ApplicationList(ListResource):
         super(ApplicationList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid}
+        self._solution = {'account_sid': account_sid, }
         self._uri = '/Accounts/{account_sid}/Applications.json'.format(**self._solution)
 
     def create(self, friendly_name, api_version=values.unset,
@@ -87,7 +87,7 @@ class ApplicationList(ListResource):
             data=data,
         )
 
-        return ApplicationInstance(self._version, payload, account_sid=self._solution['account_sid'])
+        return ApplicationInstance(self._version, payload, account_sid=self._solution['account_sid'], )
 
     def stream(self, friendly_name=values.unset, limit=None, page_size=None):
         """
@@ -109,7 +109,7 @@ class ApplicationList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(friendly_name=friendly_name, page_size=limits['page_size'])
+        page = self.page(friendly_name=friendly_name, page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -130,7 +130,7 @@ class ApplicationList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.api.v2010.account.application.ApplicationInstance]
         """
-        return list(self.stream(friendly_name=friendly_name, limit=limit, page_size=page_size))
+        return list(self.stream(friendly_name=friendly_name, limit=limit, page_size=page_size, ))
 
     def page(self, friendly_name=values.unset, page_token=values.unset,
              page_number=values.unset, page_size=values.unset):
@@ -187,7 +187,7 @@ class ApplicationList(ListResource):
         :returns: twilio.rest.api.v2010.account.application.ApplicationContext
         :rtype: twilio.rest.api.v2010.account.application.ApplicationContext
         """
-        return ApplicationContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+        return ApplicationContext(self._version, account_sid=self._solution['account_sid'], sid=sid, )
 
     def __call__(self, sid):
         """
@@ -198,7 +198,7 @@ class ApplicationList(ListResource):
         :returns: twilio.rest.api.v2010.account.application.ApplicationContext
         :rtype: twilio.rest.api.v2010.account.application.ApplicationContext
         """
-        return ApplicationContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+        return ApplicationContext(self._version, account_sid=self._solution['account_sid'], sid=sid, )
 
     def __repr__(self):
         """
@@ -238,7 +238,7 @@ class ApplicationPage(Page):
         :returns: twilio.rest.api.v2010.account.application.ApplicationInstance
         :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
-        return ApplicationInstance(self._version, payload, account_sid=self._solution['account_sid'])
+        return ApplicationInstance(self._version, payload, account_sid=self._solution['account_sid'], )
 
     def __repr__(self):
         """
@@ -267,7 +267,7 @@ class ApplicationContext(InstanceContext):
         super(ApplicationContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid, 'sid': sid}
+        self._solution = {'account_sid': account_sid, 'sid': sid, }
         self._uri = '/Accounts/{account_sid}/Applications/{sid}.json'.format(**self._solution)
 
     def delete(self):
@@ -411,7 +411,7 @@ class ApplicationInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid']}
+        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):

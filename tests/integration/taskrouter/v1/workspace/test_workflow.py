@@ -212,7 +212,7 @@ class WorkflowTestCase(IntegrationTestCase):
             self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                      .workflows.create(friendly_name="friendly_name", configuration="configuration")
 
-        values = {'FriendlyName': "friendly_name", 'Configuration': "configuration"}
+        values = {'FriendlyName': "friendly_name", 'Configuration': "configuration", }
 
         self.holodeck.assert_has_request(Request(
             'post',

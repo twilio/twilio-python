@@ -43,7 +43,7 @@ class VoiceList(ListResource):
         :rtype: twilio.rest.pricing.v1.voice.number.NumberList
         """
         if self._numbers is None:
-            self._numbers = NumberList(self._version)
+            self._numbers = NumberList(self._version, )
         return self._numbers
 
     @property
@@ -55,7 +55,7 @@ class VoiceList(ListResource):
         :rtype: twilio.rest.pricing.v1.voice.country.CountryList
         """
         if self._countries is None:
-            self._countries = CountryList(self._version)
+            self._countries = CountryList(self._version, )
         return self._countries
 
     def __repr__(self):
@@ -95,7 +95,7 @@ class VoicePage(Page):
         :returns: twilio.rest.pricing.v1.voice.VoiceInstance
         :rtype: twilio.rest.pricing.v1.voice.VoiceInstance
         """
-        return VoiceInstance(self._version, payload)
+        return VoiceInstance(self._version, payload, )
 
     def __repr__(self):
         """
@@ -120,7 +120,7 @@ class VoiceInstance(InstanceResource):
         super(VoiceInstance, self).__init__(version)
 
         # Marshaled Properties
-        self._properties = {'name': payload['name'], 'url': payload['url'], 'links': payload['links']}
+        self._properties = {'name': payload['name'], 'url': payload['url'], 'links': payload['links'], }
 
         # Context
         self._context = None

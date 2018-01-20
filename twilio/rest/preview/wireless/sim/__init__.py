@@ -170,7 +170,7 @@ class SimList(ListResource):
         :returns: twilio.rest.preview.wireless.sim.SimContext
         :rtype: twilio.rest.preview.wireless.sim.SimContext
         """
-        return SimContext(self._version, sid=sid)
+        return SimContext(self._version, sid=sid, )
 
     def __call__(self, sid):
         """
@@ -181,7 +181,7 @@ class SimList(ListResource):
         :returns: twilio.rest.preview.wireless.sim.SimContext
         :rtype: twilio.rest.preview.wireless.sim.SimContext
         """
-        return SimContext(self._version, sid=sid)
+        return SimContext(self._version, sid=sid, )
 
     def __repr__(self):
         """
@@ -222,7 +222,7 @@ class SimPage(Page):
         :returns: twilio.rest.preview.wireless.sim.SimInstance
         :rtype: twilio.rest.preview.wireless.sim.SimInstance
         """
-        return SimInstance(self._version, payload)
+        return SimInstance(self._version, payload, )
 
     def __repr__(self):
         """
@@ -252,7 +252,7 @@ class SimContext(InstanceContext):
         super(SimContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'sid': sid}
+        self._solution = {'sid': sid, }
         self._uri = '/Sims/{sid}'.format(**self._solution)
 
         # Dependents
@@ -273,7 +273,7 @@ class SimContext(InstanceContext):
             params=params,
         )
 
-        return SimInstance(self._version, payload, sid=self._solution['sid'])
+        return SimInstance(self._version, payload, sid=self._solution['sid'], )
 
     def update(self, unique_name=values.unset, callback_method=values.unset,
                callback_url=values.unset, friendly_name=values.unset,
@@ -332,7 +332,7 @@ class SimContext(InstanceContext):
             data=data,
         )
 
-        return SimInstance(self._version, payload, sid=self._solution['sid'])
+        return SimInstance(self._version, payload, sid=self._solution['sid'], )
 
     @property
     def usage(self):
@@ -343,7 +343,7 @@ class SimContext(InstanceContext):
         :rtype: twilio.rest.preview.wireless.sim.usage.UsageList
         """
         if self._usage is None:
-            self._usage = UsageList(self._version, sim_sid=self._solution['sid'])
+            self._usage = UsageList(self._version, sim_sid=self._solution['sid'], )
         return self._usage
 
     def __repr__(self):
@@ -399,7 +399,7 @@ class SimInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'sid': sid or self._properties['sid']}
+        self._solution = {'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):
@@ -411,7 +411,7 @@ class SimInstance(InstanceResource):
         :rtype: twilio.rest.preview.wireless.sim.SimContext
         """
         if self._context is None:
-            self._context = SimContext(self._version, sid=self._solution['sid'])
+            self._context = SimContext(self._version, sid=self._solution['sid'], )
         return self._context
 
     @property

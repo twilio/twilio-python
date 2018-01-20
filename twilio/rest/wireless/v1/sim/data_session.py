@@ -31,7 +31,7 @@ class DataSessionList(ListResource):
         super(DataSessionList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'sim_sid': sim_sid}
+        self._solution = {'sim_sid': sim_sid, }
         self._uri = '/Sims/{sim_sid}/DataSessions'.format(**self._solution)
 
     def stream(self, end=values.unset, start=values.unset, limit=None,
@@ -56,7 +56,7 @@ class DataSessionList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(end=end, start=start, page_size=limits['page_size'])
+        page = self.page(end=end, start=start, page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -79,7 +79,7 @@ class DataSessionList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.wireless.v1.sim.data_session.DataSessionInstance]
         """
-        return list(self.stream(end=end, start=start, limit=limit, page_size=page_size))
+        return list(self.stream(end=end, start=start, limit=limit, page_size=page_size, ))
 
     def page(self, end=values.unset, start=values.unset, page_token=values.unset,
              page_number=values.unset, page_size=values.unset):
@@ -168,7 +168,7 @@ class DataSessionPage(Page):
         :returns: twilio.rest.wireless.v1.sim.data_session.DataSessionInstance
         :rtype: twilio.rest.wireless.v1.sim.data_session.DataSessionInstance
         """
-        return DataSessionInstance(self._version, payload, sim_sid=self._solution['sim_sid'])
+        return DataSessionInstance(self._version, payload, sim_sid=self._solution['sim_sid'], )
 
     def __repr__(self):
         """
@@ -214,7 +214,7 @@ class DataSessionInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'sim_sid': sim_sid}
+        self._solution = {'sim_sid': sim_sid, }
 
     @property
     def sid(self):

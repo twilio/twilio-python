@@ -54,7 +54,7 @@ class InstalledAddOnExtensionTestCase(IntegrationTestCase):
             self.client.preview.marketplace.installed_add_ons(sid="XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                            .extensions(sid="XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(enabled=True)
 
-        values = {'Enabled': True}
+        values = {'Enabled': True, }
 
         self.holodeck.assert_has_request(Request(
             'post',

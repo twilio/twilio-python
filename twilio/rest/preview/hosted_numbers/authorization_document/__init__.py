@@ -13,6 +13,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order import DependentHostedNumberOrderList
 
 
 class AuthorizationDocumentList(ListResource):
@@ -57,7 +58,7 @@ class AuthorizationDocumentList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(email=email, status=status, page_size=limits['page_size'])
+        page = self.page(email=email, status=status, page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -80,7 +81,7 @@ class AuthorizationDocumentList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentInstance]
         """
-        return list(self.stream(email=email, status=status, limit=limit, page_size=page_size))
+        return list(self.stream(email=email, status=status, limit=limit, page_size=page_size, ))
 
     def page(self, email=values.unset, status=values.unset, page_token=values.unset,
              page_number=values.unset, page_size=values.unset):
@@ -156,7 +157,7 @@ class AuthorizationDocumentList(ListResource):
             data=data,
         )
 
-        return AuthorizationDocumentInstance(self._version, payload)
+        return AuthorizationDocumentInstance(self._version, payload, )
 
     def get(self, sid):
         """
@@ -167,7 +168,7 @@ class AuthorizationDocumentList(ListResource):
         :returns: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentContext
         :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentContext
         """
-        return AuthorizationDocumentContext(self._version, sid=sid)
+        return AuthorizationDocumentContext(self._version, sid=sid, )
 
     def __call__(self, sid):
         """
@@ -178,7 +179,7 @@ class AuthorizationDocumentList(ListResource):
         :returns: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentContext
         :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentContext
         """
-        return AuthorizationDocumentContext(self._version, sid=sid)
+        return AuthorizationDocumentContext(self._version, sid=sid, )
 
     def __repr__(self):
         """
@@ -219,7 +220,7 @@ class AuthorizationDocumentPage(Page):
         :returns: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentInstance
         :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentInstance
         """
-        return AuthorizationDocumentInstance(self._version, payload)
+        return AuthorizationDocumentInstance(self._version, payload, )
 
     def __repr__(self):
         """
@@ -249,8 +250,11 @@ class AuthorizationDocumentContext(InstanceContext):
         super(AuthorizationDocumentContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'sid': sid}
+        self._solution = {'sid': sid, }
         self._uri = '/AuthorizationDocuments/{sid}'.format(**self._solution)
+
+        # Dependents
+        self._dependent_hosted_number_orders = None
 
     def fetch(self):
         """
@@ -267,7 +271,7 @@ class AuthorizationDocumentContext(InstanceContext):
             params=params,
         )
 
-        return AuthorizationDocumentInstance(self._version, payload, sid=self._solution['sid'])
+        return AuthorizationDocumentInstance(self._version, payload, sid=self._solution['sid'], )
 
     def update(self, hosted_number_order_sids=values.unset,
                address_sid=values.unset, email=values.unset, cc_emails=values.unset,
@@ -298,7 +302,22 @@ class AuthorizationDocumentContext(InstanceContext):
             data=data,
         )
 
-        return AuthorizationDocumentInstance(self._version, payload, sid=self._solution['sid'])
+        return AuthorizationDocumentInstance(self._version, payload, sid=self._solution['sid'], )
+
+    @property
+    def dependent_hosted_number_orders(self):
+        """
+        Access the dependent_hosted_number_orders
+
+        :returns: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderList
+        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderList
+        """
+        if self._dependent_hosted_number_orders is None:
+            self._dependent_hosted_number_orders = DependentHostedNumberOrderList(
+                self._version,
+                signing_document_sid=self._solution['sid'],
+            )
+        return self._dependent_hosted_number_orders
 
     def __repr__(self):
         """
@@ -342,11 +361,12 @@ class AuthorizationDocumentInstance(InstanceResource):
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
             'url': payload['url'],
+            'links': payload['links'],
         }
 
         # Context
         self._context = None
-        self._solution = {'sid': sid or self._properties['sid']}
+        self._solution = {'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):
@@ -358,7 +378,7 @@ class AuthorizationDocumentInstance(InstanceResource):
         :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentContext
         """
         if self._context is None:
-            self._context = AuthorizationDocumentContext(self._version, sid=self._solution['sid'])
+            self._context = AuthorizationDocumentContext(self._version, sid=self._solution['sid'], )
         return self._context
 
     @property
@@ -425,6 +445,14 @@ class AuthorizationDocumentInstance(InstanceResource):
         """
         return self._properties['url']
 
+    @property
+    def links(self):
+        """
+        :returns: The links
+        :rtype: unicode
+        """
+        return self._properties['links']
+
     def fetch(self):
         """
         Fetch a AuthorizationDocumentInstance
@@ -456,6 +484,16 @@ class AuthorizationDocumentInstance(InstanceResource):
             cc_emails=cc_emails,
             status=status,
         )
+
+    @property
+    def dependent_hosted_number_orders(self):
+        """
+        Access the dependent_hosted_number_orders
+
+        :returns: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderList
+        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderList
+        """
+        return self._proxy.dependent_hosted_number_orders
 
     def __repr__(self):
         """

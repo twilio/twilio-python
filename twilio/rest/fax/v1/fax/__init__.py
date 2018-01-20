@@ -158,7 +158,7 @@ class FaxList(ListResource):
     def create(self, to, media_url, quality=values.unset,
                status_callback=values.unset, from_=values.unset,
                sip_auth_username=values.unset, sip_auth_password=values.unset,
-               store_media=values.unset):
+               store_media=values.unset, ttl=values.unset):
         """
         Create a new FaxInstance
 
@@ -170,6 +170,7 @@ class FaxList(ListResource):
         :param unicode sip_auth_username: Username for SIP authentication
         :param unicode sip_auth_password: Password for SIP authentication
         :param bool store_media: Whether or not to store media
+        :param unicode ttl: How many minutes to attempt a fax
 
         :returns: Newly created FaxInstance
         :rtype: twilio.rest.fax.v1.fax.FaxInstance
@@ -183,6 +184,7 @@ class FaxList(ListResource):
             'SipAuthUsername': sip_auth_username,
             'SipAuthPassword': sip_auth_password,
             'StoreMedia': store_media,
+            'Ttl': ttl,
         })
 
         payload = self._version.create(
@@ -191,7 +193,7 @@ class FaxList(ListResource):
             data=data,
         )
 
-        return FaxInstance(self._version, payload)
+        return FaxInstance(self._version, payload, )
 
     def get(self, sid):
         """
@@ -202,7 +204,7 @@ class FaxList(ListResource):
         :returns: twilio.rest.fax.v1.fax.FaxContext
         :rtype: twilio.rest.fax.v1.fax.FaxContext
         """
-        return FaxContext(self._version, sid=sid)
+        return FaxContext(self._version, sid=sid, )
 
     def __call__(self, sid):
         """
@@ -213,7 +215,7 @@ class FaxList(ListResource):
         :returns: twilio.rest.fax.v1.fax.FaxContext
         :rtype: twilio.rest.fax.v1.fax.FaxContext
         """
-        return FaxContext(self._version, sid=sid)
+        return FaxContext(self._version, sid=sid, )
 
     def __repr__(self):
         """
@@ -253,7 +255,7 @@ class FaxPage(Page):
         :returns: twilio.rest.fax.v1.fax.FaxInstance
         :rtype: twilio.rest.fax.v1.fax.FaxInstance
         """
-        return FaxInstance(self._version, payload)
+        return FaxInstance(self._version, payload, )
 
     def __repr__(self):
         """
@@ -282,7 +284,7 @@ class FaxContext(InstanceContext):
         super(FaxContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'sid': sid}
+        self._solution = {'sid': sid, }
         self._uri = '/Faxes/{sid}'.format(**self._solution)
 
         # Dependents
@@ -303,7 +305,7 @@ class FaxContext(InstanceContext):
             params=params,
         )
 
-        return FaxInstance(self._version, payload, sid=self._solution['sid'])
+        return FaxInstance(self._version, payload, sid=self._solution['sid'], )
 
     def update(self, status=values.unset):
         """
@@ -314,7 +316,7 @@ class FaxContext(InstanceContext):
         :returns: Updated FaxInstance
         :rtype: twilio.rest.fax.v1.fax.FaxInstance
         """
-        data = values.of({'Status': status})
+        data = values.of({'Status': status, })
 
         payload = self._version.update(
             'POST',
@@ -322,7 +324,7 @@ class FaxContext(InstanceContext):
             data=data,
         )
 
-        return FaxInstance(self._version, payload, sid=self._solution['sid'])
+        return FaxInstance(self._version, payload, sid=self._solution['sid'], )
 
     def delete(self):
         """
@@ -342,7 +344,7 @@ class FaxContext(InstanceContext):
         :rtype: twilio.rest.fax.v1.fax.fax_media.FaxMediaList
         """
         if self._media is None:
-            self._media = FaxMediaList(self._version, fax_sid=self._solution['sid'])
+            self._media = FaxMediaList(self._version, fax_sid=self._solution['sid'], )
         return self._media
 
     def __repr__(self):
@@ -417,7 +419,7 @@ class FaxInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'sid': sid or self._properties['sid']}
+        self._solution = {'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):
@@ -429,7 +431,7 @@ class FaxInstance(InstanceResource):
         :rtype: twilio.rest.fax.v1.fax.FaxContext
         """
         if self._context is None:
-            self._context = FaxContext(self._version, sid=self._solution['sid'])
+            self._context = FaxContext(self._version, sid=self._solution['sid'], )
         return self._context
 
     @property
@@ -594,7 +596,7 @@ class FaxInstance(InstanceResource):
         :returns: Updated FaxInstance
         :rtype: twilio.rest.fax.v1.fax.FaxInstance
         """
-        return self._proxy.update(status=status)
+        return self._proxy.update(status=status, )
 
     def delete(self):
         """

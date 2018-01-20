@@ -32,7 +32,7 @@ class SyncStreamList(ListResource):
         super(SyncStreamList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid}
+        self._solution = {'service_sid': service_sid, }
         self._uri = '/Services/{service_sid}/Streams'.format(**self._solution)
 
     def create(self, unique_name=values.unset, ttl=values.unset):
@@ -45,7 +45,7 @@ class SyncStreamList(ListResource):
         :returns: Newly created SyncStreamInstance
         :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
         """
-        data = values.of({'UniqueName': unique_name, 'Ttl': ttl})
+        data = values.of({'UniqueName': unique_name, 'Ttl': ttl, })
 
         payload = self._version.create(
             'POST',
@@ -53,7 +53,7 @@ class SyncStreamList(ListResource):
             data=data,
         )
 
-        return SyncStreamInstance(self._version, payload, service_sid=self._solution['service_sid'])
+        return SyncStreamInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
     def stream(self, limit=None, page_size=None):
         """
@@ -74,7 +74,7 @@ class SyncStreamList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'])
+        page = self.page(page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -94,7 +94,7 @@ class SyncStreamList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size))
+        return list(self.stream(limit=limit, page_size=page_size, ))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -109,7 +109,7 @@ class SyncStreamList(ListResource):
         :returns: Page of SyncStreamInstance
         :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
         response = self._version.page(
             'GET',
@@ -145,7 +145,7 @@ class SyncStreamList(ListResource):
         :returns: twilio.rest.sync.v1.service.sync_stream.SyncStreamContext
         :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamContext
         """
-        return SyncStreamContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+        return SyncStreamContext(self._version, service_sid=self._solution['service_sid'], sid=sid, )
 
     def __call__(self, sid):
         """
@@ -156,7 +156,7 @@ class SyncStreamList(ListResource):
         :returns: twilio.rest.sync.v1.service.sync_stream.SyncStreamContext
         :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamContext
         """
-        return SyncStreamContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+        return SyncStreamContext(self._version, service_sid=self._solution['service_sid'], sid=sid, )
 
     def __repr__(self):
         """
@@ -197,7 +197,7 @@ class SyncStreamPage(Page):
         :returns: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
         :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
         """
-        return SyncStreamInstance(self._version, payload, service_sid=self._solution['service_sid'])
+        return SyncStreamInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
     def __repr__(self):
         """
@@ -227,7 +227,7 @@ class SyncStreamContext(InstanceContext):
         super(SyncStreamContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'sid': sid}
+        self._solution = {'service_sid': service_sid, 'sid': sid, }
         self._uri = '/Services/{service_sid}/Streams/{sid}'.format(**self._solution)
 
         # Dependents
@@ -273,7 +273,7 @@ class SyncStreamContext(InstanceContext):
         :returns: Updated SyncStreamInstance
         :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
         """
-        data = values.of({'Ttl': ttl})
+        data = values.of({'Ttl': ttl, })
 
         payload = self._version.update(
             'POST',
@@ -344,7 +344,7 @@ class SyncStreamInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'service_sid': service_sid, 'sid': sid or self._properties['sid']}
+        self._solution = {'service_sid': service_sid, 'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):
@@ -470,7 +470,7 @@ class SyncStreamInstance(InstanceResource):
         :returns: Updated SyncStreamInstance
         :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
         """
-        return self._proxy.update(ttl=ttl)
+        return self._proxy.update(ttl=ttl, )
 
     @property
     def stream_messages(self):

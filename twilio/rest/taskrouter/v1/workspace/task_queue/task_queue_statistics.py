@@ -31,7 +31,7 @@ class TaskQueueStatisticsList(ListResource):
         super(TaskQueueStatisticsList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'workspace_sid': workspace_sid, 'task_queue_sid': task_queue_sid}
+        self._solution = {'workspace_sid': workspace_sid, 'task_queue_sid': task_queue_sid, }
 
     def get(self):
         """
@@ -132,7 +132,7 @@ class TaskQueueStatisticsContext(InstanceContext):
         super(TaskQueueStatisticsContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'workspace_sid': workspace_sid, 'task_queue_sid': task_queue_sid}
+        self._solution = {'workspace_sid': workspace_sid, 'task_queue_sid': task_queue_sid, }
         self._uri = '/Workspaces/{workspace_sid}/TaskQueues/{task_queue_sid}/Statistics'.format(**self._solution)
 
     def fetch(self, end_date=values.unset, minutes=values.unset,
@@ -206,7 +206,7 @@ class TaskQueueStatisticsInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'workspace_sid': workspace_sid, 'task_queue_sid': task_queue_sid}
+        self._solution = {'workspace_sid': workspace_sid, 'task_queue_sid': task_queue_sid, }
 
     @property
     def _proxy(self):

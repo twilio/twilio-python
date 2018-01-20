@@ -32,6 +32,7 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "address_sid": "AD11111111111111111111111111111111",
+                "call_delay": 15,
                 "capabilities": {
                     "sms": true,
                     "voice": false
@@ -43,6 +44,8 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
                 "date_created": "2017-03-28T20:06:39Z",
                 "date_updated": "2017-03-28T20:06:39Z",
                 "email": "test@twilio.com",
+                "extension": "5105",
+                "failure_reason": "",
                 "friendly_name": "friendly_name",
                 "incoming_phone_number_sid": "PN11111111111111111111111111111111",
                 "phone_number": "+14153608311",
@@ -52,8 +55,13 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
                 "unique_name": "foobar",
                 "url": "https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "verification_attempts": 0,
-                "verification_type": "phone-call",
-                "verification_document_sid": null
+                "verification_call_sids": [
+                    "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab"
+                ],
+                "verification_code": "8794",
+                "verification_document_sid": null,
+                "verification_type": "phone-call"
             }
             '''
         ))
@@ -101,6 +109,7 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "address_sid": "AD11111111111111111111111111111111",
+                "call_delay": 15,
                 "capabilities": {
                     "sms": true,
                     "voice": false
@@ -112,6 +121,8 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
                 "date_created": "2017-03-28T20:06:39Z",
                 "date_updated": "2017-03-28T20:06:39Z",
                 "email": "test+hosted@twilio.com",
+                "extension": "1234",
+                "failure_reason": "",
                 "friendly_name": "new friendly name",
                 "incoming_phone_number_sid": "PN11111111111111111111111111111111",
                 "phone_number": "+14153608311",
@@ -121,8 +132,13 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
                 "unique_name": "new unique name",
                 "url": "https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "verification_attempts": 1,
-                "verification_type": "phone-call",
-                "verification_document_sid": null
+                "verification_call_sids": [
+                    "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab"
+                ],
+                "verification_code": "8794",
+                "verification_document_sid": null,
+                "verification_type": "phone-call"
             }
             '''
         ))
@@ -183,6 +199,7 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
                     {
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "address_sid": "AD11111111111111111111111111111111",
+                        "call_delay": 15,
                         "capabilities": {
                             "sms": true,
                             "voice": false
@@ -194,6 +211,8 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
                         "date_created": "2017-03-28T20:06:39Z",
                         "date_updated": "2017-03-28T20:06:39Z",
                         "email": "test@twilio.com",
+                        "extension": "1234",
+                        "failure_reason": "",
                         "friendly_name": "friendly_name",
                         "incoming_phone_number_sid": "PN11111111111111111111111111111111",
                         "phone_number": "+14153608311",
@@ -203,8 +222,13 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
                         "unique_name": "foobar",
                         "url": "https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "verification_attempts": 0,
-                        "verification_type": "phone-call",
-                        "verification_document_sid": null
+                        "verification_call_sids": [
+                            "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                            "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab"
+                        ],
+                        "verification_code": "8794",
+                        "verification_document_sid": null,
+                        "verification_type": "phone-call"
                     }
                 ]
             }
@@ -219,9 +243,9 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.hosted_numbers.hosted_number_orders.create(phone_number="+987654321", sms_capability=True)
+            self.client.preview.hosted_numbers.hosted_number_orders.create(phone_number="+15017122661", sms_capability=True)
 
-        values = {'PhoneNumber': "+987654321", 'SmsCapability': True}
+        values = {'PhoneNumber': "+15017122661", 'SmsCapability': True, }
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -236,6 +260,7 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "address_sid": "AD11111111111111111111111111111111",
+                "call_delay": 0,
                 "capabilities": {
                     "sms": true,
                     "voice": false
@@ -244,6 +269,8 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
                 "date_created": "2017-03-28T20:06:39Z",
                 "date_updated": "2017-03-28T20:06:39Z",
                 "email": "test@twilio.com",
+                "extension": null,
+                "failure_reason": "",
                 "friendly_name": null,
                 "incoming_phone_number_sid": "PN11111111111111111111111111111111",
                 "phone_number": "+14153608311",
@@ -253,13 +280,15 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
                 "unique_name": null,
                 "url": "https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "verification_attempts": 0,
-                "verification_type": "phone-call",
-                "verification_document_sid": null
+                "verification_call_sids": null,
+                "verification_code": null,
+                "verification_document_sid": null,
+                "verification_type": "phone-call"
             }
             '''
         ))
 
-        actual = self.client.preview.hosted_numbers.hosted_number_orders.create(phone_number="+987654321", sms_capability=True)
+        actual = self.client.preview.hosted_numbers.hosted_number_orders.create(phone_number="+15017122661", sms_capability=True)
 
         self.assertIsNotNone(actual)
 
@@ -270,6 +299,7 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "address_sid": null,
+                "call_delay": 0,
                 "capabilities": {
                     "sms": true,
                     "voice": false
@@ -278,6 +308,8 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
                 "date_created": "2017-03-28T20:06:39Z",
                 "date_updated": "2017-03-28T20:06:39Z",
                 "email": null,
+                "extension": null,
+                "failure_reason": "",
                 "friendly_name": null,
                 "incoming_phone_number_sid": "PN11111111111111111111111111111111",
                 "phone_number": "+14153608311",
@@ -287,13 +319,15 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
                 "unique_name": null,
                 "url": "https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "verification_attempts": 0,
-                "verification_type": "phone-call",
-                "verification_document_sid": null
+                "verification_call_sids": null,
+                "verification_code": null,
+                "verification_document_sid": null,
+                "verification_type": "phone-call"
             }
             '''
         ))
 
-        actual = self.client.preview.hosted_numbers.hosted_number_orders.create(phone_number="+987654321", sms_capability=True)
+        actual = self.client.preview.hosted_numbers.hosted_number_orders.create(phone_number="+15017122661", sms_capability=True)
 
         self.assertIsNotNone(actual)
 
@@ -304,6 +338,7 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "address_sid": null,
+                "call_delay": 0,
                 "capabilities": {
                     "sms": true,
                     "voice": false
@@ -312,6 +347,8 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
                 "date_created": "2017-03-28T20:06:39Z",
                 "date_updated": "2017-03-28T20:06:39Z",
                 "email": null,
+                "extension": null,
+                "failure_reason": "",
                 "friendly_name": null,
                 "incoming_phone_number_sid": "PN11111111111111111111111111111111",
                 "phone_number": "+14153608311",
@@ -321,12 +358,14 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
                 "unique_name": null,
                 "url": "https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "verification_attempts": 0,
-                "verification_type": "phone-bill",
-                "verification_document_sid": "RIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                "verification_call_sids": null,
+                "verification_code": null,
+                "verification_document_sid": "RIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "verification_type": "phone-bill"
             }
             '''
         ))
 
-        actual = self.client.preview.hosted_numbers.hosted_number_orders.create(phone_number="+987654321", sms_capability=True)
+        actual = self.client.preview.hosted_numbers.hosted_number_orders.create(phone_number="+15017122661", sms_capability=True)
 
         self.assertIsNotNone(actual)

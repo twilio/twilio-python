@@ -103,7 +103,7 @@ class CredentialTestCase(IntegrationTestCase):
                                  .credential_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .credentials.create(username="username", password="password")
 
-        values = {'Username': "username", 'Password': "password"}
+        values = {'Username': "username", 'Password': "password", }
 
         self.holodeck.assert_has_request(Request(
             'post',

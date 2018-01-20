@@ -30,7 +30,7 @@ class WorkersStatisticsList(ListResource):
         super(WorkersStatisticsList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'workspace_sid': workspace_sid}
+        self._solution = {'workspace_sid': workspace_sid, }
 
     def get(self):
         """
@@ -39,7 +39,7 @@ class WorkersStatisticsList(ListResource):
         :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_statistics.WorkersStatisticsContext
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_statistics.WorkersStatisticsContext
         """
-        return WorkersStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'])
+        return WorkersStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'], )
 
     def __call__(self):
         """
@@ -48,7 +48,7 @@ class WorkersStatisticsList(ListResource):
         :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_statistics.WorkersStatisticsContext
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_statistics.WorkersStatisticsContext
         """
-        return WorkersStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'])
+        return WorkersStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'], )
 
     def __repr__(self):
         """
@@ -120,7 +120,7 @@ class WorkersStatisticsContext(InstanceContext):
         super(WorkersStatisticsContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'workspace_sid': workspace_sid}
+        self._solution = {'workspace_sid': workspace_sid, }
         self._uri = '/Workspaces/{workspace_sid}/Workers/Statistics'.format(**self._solution)
 
     def fetch(self, minutes=values.unset, start_date=values.unset,
@@ -197,7 +197,7 @@ class WorkersStatisticsInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'workspace_sid': workspace_sid}
+        self._solution = {'workspace_sid': workspace_sid, }
 
     @property
     def _proxy(self):

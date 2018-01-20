@@ -32,7 +32,7 @@ class FeedbackList(ListResource):
         super(FeedbackList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid, 'call_sid': call_sid}
+        self._solution = {'account_sid': account_sid, 'call_sid': call_sid, }
 
     def get(self):
         """
@@ -133,7 +133,7 @@ class FeedbackContext(InstanceContext):
         super(FeedbackContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid, 'call_sid': call_sid}
+        self._solution = {'account_sid': account_sid, 'call_sid': call_sid, }
         self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Feedback.json'.format(**self._solution)
 
     def create(self, quality_score, issue=values.unset):
@@ -146,7 +146,7 @@ class FeedbackContext(InstanceContext):
         :returns: Newly created FeedbackInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
         """
-        data = values.of({'QualityScore': quality_score, 'Issue': serialize.map(issue, lambda e: e)})
+        data = values.of({'QualityScore': quality_score, 'Issue': serialize.map(issue, lambda e: e), })
 
         payload = self._version.create(
             'POST',
@@ -193,7 +193,7 @@ class FeedbackContext(InstanceContext):
         :returns: Updated FeedbackInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
         """
-        data = values.of({'QualityScore': quality_score, 'Issue': serialize.map(issue, lambda e: e)})
+        data = values.of({'QualityScore': quality_score, 'Issue': serialize.map(issue, lambda e: e), })
 
         payload = self._version.update(
             'POST',
@@ -253,7 +253,7 @@ class FeedbackInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'account_sid': account_sid, 'call_sid': call_sid}
+        self._solution = {'account_sid': account_sid, 'call_sid': call_sid, }
 
     @property
     def _proxy(self):
@@ -330,7 +330,7 @@ class FeedbackInstance(InstanceResource):
         :returns: Newly created FeedbackInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
         """
-        return self._proxy.create(quality_score, issue=issue)
+        return self._proxy.create(quality_score, issue=issue, )
 
     def fetch(self):
         """
@@ -351,7 +351,7 @@ class FeedbackInstance(InstanceResource):
         :returns: Updated FeedbackInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
         """
-        return self._proxy.update(quality_score, issue=issue)
+        return self._proxy.update(quality_score, issue=issue, )
 
     def __repr__(self):
         """

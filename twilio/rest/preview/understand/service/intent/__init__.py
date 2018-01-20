@@ -34,7 +34,7 @@ class IntentList(ListResource):
         super(IntentList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid}
+        self._solution = {'service_sid': service_sid, }
         self._uri = '/Services/{service_sid}/Intents'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
@@ -56,7 +56,7 @@ class IntentList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'])
+        page = self.page(page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -76,7 +76,7 @@ class IntentList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.understand.service.intent.IntentInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size))
+        return list(self.stream(limit=limit, page_size=page_size, ))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -91,7 +91,7 @@ class IntentList(ListResource):
         :returns: Page of IntentInstance
         :rtype: twilio.rest.preview.understand.service.intent.IntentPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
         response = self._version.page(
             'GET',
@@ -128,7 +128,7 @@ class IntentList(ListResource):
         :returns: Newly created IntentInstance
         :rtype: twilio.rest.preview.understand.service.intent.IntentInstance
         """
-        data = values.of({'UniqueName': unique_name, 'FriendlyName': friendly_name})
+        data = values.of({'UniqueName': unique_name, 'FriendlyName': friendly_name, })
 
         payload = self._version.create(
             'POST',
@@ -136,7 +136,7 @@ class IntentList(ListResource):
             data=data,
         )
 
-        return IntentInstance(self._version, payload, service_sid=self._solution['service_sid'])
+        return IntentInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
     def get(self, sid):
         """
@@ -147,7 +147,7 @@ class IntentList(ListResource):
         :returns: twilio.rest.preview.understand.service.intent.IntentContext
         :rtype: twilio.rest.preview.understand.service.intent.IntentContext
         """
-        return IntentContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+        return IntentContext(self._version, service_sid=self._solution['service_sid'], sid=sid, )
 
     def __call__(self, sid):
         """
@@ -158,7 +158,7 @@ class IntentList(ListResource):
         :returns: twilio.rest.preview.understand.service.intent.IntentContext
         :rtype: twilio.rest.preview.understand.service.intent.IntentContext
         """
-        return IntentContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+        return IntentContext(self._version, service_sid=self._solution['service_sid'], sid=sid, )
 
     def __repr__(self):
         """
@@ -200,7 +200,7 @@ class IntentPage(Page):
         :returns: twilio.rest.preview.understand.service.intent.IntentInstance
         :rtype: twilio.rest.preview.understand.service.intent.IntentInstance
         """
-        return IntentInstance(self._version, payload, service_sid=self._solution['service_sid'])
+        return IntentInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
     def __repr__(self):
         """
@@ -231,7 +231,7 @@ class IntentContext(InstanceContext):
         super(IntentContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'sid': sid}
+        self._solution = {'service_sid': service_sid, 'sid': sid, }
         self._uri = '/Services/{service_sid}/Intents/{sid}'.format(**self._solution)
 
         # Dependents
@@ -270,7 +270,7 @@ class IntentContext(InstanceContext):
         :returns: Updated IntentInstance
         :rtype: twilio.rest.preview.understand.service.intent.IntentInstance
         """
-        data = values.of({'FriendlyName': friendly_name, 'UniqueName': unique_name})
+        data = values.of({'FriendlyName': friendly_name, 'UniqueName': unique_name, })
 
         payload = self._version.update(
             'POST',
@@ -366,7 +366,7 @@ class IntentInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'service_sid': service_sid, 'sid': sid or self._properties['sid']}
+        self._solution = {'service_sid': service_sid, 'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):
@@ -476,7 +476,7 @@ class IntentInstance(InstanceResource):
         :returns: Updated IntentInstance
         :rtype: twilio.rest.preview.understand.service.intent.IntentInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, unique_name=unique_name)
+        return self._proxy.update(friendly_name=friendly_name, unique_name=unique_name, )
 
     def delete(self):
         """

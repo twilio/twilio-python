@@ -33,7 +33,7 @@ class StepList(ListResource):
         super(StepList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'flow_sid': flow_sid, 'engagement_sid': engagement_sid}
+        self._solution = {'flow_sid': flow_sid, 'engagement_sid': engagement_sid, }
         self._uri = '/Flows/{flow_sid}/Engagements/{engagement_sid}/Steps'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
@@ -55,7 +55,7 @@ class StepList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'])
+        page = self.page(page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -75,7 +75,7 @@ class StepList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.studio.flow.engagement.step.StepInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size))
+        return list(self.stream(limit=limit, page_size=page_size, ))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -90,7 +90,7 @@ class StepList(ListResource):
         :returns: Page of StepInstance
         :rtype: twilio.rest.preview.studio.flow.engagement.step.StepPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
         response = self._version.page(
             'GET',
@@ -227,7 +227,7 @@ class StepContext(InstanceContext):
         super(StepContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'flow_sid': flow_sid, 'engagement_sid': engagement_sid, 'sid': sid}
+        self._solution = {'flow_sid': flow_sid, 'engagement_sid': engagement_sid, 'sid': sid, }
         self._uri = '/Flows/{flow_sid}/Engagements/{engagement_sid}/Steps/{sid}'.format(**self._solution)
 
     def fetch(self):

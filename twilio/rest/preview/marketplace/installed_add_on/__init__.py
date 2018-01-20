@@ -62,7 +62,7 @@ class InstalledAddOnList(ListResource):
             data=data,
         )
 
-        return InstalledAddOnInstance(self._version, payload)
+        return InstalledAddOnInstance(self._version, payload, )
 
     def stream(self, limit=None, page_size=None):
         """
@@ -83,7 +83,7 @@ class InstalledAddOnList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'])
+        page = self.page(page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -103,7 +103,7 @@ class InstalledAddOnList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size))
+        return list(self.stream(limit=limit, page_size=page_size, ))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -118,7 +118,7 @@ class InstalledAddOnList(ListResource):
         :returns: Page of InstalledAddOnInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
         response = self._version.page(
             'GET',
@@ -154,7 +154,7 @@ class InstalledAddOnList(ListResource):
         :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
         :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
         """
-        return InstalledAddOnContext(self._version, sid=sid)
+        return InstalledAddOnContext(self._version, sid=sid, )
 
     def __call__(self, sid):
         """
@@ -165,7 +165,7 @@ class InstalledAddOnList(ListResource):
         :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
         :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
         """
-        return InstalledAddOnContext(self._version, sid=sid)
+        return InstalledAddOnContext(self._version, sid=sid, )
 
     def __repr__(self):
         """
@@ -206,7 +206,7 @@ class InstalledAddOnPage(Page):
         :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
         """
-        return InstalledAddOnInstance(self._version, payload)
+        return InstalledAddOnInstance(self._version, payload, )
 
     def __repr__(self):
         """
@@ -236,7 +236,7 @@ class InstalledAddOnContext(InstanceContext):
         super(InstalledAddOnContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'sid': sid}
+        self._solution = {'sid': sid, }
         self._uri = '/InstalledAddOns/{sid}'.format(**self._solution)
 
         # Dependents
@@ -266,7 +266,7 @@ class InstalledAddOnContext(InstanceContext):
             params=params,
         )
 
-        return InstalledAddOnInstance(self._version, payload, sid=self._solution['sid'])
+        return InstalledAddOnInstance(self._version, payload, sid=self._solution['sid'], )
 
     def update(self, configuration=values.unset, unique_name=values.unset):
         """
@@ -278,7 +278,7 @@ class InstalledAddOnContext(InstanceContext):
         :returns: Updated InstalledAddOnInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
         """
-        data = values.of({'Configuration': serialize.object(configuration), 'UniqueName': unique_name})
+        data = values.of({'Configuration': serialize.object(configuration), 'UniqueName': unique_name, })
 
         payload = self._version.update(
             'POST',
@@ -286,7 +286,7 @@ class InstalledAddOnContext(InstanceContext):
             data=data,
         )
 
-        return InstalledAddOnInstance(self._version, payload, sid=self._solution['sid'])
+        return InstalledAddOnInstance(self._version, payload, sid=self._solution['sid'], )
 
     @property
     def extensions(self):
@@ -344,7 +344,7 @@ class InstalledAddOnInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'sid': sid or self._properties['sid']}
+        self._solution = {'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):
@@ -356,7 +356,7 @@ class InstalledAddOnInstance(InstanceResource):
         :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
         """
         if self._context is None:
-            self._context = InstalledAddOnContext(self._version, sid=self._solution['sid'])
+            self._context = InstalledAddOnContext(self._version, sid=self._solution['sid'], )
         return self._context
 
     @property
@@ -467,7 +467,7 @@ class InstalledAddOnInstance(InstanceResource):
         :returns: Updated InstalledAddOnInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
         """
-        return self._proxy.update(configuration=configuration, unique_name=unique_name)
+        return self._proxy.update(configuration=configuration, unique_name=unique_name, )
 
     @property
     def extensions(self):

@@ -88,7 +88,7 @@ class BindingTestCase(IntegrationTestCase):
             self.client.notify.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .bindings.create(identity="identity", binding_type="apn", address="address")
 
-        values = {'Identity': "identity", 'BindingType': "apn", 'Address': "address"}
+        values = {'Identity': "identity", 'BindingType': "apn", 'Address': "address", }
 
         self.holodeck.assert_has_request(Request(
             'post',

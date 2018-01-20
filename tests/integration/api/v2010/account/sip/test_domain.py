@@ -102,7 +102,7 @@ class DomainTestCase(IntegrationTestCase):
                                  .sip \
                                  .domains.create(domain_name="domain_name")
 
-        values = {'DomainName': "domain_name"}
+        values = {'DomainName': "domain_name", }
 
         self.holodeck.assert_has_request(Request(
             'post',

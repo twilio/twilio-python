@@ -122,9 +122,9 @@ class LocalTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .incoming_phone_numbers \
-                                 .local.create(phone_number="+987654321")
+                                 .local.create(phone_number="+15017122661")
 
-        values = {'PhoneNumber': "+987654321"}
+        values = {'PhoneNumber': "+15017122661", }
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -175,6 +175,6 @@ class LocalTestCase(IntegrationTestCase):
 
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                       .incoming_phone_numbers \
-                                      .local.create(phone_number="+987654321")
+                                      .local.create(phone_number="+15017122661")
 
         self.assertIsNotNone(actual)

@@ -34,7 +34,7 @@ class SyncMapItemList(ListResource):
         super(SyncMapItemList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'map_sid': map_sid}
+        self._solution = {'service_sid': service_sid, 'map_sid': map_sid, }
         self._uri = '/Services/{service_sid}/Maps/{map_sid}/Items'.format(**self._solution)
 
     def create(self, key, data):
@@ -47,7 +47,7 @@ class SyncMapItemList(ListResource):
         :returns: Newly created SyncMapItemInstance
         :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
         """
-        data = values.of({'Key': key, 'Data': serialize.object(data)})
+        data = values.of({'Key': key, 'Data': serialize.object(data), })
 
         payload = self._version.create(
             'POST',
@@ -85,7 +85,7 @@ class SyncMapItemList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(order=order, from_=from_, bounds=bounds, page_size=limits['page_size'])
+        page = self.page(order=order, from_=from_, bounds=bounds, page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -109,7 +109,7 @@ class SyncMapItemList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance]
         """
-        return list(self.stream(order=order, from_=from_, bounds=bounds, limit=limit, page_size=page_size))
+        return list(self.stream(order=order, from_=from_, bounds=bounds, limit=limit, page_size=page_size, ))
 
     def page(self, order=values.unset, from_=values.unset, bounds=values.unset,
              page_token=values.unset, page_number=values.unset,
@@ -272,7 +272,7 @@ class SyncMapItemContext(InstanceContext):
         super(SyncMapItemContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'map_sid': map_sid, 'key': key}
+        self._solution = {'service_sid': service_sid, 'map_sid': map_sid, 'key': key, }
         self._uri = '/Services/{service_sid}/Maps/{map_sid}/Items/{key}'.format(**self._solution)
 
     def fetch(self):
@@ -316,7 +316,7 @@ class SyncMapItemContext(InstanceContext):
         :returns: Updated SyncMapItemInstance
         :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
         """
-        data = values.of({'Data': serialize.object(data)})
+        data = values.of({'Data': serialize.object(data), })
 
         payload = self._version.update(
             'POST',
@@ -512,7 +512,7 @@ class SyncMapItemInstance(InstanceResource):
         :returns: Updated SyncMapItemInstance
         :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
         """
-        return self._proxy.update(data)
+        return self._proxy.update(data, )
 
     def __repr__(self):
         """

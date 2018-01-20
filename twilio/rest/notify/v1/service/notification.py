@@ -31,7 +31,7 @@ class NotificationList(ListResource):
         super(NotificationList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid}
+        self._solution = {'service_sid': service_sid, }
         self._uri = '/Services/{service_sid}/Notifications'.format(**self._solution)
 
     def create(self, body=values.unset, priority=values.unset, ttl=values.unset,
@@ -90,7 +90,7 @@ class NotificationList(ListResource):
             data=data,
         )
 
-        return NotificationInstance(self._version, payload, service_sid=self._solution['service_sid'])
+        return NotificationInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
     def __repr__(self):
         """
@@ -131,7 +131,7 @@ class NotificationPage(Page):
         :returns: twilio.rest.notify.v1.service.notification.NotificationInstance
         :rtype: twilio.rest.notify.v1.service.notification.NotificationInstance
         """
-        return NotificationInstance(self._version, payload, service_sid=self._solution['service_sid'])
+        return NotificationInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
     def __repr__(self):
         """
@@ -186,7 +186,7 @@ class NotificationInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'service_sid': service_sid}
+        self._solution = {'service_sid': service_sid, }
 
     @property
     def sid(self):

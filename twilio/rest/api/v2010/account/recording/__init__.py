@@ -33,12 +33,12 @@ class RecordingList(ListResource):
         super(RecordingList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid}
+        self._solution = {'account_sid': account_sid, }
         self._uri = '/Accounts/{account_sid}/Recordings.json'.format(**self._solution)
 
     def stream(self, date_created_before=values.unset, date_created=values.unset,
-               date_created_after=values.unset, call_sid=values.unset, limit=None,
-               page_size=None):
+               date_created_after=values.unset, call_sid=values.unset,
+               conference_sid=values.unset, limit=None, page_size=None):
         """
         Streams RecordingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -49,6 +49,7 @@ class RecordingList(ListResource):
         :param datetime date_created: Filter by date created
         :param datetime date_created_after: Filter by date created
         :param unicode call_sid: Filter by call_sid
+        :param unicode conference_sid: The conference_sid
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -66,14 +67,15 @@ class RecordingList(ListResource):
             date_created=date_created,
             date_created_after=date_created_after,
             call_sid=call_sid,
+            conference_sid=conference_sid,
             page_size=limits['page_size'],
         )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
     def list(self, date_created_before=values.unset, date_created=values.unset,
-             date_created_after=values.unset, call_sid=values.unset, limit=None,
-             page_size=None):
+             date_created_after=values.unset, call_sid=values.unset,
+             conference_sid=values.unset, limit=None, page_size=None):
         """
         Lists RecordingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -83,6 +85,7 @@ class RecordingList(ListResource):
         :param datetime date_created: Filter by date created
         :param datetime date_created_after: Filter by date created
         :param unicode call_sid: Filter by call_sid
+        :param unicode conference_sid: The conference_sid
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -98,14 +101,15 @@ class RecordingList(ListResource):
             date_created=date_created,
             date_created_after=date_created_after,
             call_sid=call_sid,
+            conference_sid=conference_sid,
             limit=limit,
             page_size=page_size,
         ))
 
     def page(self, date_created_before=values.unset, date_created=values.unset,
              date_created_after=values.unset, call_sid=values.unset,
-             page_token=values.unset, page_number=values.unset,
-             page_size=values.unset):
+             conference_sid=values.unset, page_token=values.unset,
+             page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of RecordingInstance records from the API.
         Request is executed immediately
@@ -114,6 +118,7 @@ class RecordingList(ListResource):
         :param datetime date_created: Filter by date created
         :param datetime date_created_after: Filter by date created
         :param unicode call_sid: Filter by call_sid
+        :param unicode conference_sid: The conference_sid
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -126,6 +131,7 @@ class RecordingList(ListResource):
             'DateCreated': serialize.iso8601_datetime(date_created),
             'DateCreated>': serialize.iso8601_datetime(date_created_after),
             'CallSid': call_sid,
+            'ConferenceSid': conference_sid,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -165,7 +171,7 @@ class RecordingList(ListResource):
         :returns: twilio.rest.api.v2010.account.recording.RecordingContext
         :rtype: twilio.rest.api.v2010.account.recording.RecordingContext
         """
-        return RecordingContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+        return RecordingContext(self._version, account_sid=self._solution['account_sid'], sid=sid, )
 
     def __call__(self, sid):
         """
@@ -176,7 +182,7 @@ class RecordingList(ListResource):
         :returns: twilio.rest.api.v2010.account.recording.RecordingContext
         :rtype: twilio.rest.api.v2010.account.recording.RecordingContext
         """
-        return RecordingContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+        return RecordingContext(self._version, account_sid=self._solution['account_sid'], sid=sid, )
 
     def __repr__(self):
         """
@@ -216,7 +222,7 @@ class RecordingPage(Page):
         :returns: twilio.rest.api.v2010.account.recording.RecordingInstance
         :rtype: twilio.rest.api.v2010.account.recording.RecordingInstance
         """
-        return RecordingInstance(self._version, payload, account_sid=self._solution['account_sid'])
+        return RecordingInstance(self._version, payload, account_sid=self._solution['account_sid'], )
 
     def __repr__(self):
         """
@@ -245,7 +251,7 @@ class RecordingContext(InstanceContext):
         super(RecordingContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid, 'sid': sid}
+        self._solution = {'account_sid': account_sid, 'sid': sid, }
         self._uri = '/Accounts/{account_sid}/Recordings/{sid}.json'.format(**self._solution)
 
         # Dependents
@@ -360,6 +366,7 @@ class RecordingInstance(InstanceResource):
             'account_sid': payload['account_sid'],
             'api_version': payload['api_version'],
             'call_sid': payload['call_sid'],
+            'conference_sid': payload['conference_sid'],
             'date_created': deserialize.rfc2822_datetime(payload['date_created']),
             'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
             'duration': payload['duration'],
@@ -377,7 +384,7 @@ class RecordingInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid']}
+        self._solution = {'account_sid': account_sid, 'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):
@@ -419,6 +426,14 @@ class RecordingInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['call_sid']
+
+    @property
+    def conference_sid(self):
+        """
+        :returns: The unique id for the conference associated with the recording, if a conference recording.
+        :rtype: unicode
+        """
+        return self._properties['conference_sid']
 
     @property
     def date_created(self):

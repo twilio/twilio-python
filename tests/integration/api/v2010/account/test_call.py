@@ -19,9 +19,9 @@ class CallTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .calls.create(to="+123456789", from_="+987654321")
+                                 .calls.create(to="+15558675310", from_="+15017122661")
 
-        values = {'To': "+123456789", 'From': "+987654321"}
+        values = {'To': "+15558675310", 'From': "+15017122661", }
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -69,7 +69,7 @@ class CallTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .calls.create(to="+123456789", from_="+987654321")
+                                      .calls.create(to="+15558675310", from_="+15017122661")
 
         self.assertIsNotNone(actual)
 

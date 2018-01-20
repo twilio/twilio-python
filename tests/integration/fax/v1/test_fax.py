@@ -144,7 +144,7 @@ class FaxTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.fax.v1.faxes.create(to="to", media_url="https://example.com")
 
-        values = {'To': "to", 'MediaUrl': "https://example.com"}
+        values = {'To': "to", 'MediaUrl': "https://example.com", }
 
         self.holodeck.assert_has_request(Request(
             'post',

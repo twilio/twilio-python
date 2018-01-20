@@ -34,7 +34,7 @@ class UserList(ListResource):
         super(UserList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid}
+        self._solution = {'service_sid': service_sid, }
         self._uri = '/Services/{service_sid}/Users'.format(**self._solution)
 
     def create(self, identity, segment=values.unset):
@@ -47,7 +47,7 @@ class UserList(ListResource):
         :returns: Newly created UserInstance
         :rtype: twilio.rest.notify.v1.service.user.UserInstance
         """
-        data = values.of({'Identity': identity, 'Segment': serialize.map(segment, lambda e: e)})
+        data = values.of({'Identity': identity, 'Segment': serialize.map(segment, lambda e: e), })
 
         payload = self._version.create(
             'POST',
@@ -55,7 +55,7 @@ class UserList(ListResource):
             data=data,
         )
 
-        return UserInstance(self._version, payload, service_sid=self._solution['service_sid'])
+        return UserInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
     def stream(self, identity=values.unset, segment=values.unset, limit=None,
                page_size=None):
@@ -79,7 +79,7 @@ class UserList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(identity=identity, segment=segment, page_size=limits['page_size'])
+        page = self.page(identity=identity, segment=segment, page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -102,7 +102,7 @@ class UserList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.notify.v1.service.user.UserInstance]
         """
-        return list(self.stream(identity=identity, segment=segment, limit=limit, page_size=page_size))
+        return list(self.stream(identity=identity, segment=segment, limit=limit, page_size=page_size, ))
 
     def page(self, identity=values.unset, segment=values.unset,
              page_token=values.unset, page_number=values.unset,
@@ -162,7 +162,7 @@ class UserList(ListResource):
         :returns: twilio.rest.notify.v1.service.user.UserContext
         :rtype: twilio.rest.notify.v1.service.user.UserContext
         """
-        return UserContext(self._version, service_sid=self._solution['service_sid'], identity=identity)
+        return UserContext(self._version, service_sid=self._solution['service_sid'], identity=identity, )
 
     def __call__(self, identity):
         """
@@ -173,7 +173,7 @@ class UserList(ListResource):
         :returns: twilio.rest.notify.v1.service.user.UserContext
         :rtype: twilio.rest.notify.v1.service.user.UserContext
         """
-        return UserContext(self._version, service_sid=self._solution['service_sid'], identity=identity)
+        return UserContext(self._version, service_sid=self._solution['service_sid'], identity=identity, )
 
     def __repr__(self):
         """
@@ -214,7 +214,7 @@ class UserPage(Page):
         :returns: twilio.rest.notify.v1.service.user.UserInstance
         :rtype: twilio.rest.notify.v1.service.user.UserInstance
         """
-        return UserInstance(self._version, payload, service_sid=self._solution['service_sid'])
+        return UserInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
     def __repr__(self):
         """
@@ -244,7 +244,7 @@ class UserContext(InstanceContext):
         super(UserContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'identity': identity}
+        self._solution = {'service_sid': service_sid, 'identity': identity, }
         self._uri = '/Services/{service_sid}/Users/{identity}'.format(**self._solution)
 
         # Dependents
@@ -353,7 +353,7 @@ class UserInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'service_sid': service_sid, 'identity': identity or self._properties['identity']}
+        self._solution = {'service_sid': service_sid, 'identity': identity or self._properties['identity'], }
 
     @property
     def _proxy(self):

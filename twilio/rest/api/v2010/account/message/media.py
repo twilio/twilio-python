@@ -32,7 +32,7 @@ class MediaList(ListResource):
         super(MediaList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid, 'message_sid': message_sid}
+        self._solution = {'account_sid': account_sid, 'message_sid': message_sid, }
         self._uri = '/Accounts/{account_sid}/Messages/{message_sid}/Media.json'.format(**self._solution)
 
     def stream(self, date_created_before=values.unset, date_created=values.unset,
@@ -252,7 +252,7 @@ class MediaContext(InstanceContext):
         super(MediaContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid, 'message_sid': message_sid, 'sid': sid}
+        self._solution = {'account_sid': account_sid, 'message_sid': message_sid, 'sid': sid, }
         self._uri = '/Accounts/{account_sid}/Messages/{message_sid}/Media/{sid}.json'.format(**self._solution)
 
     def delete(self):

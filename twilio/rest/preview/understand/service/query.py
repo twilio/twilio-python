@@ -32,7 +32,7 @@ class QueryList(ListResource):
         super(QueryList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid}
+        self._solution = {'service_sid': service_sid, }
         self._uri = '/Services/{service_sid}/Queries'.format(**self._solution)
 
     def stream(self, language=values.unset, model_build=values.unset,
@@ -176,7 +176,7 @@ class QueryList(ListResource):
             data=data,
         )
 
-        return QueryInstance(self._version, payload, service_sid=self._solution['service_sid'])
+        return QueryInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
     def get(self, sid):
         """
@@ -187,7 +187,7 @@ class QueryList(ListResource):
         :returns: twilio.rest.preview.understand.service.query.QueryContext
         :rtype: twilio.rest.preview.understand.service.query.QueryContext
         """
-        return QueryContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+        return QueryContext(self._version, service_sid=self._solution['service_sid'], sid=sid, )
 
     def __call__(self, sid):
         """
@@ -198,7 +198,7 @@ class QueryList(ListResource):
         :returns: twilio.rest.preview.understand.service.query.QueryContext
         :rtype: twilio.rest.preview.understand.service.query.QueryContext
         """
-        return QueryContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+        return QueryContext(self._version, service_sid=self._solution['service_sid'], sid=sid, )
 
     def __repr__(self):
         """
@@ -240,7 +240,7 @@ class QueryPage(Page):
         :returns: twilio.rest.preview.understand.service.query.QueryInstance
         :rtype: twilio.rest.preview.understand.service.query.QueryInstance
         """
-        return QueryInstance(self._version, payload, service_sid=self._solution['service_sid'])
+        return QueryInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
     def __repr__(self):
         """
@@ -271,7 +271,7 @@ class QueryContext(InstanceContext):
         super(QueryContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'sid': sid}
+        self._solution = {'service_sid': service_sid, 'sid': sid, }
         self._uri = '/Services/{service_sid}/Queries/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -306,7 +306,7 @@ class QueryContext(InstanceContext):
         :returns: Updated QueryInstance
         :rtype: twilio.rest.preview.understand.service.query.QueryInstance
         """
-        data = values.of({'SampleSid': sample_sid, 'Status': status})
+        data = values.of({'SampleSid': sample_sid, 'Status': status, })
 
         payload = self._version.update(
             'POST',
@@ -373,7 +373,7 @@ class QueryInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'service_sid': service_sid, 'sid': sid or self._properties['sid']}
+        self._solution = {'service_sid': service_sid, 'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):
@@ -507,7 +507,7 @@ class QueryInstance(InstanceResource):
         :returns: Updated QueryInstance
         :rtype: twilio.rest.preview.understand.service.query.QueryInstance
         """
-        return self._proxy.update(sample_sid=sample_sid, status=status)
+        return self._proxy.update(sample_sid=sample_sid, status=status, )
 
     def delete(self):
         """

@@ -21,7 +21,7 @@ class PhoneNumberTestCase(IntegrationTestCase):
             self.client.messaging.v1.services(sid="MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                     .phone_numbers.create(phone_number_sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 
-        values = {'PhoneNumberSid': "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
+        values = {'PhoneNumberSid': "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", }
 
         self.holodeck.assert_has_request(Request(
             'post',

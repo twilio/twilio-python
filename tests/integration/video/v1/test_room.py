@@ -197,7 +197,7 @@ class RoomTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.video.v1.rooms(sid="RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(status="in-progress")
 
-        values = {'Status': "in-progress"}
+        values = {'Status': "in-progress", }
 
         self.holodeck.assert_has_request(Request(
             'post',

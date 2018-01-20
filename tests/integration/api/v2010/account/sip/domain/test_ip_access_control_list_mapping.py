@@ -62,7 +62,7 @@ class IpAccessControlListMappingTestCase(IntegrationTestCase):
                                  .domains(sid="SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .ip_access_control_list_mappings.create(ip_access_control_list_sid="ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 
-        values = {'IpAccessControlListSid': "ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
+        values = {'IpAccessControlListSid': "ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", }
 
         self.holodeck.assert_has_request(Request(
             'post',

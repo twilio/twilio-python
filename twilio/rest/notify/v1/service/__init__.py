@@ -86,7 +86,7 @@ class ServiceList(ListResource):
             data=data,
         )
 
-        return ServiceInstance(self._version, payload)
+        return ServiceInstance(self._version, payload, )
 
     def stream(self, friendly_name=values.unset, limit=None, page_size=None):
         """
@@ -108,7 +108,7 @@ class ServiceList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(friendly_name=friendly_name, page_size=limits['page_size'])
+        page = self.page(friendly_name=friendly_name, page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -129,7 +129,7 @@ class ServiceList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.notify.v1.service.ServiceInstance]
         """
-        return list(self.stream(friendly_name=friendly_name, limit=limit, page_size=page_size))
+        return list(self.stream(friendly_name=friendly_name, limit=limit, page_size=page_size, ))
 
     def page(self, friendly_name=values.unset, page_token=values.unset,
              page_number=values.unset, page_size=values.unset):
@@ -186,7 +186,7 @@ class ServiceList(ListResource):
         :returns: twilio.rest.notify.v1.service.ServiceContext
         :rtype: twilio.rest.notify.v1.service.ServiceContext
         """
-        return ServiceContext(self._version, sid=sid)
+        return ServiceContext(self._version, sid=sid, )
 
     def __call__(self, sid):
         """
@@ -197,7 +197,7 @@ class ServiceList(ListResource):
         :returns: twilio.rest.notify.v1.service.ServiceContext
         :rtype: twilio.rest.notify.v1.service.ServiceContext
         """
-        return ServiceContext(self._version, sid=sid)
+        return ServiceContext(self._version, sid=sid, )
 
     def __repr__(self):
         """
@@ -237,7 +237,7 @@ class ServicePage(Page):
         :returns: twilio.rest.notify.v1.service.ServiceInstance
         :rtype: twilio.rest.notify.v1.service.ServiceInstance
         """
-        return ServiceInstance(self._version, payload)
+        return ServiceInstance(self._version, payload, )
 
     def __repr__(self):
         """
@@ -266,7 +266,7 @@ class ServiceContext(InstanceContext):
         super(ServiceContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'sid': sid}
+        self._solution = {'sid': sid, }
         self._uri = '/Services/{sid}'.format(**self._solution)
 
         # Dependents
@@ -299,7 +299,7 @@ class ServiceContext(InstanceContext):
             params=params,
         )
 
-        return ServiceInstance(self._version, payload, sid=self._solution['sid'])
+        return ServiceInstance(self._version, payload, sid=self._solution['sid'], )
 
     def update(self, friendly_name=values.unset, apn_credential_sid=values.unset,
                gcm_credential_sid=values.unset, messaging_service_sid=values.unset,
@@ -350,7 +350,7 @@ class ServiceContext(InstanceContext):
             data=data,
         )
 
-        return ServiceInstance(self._version, payload, sid=self._solution['sid'])
+        return ServiceInstance(self._version, payload, sid=self._solution['sid'], )
 
     @property
     def bindings(self):
@@ -361,7 +361,7 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.notify.v1.service.binding.BindingList
         """
         if self._bindings is None:
-            self._bindings = BindingList(self._version, service_sid=self._solution['sid'])
+            self._bindings = BindingList(self._version, service_sid=self._solution['sid'], )
         return self._bindings
 
     @property
@@ -373,7 +373,7 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.notify.v1.service.notification.NotificationList
         """
         if self._notifications is None:
-            self._notifications = NotificationList(self._version, service_sid=self._solution['sid'])
+            self._notifications = NotificationList(self._version, service_sid=self._solution['sid'], )
         return self._notifications
 
     @property
@@ -385,7 +385,7 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.notify.v1.service.user.UserList
         """
         if self._users is None:
-            self._users = UserList(self._version, service_sid=self._solution['sid'])
+            self._users = UserList(self._version, service_sid=self._solution['sid'], )
         return self._users
 
     @property
@@ -397,7 +397,7 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.notify.v1.service.segment.SegmentList
         """
         if self._segments is None:
-            self._segments = SegmentList(self._version, service_sid=self._solution['sid'])
+            self._segments = SegmentList(self._version, service_sid=self._solution['sid'], )
         return self._segments
 
     def __repr__(self):
@@ -448,7 +448,7 @@ class ServiceInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'sid': sid or self._properties['sid']}
+        self._solution = {'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):
@@ -460,7 +460,7 @@ class ServiceInstance(InstanceResource):
         :rtype: twilio.rest.notify.v1.service.ServiceContext
         """
         if self._context is None:
-            self._context = ServiceContext(self._version, sid=self._solution['sid'])
+            self._context = ServiceContext(self._version, sid=self._solution['sid'], )
         return self._context
 
     @property

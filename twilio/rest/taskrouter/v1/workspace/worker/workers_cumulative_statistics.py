@@ -31,7 +31,7 @@ class WorkersCumulativeStatisticsList(ListResource):
         super(WorkersCumulativeStatisticsList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'workspace_sid': workspace_sid}
+        self._solution = {'workspace_sid': workspace_sid, }
 
     def get(self):
         """
@@ -127,7 +127,7 @@ class WorkersCumulativeStatisticsContext(InstanceContext):
         super(WorkersCumulativeStatisticsContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'workspace_sid': workspace_sid}
+        self._solution = {'workspace_sid': workspace_sid, }
         self._uri = '/Workspaces/{workspace_sid}/Workers/CumulativeStatistics'.format(**self._solution)
 
     def fetch(self, end_date=values.unset, minutes=values.unset,
@@ -203,7 +203,7 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'workspace_sid': workspace_sid}
+        self._solution = {'workspace_sid': workspace_sid, }
 
     @property
     def _proxy(self):

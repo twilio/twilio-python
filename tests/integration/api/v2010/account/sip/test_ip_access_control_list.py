@@ -101,7 +101,7 @@ class IpAccessControlListTestCase(IntegrationTestCase):
                                  .sip \
                                  .ip_access_control_lists.create(friendly_name="friendly_name")
 
-        values = {'FriendlyName': "friendly_name"}
+        values = {'FriendlyName': "friendly_name", }
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -178,7 +178,7 @@ class IpAccessControlListTestCase(IntegrationTestCase):
                                  .sip \
                                  .ip_access_control_lists(sid="ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(friendly_name="friendly_name")
 
-        values = {'FriendlyName': "friendly_name"}
+        values = {'FriendlyName': "friendly_name", }
 
         self.holodeck.assert_has_request(Request(
             'post',

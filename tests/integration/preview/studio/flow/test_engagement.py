@@ -94,9 +94,9 @@ class EngagementTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.preview.studio.flows(sid="FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .engagements.create(to="+123456789", from_="+987654321")
+                                      .engagements.create(to="+15558675310", from_="+15017122661")
 
-        values = {'To': "+123456789", 'From': "+987654321"}
+        values = {'To': "+15558675310", 'From': "+15017122661", }
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -131,7 +131,7 @@ class EngagementTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.preview.studio.flows(sid="FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                           .engagements.create(to="+123456789", from_="+987654321")
+                                           .engagements.create(to="+15558675310", from_="+15017122661")
 
         self.assertIsNotNone(actual)
 

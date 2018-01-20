@@ -90,7 +90,7 @@ class AwsTestCase(IntegrationTestCase):
             self.client.accounts.v1.credentials \
                                    .aws.create(credentials="AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY")
 
-        values = {'Credentials': "AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"}
+        values = {'Credentials': "AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY", }
 
         self.holodeck.assert_has_request(Request(
             'post',

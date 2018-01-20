@@ -101,7 +101,7 @@ class ServiceTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.chat.v2.services.create(friendly_name="friendly_name")
 
-        values = {'FriendlyName': "friendly_name"}
+        values = {'FriendlyName': "friendly_name", }
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -289,6 +289,7 @@ class ServiceTestCase(IntegrationTestCase):
                     "bindings": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings"
                 },
                 "notifications": {
+                    "log_enabled": true,
                     "added_to_channel": {
                         "enabled": false,
                         "template": "notifications.added_to_channel.template"

@@ -32,7 +32,7 @@ class SyncListPermissionList(ListResource):
         super(SyncListPermissionList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'list_sid': list_sid}
+        self._solution = {'service_sid': service_sid, 'list_sid': list_sid, }
         self._uri = '/Services/{service_sid}/Lists/{list_sid}/Permissions'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
@@ -54,7 +54,7 @@ class SyncListPermissionList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'])
+        page = self.page(page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -74,7 +74,7 @@ class SyncListPermissionList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size))
+        return list(self.stream(limit=limit, page_size=page_size, ))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -89,7 +89,7 @@ class SyncListPermissionList(ListResource):
         :returns: Page of SyncListPermissionInstance
         :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
         response = self._version.page(
             'GET',
@@ -226,7 +226,7 @@ class SyncListPermissionContext(InstanceContext):
         super(SyncListPermissionContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'list_sid': list_sid, 'identity': identity}
+        self._solution = {'service_sid': service_sid, 'list_sid': list_sid, 'identity': identity, }
         self._uri = '/Services/{service_sid}/Lists/{list_sid}/Permissions/{identity}'.format(**self._solution)
 
     def fetch(self):
@@ -272,7 +272,7 @@ class SyncListPermissionContext(InstanceContext):
         :returns: Updated SyncListPermissionInstance
         :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance
         """
-        data = values.of({'Read': read, 'Write': write, 'Manage': manage})
+        data = values.of({'Read': read, 'Write': write, 'Manage': manage, })
 
         payload = self._version.update(
             'POST',
@@ -444,7 +444,7 @@ class SyncListPermissionInstance(InstanceResource):
         :returns: Updated SyncListPermissionInstance
         :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance
         """
-        return self._proxy.update(read, write, manage)
+        return self._proxy.update(read, write, manage, )
 
     def __repr__(self):
         """

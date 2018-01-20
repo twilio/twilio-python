@@ -31,7 +31,7 @@ class MemberList(ListResource):
         super(MemberList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid, 'queue_sid': queue_sid}
+        self._solution = {'account_sid': account_sid, 'queue_sid': queue_sid, }
         self._uri = '/Accounts/{account_sid}/Queues/{queue_sid}/Members.json'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
@@ -53,7 +53,7 @@ class MemberList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'])
+        page = self.page(page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -73,7 +73,7 @@ class MemberList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.api.v2010.account.queue.member.MemberInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size))
+        return list(self.stream(limit=limit, page_size=page_size, ))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -88,7 +88,7 @@ class MemberList(ListResource):
         :returns: Page of MemberInstance
         :rtype: twilio.rest.api.v2010.account.queue.member.MemberPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
         response = self._version.page(
             'GET',
@@ -221,7 +221,7 @@ class MemberContext(InstanceContext):
         super(MemberContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid, 'queue_sid': queue_sid, 'call_sid': call_sid}
+        self._solution = {'account_sid': account_sid, 'queue_sid': queue_sid, 'call_sid': call_sid, }
         self._uri = '/Accounts/{account_sid}/Queues/{queue_sid}/Members/{call_sid}.json'.format(**self._solution)
 
     def fetch(self):
@@ -257,7 +257,7 @@ class MemberContext(InstanceContext):
         :returns: Updated MemberInstance
         :rtype: twilio.rest.api.v2010.account.queue.member.MemberInstance
         """
-        data = values.of({'Url': url, 'Method': method})
+        data = values.of({'Url': url, 'Method': method, })
 
         payload = self._version.update(
             'POST',
@@ -390,7 +390,7 @@ class MemberInstance(InstanceResource):
         :returns: Updated MemberInstance
         :rtype: twilio.rest.api.v2010.account.queue.member.MemberInstance
         """
-        return self._proxy.update(url, method)
+        return self._proxy.update(url, method, )
 
     def __repr__(self):
         """

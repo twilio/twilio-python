@@ -32,7 +32,7 @@ class UserBindingList(ListResource):
         super(UserBindingList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'user_sid': user_sid}
+        self._solution = {'service_sid': service_sid, 'user_sid': user_sid, }
         self._uri = '/Services/{service_sid}/Users/{user_sid}/Bindings'.format(**self._solution)
 
     def stream(self, binding_type=values.unset, limit=None, page_size=None):
@@ -55,7 +55,7 @@ class UserBindingList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(binding_type=binding_type, page_size=limits['page_size'])
+        page = self.page(binding_type=binding_type, page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -76,7 +76,7 @@ class UserBindingList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.chat.v2.service.user.user_binding.UserBindingInstance]
         """
-        return list(self.stream(binding_type=binding_type, limit=limit, page_size=page_size))
+        return list(self.stream(binding_type=binding_type, limit=limit, page_size=page_size, ))
 
     def page(self, binding_type=values.unset, page_token=values.unset,
              page_number=values.unset, page_size=values.unset):
@@ -230,7 +230,7 @@ class UserBindingContext(InstanceContext):
         super(UserBindingContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'user_sid': user_sid, 'sid': sid}
+        self._solution = {'service_sid': service_sid, 'user_sid': user_sid, 'sid': sid, }
         self._uri = '/Services/{service_sid}/Users/{user_sid}/Bindings/{sid}'.format(**self._solution)
 
     def fetch(self):

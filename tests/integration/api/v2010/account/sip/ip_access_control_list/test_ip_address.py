@@ -104,7 +104,7 @@ class IpAddressTestCase(IntegrationTestCase):
                                  .ip_access_control_lists(sid="ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                  .ip_addresses.create(friendly_name="friendly_name", ip_address="ip_address")
 
-        values = {'FriendlyName': "friendly_name", 'IpAddress': "ip_address"}
+        values = {'FriendlyName': "friendly_name", 'IpAddress': "ip_address", }
 
         self.holodeck.assert_has_request(Request(
             'post',

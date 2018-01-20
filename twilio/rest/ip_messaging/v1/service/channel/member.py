@@ -32,7 +32,7 @@ class MemberList(ListResource):
         super(MemberList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'channel_sid': channel_sid}
+        self._solution = {'service_sid': service_sid, 'channel_sid': channel_sid, }
         self._uri = '/Services/{service_sid}/Channels/{channel_sid}/Members'.format(**self._solution)
 
     def create(self, identity, role_sid=values.unset):
@@ -45,7 +45,7 @@ class MemberList(ListResource):
         :returns: Newly created MemberInstance
         :rtype: twilio.rest.chat.v1.service.channel.member.MemberInstance
         """
-        data = values.of({'Identity': identity, 'RoleSid': role_sid})
+        data = values.of({'Identity': identity, 'RoleSid': role_sid, })
 
         payload = self._version.create(
             'POST',
@@ -80,7 +80,7 @@ class MemberList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(identity=identity, page_size=limits['page_size'])
+        page = self.page(identity=identity, page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -101,7 +101,7 @@ class MemberList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.chat.v1.service.channel.member.MemberInstance]
         """
-        return list(self.stream(identity=identity, limit=limit, page_size=page_size))
+        return list(self.stream(identity=identity, limit=limit, page_size=page_size, ))
 
     def page(self, identity=values.unset, page_token=values.unset,
              page_number=values.unset, page_size=values.unset):
@@ -255,7 +255,7 @@ class MemberContext(InstanceContext):
         super(MemberContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'channel_sid': channel_sid, 'sid': sid}
+        self._solution = {'service_sid': service_sid, 'channel_sid': channel_sid, 'sid': sid, }
         self._uri = '/Services/{service_sid}/Channels/{channel_sid}/Members/{sid}'.format(**self._solution)
 
     def fetch(self):
@@ -301,7 +301,7 @@ class MemberContext(InstanceContext):
         :returns: Updated MemberInstance
         :rtype: twilio.rest.chat.v1.service.channel.member.MemberInstance
         """
-        data = values.of({'RoleSid': role_sid, 'LastConsumedMessageIndex': last_consumed_message_index})
+        data = values.of({'RoleSid': role_sid, 'LastConsumedMessageIndex': last_consumed_message_index, })
 
         payload = self._version.update(
             'POST',
@@ -498,7 +498,7 @@ class MemberInstance(InstanceResource):
         :returns: Updated MemberInstance
         :rtype: twilio.rest.chat.v1.service.channel.member.MemberInstance
         """
-        return self._proxy.update(role_sid=role_sid, last_consumed_message_index=last_consumed_message_index)
+        return self._proxy.update(role_sid=role_sid, last_consumed_message_index=last_consumed_message_index, )
 
     def __repr__(self):
         """

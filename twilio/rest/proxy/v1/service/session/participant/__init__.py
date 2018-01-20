@@ -33,7 +33,7 @@ class ParticipantList(ListResource):
         super(ParticipantList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'session_sid': session_sid}
+        self._solution = {'service_sid': service_sid, 'session_sid': session_sid, }
         self._uri = '/Services/{service_sid}/Sessions/{session_sid}/Participants'.format(**self._solution)
 
     def stream(self, identifier=values.unset, limit=None, page_size=None):
@@ -56,7 +56,7 @@ class ParticipantList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(identifier=identifier, page_size=limits['page_size'])
+        page = self.page(identifier=identifier, page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -77,7 +77,7 @@ class ParticipantList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.proxy.v1.service.session.participant.ParticipantInstance]
         """
-        return list(self.stream(identifier=identifier, limit=limit, page_size=page_size))
+        return list(self.stream(identifier=identifier, limit=limit, page_size=page_size, ))
 
     def page(self, identifier=values.unset, page_token=values.unset,
              page_number=values.unset, page_size=values.unset):
@@ -266,7 +266,7 @@ class ParticipantContext(InstanceContext):
         super(ParticipantContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'session_sid': session_sid, 'sid': sid}
+        self._solution = {'service_sid': service_sid, 'session_sid': session_sid, 'sid': sid, }
         self._uri = '/Services/{service_sid}/Sessions/{session_sid}/Participants/{sid}'.format(**self._solution)
 
         # Dependents

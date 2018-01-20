@@ -23,7 +23,7 @@ class StreamMessageTestCase(IntegrationTestCase):
                                .sync_streams(sid="TOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                .stream_messages.create(data="{}")
 
-        values = {'Data': serialize.object("{}")}
+        values = {'Data': serialize.object("{}"), }
 
         self.holodeck.assert_has_request(Request(
             'post',

@@ -134,7 +134,7 @@ class SampleTestCase(IntegrationTestCase):
                                           .intents(sid="UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                           .samples.create(language="language", tagged_text="tagged_text")
 
-        values = {'Language': "language", 'TaggedText': "tagged_text"}
+        values = {'Language': "language", 'TaggedText': "tagged_text", }
 
         self.holodeck.assert_has_request(Request(
             'post',

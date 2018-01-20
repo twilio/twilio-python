@@ -54,7 +54,7 @@ class FlowList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'])
+        page = self.page(page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -74,7 +74,7 @@ class FlowList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.studio.flow.FlowInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size))
+        return list(self.stream(limit=limit, page_size=page_size, ))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
@@ -89,7 +89,7 @@ class FlowList(ListResource):
         :returns: Page of FlowInstance
         :rtype: twilio.rest.preview.studio.flow.FlowPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size})
+        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
         response = self._version.page(
             'GET',
@@ -125,7 +125,7 @@ class FlowList(ListResource):
         :returns: twilio.rest.preview.studio.flow.FlowContext
         :rtype: twilio.rest.preview.studio.flow.FlowContext
         """
-        return FlowContext(self._version, sid=sid)
+        return FlowContext(self._version, sid=sid, )
 
     def __call__(self, sid):
         """
@@ -136,7 +136,7 @@ class FlowList(ListResource):
         :returns: twilio.rest.preview.studio.flow.FlowContext
         :rtype: twilio.rest.preview.studio.flow.FlowContext
         """
-        return FlowContext(self._version, sid=sid)
+        return FlowContext(self._version, sid=sid, )
 
     def __repr__(self):
         """
@@ -177,7 +177,7 @@ class FlowPage(Page):
         :returns: twilio.rest.preview.studio.flow.FlowInstance
         :rtype: twilio.rest.preview.studio.flow.FlowInstance
         """
-        return FlowInstance(self._version, payload)
+        return FlowInstance(self._version, payload, )
 
     def __repr__(self):
         """
@@ -207,7 +207,7 @@ class FlowContext(InstanceContext):
         super(FlowContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'sid': sid}
+        self._solution = {'sid': sid, }
         self._uri = '/Flows/{sid}'.format(**self._solution)
 
         # Dependents
@@ -228,7 +228,7 @@ class FlowContext(InstanceContext):
             params=params,
         )
 
-        return FlowInstance(self._version, payload, sid=self._solution['sid'])
+        return FlowInstance(self._version, payload, sid=self._solution['sid'], )
 
     def delete(self):
         """
@@ -248,7 +248,7 @@ class FlowContext(InstanceContext):
         :rtype: twilio.rest.preview.studio.flow.engagement.EngagementList
         """
         if self._engagements is None:
-            self._engagements = EngagementList(self._version, flow_sid=self._solution['sid'])
+            self._engagements = EngagementList(self._version, flow_sid=self._solution['sid'], )
         return self._engagements
 
     def __repr__(self):
@@ -296,7 +296,7 @@ class FlowInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'sid': sid or self._properties['sid']}
+        self._solution = {'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):
@@ -308,7 +308,7 @@ class FlowInstance(InstanceResource):
         :rtype: twilio.rest.preview.studio.flow.FlowContext
         """
         if self._context is None:
-            self._context = FlowContext(self._version, sid=self._solution['sid'])
+            self._context = FlowContext(self._version, sid=self._solution['sid'], )
         return self._context
 
     @property

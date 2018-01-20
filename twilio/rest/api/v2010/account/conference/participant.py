@@ -32,7 +32,7 @@ class ParticipantList(ListResource):
         super(ParticipantList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid, 'conference_sid': conference_sid}
+        self._solution = {'account_sid': account_sid, 'conference_sid': conference_sid, }
         self._uri = '/Accounts/{account_sid}/Conferences/{conference_sid}/Participants.json'.format(**self._solution)
 
     def create(self, from_, to, status_callback=values.unset,
@@ -161,7 +161,7 @@ class ParticipantList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(muted=muted, hold=hold, page_size=limits['page_size'])
+        page = self.page(muted=muted, hold=hold, page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
@@ -184,7 +184,7 @@ class ParticipantList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.api.v2010.account.conference.participant.ParticipantInstance]
         """
-        return list(self.stream(muted=muted, hold=hold, limit=limit, page_size=page_size))
+        return list(self.stream(muted=muted, hold=hold, limit=limit, page_size=page_size, ))
 
     def page(self, muted=values.unset, hold=values.unset, page_token=values.unset,
              page_number=values.unset, page_size=values.unset):
@@ -340,7 +340,7 @@ class ParticipantContext(InstanceContext):
         super(ParticipantContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid, 'conference_sid': conference_sid, 'call_sid': call_sid}
+        self._solution = {'account_sid': account_sid, 'conference_sid': conference_sid, 'call_sid': call_sid, }
         self._uri = '/Accounts/{account_sid}/Conferences/{conference_sid}/Participants/{call_sid}.json'.format(**self._solution)
 
     def fetch(self):
