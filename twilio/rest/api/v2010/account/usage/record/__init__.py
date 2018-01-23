@@ -52,7 +52,8 @@ class RecordList(ListResource):
         self._yesterday = None
 
     def stream(self, category=values.unset, start_date=values.unset,
-               end_date=values.unset, limit=None, page_size=None):
+               end_date=values.unset, include_subaccounts=True,
+               limit=None, page_size=None):
         """
         Streams RecordInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -62,6 +63,7 @@ class RecordList(ListResource):
         :param RecordInstance.Category category: Only include usage of a given category
         :param date start_date: Filter by start date
         :param date end_date: Filter by end date
+        :param boolean include_subaccounts: whether to include subaccounts or not
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -78,13 +80,15 @@ class RecordList(ListResource):
             category=category,
             start_date=start_date,
             end_date=end_date,
+            include_subaccounts=include_subaccounts,
             page_size=limits['page_size'],
         )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
     def list(self, category=values.unset, start_date=values.unset,
-             end_date=values.unset, limit=None, page_size=None):
+             end_date=values.unset, include_subaccounts=True,
+             limit=None, page_size=None):
         """
         Lists RecordInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -93,6 +97,7 @@ class RecordList(ListResource):
         :param RecordInstance.Category category: Only include usage of a given category
         :param date start_date: Filter by start date
         :param date end_date: Filter by end date
+        :param boolean include_subaccounts: whether to include subaccounts or not
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -107,13 +112,15 @@ class RecordList(ListResource):
             category=category,
             start_date=start_date,
             end_date=end_date,
+            include_subaccounts=include_subaccounts,
             limit=limit,
             page_size=page_size,
         ))
 
     def page(self, category=values.unset, start_date=values.unset,
-             end_date=values.unset, page_token=values.unset,
-             page_number=values.unset, page_size=values.unset):
+             end_date=values.unset, include_subaccounts=True,
+             page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of RecordInstance records from the API.
         Request is executed immediately
@@ -121,6 +128,7 @@ class RecordList(ListResource):
         :param RecordInstance.Category category: Only include usage of a given category
         :param date start_date: Filter by start date
         :param date end_date: Filter by end date
+        :param boolean include_subaccounts: whether to include subaccounts or not
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -132,6 +140,7 @@ class RecordList(ListResource):
             'Category': category,
             'StartDate': serialize.iso8601_date(start_date),
             'EndDate': serialize.iso8601_date(end_date),
+            'IncludeSubaccounts': include_subaccounts,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
