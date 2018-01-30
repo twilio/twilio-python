@@ -1,3 +1,6 @@
+flake8
+mock
+nose
 six
 requests>=2.0.0
 socksipy-branch
