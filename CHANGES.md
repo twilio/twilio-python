@@ -3,6 +3,18 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-01-30] Version 6.10.1
+----------------------------
+**Api**
+- Add `studio-engagements` usage key
+
+**Video**
+- [omit] Beta: Allow updates to `SubscribedTracks`.
+- Add `SubscribedTracks`.
+- Add track name to Video Recording resource
+- Add Composition and Composition Media resources
+
+
 [2018-01-19] Version 6.10.1
 ----------------------------
 **Api**

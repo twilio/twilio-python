@@ -354,6 +354,7 @@ class YearlyInstance(InstanceResource):
         SMS_MESSAGES_FEATURES = "sms-messages-features"
         SMS_MESSAGES_FEATURES_SENDERID = "sms-messages-features-senderid"
         SPEECH_RECOGNITION = "speech-recognition"
+        STUDIO_ENGAGEMENTS = "studio-engagements"
         SYNC = "sync"
         SYNC_ACTIONS = "sync-actions"
         SYNC_ENDPOINT_HOURS = "sync-endpoint-hours"

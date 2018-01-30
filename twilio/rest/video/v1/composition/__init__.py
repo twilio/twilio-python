@@ -15,36 +15,35 @@ from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
 
 
-class RecordingList(ListResource):
-    """  """
+class CompositionList(ListResource):
+    """ PLEASE NOTE that this class contains preview products that are subject
+    to change. Use them with caution. If you currently do not have developer
+    preview access, please contact help@twilio.com. """
 
     def __init__(self, version):
         """
-        Initialize the RecordingList
+        Initialize the CompositionList
 
         :param Version version: Version that contains the resource
 
-        :returns: twilio.rest.video.v1.recording.RecordingList
-        :rtype: twilio.rest.video.v1.recording.RecordingList
+        :returns: twilio.rest.video.v1.composition.CompositionList
+        :rtype: twilio.rest.video.v1.composition.CompositionList
         """
-        super(RecordingList, self).__init__(version)
+        super(CompositionList, self).__init__(version)
 
         # Path Solution
         self._solution = {}
-        self._uri = '/Recordings'.format(**self._solution)
+        self._uri = '/Compositions'.format(**self._solution)
 
-    def stream(self, status=values.unset, source_sid=values.unset,
-               grouping_sid=values.unset, date_created_after=values.unset,
+    def stream(self, status=values.unset, date_created_after=values.unset,
                date_created_before=values.unset, limit=None, page_size=None):
         """
-        Streams RecordingInstance records from the API as a generator stream.
+        Streams CompositionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param RecordingInstance.Status status: The status
-        :param unicode source_sid: The source_sid
-        :param unicode grouping_sid: The grouping_sid
+        :param CompositionInstance.Status status: The status
         :param datetime date_created_after: The date_created_after
         :param datetime date_created_before: The date_created_before
         :param int limit: Upper limit for the number of records to return. stream()
@@ -55,14 +54,12 @@ class RecordingList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.recording.RecordingInstance]
+        :rtype: list[twilio.rest.video.v1.composition.CompositionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
         page = self.page(
             status=status,
-            source_sid=source_sid,
-            grouping_sid=grouping_sid,
             date_created_after=date_created_after,
             date_created_before=date_created_before,
             page_size=limits['page_size'],
@@ -70,17 +67,14 @@ class RecordingList(ListResource):
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def list(self, status=values.unset, source_sid=values.unset,
-             grouping_sid=values.unset, date_created_after=values.unset,
+    def list(self, status=values.unset, date_created_after=values.unset,
              date_created_before=values.unset, limit=None, page_size=None):
         """
-        Lists RecordingInstance records from the API as a list.
+        Lists CompositionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param RecordingInstance.Status status: The status
-        :param unicode source_sid: The source_sid
-        :param unicode grouping_sid: The grouping_sid
+        :param CompositionInstance.Status status: The status
         :param datetime date_created_after: The date_created_after
         :param datetime date_created_before: The date_created_before
         :param int limit: Upper limit for the number of records to return. list() guarantees
@@ -91,42 +85,35 @@ class RecordingList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.recording.RecordingInstance]
+        :rtype: list[twilio.rest.video.v1.composition.CompositionInstance]
         """
         return list(self.stream(
             status=status,
-            source_sid=source_sid,
-            grouping_sid=grouping_sid,
             date_created_after=date_created_after,
             date_created_before=date_created_before,
             limit=limit,
             page_size=page_size,
         ))
 
-    def page(self, status=values.unset, source_sid=values.unset,
-             grouping_sid=values.unset, date_created_after=values.unset,
+    def page(self, status=values.unset, date_created_after=values.unset,
              date_created_before=values.unset, page_token=values.unset,
              page_number=values.unset, page_size=values.unset):
         """
-        Retrieve a single page of RecordingInstance records from the API.
+        Retrieve a single page of CompositionInstance records from the API.
         Request is executed immediately
 
-        :param RecordingInstance.Status status: The status
-        :param unicode source_sid: The source_sid
-        :param unicode grouping_sid: The grouping_sid
+        :param CompositionInstance.Status status: The status
         :param datetime date_created_after: The date_created_after
         :param datetime date_created_before: The date_created_before
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
-        :returns: Page of RecordingInstance
-        :rtype: twilio.rest.video.v1.recording.RecordingPage
+        :returns: Page of CompositionInstance
+        :rtype: twilio.rest.video.v1.composition.CompositionPage
         """
         params = values.of({
             'Status': status,
-            'SourceSid': source_sid,
-            'GroupingSid': serialize.map(grouping_sid, lambda e: e),
             'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
             'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
             'PageToken': page_token,
@@ -140,46 +127,87 @@ class RecordingList(ListResource):
             params=params,
         )
 
-        return RecordingPage(self._version, response, self._solution)
+        return CompositionPage(self._version, response, self._solution)
 
     def get_page(self, target_url):
         """
-        Retrieve a specific page of RecordingInstance records from the API.
+        Retrieve a specific page of CompositionInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
 
-        :returns: Page of RecordingInstance
-        :rtype: twilio.rest.video.v1.recording.RecordingPage
+        :returns: Page of CompositionInstance
+        :rtype: twilio.rest.video.v1.composition.CompositionPage
         """
         response = self._version.domain.twilio.request(
             'GET',
             target_url,
         )
 
-        return RecordingPage(self._version, response, self._solution)
+        return CompositionPage(self._version, response, self._solution)
+
+    def create(self, audio_sources=values.unset, video_sources=values.unset,
+               video_layout=values.unset, resolution=values.unset,
+               format=values.unset, desired_bitrate=values.unset,
+               desired_max_duration=values.unset, status_callback=values.unset,
+               status_callback_method=values.unset):
+        """
+        Create a new CompositionInstance
+
+        :param unicode audio_sources: The audio_sources
+        :param unicode video_sources: The video_sources
+        :param CompositionInstance.VideoLayout video_layout: The video_layout
+        :param unicode resolution: The resolution
+        :param CompositionInstance.Format format: The format
+        :param unicode desired_bitrate: The desired_bitrate
+        :param unicode desired_max_duration: The desired_max_duration
+        :param unicode status_callback: The status_callback
+        :param unicode status_callback_method: The status_callback_method
+
+        :returns: Newly created CompositionInstance
+        :rtype: twilio.rest.video.v1.composition.CompositionInstance
+        """
+        data = values.of({
+            'AudioSources': serialize.map(audio_sources, lambda e: e),
+            'VideoSources': serialize.map(video_sources, lambda e: e),
+            'VideoLayout': video_layout,
+            'Resolution': resolution,
+            'Format': format,
+            'DesiredBitrate': desired_bitrate,
+            'DesiredMaxDuration': desired_max_duration,
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
+        })
+
+        payload = self._version.create(
+            'POST',
+            self._uri,
+            data=data,
+        )
+
+        return CompositionInstance(self._version, payload, )
 
     def get(self, sid):
         """
-        Constructs a RecordingContext
+        Constructs a CompositionContext
 
         :param sid: The sid
 
-        :returns: twilio.rest.video.v1.recording.RecordingContext
-        :rtype: twilio.rest.video.v1.recording.RecordingContext
+        :returns: twilio.rest.video.v1.composition.CompositionContext
+        :rtype: twilio.rest.video.v1.composition.CompositionContext
         """
-        return RecordingContext(self._version, sid=sid, )
+        return CompositionContext(self._version, sid=sid, )
 
     def __call__(self, sid):
         """
-        Constructs a RecordingContext
+        Constructs a CompositionContext
 
         :param sid: The sid
 
-        :returns: twilio.rest.video.v1.recording.RecordingContext
-        :rtype: twilio.rest.video.v1.recording.RecordingContext
+        :returns: twilio.rest.video.v1.composition.CompositionContext
+        :rtype: twilio.rest.video.v1.composition.CompositionContext
         """
-        return RecordingContext(self._version, sid=sid, )
+        return CompositionContext(self._version, sid=sid, )
 
     def __repr__(self):
         """
@@ -188,37 +216,39 @@ class RecordingList(ListResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Video.V1.RecordingList>'
+        return '<Twilio.Video.V1.CompositionList>'
 
 
-class RecordingPage(Page):
-    """  """
+class CompositionPage(Page):
+    """ PLEASE NOTE that this class contains preview products that are subject
+    to change. Use them with caution. If you currently do not have developer
+    preview access, please contact help@twilio.com. """
 
     def __init__(self, version, response, solution):
         """
-        Initialize the RecordingPage
+        Initialize the CompositionPage
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.video.v1.recording.RecordingPage
-        :rtype: twilio.rest.video.v1.recording.RecordingPage
+        :returns: twilio.rest.video.v1.composition.CompositionPage
+        :rtype: twilio.rest.video.v1.composition.CompositionPage
         """
-        super(RecordingPage, self).__init__(version, response)
+        super(CompositionPage, self).__init__(version, response)
 
         # Path Solution
         self._solution = solution
 
     def get_instance(self, payload):
         """
-        Build an instance of RecordingInstance
+        Build an instance of CompositionInstance
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.video.v1.recording.RecordingInstance
-        :rtype: twilio.rest.video.v1.recording.RecordingInstance
+        :returns: twilio.rest.video.v1.composition.CompositionInstance
+        :rtype: twilio.rest.video.v1.composition.CompositionInstance
         """
-        return RecordingInstance(self._version, payload, )
+        return CompositionInstance(self._version, payload, )
 
     def __repr__(self):
         """
@@ -227,34 +257,36 @@ class RecordingPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Video.V1.RecordingPage>'
+        return '<Twilio.Video.V1.CompositionPage>'
 
 
-class RecordingContext(InstanceContext):
-    """  """
+class CompositionContext(InstanceContext):
+    """ PLEASE NOTE that this class contains preview products that are subject
+    to change. Use them with caution. If you currently do not have developer
+    preview access, please contact help@twilio.com. """
 
     def __init__(self, version, sid):
         """
-        Initialize the RecordingContext
+        Initialize the CompositionContext
 
         :param Version version: Version that contains the resource
         :param sid: The sid
 
-        :returns: twilio.rest.video.v1.recording.RecordingContext
-        :rtype: twilio.rest.video.v1.recording.RecordingContext
+        :returns: twilio.rest.video.v1.composition.CompositionContext
+        :rtype: twilio.rest.video.v1.composition.CompositionContext
         """
-        super(RecordingContext, self).__init__(version)
+        super(CompositionContext, self).__init__(version)
 
         # Path Solution
         self._solution = {'sid': sid, }
-        self._uri = '/Recordings/{sid}'.format(**self._solution)
+        self._uri = '/Compositions/{sid}'.format(**self._solution)
 
     def fetch(self):
         """
-        Fetch a RecordingInstance
+        Fetch a CompositionInstance
 
-        :returns: Fetched RecordingInstance
-        :rtype: twilio.rest.video.v1.recording.RecordingInstance
+        :returns: Fetched CompositionInstance
+        :rtype: twilio.rest.video.v1.composition.CompositionInstance
         """
         params = values.of({})
 
@@ -264,11 +296,11 @@ class RecordingContext(InstanceContext):
             params=params,
         )
 
-        return RecordingInstance(self._version, payload, sid=self._solution['sid'], )
+        return CompositionInstance(self._version, payload, sid=self._solution['sid'], )
 
     def delete(self):
         """
-        Deletes the RecordingInstance
+        Deletes the CompositionInstance
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -283,11 +315,13 @@ class RecordingContext(InstanceContext):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Video.V1.RecordingContext {}>'.format(context)
+        return '<Twilio.Video.V1.CompositionContext {}>'.format(context)
 
 
-class RecordingInstance(InstanceResource):
-    """  """
+class CompositionInstance(InstanceResource):
+    """ PLEASE NOTE that this class contains preview products that are subject
+    to change. Use them with caution. If you currently do not have developer
+    preview access, please contact help@twilio.com. """
 
     class Status(object):
         PROCESSING = "processing"
@@ -295,45 +329,45 @@ class RecordingInstance(InstanceResource):
         DELETED = "deleted"
         FAILED = "failed"
 
-    class Type(object):
-        AUDIO = "audio"
-        VIDEO = "video"
-        DATA = "data"
-
     class Format(object):
         MKA = "mka"
+        MP3 = "mp3"
+        M4A = "m4a"
         MKV = "mkv"
+        MP4 = "mp4"
+        WEBM = "webm"
 
-    class Codec(object):
-        VP8 = "VP8"
-        H264 = "H264"
-        OPUS = "OPUS"
-        PCMU = "PCMU"
+    class VideoLayout(object):
+        GRID = "GRID"
+        SINGLE = "SINGLE"
+        PIP = "PIP"
 
     def __init__(self, version, payload, sid=None):
         """
-        Initialize the RecordingInstance
+        Initialize the CompositionInstance
 
-        :returns: twilio.rest.video.v1.recording.RecordingInstance
-        :rtype: twilio.rest.video.v1.recording.RecordingInstance
+        :returns: twilio.rest.video.v1.composition.CompositionInstance
+        :rtype: twilio.rest.video.v1.composition.CompositionInstance
         """
-        super(RecordingInstance, self).__init__(version)
+        super(CompositionInstance, self).__init__(version)
 
         # Marshaled Properties
         self._properties = {
             'account_sid': payload['account_sid'],
             'status': payload['status'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
+            'date_completed': payload['date_completed'],
+            'date_deleted': payload['date_deleted'],
             'sid': payload['sid'],
-            'source_sid': payload['source_sid'],
+            'audio_sources': payload['audio_sources'],
+            'video_sources': payload['video_sources'],
+            'video_layout': payload['video_layout'],
+            'resolution': payload['resolution'],
+            'format': payload['format'],
+            'bitrate': deserialize.integer(payload['bitrate']),
             'size': deserialize.integer(payload['size']),
-            'url': payload['url'],
-            'type': payload['type'],
             'duration': deserialize.integer(payload['duration']),
-            'container_format': payload['container_format'],
-            'codec': payload['codec'],
-            'grouping_sids': payload['grouping_sids'],
-            'track_name': payload['track_name'],
+            'url': payload['url'],
             'links': payload['links'],
         }
 
@@ -347,11 +381,11 @@ class RecordingInstance(InstanceResource):
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
 
-        :returns: RecordingContext for this RecordingInstance
-        :rtype: twilio.rest.video.v1.recording.RecordingContext
+        :returns: CompositionContext for this CompositionInstance
+        :rtype: twilio.rest.video.v1.composition.CompositionContext
         """
         if self._context is None:
-            self._context = RecordingContext(self._version, sid=self._solution['sid'], )
+            self._context = CompositionContext(self._version, sid=self._solution['sid'], )
         return self._context
 
     @property
@@ -366,7 +400,7 @@ class RecordingInstance(InstanceResource):
     def status(self):
         """
         :returns: The status
-        :rtype: RecordingInstance.Status
+        :rtype: CompositionInstance.Status
         """
         return self._properties['status']
 
@@ -379,6 +413,22 @@ class RecordingInstance(InstanceResource):
         return self._properties['date_created']
 
     @property
+    def date_completed(self):
+        """
+        :returns: The date_completed
+        :rtype: unicode
+        """
+        return self._properties['date_completed']
+
+    @property
+    def date_deleted(self):
+        """
+        :returns: The date_deleted
+        :rtype: unicode
+        """
+        return self._properties['date_deleted']
+
+    @property
     def sid(self):
         """
         :returns: The sid
@@ -387,12 +437,52 @@ class RecordingInstance(InstanceResource):
         return self._properties['sid']
 
     @property
-    def source_sid(self):
+    def audio_sources(self):
         """
-        :returns: The source_sid
+        :returns: The audio_sources
         :rtype: unicode
         """
-        return self._properties['source_sid']
+        return self._properties['audio_sources']
+
+    @property
+    def video_sources(self):
+        """
+        :returns: The video_sources
+        :rtype: unicode
+        """
+        return self._properties['video_sources']
+
+    @property
+    def video_layout(self):
+        """
+        :returns: The video_layout
+        :rtype: CompositionInstance.VideoLayout
+        """
+        return self._properties['video_layout']
+
+    @property
+    def resolution(self):
+        """
+        :returns: The resolution
+        :rtype: unicode
+        """
+        return self._properties['resolution']
+
+    @property
+    def format(self):
+        """
+        :returns: The format
+        :rtype: CompositionInstance.Format
+        """
+        return self._properties['format']
+
+    @property
+    def bitrate(self):
+        """
+        :returns: The bitrate
+        :rtype: unicode
+        """
+        return self._properties['bitrate']
 
     @property
     def size(self):
@@ -403,22 +493,6 @@ class RecordingInstance(InstanceResource):
         return self._properties['size']
 
     @property
-    def url(self):
-        """
-        :returns: The url
-        :rtype: unicode
-        """
-        return self._properties['url']
-
-    @property
-    def type(self):
-        """
-        :returns: The type
-        :rtype: RecordingInstance.Type
-        """
-        return self._properties['type']
-
-    @property
     def duration(self):
         """
         :returns: The duration
@@ -427,36 +501,12 @@ class RecordingInstance(InstanceResource):
         return self._properties['duration']
 
     @property
-    def container_format(self):
+    def url(self):
         """
-        :returns: The container_format
-        :rtype: RecordingInstance.Format
-        """
-        return self._properties['container_format']
-
-    @property
-    def codec(self):
-        """
-        :returns: The codec
-        :rtype: RecordingInstance.Codec
-        """
-        return self._properties['codec']
-
-    @property
-    def grouping_sids(self):
-        """
-        :returns: The grouping_sids
-        :rtype: dict
-        """
-        return self._properties['grouping_sids']
-
-    @property
-    def track_name(self):
-        """
-        :returns: The track_name
+        :returns: The url
         :rtype: unicode
         """
-        return self._properties['track_name']
+        return self._properties['url']
 
     @property
     def links(self):
@@ -468,16 +518,16 @@ class RecordingInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a RecordingInstance
+        Fetch a CompositionInstance
 
-        :returns: Fetched RecordingInstance
-        :rtype: twilio.rest.video.v1.recording.RecordingInstance
+        :returns: Fetched CompositionInstance
+        :rtype: twilio.rest.video.v1.composition.CompositionInstance
         """
         return self._proxy.fetch()
 
     def delete(self):
         """
-        Deletes the RecordingInstance
+        Deletes the CompositionInstance
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -492,4 +542,4 @@ class RecordingInstance(InstanceResource):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Video.V1.RecordingInstance {}>'.format(context)
+        return '<Twilio.Video.V1.CompositionInstance {}>'.format(context)

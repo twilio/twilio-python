@@ -14,6 +14,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
 from twilio.rest.video.v1.room.room_participant.room_participant_published_track import PublishedTrackList
+from twilio.rest.video.v1.room.room_participant.room_participant_subscribed_track import SubscribedTrackList
 
 
 class ParticipantList(ListResource):
@@ -249,6 +250,7 @@ class ParticipantContext(InstanceContext):
 
         # Dependents
         self._published_tracks = None
+        self._subscribed_tracks = None
 
     def fetch(self):
         """
@@ -311,6 +313,22 @@ class ParticipantContext(InstanceContext):
                 participant_sid=self._solution['sid'],
             )
         return self._published_tracks
+
+    @property
+    def subscribed_tracks(self):
+        """
+        Access the subscribed_tracks
+
+        :returns: twilio.rest.video.v1.room.room_participant.room_participant_subscribed_track.SubscribedTrackList
+        :rtype: twilio.rest.video.v1.room.room_participant.room_participant_subscribed_track.SubscribedTrackList
+        """
+        if self._subscribed_tracks is None:
+            self._subscribed_tracks = SubscribedTrackList(
+                self._version,
+                room_sid=self._solution['room_sid'],
+                subscriber_sid=self._solution['sid'],
+            )
+        return self._subscribed_tracks
 
     def __repr__(self):
         """
@@ -501,6 +519,16 @@ class ParticipantInstance(InstanceResource):
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_published_track.PublishedTrackList
         """
         return self._proxy.published_tracks
+
+    @property
+    def subscribed_tracks(self):
+        """
+        Access the subscribed_tracks
+
+        :returns: twilio.rest.video.v1.room.room_participant.room_participant_subscribed_track.SubscribedTrackList
+        :rtype: twilio.rest.video.v1.room.room_participant.room_participant_subscribed_track.SubscribedTrackList
+        """
+        return self._proxy.subscribed_tracks
 
     def __repr__(self):
         """
