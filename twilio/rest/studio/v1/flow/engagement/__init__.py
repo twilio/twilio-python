@@ -12,23 +12,22 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
-from twilio.rest.preview.studio.flow.engagement.step import StepList
+from twilio.rest.studio.v1.flow.engagement.step import StepList
 
 
 class EngagementList(ListResource):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, flow_sid):
         """
         Initialize the EngagementList
 
         :param Version version: Version that contains the resource
-        :param flow_sid: Flow Sid.
+        :param flow_sid: The flow_sid
 
-        :returns: twilio.rest.preview.studio.flow.engagement.EngagementList
-        :rtype: twilio.rest.preview.studio.flow.engagement.EngagementList
+        :returns: twilio.rest.studio.v1.flow.engagement.EngagementList
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementList
         """
         super(EngagementList, self).__init__(version)
 
@@ -51,7 +50,7 @@ class EngagementList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.studio.flow.engagement.EngagementInstance]
+        :rtype: list[twilio.rest.studio.v1.flow.engagement.EngagementInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -73,7 +72,7 @@ class EngagementList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.studio.flow.engagement.EngagementInstance]
+        :rtype: list[twilio.rest.studio.v1.flow.engagement.EngagementInstance]
         """
         return list(self.stream(limit=limit, page_size=page_size, ))
 
@@ -88,7 +87,7 @@ class EngagementList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of EngagementInstance
-        :rtype: twilio.rest.preview.studio.flow.engagement.EngagementPage
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementPage
         """
         params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
@@ -108,7 +107,7 @@ class EngagementList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of EngagementInstance
-        :rtype: twilio.rest.preview.studio.flow.engagement.EngagementPage
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -126,7 +125,7 @@ class EngagementList(ListResource):
         :param unicode parameters: The parameters
 
         :returns: Newly created EngagementInstance
-        :rtype: twilio.rest.preview.studio.flow.engagement.EngagementInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
         """
         data = values.of({'To': to, 'From': from_, 'Parameters': parameters, })
 
@@ -144,8 +143,8 @@ class EngagementList(ListResource):
 
         :param sid: The sid
 
-        :returns: twilio.rest.preview.studio.flow.engagement.EngagementContext
-        :rtype: twilio.rest.preview.studio.flow.engagement.EngagementContext
+        :returns: twilio.rest.studio.v1.flow.engagement.EngagementContext
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementContext
         """
         return EngagementContext(self._version, flow_sid=self._solution['flow_sid'], sid=sid, )
 
@@ -155,8 +154,8 @@ class EngagementList(ListResource):
 
         :param sid: The sid
 
-        :returns: twilio.rest.preview.studio.flow.engagement.EngagementContext
-        :rtype: twilio.rest.preview.studio.flow.engagement.EngagementContext
+        :returns: twilio.rest.studio.v1.flow.engagement.EngagementContext
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementContext
         """
         return EngagementContext(self._version, flow_sid=self._solution['flow_sid'], sid=sid, )
 
@@ -167,13 +166,12 @@ class EngagementList(ListResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.Studio.EngagementList>'
+        return '<Twilio.Studio.V1.EngagementList>'
 
 
 class EngagementPage(Page):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -181,10 +179,10 @@ class EngagementPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param flow_sid: Flow Sid.
+        :param flow_sid: The flow_sid
 
-        :returns: twilio.rest.preview.studio.flow.engagement.EngagementPage
-        :rtype: twilio.rest.preview.studio.flow.engagement.EngagementPage
+        :returns: twilio.rest.studio.v1.flow.engagement.EngagementPage
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementPage
         """
         super(EngagementPage, self).__init__(version, response)
 
@@ -197,8 +195,8 @@ class EngagementPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.studio.flow.engagement.EngagementInstance
-        :rtype: twilio.rest.preview.studio.flow.engagement.EngagementInstance
+        :returns: twilio.rest.studio.v1.flow.engagement.EngagementInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
         """
         return EngagementInstance(self._version, payload, flow_sid=self._solution['flow_sid'], )
 
@@ -209,13 +207,12 @@ class EngagementPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.Studio.EngagementPage>'
+        return '<Twilio.Studio.V1.EngagementPage>'
 
 
 class EngagementContext(InstanceContext):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, flow_sid, sid):
         """
@@ -225,8 +222,8 @@ class EngagementContext(InstanceContext):
         :param flow_sid: The flow_sid
         :param sid: The sid
 
-        :returns: twilio.rest.preview.studio.flow.engagement.EngagementContext
-        :rtype: twilio.rest.preview.studio.flow.engagement.EngagementContext
+        :returns: twilio.rest.studio.v1.flow.engagement.EngagementContext
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementContext
         """
         super(EngagementContext, self).__init__(version)
 
@@ -242,7 +239,7 @@ class EngagementContext(InstanceContext):
         Fetch a EngagementInstance
 
         :returns: Fetched EngagementInstance
-        :rtype: twilio.rest.preview.studio.flow.engagement.EngagementInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
         """
         params = values.of({})
 
@@ -264,8 +261,8 @@ class EngagementContext(InstanceContext):
         """
         Access the steps
 
-        :returns: twilio.rest.preview.studio.flow.engagement.step.StepList
-        :rtype: twilio.rest.preview.studio.flow.engagement.step.StepList
+        :returns: twilio.rest.studio.v1.flow.engagement.step.StepList
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepList
         """
         if self._steps is None:
             self._steps = StepList(
@@ -283,13 +280,12 @@ class EngagementContext(InstanceContext):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Studio.EngagementContext {}>'.format(context)
+        return '<Twilio.Studio.V1.EngagementContext {}>'.format(context)
 
 
 class EngagementInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     class Status(object):
         ACTIVE = "active"
@@ -299,8 +295,8 @@ class EngagementInstance(InstanceResource):
         """
         Initialize the EngagementInstance
 
-        :returns: twilio.rest.preview.studio.flow.engagement.EngagementInstance
-        :rtype: twilio.rest.preview.studio.flow.engagement.EngagementInstance
+        :returns: twilio.rest.studio.v1.flow.engagement.EngagementInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
         """
         super(EngagementInstance, self).__init__(version)
 
@@ -330,7 +326,7 @@ class EngagementInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: EngagementContext for this EngagementInstance
-        :rtype: twilio.rest.preview.studio.flow.engagement.EngagementContext
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementContext
         """
         if self._context is None:
             self._context = EngagementContext(
@@ -343,7 +339,7 @@ class EngagementInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this Engagement.
+        :returns: The sid
         :rtype: unicode
         """
         return self._properties['sid']
@@ -351,7 +347,7 @@ class EngagementInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid.
+        :returns: The account_sid
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -359,7 +355,7 @@ class EngagementInstance(InstanceResource):
     @property
     def flow_sid(self):
         """
-        :returns: Flow Sid.
+        :returns: The flow_sid
         :rtype: unicode
         """
         return self._properties['flow_sid']
@@ -367,7 +363,7 @@ class EngagementInstance(InstanceResource):
     @property
     def contact_sid(self):
         """
-        :returns: Contact Sid.
+        :returns: The contact_sid
         :rtype: unicode
         """
         return self._properties['contact_sid']
@@ -375,7 +371,7 @@ class EngagementInstance(InstanceResource):
     @property
     def contact_channel_address(self):
         """
-        :returns: The phone number, SIP address or Client identifier that triggered this Engagement.
+        :returns: The contact_channel_address
         :rtype: unicode
         """
         return self._properties['contact_channel_address']
@@ -383,7 +379,7 @@ class EngagementInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: The Status of this Engagement
+        :returns: The status
         :rtype: EngagementInstance.Status
         """
         return self._properties['status']
@@ -391,7 +387,7 @@ class EngagementInstance(InstanceResource):
     @property
     def context(self):
         """
-        :returns: Nested resource URLs.
+        :returns: The context
         :rtype: dict
         """
         return self._properties['context']
@@ -399,7 +395,7 @@ class EngagementInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this Engagement was created
+        :returns: The date_created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -407,7 +403,7 @@ class EngagementInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this Engagement was updated
+        :returns: The date_updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -415,7 +411,7 @@ class EngagementInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL of this resource.
+        :returns: The url
         :rtype: unicode
         """
         return self._properties['url']
@@ -423,7 +419,7 @@ class EngagementInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: Nested resource URLs.
+        :returns: The links
         :rtype: unicode
         """
         return self._properties['links']
@@ -433,7 +429,7 @@ class EngagementInstance(InstanceResource):
         Fetch a EngagementInstance
 
         :returns: Fetched EngagementInstance
-        :rtype: twilio.rest.preview.studio.flow.engagement.EngagementInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
         """
         return self._proxy.fetch()
 
@@ -442,8 +438,8 @@ class EngagementInstance(InstanceResource):
         """
         Access the steps
 
-        :returns: twilio.rest.preview.studio.flow.engagement.step.StepList
-        :rtype: twilio.rest.preview.studio.flow.engagement.step.StepList
+        :returns: twilio.rest.studio.v1.flow.engagement.step.StepList
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepList
         """
         return self._proxy.steps
 
@@ -455,4 +451,4 @@ class EngagementInstance(InstanceResource):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Studio.EngagementInstance {}>'.format(context)
+        return '<Twilio.Studio.V1.EngagementInstance {}>'.format(context)

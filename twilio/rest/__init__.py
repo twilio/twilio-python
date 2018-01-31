@@ -69,6 +69,7 @@ class Client(object):
         self._messaging = None
         self._wireless = None
         self._sync = None
+        self._studio = None
 
     def request(self, method, uri, params=None, data=None, headers=None, auth=None,
                 timeout=None, allow_redirects=False):
@@ -341,6 +342,19 @@ class Client(object):
             from twilio.rest.sync import Sync
             self._sync = Sync(self)
         return self._sync
+
+    @property
+    def studio(self):
+        """
+        Access the Studio Twilio Domain
+
+        :returns: Studio Twilio Domain
+        :rtype: twilio.rest.studio.Studio
+        """
+        if self._studio is None:
+            from twilio.rest.studio import Studio
+            self._studio = Studio(self)
+        return self._studio
 
     @property
     def addresses(self):

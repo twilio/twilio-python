@@ -18,12 +18,12 @@ class EngagementTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.studio.flows(sid="FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .engagements.list()
+            self.client.studio.v1.flows(sid="FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                 .engagements.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://preview.twilio.com/Studio/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Engagements',
+            'https://studio.twilio.com/v1/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Engagements',
         ))
 
     def test_read_empty_response(self):
@@ -34,9 +34,9 @@ class EngagementTestCase(IntegrationTestCase):
                 "meta": {
                     "previous_page_url": null,
                     "next_page_url": null,
-                    "url": "https://preview.twilio.com/Studio/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Engagements?PageSize=50&Page=0",
+                    "url": "https://studio.twilio.com/v1/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Engagements?PageSize=50&Page=0",
                     "page": 0,
-                    "first_page_url": "https://preview.twilio.com/Studio/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Engagements?PageSize=50&Page=0",
+                    "first_page_url": "https://studio.twilio.com/v1/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Engagements?PageSize=50&Page=0",
                     "page_size": 50,
                     "key": "engagements"
                 },
@@ -45,8 +45,8 @@ class EngagementTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.studio.flows(sid="FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                           .engagements.list()
+        actual = self.client.studio.v1.flows(sid="FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                      .engagements.list()
 
         self.assertIsNotNone(actual)
 
@@ -54,12 +54,12 @@ class EngagementTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.studio.flows(sid="FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .engagements(sid="FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.studio.v1.flows(sid="FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                 .engagements(sid="FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://preview.twilio.com/Studio/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Engagements/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://studio.twilio.com/v1/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Engagements/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         ))
 
     def test_fetch_response(self):
@@ -76,16 +76,16 @@ class EngagementTestCase(IntegrationTestCase):
                 "context": {},
                 "date_created": "2017-11-06T12:00:00Z",
                 "date_updated": null,
-                "url": "https://preview.twilio.com/Studio/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Engagements/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "url": "https://studio.twilio.com/v1/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Engagements/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "links": {
-                    "steps": "https://preview.twilio.com/Studio/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Engagements/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Steps"
+                    "steps": "https://studio.twilio.com/v1/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Engagements/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Steps"
                 }
             }
             '''
         ))
 
-        actual = self.client.preview.studio.flows(sid="FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                           .engagements(sid="FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.studio.v1.flows(sid="FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                      .engagements(sid="FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -93,14 +93,14 @@ class EngagementTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.studio.flows(sid="FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .engagements.create(to="+15558675310", from_="+15017122661")
+            self.client.studio.v1.flows(sid="FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                 .engagements.create(to="+15558675310", from_="+15017122661")
 
         values = {'To': "+15558675310", 'From': "+15017122661", }
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://preview.twilio.com/Studio/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Engagements',
+            'https://studio.twilio.com/v1/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Engagements',
             data=values,
         ))
 
@@ -109,7 +109,7 @@ class EngagementTestCase(IntegrationTestCase):
             201,
             '''
             {
-                "url": "https://preview.twilio.com/Studio/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Engagements/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "url": "https://studio.twilio.com/v1/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Engagements/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "sid": "FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "flow_sid": "FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -124,13 +124,13 @@ class EngagementTestCase(IntegrationTestCase):
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z",
                 "links": {
-                    "steps": "https://preview.twilio.com/Studio/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Engagements/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Steps"
+                    "steps": "https://studio.twilio.com/v1/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Engagements/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Steps"
                 }
             }
             '''
         ))
 
-        actual = self.client.preview.studio.flows(sid="FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                           .engagements.create(to="+15558675310", from_="+15017122661")
+        actual = self.client.studio.v1.flows(sid="FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                      .engagements.create(to="+15558675310", from_="+15017122661")
 
         self.assertIsNotNone(actual)

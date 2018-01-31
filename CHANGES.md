@@ -3,6 +3,15 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-01-30] Version 6.10.2
+----------------------------
+**Preview**
+- Remove Studio Engagement Deletion
+
+**Studio**
+- Initial Release
+
+
 [2018-01-30] Version 6.10.1
 ----------------------------
 **Api**
