@@ -302,16 +302,19 @@ class ConferenceContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
-    def update(self, status=values.unset):
+    def update(self, status=values.unset, announce_url=values.unset,
+               announce_method=values.unset):
         """
         Update the ConferenceInstance
 
         :param ConferenceInstance.UpdateStatus status: The status
+        :param unicode announce_url: The announce_url
+        :param unicode announce_method: The announce_method
 
         :returns: Updated ConferenceInstance
         :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
         """
-        data = values.of({'Status': status, })
+        data = values.of({'Status': status, 'AnnounceUrl': announce_url, 'AnnounceMethod': announce_method, })
 
         payload = self._version.update(
             'POST',
@@ -497,16 +500,19 @@ class ConferenceInstance(InstanceResource):
         """
         return self._proxy.fetch()
 
-    def update(self, status=values.unset):
+    def update(self, status=values.unset, announce_url=values.unset,
+               announce_method=values.unset):
         """
         Update the ConferenceInstance
 
         :param ConferenceInstance.UpdateStatus status: The status
+        :param unicode announce_url: The announce_url
+        :param unicode announce_method: The announce_method
 
         :returns: Updated ConferenceInstance
         :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
         """
-        return self._proxy.update(status=status, )
+        return self._proxy.update(status=status, announce_url=announce_url, announce_method=announce_method, )
 
     @property
     def participants(self):

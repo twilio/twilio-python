@@ -3,6 +3,15 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-02-09] Version 6.10.3
+----------------------------
+**Api**
+- Add `AnnounceUrl` and `AnnounceMethod` params for conference announce
+
+**Chat**
+- Add support to looking up user channels by identity in v1
+
+
 [2018-01-30] Version 6.10.2
 ----------------------------
 **Preview**
