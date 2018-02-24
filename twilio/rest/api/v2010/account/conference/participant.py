@@ -340,7 +340,11 @@ class ParticipantContext(InstanceContext):
         super(ParticipantContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid, 'conference_sid': conference_sid, 'call_sid': call_sid, }
+        self._solution = {
+            'account_sid': account_sid,
+            'conference_sid': conference_sid,
+            'call_sid': call_sid,
+        }
         self._uri = '/Accounts/{account_sid}/Conferences/{conference_sid}/Participants/{call_sid}.json'.format(**self._solution)
 
     def fetch(self):

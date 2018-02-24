@@ -235,7 +235,11 @@ class IncomingPhoneNumberList(ListResource):
             data=data,
         )
 
-        return IncomingPhoneNumberInstance(self._version, payload, account_sid=self._solution['account_sid'], )
+        return IncomingPhoneNumberInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+        )
 
     @property
     def local(self):
@@ -333,7 +337,11 @@ class IncomingPhoneNumberPage(Page):
         :returns: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
         """
-        return IncomingPhoneNumberInstance(self._version, payload, account_sid=self._solution['account_sid'], )
+        return IncomingPhoneNumberInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+        )
 
     def __repr__(self):
         """

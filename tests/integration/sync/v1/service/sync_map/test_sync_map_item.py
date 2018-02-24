@@ -85,9 +85,9 @@ class SyncMapItemTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                .sync_maps(sid="MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .sync_map_items.create(key="key", data="{}")
+                               .sync_map_items.create(key="key", data={})
 
-        values = {'Key': "key", 'Data': serialize.object("{}"), }
+        values = {'Key': "key", 'Data': serialize.object({}), }
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -117,7 +117,7 @@ class SyncMapItemTestCase(IntegrationTestCase):
 
         actual = self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                     .sync_maps(sid="MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .sync_map_items.create(key="key", data="{}")
+                                    .sync_map_items.create(key="key", data={})
 
         self.assertIsNotNone(actual)
 

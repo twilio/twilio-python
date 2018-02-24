@@ -74,7 +74,10 @@ class SipList(ListResource):
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListList
         """
         if self._credential_lists is None:
-            self._credential_lists = CredentialListList(self._version, account_sid=self._solution['account_sid'], )
+            self._credential_lists = CredentialListList(
+                self._version,
+                account_sid=self._solution['account_sid'],
+            )
         return self._credential_lists
 
     def __repr__(self):

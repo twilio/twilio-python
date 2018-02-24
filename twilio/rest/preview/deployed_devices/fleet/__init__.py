@@ -489,7 +489,10 @@ class FleetInstance(InstanceResource):
         :returns: Updated FleetInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.FleetInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, default_deployment_sid=default_deployment_sid, )
+        return self._proxy.update(
+            friendly_name=friendly_name,
+            default_deployment_sid=default_deployment_sid,
+        )
 
     @property
     def devices(self):

@@ -150,7 +150,8 @@ class CompositionList(ListResource):
                video_layout=values.unset, resolution=values.unset,
                format=values.unset, desired_bitrate=values.unset,
                desired_max_duration=values.unset, status_callback=values.unset,
-               status_callback_method=values.unset):
+               status_callback_method=values.unset, trim=values.unset,
+               reuse=values.unset):
         """
         Create a new CompositionInstance
 
@@ -163,6 +164,8 @@ class CompositionList(ListResource):
         :param unicode desired_max_duration: The desired_max_duration
         :param unicode status_callback: The status_callback
         :param unicode status_callback_method: The status_callback_method
+        :param bool trim: The trim
+        :param bool reuse: The reuse
 
         :returns: Newly created CompositionInstance
         :rtype: twilio.rest.video.v1.composition.CompositionInstance
@@ -177,6 +180,8 @@ class CompositionList(ListResource):
             'DesiredMaxDuration': desired_max_duration,
             'StatusCallback': status_callback,
             'StatusCallbackMethod': status_callback_method,
+            'Trim': trim,
+            'Reuse': reuse,
         })
 
         payload = self._version.create(
@@ -338,9 +343,10 @@ class CompositionInstance(InstanceResource):
         WEBM = "webm"
 
     class VideoLayout(object):
-        GRID = "GRID"
-        SINGLE = "SINGLE"
-        PIP = "PIP"
+        GRID = "grid"
+        SINGLE = "single"
+        PIP = "pip"
+        SEQUENCE = "sequence"
 
     def __init__(self, version, payload, sid=None):
         """

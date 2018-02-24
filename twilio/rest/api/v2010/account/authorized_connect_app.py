@@ -182,7 +182,11 @@ class AuthorizedConnectAppPage(Page):
         :returns: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance
         :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance
         """
-        return AuthorizedConnectAppInstance(self._version, payload, account_sid=self._solution['account_sid'], )
+        return AuthorizedConnectAppInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+        )
 
     def __repr__(self):
         """

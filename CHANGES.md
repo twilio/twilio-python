@@ -3,6 +3,21 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-02-23] Version 6.10.4
+----------------------------
+**Api**
+- Add `trim` param to Outbound Calls API
+
+**Lookups**
+- Add support for `fraud` lookup type
+
+**Numbers**
+- Initial Release
+
+**Video**
+- [composer] Add `SEQUENCE` value to available layouts, and `trim` and `reuse` params.
+
+
 [2018-02-09] Version 6.10.3
 ----------------------------
 **Api**

@@ -294,7 +294,11 @@ class ChannelContext(InstanceContext):
         :returns: Updated ChannelInstance
         :rtype: twilio.rest.chat.v1.service.channel.ChannelInstance
         """
-        data = values.of({'FriendlyName': friendly_name, 'UniqueName': unique_name, 'Attributes': attributes, })
+        data = values.of({
+            'FriendlyName': friendly_name,
+            'UniqueName': unique_name,
+            'Attributes': attributes,
+        })
 
         payload = self._version.update(
             'POST',
@@ -565,7 +569,11 @@ class ChannelInstance(InstanceResource):
         :returns: Updated ChannelInstance
         :rtype: twilio.rest.chat.v1.service.channel.ChannelInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, unique_name=unique_name, attributes=attributes, )
+        return self._proxy.update(
+            friendly_name=friendly_name,
+            unique_name=unique_name,
+            attributes=attributes,
+        )
 
     @property
     def members(self):

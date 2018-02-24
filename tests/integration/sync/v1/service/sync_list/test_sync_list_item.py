@@ -85,9 +85,9 @@ class SyncListItemTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                .sync_lists(sid="ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .sync_list_items.create(data="{}")
+                               .sync_list_items.create(data={})
 
-        values = {'Data': serialize.object("{}"), }
+        values = {'Data': serialize.object({}), }
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -117,7 +117,7 @@ class SyncListItemTestCase(IntegrationTestCase):
 
         actual = self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
                                     .sync_lists(sid="ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .sync_list_items.create(data="{}")
+                                    .sync_list_items.create(data={})
 
         self.assertIsNotNone(actual)
 

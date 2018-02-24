@@ -197,9 +197,9 @@ class DocumentTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.preview.sync.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .documents(sid="ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(data="{}")
+                                    .documents(sid="ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(data={})
 
-        values = {'Data': serialize.object("{}"), }
+        values = {'Data': serialize.object({}), }
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -230,6 +230,6 @@ class DocumentTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.preview.sync.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                         .documents(sid="ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(data="{}")
+                                         .documents(sid="ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(data={})
 
         self.assertIsNotNone(actual)

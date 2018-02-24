@@ -80,7 +80,13 @@ class CommandList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.wireless.v1.command.CommandInstance]
         """
-        return list(self.stream(sim=sim, status=status, direction=direction, limit=limit, page_size=page_size, ))
+        return list(self.stream(
+            sim=sim,
+            status=status,
+            direction=direction,
+            limit=limit,
+            page_size=page_size,
+        ))
 
     def page(self, sim=values.unset, status=values.unset, direction=values.unset,
              page_token=values.unset, page_number=values.unset,

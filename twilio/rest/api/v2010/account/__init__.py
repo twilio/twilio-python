@@ -119,7 +119,12 @@ class AccountList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.api.v2010.account.AccountInstance]
         """
-        return list(self.stream(friendly_name=friendly_name, status=status, limit=limit, page_size=page_size, ))
+        return list(self.stream(
+            friendly_name=friendly_name,
+            status=status,
+            limit=limit,
+            page_size=page_size,
+        ))
 
     def page(self, friendly_name=values.unset, status=values.unset,
              page_token=values.unset, page_number=values.unset,

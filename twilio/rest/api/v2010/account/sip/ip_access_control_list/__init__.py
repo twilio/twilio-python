@@ -132,7 +132,11 @@ class IpAccessControlListList(ListResource):
             data=data,
         )
 
-        return IpAccessControlListInstance(self._version, payload, account_sid=self._solution['account_sid'], )
+        return IpAccessControlListInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+        )
 
     def get(self, sid):
         """
@@ -194,7 +198,11 @@ class IpAccessControlListPage(Page):
         :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance
         """
-        return IpAccessControlListInstance(self._version, payload, account_sid=self._solution['account_sid'], )
+        return IpAccessControlListInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+        )
 
     def __repr__(self):
         """

@@ -246,7 +246,11 @@ class CredentialContext(InstanceContext):
         super(CredentialContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'account_sid': account_sid, 'credential_list_sid': credential_list_sid, 'sid': sid, }
+        self._solution = {
+            'account_sid': account_sid,
+            'credential_list_sid': credential_list_sid,
+            'sid': sid,
+        }
         self._uri = '/Accounts/{account_sid}/SIP/CredentialLists/{credential_list_sid}/Credentials/{sid}.json'.format(**self._solution)
 
     def fetch(self):

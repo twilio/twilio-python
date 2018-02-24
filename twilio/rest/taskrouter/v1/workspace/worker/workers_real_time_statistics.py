@@ -39,7 +39,10 @@ class WorkersRealTimeStatisticsList(ListResource):
         :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsContext
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsContext
         """
-        return WorkersRealTimeStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'], )
+        return WorkersRealTimeStatisticsContext(
+            self._version,
+            workspace_sid=self._solution['workspace_sid'],
+        )
 
     def __call__(self):
         """
@@ -48,7 +51,10 @@ class WorkersRealTimeStatisticsList(ListResource):
         :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsContext
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsContext
         """
-        return WorkersRealTimeStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'], )
+        return WorkersRealTimeStatisticsContext(
+            self._version,
+            workspace_sid=self._solution['workspace_sid'],
+        )
 
     def __repr__(self):
         """

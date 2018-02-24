@@ -125,7 +125,11 @@ class PublicKeyList(ListResource):
         :returns: Newly created PublicKeyInstance
         :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
-        data = values.of({'PublicKey': public_key, 'FriendlyName': friendly_name, 'AccountSid': account_sid, })
+        data = values.of({
+            'PublicKey': public_key,
+            'FriendlyName': friendly_name,
+            'AccountSid': account_sid,
+        })
 
         payload = self._version.create(
             'POST',

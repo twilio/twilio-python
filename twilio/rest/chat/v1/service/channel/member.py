@@ -498,7 +498,10 @@ class MemberInstance(InstanceResource):
         :returns: Updated MemberInstance
         :rtype: twilio.rest.chat.v1.service.channel.member.MemberInstance
         """
-        return self._proxy.update(role_sid=role_sid, last_consumed_message_index=last_consumed_message_index, )
+        return self._proxy.update(
+            role_sid=role_sid,
+            last_consumed_message_index=last_consumed_message_index,
+        )
 
     def __repr__(self):
         """

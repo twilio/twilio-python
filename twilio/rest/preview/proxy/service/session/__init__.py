@@ -551,7 +551,12 @@ class SessionInstance(InstanceResource):
         :returns: Updated SessionInstance
         :rtype: twilio.rest.preview.proxy.service.session.SessionInstance
         """
-        return self._proxy.update(unique_name=unique_name, ttl=ttl, status=status, participants=participants, )
+        return self._proxy.update(
+            unique_name=unique_name,
+            ttl=ttl,
+            status=status,
+            participants=participants,
+        )
 
     @property
     def interactions(self):
