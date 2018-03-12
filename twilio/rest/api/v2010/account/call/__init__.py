@@ -52,7 +52,8 @@ class CallList(ListResource):
                sip_auth_username=values.unset, sip_auth_password=values.unset,
                machine_detection=values.unset,
                machine_detection_timeout=values.unset,
-               recording_status_callback_event=values.unset, url=values.unset,
+               recording_status_callback_event=values.unset, trim=values.unset,
+               caller_id=values.unset, url=values.unset,
                application_sid=values.unset):
         """
         Create a new CallInstance
@@ -77,6 +78,8 @@ class CallList(ListResource):
         :param unicode machine_detection: Enable machine detection or end of greeting detection
         :param unicode machine_detection_timeout: Number of miliseconds to wait for machine detection
         :param unicode recording_status_callback_event: The recording_status_callback_event
+        :param unicode trim: Set this parameter to control trimming of silence on the recording.
+        :param unicode caller_id: The phone number, SIP address or Client identifier that made this Call. Phone numbers are in E.164 format (e.g. +16175551212). SIP addresses are formatted as `name@company.com`.
         :param unicode url: Url from which to fetch TwiML
         :param unicode application_sid: ApplicationSid that configures from where to fetch TwiML
 
@@ -106,6 +109,8 @@ class CallList(ListResource):
             'MachineDetection': machine_detection,
             'MachineDetectionTimeout': machine_detection_timeout,
             'RecordingStatusCallbackEvent': serialize.map(recording_status_callback_event, lambda e: e),
+            'Trim': trim,
+            'CallerId': caller_id,
         })
 
         payload = self._version.create(

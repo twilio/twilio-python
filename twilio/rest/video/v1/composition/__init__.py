@@ -36,7 +36,8 @@ class CompositionList(ListResource):
         self._uri = '/Compositions'.format(**self._solution)
 
     def stream(self, status=values.unset, date_created_after=values.unset,
-               date_created_before=values.unset, limit=None, page_size=None):
+               date_created_before=values.unset, room_sid=values.unset, limit=None,
+               page_size=None):
         """
         Streams CompositionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -46,6 +47,7 @@ class CompositionList(ListResource):
         :param CompositionInstance.Status status: The status
         :param datetime date_created_after: The date_created_after
         :param datetime date_created_before: The date_created_before
+        :param unicode room_sid: The room_sid
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -62,13 +64,15 @@ class CompositionList(ListResource):
             status=status,
             date_created_after=date_created_after,
             date_created_before=date_created_before,
+            room_sid=room_sid,
             page_size=limits['page_size'],
         )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
     def list(self, status=values.unset, date_created_after=values.unset,
-             date_created_before=values.unset, limit=None, page_size=None):
+             date_created_before=values.unset, room_sid=values.unset, limit=None,
+             page_size=None):
         """
         Lists CompositionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -77,6 +81,7 @@ class CompositionList(ListResource):
         :param CompositionInstance.Status status: The status
         :param datetime date_created_after: The date_created_after
         :param datetime date_created_before: The date_created_before
+        :param unicode room_sid: The room_sid
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -91,13 +96,15 @@ class CompositionList(ListResource):
             status=status,
             date_created_after=date_created_after,
             date_created_before=date_created_before,
+            room_sid=room_sid,
             limit=limit,
             page_size=page_size,
         ))
 
     def page(self, status=values.unset, date_created_after=values.unset,
-             date_created_before=values.unset, page_token=values.unset,
-             page_number=values.unset, page_size=values.unset):
+             date_created_before=values.unset, room_sid=values.unset,
+             page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of CompositionInstance records from the API.
         Request is executed immediately
@@ -105,6 +112,7 @@ class CompositionList(ListResource):
         :param CompositionInstance.Status status: The status
         :param datetime date_created_after: The date_created_after
         :param datetime date_created_before: The date_created_before
+        :param unicode room_sid: The room_sid
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -116,6 +124,7 @@ class CompositionList(ListResource):
             'Status': status,
             'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
             'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
+            'RoomSid': room_sid,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -374,6 +383,7 @@ class CompositionInstance(InstanceResource):
             'size': deserialize.integer(payload['size']),
             'duration': deserialize.integer(payload['duration']),
             'url': payload['url'],
+            'room_sid': payload['room_sid'],
             'links': payload['links'],
         }
 
@@ -513,6 +523,14 @@ class CompositionInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['url']
+
+    @property
+    def room_sid(self):
+        """
+        :returns: The room_sid
+        :rtype: unicode
+        """
+        return self._properties['room_sid']
 
     @property
     def links(self):
