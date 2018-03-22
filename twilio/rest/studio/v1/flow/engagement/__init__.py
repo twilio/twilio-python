@@ -12,6 +12,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.studio.v1.flow.engagement.engagement_context import EngagementContextList
 from twilio.rest.studio.v1.flow.engagement.step import StepList
 
 
@@ -233,6 +234,7 @@ class EngagementContext(InstanceContext):
 
         # Dependents
         self._steps = None
+        self._engagement_context = None
 
     def fetch(self):
         """
@@ -272,6 +274,22 @@ class EngagementContext(InstanceContext):
             )
         return self._steps
 
+    @property
+    def engagement_context(self):
+        """
+        Access the engagement_context
+
+        :returns: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextList
+        :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextList
+        """
+        if self._engagement_context is None:
+            self._engagement_context = EngagementContextList(
+                self._version,
+                flow_sid=self._solution['flow_sid'],
+                engagement_sid=self._solution['sid'],
+            )
+        return self._engagement_context
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -307,8 +325,8 @@ class EngagementInstance(InstanceResource):
             'flow_sid': payload['flow_sid'],
             'contact_sid': payload['contact_sid'],
             'contact_channel_address': payload['contact_channel_address'],
-            'status': payload['status'],
             'context': payload['context'],
+            'status': payload['status'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
             'url': payload['url'],
@@ -377,20 +395,20 @@ class EngagementInstance(InstanceResource):
         return self._properties['contact_channel_address']
 
     @property
-    def status(self):
-        """
-        :returns: The status
-        :rtype: EngagementInstance.Status
-        """
-        return self._properties['status']
-
-    @property
     def context(self):
         """
         :returns: The context
         :rtype: dict
         """
         return self._properties['context']
+
+    @property
+    def status(self):
+        """
+        :returns: The status
+        :rtype: EngagementInstance.Status
+        """
+        return self._properties['status']
 
     @property
     def date_created(self):
@@ -442,6 +460,16 @@ class EngagementInstance(InstanceResource):
         :rtype: twilio.rest.studio.v1.flow.engagement.step.StepList
         """
         return self._proxy.steps
+
+    @property
+    def engagement_context(self):
+        """
+        Access the engagement_context
+
+        :returns: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextList
+        :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextList
+        """
+        return self._proxy.engagement_context
 
     def __repr__(self):
         """

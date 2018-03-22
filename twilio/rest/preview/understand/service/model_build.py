@@ -329,6 +329,8 @@ class ModelBuildInstance(InstanceResource):
             'status': payload['status'],
             'unique_name': payload['unique_name'],
             'url': payload['url'],
+            'build_duration': deserialize.integer(payload['build_duration']),
+            'error_code': deserialize.integer(payload['error_code']),
         }
 
         # Context
@@ -415,6 +417,22 @@ class ModelBuildInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['url']
+
+    @property
+    def build_duration(self):
+        """
+        :returns: The build_duration
+        :rtype: unicode
+        """
+        return self._properties['build_duration']
+
+    @property
+    def error_code(self):
+        """
+        :returns: The error_code
+        :rtype: unicode
+        """
+        return self._properties['error_code']
 
     def fetch(self):
         """

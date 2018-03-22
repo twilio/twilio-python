@@ -12,6 +12,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.studio.v1.flow.engagement.step.step_context import StepContextList
 
 
 class StepList(ListResource):
@@ -227,6 +228,9 @@ class StepContext(InstanceContext):
         self._solution = {'flow_sid': flow_sid, 'engagement_sid': engagement_sid, 'sid': sid, }
         self._uri = '/Flows/{flow_sid}/Engagements/{engagement_sid}/Steps/{sid}'.format(**self._solution)
 
+        # Dependents
+        self._step_context = None
+
     def fetch(self):
         """
         Fetch a StepInstance
@@ -249,6 +253,23 @@ class StepContext(InstanceContext):
             engagement_sid=self._solution['engagement_sid'],
             sid=self._solution['sid'],
         )
+
+    @property
+    def step_context(self):
+        """
+        Access the step_context
+
+        :returns: twilio.rest.studio.v1.flow.engagement.step.step_context.StepContextList
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.step_context.StepContextList
+        """
+        if self._step_context is None:
+            self._step_context = StepContextList(
+                self._version,
+                flow_sid=self._solution['flow_sid'],
+                engagement_sid=self._solution['engagement_sid'],
+                step_sid=self._solution['sid'],
+            )
+        return self._step_context
 
     def __repr__(self):
         """
@@ -287,6 +308,7 @@ class StepInstance(InstanceResource):
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
             'url': payload['url'],
+            'links': payload['links'],
         }
 
         # Context
@@ -403,6 +425,14 @@ class StepInstance(InstanceResource):
         """
         return self._properties['url']
 
+    @property
+    def links(self):
+        """
+        :returns: The links
+        :rtype: unicode
+        """
+        return self._properties['links']
+
     def fetch(self):
         """
         Fetch a StepInstance
@@ -411,6 +441,16 @@ class StepInstance(InstanceResource):
         :rtype: twilio.rest.studio.v1.flow.engagement.step.StepInstance
         """
         return self._proxy.fetch()
+
+    @property
+    def step_context(self):
+        """
+        Access the step_context
+
+        :returns: twilio.rest.studio.v1.flow.engagement.step.step_context.StepContextList
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.step_context.StepContextList
+        """
+        return self._proxy.step_context
 
     def __repr__(self):
         """

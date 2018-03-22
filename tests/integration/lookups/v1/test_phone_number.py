@@ -42,16 +42,6 @@ class PhoneNumberTestCase(IntegrationTestCase):
                     "name": "verizon",
                     "type": "mobile"
                 },
-                "fraud": {
-                    "error_code": null,
-                    "advanced_line_type": "voip",
-                    "is_prepaid": false,
-                    "mobile_country_code": "310",
-                    "mobile_network_code": "456",
-                    "carrier_name": "verizon",
-                    "caller_name": "Delicious Cheese Cake",
-                    "caller_type": "CONSUMER"
-                },
                 "country_code": "US",
                 "national_format": "(510) 867-5309",
                 "phone_number": "+15108675309",

@@ -3,6 +3,18 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-03-22] Version 6.11.0
+----------------------------
+**Lookups**
+- Disable support for `fraud` lookups *(breaking change)*
+
+**Preview**
+- Add `BuildDuration` and `ErrorCode` to Understand ModelBuild
+
+**Studio**
+- Add new /Context endpoint for step and engagement resources.
+
+
 [2018-03-12] Version 6.10.5
 ----------------------------
 **Api**
