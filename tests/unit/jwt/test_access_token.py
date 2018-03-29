@@ -190,6 +190,25 @@ class AccessTokenTest(unittest.TestCase):
             }
         }, decoded_token.payload['grants']['voice'])
 
+    def test_programmable_voice_grant_incoming(self):
+        grant = VoiceGrant(
+            incoming_allow=True
+        )
+
+        scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
+        scat.add_grant(grant)
+
+        token = scat.to_jwt()
+        assert_is_not_none(token)
+        decoded_token = AccessToken.from_jwt(token, 'secret')
+        self._validate_claims(decoded_token.payload)
+        assert_equal(1, len(decoded_token.payload['grants']))
+        assert_equal({
+            'incoming': {
+                'allow': True
+            }
+        }, decoded_token.payload['grants']['voice'])
+
     def test_task_router_grant(self):
         grant = TaskRouterGrant(
             workspace_sid='WS123',

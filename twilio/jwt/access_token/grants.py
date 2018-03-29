@@ -98,10 +98,13 @@ class SyncGrant(AccessTokenGrant):
 class VoiceGrant(AccessTokenGrant):
     """Grant to access Twilio Programmable Voice"""
     def __init__(self,
+                 incoming_allow=None,
                  outgoing_application_sid=None,
                  outgoing_application_params=None,
                  push_credential_sid=None,
                  endpoint_id=None):
+        self.incoming_allow = incoming_allow
+        """ :type : bool """
         self.outgoing_application_sid = outgoing_application_sid
         """ :type : str """
         self.outgoing_application_params = outgoing_application_params
@@ -117,6 +120,10 @@ class VoiceGrant(AccessTokenGrant):
 
     def to_payload(self):
         grant = {}
+        if self.incoming_allow is True:
+            grant['incoming'] = {}
+            grant['incoming']['allow'] = True
+
         if self.outgoing_application_sid:
             grant['outgoing'] = {}
             grant['outgoing']['application_sid'] = self.outgoing_application_sid
