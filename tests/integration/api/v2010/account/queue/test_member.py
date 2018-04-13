@@ -18,13 +18,13 @@ class MemberTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .queues(sid="QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .members(call_sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .queues(sid="QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .members(call_sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queues/QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Members/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json',
         ))
 
     def test_fetch_response(self):
@@ -41,9 +41,9 @@ class MemberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .queues(sid="QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .members(call_sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .queues(sid="QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .members(call_sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -51,15 +51,15 @@ class MemberTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .queues(sid="QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .members(call_sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(url="https://example.com", method="GET")
+            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .queues(sid="QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .members(call_sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(url="https://example.com", method="GET")
 
         values = {'Url': "https://example.com", 'Method': "GET", }
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queues/QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Members/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json',
             data=values,
         ))
 
@@ -77,9 +77,9 @@ class MemberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .queues(sid="QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .members(call_sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(url="https://example.com", method="GET")
+        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .queues(sid="QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .members(call_sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(url="https://example.com", method="GET")
 
         self.assertIsNotNone(actual)
 
@@ -87,13 +87,13 @@ class MemberTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .queues(sid="QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .queues(sid="QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .members.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members.json',
+            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queues/QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Members.json',
         ))
 
     def test_read_full_response(self):
@@ -125,8 +125,8 @@ class MemberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .queues(sid="QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .queues(sid="QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .members.list()
 
         self.assertIsNotNone(actual)
@@ -152,8 +152,8 @@ class MemberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .queues(sid="QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .queues(sid="QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .members.list()
 
         self.assertIsNotNone(actual)

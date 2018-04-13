@@ -18,14 +18,14 @@ class VerificationCheckTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.acc_security.services(sid="VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.preview.acc_security.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                             .verification_checks.create(code="code")
 
         values = {'Code': "code", }
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://preview.twilio.com/Verification/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/VerificationCheck',
+            'https://preview.twilio.com/Verification/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/VerificationCheck',
             data=values,
         ))
 
@@ -47,7 +47,7 @@ class VerificationCheckTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.acc_security.services(sid="VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.preview.acc_security.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                                  .verification_checks.create(code="code")
 
         self.assertIsNotNone(actual)

@@ -18,12 +18,12 @@ class ConferenceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .conferences(sid="CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .conferences(sid="CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json',
         ))
 
     def test_fetch_response(self):
@@ -48,8 +48,8 @@ class ConferenceTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .conferences(sid="CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .conferences(sid="CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -57,12 +57,12 @@ class ConferenceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .conferences.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json',
+            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences.json',
         ))
 
     def test_read_full_response(self):
@@ -99,7 +99,7 @@ class ConferenceTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .conferences.list()
 
         self.assertIsNotNone(actual)
@@ -122,7 +122,7 @@ class ConferenceTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .conferences.list()
 
         self.assertIsNotNone(actual)
@@ -131,12 +131,12 @@ class ConferenceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .conferences(sid="CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .conferences(sid="CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json',
         ))
 
     def test_update_end_conference_response(self):
@@ -161,7 +161,7 @@ class ConferenceTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .conferences(sid="CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .conferences(sid="CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)

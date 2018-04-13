@@ -18,12 +18,12 @@ class NotificationTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.notify.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.notify.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .notifications.create()
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications',
+            'https://notify.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Notifications',
         ))
 
     def test_create_response(self):
@@ -57,7 +57,7 @@ class NotificationTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.notify.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.notify.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .notifications.create()
 
         self.assertIsNotNone(actual)
@@ -91,7 +91,7 @@ class NotificationTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.notify.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.notify.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .notifications.create()
 
         self.assertIsNotNone(actual)

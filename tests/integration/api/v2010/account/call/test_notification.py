@@ -18,13 +18,13 @@ class NotificationTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .calls(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .notifications(sid="NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .calls(sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .notifications(sid="NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Notifications/NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json',
         ))
 
     def test_fetch_response(self):
@@ -53,9 +53,9 @@ class NotificationTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .calls(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .notifications(sid="NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .calls(sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .notifications(sid="NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -63,13 +63,13 @@ class NotificationTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .calls(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .notifications(sid="NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .calls(sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .notifications(sid="NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Notifications/NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json',
         ))
 
     def test_delete_response(self):
@@ -78,9 +78,9 @@ class NotificationTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .calls(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .notifications(sid="NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .calls(sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .notifications(sid="NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)
 
@@ -88,13 +88,13 @@ class NotificationTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .calls(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .calls(sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .notifications.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json',
+            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Notifications.json',
         ))
 
     def test_read_full_response(self):
@@ -135,8 +135,8 @@ class NotificationTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .calls(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .calls(sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .notifications.list()
 
         self.assertIsNotNone(actual)
@@ -162,8 +162,8 @@ class NotificationTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .calls(sid="CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .calls(sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .notifications.list()
 
         self.assertIsNotNone(actual)

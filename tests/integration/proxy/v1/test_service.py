@@ -18,11 +18,11 @@ class ServiceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.proxy.v1.services(sid="KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.proxy.v1.services(sid="KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -51,7 +51,7 @@ class ServiceTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.proxy.v1.services(sid="KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.proxy.v1.services(sid="KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -137,11 +137,11 @@ class ServiceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.proxy.v1.services(sid="KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+            self.client.proxy.v1.services(sid="KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_delete_response(self):
@@ -150,7 +150,7 @@ class ServiceTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.proxy.v1.services(sid="KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        actual = self.client.proxy.v1.services(sid="KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)
 
@@ -158,11 +158,11 @@ class ServiceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.proxy.v1.services(sid="KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+            self.client.proxy.v1.services(sid="KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_update_response(self):
@@ -191,6 +191,6 @@ class ServiceTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.proxy.v1.services(sid="KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+        actual = self.client.proxy.v1.services(sid="KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)

@@ -69,11 +69,11 @@ class ServiceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.services(sid="MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+            self.client.messaging.v1.services(sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_update_response(self):
@@ -109,7 +109,7 @@ class ServiceTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.messaging.v1.services(sid="MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+        actual = self.client.messaging.v1.services(sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)
 
@@ -178,11 +178,11 @@ class ServiceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.services(sid="MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.messaging.v1.services(sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -218,7 +218,7 @@ class ServiceTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.messaging.v1.services(sid="MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.messaging.v1.services(sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -226,11 +226,11 @@ class ServiceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.services(sid="MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+            self.client.messaging.v1.services(sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_delete_response(self):
@@ -239,6 +239,6 @@ class ServiceTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.messaging.v1.services(sid="MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        actual = self.client.messaging.v1.services(sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

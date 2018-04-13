@@ -18,11 +18,11 @@ class SimTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.wireless.v1.sims(sid="DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.wireless.v1.sims(sid="DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://wireless.twilio.com/v1/Sims/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://wireless.twilio.com/v1/Sims/DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -61,7 +61,7 @@ class SimTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.wireless.v1.sims(sid="DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.wireless.v1.sims(sid="DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -156,11 +156,11 @@ class SimTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.wireless.v1.sims(sid="DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+            self.client.wireless.v1.sims(sid="DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://wireless.twilio.com/v1/Sims/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://wireless.twilio.com/v1/Sims/DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_update_response(self):
@@ -199,6 +199,6 @@ class SimTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.wireless.v1.sims(sid="DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+        actual = self.client.wireless.v1.sims(sid="DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)

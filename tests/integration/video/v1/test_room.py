@@ -18,11 +18,11 @@ class RoomTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.rooms(sid="RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.video.v1.rooms(sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -57,7 +57,7 @@ class RoomTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.video.v1.rooms(sid="RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.video.v1.rooms(sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -195,13 +195,13 @@ class RoomTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.rooms(sid="RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(status="in-progress")
+            self.client.video.v1.rooms(sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="in-progress")
 
         values = {'Status': "in-progress", }
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
             data=values,
         ))
 
@@ -237,6 +237,6 @@ class RoomTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.video.v1.rooms(sid="RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(status="in-progress")
+        actual = self.client.video.v1.rooms(sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="in-progress")
 
         self.assertIsNotNone(actual)

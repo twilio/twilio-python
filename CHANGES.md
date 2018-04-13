@@ -3,6 +3,21 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-04-13] Version 6.12.0
+----------------------------
+**Library**
+- PR #413: Add incoming.allow to AccessToken VoiceGrant. Thanks to @ryan-rowland!
+
+**Preview**
+- Support for Understand V2 APIs - renames various resources and adds new fields
+
+**Studio**
+- Change parameters type from string to object in engagement resource
+
+**Video**
+- [Recordings] Change `size` type to `long`. **(breaking change)**
+
+
 [2018-03-22] Version 6.11.0
 ----------------------------
 **Lookups**

@@ -18,11 +18,11 @@ class AlertTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.monitor.v1.alerts(sid="NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.monitor.v1.alerts(sid="NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://monitor.twilio.com/v1/Alerts/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://monitor.twilio.com/v1/Alerts/NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -51,7 +51,7 @@ class AlertTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.monitor.v1.alerts(sid="NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.monitor.v1.alerts(sid="NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -59,11 +59,11 @@ class AlertTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.monitor.v1.alerts(sid="NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+            self.client.monitor.v1.alerts(sid="NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://monitor.twilio.com/v1/Alerts/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://monitor.twilio.com/v1/Alerts/NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_delete_response(self):
@@ -72,7 +72,7 @@ class AlertTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.monitor.v1.alerts(sid="NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        actual = self.client.monitor.v1.alerts(sid="NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)
 

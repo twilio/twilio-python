@@ -18,13 +18,13 @@ class UserBindingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.notify.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .users(identity="NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .bindings(sid="BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.notify.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .users(identity="NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .bindings(sid="BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://notify.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings/BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -54,9 +54,9 @@ class UserBindingTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.notify.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .users(identity="NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .bindings(sid="BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.notify.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .users(identity="NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .bindings(sid="BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -64,13 +64,13 @@ class UserBindingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.notify.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .users(identity="NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .bindings(sid="BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+            self.client.notify.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .users(identity="NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .bindings(sid="BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://notify.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings/BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_delete_response(self):
@@ -79,9 +79,9 @@ class UserBindingTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.notify.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .users(identity="NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .bindings(sid="BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        actual = self.client.notify.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .users(identity="NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .bindings(sid="BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)
 
@@ -89,15 +89,15 @@ class UserBindingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.notify.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .users(identity="NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.notify.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .users(identity="NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .bindings.create(binding_type="apn", address="address")
 
         values = {'BindingType': "apn", 'Address': "address", }
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings',
+            'https://notify.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings',
             data=values,
         ))
 
@@ -128,8 +128,8 @@ class UserBindingTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.notify.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .users(identity="NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.notify.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .users(identity="NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .bindings.create(binding_type="apn", address="address")
 
         self.assertIsNotNone(actual)
@@ -161,8 +161,8 @@ class UserBindingTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.notify.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .users(identity="NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.notify.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .users(identity="NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .bindings.create(binding_type="apn", address="address")
 
         self.assertIsNotNone(actual)
@@ -171,13 +171,13 @@ class UserBindingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.notify.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .users(identity="NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.notify.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .users(identity="NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .bindings.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings',
+            'https://notify.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings',
         ))
 
     def test_read_empty_response(self):
@@ -199,8 +199,8 @@ class UserBindingTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.notify.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .users(identity="NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.notify.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .users(identity="NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .bindings.list()
 
         self.assertIsNotNone(actual)
@@ -245,8 +245,8 @@ class UserBindingTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.notify.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .users(identity="NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.notify.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .users(identity="NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .bindings.list()
 
         self.assertIsNotNone(actual)

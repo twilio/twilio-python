@@ -18,14 +18,14 @@ class CredentialTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .sip \
-                                 .credential_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                 .credential_lists(sid="CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .credentials.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Credentials.json',
+            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Credentials.json',
         ))
 
     def test_read_full_response(self):
@@ -59,9 +59,9 @@ class CredentialTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .sip \
-                                      .credential_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                      .credential_lists(sid="CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .credentials.list()
 
         self.assertIsNotNone(actual)
@@ -87,9 +87,9 @@ class CredentialTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .sip \
-                                      .credential_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                      .credential_lists(sid="CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .credentials.list()
 
         self.assertIsNotNone(actual)
@@ -98,16 +98,16 @@ class CredentialTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .sip \
-                                 .credential_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                 .credential_lists(sid="CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .credentials.create(username="username", password="password")
 
         values = {'Username': "username", 'Password': "password", }
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Credentials.json',
+            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Credentials.json',
             data=values,
         ))
 
@@ -127,9 +127,9 @@ class CredentialTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .sip \
-                                      .credential_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+                                      .credential_lists(sid="CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .credentials.create(username="username", password="password")
 
         self.assertIsNotNone(actual)
@@ -138,14 +138,14 @@ class CredentialTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .sip \
-                                 .credential_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .credentials(sid="CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+                                 .credential_lists(sid="CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .credentials(sid="CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Credentials/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json',
         ))
 
     def test_fetch_response(self):
@@ -164,10 +164,10 @@ class CredentialTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .sip \
-                                      .credential_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .credentials(sid="CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+                                      .credential_lists(sid="CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .credentials(sid="CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -175,14 +175,14 @@ class CredentialTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .sip \
-                                 .credential_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .credentials(sid="CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+                                 .credential_lists(sid="CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .credentials(sid="CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Credentials/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json',
         ))
 
     def test_update_response(self):
@@ -201,10 +201,10 @@ class CredentialTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .sip \
-                                      .credential_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .credentials(sid="CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+                                      .credential_lists(sid="CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .credentials(sid="CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)
 
@@ -212,14 +212,14 @@ class CredentialTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .sip \
-                                 .credential_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .credentials(sid="CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+                                 .credential_lists(sid="CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .credentials(sid="CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Credentials/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json',
         ))
 
     def test_delete_response(self):
@@ -228,9 +228,9 @@ class CredentialTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .sip \
-                                      .credential_lists(sid="CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .credentials(sid="CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+                                      .credential_lists(sid="CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .credentials(sid="CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

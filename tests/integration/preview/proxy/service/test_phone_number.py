@@ -18,14 +18,14 @@ class PhoneNumberTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.proxy.services(sid="KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                     .phone_numbers.create(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+            self.client.preview.proxy.services(sid="KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .phone_numbers.create(sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
-        values = {'Sid': "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", }
+        values = {'Sid': "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://preview.twilio.com/Proxy/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers',
+            'https://preview.twilio.com/Proxy/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers',
             data=values,
         ))
 
@@ -47,8 +47,8 @@ class PhoneNumberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.proxy.services(sid="KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                          .phone_numbers.create(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        actual = self.client.preview.proxy.services(sid="KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .phone_numbers.create(sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         self.assertIsNotNone(actual)
 
@@ -56,12 +56,12 @@ class PhoneNumberTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.proxy.services(sid="KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                     .phone_numbers(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+            self.client.preview.proxy.services(sid="KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .phone_numbers(sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://preview.twilio.com/Proxy/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://preview.twilio.com/Proxy/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_delete_response(self):
@@ -70,8 +70,8 @@ class PhoneNumberTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.preview.proxy.services(sid="KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                          .phone_numbers(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        actual = self.client.preview.proxy.services(sid="KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .phone_numbers(sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)
 
@@ -79,12 +79,12 @@ class PhoneNumberTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.proxy.services(sid="KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.preview.proxy.services(sid="KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                      .phone_numbers.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://preview.twilio.com/Proxy/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers',
+            'https://preview.twilio.com/Proxy/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers',
         ))
 
     def test_read_full_response(self):
@@ -118,7 +118,7 @@ class PhoneNumberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.proxy.services(sid="KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.preview.proxy.services(sid="KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                           .phone_numbers.list()
 
         self.assertIsNotNone(actual)
@@ -127,12 +127,12 @@ class PhoneNumberTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.proxy.services(sid="KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                     .phone_numbers(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.preview.proxy.services(sid="KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .phone_numbers(sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://preview.twilio.com/Proxy/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://preview.twilio.com/Proxy/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -153,7 +153,7 @@ class PhoneNumberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.proxy.services(sid="KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                          .phone_numbers(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.preview.proxy.services(sid="KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .phone_numbers(sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)

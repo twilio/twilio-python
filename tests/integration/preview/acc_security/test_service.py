@@ -56,11 +56,11 @@ class ServiceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.acc_security.services(sid="VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.preview.acc_security.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://preview.twilio.com/Verification/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://preview.twilio.com/Verification/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_record_response(self):
@@ -83,7 +83,7 @@ class ServiceTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.acc_security.services(sid="VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.preview.acc_security.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -139,11 +139,11 @@ class ServiceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.acc_security.services(sid="VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+            self.client.preview.acc_security.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://preview.twilio.com/Verification/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://preview.twilio.com/Verification/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_update_record_response(self):
@@ -166,6 +166,6 @@ class ServiceTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.acc_security.services(sid="VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+        actual = self.client.preview.acc_security.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)

@@ -18,12 +18,12 @@ class FaxMediaTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.fax.v1.faxes(sid="FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                              .media(sid="MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.fax.v1.faxes(sid="FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                              .media(sid="MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media/MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://fax.twilio.com/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media/MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -42,8 +42,8 @@ class FaxMediaTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.fax.v1.faxes(sid="FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                   .media(sid="MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.fax.v1.faxes(sid="FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                   .media(sid="MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -51,12 +51,12 @@ class FaxMediaTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.fax.v1.faxes(sid="FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.fax.v1.faxes(sid="FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                               .media.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media',
+            'https://fax.twilio.com/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media',
         ))
 
     def test_read_response(self):
@@ -88,7 +88,7 @@ class FaxMediaTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.fax.v1.faxes(sid="FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.fax.v1.faxes(sid="FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                    .media.list()
 
         self.assertIsNotNone(actual)
@@ -97,12 +97,12 @@ class FaxMediaTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.fax.v1.faxes(sid="FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                              .media(sid="MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+            self.client.fax.v1.faxes(sid="FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                              .media(sid="MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media/MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://fax.twilio.com/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media/MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_delete_response(self):
@@ -111,7 +111,7 @@ class FaxMediaTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.fax.v1.faxes(sid="FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                   .media(sid="MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        actual = self.client.fax.v1.faxes(sid="FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                   .media(sid="MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

@@ -18,12 +18,12 @@ class PhoneNumberTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                   .phone_numbers(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.trunking.v1.trunks(sid="TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                   .phone_numbers(sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://trunking.twilio.com/v1/Trunks/TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -67,8 +67,8 @@ class PhoneNumberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                        .phone_numbers(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.trunking.v1.trunks(sid="TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                        .phone_numbers(sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -76,12 +76,12 @@ class PhoneNumberTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                   .phone_numbers(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+            self.client.trunking.v1.trunks(sid="TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                   .phone_numbers(sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://trunking.twilio.com/v1/Trunks/TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_delete_response(self):
@@ -90,8 +90,8 @@ class PhoneNumberTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                        .phone_numbers(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        actual = self.client.trunking.v1.trunks(sid="TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                        .phone_numbers(sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)
 
@@ -99,14 +99,14 @@ class PhoneNumberTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                   .phone_numbers.create(phone_number_sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+            self.client.trunking.v1.trunks(sid="TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                   .phone_numbers.create(phone_number_sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
-        values = {'PhoneNumberSid': "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", }
+        values = {'PhoneNumberSid': "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers',
+            'https://trunking.twilio.com/v1/Trunks/TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers',
             data=values,
         ))
 
@@ -151,8 +151,8 @@ class PhoneNumberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                        .phone_numbers.create(phone_number_sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        actual = self.client.trunking.v1.trunks(sid="TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                        .phone_numbers.create(phone_number_sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         self.assertIsNotNone(actual)
 
@@ -160,12 +160,12 @@ class PhoneNumberTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.trunking.v1.trunks(sid="TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                    .phone_numbers.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers',
+            'https://trunking.twilio.com/v1/Trunks/TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers',
         ))
 
     def test_read_full_response(self):
@@ -222,7 +222,7 @@ class PhoneNumberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.trunking.v1.trunks(sid="TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                         .phone_numbers.list()
 
         self.assertIsNotNone(actual)
@@ -246,7 +246,7 @@ class PhoneNumberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.trunking.v1.trunks(sid="TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.trunking.v1.trunks(sid="TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                         .phone_numbers.list()
 
         self.assertIsNotNone(actual)

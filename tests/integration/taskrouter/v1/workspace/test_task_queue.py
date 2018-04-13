@@ -18,12 +18,12 @@ class TaskQueueTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                     .task_queues(sid="WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.taskrouter.v1.workspaces(sid="WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .task_queues(sid="WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -58,8 +58,8 @@ class TaskQueueTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                          .task_queues(sid="WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.taskrouter.v1.workspaces(sid="WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .task_queues(sid="WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -67,12 +67,12 @@ class TaskQueueTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                     .task_queues(sid="WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+            self.client.taskrouter.v1.workspaces(sid="WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .task_queues(sid="WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_update_response(self):
@@ -107,8 +107,8 @@ class TaskQueueTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                          .task_queues(sid="WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+        actual = self.client.taskrouter.v1.workspaces(sid="WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .task_queues(sid="WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)
 
@@ -116,12 +116,12 @@ class TaskQueueTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.taskrouter.v1.workspaces(sid="WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                      .task_queues.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues',
+            'https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues',
         ))
 
     def test_read_full_response(self):
@@ -169,7 +169,7 @@ class TaskQueueTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.taskrouter.v1.workspaces(sid="WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                           .task_queues.list()
 
         self.assertIsNotNone(actual)
@@ -193,7 +193,7 @@ class TaskQueueTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.taskrouter.v1.workspaces(sid="WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                           .task_queues.list()
 
         self.assertIsNotNone(actual)
@@ -202,18 +202,18 @@ class TaskQueueTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                     .task_queues.create(friendly_name="friendly_name", reservation_activity_sid="WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", assignment_activity_sid="WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+            self.client.taskrouter.v1.workspaces(sid="WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .task_queues.create(friendly_name="friendly_name", reservation_activity_sid="WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", assignment_activity_sid="WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         values = {
             'FriendlyName': "friendly_name",
-            'ReservationActivitySid': "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-            'AssignmentActivitySid': "WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            'ReservationActivitySid': "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            'AssignmentActivitySid': "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
         }
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues',
+            'https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues',
             data=values,
         ))
 
@@ -249,8 +249,8 @@ class TaskQueueTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                          .task_queues.create(friendly_name="friendly_name", reservation_activity_sid="WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", assignment_activity_sid="WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        actual = self.client.taskrouter.v1.workspaces(sid="WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .task_queues.create(friendly_name="friendly_name", reservation_activity_sid="WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", assignment_activity_sid="WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         self.assertIsNotNone(actual)
 
@@ -258,12 +258,12 @@ class TaskQueueTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                     .task_queues(sid="WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+            self.client.taskrouter.v1.workspaces(sid="WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .task_queues(sid="WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_delete_response(self):
@@ -272,7 +272,7 @@ class TaskQueueTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                          .task_queues(sid="WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        actual = self.client.taskrouter.v1.workspaces(sid="WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .task_queues(sid="WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

@@ -18,12 +18,12 @@ class SegmentTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.notify.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.notify.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .segments.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Segments',
+            'https://notify.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Segments',
         ))
 
     def test_read_empty_response(self):
@@ -45,7 +45,7 @@ class SegmentTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.notify.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.notify.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .segments.list()
 
         self.assertIsNotNone(actual)
@@ -78,7 +78,7 @@ class SegmentTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.notify.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.notify.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .segments.list()
 
         self.assertIsNotNone(actual)

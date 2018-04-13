@@ -18,13 +18,13 @@ class SyncMapPermissionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .sync_maps(sid="MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .sync_maps(sid="MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                .sync_map_permissions(identity="identity").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Maps/MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Permissions/identity',
+            'https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Permissions/identity',
         ))
 
     def test_fetch_response(self):
@@ -44,8 +44,8 @@ class SyncMapPermissionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .sync_maps(sid="MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .sync_maps(sid="MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .sync_map_permissions(identity="identity").fetch()
 
         self.assertIsNotNone(actual)
@@ -54,13 +54,13 @@ class SyncMapPermissionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .sync_maps(sid="MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .sync_maps(sid="MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                .sync_map_permissions(identity="identity").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Maps/MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Permissions/identity',
+            'https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Permissions/identity',
         ))
 
     def test_delete_response(self):
@@ -69,8 +69,8 @@ class SyncMapPermissionTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .sync_maps(sid="MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .sync_maps(sid="MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .sync_map_permissions(identity="identity").delete()
 
         self.assertTrue(actual)
@@ -79,13 +79,13 @@ class SyncMapPermissionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .sync_maps(sid="MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .sync_maps(sid="MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                .sync_map_permissions.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Maps/MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Permissions',
+            'https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Permissions',
         ))
 
     def test_read_empty_response(self):
@@ -107,8 +107,8 @@ class SyncMapPermissionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .sync_maps(sid="MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .sync_maps(sid="MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .sync_map_permissions.list()
 
         self.assertIsNotNone(actual)
@@ -143,8 +143,8 @@ class SyncMapPermissionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .sync_maps(sid="MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .sync_maps(sid="MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .sync_map_permissions.list()
 
         self.assertIsNotNone(actual)
@@ -153,15 +153,15 @@ class SyncMapPermissionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .sync_maps(sid="MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .sync_maps(sid="MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                .sync_map_permissions(identity="identity").update(read=True, write=True, manage=True)
 
         values = {'Read': True, 'Write': True, 'Manage': True, }
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Maps/MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Permissions/identity',
+            'https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Permissions/identity',
             data=values,
         ))
 
@@ -182,8 +182,8 @@ class SyncMapPermissionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .sync_maps(sid="MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .sync_maps(sid="MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .sync_map_permissions(identity="identity").update(read=True, write=True, manage=True)
 
         self.assertIsNotNone(actual)

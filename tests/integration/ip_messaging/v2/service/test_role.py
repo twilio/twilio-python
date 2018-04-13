@@ -19,12 +19,12 @@ class RoleTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.ip_messaging.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                       .roles(sid="RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                       .roles(sid="RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles/RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://ip-messaging.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -50,8 +50,8 @@ class RoleTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.ip_messaging.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                            .roles(sid="RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                            .roles(sid="RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -59,12 +59,12 @@ class RoleTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.ip_messaging.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                       .roles(sid="RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+            self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                       .roles(sid="RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles/RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://ip-messaging.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_delete_response(self):
@@ -73,8 +73,8 @@ class RoleTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.ip_messaging.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                            .roles(sid="RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        actual = self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                            .roles(sid="RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)
 
@@ -82,7 +82,7 @@ class RoleTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.ip_messaging.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                        .roles.create(friendly_name="friendly_name", type="channel", permission=['permission'])
 
         values = {
@@ -93,7 +93,7 @@ class RoleTestCase(IntegrationTestCase):
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles',
+            'https://ip-messaging.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles',
             data=values,
         ))
 
@@ -120,7 +120,7 @@ class RoleTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.ip_messaging.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                             .roles.create(friendly_name="friendly_name", type="channel", permission=['permission'])
 
         self.assertIsNotNone(actual)
@@ -129,12 +129,12 @@ class RoleTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.ip_messaging.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                        .roles.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles',
+            'https://ip-messaging.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles',
         ))
 
     def test_read_full_response(self):
@@ -173,7 +173,7 @@ class RoleTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.ip_messaging.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                             .roles.list()
 
         self.assertIsNotNone(actual)
@@ -197,7 +197,7 @@ class RoleTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.ip_messaging.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                             .roles.list()
 
         self.assertIsNotNone(actual)
@@ -206,14 +206,14 @@ class RoleTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.ip_messaging.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                       .roles(sid="RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(permission=['permission'])
+            self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                       .roles(sid="RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(permission=['permission'])
 
         values = {'Permission': serialize.map(['permission'], lambda e: e), }
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles/RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://ip-messaging.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
             data=values,
         ))
 
@@ -240,7 +240,7 @@ class RoleTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.ip_messaging.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                            .roles(sid="RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update(permission=['permission'])
+        actual = self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                            .roles(sid="RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(permission=['permission'])
 
         self.assertIsNotNone(actual)

@@ -18,11 +18,11 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.hosted_numbers.hosted_number_orders(sid="HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.preview.hosted_numbers.hosted_number_orders(sid="HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -66,7 +66,7 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.hosted_numbers.hosted_number_orders(sid="HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.preview.hosted_numbers.hosted_number_orders(sid="HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -74,11 +74,11 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.hosted_numbers.hosted_number_orders(sid="HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+            self.client.preview.hosted_numbers.hosted_number_orders(sid="HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_delete_response(self):
@@ -87,7 +87,7 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.preview.hosted_numbers.hosted_number_orders(sid="HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        actual = self.client.preview.hosted_numbers.hosted_number_orders(sid="HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)
 
@@ -95,11 +95,11 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.hosted_numbers.hosted_number_orders(sid="HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+            self.client.preview.hosted_numbers.hosted_number_orders(sid="HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_update_response(self):
@@ -143,7 +143,7 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.hosted_numbers.hosted_number_orders(sid="HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+        actual = self.client.preview.hosted_numbers.hosted_number_orders(sid="HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)
 

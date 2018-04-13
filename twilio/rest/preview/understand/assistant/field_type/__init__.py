@@ -12,32 +12,33 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.preview.understand.assistant.field_type.field_value import FieldValueList
 
 
-class ModelBuildList(ListResource):
+class FieldTypeList(ListResource):
     """ PLEASE NOTE that this class contains preview products that are subject
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
-    def __init__(self, version, service_sid):
+    def __init__(self, version, assistant_sid):
         """
-        Initialize the ModelBuildList
+        Initialize the FieldTypeList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
+        :param assistant_sid: The assistant_sid
 
-        :returns: twilio.rest.preview.understand.service.model_build.ModelBuildList
-        :rtype: twilio.rest.preview.understand.service.model_build.ModelBuildList
+        :returns: twilio.rest.preview.understand.assistant.field_type.FieldTypeList
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeList
         """
-        super(ModelBuildList, self).__init__(version)
+        super(FieldTypeList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, }
-        self._uri = '/Services/{service_sid}/ModelBuilds'.format(**self._solution)
+        self._solution = {'assistant_sid': assistant_sid, }
+        self._uri = '/Assistants/{assistant_sid}/FieldTypes'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
         """
-        Streams ModelBuildInstance records from the API as a generator stream.
+        Streams FieldTypeInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -50,7 +51,7 @@ class ModelBuildList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.service.model_build.ModelBuildInstance]
+        :rtype: list[twilio.rest.preview.understand.assistant.field_type.FieldTypeInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -60,7 +61,7 @@ class ModelBuildList(ListResource):
 
     def list(self, limit=None, page_size=None):
         """
-        Lists ModelBuildInstance records from the API as a list.
+        Lists FieldTypeInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
@@ -72,22 +73,22 @@ class ModelBuildList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.service.model_build.ModelBuildInstance]
+        :rtype: list[twilio.rest.preview.understand.assistant.field_type.FieldTypeInstance]
         """
         return list(self.stream(limit=limit, page_size=page_size, ))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
         """
-        Retrieve a single page of ModelBuildInstance records from the API.
+        Retrieve a single page of FieldTypeInstance records from the API.
         Request is executed immediately
 
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
-        :returns: Page of ModelBuildInstance
-        :rtype: twilio.rest.preview.understand.service.model_build.ModelBuildPage
+        :returns: Page of FieldTypeInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypePage
         """
         params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
@@ -97,36 +98,36 @@ class ModelBuildList(ListResource):
             params=params,
         )
 
-        return ModelBuildPage(self._version, response, self._solution)
+        return FieldTypePage(self._version, response, self._solution)
 
     def get_page(self, target_url):
         """
-        Retrieve a specific page of ModelBuildInstance records from the API.
+        Retrieve a specific page of FieldTypeInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
 
-        :returns: Page of ModelBuildInstance
-        :rtype: twilio.rest.preview.understand.service.model_build.ModelBuildPage
+        :returns: Page of FieldTypeInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypePage
         """
         response = self._version.domain.twilio.request(
             'GET',
             target_url,
         )
 
-        return ModelBuildPage(self._version, response, self._solution)
+        return FieldTypePage(self._version, response, self._solution)
 
-    def create(self, status_callback=values.unset, unique_name=values.unset):
+    def create(self, unique_name, friendly_name=values.unset):
         """
-        Create a new ModelBuildInstance
+        Create a new FieldTypeInstance
 
-        :param unicode status_callback: The status_callback
         :param unicode unique_name: The unique_name
+        :param unicode friendly_name: The friendly_name
 
-        :returns: Newly created ModelBuildInstance
-        :rtype: twilio.rest.preview.understand.service.model_build.ModelBuildInstance
+        :returns: Newly created FieldTypeInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeInstance
         """
-        data = values.of({'StatusCallback': status_callback, 'UniqueName': unique_name, })
+        data = values.of({'UniqueName': unique_name, 'FriendlyName': friendly_name, })
 
         payload = self._version.create(
             'POST',
@@ -134,29 +135,29 @@ class ModelBuildList(ListResource):
             data=data,
         )
 
-        return ModelBuildInstance(self._version, payload, service_sid=self._solution['service_sid'], )
+        return FieldTypeInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], )
 
     def get(self, sid):
         """
-        Constructs a ModelBuildContext
+        Constructs a FieldTypeContext
 
         :param sid: The sid
 
-        :returns: twilio.rest.preview.understand.service.model_build.ModelBuildContext
-        :rtype: twilio.rest.preview.understand.service.model_build.ModelBuildContext
+        :returns: twilio.rest.preview.understand.assistant.field_type.FieldTypeContext
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeContext
         """
-        return ModelBuildContext(self._version, service_sid=self._solution['service_sid'], sid=sid, )
+        return FieldTypeContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid, )
 
     def __call__(self, sid):
         """
-        Constructs a ModelBuildContext
+        Constructs a FieldTypeContext
 
         :param sid: The sid
 
-        :returns: twilio.rest.preview.understand.service.model_build.ModelBuildContext
-        :rtype: twilio.rest.preview.understand.service.model_build.ModelBuildContext
+        :returns: twilio.rest.preview.understand.assistant.field_type.FieldTypeContext
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeContext
         """
-        return ModelBuildContext(self._version, service_sid=self._solution['service_sid'], sid=sid, )
+        return FieldTypeContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid, )
 
     def __repr__(self):
         """
@@ -165,40 +166,40 @@ class ModelBuildList(ListResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.Understand.ModelBuildList>'
+        return '<Twilio.Preview.Understand.FieldTypeList>'
 
 
-class ModelBuildPage(Page):
+class FieldTypePage(Page):
     """ PLEASE NOTE that this class contains preview products that are subject
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
     def __init__(self, version, response, solution):
         """
-        Initialize the ModelBuildPage
+        Initialize the FieldTypePage
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The service_sid
+        :param assistant_sid: The assistant_sid
 
-        :returns: twilio.rest.preview.understand.service.model_build.ModelBuildPage
-        :rtype: twilio.rest.preview.understand.service.model_build.ModelBuildPage
+        :returns: twilio.rest.preview.understand.assistant.field_type.FieldTypePage
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypePage
         """
-        super(ModelBuildPage, self).__init__(version, response)
+        super(FieldTypePage, self).__init__(version, response)
 
         # Path Solution
         self._solution = solution
 
     def get_instance(self, payload):
         """
-        Build an instance of ModelBuildInstance
+        Build an instance of FieldTypeInstance
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.understand.service.model_build.ModelBuildInstance
-        :rtype: twilio.rest.preview.understand.service.model_build.ModelBuildInstance
+        :returns: twilio.rest.preview.understand.assistant.field_type.FieldTypeInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeInstance
         """
-        return ModelBuildInstance(self._version, payload, service_sid=self._solution['service_sid'], )
+        return FieldTypeInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], )
 
     def __repr__(self):
         """
@@ -207,37 +208,40 @@ class ModelBuildPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.Understand.ModelBuildPage>'
+        return '<Twilio.Preview.Understand.FieldTypePage>'
 
 
-class ModelBuildContext(InstanceContext):
+class FieldTypeContext(InstanceContext):
     """ PLEASE NOTE that this class contains preview products that are subject
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
-    def __init__(self, version, service_sid, sid):
+    def __init__(self, version, assistant_sid, sid):
         """
-        Initialize the ModelBuildContext
+        Initialize the FieldTypeContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
+        :param assistant_sid: The assistant_sid
         :param sid: The sid
 
-        :returns: twilio.rest.preview.understand.service.model_build.ModelBuildContext
-        :rtype: twilio.rest.preview.understand.service.model_build.ModelBuildContext
+        :returns: twilio.rest.preview.understand.assistant.field_type.FieldTypeContext
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeContext
         """
-        super(ModelBuildContext, self).__init__(version)
+        super(FieldTypeContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'sid': sid, }
-        self._uri = '/Services/{service_sid}/ModelBuilds/{sid}'.format(**self._solution)
+        self._solution = {'assistant_sid': assistant_sid, 'sid': sid, }
+        self._uri = '/Assistants/{assistant_sid}/FieldTypes/{sid}'.format(**self._solution)
+
+        # Dependents
+        self._field_values = None
 
     def fetch(self):
         """
-        Fetch a ModelBuildInstance
+        Fetch a FieldTypeInstance
 
-        :returns: Fetched ModelBuildInstance
-        :rtype: twilio.rest.preview.understand.service.model_build.ModelBuildInstance
+        :returns: Fetched FieldTypeInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeInstance
         """
         params = values.of({})
 
@@ -247,23 +251,24 @@ class ModelBuildContext(InstanceContext):
             params=params,
         )
 
-        return ModelBuildInstance(
+        return FieldTypeInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
+            assistant_sid=self._solution['assistant_sid'],
             sid=self._solution['sid'],
         )
 
-    def update(self, unique_name=values.unset):
+    def update(self, friendly_name=values.unset, unique_name=values.unset):
         """
-        Update the ModelBuildInstance
+        Update the FieldTypeInstance
 
+        :param unicode friendly_name: The friendly_name
         :param unicode unique_name: The unique_name
 
-        :returns: Updated ModelBuildInstance
-        :rtype: twilio.rest.preview.understand.service.model_build.ModelBuildInstance
+        :returns: Updated FieldTypeInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeInstance
         """
-        data = values.of({'UniqueName': unique_name, })
+        data = values.of({'FriendlyName': friendly_name, 'UniqueName': unique_name, })
 
         payload = self._version.update(
             'POST',
@@ -271,21 +276,37 @@ class ModelBuildContext(InstanceContext):
             data=data,
         )
 
-        return ModelBuildInstance(
+        return FieldTypeInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
+            assistant_sid=self._solution['assistant_sid'],
             sid=self._solution['sid'],
         )
 
     def delete(self):
         """
-        Deletes the ModelBuildInstance
+        Deletes the FieldTypeInstance
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
         return self._version.delete('delete', self._uri)
+
+    @property
+    def field_values(self):
+        """
+        Access the field_values
+
+        :returns: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueList
+        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueList
+        """
+        if self._field_values is None:
+            self._field_values = FieldValueList(
+                self._version,
+                assistant_sid=self._solution['assistant_sid'],
+                field_type_sid=self._solution['sid'],
+            )
+        return self._field_values
 
     def __repr__(self):
         """
@@ -295,47 +316,39 @@ class ModelBuildContext(InstanceContext):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Understand.ModelBuildContext {}>'.format(context)
+        return '<Twilio.Preview.Understand.FieldTypeContext {}>'.format(context)
 
 
-class ModelBuildInstance(InstanceResource):
+class FieldTypeInstance(InstanceResource):
     """ PLEASE NOTE that this class contains preview products that are subject
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
-    class Status(object):
-        ENQUEUED = "enqueued"
-        BUILDING = "building"
-        COMPLETED = "completed"
-        FAILED = "failed"
-        CANCELED = "canceled"
-
-    def __init__(self, version, payload, service_sid, sid=None):
+    def __init__(self, version, payload, assistant_sid, sid=None):
         """
-        Initialize the ModelBuildInstance
+        Initialize the FieldTypeInstance
 
-        :returns: twilio.rest.preview.understand.service.model_build.ModelBuildInstance
-        :rtype: twilio.rest.preview.understand.service.model_build.ModelBuildInstance
+        :returns: twilio.rest.preview.understand.assistant.field_type.FieldTypeInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeInstance
         """
-        super(ModelBuildInstance, self).__init__(version)
+        super(FieldTypeInstance, self).__init__(version)
 
         # Marshaled Properties
         self._properties = {
             'account_sid': payload['account_sid'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'service_sid': payload['service_sid'],
+            'friendly_name': payload['friendly_name'],
+            'links': payload['links'],
+            'assistant_sid': payload['assistant_sid'],
             'sid': payload['sid'],
-            'status': payload['status'],
             'unique_name': payload['unique_name'],
             'url': payload['url'],
-            'build_duration': deserialize.integer(payload['build_duration']),
-            'error_code': deserialize.integer(payload['error_code']),
         }
 
         # Context
         self._context = None
-        self._solution = {'service_sid': service_sid, 'sid': sid or self._properties['sid'], }
+        self._solution = {'assistant_sid': assistant_sid, 'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):
@@ -343,13 +356,13 @@ class ModelBuildInstance(InstanceResource):
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
 
-        :returns: ModelBuildContext for this ModelBuildInstance
-        :rtype: twilio.rest.preview.understand.service.model_build.ModelBuildContext
+        :returns: FieldTypeContext for this FieldTypeInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeContext
         """
         if self._context is None:
-            self._context = ModelBuildContext(
+            self._context = FieldTypeContext(
                 self._version,
-                service_sid=self._solution['service_sid'],
+                assistant_sid=self._solution['assistant_sid'],
                 sid=self._solution['sid'],
             )
         return self._context
@@ -379,12 +392,28 @@ class ModelBuildInstance(InstanceResource):
         return self._properties['date_updated']
 
     @property
-    def service_sid(self):
+    def friendly_name(self):
         """
-        :returns: The service_sid
+        :returns: The friendly_name
         :rtype: unicode
         """
-        return self._properties['service_sid']
+        return self._properties['friendly_name']
+
+    @property
+    def links(self):
+        """
+        :returns: The links
+        :rtype: unicode
+        """
+        return self._properties['links']
+
+    @property
+    def assistant_sid(self):
+        """
+        :returns: The assistant_sid
+        :rtype: unicode
+        """
+        return self._properties['assistant_sid']
 
     @property
     def sid(self):
@@ -393,14 +422,6 @@ class ModelBuildInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['sid']
-
-    @property
-    def status(self):
-        """
-        :returns: The status
-        :rtype: ModelBuildInstance.Status
-        """
-        return self._properties['status']
 
     @property
     def unique_name(self):
@@ -418,50 +439,45 @@ class ModelBuildInstance(InstanceResource):
         """
         return self._properties['url']
 
-    @property
-    def build_duration(self):
-        """
-        :returns: The build_duration
-        :rtype: unicode
-        """
-        return self._properties['build_duration']
-
-    @property
-    def error_code(self):
-        """
-        :returns: The error_code
-        :rtype: unicode
-        """
-        return self._properties['error_code']
-
     def fetch(self):
         """
-        Fetch a ModelBuildInstance
+        Fetch a FieldTypeInstance
 
-        :returns: Fetched ModelBuildInstance
-        :rtype: twilio.rest.preview.understand.service.model_build.ModelBuildInstance
+        :returns: Fetched FieldTypeInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeInstance
         """
         return self._proxy.fetch()
 
-    def update(self, unique_name=values.unset):
+    def update(self, friendly_name=values.unset, unique_name=values.unset):
         """
-        Update the ModelBuildInstance
+        Update the FieldTypeInstance
 
+        :param unicode friendly_name: The friendly_name
         :param unicode unique_name: The unique_name
 
-        :returns: Updated ModelBuildInstance
-        :rtype: twilio.rest.preview.understand.service.model_build.ModelBuildInstance
+        :returns: Updated FieldTypeInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeInstance
         """
-        return self._proxy.update(unique_name=unique_name, )
+        return self._proxy.update(friendly_name=friendly_name, unique_name=unique_name, )
 
     def delete(self):
         """
-        Deletes the ModelBuildInstance
+        Deletes the FieldTypeInstance
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
         return self._proxy.delete()
+
+    @property
+    def field_values(self):
+        """
+        Access the field_values
+
+        :returns: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueList
+        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueList
+        """
+        return self._proxy.field_values
 
     def __repr__(self):
         """
@@ -471,4 +487,4 @@ class ModelBuildInstance(InstanceResource):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Understand.ModelBuildInstance {}>'.format(context)
+        return '<Twilio.Preview.Understand.FieldTypeInstance {}>'.format(context)

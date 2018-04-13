@@ -52,11 +52,11 @@ class FlowTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.studio.v1.flows(sid="FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.studio.v1.flows(sid="FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://studio.twilio.com/v1/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://studio.twilio.com/v1/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -79,7 +79,7 @@ class FlowTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.studio.v1.flows(sid="FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.studio.v1.flows(sid="FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -87,11 +87,11 @@ class FlowTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.studio.v1.flows(sid="FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+            self.client.studio.v1.flows(sid="FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://studio.twilio.com/v1/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://studio.twilio.com/v1/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_delete_response(self):
@@ -100,6 +100,6 @@ class FlowTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.studio.v1.flows(sid="FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        actual = self.client.studio.v1.flows(sid="FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

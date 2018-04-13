@@ -18,13 +18,13 @@ class TaskQueueStatisticsTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                     .task_queues(sid="WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.taskrouter.v1.workspaces(sid="WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .task_queues(sid="WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                      .statistics().fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Statistics',
+            'https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Statistics',
         ))
 
     def test_fetch_response(self):
@@ -100,8 +100,8 @@ class TaskQueueStatisticsTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.taskrouter.v1.workspaces(sid="WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                          .task_queues(sid="WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.taskrouter.v1.workspaces(sid="WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .task_queues(sid="WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                           .statistics().fetch()
 
         self.assertIsNotNone(actual)

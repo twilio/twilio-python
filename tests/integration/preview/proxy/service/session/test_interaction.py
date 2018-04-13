@@ -18,13 +18,13 @@ class InteractionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.proxy.services(sid="KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                     .sessions(sid="KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                     .interactions(sid="KIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.preview.proxy.services(sid="KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .sessions(sid="KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .interactions(sid="KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://preview.twilio.com/Proxy/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Sessions/KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Interactions/KIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://preview.twilio.com/Proxy/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Interactions/KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -55,9 +55,9 @@ class InteractionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.proxy.services(sid="KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                          .sessions(sid="KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                          .interactions(sid="KIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.preview.proxy.services(sid="KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .sessions(sid="KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .interactions(sid="KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -65,13 +65,13 @@ class InteractionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.proxy.services(sid="KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                     .sessions(sid="KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.preview.proxy.services(sid="KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .sessions(sid="KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                      .interactions.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://preview.twilio.com/Proxy/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Sessions/KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Interactions',
+            'https://preview.twilio.com/Proxy/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Interactions',
         ))
 
     def test_read_empty_response(self):
@@ -93,8 +93,8 @@ class InteractionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.proxy.services(sid="KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                          .sessions(sid="KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.preview.proxy.services(sid="KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .sessions(sid="KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                           .interactions.list()
 
         self.assertIsNotNone(actual)

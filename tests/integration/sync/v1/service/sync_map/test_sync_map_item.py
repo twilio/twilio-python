@@ -19,13 +19,13 @@ class SyncMapItemTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .sync_maps(sid="MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .sync_maps(sid="MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                .sync_map_items(key="key").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Maps/MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Items/key',
+            'https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/key',
         ))
 
     def test_fetch_response(self):
@@ -48,8 +48,8 @@ class SyncMapItemTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .sync_maps(sid="MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .sync_maps(sid="MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .sync_map_items(key="key").fetch()
 
         self.assertIsNotNone(actual)
@@ -58,13 +58,13 @@ class SyncMapItemTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .sync_maps(sid="MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .sync_maps(sid="MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                .sync_map_items(key="key").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Maps/MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Items/key',
+            'https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/key',
         ))
 
     def test_delete_response(self):
@@ -73,8 +73,8 @@ class SyncMapItemTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .sync_maps(sid="MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .sync_maps(sid="MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .sync_map_items(key="key").delete()
 
         self.assertTrue(actual)
@@ -83,15 +83,15 @@ class SyncMapItemTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .sync_maps(sid="MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .sync_maps(sid="MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                .sync_map_items.create(key="key", data={})
 
         values = {'Key': "key", 'Data': serialize.object({}), }
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Maps/MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Items',
+            'https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items',
             data=values,
         ))
 
@@ -115,8 +115,8 @@ class SyncMapItemTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .sync_maps(sid="MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .sync_maps(sid="MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .sync_map_items.create(key="key", data={})
 
         self.assertIsNotNone(actual)
@@ -125,13 +125,13 @@ class SyncMapItemTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .sync_maps(sid="MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .sync_maps(sid="MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                .sync_map_items.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Maps/MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Items',
+            'https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items',
         ))
 
     def test_read_empty_response(self):
@@ -153,8 +153,8 @@ class SyncMapItemTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .sync_maps(sid="MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .sync_maps(sid="MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .sync_map_items.list()
 
         self.assertIsNotNone(actual)
@@ -192,8 +192,8 @@ class SyncMapItemTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .sync_maps(sid="MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .sync_maps(sid="MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .sync_map_items.list()
 
         self.assertIsNotNone(actual)
@@ -202,13 +202,13 @@ class SyncMapItemTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .sync_maps(sid="MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .sync_maps(sid="MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                .sync_map_items(key="key").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Maps/MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Items/key',
+            'https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/key',
         ))
 
     def test_update_response(self):
@@ -231,8 +231,8 @@ class SyncMapItemTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .sync_maps(sid="MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .sync_maps(sid="MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .sync_map_items(key="key").update()
 
         self.assertIsNotNone(actual)

@@ -18,14 +18,14 @@ class AssignedAddOnExtensionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .incoming_phone_numbers(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .assigned_add_ons(sid="XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .extensions(sid="XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .incoming_phone_numbers(sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .assigned_add_ons(sid="XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .extensions(sid="XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AssignedAddOns/XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Extensions/XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AssignedAddOns/XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Extensions/XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json',
         ))
 
     def test_fetch_response(self):
@@ -46,10 +46,10 @@ class AssignedAddOnExtensionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .incoming_phone_numbers(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .assigned_add_ons(sid="XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .extensions(sid="XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .incoming_phone_numbers(sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .assigned_add_ons(sid="XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .extensions(sid="XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -57,14 +57,14 @@ class AssignedAddOnExtensionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .incoming_phone_numbers(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .assigned_add_ons(sid="XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .incoming_phone_numbers(sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .assigned_add_ons(sid="XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .extensions.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AssignedAddOns/XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Extensions.json',
+            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AssignedAddOns/XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Extensions.json',
         ))
 
     def test_read_full_response(self):
@@ -97,9 +97,9 @@ class AssignedAddOnExtensionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .incoming_phone_numbers(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .assigned_add_ons(sid="XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .incoming_phone_numbers(sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .assigned_add_ons(sid="XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .extensions.list()
 
         self.assertIsNotNone(actual)
@@ -122,9 +122,9 @@ class AssignedAddOnExtensionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .incoming_phone_numbers(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .assigned_add_ons(sid="XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .incoming_phone_numbers(sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .assigned_add_ons(sid="XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .extensions.list()
 
         self.assertIsNotNone(actual)

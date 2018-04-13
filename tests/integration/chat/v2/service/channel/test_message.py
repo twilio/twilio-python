@@ -18,13 +18,13 @@ class MessageTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.chat.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .messages(sid="IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .messages(sid="IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -52,9 +52,9 @@ class MessageTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.chat.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .messages(sid="IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .messages(sid="IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -88,9 +88,9 @@ class MessageTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.chat.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .messages(sid="IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .messages(sid="IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -98,13 +98,13 @@ class MessageTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.chat.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                .messages.create()
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages',
+            'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages',
         ))
 
     def test_create_response(self):
@@ -132,8 +132,8 @@ class MessageTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.chat.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .messages.create()
 
         self.assertIsNotNone(actual)
@@ -163,8 +163,8 @@ class MessageTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.chat.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .messages.create()
 
         self.assertIsNotNone(actual)
@@ -199,8 +199,8 @@ class MessageTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.chat.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .messages.create()
 
         self.assertIsNotNone(actual)
@@ -209,13 +209,13 @@ class MessageTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.chat.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                .messages.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages',
+            'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages',
         ))
 
     def test_read_full_response(self):
@@ -279,8 +279,8 @@ class MessageTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.chat.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .messages.list()
 
         self.assertIsNotNone(actual)
@@ -304,8 +304,8 @@ class MessageTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.chat.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .messages.list()
 
         self.assertIsNotNone(actual)
@@ -314,13 +314,13 @@ class MessageTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.chat.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .messages(sid="IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+            self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .messages(sid="IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_delete_response(self):
@@ -329,9 +329,9 @@ class MessageTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.chat.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .messages(sid="IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        actual = self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .messages(sid="IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)
 
@@ -339,13 +339,13 @@ class MessageTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.chat.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .messages(sid="IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+            self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .messages(sid="IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_update_response(self):
@@ -373,8 +373,8 @@ class MessageTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.chat.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .messages(sid="IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+        actual = self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .messages(sid="IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)

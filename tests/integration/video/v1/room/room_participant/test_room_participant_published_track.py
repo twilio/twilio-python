@@ -18,13 +18,13 @@ class PublishedTrackTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.rooms(sid="RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                .participants(sid="PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                .published_tracks(sid="MTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.video.v1.rooms(sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .participants(sid="PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .published_tracks(sid="MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PublishedTracks/MTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PublishedTracks/MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -45,9 +45,9 @@ class PublishedTrackTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.video.v1.rooms(sid="RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                     .participants(sid="PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                     .published_tracks(sid="MTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.video.v1.rooms(sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .participants(sid="PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .published_tracks(sid="MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -55,13 +55,13 @@ class PublishedTrackTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.rooms(sid="RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                .participants(sid="PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.video.v1.rooms(sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .participants(sid="PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                 .published_tracks.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PublishedTracks',
+            'https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PublishedTracks',
         ))
 
     def test_read_empty_response(self):
@@ -83,8 +83,8 @@ class PublishedTrackTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.video.v1.rooms(sid="RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                     .participants(sid="PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.video.v1.rooms(sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .participants(sid="PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                      .published_tracks.list()
 
         self.assertIsNotNone(actual)

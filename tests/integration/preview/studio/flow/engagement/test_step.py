@@ -18,13 +18,13 @@ class StepTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.studio.flows(sid="FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .engagements(sid="FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.preview.studio.flows(sid="FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .engagements(sid="FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .steps.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://preview.twilio.com/Studio/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Engagements/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Steps',
+            'https://preview.twilio.com/Studio/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Engagements/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Steps',
         ))
 
     def test_read_empty_response(self):
@@ -46,8 +46,8 @@ class StepTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.studio.flows(sid="FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                           .engagements(sid="FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.preview.studio.flows(sid="FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                           .engagements(sid="FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                            .steps.list()
 
         self.assertIsNotNone(actual)
@@ -56,13 +56,13 @@ class StepTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.studio.flows(sid="FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .engagements(sid="FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .steps(sid="FTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.preview.studio.flows(sid="FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .engagements(sid="FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .steps(sid="FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://preview.twilio.com/Studio/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Engagements/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Steps/FTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://preview.twilio.com/Studio/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Engagements/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Steps/FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -85,8 +85,8 @@ class StepTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.studio.flows(sid="FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                           .engagements(sid="FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                           .steps(sid="FTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.preview.studio.flows(sid="FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                           .engagements(sid="FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                           .steps(sid="FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)

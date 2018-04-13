@@ -18,13 +18,13 @@ class MemberTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.chat.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .members(sid="MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.chat.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .members(sid="MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://chat.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Members/MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -47,9 +47,9 @@ class MemberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.chat.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .members(sid="MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.chat.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .members(sid="MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -57,15 +57,15 @@ class MemberTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.chat.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.chat.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                .members.create(identity="identity")
 
         values = {'Identity': "identity", }
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members',
+            'https://chat.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Members',
             data=values,
         ))
 
@@ -89,8 +89,8 @@ class MemberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.chat.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.chat.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .members.create(identity="identity")
 
         self.assertIsNotNone(actual)
@@ -99,13 +99,13 @@ class MemberTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.chat.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.chat.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                .members.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members',
+            'https://chat.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Members',
         ))
 
     def test_read_full_response(self):
@@ -141,8 +141,8 @@ class MemberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.chat.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.chat.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .members.list()
 
         self.assertIsNotNone(actual)
@@ -166,8 +166,8 @@ class MemberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.chat.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.chat.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .members.list()
 
         self.assertIsNotNone(actual)
@@ -176,13 +176,13 @@ class MemberTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.chat.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .members(sid="MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+            self.client.chat.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .members(sid="MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://chat.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Members/MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_delete_response(self):
@@ -191,9 +191,9 @@ class MemberTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.chat.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .members(sid="MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        actual = self.client.chat.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .members(sid="MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)
 
@@ -201,13 +201,13 @@ class MemberTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.chat.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .members(sid="MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+            self.client.chat.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .members(sid="MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://chat.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Members/MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_update_role_sid_response(self):
@@ -230,9 +230,9 @@ class MemberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.chat.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .members(sid="MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+        actual = self.client.chat.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .members(sid="MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)
 
@@ -256,8 +256,8 @@ class MemberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.chat.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .channels(sid="CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .members(sid="MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+        actual = self.client.chat.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .members(sid="MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)

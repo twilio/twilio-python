@@ -19,15 +19,15 @@ class StreamMessageTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                               .sync_streams(sid="TOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .sync_streams(sid="TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                .stream_messages.create(data={})
 
         values = {'Data': serialize.object({}), }
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Streams/TOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages',
+            'https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Streams/TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages',
             data=values,
         ))
 
@@ -42,8 +42,8 @@ class StreamMessageTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.sync.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .sync_streams(sid="TOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .sync_streams(sid="TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .stream_messages.create(data={})
 
         self.assertIsNotNone(actual)

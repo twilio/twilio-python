@@ -18,13 +18,13 @@ class DocumentPermissionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.sync.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .documents(sid="ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.preview.sync.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .documents(sid="ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .document_permissions(identity="identity").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Documents/ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Permissions/identity',
+            'https://preview.twilio.com/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Documents/ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Permissions/identity',
         ))
 
     def test_fetch_response(self):
@@ -44,8 +44,8 @@ class DocumentPermissionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.sync.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                         .documents(sid="ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.preview.sync.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .documents(sid="ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                          .document_permissions(identity="identity").fetch()
 
         self.assertIsNotNone(actual)
@@ -54,13 +54,13 @@ class DocumentPermissionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.sync.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .documents(sid="ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.preview.sync.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .documents(sid="ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .document_permissions(identity="identity").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Documents/ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Permissions/identity',
+            'https://preview.twilio.com/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Documents/ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Permissions/identity',
         ))
 
     def test_delete_response(self):
@@ -69,8 +69,8 @@ class DocumentPermissionTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.preview.sync.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                         .documents(sid="ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.preview.sync.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .documents(sid="ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                          .document_permissions(identity="identity").delete()
 
         self.assertTrue(actual)
@@ -79,13 +79,13 @@ class DocumentPermissionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.sync.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .documents(sid="ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.preview.sync.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .documents(sid="ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .document_permissions.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Documents/ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Permissions',
+            'https://preview.twilio.com/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Documents/ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Permissions',
         ))
 
     def test_read_empty_response(self):
@@ -107,8 +107,8 @@ class DocumentPermissionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.sync.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                         .documents(sid="ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.preview.sync.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .documents(sid="ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                          .document_permissions.list()
 
         self.assertIsNotNone(actual)
@@ -143,8 +143,8 @@ class DocumentPermissionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.sync.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                         .documents(sid="ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.preview.sync.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .documents(sid="ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                          .document_permissions.list()
 
         self.assertIsNotNone(actual)
@@ -153,15 +153,15 @@ class DocumentPermissionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.sync.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .documents(sid="ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.preview.sync.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .documents(sid="ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .document_permissions(identity="identity").update(read=True, write=True, manage=True)
 
         values = {'Read': True, 'Write': True, 'Manage': True, }
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Documents/ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Permissions/identity',
+            'https://preview.twilio.com/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Documents/ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Permissions/identity',
             data=values,
         ))
 
@@ -182,8 +182,8 @@ class DocumentPermissionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.sync.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                         .documents(sid="ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.preview.sync.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .documents(sid="ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                          .document_permissions(identity="identity").update(read=True, write=True, manage=True)
 
         self.assertIsNotNone(actual)

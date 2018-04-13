@@ -18,13 +18,13 @@ class UserBindingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.ip_messaging.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                       .users(sid="USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                       .users(sid="USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                        .user_bindings.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings',
+            'https://ip-messaging.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings',
         ))
 
     def test_read_full_response(self):
@@ -66,8 +66,8 @@ class UserBindingTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.ip_messaging.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                            .users(sid="USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                            .users(sid="USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                             .user_bindings.list()
 
         self.assertIsNotNone(actual)
@@ -91,8 +91,8 @@ class UserBindingTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.ip_messaging.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                            .users(sid="USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                            .users(sid="USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                             .user_bindings.list()
 
         self.assertIsNotNone(actual)
@@ -101,13 +101,13 @@ class UserBindingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.ip_messaging.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                       .users(sid="USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                       .user_bindings(sid="BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                       .users(sid="USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                       .user_bindings(sid="BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://ip-messaging.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings/BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -136,9 +136,9 @@ class UserBindingTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.ip_messaging.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                            .users(sid="USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                            .user_bindings(sid="BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                            .users(sid="USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                            .user_bindings(sid="BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -146,13 +146,13 @@ class UserBindingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.ip_messaging.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                       .users(sid="USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                       .user_bindings(sid="BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+            self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                       .users(sid="USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                       .user_bindings(sid="BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://ip-messaging.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings/BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_delete_response(self):
@@ -161,8 +161,8 @@ class UserBindingTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.ip_messaging.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                            .users(sid="USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                            .user_bindings(sid="BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        actual = self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                            .users(sid="USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                            .user_bindings(sid="BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

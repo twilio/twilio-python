@@ -19,22 +19,22 @@ class FieldList(ListResource):
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
-    def __init__(self, version, service_sid, intent_sid):
+    def __init__(self, version, assistant_sid, intent_sid):
         """
         Initialize the FieldList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
+        :param assistant_sid: The assistant_sid
         :param intent_sid: The intent_sid
 
-        :returns: twilio.rest.preview.understand.service.intent.field.FieldList
-        :rtype: twilio.rest.preview.understand.service.intent.field.FieldList
+        :returns: twilio.rest.preview.understand.assistant.intent.field.FieldList
+        :rtype: twilio.rest.preview.understand.assistant.intent.field.FieldList
         """
         super(FieldList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'intent_sid': intent_sid, }
-        self._uri = '/Services/{service_sid}/Intents/{intent_sid}/Fields'.format(**self._solution)
+        self._solution = {'assistant_sid': assistant_sid, 'intent_sid': intent_sid, }
+        self._uri = '/Assistants/{assistant_sid}/Intents/{intent_sid}/Fields'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
         """
@@ -51,7 +51,7 @@ class FieldList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.service.intent.field.FieldInstance]
+        :rtype: list[twilio.rest.preview.understand.assistant.intent.field.FieldInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -73,7 +73,7 @@ class FieldList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.service.intent.field.FieldInstance]
+        :rtype: list[twilio.rest.preview.understand.assistant.intent.field.FieldInstance]
         """
         return list(self.stream(limit=limit, page_size=page_size, ))
 
@@ -88,7 +88,7 @@ class FieldList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of FieldInstance
-        :rtype: twilio.rest.preview.understand.service.intent.field.FieldPage
+        :rtype: twilio.rest.preview.understand.assistant.intent.field.FieldPage
         """
         params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
@@ -108,7 +108,7 @@ class FieldList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of FieldInstance
-        :rtype: twilio.rest.preview.understand.service.intent.field.FieldPage
+        :rtype: twilio.rest.preview.understand.assistant.intent.field.FieldPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -125,7 +125,7 @@ class FieldList(ListResource):
         :param unicode unique_name: The unique_name
 
         :returns: Newly created FieldInstance
-        :rtype: twilio.rest.preview.understand.service.intent.field.FieldInstance
+        :rtype: twilio.rest.preview.understand.assistant.intent.field.FieldInstance
         """
         data = values.of({'FieldType': field_type, 'UniqueName': unique_name, })
 
@@ -138,7 +138,7 @@ class FieldList(ListResource):
         return FieldInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
+            assistant_sid=self._solution['assistant_sid'],
             intent_sid=self._solution['intent_sid'],
         )
 
@@ -148,12 +148,12 @@ class FieldList(ListResource):
 
         :param sid: The sid
 
-        :returns: twilio.rest.preview.understand.service.intent.field.FieldContext
-        :rtype: twilio.rest.preview.understand.service.intent.field.FieldContext
+        :returns: twilio.rest.preview.understand.assistant.intent.field.FieldContext
+        :rtype: twilio.rest.preview.understand.assistant.intent.field.FieldContext
         """
         return FieldContext(
             self._version,
-            service_sid=self._solution['service_sid'],
+            assistant_sid=self._solution['assistant_sid'],
             intent_sid=self._solution['intent_sid'],
             sid=sid,
         )
@@ -164,12 +164,12 @@ class FieldList(ListResource):
 
         :param sid: The sid
 
-        :returns: twilio.rest.preview.understand.service.intent.field.FieldContext
-        :rtype: twilio.rest.preview.understand.service.intent.field.FieldContext
+        :returns: twilio.rest.preview.understand.assistant.intent.field.FieldContext
+        :rtype: twilio.rest.preview.understand.assistant.intent.field.FieldContext
         """
         return FieldContext(
             self._version,
-            service_sid=self._solution['service_sid'],
+            assistant_sid=self._solution['assistant_sid'],
             intent_sid=self._solution['intent_sid'],
             sid=sid,
         )
@@ -195,11 +195,11 @@ class FieldPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The service_sid
+        :param assistant_sid: The assistant_sid
         :param intent_sid: The intent_sid
 
-        :returns: twilio.rest.preview.understand.service.intent.field.FieldPage
-        :rtype: twilio.rest.preview.understand.service.intent.field.FieldPage
+        :returns: twilio.rest.preview.understand.assistant.intent.field.FieldPage
+        :rtype: twilio.rest.preview.understand.assistant.intent.field.FieldPage
         """
         super(FieldPage, self).__init__(version, response)
 
@@ -212,13 +212,13 @@ class FieldPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.understand.service.intent.field.FieldInstance
-        :rtype: twilio.rest.preview.understand.service.intent.field.FieldInstance
+        :returns: twilio.rest.preview.understand.assistant.intent.field.FieldInstance
+        :rtype: twilio.rest.preview.understand.assistant.intent.field.FieldInstance
         """
         return FieldInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
+            assistant_sid=self._solution['assistant_sid'],
             intent_sid=self._solution['intent_sid'],
         )
 
@@ -237,30 +237,30 @@ class FieldContext(InstanceContext):
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
-    def __init__(self, version, service_sid, intent_sid, sid):
+    def __init__(self, version, assistant_sid, intent_sid, sid):
         """
         Initialize the FieldContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
+        :param assistant_sid: The assistant_sid
         :param intent_sid: The intent_sid
         :param sid: The sid
 
-        :returns: twilio.rest.preview.understand.service.intent.field.FieldContext
-        :rtype: twilio.rest.preview.understand.service.intent.field.FieldContext
+        :returns: twilio.rest.preview.understand.assistant.intent.field.FieldContext
+        :rtype: twilio.rest.preview.understand.assistant.intent.field.FieldContext
         """
         super(FieldContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'intent_sid': intent_sid, 'sid': sid, }
-        self._uri = '/Services/{service_sid}/Intents/{intent_sid}/Fields/{sid}'.format(**self._solution)
+        self._solution = {'assistant_sid': assistant_sid, 'intent_sid': intent_sid, 'sid': sid, }
+        self._uri = '/Assistants/{assistant_sid}/Intents/{intent_sid}/Fields/{sid}'.format(**self._solution)
 
     def fetch(self):
         """
         Fetch a FieldInstance
 
         :returns: Fetched FieldInstance
-        :rtype: twilio.rest.preview.understand.service.intent.field.FieldInstance
+        :rtype: twilio.rest.preview.understand.assistant.intent.field.FieldInstance
         """
         params = values.of({})
 
@@ -273,7 +273,7 @@ class FieldContext(InstanceContext):
         return FieldInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
+            assistant_sid=self._solution['assistant_sid'],
             intent_sid=self._solution['intent_sid'],
             sid=self._solution['sid'],
         )
@@ -303,12 +303,12 @@ class FieldInstance(InstanceResource):
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
-    def __init__(self, version, payload, service_sid, intent_sid, sid=None):
+    def __init__(self, version, payload, assistant_sid, intent_sid, sid=None):
         """
         Initialize the FieldInstance
 
-        :returns: twilio.rest.preview.understand.service.intent.field.FieldInstance
-        :rtype: twilio.rest.preview.understand.service.intent.field.FieldInstance
+        :returns: twilio.rest.preview.understand.assistant.intent.field.FieldInstance
+        :rtype: twilio.rest.preview.understand.assistant.intent.field.FieldInstance
         """
         super(FieldInstance, self).__init__(version)
 
@@ -319,7 +319,7 @@ class FieldInstance(InstanceResource):
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
             'field_type': payload['field_type'],
             'intent_sid': payload['intent_sid'],
-            'service_sid': payload['service_sid'],
+            'assistant_sid': payload['assistant_sid'],
             'sid': payload['sid'],
             'unique_name': payload['unique_name'],
             'url': payload['url'],
@@ -328,7 +328,7 @@ class FieldInstance(InstanceResource):
         # Context
         self._context = None
         self._solution = {
-            'service_sid': service_sid,
+            'assistant_sid': assistant_sid,
             'intent_sid': intent_sid,
             'sid': sid or self._properties['sid'],
         }
@@ -340,12 +340,12 @@ class FieldInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: FieldContext for this FieldInstance
-        :rtype: twilio.rest.preview.understand.service.intent.field.FieldContext
+        :rtype: twilio.rest.preview.understand.assistant.intent.field.FieldContext
         """
         if self._context is None:
             self._context = FieldContext(
                 self._version,
-                service_sid=self._solution['service_sid'],
+                assistant_sid=self._solution['assistant_sid'],
                 intent_sid=self._solution['intent_sid'],
                 sid=self._solution['sid'],
             )
@@ -392,12 +392,12 @@ class FieldInstance(InstanceResource):
         return self._properties['intent_sid']
 
     @property
-    def service_sid(self):
+    def assistant_sid(self):
         """
-        :returns: The service_sid
+        :returns: The assistant_sid
         :rtype: unicode
         """
-        return self._properties['service_sid']
+        return self._properties['assistant_sid']
 
     @property
     def sid(self):
@@ -428,7 +428,7 @@ class FieldInstance(InstanceResource):
         Fetch a FieldInstance
 
         :returns: Fetched FieldInstance
-        :rtype: twilio.rest.preview.understand.service.intent.field.FieldInstance
+        :rtype: twilio.rest.preview.understand.assistant.intent.field.FieldInstance
         """
         return self._proxy.fetch()
 

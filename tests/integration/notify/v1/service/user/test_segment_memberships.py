@@ -18,15 +18,15 @@ class SegmentMembershipTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.notify.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .users(identity="NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.notify.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .users(identity="NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .segment_memberships.create(segment="segment")
 
         values = {'Segment': "segment", }
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SegmentMemberships',
+            'https://notify.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SegmentMemberships',
             data=values,
         ))
 
@@ -44,8 +44,8 @@ class SegmentMembershipTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.notify.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .users(identity="NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.notify.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .users(identity="NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .segment_memberships.create(segment="segment")
 
         self.assertIsNotNone(actual)
@@ -54,13 +54,13 @@ class SegmentMembershipTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.notify.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .users(identity="NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.notify.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .users(identity="NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .segment_memberships(segment="segment").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SegmentMemberships/segment',
+            'https://notify.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SegmentMemberships/segment',
         ))
 
     def test_delete_response(self):
@@ -69,8 +69,8 @@ class SegmentMembershipTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.notify.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .users(identity="NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.notify.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .users(identity="NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .segment_memberships(segment="segment").delete()
 
         self.assertTrue(actual)
@@ -79,13 +79,13 @@ class SegmentMembershipTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.notify.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .users(identity="NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.notify.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .users(identity="NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .segment_memberships(segment="segment").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SegmentMemberships/segment',
+            'https://notify.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SegmentMemberships/segment',
         ))
 
     def test_fetch_response(self):
@@ -102,8 +102,8 @@ class SegmentMembershipTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.notify.v1.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .users(identity="NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.notify.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .users(identity="NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .segment_memberships(segment="segment").fetch()
 
         self.assertIsNotNone(actual)

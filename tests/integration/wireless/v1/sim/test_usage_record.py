@@ -18,12 +18,12 @@ class UsageRecordTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.wireless.v1.sims(sid="DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.wireless.v1.sims(sid="DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                    .usage_records.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://wireless.twilio.com/v1/Sims/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/UsageRecords',
+            'https://wireless.twilio.com/v1/Sims/DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/UsageRecords',
         ))
 
     def test_fetch_response(self):
@@ -60,7 +60,7 @@ class UsageRecordTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.wireless.v1.sims(sid="DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.wireless.v1.sims(sid="DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                         .usage_records.list()
 
         self.assertIsNotNone(actual)

@@ -18,12 +18,12 @@ class RoomRecordingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.rooms(sid="RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                .recordings(sid="RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.video.v1.rooms(sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .recordings(sid="RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings/RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -53,8 +53,8 @@ class RoomRecordingTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.video.v1.rooms(sid="RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                     .recordings(sid="RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.video.v1.rooms(sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .recordings(sid="RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -62,12 +62,12 @@ class RoomRecordingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.rooms(sid="RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.video.v1.rooms(sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                 .recordings.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings',
+            'https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recordings',
         ))
 
     def test_read_empty_response(self):
@@ -89,7 +89,7 @@ class RoomRecordingTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.video.v1.rooms(sid="RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.video.v1.rooms(sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                      .recordings.list()
 
         self.assertIsNotNone(actual)
@@ -135,7 +135,7 @@ class RoomRecordingTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.video.v1.rooms(sid="RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.video.v1.rooms(sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                      .recordings.list()
 
         self.assertIsNotNone(actual)

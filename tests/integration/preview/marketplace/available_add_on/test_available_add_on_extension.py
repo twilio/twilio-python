@@ -18,12 +18,12 @@ class AvailableAddOnExtensionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.marketplace.available_add_ons(sid="XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                           .extensions(sid="XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.preview.marketplace.available_add_ons(sid="XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                           .extensions(sid="XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://preview.twilio.com/marketplace/AvailableAddOns/XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Extensions/XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://preview.twilio.com/marketplace/AvailableAddOns/XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Extensions/XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -41,8 +41,8 @@ class AvailableAddOnExtensionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.marketplace.available_add_ons(sid="XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                                .extensions(sid="XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.preview.marketplace.available_add_ons(sid="XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                                .extensions(sid="XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -50,12 +50,12 @@ class AvailableAddOnExtensionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.marketplace.available_add_ons(sid="XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.preview.marketplace.available_add_ons(sid="XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                            .extensions.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://preview.twilio.com/marketplace/AvailableAddOns/XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Extensions',
+            'https://preview.twilio.com/marketplace/AvailableAddOns/XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Extensions',
         ))
 
     def test_read_full_response(self):
@@ -86,7 +86,7 @@ class AvailableAddOnExtensionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.marketplace.available_add_ons(sid="XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.preview.marketplace.available_add_ons(sid="XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                                 .extensions.list()
 
         self.assertIsNotNone(actual)
@@ -110,7 +110,7 @@ class AvailableAddOnExtensionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.marketplace.available_add_ons(sid="XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.preview.marketplace.available_add_ons(sid="XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                                 .extensions.list()
 
         self.assertIsNotNone(actual)

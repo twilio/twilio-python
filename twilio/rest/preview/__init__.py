@@ -196,9 +196,9 @@ class Preview(Domain):
     @property
     def services(self):
         """
-        :rtype: twilio.rest.preview.understand.service.ServiceList
+        :rtype: twilio.rest.preview.sync.service.ServiceList
         """
-        return self.understand.services
+        return self.sync.services
 
     @property
     def flows(self):
@@ -206,6 +206,13 @@ class Preview(Domain):
         :rtype: twilio.rest.preview.studio.flow.FlowList
         """
         return self.studio.flows
+
+    @property
+    def assistants(self):
+        """
+        :rtype: twilio.rest.preview.understand.assistant.AssistantList
+        """
+        return self.understand.assistants
 
     @property
     def commands(self):

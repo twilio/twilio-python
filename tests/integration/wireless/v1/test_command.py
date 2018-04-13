@@ -18,11 +18,11 @@ class CommandTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.wireless.v1.commands(sid="DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.wireless.v1.commands(sid="DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://wireless.twilio.com/v1/Commands/DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://wireless.twilio.com/v1/Commands/DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -44,7 +44,7 @@ class CommandTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.wireless.v1.commands(sid="DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.wireless.v1.commands(sid="DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 

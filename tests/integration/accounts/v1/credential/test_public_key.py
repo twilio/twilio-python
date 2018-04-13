@@ -123,11 +123,11 @@ class PublicKeyTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.accounts.v1.credentials \
-                                   .public_key(sid="CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+                                   .public_key(sid="CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://accounts.twilio.com/v1/Credentials/PublicKeys/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://accounts.twilio.com/v1/Credentials/PublicKeys/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -146,7 +146,7 @@ class PublicKeyTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.accounts.v1.credentials \
-                                        .public_key(sid="CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+                                        .public_key(sid="CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -155,11 +155,11 @@ class PublicKeyTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.accounts.v1.credentials \
-                                   .public_key(sid="CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+                                   .public_key(sid="CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://accounts.twilio.com/v1/Credentials/PublicKeys/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://accounts.twilio.com/v1/Credentials/PublicKeys/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_update_response(self):
@@ -178,7 +178,7 @@ class PublicKeyTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.accounts.v1.credentials \
-                                        .public_key(sid="CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+                                        .public_key(sid="CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)
 
@@ -187,11 +187,11 @@ class PublicKeyTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.accounts.v1.credentials \
-                                   .public_key(sid="CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+                                   .public_key(sid="CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://accounts.twilio.com/v1/Credentials/PublicKeys/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://accounts.twilio.com/v1/Credentials/PublicKeys/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_delete_response(self):
@@ -201,6 +201,6 @@ class PublicKeyTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.accounts.v1.credentials \
-                                        .public_key(sid="CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+                                        .public_key(sid="CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

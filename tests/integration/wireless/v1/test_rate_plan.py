@@ -98,11 +98,11 @@ class RatePlanTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.wireless.v1.rate_plans(sid="WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.wireless.v1.rate_plans(sid="WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://wireless.twilio.com/v1/RatePlans/WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://wireless.twilio.com/v1/RatePlans/WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -134,7 +134,7 @@ class RatePlanTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.wireless.v1.rate_plans(sid="WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.wireless.v1.rate_plans(sid="WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -186,11 +186,11 @@ class RatePlanTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.wireless.v1.rate_plans(sid="WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+            self.client.wireless.v1.rate_plans(sid="WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://wireless.twilio.com/v1/RatePlans/WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://wireless.twilio.com/v1/RatePlans/WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_update_response(self):
@@ -222,7 +222,7 @@ class RatePlanTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.wireless.v1.rate_plans(sid="WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+        actual = self.client.wireless.v1.rate_plans(sid="WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)
 
@@ -230,11 +230,11 @@ class RatePlanTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.wireless.v1.rate_plans(sid="WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+            self.client.wireless.v1.rate_plans(sid="WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://wireless.twilio.com/v1/RatePlans/WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://wireless.twilio.com/v1/RatePlans/WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_delete_response(self):
@@ -243,6 +243,6 @@ class RatePlanTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.wireless.v1.rate_plans(sid="WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        actual = self.client.wireless.v1.rate_plans(sid="WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

@@ -18,14 +18,14 @@ class AlphaSenderTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.services(sid="MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.messaging.v1.services(sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .alpha_senders.create(alpha_sender="alpha_sender")
 
         values = {'AlphaSender': "alpha_sender", }
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AlphaSenders',
+            'https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders',
             data=values,
         ))
 
@@ -46,7 +46,7 @@ class AlphaSenderTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.messaging.v1.services(sid="MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.messaging.v1.services(sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                          .alpha_senders.create(alpha_sender="alpha_sender")
 
         self.assertIsNotNone(actual)
@@ -55,12 +55,12 @@ class AlphaSenderTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.services(sid="MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.messaging.v1.services(sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .alpha_senders.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AlphaSenders',
+            'https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders',
         ))
 
     def test_read_full_response(self):
@@ -93,7 +93,7 @@ class AlphaSenderTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.messaging.v1.services(sid="MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.messaging.v1.services(sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                          .alpha_senders.list()
 
         self.assertIsNotNone(actual)
@@ -102,12 +102,12 @@ class AlphaSenderTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.services(sid="MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .alpha_senders(sid="AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.messaging.v1.services(sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .alpha_senders(sid="AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AlphaSenders/AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders/AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -127,8 +127,8 @@ class AlphaSenderTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.messaging.v1.services(sid="MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                         .alpha_senders(sid="AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.messaging.v1.services(sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .alpha_senders(sid="AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -136,12 +136,12 @@ class AlphaSenderTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.services(sid="MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .alpha_senders(sid="AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+            self.client.messaging.v1.services(sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .alpha_senders(sid="AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AlphaSenders/AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders/AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_delete_response(self):
@@ -150,7 +150,7 @@ class AlphaSenderTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.messaging.v1.services(sid="MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                         .alpha_senders(sid="AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        actual = self.client.messaging.v1.services(sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .alpha_senders(sid="AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

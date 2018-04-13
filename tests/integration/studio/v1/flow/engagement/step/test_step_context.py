@@ -18,14 +18,14 @@ class StepContextTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.studio.v1.flows(sid="FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .engagements(sid="FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                 .steps(sid="FTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.studio.v1.flows(sid="FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .engagements(sid="FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .steps(sid="FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .step_context().fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://studio.twilio.com/v1/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Engagements/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Steps/FTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Context',
+            'https://studio.twilio.com/v1/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Engagements/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Steps/FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Context',
         ))
 
     def test_fetch_response(self):
@@ -45,9 +45,9 @@ class StepContextTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.studio.v1.flows(sid="FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .engagements(sid="FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                      .steps(sid="FTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.studio.v1.flows(sid="FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .engagements(sid="FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .steps(sid="FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .step_context().fetch()
 
         self.assertIsNotNone(actual)

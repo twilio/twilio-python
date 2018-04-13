@@ -18,12 +18,12 @@ class DependentHostedNumberOrderTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.hosted_numbers.authorization_documents(sid="PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.preview.hosted_numbers.authorization_documents(sid="PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                               .dependent_hosted_number_orders.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentHostedNumberOrders',
+            'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/DependentHostedNumberOrders',
         ))
 
     def test_read_empty_response(self):
@@ -45,7 +45,7 @@ class DependentHostedNumberOrderTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.hosted_numbers.authorization_documents(sid="PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.preview.hosted_numbers.authorization_documents(sid="PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                                    .dependent_hosted_number_orders.list()
 
         self.assertIsNotNone(actual)
@@ -103,7 +103,7 @@ class DependentHostedNumberOrderTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.hosted_numbers.authorization_documents(sid="PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.preview.hosted_numbers.authorization_documents(sid="PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                                    .dependent_hosted_number_orders.list()
 
         self.assertIsNotNone(actual)

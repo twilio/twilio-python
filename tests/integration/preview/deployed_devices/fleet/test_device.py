@@ -18,12 +18,12 @@ class DeviceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.deployed_devices.fleets(sid="FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                                .devices(sid="THaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.preview.deployed_devices.fleets(sid="FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                                .devices(sid="THXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://preview.twilio.com/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Devices/THaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://preview.twilio.com/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Devices/THXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -47,8 +47,8 @@ class DeviceTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.deployed_devices.fleets(sid="FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                                     .devices(sid="THaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.preview.deployed_devices.fleets(sid="FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                                     .devices(sid="THXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -56,12 +56,12 @@ class DeviceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.deployed_devices.fleets(sid="FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                                .devices(sid="THaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+            self.client.preview.deployed_devices.fleets(sid="FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                                .devices(sid="THXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://preview.twilio.com/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Devices/THaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://preview.twilio.com/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Devices/THXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_delete_response(self):
@@ -70,8 +70,8 @@ class DeviceTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.preview.deployed_devices.fleets(sid="FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                                     .devices(sid="THaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        actual = self.client.preview.deployed_devices.fleets(sid="FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                                     .devices(sid="THXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)
 
@@ -79,12 +79,12 @@ class DeviceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.deployed_devices.fleets(sid="FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.preview.deployed_devices.fleets(sid="FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                                 .devices.create()
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://preview.twilio.com/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Devices',
+            'https://preview.twilio.com/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Devices',
         ))
 
     def test_create_response(self):
@@ -108,7 +108,7 @@ class DeviceTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.deployed_devices.fleets(sid="FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.preview.deployed_devices.fleets(sid="FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                                      .devices.create()
 
         self.assertIsNotNone(actual)
@@ -117,12 +117,12 @@ class DeviceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.deployed_devices.fleets(sid="FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.preview.deployed_devices.fleets(sid="FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                                 .devices.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://preview.twilio.com/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Devices',
+            'https://preview.twilio.com/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Devices',
         ))
 
     def test_read_empty_response(self):
@@ -144,7 +144,7 @@ class DeviceTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.deployed_devices.fleets(sid="FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.preview.deployed_devices.fleets(sid="FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                                      .devices.list()
 
         self.assertIsNotNone(actual)
@@ -183,7 +183,7 @@ class DeviceTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.deployed_devices.fleets(sid="FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.preview.deployed_devices.fleets(sid="FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                                      .devices.list()
 
         self.assertIsNotNone(actual)
@@ -192,12 +192,12 @@ class DeviceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.deployed_devices.fleets(sid="FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                                .devices(sid="THaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+            self.client.preview.deployed_devices.fleets(sid="FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                                .devices(sid="THXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://preview.twilio.com/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Devices/THaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://preview.twilio.com/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Devices/THXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_update_response(self):
@@ -221,7 +221,7 @@ class DeviceTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.deployed_devices.fleets(sid="FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                                     .devices(sid="THaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+        actual = self.client.preview.deployed_devices.fleets(sid="FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                                     .devices(sid="THXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)

@@ -18,14 +18,14 @@ class PhoneNumberTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.services(sid="MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .phone_numbers.create(phone_number_sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+            self.client.messaging.v1.services(sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .phone_numbers.create(phone_number_sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
-        values = {'PhoneNumberSid': "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", }
+        values = {'PhoneNumberSid': "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers',
+            'https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers',
             data=values,
         ))
 
@@ -47,8 +47,8 @@ class PhoneNumberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.messaging.v1.services(sid="MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                         .phone_numbers.create(phone_number_sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        actual = self.client.messaging.v1.services(sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .phone_numbers.create(phone_number_sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         self.assertIsNotNone(actual)
 
@@ -74,8 +74,8 @@ class PhoneNumberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.messaging.v1.services(sid="MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                         .phone_numbers.create(phone_number_sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        actual = self.client.messaging.v1.services(sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .phone_numbers.create(phone_number_sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         self.assertIsNotNone(actual)
 
@@ -83,12 +83,12 @@ class PhoneNumberTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.services(sid="MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .phone_numbers(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+            self.client.messaging.v1.services(sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .phone_numbers(sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_delete_response(self):
@@ -97,8 +97,8 @@ class PhoneNumberTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.messaging.v1.services(sid="MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                         .phone_numbers(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        actual = self.client.messaging.v1.services(sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .phone_numbers(sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)
 
@@ -106,12 +106,12 @@ class PhoneNumberTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.services(sid="MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.messaging.v1.services(sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .phone_numbers.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers',
+            'https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers',
         ))
 
     def test_read_full_response(self):
@@ -145,7 +145,7 @@ class PhoneNumberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.messaging.v1.services(sid="MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.messaging.v1.services(sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                          .phone_numbers.list()
 
         self.assertIsNotNone(actual)
@@ -154,12 +154,12 @@ class PhoneNumberTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.services(sid="MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                    .phone_numbers(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.messaging.v1.services(sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .phone_numbers(sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -180,7 +180,7 @@ class PhoneNumberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.messaging.v1.services(sid="MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                         .phone_numbers(sid="PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.messaging.v1.services(sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .phone_numbers(sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)

@@ -12,33 +12,34 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
-from twilio.rest.preview.understand.service.field_type.field_value import FieldValueList
+from twilio.rest.preview.understand.assistant.intent.field import FieldList
+from twilio.rest.preview.understand.assistant.intent.sample import SampleList
 
 
-class FieldTypeList(ListResource):
+class IntentList(ListResource):
     """ PLEASE NOTE that this class contains preview products that are subject
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
-    def __init__(self, version, service_sid):
+    def __init__(self, version, assistant_sid):
         """
-        Initialize the FieldTypeList
+        Initialize the IntentList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
+        :param assistant_sid: The assistant_sid
 
-        :returns: twilio.rest.preview.understand.service.field_type.FieldTypeList
-        :rtype: twilio.rest.preview.understand.service.field_type.FieldTypeList
+        :returns: twilio.rest.preview.understand.assistant.intent.IntentList
+        :rtype: twilio.rest.preview.understand.assistant.intent.IntentList
         """
-        super(FieldTypeList, self).__init__(version)
+        super(IntentList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, }
-        self._uri = '/Services/{service_sid}/FieldTypes'.format(**self._solution)
+        self._solution = {'assistant_sid': assistant_sid, }
+        self._uri = '/Assistants/{assistant_sid}/Intents'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
         """
-        Streams FieldTypeInstance records from the API as a generator stream.
+        Streams IntentInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -51,7 +52,7 @@ class FieldTypeList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.service.field_type.FieldTypeInstance]
+        :rtype: list[twilio.rest.preview.understand.assistant.intent.IntentInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -61,7 +62,7 @@ class FieldTypeList(ListResource):
 
     def list(self, limit=None, page_size=None):
         """
-        Lists FieldTypeInstance records from the API as a list.
+        Lists IntentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
@@ -73,22 +74,22 @@ class FieldTypeList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.service.field_type.FieldTypeInstance]
+        :rtype: list[twilio.rest.preview.understand.assistant.intent.IntentInstance]
         """
         return list(self.stream(limit=limit, page_size=page_size, ))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
         """
-        Retrieve a single page of FieldTypeInstance records from the API.
+        Retrieve a single page of IntentInstance records from the API.
         Request is executed immediately
 
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
-        :returns: Page of FieldTypeInstance
-        :rtype: twilio.rest.preview.understand.service.field_type.FieldTypePage
+        :returns: Page of IntentInstance
+        :rtype: twilio.rest.preview.understand.assistant.intent.IntentPage
         """
         params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
@@ -98,34 +99,34 @@ class FieldTypeList(ListResource):
             params=params,
         )
 
-        return FieldTypePage(self._version, response, self._solution)
+        return IntentPage(self._version, response, self._solution)
 
     def get_page(self, target_url):
         """
-        Retrieve a specific page of FieldTypeInstance records from the API.
+        Retrieve a specific page of IntentInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
 
-        :returns: Page of FieldTypeInstance
-        :rtype: twilio.rest.preview.understand.service.field_type.FieldTypePage
+        :returns: Page of IntentInstance
+        :rtype: twilio.rest.preview.understand.assistant.intent.IntentPage
         """
         response = self._version.domain.twilio.request(
             'GET',
             target_url,
         )
 
-        return FieldTypePage(self._version, response, self._solution)
+        return IntentPage(self._version, response, self._solution)
 
     def create(self, unique_name, friendly_name=values.unset):
         """
-        Create a new FieldTypeInstance
+        Create a new IntentInstance
 
         :param unicode unique_name: The unique_name
         :param unicode friendly_name: The friendly_name
 
-        :returns: Newly created FieldTypeInstance
-        :rtype: twilio.rest.preview.understand.service.field_type.FieldTypeInstance
+        :returns: Newly created IntentInstance
+        :rtype: twilio.rest.preview.understand.assistant.intent.IntentInstance
         """
         data = values.of({'UniqueName': unique_name, 'FriendlyName': friendly_name, })
 
@@ -135,29 +136,29 @@ class FieldTypeList(ListResource):
             data=data,
         )
 
-        return FieldTypeInstance(self._version, payload, service_sid=self._solution['service_sid'], )
+        return IntentInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], )
 
     def get(self, sid):
         """
-        Constructs a FieldTypeContext
+        Constructs a IntentContext
 
         :param sid: The sid
 
-        :returns: twilio.rest.preview.understand.service.field_type.FieldTypeContext
-        :rtype: twilio.rest.preview.understand.service.field_type.FieldTypeContext
+        :returns: twilio.rest.preview.understand.assistant.intent.IntentContext
+        :rtype: twilio.rest.preview.understand.assistant.intent.IntentContext
         """
-        return FieldTypeContext(self._version, service_sid=self._solution['service_sid'], sid=sid, )
+        return IntentContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid, )
 
     def __call__(self, sid):
         """
-        Constructs a FieldTypeContext
+        Constructs a IntentContext
 
         :param sid: The sid
 
-        :returns: twilio.rest.preview.understand.service.field_type.FieldTypeContext
-        :rtype: twilio.rest.preview.understand.service.field_type.FieldTypeContext
+        :returns: twilio.rest.preview.understand.assistant.intent.IntentContext
+        :rtype: twilio.rest.preview.understand.assistant.intent.IntentContext
         """
-        return FieldTypeContext(self._version, service_sid=self._solution['service_sid'], sid=sid, )
+        return IntentContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid, )
 
     def __repr__(self):
         """
@@ -166,40 +167,40 @@ class FieldTypeList(ListResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.Understand.FieldTypeList>'
+        return '<Twilio.Preview.Understand.IntentList>'
 
 
-class FieldTypePage(Page):
+class IntentPage(Page):
     """ PLEASE NOTE that this class contains preview products that are subject
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
     def __init__(self, version, response, solution):
         """
-        Initialize the FieldTypePage
+        Initialize the IntentPage
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The service_sid
+        :param assistant_sid: The assistant_sid
 
-        :returns: twilio.rest.preview.understand.service.field_type.FieldTypePage
-        :rtype: twilio.rest.preview.understand.service.field_type.FieldTypePage
+        :returns: twilio.rest.preview.understand.assistant.intent.IntentPage
+        :rtype: twilio.rest.preview.understand.assistant.intent.IntentPage
         """
-        super(FieldTypePage, self).__init__(version, response)
+        super(IntentPage, self).__init__(version, response)
 
         # Path Solution
         self._solution = solution
 
     def get_instance(self, payload):
         """
-        Build an instance of FieldTypeInstance
+        Build an instance of IntentInstance
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.understand.service.field_type.FieldTypeInstance
-        :rtype: twilio.rest.preview.understand.service.field_type.FieldTypeInstance
+        :returns: twilio.rest.preview.understand.assistant.intent.IntentInstance
+        :rtype: twilio.rest.preview.understand.assistant.intent.IntentInstance
         """
-        return FieldTypeInstance(self._version, payload, service_sid=self._solution['service_sid'], )
+        return IntentInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], )
 
     def __repr__(self):
         """
@@ -208,40 +209,41 @@ class FieldTypePage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.Understand.FieldTypePage>'
+        return '<Twilio.Preview.Understand.IntentPage>'
 
 
-class FieldTypeContext(InstanceContext):
+class IntentContext(InstanceContext):
     """ PLEASE NOTE that this class contains preview products that are subject
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
-    def __init__(self, version, service_sid, sid):
+    def __init__(self, version, assistant_sid, sid):
         """
-        Initialize the FieldTypeContext
+        Initialize the IntentContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
+        :param assistant_sid: The assistant_sid
         :param sid: The sid
 
-        :returns: twilio.rest.preview.understand.service.field_type.FieldTypeContext
-        :rtype: twilio.rest.preview.understand.service.field_type.FieldTypeContext
+        :returns: twilio.rest.preview.understand.assistant.intent.IntentContext
+        :rtype: twilio.rest.preview.understand.assistant.intent.IntentContext
         """
-        super(FieldTypeContext, self).__init__(version)
+        super(IntentContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'sid': sid, }
-        self._uri = '/Services/{service_sid}/FieldTypes/{sid}'.format(**self._solution)
+        self._solution = {'assistant_sid': assistant_sid, 'sid': sid, }
+        self._uri = '/Assistants/{assistant_sid}/Intents/{sid}'.format(**self._solution)
 
         # Dependents
-        self._field_values = None
+        self._fields = None
+        self._samples = None
 
     def fetch(self):
         """
-        Fetch a FieldTypeInstance
+        Fetch a IntentInstance
 
-        :returns: Fetched FieldTypeInstance
-        :rtype: twilio.rest.preview.understand.service.field_type.FieldTypeInstance
+        :returns: Fetched IntentInstance
+        :rtype: twilio.rest.preview.understand.assistant.intent.IntentInstance
         """
         params = values.of({})
 
@@ -251,22 +253,22 @@ class FieldTypeContext(InstanceContext):
             params=params,
         )
 
-        return FieldTypeInstance(
+        return IntentInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
+            assistant_sid=self._solution['assistant_sid'],
             sid=self._solution['sid'],
         )
 
     def update(self, friendly_name=values.unset, unique_name=values.unset):
         """
-        Update the FieldTypeInstance
+        Update the IntentInstance
 
         :param unicode friendly_name: The friendly_name
         :param unicode unique_name: The unique_name
 
-        :returns: Updated FieldTypeInstance
-        :rtype: twilio.rest.preview.understand.service.field_type.FieldTypeInstance
+        :returns: Updated IntentInstance
+        :rtype: twilio.rest.preview.understand.assistant.intent.IntentInstance
         """
         data = values.of({'FriendlyName': friendly_name, 'UniqueName': unique_name, })
 
@@ -276,16 +278,16 @@ class FieldTypeContext(InstanceContext):
             data=data,
         )
 
-        return FieldTypeInstance(
+        return IntentInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
+            assistant_sid=self._solution['assistant_sid'],
             sid=self._solution['sid'],
         )
 
     def delete(self):
         """
-        Deletes the FieldTypeInstance
+        Deletes the IntentInstance
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -293,20 +295,36 @@ class FieldTypeContext(InstanceContext):
         return self._version.delete('delete', self._uri)
 
     @property
-    def field_values(self):
+    def fields(self):
         """
-        Access the field_values
+        Access the fields
 
-        :returns: twilio.rest.preview.understand.service.field_type.field_value.FieldValueList
-        :rtype: twilio.rest.preview.understand.service.field_type.field_value.FieldValueList
+        :returns: twilio.rest.preview.understand.assistant.intent.field.FieldList
+        :rtype: twilio.rest.preview.understand.assistant.intent.field.FieldList
         """
-        if self._field_values is None:
-            self._field_values = FieldValueList(
+        if self._fields is None:
+            self._fields = FieldList(
                 self._version,
-                service_sid=self._solution['service_sid'],
-                field_type_sid=self._solution['sid'],
+                assistant_sid=self._solution['assistant_sid'],
+                intent_sid=self._solution['sid'],
             )
-        return self._field_values
+        return self._fields
+
+    @property
+    def samples(self):
+        """
+        Access the samples
+
+        :returns: twilio.rest.preview.understand.assistant.intent.sample.SampleList
+        :rtype: twilio.rest.preview.understand.assistant.intent.sample.SampleList
+        """
+        if self._samples is None:
+            self._samples = SampleList(
+                self._version,
+                assistant_sid=self._solution['assistant_sid'],
+                intent_sid=self._solution['sid'],
+            )
+        return self._samples
 
     def __repr__(self):
         """
@@ -316,22 +334,22 @@ class FieldTypeContext(InstanceContext):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Understand.FieldTypeContext {}>'.format(context)
+        return '<Twilio.Preview.Understand.IntentContext {}>'.format(context)
 
 
-class FieldTypeInstance(InstanceResource):
+class IntentInstance(InstanceResource):
     """ PLEASE NOTE that this class contains preview products that are subject
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
-    def __init__(self, version, payload, service_sid, sid=None):
+    def __init__(self, version, payload, assistant_sid, sid=None):
         """
-        Initialize the FieldTypeInstance
+        Initialize the IntentInstance
 
-        :returns: twilio.rest.preview.understand.service.field_type.FieldTypeInstance
-        :rtype: twilio.rest.preview.understand.service.field_type.FieldTypeInstance
+        :returns: twilio.rest.preview.understand.assistant.intent.IntentInstance
+        :rtype: twilio.rest.preview.understand.assistant.intent.IntentInstance
         """
-        super(FieldTypeInstance, self).__init__(version)
+        super(IntentInstance, self).__init__(version)
 
         # Marshaled Properties
         self._properties = {
@@ -340,7 +358,7 @@ class FieldTypeInstance(InstanceResource):
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
             'friendly_name': payload['friendly_name'],
             'links': payload['links'],
-            'service_sid': payload['service_sid'],
+            'assistant_sid': payload['assistant_sid'],
             'sid': payload['sid'],
             'unique_name': payload['unique_name'],
             'url': payload['url'],
@@ -348,7 +366,7 @@ class FieldTypeInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'service_sid': service_sid, 'sid': sid or self._properties['sid'], }
+        self._solution = {'assistant_sid': assistant_sid, 'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):
@@ -356,13 +374,13 @@ class FieldTypeInstance(InstanceResource):
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
 
-        :returns: FieldTypeContext for this FieldTypeInstance
-        :rtype: twilio.rest.preview.understand.service.field_type.FieldTypeContext
+        :returns: IntentContext for this IntentInstance
+        :rtype: twilio.rest.preview.understand.assistant.intent.IntentContext
         """
         if self._context is None:
-            self._context = FieldTypeContext(
+            self._context = IntentContext(
                 self._version,
-                service_sid=self._solution['service_sid'],
+                assistant_sid=self._solution['assistant_sid'],
                 sid=self._solution['sid'],
             )
         return self._context
@@ -408,12 +426,12 @@ class FieldTypeInstance(InstanceResource):
         return self._properties['links']
 
     @property
-    def service_sid(self):
+    def assistant_sid(self):
         """
-        :returns: The service_sid
+        :returns: The assistant_sid
         :rtype: unicode
         """
-        return self._properties['service_sid']
+        return self._properties['assistant_sid']
 
     @property
     def sid(self):
@@ -441,28 +459,28 @@ class FieldTypeInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a FieldTypeInstance
+        Fetch a IntentInstance
 
-        :returns: Fetched FieldTypeInstance
-        :rtype: twilio.rest.preview.understand.service.field_type.FieldTypeInstance
+        :returns: Fetched IntentInstance
+        :rtype: twilio.rest.preview.understand.assistant.intent.IntentInstance
         """
         return self._proxy.fetch()
 
     def update(self, friendly_name=values.unset, unique_name=values.unset):
         """
-        Update the FieldTypeInstance
+        Update the IntentInstance
 
         :param unicode friendly_name: The friendly_name
         :param unicode unique_name: The unique_name
 
-        :returns: Updated FieldTypeInstance
-        :rtype: twilio.rest.preview.understand.service.field_type.FieldTypeInstance
+        :returns: Updated IntentInstance
+        :rtype: twilio.rest.preview.understand.assistant.intent.IntentInstance
         """
         return self._proxy.update(friendly_name=friendly_name, unique_name=unique_name, )
 
     def delete(self):
         """
-        Deletes the FieldTypeInstance
+        Deletes the IntentInstance
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -470,14 +488,24 @@ class FieldTypeInstance(InstanceResource):
         return self._proxy.delete()
 
     @property
-    def field_values(self):
+    def fields(self):
         """
-        Access the field_values
+        Access the fields
 
-        :returns: twilio.rest.preview.understand.service.field_type.field_value.FieldValueList
-        :rtype: twilio.rest.preview.understand.service.field_type.field_value.FieldValueList
+        :returns: twilio.rest.preview.understand.assistant.intent.field.FieldList
+        :rtype: twilio.rest.preview.understand.assistant.intent.field.FieldList
         """
-        return self._proxy.field_values
+        return self._proxy.fields
+
+    @property
+    def samples(self):
+        """
+        Access the samples
+
+        :returns: twilio.rest.preview.understand.assistant.intent.sample.SampleList
+        :rtype: twilio.rest.preview.understand.assistant.intent.sample.SampleList
+        """
+        return self._proxy.samples
 
     def __repr__(self):
         """
@@ -487,4 +515,4 @@ class FieldTypeInstance(InstanceResource):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Understand.FieldTypeInstance {}>'.format(context)
+        return '<Twilio.Preview.Understand.IntentInstance {}>'.format(context)

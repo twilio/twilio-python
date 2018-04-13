@@ -18,11 +18,11 @@ class CompositionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.compositions(sid="CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.video.v1.compositions(sid="CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://video.twilio.com/v1/Compositions/CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -57,7 +57,7 @@ class CompositionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.video.v1.compositions(sid="CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.video.v1.compositions(sid="CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -147,11 +147,11 @@ class CompositionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.compositions(sid="CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+            self.client.video.v1.compositions(sid="CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://video.twilio.com/v1/Compositions/CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_delete_response(self):
@@ -160,7 +160,7 @@ class CompositionTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.video.v1.compositions(sid="CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        actual = self.client.video.v1.compositions(sid="CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)
 

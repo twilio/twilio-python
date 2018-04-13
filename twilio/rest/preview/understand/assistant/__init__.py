@@ -12,35 +12,35 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
-from twilio.rest.preview.understand.service.field_type import FieldTypeList
-from twilio.rest.preview.understand.service.intent import IntentList
-from twilio.rest.preview.understand.service.model_build import ModelBuildList
-from twilio.rest.preview.understand.service.query import QueryList
+from twilio.rest.preview.understand.assistant.field_type import FieldTypeList
+from twilio.rest.preview.understand.assistant.intent import IntentList
+from twilio.rest.preview.understand.assistant.model_build import ModelBuildList
+from twilio.rest.preview.understand.assistant.query import QueryList
 
 
-class ServiceList(ListResource):
+class AssistantList(ListResource):
     """ PLEASE NOTE that this class contains preview products that are subject
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
     def __init__(self, version):
         """
-        Initialize the ServiceList
+        Initialize the AssistantList
 
         :param Version version: Version that contains the resource
 
-        :returns: twilio.rest.preview.understand.service.ServiceList
-        :rtype: twilio.rest.preview.understand.service.ServiceList
+        :returns: twilio.rest.preview.understand.assistant.AssistantList
+        :rtype: twilio.rest.preview.understand.assistant.AssistantList
         """
-        super(ServiceList, self).__init__(version)
+        super(AssistantList, self).__init__(version)
 
         # Path Solution
         self._solution = {}
-        self._uri = '/Services'.format(**self._solution)
+        self._uri = '/Assistants'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
         """
-        Streams ServiceInstance records from the API as a generator stream.
+        Streams AssistantInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -53,7 +53,7 @@ class ServiceList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.service.ServiceInstance]
+        :rtype: list[twilio.rest.preview.understand.assistant.AssistantInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -63,7 +63,7 @@ class ServiceList(ListResource):
 
     def list(self, limit=None, page_size=None):
         """
-        Lists ServiceInstance records from the API as a list.
+        Lists AssistantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
@@ -75,22 +75,22 @@ class ServiceList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.service.ServiceInstance]
+        :rtype: list[twilio.rest.preview.understand.assistant.AssistantInstance]
         """
         return list(self.stream(limit=limit, page_size=page_size, ))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
         """
-        Retrieve a single page of ServiceInstance records from the API.
+        Retrieve a single page of AssistantInstance records from the API.
         Request is executed immediately
 
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
-        :returns: Page of ServiceInstance
-        :rtype: twilio.rest.preview.understand.service.ServicePage
+        :returns: Page of AssistantInstance
+        :rtype: twilio.rest.preview.understand.assistant.AssistantPage
         """
         params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
@@ -100,43 +100,51 @@ class ServiceList(ListResource):
             params=params,
         )
 
-        return ServicePage(self._version, response, self._solution)
+        return AssistantPage(self._version, response, self._solution)
 
     def get_page(self, target_url):
         """
-        Retrieve a specific page of ServiceInstance records from the API.
+        Retrieve a specific page of AssistantInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
 
-        :returns: Page of ServiceInstance
-        :rtype: twilio.rest.preview.understand.service.ServicePage
+        :returns: Page of AssistantInstance
+        :rtype: twilio.rest.preview.understand.assistant.AssistantPage
         """
         response = self._version.domain.twilio.request(
             'GET',
             target_url,
         )
 
-        return ServicePage(self._version, response, self._solution)
+        return AssistantPage(self._version, response, self._solution)
 
     def create(self, friendly_name=values.unset, log_queries=values.unset,
-               ttl=values.unset, unique_name=values.unset):
+               ttl=values.unset, unique_name=values.unset,
+               response_url=values.unset, callback_url=values.unset,
+               callback_events=values.unset):
         """
-        Create a new ServiceInstance
+        Create a new AssistantInstance
 
         :param unicode friendly_name: The friendly_name
         :param bool log_queries: The log_queries
         :param unicode ttl: The ttl
         :param unicode unique_name: The unique_name
+        :param unicode response_url: The response_url
+        :param unicode callback_url: The callback_url
+        :param unicode callback_events: The callback_events
 
-        :returns: Newly created ServiceInstance
-        :rtype: twilio.rest.preview.understand.service.ServiceInstance
+        :returns: Newly created AssistantInstance
+        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
             'LogQueries': log_queries,
             'Ttl': ttl,
             'UniqueName': unique_name,
+            'ResponseUrl': response_url,
+            'CallbackUrl': callback_url,
+            'CallbackEvents': callback_events,
         })
 
         payload = self._version.create(
@@ -145,29 +153,29 @@ class ServiceList(ListResource):
             data=data,
         )
 
-        return ServiceInstance(self._version, payload, )
+        return AssistantInstance(self._version, payload, )
 
     def get(self, sid):
         """
-        Constructs a ServiceContext
+        Constructs a AssistantContext
 
         :param sid: The sid
 
-        :returns: twilio.rest.preview.understand.service.ServiceContext
-        :rtype: twilio.rest.preview.understand.service.ServiceContext
+        :returns: twilio.rest.preview.understand.assistant.AssistantContext
+        :rtype: twilio.rest.preview.understand.assistant.AssistantContext
         """
-        return ServiceContext(self._version, sid=sid, )
+        return AssistantContext(self._version, sid=sid, )
 
     def __call__(self, sid):
         """
-        Constructs a ServiceContext
+        Constructs a AssistantContext
 
         :param sid: The sid
 
-        :returns: twilio.rest.preview.understand.service.ServiceContext
-        :rtype: twilio.rest.preview.understand.service.ServiceContext
+        :returns: twilio.rest.preview.understand.assistant.AssistantContext
+        :rtype: twilio.rest.preview.understand.assistant.AssistantContext
         """
-        return ServiceContext(self._version, sid=sid, )
+        return AssistantContext(self._version, sid=sid, )
 
     def __repr__(self):
         """
@@ -176,39 +184,39 @@ class ServiceList(ListResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.Understand.ServiceList>'
+        return '<Twilio.Preview.Understand.AssistantList>'
 
 
-class ServicePage(Page):
+class AssistantPage(Page):
     """ PLEASE NOTE that this class contains preview products that are subject
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
     def __init__(self, version, response, solution):
         """
-        Initialize the ServicePage
+        Initialize the AssistantPage
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.preview.understand.service.ServicePage
-        :rtype: twilio.rest.preview.understand.service.ServicePage
+        :returns: twilio.rest.preview.understand.assistant.AssistantPage
+        :rtype: twilio.rest.preview.understand.assistant.AssistantPage
         """
-        super(ServicePage, self).__init__(version, response)
+        super(AssistantPage, self).__init__(version, response)
 
         # Path Solution
         self._solution = solution
 
     def get_instance(self, payload):
         """
-        Build an instance of ServiceInstance
+        Build an instance of AssistantInstance
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.understand.service.ServiceInstance
-        :rtype: twilio.rest.preview.understand.service.ServiceInstance
+        :returns: twilio.rest.preview.understand.assistant.AssistantInstance
+        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
         """
-        return ServiceInstance(self._version, payload, )
+        return AssistantInstance(self._version, payload, )
 
     def __repr__(self):
         """
@@ -217,29 +225,29 @@ class ServicePage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.Understand.ServicePage>'
+        return '<Twilio.Preview.Understand.AssistantPage>'
 
 
-class ServiceContext(InstanceContext):
+class AssistantContext(InstanceContext):
     """ PLEASE NOTE that this class contains preview products that are subject
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
     def __init__(self, version, sid):
         """
-        Initialize the ServiceContext
+        Initialize the AssistantContext
 
         :param Version version: Version that contains the resource
         :param sid: The sid
 
-        :returns: twilio.rest.preview.understand.service.ServiceContext
-        :rtype: twilio.rest.preview.understand.service.ServiceContext
+        :returns: twilio.rest.preview.understand.assistant.AssistantContext
+        :rtype: twilio.rest.preview.understand.assistant.AssistantContext
         """
-        super(ServiceContext, self).__init__(version)
+        super(AssistantContext, self).__init__(version)
 
         # Path Solution
         self._solution = {'sid': sid, }
-        self._uri = '/Services/{sid}'.format(**self._solution)
+        self._uri = '/Assistants/{sid}'.format(**self._solution)
 
         # Dependents
         self._field_types = None
@@ -249,10 +257,10 @@ class ServiceContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a ServiceInstance
+        Fetch a AssistantInstance
 
-        :returns: Fetched ServiceInstance
-        :rtype: twilio.rest.preview.understand.service.ServiceInstance
+        :returns: Fetched AssistantInstance
+        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
         """
         params = values.of({})
 
@@ -262,26 +270,34 @@ class ServiceContext(InstanceContext):
             params=params,
         )
 
-        return ServiceInstance(self._version, payload, sid=self._solution['sid'], )
+        return AssistantInstance(self._version, payload, sid=self._solution['sid'], )
 
     def update(self, friendly_name=values.unset, log_queries=values.unset,
-               ttl=values.unset, unique_name=values.unset):
+               ttl=values.unset, unique_name=values.unset,
+               response_url=values.unset, callback_url=values.unset,
+               callback_events=values.unset):
         """
-        Update the ServiceInstance
+        Update the AssistantInstance
 
         :param unicode friendly_name: The friendly_name
         :param bool log_queries: The log_queries
         :param unicode ttl: The ttl
         :param unicode unique_name: The unique_name
+        :param unicode response_url: The response_url
+        :param unicode callback_url: The callback_url
+        :param unicode callback_events: The callback_events
 
-        :returns: Updated ServiceInstance
-        :rtype: twilio.rest.preview.understand.service.ServiceInstance
+        :returns: Updated AssistantInstance
+        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
             'LogQueries': log_queries,
             'Ttl': ttl,
             'UniqueName': unique_name,
+            'ResponseUrl': response_url,
+            'CallbackUrl': callback_url,
+            'CallbackEvents': callback_events,
         })
 
         payload = self._version.update(
@@ -290,11 +306,11 @@ class ServiceContext(InstanceContext):
             data=data,
         )
 
-        return ServiceInstance(self._version, payload, sid=self._solution['sid'], )
+        return AssistantInstance(self._version, payload, sid=self._solution['sid'], )
 
     def delete(self):
         """
-        Deletes the ServiceInstance
+        Deletes the AssistantInstance
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -306,11 +322,11 @@ class ServiceContext(InstanceContext):
         """
         Access the field_types
 
-        :returns: twilio.rest.preview.understand.service.field_type.FieldTypeList
-        :rtype: twilio.rest.preview.understand.service.field_type.FieldTypeList
+        :returns: twilio.rest.preview.understand.assistant.field_type.FieldTypeList
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeList
         """
         if self._field_types is None:
-            self._field_types = FieldTypeList(self._version, service_sid=self._solution['sid'], )
+            self._field_types = FieldTypeList(self._version, assistant_sid=self._solution['sid'], )
         return self._field_types
 
     @property
@@ -318,11 +334,11 @@ class ServiceContext(InstanceContext):
         """
         Access the intents
 
-        :returns: twilio.rest.preview.understand.service.intent.IntentList
-        :rtype: twilio.rest.preview.understand.service.intent.IntentList
+        :returns: twilio.rest.preview.understand.assistant.intent.IntentList
+        :rtype: twilio.rest.preview.understand.assistant.intent.IntentList
         """
         if self._intents is None:
-            self._intents = IntentList(self._version, service_sid=self._solution['sid'], )
+            self._intents = IntentList(self._version, assistant_sid=self._solution['sid'], )
         return self._intents
 
     @property
@@ -330,11 +346,11 @@ class ServiceContext(InstanceContext):
         """
         Access the model_builds
 
-        :returns: twilio.rest.preview.understand.service.model_build.ModelBuildList
-        :rtype: twilio.rest.preview.understand.service.model_build.ModelBuildList
+        :returns: twilio.rest.preview.understand.assistant.model_build.ModelBuildList
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildList
         """
         if self._model_builds is None:
-            self._model_builds = ModelBuildList(self._version, service_sid=self._solution['sid'], )
+            self._model_builds = ModelBuildList(self._version, assistant_sid=self._solution['sid'], )
         return self._model_builds
 
     @property
@@ -342,11 +358,11 @@ class ServiceContext(InstanceContext):
         """
         Access the queries
 
-        :returns: twilio.rest.preview.understand.service.query.QueryList
-        :rtype: twilio.rest.preview.understand.service.query.QueryList
+        :returns: twilio.rest.preview.understand.assistant.query.QueryList
+        :rtype: twilio.rest.preview.understand.assistant.query.QueryList
         """
         if self._queries is None:
-            self._queries = QueryList(self._version, service_sid=self._solution['sid'], )
+            self._queries = QueryList(self._version, assistant_sid=self._solution['sid'], )
         return self._queries
 
     def __repr__(self):
@@ -357,22 +373,22 @@ class ServiceContext(InstanceContext):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Understand.ServiceContext {}>'.format(context)
+        return '<Twilio.Preview.Understand.AssistantContext {}>'.format(context)
 
 
-class ServiceInstance(InstanceResource):
+class AssistantInstance(InstanceResource):
     """ PLEASE NOTE that this class contains preview products that are subject
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
     def __init__(self, version, payload, sid=None):
         """
-        Initialize the ServiceInstance
+        Initialize the AssistantInstance
 
-        :returns: twilio.rest.preview.understand.service.ServiceInstance
-        :rtype: twilio.rest.preview.understand.service.ServiceInstance
+        :returns: twilio.rest.preview.understand.assistant.AssistantInstance
+        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
         """
-        super(ServiceInstance, self).__init__(version)
+        super(AssistantInstance, self).__init__(version)
 
         # Marshaled Properties
         self._properties = {
@@ -387,6 +403,9 @@ class ServiceInstance(InstanceResource):
             'ttl': deserialize.integer(payload['ttl']),
             'unique_name': payload['unique_name'],
             'url': payload['url'],
+            'response_url': payload['response_url'],
+            'callback_url': payload['callback_url'],
+            'callback_events': payload['callback_events'],
         }
 
         # Context
@@ -399,11 +418,11 @@ class ServiceInstance(InstanceResource):
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
 
-        :returns: ServiceContext for this ServiceInstance
-        :rtype: twilio.rest.preview.understand.service.ServiceContext
+        :returns: AssistantContext for this AssistantInstance
+        :rtype: twilio.rest.preview.understand.assistant.AssistantContext
         """
         if self._context is None:
-            self._context = ServiceContext(self._version, sid=self._solution['sid'], )
+            self._context = AssistantContext(self._version, sid=self._solution['sid'], )
         return self._context
 
     @property
@@ -494,38 +513,70 @@ class ServiceInstance(InstanceResource):
         """
         return self._properties['url']
 
+    @property
+    def response_url(self):
+        """
+        :returns: The response_url
+        :rtype: unicode
+        """
+        return self._properties['response_url']
+
+    @property
+    def callback_url(self):
+        """
+        :returns: The callback_url
+        :rtype: unicode
+        """
+        return self._properties['callback_url']
+
+    @property
+    def callback_events(self):
+        """
+        :returns: The callback_events
+        :rtype: unicode
+        """
+        return self._properties['callback_events']
+
     def fetch(self):
         """
-        Fetch a ServiceInstance
+        Fetch a AssistantInstance
 
-        :returns: Fetched ServiceInstance
-        :rtype: twilio.rest.preview.understand.service.ServiceInstance
+        :returns: Fetched AssistantInstance
+        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
         """
         return self._proxy.fetch()
 
     def update(self, friendly_name=values.unset, log_queries=values.unset,
-               ttl=values.unset, unique_name=values.unset):
+               ttl=values.unset, unique_name=values.unset,
+               response_url=values.unset, callback_url=values.unset,
+               callback_events=values.unset):
         """
-        Update the ServiceInstance
+        Update the AssistantInstance
 
         :param unicode friendly_name: The friendly_name
         :param bool log_queries: The log_queries
         :param unicode ttl: The ttl
         :param unicode unique_name: The unique_name
+        :param unicode response_url: The response_url
+        :param unicode callback_url: The callback_url
+        :param unicode callback_events: The callback_events
 
-        :returns: Updated ServiceInstance
-        :rtype: twilio.rest.preview.understand.service.ServiceInstance
+        :returns: Updated AssistantInstance
+        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
             log_queries=log_queries,
             ttl=ttl,
             unique_name=unique_name,
+            response_url=response_url,
+            callback_url=callback_url,
+            callback_events=callback_events,
         )
 
     def delete(self):
         """
-        Deletes the ServiceInstance
+        Deletes the AssistantInstance
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -537,8 +588,8 @@ class ServiceInstance(InstanceResource):
         """
         Access the field_types
 
-        :returns: twilio.rest.preview.understand.service.field_type.FieldTypeList
-        :rtype: twilio.rest.preview.understand.service.field_type.FieldTypeList
+        :returns: twilio.rest.preview.understand.assistant.field_type.FieldTypeList
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeList
         """
         return self._proxy.field_types
 
@@ -547,8 +598,8 @@ class ServiceInstance(InstanceResource):
         """
         Access the intents
 
-        :returns: twilio.rest.preview.understand.service.intent.IntentList
-        :rtype: twilio.rest.preview.understand.service.intent.IntentList
+        :returns: twilio.rest.preview.understand.assistant.intent.IntentList
+        :rtype: twilio.rest.preview.understand.assistant.intent.IntentList
         """
         return self._proxy.intents
 
@@ -557,8 +608,8 @@ class ServiceInstance(InstanceResource):
         """
         Access the model_builds
 
-        :returns: twilio.rest.preview.understand.service.model_build.ModelBuildList
-        :rtype: twilio.rest.preview.understand.service.model_build.ModelBuildList
+        :returns: twilio.rest.preview.understand.assistant.model_build.ModelBuildList
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildList
         """
         return self._proxy.model_builds
 
@@ -567,8 +618,8 @@ class ServiceInstance(InstanceResource):
         """
         Access the queries
 
-        :returns: twilio.rest.preview.understand.service.query.QueryList
-        :rtype: twilio.rest.preview.understand.service.query.QueryList
+        :returns: twilio.rest.preview.understand.assistant.query.QueryList
+        :rtype: twilio.rest.preview.understand.assistant.query.QueryList
         """
         return self._proxy.queries
 
@@ -580,4 +631,4 @@ class ServiceInstance(InstanceResource):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Understand.ServiceInstance {}>'.format(context)
+        return '<Twilio.Preview.Understand.AssistantInstance {}>'.format(context)

@@ -326,7 +326,7 @@ class RecordingInstance(InstanceResource):
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'sid': payload['sid'],
             'source_sid': payload['source_sid'],
-            'size': deserialize.integer(payload['size']),
+            'size': payload['size'],
             'url': payload['url'],
             'type': payload['type'],
             'duration': deserialize.integer(payload['duration']),

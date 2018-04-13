@@ -18,13 +18,13 @@ class UserChannelTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.ip_messaging.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                       .users(sid="USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                       .users(sid="USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                        .user_channels.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels',
+            'https://ip-messaging.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels',
         ))
 
     def test_read_full_response(self):
@@ -60,8 +60,8 @@ class UserChannelTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.ip_messaging.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                            .users(sid="USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                            .users(sid="USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                             .user_channels.list()
 
         self.assertIsNotNone(actual)
@@ -85,8 +85,8 @@ class UserChannelTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.ip_messaging.v2.services(sid="ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                            .users(sid="USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                            .users(sid="USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                             .user_channels.list()
 
         self.assertIsNotNone(actual)

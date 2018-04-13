@@ -18,11 +18,11 @@ class RecordingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.recordings(sid="RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.video.v1.recordings(sid="RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://video.twilio.com/v1/Recordings/RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://video.twilio.com/v1/Recordings/RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -33,6 +33,8 @@ class RecordingTestCase(IntegrationTestCase):
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "status": "processing",
                 "date_created": "2015-07-30T20:00:00Z",
+                "date_updated": "2015-07-30T21:00:00Z",
+                "date_deleted": "2015-07-30T22:00:00Z",
                 "sid": "RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "source_sid": "MTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "size": 0,
@@ -54,7 +56,7 @@ class RecordingTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.video.v1.recordings(sid="RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.video.v1.recordings(sid="RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -102,6 +104,8 @@ class RecordingTestCase(IntegrationTestCase):
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "status": "completed",
                         "date_created": "2015-07-30T20:00:00Z",
+                        "date_updated": "2015-07-30T21:00:00Z",
+                        "date_deleted": "2015-07-30T22:00:00Z",
                         "sid": "RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "source_sid": "MTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "size": 23,
@@ -143,11 +147,11 @@ class RecordingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.recordings(sid="RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+            self.client.video.v1.recordings(sid="RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://video.twilio.com/v1/Recordings/RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://video.twilio.com/v1/Recordings/RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_delete_response(self):
@@ -156,6 +160,6 @@ class RecordingTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.video.v1.recordings(sid="RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        actual = self.client.video.v1.recordings(sid="RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

@@ -14,31 +14,31 @@ from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
 
 
-class FieldValueList(ListResource):
+class SampleList(ListResource):
     """ PLEASE NOTE that this class contains preview products that are subject
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
-    def __init__(self, version, service_sid, field_type_sid):
+    def __init__(self, version, assistant_sid, intent_sid):
         """
-        Initialize the FieldValueList
+        Initialize the SampleList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
-        :param field_type_sid: The field_type_sid
+        :param assistant_sid: The assistant_sid
+        :param intent_sid: The intent_sid
 
-        :returns: twilio.rest.preview.understand.service.field_type.field_value.FieldValueList
-        :rtype: twilio.rest.preview.understand.service.field_type.field_value.FieldValueList
+        :returns: twilio.rest.preview.understand.assistant.intent.sample.SampleList
+        :rtype: twilio.rest.preview.understand.assistant.intent.sample.SampleList
         """
-        super(FieldValueList, self).__init__(version)
+        super(SampleList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'field_type_sid': field_type_sid, }
-        self._uri = '/Services/{service_sid}/FieldTypes/{field_type_sid}/FieldValues'.format(**self._solution)
+        self._solution = {'assistant_sid': assistant_sid, 'intent_sid': intent_sid, }
+        self._uri = '/Assistants/{assistant_sid}/Intents/{intent_sid}/Samples'.format(**self._solution)
 
     def stream(self, language=values.unset, limit=None, page_size=None):
         """
-        Streams FieldValueInstance records from the API as a generator stream.
+        Streams SampleInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -52,7 +52,7 @@ class FieldValueList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.service.field_type.field_value.FieldValueInstance]
+        :rtype: list[twilio.rest.preview.understand.assistant.intent.sample.SampleInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -62,7 +62,7 @@ class FieldValueList(ListResource):
 
     def list(self, language=values.unset, limit=None, page_size=None):
         """
-        Lists FieldValueInstance records from the API as a list.
+        Lists SampleInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
@@ -75,14 +75,14 @@ class FieldValueList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.service.field_type.field_value.FieldValueInstance]
+        :rtype: list[twilio.rest.preview.understand.assistant.intent.sample.SampleInstance]
         """
         return list(self.stream(language=language, limit=limit, page_size=page_size, ))
 
     def page(self, language=values.unset, page_token=values.unset,
              page_number=values.unset, page_size=values.unset):
         """
-        Retrieve a single page of FieldValueInstance records from the API.
+        Retrieve a single page of SampleInstance records from the API.
         Request is executed immediately
 
         :param unicode language: The language
@@ -90,8 +90,8 @@ class FieldValueList(ListResource):
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
-        :returns: Page of FieldValueInstance
-        :rtype: twilio.rest.preview.understand.service.field_type.field_value.FieldValuePage
+        :returns: Page of SampleInstance
+        :rtype: twilio.rest.preview.understand.assistant.intent.sample.SamplePage
         """
         params = values.of({
             'Language': language,
@@ -106,36 +106,37 @@ class FieldValueList(ListResource):
             params=params,
         )
 
-        return FieldValuePage(self._version, response, self._solution)
+        return SamplePage(self._version, response, self._solution)
 
     def get_page(self, target_url):
         """
-        Retrieve a specific page of FieldValueInstance records from the API.
+        Retrieve a specific page of SampleInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
 
-        :returns: Page of FieldValueInstance
-        :rtype: twilio.rest.preview.understand.service.field_type.field_value.FieldValuePage
+        :returns: Page of SampleInstance
+        :rtype: twilio.rest.preview.understand.assistant.intent.sample.SamplePage
         """
         response = self._version.domain.twilio.request(
             'GET',
             target_url,
         )
 
-        return FieldValuePage(self._version, response, self._solution)
+        return SamplePage(self._version, response, self._solution)
 
-    def create(self, language, value):
+    def create(self, language, tagged_text, source_channel=values.unset):
         """
-        Create a new FieldValueInstance
+        Create a new SampleInstance
 
         :param unicode language: The language
-        :param unicode value: The value
+        :param unicode tagged_text: The tagged_text
+        :param unicode source_channel: The source_channel
 
-        :returns: Newly created FieldValueInstance
-        :rtype: twilio.rest.preview.understand.service.field_type.field_value.FieldValueInstance
+        :returns: Newly created SampleInstance
+        :rtype: twilio.rest.preview.understand.assistant.intent.sample.SampleInstance
         """
-        data = values.of({'Language': language, 'Value': value, })
+        data = values.of({'Language': language, 'TaggedText': tagged_text, 'SourceChannel': source_channel, })
 
         payload = self._version.create(
             'POST',
@@ -143,42 +144,42 @@ class FieldValueList(ListResource):
             data=data,
         )
 
-        return FieldValueInstance(
+        return SampleInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            field_type_sid=self._solution['field_type_sid'],
+            assistant_sid=self._solution['assistant_sid'],
+            intent_sid=self._solution['intent_sid'],
         )
 
     def get(self, sid):
         """
-        Constructs a FieldValueContext
+        Constructs a SampleContext
 
         :param sid: The sid
 
-        :returns: twilio.rest.preview.understand.service.field_type.field_value.FieldValueContext
-        :rtype: twilio.rest.preview.understand.service.field_type.field_value.FieldValueContext
+        :returns: twilio.rest.preview.understand.assistant.intent.sample.SampleContext
+        :rtype: twilio.rest.preview.understand.assistant.intent.sample.SampleContext
         """
-        return FieldValueContext(
+        return SampleContext(
             self._version,
-            service_sid=self._solution['service_sid'],
-            field_type_sid=self._solution['field_type_sid'],
+            assistant_sid=self._solution['assistant_sid'],
+            intent_sid=self._solution['intent_sid'],
             sid=sid,
         )
 
     def __call__(self, sid):
         """
-        Constructs a FieldValueContext
+        Constructs a SampleContext
 
         :param sid: The sid
 
-        :returns: twilio.rest.preview.understand.service.field_type.field_value.FieldValueContext
-        :rtype: twilio.rest.preview.understand.service.field_type.field_value.FieldValueContext
+        :returns: twilio.rest.preview.understand.assistant.intent.sample.SampleContext
+        :rtype: twilio.rest.preview.understand.assistant.intent.sample.SampleContext
         """
-        return FieldValueContext(
+        return SampleContext(
             self._version,
-            service_sid=self._solution['service_sid'],
-            field_type_sid=self._solution['field_type_sid'],
+            assistant_sid=self._solution['assistant_sid'],
+            intent_sid=self._solution['intent_sid'],
             sid=sid,
         )
 
@@ -189,45 +190,45 @@ class FieldValueList(ListResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.Understand.FieldValueList>'
+        return '<Twilio.Preview.Understand.SampleList>'
 
 
-class FieldValuePage(Page):
+class SamplePage(Page):
     """ PLEASE NOTE that this class contains preview products that are subject
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
     def __init__(self, version, response, solution):
         """
-        Initialize the FieldValuePage
+        Initialize the SamplePage
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The service_sid
-        :param field_type_sid: The field_type_sid
+        :param assistant_sid: The assistant_sid
+        :param intent_sid: The intent_sid
 
-        :returns: twilio.rest.preview.understand.service.field_type.field_value.FieldValuePage
-        :rtype: twilio.rest.preview.understand.service.field_type.field_value.FieldValuePage
+        :returns: twilio.rest.preview.understand.assistant.intent.sample.SamplePage
+        :rtype: twilio.rest.preview.understand.assistant.intent.sample.SamplePage
         """
-        super(FieldValuePage, self).__init__(version, response)
+        super(SamplePage, self).__init__(version, response)
 
         # Path Solution
         self._solution = solution
 
     def get_instance(self, payload):
         """
-        Build an instance of FieldValueInstance
+        Build an instance of SampleInstance
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.understand.service.field_type.field_value.FieldValueInstance
-        :rtype: twilio.rest.preview.understand.service.field_type.field_value.FieldValueInstance
+        :returns: twilio.rest.preview.understand.assistant.intent.sample.SampleInstance
+        :rtype: twilio.rest.preview.understand.assistant.intent.sample.SampleInstance
         """
-        return FieldValueInstance(
+        return SampleInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            field_type_sid=self._solution['field_type_sid'],
+            assistant_sid=self._solution['assistant_sid'],
+            intent_sid=self._solution['intent_sid'],
         )
 
     def __repr__(self):
@@ -237,38 +238,38 @@ class FieldValuePage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.Understand.FieldValuePage>'
+        return '<Twilio.Preview.Understand.SamplePage>'
 
 
-class FieldValueContext(InstanceContext):
+class SampleContext(InstanceContext):
     """ PLEASE NOTE that this class contains preview products that are subject
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
-    def __init__(self, version, service_sid, field_type_sid, sid):
+    def __init__(self, version, assistant_sid, intent_sid, sid):
         """
-        Initialize the FieldValueContext
+        Initialize the SampleContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
-        :param field_type_sid: The field_type_sid
+        :param assistant_sid: The assistant_sid
+        :param intent_sid: The intent_sid
         :param sid: The sid
 
-        :returns: twilio.rest.preview.understand.service.field_type.field_value.FieldValueContext
-        :rtype: twilio.rest.preview.understand.service.field_type.field_value.FieldValueContext
+        :returns: twilio.rest.preview.understand.assistant.intent.sample.SampleContext
+        :rtype: twilio.rest.preview.understand.assistant.intent.sample.SampleContext
         """
-        super(FieldValueContext, self).__init__(version)
+        super(SampleContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'field_type_sid': field_type_sid, 'sid': sid, }
-        self._uri = '/Services/{service_sid}/FieldTypes/{field_type_sid}/FieldValues/{sid}'.format(**self._solution)
+        self._solution = {'assistant_sid': assistant_sid, 'intent_sid': intent_sid, 'sid': sid, }
+        self._uri = '/Assistants/{assistant_sid}/Intents/{intent_sid}/Samples/{sid}'.format(**self._solution)
 
     def fetch(self):
         """
-        Fetch a FieldValueInstance
+        Fetch a SampleInstance
 
-        :returns: Fetched FieldValueInstance
-        :rtype: twilio.rest.preview.understand.service.field_type.field_value.FieldValueInstance
+        :returns: Fetched SampleInstance
+        :rtype: twilio.rest.preview.understand.assistant.intent.sample.SampleInstance
         """
         params = values.of({})
 
@@ -278,17 +279,45 @@ class FieldValueContext(InstanceContext):
             params=params,
         )
 
-        return FieldValueInstance(
+        return SampleInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            field_type_sid=self._solution['field_type_sid'],
+            assistant_sid=self._solution['assistant_sid'],
+            intent_sid=self._solution['intent_sid'],
+            sid=self._solution['sid'],
+        )
+
+    def update(self, language=values.unset, tagged_text=values.unset,
+               source_channel=values.unset):
+        """
+        Update the SampleInstance
+
+        :param unicode language: The language
+        :param unicode tagged_text: The tagged_text
+        :param unicode source_channel: The source_channel
+
+        :returns: Updated SampleInstance
+        :rtype: twilio.rest.preview.understand.assistant.intent.sample.SampleInstance
+        """
+        data = values.of({'Language': language, 'TaggedText': tagged_text, 'SourceChannel': source_channel, })
+
+        payload = self._version.update(
+            'POST',
+            self._uri,
+            data=data,
+        )
+
+        return SampleInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            intent_sid=self._solution['intent_sid'],
             sid=self._solution['sid'],
         )
 
     def delete(self):
         """
-        Deletes the FieldValueInstance
+        Deletes the SampleInstance
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -303,41 +332,42 @@ class FieldValueContext(InstanceContext):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Understand.FieldValueContext {}>'.format(context)
+        return '<Twilio.Preview.Understand.SampleContext {}>'.format(context)
 
 
-class FieldValueInstance(InstanceResource):
+class SampleInstance(InstanceResource):
     """ PLEASE NOTE that this class contains preview products that are subject
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
-    def __init__(self, version, payload, service_sid, field_type_sid, sid=None):
+    def __init__(self, version, payload, assistant_sid, intent_sid, sid=None):
         """
-        Initialize the FieldValueInstance
+        Initialize the SampleInstance
 
-        :returns: twilio.rest.preview.understand.service.field_type.field_value.FieldValueInstance
-        :rtype: twilio.rest.preview.understand.service.field_type.field_value.FieldValueInstance
+        :returns: twilio.rest.preview.understand.assistant.intent.sample.SampleInstance
+        :rtype: twilio.rest.preview.understand.assistant.intent.sample.SampleInstance
         """
-        super(FieldValueInstance, self).__init__(version)
+        super(SampleInstance, self).__init__(version)
 
         # Marshaled Properties
         self._properties = {
             'account_sid': payload['account_sid'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'field_type_sid': payload['field_type_sid'],
+            'intent_sid': payload['intent_sid'],
             'language': payload['language'],
-            'service_sid': payload['service_sid'],
+            'assistant_sid': payload['assistant_sid'],
             'sid': payload['sid'],
-            'value': payload['value'],
+            'tagged_text': payload['tagged_text'],
             'url': payload['url'],
+            'source_channel': payload['source_channel'],
         }
 
         # Context
         self._context = None
         self._solution = {
-            'service_sid': service_sid,
-            'field_type_sid': field_type_sid,
+            'assistant_sid': assistant_sid,
+            'intent_sid': intent_sid,
             'sid': sid or self._properties['sid'],
         }
 
@@ -347,14 +377,14 @@ class FieldValueInstance(InstanceResource):
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
 
-        :returns: FieldValueContext for this FieldValueInstance
-        :rtype: twilio.rest.preview.understand.service.field_type.field_value.FieldValueContext
+        :returns: SampleContext for this SampleInstance
+        :rtype: twilio.rest.preview.understand.assistant.intent.sample.SampleContext
         """
         if self._context is None:
-            self._context = FieldValueContext(
+            self._context = SampleContext(
                 self._version,
-                service_sid=self._solution['service_sid'],
-                field_type_sid=self._solution['field_type_sid'],
+                assistant_sid=self._solution['assistant_sid'],
+                intent_sid=self._solution['intent_sid'],
                 sid=self._solution['sid'],
             )
         return self._context
@@ -384,12 +414,12 @@ class FieldValueInstance(InstanceResource):
         return self._properties['date_updated']
 
     @property
-    def field_type_sid(self):
+    def intent_sid(self):
         """
-        :returns: The field_type_sid
+        :returns: The intent_sid
         :rtype: unicode
         """
-        return self._properties['field_type_sid']
+        return self._properties['intent_sid']
 
     @property
     def language(self):
@@ -400,12 +430,12 @@ class FieldValueInstance(InstanceResource):
         return self._properties['language']
 
     @property
-    def service_sid(self):
+    def assistant_sid(self):
         """
-        :returns: The service_sid
+        :returns: The assistant_sid
         :rtype: unicode
         """
-        return self._properties['service_sid']
+        return self._properties['assistant_sid']
 
     @property
     def sid(self):
@@ -416,12 +446,12 @@ class FieldValueInstance(InstanceResource):
         return self._properties['sid']
 
     @property
-    def value(self):
+    def tagged_text(self):
         """
-        :returns: The value
+        :returns: The tagged_text
         :rtype: unicode
         """
-        return self._properties['value']
+        return self._properties['tagged_text']
 
     @property
     def url(self):
@@ -431,18 +461,40 @@ class FieldValueInstance(InstanceResource):
         """
         return self._properties['url']
 
+    @property
+    def source_channel(self):
+        """
+        :returns: The source_channel
+        :rtype: unicode
+        """
+        return self._properties['source_channel']
+
     def fetch(self):
         """
-        Fetch a FieldValueInstance
+        Fetch a SampleInstance
 
-        :returns: Fetched FieldValueInstance
-        :rtype: twilio.rest.preview.understand.service.field_type.field_value.FieldValueInstance
+        :returns: Fetched SampleInstance
+        :rtype: twilio.rest.preview.understand.assistant.intent.sample.SampleInstance
         """
         return self._proxy.fetch()
 
+    def update(self, language=values.unset, tagged_text=values.unset,
+               source_channel=values.unset):
+        """
+        Update the SampleInstance
+
+        :param unicode language: The language
+        :param unicode tagged_text: The tagged_text
+        :param unicode source_channel: The source_channel
+
+        :returns: Updated SampleInstance
+        :rtype: twilio.rest.preview.understand.assistant.intent.sample.SampleInstance
+        """
+        return self._proxy.update(language=language, tagged_text=tagged_text, source_channel=source_channel, )
+
     def delete(self):
         """
-        Deletes the FieldValueInstance
+        Deletes the SampleInstance
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -457,4 +509,4 @@ class FieldValueInstance(InstanceResource):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Understand.FieldValueInstance {}>'.format(context)
+        return '<Twilio.Preview.Understand.SampleInstance {}>'.format(context)

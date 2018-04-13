@@ -18,12 +18,12 @@ class CertificateTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.deployed_devices.fleets(sid="FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                                .certificates(sid="CYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+            self.client.preview.deployed_devices.fleets(sid="FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                                .certificates(sid="CYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://preview.twilio.com/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Certificates/CYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://preview.twilio.com/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Certificates/CYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -44,8 +44,8 @@ class CertificateTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.deployed_devices.fleets(sid="FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                                     .certificates(sid="CYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").fetch()
+        actual = self.client.preview.deployed_devices.fleets(sid="FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                                     .certificates(sid="CYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -53,12 +53,12 @@ class CertificateTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.deployed_devices.fleets(sid="FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                                .certificates(sid="CYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+            self.client.preview.deployed_devices.fleets(sid="FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                                .certificates(sid="CYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://preview.twilio.com/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Certificates/CYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://preview.twilio.com/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Certificates/CYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_delete_response(self):
@@ -67,8 +67,8 @@ class CertificateTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.preview.deployed_devices.fleets(sid="FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                                     .certificates(sid="CYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
+        actual = self.client.preview.deployed_devices.fleets(sid="FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                                     .certificates(sid="CYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)
 
@@ -76,14 +76,14 @@ class CertificateTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.deployed_devices.fleets(sid="FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.preview.deployed_devices.fleets(sid="FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                                 .certificates.create(certificate_data="certificate_data")
 
         values = {'CertificateData': "certificate_data", }
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://preview.twilio.com/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Certificates',
+            'https://preview.twilio.com/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Certificates',
             data=values,
         ))
 
@@ -105,7 +105,7 @@ class CertificateTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.deployed_devices.fleets(sid="FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.preview.deployed_devices.fleets(sid="FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                                      .certificates.create(certificate_data="certificate_data")
 
         self.assertIsNotNone(actual)
@@ -114,12 +114,12 @@ class CertificateTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.deployed_devices.fleets(sid="FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.preview.deployed_devices.fleets(sid="FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                                 .certificates.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://preview.twilio.com/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Certificates',
+            'https://preview.twilio.com/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Certificates',
         ))
 
     def test_read_empty_response(self):
@@ -141,7 +141,7 @@ class CertificateTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.deployed_devices.fleets(sid="FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.preview.deployed_devices.fleets(sid="FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                                      .certificates.list()
 
         self.assertIsNotNone(actual)
@@ -177,7 +177,7 @@ class CertificateTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.deployed_devices.fleets(sid="FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.preview.deployed_devices.fleets(sid="FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                                      .certificates.list()
 
         self.assertIsNotNone(actual)
@@ -186,12 +186,12 @@ class CertificateTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.deployed_devices.fleets(sid="FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                                .certificates(sid="CYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+            self.client.preview.deployed_devices.fleets(sid="FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                                .certificates(sid="CYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://preview.twilio.com/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Certificates/CYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            'https://preview.twilio.com/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Certificates/CYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_update_response(self):
@@ -212,7 +212,7 @@ class CertificateTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.deployed_devices.fleets(sid="FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
-                                                     .certificates(sid="CYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").update()
+        actual = self.client.preview.deployed_devices.fleets(sid="FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                                     .certificates(sid="CYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)

@@ -18,12 +18,12 @@ class UsageTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.wireless.sims(sid="DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+            self.client.preview.wireless.sims(sid="DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                         .usage().fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://preview.twilio.com/wireless/Sims/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage',
+            'https://preview.twilio.com/wireless/Sims/DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Usage',
         ))
 
     def test_fetch_response(self):
@@ -44,7 +44,7 @@ class UsageTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.wireless.sims(sid="DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") \
+        actual = self.client.preview.wireless.sims(sid="DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                              .usage().fetch()
 
         self.assertIsNotNone(actual)
