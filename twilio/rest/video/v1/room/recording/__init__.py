@@ -319,14 +319,15 @@ class RoomRecordingInstance(InstanceResource):
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'sid': payload['sid'],
             'source_sid': payload['source_sid'],
-            'size': deserialize.integer(payload['size']),
+            'size': payload['size'],
+            'url': payload['url'],
             'type': payload['type'],
             'duration': deserialize.integer(payload['duration']),
             'container_format': payload['container_format'],
             'codec': payload['codec'],
             'grouping_sids': payload['grouping_sids'],
+            'track_name': payload['track_name'],
             'room_sid': payload['room_sid'],
-            'url': payload['url'],
             'links': payload['links'],
         }
 
@@ -400,6 +401,14 @@ class RoomRecordingInstance(InstanceResource):
         return self._properties['size']
 
     @property
+    def url(self):
+        """
+        :returns: The url
+        :rtype: unicode
+        """
+        return self._properties['url']
+
+    @property
     def type(self):
         """
         :returns: The type
@@ -440,20 +449,20 @@ class RoomRecordingInstance(InstanceResource):
         return self._properties['grouping_sids']
 
     @property
+    def track_name(self):
+        """
+        :returns: The track_name
+        :rtype: unicode
+        """
+        return self._properties['track_name']
+
+    @property
     def room_sid(self):
         """
         :returns: The room_sid
         :rtype: unicode
         """
         return self._properties['room_sid']
-
-    @property
-    def url(self):
-        """
-        :returns: The url
-        :rtype: unicode
-        """
-        return self._properties['url']
 
     @property
     def links(self):

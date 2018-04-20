@@ -43,12 +43,12 @@ class TrunkList(ListResource):
         """
         Create a new TrunkInstance
 
-        :param unicode friendly_name: The friendly_name
-        :param unicode domain_name: The domain_name
-        :param unicode disaster_recovery_url: The disaster_recovery_url
-        :param unicode disaster_recovery_method: The disaster_recovery_method
-        :param unicode recording: The recording
-        :param bool secure: The secure
+        :param unicode friendly_name: A human-readable name for the Trunk.
+        :param unicode domain_name: The unique address you reserve on Twilio to which you route your SIP traffic.
+        :param unicode disaster_recovery_url: The HTTP URL that Twilio will request if an error occurs while sending SIP traffic towards your configured Origination URL.
+        :param unicode disaster_recovery_method: The HTTP method Twilio will use when requesting the DisasterRecoveryUrl.
+        :param unicode recording: The recording settings for this trunk.
+        :param bool secure: The Secure Trunking  settings for this trunk.
 
         :returns: Newly created TrunkInstance
         :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
@@ -280,12 +280,12 @@ class TrunkContext(InstanceContext):
         """
         Update the TrunkInstance
 
-        :param unicode friendly_name: The friendly_name
-        :param unicode domain_name: The domain_name
-        :param unicode disaster_recovery_url: The disaster_recovery_url
-        :param unicode disaster_recovery_method: The disaster_recovery_method
-        :param unicode recording: The recording
-        :param bool secure: The secure
+        :param unicode friendly_name: A human-readable name for the Trunk.
+        :param unicode domain_name: The unique address you reserve on Twilio to which you route your SIP traffic.
+        :param unicode disaster_recovery_url: The HTTP URL that Twilio will request if an error occurs while sending SIP traffic towards your configured Origination URL.
+        :param unicode disaster_recovery_method: The HTTP method Twilio will use when requesting the DisasterRecoveryUrl.
+        :param unicode recording: The recording settings for this trunk.
+        :param bool secure: The Secure Trunking  settings for this trunk.
 
         :returns: Updated TrunkInstance
         :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
@@ -419,7 +419,7 @@ class TrunkInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique ID of the Account that owns this Trunk.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -427,7 +427,7 @@ class TrunkInstance(InstanceResource):
     @property
     def domain_name(self):
         """
-        :returns: The domain_name
+        :returns: The unique address you reserve on Twilio to which you route your SIP traffic.
         :rtype: unicode
         """
         return self._properties['domain_name']
@@ -435,7 +435,7 @@ class TrunkInstance(InstanceResource):
     @property
     def disaster_recovery_method(self):
         """
-        :returns: The disaster_recovery_method
+        :returns: The HTTP method Twilio will use when requesting the DisasterRecoveryUrl.
         :rtype: unicode
         """
         return self._properties['disaster_recovery_method']
@@ -443,7 +443,7 @@ class TrunkInstance(InstanceResource):
     @property
     def disaster_recovery_url(self):
         """
-        :returns: The disaster_recovery_url
+        :returns: The HTTP URL that Twilio will request if an error occurs while sending SIP traffic towards your configured Origination URL.
         :rtype: unicode
         """
         return self._properties['disaster_recovery_url']
@@ -451,7 +451,7 @@ class TrunkInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The friendly_name
+        :returns: A human-readable name for the Trunk.
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -459,7 +459,7 @@ class TrunkInstance(InstanceResource):
     @property
     def secure(self):
         """
-        :returns: The secure
+        :returns: The Secure Trunking  settings for this trunk.
         :rtype: bool
         """
         return self._properties['secure']
@@ -467,7 +467,7 @@ class TrunkInstance(InstanceResource):
     @property
     def recording(self):
         """
-        :returns: The recording
+        :returns: The recording settings for this trunk.
         :rtype: dict
         """
         return self._properties['recording']
@@ -475,7 +475,7 @@ class TrunkInstance(InstanceResource):
     @property
     def auth_type(self):
         """
-        :returns: The auth_type
+        :returns: The types of authentication you have mapped to your domain.
         :rtype: unicode
         """
         return self._properties['auth_type']
@@ -491,7 +491,7 @@ class TrunkInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date this Activity was created.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -499,7 +499,7 @@ class TrunkInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date this Activity was updated.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -507,7 +507,7 @@ class TrunkInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A 34 character string that uniquely identifies the SIP Trunk in Twilio.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -515,7 +515,7 @@ class TrunkInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The URL for this resource, relative to https://trunking.
         :rtype: unicode
         """
         return self._properties['url']
@@ -553,12 +553,12 @@ class TrunkInstance(InstanceResource):
         """
         Update the TrunkInstance
 
-        :param unicode friendly_name: The friendly_name
-        :param unicode domain_name: The domain_name
-        :param unicode disaster_recovery_url: The disaster_recovery_url
-        :param unicode disaster_recovery_method: The disaster_recovery_method
-        :param unicode recording: The recording
-        :param bool secure: The secure
+        :param unicode friendly_name: A human-readable name for the Trunk.
+        :param unicode domain_name: The unique address you reserve on Twilio to which you route your SIP traffic.
+        :param unicode disaster_recovery_url: The HTTP URL that Twilio will request if an error occurs while sending SIP traffic towards your configured Origination URL.
+        :param unicode disaster_recovery_method: The HTTP method Twilio will use when requesting the DisasterRecoveryUrl.
+        :param unicode recording: The recording settings for this trunk.
+        :param bool secure: The Secure Trunking  settings for this trunk.
 
         :returns: Updated TrunkInstance
         :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance

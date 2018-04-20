@@ -37,7 +37,7 @@ class PhoneNumberList(ListResource):
         """
         Create a new PhoneNumberInstance
 
-        :param unicode phone_number_sid: The phone_number_sid
+        :param unicode phone_number_sid: The SID of the Incoming Phone Number that you want to associate with this trunk.
 
         :returns: Newly created PhoneNumberInstance
         :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberInstance

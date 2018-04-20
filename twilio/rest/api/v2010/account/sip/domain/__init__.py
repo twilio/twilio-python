@@ -134,7 +134,7 @@ class DomainList(ListResource):
         :param unicode voice_fallback_url: URL Twilio will request if an error occurs in executing TwiML
         :param unicode voice_fallback_method: HTTP method used with voice_fallback_url
         :param unicode voice_status_callback_url: URL that Twilio will request with status updates
-        :param unicode voice_status_callback_method: The voice_status_callback_method
+        :param unicode voice_status_callback_method: The HTTP method Twilio will use to make requests to the StatusCallback URL.
         :param bool sip_registration: The sip_registration
 
         :returns: Newly created DomainInstance
@@ -530,7 +530,7 @@ class DomainInstance(InstanceResource):
     @property
     def voice_status_callback_method(self):
         """
-        :returns: The voice_status_callback_method
+        :returns: The HTTP method Twilio will use to make requests to the StatusCallback URL.
         :rtype: unicode
         """
         return self._properties['voice_status_callback_method']

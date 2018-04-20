@@ -126,9 +126,9 @@ class PhoneNumberContext(InstanceContext):
         """
         Fetch a PhoneNumberInstance
 
-        :param unicode country_code: The country_code
-        :param unicode type: The type
-        :param unicode add_ons: The add_ons
+        :param unicode country_code: Optional ISO country code of the phone number.
+        :param unicode type: Indicates the type of information you would like returned with your request.
+        :param unicode add_ons: Indicates the particular Add-on you would like to use to get more information.
         :param dict add_ons_data: The add_ons_data
 
         :returns: Fetched PhoneNumberInstance
@@ -208,7 +208,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def caller_name(self):
         """
-        :returns: The caller_name
+        :returns: String indicating the name of the owner of the phone number.
         :rtype: unicode
         """
         return self._properties['caller_name']
@@ -216,7 +216,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def country_code(self):
         """
-        :returns: The country_code
+        :returns: The ISO country code for the phone number.
         :rtype: unicode
         """
         return self._properties['country_code']
@@ -224,7 +224,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def phone_number(self):
         """
-        :returns: The phone_number
+        :returns: The phone number, in E.
         :rtype: unicode
         """
         return self._properties['phone_number']
@@ -232,7 +232,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def national_format(self):
         """
-        :returns: The national_format
+        :returns: The phone number, in national format.
         :rtype: unicode
         """
         return self._properties['national_format']
@@ -248,7 +248,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def add_ons(self):
         """
-        :returns: The add_ons
+        :returns: Results of any Add-ons you have specified using the AddOn parameter in the request, as a JSON dictionary.
         :rtype: dict
         """
         return self._properties['add_ons']
@@ -266,9 +266,9 @@ class PhoneNumberInstance(InstanceResource):
         """
         Fetch a PhoneNumberInstance
 
-        :param unicode country_code: The country_code
-        :param unicode type: The type
-        :param unicode add_ons: The add_ons
+        :param unicode country_code: Optional ISO country code of the phone number.
+        :param unicode type: Indicates the type of information you would like returned with your request.
+        :param unicode add_ons: Indicates the particular Add-on you would like to use to get more information.
         :param dict add_ons_data: The add_ons_data
 
         :returns: Fetched PhoneNumberInstance

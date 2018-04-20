@@ -41,9 +41,9 @@ class DailyList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param DailyInstance.Category category: The category
-        :param date start_date: The start_date
-        :param date end_date: The end_date
+        :param DailyInstance.Category category: Only include usage of this usage category.
+        :param date start_date: Only include usage that has occurred on or after this date.
+        :param date end_date: Only include usage that has occurred on or before this date.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -72,9 +72,9 @@ class DailyList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param DailyInstance.Category category: The category
-        :param date start_date: The start_date
-        :param date end_date: The end_date
+        :param DailyInstance.Category category: Only include usage of this usage category.
+        :param date start_date: Only include usage that has occurred on or after this date.
+        :param date end_date: Only include usage that has occurred on or before this date.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -100,9 +100,9 @@ class DailyList(ListResource):
         Retrieve a single page of DailyInstance records from the API.
         Request is executed immediately
 
-        :param DailyInstance.Category category: The category
-        :param date start_date: The start_date
-        :param date end_date: The end_date
+        :param DailyInstance.Category category: Only include usage of this usage category.
+        :param date start_date: Only include usage that has occurred on or after this date.
+        :param date end_date: Only include usage that has occurred on or before this date.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -461,7 +461,7 @@ class DailyInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The Account that accrued the usage.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -477,7 +477,7 @@ class DailyInstance(InstanceResource):
     @property
     def category(self):
         """
-        :returns: The category
+        :returns: The category of usage.
         :rtype: DailyInstance.Category
         """
         return self._properties['category']
@@ -485,7 +485,7 @@ class DailyInstance(InstanceResource):
     @property
     def count(self):
         """
-        :returns: The count
+        :returns: The number of usage events.
         :rtype: unicode
         """
         return self._properties['count']
@@ -493,7 +493,7 @@ class DailyInstance(InstanceResource):
     @property
     def count_unit(self):
         """
-        :returns: The count_unit
+        :returns: The units in which Count is measured.
         :rtype: unicode
         """
         return self._properties['count_unit']
@@ -501,7 +501,7 @@ class DailyInstance(InstanceResource):
     @property
     def description(self):
         """
-        :returns: The description
+        :returns: A human-readable description of the usage category.
         :rtype: unicode
         """
         return self._properties['description']
@@ -509,7 +509,7 @@ class DailyInstance(InstanceResource):
     @property
     def end_date(self):
         """
-        :returns: The end_date
+        :returns: The last date for which usage is included in this UsageRecord, formatted as YYYY-MM-DD.
         :rtype: date
         """
         return self._properties['end_date']
@@ -517,7 +517,7 @@ class DailyInstance(InstanceResource):
     @property
     def price(self):
         """
-        :returns: The price
+        :returns: The total price of the usage, in the currency associated with the account.
         :rtype: unicode
         """
         return self._properties['price']
@@ -525,7 +525,7 @@ class DailyInstance(InstanceResource):
     @property
     def price_unit(self):
         """
-        :returns: The price_unit
+        :returns: The currency in which Price is measured, in ISO 4127 format.
         :rtype: unicode
         """
         return self._properties['price_unit']
@@ -533,7 +533,7 @@ class DailyInstance(InstanceResource):
     @property
     def start_date(self):
         """
-        :returns: The start_date
+        :returns: The first date for which usage is included in this UsageRecord, formatted as YYYY-MM-DD.
         :rtype: date
         """
         return self._properties['start_date']
@@ -541,7 +541,7 @@ class DailyInstance(InstanceResource):
     @property
     def subresource_uris(self):
         """
-        :returns: The subresource_uris
+        :returns: Subresource Uris for this UsageRecord.
         :rtype: unicode
         """
         return self._properties['subresource_uris']
@@ -549,7 +549,7 @@ class DailyInstance(InstanceResource):
     @property
     def uri(self):
         """
-        :returns: The uri
+        :returns: The URI that returns only this UsageRecord, relative to https://api.
         :rtype: unicode
         """
         return self._properties['uri']
@@ -557,7 +557,7 @@ class DailyInstance(InstanceResource):
     @property
     def usage(self):
         """
-        :returns: The usage
+        :returns: The amount of billed usage.
         :rtype: unicode
         """
         return self._properties['usage']
@@ -565,7 +565,7 @@ class DailyInstance(InstanceResource):
     @property
     def usage_unit(self):
         """
-        :returns: The usage_unit
+        :returns: The units in which Usage is measured.
         :rtype: unicode
         """
         return self._properties['usage_unit']

@@ -22,7 +22,7 @@ class OriginationUrlList(ListResource):
         Initialize the OriginationUrlList
 
         :param Version version: Version that contains the resource
-        :param trunk_sid: The trunk_sid
+        :param trunk_sid: The unique ID of the Trunk that owns this Origination URL.
 
         :returns: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlList
         :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlList
@@ -37,11 +37,11 @@ class OriginationUrlList(ListResource):
         """
         Create a new OriginationUrlInstance
 
-        :param unicode weight: The weight
-        :param unicode priority: The priority
-        :param bool enabled: The enabled
-        :param unicode friendly_name: The friendly_name
-        :param unicode sip_url: The sip_url
+        :param unicode weight: Weight is used to determine the share of load when more than one URI has the same priority.
+        :param unicode priority: Priority ranks the importance of the URI.
+        :param bool enabled: A boolean value indicating whether the URL is enabled or disabled.
+        :param unicode friendly_name: A human readable descriptive text, up to 64 characters long.
+        :param unicode sip_url: The SIP address you want Twilio to route your Origination calls to.
 
         :returns: Newly created OriginationUrlInstance
         :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
@@ -184,7 +184,7 @@ class OriginationUrlPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param trunk_sid: The trunk_sid
+        :param trunk_sid: The unique ID of the Trunk that owns this Origination URL.
 
         :returns: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlPage
         :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlPage
@@ -272,11 +272,11 @@ class OriginationUrlContext(InstanceContext):
         """
         Update the OriginationUrlInstance
 
-        :param unicode weight: The weight
-        :param unicode priority: The priority
-        :param bool enabled: The enabled
-        :param unicode friendly_name: The friendly_name
-        :param unicode sip_url: The sip_url
+        :param unicode weight: Weight is used to determine the share of load when more than one URI has the same priority.
+        :param unicode priority: Priority ranks the importance of the URI.
+        :param bool enabled: A boolean value indicating whether the URL is enabled or disabled.
+        :param unicode friendly_name: A human readable descriptive text, up to 64 characters long.
+        :param unicode sip_url: The SIP address you want Twilio to route your Origination calls to.
 
         :returns: Updated OriginationUrlInstance
         :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
@@ -364,7 +364,7 @@ class OriginationUrlInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique ID of the Account that owns this Origination URL.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -372,7 +372,7 @@ class OriginationUrlInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A 34 character string that uniquely identifies the Origination URL in this Twilio Trunk.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -380,7 +380,7 @@ class OriginationUrlInstance(InstanceResource):
     @property
     def trunk_sid(self):
         """
-        :returns: The trunk_sid
+        :returns: The unique ID of the Trunk that owns this Origination URL.
         :rtype: unicode
         """
         return self._properties['trunk_sid']
@@ -388,7 +388,7 @@ class OriginationUrlInstance(InstanceResource):
     @property
     def weight(self):
         """
-        :returns: The weight
+        :returns: Weight is used to determine the share of load when more than one URI has the same priority.
         :rtype: unicode
         """
         return self._properties['weight']
@@ -396,7 +396,7 @@ class OriginationUrlInstance(InstanceResource):
     @property
     def enabled(self):
         """
-        :returns: The enabled
+        :returns: A boolean value indicating whether the URL is enabled or disabled.
         :rtype: bool
         """
         return self._properties['enabled']
@@ -404,7 +404,7 @@ class OriginationUrlInstance(InstanceResource):
     @property
     def sip_url(self):
         """
-        :returns: The sip_url
+        :returns: The SIP address you want Twilio to route your Origination calls to.
         :rtype: unicode
         """
         return self._properties['sip_url']
@@ -412,7 +412,7 @@ class OriginationUrlInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The friendly_name
+        :returns: A human readable descriptive text, up to 64 characters long.
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -420,7 +420,7 @@ class OriginationUrlInstance(InstanceResource):
     @property
     def priority(self):
         """
-        :returns: The priority
+        :returns: Priority ranks the importance of the URI.
         :rtype: unicode
         """
         return self._properties['priority']
@@ -428,7 +428,7 @@ class OriginationUrlInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date this Activity was created.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -436,7 +436,7 @@ class OriginationUrlInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date this Activity was updated.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -444,7 +444,7 @@ class OriginationUrlInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The URL for this resource, relative to https://trunking.
         :rtype: unicode
         """
         return self._properties['url']
@@ -473,11 +473,11 @@ class OriginationUrlInstance(InstanceResource):
         """
         Update the OriginationUrlInstance
 
-        :param unicode weight: The weight
-        :param unicode priority: The priority
-        :param bool enabled: The enabled
-        :param unicode friendly_name: The friendly_name
-        :param unicode sip_url: The sip_url
+        :param unicode weight: Weight is used to determine the share of load when more than one URI has the same priority.
+        :param unicode priority: Priority ranks the importance of the URI.
+        :param bool enabled: A boolean value indicating whether the URL is enabled or disabled.
+        :param unicode friendly_name: A human readable descriptive text, up to 64 characters long.
+        :param unicode sip_url: The SIP address you want Twilio to route your Origination calls to.
 
         :returns: Updated OriginationUrlInstance
         :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance

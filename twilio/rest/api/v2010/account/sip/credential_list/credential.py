@@ -22,7 +22,7 @@ class CredentialList(ListResource):
         Initialize the CredentialList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
+        :param account_sid: The unique id of the Account that responsible for this resource.
         :param credential_list_sid: The credential_list_sid
 
         :returns: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialList
@@ -119,8 +119,8 @@ class CredentialList(ListResource):
         """
         Create a new CredentialInstance
 
-        :param unicode username: The username
-        :param unicode password: The password
+        :param unicode username: The username for this credential.
+        :param unicode password: The password will not be returned in the response.
 
         :returns: Newly created CredentialInstance
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
@@ -191,7 +191,7 @@ class CredentialPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The account_sid
+        :param account_sid: The unique id of the Account that responsible for this resource.
         :param credential_list_sid: The credential_list_sid
 
         :returns: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialPage
@@ -374,7 +374,7 @@ class CredentialInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A 34 character string that uniquely identifies this resource.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -382,7 +382,7 @@ class CredentialInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique id of the Account that responsible for this resource.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -398,7 +398,7 @@ class CredentialInstance(InstanceResource):
     @property
     def username(self):
         """
-        :returns: The username
+        :returns: The username for this credential.
         :rtype: unicode
         """
         return self._properties['username']
@@ -406,7 +406,7 @@ class CredentialInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date that this resource was created, given as GMT in RFC 2822 format.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -414,7 +414,7 @@ class CredentialInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date that this resource was last updated, given as GMT in RFC 2822 format.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -422,7 +422,7 @@ class CredentialInstance(InstanceResource):
     @property
     def uri(self):
         """
-        :returns: The uri
+        :returns: The URI for this resource, relative to https://api.
         :rtype: unicode
         """
         return self._properties['uri']

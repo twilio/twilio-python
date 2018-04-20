@@ -31,17 +31,17 @@ class NumberTestCase(IntegrationTestCase):
             200,
             '''
             {
-                "country": "United States",
+                "country": "Iran",
                 "inbound_call_price": {
                     "base_price": null,
                     "current_price": null,
                     "number_type": null
                 },
-                "iso_country": "US",
+                "iso_country": "IR",
                 "number": "+987654321",
                 "outbound_call_price": {
-                    "base_price": "0.015",
-                    "current_price": "0.015"
+                    "base_price": "0.255",
+                    "current_price": "0.255"
                 },
                 "price_unit": "USD",
                 "url": "https://pricing.twilio.com/v1/Voice/Numbers/+987654321"

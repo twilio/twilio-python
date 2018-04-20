@@ -3,6 +3,12 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-04-20] Version 6.12.1
+----------------------------
+**Twiml**
+- Gather input Enum: remove unnecessary "dtmf speech" value as you can now specify multiple enum values for this parameter and both "dtmf" and "speech" are already available.
+
+
 [2018-04-13] Version 6.12.0
 ----------------------------
 **Library**

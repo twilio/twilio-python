@@ -232,7 +232,7 @@ class KeyContext(InstanceContext):
         """
         Update the KeyInstance
 
-        :param unicode friendly_name: The friendly_name
+        :param unicode friendly_name: A descriptive string for this resource, chosen by your application, up to 64 characters long.
 
         :returns: Updated KeyInstance
         :rtype: twilio.rest.api.v2010.account.key.KeyInstance
@@ -316,7 +316,7 @@ class KeyInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A 34 character string that uniquely identifies this API Key.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -324,7 +324,7 @@ class KeyInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The friendly_name
+        :returns: A descriptive string for this resource, chosen by your application, up to 64 characters long.
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -332,7 +332,7 @@ class KeyInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date-time this API Key was created, given as a RFC 2822 Timestamp.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -340,7 +340,7 @@ class KeyInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date-time this API Key was most recently updated, given as a  RFC 2822 Timestamp.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -358,7 +358,7 @@ class KeyInstance(InstanceResource):
         """
         Update the KeyInstance
 
-        :param unicode friendly_name: The friendly_name
+        :param unicode friendly_name: A descriptive string for this resource, chosen by your application, up to 64 characters long.
 
         :returns: Updated KeyInstance
         :rtype: twilio.rest.api.v2010.account.key.KeyInstance
