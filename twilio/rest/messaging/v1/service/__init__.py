@@ -46,19 +46,19 @@ class ServiceList(ListResource):
         """
         Create a new ServiceInstance
 
-        :param unicode friendly_name: The friendly_name
-        :param unicode inbound_request_url: The inbound_request_url
-        :param unicode inbound_method: The inbound_method
-        :param unicode fallback_url: The fallback_url
-        :param unicode fallback_method: The fallback_method
-        :param unicode status_callback: The status_callback
-        :param bool sticky_sender: The sticky_sender
-        :param bool mms_converter: The mms_converter
-        :param bool smart_encoding: The smart_encoding
+        :param unicode friendly_name: A human readable descriptive text for this resource, up to 64 characters.
+        :param unicode inbound_request_url: A webhook request is made to the Inbound Request URL when a message is received by any phone number or shortcode associated to your Messaging Service.
+        :param unicode inbound_method: The HTTP method used when making requests to the Inbound Request URL.
+        :param unicode fallback_url: A request is made to the Fallback URL if an error occurs with retrieving or executing the TwiML from you Inbound Request URL.
+        :param unicode fallback_method: The HTTP method used when requesting the Fallback URL.
+        :param unicode status_callback: A webhook request is made to the Status Callback to pass status updates about your messages.
+        :param bool sticky_sender: Configuration to enable or disable Sticky Sender on your Service Instance.
+        :param bool mms_converter: Configuration to enable or disable MMS Converter on your Service Instance.
+        :param bool smart_encoding: Configuration to enable or disable Smart Encoding.
         :param ServiceInstance.ScanMessageContent scan_message_content: The scan_message_content
-        :param bool fallback_to_long_code: The fallback_to_long_code
-        :param bool area_code_geomatch: The area_code_geomatch
-        :param unicode validity_period: The validity_period
+        :param bool fallback_to_long_code: Configuration to enable or disable Fallback to Long Code.
+        :param bool area_code_geomatch: Configuration to enable or disable Area Code Geomatch.
+        :param unicode validity_period: Configuration to set the validity period of all messages sent from your Service, in seconds.
         :param bool synchronous_validation: The synchronous_validation
 
         :returns: Newly created ServiceInstance
@@ -455,7 +455,7 @@ class ServiceInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: Unique 34 character ID of the Service.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -463,7 +463,7 @@ class ServiceInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: Unique 34 character ID of the Account that created this Service.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -471,7 +471,7 @@ class ServiceInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The friendly_name
+        :returns: A human readable descriptive text for this resource, up to 64 characters.
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -479,7 +479,7 @@ class ServiceInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date that this resource was created.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -487,7 +487,7 @@ class ServiceInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date that this resource was last updated.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -495,7 +495,7 @@ class ServiceInstance(InstanceResource):
     @property
     def inbound_request_url(self):
         """
-        :returns: The inbound_request_url
+        :returns: The URL Twilio will make a webhook request to when a message is received by any phone number or short code in your Service.
         :rtype: unicode
         """
         return self._properties['inbound_request_url']
@@ -503,7 +503,7 @@ class ServiceInstance(InstanceResource):
     @property
     def inbound_method(self):
         """
-        :returns: The inbound_method
+        :returns: The HTTP method Twilio will use when making requests to the Inbound Request URL.
         :rtype: unicode
         """
         return self._properties['inbound_method']
@@ -511,7 +511,7 @@ class ServiceInstance(InstanceResource):
     @property
     def fallback_url(self):
         """
-        :returns: The fallback_url
+        :returns: The URL that Twilio will request if an error occurs when retrieving or executing the TwiML from your Inbound Request URL.
         :rtype: unicode
         """
         return self._properties['fallback_url']
@@ -519,7 +519,7 @@ class ServiceInstance(InstanceResource):
     @property
     def fallback_method(self):
         """
-        :returns: The fallback_method
+        :returns: The HTTP method Twilio will use when making requests to the Fallback URL.
         :rtype: unicode
         """
         return self._properties['fallback_method']
@@ -527,7 +527,7 @@ class ServiceInstance(InstanceResource):
     @property
     def status_callback(self):
         """
-        :returns: The status_callback
+        :returns: The URL Twilio will make a webhook request to when passing you status updates about the delivery of your messages.
         :rtype: unicode
         """
         return self._properties['status_callback']
@@ -535,7 +535,7 @@ class ServiceInstance(InstanceResource):
     @property
     def sticky_sender(self):
         """
-        :returns: The sticky_sender
+        :returns: Configuration to enable or disable Sticky Sender on your Service instance.
         :rtype: bool
         """
         return self._properties['sticky_sender']
@@ -543,7 +543,7 @@ class ServiceInstance(InstanceResource):
     @property
     def mms_converter(self):
         """
-        :returns: The mms_converter
+        :returns: Configuration to enable or disable MMS Converter for messages sent through your Service instance.
         :rtype: bool
         """
         return self._properties['mms_converter']
@@ -551,7 +551,7 @@ class ServiceInstance(InstanceResource):
     @property
     def smart_encoding(self):
         """
-        :returns: The smart_encoding
+        :returns: Configuration to enable or disable Smart Encoding for messages sent through your Service instance.
         :rtype: bool
         """
         return self._properties['smart_encoding']
@@ -567,7 +567,7 @@ class ServiceInstance(InstanceResource):
     @property
     def fallback_to_long_code(self):
         """
-        :returns: The fallback_to_long_code
+        :returns: Configuration to enable or disable Fallback to Long Code for messages sent through your Service instance.
         :rtype: bool
         """
         return self._properties['fallback_to_long_code']
@@ -575,7 +575,7 @@ class ServiceInstance(InstanceResource):
     @property
     def area_code_geomatch(self):
         """
-        :returns: The area_code_geomatch
+        :returns: Configuration to enable or disable Area Code Geomatch on your Service Instance.
         :rtype: bool
         """
         return self._properties['area_code_geomatch']
@@ -591,7 +591,7 @@ class ServiceInstance(InstanceResource):
     @property
     def validity_period(self):
         """
-        :returns: The validity_period
+        :returns: The number of seconds all messages sent from your Service are valid for.
         :rtype: unicode
         """
         return self._properties['validity_period']

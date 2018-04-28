@@ -49,7 +49,7 @@ class WorkspaceList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode friendly_name: The friendly_name
+        :param unicode friendly_name: Filter by a workspace’s friendly name.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -72,7 +72,7 @@ class WorkspaceList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode friendly_name: The friendly_name
+        :param unicode friendly_name: Filter by a workspace’s friendly name.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -91,7 +91,7 @@ class WorkspaceList(ListResource):
         Retrieve a single page of WorkspaceInstance records from the API.
         Request is executed immediately
 
-        :param unicode friendly_name: The friendly_name
+        :param unicode friendly_name: Filter by a workspace’s friendly name.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -137,12 +137,12 @@ class WorkspaceList(ListResource):
         """
         Create a new WorkspaceInstance
 
-        :param unicode friendly_name: The friendly_name
-        :param unicode event_callback_url: The event_callback_url
-        :param unicode events_filter: The events_filter
-        :param bool multi_task_enabled: The multi_task_enabled
-        :param unicode template: The template
-        :param WorkspaceInstance.QueueOrder prioritize_queue_order: The prioritize_queue_order
+        :param unicode friendly_name: Human readable description of this workspace
+        :param unicode event_callback_url: If provided, the Workspace will publish events to this URL.
+        :param unicode events_filter: Use this parameter to receive webhooks on EventCallbackUrl for specific events on a workspace.
+        :param bool multi_task_enabled: Multi tasking allows workers to handle multiple tasks simultaneously.
+        :param unicode template: One of the available template names.
+        :param WorkspaceInstance.QueueOrder prioritize_queue_order: Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues.
 
         :returns: Newly created WorkspaceInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
@@ -291,13 +291,13 @@ class WorkspaceContext(InstanceContext):
         """
         Update the WorkspaceInstance
 
-        :param unicode default_activity_sid: The default_activity_sid
-        :param unicode event_callback_url: The event_callback_url
-        :param unicode events_filter: The events_filter
-        :param unicode friendly_name: The friendly_name
-        :param bool multi_task_enabled: The multi_task_enabled
-        :param unicode timeout_activity_sid: The timeout_activity_sid
-        :param WorkspaceInstance.QueueOrder prioritize_queue_order: The prioritize_queue_order
+        :param unicode default_activity_sid: The ID of the Activity that will be used when new Workers are created in this Workspace.
+        :param unicode event_callback_url: The Workspace will publish events to this URL.
+        :param unicode events_filter: Use this parameter to receive webhooks on EventCallbackUrl for specific events on a workspace.
+        :param unicode friendly_name: Human readable description of this workspace
+        :param bool multi_task_enabled: Enable or Disable Multitasking by passing either true or False with the POST request.
+        :param unicode timeout_activity_sid: The ID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
+        :param WorkspaceInstance.QueueOrder prioritize_queue_order: Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues.
 
         :returns: Updated WorkspaceInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
@@ -521,7 +521,7 @@ class WorkspaceInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The ID of the account that owns this Workflow
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -529,7 +529,7 @@ class WorkspaceInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The time the Workspace was created, given as GMT in ISO 8601 format.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -537,7 +537,7 @@ class WorkspaceInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The time the Workspace was last updated, given as GMT in ISO 8601 format.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -545,7 +545,7 @@ class WorkspaceInstance(InstanceResource):
     @property
     def default_activity_name(self):
         """
-        :returns: The default_activity_name
+        :returns: The human readable name of the default activity.
         :rtype: unicode
         """
         return self._properties['default_activity_name']
@@ -553,7 +553,7 @@ class WorkspaceInstance(InstanceResource):
     @property
     def default_activity_sid(self):
         """
-        :returns: The default_activity_sid
+        :returns: The ID of the Activity that will be used when new Workers are created in this Workspace.
         :rtype: unicode
         """
         return self._properties['default_activity_sid']
@@ -561,7 +561,7 @@ class WorkspaceInstance(InstanceResource):
     @property
     def event_callback_url(self):
         """
-        :returns: The event_callback_url
+        :returns: If provided, the Workspace will publish events to this URL.
         :rtype: unicode
         """
         return self._properties['event_callback_url']
@@ -569,7 +569,7 @@ class WorkspaceInstance(InstanceResource):
     @property
     def events_filter(self):
         """
-        :returns: The events_filter
+        :returns: Use this parameter to receive webhooks on EventCallbackUrl for specific events on a workspace.
         :rtype: unicode
         """
         return self._properties['events_filter']
@@ -577,7 +577,7 @@ class WorkspaceInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The friendly_name
+        :returns: Filter by a workspace’s friendly name.
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -585,7 +585,7 @@ class WorkspaceInstance(InstanceResource):
     @property
     def multi_task_enabled(self):
         """
-        :returns: The multi_task_enabled
+        :returns: Multi tasking allows workers to handle multiple tasks simultaneously.
         :rtype: bool
         """
         return self._properties['multi_task_enabled']
@@ -593,7 +593,7 @@ class WorkspaceInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: The unique ID of the Workspace
         :rtype: unicode
         """
         return self._properties['sid']
@@ -601,7 +601,7 @@ class WorkspaceInstance(InstanceResource):
     @property
     def timeout_activity_name(self):
         """
-        :returns: The timeout_activity_name
+        :returns: The human readable name of the timeout activity.
         :rtype: unicode
         """
         return self._properties['timeout_activity_name']
@@ -609,7 +609,7 @@ class WorkspaceInstance(InstanceResource):
     @property
     def timeout_activity_sid(self):
         """
-        :returns: The timeout_activity_sid
+        :returns: The ID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
         :rtype: unicode
         """
         return self._properties['timeout_activity_sid']
@@ -617,7 +617,7 @@ class WorkspaceInstance(InstanceResource):
     @property
     def prioritize_queue_order(self):
         """
-        :returns: The prioritize_queue_order
+        :returns: Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues.
         :rtype: WorkspaceInstance.QueueOrder
         """
         return self._properties['prioritize_queue_order']
@@ -655,13 +655,13 @@ class WorkspaceInstance(InstanceResource):
         """
         Update the WorkspaceInstance
 
-        :param unicode default_activity_sid: The default_activity_sid
-        :param unicode event_callback_url: The event_callback_url
-        :param unicode events_filter: The events_filter
-        :param unicode friendly_name: The friendly_name
-        :param bool multi_task_enabled: The multi_task_enabled
-        :param unicode timeout_activity_sid: The timeout_activity_sid
-        :param WorkspaceInstance.QueueOrder prioritize_queue_order: The prioritize_queue_order
+        :param unicode default_activity_sid: The ID of the Activity that will be used when new Workers are created in this Workspace.
+        :param unicode event_callback_url: The Workspace will publish events to this URL.
+        :param unicode events_filter: Use this parameter to receive webhooks on EventCallbackUrl for specific events on a workspace.
+        :param unicode friendly_name: Human readable description of this workspace
+        :param bool multi_task_enabled: Enable or Disable Multitasking by passing either true or False with the POST request.
+        :param unicode timeout_activity_sid: The ID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
+        :param WorkspaceInstance.QueueOrder prioritize_queue_order: Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues.
 
         :returns: Updated WorkspaceInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance

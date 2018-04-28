@@ -25,7 +25,7 @@ class WorkflowList(ListResource):
         Initialize the WorkflowList
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The workspace_sid
+        :param workspace_sid: The ID of the Workspace that contains this Workflow
 
         :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowList
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowList
@@ -43,7 +43,7 @@ class WorkflowList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode friendly_name: The friendly_name
+        :param unicode friendly_name: Human readable description of this Workflow
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -66,7 +66,7 @@ class WorkflowList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode friendly_name: The friendly_name
+        :param unicode friendly_name: Human readable description of this Workflow
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -85,7 +85,7 @@ class WorkflowList(ListResource):
         Retrieve a single page of WorkflowInstance records from the API.
         Request is executed immediately
 
-        :param unicode friendly_name: The friendly_name
+        :param unicode friendly_name: Human readable description of this Workflow
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -132,11 +132,11 @@ class WorkflowList(ListResource):
         """
         Create a new WorkflowInstance
 
-        :param unicode friendly_name: The friendly_name
-        :param unicode configuration: The configuration
-        :param unicode assignment_callback_url: The assignment_callback_url
-        :param unicode fallback_assignment_callback_url: The fallback_assignment_callback_url
-        :param unicode task_reservation_timeout: The task_reservation_timeout
+        :param unicode friendly_name: A string representing a human readable name for this Workflow.
+        :param unicode configuration: JSON document configuring the rules for this Workflow.
+        :param unicode assignment_callback_url: A valid URL for the application that will process task assignment events.
+        :param unicode fallback_assignment_callback_url: If the request to the AssignmentCallbackUrl fails, the assignment callback will be made to this URL.
+        :param unicode task_reservation_timeout: An integer value controlling how long in seconds TaskRouter will wait for a confirmation response from your application after assigning a Task to a worker.
 
         :returns: Newly created WorkflowInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
@@ -198,7 +198,7 @@ class WorkflowPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param workspace_sid: The workspace_sid
+        :param workspace_sid: The ID of the Workspace that contains this Workflow
 
         :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowPage
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowPage
@@ -283,11 +283,11 @@ class WorkflowContext(InstanceContext):
         """
         Update the WorkflowInstance
 
-        :param unicode friendly_name: The friendly_name
-        :param unicode assignment_callback_url: The assignment_callback_url
-        :param unicode fallback_assignment_callback_url: The fallback_assignment_callback_url
-        :param unicode configuration: The configuration
-        :param unicode task_reservation_timeout: The task_reservation_timeout
+        :param unicode friendly_name: A string representing a human readable name for this Workflow.
+        :param unicode assignment_callback_url: A valid URL for the application that will process task assignment events.
+        :param unicode fallback_assignment_callback_url: If the request to the AssignmentCallbackUrl fails, the assignment callback will be made to this URL.
+        :param unicode configuration: JSON document configuring the rules for this Workflow.
+        :param unicode task_reservation_timeout: An integer value controlling how long in seconds TaskRouter will wait for a confirmation response from your application after assigning a Task to a worker.
 
         :returns: Updated WorkflowInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
@@ -434,7 +434,7 @@ class WorkflowInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The ID of the account that owns this Workflow
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -442,7 +442,7 @@ class WorkflowInstance(InstanceResource):
     @property
     def assignment_callback_url(self):
         """
-        :returns: The assignment_callback_url
+        :returns: The URL that will be called whenever a task managed by this Workflow is assigned to a Worker.
         :rtype: unicode
         """
         return self._properties['assignment_callback_url']
@@ -450,7 +450,7 @@ class WorkflowInstance(InstanceResource):
     @property
     def configuration(self):
         """
-        :returns: The configuration
+        :returns: JSON document configuring the rules for this Workflow.
         :rtype: unicode
         """
         return self._properties['configuration']
@@ -458,7 +458,7 @@ class WorkflowInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date this workflow was created.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -466,7 +466,7 @@ class WorkflowInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date this workflow was last updated.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -482,7 +482,7 @@ class WorkflowInstance(InstanceResource):
     @property
     def fallback_assignment_callback_url(self):
         """
-        :returns: The fallback_assignment_callback_url
+        :returns: If the request to the AssignmentCallbackUrl fails, the assignment callback will be made to this URL.
         :rtype: unicode
         """
         return self._properties['fallback_assignment_callback_url']
@@ -490,7 +490,7 @@ class WorkflowInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The friendly_name
+        :returns: Human readable description of this Workflow
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -498,7 +498,7 @@ class WorkflowInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: The unique ID of the Workflow
         :rtype: unicode
         """
         return self._properties['sid']
@@ -506,7 +506,7 @@ class WorkflowInstance(InstanceResource):
     @property
     def task_reservation_timeout(self):
         """
-        :returns: The task_reservation_timeout
+        :returns: Determines how long TaskRouter will wait for a confirmation response from your application after assigning a Task to a worker.
         :rtype: unicode
         """
         return self._properties['task_reservation_timeout']
@@ -514,7 +514,7 @@ class WorkflowInstance(InstanceResource):
     @property
     def workspace_sid(self):
         """
-        :returns: The workspace_sid
+        :returns: The ID of the Workspace that contains this Workflow
         :rtype: unicode
         """
         return self._properties['workspace_sid']
@@ -551,11 +551,11 @@ class WorkflowInstance(InstanceResource):
         """
         Update the WorkflowInstance
 
-        :param unicode friendly_name: The friendly_name
-        :param unicode assignment_callback_url: The assignment_callback_url
-        :param unicode fallback_assignment_callback_url: The fallback_assignment_callback_url
-        :param unicode configuration: The configuration
-        :param unicode task_reservation_timeout: The task_reservation_timeout
+        :param unicode friendly_name: A string representing a human readable name for this Workflow.
+        :param unicode assignment_callback_url: A valid URL for the application that will process task assignment events.
+        :param unicode fallback_assignment_callback_url: If the request to the AssignmentCallbackUrl fails, the assignment callback will be made to this URL.
+        :param unicode configuration: JSON document configuring the rules for this Workflow.
+        :param unicode task_reservation_timeout: An integer value controlling how long in seconds TaskRouter will wait for a confirmation response from your application after assigning a Task to a worker.
 
         :returns: Updated WorkflowInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance

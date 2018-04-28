@@ -133,7 +133,7 @@ class WorkspaceRealTimeStatisticsContext(InstanceContext):
         """
         Fetch a WorkspaceRealTimeStatisticsInstance
 
-        :param unicode task_channel: The task_channel
+        :param unicode task_channel: Filter real-time and cumulative statistics by TaskChannel.
 
         :returns: Fetched WorkspaceRealTimeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workspace_real_time_statistics.WorkspaceRealTimeStatisticsInstance
@@ -219,7 +219,7 @@ class WorkspaceRealTimeStatisticsInstance(InstanceResource):
     @property
     def activity_statistics(self):
         """
-        :returns: The activity_statistics
+        :returns: A breakdown of Workers by Activity
         :rtype: dict
         """
         return self._properties['activity_statistics']
@@ -227,7 +227,7 @@ class WorkspaceRealTimeStatisticsInstance(InstanceResource):
     @property
     def longest_task_waiting_age(self):
         """
-        :returns: The longest_task_waiting_age
+        :returns: The age of the longest waiting Task
         :rtype: unicode
         """
         return self._properties['longest_task_waiting_age']
@@ -243,7 +243,7 @@ class WorkspaceRealTimeStatisticsInstance(InstanceResource):
     @property
     def tasks_by_status(self):
         """
-        :returns: The tasks_by_status
+        :returns: The Tasks broken down by status
         :rtype: dict
         """
         return self._properties['tasks_by_status']
@@ -251,7 +251,7 @@ class WorkspaceRealTimeStatisticsInstance(InstanceResource):
     @property
     def total_tasks(self):
         """
-        :returns: The total_tasks
+        :returns: The total number of Tasks
         :rtype: unicode
         """
         return self._properties['total_tasks']
@@ -259,7 +259,7 @@ class WorkspaceRealTimeStatisticsInstance(InstanceResource):
     @property
     def total_workers(self):
         """
-        :returns: The total_workers
+        :returns: The total number of Workers in the workspace
         :rtype: unicode
         """
         return self._properties['total_workers']
@@ -284,7 +284,7 @@ class WorkspaceRealTimeStatisticsInstance(InstanceResource):
         """
         Fetch a WorkspaceRealTimeStatisticsInstance
 
-        :param unicode task_channel: The task_channel
+        :param unicode task_channel: Filter real-time and cumulative statistics by TaskChannel.
 
         :returns: Fetched WorkspaceRealTimeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workspace_real_time_statistics.WorkspaceRealTimeStatisticsInstance

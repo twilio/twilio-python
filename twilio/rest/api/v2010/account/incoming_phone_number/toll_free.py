@@ -41,10 +41,10 @@ class TollFreeList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param bool beta: The beta
-        :param unicode friendly_name: The friendly_name
-        :param unicode phone_number: The phone_number
-        :param unicode origin: The origin
+        :param bool beta: Include phone numbers new to the Twilio platform.
+        :param unicode friendly_name: Only show the incoming phone number resources with friendly names that exactly match this name.
+        :param unicode phone_number: Only show the incoming phone number resources that match this pattern.
+        :param unicode origin: Include phone numbers based on the origin, by default, phone numbers of all origin are included.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -75,10 +75,10 @@ class TollFreeList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param bool beta: The beta
-        :param unicode friendly_name: The friendly_name
-        :param unicode phone_number: The phone_number
-        :param unicode origin: The origin
+        :param bool beta: Include phone numbers new to the Twilio platform.
+        :param unicode friendly_name: Only show the incoming phone number resources with friendly names that exactly match this name.
+        :param unicode phone_number: Only show the incoming phone number resources that match this pattern.
+        :param unicode origin: Include phone numbers based on the origin, by default, phone numbers of all origin are included.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -106,10 +106,10 @@ class TollFreeList(ListResource):
         Retrieve a single page of TollFreeInstance records from the API.
         Request is executed immediately
 
-        :param bool beta: The beta
-        :param unicode friendly_name: The friendly_name
-        :param unicode phone_number: The phone_number
-        :param unicode origin: The origin
+        :param bool beta: Include phone numbers new to the Twilio platform.
+        :param unicode friendly_name: Only show the incoming phone number resources with friendly names that exactly match this name.
+        :param unicode phone_number: Only show the incoming phone number resources that match this pattern.
+        :param unicode origin: Include phone numbers based on the origin, by default, phone numbers of all origin are included.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -165,24 +165,24 @@ class TollFreeList(ListResource):
         """
         Create a new TollFreeInstance
 
-        :param unicode phone_number: The phone_number
-        :param unicode api_version: The api_version
-        :param unicode friendly_name: The friendly_name
-        :param unicode sms_application_sid: The sms_application_sid
-        :param unicode sms_fallback_method: The sms_fallback_method
-        :param unicode sms_fallback_url: The sms_fallback_url
-        :param unicode sms_method: The sms_method
-        :param unicode sms_url: The sms_url
-        :param unicode status_callback: The status_callback
-        :param unicode status_callback_method: The status_callback_method
-        :param unicode voice_application_sid: The voice_application_sid
-        :param bool voice_caller_id_lookup: The voice_caller_id_lookup
-        :param unicode voice_fallback_method: The voice_fallback_method
-        :param unicode voice_fallback_url: The voice_fallback_url
-        :param unicode voice_method: The voice_method
-        :param unicode voice_url: The voice_url
+        :param unicode phone_number: The phone number you want to purchase.
+        :param unicode api_version: The Twilio REST API version to use for incoming calls made to this number.
+        :param unicode friendly_name: A human readable description of the new incoming phone number.
+        :param unicode sms_application_sid: The 34 character sid of the application Twilio should use to handle SMSs sent to the new number.
+        :param unicode sms_fallback_method: The HTTP method that should be used to request the SmsFallbackUrl.
+        :param unicode sms_fallback_url: A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl.
+        :param unicode sms_method: The HTTP method that should be used to request the SmsUrl.
+        :param unicode sms_url: The URL that Twilio should request when somebody sends an SMS to the phone number.
+        :param unicode status_callback: The URL that Twilio will request to pass status parameters to your application.
+        :param unicode status_callback_method: The HTTP method Twilio will use to make requests to the StatusCallback URL.
+        :param unicode voice_application_sid: The 34 character sid of the application Twilio should use to handle phone calls to the new number.
+        :param bool voice_caller_id_lookup: Do a lookup of a caller's name from the CNAM database and post it to your app.
+        :param unicode voice_fallback_method: The HTTP method that should be used to request the VoiceFallbackUrl.
+        :param unicode voice_fallback_url: A URL that Twilio will request if an error occurs requesting or executing the TwiML at Url.
+        :param unicode voice_method: The HTTP method that should be used to request the VoiceUrl.
+        :param unicode voice_url: The URL that Twilio should request when somebody dials the new phone number.
         :param unicode identity_sid: The identity_sid
-        :param unicode address_sid: The address_sid
+        :param unicode address_sid: The 34 character sid of the address Twilio should associate with the number.
 
         :returns: Newly created TollFreeInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.toll_free.TollFreeInstance
@@ -323,7 +323,7 @@ class TollFreeInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique id of the Account responsible for this phone number.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -331,7 +331,7 @@ class TollFreeInstance(InstanceResource):
     @property
     def address_sid(self):
         """
-        :returns: The address_sid
+        :returns: The 34 character sid of the address associated with this number.
         :rtype: unicode
         """
         return self._properties['address_sid']
@@ -339,7 +339,7 @@ class TollFreeInstance(InstanceResource):
     @property
     def address_requirements(self):
         """
-        :returns: The address_requirements
+        :returns: This indicates whether the phone number requires you or your customer to have an Address registered with Twilio.
         :rtype: TollFreeInstance.AddressRequirement
         """
         return self._properties['address_requirements']
@@ -347,7 +347,7 @@ class TollFreeInstance(InstanceResource):
     @property
     def api_version(self):
         """
-        :returns: The api_version
+        :returns: Calls to this phone number will start a new TwiML session with this API version.
         :rtype: unicode
         """
         return self._properties['api_version']
@@ -355,7 +355,7 @@ class TollFreeInstance(InstanceResource):
     @property
     def beta(self):
         """
-        :returns: The beta
+        :returns: Phone numbers new to the Twilio platform are marked as beta.
         :rtype: bool
         """
         return self._properties['beta']
@@ -363,7 +363,7 @@ class TollFreeInstance(InstanceResource):
     @property
     def capabilities(self):
         """
-        :returns: The capabilities
+        :returns: This is a set of boolean properties that indicate whether a phone number can receive calls or messages.
         :rtype: unicode
         """
         return self._properties['capabilities']
@@ -371,7 +371,7 @@ class TollFreeInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date that this resource was created, given as GMT RFC 2822 format.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -379,7 +379,7 @@ class TollFreeInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date that this resource was last updated, given as GMT RFC 2822 format.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -387,7 +387,7 @@ class TollFreeInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The friendly_name
+        :returns: A human readable descriptive text for this resource, up to 64 characters long.
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -403,7 +403,7 @@ class TollFreeInstance(InstanceResource):
     @property
     def phone_number(self):
         """
-        :returns: The phone_number
+        :returns: The incoming phone number.
         :rtype: unicode
         """
         return self._properties['phone_number']
@@ -411,7 +411,7 @@ class TollFreeInstance(InstanceResource):
     @property
     def origin(self):
         """
-        :returns: The origin
+        :returns: Twilio owned phone numbers are marked as twilio while hosted phone numbers are marked as hosted.
         :rtype: unicode
         """
         return self._properties['origin']
@@ -419,7 +419,7 @@ class TollFreeInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A 34 character string that uniquely identifies this resource.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -427,7 +427,7 @@ class TollFreeInstance(InstanceResource):
     @property
     def sms_application_sid(self):
         """
-        :returns: The sms_application_sid
+        :returns: The 34 character sid of the application Twilio should use to handle SMSs sent to this number.
         :rtype: unicode
         """
         return self._properties['sms_application_sid']
@@ -435,7 +435,7 @@ class TollFreeInstance(InstanceResource):
     @property
     def sms_fallback_method(self):
         """
-        :returns: The sms_fallback_method
+        :returns: The HTTP method Twilio will use when requesting the above URL.
         :rtype: unicode
         """
         return self._properties['sms_fallback_method']
@@ -443,7 +443,7 @@ class TollFreeInstance(InstanceResource):
     @property
     def sms_fallback_url(self):
         """
-        :returns: The sms_fallback_url
+        :returns: The URL that Twilio will request if an error occurs retrieving or executing the TwiML from SmsUrl.
         :rtype: unicode
         """
         return self._properties['sms_fallback_url']
@@ -451,7 +451,7 @@ class TollFreeInstance(InstanceResource):
     @property
     def sms_method(self):
         """
-        :returns: The sms_method
+        :returns: The HTTP method Twilio will use when making requests to the SmsUrl.
         :rtype: unicode
         """
         return self._properties['sms_method']
@@ -459,7 +459,7 @@ class TollFreeInstance(InstanceResource):
     @property
     def sms_url(self):
         """
-        :returns: The sms_url
+        :returns: The URL Twilio will request when receiving an incoming SMS message to this number.
         :rtype: unicode
         """
         return self._properties['sms_url']
@@ -467,7 +467,7 @@ class TollFreeInstance(InstanceResource):
     @property
     def status_callback(self):
         """
-        :returns: The status_callback
+        :returns: The URL that Twilio will request to pass status parameters to your application.
         :rtype: unicode
         """
         return self._properties['status_callback']
@@ -475,7 +475,7 @@ class TollFreeInstance(InstanceResource):
     @property
     def status_callback_method(self):
         """
-        :returns: The status_callback_method
+        :returns: The HTTP method Twilio will use to make requests to the StatusCallback URL.
         :rtype: unicode
         """
         return self._properties['status_callback_method']
@@ -483,7 +483,7 @@ class TollFreeInstance(InstanceResource):
     @property
     def trunk_sid(self):
         """
-        :returns: The trunk_sid
+        :returns: The 34 character sid of the Trunk Twilio should use to handle phone calls to this number.
         :rtype: unicode
         """
         return self._properties['trunk_sid']
@@ -491,7 +491,7 @@ class TollFreeInstance(InstanceResource):
     @property
     def uri(self):
         """
-        :returns: The uri
+        :returns: The URI for this resource, relative to https://api.
         :rtype: unicode
         """
         return self._properties['uri']
@@ -499,7 +499,7 @@ class TollFreeInstance(InstanceResource):
     @property
     def voice_application_sid(self):
         """
-        :returns: The voice_application_sid
+        :returns: The 34 character sid of the application Twilio should use to handle phone calls to this number.
         :rtype: unicode
         """
         return self._properties['voice_application_sid']
@@ -507,7 +507,7 @@ class TollFreeInstance(InstanceResource):
     @property
     def voice_caller_id_lookup(self):
         """
-        :returns: The voice_caller_id_lookup
+        :returns: Look up the caller's caller-ID name from the CNAM database.
         :rtype: bool
         """
         return self._properties['voice_caller_id_lookup']
@@ -515,7 +515,7 @@ class TollFreeInstance(InstanceResource):
     @property
     def voice_fallback_method(self):
         """
-        :returns: The voice_fallback_method
+        :returns: The HTTP method Twilio will use when requesting the VoiceFallbackUrl.
         :rtype: unicode
         """
         return self._properties['voice_fallback_method']
@@ -523,7 +523,7 @@ class TollFreeInstance(InstanceResource):
     @property
     def voice_fallback_url(self):
         """
-        :returns: The voice_fallback_url
+        :returns: The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by Url.
         :rtype: unicode
         """
         return self._properties['voice_fallback_url']
@@ -531,7 +531,7 @@ class TollFreeInstance(InstanceResource):
     @property
     def voice_method(self):
         """
-        :returns: The voice_method
+        :returns: The HTTP method Twilio will use when requesting the above Url.
         :rtype: unicode
         """
         return self._properties['voice_method']
@@ -539,7 +539,7 @@ class TollFreeInstance(InstanceResource):
     @property
     def voice_url(self):
         """
-        :returns: The voice_url
+        :returns: The URL Twilio will request when this phone number receives a call.
         :rtype: unicode
         """
         return self._properties['voice_url']

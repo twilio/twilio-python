@@ -21,7 +21,7 @@ class ValidationRequestList(ListResource):
         Initialize the ValidationRequestList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
+        :param account_sid: The unique ID of the Account responsible for this Caller Id.
 
         :returns: twilio.rest.api.v2010.account.validation_request.ValidationRequestList
         :rtype: twilio.rest.api.v2010.account.validation_request.ValidationRequestList
@@ -38,12 +38,12 @@ class ValidationRequestList(ListResource):
         """
         Create a new ValidationRequestInstance
 
-        :param unicode phone_number: The phone_number
-        :param unicode friendly_name: The friendly_name
-        :param unicode call_delay: The call_delay
-        :param unicode extension: The extension
-        :param unicode status_callback: The status_callback
-        :param unicode status_callback_method: The status_callback_method
+        :param unicode phone_number: The phone number to verify.
+        :param unicode friendly_name: A human readable description for the new caller ID with maximum length 64 characters.
+        :param unicode call_delay: The number of seconds, between 0 and 60, to delay before initiating the verification call.
+        :param unicode extension: Digits to dial after connecting the verification call.
+        :param unicode status_callback: A URL that Twilio will request when the verification call ends to notify your app if the verification process was successful or not.
+        :param unicode status_callback_method: The HTTP method Twilio should use when requesting the above URL.
 
         :returns: Newly created ValidationRequestInstance
         :rtype: twilio.rest.api.v2010.account.validation_request.ValidationRequestInstance
@@ -84,7 +84,7 @@ class ValidationRequestPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The account_sid
+        :param account_sid: The unique ID of the Account responsible for this Caller Id.
 
         :returns: twilio.rest.api.v2010.account.validation_request.ValidationRequestPage
         :rtype: twilio.rest.api.v2010.account.validation_request.ValidationRequestPage
@@ -143,7 +143,7 @@ class ValidationRequestInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique ID of the Account responsible for this Caller Id.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -151,7 +151,7 @@ class ValidationRequestInstance(InstanceResource):
     @property
     def phone_number(self):
         """
-        :returns: The phone_number
+        :returns: The incoming phone number.
         :rtype: unicode
         """
         return self._properties['phone_number']
@@ -159,7 +159,7 @@ class ValidationRequestInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The friendly_name
+        :returns: A human readable descriptive text for this resource, up to 64 characters long.
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -167,7 +167,7 @@ class ValidationRequestInstance(InstanceResource):
     @property
     def validation_code(self):
         """
-        :returns: The validation_code
+        :returns: The 6 digit validation code that must be entered via the phone to validate this phone number for Caller ID.
         :rtype: unicode
         """
         return self._properties['validation_code']
@@ -175,7 +175,7 @@ class ValidationRequestInstance(InstanceResource):
     @property
     def call_sid(self):
         """
-        :returns: The call_sid
+        :returns: The unique id of the Call created for this validation attempt.
         :rtype: unicode
         """
         return self._properties['call_sid']

@@ -139,7 +139,7 @@ class TaskQueueRealTimeStatisticsContext(InstanceContext):
         """
         Fetch a TaskQueueRealTimeStatisticsInstance
 
-        :param unicode task_channel: The task_channel
+        :param unicode task_channel: Filter real-time and cumulative statistics by TaskChannel.
 
         :returns: Fetched TaskQueueRealTimeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsInstance
@@ -229,7 +229,7 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
     @property
     def activity_statistics(self):
         """
-        :returns: The activity_statistics
+        :returns: The current Worker status count breakdown by Activity
         :rtype: dict
         """
         return self._properties['activity_statistics']
@@ -237,7 +237,7 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
     @property
     def longest_task_waiting_age(self):
         """
-        :returns: The longest_task_waiting_age
+        :returns: The age of the longest waiting Task
         :rtype: unicode
         """
         return self._properties['longest_task_waiting_age']
@@ -253,7 +253,7 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
     @property
     def tasks_by_priority(self):
         """
-        :returns: The tasks_by_priority
+        :returns: The Tasks broken down by priority
         :rtype: dict
         """
         return self._properties['tasks_by_priority']
@@ -261,7 +261,7 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
     @property
     def tasks_by_status(self):
         """
-        :returns: The tasks_by_status
+        :returns: The Tasks broken down by status
         :rtype: dict
         """
         return self._properties['tasks_by_status']
@@ -269,7 +269,7 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
     @property
     def total_available_workers(self):
         """
-        :returns: The total_available_workers
+        :returns: The total number of Workers available for Tasks in this TaskQueue
         :rtype: unicode
         """
         return self._properties['total_available_workers']
@@ -277,7 +277,7 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
     @property
     def total_eligible_workers(self):
         """
-        :returns: The total_eligible_workers
+        :returns: The total number of Workers eligible for Tasks in this TaskQueue, irrespective of Activity state.
         :rtype: unicode
         """
         return self._properties['total_eligible_workers']
@@ -285,7 +285,7 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
     @property
     def total_tasks(self):
         """
-        :returns: The total_tasks
+        :returns: The total number of Tasks
         :rtype: unicode
         """
         return self._properties['total_tasks']
@@ -310,7 +310,7 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
         """
         Fetch a TaskQueueRealTimeStatisticsInstance
 
-        :param unicode task_channel: The task_channel
+        :param unicode task_channel: Filter real-time and cumulative statistics by TaskChannel.
 
         :returns: Fetched TaskQueueRealTimeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsInstance

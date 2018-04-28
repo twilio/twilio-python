@@ -126,9 +126,9 @@ class ServiceList(ListResource):
         Create a new ServiceInstance
 
         :param unicode unique_name: The human-readable string that uniquely identifies this Service.
-        :param unicode default_ttl: Default TTL for a Session, in seconds.
+        :param unicode default_ttl: Default TTL for Sessions in Service, in seconds.
         :param unicode callback_url: URL Twilio will send callbacks to
-        :param ServiceInstance.GeoMatchLevel geo_match_level: Whether to find proxy numbers in the same areacode.
+        :param ServiceInstance.GeoMatchLevel geo_match_level: Whether to limit proxy numbers in the same areacode.
         :param ServiceInstance.NumberSelectionBehavior number_selection_behavior: What behavior to use when choosing a proxy number.
         :param unicode intercept_callback_url: A URL for Twilio call before each Interaction.
         :param unicode out_of_session_callback_url: A URL for Twilio call when a new Interaction has no Session.
@@ -286,7 +286,7 @@ class ServiceContext(InstanceContext):
         Update the ServiceInstance
 
         :param unicode unique_name: A human readable description of this resource.
-        :param unicode default_ttl: Default TTL for a Session, in seconds.
+        :param unicode default_ttl: Default TTL for Sessions in Service, in seconds.
         :param unicode callback_url: URL Twilio will send callbacks to
         :param ServiceInstance.GeoMatchLevel geo_match_level: Whether to find proxy numbers in the same areacode.
         :param ServiceInstance.NumberSelectionBehavior number_selection_behavior: What behavior to use when choosing a proxy number.
@@ -469,7 +469,7 @@ class ServiceInstance(InstanceResource):
     @property
     def geo_match_level(self):
         """
-        :returns: Whether to find proxy numbers in the same areacode.
+        :returns: Whether to limit proxy numbers in the same areacode.
         :rtype: ServiceInstance.GeoMatchLevel
         """
         return self._properties['geo_match_level']
@@ -549,7 +549,7 @@ class ServiceInstance(InstanceResource):
         Update the ServiceInstance
 
         :param unicode unique_name: A human readable description of this resource.
-        :param unicode default_ttl: Default TTL for a Session, in seconds.
+        :param unicode default_ttl: Default TTL for Sessions in Service, in seconds.
         :param unicode callback_url: URL Twilio will send callbacks to
         :param ServiceInstance.GeoMatchLevel geo_match_level: Whether to find proxy numbers in the same areacode.
         :param ServiceInstance.NumberSelectionBehavior number_selection_behavior: What behavior to use when choosing a proxy number.

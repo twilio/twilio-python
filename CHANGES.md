@@ -3,6 +3,12 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-04-28] Version 6.13.0
+----------------------------
+**Video**
+- Redesign API by adding custom `VideoLayout` object. **(breaking change)**
+
+
 [2018-04-20] Version 6.12.1
 ----------------------------
 **Twiml**

@@ -346,7 +346,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this Phone Number was created
+        :returns: The date this Phone Number was added to the service
         :rtype: datetime
         """
         return self._properties['date_created']

@@ -22,8 +22,8 @@ class WorkerChannelList(ListResource):
         Initialize the WorkerChannelList
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The workspace_sid
-        :param worker_sid: The worker_sid
+        :param workspace_sid: The unique ID of the Workspace that this WorkerChannel belongs to.
+        :param worker_sid: The unique ID of the Worker that this WorkerChannel belongs to.
 
         :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelList
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelList
@@ -166,8 +166,8 @@ class WorkerChannelPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param workspace_sid: The workspace_sid
-        :param worker_sid: The worker_sid
+        :param workspace_sid: The unique ID of the Workspace that this WorkerChannel belongs to.
+        :param worker_sid: The unique ID of the Worker that this WorkerChannel belongs to.
 
         :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelPage
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelPage
@@ -251,8 +251,8 @@ class WorkerChannelContext(InstanceContext):
         """
         Update the WorkerChannelInstance
 
-        :param unicode capacity: The capacity
-        :param bool available: The available
+        :param unicode capacity: The total number of Tasks worker should handle for this TaskChannel type.
+        :param bool available: Toggle the availability of the WorkerChannel.
 
         :returns: Updated WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
@@ -342,7 +342,7 @@ class WorkerChannelInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique ID of the Account that owns this WorkerChannel.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -350,7 +350,7 @@ class WorkerChannelInstance(InstanceResource):
     @property
     def assigned_tasks(self):
         """
-        :returns: The assigned_tasks
+        :returns: The total number of tasks assigned to Worker for this TaskChannel type.
         :rtype: unicode
         """
         return self._properties['assigned_tasks']
@@ -358,7 +358,7 @@ class WorkerChannelInstance(InstanceResource):
     @property
     def available(self):
         """
-        :returns: The available
+        :returns: Boolean value indicating whether the worker should receive Tasks of this TaskChannel type.
         :rtype: bool
         """
         return self._properties['available']
@@ -366,7 +366,7 @@ class WorkerChannelInstance(InstanceResource):
     @property
     def available_capacity_percentage(self):
         """
-        :returns: The available_capacity_percentage
+        :returns: The current available capacity between 0 to 100 for this TaskChannel.
         :rtype: unicode
         """
         return self._properties['available_capacity_percentage']
@@ -374,7 +374,7 @@ class WorkerChannelInstance(InstanceResource):
     @property
     def configured_capacity(self):
         """
-        :returns: The configured_capacity
+        :returns: The current configured capacity for the WorkerChannel.
         :rtype: unicode
         """
         return self._properties['configured_capacity']
@@ -382,7 +382,7 @@ class WorkerChannelInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date this Activity was created.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -390,7 +390,7 @@ class WorkerChannelInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date this Activity was updated.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -398,7 +398,7 @@ class WorkerChannelInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: The unique ID for this WorkerChannel.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -406,7 +406,7 @@ class WorkerChannelInstance(InstanceResource):
     @property
     def task_channel_sid(self):
         """
-        :returns: The task_channel_sid
+        :returns: The unique ID of the TaskChannel.
         :rtype: unicode
         """
         return self._properties['task_channel_sid']
@@ -414,7 +414,7 @@ class WorkerChannelInstance(InstanceResource):
     @property
     def task_channel_unique_name(self):
         """
-        :returns: The task_channel_unique_name
+        :returns: The unique name of TaskChannel, such as 'voice', 'sms', etc.
         :rtype: unicode
         """
         return self._properties['task_channel_unique_name']
@@ -422,7 +422,7 @@ class WorkerChannelInstance(InstanceResource):
     @property
     def worker_sid(self):
         """
-        :returns: The worker_sid
+        :returns: The unique ID of the Worker that this WorkerChannel belongs to.
         :rtype: unicode
         """
         return self._properties['worker_sid']
@@ -430,7 +430,7 @@ class WorkerChannelInstance(InstanceResource):
     @property
     def workspace_sid(self):
         """
-        :returns: The workspace_sid
+        :returns: The unique ID of the Workspace that this WorkerChannel belongs to.
         :rtype: unicode
         """
         return self._properties['workspace_sid']
@@ -456,8 +456,8 @@ class WorkerChannelInstance(InstanceResource):
         """
         Update the WorkerChannelInstance
 
-        :param unicode capacity: The capacity
-        :param bool available: The available
+        :param unicode capacity: The total number of Tasks worker should handle for this TaskChannel type.
+        :param bool available: Toggle the availability of the WorkerChannel.
 
         :returns: Updated WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance

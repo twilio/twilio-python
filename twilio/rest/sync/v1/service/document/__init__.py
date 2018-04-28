@@ -25,7 +25,7 @@ class DocumentList(ListResource):
         Initialize the DocumentList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
+        :param service_sid: The unique SID identifier of the Service Instance that hosts this Document.
 
         :returns: twilio.rest.sync.v1.service.document.DocumentList
         :rtype: twilio.rest.sync.v1.service.document.DocumentList
@@ -40,9 +40,9 @@ class DocumentList(ListResource):
         """
         Create a new DocumentInstance
 
-        :param unicode unique_name: The unique_name
-        :param dict data: The data
-        :param unicode ttl: The ttl
+        :param unicode unique_name: Human-readable name for this document
+        :param dict data: JSON data to be stored in this document
+        :param unicode ttl: Time-to-live of this Document in seconds, defaults to no expiration.
 
         :returns: Newly created DocumentInstance
         :rtype: twilio.rest.sync.v1.service.document.DocumentInstance
@@ -180,7 +180,7 @@ class DocumentPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The service_sid
+        :param service_sid: The unique SID identifier of the Service Instance that hosts this Document.
 
         :returns: twilio.rest.sync.v1.service.document.DocumentPage
         :rtype: twilio.rest.sync.v1.service.document.DocumentPage
@@ -270,8 +270,8 @@ class DocumentContext(InstanceContext):
         """
         Update the DocumentInstance
 
-        :param dict data: The data
-        :param unicode ttl: The ttl
+        :param dict data: Contains an arbitrary JSON object to be stored in this Document.
+        :param unicode ttl: New time-to-live of this Document in seconds.
 
         :returns: Updated DocumentInstance
         :rtype: twilio.rest.sync.v1.service.document.DocumentInstance
@@ -371,7 +371,7 @@ class DocumentInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: The unique 34-character SID identifier of the Document.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -379,7 +379,7 @@ class DocumentInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: The unique_name
+        :returns: The unique and addressable name of this Document.
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -387,7 +387,7 @@ class DocumentInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique SID identifier of the Twilio Account.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -395,7 +395,7 @@ class DocumentInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The service_sid
+        :returns: The unique SID identifier of the Service Instance that hosts this Document.
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -403,7 +403,7 @@ class DocumentInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL for this Document.
         :rtype: unicode
         """
         return self._properties['url']
@@ -411,7 +411,7 @@ class DocumentInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links
+        :returns: A dictionary of URL links to nested resources of this Document.
         :rtype: unicode
         """
         return self._properties['links']
@@ -419,7 +419,7 @@ class DocumentInstance(InstanceResource):
     @property
     def revision(self):
         """
-        :returns: The revision
+        :returns: Contains the current revision of this Document, represented by a string identifier.
         :rtype: unicode
         """
         return self._properties['revision']
@@ -427,7 +427,7 @@ class DocumentInstance(InstanceResource):
     @property
     def data(self):
         """
-        :returns: The data
+        :returns: Contains arbitrary user-defined, schema-less data that this Document stores, represented by a JSON object, up to 16KB.
         :rtype: dict
         """
         return self._properties['data']
@@ -435,7 +435,7 @@ class DocumentInstance(InstanceResource):
     @property
     def date_expires(self):
         """
-        :returns: The date_expires
+        :returns: Contains the date this Document expires and gets deleted automatically.
         :rtype: datetime
         """
         return self._properties['date_expires']
@@ -443,7 +443,7 @@ class DocumentInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date this Document was created, given in UTC ISO 8601 format.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -451,7 +451,7 @@ class DocumentInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: Specifies the date this Document was last updated, given in UTC ISO 8601 format.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -459,7 +459,7 @@ class DocumentInstance(InstanceResource):
     @property
     def created_by(self):
         """
-        :returns: The created_by
+        :returns: The identity of the Document creator.
         :rtype: unicode
         """
         return self._properties['created_by']
@@ -486,8 +486,8 @@ class DocumentInstance(InstanceResource):
         """
         Update the DocumentInstance
 
-        :param dict data: The data
-        :param unicode ttl: The ttl
+        :param dict data: Contains an arbitrary JSON object to be stored in this Document.
+        :param unicode ttl: New time-to-live of this Document in seconds.
 
         :returns: Updated DocumentInstance
         :rtype: twilio.rest.sync.v1.service.document.DocumentInstance

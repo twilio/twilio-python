@@ -36,19 +36,56 @@ class CompositionTestCase(IntegrationTestCase):
                 "date_completed": "2015-07-30T20:01:33Z",
                 "date_deleted": null,
                 "sid": "CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "room_sid": "RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "audio_sources": [
+                    "PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "user*"
+                ],
+                "audio_sources_excluded": [
                     "RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                 ],
-                "video_sources": [
-                    "RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                ],
-                "video_layout": "GRID",
+                "video_layout": {
+                    "grid": {
+                        "video_sources": [
+                            "*"
+                        ],
+                        "video_sources_excluded": [
+                            "MTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                        ],
+                        "reuse": "show_oldest",
+                        "x_pos": 100,
+                        "y_pos": 600,
+                        "z_pos": 10,
+                        "width": 0,
+                        "height": 0,
+                        "max_columns": 0,
+                        "max_rows": 0,
+                        "cells_excluded": []
+                    },
+                    "pip": {
+                        "video_sources": [
+                            "RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab"
+                        ],
+                        "video_sources_excluded": [],
+                        "reuse": "none",
+                        "x_pos": 100,
+                        "y_pos": 600,
+                        "z_pos": 10,
+                        "width": 0,
+                        "height": 0,
+                        "max_columns": 0,
+                        "max_rows": 0,
+                        "cells_excluded": []
+                    }
+                },
                 "resolution": "1280x720",
                 "format": "webm",
                 "bitrate": 64,
                 "size": 4,
                 "duration": 6,
-                "room_sid": "RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "trim": true,
+                "media_external_location": null,
+                "encryption_key": null,
                 "url": "https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "links": {
                     "media": "https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media"
@@ -108,18 +145,52 @@ class CompositionTestCase(IntegrationTestCase):
                         "date_completed": "2015-07-30T20:01:33Z",
                         "date_deleted": null,
                         "sid": "CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "room_sid": "RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "audio_sources": [
                             "RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                            "RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab"
+                            "user*"
                         ],
-                        "video_sources": [],
-                        "video_layout": "GRID",
+                        "audio_sources_excluded": [],
+                        "video_layout": {
+                            "grid": {
+                                "video_sources": [
+                                    "user*"
+                                ],
+                                "video_sources_excluded": [],
+                                "reuse": "show_oldest",
+                                "x_pos": 100,
+                                "y_pos": 600,
+                                "z_pos": 10,
+                                "width": 0,
+                                "height": 0,
+                                "max_columns": 0,
+                                "max_rows": 0,
+                                "cells_excluded": []
+                            },
+                            "pip": {
+                                "video_sources": [
+                                    "RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab"
+                                ],
+                                "video_sources_excluded": [],
+                                "reuse": "none",
+                                "x_pos": 100,
+                                "y_pos": 600,
+                                "z_pos": 10,
+                                "width": 0,
+                                "height": 0,
+                                "max_columns": 0,
+                                "max_rows": 0,
+                                "cells_excluded": []
+                            }
+                        },
                         "resolution": "1280x720",
-                        "format": "mp3",
-                        "bitrate": 16,
-                        "size": 55,
-                        "duration": 10,
-                        "room_sid": "RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "format": "webm",
+                        "bitrate": 64,
+                        "size": 4,
+                        "duration": 6,
+                        "trim": true,
+                        "media_external_location": null,
+                        "encryption_key": null,
                         "url": "https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "links": {
                             "media": "https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media"
@@ -186,18 +257,44 @@ class CompositionTestCase(IntegrationTestCase):
                 "date_completed": null,
                 "date_deleted": null,
                 "sid": "CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "room_sid": "RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "audio_sources": [
                     "RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                    "RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab"
+                    "user*"
                 ],
-                "video_sources": [],
-                "video_layout": "GRID",
-                "resolution": "1280x720",
-                "format": "mp3",
+                "audio_sources_excluded": [
+                    "RTbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                ],
+                "video_layout": {
+                    "custom": {
+                        "video_sources": [
+                            "user*"
+                        ],
+                        "video_sources_excluded": [
+                            "RTcaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                        ],
+                        "reuse": "show_oldest",
+                        "x_pos": 100,
+                        "y_pos": 600,
+                        "z_pos": 10,
+                        "width": 800,
+                        "height": 0,
+                        "max_columns": 0,
+                        "max_rows": 0,
+                        "cells_excluded": [
+                            2,
+                            3
+                        ]
+                    }
+                },
+                "trim": true,
+                "format": "mp4",
+                "resolution": "1920x1080",
                 "bitrate": 0,
                 "size": 0,
-                "duration": 1,
-                "room_sid": "RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "duration": 0,
+                "media_external_location": null,
+                "encryption_key": null,
                 "url": "https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "links": {
                     "media": "https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media"

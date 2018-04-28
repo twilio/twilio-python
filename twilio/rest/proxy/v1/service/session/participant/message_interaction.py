@@ -45,7 +45,7 @@ class MessageInteractionList(ListResource):
         """
         Create a new MessageInteractionInstance
 
-        :param unicode body: The body
+        :param unicode body: Message body
         :param unicode media_url: The media_url
 
         :returns: Newly created MessageInteractionInstance
@@ -152,7 +152,7 @@ class MessageInteractionList(ListResource):
         """
         Constructs a MessageInteractionContext
 
-        :param sid: A string that uniquely identifies this Message Interaction.
+        :param sid: The sid
 
         :returns: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionContext
         :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionContext
@@ -169,7 +169,7 @@ class MessageInteractionList(ListResource):
         """
         Constructs a MessageInteractionContext
 
-        :param sid: A string that uniquely identifies this Message Interaction.
+        :param sid: The sid
 
         :returns: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionContext
         :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionContext
@@ -250,10 +250,10 @@ class MessageInteractionContext(InstanceContext):
         Initialize the MessageInteractionContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
-        :param session_sid: Session Sid.
-        :param participant_sid: Participant Sid.
-        :param sid: A string that uniquely identifies this Message Interaction.
+        :param service_sid: The service_sid
+        :param session_sid: The session_sid
+        :param participant_sid: The participant_sid
+        :param sid: The sid
 
         :returns: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionContext
         :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionContext
@@ -433,7 +433,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def data(self):
         """
-        :returns: Further details about an interaction.
+        :returns: Message body
         :rtype: unicode
         """
         return self._properties['data']
@@ -465,7 +465,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def inbound_resource_sid(self):
         """
-        :returns: Inbound Resource Sid.
+        :returns: Inbound message resource Sid.
         :rtype: unicode
         """
         return self._properties['inbound_resource_sid']
@@ -481,7 +481,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def inbound_resource_type(self):
         """
-        :returns: The type of the Inbound Resource, Call or Message.
+        :returns: Message
         :rtype: unicode
         """
         return self._properties['inbound_resource_type']
@@ -489,7 +489,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def inbound_resource_url(self):
         """
-        :returns: The URL of the Twilio resource.
+        :returns: The URL of the Twilio message resource.
         :rtype: unicode
         """
         return self._properties['inbound_resource_url']
@@ -505,7 +505,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def outbound_resource_sid(self):
         """
-        :returns: Outbound Resource Sid.
+        :returns: Outbound message resource Sid.
         :rtype: unicode
         """
         return self._properties['outbound_resource_sid']
@@ -521,7 +521,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def outbound_resource_type(self):
         """
-        :returns: The type of the Outbound Resource, Call or Message.
+        :returns: Message
         :rtype: unicode
         """
         return self._properties['outbound_resource_type']
@@ -529,7 +529,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def outbound_resource_url(self):
         """
-        :returns: The URL of the Twilio resource.
+        :returns: The URL of the Twilio message resource.
         :rtype: unicode
         """
         return self._properties['outbound_resource_url']

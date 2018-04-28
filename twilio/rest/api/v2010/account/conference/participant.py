@@ -59,34 +59,34 @@ class ParticipantList(ListResource):
         """
         Create a new ParticipantInstance
 
-        :param unicode from_: The from
-        :param unicode to: The to
-        :param unicode status_callback: The status_callback
-        :param unicode status_callback_method: The status_callback_method
-        :param unicode status_callback_event: The status_callback_event
-        :param unicode timeout: The timeout
-        :param bool record: The record
-        :param bool muted: The muted
-        :param unicode beep: The beep
-        :param bool start_conference_on_enter: The start_conference_on_enter
-        :param bool end_conference_on_exit: The end_conference_on_exit
-        :param unicode wait_url: The wait_url
-        :param unicode wait_method: The wait_method
-        :param bool early_media: The early_media
-        :param unicode max_participants: The max_participants
-        :param unicode conference_record: The conference_record
-        :param unicode conference_trim: The conference_trim
-        :param unicode conference_status_callback: The conference_status_callback
-        :param unicode conference_status_callback_method: The conference_status_callback_method
-        :param unicode conference_status_callback_event: The conference_status_callback_event
-        :param unicode recording_channels: The recording_channels
-        :param unicode recording_status_callback: The recording_status_callback
-        :param unicode recording_status_callback_method: The recording_status_callback_method
-        :param unicode sip_auth_username: The sip_auth_username
-        :param unicode sip_auth_password: The sip_auth_password
-        :param unicode region: The region
-        :param unicode conference_recording_status_callback: The conference_recording_status_callback
-        :param unicode conference_recording_status_callback_method: The conference_recording_status_callback_method
+        :param unicode from_: number, client id
+        :param unicode to: number, client id, sip address
+        :param unicode status_callback: absolute url
+        :param unicode status_callback_method: GET, POST
+        :param unicode status_callback_event: initiated, ringing, answered, completed
+        :param unicode timeout: 5-600
+        :param bool record: true, false
+        :param bool muted: true, false
+        :param unicode beep: true, false, onEnter, onExit
+        :param bool start_conference_on_enter: true, false
+        :param bool end_conference_on_exit: true, false
+        :param unicode wait_url: absolute url
+        :param unicode wait_method: GET, POST
+        :param bool early_media: true, false
+        :param unicode max_participants: 2-10
+        :param unicode conference_record: true, false, record-from-start, do-not-record
+        :param unicode conference_trim: trim-silence or do-not-trim
+        :param unicode conference_status_callback: absolute url
+        :param unicode conference_status_callback_method: GET, POST
+        :param unicode conference_status_callback_event: start end join leave mute hold speaker
+        :param unicode recording_channels: mono, dual
+        :param unicode recording_status_callback: absolute url
+        :param unicode recording_status_callback_method: GET, POST
+        :param unicode sip_auth_username: sip username
+        :param unicode sip_auth_password: sip password
+        :param unicode region: us1, ie1, de1, sg1, br1, au1, jp1
+        :param unicode conference_recording_status_callback: absolute url
+        :param unicode conference_recording_status_callback_method: GET, POST
         :param unicode recording_status_callback_event: The recording_status_callback_event
         :param unicode conference_recording_status_callback_event: The conference_recording_status_callback_event
 
@@ -148,7 +148,7 @@ class ParticipantList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param bool muted: Filter by muted participants
-        :param bool hold: The hold
+        :param bool hold: Only show participants that are held or unheld.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -173,7 +173,7 @@ class ParticipantList(ListResource):
         memory before returning.
 
         :param bool muted: Filter by muted participants
-        :param bool hold: The hold
+        :param bool hold: Only show participants that are held or unheld.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -193,7 +193,7 @@ class ParticipantList(ListResource):
         Request is executed immediately
 
         :param bool muted: Filter by muted participants
-        :param bool hold: The hold
+        :param bool hold: Only show participants that are held or unheld.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -377,9 +377,9 @@ class ParticipantContext(InstanceContext):
         Update the ParticipantInstance
 
         :param bool muted: Indicates if the participant should be muted
-        :param bool hold: The hold
-        :param unicode hold_url: The hold_url
-        :param unicode hold_method: The hold_method
+        :param bool hold: Specifying true will hold the participant, while false will un-hold.
+        :param unicode hold_url: The 'HoldUrl' attribute lets you specify a URL for music that plays when a participant is held.
+        :param unicode hold_method: Specify GET or POST, defaults to GET
         :param unicode announce_url: The announce_url
         :param unicode announce_method: The announce_method
 
@@ -550,7 +550,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def hold(self):
         """
-        :returns: The hold
+        :returns: true if this participant is currently held.
         :rtype: bool
         """
         return self._properties['hold']
@@ -595,9 +595,9 @@ class ParticipantInstance(InstanceResource):
         Update the ParticipantInstance
 
         :param bool muted: Indicates if the participant should be muted
-        :param bool hold: The hold
-        :param unicode hold_url: The hold_url
-        :param unicode hold_method: The hold_method
+        :param bool hold: Specifying true will hold the participant, while false will un-hold.
+        :param unicode hold_url: The 'HoldUrl' attribute lets you specify a URL for music that plays when a participant is held.
+        :param unicode hold_method: Specify GET or POST, defaults to GET
         :param unicode announce_url: The announce_url
         :param unicode announce_method: The announce_method
 

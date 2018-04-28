@@ -526,7 +526,7 @@ class RecordingInstance(InstanceResource):
     @property
     def encryption_details(self):
         """
-        :returns: The encryption_details
+        :returns: Details for how to decrypt the recording.
         :rtype: dict
         """
         return self._properties['encryption_details']

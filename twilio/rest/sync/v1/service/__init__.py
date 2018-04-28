@@ -43,10 +43,10 @@ class ServiceList(ListResource):
         """
         Create a new ServiceInstance
 
-        :param unicode friendly_name: The friendly_name
-        :param unicode webhook_url: The webhook_url
-        :param bool reachability_webhooks_enabled: The reachability_webhooks_enabled
-        :param bool acl_enabled: The acl_enabled
+        :param unicode friendly_name: Human-readable name for this service instance
+        :param unicode webhook_url: A URL that will receive event updates when objects are manipulated.
+        :param bool reachability_webhooks_enabled: true or false - controls whether this instance fires webhooks when client endpoints connect to Sync
+        :param bool acl_enabled: true or false - determines whether token identities must be granted access to Sync objects via the Permissions API in this Service.
 
         :returns: Newly created ServiceInstance
         :rtype: twilio.rest.sync.v1.service.ServiceInstance
@@ -277,10 +277,10 @@ class ServiceContext(InstanceContext):
         """
         Update the ServiceInstance
 
-        :param unicode webhook_url: The webhook_url
-        :param unicode friendly_name: The friendly_name
-        :param bool reachability_webhooks_enabled: The reachability_webhooks_enabled
-        :param bool acl_enabled: The acl_enabled
+        :param unicode webhook_url: A URL that will receive event updates when objects are manipulated.
+        :param unicode friendly_name: Human-readable name for this service instance
+        :param bool reachability_webhooks_enabled: True or false - controls whether this instance fires webhooks when client endpoints connect to Sync
+        :param bool acl_enabled: true or false - determines whether token identities must be granted access to Sync objects via the Permissions API in this Service.
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.sync.v1.service.ServiceInstance
@@ -431,7 +431,7 @@ class ServiceInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The friendly_name
+        :returns: Human-readable name for this service instance
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -463,7 +463,7 @@ class ServiceInstance(InstanceResource):
     @property
     def webhook_url(self):
         """
-        :returns: The webhook_url
+        :returns: A URL that will receive event updates when objects are manipulated.
         :rtype: unicode
         """
         return self._properties['webhook_url']
@@ -471,7 +471,7 @@ class ServiceInstance(InstanceResource):
     @property
     def reachability_webhooks_enabled(self):
         """
-        :returns: The reachability_webhooks_enabled
+        :returns: true or false - controls whether this instance fires webhooks when client endpoints connect to Sync
         :rtype: bool
         """
         return self._properties['reachability_webhooks_enabled']
@@ -479,7 +479,7 @@ class ServiceInstance(InstanceResource):
     @property
     def acl_enabled(self):
         """
-        :returns: The acl_enabled
+        :returns: true or false - determines whether token identities must be granted access to Sync objects via the Permissions API in this Service.
         :rtype: bool
         """
         return self._properties['acl_enabled']
@@ -516,10 +516,10 @@ class ServiceInstance(InstanceResource):
         """
         Update the ServiceInstance
 
-        :param unicode webhook_url: The webhook_url
-        :param unicode friendly_name: The friendly_name
-        :param bool reachability_webhooks_enabled: The reachability_webhooks_enabled
-        :param bool acl_enabled: The acl_enabled
+        :param unicode webhook_url: A URL that will receive event updates when objects are manipulated.
+        :param unicode friendly_name: Human-readable name for this service instance
+        :param bool reachability_webhooks_enabled: True or false - controls whether this instance fires webhooks when client endpoints connect to Sync
+        :param bool acl_enabled: true or false - determines whether token identities must be granted access to Sync objects via the Permissions API in this Service.
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.sync.v1.service.ServiceInstance

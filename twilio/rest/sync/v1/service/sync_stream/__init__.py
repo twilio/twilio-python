@@ -218,7 +218,7 @@ class SyncStreamContext(InstanceContext):
         Initialize the SyncStreamContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
+        :param service_sid: Service Instance SID or unique name.
         :param sid: Stream SID or unique name.
 
         :returns: twilio.rest.sync.v1.service.sync_stream.SyncStreamContext

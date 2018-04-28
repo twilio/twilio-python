@@ -21,7 +21,7 @@ class TaskQueuesStatisticsList(ListResource):
         Initialize the TaskQueuesStatisticsList
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The workspace_sid
+        :param workspace_sid: The ID of the Workspace that owns this TaskQueue
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsList
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsList
@@ -42,12 +42,12 @@ class TaskQueuesStatisticsList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param datetime end_date: The end_date
-        :param unicode friendly_name: The friendly_name
-        :param unicode minutes: The minutes
-        :param datetime start_date: The start_date
-        :param unicode task_channel: The task_channel
-        :param unicode split_by_wait_time: The split_by_wait_time
+        :param datetime end_date: Filter cumulative statistics by an end date.
+        :param unicode friendly_name: Filter the TaskQueue stats based on a TaskQueue’s name
+        :param unicode minutes: Filter cumulative statistics by up to ‘x’ minutes in the past.
+        :param datetime start_date: Filter cumulative statistics by a start date.
+        :param unicode task_channel: Filter real-time and cumulative statistics by TaskChannel.
+        :param unicode split_by_wait_time: A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -81,12 +81,12 @@ class TaskQueuesStatisticsList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param datetime end_date: The end_date
-        :param unicode friendly_name: The friendly_name
-        :param unicode minutes: The minutes
-        :param datetime start_date: The start_date
-        :param unicode task_channel: The task_channel
-        :param unicode split_by_wait_time: The split_by_wait_time
+        :param datetime end_date: Filter cumulative statistics by an end date.
+        :param unicode friendly_name: Filter the TaskQueue stats based on a TaskQueue’s name
+        :param unicode minutes: Filter cumulative statistics by up to ‘x’ minutes in the past.
+        :param datetime start_date: Filter cumulative statistics by a start date.
+        :param unicode task_channel: Filter real-time and cumulative statistics by TaskChannel.
+        :param unicode split_by_wait_time: A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -117,12 +117,12 @@ class TaskQueuesStatisticsList(ListResource):
         Retrieve a single page of TaskQueuesStatisticsInstance records from the API.
         Request is executed immediately
 
-        :param datetime end_date: The end_date
-        :param unicode friendly_name: The friendly_name
-        :param unicode minutes: The minutes
-        :param datetime start_date: The start_date
-        :param unicode task_channel: The task_channel
-        :param unicode split_by_wait_time: The split_by_wait_time
+        :param datetime end_date: Filter cumulative statistics by an end date.
+        :param unicode friendly_name: Filter the TaskQueue stats based on a TaskQueue’s name
+        :param unicode minutes: Filter cumulative statistics by up to ‘x’ minutes in the past.
+        :param datetime start_date: Filter cumulative statistics by a start date.
+        :param unicode task_channel: Filter real-time and cumulative statistics by TaskChannel.
+        :param unicode split_by_wait_time: A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -186,7 +186,7 @@ class TaskQueuesStatisticsPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param workspace_sid: The workspace_sid
+        :param workspace_sid: The ID of the Workspace that owns this TaskQueue
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsPage
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsPage

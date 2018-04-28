@@ -23,7 +23,7 @@ class PhoneNumberList(ListResource):
         Initialize the PhoneNumberList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
+        :param service_sid: The 34 character unique sid of the Service.
 
         :returns: twilio.rest.messaging.v1.service.phone_number.PhoneNumberList
         :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberList
@@ -38,7 +38,7 @@ class PhoneNumberList(ListResource):
         """
         Create a new PhoneNumberInstance
 
-        :param unicode phone_number_sid: The phone_number_sid
+        :param unicode phone_number_sid: Phone Number SID for the Phone Number being added to the Service.
 
         :returns: Newly created PhoneNumberInstance
         :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberInstance
@@ -176,7 +176,7 @@ class PhoneNumberPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The service_sid
+        :param service_sid: The 34 character unique sid of the Service.
 
         :returns: twilio.rest.messaging.v1.service.phone_number.PhoneNumberPage
         :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberPage
@@ -320,7 +320,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: The 34 character unique sid of the Phone Number.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -328,7 +328,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The 34 character unique sid of the Account.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -336,7 +336,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The service_sid
+        :returns: The 34 character unique sid of the Service.
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -344,7 +344,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date that this resource was created.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -352,7 +352,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date that this resource was last updated.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -360,7 +360,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def phone_number(self):
         """
-        :returns: The phone_number
+        :returns: The E.
         :rtype: unicode
         """
         return self._properties['phone_number']
@@ -368,7 +368,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def country_code(self):
         """
-        :returns: The country_code
+        :returns: The 2 character ISO Country Code of the number.
         :rtype: unicode
         """
         return self._properties['country_code']
@@ -376,7 +376,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def capabilities(self):
         """
-        :returns: The capabilities
+        :returns: Any array of values that indicate whether the number can receive calls or messages.
         :rtype: unicode
         """
         return self._properties['capabilities']
@@ -384,7 +384,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL for this resource.
         :rtype: unicode
         """
         return self._properties['url']

@@ -24,7 +24,7 @@ class TaskList(ListResource):
         Initialize the TaskList
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The workspace_sid
+        :param workspace_sid: The ID of the Workspace that holds this Task
 
         :returns: twilio.rest.taskrouter.v1.workspace.task.TaskList
         :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskList
@@ -46,14 +46,14 @@ class TaskList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode priority: The priority
-        :param unicode assignment_status: The assignment_status
-        :param unicode workflow_sid: The workflow_sid
-        :param unicode workflow_name: The workflow_name
-        :param unicode task_queue_sid: The task_queue_sid
-        :param unicode task_queue_name: The task_queue_name
-        :param unicode evaluate_task_attributes: The evaluate_task_attributes
-        :param unicode ordering: The ordering
+        :param unicode priority: Retrieve the list of all Tasks in the workspace with the specified priority.
+        :param unicode assignment_status: Returns the list of all Tasks in the workspace with the specified AssignmentStatus.
+        :param unicode workflow_sid: Returns the list of Tasks that are being controlled by the Workflow with the specified Sid value.
+        :param unicode workflow_name: Returns the list of Tasks that are being controlled by the Workflow with the specified FriendlyName value.
+        :param unicode task_queue_sid: Returns the list of Tasks that are currently waiting in the TaskQueue identified by the Sid specified.
+        :param unicode task_queue_name: Returns the list of Tasks that are currently waiting in the TaskQueue identified by the FriendlyName specified.
+        :param unicode evaluate_task_attributes: Provide a task attributes expression, and this will return tasks which match the attributes.
+        :param unicode ordering: Use this parameter to control the order of the Tasks returned.
         :param bool has_addons: The has_addons
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
@@ -92,14 +92,14 @@ class TaskList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode priority: The priority
-        :param unicode assignment_status: The assignment_status
-        :param unicode workflow_sid: The workflow_sid
-        :param unicode workflow_name: The workflow_name
-        :param unicode task_queue_sid: The task_queue_sid
-        :param unicode task_queue_name: The task_queue_name
-        :param unicode evaluate_task_attributes: The evaluate_task_attributes
-        :param unicode ordering: The ordering
+        :param unicode priority: Retrieve the list of all Tasks in the workspace with the specified priority.
+        :param unicode assignment_status: Returns the list of all Tasks in the workspace with the specified AssignmentStatus.
+        :param unicode workflow_sid: Returns the list of Tasks that are being controlled by the Workflow with the specified Sid value.
+        :param unicode workflow_name: Returns the list of Tasks that are being controlled by the Workflow with the specified FriendlyName value.
+        :param unicode task_queue_sid: Returns the list of Tasks that are currently waiting in the TaskQueue identified by the Sid specified.
+        :param unicode task_queue_name: Returns the list of Tasks that are currently waiting in the TaskQueue identified by the FriendlyName specified.
+        :param unicode evaluate_task_attributes: Provide a task attributes expression, and this will return tasks which match the attributes.
+        :param unicode ordering: Use this parameter to control the order of the Tasks returned.
         :param bool has_addons: The has_addons
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
@@ -135,14 +135,14 @@ class TaskList(ListResource):
         Retrieve a single page of TaskInstance records from the API.
         Request is executed immediately
 
-        :param unicode priority: The priority
-        :param unicode assignment_status: The assignment_status
-        :param unicode workflow_sid: The workflow_sid
-        :param unicode workflow_name: The workflow_name
-        :param unicode task_queue_sid: The task_queue_sid
-        :param unicode task_queue_name: The task_queue_name
-        :param unicode evaluate_task_attributes: The evaluate_task_attributes
-        :param unicode ordering: The ordering
+        :param unicode priority: Retrieve the list of all Tasks in the workspace with the specified priority.
+        :param unicode assignment_status: Returns the list of all Tasks in the workspace with the specified AssignmentStatus.
+        :param unicode workflow_sid: Returns the list of Tasks that are being controlled by the Workflow with the specified Sid value.
+        :param unicode workflow_name: Returns the list of Tasks that are being controlled by the Workflow with the specified FriendlyName value.
+        :param unicode task_queue_sid: Returns the list of Tasks that are currently waiting in the TaskQueue identified by the Sid specified.
+        :param unicode task_queue_name: Returns the list of Tasks that are currently waiting in the TaskQueue identified by the FriendlyName specified.
+        :param unicode evaluate_task_attributes: Provide a task attributes expression, and this will return tasks which match the attributes.
+        :param unicode ordering: Use this parameter to control the order of the Tasks returned.
         :param bool has_addons: The has_addons
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
@@ -197,11 +197,11 @@ class TaskList(ListResource):
         """
         Create a new TaskInstance
 
-        :param unicode timeout: The timeout
-        :param unicode priority: The priority
-        :param unicode task_channel: The task_channel
-        :param unicode workflow_sid: The workflow_sid
-        :param unicode attributes: The attributes
+        :param unicode timeout: The amount of time in seconds the task is allowed to live up to a maximum of 2 weeks.
+        :param unicode priority: Override priority for the Task.
+        :param unicode task_channel: When MultiTasking is enabled specify the type of the task by passing either TaskChannel Unique Name or Task Channel Sid.
+        :param unicode workflow_sid: The WorkflowSid for the Workflow that you would like to handle routing for this Task.
+        :param unicode attributes: Url-encoded JSON string describing the attributes of this task.
 
         :returns: Newly created TaskInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
@@ -263,7 +263,7 @@ class TaskPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param workspace_sid: The workspace_sid
+        :param workspace_sid: The ID of the Workspace that holds this Task
 
         :returns: twilio.rest.taskrouter.v1.workspace.task.TaskPage
         :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskPage
@@ -345,10 +345,10 @@ class TaskContext(InstanceContext):
         """
         Update the TaskInstance
 
-        :param unicode attributes: The attributes
-        :param TaskInstance.Status assignment_status: The assignment_status
-        :param unicode reason: The reason
-        :param unicode priority: The priority
+        :param unicode attributes: The user-defined JSON data describing the custom attributes of this task.
+        :param TaskInstance.Status assignment_status: A 'pending' or 'reserved' Task may be canceled by posting AssignmentStatus='canceled'.
+        :param unicode reason: This is only required if the Task is canceled or completed.
+        :param unicode priority: Override priority for the Task.
         :param unicode task_channel: The task_channel
 
         :returns: Updated TaskInstance
@@ -479,7 +479,7 @@ class TaskInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The ID of the account that owns this Task
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -487,7 +487,7 @@ class TaskInstance(InstanceResource):
     @property
     def age(self):
         """
-        :returns: The age
+        :returns: The number of seconds since this task was created.
         :rtype: unicode
         """
         return self._properties['age']
@@ -495,7 +495,7 @@ class TaskInstance(InstanceResource):
     @property
     def assignment_status(self):
         """
-        :returns: The assignment_status
+        :returns: Returns the list of all Tasks in the workspace with the specified AssignmentStatus.
         :rtype: TaskInstance.Status
         """
         return self._properties['assignment_status']
@@ -503,7 +503,7 @@ class TaskInstance(InstanceResource):
     @property
     def attributes(self):
         """
-        :returns: The attributes
+        :returns: The user-defined JSON string describing the custom attributes of this work.
         :rtype: unicode
         """
         return self._properties['attributes']
@@ -511,7 +511,7 @@ class TaskInstance(InstanceResource):
     @property
     def addons(self):
         """
-        :returns: The addons
+        :returns: The addon data for all installed addons is returned with this attribute
         :rtype: unicode
         """
         return self._properties['addons']
@@ -519,7 +519,7 @@ class TaskInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: Date this task was created, given as ISO 8601 format.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -527,7 +527,7 @@ class TaskInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: Date this task was updated, given as ISO 8601 format.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -535,7 +535,7 @@ class TaskInstance(InstanceResource):
     @property
     def priority(self):
         """
-        :returns: The priority
+        :returns: Retrieve the list of all Tasks in the workspace with the specified priority.
         :rtype: unicode
         """
         return self._properties['priority']
@@ -543,7 +543,7 @@ class TaskInstance(InstanceResource):
     @property
     def reason(self):
         """
-        :returns: The reason
+        :returns: The reason the task was canceled  or completed
         :rtype: unicode
         """
         return self._properties['reason']
@@ -551,7 +551,7 @@ class TaskInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: The unique ID of the Task
         :rtype: unicode
         """
         return self._properties['sid']
@@ -559,7 +559,7 @@ class TaskInstance(InstanceResource):
     @property
     def task_queue_sid(self):
         """
-        :returns: The task_queue_sid
+        :returns: Returns the list of Tasks that are currently waiting in the TaskQueue identified by the Sid specified.
         :rtype: unicode
         """
         return self._properties['task_queue_sid']
@@ -575,7 +575,7 @@ class TaskInstance(InstanceResource):
     @property
     def task_channel_sid(self):
         """
-        :returns: The task_channel_sid
+        :returns: The ID of the Task Channel
         :rtype: unicode
         """
         return self._properties['task_channel_sid']
@@ -583,7 +583,7 @@ class TaskInstance(InstanceResource):
     @property
     def task_channel_unique_name(self):
         """
-        :returns: The task_channel_unique_name
+        :returns: The unique name of the Task Channel
         :rtype: unicode
         """
         return self._properties['task_channel_unique_name']
@@ -591,7 +591,7 @@ class TaskInstance(InstanceResource):
     @property
     def timeout(self):
         """
-        :returns: The timeout
+        :returns: The amount of time in seconds the task is allowed to live
         :rtype: unicode
         """
         return self._properties['timeout']
@@ -599,7 +599,7 @@ class TaskInstance(InstanceResource):
     @property
     def workflow_sid(self):
         """
-        :returns: The workflow_sid
+        :returns: Returns the list of Tasks that are being controlled by the Workflow with the specified Sid value.
         :rtype: unicode
         """
         return self._properties['workflow_sid']
@@ -615,7 +615,7 @@ class TaskInstance(InstanceResource):
     @property
     def workspace_sid(self):
         """
-        :returns: The workspace_sid
+        :returns: The ID of the Workspace that holds this Task
         :rtype: unicode
         """
         return self._properties['workspace_sid']
@@ -651,10 +651,10 @@ class TaskInstance(InstanceResource):
         """
         Update the TaskInstance
 
-        :param unicode attributes: The attributes
-        :param TaskInstance.Status assignment_status: The assignment_status
-        :param unicode reason: The reason
-        :param unicode priority: The priority
+        :param unicode attributes: The user-defined JSON data describing the custom attributes of this task.
+        :param TaskInstance.Status assignment_status: A 'pending' or 'reserved' Task may be canceled by posting AssignmentStatus='canceled'.
+        :param unicode reason: This is only required if the Task is canceled or completed.
+        :param unicode priority: Override priority for the Task.
         :param unicode task_channel: The task_channel
 
         :returns: Updated TaskInstance

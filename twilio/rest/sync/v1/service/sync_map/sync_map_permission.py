@@ -213,7 +213,7 @@ class SyncMapPermissionContext(InstanceContext):
         Initialize the SyncMapPermissionContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
+        :param service_sid: Sync Service Instance SID or unique name.
         :param map_sid: Sync Map SID or unique name.
         :param identity: Identity of the user to whom the Sync Map Permission applies.
 

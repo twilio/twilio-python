@@ -307,7 +307,7 @@ class ConferenceContext(InstanceContext):
         """
         Update the ConferenceInstance
 
-        :param ConferenceInstance.UpdateStatus status: The status
+        :param ConferenceInstance.UpdateStatus status: Specifying completed will end the conference and kick all participants
         :param unicode announce_url: The announce_url
         :param unicode announce_method: The announce_method
 
@@ -454,7 +454,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def region(self):
         """
-        :returns: The region
+        :returns: A string representing the Twilio Region where the conference was mixed.
         :rtype: unicode
         """
         return self._properties['region']
@@ -505,7 +505,7 @@ class ConferenceInstance(InstanceResource):
         """
         Update the ConferenceInstance
 
-        :param ConferenceInstance.UpdateStatus status: The status
+        :param ConferenceInstance.UpdateStatus status: Specifying completed will end the conference and kick all participants
         :param unicode announce_url: The announce_url
         :param unicode announce_method: The announce_method
 

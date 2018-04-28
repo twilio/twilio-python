@@ -22,7 +22,7 @@ class ActivityList(ListResource):
         Initialize the ActivityList
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The workspace_sid
+        :param workspace_sid: The unique ID of the Workspace that this Activity belongs to.
 
         :returns: twilio.rest.taskrouter.v1.workspace.activity.ActivityList
         :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityList
@@ -41,8 +41,8 @@ class ActivityList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode friendly_name: The friendly_name
-        :param unicode available: The available
+        :param unicode friendly_name: Filter by an Activity's friendly name
+        :param unicode available: Filter by activities that are available or unavailable.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -66,8 +66,8 @@ class ActivityList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode friendly_name: The friendly_name
-        :param unicode available: The available
+        :param unicode friendly_name: Filter by an Activity's friendly name
+        :param unicode available: Filter by activities that are available or unavailable.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -92,8 +92,8 @@ class ActivityList(ListResource):
         Retrieve a single page of ActivityInstance records from the API.
         Request is executed immediately
 
-        :param unicode friendly_name: The friendly_name
-        :param unicode available: The available
+        :param unicode friendly_name: Filter by an Activity's friendly name
+        :param unicode available: Filter by activities that are available or unavailable.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -138,8 +138,8 @@ class ActivityList(ListResource):
         """
         Create a new ActivityInstance
 
-        :param unicode friendly_name: The friendly_name
-        :param bool available: The available
+        :param unicode friendly_name: A human-readable name for the Activity, such as 'On Call', 'Break', 'Email', etc.
+        :param bool available: Boolean value indicating whether the worker should be eligible to receive a Task when they occupy this Activity.
 
         :returns: Newly created ActivityInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
@@ -195,7 +195,7 @@ class ActivityPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param workspace_sid: The workspace_sid
+        :param workspace_sid: The unique ID of the Workspace that this Activity belongs to.
 
         :returns: twilio.rest.taskrouter.v1.workspace.activity.ActivityPage
         :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityPage
@@ -272,7 +272,7 @@ class ActivityContext(InstanceContext):
         """
         Update the ActivityInstance
 
-        :param unicode friendly_name: The friendly_name
+        :param unicode friendly_name: A human-readable name for the Activity, such as 'on-call', 'break', 'email', etc.
 
         :returns: Updated ActivityInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
@@ -360,7 +360,7 @@ class ActivityInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique ID of the Account that owns this Activity.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -368,7 +368,7 @@ class ActivityInstance(InstanceResource):
     @property
     def available(self):
         """
-        :returns: The available
+        :returns: Filter by activities that are available or unavailable.
         :rtype: bool
         """
         return self._properties['available']
@@ -376,7 +376,7 @@ class ActivityInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date this Activity was created.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -384,7 +384,7 @@ class ActivityInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date this Activity was updated.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -392,7 +392,7 @@ class ActivityInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The friendly_name
+        :returns: Filter by an Activity's friendly name
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -400,7 +400,7 @@ class ActivityInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: The unique ID for this Activity.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -408,7 +408,7 @@ class ActivityInstance(InstanceResource):
     @property
     def workspace_sid(self):
         """
-        :returns: The workspace_sid
+        :returns: The unique ID of the Workspace that this Activity belongs to.
         :rtype: unicode
         """
         return self._properties['workspace_sid']
@@ -434,7 +434,7 @@ class ActivityInstance(InstanceResource):
         """
         Update the ActivityInstance
 
-        :param unicode friendly_name: The friendly_name
+        :param unicode friendly_name: A human-readable name for the Activity, such as 'on-call', 'break', 'email', etc.
 
         :returns: Updated ActivityInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance

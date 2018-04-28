@@ -23,7 +23,7 @@ class EventList(ListResource):
         Initialize the EventList
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The sid
+        :param workspace_sid: The unique ID of the Workspace
 
         :returns: twilio.rest.taskrouter.v1.workspace.event.EventList
         :rtype: twilio.rest.taskrouter.v1.workspace.event.EventList
@@ -45,14 +45,14 @@ class EventList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param datetime end_date: The end_date
-        :param unicode event_type: The event_type
-        :param unicode minutes: The minutes
-        :param unicode reservation_sid: The reservation_sid
-        :param datetime start_date: The start_date
-        :param unicode task_queue_sid: The task_queue_sid
-        :param unicode task_sid: The task_sid
-        :param unicode worker_sid: The worker_sid
+        :param datetime end_date: Filter events by an end date.
+        :param unicode event_type: Filter events by those of a certain event type
+        :param unicode minutes: Filter events by up to ‘x’ minutes in the past.
+        :param unicode reservation_sid: Filter events by those pertaining to a particular reservation
+        :param datetime start_date: Filter events by a start date.
+        :param unicode task_queue_sid: Filter events by those pertaining to a particular queue
+        :param unicode task_sid: Filter events by those pertaining to a particular task
+        :param unicode worker_sid: Filter events by those pertaining to a particular worker
         :param unicode workflow_sid: The workflow_sid
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
@@ -91,14 +91,14 @@ class EventList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param datetime end_date: The end_date
-        :param unicode event_type: The event_type
-        :param unicode minutes: The minutes
-        :param unicode reservation_sid: The reservation_sid
-        :param datetime start_date: The start_date
-        :param unicode task_queue_sid: The task_queue_sid
-        :param unicode task_sid: The task_sid
-        :param unicode worker_sid: The worker_sid
+        :param datetime end_date: Filter events by an end date.
+        :param unicode event_type: Filter events by those of a certain event type
+        :param unicode minutes: Filter events by up to ‘x’ minutes in the past.
+        :param unicode reservation_sid: Filter events by those pertaining to a particular reservation
+        :param datetime start_date: Filter events by a start date.
+        :param unicode task_queue_sid: Filter events by those pertaining to a particular queue
+        :param unicode task_sid: Filter events by those pertaining to a particular task
+        :param unicode worker_sid: Filter events by those pertaining to a particular worker
         :param unicode workflow_sid: The workflow_sid
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
@@ -134,14 +134,14 @@ class EventList(ListResource):
         Retrieve a single page of EventInstance records from the API.
         Request is executed immediately
 
-        :param datetime end_date: The end_date
-        :param unicode event_type: The event_type
-        :param unicode minutes: The minutes
-        :param unicode reservation_sid: The reservation_sid
-        :param datetime start_date: The start_date
-        :param unicode task_queue_sid: The task_queue_sid
-        :param unicode task_sid: The task_sid
-        :param unicode worker_sid: The worker_sid
+        :param datetime end_date: Filter events by an end date.
+        :param unicode event_type: Filter events by those of a certain event type
+        :param unicode minutes: Filter events by up to ‘x’ minutes in the past.
+        :param unicode reservation_sid: Filter events by those pertaining to a particular reservation
+        :param datetime start_date: Filter events by a start date.
+        :param unicode task_queue_sid: Filter events by those pertaining to a particular queue
+        :param unicode task_sid: Filter events by those pertaining to a particular task
+        :param unicode worker_sid: Filter events by those pertaining to a particular worker
         :param unicode workflow_sid: The workflow_sid
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
@@ -231,7 +231,7 @@ class EventPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param workspace_sid: The sid
+        :param workspace_sid: The unique ID of the Workspace
 
         :returns: twilio.rest.taskrouter.v1.workspace.event.EventPage
         :rtype: twilio.rest.taskrouter.v1.workspace.event.EventPage
@@ -370,7 +370,7 @@ class EventInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The account owning this event
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -402,7 +402,7 @@ class EventInstance(InstanceResource):
     @property
     def description(self):
         """
-        :returns: The description
+        :returns: A description of the event
         :rtype: unicode
         """
         return self._properties['description']
@@ -410,7 +410,7 @@ class EventInstance(InstanceResource):
     @property
     def event_data(self):
         """
-        :returns: The event_data
+        :returns: Data about this specific event.
         :rtype: unicode
         """
         return self._properties['event_data']
@@ -418,7 +418,7 @@ class EventInstance(InstanceResource):
     @property
     def event_date(self):
         """
-        :returns: The event_date
+        :returns: The time this event was sent
         :rtype: datetime
         """
         return self._properties['event_date']
@@ -426,7 +426,7 @@ class EventInstance(InstanceResource):
     @property
     def event_type(self):
         """
-        :returns: The event_type
+        :returns: An identifier for this event
         :rtype: unicode
         """
         return self._properties['event_type']
@@ -434,7 +434,7 @@ class EventInstance(InstanceResource):
     @property
     def resource_sid(self):
         """
-        :returns: The resource_sid
+        :returns: The sid of the object this event is most relevant to
         :rtype: unicode
         """
         return self._properties['resource_sid']
@@ -442,7 +442,7 @@ class EventInstance(InstanceResource):
     @property
     def resource_type(self):
         """
-        :returns: The resource_type
+        :returns: The type of object this event is most relevant to
         :rtype: unicode
         """
         return self._properties['resource_type']

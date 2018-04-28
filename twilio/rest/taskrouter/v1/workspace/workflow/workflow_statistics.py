@@ -141,11 +141,11 @@ class WorkflowStatisticsContext(InstanceContext):
         """
         Fetch a WorkflowStatisticsInstance
 
-        :param unicode minutes: The minutes
-        :param datetime start_date: The start_date
-        :param datetime end_date: The end_date
-        :param unicode task_channel: The task_channel
-        :param unicode split_by_wait_time: The split_by_wait_time
+        :param unicode minutes: Filter cumulative statistics by up to ‘x’ minutes in the past.
+        :param datetime start_date: Filter cumulative statistics by a start date.
+        :param datetime end_date: Filter cumulative statistics by an end date.
+        :param unicode task_channel: Filter real-time and cumulative statistics by TaskChannel.
+        :param unicode split_by_wait_time: A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
 
         :returns: Fetched WorkflowStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics.WorkflowStatisticsInstance
@@ -279,11 +279,11 @@ class WorkflowStatisticsInstance(InstanceResource):
         """
         Fetch a WorkflowStatisticsInstance
 
-        :param unicode minutes: The minutes
-        :param datetime start_date: The start_date
-        :param datetime end_date: The end_date
-        :param unicode task_channel: The task_channel
-        :param unicode split_by_wait_time: The split_by_wait_time
+        :param unicode minutes: Filter cumulative statistics by up to ‘x’ minutes in the past.
+        :param datetime start_date: Filter cumulative statistics by a start date.
+        :param datetime end_date: Filter cumulative statistics by an end date.
+        :param unicode task_channel: Filter real-time and cumulative statistics by TaskChannel.
+        :param unicode split_by_wait_time: A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
 
         :returns: Fetched WorkflowStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics.WorkflowStatisticsInstance

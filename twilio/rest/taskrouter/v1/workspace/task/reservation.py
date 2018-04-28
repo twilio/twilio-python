@@ -23,8 +23,8 @@ class ReservationList(ListResource):
         Initialize the ReservationList
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The workspace_sid
-        :param task_sid: The task_sid
+        :param workspace_sid: The ID of the Workspace that this task is contained within.
+        :param task_sid: The ID of the reserved Task
 
         :returns: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationList
         :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationList
@@ -42,7 +42,7 @@ class ReservationList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param ReservationInstance.Status reservation_status: The reservation_status
+        :param ReservationInstance.Status reservation_status: Returns the list of reservations for a task with a specified ReservationStatus
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -65,7 +65,7 @@ class ReservationList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param ReservationInstance.Status reservation_status: The reservation_status
+        :param ReservationInstance.Status reservation_status: Returns the list of reservations for a task with a specified ReservationStatus
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -84,7 +84,7 @@ class ReservationList(ListResource):
         Retrieve a single page of ReservationInstance records from the API.
         Request is executed immediately
 
-        :param ReservationInstance.Status reservation_status: The reservation_status
+        :param ReservationInstance.Status reservation_status: Returns the list of reservations for a task with a specified ReservationStatus
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -175,8 +175,8 @@ class ReservationPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param workspace_sid: The workspace_sid
-        :param task_sid: The task_sid
+        :param workspace_sid: The ID of the Workspace that this task is contained within.
+        :param task_sid: The ID of the reserved Task
 
         :returns: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationPage
         :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationPage
@@ -290,31 +290,31 @@ class ReservationContext(InstanceContext):
         """
         Update the ReservationInstance
 
-        :param ReservationInstance.Status reservation_status: The reservation_status
-        :param unicode worker_activity_sid: The worker_activity_sid
-        :param unicode instruction: The instruction
-        :param unicode dequeue_post_work_activity_sid: The dequeue_post_work_activity_sid
-        :param unicode dequeue_from: The dequeue_from
-        :param unicode dequeue_record: The dequeue_record
-        :param unicode dequeue_timeout: The dequeue_timeout
-        :param unicode dequeue_to: The dequeue_to
-        :param unicode dequeue_status_callback_url: The dequeue_status_callback_url
-        :param unicode call_from: The call_from
-        :param unicode call_record: The call_record
-        :param unicode call_timeout: The call_timeout
-        :param unicode call_to: The call_to
-        :param unicode call_url: The call_url
-        :param unicode call_status_callback_url: The call_status_callback_url
-        :param bool call_accept: The call_accept
-        :param unicode redirect_call_sid: The redirect_call_sid
-        :param bool redirect_accept: The redirect_accept
-        :param unicode redirect_url: The redirect_url
-        :param unicode to: The to
-        :param unicode from_: The from
+        :param ReservationInstance.Status reservation_status: Yes
+        :param unicode worker_activity_sid: No
+        :param unicode instruction: Yes
+        :param unicode dequeue_post_work_activity_sid: No
+        :param unicode dequeue_from: Yes
+        :param unicode dequeue_record: No
+        :param unicode dequeue_timeout: No
+        :param unicode dequeue_to: No
+        :param unicode dequeue_status_callback_url: No
+        :param unicode call_from: Yes
+        :param unicode call_record: No
+        :param unicode call_timeout: No
+        :param unicode call_to: No
+        :param unicode call_url: Yes
+        :param unicode call_status_callback_url: No
+        :param bool call_accept: No
+        :param unicode redirect_call_sid: Yes
+        :param bool redirect_accept: No
+        :param unicode redirect_url: Yes
+        :param unicode to: No
+        :param unicode from_: No
         :param unicode status_callback: The status_callback
         :param unicode status_callback_method: The status_callback_method
         :param ReservationInstance.CallStatus status_callback_event: The status_callback_event
-        :param unicode timeout: The timeout
+        :param unicode timeout: No
         :param bool record: The record
         :param bool muted: The muted
         :param unicode beep: The beep
@@ -337,8 +337,8 @@ class ReservationContext(InstanceContext):
         :param unicode region: The region
         :param unicode sip_auth_username: The sip_auth_username
         :param unicode sip_auth_password: The sip_auth_password
-        :param unicode dequeue_status_callback_event: The dequeue_status_callback_event
-        :param unicode post_work_activity_sid: The post_work_activity_sid
+        :param unicode dequeue_status_callback_event: No
+        :param unicode post_work_activity_sid: No
 
         :returns: Updated ReservationInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationInstance
@@ -499,7 +499,7 @@ class ReservationInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The ID of the Account that owns this Task
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -523,7 +523,7 @@ class ReservationInstance(InstanceResource):
     @property
     def reservation_status(self):
         """
-        :returns: The reservation_status
+        :returns: The current status of the reservation.
         :rtype: ReservationInstance.Status
         """
         return self._properties['reservation_status']
@@ -531,7 +531,7 @@ class ReservationInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: The unique ID of this Reservation.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -539,7 +539,7 @@ class ReservationInstance(InstanceResource):
     @property
     def task_sid(self):
         """
-        :returns: The task_sid
+        :returns: The ID of the reserved Task
         :rtype: unicode
         """
         return self._properties['task_sid']
@@ -547,7 +547,7 @@ class ReservationInstance(InstanceResource):
     @property
     def worker_name(self):
         """
-        :returns: The worker_name
+        :returns: Human readable description of the Worker that is reserved
         :rtype: unicode
         """
         return self._properties['worker_name']
@@ -555,7 +555,7 @@ class ReservationInstance(InstanceResource):
     @property
     def worker_sid(self):
         """
-        :returns: The worker_sid
+        :returns: The ID of the reserved Worker
         :rtype: unicode
         """
         return self._properties['worker_sid']
@@ -563,7 +563,7 @@ class ReservationInstance(InstanceResource):
     @property
     def workspace_sid(self):
         """
-        :returns: The workspace_sid
+        :returns: The ID of the Workspace that this task is contained within.
         :rtype: unicode
         """
         return self._properties['workspace_sid']
@@ -627,31 +627,31 @@ class ReservationInstance(InstanceResource):
         """
         Update the ReservationInstance
 
-        :param ReservationInstance.Status reservation_status: The reservation_status
-        :param unicode worker_activity_sid: The worker_activity_sid
-        :param unicode instruction: The instruction
-        :param unicode dequeue_post_work_activity_sid: The dequeue_post_work_activity_sid
-        :param unicode dequeue_from: The dequeue_from
-        :param unicode dequeue_record: The dequeue_record
-        :param unicode dequeue_timeout: The dequeue_timeout
-        :param unicode dequeue_to: The dequeue_to
-        :param unicode dequeue_status_callback_url: The dequeue_status_callback_url
-        :param unicode call_from: The call_from
-        :param unicode call_record: The call_record
-        :param unicode call_timeout: The call_timeout
-        :param unicode call_to: The call_to
-        :param unicode call_url: The call_url
-        :param unicode call_status_callback_url: The call_status_callback_url
-        :param bool call_accept: The call_accept
-        :param unicode redirect_call_sid: The redirect_call_sid
-        :param bool redirect_accept: The redirect_accept
-        :param unicode redirect_url: The redirect_url
-        :param unicode to: The to
-        :param unicode from_: The from
+        :param ReservationInstance.Status reservation_status: Yes
+        :param unicode worker_activity_sid: No
+        :param unicode instruction: Yes
+        :param unicode dequeue_post_work_activity_sid: No
+        :param unicode dequeue_from: Yes
+        :param unicode dequeue_record: No
+        :param unicode dequeue_timeout: No
+        :param unicode dequeue_to: No
+        :param unicode dequeue_status_callback_url: No
+        :param unicode call_from: Yes
+        :param unicode call_record: No
+        :param unicode call_timeout: No
+        :param unicode call_to: No
+        :param unicode call_url: Yes
+        :param unicode call_status_callback_url: No
+        :param bool call_accept: No
+        :param unicode redirect_call_sid: Yes
+        :param bool redirect_accept: No
+        :param unicode redirect_url: Yes
+        :param unicode to: No
+        :param unicode from_: No
         :param unicode status_callback: The status_callback
         :param unicode status_callback_method: The status_callback_method
         :param ReservationInstance.CallStatus status_callback_event: The status_callback_event
-        :param unicode timeout: The timeout
+        :param unicode timeout: No
         :param bool record: The record
         :param bool muted: The muted
         :param unicode beep: The beep
@@ -674,8 +674,8 @@ class ReservationInstance(InstanceResource):
         :param unicode region: The region
         :param unicode sip_auth_username: The sip_auth_username
         :param unicode sip_auth_password: The sip_auth_password
-        :param unicode dequeue_status_callback_event: The dequeue_status_callback_event
-        :param unicode post_work_activity_sid: The post_work_activity_sid
+        :param unicode dequeue_status_callback_event: No
+        :param unicode post_work_activity_sid: No
 
         :returns: Updated ReservationInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationInstance

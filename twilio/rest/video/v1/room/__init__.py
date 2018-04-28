@@ -43,15 +43,15 @@ class RoomList(ListResource):
         """
         Create a new RoomInstance
 
-        :param bool enable_turn: The enable_turn
-        :param RoomInstance.RoomType type: The type
-        :param unicode unique_name: The unique_name
-        :param unicode status_callback: The status_callback
-        :param unicode status_callback_method: The status_callback_method
-        :param unicode max_participants: The max_participants
-        :param bool record_participants_on_connect: The record_participants_on_connect
-        :param RoomInstance.VideoCodec video_codecs: The video_codecs
-        :param unicode media_region: The media_region
+        :param bool enable_turn: Use Twilio Network Traversal for TURN service.
+        :param RoomInstance.RoomType type: Type of room, either peer-to-peer or group.
+        :param unicode unique_name: Name of the Room.
+        :param unicode status_callback: A URL that Twilio sends asynchronous webhook requests to on every room event.
+        :param unicode status_callback_method: HTTP method Twilio should use when requesting the above URL.
+        :param unicode max_participants: Maximum number of Participants in the Room.
+        :param bool record_participants_on_connect: Start Participant recording when connected.
+        :param RoomInstance.VideoCodec video_codecs: An array of video codecs supported when publishing a Track in the Room.
+        :param unicode media_region: Region for the media server in Group Rooms.
 
         :returns: Newly created RoomInstance
         :rtype: twilio.rest.video.v1.room.RoomInstance
@@ -85,10 +85,10 @@ class RoomList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param RoomInstance.RoomStatus status: The status
-        :param unicode unique_name: The unique_name
-        :param datetime date_created_after: The date_created_after
-        :param datetime date_created_before: The date_created_before
+        :param RoomInstance.RoomStatus status: Only show Rooms with the given status.
+        :param unicode unique_name: Only show Rooms with the provided Name.
+        :param datetime date_created_after: Only show Rooms that started on or after this date, given as YYYY-MM-DD.
+        :param datetime date_created_before: Only show Rooms that started before this date, given as YYYY-MM-DD.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -119,10 +119,10 @@ class RoomList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param RoomInstance.RoomStatus status: The status
-        :param unicode unique_name: The unique_name
-        :param datetime date_created_after: The date_created_after
-        :param datetime date_created_before: The date_created_before
+        :param RoomInstance.RoomStatus status: Only show Rooms with the given status.
+        :param unicode unique_name: Only show Rooms with the provided Name.
+        :param datetime date_created_after: Only show Rooms that started on or after this date, given as YYYY-MM-DD.
+        :param datetime date_created_before: Only show Rooms that started before this date, given as YYYY-MM-DD.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -150,10 +150,10 @@ class RoomList(ListResource):
         Retrieve a single page of RoomInstance records from the API.
         Request is executed immediately
 
-        :param RoomInstance.RoomStatus status: The status
-        :param unicode unique_name: The unique_name
-        :param datetime date_created_after: The date_created_after
-        :param datetime date_created_before: The date_created_before
+        :param RoomInstance.RoomStatus status: Only show Rooms with the given status.
+        :param unicode unique_name: Only show Rooms with the provided Name.
+        :param datetime date_created_after: Only show Rooms that started on or after this date, given as YYYY-MM-DD.
+        :param datetime date_created_before: Only show Rooms that started before this date, given as YYYY-MM-DD.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -311,7 +311,7 @@ class RoomContext(InstanceContext):
         """
         Update the RoomInstance
 
-        :param RoomInstance.RoomStatus status: The status
+        :param RoomInstance.RoomStatus status: Set to completed to end the Room.
 
         :returns: Updated RoomInstance
         :rtype: twilio.rest.video.v1.room.RoomInstance
@@ -428,7 +428,7 @@ class RoomInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A system-generated 34-character string that uniquely identifies this resource.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -436,7 +436,7 @@ class RoomInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: The status
+        :returns: A string representing the status of the Room.
         :rtype: RoomInstance.RoomStatus
         """
         return self._properties['status']
@@ -444,7 +444,7 @@ class RoomInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date that this resource was created, given as a UTC ISO 8601 Timestamp.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -452,7 +452,7 @@ class RoomInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date that this resource was last updated, given as a UTC ISO 8601 Timestamp.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -460,7 +460,7 @@ class RoomInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique ID of the Account associated with this Room.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -468,7 +468,7 @@ class RoomInstance(InstanceResource):
     @property
     def enable_turn(self):
         """
-        :returns: The enable_turn
+        :returns: Enable Twilio's Network Traversal TURN service.
         :rtype: bool
         """
         return self._properties['enable_turn']
@@ -476,7 +476,7 @@ class RoomInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: The unique_name
+        :returns: A developer-supplied Name of the Room.
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -484,7 +484,7 @@ class RoomInstance(InstanceResource):
     @property
     def status_callback(self):
         """
-        :returns: The status_callback
+        :returns: A URL that Twilio sends asynchronous webhook requests to on every Room event.
         :rtype: unicode
         """
         return self._properties['status_callback']
@@ -492,7 +492,7 @@ class RoomInstance(InstanceResource):
     @property
     def status_callback_method(self):
         """
-        :returns: The status_callback_method
+        :returns: HTTP method Twilio should use when requesting the above URL.
         :rtype: unicode
         """
         return self._properties['status_callback_method']
@@ -500,7 +500,7 @@ class RoomInstance(InstanceResource):
     @property
     def end_time(self):
         """
-        :returns: The end_time
+        :returns: The end time of the Room, given as a UTC ISO 8601 Timestamp.
         :rtype: datetime
         """
         return self._properties['end_time']
@@ -508,7 +508,7 @@ class RoomInstance(InstanceResource):
     @property
     def duration(self):
         """
-        :returns: The duration
+        :returns: The duration of the Room in seconds.
         :rtype: unicode
         """
         return self._properties['duration']
@@ -516,7 +516,7 @@ class RoomInstance(InstanceResource):
     @property
     def type(self):
         """
-        :returns: The type
+        :returns: Type of Room, either peer-to-peer or group.
         :rtype: RoomInstance.RoomType
         """
         return self._properties['type']
@@ -524,7 +524,7 @@ class RoomInstance(InstanceResource):
     @property
     def max_participants(self):
         """
-        :returns: The max_participants
+        :returns: Maximum number of concurrent Participants allowed in the Room.
         :rtype: unicode
         """
         return self._properties['max_participants']
@@ -532,7 +532,7 @@ class RoomInstance(InstanceResource):
     @property
     def record_participants_on_connect(self):
         """
-        :returns: The record_participants_on_connect
+        :returns: Start recording when Participants connect.
         :rtype: bool
         """
         return self._properties['record_participants_on_connect']
@@ -548,7 +548,7 @@ class RoomInstance(InstanceResource):
     @property
     def media_region(self):
         """
-        :returns: The media_region
+        :returns: Region for the media server in Group Rooms.
         :rtype: unicode
         """
         return self._properties['media_region']
@@ -556,7 +556,7 @@ class RoomInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL for this resource.
         :rtype: unicode
         """
         return self._properties['url']
@@ -582,7 +582,7 @@ class RoomInstance(InstanceResource):
         """
         Update the RoomInstance
 
-        :param RoomInstance.RoomStatus status: The status
+        :param RoomInstance.RoomStatus status: Set to completed to end the Room.
 
         :returns: Updated RoomInstance
         :rtype: twilio.rest.video.v1.room.RoomInstance

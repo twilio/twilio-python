@@ -50,9 +50,9 @@ class MessageList(ListResource):
         :param unicode to: The phone number to receive the message
         :param unicode status_callback: URL Twilio will request when the status changes
         :param unicode application_sid: The application to use for callbacks
-        :param unicode max_price: The max_price
-        :param bool provide_feedback: The provide_feedback
-        :param unicode validity_period: The validity_period
+        :param unicode max_price: The total maximum price up to the fourth decimal in US dollars acceptable for the message to be delivered.
+        :param bool provide_feedback: Set this value to true if you are sending messages that have a trackable user action and you intend to confirm delivery of the message using the Message Feedback API.
+        :param unicode validity_period: The number of seconds that the message can remain in a Twilio queue.
         :param unicode max_rate: The max_rate
         :param bool force_delivery: The force_delivery
         :param unicode provider_sid: The provider_sid
@@ -60,9 +60,9 @@ class MessageList(ListResource):
         :param MessageInstance.AddressRetention address_retention: The address_retention
         :param bool smart_encoded: The smart_encoded
         :param unicode from_: The phone number that initiated the message
-        :param unicode messaging_service_sid: The messaging_service_sid
-        :param unicode body: The body
-        :param unicode media_url: The media_url
+        :param unicode messaging_service_sid: The 34 character unique id of the Messaging Service you want to associate with this Message.
+        :param unicode body: The text of the message you want to send, limited to 1600 characters.
+        :param unicode media_url: The URL of the media you wish to send out with the message.
 
         :returns: Newly created MessageInstance
         :rtype: twilio.rest.api.v2010.account.message.MessageInstance
@@ -351,7 +351,7 @@ class MessageContext(InstanceContext):
         """
         Update the MessageInstance
 
-        :param unicode body: The body
+        :param unicode body: The text of the message you want to send, limited to 1600 characters.
 
         :returns: Updated MessageInstance
         :rtype: twilio.rest.api.v2010.account.message.MessageInstance
@@ -579,7 +579,7 @@ class MessageInstance(InstanceResource):
     @property
     def messaging_service_sid(self):
         """
-        :returns: The messaging_service_sid
+        :returns: The unique id of the Messaging Service used with the message.
         :rtype: unicode
         """
         return self._properties['messaging_service_sid']
@@ -678,7 +678,7 @@ class MessageInstance(InstanceResource):
         """
         Update the MessageInstance
 
-        :param unicode body: The body
+        :param unicode body: The text of the message you want to send, limited to 1600 characters.
 
         :returns: Updated MessageInstance
         :rtype: twilio.rest.api.v2010.account.message.MessageInstance

@@ -213,7 +213,7 @@ class DocumentPermissionContext(InstanceContext):
         Initialize the DocumentPermissionContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
+        :param service_sid: Sync Service Instance SID or unique name.
         :param document_sid: Sync Document SID or unique name.
         :param identity: Identity of the user to whom the Sync Document Permission applies.
 

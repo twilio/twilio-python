@@ -25,7 +25,7 @@ class ParticipantList(ListResource):
         Initialize the ParticipantList
 
         :param Version version: Version that contains the resource
-        :param room_sid: The room_sid
+        :param room_sid: A system-generated 34-character string that uniquely identifies.
 
         :returns: twilio.rest.video.v1.room.room_participant.ParticipantList
         :rtype: twilio.rest.video.v1.room.room_participant.ParticipantList
@@ -45,8 +45,8 @@ class ParticipantList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param ParticipantInstance.Status status: The status
-        :param unicode identity: The identity
+        :param ParticipantInstance.Status status: Only show Participants with the given Status.
+        :param unicode identity: Only show Participants that connected to the Room using the provided Identity.
         :param datetime date_created_after: The date_created_after
         :param datetime date_created_before: The date_created_before
         :param int limit: Upper limit for the number of records to return. stream()
@@ -79,8 +79,8 @@ class ParticipantList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param ParticipantInstance.Status status: The status
-        :param unicode identity: The identity
+        :param ParticipantInstance.Status status: Only show Participants with the given Status.
+        :param unicode identity: Only show Participants that connected to the Room using the provided Identity.
         :param datetime date_created_after: The date_created_after
         :param datetime date_created_before: The date_created_before
         :param int limit: Upper limit for the number of records to return. list() guarantees
@@ -110,8 +110,8 @@ class ParticipantList(ListResource):
         Retrieve a single page of ParticipantInstance records from the API.
         Request is executed immediately
 
-        :param ParticipantInstance.Status status: The status
-        :param unicode identity: The identity
+        :param ParticipantInstance.Status status: Only show Participants with the given Status.
+        :param unicode identity: Only show Participants that connected to the Room using the provided Identity.
         :param datetime date_created_after: The date_created_after
         :param datetime date_created_before: The date_created_before
         :param str page_token: PageToken provided by the API
@@ -197,7 +197,7 @@ class ParticipantPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param room_sid: The room_sid
+        :param room_sid: A system-generated 34-character string that uniquely identifies.
 
         :returns: twilio.rest.video.v1.room.room_participant.ParticipantPage
         :rtype: twilio.rest.video.v1.room.room_participant.ParticipantPage
@@ -278,7 +278,7 @@ class ParticipantContext(InstanceContext):
         """
         Update the ParticipantInstance
 
-        :param ParticipantInstance.Status status: The status
+        :param ParticipantInstance.Status status: Set to disconnected to remove participant.
 
         :returns: Updated ParticipantInstance
         :rtype: twilio.rest.video.v1.room.room_participant.ParticipantInstance
@@ -397,7 +397,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A 34 character string that uniquely identifies this resource.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -405,7 +405,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def room_sid(self):
         """
-        :returns: The room_sid
+        :returns: A system-generated 34-character string that uniquely identifies.
         :rtype: unicode
         """
         return self._properties['room_sid']
@@ -413,7 +413,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique ID of the Account associated with this Room.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -421,7 +421,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: The status
+        :returns: A string representing the status of the Participant.
         :rtype: ParticipantInstance.Status
         """
         return self._properties['status']
@@ -429,7 +429,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def identity(self):
         """
-        :returns: The identity
+        :returns: The unique name identifier that is assigned to this Participant.
         :rtype: unicode
         """
         return self._properties['identity']
@@ -437,7 +437,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date that this resource was created, given as a UTC ISO 8601 Timestamp.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -445,7 +445,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date that this resource was last updated, given as a UTC ISO 8601 Timestamp.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -453,7 +453,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def start_time(self):
         """
-        :returns: The start_time
+        :returns: The time of Participant connected to the Room, given as a UTC ISO 8601 Timestamp.
         :rtype: datetime
         """
         return self._properties['start_time']
@@ -461,7 +461,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def end_time(self):
         """
-        :returns: The end_time
+        :returns: The time of Participant disconnected from the Room, given as a UTC ISO 8601 Timestamp.
         :rtype: datetime
         """
         return self._properties['end_time']
@@ -469,7 +469,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def duration(self):
         """
-        :returns: The duration
+        :returns: Duration of time in seconds this Participant was connected.
         :rtype: unicode
         """
         return self._properties['duration']
@@ -477,7 +477,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL for this resource.
         :rtype: unicode
         """
         return self._properties['url']
@@ -503,7 +503,7 @@ class ParticipantInstance(InstanceResource):
         """
         Update the ParticipantInstance
 
-        :param ParticipantInstance.Status status: The status
+        :param ParticipantInstance.Status status: Set to disconnected to remove participant.
 
         :returns: Updated ParticipantInstance
         :rtype: twilio.rest.video.v1.room.room_participant.ParticipantInstance

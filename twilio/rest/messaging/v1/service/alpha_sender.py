@@ -23,7 +23,7 @@ class AlphaSenderList(ListResource):
         Initialize the AlphaSenderList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
+        :param service_sid: The 34 character unique sid of the Messaging Service.
 
         :returns: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderList
         :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderList
@@ -38,7 +38,7 @@ class AlphaSenderList(ListResource):
         """
         Create a new AlphaSenderInstance
 
-        :param unicode alpha_sender: The alpha_sender
+        :param unicode alpha_sender: An Alphanumeric Sender ID string, up to 11 characters.
 
         :returns: Newly created AlphaSenderInstance
         :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance
@@ -176,7 +176,7 @@ class AlphaSenderPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The service_sid
+        :param service_sid: The 34 character unique sid of the Messaging Service.
 
         :returns: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderPage
         :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderPage
@@ -319,7 +319,7 @@ class AlphaSenderInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: The 34 character unique sid of the Alpha Sender ID.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -327,7 +327,7 @@ class AlphaSenderInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The 34 character unique sid of the Account.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -335,7 +335,7 @@ class AlphaSenderInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The service_sid
+        :returns: The 34 character unique sid of the Messaging Service.
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -343,7 +343,7 @@ class AlphaSenderInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date that this resource was created.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -351,7 +351,7 @@ class AlphaSenderInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date that this resource was last updated.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -359,7 +359,7 @@ class AlphaSenderInstance(InstanceResource):
     @property
     def alpha_sender(self):
         """
-        :returns: The alpha_sender
+        :returns: An Alphanumeric Sender ID string, up to 11 characters.
         :rtype: unicode
         """
         return self._properties['alpha_sender']
@@ -367,7 +367,7 @@ class AlphaSenderInstance(InstanceResource):
     @property
     def capabilities(self):
         """
-        :returns: The capabilities
+        :returns: An array of values that indicate whether the number can receive calls or messages.
         :rtype: dict
         """
         return self._properties['capabilities']
@@ -375,7 +375,7 @@ class AlphaSenderInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL for this resource.
         :rtype: unicode
         """
         return self._properties['url']

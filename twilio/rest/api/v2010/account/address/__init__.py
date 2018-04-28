@@ -23,7 +23,7 @@ class AddressList(ListResource):
         Initialize the AddressList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
+        :param account_sid: The unique id of the Account responsible for this address.
 
         :returns: twilio.rest.api.v2010.account.address.AddressList
         :rtype: twilio.rest.api.v2010.account.address.AddressList
@@ -40,15 +40,15 @@ class AddressList(ListResource):
         """
         Create a new AddressInstance
 
-        :param unicode customer_name: The customer_name
-        :param unicode street: The street
-        :param unicode city: The city
-        :param unicode region: The region
-        :param unicode postal_code: The postal_code
-        :param unicode iso_country: The iso_country
-        :param unicode friendly_name: The friendly_name
+        :param unicode customer_name: Your name or business name, or that of your customer.
+        :param unicode street: The number and street address where you or your customer is located.
+        :param unicode city: The city in which you or your customer is located.
+        :param unicode region: The state or region in which you or your customer is located.
+        :param unicode postal_code: The postal code in which you or your customer is located.
+        :param unicode iso_country: The ISO country code of your or your customer's address.
+        :param unicode friendly_name: A human-readable description of the new address.
         :param bool emergency_enabled: The emergency_enabled
-        :param bool auto_correct_address: The auto_correct_address
+        :param bool auto_correct_address: If you don't set a value for this parameter, or if you set it to true, then the system will, if necessary, auto-correct the address you provide.
 
         :returns: Newly created AddressInstance
         :rtype: twilio.rest.api.v2010.account.address.AddressInstance
@@ -81,9 +81,9 @@ class AddressList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode customer_name: The customer_name
-        :param unicode friendly_name: The friendly_name
-        :param unicode iso_country: The iso_country
+        :param unicode customer_name: Only return the Address resources with customer names that exactly match this name.
+        :param unicode friendly_name: Only return the Address resources with friendly names that exactly match this name.
+        :param unicode iso_country: Only return the Address resources in this country.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -112,9 +112,9 @@ class AddressList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode customer_name: The customer_name
-        :param unicode friendly_name: The friendly_name
-        :param unicode iso_country: The iso_country
+        :param unicode customer_name: Only return the Address resources with customer names that exactly match this name.
+        :param unicode friendly_name: Only return the Address resources with friendly names that exactly match this name.
+        :param unicode iso_country: Only return the Address resources in this country.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -140,9 +140,9 @@ class AddressList(ListResource):
         Retrieve a single page of AddressInstance records from the API.
         Request is executed immediately
 
-        :param unicode customer_name: The customer_name
-        :param unicode friendly_name: The friendly_name
-        :param unicode iso_country: The iso_country
+        :param unicode customer_name: Only return the Address resources with customer names that exactly match this name.
+        :param unicode friendly_name: Only return the Address resources with friendly names that exactly match this name.
+        :param unicode iso_country: Only return the Address resources in this country.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -225,7 +225,7 @@ class AddressPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The account_sid
+        :param account_sid: The unique id of the Account responsible for this address.
 
         :returns: twilio.rest.api.v2010.account.address.AddressPage
         :rtype: twilio.rest.api.v2010.account.address.AddressPage
@@ -317,14 +317,14 @@ class AddressContext(InstanceContext):
         """
         Update the AddressInstance
 
-        :param unicode friendly_name: The friendly_name
-        :param unicode customer_name: The customer_name
-        :param unicode street: The street
-        :param unicode city: The city
-        :param unicode region: The region
-        :param unicode postal_code: The postal_code
+        :param unicode friendly_name: A human-readable description of the address.
+        :param unicode customer_name: Your name or business name, or that of your customer.
+        :param unicode street: The number and street address where you or your customer is located.
+        :param unicode city: The city in which you or your customer is located.
+        :param unicode region: The state or region in which you or your customer is located.
+        :param unicode postal_code: The postal code in which you or your customer is located.
         :param bool emergency_enabled: The emergency_enabled
-        :param bool auto_correct_address: The auto_correct_address
+        :param bool auto_correct_address: If you don't set a value for this parameter, or if you set it to true, then the system will, if necessary, auto-correct the address you provide.
 
         :returns: Updated AddressInstance
         :rtype: twilio.rest.api.v2010.account.address.AddressInstance
@@ -434,7 +434,7 @@ class AddressInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique id of the Account responsible for this address.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -442,7 +442,7 @@ class AddressInstance(InstanceResource):
     @property
     def city(self):
         """
-        :returns: The city
+        :returns: The city in which you or your customer is located.
         :rtype: unicode
         """
         return self._properties['city']
@@ -450,7 +450,7 @@ class AddressInstance(InstanceResource):
     @property
     def customer_name(self):
         """
-        :returns: The customer_name
+        :returns: Your name or business name, or that of your customer.
         :rtype: unicode
         """
         return self._properties['customer_name']
@@ -474,7 +474,7 @@ class AddressInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The friendly_name
+        :returns: A human-readable description of the address.
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -482,7 +482,7 @@ class AddressInstance(InstanceResource):
     @property
     def iso_country(self):
         """
-        :returns: The iso_country
+        :returns: The ISO country code of your or your customer's address.
         :rtype: unicode
         """
         return self._properties['iso_country']
@@ -490,7 +490,7 @@ class AddressInstance(InstanceResource):
     @property
     def postal_code(self):
         """
-        :returns: The postal_code
+        :returns: The postal code in which you or your customer is located.
         :rtype: unicode
         """
         return self._properties['postal_code']
@@ -498,7 +498,7 @@ class AddressInstance(InstanceResource):
     @property
     def region(self):
         """
-        :returns: The region
+        :returns: The state or region in which you or your customer is located.
         :rtype: unicode
         """
         return self._properties['region']
@@ -506,7 +506,7 @@ class AddressInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A 34 character string that uniquely identifies this address.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -514,7 +514,7 @@ class AddressInstance(InstanceResource):
     @property
     def street(self):
         """
-        :returns: The street
+        :returns: The number and street address where you or your customer is located.
         :rtype: unicode
         """
         return self._properties['street']
@@ -522,7 +522,7 @@ class AddressInstance(InstanceResource):
     @property
     def uri(self):
         """
-        :returns: The uri
+        :returns: The URI for this resource, relative to https://api.
         :rtype: unicode
         """
         return self._properties['uri']
@@ -530,7 +530,7 @@ class AddressInstance(InstanceResource):
     @property
     def emergency_enabled(self):
         """
-        :returns: The emergency_enabled
+        :returns: This is a value that indicates if emergency calling has been enabled on this number.
         :rtype: bool
         """
         return self._properties['emergency_enabled']
@@ -538,7 +538,7 @@ class AddressInstance(InstanceResource):
     @property
     def validated(self):
         """
-        :returns: The validated
+        :returns: In some countries, addresses are validated to comply with local regulation.
         :rtype: bool
         """
         return self._properties['validated']
@@ -568,14 +568,14 @@ class AddressInstance(InstanceResource):
         """
         Update the AddressInstance
 
-        :param unicode friendly_name: The friendly_name
-        :param unicode customer_name: The customer_name
-        :param unicode street: The street
-        :param unicode city: The city
-        :param unicode region: The region
-        :param unicode postal_code: The postal_code
+        :param unicode friendly_name: A human-readable description of the address.
+        :param unicode customer_name: Your name or business name, or that of your customer.
+        :param unicode street: The number and street address where you or your customer is located.
+        :param unicode city: The city in which you or your customer is located.
+        :param unicode region: The state or region in which you or your customer is located.
+        :param unicode postal_code: The postal code in which you or your customer is located.
         :param bool emergency_enabled: The emergency_enabled
-        :param bool auto_correct_address: The auto_correct_address
+        :param bool auto_correct_address: If you don't set a value for this parameter, or if you set it to true, then the system will, if necessary, auto-correct the address you provide.
 
         :returns: Updated AddressInstance
         :rtype: twilio.rest.api.v2010.account.address.AddressInstance

@@ -42,7 +42,7 @@ class ReservationList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param ReservationInstance.Status reservation_status: The reservation_status
+        :param ReservationInstance.Status reservation_status: Filter by a worker’s reservation status
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -65,7 +65,7 @@ class ReservationList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param ReservationInstance.Status reservation_status: The reservation_status
+        :param ReservationInstance.Status reservation_status: Filter by a worker’s reservation status
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -84,7 +84,7 @@ class ReservationList(ListResource):
         Retrieve a single page of ReservationInstance records from the API.
         Request is executed immediately
 
-        :param ReservationInstance.Status reservation_status: The reservation_status
+        :param ReservationInstance.Status reservation_status: Filter by a worker’s reservation status
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -290,22 +290,22 @@ class ReservationContext(InstanceContext):
         """
         Update the ReservationInstance
 
-        :param ReservationInstance.Status reservation_status: The reservation_status
-        :param unicode worker_activity_sid: The worker_activity_sid
-        :param unicode instruction: The instruction
-        :param unicode dequeue_post_work_activity_sid: The dequeue_post_work_activity_sid
-        :param unicode dequeue_from: The dequeue_from
+        :param ReservationInstance.Status reservation_status: Yes
+        :param unicode worker_activity_sid: No
+        :param unicode instruction: Yes
+        :param unicode dequeue_post_work_activity_sid: No
+        :param unicode dequeue_from: Yes
         :param unicode dequeue_record: The dequeue_record
         :param unicode dequeue_timeout: The dequeue_timeout
         :param unicode dequeue_to: The dequeue_to
         :param unicode dequeue_status_callback_url: The dequeue_status_callback_url
-        :param unicode call_from: The call_from
+        :param unicode call_from: Yes
         :param unicode call_record: The call_record
         :param unicode call_timeout: The call_timeout
         :param unicode call_to: The call_to
-        :param unicode call_url: The call_url
-        :param unicode call_status_callback_url: The call_status_callback_url
-        :param bool call_accept: The call_accept
+        :param unicode call_url: Yes
+        :param unicode call_status_callback_url: No
+        :param bool call_accept: No
         :param unicode redirect_call_sid: The redirect_call_sid
         :param bool redirect_accept: The redirect_accept
         :param unicode redirect_url: The redirect_url
@@ -523,7 +523,7 @@ class ReservationInstance(InstanceResource):
     @property
     def reservation_status(self):
         """
-        :returns: The reservation_status
+        :returns: Filter by a worker’s reservation status
         :rtype: ReservationInstance.Status
         """
         return self._properties['reservation_status']
@@ -627,22 +627,22 @@ class ReservationInstance(InstanceResource):
         """
         Update the ReservationInstance
 
-        :param ReservationInstance.Status reservation_status: The reservation_status
-        :param unicode worker_activity_sid: The worker_activity_sid
-        :param unicode instruction: The instruction
-        :param unicode dequeue_post_work_activity_sid: The dequeue_post_work_activity_sid
-        :param unicode dequeue_from: The dequeue_from
+        :param ReservationInstance.Status reservation_status: Yes
+        :param unicode worker_activity_sid: No
+        :param unicode instruction: Yes
+        :param unicode dequeue_post_work_activity_sid: No
+        :param unicode dequeue_from: Yes
         :param unicode dequeue_record: The dequeue_record
         :param unicode dequeue_timeout: The dequeue_timeout
         :param unicode dequeue_to: The dequeue_to
         :param unicode dequeue_status_callback_url: The dequeue_status_callback_url
-        :param unicode call_from: The call_from
+        :param unicode call_from: Yes
         :param unicode call_record: The call_record
         :param unicode call_timeout: The call_timeout
         :param unicode call_to: The call_to
-        :param unicode call_url: The call_url
-        :param unicode call_status_callback_url: The call_status_callback_url
-        :param bool call_accept: The call_accept
+        :param unicode call_url: Yes
+        :param unicode call_status_callback_url: No
+        :param bool call_accept: No
         :param unicode redirect_call_sid: The redirect_call_sid
         :param bool redirect_accept: The redirect_accept
         :param unicode redirect_url: The redirect_url

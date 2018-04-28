@@ -140,10 +140,10 @@ class WorkerStatisticsContext(InstanceContext):
         """
         Fetch a WorkerStatisticsInstance
 
-        :param unicode minutes: The minutes
-        :param datetime start_date: The start_date
-        :param datetime end_date: The end_date
-        :param unicode task_channel: The task_channel
+        :param unicode minutes: Filter cumulative statistics by up to ‘x’ minutes in the past.
+        :param datetime start_date: Filter cumulative statistics by a start date.
+        :param datetime end_date: Filter cumulative statistics by a end date.
+        :param unicode task_channel: Filter cumulative statistics by TaskChannel.
 
         :returns: Fetched WorkerStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_statistics.WorkerStatisticsInstance
@@ -266,10 +266,10 @@ class WorkerStatisticsInstance(InstanceResource):
         """
         Fetch a WorkerStatisticsInstance
 
-        :param unicode minutes: The minutes
-        :param datetime start_date: The start_date
-        :param datetime end_date: The end_date
-        :param unicode task_channel: The task_channel
+        :param unicode minutes: Filter cumulative statistics by up to ‘x’ minutes in the past.
+        :param datetime start_date: Filter cumulative statistics by a start date.
+        :param datetime end_date: Filter cumulative statistics by a end date.
+        :param unicode task_channel: Filter cumulative statistics by TaskChannel.
 
         :returns: Fetched WorkerStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_statistics.WorkerStatisticsInstance

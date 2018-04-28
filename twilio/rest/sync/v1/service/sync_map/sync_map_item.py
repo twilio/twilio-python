@@ -24,8 +24,8 @@ class SyncMapItemList(ListResource):
         Initialize the SyncMapItemList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
-        :param map_sid: The map_sid
+        :param service_sid: The unique SID identifier of the Service Instance that hosts this Map object.
+        :param map_sid: The unique 34-character SID identifier of the Map containing this Item.
 
         :returns: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemList
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemList
@@ -42,7 +42,7 @@ class SyncMapItemList(ListResource):
 
         :param unicode key: The key
         :param dict data: The data
-        :param unicode ttl: The ttl
+        :param unicode ttl: Time-to-live of this Map in seconds, defaults to no expiration.
 
         :returns: Newly created SyncMapItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemInstance
@@ -214,8 +214,8 @@ class SyncMapItemPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The service_sid
-        :param map_sid: The map_sid
+        :param service_sid: The unique SID identifier of the Service Instance that hosts this Map object.
+        :param map_sid: The unique 34-character SID identifier of the Map containing this Item.
 
         :returns: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemPage
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemPage
@@ -309,8 +309,8 @@ class SyncMapItemContext(InstanceContext):
         """
         Update the SyncMapItemInstance
 
-        :param dict data: The data
-        :param unicode ttl: The ttl
+        :param dict data: Contains an arbitrary JSON object to be stored in this Map Item.
+        :param unicode ttl: New time-to-live of this Map in seconds.
 
         :returns: Updated SyncMapItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemInstance
@@ -407,7 +407,7 @@ class SyncMapItemInstance(InstanceResource):
     @property
     def key(self):
         """
-        :returns: The key
+        :returns: The unique user-defined key of this Map Item.
         :rtype: unicode
         """
         return self._properties['key']
@@ -415,7 +415,7 @@ class SyncMapItemInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique SID identifier of the Twilio Account.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -423,7 +423,7 @@ class SyncMapItemInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The service_sid
+        :returns: The unique SID identifier of the Service Instance that hosts this Map object.
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -431,7 +431,7 @@ class SyncMapItemInstance(InstanceResource):
     @property
     def map_sid(self):
         """
-        :returns: The map_sid
+        :returns: The unique 34-character SID identifier of the Map containing this Item.
         :rtype: unicode
         """
         return self._properties['map_sid']
@@ -439,7 +439,7 @@ class SyncMapItemInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL for this Map.
         :rtype: unicode
         """
         return self._properties['url']
@@ -447,7 +447,7 @@ class SyncMapItemInstance(InstanceResource):
     @property
     def revision(self):
         """
-        :returns: The revision
+        :returns: Contains the current revision of this Map, represented by a string identifier.
         :rtype: unicode
         """
         return self._properties['revision']
@@ -455,7 +455,7 @@ class SyncMapItemInstance(InstanceResource):
     @property
     def data(self):
         """
-        :returns: The data
+        :returns: Contains arbitrary user-defined, schema-less data that this Map Item stores, represented by a JSON object, up to 16KB.
         :rtype: dict
         """
         return self._properties['data']
@@ -463,7 +463,7 @@ class SyncMapItemInstance(InstanceResource):
     @property
     def date_expires(self):
         """
-        :returns: The date_expires
+        :returns: Contains the date this Map expires and gets deleted automatically.
         :rtype: datetime
         """
         return self._properties['date_expires']
@@ -471,7 +471,7 @@ class SyncMapItemInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date this Map was created, given in UTC ISO 8601 format.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -479,7 +479,7 @@ class SyncMapItemInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: Specifies the date this Map was last updated, given in UTC ISO 8601 format.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -487,7 +487,7 @@ class SyncMapItemInstance(InstanceResource):
     @property
     def created_by(self):
         """
-        :returns: The created_by
+        :returns: The identity of the Map creator.
         :rtype: unicode
         """
         return self._properties['created_by']
@@ -514,8 +514,8 @@ class SyncMapItemInstance(InstanceResource):
         """
         Update the SyncMapItemInstance
 
-        :param dict data: The data
-        :param unicode ttl: The ttl
+        :param dict data: Contains an arbitrary JSON object to be stored in this Map Item.
+        :param unicode ttl: New time-to-live of this Map in seconds.
 
         :returns: Updated SyncMapItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemInstance

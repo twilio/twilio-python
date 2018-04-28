@@ -54,7 +54,7 @@ class IncomingPhoneNumberList(ListResource):
         :param bool beta: Include new phone numbers
         :param unicode friendly_name: Filter by friendly name
         :param unicode phone_number: Filter by incoming phone number
-        :param unicode origin: The origin
+        :param unicode origin: Include phone numbers based on the origin, by default, phone numbers of all origin are included.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -88,7 +88,7 @@ class IncomingPhoneNumberList(ListResource):
         :param bool beta: Include new phone numbers
         :param unicode friendly_name: Filter by friendly name
         :param unicode phone_number: Filter by incoming phone number
-        :param unicode origin: The origin
+        :param unicode origin: Include phone numbers based on the origin, by default, phone numbers of all origin are included.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -119,7 +119,7 @@ class IncomingPhoneNumberList(ListResource):
         :param bool beta: Include new phone numbers
         :param unicode friendly_name: Filter by friendly name
         :param unicode phone_number: Filter by incoming phone number
-        :param unicode origin: The origin
+        :param unicode origin: Include phone numbers based on the origin, by default, phone numbers of all origin are included.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -685,7 +685,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
     @property
     def origin(self):
         """
-        :returns: The origin
+        :returns: Twilio owned phone numbers are marked as twilio while hosted phone numbers are marked as hosted.
         :rtype: unicode
         """
         return self._properties['origin']

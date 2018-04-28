@@ -213,7 +213,7 @@ class SyncListPermissionContext(InstanceContext):
         Initialize the SyncListPermissionContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
+        :param service_sid: Sync Service Instance SID or unique name.
         :param list_sid: Sync List SID or unique name.
         :param identity: Identity of the user to whom the Sync List Permission applies.
 

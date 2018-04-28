@@ -344,7 +344,7 @@ class ShortCodeInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this Short Code was created
+        :returns: The date this Short Code was added to the service
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -376,7 +376,7 @@ class ShortCodeInstance(InstanceResource):
     @property
     def capabilities(self):
         """
-        :returns: Nested resource URLs.
+        :returns: A list of capabilities.
         :rtype: unicode
         """
         return self._properties['capabilities']

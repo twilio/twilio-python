@@ -358,8 +358,8 @@ class HostedNumberOrderContext(InstanceContext):
         :param unicode verification_code: A verification code.
         :param HostedNumberOrderInstance.VerificationType verification_type: Verification Type.
         :param unicode verification_document_sid: Verification Document Sid
-        :param unicode extension: The extension
-        :param unicode call_delay: The call_delay
+        :param unicode extension: Digits to dial after connecting the verification call.
+        :param unicode call_delay: The number of seconds, between 0 and 60, to delay before initiating the verification call.
 
         :returns: Updated HostedNumberOrderInstance
         :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance
@@ -687,8 +687,8 @@ class HostedNumberOrderInstance(InstanceResource):
         :param unicode verification_code: A verification code.
         :param HostedNumberOrderInstance.VerificationType verification_type: Verification Type.
         :param unicode verification_document_sid: Verification Document Sid
-        :param unicode extension: The extension
-        :param unicode call_delay: The call_delay
+        :param unicode extension: Digits to dial after connecting the verification call.
+        :param unicode call_delay: The number of seconds, between 0 and 60, to delay before initiating the verification call.
 
         :returns: Updated HostedNumberOrderInstance
         :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance

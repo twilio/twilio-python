@@ -50,24 +50,24 @@ class LocalList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode area_code: The area_code
-        :param unicode contains: The contains
-        :param bool sms_enabled: The sms_enabled
-        :param bool mms_enabled: The mms_enabled
-        :param bool voice_enabled: The voice_enabled
-        :param bool exclude_all_address_required: The exclude_all_address_required
-        :param bool exclude_local_address_required: The exclude_local_address_required
-        :param bool exclude_foreign_address_required: The exclude_foreign_address_required
-        :param bool beta: The beta
-        :param unicode near_number: The near_number
-        :param unicode near_lat_long: The near_lat_long
-        :param unicode distance: The distance
-        :param unicode in_postal_code: The in_postal_code
-        :param unicode in_region: The in_region
-        :param unicode in_rate_center: The in_rate_center
-        :param unicode in_lata: The in_lata
-        :param unicode in_locality: The in_locality
-        :param bool fax_enabled: The fax_enabled
+        :param unicode area_code: Find phone numbers in the specified area code.
+        :param unicode contains: A pattern on which to match phone numbers.
+        :param bool sms_enabled: This indicates whether the phone numbers can receive text messages.
+        :param bool mms_enabled: This indicates whether the phone numbers can receive MMS messages.
+        :param bool voice_enabled: This indicates whether the phone numbers can receive calls.
+        :param bool exclude_all_address_required: Indicates whether the response includes phone numbers which require any Address.
+        :param bool exclude_local_address_required: Indicates whether the response includes phone numbers which require a local Address.
+        :param bool exclude_foreign_address_required: Indicates whether the response includes phone numbers which require a foreign Address.
+        :param bool beta: Include phone numbers new to the Twilio platform.
+        :param unicode near_number: Given a phone number, find a geographically close number within Distance miles.
+        :param unicode near_lat_long: Given a latitude/longitude pair lat,long find geographically close numbers within Distance miles.
+        :param unicode distance: Specifies the search radius for a Near- query in miles.
+        :param unicode in_postal_code: Limit results to a particular postal code.
+        :param unicode in_region: Limit results to a particular region.
+        :param unicode in_rate_center: Limit results to a specific rate center, or given a phone number search within the same rate center as that number.
+        :param unicode in_lata: Limit results to a specific Local access and transport area.
+        :param unicode in_locality: Limit results to a particular locality.
+        :param bool fax_enabled: This indicates whether the phone numbers can receive faxes.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -119,24 +119,24 @@ class LocalList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode area_code: The area_code
-        :param unicode contains: The contains
-        :param bool sms_enabled: The sms_enabled
-        :param bool mms_enabled: The mms_enabled
-        :param bool voice_enabled: The voice_enabled
-        :param bool exclude_all_address_required: The exclude_all_address_required
-        :param bool exclude_local_address_required: The exclude_local_address_required
-        :param bool exclude_foreign_address_required: The exclude_foreign_address_required
-        :param bool beta: The beta
-        :param unicode near_number: The near_number
-        :param unicode near_lat_long: The near_lat_long
-        :param unicode distance: The distance
-        :param unicode in_postal_code: The in_postal_code
-        :param unicode in_region: The in_region
-        :param unicode in_rate_center: The in_rate_center
-        :param unicode in_lata: The in_lata
-        :param unicode in_locality: The in_locality
-        :param bool fax_enabled: The fax_enabled
+        :param unicode area_code: Find phone numbers in the specified area code.
+        :param unicode contains: A pattern on which to match phone numbers.
+        :param bool sms_enabled: This indicates whether the phone numbers can receive text messages.
+        :param bool mms_enabled: This indicates whether the phone numbers can receive MMS messages.
+        :param bool voice_enabled: This indicates whether the phone numbers can receive calls.
+        :param bool exclude_all_address_required: Indicates whether the response includes phone numbers which require any Address.
+        :param bool exclude_local_address_required: Indicates whether the response includes phone numbers which require a local Address.
+        :param bool exclude_foreign_address_required: Indicates whether the response includes phone numbers which require a foreign Address.
+        :param bool beta: Include phone numbers new to the Twilio platform.
+        :param unicode near_number: Given a phone number, find a geographically close number within Distance miles.
+        :param unicode near_lat_long: Given a latitude/longitude pair lat,long find geographically close numbers within Distance miles.
+        :param unicode distance: Specifies the search radius for a Near- query in miles.
+        :param unicode in_postal_code: Limit results to a particular postal code.
+        :param unicode in_region: Limit results to a particular region.
+        :param unicode in_rate_center: Limit results to a specific rate center, or given a phone number search within the same rate center as that number.
+        :param unicode in_lata: Limit results to a specific Local access and transport area.
+        :param unicode in_locality: Limit results to a particular locality.
+        :param bool fax_enabled: This indicates whether the phone numbers can receive faxes.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -185,24 +185,24 @@ class LocalList(ListResource):
         Retrieve a single page of LocalInstance records from the API.
         Request is executed immediately
 
-        :param unicode area_code: The area_code
-        :param unicode contains: The contains
-        :param bool sms_enabled: The sms_enabled
-        :param bool mms_enabled: The mms_enabled
-        :param bool voice_enabled: The voice_enabled
-        :param bool exclude_all_address_required: The exclude_all_address_required
-        :param bool exclude_local_address_required: The exclude_local_address_required
-        :param bool exclude_foreign_address_required: The exclude_foreign_address_required
-        :param bool beta: The beta
-        :param unicode near_number: The near_number
-        :param unicode near_lat_long: The near_lat_long
-        :param unicode distance: The distance
-        :param unicode in_postal_code: The in_postal_code
-        :param unicode in_region: The in_region
-        :param unicode in_rate_center: The in_rate_center
-        :param unicode in_lata: The in_lata
-        :param unicode in_locality: The in_locality
-        :param bool fax_enabled: The fax_enabled
+        :param unicode area_code: Find phone numbers in the specified area code.
+        :param unicode contains: A pattern on which to match phone numbers.
+        :param bool sms_enabled: This indicates whether the phone numbers can receive text messages.
+        :param bool mms_enabled: This indicates whether the phone numbers can receive MMS messages.
+        :param bool voice_enabled: This indicates whether the phone numbers can receive calls.
+        :param bool exclude_all_address_required: Indicates whether the response includes phone numbers which require any Address.
+        :param bool exclude_local_address_required: Indicates whether the response includes phone numbers which require a local Address.
+        :param bool exclude_foreign_address_required: Indicates whether the response includes phone numbers which require a foreign Address.
+        :param bool beta: Include phone numbers new to the Twilio platform.
+        :param unicode near_number: Given a phone number, find a geographically close number within Distance miles.
+        :param unicode near_lat_long: Given a latitude/longitude pair lat,long find geographically close numbers within Distance miles.
+        :param unicode distance: Specifies the search radius for a Near- query in miles.
+        :param unicode in_postal_code: Limit results to a particular postal code.
+        :param unicode in_region: Limit results to a particular region.
+        :param unicode in_rate_center: Limit results to a specific rate center, or given a phone number search within the same rate center as that number.
+        :param unicode in_lata: Limit results to a specific Local access and transport area.
+        :param unicode in_locality: Limit results to a particular locality.
+        :param bool fax_enabled: This indicates whether the phone numbers can receive faxes.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -351,7 +351,7 @@ class LocalInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The friendly_name
+        :returns: A nicely-formatted version of the phone number.
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -359,7 +359,7 @@ class LocalInstance(InstanceResource):
     @property
     def phone_number(self):
         """
-        :returns: The phone_number
+        :returns: The phone number, in E.
         :rtype: unicode
         """
         return self._properties['phone_number']
@@ -367,7 +367,7 @@ class LocalInstance(InstanceResource):
     @property
     def lata(self):
         """
-        :returns: The lata
+        :returns: The LATA of this phone number.
         :rtype: unicode
         """
         return self._properties['lata']
@@ -375,7 +375,7 @@ class LocalInstance(InstanceResource):
     @property
     def locality(self):
         """
-        :returns: The locality
+        :returns: The locality/city of this phone number.
         :rtype: unicode
         """
         return self._properties['locality']
@@ -383,7 +383,7 @@ class LocalInstance(InstanceResource):
     @property
     def rate_center(self):
         """
-        :returns: The rate_center
+        :returns: The rate center of this phone number.
         :rtype: unicode
         """
         return self._properties['rate_center']
@@ -391,7 +391,7 @@ class LocalInstance(InstanceResource):
     @property
     def latitude(self):
         """
-        :returns: The latitude
+        :returns: The latitude coordinate of this phone number.
         :rtype: unicode
         """
         return self._properties['latitude']
@@ -399,7 +399,7 @@ class LocalInstance(InstanceResource):
     @property
     def longitude(self):
         """
-        :returns: The longitude
+        :returns: The longitude coordinate of this phone number.
         :rtype: unicode
         """
         return self._properties['longitude']
@@ -407,7 +407,7 @@ class LocalInstance(InstanceResource):
     @property
     def region(self):
         """
-        :returns: The region
+        :returns: The two-letter state or province abbreviation of this phone number.
         :rtype: unicode
         """
         return self._properties['region']
@@ -415,7 +415,7 @@ class LocalInstance(InstanceResource):
     @property
     def postal_code(self):
         """
-        :returns: The postal_code
+        :returns: The postal code of this phone number.
         :rtype: unicode
         """
         return self._properties['postal_code']
@@ -423,7 +423,7 @@ class LocalInstance(InstanceResource):
     @property
     def iso_country(self):
         """
-        :returns: The iso_country
+        :returns: The ISO country code of this phone number.
         :rtype: unicode
         """
         return self._properties['iso_country']
@@ -431,7 +431,7 @@ class LocalInstance(InstanceResource):
     @property
     def address_requirements(self):
         """
-        :returns: The address_requirements
+        :returns: This indicates whether the phone number requires you or your customer to have an Address registered with Twilio.
         :rtype: unicode
         """
         return self._properties['address_requirements']
@@ -439,7 +439,7 @@ class LocalInstance(InstanceResource):
     @property
     def beta(self):
         """
-        :returns: The beta
+        :returns: Phone numbers new to the Twilio platform are marked as beta.
         :rtype: bool
         """
         return self._properties['beta']
@@ -447,7 +447,7 @@ class LocalInstance(InstanceResource):
     @property
     def capabilities(self):
         """
-        :returns: The capabilities
+        :returns: This is a set of boolean properties that indicate whether a phone number can receive calls or messages.
         :rtype: unicode
         """
         return self._properties['capabilities']

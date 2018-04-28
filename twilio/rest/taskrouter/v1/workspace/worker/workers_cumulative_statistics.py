@@ -135,10 +135,10 @@ class WorkersCumulativeStatisticsContext(InstanceContext):
         """
         Fetch a WorkersCumulativeStatisticsInstance
 
-        :param datetime end_date: The end_date
-        :param unicode minutes: The minutes
-        :param datetime start_date: The start_date
-        :param unicode task_channel: The task_channel
+        :param datetime end_date: Filter cumulative statistics by a end date.
+        :param unicode minutes: Filter cumulative statistics by up to ‘x’ minutes in the past.
+        :param datetime start_date: Filter cumulative statistics by a start date.
+        :param unicode task_channel: Filter cumulative statistics by TaskChannel.
 
         :returns: Fetched WorkersCumulativeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsInstance
@@ -248,7 +248,7 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
     @property
     def activity_durations(self):
         """
-        :returns: The activity_durations
+        :returns: The minimum, average, maximum and total time Workers spent in each Activity
         :rtype: dict
         """
         return self._properties['activity_durations']
@@ -256,7 +256,7 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
     @property
     def reservations_created(self):
         """
-        :returns: The reservations_created
+        :returns: The total number of Reservations that were created
         :rtype: unicode
         """
         return self._properties['reservations_created']
@@ -264,7 +264,7 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
     @property
     def reservations_accepted(self):
         """
-        :returns: The reservations_accepted
+        :returns: The total number of Reservations that were accepted
         :rtype: unicode
         """
         return self._properties['reservations_accepted']
@@ -272,7 +272,7 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
     @property
     def reservations_rejected(self):
         """
-        :returns: The reservations_rejected
+        :returns: The total number of Reservations that were rejected
         :rtype: unicode
         """
         return self._properties['reservations_rejected']
@@ -280,7 +280,7 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
     @property
     def reservations_timed_out(self):
         """
-        :returns: The reservations_timed_out
+        :returns: The total number of Reservations that were timed out
         :rtype: unicode
         """
         return self._properties['reservations_timed_out']
@@ -288,7 +288,7 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
     @property
     def reservations_canceled(self):
         """
-        :returns: The reservations_canceled
+        :returns: The total number of Reservations that were canceled
         :rtype: unicode
         """
         return self._properties['reservations_canceled']
@@ -296,7 +296,7 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
     @property
     def reservations_rescinded(self):
         """
-        :returns: The reservations_rescinded
+        :returns: The total number of Reservations that were rescinded
         :rtype: unicode
         """
         return self._properties['reservations_rescinded']
@@ -322,10 +322,10 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
         """
         Fetch a WorkersCumulativeStatisticsInstance
 
-        :param datetime end_date: The end_date
-        :param unicode minutes: The minutes
-        :param datetime start_date: The start_date
-        :param unicode task_channel: The task_channel
+        :param datetime end_date: Filter cumulative statistics by a end date.
+        :param unicode minutes: Filter cumulative statistics by up to ‘x’ minutes in the past.
+        :param datetime start_date: Filter cumulative statistics by a start date.
+        :param unicode task_channel: Filter cumulative statistics by TaskChannel.
 
         :returns: Fetched WorkersCumulativeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsInstance

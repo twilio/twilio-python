@@ -155,42 +155,37 @@ class CompositionList(ListResource):
 
         return CompositionPage(self._version, response, self._solution)
 
-    def create(self, audio_sources=values.unset, video_sources=values.unset,
-               video_layout=values.unset, resolution=values.unset,
-               format=values.unset, desired_bitrate=values.unset,
-               desired_max_duration=values.unset, status_callback=values.unset,
-               status_callback_method=values.unset, trim=values.unset,
-               reuse=values.unset):
+    def create(self, room_sid=values.unset, video_layout=values.unset,
+               audio_sources=values.unset, audio_sources_excluded=values.unset,
+               resolution=values.unset, format=values.unset,
+               status_callback=values.unset, status_callback_method=values.unset,
+               trim=values.unset):
         """
         Create a new CompositionInstance
 
+        :param unicode room_sid: The room_sid
+        :param dict video_layout: The video_layout
         :param unicode audio_sources: The audio_sources
-        :param unicode video_sources: The video_sources
-        :param CompositionInstance.VideoLayout video_layout: The video_layout
+        :param unicode audio_sources_excluded: The audio_sources_excluded
         :param unicode resolution: The resolution
         :param CompositionInstance.Format format: The format
-        :param unicode desired_bitrate: The desired_bitrate
-        :param unicode desired_max_duration: The desired_max_duration
         :param unicode status_callback: The status_callback
         :param unicode status_callback_method: The status_callback_method
         :param bool trim: The trim
-        :param bool reuse: The reuse
 
         :returns: Newly created CompositionInstance
         :rtype: twilio.rest.video.v1.composition.CompositionInstance
         """
         data = values.of({
+            'RoomSid': room_sid,
+            'VideoLayout': serialize.object(video_layout),
             'AudioSources': serialize.map(audio_sources, lambda e: e),
-            'VideoSources': serialize.map(video_sources, lambda e: e),
-            'VideoLayout': video_layout,
+            'AudioSourcesExcluded': serialize.map(audio_sources_excluded, lambda e: e),
             'Resolution': resolution,
             'Format': format,
-            'DesiredBitrate': desired_bitrate,
-            'DesiredMaxDuration': desired_max_duration,
             'StatusCallback': status_callback,
             'StatusCallbackMethod': status_callback_method,
             'Trim': trim,
-            'Reuse': reuse,
         })
 
         payload = self._version.create(
@@ -351,12 +346,6 @@ class CompositionInstance(InstanceResource):
         MP4 = "mp4"
         WEBM = "webm"
 
-    class VideoLayout(object):
-        GRID = "grid"
-        SINGLE = "single"
-        PIP = "pip"
-        SEQUENCE = "sequence"
-
     def __init__(self, version, payload, sid=None):
         """
         Initialize the CompositionInstance
@@ -374,16 +363,17 @@ class CompositionInstance(InstanceResource):
             'date_completed': payload['date_completed'],
             'date_deleted': payload['date_deleted'],
             'sid': payload['sid'],
+            'room_sid': payload['room_sid'],
             'audio_sources': payload['audio_sources'],
-            'video_sources': payload['video_sources'],
+            'audio_sources_excluded': payload['audio_sources_excluded'],
             'video_layout': payload['video_layout'],
             'resolution': payload['resolution'],
+            'trim': payload['trim'],
             'format': payload['format'],
             'bitrate': deserialize.integer(payload['bitrate']),
-            'size': deserialize.integer(payload['size']),
+            'size': payload['size'],
             'duration': deserialize.integer(payload['duration']),
             'url': payload['url'],
-            'room_sid': payload['room_sid'],
             'links': payload['links'],
         }
 
@@ -453,6 +443,14 @@ class CompositionInstance(InstanceResource):
         return self._properties['sid']
 
     @property
+    def room_sid(self):
+        """
+        :returns: The room_sid
+        :rtype: unicode
+        """
+        return self._properties['room_sid']
+
+    @property
     def audio_sources(self):
         """
         :returns: The audio_sources
@@ -461,18 +459,18 @@ class CompositionInstance(InstanceResource):
         return self._properties['audio_sources']
 
     @property
-    def video_sources(self):
+    def audio_sources_excluded(self):
         """
-        :returns: The video_sources
+        :returns: The audio_sources_excluded
         :rtype: unicode
         """
-        return self._properties['video_sources']
+        return self._properties['audio_sources_excluded']
 
     @property
     def video_layout(self):
         """
         :returns: The video_layout
-        :rtype: CompositionInstance.VideoLayout
+        :rtype: dict
         """
         return self._properties['video_layout']
 
@@ -483,6 +481,14 @@ class CompositionInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['resolution']
+
+    @property
+    def trim(self):
+        """
+        :returns: The trim
+        :rtype: bool
+        """
+        return self._properties['trim']
 
     @property
     def format(self):
@@ -523,14 +529,6 @@ class CompositionInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['url']
-
-    @property
-    def room_sid(self):
-        """
-        :returns: The room_sid
-        :rtype: unicode
-        """
-        return self._properties['room_sid']
 
     @property
     def links(self):

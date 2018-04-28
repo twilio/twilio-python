@@ -45,7 +45,7 @@ class SessionList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode unique_name: A unique, developer assigned name of this Session.
+        :param unicode unique_name: The unique_name
         :param SessionInstance.Status status: The Status of this Session
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
@@ -70,7 +70,7 @@ class SessionList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode unique_name: A unique, developer assigned name of this Session.
+        :param unicode unique_name: The unique_name
         :param SessionInstance.Status status: The Status of this Session
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
@@ -91,7 +91,7 @@ class SessionList(ListResource):
         Retrieve a single page of SessionInstance records from the API.
         Request is executed immediately
 
-        :param unicode unique_name: A unique, developer assigned name of this Session.
+        :param unicode unique_name: The unique_name
         :param SessionInstance.Status status: The Status of this Session
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
@@ -140,11 +140,11 @@ class SessionList(ListResource):
         Create a new SessionInstance
 
         :param unicode unique_name: A unique, developer assigned name of this Session.
-        :param datetime date_expiry: The date this Session was expiry
+        :param datetime date_expiry: The date this Session should expire
         :param unicode ttl: TTL for a Session, in seconds.
         :param SessionInstance.Mode mode: The Mode of this Session
-        :param SessionInstance.Status status: The Status of this Session
-        :param dict participants: A list of phone numbers to add to this Session.
+        :param SessionInstance.Status status: Session status
+        :param dict participants: The participants
 
         :returns: Newly created SessionInstance
         :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
@@ -301,12 +301,12 @@ class SessionContext(InstanceContext):
         """
         Update the SessionInstance
 
-        :param unicode unique_name: A unique, developer assigned name of this Session.
-        :param datetime date_expiry: The date this Session was expiry
+        :param unicode unique_name: The unique_name
+        :param datetime date_expiry: The date this Session should ge expired
         :param unicode ttl: TTL for a Session, in seconds.
-        :param SessionInstance.Mode mode: The Mode of this Session
+        :param SessionInstance.Mode mode: The mode
         :param SessionInstance.Status status: The Status of this Session
-        :param dict participants: A list of phone numbers to add to this Session.
+        :param dict participants: The participants
 
         :returns: Updated SessionInstance
         :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
@@ -594,12 +594,12 @@ class SessionInstance(InstanceResource):
         """
         Update the SessionInstance
 
-        :param unicode unique_name: A unique, developer assigned name of this Session.
-        :param datetime date_expiry: The date this Session was expiry
+        :param unicode unique_name: The unique_name
+        :param datetime date_expiry: The date this Session should ge expired
         :param unicode ttl: TTL for a Session, in seconds.
-        :param SessionInstance.Mode mode: The Mode of this Session
+        :param SessionInstance.Mode mode: The mode
         :param SessionInstance.Status status: The Status of this Session
-        :param dict participants: A list of phone numbers to add to this Session.
+        :param dict participants: The participants
 
         :returns: Updated SessionInstance
         :rtype: twilio.rest.proxy.v1.service.session.SessionInstance

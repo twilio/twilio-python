@@ -434,7 +434,7 @@ class InstalledAddOnInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links
+        :returns: A dictionary of URLs for related resource.
         :rtype: unicode
         """
         return self._properties['links']

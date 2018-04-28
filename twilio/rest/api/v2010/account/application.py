@@ -44,7 +44,7 @@ class ApplicationList(ListResource):
         """
         Create a new ApplicationInstance
 
-        :param unicode friendly_name: The friendly_name
+        :param unicode friendly_name: A human readable description of the application
         :param unicode api_version: The API version to use
         :param unicode voice_url: URL Twilio will make requests to when relieving a call
         :param unicode voice_method: HTTP method to use with the URL

@@ -39,11 +39,11 @@ class FeedbackSummaryList(ListResource):
         """
         Create a new FeedbackSummaryInstance
 
-        :param date start_date: The start_date
-        :param date end_date: The end_date
-        :param bool include_subaccounts: The include_subaccounts
-        :param unicode status_callback: The status_callback
-        :param unicode status_callback_method: The status_callback_method
+        :param date start_date: Only include usage that has occurred on or after this date.
+        :param date end_date: Only include usage that has occurred on or before this date.
+        :param bool include_subaccounts: true to include feedback entries for the master account and all subaccounts.
+        :param unicode status_callback: The URL that Twilio will request when the Feedback Summary is completed.
+        :param unicode status_callback_method: The HTTP method Twilio will use to make requests to the StatusCallback URL.
 
         :returns: Newly created FeedbackSummaryInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance

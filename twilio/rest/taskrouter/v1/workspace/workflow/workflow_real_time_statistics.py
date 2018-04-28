@@ -139,7 +139,7 @@ class WorkflowRealTimeStatisticsContext(InstanceContext):
         """
         Fetch a WorkflowRealTimeStatisticsInstance
 
-        :param unicode task_channel: The task_channel
+        :param unicode task_channel: Filter real-time and cumulative statistics by TaskChannel.
 
         :returns: Fetched WorkflowRealTimeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsInstance
@@ -226,7 +226,7 @@ class WorkflowRealTimeStatisticsInstance(InstanceResource):
     @property
     def longest_task_waiting_age(self):
         """
-        :returns: The longest_task_waiting_age
+        :returns: The age of the longest waiting Task
         :rtype: unicode
         """
         return self._properties['longest_task_waiting_age']
@@ -242,7 +242,7 @@ class WorkflowRealTimeStatisticsInstance(InstanceResource):
     @property
     def tasks_by_status(self):
         """
-        :returns: The tasks_by_status
+        :returns: The Tasks broken down by status
         :rtype: dict
         """
         return self._properties['tasks_by_status']
@@ -250,7 +250,7 @@ class WorkflowRealTimeStatisticsInstance(InstanceResource):
     @property
     def total_tasks(self):
         """
-        :returns: The total_tasks
+        :returns: The total number of Tasks
         :rtype: unicode
         """
         return self._properties['total_tasks']
@@ -283,7 +283,7 @@ class WorkflowRealTimeStatisticsInstance(InstanceResource):
         """
         Fetch a WorkflowRealTimeStatisticsInstance
 
-        :param unicode task_channel: The task_channel
+        :param unicode task_channel: Filter real-time and cumulative statistics by TaskChannel.
 
         :returns: Fetched WorkflowRealTimeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsInstance

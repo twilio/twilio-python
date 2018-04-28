@@ -132,8 +132,8 @@ class ParticipantList(ListResource):
 
         :param unicode identifier: The phone number of this Participant.
         :param unicode friendly_name: A human readable description of this resource.
-        :param unicode proxy_identifier: The proxy phone number for this Participant.
-        :param unicode proxy_identifier_sid: Proxy Identifier Sid.
+        :param unicode proxy_identifier: The proxy phone number to use for this Participant.
+        :param unicode proxy_identifier_sid: The proxy_identifier_sid
 
         :returns: Newly created ParticipantInstance
         :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
@@ -309,10 +309,10 @@ class ParticipantContext(InstanceContext):
         """
         Update the ParticipantInstance
 
-        :param unicode identifier: The phone number of this Participant.
-        :param unicode friendly_name: A human readable description of this resource.
-        :param unicode proxy_identifier: The proxy phone number for this Participant.
-        :param unicode proxy_identifier_sid: Proxy Identifier Sid.
+        :param unicode identifier: The identifier
+        :param unicode friendly_name: The friendly_name
+        :param unicode proxy_identifier: The proxy_identifier
+        :param unicode proxy_identifier_sid: The proxy_identifier_sid
 
         :returns: Updated ParticipantInstance
         :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
@@ -473,7 +473,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def proxy_identifier(self):
         """
-        :returns: The proxy_identifier
+        :returns: Proxy Identifier.
         :rtype: unicode
         """
         return self._properties['proxy_identifier']
@@ -549,10 +549,10 @@ class ParticipantInstance(InstanceResource):
         """
         Update the ParticipantInstance
 
-        :param unicode identifier: The phone number of this Participant.
-        :param unicode friendly_name: A human readable description of this resource.
-        :param unicode proxy_identifier: The proxy phone number for this Participant.
-        :param unicode proxy_identifier_sid: Proxy Identifier Sid.
+        :param unicode identifier: The identifier
+        :param unicode friendly_name: The friendly_name
+        :param unicode proxy_identifier: The proxy_identifier
+        :param unicode proxy_identifier_sid: The proxy_identifier_sid
 
         :returns: Updated ParticipantInstance
         :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance

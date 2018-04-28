@@ -362,7 +362,7 @@ class ConnectAppInstance(InstanceResource):
     @property
     def deauthorize_callback_method(self):
         """
-        :returns: HTTP method Twilio WIll use making requests to the url
+        :returns: HTTP method Twilio will use making requests to the url
         :rtype: unicode
         """
         return self._properties['deauthorize_callback_method']

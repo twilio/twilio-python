@@ -64,20 +64,20 @@ class CallList(ListResource):
         :param unicode fallback_url: Fallback URL in case of error
         :param unicode fallback_method: HTTP Method to use with FallbackUrl
         :param unicode status_callback: Status Callback URL
-        :param unicode status_callback_event: The status_callback_event
+        :param unicode status_callback_event: The call progress events that Twilio will send webhooks on.
         :param unicode status_callback_method: HTTP Method to use with StatusCallback
         :param unicode send_digits: Digits to send
         :param unicode if_machine: Action to take if a machine has answered the call
         :param unicode timeout: Number of seconds to wait for an answer
         :param bool record: Whether or not to record the Call
-        :param unicode recording_channels: The recording_channels
-        :param unicode recording_status_callback: The recording_status_callback
-        :param unicode recording_status_callback_method: The recording_status_callback_method
+        :param unicode recording_channels: mono or dualSet this parameter to specify the number of channels in the final recording.
+        :param unicode recording_status_callback: A URL that Twilio will send a webhook request to when the recording is available for access.
+        :param unicode recording_status_callback_method: The HTTP method Twilio should use when requesting the above URL.
         :param unicode sip_auth_username: The sip_auth_username
         :param unicode sip_auth_password: The sip_auth_password
         :param unicode machine_detection: Enable machine detection or end of greeting detection
         :param unicode machine_detection_timeout: Number of miliseconds to wait for machine detection
-        :param unicode recording_status_callback_event: The recording_status_callback_event
+        :param unicode recording_status_callback_event: The recording status changes that Twilio will send webhooks on to the URL specified in RecordingStatusCallback.
         :param unicode trim: Set this parameter to control trimming of silence on the recording.
         :param unicode caller_id: The phone number, SIP address or Client identifier that made this Call. Phone numbers are in E.164 format (e.g. +16175551212). SIP addresses are formatted as `name@company.com`.
         :param unicode url: Url from which to fetch TwiML
@@ -677,7 +677,7 @@ class CallInstance(InstanceResource):
     @property
     def duration(self):
         """
-        :returns: The duration
+        :returns: The length of the call in seconds.
         :rtype: unicode
         """
         return self._properties['duration']
@@ -773,7 +773,7 @@ class CallInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: The status
+        :returns: A string representing the status of the call.
         :rtype: CallInstance.Status
         """
         return self._properties['status']

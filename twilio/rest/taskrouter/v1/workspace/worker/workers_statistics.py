@@ -22,7 +22,7 @@ class WorkersStatisticsList(ListResource):
         Initialize the WorkersStatisticsList
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The workspace_sid
+        :param workspace_sid: The ID of the Workflow this worker is associated with
 
         :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_statistics.WorkersStatisticsList
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_statistics.WorkersStatisticsList
@@ -69,7 +69,7 @@ class WorkersStatisticsPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param workspace_sid: The workspace_sid
+        :param workspace_sid: The ID of the Workflow this worker is associated with
 
         :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_statistics.WorkersStatisticsPage
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_statistics.WorkersStatisticsPage
@@ -130,13 +130,13 @@ class WorkersStatisticsContext(InstanceContext):
         """
         Fetch a WorkersStatisticsInstance
 
-        :param unicode minutes: The minutes
-        :param datetime start_date: The start_date
-        :param datetime end_date: The end_date
-        :param unicode task_queue_sid: The task_queue_sid
-        :param unicode task_queue_name: The task_queue_name
+        :param unicode minutes: Filter cumulative statistics by up to ‘x’ minutes in the past.
+        :param datetime start_date: Filter cumulative statistics by a start date.
+        :param datetime end_date: Filter cumulative statistics by a end date.
+        :param unicode task_queue_sid: Filter the real-time and cumulative statistics based on Workers tied to a particular queue
+        :param unicode task_queue_name: Filter the real-time and cumulative statistics based on Workers tied to a particular queue
         :param unicode friendly_name: The friendly_name
-        :param unicode task_channel: The task_channel
+        :param unicode task_channel: Filter cumulative statistics by TaskChannel.
 
         :returns: Fetched WorkersStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_statistics.WorkersStatisticsInstance
@@ -262,13 +262,13 @@ class WorkersStatisticsInstance(InstanceResource):
         """
         Fetch a WorkersStatisticsInstance
 
-        :param unicode minutes: The minutes
-        :param datetime start_date: The start_date
-        :param datetime end_date: The end_date
-        :param unicode task_queue_sid: The task_queue_sid
-        :param unicode task_queue_name: The task_queue_name
+        :param unicode minutes: Filter cumulative statistics by up to ‘x’ minutes in the past.
+        :param datetime start_date: Filter cumulative statistics by a start date.
+        :param datetime end_date: Filter cumulative statistics by a end date.
+        :param unicode task_queue_sid: Filter the real-time and cumulative statistics based on Workers tied to a particular queue
+        :param unicode task_queue_name: Filter the real-time and cumulative statistics based on Workers tied to a particular queue
         :param unicode friendly_name: The friendly_name
-        :param unicode task_channel: The task_channel
+        :param unicode task_channel: Filter cumulative statistics by TaskChannel.
 
         :returns: Fetched WorkersStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_statistics.WorkersStatisticsInstance
