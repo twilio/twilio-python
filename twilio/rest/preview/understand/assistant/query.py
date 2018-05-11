@@ -24,7 +24,7 @@ class QueryList(ListResource):
         Initialize the QueryList
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The assistant_sid
+        :param assistant_sid: The unique ID of the parent Assistant.
 
         :returns: twilio.rest.preview.understand.assistant.query.QueryList
         :rtype: twilio.rest.preview.understand.assistant.query.QueryList
@@ -43,9 +43,9 @@ class QueryList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode language: The language
-        :param unicode model_build: The model_build
-        :param unicode status: The status
+        :param unicode language: An ISO language-country string of the sample.
+        :param unicode model_build: The Model Build Sid or unique name of the Model Build to be queried.
+        :param unicode status: A string that described the query status. The values can be: to_review, reviewed, discarded
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -74,9 +74,9 @@ class QueryList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode language: The language
-        :param unicode model_build: The model_build
-        :param unicode status: The status
+        :param unicode language: An ISO language-country string of the sample.
+        :param unicode model_build: The Model Build Sid or unique name of the Model Build to be queried.
+        :param unicode status: A string that described the query status. The values can be: to_review, reviewed, discarded
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -102,9 +102,9 @@ class QueryList(ListResource):
         Retrieve a single page of QueryInstance records from the API.
         Request is executed immediately
 
-        :param unicode language: The language
-        :param unicode model_build: The model_build
-        :param unicode status: The status
+        :param unicode language: An ISO language-country string of the sample.
+        :param unicode model_build: The Model Build Sid or unique name of the Model Build to be queried.
+        :param unicode status: A string that described the query status. The values can be: to_review, reviewed, discarded
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -151,11 +151,11 @@ class QueryList(ListResource):
         """
         Create a new QueryInstance
 
-        :param unicode language: The language
-        :param unicode query: The query
-        :param unicode intents: The intents
-        :param unicode model_build: The model_build
-        :param unicode field: The field
+        :param unicode language: An ISO language-country string of the sample.
+        :param unicode query: A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long.
+        :param unicode intents: Constraints the query to a set of intents. Useful when you need to constrain the paths the user can take. Intents should be comma separated intent-unique-name-1, intent-unique-name-2
+        :param unicode model_build: The Model Build Sid or unique name of the Model Build to be queried.
+        :param unicode field: Constraints the query to a given Field with an intent. Useful when you know the Field you are expecting. It accepts one field in the format intent-unique-name-1:field-unique-name
 
         :returns: Newly created QueryInstance
         :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
@@ -219,7 +219,7 @@ class QueryPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param assistant_sid: The assistant_sid
+        :param assistant_sid: The unique ID of the parent Assistant.
 
         :returns: twilio.rest.preview.understand.assistant.query.QueryPage
         :rtype: twilio.rest.preview.understand.assistant.query.QueryPage
@@ -299,7 +299,7 @@ class QueryContext(InstanceContext):
         Update the QueryInstance
 
         :param unicode sample_sid: The sample_sid
-        :param unicode status: The status
+        :param unicode status: A string that described the query status. The values can be: to_review, reviewed, discarded
 
         :returns: Updated QueryInstance
         :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
@@ -394,7 +394,7 @@ class QueryInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique ID of the Account that created this Query.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -402,7 +402,7 @@ class QueryInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date that this resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -410,7 +410,7 @@ class QueryInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date that this resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -418,7 +418,7 @@ class QueryInstance(InstanceResource):
     @property
     def results(self):
         """
-        :returns: The results
+        :returns: The natural language analysis results which include the Intent recognized, the confidence score and a list of identified Fields.
         :rtype: dict
         """
         return self._properties['results']
@@ -426,7 +426,7 @@ class QueryInstance(InstanceResource):
     @property
     def language(self):
         """
-        :returns: The language
+        :returns: An ISO language-country string of the sample.
         :rtype: unicode
         """
         return self._properties['language']
@@ -434,7 +434,7 @@ class QueryInstance(InstanceResource):
     @property
     def model_build_sid(self):
         """
-        :returns: The model_build_sid
+        :returns: The unique ID of the Model Build queried.
         :rtype: unicode
         """
         return self._properties['model_build_sid']
@@ -450,7 +450,7 @@ class QueryInstance(InstanceResource):
     @property
     def sample_sid(self):
         """
-        :returns: The sample_sid
+        :returns: An optional reference to the Sample created from this query.
         :rtype: unicode
         """
         return self._properties['sample_sid']
@@ -458,7 +458,7 @@ class QueryInstance(InstanceResource):
     @property
     def assistant_sid(self):
         """
-        :returns: The assistant_sid
+        :returns: The unique ID of the parent Assistant.
         :rtype: unicode
         """
         return self._properties['assistant_sid']
@@ -466,7 +466,7 @@ class QueryInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A 34 character string that uniquely identifies this resource.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -474,7 +474,7 @@ class QueryInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: The status
+        :returns: A string that described the query status. The values can be: to_review, reviewed, discarded
         :rtype: unicode
         """
         return self._properties['status']
@@ -509,7 +509,7 @@ class QueryInstance(InstanceResource):
         Update the QueryInstance
 
         :param unicode sample_sid: The sample_sid
-        :param unicode status: The status
+        :param unicode status: A string that described the query status. The values can be: to_review, reviewed, discarded
 
         :returns: Updated QueryInstance
         :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance

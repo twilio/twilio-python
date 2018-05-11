@@ -22,7 +22,7 @@ class UserChannelList(ListResource):
 
         :param Version version: Version that contains the resource
         :param service_sid: The service_sid
-        :param user_sid: The sid
+        :param user_sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.chat.v1.service.user.user_channel.UserChannelList
         :rtype: twilio.rest.chat.v1.service.user.user_channel.UserChannelList
@@ -134,7 +134,7 @@ class UserChannelPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
         :param service_sid: The service_sid
-        :param user_sid: The sid
+        :param user_sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.chat.v1.service.user.user_channel.UserChannelPage
         :rtype: twilio.rest.chat.v1.service.user.user_channel.UserChannelPage

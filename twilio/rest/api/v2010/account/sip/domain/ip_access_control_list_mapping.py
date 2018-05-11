@@ -22,7 +22,7 @@ class IpAccessControlListMappingList(ListResource):
         Initialize the IpAccessControlListMappingList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
+        :param account_sid: The unique id of the Account that responsible for this resource.
         :param domain_sid: A string that uniquely identifies the SIP Domain
 
         :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingList
@@ -190,7 +190,7 @@ class IpAccessControlListMappingPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The account_sid
+        :param account_sid: The unique id of the Account that responsible for this resource.
         :param domain_sid: A string that uniquely identifies the SIP Domain
 
         :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingPage
@@ -343,7 +343,7 @@ class IpAccessControlListMappingInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique id of the Account that responsible for this resource.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -351,7 +351,7 @@ class IpAccessControlListMappingInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date that this resource was created, given as GMT in RFC 2822 format.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -359,7 +359,7 @@ class IpAccessControlListMappingInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date that this resource was last updated, given as GMT in RFC 2822 format.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -367,7 +367,7 @@ class IpAccessControlListMappingInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The friendly_name
+        :returns: A human readable descriptive text for this resource, up to 64 characters long.
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -375,7 +375,7 @@ class IpAccessControlListMappingInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A 34 character string that uniquely identifies this resource.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -383,7 +383,7 @@ class IpAccessControlListMappingInstance(InstanceResource):
     @property
     def uri(self):
         """
-        :returns: The uri
+        :returns: The URI for this resource, relative to https://api.twilio.com
         :rtype: unicode
         """
         return self._properties['uri']

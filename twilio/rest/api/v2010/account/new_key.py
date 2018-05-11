@@ -36,7 +36,7 @@ class NewKeyList(ListResource):
         """
         Create a new NewKeyInstance
 
-        :param unicode friendly_name: A descriptive string for this resource, chosen by your application, up to 64 characters long.
+        :param unicode friendly_name: The friendly_name
 
         :returns: Newly created NewKeyInstance
         :rtype: twilio.rest.api.v2010.account.new_key.NewKeyInstance
@@ -129,7 +129,7 @@ class NewKeyInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34 character string that uniquely identifies this API Key.
+        :returns: The sid
         :rtype: unicode
         """
         return self._properties['sid']
@@ -137,7 +137,7 @@ class NewKeyInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A descriptive string for this resource, chosen by your application, up to 64 characters long.
+        :returns: The friendly_name
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -145,7 +145,7 @@ class NewKeyInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date-time this API Key was created, given as a RFC 2822 Timestamp.
+        :returns: The date_created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -153,7 +153,7 @@ class NewKeyInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date-time this API Key was most recently updated, given as a  RFC 2822 Timestamp.
+        :returns: The date_updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -161,7 +161,7 @@ class NewKeyInstance(InstanceResource):
     @property
     def secret(self):
         """
-        :returns: The secret your application uses to sign Access Tokens and to authenticate to the REST API.
+        :returns: The secret
         :rtype: unicode
         """
         return self._properties['secret']

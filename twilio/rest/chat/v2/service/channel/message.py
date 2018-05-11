@@ -23,7 +23,7 @@ class MessageList(ListResource):
         Initialize the MessageList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
+        :param service_sid: The unique id of the Service this message belongs to.
         :param channel_sid: The channel_sid
 
         :returns: twilio.rest.chat.v2.service.channel.message.MessageList
@@ -83,7 +83,7 @@ class MessageList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param MessageInstance.OrderType order: The order
+        :param MessageInstance.OrderType order: Optional.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -106,7 +106,7 @@ class MessageList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param MessageInstance.OrderType order: The order
+        :param MessageInstance.OrderType order: Optional.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -125,7 +125,7 @@ class MessageList(ListResource):
         Retrieve a single page of MessageInstance records from the API.
         Request is executed immediately
 
-        :param MessageInstance.OrderType order: The order
+        :param MessageInstance.OrderType order: Optional.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -216,7 +216,7 @@ class MessagePage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The service_sid
+        :param service_sid: The unique id of the Service this message belongs to.
         :param channel_sid: The channel_sid
 
         :returns: twilio.rest.chat.v2.service.channel.message.MessagePage
@@ -312,11 +312,11 @@ class MessageContext(InstanceContext):
         """
         Update the MessageInstance
 
-        :param unicode body: The body
-        :param unicode attributes: The attributes
-        :param datetime date_created: The date_created
-        :param datetime date_updated: The date_updated
-        :param unicode last_updated_by: The last_updated_by
+        :param unicode body: The optional message body string.
+        :param unicode attributes: The optional attributes metadata field you can use to store any data you wish.
+        :param datetime date_created: The optional ISO8601 time specifying the datetime the Message should be set as being created.
+        :param datetime date_updated: The optional ISO8601 time specifying the datetime the Message should be set as having been last updated.
+        :param unicode last_updated_by: Optional field to specify the Identity of the User that last updated the Message
 
         :returns: Updated MessageInstance
         :rtype: twilio.rest.chat.v2.service.channel.message.MessageInstance
@@ -419,7 +419,7 @@ class MessageInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A 34 character string that uniquely identifies this resource.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -427,7 +427,7 @@ class MessageInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique id of the Account responsible for this message.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -435,7 +435,7 @@ class MessageInstance(InstanceResource):
     @property
     def attributes(self):
         """
-        :returns: The attributes
+        :returns: An optional string metadata field you can use to store any data you wish.
         :rtype: unicode
         """
         return self._properties['attributes']
@@ -443,7 +443,7 @@ class MessageInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The service_sid
+        :returns: The unique id of the Service this message belongs to.
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -451,7 +451,7 @@ class MessageInstance(InstanceResource):
     @property
     def to(self):
         """
-        :returns: The to
+        :returns: The unique id of the Channel this message was sent to.
         :rtype: unicode
         """
         return self._properties['to']
@@ -467,7 +467,7 @@ class MessageInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date that this resource was created.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -475,7 +475,7 @@ class MessageInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date that this resource was last updated.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -483,7 +483,7 @@ class MessageInstance(InstanceResource):
     @property
     def last_updated_by(self):
         """
-        :returns: The last_updated_by
+        :returns: Optional field to specify the Identity of the User that last updated the Message
         :rtype: unicode
         """
         return self._properties['last_updated_by']
@@ -491,7 +491,7 @@ class MessageInstance(InstanceResource):
     @property
     def was_edited(self):
         """
-        :returns: The was_edited
+        :returns: true if the message has been updated since it was created.
         :rtype: bool
         """
         return self._properties['was_edited']
@@ -499,7 +499,7 @@ class MessageInstance(InstanceResource):
     @property
     def from_(self):
         """
-        :returns: The from
+        :returns: The identity of the message's author.
         :rtype: unicode
         """
         return self._properties['from_']
@@ -507,7 +507,7 @@ class MessageInstance(InstanceResource):
     @property
     def body(self):
         """
-        :returns: The body
+        :returns: Optional — the contents of the message.
         :rtype: unicode
         """
         return self._properties['body']
@@ -515,7 +515,7 @@ class MessageInstance(InstanceResource):
     @property
     def index(self):
         """
-        :returns: The index
+        :returns: The index of the message within the Channel
         :rtype: unicode
         """
         return self._properties['index']
@@ -523,7 +523,7 @@ class MessageInstance(InstanceResource):
     @property
     def type(self):
         """
-        :returns: The type
+        :returns: Message type.
         :rtype: unicode
         """
         return self._properties['type']
@@ -531,7 +531,7 @@ class MessageInstance(InstanceResource):
     @property
     def media(self):
         """
-        :returns: The media
+        :returns: Optional — if a Media resource instance is attached to the Message, this will contain the Media object for the attached Media.
         :rtype: dict
         """
         return self._properties['media']
@@ -539,7 +539,7 @@ class MessageInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: An absolute URL for this message.
         :rtype: unicode
         """
         return self._properties['url']
@@ -568,11 +568,11 @@ class MessageInstance(InstanceResource):
         """
         Update the MessageInstance
 
-        :param unicode body: The body
-        :param unicode attributes: The attributes
-        :param datetime date_created: The date_created
-        :param datetime date_updated: The date_updated
-        :param unicode last_updated_by: The last_updated_by
+        :param unicode body: The optional message body string.
+        :param unicode attributes: The optional attributes metadata field you can use to store any data you wish.
+        :param datetime date_created: The optional ISO8601 time specifying the datetime the Message should be set as being created.
+        :param datetime date_updated: The optional ISO8601 time specifying the datetime the Message should be set as having been last updated.
+        :param unicode last_updated_by: Optional field to specify the Identity of the User that last updated the Message
 
         :returns: Updated MessageInstance
         :rtype: twilio.rest.chat.v2.service.channel.message.MessageInstance

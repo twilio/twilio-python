@@ -126,11 +126,11 @@ class AssistantList(ListResource):
         """
         Create a new AssistantInstance
 
-        :param unicode friendly_name: The friendly_name
-        :param bool log_queries: The log_queries
+        :param unicode friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
+        :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
         :param unicode ttl: The ttl
-        :param unicode unique_name: The unique_name
-        :param unicode response_url: The response_url
+        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :param unicode response_url: The webhook URL called to fetch the response to an incoming communication expressed in Assistant TwiML.
         :param unicode callback_url: The callback_url
         :param unicode callback_events: The callback_events
 
@@ -279,11 +279,11 @@ class AssistantContext(InstanceContext):
         """
         Update the AssistantInstance
 
-        :param unicode friendly_name: The friendly_name
-        :param bool log_queries: The log_queries
+        :param unicode friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
+        :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
         :param unicode ttl: The ttl
-        :param unicode unique_name: The unique_name
-        :param unicode response_url: The response_url
+        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :param unicode response_url: The webhook URL called to fetch the response to an incoming communication expressed in Assistant TwiML.
         :param unicode callback_url: The callback_url
         :param unicode callback_events: The callback_events
 
@@ -428,7 +428,7 @@ class AssistantInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique ID of the Account that created this Assistant.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -436,7 +436,7 @@ class AssistantInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date that this resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -444,7 +444,7 @@ class AssistantInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date that this resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -452,7 +452,7 @@ class AssistantInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The friendly_name
+        :returns: A text description for the Assistant. It is non-unique and can up to 255 characters long.
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -460,7 +460,7 @@ class AssistantInstance(InstanceResource):
     @property
     def latest_model_build_sid(self):
         """
-        :returns: The latest_model_build_sid
+        :returns: The unique ID (Sid) of the latest model build. Null if no model has been built.
         :rtype: unicode
         """
         return self._properties['latest_model_build_sid']
@@ -476,7 +476,7 @@ class AssistantInstance(InstanceResource):
     @property
     def log_queries(self):
         """
-        :returns: The log_queries
+        :returns: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter.
         :rtype: bool
         """
         return self._properties['log_queries']
@@ -484,7 +484,7 @@ class AssistantInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A 34 character string that uniquely identifies this resource.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -500,7 +500,7 @@ class AssistantInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: The unique_name
+        :returns: A user-provided string that uniquely identifies this resource as an alternative to the sid. You can use the unique name in the URL path. Unique up to 64 characters long.
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -516,7 +516,7 @@ class AssistantInstance(InstanceResource):
     @property
     def response_url(self):
         """
-        :returns: The response_url
+        :returns: The webhook URL called to fetch the response to an incoming communication expressed in Assistant TwiML.
         :rtype: unicode
         """
         return self._properties['response_url']
@@ -553,11 +553,11 @@ class AssistantInstance(InstanceResource):
         """
         Update the AssistantInstance
 
-        :param unicode friendly_name: The friendly_name
-        :param bool log_queries: The log_queries
+        :param unicode friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
+        :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
         :param unicode ttl: The ttl
-        :param unicode unique_name: The unique_name
-        :param unicode response_url: The response_url
+        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :param unicode response_url: The webhook URL called to fetch the response to an incoming communication expressed in Assistant TwiML.
         :param unicode callback_url: The callback_url
         :param unicode callback_events: The callback_events
 

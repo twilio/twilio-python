@@ -40,8 +40,8 @@ class SyncMapItemList(ListResource):
         """
         Create a new SyncMapItemInstance
 
-        :param unicode key: The key
-        :param dict data: The data
+        :param unicode key: The unique user-defined key of this Map Item.
+        :param dict data: Contains arbitrary user-defined, schema-less data that this Map Item stores, represented by a JSON object, up to 16KB.
         :param unicode ttl: Time-to-live of this Map in seconds, defaults to no expiration.
 
         :returns: Newly created SyncMapItemInstance
@@ -70,8 +70,8 @@ class SyncMapItemList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param SyncMapItemInstance.QueryResultOrder order: The order
-        :param unicode from_: The from
+        :param SyncMapItemInstance.QueryResultOrder order: A string; asc or desc. Map Items are ordered lexicographically by Item key.
+        :param unicode from_: The Item key offset (including the specified key).
         :param SyncMapItemInstance.QueryFromBoundType bounds: The bounds
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
@@ -96,8 +96,8 @@ class SyncMapItemList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param SyncMapItemInstance.QueryResultOrder order: The order
-        :param unicode from_: The from
+        :param SyncMapItemInstance.QueryResultOrder order: A string; asc or desc. Map Items are ordered lexicographically by Item key.
+        :param unicode from_: The Item key offset (including the specified key).
         :param SyncMapItemInstance.QueryFromBoundType bounds: The bounds
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
@@ -118,8 +118,8 @@ class SyncMapItemList(ListResource):
         Retrieve a single page of SyncMapItemInstance records from the API.
         Request is executed immediately
 
-        :param SyncMapItemInstance.QueryResultOrder order: The order
-        :param unicode from_: The from
+        :param SyncMapItemInstance.QueryResultOrder order: A string; asc or desc. Map Items are ordered lexicographically by Item key.
+        :param unicode from_: The Item key offset (including the specified key).
         :param SyncMapItemInstance.QueryFromBoundType bounds: The bounds
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state

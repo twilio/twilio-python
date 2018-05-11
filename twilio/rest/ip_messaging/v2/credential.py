@@ -119,13 +119,13 @@ class CredentialList(ListResource):
         """
         Create a new CredentialInstance
 
-        :param CredentialInstance.PushService type: The type
-        :param unicode friendly_name: The friendly_name
-        :param unicode certificate: The certificate
-        :param unicode private_key: The private_key
-        :param bool sandbox: The sandbox
-        :param unicode api_key: The api_key
-        :param unicode secret: The secret
+        :param CredentialInstance.PushService type: Credential type, one of "gcm", "fcm", or "apn"
+        :param unicode friendly_name: Friendly name for stored credential
+        :param unicode certificate: [APN only] URL encoded representation of the certificate, e.
+        :param unicode private_key: [APN only] URL encoded representation of the private key, e.
+        :param bool sandbox: [APN only] use this credential for sending to production or sandbox APNs
+        :param unicode api_key: [GCM only] This is the "API key" for project from Google Developer console for your GCM Service application credential
+        :param unicode secret: [FCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
 
         :returns: Newly created CredentialInstance
         :rtype: twilio.rest.chat.v2.credential.CredentialInstance
@@ -261,12 +261,12 @@ class CredentialContext(InstanceContext):
         """
         Update the CredentialInstance
 
-        :param unicode friendly_name: The friendly_name
-        :param unicode certificate: The certificate
-        :param unicode private_key: The private_key
-        :param bool sandbox: The sandbox
-        :param unicode api_key: The api_key
-        :param unicode secret: The secret
+        :param unicode friendly_name: Friendly name for stored credential
+        :param unicode certificate: [APN only] URL encoded representation of the certificate, e.
+        :param unicode private_key: [APN only] URL encoded representation of the private key, e.
+        :param bool sandbox: [APN only] use this credential for sending to production or sandbox APNs
+        :param unicode api_key: [GCM only] This is the "API key" for project from Google Developer console for your GCM Service application credential
+        :param unicode secret: [FCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
 
         :returns: Updated CredentialInstance
         :rtype: twilio.rest.chat.v2.credential.CredentialInstance
@@ -357,7 +357,7 @@ class CredentialInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A 34 character string that uniquely identifies this resource.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -365,7 +365,7 @@ class CredentialInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique id of the Account responsible for this resource.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -373,7 +373,7 @@ class CredentialInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The friendly_name
+        :returns: The human-readable name of this resource.
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -381,7 +381,7 @@ class CredentialInstance(InstanceResource):
     @property
     def type(self):
         """
-        :returns: The type
+        :returns: Indicates which push notifications service this credential is for - either gcm, fcm, or apn
         :rtype: CredentialInstance.PushService
         """
         return self._properties['type']
@@ -389,7 +389,7 @@ class CredentialInstance(InstanceResource):
     @property
     def sandbox(self):
         """
-        :returns: The sandbox
+        :returns: [APN only] true when this resource should use the sandbox APN service.
         :rtype: unicode
         """
         return self._properties['sandbox']
@@ -397,7 +397,7 @@ class CredentialInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date that this resource was created.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -405,7 +405,7 @@ class CredentialInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date that this resource was last updated.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -413,7 +413,7 @@ class CredentialInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: An absolute URL for this credential resource.
         :rtype: unicode
         """
         return self._properties['url']
@@ -433,12 +433,12 @@ class CredentialInstance(InstanceResource):
         """
         Update the CredentialInstance
 
-        :param unicode friendly_name: The friendly_name
-        :param unicode certificate: The certificate
-        :param unicode private_key: The private_key
-        :param bool sandbox: The sandbox
-        :param unicode api_key: The api_key
-        :param unicode secret: The secret
+        :param unicode friendly_name: Friendly name for stored credential
+        :param unicode certificate: [APN only] URL encoded representation of the certificate, e.
+        :param unicode private_key: [APN only] URL encoded representation of the private key, e.
+        :param bool sandbox: [APN only] use this credential for sending to production or sandbox APNs
+        :param unicode api_key: [GCM only] This is the "API key" for project from Google Developer console for your GCM Service application credential
+        :param unicode secret: [FCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
 
         :returns: Updated CredentialInstance
         :rtype: twilio.rest.chat.v2.credential.CredentialInstance

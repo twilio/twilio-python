@@ -15,15 +15,14 @@ from twilio.base.page import Page
 
 
 class DataSessionList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version, sim_sid):
         """
         Initialize the DataSessionList
 
         :param Version version: Version that contains the resource
-        :param sim_sid: The sim_sid
+        :param sim_sid: The unique id of the SIM resource that this Data Session is for.
 
         :returns: twilio.rest.wireless.v1.sim.data_session.DataSessionList
         :rtype: twilio.rest.wireless.v1.sim.data_session.DataSessionList
@@ -140,8 +139,7 @@ class DataSessionList(ListResource):
 
 
 class DataSessionPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -149,7 +147,7 @@ class DataSessionPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param sim_sid: The sim_sid
+        :param sim_sid: The unique id of the SIM resource that this Data Session is for.
 
         :returns: twilio.rest.wireless.v1.sim.data_session.DataSessionPage
         :rtype: twilio.rest.wireless.v1.sim.data_session.DataSessionPage
@@ -181,8 +179,7 @@ class DataSessionPage(Page):
 
 
 class DataSessionInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version, payload, sim_sid):
         """
@@ -219,7 +216,7 @@ class DataSessionInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: The unique id of the Data Session resource that this Data Record is for.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -227,7 +224,7 @@ class DataSessionInstance(InstanceResource):
     @property
     def sim_sid(self):
         """
-        :returns: The sim_sid
+        :returns: The unique id of the SIM resource that this Data Session is for.
         :rtype: unicode
         """
         return self._properties['sim_sid']
@@ -235,7 +232,7 @@ class DataSessionInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique id of the Account that the SIM belongs to.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -243,7 +240,7 @@ class DataSessionInstance(InstanceResource):
     @property
     def radio_link(self):
         """
-        :returns: The radio_link
+        :returns: The generation of wireless technology that the device was attached to the cellular tower using.
         :rtype: unicode
         """
         return self._properties['radio_link']
@@ -251,7 +248,7 @@ class DataSessionInstance(InstanceResource):
     @property
     def operator_mcc(self):
         """
-        :returns: The operator_mcc
+        :returns: The 'mobile country code' is the unique id of the home country where the Data Session took place.
         :rtype: unicode
         """
         return self._properties['operator_mcc']
@@ -259,7 +256,7 @@ class DataSessionInstance(InstanceResource):
     @property
     def operator_mnc(self):
         """
-        :returns: The operator_mnc
+        :returns: The 'mobile network code' is the unique id specific to the mobile operator network where the Data Session took place.
         :rtype: unicode
         """
         return self._properties['operator_mnc']
@@ -267,7 +264,7 @@ class DataSessionInstance(InstanceResource):
     @property
     def operator_country(self):
         """
-        :returns: The operator_country
+        :returns: The three letter country code representing where the device's Data Session took place.
         :rtype: unicode
         """
         return self._properties['operator_country']
@@ -275,7 +272,7 @@ class DataSessionInstance(InstanceResource):
     @property
     def operator_name(self):
         """
-        :returns: The operator_name
+        :returns: The friendly name of the mobile operator network that the SIM-connected device is attached to.
         :rtype: unicode
         """
         return self._properties['operator_name']
@@ -283,7 +280,7 @@ class DataSessionInstance(InstanceResource):
     @property
     def cell_id(self):
         """
-        :returns: The cell_id
+        :returns: The unique id of the cellular tower that the device was attached to at the moment when the Data Session was last updated.
         :rtype: unicode
         """
         return self._properties['cell_id']
@@ -291,7 +288,7 @@ class DataSessionInstance(InstanceResource):
     @property
     def cell_location_estimate(self):
         """
-        :returns: The cell_location_estimate
+        :returns: An object representing the estimated location where the device's Data Session took place.
         :rtype: dict
         """
         return self._properties['cell_location_estimate']
@@ -299,7 +296,7 @@ class DataSessionInstance(InstanceResource):
     @property
     def packets_uploaded(self):
         """
-        :returns: The packets_uploaded
+        :returns: The number of packets uploaded by the device between the start time and when the Data Session was last updated.
         :rtype: unicode
         """
         return self._properties['packets_uploaded']
@@ -307,7 +304,7 @@ class DataSessionInstance(InstanceResource):
     @property
     def packets_downloaded(self):
         """
-        :returns: The packets_downloaded
+        :returns: The number of packets downloaded by the device between the start time and when the Data Session was last updated.
         :rtype: unicode
         """
         return self._properties['packets_downloaded']
@@ -315,7 +312,7 @@ class DataSessionInstance(InstanceResource):
     @property
     def last_updated(self):
         """
-        :returns: The last_updated
+        :returns: The date that this resource was last updated, given as GMT in ISO 8601 format.
         :rtype: datetime
         """
         return self._properties['last_updated']
@@ -323,7 +320,7 @@ class DataSessionInstance(InstanceResource):
     @property
     def start(self):
         """
-        :returns: The start
+        :returns: The date that this Data Session started, given as GMT in ISO 8601 format.
         :rtype: datetime
         """
         return self._properties['start']
@@ -331,7 +328,7 @@ class DataSessionInstance(InstanceResource):
     @property
     def end(self):
         """
-        :returns: The end
+        :returns: The date that this record ended, given as GMT in ISO 8601 format.
         :rtype: datetime
         """
         return self._properties['end']

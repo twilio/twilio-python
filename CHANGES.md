@@ -3,6 +3,18 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-05-11] Version 6.14.0
+----------------------------
+**Chat**
+- Add Channel Webhooks resource
+
+**Monitor**
+- Update event filtering to support date/time **(breaking change)**
+
+**Wireless**
+- Updated `maturity` to `ga` for all wireless apis
+
+
 [2018-04-28] Version 6.13.0
 ----------------------------
 **Video**

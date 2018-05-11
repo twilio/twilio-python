@@ -232,7 +232,7 @@ class KeyContext(InstanceContext):
         """
         Update the KeyInstance
 
-        :param unicode friendly_name: A descriptive string for this resource, chosen by your application, up to 64 characters long.
+        :param unicode friendly_name: The friendly_name
 
         :returns: Updated KeyInstance
         :rtype: twilio.rest.api.v2010.account.key.KeyInstance
@@ -358,7 +358,7 @@ class KeyInstance(InstanceResource):
         """
         Update the KeyInstance
 
-        :param unicode friendly_name: A descriptive string for this resource, chosen by your application, up to 64 characters long.
+        :param unicode friendly_name: The friendly_name
 
         :returns: Updated KeyInstance
         :rtype: twilio.rest.api.v2010.account.key.KeyInstance

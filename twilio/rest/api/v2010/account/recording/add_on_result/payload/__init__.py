@@ -422,7 +422,7 @@ class PayloadInstance(InstanceResource):
     @property
     def subresource_uris(self):
         """
-        :returns: The subresource_uris
+        :returns: A dictionary of URIs for related resources
         :rtype: unicode
         """
         return self._properties['subresource_uris']

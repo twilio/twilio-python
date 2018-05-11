@@ -371,7 +371,7 @@ class CompositionInstance(InstanceResource):
             'trim': payload['trim'],
             'format': payload['format'],
             'bitrate': deserialize.integer(payload['bitrate']),
-            'size': payload['size'],
+            'size': deserialize.integer(payload['size']),
             'duration': deserialize.integer(payload['duration']),
             'url': payload['url'],
             'links': payload['links'],

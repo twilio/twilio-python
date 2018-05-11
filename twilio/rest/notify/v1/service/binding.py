@@ -41,13 +41,13 @@ class BindingList(ListResource):
         """
         Create a new BindingInstance
 
-        :param unicode identity: The identity
-        :param BindingInstance.BindingType binding_type: The binding_type
-        :param unicode address: The address
-        :param unicode tag: The tag
-        :param unicode notification_protocol_version: The notification_protocol_version
-        :param unicode credential_sid: The credential_sid
-        :param unicode endpoint: The endpoint
+        :param unicode identity: The Identity to which this Binding belongs to.
+        :param BindingInstance.BindingType binding_type: The type of the Binding.
+        :param unicode address: The address specific to the channel.
+        :param unicode tag: The list of tags associated with this Binding.
+        :param unicode notification_protocol_version: The version of the protocol used to send the notification.
+        :param unicode credential_sid: The unique identifier of the Credential resource to be used to send notifications to this Binding.
+        :param unicode endpoint: DEPRECATED*
 
         :returns: Newly created BindingInstance
         :rtype: twilio.rest.notify.v1.service.binding.BindingInstance
@@ -78,10 +78,10 @@ class BindingList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param date start_date: The start_date
-        :param date end_date: The end_date
-        :param unicode identity: The identity
-        :param unicode tag: The tag
+        :param date start_date: Only list Bindings created on or after the given date.
+        :param date end_date: Only list Bindings created on or before the given date.
+        :param unicode identity: Only list Bindings that have any of the specified Identities.
+        :param unicode tag: Only list Bindings that have all of the specified Tags.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -111,10 +111,10 @@ class BindingList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param date start_date: The start_date
-        :param date end_date: The end_date
-        :param unicode identity: The identity
-        :param unicode tag: The tag
+        :param date start_date: Only list Bindings created on or after the given date.
+        :param date end_date: Only list Bindings created on or before the given date.
+        :param unicode identity: Only list Bindings that have any of the specified Identities.
+        :param unicode tag: Only list Bindings that have all of the specified Tags.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -141,10 +141,10 @@ class BindingList(ListResource):
         Retrieve a single page of BindingInstance records from the API.
         Request is executed immediately
 
-        :param date start_date: The start_date
-        :param date end_date: The end_date
-        :param unicode identity: The identity
-        :param unicode tag: The tag
+        :param date start_date: Only list Bindings created on or after the given date.
+        :param date end_date: Only list Bindings created on or before the given date.
+        :param unicode identity: Only list Bindings that have any of the specified Identities.
+        :param unicode tag: Only list Bindings that have all of the specified Tags.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -410,7 +410,7 @@ class BindingInstance(InstanceResource):
     @property
     def credential_sid(self):
         """
-        :returns: The credential_sid
+        :returns: The unique identifier of the Credential resource to be used to send notifications to this Binding.
         :rtype: unicode
         """
         return self._properties['credential_sid']
@@ -434,7 +434,7 @@ class BindingInstance(InstanceResource):
     @property
     def notification_protocol_version(self):
         """
-        :returns: The notification_protocol_version
+        :returns: The version of the protocol used to send the notification.
         :rtype: unicode
         """
         return self._properties['notification_protocol_version']
@@ -442,7 +442,7 @@ class BindingInstance(InstanceResource):
     @property
     def endpoint(self):
         """
-        :returns: The endpoint
+        :returns: DEPRECATED*
         :rtype: unicode
         """
         return self._properties['endpoint']
@@ -450,7 +450,7 @@ class BindingInstance(InstanceResource):
     @property
     def identity(self):
         """
-        :returns: The identity
+        :returns: The Identity to which this Binding belongs to.
         :rtype: unicode
         """
         return self._properties['identity']
@@ -458,7 +458,7 @@ class BindingInstance(InstanceResource):
     @property
     def binding_type(self):
         """
-        :returns: The binding_type
+        :returns: The type of the Binding.
         :rtype: unicode
         """
         return self._properties['binding_type']
@@ -466,7 +466,7 @@ class BindingInstance(InstanceResource):
     @property
     def address(self):
         """
-        :returns: The address
+        :returns: The address specific to the channel.
         :rtype: unicode
         """
         return self._properties['address']
@@ -474,7 +474,7 @@ class BindingInstance(InstanceResource):
     @property
     def tags(self):
         """
-        :returns: The tags
+        :returns: The list of tags associated with this Binding.
         :rtype: unicode
         """
         return self._properties['tags']

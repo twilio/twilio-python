@@ -162,7 +162,7 @@ class FeedbackInstance(InstanceResource):
     @property
     def outcome(self):
         """
-        :returns: The outcome
+        :returns: unconfirmed or confirmed. If ProvideFeedback=true in the initial HTTP POST, this value will default to unconfirmed. Make an HTTP POST to update this value to confirmed after the message arrives.
         :rtype: FeedbackInstance.Outcome
         """
         return self._properties['outcome']

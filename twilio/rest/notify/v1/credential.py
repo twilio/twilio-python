@@ -120,13 +120,13 @@ class CredentialList(ListResource):
         """
         Create a new CredentialInstance
 
-        :param CredentialInstance.PushService type: The type
-        :param unicode friendly_name: The friendly_name
-        :param unicode certificate: The certificate
-        :param unicode private_key: The private_key
-        :param bool sandbox: The sandbox
-        :param unicode api_key: The api_key
-        :param unicode secret: The secret
+        :param CredentialInstance.PushService type: Credential type, one of "gcm", "fcm", or "apn"
+        :param unicode friendly_name: Friendly name for stored credential
+        :param unicode certificate: [APN only] URL encoded representation of the certificate.
+        :param unicode private_key: [APN only] URL encoded representation of the private key.
+        :param bool sandbox: [APN only] use this credential for sending to production or sandbox APNs
+        :param unicode api_key: [GCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
+        :param unicode secret: [FCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
 
         :returns: Newly created CredentialInstance
         :rtype: twilio.rest.notify.v1.credential.CredentialInstance
@@ -264,12 +264,12 @@ class CredentialContext(InstanceContext):
         """
         Update the CredentialInstance
 
-        :param unicode friendly_name: The friendly_name
-        :param unicode certificate: The certificate
-        :param unicode private_key: The private_key
-        :param bool sandbox: The sandbox
-        :param unicode api_key: The api_key
-        :param unicode secret: The secret
+        :param unicode friendly_name: Friendly name for stored credential
+        :param unicode certificate: [APN only] URL encoded representation of the certificate.
+        :param unicode private_key: [APN only] URL encoded representation of the private key.
+        :param bool sandbox: [APN only] use this credential for sending to production or sandbox APNs
+        :param unicode api_key: [GCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
+        :param unicode secret: [FCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
 
         :returns: Updated CredentialInstance
         :rtype: twilio.rest.notify.v1.credential.CredentialInstance
@@ -377,7 +377,7 @@ class CredentialInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The friendly_name
+        :returns: Friendly name for stored credential
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -385,7 +385,7 @@ class CredentialInstance(InstanceResource):
     @property
     def type(self):
         """
-        :returns: The type
+        :returns: Credential type, one of "gcm", "fcm", or "apn"
         :rtype: CredentialInstance.PushService
         """
         return self._properties['type']
@@ -393,7 +393,7 @@ class CredentialInstance(InstanceResource):
     @property
     def sandbox(self):
         """
-        :returns: The sandbox
+        :returns: [APN only] use this credential for sending to production or sandbox APNs
         :rtype: unicode
         """
         return self._properties['sandbox']
@@ -437,12 +437,12 @@ class CredentialInstance(InstanceResource):
         """
         Update the CredentialInstance
 
-        :param unicode friendly_name: The friendly_name
-        :param unicode certificate: The certificate
-        :param unicode private_key: The private_key
-        :param bool sandbox: The sandbox
-        :param unicode api_key: The api_key
-        :param unicode secret: The secret
+        :param unicode friendly_name: Friendly name for stored credential
+        :param unicode certificate: [APN only] URL encoded representation of the certificate.
+        :param unicode private_key: [APN only] URL encoded representation of the private key.
+        :param bool sandbox: [APN only] use this credential for sending to production or sandbox APNs
+        :param unicode api_key: [GCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
+        :param unicode secret: [FCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
 
         :returns: Updated CredentialInstance
         :rtype: twilio.rest.notify.v1.credential.CredentialInstance

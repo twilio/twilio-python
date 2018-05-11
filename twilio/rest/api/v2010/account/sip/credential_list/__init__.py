@@ -119,7 +119,7 @@ class CredentialListList(ListResource):
         """
         Create a new CredentialListInstance
 
-        :param unicode friendly_name: The friendly_name
+        :param unicode friendly_name: Human readable descriptive text
 
         :returns: Newly created CredentialListInstance
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance
@@ -138,7 +138,7 @@ class CredentialListList(ListResource):
         """
         Constructs a CredentialListContext
 
-        :param sid: Fetch by unique credential Sid
+        :param sid: Fetch by unique credential list Sid
 
         :returns: twilio.rest.api.v2010.account.sip.credential_list.CredentialListContext
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListContext
@@ -149,7 +149,7 @@ class CredentialListList(ListResource):
         """
         Constructs a CredentialListContext
 
-        :param sid: Fetch by unique credential Sid
+        :param sid: Fetch by unique credential list Sid
 
         :returns: twilio.rest.api.v2010.account.sip.credential_list.CredentialListContext
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListContext
@@ -215,7 +215,7 @@ class CredentialListContext(InstanceContext):
 
         :param Version version: Version that contains the resource
         :param account_sid: The account_sid
-        :param sid: Fetch by unique credential Sid
+        :param sid: Fetch by unique credential list Sid
 
         :returns: twilio.rest.api.v2010.account.sip.credential_list.CredentialListContext
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListContext
@@ -255,7 +255,7 @@ class CredentialListContext(InstanceContext):
         """
         Update the CredentialListInstance
 
-        :param unicode friendly_name: The friendly_name
+        :param unicode friendly_name: Human readable descriptive text
 
         :returns: Updated CredentialListInstance
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance
@@ -382,7 +382,7 @@ class CredentialListInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The friendly_name
+        :returns: Human readable descriptive text
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -424,7 +424,7 @@ class CredentialListInstance(InstanceResource):
         """
         Update the CredentialListInstance
 
-        :param unicode friendly_name: The friendly_name
+        :param unicode friendly_name: Human readable descriptive text
 
         :returns: Updated CredentialListInstance
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance

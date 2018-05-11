@@ -199,7 +199,7 @@ class NumberInstance(InstanceResource):
     @property
     def country(self):
         """
-        :returns: The country
+        :returns: Name of the country
         :rtype: unicode
         """
         return self._properties['country']
@@ -207,7 +207,7 @@ class NumberInstance(InstanceResource):
     @property
     def iso_country(self):
         """
-        :returns: The iso_country
+        :returns: The ISO country code
         :rtype: unicode
         """
         return self._properties['iso_country']
@@ -215,7 +215,7 @@ class NumberInstance(InstanceResource):
     @property
     def outbound_call_price(self):
         """
-        :returns: The outbound_call_price
+        :returns: See OutboundCallPrice record
         :rtype: unicode
         """
         return self._properties['outbound_call_price']
@@ -223,7 +223,7 @@ class NumberInstance(InstanceResource):
     @property
     def inbound_call_price(self):
         """
-        :returns: The inbound_call_price
+        :returns: See InboundCallPrice record (returned as null if the Phone Number provided is not a Twilio number owned by this account)
         :rtype: unicode
         """
         return self._properties['inbound_call_price']
@@ -231,7 +231,7 @@ class NumberInstance(InstanceResource):
     @property
     def price_unit(self):
         """
-        :returns: The price_unit
+        :returns: The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy).
         :rtype: unicode
         """
         return self._properties['price_unit']

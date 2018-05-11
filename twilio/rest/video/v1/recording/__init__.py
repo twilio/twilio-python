@@ -42,11 +42,11 @@ class RecordingList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param RecordingInstance.Status status: The status
-        :param unicode source_sid: The source_sid
-        :param unicode grouping_sid: The grouping_sid
-        :param datetime date_created_after: The date_created_after
-        :param datetime date_created_before: The date_created_before
+        :param RecordingInstance.Status status: Only show Recordings with the given status.
+        :param unicode source_sid: Only show the Recordings with the given source Sid.
+        :param unicode grouping_sid: Only show Recordings that have this GroupingSid.
+        :param datetime date_created_after: Only show Recordings that started on or after this ISO8601 date-time.
+        :param datetime date_created_before: Only show Recordings that started before this this ISO8601 date-time.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -78,11 +78,11 @@ class RecordingList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param RecordingInstance.Status status: The status
-        :param unicode source_sid: The source_sid
-        :param unicode grouping_sid: The grouping_sid
-        :param datetime date_created_after: The date_created_after
-        :param datetime date_created_before: The date_created_before
+        :param RecordingInstance.Status status: Only show Recordings with the given status.
+        :param unicode source_sid: Only show the Recordings with the given source Sid.
+        :param unicode grouping_sid: Only show Recordings that have this GroupingSid.
+        :param datetime date_created_after: Only show Recordings that started on or after this ISO8601 date-time.
+        :param datetime date_created_before: Only show Recordings that started before this this ISO8601 date-time.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -111,11 +111,11 @@ class RecordingList(ListResource):
         Retrieve a single page of RecordingInstance records from the API.
         Request is executed immediately
 
-        :param RecordingInstance.Status status: The status
-        :param unicode source_sid: The source_sid
-        :param unicode grouping_sid: The grouping_sid
-        :param datetime date_created_after: The date_created_after
-        :param datetime date_created_before: The date_created_before
+        :param RecordingInstance.Status status: Only show Recordings with the given status.
+        :param unicode source_sid: Only show the Recordings with the given source Sid.
+        :param unicode grouping_sid: Only show Recordings that have this GroupingSid.
+        :param datetime date_created_after: Only show Recordings that started on or after this ISO8601 date-time.
+        :param datetime date_created_before: Only show Recordings that started before this this ISO8601 date-time.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -163,7 +163,7 @@ class RecordingList(ListResource):
         """
         Constructs a RecordingContext
 
-        :param sid: The sid
+        :param sid: The Recording Sid that uniquely identifies the Recording to fetch.
 
         :returns: twilio.rest.video.v1.recording.RecordingContext
         :rtype: twilio.rest.video.v1.recording.RecordingContext
@@ -174,7 +174,7 @@ class RecordingList(ListResource):
         """
         Constructs a RecordingContext
 
-        :param sid: The sid
+        :param sid: The Recording Sid that uniquely identifies the Recording to fetch.
 
         :returns: twilio.rest.video.v1.recording.RecordingContext
         :rtype: twilio.rest.video.v1.recording.RecordingContext
@@ -238,7 +238,7 @@ class RecordingContext(InstanceContext):
         Initialize the RecordingContext
 
         :param Version version: Version that contains the resource
-        :param sid: The sid
+        :param sid: The Recording Sid that uniquely identifies the Recording to fetch.
 
         :returns: twilio.rest.video.v1.recording.RecordingContext
         :rtype: twilio.rest.video.v1.recording.RecordingContext
@@ -326,7 +326,7 @@ class RecordingInstance(InstanceResource):
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'sid': payload['sid'],
             'source_sid': payload['source_sid'],
-            'size': payload['size'],
+            'size': deserialize.integer(payload['size']),
             'url': payload['url'],
             'type': payload['type'],
             'duration': deserialize.integer(payload['duration']),
@@ -357,7 +357,7 @@ class RecordingInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: Twilio Account SID.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -365,7 +365,7 @@ class RecordingInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: The status
+        :returns: The status of the Recording.
         :rtype: RecordingInstance.Status
         """
         return self._properties['status']
@@ -373,7 +373,7 @@ class RecordingInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: Date when the media recording began writing.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -381,7 +381,7 @@ class RecordingInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A 34-character string that uniquely identifies this Recording.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -389,7 +389,7 @@ class RecordingInstance(InstanceResource):
     @property
     def source_sid(self):
         """
-        :returns: The source_sid
+        :returns: A 34-character string that uniquely identifies the source of this Recording.
         :rtype: unicode
         """
         return self._properties['source_sid']
@@ -397,7 +397,7 @@ class RecordingInstance(InstanceResource):
     @property
     def size(self):
         """
-        :returns: The size
+        :returns: Size of the recorded track, in bytes.
         :rtype: unicode
         """
         return self._properties['size']
@@ -405,7 +405,7 @@ class RecordingInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL for this resource.
         :rtype: unicode
         """
         return self._properties['url']
@@ -413,7 +413,7 @@ class RecordingInstance(InstanceResource):
     @property
     def type(self):
         """
-        :returns: The type
+        :returns: Indicates the media type for this recording.
         :rtype: RecordingInstance.Type
         """
         return self._properties['type']
@@ -421,7 +421,7 @@ class RecordingInstance(InstanceResource):
     @property
     def duration(self):
         """
-        :returns: The duration
+        :returns: Duration of the Recording in seconds.
         :rtype: unicode
         """
         return self._properties['duration']
@@ -429,7 +429,7 @@ class RecordingInstance(InstanceResource):
     @property
     def container_format(self):
         """
-        :returns: The container_format
+        :returns: The file format for this Recording.
         :rtype: RecordingInstance.Format
         """
         return self._properties['container_format']
@@ -437,7 +437,7 @@ class RecordingInstance(InstanceResource):
     @property
     def codec(self):
         """
-        :returns: The codec
+        :returns: The codec used to encode the track.
         :rtype: RecordingInstance.Codec
         """
         return self._properties['codec']
@@ -445,7 +445,7 @@ class RecordingInstance(InstanceResource):
     @property
     def grouping_sids(self):
         """
-        :returns: The grouping_sids
+        :returns: A list of Sids related to this Recording.
         :rtype: dict
         """
         return self._properties['grouping_sids']
@@ -453,7 +453,7 @@ class RecordingInstance(InstanceResource):
     @property
     def track_name(self):
         """
-        :returns: The track_name
+        :returns: The name that was given to the source track of this recording.
         :rtype: unicode
         """
         return self._properties['track_name']

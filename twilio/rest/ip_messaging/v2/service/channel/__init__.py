@@ -16,6 +16,7 @@ from twilio.base.page import Page
 from twilio.rest.ip_messaging.v2.service.channel.invite import InviteList
 from twilio.rest.ip_messaging.v2.service.channel.member import MemberList
 from twilio.rest.ip_messaging.v2.service.channel.message import MessageList
+from twilio.rest.ip_messaging.v2.service.channel.webhook import WebhookList
 
 
 class ChannelList(ListResource):
@@ -26,7 +27,7 @@ class ChannelList(ListResource):
         Initialize the ChannelList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
+        :param service_sid: The unique id of the Service this channel belongs to.
 
         :returns: twilio.rest.chat.v2.service.channel.ChannelList
         :rtype: twilio.rest.chat.v2.service.channel.ChannelList
@@ -44,13 +45,13 @@ class ChannelList(ListResource):
         """
         Create a new ChannelInstance
 
-        :param unicode friendly_name: The friendly_name
-        :param unicode unique_name: The unique_name
-        :param unicode attributes: The attributes
-        :param ChannelInstance.ChannelType type: The type
-        :param datetime date_created: The date_created
-        :param datetime date_updated: The date_updated
-        :param unicode created_by: The created_by
+        :param unicode friendly_name: A human-readable name for the Channel.
+        :param unicode unique_name: A unique, addressable name for the Channel.
+        :param unicode attributes: An optional metadata field you can use to store any data you wish.
+        :param ChannelInstance.ChannelType type: The visibility of the channel - public or private.
+        :param datetime date_created: The optional ISO8601 time specifying the datetime the Channel should be set as being created.
+        :param datetime date_updated: The optional ISO8601 time specifying the datetime the Channel should be set as having been last updated.
+        :param unicode created_by: Optional field to specify the Identity of the User that created the Channel.
 
         :returns: Newly created ChannelInstance
         :rtype: twilio.rest.chat.v2.service.channel.ChannelInstance
@@ -203,7 +204,7 @@ class ChannelPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The service_sid
+        :param service_sid: The unique id of the Service this channel belongs to.
 
         :returns: twilio.rest.chat.v2.service.channel.ChannelPage
         :rtype: twilio.rest.chat.v2.service.channel.ChannelPage
@@ -258,6 +259,7 @@ class ChannelContext(InstanceContext):
         self._members = None
         self._messages = None
         self._invites = None
+        self._webhooks = None
 
     def fetch(self):
         """
@@ -296,12 +298,12 @@ class ChannelContext(InstanceContext):
         """
         Update the ChannelInstance
 
-        :param unicode friendly_name: The friendly_name
-        :param unicode unique_name: The unique_name
-        :param unicode attributes: The attributes
-        :param datetime date_created: The date_created
-        :param datetime date_updated: The date_updated
-        :param unicode created_by: The created_by
+        :param unicode friendly_name: A human-readable name for the Channel.
+        :param unicode unique_name: A unique, addressable name for the Channel.
+        :param unicode attributes: An optional metadata field you can use to store any data you wish.
+        :param datetime date_created: The optional ISO8601 time specifying the datetime the Channel should be set as being created.
+        :param datetime date_updated: The optional ISO8601 time specifying the datetime the Channel should be set as having been last updated.
+        :param unicode created_by: Optional field to specify the Identity of the User that created the Channel.
 
         :returns: Updated ChannelInstance
         :rtype: twilio.rest.chat.v2.service.channel.ChannelInstance
@@ -376,6 +378,22 @@ class ChannelContext(InstanceContext):
             )
         return self._invites
 
+    @property
+    def webhooks(self):
+        """
+        Access the webhooks
+
+        :returns: twilio.rest.chat.v2.service.channel.webhook.WebhookList
+        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookList
+        """
+        if self._webhooks is None:
+            self._webhooks = WebhookList(
+                self._version,
+                service_sid=self._solution['service_sid'],
+                channel_sid=self._solution['sid'],
+            )
+        return self._webhooks
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -445,7 +463,7 @@ class ChannelInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A 34 character string that uniquely identifies this resource.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -453,7 +471,7 @@ class ChannelInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique id of the Account responsible for this channel.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -461,7 +479,7 @@ class ChannelInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The service_sid
+        :returns: The unique id of the Service this channel belongs to.
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -469,7 +487,7 @@ class ChannelInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The friendly_name
+        :returns: The human-readable name of this channel.
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -477,7 +495,7 @@ class ChannelInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: The unique_name
+        :returns: The unique, addressable name of this channel.
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -485,7 +503,7 @@ class ChannelInstance(InstanceResource):
     @property
     def attributes(self):
         """
-        :returns: The attributes
+        :returns: An optional string metadata field you can use to store any data you wish.
         :rtype: unicode
         """
         return self._properties['attributes']
@@ -493,7 +511,7 @@ class ChannelInstance(InstanceResource):
     @property
     def type(self):
         """
-        :returns: The type
+        :returns: The visibility of this channel - either public or private
         :rtype: ChannelInstance.ChannelType
         """
         return self._properties['type']
@@ -501,7 +519,7 @@ class ChannelInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date that this resource was created.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -509,7 +527,7 @@ class ChannelInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date that this resource was last updated.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -517,7 +535,7 @@ class ChannelInstance(InstanceResource):
     @property
     def created_by(self):
         """
-        :returns: The created_by
+        :returns: Identity of the channel's creator.
         :rtype: unicode
         """
         return self._properties['created_by']
@@ -525,7 +543,7 @@ class ChannelInstance(InstanceResource):
     @property
     def members_count(self):
         """
-        :returns: The members_count
+        :returns: The number of Members in the Channel
         :rtype: unicode
         """
         return self._properties['members_count']
@@ -533,7 +551,7 @@ class ChannelInstance(InstanceResource):
     @property
     def messages_count(self):
         """
-        :returns: The messages_count
+        :returns: The number of Messages in the Channel
         :rtype: unicode
         """
         return self._properties['messages_count']
@@ -541,7 +559,7 @@ class ChannelInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: An absolute URL for this channel.
         :rtype: unicode
         """
         return self._properties['url']
@@ -549,7 +567,7 @@ class ChannelInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links
+        :returns: Absolute URLs to access the Members, Messages , Invites and, if it exists the last Message for this Channel.
         :rtype: unicode
         """
         return self._properties['links']
@@ -578,12 +596,12 @@ class ChannelInstance(InstanceResource):
         """
         Update the ChannelInstance
 
-        :param unicode friendly_name: The friendly_name
-        :param unicode unique_name: The unique_name
-        :param unicode attributes: The attributes
-        :param datetime date_created: The date_created
-        :param datetime date_updated: The date_updated
-        :param unicode created_by: The created_by
+        :param unicode friendly_name: A human-readable name for the Channel.
+        :param unicode unique_name: A unique, addressable name for the Channel.
+        :param unicode attributes: An optional metadata field you can use to store any data you wish.
+        :param datetime date_created: The optional ISO8601 time specifying the datetime the Channel should be set as being created.
+        :param datetime date_updated: The optional ISO8601 time specifying the datetime the Channel should be set as having been last updated.
+        :param unicode created_by: Optional field to specify the Identity of the User that created the Channel.
 
         :returns: Updated ChannelInstance
         :rtype: twilio.rest.chat.v2.service.channel.ChannelInstance
@@ -626,6 +644,16 @@ class ChannelInstance(InstanceResource):
         :rtype: twilio.rest.chat.v2.service.channel.invite.InviteList
         """
         return self._proxy.invites
+
+    @property
+    def webhooks(self):
+        """
+        Access the webhooks
+
+        :returns: twilio.rest.chat.v2.service.channel.webhook.WebhookList
+        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookList
+        """
+        return self._proxy.webhooks
 
     def __repr__(self):
         """

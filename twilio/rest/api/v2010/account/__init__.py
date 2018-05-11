@@ -83,7 +83,7 @@ class AccountList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param unicode friendly_name: FriendlyName to filter on
-        :param unicode status: Status to filter on
+        :param AccountInstance.Status status: Status to filter on
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -108,7 +108,7 @@ class AccountList(ListResource):
         memory before returning.
 
         :param unicode friendly_name: FriendlyName to filter on
-        :param unicode status: Status to filter on
+        :param AccountInstance.Status status: Status to filter on
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -134,7 +134,7 @@ class AccountList(ListResource):
         Request is executed immediately
 
         :param unicode friendly_name: FriendlyName to filter on
-        :param unicode status: Status to filter on
+        :param AccountInstance.Status status: Status to filter on
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -312,7 +312,7 @@ class AccountContext(InstanceContext):
         Update the AccountInstance
 
         :param unicode friendly_name: FriendlyName to update
-        :param unicode status: Status to update the Account with
+        :param AccountInstance.Status status: Status to update the Account with
 
         :returns: Updated AccountInstance
         :rtype: twilio.rest.api.v2010.account.AccountInstance
@@ -626,6 +626,11 @@ class AccountContext(InstanceContext):
 class AccountInstance(InstanceResource):
     """  """
 
+    class Status(object):
+        ACTIVE = "active"
+        SUSPENDED = "suspended"
+        CLOSED = "closed"
+
     class Type(object):
         TRIAL = "Trial"
         FULL = "Full"
@@ -722,7 +727,7 @@ class AccountInstance(InstanceResource):
     def status(self):
         """
         :returns: The status of this account
-        :rtype: unicode
+        :rtype: AccountInstance.Status
         """
         return self._properties['status']
 
@@ -764,7 +769,7 @@ class AccountInstance(InstanceResource):
         Update the AccountInstance
 
         :param unicode friendly_name: FriendlyName to update
-        :param unicode status: Status to update the Account with
+        :param AccountInstance.Status status: Status to update the Account with
 
         :returns: Updated AccountInstance
         :rtype: twilio.rest.api.v2010.account.AccountInstance

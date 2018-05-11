@@ -24,7 +24,7 @@ class ModelBuildList(ListResource):
         Initialize the ModelBuildList
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The assistant_sid
+        :param assistant_sid: The unique ID of the parent Assistant.
 
         :returns: twilio.rest.preview.understand.assistant.model_build.ModelBuildList
         :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildList
@@ -121,7 +121,7 @@ class ModelBuildList(ListResource):
         Create a new ModelBuildInstance
 
         :param unicode status_callback: The status_callback
-        :param unicode unique_name: The unique_name
+        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
 
         :returns: Newly created ModelBuildInstance
         :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance
@@ -179,7 +179,7 @@ class ModelBuildPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param assistant_sid: The assistant_sid
+        :param assistant_sid: The unique ID of the parent Assistant.
 
         :returns: twilio.rest.preview.understand.assistant.model_build.ModelBuildPage
         :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildPage
@@ -258,7 +258,7 @@ class ModelBuildContext(InstanceContext):
         """
         Update the ModelBuildInstance
 
-        :param unicode unique_name: The unique_name
+        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
 
         :returns: Updated ModelBuildInstance
         :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance
@@ -357,7 +357,7 @@ class ModelBuildInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique ID of the Account that created this Model Build.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -365,7 +365,7 @@ class ModelBuildInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date that this resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -373,7 +373,7 @@ class ModelBuildInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date that this resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -381,7 +381,7 @@ class ModelBuildInstance(InstanceResource):
     @property
     def assistant_sid(self):
         """
-        :returns: The assistant_sid
+        :returns: The unique ID of the parent Assistant.
         :rtype: unicode
         """
         return self._properties['assistant_sid']
@@ -389,7 +389,7 @@ class ModelBuildInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A 34 character string that uniquely identifies this resource.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -397,7 +397,7 @@ class ModelBuildInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: The status
+        :returns: A string that described the model build status. The values can be: enqueued, building, completed, failed
         :rtype: ModelBuildInstance.Status
         """
         return self._properties['status']
@@ -405,7 +405,7 @@ class ModelBuildInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: The unique_name
+        :returns: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -421,7 +421,7 @@ class ModelBuildInstance(InstanceResource):
     @property
     def build_duration(self):
         """
-        :returns: The build_duration
+        :returns: The time in seconds it took to build the model.
         :rtype: unicode
         """
         return self._properties['build_duration']
@@ -447,7 +447,7 @@ class ModelBuildInstance(InstanceResource):
         """
         Update the ModelBuildInstance
 
-        :param unicode unique_name: The unique_name
+        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
 
         :returns: Updated ModelBuildInstance
         :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance

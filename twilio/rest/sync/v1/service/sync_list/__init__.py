@@ -270,7 +270,7 @@ class SyncListContext(InstanceContext):
         """
         Update the SyncListInstance
 
-        :param unicode ttl: The ttl
+        :param unicode ttl: Time-to-live of this List in seconds, defaults to no expiration.
 
         :returns: Updated SyncListInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.SyncListInstance
@@ -492,7 +492,7 @@ class SyncListInstance(InstanceResource):
         """
         Update the SyncListInstance
 
-        :param unicode ttl: The ttl
+        :param unicode ttl: Time-to-live of this List in seconds, defaults to no expiration.
 
         :returns: Updated SyncListInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.SyncListInstance

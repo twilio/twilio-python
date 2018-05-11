@@ -280,7 +280,7 @@ class CredentialContext(InstanceContext):
         """
         Update the CredentialInstance
 
-        :param unicode password: The password
+        :param unicode password: The password will not be returned in the response.
 
         :returns: Updated CredentialInstance
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
@@ -440,7 +440,7 @@ class CredentialInstance(InstanceResource):
         """
         Update the CredentialInstance
 
-        :param unicode password: The password
+        :param unicode password: The password will not be returned in the response.
 
         :returns: Updated CredentialInstance
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance

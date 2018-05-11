@@ -272,7 +272,7 @@ class CountryInstance(InstanceResource):
     @property
     def country(self):
         """
-        :returns: The country
+        :returns: Name of the country
         :rtype: unicode
         """
         return self._properties['country']
@@ -280,7 +280,7 @@ class CountryInstance(InstanceResource):
     @property
     def iso_country(self):
         """
-        :returns: The iso_country
+        :returns: The ISO country code
         :rtype: unicode
         """
         return self._properties['iso_country']
@@ -304,7 +304,7 @@ class CountryInstance(InstanceResource):
     @property
     def price_unit(self):
         """
-        :returns: The price_unit
+        :returns: The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy).
         :rtype: unicode
         """
         return self._properties['price_unit']

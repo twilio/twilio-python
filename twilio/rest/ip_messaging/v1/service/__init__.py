@@ -40,7 +40,7 @@ class ServiceList(ListResource):
         """
         Create a new ServiceInstance
 
-        :param unicode friendly_name: The friendly_name
+        :param unicode friendly_name: Human-readable name for this service instance
 
         :returns: Newly created ServiceInstance
         :rtype: twilio.rest.chat.v1.service.ServiceInstance
@@ -327,14 +327,14 @@ class ServiceContext(InstanceContext):
         """
         Update the ServiceInstance
 
-        :param unicode friendly_name: The friendly_name
+        :param unicode friendly_name: Human-readable name for this service instance
         :param unicode default_service_role_sid: The default_service_role_sid
-        :param unicode default_channel_role_sid: The default_channel_role_sid
-        :param unicode default_channel_creator_role_sid: The default_channel_creator_role_sid
-        :param bool read_status_enabled: The read_status_enabled
-        :param bool reachability_enabled: The reachability_enabled
-        :param unicode typing_indicator_timeout: The typing_indicator_timeout
-        :param unicode consumption_report_interval: The consumption_report_interval
+        :param unicode default_channel_role_sid: Channel role assigned on channel join
+        :param unicode default_channel_creator_role_sid: Channel role assigned to creator of channel when joining for first time
+        :param bool read_status_enabled: true if the member read status feature is enabled, false if not.
+        :param bool reachability_enabled: true if the reachability feature should be enabled.
+        :param unicode typing_indicator_timeout: ISO 8601 duration indicating the timeout after "started typing" event when client should assume that user is not typing anymore even if no "ended typing" message received
+        :param unicode consumption_report_interval: ISO 8601 duration indicating the interval between consumption reports sent from client endpoints.
         :param bool notifications_new_message_enabled: The notifications.new_message.enabled
         :param unicode notifications_new_message_template: The notifications.new_message.template
         :param bool notifications_added_to_channel_enabled: The notifications.added_to_channel.enabled
@@ -343,10 +343,10 @@ class ServiceContext(InstanceContext):
         :param unicode notifications_removed_from_channel_template: The notifications.removed_from_channel.template
         :param bool notifications_invited_to_channel_enabled: The notifications.invited_to_channel.enabled
         :param unicode notifications_invited_to_channel_template: The notifications.invited_to_channel.template
-        :param unicode pre_webhook_url: The pre_webhook_url
-        :param unicode post_webhook_url: The post_webhook_url
-        :param unicode webhook_method: The webhook_method
-        :param unicode webhook_filters: The webhook_filters
+        :param unicode pre_webhook_url: The webhook URL for PRE-Event webhooks.
+        :param unicode post_webhook_url: The webhook URL for POST-Event webhooks.
+        :param unicode webhook_method: The webhook request format to use.
+        :param unicode webhook_filters: The list of WebHook events that are enabled for this Service instance.
         :param unicode webhooks_on_message_send_url: The webhooks.on_message_send.url
         :param unicode webhooks_on_message_send_method: The webhooks.on_message_send.method
         :param unicode webhooks_on_message_send_format: The webhooks.on_message_send.format
@@ -586,7 +586,7 @@ class ServiceInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A 34 character string that uniquely identifies this resource.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -594,7 +594,7 @@ class ServiceInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique id of the Account responsible for this service.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -602,7 +602,7 @@ class ServiceInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The friendly_name
+        :returns: The human-readable name of this service.
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -610,7 +610,7 @@ class ServiceInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date that this resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -618,7 +618,7 @@ class ServiceInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date that this resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -626,7 +626,7 @@ class ServiceInstance(InstanceResource):
     @property
     def default_service_role_sid(self):
         """
-        :returns: The default_service_role_sid
+        :returns: The service role assigned to users when they are added to the service.
         :rtype: unicode
         """
         return self._properties['default_service_role_sid']
@@ -634,7 +634,7 @@ class ServiceInstance(InstanceResource):
     @property
     def default_channel_role_sid(self):
         """
-        :returns: The default_channel_role_sid
+        :returns: The channel role assigned to users when they are added to a channel.
         :rtype: unicode
         """
         return self._properties['default_channel_role_sid']
@@ -642,7 +642,7 @@ class ServiceInstance(InstanceResource):
     @property
     def default_channel_creator_role_sid(self):
         """
-        :returns: The default_channel_creator_role_sid
+        :returns: The channel role assigned to a channel creator when joining a new channel.
         :rtype: unicode
         """
         return self._properties['default_channel_creator_role_sid']
@@ -650,7 +650,7 @@ class ServiceInstance(InstanceResource):
     @property
     def read_status_enabled(self):
         """
-        :returns: The read_status_enabled
+        :returns: Enable the Message Constumption Horizon feature.
         :rtype: bool
         """
         return self._properties['read_status_enabled']
@@ -658,7 +658,7 @@ class ServiceInstance(InstanceResource):
     @property
     def reachability_enabled(self):
         """
-        :returns: The reachability_enabled
+        :returns: Indicates whether the  the Reachability feature is enabled for this Service instance.
         :rtype: bool
         """
         return self._properties['reachability_enabled']
@@ -666,7 +666,7 @@ class ServiceInstance(InstanceResource):
     @property
     def typing_indicator_timeout(self):
         """
-        :returns: The typing_indicator_timeout
+        :returns: The amount of time after a "started typing" event when clients should assume that user is no longer typing, even if no "ended typing" message was received.
         :rtype: unicode
         """
         return self._properties['typing_indicator_timeout']
@@ -674,7 +674,7 @@ class ServiceInstance(InstanceResource):
     @property
     def consumption_report_interval(self):
         """
-        :returns: The consumption_report_interval
+        :returns: The interval between consumption reports submission batches from client endpoints.
         :rtype: unicode
         """
         return self._properties['consumption_report_interval']
@@ -698,7 +698,7 @@ class ServiceInstance(InstanceResource):
     @property
     def pre_webhook_url(self):
         """
-        :returns: The pre_webhook_url
+        :returns: The webhook URL for PRE-Event webhooks.
         :rtype: unicode
         """
         return self._properties['pre_webhook_url']
@@ -706,7 +706,7 @@ class ServiceInstance(InstanceResource):
     @property
     def post_webhook_url(self):
         """
-        :returns: The post_webhook_url
+        :returns: The webhook URL for POST-Event webhooks.
         :rtype: unicode
         """
         return self._properties['post_webhook_url']
@@ -714,7 +714,7 @@ class ServiceInstance(InstanceResource):
     @property
     def webhook_method(self):
         """
-        :returns: The webhook_method
+        :returns: The webhook request format to use.
         :rtype: unicode
         """
         return self._properties['webhook_method']
@@ -722,7 +722,7 @@ class ServiceInstance(InstanceResource):
     @property
     def webhook_filters(self):
         """
-        :returns: The webhook_filters
+        :returns: The list of WebHook events that are enabled for this Service instance.
         :rtype: unicode
         """
         return self._properties['webhook_filters']
@@ -730,7 +730,7 @@ class ServiceInstance(InstanceResource):
     @property
     def notifications(self):
         """
-        :returns: The notifications
+        :returns: Notification configuration for the Service instance.
         :rtype: dict
         """
         return self._properties['notifications']
@@ -738,7 +738,7 @@ class ServiceInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: An absolute URL for this service.
         :rtype: unicode
         """
         return self._properties['url']
@@ -746,7 +746,7 @@ class ServiceInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links
+        :returns: URLs to access the Channels, Roles, and Users for this service.
         :rtype: unicode
         """
         return self._properties['links']
@@ -839,14 +839,14 @@ class ServiceInstance(InstanceResource):
         """
         Update the ServiceInstance
 
-        :param unicode friendly_name: The friendly_name
+        :param unicode friendly_name: Human-readable name for this service instance
         :param unicode default_service_role_sid: The default_service_role_sid
-        :param unicode default_channel_role_sid: The default_channel_role_sid
-        :param unicode default_channel_creator_role_sid: The default_channel_creator_role_sid
-        :param bool read_status_enabled: The read_status_enabled
-        :param bool reachability_enabled: The reachability_enabled
-        :param unicode typing_indicator_timeout: The typing_indicator_timeout
-        :param unicode consumption_report_interval: The consumption_report_interval
+        :param unicode default_channel_role_sid: Channel role assigned on channel join
+        :param unicode default_channel_creator_role_sid: Channel role assigned to creator of channel when joining for first time
+        :param bool read_status_enabled: true if the member read status feature is enabled, false if not.
+        :param bool reachability_enabled: true if the reachability feature should be enabled.
+        :param unicode typing_indicator_timeout: ISO 8601 duration indicating the timeout after "started typing" event when client should assume that user is not typing anymore even if no "ended typing" message received
+        :param unicode consumption_report_interval: ISO 8601 duration indicating the interval between consumption reports sent from client endpoints.
         :param bool notifications_new_message_enabled: The notifications.new_message.enabled
         :param unicode notifications_new_message_template: The notifications.new_message.template
         :param bool notifications_added_to_channel_enabled: The notifications.added_to_channel.enabled
@@ -855,10 +855,10 @@ class ServiceInstance(InstanceResource):
         :param unicode notifications_removed_from_channel_template: The notifications.removed_from_channel.template
         :param bool notifications_invited_to_channel_enabled: The notifications.invited_to_channel.enabled
         :param unicode notifications_invited_to_channel_template: The notifications.invited_to_channel.template
-        :param unicode pre_webhook_url: The pre_webhook_url
-        :param unicode post_webhook_url: The post_webhook_url
-        :param unicode webhook_method: The webhook_method
-        :param unicode webhook_filters: The webhook_filters
+        :param unicode pre_webhook_url: The webhook URL for PRE-Event webhooks.
+        :param unicode post_webhook_url: The webhook URL for POST-Event webhooks.
+        :param unicode webhook_method: The webhook request format to use.
+        :param unicode webhook_filters: The list of WebHook events that are enabled for this Service instance.
         :param unicode webhooks_on_message_send_url: The webhooks.on_message_send.url
         :param unicode webhooks_on_message_send_method: The webhooks.on_message_send.method
         :param unicode webhooks_on_message_send_format: The webhooks.on_message_send.format

@@ -22,7 +22,7 @@ class MessageList(ListResource):
         Initialize the MessageList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
+        :param service_sid: The unique id of the Service this message belongs to.
         :param channel_sid: The channel_sid
 
         :returns: twilio.rest.chat.v1.service.channel.message.MessageList
@@ -200,7 +200,7 @@ class MessagePage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The service_sid
+        :param service_sid: The unique id of the Service this message belongs to.
         :param channel_sid: The channel_sid
 
         :returns: twilio.rest.chat.v1.service.channel.message.MessagePage
@@ -294,8 +294,8 @@ class MessageContext(InstanceContext):
         """
         Update the MessageInstance
 
-        :param unicode body: The body
-        :param unicode attributes: The attributes
+        :param unicode body: The new message body string.
+        :param unicode attributes: The new attributes metadata field you can use to store any data you wish.
 
         :returns: Updated MessageInstance
         :rtype: twilio.rest.chat.v1.service.channel.message.MessageInstance
@@ -389,7 +389,7 @@ class MessageInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A 34 character string that uniquely identifies this resource.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -397,7 +397,7 @@ class MessageInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique id of the Account responsible for this message.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -405,7 +405,7 @@ class MessageInstance(InstanceResource):
     @property
     def attributes(self):
         """
-        :returns: The attributes
+        :returns: An optional string metadata field you can use to store any data you wish.
         :rtype: unicode
         """
         return self._properties['attributes']
@@ -413,7 +413,7 @@ class MessageInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The service_sid
+        :returns: The unique id of the Service this message belongs to.
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -421,7 +421,7 @@ class MessageInstance(InstanceResource):
     @property
     def to(self):
         """
-        :returns: The to
+        :returns: The unique id of the Channel this message was sent to.
         :rtype: unicode
         """
         return self._properties['to']
@@ -437,7 +437,7 @@ class MessageInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date that this resource was created.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -445,7 +445,7 @@ class MessageInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date that this resource was last updated.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -453,7 +453,7 @@ class MessageInstance(InstanceResource):
     @property
     def was_edited(self):
         """
-        :returns: The was_edited
+        :returns: true if the message has been updated since it was created.
         :rtype: bool
         """
         return self._properties['was_edited']
@@ -461,7 +461,7 @@ class MessageInstance(InstanceResource):
     @property
     def from_(self):
         """
-        :returns: The from
+        :returns: The identity of the message's author.
         :rtype: unicode
         """
         return self._properties['from_']
@@ -469,7 +469,7 @@ class MessageInstance(InstanceResource):
     @property
     def body(self):
         """
-        :returns: The body
+        :returns: The contents of the message.
         :rtype: unicode
         """
         return self._properties['body']
@@ -477,7 +477,7 @@ class MessageInstance(InstanceResource):
     @property
     def index(self):
         """
-        :returns: The index
+        :returns: The index of the message within the Channel
         :rtype: unicode
         """
         return self._properties['index']
@@ -485,7 +485,7 @@ class MessageInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: An absolute URL for this message.
         :rtype: unicode
         """
         return self._properties['url']
@@ -512,8 +512,8 @@ class MessageInstance(InstanceResource):
         """
         Update the MessageInstance
 
-        :param unicode body: The body
-        :param unicode attributes: The attributes
+        :param unicode body: The new message body string.
+        :param unicode attributes: The new attributes metadata field you can use to store any data you wish.
 
         :returns: Updated MessageInstance
         :rtype: twilio.rest.chat.v1.service.channel.message.MessageInstance

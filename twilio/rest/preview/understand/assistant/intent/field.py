@@ -24,8 +24,8 @@ class FieldList(ListResource):
         Initialize the FieldList
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The assistant_sid
-        :param intent_sid: The intent_sid
+        :param assistant_sid: The unique ID of the parent Assistant.
+        :param intent_sid: The unique ID of the Intent associated with this Field.
 
         :returns: twilio.rest.preview.understand.assistant.intent.field.FieldList
         :rtype: twilio.rest.preview.understand.assistant.intent.field.FieldList
@@ -121,8 +121,8 @@ class FieldList(ListResource):
         """
         Create a new FieldInstance
 
-        :param unicode field_type: The field_type
-        :param unicode unique_name: The unique_name
+        :param unicode field_type: The unique name or sid of the FieldType
+        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
 
         :returns: Newly created FieldInstance
         :rtype: twilio.rest.preview.understand.assistant.intent.field.FieldInstance
@@ -195,8 +195,8 @@ class FieldPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param assistant_sid: The assistant_sid
-        :param intent_sid: The intent_sid
+        :param assistant_sid: The unique ID of the parent Assistant.
+        :param intent_sid: The unique ID of the Intent associated with this Field.
 
         :returns: twilio.rest.preview.understand.assistant.intent.field.FieldPage
         :rtype: twilio.rest.preview.understand.assistant.intent.field.FieldPage
@@ -354,7 +354,7 @@ class FieldInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique ID of the Account that created this Field.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -362,7 +362,7 @@ class FieldInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date that this resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -370,7 +370,7 @@ class FieldInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date that this resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -378,7 +378,7 @@ class FieldInstance(InstanceResource):
     @property
     def field_type(self):
         """
-        :returns: The field_type
+        :returns: The Field Type of this field. Can be the Field Type unique_name or the Field Type sid.
         :rtype: unicode
         """
         return self._properties['field_type']
@@ -386,7 +386,7 @@ class FieldInstance(InstanceResource):
     @property
     def intent_sid(self):
         """
-        :returns: The intent_sid
+        :returns: The unique ID of the Intent associated with this Field.
         :rtype: unicode
         """
         return self._properties['intent_sid']
@@ -394,7 +394,7 @@ class FieldInstance(InstanceResource):
     @property
     def assistant_sid(self):
         """
-        :returns: The assistant_sid
+        :returns: The unique ID of the parent Assistant.
         :rtype: unicode
         """
         return self._properties['assistant_sid']
@@ -402,7 +402,7 @@ class FieldInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A 34 character string that uniquely identifies this resource.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -410,7 +410,7 @@ class FieldInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: The unique_name
+        :returns: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
         :rtype: unicode
         """
         return self._properties['unique_name']

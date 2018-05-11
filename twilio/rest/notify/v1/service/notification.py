@@ -43,23 +43,23 @@ class NotificationList(ListResource):
         """
         Create a new NotificationInstance
 
-        :param unicode body: The body
-        :param NotificationInstance.Priority priority: The priority
-        :param unicode ttl: The ttl
-        :param unicode title: The title
-        :param unicode sound: The sound
-        :param unicode action: The action
-        :param dict data: The data
-        :param dict apn: The apn
-        :param dict gcm: The gcm
-        :param dict sms: The sms
-        :param dict facebook_messenger: The facebook_messenger
-        :param dict fcm: The fcm
+        :param unicode body: Indicates the notification body text.
+        :param NotificationInstance.Priority priority: Two priorities defined: low and high.
+        :param unicode ttl: This parameter specifies how long the notification is valid.
+        :param unicode title: Indicates the notification title.
+        :param unicode sound: Indicates a sound to be played.
+        :param unicode action: Specifies the actions to be displayed for the notification.
+        :param dict data: This parameter specifies the custom key-value pairs of the notification’s payload.
+        :param dict apn: APNS specific payload that overrides corresponding attributes in a generic payload for Bindings with the apn BindingType.
+        :param dict gcm: GCM specific payload that overrides corresponding attributes in generic payload for Bindings with gcm BindingType.
+        :param dict sms: SMS specific payload that overrides corresponding attributes in generic payload for Bindings with sms BindingType.
+        :param dict facebook_messenger: Messenger specific payload that overrides corresponding attributes in generic payload for Bindings with facebook-messenger BindingType.
+        :param dict fcm: FCM specific payload that overrides corresponding attributes in generic payload for Bindings with fcm BindingType.
         :param unicode segment: The segment
         :param dict alexa: The alexa
-        :param unicode to_binding: The to_binding
-        :param unicode identity: The identity
-        :param unicode tag: The tag
+        :param unicode to_binding: The destination address in a JSON object.
+        :param unicode identity: Delivery will be attempted only to Bindings with an Identity in this list.
+        :param unicode tag: Delivery will be attempted only to Bindings that have all of the Tags in this list.
 
         :returns: Newly created NotificationInstance
         :rtype: twilio.rest.notify.v1.service.notification.NotificationInstance
@@ -223,7 +223,7 @@ class NotificationInstance(InstanceResource):
     @property
     def identities(self):
         """
-        :returns: The identities
+        :returns: List of Identities.
         :rtype: unicode
         """
         return self._properties['identities']
@@ -231,7 +231,7 @@ class NotificationInstance(InstanceResource):
     @property
     def tags(self):
         """
-        :returns: The tags
+        :returns: List of Tags
         :rtype: unicode
         """
         return self._properties['tags']
@@ -247,7 +247,7 @@ class NotificationInstance(InstanceResource):
     @property
     def priority(self):
         """
-        :returns: The priority
+        :returns: Two priorities defined: low and high.
         :rtype: NotificationInstance.Priority
         """
         return self._properties['priority']
@@ -255,7 +255,7 @@ class NotificationInstance(InstanceResource):
     @property
     def ttl(self):
         """
-        :returns: The ttl
+        :returns: This parameter specifies how long the notification is valid.
         :rtype: unicode
         """
         return self._properties['ttl']
@@ -263,7 +263,7 @@ class NotificationInstance(InstanceResource):
     @property
     def title(self):
         """
-        :returns: The title
+        :returns: Indicates the notification title.
         :rtype: unicode
         """
         return self._properties['title']
@@ -271,7 +271,7 @@ class NotificationInstance(InstanceResource):
     @property
     def body(self):
         """
-        :returns: The body
+        :returns: Indicates the notification body text.
         :rtype: unicode
         """
         return self._properties['body']
@@ -279,7 +279,7 @@ class NotificationInstance(InstanceResource):
     @property
     def sound(self):
         """
-        :returns: The sound
+        :returns: Indicates a sound to be played.
         :rtype: unicode
         """
         return self._properties['sound']
@@ -287,7 +287,7 @@ class NotificationInstance(InstanceResource):
     @property
     def action(self):
         """
-        :returns: The action
+        :returns: Specifies the actions to be displayed for the notification.
         :rtype: unicode
         """
         return self._properties['action']
@@ -295,7 +295,7 @@ class NotificationInstance(InstanceResource):
     @property
     def data(self):
         """
-        :returns: The data
+        :returns: This parameter specifies the custom key-value pairs of the notification’s payload.
         :rtype: dict
         """
         return self._properties['data']
@@ -303,7 +303,7 @@ class NotificationInstance(InstanceResource):
     @property
     def apn(self):
         """
-        :returns: The apn
+        :returns: APNS specific payload that overrides corresponding attributes in a generic payload for Bindings with the apn BindingType.
         :rtype: dict
         """
         return self._properties['apn']
@@ -311,7 +311,7 @@ class NotificationInstance(InstanceResource):
     @property
     def gcm(self):
         """
-        :returns: The gcm
+        :returns: GCM specific payload that overrides corresponding attributes in generic payload for Bindings with gcm BindingType.
         :rtype: dict
         """
         return self._properties['gcm']
@@ -319,7 +319,7 @@ class NotificationInstance(InstanceResource):
     @property
     def fcm(self):
         """
-        :returns: The fcm
+        :returns: FCM specific payload that overrides corresponding attributes in generic payload for Bindings with fcm BindingType.
         :rtype: dict
         """
         return self._properties['fcm']
@@ -327,7 +327,7 @@ class NotificationInstance(InstanceResource):
     @property
     def sms(self):
         """
-        :returns: The sms
+        :returns: SMS specific payload that overrides corresponding attributes in generic payload for Bindings with sms BindingType.
         :rtype: dict
         """
         return self._properties['sms']
@@ -335,7 +335,7 @@ class NotificationInstance(InstanceResource):
     @property
     def facebook_messenger(self):
         """
-        :returns: The facebook_messenger
+        :returns: Messenger specific payload that overrides corresponding attributes in generic payload for Bindings with facebook-messenger BindingType.
         :rtype: dict
         """
         return self._properties['facebook_messenger']

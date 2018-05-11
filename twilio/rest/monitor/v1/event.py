@@ -47,8 +47,8 @@ class EventList(ListResource):
         :param unicode event_type: The event_type
         :param unicode resource_sid: The resource_sid
         :param unicode source_ip_address: The source_ip_address
-        :param date start_date: The start_date
-        :param date end_date: The end_date
+        :param datetime start_date: The start_date
+        :param datetime end_date: The end_date
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -86,8 +86,8 @@ class EventList(ListResource):
         :param unicode event_type: The event_type
         :param unicode resource_sid: The resource_sid
         :param unicode source_ip_address: The source_ip_address
-        :param date start_date: The start_date
-        :param date end_date: The end_date
+        :param datetime start_date: The start_date
+        :param datetime end_date: The end_date
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -122,8 +122,8 @@ class EventList(ListResource):
         :param unicode event_type: The event_type
         :param unicode resource_sid: The resource_sid
         :param unicode source_ip_address: The source_ip_address
-        :param date start_date: The start_date
-        :param date end_date: The end_date
+        :param datetime start_date: The start_date
+        :param datetime end_date: The end_date
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -136,8 +136,8 @@ class EventList(ListResource):
             'EventType': event_type,
             'ResourceSid': resource_sid,
             'SourceIpAddress': source_ip_address,
-            'StartDate': serialize.iso8601_date(start_date),
-            'EndDate': serialize.iso8601_date(end_date),
+            'StartDate': serialize.iso8601_datetime(start_date),
+            'EndDate': serialize.iso8601_datetime(end_date),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -360,7 +360,7 @@ class EventInstance(InstanceResource):
     @property
     def description(self):
         """
-        :returns: The description
+        :returns: A human-readable description of the event.  May be null.
         :rtype: unicode
         """
         return self._properties['description']
@@ -408,7 +408,7 @@ class EventInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A 34 character string that uniquely identifies this event.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -416,7 +416,7 @@ class EventInstance(InstanceResource):
     @property
     def source(self):
         """
-        :returns: The source
+        :returns: The originating system or interface that caused the event.  web for events caused by user action in the Twilio Console.  api for events caused through a request to the REST API.  twilio for events caused by an automated or internal Twilio system.
         :rtype: unicode
         """
         return self._properties['source']

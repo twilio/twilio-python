@@ -23,8 +23,8 @@ class InviteList(ListResource):
         Initialize the InviteList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
-        :param channel_sid: The channel_sid
+        :param service_sid: The unique id of the Service this member belongs to.
+        :param channel_sid: The unique id of the Channel for this member.
 
         :returns: twilio.rest.chat.v1.service.channel.invite.InviteList
         :rtype: twilio.rest.chat.v1.service.channel.invite.InviteList
@@ -39,8 +39,8 @@ class InviteList(ListResource):
         """
         Create a new InviteInstance
 
-        :param unicode identity: The identity
-        :param unicode role_sid: The role_sid
+        :param unicode identity: A unique string identifier for this User in this Service.
+        :param unicode role_sid: The Role assigned to this member.
 
         :returns: Newly created InviteInstance
         :rtype: twilio.rest.chat.v1.service.channel.invite.InviteInstance
@@ -67,7 +67,7 @@ class InviteList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode identity: The identity
+        :param unicode identity: A unique string identifier for this User in this Service.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -90,7 +90,7 @@ class InviteList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode identity: The identity
+        :param unicode identity: A unique string identifier for this User in this Service.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -109,7 +109,7 @@ class InviteList(ListResource):
         Retrieve a single page of InviteInstance records from the API.
         Request is executed immediately
 
-        :param unicode identity: The identity
+        :param unicode identity: A unique string identifier for this User in this Service.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -200,8 +200,8 @@ class InvitePage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The service_sid
-        :param channel_sid: The channel_sid
+        :param service_sid: The unique id of the Service this member belongs to.
+        :param channel_sid: The unique id of the Channel for this member.
 
         :returns: twilio.rest.chat.v1.service.channel.invite.InvitePage
         :rtype: twilio.rest.chat.v1.service.channel.invite.InvitePage
@@ -356,7 +356,7 @@ class InviteInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A 34 character string that uniquely identifies this resource.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -364,7 +364,7 @@ class InviteInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique id of the Account[/console] responsible for this member.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -372,7 +372,7 @@ class InviteInstance(InstanceResource):
     @property
     def channel_sid(self):
         """
-        :returns: The channel_sid
+        :returns: The unique id of the Channel for this member.
         :rtype: unicode
         """
         return self._properties['channel_sid']
@@ -380,7 +380,7 @@ class InviteInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The service_sid
+        :returns: The unique id of the Service this member belongs to.
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -388,7 +388,7 @@ class InviteInstance(InstanceResource):
     @property
     def identity(self):
         """
-        :returns: The identity
+        :returns: A unique string identifier for this User in this Service.
         :rtype: unicode
         """
         return self._properties['identity']
@@ -396,7 +396,7 @@ class InviteInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date that this resource was created.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -404,7 +404,7 @@ class InviteInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date that this resource was last updated.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -412,7 +412,7 @@ class InviteInstance(InstanceResource):
     @property
     def role_sid(self):
         """
-        :returns: The role_sid
+        :returns: The Role assigned to this member.
         :rtype: unicode
         """
         return self._properties['role_sid']
@@ -428,7 +428,7 @@ class InviteInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: An absolute URL for this member.
         :rtype: unicode
         """
         return self._properties['url']

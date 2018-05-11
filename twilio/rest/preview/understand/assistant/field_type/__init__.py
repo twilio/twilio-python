@@ -25,7 +25,7 @@ class FieldTypeList(ListResource):
         Initialize the FieldTypeList
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The assistant_sid
+        :param assistant_sid: The unique ID of the Assistant.
 
         :returns: twilio.rest.preview.understand.assistant.field_type.FieldTypeList
         :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeList
@@ -121,8 +121,8 @@ class FieldTypeList(ListResource):
         """
         Create a new FieldTypeInstance
 
-        :param unicode unique_name: The unique_name
-        :param unicode friendly_name: The friendly_name
+        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :param unicode friendly_name: A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
 
         :returns: Newly created FieldTypeInstance
         :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeInstance
@@ -180,7 +180,7 @@ class FieldTypePage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param assistant_sid: The assistant_sid
+        :param assistant_sid: The unique ID of the Assistant.
 
         :returns: twilio.rest.preview.understand.assistant.field_type.FieldTypePage
         :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypePage
@@ -262,8 +262,8 @@ class FieldTypeContext(InstanceContext):
         """
         Update the FieldTypeInstance
 
-        :param unicode friendly_name: The friendly_name
-        :param unicode unique_name: The unique_name
+        :param unicode friendly_name: A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
+        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
 
         :returns: Updated FieldTypeInstance
         :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeInstance
@@ -370,7 +370,7 @@ class FieldTypeInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique ID of the Account that created this Field Type.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -378,7 +378,7 @@ class FieldTypeInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date that this resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -386,7 +386,7 @@ class FieldTypeInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date that this resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -394,7 +394,7 @@ class FieldTypeInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The friendly_name
+        :returns: A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -410,7 +410,7 @@ class FieldTypeInstance(InstanceResource):
     @property
     def assistant_sid(self):
         """
-        :returns: The assistant_sid
+        :returns: The unique ID of the Assistant.
         :rtype: unicode
         """
         return self._properties['assistant_sid']
@@ -418,7 +418,7 @@ class FieldTypeInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A 34 character string that uniquely identifies this resource.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -426,7 +426,7 @@ class FieldTypeInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: The unique_name
+        :returns: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -452,8 +452,8 @@ class FieldTypeInstance(InstanceResource):
         """
         Update the FieldTypeInstance
 
-        :param unicode friendly_name: The friendly_name
-        :param unicode unique_name: The unique_name
+        :param unicode friendly_name: A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
+        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
 
         :returns: Updated FieldTypeInstance
         :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeInstance

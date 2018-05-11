@@ -14,15 +14,14 @@ from twilio.base.page import Page
 
 
 class UsageRecordList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version, sim_sid):
         """
         Initialize the UsageRecordList
 
         :param Version version: Version that contains the resource
-        :param sim_sid: The sim_sid
+        :param sim_sid: The unique id of the SIM resource that this Usage Record is for.
 
         :returns: twilio.rest.wireless.v1.sim.usage_record.UsageRecordList
         :rtype: twilio.rest.wireless.v1.sim.usage_record.UsageRecordList
@@ -41,9 +40,9 @@ class UsageRecordList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param datetime end: The end
-        :param datetime start: The start
-        :param UsageRecordInstance.Granularity granularity: The granularity
+        :param datetime end: Only include usage that has occurred on or before this date.
+        :param datetime start: Only include usage that has occurred on or after this date.
+        :param UsageRecordInstance.Granularity granularity: The time-based grouping that results are aggregated by.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -67,9 +66,9 @@ class UsageRecordList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param datetime end: The end
-        :param datetime start: The start
-        :param UsageRecordInstance.Granularity granularity: The granularity
+        :param datetime end: Only include usage that has occurred on or before this date.
+        :param datetime start: Only include usage that has occurred on or after this date.
+        :param UsageRecordInstance.Granularity granularity: The time-based grouping that results are aggregated by.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -95,9 +94,9 @@ class UsageRecordList(ListResource):
         Retrieve a single page of UsageRecordInstance records from the API.
         Request is executed immediately
 
-        :param datetime end: The end
-        :param datetime start: The start
-        :param UsageRecordInstance.Granularity granularity: The granularity
+        :param datetime end: Only include usage that has occurred on or before this date.
+        :param datetime start: Only include usage that has occurred on or after this date.
+        :param UsageRecordInstance.Granularity granularity: The time-based grouping that results are aggregated by.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -150,8 +149,7 @@ class UsageRecordList(ListResource):
 
 
 class UsageRecordPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -159,7 +157,7 @@ class UsageRecordPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param sim_sid: The sim_sid
+        :param sim_sid: The unique id of the SIM resource that this Usage Record is for.
 
         :returns: twilio.rest.wireless.v1.sim.usage_record.UsageRecordPage
         :rtype: twilio.rest.wireless.v1.sim.usage_record.UsageRecordPage
@@ -191,8 +189,7 @@ class UsageRecordPage(Page):
 
 
 class UsageRecordInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     class Granularity(object):
         HOURLY = "hourly"
@@ -224,7 +221,7 @@ class UsageRecordInstance(InstanceResource):
     @property
     def sim_sid(self):
         """
-        :returns: The sim_sid
+        :returns: The unique id of the SIM resource that this Usage Record is for.
         :rtype: unicode
         """
         return self._properties['sim_sid']
@@ -232,7 +229,7 @@ class UsageRecordInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique id of the Account that the SIM belongs to.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -240,7 +237,7 @@ class UsageRecordInstance(InstanceResource):
     @property
     def period(self):
         """
-        :returns: The period
+        :returns: The time period for which usage is reported.
         :rtype: dict
         """
         return self._properties['period']
@@ -248,7 +245,7 @@ class UsageRecordInstance(InstanceResource):
     @property
     def commands(self):
         """
-        :returns: The commands
+        :returns: An object representing the Commands usage for the SIM over the period.
         :rtype: dict
         """
         return self._properties['commands']
@@ -256,7 +253,7 @@ class UsageRecordInstance(InstanceResource):
     @property
     def data(self):
         """
-        :returns: The data
+        :returns: An object representing the Data usage for the SIM over the period.
         :rtype: dict
         """
         return self._properties['data']

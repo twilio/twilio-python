@@ -24,8 +24,8 @@ class SampleList(ListResource):
         Initialize the SampleList
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The assistant_sid
-        :param intent_sid: The intent_sid
+        :param assistant_sid: The unique ID of the Assistant.
+        :param intent_sid: The unique ID of the Intent associated with this Sample.
 
         :returns: twilio.rest.preview.understand.assistant.intent.sample.SampleList
         :rtype: twilio.rest.preview.understand.assistant.intent.sample.SampleList
@@ -43,7 +43,7 @@ class SampleList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode language: The language
+        :param unicode language: An ISO language-country string of the sample.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -66,7 +66,7 @@ class SampleList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode language: The language
+        :param unicode language: An ISO language-country string of the sample.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -85,7 +85,7 @@ class SampleList(ListResource):
         Retrieve a single page of SampleInstance records from the API.
         Request is executed immediately
 
-        :param unicode language: The language
+        :param unicode language: An ISO language-country string of the sample.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -129,9 +129,9 @@ class SampleList(ListResource):
         """
         Create a new SampleInstance
 
-        :param unicode language: The language
-        :param unicode tagged_text: The tagged_text
-        :param unicode source_channel: The source_channel
+        :param unicode language: An ISO language-country string of the sample.
+        :param unicode tagged_text: The text example of how end-users may express this intent. The sample may contain Field tag blocks.
+        :param unicode source_channel: The communication channel the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included the value will be null
 
         :returns: Newly created SampleInstance
         :rtype: twilio.rest.preview.understand.assistant.intent.sample.SampleInstance
@@ -204,8 +204,8 @@ class SamplePage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param assistant_sid: The assistant_sid
-        :param intent_sid: The intent_sid
+        :param assistant_sid: The unique ID of the Assistant.
+        :param intent_sid: The unique ID of the Intent associated with this Sample.
 
         :returns: twilio.rest.preview.understand.assistant.intent.sample.SamplePage
         :rtype: twilio.rest.preview.understand.assistant.intent.sample.SamplePage
@@ -292,9 +292,9 @@ class SampleContext(InstanceContext):
         """
         Update the SampleInstance
 
-        :param unicode language: The language
-        :param unicode tagged_text: The tagged_text
-        :param unicode source_channel: The source_channel
+        :param unicode language: An ISO language-country string of the sample.
+        :param unicode tagged_text: The text example of how end-users may express this intent. The sample may contain Field tag blocks.
+        :param unicode source_channel: The communication channel the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included the value will be null
 
         :returns: Updated SampleInstance
         :rtype: twilio.rest.preview.understand.assistant.intent.sample.SampleInstance
@@ -392,7 +392,7 @@ class SampleInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique ID of the Account that created this Sample.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -400,7 +400,7 @@ class SampleInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date that this resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -408,7 +408,7 @@ class SampleInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date that this resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -416,7 +416,7 @@ class SampleInstance(InstanceResource):
     @property
     def intent_sid(self):
         """
-        :returns: The intent_sid
+        :returns: The unique ID of the Intent associated with this Sample.
         :rtype: unicode
         """
         return self._properties['intent_sid']
@@ -424,7 +424,7 @@ class SampleInstance(InstanceResource):
     @property
     def language(self):
         """
-        :returns: The language
+        :returns: An ISO language-country string of the sample.
         :rtype: unicode
         """
         return self._properties['language']
@@ -432,7 +432,7 @@ class SampleInstance(InstanceResource):
     @property
     def assistant_sid(self):
         """
-        :returns: The assistant_sid
+        :returns: The unique ID of the Assistant.
         :rtype: unicode
         """
         return self._properties['assistant_sid']
@@ -440,7 +440,7 @@ class SampleInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A 34 character string that uniquely identifies this resource.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -448,7 +448,7 @@ class SampleInstance(InstanceResource):
     @property
     def tagged_text(self):
         """
-        :returns: The tagged_text
+        :returns: The text example of how end-users may express this intent. The sample may contain Field tag blocks.
         :rtype: unicode
         """
         return self._properties['tagged_text']
@@ -464,7 +464,7 @@ class SampleInstance(InstanceResource):
     @property
     def source_channel(self):
         """
-        :returns: The source_channel
+        :returns: The communication channel the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included the value will be null
         :rtype: unicode
         """
         return self._properties['source_channel']
@@ -483,9 +483,9 @@ class SampleInstance(InstanceResource):
         """
         Update the SampleInstance
 
-        :param unicode language: The language
-        :param unicode tagged_text: The tagged_text
-        :param unicode source_channel: The source_channel
+        :param unicode language: An ISO language-country string of the sample.
+        :param unicode tagged_text: The text example of how end-users may express this intent. The sample may contain Field tag blocks.
+        :param unicode source_channel: The communication channel the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included the value will be null
 
         :returns: Updated SampleInstance
         :rtype: twilio.rest.preview.understand.assistant.intent.sample.SampleInstance

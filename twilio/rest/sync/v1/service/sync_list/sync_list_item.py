@@ -40,7 +40,7 @@ class SyncListItemList(ListResource):
         """
         Create a new SyncListItemInstance
 
-        :param dict data: The data
+        :param dict data: Contains arbitrary user-defined, schema-less data that this List Item stores, represented by a JSON object, up to 16KB.
         :param unicode ttl: Time-to-live of this item in seconds, defaults to no expiration.
 
         :returns: Newly created SyncListItemInstance
@@ -308,8 +308,8 @@ class SyncListItemContext(InstanceContext):
         """
         Update the SyncListItemInstance
 
-        :param dict data: The data
-        :param unicode ttl: The ttl
+        :param dict data: Contains arbitrary user-defined, schema-less data that this List Item stores, represented by a JSON object, up to 16KB.
+        :param unicode ttl: Time-to-live of this item in seconds, defaults to no expiration.
 
         :returns: Updated SyncListItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
@@ -513,8 +513,8 @@ class SyncListItemInstance(InstanceResource):
         """
         Update the SyncListItemInstance
 
-        :param dict data: The data
-        :param unicode ttl: The ttl
+        :param dict data: Contains arbitrary user-defined, schema-less data that this List Item stores, represented by a JSON object, up to 16KB.
+        :param unicode ttl: Time-to-live of this item in seconds, defaults to no expiration.
 
         :returns: Updated SyncListItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance

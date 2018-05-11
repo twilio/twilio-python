@@ -17,8 +17,7 @@ from twilio.rest.wireless.v1.sim.usage_record import UsageRecordList
 
 
 class SimList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version):
         """
@@ -44,9 +43,9 @@ class SimList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param SimInstance.Status status: The status
-        :param unicode iccid: The iccid
-        :param unicode rate_plan: The rate_plan
+        :param SimInstance.Status status: Only return Sims with this status.
+        :param unicode iccid: Return Sims with this Iccid.
+        :param unicode rate_plan: Only return Sims with this Rate Plan.
         :param unicode e_id: The e_id
         :param unicode sim_registration_code: The sim_registration_code
         :param int limit: Upper limit for the number of records to return. stream()
@@ -80,9 +79,9 @@ class SimList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param SimInstance.Status status: The status
-        :param unicode iccid: The iccid
-        :param unicode rate_plan: The rate_plan
+        :param SimInstance.Status status: Only return Sims with this status.
+        :param unicode iccid: Return Sims with this Iccid.
+        :param unicode rate_plan: Only return Sims with this Rate Plan.
         :param unicode e_id: The e_id
         :param unicode sim_registration_code: The sim_registration_code
         :param int limit: Upper limit for the number of records to return. list() guarantees
@@ -113,9 +112,9 @@ class SimList(ListResource):
         Retrieve a single page of SimInstance records from the API.
         Request is executed immediately
 
-        :param SimInstance.Status status: The status
-        :param unicode iccid: The iccid
-        :param unicode rate_plan: The rate_plan
+        :param SimInstance.Status status: Only return Sims with this status.
+        :param unicode iccid: Return Sims with this Iccid.
+        :param unicode rate_plan: Only return Sims with this Rate Plan.
         :param unicode e_id: The e_id
         :param unicode sim_registration_code: The sim_registration_code
         :param str page_token: PageToken provided by the API
@@ -194,8 +193,7 @@ class SimList(ListResource):
 
 
 class SimPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -234,8 +232,7 @@ class SimPage(Page):
 
 
 class SimContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version, sid):
         """
@@ -286,22 +283,22 @@ class SimContext(InstanceContext):
         """
         Update the SimInstance
 
-        :param unicode unique_name: The unique_name
-        :param unicode callback_method: The callback_method
-        :param unicode callback_url: The callback_url
-        :param unicode friendly_name: The friendly_name
-        :param unicode rate_plan: The rate_plan
-        :param SimInstance.Status status: The status
-        :param unicode commands_callback_method: The commands_callback_method
-        :param unicode commands_callback_url: The commands_callback_url
-        :param unicode sms_fallback_method: The sms_fallback_method
-        :param unicode sms_fallback_url: The sms_fallback_url
-        :param unicode sms_method: The sms_method
-        :param unicode sms_url: The sms_url
-        :param unicode voice_fallback_method: The voice_fallback_method
-        :param unicode voice_fallback_url: The voice_fallback_url
-        :param unicode voice_method: The voice_method
-        :param unicode voice_url: The voice_url
+        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the Sid.
+        :param unicode callback_method: The HTTP method Twilio will use when making a request to the callback URL.
+        :param unicode callback_url: Twilio will make a request to this URL when the Sim has finished updating.
+        :param unicode friendly_name: A user-provided string that identifies this resource.
+        :param unicode rate_plan: The Sid or UniqueName of the RatePlan that this Sim should use.
+        :param SimInstance.Status status: A string representing the status of the Sim.
+        :param unicode commands_callback_method: A string representing the HTTP method to use when making a request to CommandsCallbackUrl.
+        :param unicode commands_callback_url: The URL that will receive a webhook when this Sim originates a Command.
+        :param unicode sms_fallback_method: The HTTP method Twilio will use when requesting the sms_fallback_url.
+        :param unicode sms_fallback_url: The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by sms_url.
+        :param unicode sms_method: The HTTP method Twilio will use when requesting the above Url.
+        :param unicode sms_url: The URL Twilio will request when the SIM-connected device sends an SMS message that is not a Command.
+        :param unicode voice_fallback_method: The HTTP method Twilio will use when requesting the voice_fallback_url.
+        :param unicode voice_fallback_url: The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by voice_url.
+        :param unicode voice_method: The HTTP method Twilio will use when requesting the above Url.
+        :param unicode voice_url: The URL Twilio will request when the SIM-connected device makes a call.
 
         :returns: Updated SimInstance
         :rtype: twilio.rest.wireless.v1.sim.SimInstance
@@ -369,8 +366,7 @@ class SimContext(InstanceContext):
 
 
 class SimInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     class Status(object):
         NEW = "new"
@@ -438,7 +434,7 @@ class SimInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A 34 character string that uniquely identifies this resource.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -446,7 +442,7 @@ class SimInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: The unique_name
+        :returns: A user-provided string that uniquely identifies this resource as an alternative to the sid.
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -454,7 +450,7 @@ class SimInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique id of the Account that this Sim belongs to.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -462,7 +458,7 @@ class SimInstance(InstanceResource):
     @property
     def rate_plan_sid(self):
         """
-        :returns: The rate_plan_sid
+        :returns: The unique ID of the Rate Plan configured for this Sim.
         :rtype: unicode
         """
         return self._properties['rate_plan_sid']
@@ -470,7 +466,7 @@ class SimInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The friendly_name
+        :returns: A user-provided string that identifies this resource.
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -478,7 +474,7 @@ class SimInstance(InstanceResource):
     @property
     def iccid(self):
         """
-        :returns: The iccid
+        :returns: The ICCID associated with the SIM.
         :rtype: unicode
         """
         return self._properties['iccid']
@@ -494,7 +490,7 @@ class SimInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: The status
+        :returns: A string representing the status of the Sim.
         :rtype: SimInstance.Status
         """
         return self._properties['status']
@@ -502,7 +498,7 @@ class SimInstance(InstanceResource):
     @property
     def commands_callback_url(self):
         """
-        :returns: The commands_callback_url
+        :returns: The URL that will receive a webhook when this Sim originates a machine-to-machine Command.
         :rtype: unicode
         """
         return self._properties['commands_callback_url']
@@ -510,7 +506,7 @@ class SimInstance(InstanceResource):
     @property
     def commands_callback_method(self):
         """
-        :returns: The commands_callback_method
+        :returns: A string representing the HTTP method to use when making a request to commands_callback_url.
         :rtype: unicode
         """
         return self._properties['commands_callback_method']
@@ -518,7 +514,7 @@ class SimInstance(InstanceResource):
     @property
     def sms_fallback_method(self):
         """
-        :returns: The sms_fallback_method
+        :returns: The HTTP method Twilio will use when requesting the sms_fallback_url.
         :rtype: unicode
         """
         return self._properties['sms_fallback_method']
@@ -526,7 +522,7 @@ class SimInstance(InstanceResource):
     @property
     def sms_fallback_url(self):
         """
-        :returns: The sms_fallback_url
+        :returns: The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by sms_url.
         :rtype: unicode
         """
         return self._properties['sms_fallback_url']
@@ -534,7 +530,7 @@ class SimInstance(InstanceResource):
     @property
     def sms_method(self):
         """
-        :returns: The sms_method
+        :returns: The HTTP method Twilio will use when requesting the above Url.
         :rtype: unicode
         """
         return self._properties['sms_method']
@@ -542,7 +538,7 @@ class SimInstance(InstanceResource):
     @property
     def sms_url(self):
         """
-        :returns: The sms_url
+        :returns: The URL Twilio will request when the SIM-connected device send an SMS that is not a Command.
         :rtype: unicode
         """
         return self._properties['sms_url']
@@ -550,7 +546,7 @@ class SimInstance(InstanceResource):
     @property
     def voice_fallback_method(self):
         """
-        :returns: The voice_fallback_method
+        :returns: The HTTP method Twilio will use when requesting the voice_fallback_url.
         :rtype: unicode
         """
         return self._properties['voice_fallback_method']
@@ -558,7 +554,7 @@ class SimInstance(InstanceResource):
     @property
     def voice_fallback_url(self):
         """
-        :returns: The voice_fallback_url
+        :returns: The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by voice_url.
         :rtype: unicode
         """
         return self._properties['voice_fallback_url']
@@ -566,7 +562,7 @@ class SimInstance(InstanceResource):
     @property
     def voice_method(self):
         """
-        :returns: The voice_method
+        :returns: The HTTP method Twilio will use when requesting the above Url.
         :rtype: unicode
         """
         return self._properties['voice_method']
@@ -574,7 +570,7 @@ class SimInstance(InstanceResource):
     @property
     def voice_url(self):
         """
-        :returns: The voice_url
+        :returns: The URL Twilio will request when the SIM-connected device makes a call.
         :rtype: unicode
         """
         return self._properties['voice_url']
@@ -582,7 +578,7 @@ class SimInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date that this resource was created, given as GMT in ISO 8601 format.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -590,7 +586,7 @@ class SimInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date that this resource was last updated, given as GMT in ISO 8601 format.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -598,7 +594,7 @@ class SimInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The URL for this resource.
         :rtype: unicode
         """
         return self._properties['url']
@@ -606,7 +602,7 @@ class SimInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links
+        :returns: Each Sim instance resource supports a few subresources, listed here for convenience.
         :rtype: unicode
         """
         return self._properties['links']
@@ -640,22 +636,22 @@ class SimInstance(InstanceResource):
         """
         Update the SimInstance
 
-        :param unicode unique_name: The unique_name
-        :param unicode callback_method: The callback_method
-        :param unicode callback_url: The callback_url
-        :param unicode friendly_name: The friendly_name
-        :param unicode rate_plan: The rate_plan
-        :param SimInstance.Status status: The status
-        :param unicode commands_callback_method: The commands_callback_method
-        :param unicode commands_callback_url: The commands_callback_url
-        :param unicode sms_fallback_method: The sms_fallback_method
-        :param unicode sms_fallback_url: The sms_fallback_url
-        :param unicode sms_method: The sms_method
-        :param unicode sms_url: The sms_url
-        :param unicode voice_fallback_method: The voice_fallback_method
-        :param unicode voice_fallback_url: The voice_fallback_url
-        :param unicode voice_method: The voice_method
-        :param unicode voice_url: The voice_url
+        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the Sid.
+        :param unicode callback_method: The HTTP method Twilio will use when making a request to the callback URL.
+        :param unicode callback_url: Twilio will make a request to this URL when the Sim has finished updating.
+        :param unicode friendly_name: A user-provided string that identifies this resource.
+        :param unicode rate_plan: The Sid or UniqueName of the RatePlan that this Sim should use.
+        :param SimInstance.Status status: A string representing the status of the Sim.
+        :param unicode commands_callback_method: A string representing the HTTP method to use when making a request to CommandsCallbackUrl.
+        :param unicode commands_callback_url: The URL that will receive a webhook when this Sim originates a Command.
+        :param unicode sms_fallback_method: The HTTP method Twilio will use when requesting the sms_fallback_url.
+        :param unicode sms_fallback_url: The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by sms_url.
+        :param unicode sms_method: The HTTP method Twilio will use when requesting the above Url.
+        :param unicode sms_url: The URL Twilio will request when the SIM-connected device sends an SMS message that is not a Command.
+        :param unicode voice_fallback_method: The HTTP method Twilio will use when requesting the voice_fallback_url.
+        :param unicode voice_fallback_url: The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by voice_url.
+        :param unicode voice_method: The HTTP method Twilio will use when requesting the above Url.
+        :param unicode voice_url: The URL Twilio will request when the SIM-connected device makes a call.
 
         :returns: Updated SimInstance
         :rtype: twilio.rest.wireless.v1.sim.SimInstance

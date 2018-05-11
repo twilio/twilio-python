@@ -16,8 +16,7 @@ from twilio.base.page import Page
 
 
 class RatePlanList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version):
         """
@@ -125,16 +124,16 @@ class RatePlanList(ListResource):
         """
         Create a new RatePlanInstance
 
-        :param unicode unique_name: The unique_name
-        :param unicode friendly_name: The friendly_name
-        :param bool data_enabled: The data_enabled
-        :param unicode data_limit: The data_limit
-        :param unicode data_metering: The data_metering
-        :param bool messaging_enabled: The messaging_enabled
-        :param bool voice_enabled: The voice_enabled
-        :param bool national_roaming_enabled: The national_roaming_enabled
+        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the Sid.
+        :param unicode friendly_name: A user-provided string that identifies this resource.
+        :param bool data_enabled: Defines whether SIMs are capable of using GPRS/3G/LTE data connectivity.
+        :param unicode data_limit: Network-enforced limit specifying the total Megabytes of data usage allowed during one month on the home network.
+        :param unicode data_metering: The model by which to meter data usage, in accordance with the two available data metering models.
+        :param bool messaging_enabled: Defines whether SIMs are capable of making and sending and receiving SMS messages via either Commands or Programmable SMS APIs.
+        :param bool voice_enabled: Defines whether SIMs are capable of making and receiving voice calls.
+        :param bool national_roaming_enabled: Defines whether SIMs can roam onto other networks in the SIM's home country.
         :param unicode international_roaming: The international_roaming
-        :param unicode national_roaming_data_limit: The national_roaming_data_limit
+        :param unicode national_roaming_data_limit: Network-enforced limit specifying the total Megabytes of national roaming data usage allowed during one month.
         :param unicode international_roaming_data_limit: The international_roaming_data_limit
 
         :returns: Newly created RatePlanInstance
@@ -195,8 +194,7 @@ class RatePlanList(ListResource):
 
 
 class RatePlanPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -235,8 +233,7 @@ class RatePlanPage(Page):
 
 
 class RatePlanContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version, sid):
         """
@@ -275,8 +272,8 @@ class RatePlanContext(InstanceContext):
         """
         Update the RatePlanInstance
 
-        :param unicode unique_name: The unique_name
-        :param unicode friendly_name: The friendly_name
+        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the Sid.
+        :param unicode friendly_name: A user-provided string that identifies this resource.
 
         :returns: Updated RatePlanInstance
         :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanInstance
@@ -312,8 +309,7 @@ class RatePlanContext(InstanceContext):
 
 
 class RatePlanInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version, payload, sid=None):
         """
@@ -364,7 +360,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A 34 character string that uniquely identifies this resource.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -372,7 +368,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: The unique_name
+        :returns: A user-provided string that uniquely identifies this resource as an alternative to the sid.
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -380,7 +376,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique id of the Account that this Rate Plan belongs to.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -388,7 +384,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The friendly_name
+        :returns: A user-provided string that identifies this resource.
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -396,7 +392,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def data_enabled(self):
         """
-        :returns: The data_enabled
+        :returns: Defines whether SIMs are capable of using GPRS/3G/4G/LTE data connectivity.
         :rtype: bool
         """
         return self._properties['data_enabled']
@@ -404,7 +400,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def data_metering(self):
         """
-        :returns: The data_metering
+        :returns: The model by which to meter data usage, in accordance with the two available data metering models.
         :rtype: unicode
         """
         return self._properties['data_metering']
@@ -412,7 +408,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def data_limit(self):
         """
-        :returns: The data_limit
+        :returns: Network-enforced limit specifying the total Megabytes of data usage allowed during one month on the home network.
         :rtype: unicode
         """
         return self._properties['data_limit']
@@ -420,7 +416,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def messaging_enabled(self):
         """
-        :returns: The messaging_enabled
+        :returns: Defines whether SIMs are capable of making and sending and receiving SMS via Commands.
         :rtype: bool
         """
         return self._properties['messaging_enabled']
@@ -428,7 +424,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def voice_enabled(self):
         """
-        :returns: The voice_enabled
+        :returns: Defines whether SIMs are capable of making and receiving voice calls.
         :rtype: bool
         """
         return self._properties['voice_enabled']
@@ -436,7 +432,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def national_roaming_enabled(self):
         """
-        :returns: The national_roaming_enabled
+        :returns: Defines whether SIMs can roam onto other networks in the SIM's home country.
         :rtype: bool
         """
         return self._properties['national_roaming_enabled']
@@ -444,7 +440,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def national_roaming_data_limit(self):
         """
-        :returns: The national_roaming_data_limit
+        :returns: Network-enforced limit specifying the total Megabytes of national roaming data usage allowed during one month.
         :rtype: unicode
         """
         return self._properties['national_roaming_data_limit']
@@ -468,7 +464,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date that this resource was created, given as GMT in ISO 8601 format.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -476,7 +472,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date that this resource was last updated, given as GMT in ISO 8601 format.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -484,7 +480,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The URL for this resource.
         :rtype: unicode
         """
         return self._properties['url']
@@ -502,8 +498,8 @@ class RatePlanInstance(InstanceResource):
         """
         Update the RatePlanInstance
 
-        :param unicode unique_name: The unique_name
-        :param unicode friendly_name: The friendly_name
+        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the Sid.
+        :param unicode friendly_name: A user-provided string that identifies this resource.
 
         :returns: Updated RatePlanInstance
         :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanInstance
