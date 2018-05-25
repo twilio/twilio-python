@@ -8,7 +8,6 @@ twilio-python
 .. image:: https://img.shields.io/pypi/pyversions/twilio.svg
    :target: https://pypi.python.org/pypi/twilio
 
-
 A module for using the Twilio REST API and generating valid
 `TwiML <http://www.twilio.com/docs/api/twiml/>`__.
 
