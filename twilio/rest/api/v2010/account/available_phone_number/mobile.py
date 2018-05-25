@@ -59,13 +59,13 @@ class MobileList(ListResource):
         :param bool exclude_local_address_required: Indicates whether the response includes phone numbers which require a local Address.
         :param bool exclude_foreign_address_required: Indicates whether the response includes phone numbers which require a foreign Address.
         :param bool beta: Include phone numbers new to the Twilio platform.
-        :param unicode near_number: Given a phone number, find a geographically close number within Distance miles.
-        :param unicode near_lat_long: Given a latitude/longitude pair lat,long find geographically close numbers within Distance miles.
-        :param unicode distance: Specifies the search radius for a Near- query in miles.
-        :param unicode in_postal_code: Limit results to a particular postal code.
-        :param unicode in_region: Limit results to a particular region.
-        :param unicode in_rate_center: Limit results to a specific rate center, or given a phone number search within the same rate center as that number.
-        :param unicode in_lata: Limit results to a specific Local access and transport area.
+        :param unicode near_number: Given a phone number, find a geographically close number within Distance miles. (US/Canada only)
+        :param unicode near_lat_long: Given a latitude/longitude pair lat,long find geographically close numbers within Distance miles. (US/Canada only)
+        :param unicode distance: Specifies the search radius for a Near- query in miles. (US/Canada only)
+        :param unicode in_postal_code: Limit results to a particular postal code. (US/Canada only)
+        :param unicode in_region: Limit results to a particular region. (US/Canada only)
+        :param unicode in_rate_center: Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)
+        :param unicode in_lata: Limit results to a specific Local access and transport area. (US/Canada only)
         :param unicode in_locality: Limit results to a particular locality.
         :param bool fax_enabled: This indicates whether the phone numbers can receive faxes.
         :param int limit: Upper limit for the number of records to return. stream()
@@ -128,13 +128,13 @@ class MobileList(ListResource):
         :param bool exclude_local_address_required: Indicates whether the response includes phone numbers which require a local Address.
         :param bool exclude_foreign_address_required: Indicates whether the response includes phone numbers which require a foreign Address.
         :param bool beta: Include phone numbers new to the Twilio platform.
-        :param unicode near_number: Given a phone number, find a geographically close number within Distance miles.
-        :param unicode near_lat_long: Given a latitude/longitude pair lat,long find geographically close numbers within Distance miles.
-        :param unicode distance: Specifies the search radius for a Near- query in miles.
-        :param unicode in_postal_code: Limit results to a particular postal code.
-        :param unicode in_region: Limit results to a particular region.
-        :param unicode in_rate_center: Limit results to a specific rate center, or given a phone number search within the same rate center as that number.
-        :param unicode in_lata: Limit results to a specific Local access and transport area.
+        :param unicode near_number: Given a phone number, find a geographically close number within Distance miles. (US/Canada only)
+        :param unicode near_lat_long: Given a latitude/longitude pair lat,long find geographically close numbers within Distance miles. (US/Canada only)
+        :param unicode distance: Specifies the search radius for a Near- query in miles. (US/Canada only)
+        :param unicode in_postal_code: Limit results to a particular postal code. (US/Canada only)
+        :param unicode in_region: Limit results to a particular region. (US/Canada only)
+        :param unicode in_rate_center: Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)
+        :param unicode in_lata: Limit results to a specific Local access and transport area. (US/Canada only)
         :param unicode in_locality: Limit results to a particular locality.
         :param bool fax_enabled: This indicates whether the phone numbers can receive faxes.
         :param int limit: Upper limit for the number of records to return. list() guarantees
@@ -194,13 +194,13 @@ class MobileList(ListResource):
         :param bool exclude_local_address_required: Indicates whether the response includes phone numbers which require a local Address.
         :param bool exclude_foreign_address_required: Indicates whether the response includes phone numbers which require a foreign Address.
         :param bool beta: Include phone numbers new to the Twilio platform.
-        :param unicode near_number: Given a phone number, find a geographically close number within Distance miles.
-        :param unicode near_lat_long: Given a latitude/longitude pair lat,long find geographically close numbers within Distance miles.
-        :param unicode distance: Specifies the search radius for a Near- query in miles.
-        :param unicode in_postal_code: Limit results to a particular postal code.
-        :param unicode in_region: Limit results to a particular region.
-        :param unicode in_rate_center: Limit results to a specific rate center, or given a phone number search within the same rate center as that number.
-        :param unicode in_lata: Limit results to a specific Local access and transport area.
+        :param unicode near_number: Given a phone number, find a geographically close number within Distance miles. (US/Canada only)
+        :param unicode near_lat_long: Given a latitude/longitude pair lat,long find geographically close numbers within Distance miles. (US/Canada only)
+        :param unicode distance: Specifies the search radius for a Near- query in miles. (US/Canada only)
+        :param unicode in_postal_code: Limit results to a particular postal code. (US/Canada only)
+        :param unicode in_region: Limit results to a particular region. (US/Canada only)
+        :param unicode in_rate_center: Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)
+        :param unicode in_lata: Limit results to a specific Local access and transport area. (US/Canada only)
         :param unicode in_locality: Limit results to a particular locality.
         :param bool fax_enabled: This indicates whether the phone numbers can receive faxes.
         :param str page_token: PageToken provided by the API
@@ -359,7 +359,7 @@ class MobileInstance(InstanceResource):
     @property
     def phone_number(self):
         """
-        :returns: The phone number, in E.
+        :returns: The phone number, in E.164 format.
         :rtype: unicode
         """
         return self._properties['phone_number']

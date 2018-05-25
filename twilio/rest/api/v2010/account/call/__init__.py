@@ -67,7 +67,7 @@ class CallList(ListResource):
         :param unicode status_callback_event: The call progress events that Twilio will send webhooks on.
         :param unicode status_callback_method: HTTP Method to use with StatusCallback
         :param unicode send_digits: Digits to send
-        :param unicode if_machine: Action to take if a machine has answered the call
+        :param unicode if_machine: The if_machine
         :param unicode timeout: Number of seconds to wait for an answer
         :param bool record: Whether or not to record the Call
         :param unicode recording_channels: mono or dualSet this parameter to specify the number of channels in the final recording.

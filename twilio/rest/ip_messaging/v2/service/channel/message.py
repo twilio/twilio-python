@@ -42,13 +42,13 @@ class MessageList(ListResource):
         """
         Create a new MessageInstance
 
-        :param unicode from_: The from
-        :param unicode attributes: The attributes
-        :param datetime date_created: The date_created
-        :param datetime date_updated: The date_updated
-        :param unicode last_updated_by: The last_updated_by
-        :param unicode body: The body
-        :param unicode media_sid: The media_sid
+        :param unicode from_: The identity of the message's author. Defaults to system if not specified.
+        :param unicode attributes: The attributes metadata field you can use to store any data you wish.
+        :param datetime date_created: The ISO8601 time specifying the datetime the Message should be set as being created.
+        :param datetime date_updated: The ISO8601 time specifying the datetime the Message should be set as having been last updated.
+        :param unicode last_updated_by: Specify the Identity of the User that last updated the Message
+        :param unicode body: The message body string.
+        :param unicode media_sid:  The Media Sid to be attached to this Message.
 
         :returns: Newly created MessageInstance
         :rtype: twilio.rest.chat.v2.service.channel.message.MessageInstance
@@ -83,7 +83,7 @@ class MessageList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param MessageInstance.OrderType order: Optional.
+        :param MessageInstance.OrderType order: Specifies sorting order for messages list, possible values are: `asc` or `desc`.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -106,7 +106,7 @@ class MessageList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param MessageInstance.OrderType order: Optional.
+        :param MessageInstance.OrderType order: Specifies sorting order for messages list, possible values are: `asc` or `desc`.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -125,7 +125,7 @@ class MessageList(ListResource):
         Retrieve a single page of MessageInstance records from the API.
         Request is executed immediately
 
-        :param MessageInstance.OrderType order: Optional.
+        :param MessageInstance.OrderType order: Specifies sorting order for messages list, possible values are: `asc` or `desc`.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -312,11 +312,11 @@ class MessageContext(InstanceContext):
         """
         Update the MessageInstance
 
-        :param unicode body: The optional message body string.
-        :param unicode attributes: The optional attributes metadata field you can use to store any data you wish.
-        :param datetime date_created: The optional ISO8601 time specifying the datetime the Message should be set as being created.
-        :param datetime date_updated: The optional ISO8601 time specifying the datetime the Message should be set as having been last updated.
-        :param unicode last_updated_by: Optional field to specify the Identity of the User that last updated the Message
+        :param unicode body: The message body string.
+        :param unicode attributes: The attributes metadata field you can use to store any data you wish.
+        :param datetime date_created: The ISO8601 time specifying the datetime the Message should be set as being created.
+        :param datetime date_updated: The ISO8601 time specifying the datetime the Message should be set as having been last updated.
+        :param unicode last_updated_by: Specify the Identity of the User that last updated the Message
 
         :returns: Updated MessageInstance
         :rtype: twilio.rest.chat.v2.service.channel.message.MessageInstance
@@ -435,7 +435,7 @@ class MessageInstance(InstanceResource):
     @property
     def attributes(self):
         """
-        :returns: An optional string metadata field you can use to store any data you wish.
+        :returns: A string metadata field you can use to store any data you wish.
         :rtype: unicode
         """
         return self._properties['attributes']
@@ -483,7 +483,7 @@ class MessageInstance(InstanceResource):
     @property
     def last_updated_by(self):
         """
-        :returns: Optional field to specify the Identity of the User that last updated the Message
+        :returns: Field to specify the Identity of the User that last updated the Message
         :rtype: unicode
         """
         return self._properties['last_updated_by']
@@ -507,7 +507,7 @@ class MessageInstance(InstanceResource):
     @property
     def body(self):
         """
-        :returns: Optional — the contents of the message.
+        :returns: The contents of the message.
         :rtype: unicode
         """
         return self._properties['body']
@@ -531,7 +531,7 @@ class MessageInstance(InstanceResource):
     @property
     def media(self):
         """
-        :returns: Optional — if a Media resource instance is attached to the Message, this will contain the Media object for the attached Media.
+        :returns: If a Media resource instance is attached to the Message, this will contain the Media object for the attached Media.
         :rtype: dict
         """
         return self._properties['media']
@@ -568,11 +568,11 @@ class MessageInstance(InstanceResource):
         """
         Update the MessageInstance
 
-        :param unicode body: The optional message body string.
-        :param unicode attributes: The optional attributes metadata field you can use to store any data you wish.
-        :param datetime date_created: The optional ISO8601 time specifying the datetime the Message should be set as being created.
-        :param datetime date_updated: The optional ISO8601 time specifying the datetime the Message should be set as having been last updated.
-        :param unicode last_updated_by: Optional field to specify the Identity of the User that last updated the Message
+        :param unicode body: The message body string.
+        :param unicode attributes: The attributes metadata field you can use to store any data you wish.
+        :param datetime date_created: The ISO8601 time specifying the datetime the Message should be set as being created.
+        :param datetime date_updated: The ISO8601 time specifying the datetime the Message should be set as having been last updated.
+        :param unicode last_updated_by: Specify the Identity of the User that last updated the Message
 
         :returns: Updated MessageInstance
         :rtype: twilio.rest.chat.v2.service.channel.message.MessageInstance

@@ -37,7 +37,7 @@ class CredentialListList(ListResource):
         """
         Create a new CredentialListInstance
 
-        :param unicode credential_list_sid: The credential_list_sid
+        :param unicode credential_list_sid: The SID of the Credential List that you want to associate with this trunk. Once associated, Twilio will start authenticating access to the trunk against this list.
 
         :returns: Newly created CredentialListInstance
         :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance

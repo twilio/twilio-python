@@ -132,3 +132,26 @@ class EngagementTestCase(IntegrationTestCase):
                                       .engagements.create(to="+15558675310", from_="+15017122661")
 
         self.assertIsNotNone(actual)
+
+    def test_delete_request(self):
+        self.holodeck.mock(Response(500, ''))
+
+        with self.assertRaises(TwilioException):
+            self.client.studio.v1.flows(sid="FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .engagements(sid="FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+
+        self.holodeck.assert_has_request(Request(
+            'delete',
+            'https://studio.twilio.com/v1/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Engagements/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        ))
+
+    def test_delete_response(self):
+        self.holodeck.mock(Response(
+            204,
+            None,
+        ))
+
+        actual = self.client.studio.v1.flows(sid="FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .engagements(sid="FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+
+        self.assertTrue(actual)

@@ -21,7 +21,7 @@ class UserChannelList(ListResource):
         Initialize the UserChannelList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
+        :param service_sid: The unique id of the Service this channel belongs to.
         :param user_sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.chat.v2.service.user.user_channel.UserChannelList
@@ -133,7 +133,7 @@ class UserChannelPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The service_sid
+        :param service_sid: The unique id of the Service this channel belongs to.
         :param user_sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.chat.v2.service.user.user_channel.UserChannelPage
@@ -206,7 +206,7 @@ class UserChannelInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique id of the Account responsible for this channel.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -214,7 +214,7 @@ class UserChannelInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The service_sid
+        :returns: The unique id of the Service this channel belongs to.
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -222,7 +222,7 @@ class UserChannelInstance(InstanceResource):
     @property
     def channel_sid(self):
         """
-        :returns: The channel_sid
+        :returns: The unique id of a Channel.
         :rtype: unicode
         """
         return self._properties['channel_sid']
@@ -230,7 +230,7 @@ class UserChannelInstance(InstanceResource):
     @property
     def member_sid(self):
         """
-        :returns: The member_sid
+        :returns: The unique id of this User as a Member in this Channel.
         :rtype: unicode
         """
         return self._properties['member_sid']
@@ -238,7 +238,7 @@ class UserChannelInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: The status
+        :returns: The status of the User on this Channel.
         :rtype: UserChannelInstance.ChannelStatus
         """
         return self._properties['status']
@@ -246,7 +246,7 @@ class UserChannelInstance(InstanceResource):
     @property
     def last_consumed_message_index(self):
         """
-        :returns: The last_consumed_message_index
+        :returns: The index of the last read Message in this Channel for this User.
         :rtype: unicode
         """
         return self._properties['last_consumed_message_index']
@@ -254,7 +254,7 @@ class UserChannelInstance(InstanceResource):
     @property
     def unread_messages_count(self):
         """
-        :returns: The unread_messages_count
+        :returns: The count of unread Messages in this Channel for this User.
         :rtype: unicode
         """
         return self._properties['unread_messages_count']

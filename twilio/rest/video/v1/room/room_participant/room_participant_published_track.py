@@ -22,8 +22,8 @@ class PublishedTrackList(ListResource):
         Initialize the PublishedTrackList
 
         :param Version version: Version that contains the resource
-        :param room_sid: The room_sid
-        :param participant_sid: The participant_sid
+        :param room_sid: Unique Room identifier where this Track is published.
+        :param participant_sid: Unique Participant identifier that publishes this Track.
 
         :returns: twilio.rest.video.v1.room.room_participant.room_participant_published_track.PublishedTrackList
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_published_track.PublishedTrackList
@@ -119,7 +119,7 @@ class PublishedTrackList(ListResource):
         """
         Constructs a PublishedTrackContext
 
-        :param sid: The sid
+        :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.video.v1.room.room_participant.room_participant_published_track.PublishedTrackContext
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_published_track.PublishedTrackContext
@@ -135,7 +135,7 @@ class PublishedTrackList(ListResource):
         """
         Constructs a PublishedTrackContext
 
-        :param sid: The sid
+        :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.video.v1.room.room_participant.room_participant_published_track.PublishedTrackContext
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_published_track.PublishedTrackContext
@@ -166,8 +166,8 @@ class PublishedTrackPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param room_sid: The room_sid
-        :param participant_sid: The participant_sid
+        :param room_sid: Unique Room identifier where this Track is published.
+        :param participant_sid: Unique Participant identifier that publishes this Track.
 
         :returns: twilio.rest.video.v1.room.room_participant.room_participant_published_track.PublishedTrackPage
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_published_track.PublishedTrackPage
@@ -211,9 +211,9 @@ class PublishedTrackContext(InstanceContext):
         Initialize the PublishedTrackContext
 
         :param Version version: Version that contains the resource
-        :param room_sid: The room_sid
-        :param participant_sid: The participant_sid
-        :param sid: The sid
+        :param room_sid: Unique Room identifier where this Track is published.
+        :param participant_sid: Unique Participant identifier that publishes this Track.
+        :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.video.v1.room.room_participant.room_participant_published_track.PublishedTrackContext
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_published_track.PublishedTrackContext
@@ -317,7 +317,7 @@ class PublishedTrackInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A 34 character string that uniquely identifies this resource.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -325,7 +325,7 @@ class PublishedTrackInstance(InstanceResource):
     @property
     def participant_sid(self):
         """
-        :returns: The participant_sid
+        :returns: Unique Participant identifier that publishes this Track.
         :rtype: unicode
         """
         return self._properties['participant_sid']
@@ -333,7 +333,7 @@ class PublishedTrackInstance(InstanceResource):
     @property
     def room_sid(self):
         """
-        :returns: The room_sid
+        :returns: Unique Room identifier where this Track is published.
         :rtype: unicode
         """
         return self._properties['room_sid']
@@ -341,7 +341,7 @@ class PublishedTrackInstance(InstanceResource):
     @property
     def name(self):
         """
-        :returns: The name
+        :returns: Track name. Limited to 128 characters.
         :rtype: unicode
         """
         return self._properties['name']
@@ -349,7 +349,7 @@ class PublishedTrackInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date that this resource was created.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -357,7 +357,7 @@ class PublishedTrackInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date that this resource was last updated.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -365,7 +365,7 @@ class PublishedTrackInstance(InstanceResource):
     @property
     def enabled(self):
         """
-        :returns: The enabled
+        :returns: Specifies whether the Track is enabled or not.
         :rtype: bool
         """
         return self._properties['enabled']
@@ -373,7 +373,7 @@ class PublishedTrackInstance(InstanceResource):
     @property
     def kind(self):
         """
-        :returns: The kind
+        :returns: Specifies whether Track represents `audio`, `video` or `data`
         :rtype: PublishedTrackInstance.Kind
         """
         return self._properties['kind']
@@ -381,7 +381,7 @@ class PublishedTrackInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL for this resource.
         :rtype: unicode
         """
         return self._properties['url']

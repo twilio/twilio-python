@@ -47,8 +47,8 @@ class ParticipantList(ListResource):
 
         :param ParticipantInstance.Status status: Only show Participants with the given Status.
         :param unicode identity: Only show Participants that connected to the Room using the provided Identity.
-        :param datetime date_created_after: The date_created_after
-        :param datetime date_created_before: The date_created_before
+        :param datetime date_created_after: Only show Participants that started after this date, given as an UTC ISO 8601 Timestamp.
+        :param datetime date_created_before: Only show Participants that started before this date, given as an UTC ISO 8601 Timestamp.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -81,8 +81,8 @@ class ParticipantList(ListResource):
 
         :param ParticipantInstance.Status status: Only show Participants with the given Status.
         :param unicode identity: Only show Participants that connected to the Room using the provided Identity.
-        :param datetime date_created_after: The date_created_after
-        :param datetime date_created_before: The date_created_before
+        :param datetime date_created_after: Only show Participants that started after this date, given as an UTC ISO 8601 Timestamp.
+        :param datetime date_created_before: Only show Participants that started before this date, given as an UTC ISO 8601 Timestamp.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -112,8 +112,8 @@ class ParticipantList(ListResource):
 
         :param ParticipantInstance.Status status: Only show Participants with the given Status.
         :param unicode identity: Only show Participants that connected to the Room using the provided Identity.
-        :param datetime date_created_after: The date_created_after
-        :param datetime date_created_before: The date_created_before
+        :param datetime date_created_after: Only show Participants that started after this date, given as an UTC ISO 8601 Timestamp.
+        :param datetime date_created_before: Only show Participants that started before this date, given as an UTC ISO 8601 Timestamp.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50

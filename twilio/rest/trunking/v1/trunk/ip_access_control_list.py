@@ -22,7 +22,7 @@ class IpAccessControlListList(ListResource):
         Initialize the IpAccessControlListList
 
         :param Version version: Version that contains the resource
-        :param trunk_sid: The trunk_sid
+        :param trunk_sid: The unique sid that identifies the associated Trunk
 
         :returns: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListList
         :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListList
@@ -37,7 +37,7 @@ class IpAccessControlListList(ListResource):
         """
         Create a new IpAccessControlListInstance
 
-        :param unicode ip_access_control_list_sid: The ip_access_control_list_sid
+        :param unicode ip_access_control_list_sid: The SID of the IP Access Control List that you want to associate with this trunk.
 
         :returns: Newly created IpAccessControlListInstance
         :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance
@@ -174,7 +174,7 @@ class IpAccessControlListPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param trunk_sid: The trunk_sid
+        :param trunk_sid: The unique sid that identifies the associated Trunk
 
         :returns: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListPage
         :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListPage
@@ -314,7 +314,7 @@ class IpAccessControlListInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique sid that identifies this account
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -322,7 +322,7 @@ class IpAccessControlListInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A string that uniquely identifies this resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -330,7 +330,7 @@ class IpAccessControlListInstance(InstanceResource):
     @property
     def trunk_sid(self):
         """
-        :returns: The trunk_sid
+        :returns: The unique sid that identifies the associated Trunk
         :rtype: unicode
         """
         return self._properties['trunk_sid']
@@ -338,7 +338,7 @@ class IpAccessControlListInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The friendly_name
+        :returns: A human readable description of this resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -346,7 +346,7 @@ class IpAccessControlListInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date this resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -354,7 +354,7 @@ class IpAccessControlListInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date this resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']

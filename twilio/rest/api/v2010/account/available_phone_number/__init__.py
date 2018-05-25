@@ -450,7 +450,7 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
     @property
     def beta(self):
         """
-        :returns: The beta
+        :returns: True if new to Twilio platform.
         :rtype: bool
         """
         return self._properties['beta']

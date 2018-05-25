@@ -33,9 +33,9 @@ class CredentialListTestCase(IntegrationTestCase):
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "trunk_sid": "TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "date_created": "Wed, 11 Sep 2013 17:51:38 -0000",
-                "date_updated": "Wed, 11 Sep 2013 17:51:38 -0000",
-                "friendly_name": "Low Rises",
+                "date_created": "2018-04-28T00:10:23Z",
+                "date_updated": "2018-04-28T00:10:23Z",
+                "friendly_name": "friendly_name",
                 "sid": "CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
@@ -92,9 +92,9 @@ class CredentialListTestCase(IntegrationTestCase):
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "trunk_sid": "TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "date_created": "Wed, 11 Sep 2013 17:51:38 -0000",
-                "date_updated": "Wed, 11 Sep 2013 17:51:38 -0000",
-                "friendly_name": "Low Rises",
+                "date_created": "2018-05-02T17:29:30Z",
+                "date_updated": "2018-05-02T17:29:30Z",
+                "friendly_name": "friendly_name",
                 "sid": "CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
@@ -127,9 +127,9 @@ class CredentialListTestCase(IntegrationTestCase):
                     {
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "trunk_sid": "TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                        "date_created": "Wed, 11 Sep 2013 17:51:38 -0000",
-                        "date_updated": "Wed, 11 Sep 2013 17:51:38 -0000",
-                        "friendly_name": "Low Rises",
+                        "date_created": "2018-04-27T22:02:11Z",
+                        "date_updated": "2018-04-27T22:02:11Z",
+                        "friendly_name": "friendly_name",
                         "sid": "CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "url": "https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     }

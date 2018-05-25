@@ -41,8 +41,8 @@ class UserList(ListResource):
         """
         Create a new UserInstance
 
-        :param unicode identity: The identity
-        :param unicode segment: The segment
+        :param unicode identity: The identifier of the User, defined by your application.
+        :param unicode segment: The list of segments this User belongs to. Segments can be used to select recipients of a notification. Maximum 20 Segments per User allowed.
 
         :returns: Newly created UserInstance
         :rtype: twilio.rest.notify.v1.service.user.UserInstance
@@ -65,8 +65,8 @@ class UserList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode identity: The identity
-        :param unicode segment: The segment
+        :param unicode identity: The identifier of the User, defined by your application.
+        :param unicode segment: The list of segments this User belongs to. Segments can be used to select recipients of a notification. Maximum 20 Segments per User allowed.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -90,8 +90,8 @@ class UserList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode identity: The identity
-        :param unicode segment: The segment
+        :param unicode identity: The identifier of the User, defined by your application.
+        :param unicode segment: The list of segments this User belongs to. Segments can be used to select recipients of a notification. Maximum 20 Segments per User allowed.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -111,8 +111,8 @@ class UserList(ListResource):
         Retrieve a single page of UserInstance records from the API.
         Request is executed immediately
 
-        :param unicode identity: The identity
-        :param unicode segment: The segment
+        :param unicode identity: The identifier of the User, defined by your application.
+        :param unicode segment: The list of segments this User belongs to. Segments can be used to select recipients of a notification. Maximum 20 Segments per User allowed.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -399,7 +399,7 @@ class UserInstance(InstanceResource):
     @property
     def identity(self):
         """
-        :returns: The identity
+        :returns: The identifier of the User, defined by your application.
         :rtype: unicode
         """
         return self._properties['identity']

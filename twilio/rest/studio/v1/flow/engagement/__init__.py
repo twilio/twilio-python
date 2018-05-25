@@ -259,6 +259,15 @@ class EngagementContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
+    def delete(self):
+        """
+        Deletes the EngagementInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete('delete', self._uri)
+
     @property
     def steps(self):
         """
@@ -451,6 +460,15 @@ class EngagementInstance(InstanceResource):
         :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
         """
         return self._proxy.fetch()
+
+    def delete(self):
+        """
+        Deletes the EngagementInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
 
     @property
     def steps(self):

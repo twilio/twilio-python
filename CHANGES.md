@@ -3,6 +3,23 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-05-25] Version 6.14.1
+----------------------------
+**Library**
+- PR #416: Remove Python 3.3 support. Thanks to @cjcodes!
+
+**Api**
+- Add more programmable video categories to usage records
+- Add 'include_subaccounts' parameter to all variation of usage_record fetch
+
+**Studio**
+- Add endpoint to delete engagements
+
+**Trunking**
+- Added cnam_lookup_enabled parameter to Trunk resource.
+- Added case-insensitivity for recording parameter to Trunk resource.
+
+
 [2018-05-11] Version 6.14.0
 ----------------------------
 **Chat**

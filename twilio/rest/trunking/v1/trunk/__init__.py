@@ -39,7 +39,7 @@ class TrunkList(ListResource):
     def create(self, friendly_name=values.unset, domain_name=values.unset,
                disaster_recovery_url=values.unset,
                disaster_recovery_method=values.unset, recording=values.unset,
-               secure=values.unset):
+               secure=values.unset, cnam_lookup_enabled=values.unset):
         """
         Create a new TrunkInstance
 
@@ -47,8 +47,9 @@ class TrunkList(ListResource):
         :param unicode domain_name: The unique address you reserve on Twilio to which you route your SIP traffic.
         :param unicode disaster_recovery_url: The HTTP URL that Twilio will request if an error occurs while sending SIP traffic towards your configured Origination URL.
         :param unicode disaster_recovery_method: The HTTP method Twilio will use when requesting the DisasterRecoveryUrl.
-        :param unicode recording: The recording settings for this trunk.
+        :param TrunkInstance.RecordingSetting recording: The recording settings for this trunk.
         :param bool secure: The Secure Trunking  settings for this trunk.
+        :param bool cnam_lookup_enabled: The cnam_lookup_enabled
 
         :returns: Newly created TrunkInstance
         :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
@@ -60,6 +61,7 @@ class TrunkList(ListResource):
             'DisasterRecoveryMethod': disaster_recovery_method,
             'Recording': recording,
             'Secure': secure,
+            'CnamLookupEnabled': cnam_lookup_enabled,
         })
 
         payload = self._version.create(
@@ -276,7 +278,7 @@ class TrunkContext(InstanceContext):
     def update(self, friendly_name=values.unset, domain_name=values.unset,
                disaster_recovery_url=values.unset,
                disaster_recovery_method=values.unset, recording=values.unset,
-               secure=values.unset):
+               secure=values.unset, cnam_lookup_enabled=values.unset):
         """
         Update the TrunkInstance
 
@@ -284,8 +286,9 @@ class TrunkContext(InstanceContext):
         :param unicode domain_name: The unique address you reserve on Twilio to which you route your SIP traffic.
         :param unicode disaster_recovery_url: The HTTP URL that Twilio will request if an error occurs while sending SIP traffic towards your configured Origination URL.
         :param unicode disaster_recovery_method: The HTTP method Twilio will use when requesting the DisasterRecoveryUrl.
-        :param unicode recording: The recording settings for this trunk.
+        :param TrunkInstance.RecordingSetting recording: The recording settings for this trunk.
         :param bool secure: The Secure Trunking  settings for this trunk.
+        :param bool cnam_lookup_enabled: The cnam_lookup_enabled
 
         :returns: Updated TrunkInstance
         :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
@@ -297,6 +300,7 @@ class TrunkContext(InstanceContext):
             'DisasterRecoveryMethod': disaster_recovery_method,
             'Recording': recording,
             'Secure': secure,
+            'CnamLookupEnabled': cnam_lookup_enabled,
         })
 
         payload = self._version.update(
@@ -372,6 +376,11 @@ class TrunkContext(InstanceContext):
 class TrunkInstance(InstanceResource):
     """  """
 
+    class RecordingSetting(object):
+        DO_NOT_RECORD = "do-not-record"
+        RECORD_FROM_RINGING = "record-from-ringing"
+        RECORD_FROM_ANSWER = "record-from-answer"
+
     def __init__(self, version, payload, sid=None):
         """
         Initialize the TrunkInstance
@@ -390,6 +399,7 @@ class TrunkInstance(InstanceResource):
             'friendly_name': payload['friendly_name'],
             'secure': payload['secure'],
             'recording': payload['recording'],
+            'cnam_lookup_enabled': payload['cnam_lookup_enabled'],
             'auth_type': payload['auth_type'],
             'auth_type_set': payload['auth_type_set'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
@@ -473,6 +483,14 @@ class TrunkInstance(InstanceResource):
         return self._properties['recording']
 
     @property
+    def cnam_lookup_enabled(self):
+        """
+        :returns: The cnam_lookup_enabled
+        :rtype: bool
+        """
+        return self._properties['cnam_lookup_enabled']
+
+    @property
     def auth_type(self):
         """
         :returns: The types of authentication you have mapped to your domain.
@@ -549,7 +567,7 @@ class TrunkInstance(InstanceResource):
     def update(self, friendly_name=values.unset, domain_name=values.unset,
                disaster_recovery_url=values.unset,
                disaster_recovery_method=values.unset, recording=values.unset,
-               secure=values.unset):
+               secure=values.unset, cnam_lookup_enabled=values.unset):
         """
         Update the TrunkInstance
 
@@ -557,8 +575,9 @@ class TrunkInstance(InstanceResource):
         :param unicode domain_name: The unique address you reserve on Twilio to which you route your SIP traffic.
         :param unicode disaster_recovery_url: The HTTP URL that Twilio will request if an error occurs while sending SIP traffic towards your configured Origination URL.
         :param unicode disaster_recovery_method: The HTTP method Twilio will use when requesting the DisasterRecoveryUrl.
-        :param unicode recording: The recording settings for this trunk.
+        :param TrunkInstance.RecordingSetting recording: The recording settings for this trunk.
         :param bool secure: The Secure Trunking  settings for this trunk.
+        :param bool cnam_lookup_enabled: The cnam_lookup_enabled
 
         :returns: Updated TrunkInstance
         :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
@@ -570,6 +589,7 @@ class TrunkInstance(InstanceResource):
             disaster_recovery_method=disaster_recovery_method,
             recording=recording,
             secure=secure,
+            cnam_lookup_enabled=cnam_lookup_enabled,
         )
 
     @property

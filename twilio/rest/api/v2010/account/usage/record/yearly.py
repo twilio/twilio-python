@@ -34,7 +34,8 @@ class YearlyList(ListResource):
         self._uri = '/Accounts/{account_sid}/Usage/Records/Yearly.json'.format(**self._solution)
 
     def stream(self, category=values.unset, start_date=values.unset,
-               end_date=values.unset, limit=None, page_size=None):
+               end_date=values.unset, include_subaccounts=values.unset, limit=None,
+               page_size=None):
         """
         Streams YearlyInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -44,6 +45,7 @@ class YearlyList(ListResource):
         :param YearlyInstance.Category category: Only include usage of this usage category.
         :param date start_date: Only include usage that has occurred on or after this date.
         :param date end_date: Only include usage that has occurred on or before this date.
+        :param bool include_subaccounts: The include_subaccounts
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -60,13 +62,15 @@ class YearlyList(ListResource):
             category=category,
             start_date=start_date,
             end_date=end_date,
+            include_subaccounts=include_subaccounts,
             page_size=limits['page_size'],
         )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
     def list(self, category=values.unset, start_date=values.unset,
-             end_date=values.unset, limit=None, page_size=None):
+             end_date=values.unset, include_subaccounts=values.unset, limit=None,
+             page_size=None):
         """
         Lists YearlyInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -75,6 +79,7 @@ class YearlyList(ListResource):
         :param YearlyInstance.Category category: Only include usage of this usage category.
         :param date start_date: Only include usage that has occurred on or after this date.
         :param date end_date: Only include usage that has occurred on or before this date.
+        :param bool include_subaccounts: The include_subaccounts
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -89,13 +94,15 @@ class YearlyList(ListResource):
             category=category,
             start_date=start_date,
             end_date=end_date,
+            include_subaccounts=include_subaccounts,
             limit=limit,
             page_size=page_size,
         ))
 
     def page(self, category=values.unset, start_date=values.unset,
-             end_date=values.unset, page_token=values.unset,
-             page_number=values.unset, page_size=values.unset):
+             end_date=values.unset, include_subaccounts=values.unset,
+             page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of YearlyInstance records from the API.
         Request is executed immediately
@@ -103,6 +110,7 @@ class YearlyList(ListResource):
         :param YearlyInstance.Category category: Only include usage of this usage category.
         :param date start_date: Only include usage that has occurred on or after this date.
         :param date end_date: Only include usage that has occurred on or before this date.
+        :param bool include_subaccounts: The include_subaccounts
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -114,6 +122,7 @@ class YearlyList(ListResource):
             'Category': category,
             'StartDate': serialize.iso8601_date(start_date),
             'EndDate': serialize.iso8601_date(end_date),
+            'IncludeSubaccounts': include_subaccounts,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -321,6 +330,11 @@ class YearlyInstance(InstanceResource):
         PREMIUMSUPPORT = "premiumsupport"
         PROXY = "proxy"
         PV = "pv"
+        PV_COMPOSITION_MEDIA_DOWNLOADED = "pv-composition-media-downloaded"
+        PV_COMPOSITION_MEDIA_ENCRYPTED = "pv-composition-media-encrypted"
+        PV_COMPOSITION_MEDIA_STORED = "pv-composition-media-stored"
+        PV_COMPOSITION_MINUTES = "pv-composition-minutes"
+        PV_RECORDING_COMPOSITIONS = "pv-recording-compositions"
         PV_ROOM_PARTICIPANTS = "pv-room-participants"
         PV_ROOM_PARTICIPANTS_AU1 = "pv-room-participants-au1"
         PV_ROOM_PARTICIPANTS_BR1 = "pv-room-participants-br1"
