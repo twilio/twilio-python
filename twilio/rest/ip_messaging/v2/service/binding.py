@@ -23,7 +23,7 @@ class BindingList(ListResource):
         Initialize the BindingList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
+        :param service_sid: The unique id of the Service this binding belongs to.
 
         :returns: twilio.rest.chat.v2.service.binding.BindingList
         :rtype: twilio.rest.chat.v2.service.binding.BindingList
@@ -42,7 +42,7 @@ class BindingList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param BindingInstance.BindingType binding_type: The binding_type
+        :param BindingInstance.BindingType binding_type: The push technology used for the bindings returned.
         :param unicode identity: The identity
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
@@ -67,7 +67,7 @@ class BindingList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param BindingInstance.BindingType binding_type: The binding_type
+        :param BindingInstance.BindingType binding_type: The push technology used for the bindings returned.
         :param unicode identity: The identity
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
@@ -93,7 +93,7 @@ class BindingList(ListResource):
         Retrieve a single page of BindingInstance records from the API.
         Request is executed immediately
 
-        :param BindingInstance.BindingType binding_type: The binding_type
+        :param BindingInstance.BindingType binding_type: The push technology used for the bindings returned.
         :param unicode identity: The identity
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
@@ -176,7 +176,7 @@ class BindingPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The service_sid
+        :param service_sid: The unique id of the Service this binding belongs to.
 
         :returns: twilio.rest.chat.v2.service.binding.BindingPage
         :rtype: twilio.rest.chat.v2.service.binding.BindingPage
@@ -326,7 +326,7 @@ class BindingInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A 34 character string that uniquely identifies this resource.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -334,7 +334,7 @@ class BindingInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique id of the Account responsible for this binding.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -342,7 +342,7 @@ class BindingInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The service_sid
+        :returns: The unique id of the Service this binding belongs to.
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -350,7 +350,7 @@ class BindingInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date that this resource was created.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -358,7 +358,7 @@ class BindingInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date that this resource was last updated.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -366,7 +366,7 @@ class BindingInstance(InstanceResource):
     @property
     def endpoint(self):
         """
-        :returns: The endpoint
+        :returns: The unique endpoint identifier for this Binding.
         :rtype: unicode
         """
         return self._properties['endpoint']
@@ -374,7 +374,7 @@ class BindingInstance(InstanceResource):
     @property
     def identity(self):
         """
-        :returns: The identity
+        :returns: A unique string identifier for the Binding for this User in this Service.
         :rtype: unicode
         """
         return self._properties['identity']
@@ -382,7 +382,7 @@ class BindingInstance(InstanceResource):
     @property
     def credential_sid(self):
         """
-        :returns: The credential_sid
+        :returns: The unique id of the Credential for this binding.
         :rtype: unicode
         """
         return self._properties['credential_sid']
@@ -390,7 +390,7 @@ class BindingInstance(InstanceResource):
     @property
     def binding_type(self):
         """
-        :returns: The binding_type
+        :returns: The push technology to use for this binding.
         :rtype: BindingInstance.BindingType
         """
         return self._properties['binding_type']
@@ -398,7 +398,7 @@ class BindingInstance(InstanceResource):
     @property
     def message_types(self):
         """
-        :returns: The message_types
+        :returns: List of message types for this binding.
         :rtype: unicode
         """
         return self._properties['message_types']
@@ -406,7 +406,7 @@ class BindingInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: An absolute URL for this binding.
         :rtype: unicode
         """
         return self._properties['url']
@@ -414,7 +414,7 @@ class BindingInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links
+        :returns: Absolute URLs to access the Users for this Binding.
         :rtype: unicode
         """
         return self._properties['links']
