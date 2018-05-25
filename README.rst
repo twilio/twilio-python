@@ -1,9 +1,12 @@
 twilio-python
 =============
 
-`Build Status <http://travis-ci.org/twilio/twilio-python>`__
-`PyPI <https://pypi.python.org/pypi/twilio>`__
-`PyPI <https://pypi.python.org/pypi/twilio>`__
+.. image:: https://secure.travis-ci.org/twilio/twilio-python.png?branch=master
+   :target: http://travis-ci.org/twilio/twilio-python
+.. image:: https://img.shields.io/pypi/v/twilio.svg
+   :target: https://pypi.python.org/pypi/twilio
+.. image:: https://img.shields.io/pypi/pyversions/twilio.svg
+   :target: https://pypi.python.org/pypi/twilio
 
 A module for using the Twilio REST API and generating valid
 `TwiML <http://www.twilio.com/docs/api/twiml/>`__.
@@ -36,7 +39,7 @@ Python.
 
    pip install twilio
 
-Don’t have pip installed? Try installing it, by running this from the
+Don't have pip installed? Try installing it, by running this from the
 command line:
 
 ::
@@ -71,8 +74,8 @@ twilio-python.
 Getting Started
 ---------------
 
-Getting started with the Twilio API couldn’t be easier. Create a
-``Client`` and you’re ready to go.
+Getting started with the Twilio API couldn't be easier. Create a
+``Client`` and you're ready to go.
 
 API Credentials
 ~~~~~~~~~~~~~~~
@@ -94,7 +97,7 @@ for ``TWILIO_ACCOUNT_SID`` and ``TWILIO_AUTH_TOKEN`` variables inside
 the current environment.
 
 We suggest storing your credentials as environment variables. Why?
-You’ll never have to worry about committing your credentials and
+You'll never have to worry about committing your credentials and
 accidentally posting them somewhere public.
 
 .. code:: python
