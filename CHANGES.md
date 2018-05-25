@@ -3,6 +3,12 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-05-25] Version 6.14.3
+----------------------------
+**Library**
+- PR #417: Migrate readme to rst and load it in with setup.py. Thanks to @cjcodes!
+
+
 [2018-05-25] Version 6.14.2
 ----------------------------
 **Chat**
