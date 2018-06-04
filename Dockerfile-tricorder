@@ -1,0 +1,9 @@
+FROM python:latest
+ENV PYTHONUNBUFFERED 1
+
+COPY . /twilio-python
+WORKDIR /app
+
+RUN pip install /twilio-python
+
+CMD python -c "import twilio; print(f'twilio-python: {twilio.__version__}')"
