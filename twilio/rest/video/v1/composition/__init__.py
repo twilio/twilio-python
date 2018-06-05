@@ -47,7 +47,7 @@ class CompositionList(ListResource):
         :param CompositionInstance.Status status: Only show Compositions with the given status.
         :param datetime date_created_after: Only show Compositions that started on or after this ISO8601 date-time.
         :param datetime date_created_before: Only show Compositions that started before this this ISO8601 date-time.
-        :param unicode room_sid: The room_sid
+        :param unicode room_sid: Only show Compositions with the given Room SID.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -81,7 +81,7 @@ class CompositionList(ListResource):
         :param CompositionInstance.Status status: Only show Compositions with the given status.
         :param datetime date_created_after: Only show Compositions that started on or after this ISO8601 date-time.
         :param datetime date_created_before: Only show Compositions that started before this this ISO8601 date-time.
-        :param unicode room_sid: The room_sid
+        :param unicode room_sid: Only show Compositions with the given Room SID.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -112,7 +112,7 @@ class CompositionList(ListResource):
         :param CompositionInstance.Status status: Only show Compositions with the given status.
         :param datetime date_created_after: Only show Compositions that started on or after this ISO8601 date-time.
         :param datetime date_created_before: Only show Compositions that started before this this ISO8601 date-time.
-        :param unicode room_sid: The room_sid
+        :param unicode room_sid: Only show Compositions with the given Room SID.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -168,7 +168,7 @@ class CompositionList(ListResource):
         :param unicode audio_sources: A list of audio sources related to this Composition.
         :param unicode audio_sources_excluded: A list of audio sources excluded related to this Composition.
         :param unicode resolution: Pixel resolution of the composed video.
-        :param CompositionInstance.Format format: ontainer format of the Composition media file. Any of the following: `mp4`, `webm`.
+        :param CompositionInstance.Format format: Container format of the Composition media file. Any of the following: `mp4`, `webm`.
         :param unicode status_callback: A URL that Twilio sends asynchronous webhook requests to on every composition event.
         :param unicode status_callback_method: HTTP method Twilio should use when requesting the above URL.
         :param bool trim: Boolean flag for clipping intervals that have no media.
