@@ -10,7 +10,6 @@ from requests import Session
 from twilio.base.exceptions import TwilioRestException
 from twilio.http.validation_client import ValidationClient
 from twilio.http.response import Response
-from twilio.http.http_client import TwilioHttpClient
 
 
 class TestValidationClientHelpers(unittest.TestCase):
