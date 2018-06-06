@@ -7,8 +7,10 @@ from mock import patch, Mock
 from requests import Request
 from requests import Session
 
+from twilio.base.exceptions import TwilioRestException
 from twilio.http.validation_client import ValidationClient
 from twilio.http.response import Response
+from twilio.http.http_client import TwilioHttpClient
 
 
 class TestValidationClientHelpers(unittest.TestCase):
@@ -119,3 +121,15 @@ class TestValidationClientRequest(unittest.TestCase):
         self.assertEqual('test-token', self.request_mock.headers['Twilio-Client-Validation'])
         self.assertEqual(200, response.status_code)
         self.assertEqual('test, omega: Ω, pile of poop: 💩', response.content)
+
+    def test_validate_ssl_certificate_success(self):
+        self.request_mock.url = 'https://api.twilio.com:8443'
+        response = self.client.request('doesnt-matter', 'doesnt-matter')
+        self.assertEqual(200, response.status_code)
+
+    def test_validate_ssl_certificate_error(self):
+        self.session_mock.send.side_effect = TwilioRestException(500, 'https://api.twilio.com:8443', 'Error')
+
+        with self.assertRaises(TwilioRestException):
+            self.request_mock.url = 'https://api.twilio.com:8443'
+            self.client.request('doesnt-matter', 'doesnt-matter')
