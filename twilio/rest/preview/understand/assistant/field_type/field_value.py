@@ -131,7 +131,7 @@ class FieldValueList(ListResource):
 
         :param unicode language: An ISO language-country string of the value.
         :param unicode value: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-        :param unicode synonym_of: The synonym_of
+        :param unicode synonym_of: A value that indicates this field value is a synonym of. Empty if the value is not a synonym.
 
         :returns: Newly created FieldValueInstance
         :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
@@ -420,7 +420,7 @@ class FieldValueInstance(InstanceResource):
     @property
     def value(self):
         """
-        :returns: The value
+        :returns: The Field Value itself.
         :rtype: unicode
         """
         return self._properties['value']
@@ -436,7 +436,7 @@ class FieldValueInstance(InstanceResource):
     @property
     def synonym_of(self):
         """
-        :returns: The synonym_of
+        :returns: A value that indicates this field value is a synonym of. Empty if the value is not a synonym.
         :rtype: unicode
         """
         return self._properties['synonym_of']

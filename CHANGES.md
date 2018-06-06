@@ -3,6 +3,12 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-06-04] Version 6.14.4
+----------------------------
+**Lookups**
+- Add back support for `fraud` lookup type
+
+
 [2018-05-25] Version 6.14.3
 ----------------------------
 **Library**
