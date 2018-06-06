@@ -96,7 +96,7 @@ class ValidationClient(HttpClient):
         parsed = urlparse(request.url)
         return parsed.netloc
 
-    def validateSslCertificate():
+    def validate_ssl_certificate():
         """
         Validate that a request to the new SSL certificate is successful
         :return: null on success, raise TwilioRestException if the request fails
@@ -105,4 +105,4 @@ class ValidationClient(HttpClient):
         try:
             response = client.request('GET', 'https://api.twilio.com:8443')
         except Exception:
-            raise TwilioRestException(500, 'https://api.twilio.com:8443', 'Failed to validate SSL certificate' + str(response))
+            raise TwilioRestException(500, 'https://api.twilio.com:8443', 'Failed to validate SSL certificate ' + str(response))
