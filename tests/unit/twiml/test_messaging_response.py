@@ -89,6 +89,7 @@ class TestRedirect(TwilioTest):
             '<?xml version="1.0" encoding="UTF-8"?><Response><Redirect>example.com</Redirect></Response>'
         )
 
+
 class TestText(TwilioTest):
     def test_text(self):
         r = MessagingResponse()
