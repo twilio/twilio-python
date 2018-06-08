@@ -88,3 +88,24 @@ class TestRedirect(TwilioTest):
             self.strip(r),
             '<?xml version="1.0" encoding="UTF-8"?><Response><Redirect>example.com</Redirect></Response>'
         )
+
+class TestTest(TwilioTest):
+    def test_text(self):
+        r = MessagingResponse()
+        r.append('No tags!')
+
+        assert_equal(
+            self.strip(r),
+            '<?xml version="1.0" encoding="UTF-8"?><Response>No tags!</Response>'
+        )
+
+    def text_mixed(self):
+        r = MessagingResponse()
+        r.append('before')
+        r.append(Body('Content'))
+        r.append('after')
+
+        assert_equal(
+            self.strip(r),
+            '<?xml version="1.0" encoding="UTF-8"?><Response>before<Body>Content</Body>after</Response>'
+        )
