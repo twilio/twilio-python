@@ -154,3 +154,27 @@ To control phone calls, your application needs to output
 
    <?xml version="1.0" encoding="utf-8"?>
    <Response><Say>Welcome to twilio!</Say></Response>
+
+Handle REST Api Exceptions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Decide how your application deals with problems that may arise during
+your API calls by watching for exceptions.
+
+.. code:: python
+
+   from twilio.rest import Client
+   from twilio.base.exceptions import TwilioRestException
+   
+   account = "ACXXXXXXXXXXXXXXXXX"
+   token = "YYYYYYYYYYYYYYYYYY"
+   client = Client(account, token)
+
+   recipient = "+12316851234"
+   message = "Hello there!"
+   try:
+      message = client.messages.create(to=recipient, from_="+15555555555",
+                                       body=message)
+   except TwilioRestException as e:
+      # For example, pass the exception off to an error handling method of your creation
+      handle_twilio_exception(e, recipient, message)
