@@ -5,7 +5,6 @@ from requests import Request, Session
 from twilio.base.exceptions import TwilioRestException
 from twilio.compat import urlparse
 from twilio.http import HttpClient
-from twilio.http.http_client import TwilioHttpClient
 from twilio.http.response import Response
 from twilio.jwt.validation import ClientValidationJwt
 
@@ -96,13 +95,12 @@ class ValidationClient(HttpClient):
         parsed = urlparse(request.url)
         return parsed.netloc
 
-    def validate_ssl_certificate():
+    def validate_ssl_certificate(self, client):
         """
         Validate that a request to the new SSL certificate is successful
         :return: null on success, raise TwilioRestException if the request fails
         """
-        client = TwilioHttpClient()
-        try:
-            response = client.request('GET', 'https://api.twilio.com:8443')
-        except Exception:
-            raise TwilioRestException(500, 'https://api.twilio.com:8443', 'Failed to validate SSL certificate ' + str(response))
+        response = client.request('GET', 'https://api.twilio.com:8443')
+
+        if response.status_code < 200 or response.status_code >= 300:
+            raise TwilioRestException(response.status_code, 'https://api.twilio.com:8443', 'Failed to validate SSL certificate')

@@ -121,14 +121,14 @@ class TestValidationClientRequest(unittest.TestCase):
         self.assertEqual(200, response.status_code)
         self.assertEqual('test, omega: Ω, pile of poop: 💩', response.content)
 
-    def test_validate_ssl_certificate_success(self):
-        self.request_mock.url = 'https://api.twilio.com:8443'
-        response = self.client.request('doesnt-matter', 'doesnt-matter')
-        self.assertEqual(200, response.status_code)
+    @patch('twilio.http.validation_client')
+    def test_validate_ssl_certificate_success(self, http_client):
+        http_client.request.return_value = Response(200, 'success')
+        self.client.validate_ssl_certificate(http_client)
 
-    def test_validate_ssl_certificate_error(self):
-        self.session_mock.send.side_effect = TwilioRestException(500, 'https://api.twilio.com:8443', 'Error')
+    @patch('twilio.http.validation_client')
+    def test_validate_ssl_certificate_error(self, http_client):
+        http_client.request.return_value = Response(504, 'error')
 
         with self.assertRaises(TwilioRestException):
-            self.request_mock.url = 'https://api.twilio.com:8443'
-            self.client.request('doesnt-matter', 'doesnt-matter')
+            self.client.validate_ssl_certificate(http_client)
