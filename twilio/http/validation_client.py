@@ -2,6 +2,7 @@ from collections import namedtuple
 
 from requests import Request, Session
 
+from twilio.base.exceptions import TwilioRestException
 from twilio.compat import urlparse
 from twilio.http import HttpClient
 from twilio.http.response import Response
@@ -93,3 +94,13 @@ class ValidationClient(HttpClient):
         """Pull the Host out of the request"""
         parsed = urlparse(request.url)
         return parsed.netloc
+
+    def validate_ssl_certificate(self, client):
+        """
+        Validate that a request to the new SSL certificate is successful
+        :return: null on success, raise TwilioRestException if the request fails
+        """
+        response = client.request('GET', 'https://api.twilio.com:8443')
+
+        if response.status_code < 200 or response.status_code >= 300:
+            raise TwilioRestException(response.status_code, 'https://api.twilio.com:8443', 'Failed to validate SSL certificate')
