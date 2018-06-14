@@ -602,3 +602,25 @@ class TestGather(TwilioTest):
             self.strip(r),
             '<?xml version="1.0" encoding="UTF-8"?><Response><Gather><Say>Hey</Say><Play>hey.mp3</Play><Pause /></Gather></Response>'
         )
+
+
+class TestText(TwilioTest):
+    def test_text(self):
+        r = VoiceResponse()
+        r.append('No tags!')
+
+        assert_equal(
+            self.strip(r),
+            '<?xml version="1.0" encoding="UTF-8"?><Response>No tags!</Response>'
+        )
+
+    def text_mixed(self):
+        r = VoiceResponse()
+        r.append('before')
+        r.say('Content')
+        r.append('after')
+
+        assert_equal(
+            self.strip(r),
+            '<?xml version="1.0" encoding="UTF-8"?><Response>before<Say>Content</Say>after</Response>'
+        )
