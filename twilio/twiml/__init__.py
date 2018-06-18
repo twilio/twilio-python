@@ -122,3 +122,21 @@ class TwiML(object):
             el.append(verb.xml())
 
         return el
+
+    def add_child(self, name, value=None, **kwargs):
+        return self.nest(GenericNode(name, value, **kwargs))
+
+
+class MessagingResponse(TwiML):
+    """ <Response> TwiML for Messages """
+
+    def __init__(self, **kwargs):
+        super(MessagingResponse, self).__init__(**kwargs)
+        self.name = 'Response'
+
+
+class GenericNode(TwiML):
+    def __init__(self, name, value, **kwargs):
+        super(GenericNode, self).__init__(**kwargs)
+        self.name = name
+        self.value = value
