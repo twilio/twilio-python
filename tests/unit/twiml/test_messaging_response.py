@@ -1,6 +1,6 @@
 from nose.tools import assert_equal
 from tests.unit.twiml import TwilioTest
-from twilio.twiml.messaging_response import MessagingResponse, GenericNode, Body, Media
+from twilio.twiml.messaging_response import MessagingResponse, Body, Media
 
 
 class TestResponse(TwilioTest):
@@ -49,8 +49,7 @@ class TestResponse(TwilioTest):
 
         assert_equal(
             self.strip(r),
-            '<?xml version="1.0" encoding="UTF-8"?><Response><message tag="global"><bold>Hello</bold></message></Response>'
-        )
+            '<?xml version="1.0" encoding="UTF-8"?><Response><message tag="global"><bold>Hello</bold></message></Response>')
 
 
 class TestMessage(TwilioTest):

@@ -26,7 +26,8 @@ class TestResponse(TwilioTest):
 
         assert_equal(
             self.strip(r),
-            '<?xml version="1.0" encoding="UTF-8"?><Response><Hangup /><Leave /><Sms from="+10987654321" to="+11234567890">twilio sms</Sms></Response>'
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Hangup /><Leave /><Sms from="+10987654321" '
+            'to="+11234567890">twilio sms</Sms></Response>'
         )
 
     def test_response_chain(self):
@@ -41,7 +42,8 @@ class TestResponse(TwilioTest):
 
         assert_equal(
             self.strip(r),
-            '<?xml version="1.0" encoding="UTF-8"?><Response><Hangup /><Leave /><Sms from="+10987654321" to="+11234567890">twilio sms</Sms></Response>'
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Hangup /><Leave /><Sms from="+10987654321" '
+            'to="+11234567890">twilio sms</Sms></Response>'
         )
 
     def test_nested_verbs(self):
@@ -124,7 +126,8 @@ class TestSay(TwilioTest):
 
         assert_equal(
             self.strip(r),
-            '<?xml version="1.0" encoding="UTF-8"?><Response><Say language="fr" loop="3" voice="man">Hello Monkey</Say></Response>'
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Say language="fr" loop="3" voice="man">Hello '
+            'Monkey</Say></Response>'
         )
 
 
@@ -200,7 +203,8 @@ class TestRecord(TwilioTest):
 
         assert_equal(
             self.strip(r),
-            '<?xml version="1.0" encoding="UTF-8"?><Response><Record finishOnKey="#" maxLength="30" timeout="4" /></Response>'
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Record finishOnKey="#" maxLength="30" timeout="4" '
+            '/></Response>'
         )
 
     def test_record_transcribe(self):
@@ -240,7 +244,8 @@ class TestRedirect(TwilioTest):
 
         assert_equal(
             self.strip(r),
-            '<?xml version="1.0" encoding="UTF-8"?><Response><Redirect method="POST">example.com?id=34&amp;action=hey</Redirect></Response>'
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Redirect '
+            'method="POST">example.com?id=34&amp;action=hey</Redirect></Response>'
         )
 
 
@@ -312,7 +317,8 @@ class TestSms(TwilioTest):
 
         assert_equal(
             self.strip(r),
-            '<?xml version="1.0" encoding="UTF-8"?><Response><Sms from="3453453456" statusCallback="example.com?id=34&amp;action=hey" to="1231231234">Hello, World</Sms></Response>'
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Sms from="3453453456" '
+            'statusCallback="example.com?id=34&amp;action=hey" to="1231231234">Hello, World</Sms></Response>'
         )
 
     def test_action_method(self):
@@ -322,7 +328,8 @@ class TestSms(TwilioTest):
 
         assert_equal(
             self.strip(r),
-            '<?xml version="1.0" encoding="UTF-8"?><Response><Sms action="example.com?id=34&amp;action=hey" method="POST">Hello</Sms></Response>'
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Sms action="example.com?id=34&amp;action=hey" '
+            'method="POST">Hello</Sms></Response>'
         )
 
 
@@ -343,7 +350,9 @@ class TestConference(TwilioTest):
 
         assert_equal(
             self.strip(r),
-            '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Conference beep="false" endConferenceOnExit="true" startConferenceOnEnter="true" waitUrl="">TestConferenceAttributes</Conference></Dial></Response>'
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Conference beep="false" '
+            'endConferenceOnExit="true" startConferenceOnEnter="true" '
+            'waitUrl="">TestConferenceAttributes</Conference></Dial></Response>'
         )
 
     def test_muted_conference(self):
@@ -362,7 +371,9 @@ class TestConference(TwilioTest):
 
         assert_equal(
             self.strip(r),
-            '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Conference beep="false" endConferenceOnExit="true" muted="true" startConferenceOnEnter="true" waitUrl="">TestConferenceMutedAttribute</Conference></Dial></Response>'
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Conference beep="false" '
+            'endConferenceOnExit="true" muted="true" startConferenceOnEnter="true" '
+            'waitUrl="">TestConferenceMutedAttribute</Conference></Dial></Response>'
         )
 
 
@@ -377,7 +388,8 @@ class TestQueue(TwilioTest):
 
         assert_equal(
             self.strip(r),
-            '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Queue method="GET" url="">TestQueueAttribute</Queue></Dial></Response>'
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Queue method="GET" '
+            'url="">TestQueueAttribute</Queue></Dial></Response>'
         )
 
 
@@ -407,7 +419,8 @@ class TestEnqueue(TwilioTest):
 
         assert_equal(
             self.strip(r),
-            '<?xml version="1.0" encoding="UTF-8"?><Response><Enqueue action="act" method="GET" waitUrl="wait" waitUrlMethod="POST">TestEnqueueAttribute</Enqueue></Response>'
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Enqueue action="act" method="GET" waitUrl="wait" '
+            'waitUrlMethod="POST">TestEnqueueAttribute</Enqueue></Response>'
         )
 
     def test_task_string(self):
@@ -419,7 +432,8 @@ class TestEnqueue(TwilioTest):
 
         assert_equal(
             self.strip(r),
-            '<?xml version="1.0" encoding="UTF-8"?><Response><Enqueue workflowSid="123123123"><Task>{"account_sid": "AC123123123"}</Task></Enqueue></Response>'
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Enqueue workflowSid="123123123"><Task>{"account_sid": '
+            '"AC123123123"}</Task></Enqueue></Response>'
         )
 
     def test_task_dict(self):
@@ -482,7 +496,8 @@ class TestDial(TwilioTest):
 
         assert_equal(
             self.strip(r),
-            '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Sip password="bar" username="foo">foo@example.com</Sip></Dial></Response>'
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Sip password="bar" '
+            'username="foo">foo@example.com</Sip></Dial></Response>'
         )
 
     def test_add_number(self):
@@ -508,7 +523,8 @@ class TestDial(TwilioTest):
 
         assert_equal(
             self.strip(r),
-            '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Number statusCallback="http://example.com" statusCallbackEvent="initiated completed">1231231234</Number></Dial></Response>'
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Number statusCallback="http://example.com" '
+            'statusCallbackEvent="initiated completed">1231231234</Number></Dial></Response>'
         )
 
     def test_add_conference(self):
@@ -600,7 +616,8 @@ class TestGather(TwilioTest):
 
         assert_equal(
             self.strip(r),
-            '<?xml version="1.0" encoding="UTF-8"?><Response><Gather><Say>Hey</Say><Play>hey.mp3</Play><Pause /></Gather></Response>'
+            '<?xml version="1.0" encoding="UTF-8"?><Response><Gather><Say>Hey</Say><Play>hey.mp3</Play><Pause '
+            '/></Gather></Response>'
         )
 
 
@@ -623,4 +640,15 @@ class TestText(TwilioTest):
         assert_equal(
             self.strip(r),
             '<?xml version="1.0" encoding="UTF-8"?><Response>before<Say>Content</Say>after</Response>'
+        )
+
+    def test_add_child(self):
+        with VoiceResponse() as r:
+            with r.add_child('alexa', omnipresent='true') as alexa:
+                alexa.add_child('purchase', 'Kindle')
+
+        assert_equal(
+            self.strip(r),
+            '<?xml version="1.0" encoding="UTF-8"?><Response><alexa '
+            'omnipresent="true"><purchase>Kindle</purchase></alexa></Response>'
         )
