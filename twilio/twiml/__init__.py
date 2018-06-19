@@ -120,3 +120,13 @@ class TwiML(object):
                 el.append(last_child)
 
         return el
+
+    def add_child(self, name, value=None, **kwargs):
+        return self.nest(GenericNode(name, value, **kwargs))
+
+
+class GenericNode(TwiML):
+    def __init__(self, name, value, **kwargs):
+        super(GenericNode, self).__init__(**kwargs)
+        self.name = name
+        self.value = value
