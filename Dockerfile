@@ -2,12 +2,12 @@ FROM python:3.6
 
 ENV PYTHONUNBUFFERED 1
 
-RUN mkdir -p /twilio/twilio
+RUN mkdir /twilio
 WORKDIR /twilio
 
 COPY setup.py .
 COPY requirements.txt .
 COPY README.rst .
-COPY twilio/ twilio/
+COPY twilio ./twilio
 
 RUN pip install .
