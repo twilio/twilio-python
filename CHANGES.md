@@ -3,6 +3,17 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-06-19] Version 6.14.5
+----------------------------
+**Library**
+- PR #425: Allow adding TwiML children with generic tag names. Thanks to @mbichoffe!
+- PR #422: Allow adding text to TwiML nodes. Thanks to @ekarson!
+- PR #421: Add method to validate ssl certificate. Thanks to @yannieyip!
+
+**Twiml**
+- Add methods to helper libraries to inject arbitrary text under a TwiML node
+
+
 [2018-06-04] Version 6.14.4
 ----------------------------
 **Lookups**

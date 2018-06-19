@@ -49,7 +49,7 @@ class TrunkList(ListResource):
         :param unicode disaster_recovery_method: The HTTP method Twilio will use when requesting the DisasterRecoveryUrl.
         :param TrunkInstance.RecordingSetting recording: The recording settings for this trunk.
         :param bool secure: The Secure Trunking  settings for this trunk.
-        :param bool cnam_lookup_enabled: The cnam_lookup_enabled
+        :param bool cnam_lookup_enabled: The Caller ID Name (CNAM) lookup setting for this trunk.
 
         :returns: Newly created TrunkInstance
         :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
@@ -288,7 +288,7 @@ class TrunkContext(InstanceContext):
         :param unicode disaster_recovery_method: The HTTP method Twilio will use when requesting the DisasterRecoveryUrl.
         :param TrunkInstance.RecordingSetting recording: The recording settings for this trunk.
         :param bool secure: The Secure Trunking  settings for this trunk.
-        :param bool cnam_lookup_enabled: The cnam_lookup_enabled
+        :param bool cnam_lookup_enabled: The Caller ID Name (CNAM) lookup setting for this trunk.
 
         :returns: Updated TrunkInstance
         :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
@@ -485,7 +485,7 @@ class TrunkInstance(InstanceResource):
     @property
     def cnam_lookup_enabled(self):
         """
-        :returns: The cnam_lookup_enabled
+        :returns: The Caller ID Name (CNAM) lookup setting for this trunk.
         :rtype: bool
         """
         return self._properties['cnam_lookup_enabled']
@@ -577,7 +577,7 @@ class TrunkInstance(InstanceResource):
         :param unicode disaster_recovery_method: The HTTP method Twilio will use when requesting the DisasterRecoveryUrl.
         :param TrunkInstance.RecordingSetting recording: The recording settings for this trunk.
         :param bool secure: The Secure Trunking  settings for this trunk.
-        :param bool cnam_lookup_enabled: The cnam_lookup_enabled
+        :param bool cnam_lookup_enabled: The Caller ID Name (CNAM) lookup setting for this trunk.
 
         :returns: Updated TrunkInstance
         :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance

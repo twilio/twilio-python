@@ -505,7 +505,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this Participant was updated
+        :returns: The date this Participant was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']

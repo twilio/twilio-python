@@ -380,8 +380,8 @@ class ParticipantContext(InstanceContext):
         :param bool hold: Specifying true will hold the participant, while false will un-hold.
         :param unicode hold_url: The 'HoldUrl' attribute lets you specify a URL for music that plays when a participant is held.
         :param unicode hold_method: Specify GET or POST, defaults to GET
-        :param unicode announce_url: The announce_url
-        :param unicode announce_method: The announce_method
+        :param unicode announce_url: The 'AnnounceUrl' attribute lets you specify a URL for announcing something to the participant.
+        :param unicode announce_method: Specify GET or POST, defaults to POST
 
         :returns: Updated ParticipantInstance
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
@@ -598,8 +598,8 @@ class ParticipantInstance(InstanceResource):
         :param bool hold: Specifying true will hold the participant, while false will un-hold.
         :param unicode hold_url: The 'HoldUrl' attribute lets you specify a URL for music that plays when a participant is held.
         :param unicode hold_method: Specify GET or POST, defaults to GET
-        :param unicode announce_url: The announce_url
-        :param unicode announce_method: The announce_method
+        :param unicode announce_url: The 'AnnounceUrl' attribute lets you specify a URL for announcing something to the participant.
+        :param unicode announce_method: Specify GET or POST, defaults to POST
 
         :returns: Updated ParticipantInstance
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance

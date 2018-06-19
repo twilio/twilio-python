@@ -142,7 +142,7 @@ class TaskQueueStatisticsContext(InstanceContext):
         Fetch a TaskQueueStatisticsInstance
 
         :param datetime end_date: Filter cumulative statistics by an end date.
-        :param unicode minutes: Filter cumulative statistics by up to ‘x’ minutes in the past.
+        :param unicode minutes: Filter cumulative statistics by up to 'x' minutes in the past.
         :param datetime start_date: Filter cumulative statistics by a start date.
         :param unicode task_channel: Filter real-time and cumulative statistics by TaskChannel.
         :param unicode split_by_wait_time: A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
@@ -280,7 +280,7 @@ class TaskQueueStatisticsInstance(InstanceResource):
         Fetch a TaskQueueStatisticsInstance
 
         :param datetime end_date: Filter cumulative statistics by an end date.
-        :param unicode minutes: Filter cumulative statistics by up to ‘x’ minutes in the past.
+        :param unicode minutes: Filter cumulative statistics by up to 'x' minutes in the past.
         :param datetime start_date: Filter cumulative statistics by a start date.
         :param unicode task_channel: Filter real-time and cumulative statistics by TaskChannel.
         :param unicode split_by_wait_time: A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.

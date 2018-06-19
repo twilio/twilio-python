@@ -524,7 +524,7 @@ class InteractionInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this Interaction was updated
+        :returns: The date this Interaction was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']

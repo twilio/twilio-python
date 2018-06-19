@@ -42,7 +42,7 @@ class ReservationList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param ReservationInstance.Status reservation_status: Filter by a worker’s reservation status
+        :param ReservationInstance.Status reservation_status: Filter by a worker's reservation status
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -65,7 +65,7 @@ class ReservationList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param ReservationInstance.Status reservation_status: Filter by a worker’s reservation status
+        :param ReservationInstance.Status reservation_status: Filter by a worker's reservation status
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -84,7 +84,7 @@ class ReservationList(ListResource):
         Retrieve a single page of ReservationInstance records from the API.
         Request is executed immediately
 
-        :param ReservationInstance.Status reservation_status: Filter by a worker’s reservation status
+        :param ReservationInstance.Status reservation_status: Filter by a worker's reservation status
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -523,7 +523,7 @@ class ReservationInstance(InstanceResource):
     @property
     def reservation_status(self):
         """
-        :returns: Filter by a worker’s reservation status
+        :returns: Filter by a worker's reservation status
         :rtype: ReservationInstance.Status
         """
         return self._properties['reservation_status']

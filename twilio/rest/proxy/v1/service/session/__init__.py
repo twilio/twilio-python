@@ -302,7 +302,7 @@ class SessionContext(InstanceContext):
         Update the SessionInstance
 
         :param unicode unique_name: The unique_name
-        :param datetime date_expiry: The date this Session should ge expired
+        :param datetime date_expiry: The date this Session should expire
         :param unicode ttl: TTL for a Session, in seconds.
         :param SessionInstance.Mode mode: The mode
         :param SessionInstance.Status status: The Status of this Session
@@ -485,7 +485,7 @@ class SessionInstance(InstanceResource):
     @property
     def date_last_interaction(self):
         """
-        :returns: The date this Session was interaction
+        :returns: The date this Session last had an interaction
         :rtype: datetime
         """
         return self._properties['date_last_interaction']
@@ -493,7 +493,7 @@ class SessionInstance(InstanceResource):
     @property
     def date_expiry(self):
         """
-        :returns: The date this Session was expiry
+        :returns: The date this Session should expire
         :rtype: datetime
         """
         return self._properties['date_expiry']
@@ -501,7 +501,7 @@ class SessionInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: A unique, developer assigned name of this Session.
+        :returns: A unique, developer assigned identifier for this Session.
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -549,7 +549,7 @@ class SessionInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this Session was updated
+        :returns: The date this Session was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -595,7 +595,7 @@ class SessionInstance(InstanceResource):
         Update the SessionInstance
 
         :param unicode unique_name: The unique_name
-        :param datetime date_expiry: The date this Session should ge expired
+        :param datetime date_expiry: The date this Session should expire
         :param unicode ttl: TTL for a Session, in seconds.
         :param SessionInstance.Mode mode: The mode
         :param SessionInstance.Status status: The Status of this Session
