@@ -111,7 +111,7 @@ class TwiML(object):
 
         for verb in self.verbs:
             if isinstance(verb, str):
-                if last_child:
+                if last_child is not None:
                     last_child.tail = verb
                 else:
                     el.text = verb

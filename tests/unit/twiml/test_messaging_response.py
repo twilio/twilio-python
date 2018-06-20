@@ -51,6 +51,18 @@ class TestResponse(TwilioTest):
             self.strip(r),
             '<?xml version="1.0" encoding="UTF-8"?><Response><message tag="global"><bold>Hello</bold></message></Response>')
 
+    def test_mixed(self):
+        r = MessagingResponse()
+
+        r.append('before')
+        r.add_child('Child').append('content')
+        r.append('after')
+
+        assert_equal(
+            self.strip(r),
+            '<?xml version="1.0" encoding="UTF-8"?><Response>before<Child>content</Child>after</Response>'
+        )
+
 
 class TestMessage(TwilioTest):
 
