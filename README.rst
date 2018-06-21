@@ -154,3 +154,8 @@ To control phone calls, your application needs to output
 
    <?xml version="1.0" encoding="utf-8"?>
    <Response><Say>Welcome to twilio!</Say></Response>
+
+Docker Image
+~~~~~~~~~~~~
+
+The `Dockerfile` present in this repository and its respective `twilio/twilio-python` Docker image are currently used by Twilio for testing purposes only.
