@@ -49,7 +49,7 @@ class NotificationList(ListResource):
         :param unicode title: Indicates the notification title.
         :param unicode sound: Indicates a sound to be played.
         :param unicode action: Specifies the actions to be displayed for the notification.
-        :param dict data: This parameter specifies the custom key-value pairs of the notification’s payload.
+        :param dict data: This parameter specifies the custom key-value pairs of the notification's payload.
         :param dict apn: APNS specific payload that overrides corresponding attributes in a generic payload for Bindings with the apn BindingType.
         :param dict gcm: GCM specific payload that overrides corresponding attributes in generic payload for Bindings with gcm BindingType.
         :param dict sms: SMS specific payload that overrides corresponding attributes in generic payload for Bindings with sms BindingType.
@@ -295,7 +295,7 @@ class NotificationInstance(InstanceResource):
     @property
     def data(self):
         """
-        :returns: This parameter specifies the custom key-value pairs of the notification’s payload.
+        :returns: This parameter specifies the custom key-value pairs of the notification's payload.
         :rtype: dict
         """
         return self._properties['data']

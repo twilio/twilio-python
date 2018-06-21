@@ -308,8 +308,8 @@ class ConferenceContext(InstanceContext):
         Update the ConferenceInstance
 
         :param ConferenceInstance.UpdateStatus status: Specifying completed will end the conference and kick all participants
-        :param unicode announce_url: The announce_url
-        :param unicode announce_method: The announce_method
+        :param unicode announce_url: The 'AnnounceUrl' attribute lets you specify a URL for announcing something into a conference.
+        :param unicode announce_method: Specify GET or POST, defaults to POST
 
         :returns: Updated ConferenceInstance
         :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
@@ -506,8 +506,8 @@ class ConferenceInstance(InstanceResource):
         Update the ConferenceInstance
 
         :param ConferenceInstance.UpdateStatus status: Specifying completed will end the conference and kick all participants
-        :param unicode announce_url: The announce_url
-        :param unicode announce_method: The announce_method
+        :param unicode announce_url: The 'AnnounceUrl' attribute lets you specify a URL for announcing something into a conference.
+        :param unicode announce_method: Specify GET or POST, defaults to POST
 
         :returns: Updated ConferenceInstance
         :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance

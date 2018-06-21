@@ -457,7 +457,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def inbound_participant_sid(self):
         """
-        :returns: Inbound Participant Sid.
+        :returns: Always empty for Message Interactions.
         :rtype: unicode
         """
         return self._properties['inbound_participant_sid']
@@ -465,7 +465,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def inbound_resource_sid(self):
         """
-        :returns: Inbound message resource Sid.
+        :returns: Always empty for Message Interactions.
         :rtype: unicode
         """
         return self._properties['inbound_resource_sid']
@@ -473,7 +473,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def inbound_resource_status(self):
         """
-        :returns: The Inbound Resource Status of this Message Interaction
+        :returns: Always empty for Message Interactions.
         :rtype: MessageInteractionInstance.ResourceStatus
         """
         return self._properties['inbound_resource_status']
@@ -481,7 +481,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def inbound_resource_type(self):
         """
-        :returns: Message
+        :returns: Always empty for Message Interactions.
         :rtype: unicode
         """
         return self._properties['inbound_resource_type']
@@ -489,7 +489,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def inbound_resource_url(self):
         """
-        :returns: The URL of the Twilio message resource.
+        :returns: Always empty for Message Interactions.
         :rtype: unicode
         """
         return self._properties['inbound_resource_url']
@@ -545,7 +545,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this Message Interaction was updated
+        :returns: The date this Message Interaction was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']

@@ -47,7 +47,7 @@ class EventList(ListResource):
 
         :param datetime end_date: Filter events by an end date.
         :param unicode event_type: Filter events by those of a certain event type
-        :param unicode minutes: Filter events by up to ‘x’ minutes in the past.
+        :param unicode minutes: Filter events by up to 'x' minutes in the past.
         :param unicode reservation_sid: Filter events by those pertaining to a particular reservation
         :param datetime start_date: Filter events by a start date.
         :param unicode task_queue_sid: Filter events by those pertaining to a particular queue
@@ -93,7 +93,7 @@ class EventList(ListResource):
 
         :param datetime end_date: Filter events by an end date.
         :param unicode event_type: Filter events by those of a certain event type
-        :param unicode minutes: Filter events by up to ‘x’ minutes in the past.
+        :param unicode minutes: Filter events by up to 'x' minutes in the past.
         :param unicode reservation_sid: Filter events by those pertaining to a particular reservation
         :param datetime start_date: Filter events by a start date.
         :param unicode task_queue_sid: Filter events by those pertaining to a particular queue
@@ -136,7 +136,7 @@ class EventList(ListResource):
 
         :param datetime end_date: Filter events by an end date.
         :param unicode event_type: Filter events by those of a certain event type
-        :param unicode minutes: Filter events by up to ‘x’ minutes in the past.
+        :param unicode minutes: Filter events by up to 'x' minutes in the past.
         :param unicode reservation_sid: Filter events by those pertaining to a particular reservation
         :param datetime start_date: Filter events by a start date.
         :param unicode task_queue_sid: Filter events by those pertaining to a particular queue

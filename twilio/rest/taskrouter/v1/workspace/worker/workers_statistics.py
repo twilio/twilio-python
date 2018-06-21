@@ -130,7 +130,7 @@ class WorkersStatisticsContext(InstanceContext):
         """
         Fetch a WorkersStatisticsInstance
 
-        :param unicode minutes: Filter cumulative statistics by up to ‘x’ minutes in the past.
+        :param unicode minutes: Filter cumulative statistics by up to 'x' minutes in the past.
         :param datetime start_date: Filter cumulative statistics by a start date.
         :param datetime end_date: Filter cumulative statistics by a end date.
         :param unicode task_queue_sid: Filter the real-time and cumulative statistics based on Workers tied to a particular queue
@@ -262,7 +262,7 @@ class WorkersStatisticsInstance(InstanceResource):
         """
         Fetch a WorkersStatisticsInstance
 
-        :param unicode minutes: Filter cumulative statistics by up to ‘x’ minutes in the past.
+        :param unicode minutes: Filter cumulative statistics by up to 'x' minutes in the past.
         :param datetime start_date: Filter cumulative statistics by a start date.
         :param datetime end_date: Filter cumulative statistics by a end date.
         :param unicode task_queue_sid: Filter the real-time and cumulative statistics based on Workers tied to a particular queue

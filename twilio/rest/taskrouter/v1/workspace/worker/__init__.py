@@ -55,7 +55,7 @@ class WorkerList(ListResource):
         :param unicode activity_name: Filter by workers that are in a particular Activity by Friendly Name
         :param unicode activity_sid: Filter by workers that are in a particular Activity by SID
         :param unicode available: Filter by workers that are available or unavailable.
-        :param unicode friendly_name: Filter by a worker’s friendly name
+        :param unicode friendly_name: Filter by a worker's friendly name
         :param unicode target_workers_expression: Filter by workers that would match an expression on a TaskQueue.
         :param unicode task_queue_name: Filter by workers that are eligible for a TaskQueue by Friendly Name
         :param unicode task_queue_sid: Filter by workers that are eligible for a TaskQueue by SID
@@ -96,7 +96,7 @@ class WorkerList(ListResource):
         :param unicode activity_name: Filter by workers that are in a particular Activity by Friendly Name
         :param unicode activity_sid: Filter by workers that are in a particular Activity by SID
         :param unicode available: Filter by workers that are available or unavailable.
-        :param unicode friendly_name: Filter by a worker’s friendly name
+        :param unicode friendly_name: Filter by a worker's friendly name
         :param unicode target_workers_expression: Filter by workers that would match an expression on a TaskQueue.
         :param unicode task_queue_name: Filter by workers that are eligible for a TaskQueue by Friendly Name
         :param unicode task_queue_sid: Filter by workers that are eligible for a TaskQueue by SID
@@ -134,7 +134,7 @@ class WorkerList(ListResource):
         :param unicode activity_name: Filter by workers that are in a particular Activity by Friendly Name
         :param unicode activity_sid: Filter by workers that are in a particular Activity by SID
         :param unicode available: Filter by workers that are available or unavailable.
-        :param unicode friendly_name: Filter by a worker’s friendly name
+        :param unicode friendly_name: Filter by a worker's friendly name
         :param unicode target_workers_expression: Filter by workers that would match an expression on a TaskQueue.
         :param unicode task_queue_name: Filter by workers that are eligible for a TaskQueue by Friendly Name
         :param unicode task_queue_sid: Filter by workers that are eligible for a TaskQueue by SID
@@ -591,7 +591,7 @@ class WorkerInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: Filter by a worker’s friendly name
+        :returns: Filter by a worker's friendly name
         :rtype: unicode
         """
         return self._properties['friendly_name']

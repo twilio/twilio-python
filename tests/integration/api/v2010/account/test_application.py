@@ -175,14 +175,11 @@ class ApplicationTestCase(IntegrationTestCase):
                 ],
                 "end": 0,
                 "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Applications.json?PageSize=1&Page=0",
-                "last_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Applications.json?PageSize=1&Page=35",
                 "next_page_uri": null,
-                "num_pages": 36,
-                "page": 0,
-                "page_size": 1,
                 "previous_page_uri": null,
+                "page_size": 1,
+                "page": 0,
                 "start": 0,
-                "total": 36,
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Applications.json?PageSize=1&Page=0"
             }
             '''
@@ -201,14 +198,11 @@ class ApplicationTestCase(IntegrationTestCase):
                 "applications": [],
                 "end": 0,
                 "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Applications.json?PageSize=1&Page=0",
-                "last_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Applications.json?PageSize=1&Page=35",
-                "next_page_uri": null,
-                "num_pages": 36,
-                "page": 0,
-                "page_size": 1,
                 "previous_page_uri": null,
+                "page_size": 1,
                 "start": 0,
-                "total": 36,
+                "next_page_uri": null,
+                "page": 0,
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Applications.json?PageSize=1&Page=0"
             }
             '''

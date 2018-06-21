@@ -58,7 +58,7 @@ class CallList(ListResource):
         """
         Create a new CallInstance
 
-        :param unicode to: Phone number, SIP address or client identifier to call
+        :param unicode to: Phone number, SIP address, or client identifier to call
         :param unicode from_: Twilio number from which to originate the call
         :param unicode method: HTTP method to use to fetch TwiML
         :param unicode fallback_url: Fallback URL in case of error
@@ -72,14 +72,14 @@ class CallList(ListResource):
         :param bool record: Whether or not to record the Call
         :param unicode recording_channels: mono or dualSet this parameter to specify the number of channels in the final recording.
         :param unicode recording_status_callback: A URL that Twilio will send a webhook request to when the recording is available for access.
-        :param unicode recording_status_callback_method: The HTTP method Twilio should use when requesting the above URL.
+        :param unicode recording_status_callback_method: The HTTP method Twilio should use when requesting the `RecordingStatusCallback` URL.
         :param unicode sip_auth_username: The sip_auth_username
         :param unicode sip_auth_password: The sip_auth_password
         :param unicode machine_detection: Enable machine detection or end of greeting detection
         :param unicode machine_detection_timeout: Number of miliseconds to wait for machine detection
         :param unicode recording_status_callback_event: The recording status changes that Twilio will send webhooks on to the URL specified in RecordingStatusCallback.
         :param unicode trim: Set this parameter to control trimming of silence on the recording.
-        :param unicode caller_id: The phone number, SIP address or Client identifier that made this Call. Phone numbers are in E.164 format (e.g. +16175551212). SIP addresses are formatted as `name@company.com`.
+        :param unicode caller_id: The phone number, SIP address, or Client identifier that made this Call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`.
         :param unicode url: Url from which to fetch TwiML
         :param unicode application_sid: ApplicationSid that configures from where to fetch TwiML
 
@@ -629,7 +629,7 @@ class CallInstance(InstanceResource):
     @property
     def answered_by(self):
         """
-        :returns: If this call was initiated with answering machine detection, either `human` or `machine`. Empty otherwise.
+        :returns: Either `human` or `machine` if this Call was initiated with answering machine detection. Empty otherwise.
         :rtype: unicode
         """
         return self._properties['answered_by']
@@ -637,7 +637,7 @@ class CallInstance(InstanceResource):
     @property
     def api_version(self):
         """
-        :returns: The API Version the Call was created through
+        :returns: The API Version used to create the Call
         :rtype: unicode
         """
         return self._properties['api_version']
@@ -645,7 +645,7 @@ class CallInstance(InstanceResource):
     @property
     def caller_name(self):
         """
-        :returns: If this call was an incoming call to a phone number with Caller ID Lookup enabled, the caller's name. Empty otherwise.
+        :returns: The caller's name if this Call was an incoming call to a phone number with Caller ID Lookup enabled. Empty otherwise.
         :rtype: unicode
         """
         return self._properties['caller_name']
@@ -669,7 +669,7 @@ class CallInstance(InstanceResource):
     @property
     def direction(self):
         """
-        :returns: A string describing the direction of the call. `inbound` for inbound calls, `outbound-api` for calls initiated via the REST API or `outbound-dial` for calls initiated by a `Dial` verb.
+        :returns: A string describing the direction of the Call. `inbound` for inbound calls, `outbound-api` for calls initiated via the REST API or `outbound-dial` for calls initiated by a `Dial` verb.
         :rtype: unicode
         """
         return self._properties['direction']
@@ -677,7 +677,7 @@ class CallInstance(InstanceResource):
     @property
     def duration(self):
         """
-        :returns: The length of the call in seconds.
+        :returns: The length of the Call in seconds.
         :rtype: unicode
         """
         return self._properties['duration']
@@ -693,7 +693,7 @@ class CallInstance(InstanceResource):
     @property
     def forwarded_from(self):
         """
-        :returns: If this Call was an incoming call forwarded from another number, the forwarding phone number (depends on carrier supporting forwarding). Empty otherwise.
+        :returns: The forwarding phone number if this Call was an incoming call forwarded from another number (depends on carrier supporting forwarding). Empty otherwise.
         :rtype: unicode
         """
         return self._properties['forwarded_from']
@@ -701,7 +701,7 @@ class CallInstance(InstanceResource):
     @property
     def from_(self):
         """
-        :returns: The phone number, SIP address or Client identifier that made this Call. Phone numbers are in E.164 format (e.g. +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
+        :returns: The phone number, SIP address or Client identifier that made this Call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
         :rtype: unicode
         """
         return self._properties['from_']
@@ -717,7 +717,7 @@ class CallInstance(InstanceResource):
     @property
     def group_sid(self):
         """
-        :returns: A 34 character Group Sid associated with this Call. Empty if no Group is associated with the Call.
+        :returns: A 34-character Group Sid associated with this Call. Empty if no Group is associated with the Call.
         :rtype: unicode
         """
         return self._properties['group_sid']
@@ -725,7 +725,7 @@ class CallInstance(InstanceResource):
     @property
     def parent_call_sid(self):
         """
-        :returns: A 34 character string that uniquely identifies the Call that created this leg.
+        :returns: A 34-character string that uniquely identifies the Call that created this leg.
         :rtype: unicode
         """
         return self._properties['parent_call_sid']
@@ -733,7 +733,7 @@ class CallInstance(InstanceResource):
     @property
     def phone_number_sid(self):
         """
-        :returns: If the call was inbound, this is the Sid of the IncomingPhoneNumber that received the call. If the call was outbound, it is the Sid of the OutgoingCallerId from which the call was placed.
+        :returns: If the call was inbound, this is the Sid of the `IncomingPhoneNumber` that received the call. If the call was outbound, it is the Sid of the `OutgoingCallerId` from which the call was placed.
         :rtype: unicode
         """
         return self._properties['phone_number_sid']
@@ -741,7 +741,7 @@ class CallInstance(InstanceResource):
     @property
     def price(self):
         """
-        :returns: The charge for this call, in the currency associated with the account. Populated after the call is completed. May not be immediately available.
+        :returns: The charge for this Call, in the currency associated with the account. Populated after the call is completed. May not be immediately available.
         :rtype: unicode
         """
         return self._properties['price']
@@ -757,7 +757,7 @@ class CallInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34 character string that uniquely identifies this resource.
+        :returns: A 34-character string that uniquely identifies the Call resource.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -773,7 +773,7 @@ class CallInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: A string representing the status of the call.
+        :returns: A string representing the status of the Call.
         :rtype: CallInstance.Status
         """
         return self._properties['status']
@@ -789,7 +789,7 @@ class CallInstance(InstanceResource):
     @property
     def to(self):
         """
-        :returns: The phone number, SIP address or Client identifier that received this Call. Phone numbers are in E.164 format (e.g. +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
+        :returns: The phone number, SIP address or Client identifier that received this Call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
         :rtype: unicode
         """
         return self._properties['to']
