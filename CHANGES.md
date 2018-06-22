@@ -3,6 +3,19 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-06-21] Version 6.14.6
+----------------------------
+**Library**
+- PR #429: Do not use ElementTree.__nonzero__; add test for mixed content. Thanks to @ekarson!
+
+**Api**
+- Add Fraud Lookups category to usage records
+
+**Video**
+- Allow user to set `ContentDisposition` when obtaining media URLs for Room Recordings and Compositions
+- Add Composition Settings resource
+
+
 [2018-06-19] Version 6.14.5
 ----------------------------
 **Library**

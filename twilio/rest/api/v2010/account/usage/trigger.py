@@ -377,6 +377,7 @@ class TriggerInstance(InstanceResource):
         CONVERSATIONS_EVENTS = "conversations-events"
         CONVERSATIONS_PARTICIPANT_EVENTS = "conversations-participant-events"
         CONVERSATIONS_PARTICIPANTS = "conversations-participants"
+        FRAUD_LOOKUPS = "fraud-lookups"
         CPS = "cps"
         GROUP_ROOMS = "group-rooms"
         GROUP_ROOMS_DATA_TRACK = "group-rooms-data-track"

@@ -23,18 +23,9 @@ class V1(Version):
         """
         super(V1, self).__init__(domain)
         self.version = 'v1'
-        self._recordings = None
         self._compositions = None
+        self._recordings = None
         self._rooms = None
-
-    @property
-    def recordings(self):
-        """
-        :rtype: twilio.rest.video.v1.recording.RecordingList
-        """
-        if self._recordings is None:
-            self._recordings = RecordingList(self)
-        return self._recordings
 
     @property
     def compositions(self):
@@ -44,6 +35,15 @@ class V1(Version):
         if self._compositions is None:
             self._compositions = CompositionList(self)
         return self._compositions
+
+    @property
+    def recordings(self):
+        """
+        :rtype: twilio.rest.video.v1.recording.RecordingList
+        """
+        if self._recordings is None:
+            self._recordings = RecordingList(self)
+        return self._recordings
 
     @property
     def rooms(self):
