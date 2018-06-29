@@ -4,6 +4,8 @@ python:
   - "3.4"
   - "3.5"
   - "3.6"
+services:
+  - docker
 install:
   - pip install virtualenv --upgrade
   - make install
