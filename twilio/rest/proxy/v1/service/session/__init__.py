@@ -295,13 +295,11 @@ class SessionContext(InstanceContext):
         """
         return self._version.delete('delete', self._uri)
 
-    def update(self, unique_name=values.unset, date_expiry=values.unset,
-               ttl=values.unset, mode=values.unset, status=values.unset,
-               participants=values.unset):
+    def update(self, date_expiry=values.unset, ttl=values.unset, mode=values.unset,
+               status=values.unset, participants=values.unset):
         """
         Update the SessionInstance
 
-        :param unicode unique_name: The unique_name
         :param datetime date_expiry: The date this Session should expire
         :param unicode ttl: TTL for a Session, in seconds.
         :param SessionInstance.Mode mode: The mode
@@ -312,7 +310,6 @@ class SessionContext(InstanceContext):
         :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
         """
         data = values.of({
-            'UniqueName': unique_name,
             'DateExpiry': serialize.iso8601_datetime(date_expiry),
             'Ttl': ttl,
             'Mode': mode,
@@ -588,13 +585,11 @@ class SessionInstance(InstanceResource):
         """
         return self._proxy.delete()
 
-    def update(self, unique_name=values.unset, date_expiry=values.unset,
-               ttl=values.unset, mode=values.unset, status=values.unset,
-               participants=values.unset):
+    def update(self, date_expiry=values.unset, ttl=values.unset, mode=values.unset,
+               status=values.unset, participants=values.unset):
         """
         Update the SessionInstance
 
-        :param unicode unique_name: The unique_name
         :param datetime date_expiry: The date this Session should expire
         :param unicode ttl: TTL for a Session, in seconds.
         :param SessionInstance.Mode mode: The mode
@@ -605,7 +600,6 @@ class SessionInstance(InstanceResource):
         :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
         """
         return self._proxy.update(
-            unique_name=unique_name,
             date_expiry=date_expiry,
             ttl=ttl,
             mode=mode,

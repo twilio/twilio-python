@@ -285,7 +285,7 @@ class ServiceContext(InstanceContext):
         """
         Update the ServiceInstance
 
-        :param unicode unique_name: A human readable description of this resource.
+        :param unicode unique_name: A human-readable description of this resource.
         :param unicode default_ttl: Default TTL for Sessions in Service, in seconds.
         :param unicode callback_url: URL Twilio will send callbacks to
         :param ServiceInstance.GeoMatchLevel geo_match_level: Whether proxy number selected must be in the same area code as the participant identifier.
@@ -429,7 +429,7 @@ class ServiceInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: A human readable description of this resource.
+        :returns: A human-readable description of this resource.
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -548,7 +548,7 @@ class ServiceInstance(InstanceResource):
         """
         Update the ServiceInstance
 
-        :param unicode unique_name: A human readable description of this resource.
+        :param unicode unique_name: A human-readable description of this resource.
         :param unicode default_ttl: Default TTL for Sessions in Service, in seconds.
         :param unicode callback_url: URL Twilio will send callbacks to
         :param ServiceInstance.GeoMatchLevel geo_match_level: Whether proxy number selected must be in the same area code as the participant identifier.

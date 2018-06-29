@@ -131,7 +131,7 @@ class ParticipantList(ListResource):
         Create a new ParticipantInstance
 
         :param unicode identifier: The phone number of this Participant.
-        :param unicode friendly_name: A human readable description of this resource.
+        :param unicode friendly_name: A human-readable description of this resource.
         :param unicode proxy_identifier: The proxy phone number to use for this Participant.
         :param unicode proxy_identifier_sid: The proxy_identifier_sid
 
@@ -304,40 +304,6 @@ class ParticipantContext(InstanceContext):
         """
         return self._version.delete('delete', self._uri)
 
-    def update(self, identifier=values.unset, friendly_name=values.unset,
-               proxy_identifier=values.unset, proxy_identifier_sid=values.unset):
-        """
-        Update the ParticipantInstance
-
-        :param unicode identifier: The identifier
-        :param unicode friendly_name: The friendly_name
-        :param unicode proxy_identifier: The proxy_identifier
-        :param unicode proxy_identifier_sid: The proxy_identifier_sid
-
-        :returns: Updated ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
-        """
-        data = values.of({
-            'Identifier': identifier,
-            'FriendlyName': friendly_name,
-            'ProxyIdentifier': proxy_identifier,
-            'ProxyIdentifierSid': proxy_identifier_sid,
-        })
-
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
-
-        return ParticipantInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            session_sid=self._solution['session_sid'],
-            sid=self._solution['sid'],
-        )
-
     @property
     def message_interactions(self):
         """
@@ -457,7 +423,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A human readable description of this resource.
+        :returns: A human-readable description of this resource.
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -489,7 +455,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def date_deleted(self):
         """
-        :returns: The date this Participant was deleted
+        :returns: The date this Participant was removed
         :rtype: datetime
         """
         return self._properties['date_deleted']
@@ -543,26 +509,6 @@ class ParticipantInstance(InstanceResource):
         :rtype: bool
         """
         return self._proxy.delete()
-
-    def update(self, identifier=values.unset, friendly_name=values.unset,
-               proxy_identifier=values.unset, proxy_identifier_sid=values.unset):
-        """
-        Update the ParticipantInstance
-
-        :param unicode identifier: The identifier
-        :param unicode friendly_name: The friendly_name
-        :param unicode proxy_identifier: The proxy_identifier
-        :param unicode proxy_identifier_sid: The proxy_identifier_sid
-
-        :returns: Updated ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
-        """
-        return self._proxy.update(
-            identifier=identifier,
-            friendly_name=friendly_name,
-            proxy_identifier=proxy_identifier,
-            proxy_identifier_sid=proxy_identifier_sid,
-        )
 
     @property
     def message_interactions(self):

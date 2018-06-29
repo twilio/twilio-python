@@ -38,8 +38,8 @@ class PhoneNumberList(ListResource):
         """
         Create a new PhoneNumberInstance
 
-        :param unicode sid: A string that uniquely identifies this Phone Number.
-        :param unicode phone_number: The phone_number
+        :param unicode sid: Phone Number Sid of Twilio Number to assign to your Proxy Service
+        :param unicode phone_number: Twilio Number to assign to your Proxy Service
 
         :returns: Newly created PhoneNumberInstance
         :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberInstance
@@ -370,7 +370,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A human readable description of this resource.
+        :returns: A human-readable description of this resource.
         :rtype: unicode
         """
         return self._properties['friendly_name']

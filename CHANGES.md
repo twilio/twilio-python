@@ -3,6 +3,12 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-06-29] Version 6.14.7
+----------------------------
+**Library**
+- PR #428: Add Dockerfile and related changes to build the Docker image. Thanks to @jonatasbaldin!
+
+
 [2018-06-21] Version 6.14.6
 ----------------------------
 **Library**
