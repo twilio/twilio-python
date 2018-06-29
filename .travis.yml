@@ -10,3 +10,8 @@ install:
   - make test-install
 script:
   - make test
+deploy:
+  script:
+    - make docker-build
+    - make docker-push
+  on: tags
