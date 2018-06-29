@@ -14,4 +14,6 @@ deploy:
   script:
     - make docker-build
     - make docker-push
-  on: tags
+  on:
+    tags: true
+    python: "3.6"
