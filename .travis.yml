@@ -11,6 +11,7 @@ install:
 script:
   - make test
 deploy:
+  provider: script
   script:
     - make docker-build
     - make docker-push
