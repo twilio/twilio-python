@@ -14,9 +14,8 @@ script:
   - make test
 deploy:
   provider: script
-  script:
-    - make docker-build
-    - make docker-push
+  script: make docker-build && make docker-push
+  skip_cleanup: true
   on:
     tags: true
     python: "3.6"
