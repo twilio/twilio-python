@@ -3,6 +3,19 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-07-05] Version 6.14.8
+----------------------------
+**Library**
+- PR #433: Fix all Docker image build and push issues. Thanks to @jonatasbaldin!
+- PR #432: Add docker to TravisCI. Thanks to @jonatasbaldin!
+- PR #431: Add provider to TravisCI. Thanks to @jonatasbaldin!
+- PR #430: Deploy just on tags and Python 3.6. Thanks to @jonatasbaldin!
+
+**Api**
+- Release `Call Recording Controls` feature support in helper libraries
+- Add Voice Insights sub-category keys to usage records
+
+
 [2018-06-29] Version 6.14.7
 ----------------------------
 **Library**

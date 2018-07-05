@@ -14,6 +14,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
 from twilio.rest.api.v2010.account.conference.participant import ParticipantList
+from twilio.rest.api.v2010.account.conference.recording import RecordingList
 
 
 class ConferenceList(ListResource):
@@ -279,6 +280,7 @@ class ConferenceContext(InstanceContext):
 
         # Dependents
         self._participants = None
+        self._recordings = None
 
     def fetch(self):
         """
@@ -344,6 +346,22 @@ class ConferenceContext(InstanceContext):
                 conference_sid=self._solution['sid'],
             )
         return self._participants
+
+    @property
+    def recordings(self):
+        """
+        Access the recordings
+
+        :returns: twilio.rest.api.v2010.account.conference.recording.RecordingList
+        :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingList
+        """
+        if self._recordings is None:
+            self._recordings = RecordingList(
+                self._version,
+                account_sid=self._solution['account_sid'],
+                conference_sid=self._solution['sid'],
+            )
+        return self._recordings
 
     def __repr__(self):
         """
@@ -523,6 +541,16 @@ class ConferenceInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantList
         """
         return self._proxy.participants
+
+    @property
+    def recordings(self):
+        """
+        Access the recordings
+
+        :returns: twilio.rest.api.v2010.account.conference.recording.RecordingList
+        :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingList
+        """
+        return self._proxy.recordings
 
     def __repr__(self):
         """

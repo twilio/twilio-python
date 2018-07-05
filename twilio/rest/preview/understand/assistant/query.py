@@ -45,7 +45,7 @@ class QueryList(ListResource):
 
         :param unicode language: An ISO language-country string of the sample.
         :param unicode model_build: The Model Build Sid or unique name of the Model Build to be queried.
-        :param unicode status: A string that described the query status. The values can be: to_review, reviewed, discarded
+        :param unicode status: A string that described the query status. The values can be: pending_review, reviewed, discarded
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -76,7 +76,7 @@ class QueryList(ListResource):
 
         :param unicode language: An ISO language-country string of the sample.
         :param unicode model_build: The Model Build Sid or unique name of the Model Build to be queried.
-        :param unicode status: A string that described the query status. The values can be: to_review, reviewed, discarded
+        :param unicode status: A string that described the query status. The values can be: pending_review, reviewed, discarded
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -104,7 +104,7 @@ class QueryList(ListResource):
 
         :param unicode language: An ISO language-country string of the sample.
         :param unicode model_build: The Model Build Sid or unique name of the Model Build to be queried.
-        :param unicode status: A string that described the query status. The values can be: to_review, reviewed, discarded
+        :param unicode status: A string that described the query status. The values can be: pending_review, reviewed, discarded
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -299,7 +299,7 @@ class QueryContext(InstanceContext):
         Update the QueryInstance
 
         :param unicode sample_sid: The sample_sid
-        :param unicode status: A string that described the query status. The values can be: to_review, reviewed, discarded
+        :param unicode status: A string that described the query status. The values can be: pending_review, reviewed, discarded
 
         :returns: Updated QueryInstance
         :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
@@ -442,7 +442,7 @@ class QueryInstance(InstanceResource):
     @property
     def query(self):
         """
-        :returns: The query
+        :returns: The end-user's natural language input.
         :rtype: unicode
         """
         return self._properties['query']
@@ -474,7 +474,7 @@ class QueryInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: A string that described the query status. The values can be: to_review, reviewed, discarded
+        :returns: A string that described the query status. The values can be: pending_review, reviewed, discarded
         :rtype: unicode
         """
         return self._properties['status']
@@ -490,7 +490,7 @@ class QueryInstance(InstanceResource):
     @property
     def source_channel(self):
         """
-        :returns: The source_channel
+        :returns: The communication channel where this end-user input came from
         :rtype: unicode
         """
         return self._properties['source_channel']
@@ -509,7 +509,7 @@ class QueryInstance(InstanceResource):
         Update the QueryInstance
 
         :param unicode sample_sid: The sample_sid
-        :param unicode status: A string that described the query status. The values can be: to_review, reviewed, discarded
+        :param unicode status: A string that described the query status. The values can be: pending_review, reviewed, discarded
 
         :returns: Updated QueryInstance
         :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance

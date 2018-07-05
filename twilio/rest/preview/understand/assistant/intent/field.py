@@ -121,7 +121,7 @@ class FieldList(ListResource):
         """
         Create a new FieldInstance
 
-        :param unicode field_type: The unique name or sid of the FieldType
+        :param unicode field_type: The unique name or sid of the FieldType. It can be any Built-in Field Type or the unique_name or sid of a custom Field Type.
         :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
 
         :returns: Newly created FieldInstance
@@ -378,7 +378,7 @@ class FieldInstance(InstanceResource):
     @property
     def field_type(self):
         """
-        :returns: The Field Type of this field. Can be the Field Type unique_name or the Field Type sid.
+        :returns: The Field Type of this field. It can be any Built-in Field Type or unique_name or the Field Type sid of a custom Field Type.
         :rtype: unicode
         """
         return self._properties['field_type']

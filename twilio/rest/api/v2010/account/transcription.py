@@ -118,7 +118,7 @@ class TranscriptionList(ListResource):
         """
         Constructs a TranscriptionContext
 
-        :param sid: Fetch by unique transcription Sid
+        :param sid: Fetch by unique transcription SID
 
         :returns: twilio.rest.api.v2010.account.transcription.TranscriptionContext
         :rtype: twilio.rest.api.v2010.account.transcription.TranscriptionContext
@@ -129,7 +129,7 @@ class TranscriptionList(ListResource):
         """
         Constructs a TranscriptionContext
 
-        :param sid: Fetch by unique transcription Sid
+        :param sid: Fetch by unique transcription SID
 
         :returns: twilio.rest.api.v2010.account.transcription.TranscriptionContext
         :rtype: twilio.rest.api.v2010.account.transcription.TranscriptionContext
@@ -195,7 +195,7 @@ class TranscriptionContext(InstanceContext):
 
         :param Version version: Version that contains the resource
         :param account_sid: The account_sid
-        :param sid: Fetch by unique transcription Sid
+        :param sid: Fetch by unique transcription SID
 
         :returns: twilio.rest.api.v2010.account.transcription.TranscriptionContext
         :rtype: twilio.rest.api.v2010.account.transcription.TranscriptionContext
