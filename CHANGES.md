@@ -3,6 +3,12 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-07-05] Version 6.14.9
+----------------------------
+**Library**
+- PR #434: Escape DOCKER_PASSWORD and DOCKER_USERNAME when logging into Docker Hub. Thanks to @jonatasbaldin!
+
+
 [2018-07-05] Version 6.14.8
 ----------------------------
 **Library**
