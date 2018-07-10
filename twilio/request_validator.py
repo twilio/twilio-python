@@ -5,7 +5,7 @@ from hashlib import sha1, sha256
 from six import PY3, string_types
 
 from twilio.compat import izip, urlparse, parse_qs
-from twilio.base.exceptions import TwilioException
+
 
 def compare(string1, string2):
     """Compare two strings while protecting against timing attacks
@@ -89,7 +89,7 @@ class RequestValidator(object):
             uri = remove_port(parsed_uri)
 
         valid_signature = False  # Default fail
-        valid_body_hash = True   # May not receive body hash, so default succeed
+        valid_body_hash = True  # May not receive body hash, so default succeed
 
         query = parse_qs(parsed_uri.query)
         if "bodySHA256" in query and isinstance(params, string_types):
