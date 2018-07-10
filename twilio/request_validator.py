@@ -2,7 +2,7 @@ import base64
 import hmac
 from hashlib import sha1, sha256
 
-from six import PY3
+from six import PY3, string_types
 
 from twilio.compat import izip, urlparse, parse_qs
 from twilio.base.exceptions import TwilioException
@@ -92,7 +92,7 @@ class RequestValidator(object):
         valid_body_hash = True   # May not receive body hash, so default succeed
 
         query = parse_qs(parsed_uri.query)
-        if "bodySHA256" in query and isinstance(params, basestring):
+        if "bodySHA256" in query and isinstance(params, string_types):
             valid_body_hash = compare(self.compute_hash(params), query["bodySHA256"][0])
             valid_signature = compare(self.compute_signature(uri, {}), signature)
         else:
