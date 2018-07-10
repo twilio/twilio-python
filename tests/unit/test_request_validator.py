@@ -10,58 +10,57 @@ from twilio.request_validator import RequestValidator
 class ValidationTest(unittest.TestCase):
 
     def setUp(self):
-        token = "1c892n40nd03kdnc0112slzkl3091j20"
+        token = "12345"
         self.validator = RequestValidator(token)
 
-        self.uri = "http://www.postbin.org/1ed898x"
+        self.uri = "https://mycompany.com/myapp.php?foo=1&bar=2"
         self.params = {
-            "AccountSid": "AC9a9f9392lad99kla0sklakjs90j092j3",
-            "ApiVersion": "2010-04-01",
-            "CallSid": "CAd800bb12c0426a7ea4230e492fef2a4f",
-            "CallStatus": "ringing",
-            "Called": "+15306384866",
-            "CalledCity": "OAKLAND",
-            "CalledCountry": "US",
-            "CalledState": "CA",
-            "CalledZip": "94612",
-            "Caller": "+15306666666",
-            "CallerCity": "SOUTH LAKE TAHOE",
-            "CallerCountry": "US",
-            "CallerName": "CA Wireless Call",
-            "CallerState": "CA",
-            "CallerZip": "89449",
-            "Direction": "inbound",
-            "From": "+15306666666",
-            "FromCity": "SOUTH LAKE TAHOE",
-            "FromCountry": "US",
-            "FromState": "CA",
-            "FromZip": "89449",
-            "To": "+15306384866",
-            "ToCity": "OAKLAND",
-            "ToCountry": "US",
-            "ToState": "CA",
-            "ToZip": "94612",
+            "CallSid": "CA1234567890ABCDE",
+            "Digits": "1234",
+            "From": "+14158675309",
+            "To": "+18005551212",
+            "Caller": "+14158675309",
         }
+        self.expected = "RSOYDt4T1cUTdK1PDd93/VVr8B8="
+        self.body = "{\"property\": \"value\", \"boolean\": true}"
+        self.bodyHash = "Ch/3Y02as7ldtcmi3+lBbkFQKyg6gMfPGWMmMvluZiA="
+        self.encodedBodyHash = self.bodyHash.replace("+", "%2B").replace("=", "%3D")
+        self.uriWithBody = self.uri + "&bodySHA256=" + self.encodedBodyHash
 
     def test_compute_signature_bytecode(self):
-        expected = b("fF+xx6dTinOaCdZ0aIeNkHr/ZAA=")
+        expected = b(self.expected)
         signature = self.validator.compute_signature(self.uri,
                                                      self.params,
                                                      utf=False)
         assert_equal(signature, expected)
 
     def test_compute_signature_unicode(self):
-        expected = u("fF+xx6dTinOaCdZ0aIeNkHr/ZAA=")
+        expected = u(self.expected)
         signature = self.validator.compute_signature(self.uri,
                                                      self.params,
                                                      utf=True)
         assert_equal(signature, expected)
 
+    def test_compute_hash_bytecode(self):
+        expected = b(self.bodyHash)
+        body_hash = self.validator.compute_hash(self.body, utf=False)
+
+        assert_equal(expected, body_hash)
+
+    def test_compute_hash_unicode(self):
+        expected = u(self.bodyHash)
+        body_hash = self.validator.compute_hash(self.body, utf=True)
+
+        assert_equal(expected, body_hash)
+
     def test_validation(self):
-        expected = "fF+xx6dTinOaCdZ0aIeNkHr/ZAA="
-        assert_true(self.validator.validate(self.uri, self.params, expected))
+        assert_true(self.validator.validate(self.uri, self.params, self.expected))
 
     def test_validation_removes_port_on_https(self):
-        self.uri = "https://www.postbin.org:1234/1ed898x"
-        expected = "Y7MeICc5ECftd1G11Fc8qoxAn0A="
-        assert_true(self.validator.validate(self.uri, self.params, expected))
+        uri = self.uri.replace(".com", ".com:1234")
+        assert_true(self.validator.validate(uri, self.params, self.expected))
+
+    def test_validation_of_body_succeeds(self):
+        uri = self.uriWithBody
+        is_valid = self.validator.validate(uri, self.body, "afcFvPLPYT8mg/JyIVkdnqQKa2s=")
+        assert_true(is_valid)
