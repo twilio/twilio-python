@@ -268,6 +268,15 @@ class RoomRecordingContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
+    def delete(self):
+        """
+        Deletes the RoomRecordingInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete('delete', self._uri)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -480,6 +489,15 @@ class RoomRecordingInstance(InstanceResource):
         :rtype: twilio.rest.video.v1.room.recording.RoomRecordingInstance
         """
         return self._proxy.fetch()
+
+    def delete(self):
+        """
+        Deletes the RoomRecordingInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
 
     def __repr__(self):
         """

@@ -131,14 +131,16 @@ class AuthorizationDocumentList(ListResource):
 
         return AuthorizationDocumentPage(self._version, response, self._solution)
 
-    def create(self, hosted_number_order_sids, address_sid, email,
-               cc_emails=values.unset):
+    def create(self, hosted_number_order_sids, address_sid, email, contact_title,
+               contact_phone_number, cc_emails=values.unset):
         """
         Create a new AuthorizationDocumentInstance
 
         :param unicode hosted_number_order_sids: A list of HostedNumberOrder sids.
         :param unicode address_sid: Address sid.
         :param unicode email: Email.
+        :param unicode contact_title: Title of signee of this Authorization Document.
+        :param unicode contact_phone_number: Authorization Document's signee's phone number.
         :param unicode cc_emails: A list of emails.
 
         :returns: Newly created AuthorizationDocumentInstance
@@ -148,6 +150,8 @@ class AuthorizationDocumentList(ListResource):
             'HostedNumberOrderSids': serialize.map(hosted_number_order_sids, lambda e: e),
             'AddressSid': address_sid,
             'Email': email,
+            'ContactTitle': contact_title,
+            'ContactPhoneNumber': contact_phone_number,
             'CcEmails': serialize.map(cc_emails, lambda e: e),
         })
 
@@ -275,7 +279,8 @@ class AuthorizationDocumentContext(InstanceContext):
 
     def update(self, hosted_number_order_sids=values.unset,
                address_sid=values.unset, email=values.unset, cc_emails=values.unset,
-               status=values.unset):
+               status=values.unset, contact_title=values.unset,
+               contact_phone_number=values.unset):
         """
         Update the AuthorizationDocumentInstance
 
@@ -284,6 +289,8 @@ class AuthorizationDocumentContext(InstanceContext):
         :param unicode email: Email.
         :param unicode cc_emails: A list of emails.
         :param AuthorizationDocumentInstance.Status status: The Status of this AuthorizationDocument.
+        :param unicode contact_title: Title of signee of this Authorization Document.
+        :param unicode contact_phone_number: Authorization Document's signee's phone number.
 
         :returns: Updated AuthorizationDocumentInstance
         :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentInstance
@@ -294,6 +301,8 @@ class AuthorizationDocumentContext(InstanceContext):
             'Email': email,
             'CcEmails': serialize.map(cc_emails, lambda e: e),
             'Status': status,
+            'ContactTitle': contact_title,
+            'ContactPhoneNumber': contact_phone_number,
         })
 
         payload = self._version.update(
@@ -464,7 +473,8 @@ class AuthorizationDocumentInstance(InstanceResource):
 
     def update(self, hosted_number_order_sids=values.unset,
                address_sid=values.unset, email=values.unset, cc_emails=values.unset,
-               status=values.unset):
+               status=values.unset, contact_title=values.unset,
+               contact_phone_number=values.unset):
         """
         Update the AuthorizationDocumentInstance
 
@@ -473,6 +483,8 @@ class AuthorizationDocumentInstance(InstanceResource):
         :param unicode email: Email.
         :param unicode cc_emails: A list of emails.
         :param AuthorizationDocumentInstance.Status status: The Status of this AuthorizationDocument.
+        :param unicode contact_title: Title of signee of this Authorization Document.
+        :param unicode contact_phone_number: Authorization Document's signee's phone number.
 
         :returns: Updated AuthorizationDocumentInstance
         :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentInstance
@@ -483,6 +495,8 @@ class AuthorizationDocumentInstance(InstanceResource):
             email=email,
             cc_emails=cc_emails,
             status=status,
+            contact_title=contact_title,
+            contact_phone_number=contact_phone_number,
         )
 
     @property

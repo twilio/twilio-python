@@ -3,6 +3,18 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-07-11] Version 6.14.10
+-----------------------------
+**Api**
+- Add `cidr_prefix_length` param to SIP IpAddresses API
+
+**Studio**
+- Add new /Execution endpoints to begin Engagement -> Execution migration
+
+**Video**
+- [Rooms] Allow deletion of individual recordings from a room
+
+
 [2018-07-05] Version 6.14.9
 ----------------------------
 **Library**

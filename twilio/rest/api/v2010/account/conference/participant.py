@@ -59,34 +59,34 @@ class ParticipantList(ListResource):
         """
         Create a new ParticipantInstance
 
-        :param unicode from_: number, client id
-        :param unicode to: number, client id, sip address
-        :param unicode status_callback: absolute url
-        :param unicode status_callback_method: GET, POST
-        :param unicode status_callback_event: initiated, ringing, answered, completed
-        :param unicode timeout: 5-600
-        :param bool record: true, false
-        :param bool muted: true, false
-        :param unicode beep: true, false, onEnter, onExit
-        :param bool start_conference_on_enter: true, false
-        :param bool end_conference_on_exit: true, false
-        :param unicode wait_url: absolute url
-        :param unicode wait_method: GET, POST
-        :param bool early_media: true, false
-        :param unicode max_participants: 2-10
-        :param unicode conference_record: true, false, record-from-start, do-not-record
-        :param unicode conference_trim: trim-silence or do-not-trim
-        :param unicode conference_status_callback: absolute url
-        :param unicode conference_status_callback_method: GET, POST
-        :param unicode conference_status_callback_event: start end join leave mute hold speaker
-        :param unicode recording_channels: mono, dual
-        :param unicode recording_status_callback: absolute url
-        :param unicode recording_status_callback_method: GET, POST
-        :param unicode sip_auth_username: sip username
-        :param unicode sip_auth_password: sip password
-        :param unicode region: us1, ie1, de1, sg1, br1, au1, jp1
-        :param unicode conference_recording_status_callback: absolute url
-        :param unicode conference_recording_status_callback_method: GET, POST
+        :param unicode from_: The `from` phone number used to invite a participant.
+        :param unicode to: The number, client id, or sip address of the new participant.
+        :param unicode status_callback: URL for conference event callback.
+        :param unicode status_callback_method: Method Twilio should use to reach the status callback URL.
+        :param unicode status_callback_event: Set state change events that will trigger a callback.
+        :param unicode timeout: Number of seconds Twilio will wait for an answer.
+        :param bool record: Record the agent and their conferences.
+        :param bool muted: Mute the agent.
+        :param unicode beep: Play a beep when the participant joins the conference.
+        :param bool start_conference_on_enter: Begin the conference when the participant joins.
+        :param bool end_conference_on_exit: End the conference when the participant leaves.
+        :param unicode wait_url: URL that hosts pre-conference hold music
+        :param unicode wait_method: The method Twilio should use to request `WaitUrl`.
+        :param bool early_media: Agents can hear the state of the outbound call.
+        :param unicode max_participants: Maximum number of agent conference participants.
+        :param unicode conference_record: Record the conference.
+        :param unicode conference_trim: Trim silence from audio files.
+        :param unicode conference_status_callback: Callback URL for conference events.
+        :param unicode conference_status_callback_method: HTTP method for requesting `ConferenceStatusCallback` URL.
+        :param unicode conference_status_callback_event: Set which conference state changes should webhook to the `ConferenceStatusCallback`
+        :param unicode recording_channels: Specify `mono` or `dual` recording channels.
+        :param unicode recording_status_callback: The absolute URL for Twilio's webhook with recording status information.
+        :param unicode recording_status_callback_method: HTTP method for `RecordingStatusCallback`
+        :param unicode sip_auth_username: SIP username used for authenticating.
+        :param unicode sip_auth_password: SIP password for authentication.
+        :param unicode region: The region where Twilio should mix the conference audio.
+        :param unicode conference_recording_status_callback: Conference recording callback URL.
+        :param unicode conference_recording_status_callback_method: Method Twilio should use to request the `ConferenceRecordingStatusCallback` URL.
         :param unicode recording_status_callback_event: The recording_status_callback_event
         :param unicode conference_recording_status_callback_event: The conference_recording_status_callback_event
 
@@ -238,7 +238,7 @@ class ParticipantList(ListResource):
         """
         Constructs a ParticipantContext
 
-        :param call_sid: The call_sid
+        :param call_sid: Fetch by unique participant Call SID
 
         :returns: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
@@ -254,7 +254,7 @@ class ParticipantList(ListResource):
         """
         Constructs a ParticipantContext
 
-        :param call_sid: The call_sid
+        :param call_sid: Fetch by unique participant Call SID
 
         :returns: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
@@ -332,7 +332,7 @@ class ParticipantContext(InstanceContext):
         :param Version version: Version that contains the resource
         :param account_sid: The account_sid
         :param conference_sid: The string that uniquely identifies this conference
-        :param call_sid: The call_sid
+        :param call_sid: Fetch by unique participant Call SID
 
         :returns: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantContext

@@ -169,12 +169,14 @@ class AuthorizationDocumentTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.hosted_numbers.authorization_documents.create(hosted_number_order_sids=['hosted_number_order_sids'], address_sid="ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", email="email")
+            self.client.preview.hosted_numbers.authorization_documents.create(hosted_number_order_sids=['hosted_number_order_sids'], address_sid="ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", email="email", contact_title="contact_title", contact_phone_number="contact_phone_number")
 
         values = {
             'HostedNumberOrderSids': serialize.map(['hosted_number_order_sids'], lambda e: e),
             'AddressSid': "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
             'Email': "email",
+            'ContactTitle': "contact_title",
+            'ContactPhoneNumber': "contact_phone_number",
         }
 
         self.holodeck.assert_has_request(Request(
@@ -206,6 +208,6 @@ class AuthorizationDocumentTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.hosted_numbers.authorization_documents.create(hosted_number_order_sids=['hosted_number_order_sids'], address_sid="ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", email="email")
+        actual = self.client.preview.hosted_numbers.authorization_documents.create(hosted_number_order_sids=['hosted_number_order_sids'], address_sid="ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", email="email", contact_title="contact_title", contact_phone_number="contact_phone_number")
 
         self.assertIsNotNone(actual)
