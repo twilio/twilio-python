@@ -1,10 +1,10 @@
 import base64
 import hmac
-from hashlib import sha1
+from hashlib import sha1, sha256
 
-from six import PY3
+from six import PY3, string_types
 
-from twilio.compat import izip, urlparse
+from twilio.compat import izip, urlparse, parse_qs
 
 
 def compare(string1, string2):
@@ -64,16 +64,38 @@ class RequestValidator(object):
 
         return computed.strip()
 
+    def compute_hash(self, body, utf=PY3):
+        computed = base64.b64encode(sha256(body.encode("utf-8")).digest())
+
+        if utf:
+            computed = computed.decode('utf-8')
+
+        return computed.strip()
+
     def validate(self, uri, params, signature):
         """Validate a request from Twilio
 
         :param uri: full URI that Twilio requested on your server
-        :param params: post vars that Twilio sent with the request
+        :param params: dictionary of POST variables or string of POST body for JSON requests
         :param signature: expected signature in HTTP X-Twilio-Signature header
 
         :returns: True if the request passes validation, False if not
         """
+        if params is None:
+            params = {}
+
         parsed_uri = urlparse(uri)
         if parsed_uri.scheme == "https" and parsed_uri.port:
             uri = remove_port(parsed_uri)
-        return compare(self.compute_signature(uri, params), signature)
+
+        valid_signature = False  # Default fail
+        valid_body_hash = True  # May not receive body hash, so default succeed
+
+        query = parse_qs(parsed_uri.query)
+        if "bodySHA256" in query and isinstance(params, string_types):
+            valid_body_hash = compare(self.compute_hash(params), query["bodySHA256"][0])
+            valid_signature = compare(self.compute_signature(uri, {}), signature)
+        else:
+            valid_signature = compare(self.compute_signature(uri, params), signature)
+
+        return valid_signature and valid_body_hash
