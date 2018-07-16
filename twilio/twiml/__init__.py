@@ -34,7 +34,7 @@ class TwiML(object):
     MAP = {
         'from_': 'from',
         'xml_lang': 'xml:lang',
-        'interpret_as', 'interpret-as',
+        'interpret_as': 'interpret-as',
     }
 
     def __init__(self, **kwargs):
