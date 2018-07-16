@@ -43,12 +43,12 @@ class EventList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode actor_sid: The actor_sid
-        :param unicode event_type: The event_type
-        :param unicode resource_sid: The resource_sid
-        :param unicode source_ip_address: The source_ip_address
-        :param datetime start_date: The start_date
-        :param datetime end_date: The end_date
+        :param unicode actor_sid: Only include Events initiated by this Actor
+        :param unicode event_type: Only include Events of this EventType
+        :param unicode resource_sid: Only include Events referring to this resource
+        :param unicode source_ip_address: Only include Events that originated from this IP address
+        :param datetime start_date: Only show events on or after this date
+        :param datetime end_date: Only show events on or before this date
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -82,12 +82,12 @@ class EventList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode actor_sid: The actor_sid
-        :param unicode event_type: The event_type
-        :param unicode resource_sid: The resource_sid
-        :param unicode source_ip_address: The source_ip_address
-        :param datetime start_date: The start_date
-        :param datetime end_date: The end_date
+        :param unicode actor_sid: Only include Events initiated by this Actor
+        :param unicode event_type: Only include Events of this EventType
+        :param unicode resource_sid: Only include Events referring to this resource
+        :param unicode source_ip_address: Only include Events that originated from this IP address
+        :param datetime start_date: Only show events on or after this date
+        :param datetime end_date: Only show events on or before this date
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -118,12 +118,12 @@ class EventList(ListResource):
         Retrieve a single page of EventInstance records from the API.
         Request is executed immediately
 
-        :param unicode actor_sid: The actor_sid
-        :param unicode event_type: The event_type
-        :param unicode resource_sid: The resource_sid
-        :param unicode source_ip_address: The source_ip_address
-        :param datetime start_date: The start_date
-        :param datetime end_date: The end_date
+        :param unicode actor_sid: Only include Events initiated by this Actor
+        :param unicode event_type: Only include Events of this EventType
+        :param unicode resource_sid: Only include Events referring to this resource
+        :param unicode source_ip_address: Only include Events that originated from this IP address
+        :param datetime start_date: Only show events on or after this date
+        :param datetime end_date: Only show events on or before this date
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -172,7 +172,7 @@ class EventList(ListResource):
         """
         Constructs a EventContext
 
-        :param sid: The sid
+        :param sid: A 34 character string that uniquely identifies this event.
 
         :returns: twilio.rest.monitor.v1.event.EventContext
         :rtype: twilio.rest.monitor.v1.event.EventContext
@@ -183,7 +183,7 @@ class EventList(ListResource):
         """
         Constructs a EventContext
 
-        :param sid: The sid
+        :param sid: A 34 character string that uniquely identifies this event.
 
         :returns: twilio.rest.monitor.v1.event.EventContext
         :rtype: twilio.rest.monitor.v1.event.EventContext
@@ -247,7 +247,7 @@ class EventContext(InstanceContext):
         Initialize the EventContext
 
         :param Version version: Version that contains the resource
-        :param sid: The sid
+        :param sid: A 34 character string that uniquely identifies this event.
 
         :returns: twilio.rest.monitor.v1.event.EventContext
         :rtype: twilio.rest.monitor.v1.event.EventContext
@@ -336,7 +336,7 @@ class EventInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: A 34 character string identifying the Account for which this Event was recorded.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -344,7 +344,7 @@ class EventInstance(InstanceResource):
     @property
     def actor_sid(self):
         """
-        :returns: The actor_sid
+        :returns: If available, a 34 character string identifying the actor that caused this event. May be null.
         :rtype: unicode
         """
         return self._properties['actor_sid']
@@ -352,7 +352,7 @@ class EventInstance(InstanceResource):
     @property
     def actor_type(self):
         """
-        :returns: The actor_type
+        :returns: The type of actor that caused this event
         :rtype: unicode
         """
         return self._properties['actor_type']
@@ -368,7 +368,7 @@ class EventInstance(InstanceResource):
     @property
     def event_data(self):
         """
-        :returns: The event_data
+        :returns: A freeform json object encoding additional data about the event
         :rtype: dict
         """
         return self._properties['event_data']
@@ -376,7 +376,7 @@ class EventInstance(InstanceResource):
     @property
     def event_date(self):
         """
-        :returns: The event_date
+        :returns: The date-time the event was recorded
         :rtype: datetime
         """
         return self._properties['event_date']
@@ -384,7 +384,7 @@ class EventInstance(InstanceResource):
     @property
     def event_type(self):
         """
-        :returns: The event_type
+        :returns: The event's type, as a string.
         :rtype: unicode
         """
         return self._properties['event_type']
@@ -392,7 +392,7 @@ class EventInstance(InstanceResource):
     @property
     def resource_sid(self):
         """
-        :returns: The resource_sid
+        :returns: A 34 character string identifying the resource that was affected.
         :rtype: unicode
         """
         return self._properties['resource_sid']
@@ -400,7 +400,7 @@ class EventInstance(InstanceResource):
     @property
     def resource_type(self):
         """
-        :returns: The resource_type
+        :returns: The type of resource that was affected
         :rtype: unicode
         """
         return self._properties['resource_type']
@@ -424,7 +424,7 @@ class EventInstance(InstanceResource):
     @property
     def source_ip_address(self):
         """
-        :returns: The source_ip_address
+        :returns: The IP address of the source
         :rtype: unicode
         """
         return self._properties['source_ip_address']

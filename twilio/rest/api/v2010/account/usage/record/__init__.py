@@ -63,7 +63,7 @@ class RecordList(ListResource):
         :param RecordInstance.Category category: Only include usage of a given category
         :param date start_date: Filter by start date
         :param date end_date: Filter by end date
-        :param bool include_subaccounts: The include_subaccounts
+        :param bool include_subaccounts: Include usage from the master account and all subaccounts
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -97,7 +97,7 @@ class RecordList(ListResource):
         :param RecordInstance.Category category: Only include usage of a given category
         :param date start_date: Filter by start date
         :param date end_date: Filter by end date
-        :param bool include_subaccounts: The include_subaccounts
+        :param bool include_subaccounts: Include usage from the master account and all subaccounts
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -128,7 +128,7 @@ class RecordList(ListResource):
         :param RecordInstance.Category category: Only include usage of a given category
         :param date start_date: Filter by start date
         :param date end_date: Filter by end date
-        :param bool include_subaccounts: The include_subaccounts
+        :param bool include_subaccounts: Include usage from the master account and all subaccounts
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50

@@ -272,7 +272,7 @@ class VoiceResponse(TwiML):
         """
         return self.nest(Reject(reason=reason, **kwargs))
 
-    def say(self, message, voice=None, loop=None, language=None, **kwargs):
+    def say(self, message=None, voice=None, loop=None, language=None, **kwargs):
         """
         Create a <Say> element
 
@@ -284,7 +284,7 @@ class VoiceResponse(TwiML):
 
         :returns: <Say> element
         """
-        return self.nest(Say(message, voice=voice, loop=loop, language=language, **kwargs))
+        return self.nest(Say(message=message, voice=voice, loop=loop, language=language, **kwargs))
 
     def sms(self, message, to=None, from_=None, action=None, method=None,
             status_callback=None, **kwargs):
@@ -324,10 +324,201 @@ class Sms(TwiML):
 class Say(TwiML):
     """ <Say> TwiML Verb """
 
-    def __init__(self, message, **kwargs):
+    def __init__(self, message=None, **kwargs):
         super(Say, self).__init__(**kwargs)
         self.name = 'Say'
-        self.value = message
+        if message:
+            self.value = message
+
+    def ssml_break(self, strength=None, time=None, **kwargs):
+        """
+        Create a <Break> element
+
+        :param strength: Set a pause based on strength
+        :param time: Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms
+        :param kwargs: additional attributes
+
+        :returns: <Break> element
+        """
+        return self.nest(SsmlBreak(strength=strength, time=time, **kwargs))
+
+    def ssml_emphasis(self, words, level=None, **kwargs):
+        """
+        Create a <Emphasis> element
+
+        :param words: Words to emphasize
+        :param level: Specify the degree of emphasis
+        :param kwargs: additional attributes
+
+        :returns: <Emphasis> element
+        """
+        return self.nest(SsmlEmphasis(words, level=level, **kwargs))
+
+    def ssml_p(self, words, **kwargs):
+        """
+        Create a <P> element
+
+        :param words: Words to speak
+        :param kwargs: additional attributes
+
+        :returns: <P> element
+        """
+        return self.nest(SsmlP(words, **kwargs))
+
+    def ssml_phoneme(self, words, alphabet=None, ph=None, **kwargs):
+        """
+        Create a <Phoneme> element
+
+        :param words: Words to speak
+        :param alphabet: Specify the phonetic alphabet
+        :param ph: Specifiy the phonetic symbols for pronunciation
+        :param kwargs: additional attributes
+
+        :returns: <Phoneme> element
+        """
+        return self.nest(SsmlPhoneme(words, alphabet=alphabet, ph=ph, **kwargs))
+
+    def ssml_prosody(self, words, volume=None, rate=None, pitch=None, **kwargs):
+        """
+        Create a <Prosody> element
+
+        :param words: Words to speak
+        :param volume: Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB
+        :param rate: Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n%
+        :param pitch: Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n%
+        :param kwargs: additional attributes
+
+        :returns: <Prosody> element
+        """
+        return self.nest(SsmlProsody(words, volume=volume, rate=rate, pitch=pitch, **kwargs))
+
+    def ssml_s(self, words, **kwargs):
+        """
+        Create a <S> element
+
+        :param words: Words to speak
+        :param kwargs: additional attributes
+
+        :returns: <S> element
+        """
+        return self.nest(SsmlS(words, **kwargs))
+
+    def ssml_say_as(self, words, interpret_as=None, role=None, **kwargs):
+        """
+        Create a <Say-As> element
+
+        :param words: Words to be interpreted
+        :param interpret-as: Specify the type of words are spoken
+        :param role: Specify the format of the date when interpret-as is set to date
+        :param kwargs: additional attributes
+
+        :returns: <Say-As> element
+        """
+        return self.nest(SsmlSayAs(words, interpret_as=interpret_as, role=role, **kwargs))
+
+    def ssml_sub(self, words, alias=None, **kwargs):
+        """
+        Create a <Sub> element
+
+        :param words: Words to be substituted
+        :param alias: Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation
+        :param kwargs: additional attributes
+
+        :returns: <Sub> element
+        """
+        return self.nest(SsmlSub(words, alias=alias, **kwargs))
+
+    def ssml_w(self, words, role=None, **kwargs):
+        """
+        Create a <W> element
+
+        :param words: Words to speak
+        :param role: Customize the pronunciation of words by specifying the word’s part of speech or alternate meaning
+        :param kwargs: additional attributes
+
+        :returns: <W> element
+        """
+        return self.nest(SsmlW(words, role=role, **kwargs))
+
+
+class SsmlW(TwiML):
+    """ Improving Pronunciation by Specifying Parts of Speech in <Say> """
+
+    def __init__(self, words, **kwargs):
+        super(SsmlW, self).__init__(**kwargs)
+        self.name = 'w'
+        self.value = words
+
+
+class SsmlSub(TwiML):
+    """ Pronouncing Acronyms and Abbreviations in <Say> """
+
+    def __init__(self, words, **kwargs):
+        super(SsmlSub, self).__init__(**kwargs)
+        self.name = 'sub'
+        self.value = words
+
+
+class SsmlSayAs(TwiML):
+    """ Controlling How Special Types of Words Are Spoken in <Say> """
+
+    def __init__(self, words, **kwargs):
+        super(SsmlSayAs, self).__init__(**kwargs)
+        self.name = 'say-as'
+        self.value = words
+
+
+class SsmlS(TwiML):
+    """ Adding A Pause Between Sentences in <Say> """
+
+    def __init__(self, words, **kwargs):
+        super(SsmlS, self).__init__(**kwargs)
+        self.name = 's'
+        self.value = words
+
+
+class SsmlProsody(TwiML):
+    """ Controling Volume, Speaking Rate, and Pitch in <Say> """
+
+    def __init__(self, words, **kwargs):
+        super(SsmlProsody, self).__init__(**kwargs)
+        self.name = 'prosody'
+        self.value = words
+
+
+class SsmlPhoneme(TwiML):
+    """ Using Phonetic Pronunciation in <Say> """
+
+    def __init__(self, words, **kwargs):
+        super(SsmlPhoneme, self).__init__(**kwargs)
+        self.name = 'phoneme'
+        self.value = words
+
+
+class SsmlP(TwiML):
+    """ Adding a Pause Between Paragraphs in <Say> """
+
+    def __init__(self, words, **kwargs):
+        super(SsmlP, self).__init__(**kwargs)
+        self.name = 'p'
+        self.value = words
+
+
+class SsmlEmphasis(TwiML):
+    """ Emphasizing Words in <Say> """
+
+    def __init__(self, words, **kwargs):
+        super(SsmlEmphasis, self).__init__(**kwargs)
+        self.name = 'emphasis'
+        self.value = words
+
+
+class SsmlBreak(TwiML):
+    """ Adding a Pause in <Say> """
+
+    def __init__(self, **kwargs):
+        super(SsmlBreak, self).__init__(**kwargs)
+        self.name = 'break'
 
 
 class Reject(TwiML):
@@ -405,7 +596,7 @@ class Gather(TwiML):
         super(Gather, self).__init__(**kwargs)
         self.name = 'Gather'
 
-    def say(self, message, voice=None, loop=None, language=None, **kwargs):
+    def say(self, message=None, voice=None, loop=None, language=None, **kwargs):
         """
         Create a <Say> element
 
@@ -417,7 +608,7 @@ class Gather(TwiML):
 
         :returns: <Say> element
         """
-        return self.nest(Say(message, voice=voice, loop=loop, language=language, **kwargs))
+        return self.nest(Say(message=message, voice=voice, loop=loop, language=language, **kwargs))
 
     def pause(self, length=None, **kwargs):
         """

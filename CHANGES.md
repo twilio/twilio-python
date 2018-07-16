@@ -3,6 +3,15 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-07-16] Version 6.15.0
+----------------------------
+**Library**
+- PR #436: Add request body validation. Thanks to @cjcodes!
+
+**Twiml**
+- Add support for SSML on Say verb, the message body is changed to be optional **(breaking change)**
+
+
 [2018-07-11] Version 6.14.10
 -----------------------------
 **Api**

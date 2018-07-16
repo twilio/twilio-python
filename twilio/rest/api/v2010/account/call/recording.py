@@ -38,7 +38,7 @@ class RecordingList(ListResource):
     def create(self, recording_status_callback_event=values.unset,
                recording_status_callback=values.unset,
                recording_status_callback_method=values.unset, trim=values.unset,
-               recording_channels=values.unset, play_beep=values.unset):
+               recording_channels=values.unset):
         """
         Create a new RecordingInstance
 
@@ -47,7 +47,6 @@ class RecordingList(ListResource):
         :param unicode recording_status_callback_method: The recording_status_callback_method
         :param unicode trim: Whether to trim the silence in the recording
         :param unicode recording_channels: The recording_channels
-        :param bool play_beep: Whether to play beeps for recording status changes
 
         :returns: Newly created RecordingInstance
         :rtype: twilio.rest.api.v2010.account.call.recording.RecordingInstance
@@ -58,7 +57,6 @@ class RecordingList(ListResource):
             'RecordingStatusCallbackMethod': recording_status_callback_method,
             'Trim': trim,
             'RecordingChannels': recording_channels,
-            'PlayBeep': play_beep,
         })
 
         payload = self._version.create(
