@@ -44,7 +44,7 @@ class RoomList(ListResource):
         Create a new RoomInstance
 
         :param bool enable_turn: Use Twilio Network Traversal for TURN service.
-        :param RoomInstance.RoomType type: Type of room, either peer-to-peer or group.
+        :param RoomInstance.RoomType type: Type of room, either peer-to-peer, group-small or group.
         :param unicode unique_name: Name of the Room.
         :param unicode status_callback: A URL that Twilio sends asynchronous webhook requests to on every room event.
         :param unicode status_callback_method: HTTP method Twilio should use when requesting the above URL.
@@ -200,7 +200,7 @@ class RoomList(ListResource):
         """
         Constructs a RoomContext
 
-        :param sid: The sid
+        :param sid: The Room Sid or name that uniquely identifies this resource.
 
         :returns: twilio.rest.video.v1.room.RoomContext
         :rtype: twilio.rest.video.v1.room.RoomContext
@@ -211,7 +211,7 @@ class RoomList(ListResource):
         """
         Constructs a RoomContext
 
-        :param sid: The sid
+        :param sid: The Room Sid or name that uniquely identifies this resource.
 
         :returns: twilio.rest.video.v1.room.RoomContext
         :rtype: twilio.rest.video.v1.room.RoomContext
@@ -275,7 +275,7 @@ class RoomContext(InstanceContext):
         Initialize the RoomContext
 
         :param Version version: Version that contains the resource
-        :param sid: The sid
+        :param sid: The Room Sid or name that uniquely identifies this resource.
 
         :returns: twilio.rest.video.v1.room.RoomContext
         :rtype: twilio.rest.video.v1.room.RoomContext
@@ -372,6 +372,7 @@ class RoomInstance(InstanceResource):
     class RoomType(object):
         PEER_TO_PEER = "peer-to-peer"
         GROUP = "group"
+        GROUP_SMALL = "group-small"
 
     class VideoCodec(object):
         VP8 = "VP8"
@@ -516,7 +517,7 @@ class RoomInstance(InstanceResource):
     @property
     def type(self):
         """
-        :returns: Type of Room, either peer-to-peer or group.
+        :returns: Type of Room, either peer-to-peer, group-small or group.
         :rtype: RoomInstance.RoomType
         """
         return self._properties['type']

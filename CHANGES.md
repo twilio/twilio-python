@@ -3,6 +3,15 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-07-17] Version 6.15.1
+----------------------------
+**Library**
+- PR #439: Override generated attributes when generating TwiML. Thanks to @cjcodes!
+
+**Video**
+- Add `group-small` room type
+
+
 [2018-07-16] Version 6.15.0
 ----------------------------
 **Library**
