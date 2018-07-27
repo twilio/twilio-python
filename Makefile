@@ -27,10 +27,11 @@ cover:
   find tests -type d | xargs nosetests --with-coverage --cover-inclusive --cover-erase --cover-package=twilio
 
 docs-install:
-	. venv/bin/activate; pip install pdoc
+	. venv/bin/activate; pip install twilio sphinx
 
 docs:
-	. venv/bin/activate; pdoc twilio --overwrite --html --html-dir docs
+	. venv/bin/activate; sphinx-apidoc -f twilio -o docs/source
+	cd docs && make clean && make html
 
 release:
 	. venv/bin/activate; python setup.py sdist upload
