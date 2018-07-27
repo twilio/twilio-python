@@ -34,17 +34,19 @@ class PhoneNumberList(ListResource):
         self._solution = {'service_sid': service_sid, }
         self._uri = '/Services/{service_sid}/PhoneNumbers'.format(**self._solution)
 
-    def create(self, sid=values.unset, phone_number=values.unset):
+    def create(self, sid=values.unset, phone_number=values.unset,
+               is_reserved=values.unset):
         """
         Create a new PhoneNumberInstance
 
         :param unicode sid: Phone Number Sid of Twilio Number to assign to your Proxy Service
         :param unicode phone_number: Twilio Number to assign to your Proxy Service
+        :param bool is_reserved: Reserve for manual assignment to participants only.
 
         :returns: Newly created PhoneNumberInstance
         :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberInstance
         """
-        data = values.of({'Sid': sid, 'PhoneNumber': phone_number, })
+        data = values.of({'Sid': sid, 'PhoneNumber': phone_number, 'IsReserved': is_reserved, })
 
         payload = self._version.create(
             'POST',
@@ -260,6 +262,30 @@ class PhoneNumberContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
+    def update(self, is_reserved=values.unset):
+        """
+        Update the PhoneNumberInstance
+
+        :param bool is_reserved: Reserve for manual assignment to participants only.
+
+        :returns: Updated PhoneNumberInstance
+        :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberInstance
+        """
+        data = values.of({'IsReserved': is_reserved, })
+
+        payload = self._version.update(
+            'POST',
+            self._uri,
+            data=data,
+        )
+
+        return PhoneNumberInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+        )
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -296,6 +322,7 @@ class PhoneNumberInstance(InstanceResource):
             'iso_country': payload['iso_country'],
             'capabilities': payload['capabilities'],
             'url': payload['url'],
+            'is_reserved': payload['is_reserved'],
         }
 
         # Context
@@ -399,6 +426,14 @@ class PhoneNumberInstance(InstanceResource):
         """
         return self._properties['url']
 
+    @property
+    def is_reserved(self):
+        """
+        :returns: Reserve for manual assignment to participants only.
+        :rtype: bool
+        """
+        return self._properties['is_reserved']
+
     def delete(self):
         """
         Deletes the PhoneNumberInstance
@@ -416,6 +451,17 @@ class PhoneNumberInstance(InstanceResource):
         :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberInstance
         """
         return self._proxy.fetch()
+
+    def update(self, is_reserved=values.unset):
+        """
+        Update the PhoneNumberInstance
+
+        :param bool is_reserved: Reserve for manual assignment to participants only.
+
+        :returns: Updated PhoneNumberInstance
+        :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberInstance
+        """
+        return self._proxy.update(is_reserved=is_reserved, )
 
     def __repr__(self):
         """

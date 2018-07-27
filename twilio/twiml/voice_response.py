@@ -354,6 +354,18 @@ class Say(TwiML):
         """
         return self.nest(SsmlEmphasis(words, level=level, **kwargs))
 
+    def ssml_lang(self, words, xml_lang=None, **kwargs):
+        """
+        Create a <Lang> element
+
+        :param words: Words to speak
+        :param xml:lang: Specify the language
+        :param kwargs: additional attributes
+
+        :returns: <Lang> element
+        """
+        return self.nest(SsmlLang(words, xml_lang=xml_lang, **kwargs))
+
     def ssml_p(self, words, **kwargs):
         """
         Create a <P> element
@@ -501,6 +513,15 @@ class SsmlP(TwiML):
     def __init__(self, words, **kwargs):
         super(SsmlP, self).__init__(**kwargs)
         self.name = 'p'
+        self.value = words
+
+
+class SsmlLang(TwiML):
+    """ Specifying Another Language for Specific Words in <Say> """
+
+    def __init__(self, words, **kwargs):
+        super(SsmlLang, self).__init__(**kwargs)
+        self.name = 'lang'
         self.value = words
 
 

@@ -259,6 +259,30 @@ class ShortCodeContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
+    def update(self, is_reserved=values.unset):
+        """
+        Update the ShortCodeInstance
+
+        :param bool is_reserved: Reserve for manual assignment to participants only.
+
+        :returns: Updated ShortCodeInstance
+        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeInstance
+        """
+        data = values.of({'IsReserved': is_reserved, })
+
+        payload = self._version.update(
+            'POST',
+            self._uri,
+            data=data,
+        )
+
+        return ShortCodeInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+        )
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -294,6 +318,7 @@ class ShortCodeInstance(InstanceResource):
             'iso_country': payload['iso_country'],
             'capabilities': payload['capabilities'],
             'url': payload['url'],
+            'is_reserved': payload['is_reserved'],
         }
 
         # Context
@@ -389,6 +414,14 @@ class ShortCodeInstance(InstanceResource):
         """
         return self._properties['url']
 
+    @property
+    def is_reserved(self):
+        """
+        :returns: Reserve for manual assignment to participants only.
+        :rtype: bool
+        """
+        return self._properties['is_reserved']
+
     def delete(self):
         """
         Deletes the ShortCodeInstance
@@ -406,6 +439,17 @@ class ShortCodeInstance(InstanceResource):
         :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeInstance
         """
         return self._proxy.fetch()
+
+    def update(self, is_reserved=values.unset):
+        """
+        Update the ShortCodeInstance
+
+        :param bool is_reserved: Reserve for manual assignment to participants only.
+
+        :returns: Updated ShortCodeInstance
+        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeInstance
+        """
+        return self._proxy.update(is_reserved=is_reserved, )
 
     def __repr__(self):
         """

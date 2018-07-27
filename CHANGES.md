@@ -3,6 +3,21 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-07-27] Version 6.15.2
+----------------------------
+**Api**
+- Add support for sip domains to map credential lists for registrations
+
+**Preview**
+- Remove `ttl` from Assistants
+
+**Proxy**
+- Enable setting a proxy number as reserved
+
+**Twiml**
+- Add support for SSML lang tag on Say verb
+
+
 [2018-07-17] Version 6.15.1
 ----------------------------
 **Library**

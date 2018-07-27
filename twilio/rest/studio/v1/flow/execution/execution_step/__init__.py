@@ -24,8 +24,8 @@ class ExecutionStepList(ListResource):
         Initialize the ExecutionStepList
 
         :param Version version: Version that contains the resource
-        :param flow_sid: The flow_sid
-        :param execution_sid: The execution_sid
+        :param flow_sid: Flow Sid.
+        :param execution_sid: Execution Sid.
 
         :returns: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepList
         :rtype: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepList
@@ -121,7 +121,7 @@ class ExecutionStepList(ListResource):
         """
         Constructs a ExecutionStepContext
 
-        :param sid: The sid
+        :param sid: Step Sid.
 
         :returns: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepContext
         :rtype: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepContext
@@ -137,7 +137,7 @@ class ExecutionStepList(ListResource):
         """
         Constructs a ExecutionStepContext
 
-        :param sid: The sid
+        :param sid: Step Sid.
 
         :returns: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepContext
         :rtype: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepContext
@@ -169,8 +169,8 @@ class ExecutionStepPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param flow_sid: The flow_sid
-        :param execution_sid: The execution_sid
+        :param flow_sid: Flow Sid.
+        :param execution_sid: Execution Sid.
 
         :returns: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepPage
         :rtype: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepPage
@@ -215,9 +215,9 @@ class ExecutionStepContext(InstanceContext):
         Initialize the ExecutionStepContext
 
         :param Version version: Version that contains the resource
-        :param flow_sid: The flow_sid
-        :param execution_sid: The execution_sid
-        :param sid: The sid
+        :param flow_sid: Flow Sid.
+        :param execution_sid: Execution Sid.
+        :param sid: Step Sid.
 
         :returns: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepContext
         :rtype: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepContext
@@ -340,7 +340,7 @@ class ExecutionStepInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A string that uniquely identifies this Step.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -348,7 +348,7 @@ class ExecutionStepInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: Account Sid.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -356,7 +356,7 @@ class ExecutionStepInstance(InstanceResource):
     @property
     def flow_sid(self):
         """
-        :returns: The flow_sid
+        :returns: Flow Sid.
         :rtype: unicode
         """
         return self._properties['flow_sid']
@@ -364,7 +364,7 @@ class ExecutionStepInstance(InstanceResource):
     @property
     def execution_sid(self):
         """
-        :returns: The execution_sid
+        :returns: Execution Sid.
         :rtype: unicode
         """
         return self._properties['execution_sid']
@@ -372,7 +372,7 @@ class ExecutionStepInstance(InstanceResource):
     @property
     def name(self):
         """
-        :returns: The name
+        :returns: The event that caused the flow to transition to this Step.
         :rtype: unicode
         """
         return self._properties['name']
@@ -388,7 +388,7 @@ class ExecutionStepInstance(InstanceResource):
     @property
     def transitioned_from(self):
         """
-        :returns: The transitioned_from
+        :returns: The Widget that preceded the Widget for this Step.
         :rtype: unicode
         """
         return self._properties['transitioned_from']
@@ -396,7 +396,7 @@ class ExecutionStepInstance(InstanceResource):
     @property
     def transitioned_to(self):
         """
-        :returns: The transitioned_to
+        :returns: The Widget that will follow the Widget for this Step.
         :rtype: unicode
         """
         return self._properties['transitioned_to']
@@ -404,7 +404,7 @@ class ExecutionStepInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date this Step was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -412,7 +412,7 @@ class ExecutionStepInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date this Step was updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -420,7 +420,7 @@ class ExecutionStepInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The URL of this resource.
         :rtype: unicode
         """
         return self._properties['url']

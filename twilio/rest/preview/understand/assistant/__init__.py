@@ -120,15 +120,13 @@ class AssistantList(ListResource):
         return AssistantPage(self._version, response, self._solution)
 
     def create(self, friendly_name=values.unset, log_queries=values.unset,
-               ttl=values.unset, unique_name=values.unset,
-               response_url=values.unset, callback_url=values.unset,
-               callback_events=values.unset):
+               unique_name=values.unset, response_url=values.unset,
+               callback_url=values.unset, callback_events=values.unset):
         """
         Create a new AssistantInstance
 
         :param unicode friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
         :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
-        :param unicode ttl: The ttl
         :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
         :param unicode response_url: The webhook URL called to fetch the response to an incoming communication expressed in Assistant TwiML.
         :param unicode callback_url: The callback_url
@@ -140,7 +138,6 @@ class AssistantList(ListResource):
         data = values.of({
             'FriendlyName': friendly_name,
             'LogQueries': log_queries,
-            'Ttl': ttl,
             'UniqueName': unique_name,
             'ResponseUrl': response_url,
             'CallbackUrl': callback_url,
@@ -273,15 +270,13 @@ class AssistantContext(InstanceContext):
         return AssistantInstance(self._version, payload, sid=self._solution['sid'], )
 
     def update(self, friendly_name=values.unset, log_queries=values.unset,
-               ttl=values.unset, unique_name=values.unset,
-               response_url=values.unset, callback_url=values.unset,
-               callback_events=values.unset):
+               unique_name=values.unset, response_url=values.unset,
+               callback_url=values.unset, callback_events=values.unset):
         """
         Update the AssistantInstance
 
         :param unicode friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
         :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
-        :param unicode ttl: The ttl
         :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
         :param unicode response_url: The webhook URL called to fetch the response to an incoming communication expressed in Assistant TwiML.
         :param unicode callback_url: The callback_url
@@ -293,7 +288,6 @@ class AssistantContext(InstanceContext):
         data = values.of({
             'FriendlyName': friendly_name,
             'LogQueries': log_queries,
-            'Ttl': ttl,
             'UniqueName': unique_name,
             'ResponseUrl': response_url,
             'CallbackUrl': callback_url,
@@ -400,7 +394,6 @@ class AssistantInstance(InstanceResource):
             'links': payload['links'],
             'log_queries': payload['log_queries'],
             'sid': payload['sid'],
-            'ttl': deserialize.integer(payload['ttl']),
             'unique_name': payload['unique_name'],
             'url': payload['url'],
             'response_url': payload['response_url'],
@@ -490,14 +483,6 @@ class AssistantInstance(InstanceResource):
         return self._properties['sid']
 
     @property
-    def ttl(self):
-        """
-        :returns: The ttl
-        :rtype: unicode
-        """
-        return self._properties['ttl']
-
-    @property
     def unique_name(self):
         """
         :returns: A user-provided string that uniquely identifies this resource as an alternative to the sid. You can use the unique name in the URL path. Unique up to 64 characters long.
@@ -547,15 +532,13 @@ class AssistantInstance(InstanceResource):
         return self._proxy.fetch()
 
     def update(self, friendly_name=values.unset, log_queries=values.unset,
-               ttl=values.unset, unique_name=values.unset,
-               response_url=values.unset, callback_url=values.unset,
-               callback_events=values.unset):
+               unique_name=values.unset, response_url=values.unset,
+               callback_url=values.unset, callback_events=values.unset):
         """
         Update the AssistantInstance
 
         :param unicode friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
         :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
-        :param unicode ttl: The ttl
         :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
         :param unicode response_url: The webhook URL called to fetch the response to an incoming communication expressed in Assistant TwiML.
         :param unicode callback_url: The callback_url
@@ -567,7 +550,6 @@ class AssistantInstance(InstanceResource):
         return self._proxy.update(
             friendly_name=friendly_name,
             log_queries=log_queries,
-            ttl=ttl,
             unique_name=unique_name,
             response_url=response_url,
             callback_url=callback_url,

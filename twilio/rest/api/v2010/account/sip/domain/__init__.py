@@ -12,6 +12,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.api.v2010.account.sip.domain.auth_types import AuthTypesList
 from twilio.rest.api.v2010.account.sip.domain.credential_list_mapping import CredentialListMappingList
 from twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping import IpAccessControlListMappingList
 
@@ -256,6 +257,7 @@ class DomainContext(InstanceContext):
         # Dependents
         self._ip_access_control_list_mappings = None
         self._credential_list_mappings = None
+        self._auth = None
 
     def fetch(self):
         """
@@ -365,6 +367,22 @@ class DomainContext(InstanceContext):
                 domain_sid=self._solution['sid'],
             )
         return self._credential_list_mappings
+
+    @property
+    def auth(self):
+        """
+        Access the auth
+
+        :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.AuthTypesList
+        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.AuthTypesList
+        """
+        if self._auth is None:
+            self._auth = AuthTypesList(
+                self._version,
+                account_sid=self._solution['account_sid'],
+                domain_sid=self._solution['sid'],
+            )
+        return self._auth
 
     def __repr__(self):
         """
@@ -637,6 +655,16 @@ class DomainInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingList
         """
         return self._proxy.credential_list_mappings
+
+    @property
+    def auth(self):
+        """
+        Access the auth
+
+        :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.AuthTypesList
+        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.AuthTypesList
+        """
+        return self._proxy.auth
 
     def __repr__(self):
         """
