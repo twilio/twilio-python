@@ -6,7 +6,6 @@
 # full list see the documentation:
 # http://www.sphinx-doc.org/en/master/config
 
-from twilio import  __version__
 
 # -- Path setup --------------------------------------------------------------
 
@@ -17,6 +16,10 @@ from twilio import  __version__
 import os
 import sys
 sys.path.insert(0, os.path.join(os.path.abspath('..'), 'twilio'))
+sys.path.append('..')
+from twilio import __version__
+
+
 # -- Project information -----------------------------------------------------
 
 project = 'twilio-python'
