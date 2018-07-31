@@ -27,7 +27,7 @@ cover:
   find tests -type d | xargs nosetests --with-coverage --cover-inclusive --cover-erase --cover-package=twilio
 
 docs-install:
-	. venv/bin/activate; pip install twilio sphinx
+	. venv/bin/activate; pip install sphinx
 
 docs:
 	-rm -rf source/_rst/*
