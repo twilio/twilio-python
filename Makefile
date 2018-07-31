@@ -27,12 +27,17 @@ cover:
   find tests -type d | xargs nosetests --with-coverage --cover-inclusive --cover-erase --cover-package=twilio
 
 docs-install:
-	. venv/bin/activate; pip install sphinx
+	. venv/bin/activate; pip install -U sphinx
 
 docs:
 	-rm -rf source/_rst/*
+	-rm -rf build/*
 	. venv/bin/activate; sphinx-apidoc -f twilio -o docs/source/_rst
-	cd docs && make clean && make html
+	. venv/bin/activate; sphinx-build -b html -c ./docs -d docs/build/doctrees   . docs/build/html
+
+	@echo
+	@echo "Build finished. The HTML pages are in build/html."
+
 
 release:
 	. venv/bin/activate; python setup.py sdist upload
