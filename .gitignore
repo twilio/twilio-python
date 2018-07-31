@@ -26,6 +26,7 @@ pip-log.txt
 # sphinx build folder
 _build
 build/
+_rst
 
 # PyCharm/IntelliJ
 .idea
