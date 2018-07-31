@@ -30,7 +30,8 @@ docs-install:
 	. venv/bin/activate; pip install twilio sphinx
 
 docs:
-	. venv/bin/activate; sphinx-apidoc -f twilio -o docs/source
+	-rm -rf source/_rst/*
+	. venv/bin/activate; sphinx-apidoc -f twilio -o docs/source/_rst
 	cd docs && make clean && make html
 
 release:
