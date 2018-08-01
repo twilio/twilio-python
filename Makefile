@@ -30,8 +30,8 @@ docs-install:
 	. venv/bin/activate; pip install -U sphinx
 
 docs:
-	-rm -rf source/_rst/*
-	-rm -rf build/*
+	-rm -rf docs/source/_rst
+	-rm -rf docs/build/*
 	. venv/bin/activate; sphinx-apidoc -f twilio -o docs/source/_rst
 	. venv/bin/activate; sphinx-build -b html -c ./docs -d docs/build/doctrees   . docs/build/html
 
