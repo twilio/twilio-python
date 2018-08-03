@@ -1,4 +1,4 @@
-sphinx==1.4.9
+Sphinx==1.7.6
 mock==0.8.0
 nose
 coverage
