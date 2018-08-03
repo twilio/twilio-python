@@ -25,7 +25,7 @@ method, this part of the documentation is for you.
    :maxdepth: 1
    :glob:
 
-   _rst/modules.rst
+   docs/source/_rst/modules.rst
 
 
 Indices and tables
