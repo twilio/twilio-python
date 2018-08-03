@@ -13,6 +13,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
 from twilio.rest.preview.understand.assistant.intent.field import FieldList
+from twilio.rest.preview.understand.assistant.intent.intent_statistics import IntentStatisticsList
 from twilio.rest.preview.understand.assistant.intent.sample import SampleList
 
 
@@ -237,6 +238,7 @@ class IntentContext(InstanceContext):
         # Dependents
         self._fields = None
         self._samples = None
+        self._statistics = None
 
     def fetch(self):
         """
@@ -325,6 +327,22 @@ class IntentContext(InstanceContext):
                 intent_sid=self._solution['sid'],
             )
         return self._samples
+
+    @property
+    def statistics(self):
+        """
+        Access the statistics
+
+        :returns: twilio.rest.preview.understand.assistant.intent.intent_statistics.IntentStatisticsList
+        :rtype: twilio.rest.preview.understand.assistant.intent.intent_statistics.IntentStatisticsList
+        """
+        if self._statistics is None:
+            self._statistics = IntentStatisticsList(
+                self._version,
+                assistant_sid=self._solution['assistant_sid'],
+                intent_sid=self._solution['sid'],
+            )
+        return self._statistics
 
     def __repr__(self):
         """
@@ -506,6 +524,16 @@ class IntentInstance(InstanceResource):
         :rtype: twilio.rest.preview.understand.assistant.intent.sample.SampleList
         """
         return self._proxy.samples
+
+    @property
+    def statistics(self):
+        """
+        Access the statistics
+
+        :returns: twilio.rest.preview.understand.assistant.intent.intent_statistics.IntentStatisticsList
+        :rtype: twilio.rest.preview.understand.assistant.intent.intent_statistics.IntentStatisticsList
+        """
+        return self._proxy.statistics
 
     def __repr__(self):
         """

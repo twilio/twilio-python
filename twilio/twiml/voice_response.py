@@ -20,6 +20,18 @@ class VoiceResponse(TwiML):
         super(VoiceResponse, self).__init__(**kwargs)
         self.name = 'Response'
 
+    def connect(self, action=None, method=None, **kwargs):
+        """
+        Create a <Connect> element
+
+        :param action: Action URL
+        :param method: Action URL method
+        :param kwargs: additional attributes
+
+        :returns: <Connect> element
+        """
+        return self.nest(Connect(action=action, method=method, **kwargs))
+
     def dial(self, number=None, action=None, method=None, timeout=None,
              hangup_on_star=None, time_limit=None, caller_id=None, record=None,
              trim=None, recording_status_callback=None,
@@ -923,4 +935,32 @@ class Client(TwiML):
     def __init__(self, name, **kwargs):
         super(Client, self).__init__(**kwargs)
         self.name = 'Client'
+        self.value = name
+
+
+class Connect(TwiML):
+    """ <Connect> TwiML Verb """
+
+    def __init__(self, **kwargs):
+        super(Connect, self).__init__(**kwargs)
+        self.name = 'Connect'
+
+    def room(self, name, **kwargs):
+        """
+        Create a <Room> element
+
+        :param name: Room name
+        :param kwargs: additional attributes
+
+        :returns: <Room> element
+        """
+        return self.nest(Room(name, **kwargs))
+
+
+class Room(TwiML):
+    """ <Room> TwiML Noun """
+
+    def __init__(self, name, **kwargs):
+        super(Room, self).__init__(**kwargs)
+        self.name = 'Room'
         self.value = name

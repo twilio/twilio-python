@@ -167,7 +167,7 @@ class MemberList(ListResource):
         """
         Constructs a MemberContext
 
-        :param sid: The sid
+        :param sid: Key that uniquely defines the member to fetch.
 
         :returns: twilio.rest.chat.v2.service.channel.member.MemberContext
         :rtype: twilio.rest.chat.v2.service.channel.member.MemberContext
@@ -183,7 +183,7 @@ class MemberList(ListResource):
         """
         Constructs a MemberContext
 
-        :param sid: The sid
+        :param sid: Key that uniquely defines the member to fetch.
 
         :returns: twilio.rest.chat.v2.service.channel.member.MemberContext
         :rtype: twilio.rest.chat.v2.service.channel.member.MemberContext
@@ -259,9 +259,9 @@ class MemberContext(InstanceContext):
         Initialize the MemberContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
-        :param channel_sid: The channel_sid
-        :param sid: The sid
+        :param service_sid: Sid of the Service this member belongs to.
+        :param channel_sid: Key that uniquely defines the channel this member belongs to.
+        :param sid: Key that uniquely defines the member to fetch.
 
         :returns: twilio.rest.chat.v2.service.channel.member.MemberContext
         :rtype: twilio.rest.chat.v2.service.channel.member.MemberContext
@@ -355,6 +355,10 @@ class MemberContext(InstanceContext):
 
 class MemberInstance(InstanceResource):
     """  """
+
+    class WebhookEnabledType(object):
+        TRUE = "true"
+        FALSE = "false"
 
     def __init__(self, version, payload, service_sid, channel_sid, sid=None):
         """

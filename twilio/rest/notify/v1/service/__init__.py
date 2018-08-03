@@ -14,8 +14,6 @@ from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
 from twilio.rest.notify.v1.service.binding import BindingList
 from twilio.rest.notify.v1.service.notification import NotificationList
-from twilio.rest.notify.v1.service.segment import SegmentList
-from twilio.rest.notify.v1.service.user import UserList
 
 
 class ServiceList(ListResource):
@@ -272,8 +270,6 @@ class ServiceContext(InstanceContext):
         # Dependents
         self._bindings = None
         self._notifications = None
-        self._users = None
-        self._segments = None
 
     def delete(self):
         """
@@ -375,30 +371,6 @@ class ServiceContext(InstanceContext):
         if self._notifications is None:
             self._notifications = NotificationList(self._version, service_sid=self._solution['sid'], )
         return self._notifications
-
-    @property
-    def users(self):
-        """
-        Access the users
-
-        :returns: twilio.rest.notify.v1.service.user.UserList
-        :rtype: twilio.rest.notify.v1.service.user.UserList
-        """
-        if self._users is None:
-            self._users = UserList(self._version, service_sid=self._solution['sid'], )
-        return self._users
-
-    @property
-    def segments(self):
-        """
-        Access the segments
-
-        :returns: twilio.rest.notify.v1.service.segment.SegmentList
-        :rtype: twilio.rest.notify.v1.service.segment.SegmentList
-        """
-        if self._segments is None:
-            self._segments = SegmentList(self._version, service_sid=self._solution['sid'], )
-        return self._segments
 
     def __repr__(self):
         """
@@ -687,26 +659,6 @@ class ServiceInstance(InstanceResource):
         :rtype: twilio.rest.notify.v1.service.notification.NotificationList
         """
         return self._proxy.notifications
-
-    @property
-    def users(self):
-        """
-        Access the users
-
-        :returns: twilio.rest.notify.v1.service.user.UserList
-        :rtype: twilio.rest.notify.v1.service.user.UserList
-        """
-        return self._proxy.users
-
-    @property
-    def segments(self):
-        """
-        Access the segments
-
-        :returns: twilio.rest.notify.v1.service.segment.SegmentList
-        :rtype: twilio.rest.notify.v1.service.segment.SegmentList
-        """
-        return self._proxy.segments
 
     def __repr__(self):
         """

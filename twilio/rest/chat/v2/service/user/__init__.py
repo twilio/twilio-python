@@ -148,7 +148,7 @@ class UserList(ListResource):
         """
         Constructs a UserContext
 
-        :param sid: The sid
+        :param sid: Key that uniquely defines the user to fetch.
 
         :returns: twilio.rest.chat.v2.service.user.UserContext
         :rtype: twilio.rest.chat.v2.service.user.UserContext
@@ -159,7 +159,7 @@ class UserList(ListResource):
         """
         Constructs a UserContext
 
-        :param sid: The sid
+        :param sid: Key that uniquely defines the user to fetch.
 
         :returns: twilio.rest.chat.v2.service.user.UserContext
         :rtype: twilio.rest.chat.v2.service.user.UserContext
@@ -224,8 +224,8 @@ class UserContext(InstanceContext):
         Initialize the UserContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
-        :param sid: The sid
+        :param service_sid: Sid of the Service this user belongs to.
+        :param sid: Key that uniquely defines the user to fetch.
 
         :returns: twilio.rest.chat.v2.service.user.UserContext
         :rtype: twilio.rest.chat.v2.service.user.UserContext
@@ -343,6 +343,10 @@ class UserContext(InstanceContext):
 
 class UserInstance(InstanceResource):
     """  """
+
+    class WebhookEnabledType(object):
+        TRUE = "true"
+        FALSE = "false"
 
     def __init__(self, version, payload, service_sid, sid=None):
         """

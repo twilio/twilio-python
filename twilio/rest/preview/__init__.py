@@ -12,7 +12,6 @@ from twilio.rest.preview.bulk_exports import BulkExports
 from twilio.rest.preview.deployed_devices import DeployedDevices
 from twilio.rest.preview.hosted_numbers import HostedNumbers
 from twilio.rest.preview.marketplace import Marketplace
-from twilio.rest.preview.proxy import Proxy
 from twilio.rest.preview.studio import Studio
 from twilio.rest.preview.sync import Sync
 from twilio.rest.preview.understand import Understand
@@ -37,7 +36,6 @@ class Preview(Domain):
         self._deployed_devices = None
         self._hosted_numbers = None
         self._marketplace = None
-        self._proxy = None
         self._studio = None
         self._acc_security = None
         self._sync = None
@@ -83,16 +81,6 @@ class Preview(Domain):
         if self._marketplace is None:
             self._marketplace = Marketplace(self)
         return self._marketplace
-
-    @property
-    def proxy(self):
-        """
-        :returns: Version proxy of preview
-        :rtype: twilio.rest.preview.proxy.Proxy
-        """
-        if self._proxy is None:
-            self._proxy = Proxy(self)
-        return self._proxy
 
     @property
     def studio(self):
@@ -194,18 +182,18 @@ class Preview(Domain):
         return self.marketplace.available_add_ons
 
     @property
-    def services(self):
-        """
-        :rtype: twilio.rest.preview.sync.service.ServiceList
-        """
-        return self.sync.services
-
-    @property
     def flows(self):
         """
         :rtype: twilio.rest.preview.studio.flow.FlowList
         """
         return self.studio.flows
+
+    @property
+    def services(self):
+        """
+        :rtype: twilio.rest.preview.sync.service.ServiceList
+        """
+        return self.sync.services
 
     @property
     def assistants(self):

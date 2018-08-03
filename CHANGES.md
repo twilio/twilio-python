@@ -3,6 +3,27 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-08-03] Version 6.16.0
+----------------------------
+**Library**
+- PR #442: Auto generate docs with sphinx. Thanks to @mbichoffe!
+- PR #437: Tag and push Docker latest image when deploying with TravisCI. Thanks to @jonatasbaldin!
+
+**Chat**
+- Make message From field updatable
+- Add REST API webhooks
+
+**Notify**
+- Removing deprecated `segments`, `users`, `segment_memberships`, `user_bindings` classes from helper libraries. **(breaking change)**
+
+**Preview**
+- Add new Intent Statistics endpoint
+- Remove `ttl` from Assistants
+
+**Twiml**
+- Add `Connect` and `Room` for Programmable Video Rooms
+
+
 [2018-07-27] Version 6.15.2
 ----------------------------
 **Api**

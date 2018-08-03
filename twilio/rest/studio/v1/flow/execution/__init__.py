@@ -407,7 +407,7 @@ class ExecutionInstance(InstanceResource):
     @property
     def context(self):
         """
-        :returns: Flow state.
+        :returns: The context
         :rtype: dict
         """
         return self._properties['context']

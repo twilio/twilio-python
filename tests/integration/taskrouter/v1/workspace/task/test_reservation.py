@@ -180,3 +180,33 @@ class ReservationTestCase(IntegrationTestCase):
                                           .reservations(sid="WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)
+
+    def test_update_supervise_instruction_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_created": "2014-05-14T10:50:02Z",
+                "date_updated": "2014-05-15T16:03:42Z",
+                "links": {
+                    "task": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "worker": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "workspace": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                },
+                "reservation_status": "accepted",
+                "sid": "WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "task_sid": "WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "worker_name": "Doug",
+                "worker_sid": "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
+
+        actual = self.client.taskrouter.v1.workspaces(sid="WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .tasks(sid="WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .reservations(sid="WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+
+        self.assertIsNotNone(actual)

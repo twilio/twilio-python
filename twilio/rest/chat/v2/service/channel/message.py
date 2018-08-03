@@ -169,7 +169,7 @@ class MessageList(ListResource):
         """
         Constructs a MessageContext
 
-        :param sid: The sid
+        :param sid: Key that uniquely defines the message to fetch.
 
         :returns: twilio.rest.chat.v2.service.channel.message.MessageContext
         :rtype: twilio.rest.chat.v2.service.channel.message.MessageContext
@@ -185,7 +185,7 @@ class MessageList(ListResource):
         """
         Constructs a MessageContext
 
-        :param sid: The sid
+        :param sid: Key that uniquely defines the message to fetch.
 
         :returns: twilio.rest.chat.v2.service.channel.message.MessageContext
         :rtype: twilio.rest.chat.v2.service.channel.message.MessageContext
@@ -261,9 +261,9 @@ class MessageContext(InstanceContext):
         Initialize the MessageContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
-        :param channel_sid: The channel_sid
-        :param sid: The sid
+        :param service_sid: Sid of the Service this message belongs to.
+        :param channel_sid: Key that uniquely defines the channel this message belongs to.
+        :param sid: Key that uniquely defines the message to fetch.
 
         :returns: twilio.rest.chat.v2.service.channel.message.MessageContext
         :rtype: twilio.rest.chat.v2.service.channel.message.MessageContext
@@ -308,7 +308,7 @@ class MessageContext(InstanceContext):
 
     def update(self, body=values.unset, attributes=values.unset,
                date_created=values.unset, date_updated=values.unset,
-               last_updated_by=values.unset):
+               last_updated_by=values.unset, from_=values.unset):
         """
         Update the MessageInstance
 
@@ -317,6 +317,7 @@ class MessageContext(InstanceContext):
         :param datetime date_created: The ISO8601 time specifying the datetime the Message should be set as being created.
         :param datetime date_updated: The ISO8601 time specifying the datetime the Message should be set as having been last updated.
         :param unicode last_updated_by: Specify the Identity of the User that last updated the Message
+        :param unicode from_: The identity of the message's author.
 
         :returns: Updated MessageInstance
         :rtype: twilio.rest.chat.v2.service.channel.message.MessageInstance
@@ -327,6 +328,7 @@ class MessageContext(InstanceContext):
             'DateCreated': serialize.iso8601_datetime(date_created),
             'DateUpdated': serialize.iso8601_datetime(date_updated),
             'LastUpdatedBy': last_updated_by,
+            'From': from_,
         })
 
         payload = self._version.update(
@@ -360,6 +362,10 @@ class MessageInstance(InstanceResource):
     class OrderType(object):
         ASC = "asc"
         DESC = "desc"
+
+    class WebhookEnabledType(object):
+        TRUE = "true"
+        FALSE = "false"
 
     def __init__(self, version, payload, service_sid, channel_sid, sid=None):
         """
@@ -564,7 +570,7 @@ class MessageInstance(InstanceResource):
 
     def update(self, body=values.unset, attributes=values.unset,
                date_created=values.unset, date_updated=values.unset,
-               last_updated_by=values.unset):
+               last_updated_by=values.unset, from_=values.unset):
         """
         Update the MessageInstance
 
@@ -573,6 +579,7 @@ class MessageInstance(InstanceResource):
         :param datetime date_created: The ISO8601 time specifying the datetime the Message should be set as being created.
         :param datetime date_updated: The ISO8601 time specifying the datetime the Message should be set as having been last updated.
         :param unicode last_updated_by: Specify the Identity of the User that last updated the Message
+        :param unicode from_: The identity of the message's author.
 
         :returns: Updated MessageInstance
         :rtype: twilio.rest.chat.v2.service.channel.message.MessageInstance
@@ -583,6 +590,7 @@ class MessageInstance(InstanceResource):
             date_created=date_created,
             date_updated=date_updated,
             last_updated_by=last_updated_by,
+            from_=from_,
         )
 
     def __repr__(self):

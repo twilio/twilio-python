@@ -286,35 +286,36 @@ class ReservationContext(InstanceContext):
                region=values.unset, sip_auth_username=values.unset,
                sip_auth_password=values.unset,
                dequeue_status_callback_event=values.unset,
-               post_work_activity_sid=values.unset):
+               post_work_activity_sid=values.unset, supervisor_mode=values.unset,
+               supervisor=values.unset):
         """
         Update the ReservationInstance
 
-        :param ReservationInstance.Status reservation_status: Yes
-        :param unicode worker_activity_sid: No
-        :param unicode instruction: Yes
-        :param unicode dequeue_post_work_activity_sid: No
-        :param unicode dequeue_from: Yes
-        :param unicode dequeue_record: No
-        :param unicode dequeue_timeout: No
-        :param unicode dequeue_to: No
-        :param unicode dequeue_status_callback_url: No
-        :param unicode call_from: Yes
-        :param unicode call_record: No
-        :param unicode call_timeout: No
-        :param unicode call_to: No
-        :param unicode call_url: Yes
-        :param unicode call_status_callback_url: No
-        :param bool call_accept: No
-        :param unicode redirect_call_sid: Yes
-        :param bool redirect_accept: No
-        :param unicode redirect_url: Yes
-        :param unicode to: No
-        :param unicode from_: No
+        :param ReservationInstance.Status reservation_status: New reservation status
+        :param unicode worker_activity_sid: New worker activity sid if rejecting a reservation
+        :param unicode instruction: Assignment instruction for reservation
+        :param unicode dequeue_post_work_activity_sid: New worker activity sid after executing a Dequeue instruction
+        :param unicode dequeue_from: Caller ID for the call to the worker when executing a Dequeue instruction
+        :param unicode dequeue_record: Attribute to record both legs of a call when executing a Dequeue instruction
+        :param unicode dequeue_timeout: Timeout for call when executing a Dequeue instruction
+        :param unicode dequeue_to: Contact URI of the worker when executing a Dequeue instruction
+        :param unicode dequeue_status_callback_url: Callback URL for completed call event when executing a Dequeue instruction
+        :param unicode call_from: Caller ID for the outbound call when executing a Call instruction
+        :param unicode call_record: Attribute to record both legs of a call when executing a Call instruction
+        :param unicode call_timeout: Timeout for call when executing a Call instruction
+        :param unicode call_to: Contact URI of the worker when executing a Call instruction
+        :param unicode call_url: TwiML URI executed on answering the worker's leg as a result of the Call instruction
+        :param unicode call_status_callback_url: Callback URL for completed call event when executing a Call instruction
+        :param bool call_accept: Flag to determine if reservation should be accepted when executing a Call instruction
+        :param unicode redirect_call_sid: Call sid of the call parked in the queue when executing a Redirect instruction
+        :param bool redirect_accept: Flag to determine if reservation should be accepted when executing a Redirect instruction
+        :param unicode redirect_url: TwiML URI to redirect the call to when executing the Redirect instruction
+        :param unicode to: Contact URI of the worker when executing a Conference instruction
+        :param unicode from_: Caller ID for the call to the worker when executing a Conference instruction
         :param unicode status_callback: The status_callback
         :param unicode status_callback_method: The status_callback_method
         :param ReservationInstance.CallStatus status_callback_event: The status_callback_event
-        :param unicode timeout: No
+        :param unicode timeout: Timeout for call when executing a Conference instruction
         :param bool record: The record
         :param bool muted: The muted
         :param unicode beep: The beep
@@ -337,8 +338,10 @@ class ReservationContext(InstanceContext):
         :param unicode region: The region
         :param unicode sip_auth_username: The sip_auth_username
         :param unicode sip_auth_password: The sip_auth_password
-        :param unicode dequeue_status_callback_event: No
-        :param unicode post_work_activity_sid: No
+        :param unicode dequeue_status_callback_event: Call progress events sent via webhooks as a result of a Dequeue instruction
+        :param unicode post_work_activity_sid: New worker activity sid after executing a Conference instruction
+        :param ReservationInstance.SupervisorMode supervisor_mode: Supervisor mode when executing the Supervise instruction
+        :param unicode supervisor: Supervisor sid/uri when executing the Supervise instruction
 
         :returns: Updated ReservationInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationInstance
@@ -393,6 +396,8 @@ class ReservationContext(InstanceContext):
             'SipAuthPassword': sip_auth_password,
             'DequeueStatusCallbackEvent': serialize.map(dequeue_status_callback_event, lambda e: e),
             'PostWorkActivitySid': post_work_activity_sid,
+            'SupervisorMode': supervisor_mode,
+            'Supervisor': supervisor,
         })
 
         payload = self._version.update(
@@ -445,6 +450,11 @@ class ReservationInstance(InstanceResource):
         MUTE = "mute"
         HOLD = "hold"
         SPEAKER = "speaker"
+
+    class SupervisorMode(object):
+        MONITOR = "monitor"
+        WHISPER = "whisper"
+        BARGE = "barge"
 
     def __init__(self, version, payload, workspace_sid, task_sid, sid=None):
         """
@@ -623,35 +633,36 @@ class ReservationInstance(InstanceResource):
                region=values.unset, sip_auth_username=values.unset,
                sip_auth_password=values.unset,
                dequeue_status_callback_event=values.unset,
-               post_work_activity_sid=values.unset):
+               post_work_activity_sid=values.unset, supervisor_mode=values.unset,
+               supervisor=values.unset):
         """
         Update the ReservationInstance
 
-        :param ReservationInstance.Status reservation_status: Yes
-        :param unicode worker_activity_sid: No
-        :param unicode instruction: Yes
-        :param unicode dequeue_post_work_activity_sid: No
-        :param unicode dequeue_from: Yes
-        :param unicode dequeue_record: No
-        :param unicode dequeue_timeout: No
-        :param unicode dequeue_to: No
-        :param unicode dequeue_status_callback_url: No
-        :param unicode call_from: Yes
-        :param unicode call_record: No
-        :param unicode call_timeout: No
-        :param unicode call_to: No
-        :param unicode call_url: Yes
-        :param unicode call_status_callback_url: No
-        :param bool call_accept: No
-        :param unicode redirect_call_sid: Yes
-        :param bool redirect_accept: No
-        :param unicode redirect_url: Yes
-        :param unicode to: No
-        :param unicode from_: No
+        :param ReservationInstance.Status reservation_status: New reservation status
+        :param unicode worker_activity_sid: New worker activity sid if rejecting a reservation
+        :param unicode instruction: Assignment instruction for reservation
+        :param unicode dequeue_post_work_activity_sid: New worker activity sid after executing a Dequeue instruction
+        :param unicode dequeue_from: Caller ID for the call to the worker when executing a Dequeue instruction
+        :param unicode dequeue_record: Attribute to record both legs of a call when executing a Dequeue instruction
+        :param unicode dequeue_timeout: Timeout for call when executing a Dequeue instruction
+        :param unicode dequeue_to: Contact URI of the worker when executing a Dequeue instruction
+        :param unicode dequeue_status_callback_url: Callback URL for completed call event when executing a Dequeue instruction
+        :param unicode call_from: Caller ID for the outbound call when executing a Call instruction
+        :param unicode call_record: Attribute to record both legs of a call when executing a Call instruction
+        :param unicode call_timeout: Timeout for call when executing a Call instruction
+        :param unicode call_to: Contact URI of the worker when executing a Call instruction
+        :param unicode call_url: TwiML URI executed on answering the worker's leg as a result of the Call instruction
+        :param unicode call_status_callback_url: Callback URL for completed call event when executing a Call instruction
+        :param bool call_accept: Flag to determine if reservation should be accepted when executing a Call instruction
+        :param unicode redirect_call_sid: Call sid of the call parked in the queue when executing a Redirect instruction
+        :param bool redirect_accept: Flag to determine if reservation should be accepted when executing a Redirect instruction
+        :param unicode redirect_url: TwiML URI to redirect the call to when executing the Redirect instruction
+        :param unicode to: Contact URI of the worker when executing a Conference instruction
+        :param unicode from_: Caller ID for the call to the worker when executing a Conference instruction
         :param unicode status_callback: The status_callback
         :param unicode status_callback_method: The status_callback_method
         :param ReservationInstance.CallStatus status_callback_event: The status_callback_event
-        :param unicode timeout: No
+        :param unicode timeout: Timeout for call when executing a Conference instruction
         :param bool record: The record
         :param bool muted: The muted
         :param unicode beep: The beep
@@ -674,8 +685,10 @@ class ReservationInstance(InstanceResource):
         :param unicode region: The region
         :param unicode sip_auth_username: The sip_auth_username
         :param unicode sip_auth_password: The sip_auth_password
-        :param unicode dequeue_status_callback_event: No
-        :param unicode post_work_activity_sid: No
+        :param unicode dequeue_status_callback_event: Call progress events sent via webhooks as a result of a Dequeue instruction
+        :param unicode post_work_activity_sid: New worker activity sid after executing a Conference instruction
+        :param ReservationInstance.SupervisorMode supervisor_mode: Supervisor mode when executing the Supervise instruction
+        :param unicode supervisor: Supervisor sid/uri when executing the Supervise instruction
 
         :returns: Updated ReservationInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationInstance
@@ -730,6 +743,8 @@ class ReservationInstance(InstanceResource):
             sip_auth_password=sip_auth_password,
             dequeue_status_callback_event=dequeue_status_callback_event,
             post_work_activity_sid=post_work_activity_sid,
+            supervisor_mode=supervisor_mode,
+            supervisor=supervisor,
         )
 
     def __repr__(self):

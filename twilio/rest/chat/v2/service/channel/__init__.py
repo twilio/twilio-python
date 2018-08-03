@@ -81,7 +81,7 @@ class ChannelList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param ChannelInstance.ChannelType type: The type
+        :param ChannelInstance.ChannelType type: The visibility of the channel - public or private.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -104,7 +104,7 @@ class ChannelList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param ChannelInstance.ChannelType type: The type
+        :param ChannelInstance.ChannelType type: The visibility of the channel - public or private.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -123,7 +123,7 @@ class ChannelList(ListResource):
         Retrieve a single page of ChannelInstance records from the API.
         Request is executed immediately
 
-        :param ChannelInstance.ChannelType type: The type
+        :param ChannelInstance.ChannelType type: The visibility of the channel - public or private.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -167,7 +167,7 @@ class ChannelList(ListResource):
         """
         Constructs a ChannelContext
 
-        :param sid: The sid
+        :param sid: Key that uniquely defines the channel to fetch.
 
         :returns: twilio.rest.chat.v2.service.channel.ChannelContext
         :rtype: twilio.rest.chat.v2.service.channel.ChannelContext
@@ -178,7 +178,7 @@ class ChannelList(ListResource):
         """
         Constructs a ChannelContext
 
-        :param sid: The sid
+        :param sid: Key that uniquely defines the channel to fetch.
 
         :returns: twilio.rest.chat.v2.service.channel.ChannelContext
         :rtype: twilio.rest.chat.v2.service.channel.ChannelContext
@@ -243,8 +243,8 @@ class ChannelContext(InstanceContext):
         Initialize the ChannelContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
-        :param sid: The sid
+        :param service_sid: Sid of the Service this channel belongs to.
+        :param sid: Key that uniquely defines the channel to fetch.
 
         :returns: twilio.rest.chat.v2.service.channel.ChannelContext
         :rtype: twilio.rest.chat.v2.service.channel.ChannelContext
@@ -411,6 +411,10 @@ class ChannelInstance(InstanceResource):
     class ChannelType(object):
         PUBLIC = "public"
         PRIVATE = "private"
+
+    class WebhookEnabledType(object):
+        TRUE = "true"
+        FALSE = "false"
 
     def __init__(self, version, payload, service_sid, sid=None):
         """
