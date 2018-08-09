@@ -12,7 +12,6 @@ from twilio.rest.preview.bulk_exports import BulkExports
 from twilio.rest.preview.deployed_devices import DeployedDevices
 from twilio.rest.preview.hosted_numbers import HostedNumbers
 from twilio.rest.preview.marketplace import Marketplace
-from twilio.rest.preview.studio import Studio
 from twilio.rest.preview.sync import Sync
 from twilio.rest.preview.understand import Understand
 from twilio.rest.preview.wireless import Wireless
@@ -36,7 +35,6 @@ class Preview(Domain):
         self._deployed_devices = None
         self._hosted_numbers = None
         self._marketplace = None
-        self._studio = None
         self._acc_security = None
         self._sync = None
         self._understand = None
@@ -81,16 +79,6 @@ class Preview(Domain):
         if self._marketplace is None:
             self._marketplace = Marketplace(self)
         return self._marketplace
-
-    @property
-    def studio(self):
-        """
-        :returns: Version studio of preview
-        :rtype: twilio.rest.preview.studio.Studio
-        """
-        if self._studio is None:
-            self._studio = Studio(self)
-        return self._studio
 
     @property
     def acc_security(self):
@@ -180,13 +168,6 @@ class Preview(Domain):
         :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnList
         """
         return self.marketplace.available_add_ons
-
-    @property
-    def flows(self):
-        """
-        :rtype: twilio.rest.preview.studio.flow.FlowList
-        """
-        return self.studio.flows
 
     @property
     def services(self):

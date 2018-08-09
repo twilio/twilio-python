@@ -17,8 +17,7 @@ from twilio.rest.studio.v1.flow.execution import ExecutionList
 
 
 class FlowList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version):
         """
@@ -149,8 +148,7 @@ class FlowList(ListResource):
 
 
 class FlowPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -189,8 +187,7 @@ class FlowPage(Page):
 
 
 class FlowContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version, sid):
         """
@@ -274,8 +271,7 @@ class FlowContext(InstanceContext):
 
 
 class FlowInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     class Status(object):
         DRAFT = "draft"

@@ -3,6 +3,15 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-08-09] Version 6.16.1
+----------------------------
+**Library**
+- PR #443: move index and readme_include to root. Thanks to @mbichoffe!
+
+**Studio**
+- Studio is now GA
+
+
 [2018-08-03] Version 6.16.0
 ----------------------------
 **Library**
