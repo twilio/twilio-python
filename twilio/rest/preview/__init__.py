@@ -156,18 +156,18 @@ class Preview(Domain):
         return self.hosted_numbers.hosted_number_orders
 
     @property
-    def installed_add_ons(self):
-        """
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnList
-        """
-        return self.marketplace.installed_add_ons
-
-    @property
     def available_add_ons(self):
         """
         :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnList
         """
         return self.marketplace.available_add_ons
+
+    @property
+    def installed_add_ons(self):
+        """
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnList
+        """
+        return self.marketplace.installed_add_ons
 
     @property
     def services(self):

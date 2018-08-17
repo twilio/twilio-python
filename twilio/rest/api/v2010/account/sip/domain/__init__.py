@@ -452,7 +452,7 @@ class DomainInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the account that sent the message
+        :returns: The unique id of the account that sent the call
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -460,7 +460,7 @@ class DomainInstance(InstanceResource):
     @property
     def api_version(self):
         """
-        :returns: The Twilio API version used to process the message
+        :returns: The Twilio API version used to process the call
         :rtype: unicode
         """
         return self._properties['api_version']

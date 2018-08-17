@@ -22,7 +22,7 @@ class AuthCallsCredentialListMappingList(ListResource):
         Initialize the AuthCallsCredentialListMappingList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The unique id of the account that sent the message
+        :param account_sid: The unique id of the account that sent the call
         :param domain_sid: A string that uniquely identifies the SIP Domain
 
         :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_calls_mapping.auth_calls_credential_list_mapping.AuthCallsCredentialListMappingList
@@ -190,7 +190,7 @@ class AuthCallsCredentialListMappingPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The unique id of the account that sent the message
+        :param account_sid: The unique id of the account that sent the call
         :param domain_sid: A string that uniquely identifies the SIP Domain
 
         :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_calls_mapping.auth_calls_credential_list_mapping.AuthCallsCredentialListMappingPage

@@ -330,6 +330,7 @@ class LastMonthInstance(InstanceResource):
         PHONENUMBERS_TOLLFREE = "phonenumbers-tollfree"
         PREMIUMSUPPORT = "premiumsupport"
         PROXY = "proxy"
+        PROXY_ACTIVE_SESSIONS = "proxy-active-sessions"
         PV = "pv"
         PV_COMPOSITION_MEDIA_DOWNLOADED = "pv-composition-media-downloaded"
         PV_COMPOSITION_MEDIA_ENCRYPTED = "pv-composition-media-encrypted"
