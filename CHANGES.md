@@ -3,6 +3,12 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-08-23] Version 6.16.3
+----------------------------
+**Chat**
+- Add User Channel instance resource
+
+
 [2018-08-17] Version 6.16.2
 ----------------------------
 **Api**
