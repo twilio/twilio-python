@@ -15,6 +15,7 @@ from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
 from twilio.rest.preview.understand.assistant.assistant_fallback_actions import AssistantFallbackActionsList
 from twilio.rest.preview.understand.assistant.assistant_initiation_actions import AssistantInitiationActionsList
+from twilio.rest.preview.understand.assistant.dialogue import DialogueList
 from twilio.rest.preview.understand.assistant.field_type import FieldTypeList
 from twilio.rest.preview.understand.assistant.intent import IntentList
 from twilio.rest.preview.understand.assistant.model_build import ModelBuildList
@@ -259,6 +260,7 @@ class AssistantContext(InstanceContext):
         self._queries = None
         self._assistant_fallback_actions = None
         self._assistant_initiation_actions = None
+        self._dialogues = None
 
     def fetch(self):
         """
@@ -399,6 +401,18 @@ class AssistantContext(InstanceContext):
                 assistant_sid=self._solution['sid'],
             )
         return self._assistant_initiation_actions
+
+    @property
+    def dialogues(self):
+        """
+        Access the dialogues
+
+        :returns: twilio.rest.preview.understand.assistant.dialogue.DialogueList
+        :rtype: twilio.rest.preview.understand.assistant.dialogue.DialogueList
+        """
+        if self._dialogues is None:
+            self._dialogues = DialogueList(self._version, assistant_sid=self._solution['sid'], )
+        return self._dialogues
 
     def __repr__(self):
         """
@@ -659,6 +673,16 @@ class AssistantInstance(InstanceResource):
         :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsList
         """
         return self._proxy.assistant_initiation_actions
+
+    @property
+    def dialogues(self):
+        """
+        Access the dialogues
+
+        :returns: twilio.rest.preview.understand.assistant.dialogue.DialogueList
+        :rtype: twilio.rest.preview.understand.assistant.dialogue.DialogueList
+        """
+        return self._proxy.dialogues
 
     def __repr__(self):
         """

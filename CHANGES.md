@@ -3,6 +3,19 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-08-31] Version 6.16.4
+----------------------------
+**Library**
+- PR #444: VCORE-3651 Add support for *for* attribute in twiml element. Thanks to @nmahure!
+
+**Api**
+- Add `call_sid_to_coach` parameter to participant create request
+- Add `voice_receive_mode` param to IncomingPhoneNumbers create
+
+**Video**
+- [Recordings] Expose `offset` property in resource
+
+
 [2018-08-23] Version 6.16.3
 ----------------------------
 **Chat**

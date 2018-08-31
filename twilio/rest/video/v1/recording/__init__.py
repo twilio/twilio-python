@@ -334,6 +334,7 @@ class RecordingInstance(InstanceResource):
             'codec': payload['codec'],
             'grouping_sids': payload['grouping_sids'],
             'track_name': payload['track_name'],
+            'offset': deserialize.integer(payload['offset']),
             'links': payload['links'],
         }
 
@@ -457,6 +458,14 @@ class RecordingInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['track_name']
+
+    @property
+    def offset(self):
+        """
+        :returns: Offset in miliseconds for this track.
+        :rtype: unicode
+        """
+        return self._properties['offset']
 
     @property
     def links(self):

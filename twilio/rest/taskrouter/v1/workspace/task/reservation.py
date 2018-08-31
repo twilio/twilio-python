@@ -435,6 +435,8 @@ class ReservationInstance(InstanceResource):
         TIMEOUT = "timeout"
         CANCELED = "canceled"
         RESCINDED = "rescinded"
+        WRAPPING = "wrapping"
+        COMPLETED = "completed"
 
     class CallStatus(object):
         INITIATED = "initiated"

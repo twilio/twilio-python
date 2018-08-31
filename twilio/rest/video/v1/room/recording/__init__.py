@@ -336,6 +336,7 @@ class RoomRecordingInstance(InstanceResource):
             'codec': payload['codec'],
             'grouping_sids': payload['grouping_sids'],
             'track_name': payload['track_name'],
+            'offset': deserialize.integer(payload['offset']),
             'room_sid': payload['room_sid'],
             'links': payload['links'],
         }
@@ -464,6 +465,14 @@ class RoomRecordingInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['track_name']
+
+    @property
+    def offset(self):
+        """
+        :returns: The offset
+        :rtype: unicode
+        """
+        return self._properties['offset']
 
     @property
     def room_sid(self):
