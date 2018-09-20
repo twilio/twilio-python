@@ -24,8 +24,8 @@ class IntentActionsList(ListResource):
         Initialize the IntentActionsList
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The assistant_sid
-        :param intent_sid: The intent_sid
+        :param assistant_sid: The unique ID of the parent Assistant.
+        :param intent_sid: The unique ID of the Intent.
 
         :returns: twilio.rest.preview.understand.assistant.intent.intent_actions.IntentActionsList
         :rtype: twilio.rest.preview.understand.assistant.intent.intent_actions.IntentActionsList
@@ -82,8 +82,8 @@ class IntentActionsPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param assistant_sid: The assistant_sid
-        :param intent_sid: The intent_sid
+        :param assistant_sid: The unique ID of the parent Assistant.
+        :param intent_sid: The unique ID of the Intent.
 
         :returns: twilio.rest.preview.understand.assistant.intent.intent_actions.IntentActionsPage
         :rtype: twilio.rest.preview.understand.assistant.intent.intent_actions.IntentActionsPage
@@ -129,8 +129,8 @@ class IntentActionsContext(InstanceContext):
         Initialize the IntentActionsContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The assistant_sid
-        :param intent_sid: The intent_sid
+        :param assistant_sid: The unique ID of the parent Assistant.
+        :param intent_sid: The unique ID of the Intent.
 
         :returns: twilio.rest.preview.understand.assistant.intent.intent_actions.IntentActionsContext
         :rtype: twilio.rest.preview.understand.assistant.intent.intent_actions.IntentActionsContext
@@ -167,7 +167,7 @@ class IntentActionsContext(InstanceContext):
         """
         Update the IntentActionsInstance
 
-        :param dict actions: The actions
+        :param dict actions: The JSON actions that instruct the Assistant how to perform this task.
 
         :returns: Updated IntentActionsInstance
         :rtype: twilio.rest.preview.understand.assistant.intent.intent_actions.IntentActionsInstance
@@ -245,7 +245,7 @@ class IntentActionsInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique ID of the Account that created this Field.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -253,7 +253,7 @@ class IntentActionsInstance(InstanceResource):
     @property
     def assistant_sid(self):
         """
-        :returns: The assistant_sid
+        :returns: The unique ID of the parent Assistant.
         :rtype: unicode
         """
         return self._properties['assistant_sid']
@@ -261,7 +261,7 @@ class IntentActionsInstance(InstanceResource):
     @property
     def intent_sid(self):
         """
-        :returns: The intent_sid
+        :returns: The unique ID of the Intent.
         :rtype: unicode
         """
         return self._properties['intent_sid']
@@ -295,7 +295,7 @@ class IntentActionsInstance(InstanceResource):
         """
         Update the IntentActionsInstance
 
-        :param dict actions: The actions
+        :param dict actions: The JSON actions that instruct the Assistant how to perform this task.
 
         :returns: Updated IntentActionsInstance
         :rtype: twilio.rest.preview.understand.assistant.intent.intent_actions.IntentActionsInstance

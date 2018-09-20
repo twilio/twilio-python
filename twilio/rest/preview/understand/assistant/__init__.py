@@ -135,8 +135,8 @@ class AssistantList(ListResource):
         :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
         :param unicode callback_url: The callback_url
         :param unicode callback_events: The callback_events
-        :param dict fallback_actions: The fallback_actions
-        :param dict initiation_actions: The initiation_actions
+        :param dict fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Intent.
+        :param dict initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
 
         :returns: Newly created AssistantInstance
         :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
@@ -291,8 +291,8 @@ class AssistantContext(InstanceContext):
         :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
         :param unicode callback_url: The callback_url
         :param unicode callback_events: The callback_events
-        :param dict fallback_actions: The fallback_actions
-        :param dict initiation_actions: The initiation_actions
+        :param dict fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Intent.
+        :param dict initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
 
         :returns: Updated AssistantInstance
         :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
@@ -589,8 +589,8 @@ class AssistantInstance(InstanceResource):
         :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
         :param unicode callback_url: The callback_url
         :param unicode callback_events: The callback_events
-        :param dict fallback_actions: The fallback_actions
-        :param dict initiation_actions: The initiation_actions
+        :param dict fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Intent.
+        :param dict initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
 
         :returns: Updated AssistantInstance
         :rtype: twilio.rest.preview.understand.assistant.AssistantInstance

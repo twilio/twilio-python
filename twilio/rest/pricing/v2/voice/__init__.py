@@ -10,6 +10,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
 from twilio.rest.pricing.v2.voice.country import CountryList
+from twilio.rest.pricing.v2.voice.number import NumberList
 
 
 class VoiceList(ListResource):
@@ -31,6 +32,7 @@ class VoiceList(ListResource):
 
         # Components
         self._countries = None
+        self._numbers = None
 
     @property
     def countries(self):
@@ -43,6 +45,18 @@ class VoiceList(ListResource):
         if self._countries is None:
             self._countries = CountryList(self._version, )
         return self._countries
+
+    @property
+    def numbers(self):
+        """
+        Access the numbers
+
+        :returns: twilio.rest.pricing.v2.voice.number.NumberList
+        :rtype: twilio.rest.pricing.v2.voice.number.NumberList
+        """
+        if self._numbers is None:
+            self._numbers = NumberList(self._version, )
+        return self._numbers
 
     def __repr__(self):
         """

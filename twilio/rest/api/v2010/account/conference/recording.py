@@ -255,16 +255,17 @@ class RecordingContext(InstanceContext):
         self._solution = {'account_sid': account_sid, 'conference_sid': conference_sid, 'sid': sid, }
         self._uri = '/Accounts/{account_sid}/Conferences/{conference_sid}/Recordings/{sid}.json'.format(**self._solution)
 
-    def update(self, status):
+    def update(self, status, pause_behavior=values.unset):
         """
         Update the RecordingInstance
 
         :param RecordingInstance.Status status: The status to change the recording to.
+        :param unicode pause_behavior: Whether to record or not during the pause period.
 
         :returns: Updated RecordingInstance
         :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingInstance
         """
-        data = values.of({'Status': status, })
+        data = values.of({'Status': status, 'PauseBehavior': pause_behavior, })
 
         payload = self._version.update(
             'POST',
@@ -535,16 +536,17 @@ class RecordingInstance(InstanceResource):
         """
         return self._properties['uri']
 
-    def update(self, status):
+    def update(self, status, pause_behavior=values.unset):
         """
         Update the RecordingInstance
 
         :param RecordingInstance.Status status: The status to change the recording to.
+        :param unicode pause_behavior: Whether to record or not during the pause period.
 
         :returns: Updated RecordingInstance
         :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingInstance
         """
-        return self._proxy.update(status, )
+        return self._proxy.update(status, pause_behavior=pause_behavior, )
 
     def fetch(self):
         """

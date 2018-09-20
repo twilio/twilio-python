@@ -42,11 +42,11 @@ class RecordingList(ListResource):
         """
         Create a new RecordingInstance
 
-        :param unicode recording_status_callback_event: The recording_status_callback_event
-        :param unicode recording_status_callback: The recording_status_callback
-        :param unicode recording_status_callback_method: The recording_status_callback_method
+        :param unicode recording_status_callback_event: The recording status changes that should generate a callback
+        :param unicode recording_status_callback: The callback URL for recording actions
+        :param unicode recording_status_callback_method: The HTTP method Twilio should use when making a request to the RecordingStatusCallback URL
         :param unicode trim: Whether to trim the silence in the recording
-        :param unicode recording_channels: The recording_channels
+        :param unicode recording_channels: The number of channels that the output recording will be configured with
 
         :returns: Newly created RecordingInstance
         :rtype: twilio.rest.api.v2010.account.call.recording.RecordingInstance
@@ -292,16 +292,17 @@ class RecordingContext(InstanceContext):
         self._solution = {'account_sid': account_sid, 'call_sid': call_sid, 'sid': sid, }
         self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Recordings/{sid}.json'.format(**self._solution)
 
-    def update(self, status):
+    def update(self, status, pause_behavior=values.unset):
         """
         Update the RecordingInstance
 
         :param RecordingInstance.Status status: The status to change the recording to.
+        :param unicode pause_behavior: Whether to record or not during the pause period.
 
         :returns: Updated RecordingInstance
         :rtype: twilio.rest.api.v2010.account.call.recording.RecordingInstance
         """
-        data = values.of({'Status': status, })
+        data = values.of({'Status': status, 'PauseBehavior': pause_behavior, })
 
         payload = self._version.update(
             'POST',
@@ -572,16 +573,17 @@ class RecordingInstance(InstanceResource):
         """
         return self._properties['error_code']
 
-    def update(self, status):
+    def update(self, status, pause_behavior=values.unset):
         """
         Update the RecordingInstance
 
         :param RecordingInstance.Status status: The status to change the recording to.
+        :param unicode pause_behavior: Whether to record or not during the pause period.
 
         :returns: Updated RecordingInstance
         :rtype: twilio.rest.api.v2010.account.call.recording.RecordingInstance
         """
-        return self._proxy.update(status, )
+        return self._proxy.update(status, pause_behavior=pause_behavior, )
 
     def fetch(self):
         """

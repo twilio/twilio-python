@@ -70,6 +70,7 @@ class Client(object):
         self._wireless = None
         self._sync = None
         self._studio = None
+        self._verify = None
 
     def request(self, method, uri, params=None, data=None, headers=None, auth=None,
                 timeout=None, allow_redirects=False):
@@ -355,6 +356,19 @@ class Client(object):
             from twilio.rest.studio import Studio
             self._studio = Studio(self)
         return self._studio
+
+    @property
+    def verify(self):
+        """
+        Access the Verify Twilio Domain
+
+        :returns: Verify Twilio Domain
+        :rtype: twilio.rest.verify.Verify
+        """
+        if self._verify is None:
+            from twilio.rest.verify import Verify
+            self._verify = Verify(self)
+        return self._verify
 
     @property
     def addresses(self):

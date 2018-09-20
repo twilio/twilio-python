@@ -3,6 +3,19 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-09-20] Version 6.17.0
+----------------------------
+**Preview**
+- Add `Form` resource to Authy preview given a `form_type`
+- Add Authy initial api-definitions in the 4 main resources: Services, Entities, Factors, Challenges
+
+**Pricing**
+- add voice_numbers resource (v2)
+
+**Verify**
+- Move from preview to beta **(breaking change)**
+
+
 [2018-08-31] Version 6.16.4
 ----------------------------
 **Library**
