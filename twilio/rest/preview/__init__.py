@@ -13,7 +13,6 @@ from twilio.rest.preview.bulk_exports import BulkExports
 from twilio.rest.preview.deployed_devices import DeployedDevices
 from twilio.rest.preview.hosted_numbers import HostedNumbers
 from twilio.rest.preview.marketplace import Marketplace
-from twilio.rest.preview.permissions import Permissions
 from twilio.rest.preview.sync import Sync
 from twilio.rest.preview.understand import Understand
 from twilio.rest.preview.wireless import Wireless
@@ -42,7 +41,6 @@ class Preview(Domain):
         self._sync = None
         self._understand = None
         self._wireless = None
-        self._permissions = None
 
     @property
     def authy(self):
@@ -135,16 +133,6 @@ class Preview(Domain):
         return self._wireless
 
     @property
-    def permissions(self):
-        """
-        :returns: Version permissions of preview
-        :rtype: twilio.rest.preview.permissions.Permissions
-        """
-        if self._permissions is None:
-            self._permissions = Permissions(self)
-        return self._permissions
-
-    @property
     def services(self):
         """
         :rtype: twilio.rest.preview.sync.service.ServiceList
@@ -187,18 +175,18 @@ class Preview(Domain):
         return self.hosted_numbers.hosted_number_orders
 
     @property
-    def installed_add_ons(self):
-        """
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnList
-        """
-        return self.marketplace.installed_add_ons
-
-    @property
     def available_add_ons(self):
         """
         :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnList
         """
         return self.marketplace.available_add_ons
+
+    @property
+    def installed_add_ons(self):
+        """
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnList
+        """
+        return self.marketplace.installed_add_ons
 
     @property
     def assistants(self):
@@ -227,13 +215,6 @@ class Preview(Domain):
         :rtype: twilio.rest.preview.wireless.sim.SimList
         """
         return self.wireless.sims
-
-    @property
-    def voice_permissions(self):
-        """
-        :rtype: twilio.rest.preview.permissions.voice_permission.VoicePermissionList
-        """
-        return self.permissions.voice_permissions
 
     def __repr__(self):
         """

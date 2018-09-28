@@ -3,6 +3,20 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-09-28] Version 6.18.0
+----------------------------
+**Api**
+- Set `call_sid_to_coach` parameter in participant to be `preview`
+
+**Preview**
+- Supported `totp` in Authy preview endpoints
+- Allowed `latest` in Authy Challenges endpoints
+
+**Voice**
+- changed path param name from parent_iso_code to iso_code for highrisk_special_prefixes api **(breaking change)**
+- added geo permissions public api
+
+
 [2018-09-20] Version 6.17.0
 ----------------------------
 **Preview**

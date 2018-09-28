@@ -18,14 +18,14 @@ class BulkCountryUpdateTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.permissions.voice_permissions \
-                                           .bulk_country_updates.create(update_request="update_request")
+            self.client.voice.v1.voice_permissions \
+                                .bulk_country_updates.create(update_request="update_request")
 
         values = {'UpdateRequest': "update_request", }
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://preview.twilio.com/permissions/VoicePermissions/BulkCountryUpdates',
+            'https://voice.twilio.com/v1/DialingPermissions/BulkCountryUpdates',
             data=values,
         ))
 
@@ -40,7 +40,7 @@ class BulkCountryUpdateTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.permissions.voice_permissions \
-                                                .bulk_country_updates.create(update_request="update_request")
+        actual = self.client.voice.v1.voice_permissions \
+                                     .bulk_country_updates.create(update_request="update_request")
 
         self.assertIsNotNone(actual)

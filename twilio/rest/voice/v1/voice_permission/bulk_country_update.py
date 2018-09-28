@@ -24,23 +24,23 @@ class BulkCountryUpdateList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: twilio.rest.preview.permissions.voice_permission.bulk_country_update.BulkCountryUpdateList
-        :rtype: twilio.rest.preview.permissions.voice_permission.bulk_country_update.BulkCountryUpdateList
+        :returns: twilio.rest.voice.v1.voice_permission.bulk_country_update.BulkCountryUpdateList
+        :rtype: twilio.rest.voice.v1.voice_permission.bulk_country_update.BulkCountryUpdateList
         """
         super(BulkCountryUpdateList, self).__init__(version)
 
         # Path Solution
         self._solution = {}
-        self._uri = '/VoicePermissions/BulkCountryUpdates'.format(**self._solution)
+        self._uri = '/DialingPermissions/BulkCountryUpdates'.format(**self._solution)
 
     def create(self, update_request):
         """
         Create a new BulkCountryUpdateInstance
 
-        :param unicode update_request: Json list of update objects
+        :param unicode update_request: URL encoded JSON array of update objects
 
         :returns: Newly created BulkCountryUpdateInstance
-        :rtype: twilio.rest.preview.permissions.voice_permission.bulk_country_update.BulkCountryUpdateInstance
+        :rtype: twilio.rest.voice.v1.voice_permission.bulk_country_update.BulkCountryUpdateInstance
         """
         data = values.of({'UpdateRequest': update_request, })
 
@@ -59,7 +59,7 @@ class BulkCountryUpdateList(ListResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.Permissions.BulkCountryUpdateList>'
+        return '<Twilio.Voice.V1.BulkCountryUpdateList>'
 
 
 class BulkCountryUpdatePage(Page):
@@ -74,8 +74,8 @@ class BulkCountryUpdatePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.preview.permissions.voice_permission.bulk_country_update.BulkCountryUpdatePage
-        :rtype: twilio.rest.preview.permissions.voice_permission.bulk_country_update.BulkCountryUpdatePage
+        :returns: twilio.rest.voice.v1.voice_permission.bulk_country_update.BulkCountryUpdatePage
+        :rtype: twilio.rest.voice.v1.voice_permission.bulk_country_update.BulkCountryUpdatePage
         """
         super(BulkCountryUpdatePage, self).__init__(version, response)
 
@@ -88,8 +88,8 @@ class BulkCountryUpdatePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.permissions.voice_permission.bulk_country_update.BulkCountryUpdateInstance
-        :rtype: twilio.rest.preview.permissions.voice_permission.bulk_country_update.BulkCountryUpdateInstance
+        :returns: twilio.rest.voice.v1.voice_permission.bulk_country_update.BulkCountryUpdateInstance
+        :rtype: twilio.rest.voice.v1.voice_permission.bulk_country_update.BulkCountryUpdateInstance
         """
         return BulkCountryUpdateInstance(self._version, payload, )
 
@@ -100,7 +100,7 @@ class BulkCountryUpdatePage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.Permissions.BulkCountryUpdatePage>'
+        return '<Twilio.Voice.V1.BulkCountryUpdatePage>'
 
 
 class BulkCountryUpdateInstance(InstanceResource):
@@ -112,8 +112,8 @@ class BulkCountryUpdateInstance(InstanceResource):
         """
         Initialize the BulkCountryUpdateInstance
 
-        :returns: twilio.rest.preview.permissions.voice_permission.bulk_country_update.BulkCountryUpdateInstance
-        :rtype: twilio.rest.preview.permissions.voice_permission.bulk_country_update.BulkCountryUpdateInstance
+        :returns: twilio.rest.voice.v1.voice_permission.bulk_country_update.BulkCountryUpdateInstance
+        :rtype: twilio.rest.voice.v1.voice_permission.bulk_country_update.BulkCountryUpdateInstance
         """
         super(BulkCountryUpdateInstance, self).__init__(version)
 
@@ -130,7 +130,7 @@ class BulkCountryUpdateInstance(InstanceResource):
     @property
     def update_count(self):
         """
-        :returns: The number of countries successfully updated
+        :returns: The number of countries updated
         :rtype: unicode
         """
         return self._properties['update_count']
@@ -150,4 +150,4 @@ class BulkCountryUpdateInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.Permissions.BulkCountryUpdateInstance>'
+        return '<Twilio.Voice.V1.BulkCountryUpdateInstance>'

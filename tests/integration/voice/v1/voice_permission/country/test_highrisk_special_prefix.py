@@ -18,13 +18,13 @@ class HighriskSpecialPrefixTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.permissions.voice_permissions \
-                                           .countries(iso_code="US") \
-                                           .highrisk_special_prefixes.list()
+            self.client.voice.v1.voice_permissions \
+                                .countries(iso_code="US") \
+                                .highrisk_special_prefixes.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://preview.twilio.com/permissions/VoicePermissions/Countries/US/HighRiskSpecialPrefixes',
+            'https://voice.twilio.com/v1/DialingPermissions/Countries/US/HighRiskSpecialPrefixes',
         ))
 
     def test_read_us_response(self):
@@ -41,20 +41,20 @@ class HighriskSpecialPrefixTestCase(IntegrationTestCase):
                     }
                 ],
                 "meta": {
-                    "first_page_url": "https://preview.twilio.com/permissions/VoicePermissions/Countries/LV/HighRiskSpecialPrefixes?PageSize=50&Page=0",
+                    "first_page_url": "https://voice.twilio.com/v1/DialingPermissions/Countries/LV/HighRiskSpecialPrefixes?PageSize=50&Page=0",
                     "key": "content",
                     "next_page_url": null,
                     "page": 0,
                     "page_size": 50,
                     "previous_page_url": null,
-                    "url": "https://preview.twilio.com/permissions/VoicePermissions/Countries/LV/HighRiskSpecialPrefixes?PageSize=50&Page=0"
+                    "url": "https://voice.twilio.com/v1/DialingPermissions/Countries/LV/HighRiskSpecialPrefixes?PageSize=50&Page=0"
                 }
             }
             '''
         ))
 
-        actual = self.client.preview.permissions.voice_permissions \
-                                                .countries(iso_code="US") \
-                                                .highrisk_special_prefixes.list()
+        actual = self.client.voice.v1.voice_permissions \
+                                     .countries(iso_code="US") \
+                                     .highrisk_special_prefixes.list()
 
         self.assertIsNotNone(actual)

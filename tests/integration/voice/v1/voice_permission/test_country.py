@@ -18,12 +18,12 @@ class CountryTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.permissions.voice_permissions \
-                                           .countries(iso_code="US").fetch()
+            self.client.voice.v1.voice_permissions \
+                                .countries(iso_code="US").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://preview.twilio.com/permissions/VoicePermissions/Countries/US',
+            'https://voice.twilio.com/v1/DialingPermissions/Countries/US',
         ))
 
     def test_fetch_response(self):
@@ -40,16 +40,16 @@ class CountryTestCase(IntegrationTestCase):
                 "low_risk_numbers_enabled": false,
                 "high_risk_special_numbers_enabled": false,
                 "high_risk_tollfraud_numbers_enabled": false,
-                "url": "https://preview.twilio.com/permissions/VoicePermissions/Countries/US",
+                "url": "https://voice.twilio.com/v1/DialingPermissions/Countries/US",
                 "links": {
-                    "highrisk_special_prefixes": "https://preview.twilio.com/permissions/VoicePermissions/Countries/US/HighRiskSpecialPrefixes"
+                    "highrisk_special_prefixes": "https://voice.twilio.com/v1/DialingPermissions/Countries/US/HighRiskSpecialPrefixes"
                 }
             }
             '''
         ))
 
-        actual = self.client.preview.permissions.voice_permissions \
-                                                .countries(iso_code="US").fetch()
+        actual = self.client.voice.v1.voice_permissions \
+                                     .countries(iso_code="US").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -57,12 +57,12 @@ class CountryTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.permissions.voice_permissions \
-                                           .countries.list()
+            self.client.voice.v1.voice_permissions \
+                                .countries.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://preview.twilio.com/permissions/VoicePermissions/Countries',
+            'https://voice.twilio.com/v1/DialingPermissions/Countries',
         ))
 
     def test_read_us_response(self):
@@ -81,26 +81,26 @@ class CountryTestCase(IntegrationTestCase):
                         "low_risk_numbers_enabled": false,
                         "high_risk_special_numbers_enabled": false,
                         "high_risk_tollfraud_numbers_enabled": false,
-                        "url": "https://preview.twilio.com/permissions/VoicePermissions/Countries/US",
+                        "url": "https://voice.twilio.com/v1/DialingPermissions/Countries/US",
                         "links": {
-                            "highrisk_special_prefixes": "https://preview.twilio.com/permissions/VoicePermissions/Countries/US/HighRiskSpecialPrefixes"
+                            "highrisk_special_prefixes": "https://voice.twilio.com/v1/DialingPermissions/Countries/US/HighRiskSpecialPrefixes"
                         }
                     }
                 ],
                 "meta": {
-                    "first_page_url": "https://preview.twilio.com/permissions/VoicePermissions/Countries?PageSize=50&Page=0",
+                    "first_page_url": "https://voice.twilio.com/v1/DialingPermissions/Countries?PageSize=50&Page=0",
                     "key": "content",
                     "next_page_url": null,
                     "page": 0,
                     "page_size": 50,
                     "previous_page_url": null,
-                    "url": "https://preview.twilio.com/permissions/VoicePermissions/Countries?PageSize=50&Page=0"
+                    "url": "https://voice.twilio.com/v1/DialingPermissions/Countries?PageSize=50&Page=0"
                 }
             }
             '''
         ))
 
-        actual = self.client.preview.permissions.voice_permissions \
-                                                .countries.list()
+        actual = self.client.voice.v1.voice_permissions \
+                                     .countries.list()
 
         self.assertIsNotNone(actual)

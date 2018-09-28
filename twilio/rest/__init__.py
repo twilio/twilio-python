@@ -71,6 +71,7 @@ class Client(object):
         self._sync = None
         self._studio = None
         self._verify = None
+        self._voice = None
 
     def request(self, method, uri, params=None, data=None, headers=None, auth=None,
                 timeout=None, allow_redirects=False):
@@ -369,6 +370,19 @@ class Client(object):
             from twilio.rest.verify import Verify
             self._verify = Verify(self)
         return self._verify
+
+    @property
+    def voice(self):
+        """
+        Access the Voice Twilio Domain
+
+        :returns: Voice Twilio Domain
+        :rtype: twilio.rest.voice.Voice
+        """
+        if self._voice is None:
+            from twilio.rest.voice import Voice
+            self._voice = Voice(self)
+        return self._voice
 
     @property
     def addresses(self):

@@ -55,8 +55,7 @@ class ParticipantList(ListResource):
                conference_recording_status_callback=values.unset,
                conference_recording_status_callback_method=values.unset,
                recording_status_callback_event=values.unset,
-               conference_recording_status_callback_event=values.unset,
-               call_sid_to_coach=values.unset):
+               conference_recording_status_callback_event=values.unset):
         """
         Create a new ParticipantInstance
 
@@ -90,7 +89,6 @@ class ParticipantList(ListResource):
         :param unicode conference_recording_status_callback_method: Method Twilio should use to request the `ConferenceRecordingStatusCallback` URL.
         :param unicode recording_status_callback_event: Set which recording state changes should webhook to the `RecordingStatusCallback`
         :param unicode conference_recording_status_callback_event: Set which conference recording state changes should webhook to the `ConferenceRecordingStatusCallback`
-        :param unicode call_sid_to_coach: The string that uniquely identifies the participant that is being `coached`
 
         :returns: Newly created ParticipantInstance
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
@@ -126,7 +124,6 @@ class ParticipantList(ListResource):
             'ConferenceRecordingStatusCallbackMethod': conference_recording_status_callback_method,
             'RecordingStatusCallbackEvent': serialize.map(recording_status_callback_event, lambda e: e),
             'ConferenceRecordingStatusCallbackEvent': serialize.map(conference_recording_status_callback_event, lambda e: e),
-            'CallSidToCoach': call_sid_to_coach,
         })
 
         payload = self._version.create(
