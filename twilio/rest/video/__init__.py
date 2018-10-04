@@ -37,11 +37,11 @@ class Video(Domain):
         return self._v1
 
     @property
-    def compositions(self):
+    def composition_hooks(self):
         """
-        :rtype: twilio.rest.video.v1.composition.CompositionList
+        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookList
         """
-        return self.v1.compositions
+        return self.v1.composition_hooks
 
     @property
     def composition_settings(self):
@@ -63,6 +63,13 @@ class Video(Domain):
         :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsList
         """
         return self.v1.recording_settings
+
+    @property
+    def compositions(self):
+        """
+        :rtype: twilio.rest.video.v1.composition.CompositionList
+        """
+        return self.v1.compositions
 
     @property
     def rooms(self):

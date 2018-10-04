@@ -3,6 +3,19 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-10-04] Version 6.18.1
+----------------------------
+**Preview**
+- Renamed response headers for Challenge and Factors Signatures
+
+**Video**
+- [Composer] Add Composition Hook resources
+
+**Twiml**
+- Add `debug` to `Gather`
+- Add `participantIdentity` to `Room`
+
+
 [2018-09-28] Version 6.18.0
 ----------------------------
 **Api**

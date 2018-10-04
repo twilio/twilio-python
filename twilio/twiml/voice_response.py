@@ -116,7 +116,7 @@ class VoiceResponse(TwiML):
                speech_timeout=None, max_speech_time=None, profanity_filter=None,
                finish_on_key=None, num_digits=None, partial_result_callback=None,
                partial_result_callback_method=None, language=None, hints=None,
-               barge_in=None, **kwargs):
+               barge_in=None, debug=None, **kwargs):
         """
         Create a <Gather> element
 
@@ -134,6 +134,7 @@ class VoiceResponse(TwiML):
         :param language: Language to use
         :param hints: Speech recognition hints
         :param barge_in: Stop playing media upon speech
+        :param debug: Allow debug for gather
         :param kwargs: additional attributes
 
         :returns: <Gather> element
@@ -153,6 +154,7 @@ class VoiceResponse(TwiML):
             language=language,
             hints=hints,
             barge_in=barge_in,
+            debug=debug,
             **kwargs
         ))
 
@@ -945,16 +947,17 @@ class Connect(TwiML):
         super(Connect, self).__init__(**kwargs)
         self.name = 'Connect'
 
-    def room(self, name, **kwargs):
+    def room(self, name, participantIdentity=None, **kwargs):
         """
         Create a <Room> element
 
         :param name: Room name
+        :param participantIdentity: Participant identity when connecting to the Room
         :param kwargs: additional attributes
 
         :returns: <Room> element
         """
-        return self.nest(Room(name, **kwargs))
+        return self.nest(Room(name, participantIdentity=participantIdentity, **kwargs))
 
 
 class Room(TwiML):
