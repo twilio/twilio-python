@@ -154,29 +154,30 @@ class TaskQueueList(ListResource):
 
         return TaskQueuePage(self._version, response, self._solution)
 
-    def create(self, friendly_name, reservation_activity_sid,
-               assignment_activity_sid, target_workers=values.unset,
-               max_reserved_workers=values.unset, task_order=values.unset):
+    def create(self, friendly_name, target_workers=values.unset,
+               max_reserved_workers=values.unset, task_order=values.unset,
+               reservation_activity_sid=values.unset,
+               assignment_activity_sid=values.unset):
         """
         Create a new TaskQueueInstance
 
         :param unicode friendly_name: Human readable description of this TaskQueue
-        :param unicode reservation_activity_sid: ActivitySID to assign workers once a task is reserved for them
-        :param unicode assignment_activity_sid: ActivitySID to assign workers once a task is assigned for them
         :param unicode target_workers: A string describing the Worker selection criteria for any Tasks that enter this TaskQueue.
         :param unicode max_reserved_workers: The maximum amount of workers to create reservations for the assignment of a task while in this queue.
         :param TaskQueueInstance.TaskOrder task_order: TaskOrder will determine which order the Tasks will be assigned to Workers.
+        :param unicode reservation_activity_sid: ActivitySID to assign workers once a task is reserved for them
+        :param unicode assignment_activity_sid: ActivitySID to assign workers once a task is assigned for them
 
         :returns: Newly created TaskQueueInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
-            'ReservationActivitySid': reservation_activity_sid,
-            'AssignmentActivitySid': assignment_activity_sid,
             'TargetWorkers': target_workers,
             'MaxReservedWorkers': max_reserved_workers,
             'TaskOrder': task_order,
+            'ReservationActivitySid': reservation_activity_sid,
+            'AssignmentActivitySid': assignment_activity_sid,
         })
 
         payload = self._version.create(

@@ -33,7 +33,7 @@ class CommandList(ListResource):
         self._uri = '/Commands'.format(**self._solution)
 
     def stream(self, sim=values.unset, status=values.unset, direction=values.unset,
-               limit=None, page_size=None):
+               transport=values.unset, limit=None, page_size=None):
         """
         Streams CommandInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -43,6 +43,7 @@ class CommandList(ListResource):
         :param unicode sim: Only return Commands to or from this SIM.
         :param CommandInstance.Status status: Only return Commands with this status value.
         :param CommandInstance.Direction direction: Only return Commands with this direction value.
+        :param CommandInstance.Transport transport: The transport
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -55,12 +56,18 @@ class CommandList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(sim=sim, status=status, direction=direction, page_size=limits['page_size'], )
+        page = self.page(
+            sim=sim,
+            status=status,
+            direction=direction,
+            transport=transport,
+            page_size=limits['page_size'],
+        )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
     def list(self, sim=values.unset, status=values.unset, direction=values.unset,
-             limit=None, page_size=None):
+             transport=values.unset, limit=None, page_size=None):
         """
         Lists CommandInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -69,6 +76,7 @@ class CommandList(ListResource):
         :param unicode sim: Only return Commands to or from this SIM.
         :param CommandInstance.Status status: Only return Commands with this status value.
         :param CommandInstance.Direction direction: Only return Commands with this direction value.
+        :param CommandInstance.Transport transport: The transport
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -83,13 +91,14 @@ class CommandList(ListResource):
             sim=sim,
             status=status,
             direction=direction,
+            transport=transport,
             limit=limit,
             page_size=page_size,
         ))
 
     def page(self, sim=values.unset, status=values.unset, direction=values.unset,
-             page_token=values.unset, page_number=values.unset,
-             page_size=values.unset):
+             transport=values.unset, page_token=values.unset,
+             page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of CommandInstance records from the API.
         Request is executed immediately
@@ -97,6 +106,7 @@ class CommandList(ListResource):
         :param unicode sim: Only return Commands to or from this SIM.
         :param CommandInstance.Status status: Only return Commands with this status value.
         :param CommandInstance.Direction direction: Only return Commands with this direction value.
+        :param CommandInstance.Transport transport: The transport
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -108,6 +118,7 @@ class CommandList(ListResource):
             'Sim': sim,
             'Status': status,
             'Direction': direction,
+            'Transport': transport,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -140,7 +151,7 @@ class CommandList(ListResource):
 
     def create(self, command, sim=values.unset, callback_method=values.unset,
                callback_url=values.unset, command_mode=values.unset,
-               include_sid=values.unset):
+               include_sid=values.unset, delivery_receipt_requested=values.unset):
         """
         Create a new CommandInstance
 
@@ -150,6 +161,7 @@ class CommandList(ListResource):
         :param unicode callback_url: Twilio will make a request to this URL when the Command has finished sending.
         :param CommandInstance.CommandMode command_mode: A string representing which mode to send the SMS message using.
         :param unicode include_sid: When sending a Command to a SIM in text mode, Twilio can automatically include the Sid of the Command in the message body, which could be used to ensure that the device does not process the same Command more than once.
+        :param bool delivery_receipt_requested: The delivery_receipt_requested
 
         :returns: Newly created CommandInstance
         :rtype: twilio.rest.wireless.v1.command.CommandInstance
@@ -161,6 +173,7 @@ class CommandList(ListResource):
             'CallbackUrl': callback_url,
             'CommandMode': command_mode,
             'IncludeSid': include_sid,
+            'DeliveryReceiptRequested': delivery_receipt_requested,
         })
 
         payload = self._version.create(
@@ -307,6 +320,10 @@ class CommandInstance(InstanceResource):
         TEXT = "text"
         BINARY = "binary"
 
+    class Transport(object):
+        SMS = "sms"
+        IP = "ip"
+
     def __init__(self, version, payload, sid=None):
         """
         Initialize the CommandInstance
@@ -323,6 +340,8 @@ class CommandInstance(InstanceResource):
             'sim_sid': payload['sim_sid'],
             'command': payload['command'],
             'command_mode': payload['command_mode'],
+            'transport': payload['transport'],
+            'delivery_receipt_requested': payload['delivery_receipt_requested'],
             'status': payload['status'],
             'direction': payload['direction'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
@@ -386,6 +405,22 @@ class CommandInstance(InstanceResource):
         :rtype: CommandInstance.CommandMode
         """
         return self._properties['command_mode']
+
+    @property
+    def transport(self):
+        """
+        :returns: The transport
+        :rtype: CommandInstance.Transport
+        """
+        return self._properties['transport']
+
+    @property
+    def delivery_receipt_requested(self):
+        """
+        :returns: The delivery_receipt_requested
+        :rtype: bool
+        """
+        return self._properties['delivery_receipt_requested']
 
     @property
     def status(self):

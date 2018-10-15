@@ -719,12 +719,13 @@ class Dial(TwiML):
         if number:
             self.value = number
 
-    def client(self, name, url=None, method=None, status_callback_event=None,
-               status_callback=None, status_callback_method=None, **kwargs):
+    def client(self, identity=None, url=None, method=None,
+               status_callback_event=None, status_callback=None,
+               status_callback_method=None, **kwargs):
         """
         Create a <Client> element
 
-        :param name: Client name
+        :param identity: Client identity
         :param url: Client URL
         :param method: Client URL Method
         :param status_callback_event: Events to trigger status callback
@@ -735,7 +736,7 @@ class Dial(TwiML):
         :returns: <Client> element
         """
         return self.nest(Client(
-            name,
+            identity=identity,
             url=url,
             method=method,
             status_callback_event=status_callback_event,
@@ -934,10 +935,51 @@ class Conference(TwiML):
 class Client(TwiML):
     """ <Client> TwiML Noun """
 
-    def __init__(self, name, **kwargs):
+    def __init__(self, identity=None, **kwargs):
         super(Client, self).__init__(**kwargs)
         self.name = 'Client'
-        self.value = name
+        if identity:
+            self.value = identity
+
+    def identity(self, client_identity, **kwargs):
+        """
+        Create a <Identity> element
+
+        :param client_identity: Identity of the client to dial
+        :param kwargs: additional attributes
+
+        :returns: <Identity> element
+        """
+        return self.nest(Identity(client_identity, **kwargs))
+
+    def parameter(self, name=None, value=None, **kwargs):
+        """
+        Create a <Parameter> element
+
+        :param name: The name of the custom parameter
+        :param value: The value of the custom parameter
+        :param kwargs: additional attributes
+
+        :returns: <Parameter> element
+        """
+        return self.nest(Parameter(name=name, value=value, **kwargs))
+
+
+class Parameter(TwiML):
+    """ <Parameter> TwiML Noun """
+
+    def __init__(self, **kwargs):
+        super(Parameter, self).__init__(**kwargs)
+        self.name = 'Parameter'
+
+
+class Identity(TwiML):
+    """ <Identity> TwiML Noun """
+
+    def __init__(self, client_identity, **kwargs):
+        super(Identity, self).__init__(**kwargs)
+        self.name = 'Identity'
+        self.value = client_identity
 
 
 class Connect(TwiML):
@@ -958,6 +1000,26 @@ class Connect(TwiML):
         :returns: <Room> element
         """
         return self.nest(Room(name, participantIdentity=participantIdentity, **kwargs))
+
+    def autopilot(self, name, **kwargs):
+        """
+        Create a <Autopilot> element
+
+        :param name: Autopilot assistant sid or unique name
+        :param kwargs: additional attributes
+
+        :returns: <Autopilot> element
+        """
+        return self.nest(Autopilot(name, **kwargs))
+
+
+class Autopilot(TwiML):
+    """ <Autopilot> TwiML Noun """
+
+    def __init__(self, name, **kwargs):
+        super(Autopilot, self).__init__(**kwargs)
+        self.name = 'Autopilot'
+        self.value = name
 
 
 class Room(TwiML):

@@ -3,6 +3,36 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-10-15] Version 6.19.0
+----------------------------
+**Api**
+- Add `coaching` and `call_sid_to_coach` to participant properties, create and update requests.
+
+**Authy**
+- Set public library visibility, and added PII stanza
+- Dropped support for `FactorType` param given new Factor prefixes **(breaking change)**
+- Supported `DELETE` actions for Authy resources
+- Move Authy Services resources to `authy` subdomain
+
+**Autopilot**
+- Introduce `autopilot` subdomain with all resources from `preview.understand`
+
+**Preview**
+- Renamed Understand intent to task **(breaking change)**
+- Deprecated Authy endpoints from `preview` to `authy` subdomain
+
+**Taskrouter**
+- Allow TaskQueue ReservationActivitySid and AssignmentActivitySid to not be configured for MultiTask Workspaces
+
+**Verify**
+- Add `LookupEnabled` optional parameter on Service resource creation or update.
+- Add `SendDigits` optional parameter on Verification creation.
+- Add delete action on Service resourse.
+
+**Twiml**
+- Add custom parameters to TwiML `Client` noun and renamed the optional `name` field to `identity`. This is a breaking change in Ruby, and applications will need to transition from `dial.client ''` and `dial.client 'alice'` formats to `dial.client` and `dial.client(identity: alice)` formats. **(breaking change)**
+
+
 [2018-10-04] Version 6.18.1
 ----------------------------
 **Preview**

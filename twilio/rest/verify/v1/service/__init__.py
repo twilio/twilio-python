@@ -35,17 +35,23 @@ class ServiceList(ListResource):
         self._solution = {}
         self._uri = '/Services'.format(**self._solution)
 
-    def create(self, friendly_name, code_length=values.unset):
+    def create(self, friendly_name, code_length=values.unset,
+               lookup_enabled=values.unset):
         """
         Create a new ServiceInstance
 
         :param unicode friendly_name: Friendly name of the service
         :param unicode code_length: Length of verification code. Valid values are 4-10
+        :param bool lookup_enabled: Indicates whether or not to perform a lookup with each verification started
 
         :returns: Newly created ServiceInstance
         :rtype: twilio.rest.verify.v1.service.ServiceInstance
         """
-        data = values.of({'FriendlyName': friendly_name, 'CodeLength': code_length, })
+        data = values.of({
+            'FriendlyName': friendly_name,
+            'CodeLength': code_length,
+            'LookupEnabled': lookup_enabled,
+        })
 
         payload = self._version.create(
             'POST',
@@ -249,17 +255,32 @@ class ServiceContext(InstanceContext):
 
         return ServiceInstance(self._version, payload, sid=self._solution['sid'], )
 
-    def update(self, friendly_name=values.unset, code_length=values.unset):
+    def delete(self):
+        """
+        Deletes the ServiceInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete('delete', self._uri)
+
+    def update(self, friendly_name=values.unset, code_length=values.unset,
+               lookup_enabled=values.unset):
         """
         Update the ServiceInstance
 
         :param unicode friendly_name: Friendly name of the service
         :param unicode code_length: Length of verification code. Valid values are 4-10
+        :param bool lookup_enabled: Indicates whether or not to perform a lookup with each verification started
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.verify.v1.service.ServiceInstance
         """
-        data = values.of({'FriendlyName': friendly_name, 'CodeLength': code_length, })
+        data = values.of({
+            'FriendlyName': friendly_name,
+            'CodeLength': code_length,
+            'LookupEnabled': lookup_enabled,
+        })
 
         payload = self._version.update(
             'POST',
@@ -323,6 +344,7 @@ class ServiceInstance(InstanceResource):
             'account_sid': payload['account_sid'],
             'friendly_name': payload['friendly_name'],
             'code_length': deserialize.integer(payload['code_length']),
+            'lookup_enabled': payload['lookup_enabled'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
             'url': payload['url'],
@@ -379,6 +401,14 @@ class ServiceInstance(InstanceResource):
         return self._properties['code_length']
 
     @property
+    def lookup_enabled(self):
+        """
+        :returns: Indicates whether or not to perform a lookup with each verification started
+        :rtype: bool
+        """
+        return self._properties['lookup_enabled']
+
+    @property
     def date_created(self):
         """
         :returns: The date this Service was created
@@ -419,17 +449,32 @@ class ServiceInstance(InstanceResource):
         """
         return self._proxy.fetch()
 
-    def update(self, friendly_name=values.unset, code_length=values.unset):
+    def delete(self):
+        """
+        Deletes the ServiceInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+
+    def update(self, friendly_name=values.unset, code_length=values.unset,
+               lookup_enabled=values.unset):
         """
         Update the ServiceInstance
 
         :param unicode friendly_name: Friendly name of the service
         :param unicode code_length: Length of verification code. Valid values are 4-10
+        :param bool lookup_enabled: Indicates whether or not to perform a lookup with each verification started
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.verify.v1.service.ServiceInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, code_length=code_length, )
+        return self._proxy.update(
+            friendly_name=friendly_name,
+            code_length=code_length,
+            lookup_enabled=lookup_enabled,
+        )
 
     @property
     def verifications(self):

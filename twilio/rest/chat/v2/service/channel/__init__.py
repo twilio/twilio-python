@@ -47,7 +47,7 @@ class ChannelList(ListResource):
 
         :param unicode friendly_name: A human-readable name for the Channel.
         :param unicode unique_name: A unique, addressable name for the Channel.
-        :param unicode attributes: An optional metadata field you can use to store any data you wish.
+        :param unicode attributes: An optional string metadata field you can use to store any data you wish.
         :param ChannelInstance.ChannelType type: The visibility of the channel - public or private.
         :param datetime date_created: The optional ISO8601 time specifying the datetime the Channel should be set as being created.
         :param datetime date_updated: The optional ISO8601 time specifying the datetime the Channel should be set as having been last updated.
@@ -300,7 +300,7 @@ class ChannelContext(InstanceContext):
 
         :param unicode friendly_name: A human-readable name for the Channel.
         :param unicode unique_name: A unique, addressable name for the Channel.
-        :param unicode attributes: An optional metadata field you can use to store any data you wish.
+        :param unicode attributes: An optional string metadata field you can use to store any data you wish.
         :param datetime date_created: The optional ISO8601 time specifying the datetime the Channel should be set as being created.
         :param datetime date_updated: The optional ISO8601 time specifying the datetime the Channel should be set as having been last updated.
         :param unicode created_by: Optional field to specify the Identity of the User that created the Channel.
@@ -602,7 +602,7 @@ class ChannelInstance(InstanceResource):
 
         :param unicode friendly_name: A human-readable name for the Channel.
         :param unicode unique_name: A unique, addressable name for the Channel.
-        :param unicode attributes: An optional metadata field you can use to store any data you wish.
+        :param unicode attributes: An optional string metadata field you can use to store any data you wish.
         :param datetime date_created: The optional ISO8601 time specifying the datetime the Channel should be set as being created.
         :param datetime date_updated: The optional ISO8601 time specifying the datetime the Channel should be set as having been last updated.
         :param unicode created_by: Optional field to specify the Identity of the User that created the Channel.

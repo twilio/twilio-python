@@ -650,7 +650,7 @@ class ServiceInstance(InstanceResource):
     @property
     def read_status_enabled(self):
         """
-        :returns: Enable the Message Constumption Horizon feature.
+        :returns: Enable the Message Consumption Horizon feature.
         :rtype: bool
         """
         return self._properties['read_status_enabled']

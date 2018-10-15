@@ -42,6 +42,8 @@ class ParticipantTestCase(IntegrationTestCase):
                 "hold": false,
                 "status": "complete",
                 "start_conference_on_enter": true,
+                "coaching": true,
+                "call_sid_to_coach": "CAbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
             }
             '''
@@ -66,7 +68,7 @@ class ParticipantTestCase(IntegrationTestCase):
             'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json',
         ))
 
-    def test_update_response(self):
+    def test_mute_participant_response(self):
         self.holodeck.mock(Response(
             200,
             '''
@@ -81,6 +83,36 @@ class ParticipantTestCase(IntegrationTestCase):
                 "hold": false,
                 "status": "complete",
                 "start_conference_on_enter": true,
+                "coaching": false,
+                "call_sid_to_coach": null,
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+            }
+            '''
+        ))
+
+        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .conferences(sid="CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .participants(call_sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+
+        self.assertIsNotNone(actual)
+
+    def test_modify_participant_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "conference_sid": "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_created": "Fri, 18 Feb 2011 21:07:19 +0000",
+                "date_updated": "Fri, 18 Feb 2011 21:07:19 +0000",
+                "end_conference_on_exit": false,
+                "muted": false,
+                "hold": false,
+                "status": "complete",
+                "start_conference_on_enter": true,
+                "coaching": true,
+                "call_sid_to_coach": "CAbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
             }
             '''
@@ -123,6 +155,8 @@ class ParticipantTestCase(IntegrationTestCase):
                 "hold": false,
                 "status": "complete",
                 "start_conference_on_enter": true,
+                "coaching": false,
+                "call_sid_to_coach": null,
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
             }
             '''
@@ -149,6 +183,8 @@ class ParticipantTestCase(IntegrationTestCase):
                 "hold": false,
                 "status": "complete",
                 "start_conference_on_enter": true,
+                "coaching": false,
+                "call_sid_to_coach": null,
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
             }
             '''
@@ -175,6 +211,8 @@ class ParticipantTestCase(IntegrationTestCase):
                 "hold": false,
                 "status": "queued",
                 "start_conference_on_enter": true,
+                "coaching": false,
+                "call_sid_to_coach": null,
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
             }
             '''
@@ -246,6 +284,8 @@ class ParticipantTestCase(IntegrationTestCase):
                         "hold": false,
                         "status": "complete",
                         "start_conference_on_enter": true,
+                        "coaching": true,
+                        "call_sid_to_coach": "CAbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
                         "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
                     }
                 ],

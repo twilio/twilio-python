@@ -17,9 +17,10 @@ from twilio.rest.preview.understand.assistant.assistant_fallback_actions import 
 from twilio.rest.preview.understand.assistant.assistant_initiation_actions import AssistantInitiationActionsList
 from twilio.rest.preview.understand.assistant.dialogue import DialogueList
 from twilio.rest.preview.understand.assistant.field_type import FieldTypeList
-from twilio.rest.preview.understand.assistant.intent import IntentList
 from twilio.rest.preview.understand.assistant.model_build import ModelBuildList
 from twilio.rest.preview.understand.assistant.query import QueryList
+from twilio.rest.preview.understand.assistant.style_sheet import StyleSheetList
+from twilio.rest.preview.understand.assistant.task import TaskList
 
 
 class AssistantList(ListResource):
@@ -126,17 +127,18 @@ class AssistantList(ListResource):
     def create(self, friendly_name=values.unset, log_queries=values.unset,
                unique_name=values.unset, callback_url=values.unset,
                callback_events=values.unset, fallback_actions=values.unset,
-               initiation_actions=values.unset):
+               initiation_actions=values.unset, style_sheet=values.unset):
         """
         Create a new AssistantInstance
 
         :param unicode friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
         :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
         :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-        :param unicode callback_url: The callback_url
-        :param unicode callback_events: The callback_events
-        :param dict fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Intent.
+        :param unicode callback_url: A user-provided URL to send event callbacks to.
+        :param unicode callback_events: Space-separated list of callback events that will trigger callbacks.
+        :param dict fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Task.
         :param dict initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
+        :param dict style_sheet: The JSON object that holds the style sheet for the assistant
 
         :returns: Newly created AssistantInstance
         :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
@@ -149,6 +151,7 @@ class AssistantList(ListResource):
             'CallbackEvents': callback_events,
             'FallbackActions': serialize.object(fallback_actions),
             'InitiationActions': serialize.object(initiation_actions),
+            'StyleSheet': serialize.object(style_sheet),
         })
 
         payload = self._version.create(
@@ -163,7 +166,7 @@ class AssistantList(ListResource):
         """
         Constructs a AssistantContext
 
-        :param sid: The sid
+        :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.preview.understand.assistant.AssistantContext
         :rtype: twilio.rest.preview.understand.assistant.AssistantContext
@@ -174,7 +177,7 @@ class AssistantList(ListResource):
         """
         Constructs a AssistantContext
 
-        :param sid: The sid
+        :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.preview.understand.assistant.AssistantContext
         :rtype: twilio.rest.preview.understand.assistant.AssistantContext
@@ -242,7 +245,7 @@ class AssistantContext(InstanceContext):
         Initialize the AssistantContext
 
         :param Version version: Version that contains the resource
-        :param sid: The sid
+        :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.preview.understand.assistant.AssistantContext
         :rtype: twilio.rest.preview.understand.assistant.AssistantContext
@@ -255,12 +258,13 @@ class AssistantContext(InstanceContext):
 
         # Dependents
         self._field_types = None
-        self._intents = None
+        self._tasks = None
         self._model_builds = None
         self._queries = None
         self._assistant_fallback_actions = None
         self._assistant_initiation_actions = None
         self._dialogues = None
+        self._style_sheet = None
 
     def fetch(self):
         """
@@ -282,17 +286,18 @@ class AssistantContext(InstanceContext):
     def update(self, friendly_name=values.unset, log_queries=values.unset,
                unique_name=values.unset, callback_url=values.unset,
                callback_events=values.unset, fallback_actions=values.unset,
-               initiation_actions=values.unset):
+               initiation_actions=values.unset, style_sheet=values.unset):
         """
         Update the AssistantInstance
 
         :param unicode friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
         :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
         :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-        :param unicode callback_url: The callback_url
-        :param unicode callback_events: The callback_events
-        :param dict fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Intent.
+        :param unicode callback_url: A user-provided URL to send event callbacks to.
+        :param unicode callback_events: Space-separated list of callback events that will trigger callbacks.
+        :param dict fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Task.
         :param dict initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
+        :param dict style_sheet: The JSON object that holds the style sheet for the assistant
 
         :returns: Updated AssistantInstance
         :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
@@ -305,6 +310,7 @@ class AssistantContext(InstanceContext):
             'CallbackEvents': callback_events,
             'FallbackActions': serialize.object(fallback_actions),
             'InitiationActions': serialize.object(initiation_actions),
+            'StyleSheet': serialize.object(style_sheet),
         })
 
         payload = self._version.update(
@@ -337,16 +343,16 @@ class AssistantContext(InstanceContext):
         return self._field_types
 
     @property
-    def intents(self):
+    def tasks(self):
         """
-        Access the intents
+        Access the tasks
 
-        :returns: twilio.rest.preview.understand.assistant.intent.IntentList
-        :rtype: twilio.rest.preview.understand.assistant.intent.IntentList
+        :returns: twilio.rest.preview.understand.assistant.task.TaskList
+        :rtype: twilio.rest.preview.understand.assistant.task.TaskList
         """
-        if self._intents is None:
-            self._intents = IntentList(self._version, assistant_sid=self._solution['sid'], )
-        return self._intents
+        if self._tasks is None:
+            self._tasks = TaskList(self._version, assistant_sid=self._solution['sid'], )
+        return self._tasks
 
     @property
     def model_builds(self):
@@ -413,6 +419,18 @@ class AssistantContext(InstanceContext):
         if self._dialogues is None:
             self._dialogues = DialogueList(self._version, assistant_sid=self._solution['sid'], )
         return self._dialogues
+
+    @property
+    def style_sheet(self):
+        """
+        Access the style_sheet
+
+        :returns: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetList
+        :rtype: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetList
+        """
+        if self._style_sheet is None:
+            self._style_sheet = StyleSheetList(self._version, assistant_sid=self._solution['sid'], )
+        return self._style_sheet
 
     def __repr__(self):
         """
@@ -555,7 +573,7 @@ class AssistantInstance(InstanceResource):
     @property
     def callback_url(self):
         """
-        :returns: The callback_url
+        :returns: A user-provided URL to send event callbacks to.
         :rtype: unicode
         """
         return self._properties['callback_url']
@@ -563,7 +581,7 @@ class AssistantInstance(InstanceResource):
     @property
     def callback_events(self):
         """
-        :returns: The callback_events
+        :returns: Space-separated list of callback events that will trigger callbacks.
         :rtype: unicode
         """
         return self._properties['callback_events']
@@ -580,17 +598,18 @@ class AssistantInstance(InstanceResource):
     def update(self, friendly_name=values.unset, log_queries=values.unset,
                unique_name=values.unset, callback_url=values.unset,
                callback_events=values.unset, fallback_actions=values.unset,
-               initiation_actions=values.unset):
+               initiation_actions=values.unset, style_sheet=values.unset):
         """
         Update the AssistantInstance
 
         :param unicode friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
         :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
         :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-        :param unicode callback_url: The callback_url
-        :param unicode callback_events: The callback_events
-        :param dict fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Intent.
+        :param unicode callback_url: A user-provided URL to send event callbacks to.
+        :param unicode callback_events: Space-separated list of callback events that will trigger callbacks.
+        :param dict fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Task.
         :param dict initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
+        :param dict style_sheet: The JSON object that holds the style sheet for the assistant
 
         :returns: Updated AssistantInstance
         :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
@@ -603,6 +622,7 @@ class AssistantInstance(InstanceResource):
             callback_events=callback_events,
             fallback_actions=fallback_actions,
             initiation_actions=initiation_actions,
+            style_sheet=style_sheet,
         )
 
     def delete(self):
@@ -625,14 +645,14 @@ class AssistantInstance(InstanceResource):
         return self._proxy.field_types
 
     @property
-    def intents(self):
+    def tasks(self):
         """
-        Access the intents
+        Access the tasks
 
-        :returns: twilio.rest.preview.understand.assistant.intent.IntentList
-        :rtype: twilio.rest.preview.understand.assistant.intent.IntentList
+        :returns: twilio.rest.preview.understand.assistant.task.TaskList
+        :rtype: twilio.rest.preview.understand.assistant.task.TaskList
         """
-        return self._proxy.intents
+        return self._proxy.tasks
 
     @property
     def model_builds(self):
@@ -683,6 +703,16 @@ class AssistantInstance(InstanceResource):
         :rtype: twilio.rest.preview.understand.assistant.dialogue.DialogueList
         """
         return self._proxy.dialogues
+
+    @property
+    def style_sheet(self):
+        """
+        Access the style_sheet
+
+        :returns: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetList
+        :rtype: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetList
+        """
+        return self._proxy.style_sheet
 
     def __repr__(self):
         """

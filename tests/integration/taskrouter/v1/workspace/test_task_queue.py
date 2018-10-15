@@ -203,13 +203,9 @@ class TaskQueueTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.taskrouter.v1.workspaces(sid="WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .task_queues.create(friendly_name="friendly_name", reservation_activity_sid="WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", assignment_activity_sid="WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+                                     .task_queues.create(friendly_name="friendly_name")
 
-        values = {
-            'FriendlyName': "friendly_name",
-            'ReservationActivitySid': "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-            'AssignmentActivitySid': "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-        }
+        values = {'FriendlyName': "friendly_name", }
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -250,7 +246,7 @@ class TaskQueueTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.taskrouter.v1.workspaces(sid="WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .task_queues.create(friendly_name="friendly_name", reservation_activity_sid="WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", assignment_activity_sid="WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+                                          .task_queues.create(friendly_name="friendly_name")
 
         self.assertIsNotNone(actual)
 

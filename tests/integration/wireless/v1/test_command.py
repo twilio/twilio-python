@@ -25,7 +25,7 @@ class CommandTestCase(IntegrationTestCase):
             'https://wireless.twilio.com/v1/Commands/DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
-    def test_fetch_response(self):
+    def test_fetch_command_sms_response(self):
         self.holodeck.mock(Response(
             200,
             '''
@@ -35,10 +35,37 @@ class CommandTestCase(IntegrationTestCase):
                 "command_mode": "text",
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z",
+                "delivery_receipt_requested": true,
                 "sim_sid": "DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "direction": "from_sim",
                 "sid": "DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "status": "queued",
+                "transport": "sms",
+                "url": "https://wireless.twilio.com/v1/Commands/DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
+
+        actual = self.client.wireless.v1.commands(sid="DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+
+        self.assertIsNotNone(actual)
+
+    def test_fetch_command_ip_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "command": "command",
+                "command_mode": "text",
+                "date_created": "2015-07-30T20:00:00Z",
+                "date_updated": "2015-07-30T20:00:00Z",
+                "delivery_receipt_requested": false,
+                "sim_sid": "DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "direction": "to_sim",
+                "sid": "DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "status": "queued",
+                "transport": "ip",
                 "url": "https://wireless.twilio.com/v1/Commands/DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
@@ -94,10 +121,50 @@ class CommandTestCase(IntegrationTestCase):
                         "command_mode": "text",
                         "date_created": "2015-07-30T20:00:00Z",
                         "date_updated": "2015-07-30T20:00:00Z",
+                        "delivery_receipt_requested": true,
                         "sim_sid": "DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "direction": "from_sim",
                         "sid": "DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "status": "queued",
+                        "transport": "sms",
+                        "url": "https://wireless.twilio.com/v1/Commands/DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    }
+                ],
+                "meta": {
+                    "first_page_url": "https://wireless.twilio.com/v1/Commands?PageSize=50&Page=0",
+                    "key": "commands",
+                    "next_page_url": null,
+                    "page": 0,
+                    "page_size": 50,
+                    "previous_page_url": null,
+                    "url": "https://wireless.twilio.com/v1/Commands?PageSize=50&Page=0"
+                }
+            }
+            '''
+        ))
+
+        actual = self.client.wireless.v1.commands.list()
+
+        self.assertIsNotNone(actual)
+
+    def test_read_ip_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "commands": [
+                    {
+                        "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "command": "command",
+                        "command_mode": "not_confirmable",
+                        "date_created": "2015-07-30T20:00:00Z",
+                        "date_updated": "2015-07-30T20:00:00Z",
+                        "delivery_receipt_requested": true,
+                        "sim_sid": "DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "direction": "to_sim",
+                        "sid": "DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "status": "queued",
+                        "transport": "ip",
                         "url": "https://wireless.twilio.com/v1/Commands/DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     }
                 ],
@@ -132,7 +199,7 @@ class CommandTestCase(IntegrationTestCase):
             data=values,
         ))
 
-    def test_create_response(self):
+    def test_create_command_sms_response(self):
         self.holodeck.mock(Response(
             201,
             '''
@@ -142,10 +209,37 @@ class CommandTestCase(IntegrationTestCase):
                 "command_mode": "text",
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z",
+                "delivery_receipt_requested": true,
                 "sim_sid": "DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "direction": "from_sim",
                 "sid": "DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "status": "queued",
+                "transport": "sms",
+                "url": "https://wireless.twilio.com/v1/Commands/DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
+
+        actual = self.client.wireless.v1.commands.create(command="command")
+
+        self.assertIsNotNone(actual)
+
+    def test_create_command_ip_response(self):
+        self.holodeck.mock(Response(
+            201,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "command": "command",
+                "command_mode": "binary",
+                "date_created": "2015-07-30T20:00:00Z",
+                "date_updated": "2015-07-30T20:00:00Z",
+                "delivery_receipt_requested": true,
+                "direction": "to_sim",
+                "sid": "DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "sim_sid": "DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "status": "queued",
+                "transport": "ip",
                 "url": "https://wireless.twilio.com/v1/Commands/DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
