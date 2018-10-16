@@ -3,6 +3,15 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-10-15] Version 6.19.1
+----------------------------
+**Api**
+- Add <Pay> Verb Transactions category to usage records
+
+**Twiml**
+- Add support for `Pay` verb
+
+
 [2018-10-15] Version 6.19.0
 ----------------------------
 **Api**

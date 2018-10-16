@@ -325,14 +325,138 @@ class VoiceResponse(TwiML):
             **kwargs
         ))
 
+    def pay(self, input=None, action=None, status_callback=None,
+            status_callback_method=None, timeout=None, max_attempts=None,
+            security_code=None, postal_code=None, payment_connector=None,
+            token_type=None, charge_amount=None, currency=None, credential_sid=None,
+            description=None, valid_card_types=None, language=None, **kwargs):
+        """
+        Create a <Pay> element
 
-class Sms(TwiML):
-    """ <Sms> TwiML Noun """
+        :param input: Input type Twilio should accept
+        :param action: Action URL
+        :param status_callback: Status callback URL
+        :param status_callback_method: Status callback method
+        :param timeout: Time to wait to gather input
+        :param max_attempts: Maximum number of allowed retries when gathering input
+        :param security_code: Prompt for security code
+        :param postal_code: Prompt for postal code and it should be true/false or default postal code
+        :param payment_connector: Unique name for payment connector
+        :param token_type: Type of token
+        :param charge_amount: Amount to process. If value is greater than 0 then make the payment else create a payment token
+        :param currency: Currency of the amount attribute
+        :param credential_sid: SID for API keys to communicate with payment provider
+        :param description: Details regarding the payment
+        :param valid_card_types: Comma separated accepted card types
+        :param language: Language to use
+        :param kwargs: additional attributes
 
-    def __init__(self, message, **kwargs):
-        super(Sms, self).__init__(**kwargs)
-        self.name = 'Sms'
-        self.value = message
+        :returns: <Pay> element
+        """
+        return self.nest(Pay(
+            input=input,
+            action=action,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            timeout=timeout,
+            max_attempts=max_attempts,
+            security_code=security_code,
+            postal_code=postal_code,
+            payment_connector=payment_connector,
+            token_type=token_type,
+            charge_amount=charge_amount,
+            currency=currency,
+            credential_sid=credential_sid,
+            description=description,
+            valid_card_types=valid_card_types,
+            language=language,
+            **kwargs
+        ))
+
+    def prompt(self, for_=None, error_type=None, card_type=None, attempt=None,
+               **kwargs):
+        """
+        Create a <Prompt> element
+
+        :param for_: Name of the credit card data element
+        :param error_type: Type of error
+        :param card_type: Type of the credit card
+        :param attempt: Current attempt count
+        :param kwargs: additional attributes
+
+        :returns: <Prompt> element
+        """
+        return self.nest(Prompt(
+            for_=for_,
+            error_type=error_type,
+            card_type=card_type,
+            attempt=attempt,
+            **kwargs
+        ))
+
+
+class Prompt(TwiML):
+    """ <Prompt> Twiml Verb """
+
+    def __init__(self, **kwargs):
+        super(Prompt, self).__init__(**kwargs)
+        self.name = 'Prompt'
+
+    def say(self, message=None, voice=None, loop=None, language=None, **kwargs):
+        """
+        Create a <Say> element
+
+        :param message: Message to say
+        :param voice: Voice to use
+        :param loop: Times to loop message
+        :param language: Message langauge
+        :param kwargs: additional attributes
+
+        :returns: <Say> element
+        """
+        return self.nest(Say(message=message, voice=voice, loop=loop, language=language, **kwargs))
+
+    def play(self, url=None, loop=None, digits=None, **kwargs):
+        """
+        Create a <Play> element
+
+        :param url: Media URL
+        :param loop: Times to loop media
+        :param digits: Play DTMF tones for digits
+        :param kwargs: additional attributes
+
+        :returns: <Play> element
+        """
+        return self.nest(Play(url=url, loop=loop, digits=digits, **kwargs))
+
+    def pause(self, length=None, **kwargs):
+        """
+        Create a <Pause> element
+
+        :param length: Length in seconds to pause
+        :param kwargs: additional attributes
+
+        :returns: <Pause> element
+        """
+        return self.nest(Pause(length=length, **kwargs))
+
+
+class Pause(TwiML):
+    """ <Pause> TwiML Verb """
+
+    def __init__(self, **kwargs):
+        super(Pause, self).__init__(**kwargs)
+        self.name = 'Pause'
+
+
+class Play(TwiML):
+    """ <Play> TwiML Verb """
+
+    def __init__(self, url=None, **kwargs):
+        super(Play, self).__init__(**kwargs)
+        self.name = 'Play'
+        if url:
+            self.value = url
 
 
 class Say(TwiML):
@@ -556,6 +680,44 @@ class SsmlBreak(TwiML):
         self.name = 'break'
 
 
+class Pay(TwiML):
+    """ <Pay> Twiml Verb """
+
+    def __init__(self, **kwargs):
+        super(Pay, self).__init__(**kwargs)
+        self.name = 'Pay'
+
+    def prompt(self, for_=None, error_type=None, card_type=None, attempt=None,
+               **kwargs):
+        """
+        Create a <Prompt> element
+
+        :param for_: Name of the credit card data element
+        :param error_type: Type of error
+        :param card_type: Type of the credit card
+        :param attempt: Current attempt count
+        :param kwargs: additional attributes
+
+        :returns: <Prompt> element
+        """
+        return self.nest(Prompt(
+            for_=for_,
+            error_type=error_type,
+            card_type=card_type,
+            attempt=attempt,
+            **kwargs
+        ))
+
+
+class Sms(TwiML):
+    """ <Sms> TwiML Noun """
+
+    def __init__(self, message, **kwargs):
+        super(Sms, self).__init__(**kwargs)
+        self.name = 'Sms'
+        self.value = message
+
+
 class Reject(TwiML):
     """ <Reject> TwiML Verb """
 
@@ -588,24 +750,6 @@ class Queue(TwiML):
         super(Queue, self).__init__(**kwargs)
         self.name = 'Queue'
         self.value = name
-
-
-class Play(TwiML):
-    """ <Play> TwiML Verb """
-
-    def __init__(self, url=None, **kwargs):
-        super(Play, self).__init__(**kwargs)
-        self.name = 'Play'
-        if url:
-            self.value = url
-
-
-class Pause(TwiML):
-    """ <Pause> TwiML Verb """
-
-    def __init__(self, **kwargs):
-        super(Pause, self).__init__(**kwargs)
-        self.name = 'Pause'
 
 
 class Leave(TwiML):

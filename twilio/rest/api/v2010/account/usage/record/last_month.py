@@ -224,6 +224,7 @@ class LastMonthInstance(InstanceResource):
         CALLS_INBOUND_MOBILE = "calls-inbound-mobile"
         CALLS_INBOUND_TOLLFREE = "calls-inbound-tollfree"
         CALLS_OUTBOUND = "calls-outbound"
+        CALLS_PAY_VERB_TRANSACTIONS = "calls-pay-verb-transactions"
         CALLS_RECORDINGS = "calls-recordings"
         CALLS_SIP = "calls-sip"
         CALLS_SIP_INBOUND = "calls-sip-inbound"
