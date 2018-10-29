@@ -80,6 +80,13 @@ class Api(Domain):
         return self.account.available_phone_numbers
 
     @property
+    def balance(self):
+        """
+        :rtype: twilio.rest.api.v2010.account.balance.BalanceList
+        """
+        return self.account.balance
+
+    @property
     def calls(self):
         """
         :rtype: twilio.rest.api.v2010.account.call.CallList

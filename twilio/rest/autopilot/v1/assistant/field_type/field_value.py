@@ -155,7 +155,7 @@ class FieldValueList(ListResource):
         """
         Constructs a FieldValueContext
 
-        :param sid: The sid
+        :param sid: A 34 character string that uniquely identifies this resource
 
         :returns: twilio.rest.autopilot.v1.assistant.field_type.field_value.FieldValueContext
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.field_value.FieldValueContext
@@ -171,7 +171,7 @@ class FieldValueList(ListResource):
         """
         Constructs a FieldValueContext
 
-        :param sid: The sid
+        :param sid: A 34 character string that uniquely identifies this resource
 
         :returns: twilio.rest.autopilot.v1.assistant.field_type.field_value.FieldValueContext
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.field_value.FieldValueContext
@@ -251,9 +251,9 @@ class FieldValueContext(InstanceContext):
         Initialize the FieldValueContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The assistant_sid
-        :param field_type_sid: The field_type_sid
-        :param sid: The sid
+        :param assistant_sid: The unique ID of the Assistant
+        :param field_type_sid: The unique ID of the Field Type associated with this Field Value
+        :param sid: A 34 character string that uniquely identifies this resource
 
         :returns: twilio.rest.autopilot.v1.assistant.field_type.field_value.FieldValueContext
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.field_value.FieldValueContext

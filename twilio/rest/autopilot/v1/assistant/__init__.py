@@ -131,12 +131,12 @@ class AssistantList(ListResource):
         Create a new AssistantInstance
 
         :param unicode friendly_name: A text description for the Assistant. It is non-unique and can be up to 255 characters long.
-        :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
+        :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days past training. If `false`, no queries will be stored. If `true`, queries will be stored for 30 days and deleted thereafter. Defaults to `true` if no value is provided.
         :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
         :param unicode callback_url: The callback_url
-        :param unicode callback_events: The callback_events
-        :param dict style_sheet: A JSON object that defines the assistant style sheet
-        :param dict defaults: A JSON object that defines the assistant's default tasks for various scenarios
+        :param unicode callback_events: A space-separated list of callback events that will trigger callbacks
+        :param dict style_sheet: A JSON object that defines the assistant [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
+        :param dict defaults: A JSON object that defines the assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios
 
         :returns: Newly created AssistantInstance
         :rtype: twilio.rest.autopilot.v1.assistant.AssistantInstance
@@ -163,7 +163,7 @@ class AssistantList(ListResource):
         """
         Constructs a AssistantContext
 
-        :param sid: The sid
+        :param sid: A 34-character string that uniquely identifies this resource.
 
         :returns: twilio.rest.autopilot.v1.assistant.AssistantContext
         :rtype: twilio.rest.autopilot.v1.assistant.AssistantContext
@@ -174,7 +174,7 @@ class AssistantList(ListResource):
         """
         Constructs a AssistantContext
 
-        :param sid: The sid
+        :param sid: A 34-character string that uniquely identifies this resource.
 
         :returns: twilio.rest.autopilot.v1.assistant.AssistantContext
         :rtype: twilio.rest.autopilot.v1.assistant.AssistantContext
@@ -242,7 +242,7 @@ class AssistantContext(InstanceContext):
         Initialize the AssistantContext
 
         :param Version version: Version that contains the resource
-        :param sid: The sid
+        :param sid: A 34-character string that uniquely identifies this resource.
 
         :returns: twilio.rest.autopilot.v1.assistant.AssistantContext
         :rtype: twilio.rest.autopilot.v1.assistant.AssistantContext
@@ -287,12 +287,12 @@ class AssistantContext(InstanceContext):
         Update the AssistantInstance
 
         :param unicode friendly_name: A text description for the Assistant. It is non-unique and can be up to 255 characters long.
-        :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
+        :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days past training. If `false`, no queries will be stored. If `true`, queries will be stored for 30 days and deleted thereafter. Defaults to `true` if no value is provided.
         :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
         :param unicode callback_url: The callback_url
-        :param unicode callback_events: The callback_events
-        :param dict style_sheet: A JSON object that defines the assistant style sheet
-        :param dict defaults: A JSON object that defines the assistant's default tasks for various scenarios
+        :param unicode callback_events: A space-separated list of callback events that will trigger callbacks
+        :param dict style_sheet: A JSON object that defines the assistant [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
+        :param dict defaults: A JSON object that defines the assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios
 
         :returns: Updated AssistantInstance
         :rtype: twilio.rest.autopilot.v1.assistant.AssistantInstance
@@ -501,7 +501,7 @@ class AssistantInstance(InstanceResource):
     @property
     def latest_model_build_sid(self):
         """
-        :returns: The unique ID (Sid) of the latest model build. Null if no model has been built.
+        :returns: The latest_model_build_sid
         :rtype: unicode
         """
         return self._properties['latest_model_build_sid']
@@ -517,7 +517,7 @@ class AssistantInstance(InstanceResource):
     @property
     def log_queries(self):
         """
-        :returns: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter.
+        :returns: A boolean that specifies whether queries should be logged for 30 days past training. If `false`, no queries will be stored. If `true`, queries will be stored for 30 days and deleted thereafter.
         :rtype: bool
         """
         return self._properties['log_queries']
@@ -525,7 +525,7 @@ class AssistantInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34 character string that uniquely identifies this resource.
+        :returns: A 34-character string that uniquely identifies this resource.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -533,7 +533,7 @@ class AssistantInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: A user-provided string that uniquely identifies this resource as an alternative to the sid. You can use the unique name in the URL path. Unique up to 64 characters long.
+        :returns: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -579,12 +579,12 @@ class AssistantInstance(InstanceResource):
         Update the AssistantInstance
 
         :param unicode friendly_name: A text description for the Assistant. It is non-unique and can be up to 255 characters long.
-        :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
+        :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days past training. If `false`, no queries will be stored. If `true`, queries will be stored for 30 days and deleted thereafter. Defaults to `true` if no value is provided.
         :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
         :param unicode callback_url: The callback_url
-        :param unicode callback_events: The callback_events
-        :param dict style_sheet: A JSON object that defines the assistant style sheet
-        :param dict defaults: A JSON object that defines the assistant's default tasks for various scenarios
+        :param unicode callback_events: A space-separated list of callback events that will trigger callbacks
+        :param dict style_sheet: A JSON object that defines the assistant [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
+        :param dict defaults: A JSON object that defines the assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios
 
         :returns: Updated AssistantInstance
         :rtype: twilio.rest.autopilot.v1.assistant.AssistantInstance

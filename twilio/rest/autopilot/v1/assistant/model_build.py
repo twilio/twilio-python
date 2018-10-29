@@ -140,7 +140,7 @@ class ModelBuildList(ListResource):
         """
         Constructs a ModelBuildContext
 
-        :param sid: The sid
+        :param sid: A 34-character string that uniquely identifies this resource.
 
         :returns: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildContext
         :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildContext
@@ -151,7 +151,7 @@ class ModelBuildList(ListResource):
         """
         Constructs a ModelBuildContext
 
-        :param sid: The sid
+        :param sid: A 34-character string that uniquely identifies this resource.
 
         :returns: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildContext
         :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildContext
@@ -220,8 +220,8 @@ class ModelBuildContext(InstanceContext):
         Initialize the ModelBuildContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The assistant_sid
-        :param sid: The sid
+        :param assistant_sid: The unique ID of the parent Assistant.
+        :param sid: A 34-character string that uniquely identifies this resource.
 
         :returns: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildContext
         :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildContext
@@ -389,7 +389,7 @@ class ModelBuildInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34 character string that uniquely identifies this resource.
+        :returns: A 34-character string that uniquely identifies this resource.
         :rtype: unicode
         """
         return self._properties['sid']

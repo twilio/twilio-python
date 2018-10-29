@@ -16,6 +16,7 @@ from twilio.rest.api.v2010.account.address import AddressList
 from twilio.rest.api.v2010.account.application import ApplicationList
 from twilio.rest.api.v2010.account.authorized_connect_app import AuthorizedConnectAppList
 from twilio.rest.api.v2010.account.available_phone_number import AvailablePhoneNumberCountryList
+from twilio.rest.api.v2010.account.balance import BalanceList
 from twilio.rest.api.v2010.account.call import CallList
 from twilio.rest.api.v2010.account.conference import ConferenceList
 from twilio.rest.api.v2010.account.connect_app import ConnectAppList
@@ -270,6 +271,7 @@ class AccountContext(InstanceContext):
         self._applications = None
         self._authorized_connect_apps = None
         self._available_phone_numbers = None
+        self._balance = None
         self._calls = None
         self._conferences = None
         self._connect_apps = None
@@ -380,6 +382,18 @@ class AccountContext(InstanceContext):
                 account_sid=self._solution['sid'],
             )
         return self._available_phone_numbers
+
+    @property
+    def balance(self):
+        """
+        Access the balance
+
+        :returns: twilio.rest.api.v2010.account.balance.BalanceList
+        :rtype: twilio.rest.api.v2010.account.balance.BalanceList
+        """
+        if self._balance is None:
+            self._balance = BalanceList(self._version, account_sid=self._solution['sid'], )
+        return self._balance
 
     @property
     def calls(self):
@@ -815,6 +829,16 @@ class AccountInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryList
         """
         return self._proxy.available_phone_numbers
+
+    @property
+    def balance(self):
+        """
+        Access the balance
+
+        :returns: twilio.rest.api.v2010.account.balance.BalanceList
+        :rtype: twilio.rest.api.v2010.account.balance.BalanceList
+        """
+        return self._proxy.balance
 
     @property
     def calls(self):

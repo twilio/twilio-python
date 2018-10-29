@@ -141,7 +141,7 @@ class FieldTypeList(ListResource):
         """
         Constructs a FieldTypeContext
 
-        :param sid: The sid
+        :param sid: A 34-character string that uniquely identifies this resource.
 
         :returns: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeContext
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeContext
@@ -152,7 +152,7 @@ class FieldTypeList(ListResource):
         """
         Constructs a FieldTypeContext
 
-        :param sid: The sid
+        :param sid: A 34-character string that uniquely identifies this resource.
 
         :returns: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeContext
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeContext
@@ -221,8 +221,8 @@ class FieldTypeContext(InstanceContext):
         Initialize the FieldTypeContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The assistant_sid
-        :param sid: The sid
+        :param assistant_sid: The unique ID of the Assistant.
+        :param sid: A 34-character string that uniquely identifies this resource.
 
         :returns: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeContext
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeContext
@@ -418,7 +418,7 @@ class FieldTypeInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34 character string that uniquely identifies this resource.
+        :returns: A 34-character string that uniquely identifies this resource.
         :rtype: unicode
         """
         return self._properties['sid']

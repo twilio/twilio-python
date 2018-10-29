@@ -441,6 +441,13 @@ class Client(object):
         return self.api.account.available_phone_numbers
 
     @property
+    def balance(self):
+        """
+        :rtype: twilio.rest.api.v2010.account.balance.BalanceList
+        """
+        return self.api.account.balance
+
+    @property
     def calls(self):
         """
         :rtype: twilio.rest.api.v2010.account.call.CallList

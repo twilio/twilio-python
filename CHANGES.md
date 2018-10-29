@@ -3,6 +3,21 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-10-29] Version 6.19.2
+----------------------------
+**Api**
+- Add new Balance resource:
+    - url: '/v1/Accounts/{account sid}/Balance'
+    - supported methods: GET
+    - returns the balance of the account
+
+**Proxy**
+- Add chat_instance_sid to Service
+
+**Verify**
+- Add `Locale` optional parameter on Verification creation.
+
+
 [2018-10-15] Version 6.19.1
 ----------------------------
 **Api**

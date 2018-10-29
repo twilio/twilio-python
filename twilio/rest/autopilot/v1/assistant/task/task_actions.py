@@ -167,7 +167,7 @@ class TaskActionsContext(InstanceContext):
         """
         Update the TaskActionsInstance
 
-        :param dict actions: The JSON actions that instruct the Assistant how to perform this task.
+        :param dict actions: The JSON [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant how to perform this task.
 
         :returns: Updated TaskActionsInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsInstance
@@ -277,7 +277,7 @@ class TaskActionsInstance(InstanceResource):
     @property
     def data(self):
         """
-        :returns: The data
+        :returns: The JSON [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant how to perform this task.
         :rtype: dict
         """
         return self._properties['data']
@@ -295,7 +295,7 @@ class TaskActionsInstance(InstanceResource):
         """
         Update the TaskActionsInstance
 
-        :param dict actions: The JSON actions that instruct the Assistant how to perform this task.
+        :param dict actions: The JSON [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant how to perform this task.
 
         :returns: Updated TaskActionsInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsInstance

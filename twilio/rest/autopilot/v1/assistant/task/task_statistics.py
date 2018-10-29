@@ -24,7 +24,7 @@ class TaskStatisticsList(ListResource):
         Initialize the TaskStatisticsList
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the parent Assistant.
+        :param assistant_sid: The unique ID of the Assistant.
         :param task_sid: The unique ID of the Task associated with this Field.
 
         :returns: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsList
@@ -82,7 +82,7 @@ class TaskStatisticsPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param assistant_sid: The unique ID of the parent Assistant.
+        :param assistant_sid: The unique ID of the Assistant.
         :param task_sid: The unique ID of the Task associated with this Field.
 
         :returns: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsPage
@@ -129,8 +129,8 @@ class TaskStatisticsContext(InstanceContext):
         Initialize the TaskStatisticsContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The assistant_sid
-        :param task_sid: The task_sid
+        :param assistant_sid: The unique ID of the Assistant.
+        :param task_sid: The unique ID of the Task associated with this Field.
 
         :returns: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsContext
         :rtype: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsContext
@@ -222,7 +222,7 @@ class TaskStatisticsInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique ID of the Account that created this Field.
+        :returns: The unique ID of the Account that created this resource.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -230,7 +230,7 @@ class TaskStatisticsInstance(InstanceResource):
     @property
     def assistant_sid(self):
         """
-        :returns: The unique ID of the parent Assistant.
+        :returns: The unique ID of the Assistant.
         :rtype: unicode
         """
         return self._properties['assistant_sid']

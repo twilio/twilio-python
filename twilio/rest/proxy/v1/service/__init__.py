@@ -121,7 +121,8 @@ class ServiceList(ListResource):
                callback_url=values.unset, geo_match_level=values.unset,
                number_selection_behavior=values.unset,
                intercept_callback_url=values.unset,
-               out_of_session_callback_url=values.unset):
+               out_of_session_callback_url=values.unset,
+               chat_instance_sid=values.unset):
         """
         Create a new ServiceInstance
 
@@ -132,6 +133,7 @@ class ServiceList(ListResource):
         :param ServiceInstance.NumberSelectionBehavior number_selection_behavior: What behavior to use when choosing a proxy number.
         :param unicode intercept_callback_url: A URL for Twilio call before each Interaction.
         :param unicode out_of_session_callback_url: A URL for Twilio call when a new Interaction has no Session.
+        :param unicode chat_instance_sid: The Chat Service Instance sid managed by Proxy Service
 
         :returns: Newly created ServiceInstance
         :rtype: twilio.rest.proxy.v1.service.ServiceInstance
@@ -144,6 +146,7 @@ class ServiceList(ListResource):
             'NumberSelectionBehavior': number_selection_behavior,
             'InterceptCallbackUrl': intercept_callback_url,
             'OutOfSessionCallbackUrl': out_of_session_callback_url,
+            'ChatInstanceSid': chat_instance_sid,
         })
 
         payload = self._version.create(
@@ -281,7 +284,8 @@ class ServiceContext(InstanceContext):
                callback_url=values.unset, geo_match_level=values.unset,
                number_selection_behavior=values.unset,
                intercept_callback_url=values.unset,
-               out_of_session_callback_url=values.unset):
+               out_of_session_callback_url=values.unset,
+               chat_instance_sid=values.unset):
         """
         Update the ServiceInstance
 
@@ -292,6 +296,7 @@ class ServiceContext(InstanceContext):
         :param ServiceInstance.NumberSelectionBehavior number_selection_behavior: What behavior to use when choosing a proxy number.
         :param unicode intercept_callback_url: A URL for Twilio call before each Interaction.
         :param unicode out_of_session_callback_url: A URL for Twilio call when a new Interaction has no Session.
+        :param unicode chat_instance_sid: The Chat Service Instance sid managed by Proxy Service
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.proxy.v1.service.ServiceInstance
@@ -304,6 +309,7 @@ class ServiceContext(InstanceContext):
             'NumberSelectionBehavior': number_selection_behavior,
             'InterceptCallbackUrl': intercept_callback_url,
             'OutOfSessionCallbackUrl': out_of_session_callback_url,
+            'ChatInstanceSid': chat_instance_sid,
         })
 
         payload = self._version.update(
@@ -389,6 +395,7 @@ class ServiceInstance(InstanceResource):
             'sid': payload['sid'],
             'unique_name': payload['unique_name'],
             'account_sid': payload['account_sid'],
+            'chat_instance_sid': payload['chat_instance_sid'],
             'callback_url': payload['callback_url'],
             'default_ttl': deserialize.integer(payload['default_ttl']),
             'number_selection_behavior': payload['number_selection_behavior'],
@@ -441,6 +448,14 @@ class ServiceInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['account_sid']
+
+    @property
+    def chat_instance_sid(self):
+        """
+        :returns: The Chat Service Instance sid managed by Proxy Service
+        :rtype: unicode
+        """
+        return self._properties['chat_instance_sid']
 
     @property
     def callback_url(self):
@@ -544,7 +559,8 @@ class ServiceInstance(InstanceResource):
                callback_url=values.unset, geo_match_level=values.unset,
                number_selection_behavior=values.unset,
                intercept_callback_url=values.unset,
-               out_of_session_callback_url=values.unset):
+               out_of_session_callback_url=values.unset,
+               chat_instance_sid=values.unset):
         """
         Update the ServiceInstance
 
@@ -555,6 +571,7 @@ class ServiceInstance(InstanceResource):
         :param ServiceInstance.NumberSelectionBehavior number_selection_behavior: What behavior to use when choosing a proxy number.
         :param unicode intercept_callback_url: A URL for Twilio call before each Interaction.
         :param unicode out_of_session_callback_url: A URL for Twilio call when a new Interaction has no Session.
+        :param unicode chat_instance_sid: The Chat Service Instance sid managed by Proxy Service
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.proxy.v1.service.ServiceInstance
@@ -567,6 +584,7 @@ class ServiceInstance(InstanceResource):
             number_selection_behavior=number_selection_behavior,
             intercept_callback_url=intercept_callback_url,
             out_of_session_callback_url=out_of_session_callback_url,
+            chat_instance_sid=chat_instance_sid,
         )
 
     @property
