@@ -3,6 +3,15 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-11-16] Version 6.20.0
+----------------------------
+**Messaging**
+- Session API
+
+**Twiml**
+- Change `master-card` to `mastercard` as `cardType` for `Pay` and `Prompt`, remove attribute `credential_sid` from `Pay` **(breaking change)**
+
+
 [2018-10-29] Version 6.19.2
 ----------------------------
 **Api**

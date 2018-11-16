@@ -36,18 +36,27 @@ class SyncMapItemList(ListResource):
         self._solution = {'service_sid': service_sid, 'map_sid': map_sid, }
         self._uri = '/Services/{service_sid}/Maps/{map_sid}/Items'.format(**self._solution)
 
-    def create(self, key, data, ttl=values.unset):
+    def create(self, key, data, ttl=values.unset, item_ttl=values.unset,
+               collection_ttl=values.unset):
         """
         Create a new SyncMapItemInstance
 
         :param unicode key: The unique user-defined key of this Map Item.
         :param dict data: Contains arbitrary user-defined, schema-less data that this Map Item stores, represented by a JSON object, up to 16KB.
-        :param unicode ttl: Time-to-live of this Map in seconds, defaults to no expiration.
+        :param unicode ttl: Alias for item_ttl
+        :param unicode item_ttl: Time-to-live of this item in seconds, defaults to no expiration.
+        :param unicode collection_ttl: Time-to-live of this item's parent Map in seconds, defaults to no expiration.
 
         :returns: Newly created SyncMapItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemInstance
         """
-        data = values.of({'Key': key, 'Data': serialize.object(data), 'Ttl': ttl, })
+        data = values.of({
+            'Key': key,
+            'Data': serialize.object(data),
+            'Ttl': ttl,
+            'ItemTtl': item_ttl,
+            'CollectionTtl': collection_ttl,
+        })
 
         payload = self._version.create(
             'POST',
@@ -305,17 +314,25 @@ class SyncMapItemContext(InstanceContext):
         """
         return self._version.delete('delete', self._uri)
 
-    def update(self, data=values.unset, ttl=values.unset):
+    def update(self, data=values.unset, ttl=values.unset, item_ttl=values.unset,
+               collection_ttl=values.unset):
         """
         Update the SyncMapItemInstance
 
         :param dict data: Contains an arbitrary JSON object to be stored in this Map Item.
-        :param unicode ttl: New time-to-live of this Map in seconds.
+        :param unicode ttl: Alias for item_ttl
+        :param unicode item_ttl: Time-to-live of this item in seconds, defaults to no expiration.
+        :param unicode collection_ttl: Time-to-live of this item's parent Map in seconds, defaults to no expiration.
 
         :returns: Updated SyncMapItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemInstance
         """
-        data = values.of({'Data': serialize.object(data), 'Ttl': ttl, })
+        data = values.of({
+            'Data': serialize.object(data),
+            'Ttl': ttl,
+            'ItemTtl': item_ttl,
+            'CollectionTtl': collection_ttl,
+        })
 
         payload = self._version.update(
             'POST',
@@ -510,17 +527,20 @@ class SyncMapItemInstance(InstanceResource):
         """
         return self._proxy.delete()
 
-    def update(self, data=values.unset, ttl=values.unset):
+    def update(self, data=values.unset, ttl=values.unset, item_ttl=values.unset,
+               collection_ttl=values.unset):
         """
         Update the SyncMapItemInstance
 
         :param dict data: Contains an arbitrary JSON object to be stored in this Map Item.
-        :param unicode ttl: New time-to-live of this Map in seconds.
+        :param unicode ttl: Alias for item_ttl
+        :param unicode item_ttl: Time-to-live of this item in seconds, defaults to no expiration.
+        :param unicode collection_ttl: Time-to-live of this item's parent Map in seconds, defaults to no expiration.
 
         :returns: Updated SyncMapItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemInstance
         """
-        return self._proxy.update(data=data, ttl=ttl, )
+        return self._proxy.update(data=data, ttl=ttl, item_ttl=item_ttl, collection_ttl=collection_ttl, )
 
     def __repr__(self):
         """

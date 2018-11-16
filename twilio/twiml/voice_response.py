@@ -328,8 +328,8 @@ class VoiceResponse(TwiML):
     def pay(self, input=None, action=None, status_callback=None,
             status_callback_method=None, timeout=None, max_attempts=None,
             security_code=None, postal_code=None, payment_connector=None,
-            token_type=None, charge_amount=None, currency=None, credential_sid=None,
-            description=None, valid_card_types=None, language=None, **kwargs):
+            token_type=None, charge_amount=None, currency=None, description=None,
+            valid_card_types=None, language=None, **kwargs):
         """
         Create a <Pay> element
 
@@ -345,7 +345,6 @@ class VoiceResponse(TwiML):
         :param token_type: Type of token
         :param charge_amount: Amount to process. If value is greater than 0 then make the payment else create a payment token
         :param currency: Currency of the amount attribute
-        :param credential_sid: SID for API keys to communicate with payment provider
         :param description: Details regarding the payment
         :param valid_card_types: Comma separated accepted card types
         :param language: Language to use
@@ -366,7 +365,6 @@ class VoiceResponse(TwiML):
             token_type=token_type,
             charge_amount=charge_amount,
             currency=currency,
-            credential_sid=credential_sid,
             description=description,
             valid_card_types=valid_card_types,
             language=language,

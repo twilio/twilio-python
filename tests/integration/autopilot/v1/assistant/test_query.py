@@ -45,7 +45,7 @@ class QueryTestCase(IntegrationTestCase):
                         "task_sid": "UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "confidence": 0.9
                     },
-                    "entities": [
+                    "fields": [
                         {
                             "name": "name",
                             "value": "value",
@@ -123,7 +123,7 @@ class QueryTestCase(IntegrationTestCase):
                                 "task_sid": "UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                                 "confidence": 0.9
                             },
-                            "entities": [
+                            "fields": [
                                 {
                                     "name": "name",
                                     "value": "value",
@@ -189,7 +189,7 @@ class QueryTestCase(IntegrationTestCase):
                         "task_sid": "UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "confidence": 0.9
                     },
-                    "entities": [
+                    "fields": [
                         {
                             "name": "name",
                             "value": "value",
@@ -241,7 +241,7 @@ class QueryTestCase(IntegrationTestCase):
                         "task_sid": "UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "confidence": 0.9
                     },
-                    "entities": [
+                    "fields": [
                         {
                             "name": "name",
                             "value": "value",

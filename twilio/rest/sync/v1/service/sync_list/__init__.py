@@ -36,17 +36,19 @@ class SyncListList(ListResource):
         self._solution = {'service_sid': service_sid, }
         self._uri = '/Services/{service_sid}/Lists'.format(**self._solution)
 
-    def create(self, unique_name=values.unset, ttl=values.unset):
+    def create(self, unique_name=values.unset, ttl=values.unset,
+               collection_ttl=values.unset):
         """
         Create a new SyncListInstance
 
         :param unicode unique_name: Human-readable name for this list
-        :param unicode ttl: Time-to-live of this List in seconds, defaults to no expiration.
+        :param unicode ttl: Alias for collection_ttl
+        :param unicode collection_ttl: Time-to-live of this List in seconds, defaults to no expiration.
 
         :returns: Newly created SyncListInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.SyncListInstance
         """
-        data = values.of({'UniqueName': unique_name, 'Ttl': ttl, })
+        data = values.of({'UniqueName': unique_name, 'Ttl': ttl, 'CollectionTtl': collection_ttl, })
 
         payload = self._version.create(
             'POST',
@@ -266,16 +268,17 @@ class SyncListContext(InstanceContext):
         """
         return self._version.delete('delete', self._uri)
 
-    def update(self, ttl=values.unset):
+    def update(self, ttl=values.unset, collection_ttl=values.unset):
         """
         Update the SyncListInstance
 
-        :param unicode ttl: Time-to-live of this List in seconds, defaults to no expiration.
+        :param unicode ttl: Alias for collection_ttl
+        :param unicode collection_ttl: Time-to-live of this List in seconds, defaults to no expiration.
 
         :returns: Updated SyncListInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.SyncListInstance
         """
-        data = values.of({'Ttl': ttl, })
+        data = values.of({'Ttl': ttl, 'CollectionTtl': collection_ttl, })
 
         payload = self._version.update(
             'POST',
@@ -488,16 +491,17 @@ class SyncListInstance(InstanceResource):
         """
         return self._proxy.delete()
 
-    def update(self, ttl=values.unset):
+    def update(self, ttl=values.unset, collection_ttl=values.unset):
         """
         Update the SyncListInstance
 
-        :param unicode ttl: Time-to-live of this List in seconds, defaults to no expiration.
+        :param unicode ttl: Alias for collection_ttl
+        :param unicode collection_ttl: Time-to-live of this List in seconds, defaults to no expiration.
 
         :returns: Updated SyncListInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.SyncListInstance
         """
-        return self._proxy.update(ttl=ttl, )
+        return self._proxy.update(ttl=ttl, collection_ttl=collection_ttl, )
 
     @property
     def sync_list_items(self):

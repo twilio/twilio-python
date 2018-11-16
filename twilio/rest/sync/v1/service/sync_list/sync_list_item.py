@@ -36,17 +36,25 @@ class SyncListItemList(ListResource):
         self._solution = {'service_sid': service_sid, 'list_sid': list_sid, }
         self._uri = '/Services/{service_sid}/Lists/{list_sid}/Items'.format(**self._solution)
 
-    def create(self, data, ttl=values.unset):
+    def create(self, data, ttl=values.unset, item_ttl=values.unset,
+               collection_ttl=values.unset):
         """
         Create a new SyncListItemInstance
 
         :param dict data: Contains arbitrary user-defined, schema-less data that this List Item stores, represented by a JSON object, up to 16KB.
-        :param unicode ttl: Time-to-live of this item in seconds, defaults to no expiration.
+        :param unicode ttl: Alias for item_ttl
+        :param unicode item_ttl: Time-to-live of this item in seconds, defaults to no expiration.
+        :param unicode collection_ttl: Time-to-live of this item's parent List in seconds, defaults to no expiration.
 
         :returns: Newly created SyncListItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
         """
-        data = values.of({'Data': serialize.object(data), 'Ttl': ttl, })
+        data = values.of({
+            'Data': serialize.object(data),
+            'Ttl': ttl,
+            'ItemTtl': item_ttl,
+            'CollectionTtl': collection_ttl,
+        })
 
         payload = self._version.create(
             'POST',
@@ -304,17 +312,25 @@ class SyncListItemContext(InstanceContext):
         """
         return self._version.delete('delete', self._uri)
 
-    def update(self, data=values.unset, ttl=values.unset):
+    def update(self, data=values.unset, ttl=values.unset, item_ttl=values.unset,
+               collection_ttl=values.unset):
         """
         Update the SyncListItemInstance
 
         :param dict data: Contains arbitrary user-defined, schema-less data that this List Item stores, represented by a JSON object, up to 16KB.
-        :param unicode ttl: Time-to-live of this item in seconds, defaults to no expiration.
+        :param unicode ttl: Alias for item_ttl
+        :param unicode item_ttl: Time-to-live of this item in seconds, defaults to no expiration.
+        :param unicode collection_ttl: Time-to-live of this item's parent List in seconds, defaults to no expiration.
 
         :returns: Updated SyncListItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
         """
-        data = values.of({'Data': serialize.object(data), 'Ttl': ttl, })
+        data = values.of({
+            'Data': serialize.object(data),
+            'Ttl': ttl,
+            'ItemTtl': item_ttl,
+            'CollectionTtl': collection_ttl,
+        })
 
         payload = self._version.update(
             'POST',
@@ -509,17 +525,20 @@ class SyncListItemInstance(InstanceResource):
         """
         return self._proxy.delete()
 
-    def update(self, data=values.unset, ttl=values.unset):
+    def update(self, data=values.unset, ttl=values.unset, item_ttl=values.unset,
+               collection_ttl=values.unset):
         """
         Update the SyncListItemInstance
 
         :param dict data: Contains arbitrary user-defined, schema-less data that this List Item stores, represented by a JSON object, up to 16KB.
-        :param unicode ttl: Time-to-live of this item in seconds, defaults to no expiration.
+        :param unicode ttl: Alias for item_ttl
+        :param unicode item_ttl: Time-to-live of this item in seconds, defaults to no expiration.
+        :param unicode collection_ttl: Time-to-live of this item's parent List in seconds, defaults to no expiration.
 
         :returns: Updated SyncListItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
         """
-        return self._proxy.update(data=data, ttl=ttl, )
+        return self._proxy.update(data=data, ttl=ttl, item_ttl=item_ttl, collection_ttl=collection_ttl, )
 
     def __repr__(self):
         """

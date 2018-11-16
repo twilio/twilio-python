@@ -22,17 +22,8 @@ class V1(Version):
         """
         super(V1, self).__init__(domain)
         self.version = 'v1'
-        self._forms = None
         self._services = None
-
-    @property
-    def forms(self):
-        """
-        :rtype: twilio.rest.authy.v1.form.FormList
-        """
-        if self._forms is None:
-            self._forms = FormList(self)
-        return self._forms
+        self._forms = None
 
     @property
     def services(self):
@@ -42,6 +33,15 @@ class V1(Version):
         if self._services is None:
             self._services = ServiceList(self)
         return self._services
+
+    @property
+    def forms(self):
+        """
+        :rtype: twilio.rest.authy.v1.form.FormList
+        """
+        if self._forms is None:
+            self._forms = FormList(self)
+        return self._forms
 
     def __repr__(self):
         """

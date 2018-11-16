@@ -36,17 +36,19 @@ class SyncMapList(ListResource):
         self._solution = {'service_sid': service_sid, }
         self._uri = '/Services/{service_sid}/Maps'.format(**self._solution)
 
-    def create(self, unique_name=values.unset, ttl=values.unset):
+    def create(self, unique_name=values.unset, ttl=values.unset,
+               collection_ttl=values.unset):
         """
         Create a new SyncMapInstance
 
         :param unicode unique_name: Human-readable name for this map
-        :param unicode ttl: Time-to-live of this Map in seconds, defaults to no expiration.
+        :param unicode ttl: Alias for collection_ttl
+        :param unicode collection_ttl: Time-to-live of this Map in seconds, defaults to no expiration.
 
         :returns: Newly created SyncMapInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapInstance
         """
-        data = values.of({'UniqueName': unique_name, 'Ttl': ttl, })
+        data = values.of({'UniqueName': unique_name, 'Ttl': ttl, 'CollectionTtl': collection_ttl, })
 
         payload = self._version.create(
             'POST',
@@ -266,16 +268,17 @@ class SyncMapContext(InstanceContext):
         """
         return self._version.delete('delete', self._uri)
 
-    def update(self, ttl=values.unset):
+    def update(self, ttl=values.unset, collection_ttl=values.unset):
         """
         Update the SyncMapInstance
 
-        :param unicode ttl: New time-to-live of this Map in seconds.
+        :param unicode ttl: Alias for collection_ttl
+        :param unicode collection_ttl: New time-to-live of this Map in seconds.
 
         :returns: Updated SyncMapInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapInstance
         """
-        data = values.of({'Ttl': ttl, })
+        data = values.of({'Ttl': ttl, 'CollectionTtl': collection_ttl, })
 
         payload = self._version.update(
             'POST',
@@ -488,16 +491,17 @@ class SyncMapInstance(InstanceResource):
         """
         return self._proxy.delete()
 
-    def update(self, ttl=values.unset):
+    def update(self, ttl=values.unset, collection_ttl=values.unset):
         """
         Update the SyncMapInstance
 
-        :param unicode ttl: New time-to-live of this Map in seconds.
+        :param unicode ttl: Alias for collection_ttl
+        :param unicode collection_ttl: New time-to-live of this Map in seconds.
 
         :returns: Updated SyncMapInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapInstance
         """
-        return self._proxy.update(ttl=ttl, )
+        return self._proxy.update(ttl=ttl, collection_ttl=collection_ttl, )
 
     @property
     def sync_map_items(self):
