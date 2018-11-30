@@ -32,27 +32,27 @@ class FormList(ListResource):
         # Path Solution
         self._solution = {}
 
-    def get(self, form_type):
+    def get(self, type):
         """
         Constructs a FormContext
 
-        :param form_type: The Form Type of this Form
+        :param type: The Type of this Form
 
         :returns: twilio.rest.authy.v1.form.FormContext
         :rtype: twilio.rest.authy.v1.form.FormContext
         """
-        return FormContext(self._version, form_type=form_type, )
+        return FormContext(self._version, type=type, )
 
-    def __call__(self, form_type):
+    def __call__(self, type):
         """
         Constructs a FormContext
 
-        :param form_type: The Form Type of this Form
+        :param type: The Type of this Form
 
         :returns: twilio.rest.authy.v1.form.FormContext
         :rtype: twilio.rest.authy.v1.form.FormContext
         """
-        return FormContext(self._version, form_type=form_type, )
+        return FormContext(self._version, type=type, )
 
     def __repr__(self):
         """
@@ -110,12 +110,12 @@ class FormContext(InstanceContext):
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
-    def __init__(self, version, form_type):
+    def __init__(self, version, type):
         """
         Initialize the FormContext
 
         :param Version version: Version that contains the resource
-        :param form_type: The Form Type of this Form
+        :param type: The Type of this Form
 
         :returns: twilio.rest.authy.v1.form.FormContext
         :rtype: twilio.rest.authy.v1.form.FormContext
@@ -123,8 +123,8 @@ class FormContext(InstanceContext):
         super(FormContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'form_type': form_type, }
-        self._uri = '/Forms/{form_type}'.format(**self._solution)
+        self._solution = {'type': type, }
+        self._uri = '/Forms/{type}'.format(**self._solution)
 
     def fetch(self):
         """
@@ -141,7 +141,7 @@ class FormContext(InstanceContext):
             params=params,
         )
 
-        return FormInstance(self._version, payload, form_type=self._solution['form_type'], )
+        return FormInstance(self._version, payload, type=self._solution['type'], )
 
     def __repr__(self):
         """
@@ -159,12 +159,12 @@ class FormInstance(InstanceResource):
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
-    class FormType(object):
+    class FormTypes(object):
         FORM_APP_PUSH = "form-app-push"
         FORM_SMS = "form-sms"
         FORM_TOTP = "form-totp"
 
-    def __init__(self, version, payload, form_type=None):
+    def __init__(self, version, payload, type=None):
         """
         Initialize the FormInstance
 
@@ -175,7 +175,7 @@ class FormInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'form_type': payload['form_type'],
+            'type': payload['type'],
             'forms': payload['forms'],
             'form_meta': payload['form_meta'],
             'url': payload['url'],
@@ -183,7 +183,7 @@ class FormInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'form_type': form_type or self._properties['form_type'], }
+        self._solution = {'type': type or self._properties['type'], }
 
     @property
     def _proxy(self):
@@ -195,21 +195,21 @@ class FormInstance(InstanceResource):
         :rtype: twilio.rest.authy.v1.form.FormContext
         """
         if self._context is None:
-            self._context = FormContext(self._version, form_type=self._solution['form_type'], )
+            self._context = FormContext(self._version, type=self._solution['type'], )
         return self._context
 
     @property
-    def form_type(self):
+    def type(self):
         """
-        :returns: The Form Type of this Form
-        :rtype: FormInstance.FormType
+        :returns: The Type of this Form
+        :rtype: FormInstance.FormTypes
         """
-        return self._properties['form_type']
+        return self._properties['type']
 
     @property
     def forms(self):
         """
-        :returns: Object that contains the available forms for this form type.
+        :returns: Object that contains the available forms for this type.
         :rtype: dict
         """
         return self._properties['forms']
@@ -217,7 +217,7 @@ class FormInstance(InstanceResource):
     @property
     def form_meta(self):
         """
-        :returns: Additional information for the available forms for this form type.
+        :returns: Additional information for the available forms for this type.
         :rtype: dict
         """
         return self._properties['form_meta']
@@ -225,7 +225,7 @@ class FormInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL to access the forms for this form type.
+        :returns: The URL to access the forms for this type.
         :rtype: unicode
         """
         return self._properties['url']

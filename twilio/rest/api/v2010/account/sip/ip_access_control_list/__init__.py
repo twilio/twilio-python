@@ -142,7 +142,7 @@ class IpAccessControlListList(ListResource):
         """
         Constructs a IpAccessControlListContext
 
-        :param sid: Fetch by unique ip-access-control-list Sid
+        :param sid: Fetch by unique IpAccessControlList Sid
 
         :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext
@@ -153,7 +153,7 @@ class IpAccessControlListList(ListResource):
         """
         Constructs a IpAccessControlListContext
 
-        :param sid: Fetch by unique ip-access-control-list Sid
+        :param sid: Fetch by unique IpAccessControlList Sid
 
         :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext
@@ -223,7 +223,7 @@ class IpAccessControlListContext(InstanceContext):
 
         :param Version version: Version that contains the resource
         :param account_sid: The account_sid
-        :param sid: Fetch by unique ip-access-control-list Sid
+        :param sid: Fetch by unique IpAccessControlList Sid
 
         :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext

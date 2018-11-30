@@ -268,16 +268,21 @@ class ChallengeInstance(InstanceResource):
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
-    class ChallengeStatus(object):
+    class ChallengeStatuses(object):
         PENDING = "pending"
         EXPIRED = "expired"
         APPROVED = "approved"
         DENIED = "denied"
 
-    class ChallengeReason(object):
+    class ChallengeReasons(object):
         NONE = "none"
         NOT_NEEDED = "not_needed"
         NOT_REQUESTED = "not_requested"
+
+    class FactorTypes(object):
+        APP_PUSH = "app-push"
+        SMS = "sms"
+        TOTP = "totp"
 
     def __init__(self, version, payload, service_sid, identity, factor_sid,
                  sid=None):
@@ -301,9 +306,8 @@ class ChallengeInstance(InstanceResource):
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
             'date_responded': deserialize.iso8601_datetime(payload['date_responded']),
             'expiration_date': deserialize.iso8601_datetime(payload['expiration_date']),
-            'verification_sid': payload['verification_sid'],
             'status': payload['status'],
-            'reason': payload['reason'],
+            'responded_reason': payload['responded_reason'],
             'details': payload['details'],
             'hidden_details': payload['hidden_details'],
             'type': payload['type'],
@@ -419,28 +423,20 @@ class ChallengeInstance(InstanceResource):
         return self._properties['expiration_date']
 
     @property
-    def verification_sid(self):
-        """
-        :returns: Verification Sid.
-        :rtype: unicode
-        """
-        return self._properties['verification_sid']
-
-    @property
     def status(self):
         """
         :returns: The Status of this Challenge
-        :rtype: ChallengeInstance.ChallengeStatus
+        :rtype: ChallengeInstance.ChallengeStatuses
         """
         return self._properties['status']
 
     @property
-    def reason(self):
+    def responded_reason(self):
         """
         :returns: The Reason of this Challenge `status`
-        :rtype: ChallengeInstance.ChallengeReason
+        :rtype: ChallengeInstance.ChallengeReasons
         """
-        return self._properties['reason']
+        return self._properties['responded_reason']
 
     @property
     def details(self):
@@ -461,8 +457,8 @@ class ChallengeInstance(InstanceResource):
     @property
     def type(self):
         """
-        :returns: The Factor Type of this Challenge
-        :rtype: unicode
+        :returns: The Type of this Challenge
+        :rtype: ChallengeInstance.FactorTypes
         """
         return self._properties['type']
 

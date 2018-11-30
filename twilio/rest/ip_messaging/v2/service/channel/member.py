@@ -38,7 +38,7 @@ class MemberList(ListResource):
     def create(self, identity, role_sid=values.unset,
                last_consumed_message_index=values.unset,
                last_consumption_timestamp=values.unset, date_created=values.unset,
-               date_updated=values.unset):
+               date_updated=values.unset, attributes=values.unset):
         """
         Create a new MemberInstance
 
@@ -48,6 +48,7 @@ class MemberList(ListResource):
         :param datetime last_consumption_timestamp: ISO8601 time indicating the last datetime the Member consumed a Message in the Channel.  Should only be used when recreating a Member from a backup/separate source
         :param datetime date_created: The ISO8601 time specifying the datetime the Members should be set as being created.  Will be set to the current time by the Chat service if not specified.  Note that this should only be used in cases where a Member is being recreated from a backup/separate source
         :param datetime date_updated: The ISO8601 time specifying the datetime the Member should be set as having been last updated.  Will be set to the null by the Chat service if not specified.  Note that this should only be used in cases where a Member is being recreated from a backup/separate source  and where a Member was previously updated.
+        :param unicode attributes: An optional string metadata field you can use to store any data you wish.
 
         :returns: Newly created MemberInstance
         :rtype: twilio.rest.chat.v2.service.channel.member.MemberInstance
@@ -59,6 +60,7 @@ class MemberList(ListResource):
             'LastConsumptionTimestamp': serialize.iso8601_datetime(last_consumption_timestamp),
             'DateCreated': serialize.iso8601_datetime(date_created),
             'DateUpdated': serialize.iso8601_datetime(date_updated),
+            'Attributes': attributes,
         })
 
         payload = self._version.create(
@@ -307,7 +309,7 @@ class MemberContext(InstanceContext):
     def update(self, role_sid=values.unset,
                last_consumed_message_index=values.unset,
                last_consumption_timestamp=values.unset, date_created=values.unset,
-               date_updated=values.unset):
+               date_updated=values.unset, attributes=values.unset):
         """
         Update the MemberInstance
 
@@ -316,6 +318,7 @@ class MemberContext(InstanceContext):
         :param datetime last_consumption_timestamp: ISO8601 time indicating the last datetime the Member consumed a Message in the Channel.
         :param datetime date_created: The ISO8601 time specifying the datetime the Members should be set as being created.
         :param datetime date_updated: The ISO8601 time specifying the datetime the Member should be set as having been last updated.
+        :param unicode attributes: An optional string metadata field you can use to store any data you wish.
 
         :returns: Updated MemberInstance
         :rtype: twilio.rest.chat.v2.service.channel.member.MemberInstance
@@ -326,6 +329,7 @@ class MemberContext(InstanceContext):
             'LastConsumptionTimestamp': serialize.iso8601_datetime(last_consumption_timestamp),
             'DateCreated': serialize.iso8601_datetime(date_created),
             'DateUpdated': serialize.iso8601_datetime(date_updated),
+            'Attributes': attributes,
         })
 
         payload = self._version.update(
@@ -382,6 +386,7 @@ class MemberInstance(InstanceResource):
             'last_consumed_message_index': deserialize.integer(payload['last_consumed_message_index']),
             'last_consumption_timestamp': deserialize.iso8601_datetime(payload['last_consumption_timestamp']),
             'url': payload['url'],
+            'attributes': payload['attributes'],
         }
 
         # Context
@@ -498,6 +503,14 @@ class MemberInstance(InstanceResource):
         """
         return self._properties['url']
 
+    @property
+    def attributes(self):
+        """
+        :returns: An optional string metadata field you can use to store any data you wish.
+        :rtype: unicode
+        """
+        return self._properties['attributes']
+
     def fetch(self):
         """
         Fetch a MemberInstance
@@ -519,7 +532,7 @@ class MemberInstance(InstanceResource):
     def update(self, role_sid=values.unset,
                last_consumed_message_index=values.unset,
                last_consumption_timestamp=values.unset, date_created=values.unset,
-               date_updated=values.unset):
+               date_updated=values.unset, attributes=values.unset):
         """
         Update the MemberInstance
 
@@ -528,6 +541,7 @@ class MemberInstance(InstanceResource):
         :param datetime last_consumption_timestamp: ISO8601 time indicating the last datetime the Member consumed a Message in the Channel.
         :param datetime date_created: The ISO8601 time specifying the datetime the Members should be set as being created.
         :param datetime date_updated: The ISO8601 time specifying the datetime the Member should be set as having been last updated.
+        :param unicode attributes: An optional string metadata field you can use to store any data you wish.
 
         :returns: Updated MemberInstance
         :rtype: twilio.rest.chat.v2.service.channel.member.MemberInstance
@@ -538,6 +552,7 @@ class MemberInstance(InstanceResource):
             last_consumption_timestamp=last_consumption_timestamp,
             date_created=date_created,
             date_updated=date_updated,
+            attributes=attributes,
         )
 
     def __repr__(self):

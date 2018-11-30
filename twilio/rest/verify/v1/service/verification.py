@@ -34,7 +34,8 @@ class VerificationList(ListResource):
         self._uri = '/Services/{service_sid}/Verifications'.format(**self._solution)
 
     def create(self, to, channel, custom_message=values.unset,
-               send_digits=values.unset, locale=values.unset):
+               send_digits=values.unset, locale=values.unset,
+               custom_code=values.unset):
         """
         Create a new VerificationInstance
 
@@ -43,6 +44,7 @@ class VerificationList(ListResource):
         :param unicode custom_message: A custom message for this verification
         :param unicode send_digits: Digits to send when a phone call is started
         :param unicode locale: Locale used in the sms or call.
+        :param unicode custom_code: A pre-generated code
 
         :returns: Newly created VerificationInstance
         :rtype: twilio.rest.verify.v1.service.verification.VerificationInstance
@@ -53,6 +55,7 @@ class VerificationList(ListResource):
             'CustomMessage': custom_message,
             'SendDigits': send_digits,
             'Locale': locale,
+            'CustomCode': custom_code,
         })
 
         payload = self._version.create(

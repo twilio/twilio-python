@@ -20,9 +20,9 @@ class FactorTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.authy.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                 .entities(identity="identity") \
-                                .factors.create(binding="binding", factor_type="factor_type", friendly_name="friendly_name")
+                                .factors.create(binding="binding", friendly_name="friendly_name", type="app-push")
 
-        values = {'Binding': "binding", 'FactorType': "factor_type", 'FriendlyName': "friendly_name", }
+        values = {'Binding': "binding", 'FriendlyName': "friendly_name", 'Type': "app-push", }
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -55,7 +55,7 @@ class FactorTestCase(IntegrationTestCase):
 
         actual = self.client.authy.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                      .entities(identity="identity") \
-                                     .factors.create(binding="binding", factor_type="factor_type", friendly_name="friendly_name")
+                                     .factors.create(binding="binding", friendly_name="friendly_name", type="app-push")
 
         self.assertIsNotNone(actual)
 

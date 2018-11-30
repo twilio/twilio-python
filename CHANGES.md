@@ -3,6 +3,28 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-11-30] Version 6.21.0
+----------------------------
+**Api**
+- Add `interactive_data` optional param to Messages create request
+
+**Authy**
+- Required authentication for `/v1/Forms/{type}` endpoint **(breaking change)**
+- Removed `Challenge.reason` to `Challenge.responded_reason`
+- Removed `verification_sid` from Challenge responses
+- Removed `config` param from the Factor creation
+- Replaced all occurrences of `FactorType` and `FormType` in favor of a unified `Type` **(breaking change)**
+
+**Chat**
+- Add Member attributes
+
+**Preview**
+- Removed `Authy` version from `preview` subdomain in favor to `authy` subdomain. **(breaking change)**
+
+**Verify**
+- Add `CustomCode` optional parameter on Verication creation.
+
+
 [2018-11-16] Version 6.20.0
 ----------------------------
 **Messaging**

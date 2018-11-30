@@ -37,24 +37,18 @@ class FactorList(ListResource):
         self._solution = {'service_sid': service_sid, 'identity': identity, }
         self._uri = '/Services/{service_sid}/Entities/{identity}/Factors'.format(**self._solution)
 
-    def create(self, binding, factor_type, friendly_name, config=values.unset):
+    def create(self, binding, friendly_name, type):
         """
         Create a new FactorInstance
 
         :param unicode binding: A unique binding for this Factor
-        :param unicode factor_type: The Type of this Factor
         :param unicode friendly_name: The friendly name of this Factor
-        :param unicode config: Factor configuration
+        :param FactorInstance.FactorTypes type: The Type of this Factor
 
         :returns: Newly created FactorInstance
         :rtype: twilio.rest.authy.v1.service.entity.factor.FactorInstance
         """
-        data = values.of({
-            'Binding': binding,
-            'FactorType': factor_type,
-            'FriendlyName': friendly_name,
-            'Config': config,
-        })
+        data = values.of({'Binding': binding, 'FriendlyName': friendly_name, 'Type': type, })
 
         payload = self._version.create(
             'POST',
@@ -356,9 +350,14 @@ class FactorInstance(InstanceResource):
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
-    class FactorStatus(object):
+    class FactorStatuses(object):
         UNVERIFIED = "unverified"
         VERIFIED = "verified"
+
+    class FactorTypes(object):
+        APP_PUSH = "app-push"
+        SMS = "sms"
+        TOTP = "totp"
 
     def __init__(self, version, payload, service_sid, identity, sid=None):
         """
@@ -479,7 +478,7 @@ class FactorInstance(InstanceResource):
     def status(self):
         """
         :returns: The Status of this Factor
-        :rtype: FactorInstance.FactorStatus
+        :rtype: FactorInstance.FactorStatuses
         """
         return self._properties['status']
 
@@ -487,7 +486,7 @@ class FactorInstance(InstanceResource):
     def type(self):
         """
         :returns: The Type of this Factor
-        :rtype: unicode
+        :rtype: FactorInstance.FactorTypes
         """
         return self._properties['type']
 
