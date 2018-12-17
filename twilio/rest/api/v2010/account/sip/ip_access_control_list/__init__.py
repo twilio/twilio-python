@@ -142,7 +142,7 @@ class IpAccessControlListList(ListResource):
         """
         Constructs a IpAccessControlListContext
 
-        :param sid: Fetch by unique IpAccessControlList Sid
+        :param sid: A string that identifies the resource to fetch
 
         :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext
@@ -153,7 +153,7 @@ class IpAccessControlListList(ListResource):
         """
         Constructs a IpAccessControlListContext
 
-        :param sid: Fetch by unique IpAccessControlList Sid
+        :param sid: A string that identifies the resource to fetch
 
         :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext
@@ -222,8 +222,8 @@ class IpAccessControlListContext(InstanceContext):
         Initialize the IpAccessControlListContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
-        :param sid: Fetch by unique IpAccessControlList Sid
+        :param account_sid: The unique sid that identifies this account
+        :param sid: A string that identifies the resource to fetch
 
         :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext
@@ -406,7 +406,7 @@ class IpAccessControlListInstance(InstanceResource):
     @property
     def subresource_uris(self):
         """
-        :returns: The subresource_uris
+        :returns: The IP addresses associated with this resource.
         :rtype: unicode
         """
         return self._properties['subresource_uris']

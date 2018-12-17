@@ -23,7 +23,7 @@ class FeedbackList(ListResource):
         Initialize the FeedbackList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
+        :param account_sid: The unique sid that identifies this account
         :param call_sid: A 34-character string that uniquely identifies the Call resource.
 
         :returns: twilio.rest.api.v2010.account.call.feedback.FeedbackList
@@ -79,7 +79,7 @@ class FeedbackPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The account_sid
+        :param account_sid: The unique sid that identifies this account
         :param call_sid: A 34-character string that uniquely identifies the Call resource.
 
         :returns: twilio.rest.api.v2010.account.call.feedback.FeedbackPage
@@ -124,7 +124,7 @@ class FeedbackContext(InstanceContext):
         Initialize the FeedbackContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
+        :param account_sid: The unique sid that identifies this account
         :param call_sid: The call sid that uniquely identifies the call
 
         :returns: twilio.rest.api.v2010.account.call.feedback.FeedbackContext
@@ -140,7 +140,7 @@ class FeedbackContext(InstanceContext):
         """
         Create a new FeedbackInstance
 
-        :param unicode quality_score: An integer from 1 to 5
+        :param unicode quality_score: The call quality expressed as an integer from 1 to 5
         :param FeedbackInstance.Issues issue: Issues experienced during the call
 
         :returns: Newly created FeedbackInstance
@@ -187,7 +187,7 @@ class FeedbackContext(InstanceContext):
         """
         Update the FeedbackInstance
 
-        :param unicode quality_score: An integer from 1 to 5
+        :param unicode quality_score: The call quality expressed as an integer from 1 to 5
         :param FeedbackInstance.Issues issue: Issues experienced during the call
 
         :returns: Updated FeedbackInstance
@@ -275,7 +275,7 @@ class FeedbackInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique sid that identifies this account
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -283,7 +283,7 @@ class FeedbackInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date this resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -291,7 +291,7 @@ class FeedbackInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date this resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -299,7 +299,7 @@ class FeedbackInstance(InstanceResource):
     @property
     def issues(self):
         """
-        :returns: The issues
+        :returns: Issues experienced during the call
         :rtype: FeedbackInstance.Issues
         """
         return self._properties['issues']
@@ -315,7 +315,7 @@ class FeedbackInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A string that uniquely identifies this feedback resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -324,7 +324,7 @@ class FeedbackInstance(InstanceResource):
         """
         Create a new FeedbackInstance
 
-        :param unicode quality_score: An integer from 1 to 5
+        :param unicode quality_score: The call quality expressed as an integer from 1 to 5
         :param FeedbackInstance.Issues issue: Issues experienced during the call
 
         :returns: Newly created FeedbackInstance
@@ -345,7 +345,7 @@ class FeedbackInstance(InstanceResource):
         """
         Update the FeedbackInstance
 
-        :param unicode quality_score: An integer from 1 to 5
+        :param unicode quality_score: The call quality expressed as an integer from 1 to 5
         :param FeedbackInstance.Issues issue: Issues experienced during the call
 
         :returns: Updated FeedbackInstance

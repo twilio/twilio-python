@@ -37,18 +37,18 @@ class FactorList(ListResource):
         self._solution = {'service_sid': service_sid, 'identity': identity, }
         self._uri = '/Services/{service_sid}/Entities/{identity}/Factors'.format(**self._solution)
 
-    def create(self, binding, friendly_name, type):
+    def create(self, binding, friendly_name, factor_type):
         """
         Create a new FactorInstance
 
         :param unicode binding: A unique binding for this Factor
         :param unicode friendly_name: The friendly name of this Factor
-        :param FactorInstance.FactorTypes type: The Type of this Factor
+        :param FactorInstance.FactorTypes factor_type: The Type of this Factor
 
         :returns: Newly created FactorInstance
         :rtype: twilio.rest.authy.v1.service.entity.factor.FactorInstance
         """
-        data = values.of({'Binding': binding, 'FriendlyName': friendly_name, 'Type': type, })
+        data = values.of({'Binding': binding, 'FriendlyName': friendly_name, 'FactorType': factor_type, })
 
         payload = self._version.create(
             'POST',
@@ -379,7 +379,7 @@ class FactorInstance(InstanceResource):
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
             'friendly_name': payload['friendly_name'],
             'status': payload['status'],
-            'type': payload['type'],
+            'factor_type': payload['factor_type'],
             'url': payload['url'],
             'links': payload['links'],
         }
@@ -483,12 +483,12 @@ class FactorInstance(InstanceResource):
         return self._properties['status']
 
     @property
-    def type(self):
+    def factor_type(self):
         """
         :returns: The Type of this Factor
         :rtype: FactorInstance.FactorTypes
         """
-        return self._properties['type']
+        return self._properties['factor_type']
 
     @property
     def url(self):

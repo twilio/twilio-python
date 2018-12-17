@@ -46,7 +46,7 @@ class SessionList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param unicode unique_name: The unique_name
-        :param SessionInstance.Status status: The Status of this Session
+        :param SessionInstance.Status status: The status
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -71,7 +71,7 @@ class SessionList(ListResource):
         memory before returning.
 
         :param unicode unique_name: The unique_name
-        :param SessionInstance.Status status: The Status of this Session
+        :param SessionInstance.Status status: The status
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -92,7 +92,7 @@ class SessionList(ListResource):
         Request is executed immediately
 
         :param unicode unique_name: The unique_name
-        :param SessionInstance.Status status: The Status of this Session
+        :param SessionInstance.Status status: The status
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50

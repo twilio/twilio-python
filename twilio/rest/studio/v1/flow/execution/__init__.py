@@ -36,13 +36,16 @@ class ExecutionList(ListResource):
         self._solution = {'flow_sid': flow_sid, }
         self._uri = '/Flows/{flow_sid}/Executions'.format(**self._solution)
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, date_created_from=values.unset, date_created_to=values.unset,
+               limit=None, page_size=None):
         """
         Streams ExecutionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
+        :param datetime date_created_from: Only show Executions that started on or after this ISO8601 date-time.
+        :param datetime date_created_to: Only show Executions that started before this this ISO8601 date-time.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -55,16 +58,23 @@ class ExecutionList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'], )
+        page = self.page(
+            date_created_from=date_created_from,
+            date_created_to=date_created_to,
+            page_size=limits['page_size'],
+        )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, date_created_from=values.unset, date_created_to=values.unset,
+             limit=None, page_size=None):
         """
         Lists ExecutionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
+        :param datetime date_created_from: Only show Executions that started on or after this ISO8601 date-time.
+        :param datetime date_created_to: Only show Executions that started before this this ISO8601 date-time.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -75,14 +85,22 @@ class ExecutionList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.studio.v1.flow.execution.ExecutionInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size, ))
+        return list(self.stream(
+            date_created_from=date_created_from,
+            date_created_to=date_created_to,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    def page(self, page_token=values.unset, page_number=values.unset,
+    def page(self, date_created_from=values.unset, date_created_to=values.unset,
+             page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
         """
         Retrieve a single page of ExecutionInstance records from the API.
         Request is executed immediately
 
+        :param datetime date_created_from: Only show Executions that started on or after this ISO8601 date-time.
+        :param datetime date_created_to: Only show Executions that started before this this ISO8601 date-time.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -90,7 +108,13 @@ class ExecutionList(ListResource):
         :returns: Page of ExecutionInstance
         :rtype: twilio.rest.studio.v1.flow.execution.ExecutionPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        params = values.of({
+            'DateCreatedFrom': serialize.iso8601_datetime(date_created_from),
+            'DateCreatedTo': serialize.iso8601_datetime(date_created_to),
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
         response = self._version.page(
             'GET',

@@ -49,7 +49,7 @@ class RecordingList(ListResource):
         :param datetime date_created: Filter by date created
         :param datetime date_created_after: Filter by date created
         :param unicode call_sid: Filter by call_sid
-        :param unicode conference_sid: The conference_sid
+        :param unicode conference_sid: The unique ID for the conference associated with the recording.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -85,7 +85,7 @@ class RecordingList(ListResource):
         :param datetime date_created: Filter by date created
         :param datetime date_created_after: Filter by date created
         :param unicode call_sid: Filter by call_sid
-        :param unicode conference_sid: The conference_sid
+        :param unicode conference_sid: The unique ID for the conference associated with the recording.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -118,7 +118,7 @@ class RecordingList(ListResource):
         :param datetime date_created: Filter by date created
         :param datetime date_created_after: Filter by date created
         :param unicode call_sid: Filter by call_sid
-        :param unicode conference_sid: The conference_sid
+        :param unicode conference_sid: The unique ID for the conference associated with the recording.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -242,7 +242,7 @@ class RecordingContext(InstanceContext):
         Initialize the RecordingContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
+        :param account_sid: The unique sid that identifies this account
         :param sid: Fetch by unique recording SID
 
         :returns: twilio.rest.api.v2010.account.recording.RecordingContext
@@ -341,7 +341,7 @@ class RecordingInstance(InstanceResource):
         STOPPED = "stopped"
         PROCESSING = "processing"
         COMPLETED = "completed"
-        FAILED = "failed"
+        ABSENT = "absent"
 
     class Source(object):
         DIALVERB = "DialVerb"
@@ -519,7 +519,7 @@ class RecordingInstance(InstanceResource):
     @property
     def error_code(self):
         """
-        :returns: More information about the recording failure, if Status is failed.
+        :returns: More information about why the recording is missing, if Status is `absent`.
         :rtype: unicode
         """
         return self._properties['error_code']
@@ -543,7 +543,7 @@ class RecordingInstance(InstanceResource):
     @property
     def subresource_uris(self):
         """
-        :returns: The subresource_uris
+        :returns: A dictionary of URIs for related resources
         :rtype: unicode
         """
         return self._properties['subresource_uris']

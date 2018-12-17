@@ -279,7 +279,7 @@ class RecordingContext(InstanceContext):
         Initialize the RecordingContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
+        :param account_sid: The unique sid that identifies this account
         :param call_sid: Fetch by unique call Sid for the recording
         :param sid: Fetch by unique recording Sid
 
@@ -370,7 +370,7 @@ class RecordingInstance(InstanceResource):
         STOPPED = "stopped"
         PROCESSING = "processing"
         COMPLETED = "completed"
-        FAILED = "failed"
+        ABSENT = "absent"
 
     class Source(object):
         DIALVERB = "DialVerb"
@@ -568,7 +568,7 @@ class RecordingInstance(InstanceResource):
     @property
     def error_code(self):
         """
-        :returns: More information about the recording failure, if Status is failed.
+        :returns: More information about why the recording is missing, if Status is `absent`.
         :rtype: unicode
         """
         return self._properties['error_code']

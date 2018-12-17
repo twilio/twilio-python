@@ -333,7 +333,7 @@ class RecordingInstance(InstanceResource):
         STOPPED = "stopped"
         PROCESSING = "processing"
         COMPLETED = "completed"
-        FAILED = "failed"
+        ABSENT = "absent"
 
     class Source(object):
         DIALVERB = "DialVerb"
@@ -515,7 +515,7 @@ class RecordingInstance(InstanceResource):
     @property
     def error_code(self):
         """
-        :returns: More information about the recording failure, if Status is failed.
+        :returns: More information about why the recording is missing, if Status is `absent`.
         :rtype: unicode
         """
         return self._properties['error_code']

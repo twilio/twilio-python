@@ -228,7 +228,8 @@ class VoiceResponse(TwiML):
     def record(self, action=None, method=None, timeout=None, finish_on_key=None,
                max_length=None, play_beep=None, trim=None,
                recording_status_callback=None,
-               recording_status_callback_method=None, transcribe=None,
+               recording_status_callback_method=None,
+               recording_status_callback_event=None, transcribe=None,
                transcribe_callback=None, **kwargs):
         """
         Create a <Record> element
@@ -242,6 +243,7 @@ class VoiceResponse(TwiML):
         :param trim: Trim the recording
         :param recording_status_callback: Status callback URL
         :param recording_status_callback_method: Status callback URL method
+        :param recording_status_callback_event: Recording status callback events
         :param transcribe: Transcribe the recording
         :param transcribe_callback: Transcribe callback URL
         :param kwargs: additional attributes
@@ -258,6 +260,7 @@ class VoiceResponse(TwiML):
             trim=trim,
             recording_status_callback=recording_status_callback,
             recording_status_callback_method=recording_status_callback_method,
+            recording_status_callback_event=recording_status_callback_event,
             transcribe=transcribe,
             transcribe_callback=transcribe_callback,
             **kwargs

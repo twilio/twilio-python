@@ -22,7 +22,7 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
         Initialize the AuthRegistrationsCredentialListMappingList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The unique id of the account that sent the call
+        :param account_sid: The unique id of the account responsible for this domain
         :param domain_sid: A string that uniquely identifies the SIP Domain
 
         :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_registrations_mapping.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingList
@@ -190,7 +190,7 @@ class AuthRegistrationsCredentialListMappingPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The unique id of the account that sent the call
+        :param account_sid: The unique id of the account responsible for this domain
         :param domain_sid: A string that uniquely identifies the SIP Domain
 
         :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_registrations_mapping.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingPage

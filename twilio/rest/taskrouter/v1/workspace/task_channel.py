@@ -22,7 +22,7 @@ class TaskChannelList(ListResource):
         Initialize the TaskChannelList
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The workspace_sid
+        :param workspace_sid: The unique ID of the Workspace that this TaskChannel belongs to.
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelList
         :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelList
@@ -114,6 +114,26 @@ class TaskChannelList(ListResource):
 
         return TaskChannelPage(self._version, response, self._solution)
 
+    def create(self, friendly_name, unique_name):
+        """
+        Create a new TaskChannelInstance
+
+        :param unicode friendly_name: String representing user-friendly name for the TaskChannel
+        :param unicode unique_name: String representing unique name for the TaskChannel
+
+        :returns: Newly created TaskChannelInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
+        """
+        data = values.of({'FriendlyName': friendly_name, 'UniqueName': unique_name, })
+
+        payload = self._version.create(
+            'POST',
+            self._uri,
+            data=data,
+        )
+
+        return TaskChannelInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'], )
+
     def get(self, sid):
         """
         Constructs a TaskChannelContext
@@ -155,7 +175,7 @@ class TaskChannelPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param workspace_sid: The workspace_sid
+        :param workspace_sid: The unique ID of the Workspace that this TaskChannel belongs to.
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelPage
         :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelPage
@@ -228,6 +248,39 @@ class TaskChannelContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
+    def update(self, friendly_name=values.unset):
+        """
+        Update the TaskChannelInstance
+
+        :param unicode friendly_name: Toggle the FriendlyName for the TaskChannel
+
+        :returns: Updated TaskChannelInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
+        """
+        data = values.of({'FriendlyName': friendly_name, })
+
+        payload = self._version.update(
+            'POST',
+            self._uri,
+            data=data,
+        )
+
+        return TaskChannelInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid'],
+        )
+
+    def delete(self):
+        """
+        Deletes the TaskChannelInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete('delete', self._uri)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -261,6 +314,7 @@ class TaskChannelInstance(InstanceResource):
             'unique_name': payload['unique_name'],
             'workspace_sid': payload['workspace_sid'],
             'url': payload['url'],
+            'links': payload['links'],
         }
 
         # Context
@@ -287,7 +341,7 @@ class TaskChannelInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique ID of the Account that owns this TaskChannel.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -295,7 +349,7 @@ class TaskChannelInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date this TaskChannel was created.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -303,7 +357,7 @@ class TaskChannelInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date this TaskChannel was updated.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -311,7 +365,7 @@ class TaskChannelInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The friendly_name
+        :returns: The friendly name of this TaskChannel
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -319,7 +373,7 @@ class TaskChannelInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: The unique ID for this TaskChannel.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -327,7 +381,7 @@ class TaskChannelInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: The unique_name
+        :returns: The unique name of TaskChannel, such as 'voice', 'sms', etc.
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -335,7 +389,7 @@ class TaskChannelInstance(InstanceResource):
     @property
     def workspace_sid(self):
         """
-        :returns: The workspace_sid
+        :returns: The unique ID of the Workspace that this TaskChannel belongs to.
         :rtype: unicode
         """
         return self._properties['workspace_sid']
@@ -348,6 +402,14 @@ class TaskChannelInstance(InstanceResource):
         """
         return self._properties['url']
 
+    @property
+    def links(self):
+        """
+        :returns: The links
+        :rtype: unicode
+        """
+        return self._properties['links']
+
     def fetch(self):
         """
         Fetch a TaskChannelInstance
@@ -356,6 +418,26 @@ class TaskChannelInstance(InstanceResource):
         :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
         """
         return self._proxy.fetch()
+
+    def update(self, friendly_name=values.unset):
+        """
+        Update the TaskChannelInstance
+
+        :param unicode friendly_name: Toggle the FriendlyName for the TaskChannel
+
+        :returns: Updated TaskChannelInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
+        """
+        return self._proxy.update(friendly_name=friendly_name, )
+
+    def delete(self):
+        """
+        Deletes the TaskChannelInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
 
     def __repr__(self):
         """

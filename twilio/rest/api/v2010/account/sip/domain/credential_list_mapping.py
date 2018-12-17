@@ -22,7 +22,7 @@ class CredentialListMappingList(ListResource):
         Initialize the CredentialListMappingList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The unique id of the Account that responsible for this resource.
+        :param account_sid: The unique id of the Account that is responsible for this resource.
         :param domain_sid: A string that uniquely identifies the SIP Domain
 
         :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingList
@@ -38,7 +38,7 @@ class CredentialListMappingList(ListResource):
         """
         Create a new CredentialListMappingInstance
 
-        :param unicode credential_list_sid: The credential_list_sid
+        :param unicode credential_list_sid: A string that identifies the CredentialList resource to map to the SIP domain
 
         :returns: Newly created CredentialListMappingInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
@@ -143,7 +143,7 @@ class CredentialListMappingList(ListResource):
         """
         Constructs a CredentialListMappingContext
 
-        :param sid: The sid
+        :param sid: A string that identifies the resource to fetch
 
         :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingContext
         :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingContext
@@ -159,7 +159,7 @@ class CredentialListMappingList(ListResource):
         """
         Constructs a CredentialListMappingContext
 
-        :param sid: The sid
+        :param sid: A string that identifies the resource to fetch
 
         :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingContext
         :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingContext
@@ -190,7 +190,7 @@ class CredentialListMappingPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The unique id of the Account that responsible for this resource.
+        :param account_sid: The unique id of the Account that is responsible for this resource.
         :param domain_sid: A string that uniquely identifies the SIP Domain
 
         :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingPage
@@ -235,9 +235,9 @@ class CredentialListMappingContext(InstanceContext):
         Initialize the CredentialListMappingContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
-        :param domain_sid: The domain_sid
-        :param sid: The sid
+        :param account_sid: The unique sid that identifies this account
+        :param domain_sid: A string that identifies the SIP Domain that includes the resource to fetch
+        :param sid: A string that identifies the resource to fetch
 
         :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingContext
         :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingContext
@@ -343,7 +343,7 @@ class CredentialListMappingInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the Account that responsible for this resource.
+        :returns: The unique id of the Account that is responsible for this resource.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -391,7 +391,7 @@ class CredentialListMappingInstance(InstanceResource):
     @property
     def subresource_uris(self):
         """
-        :returns: The subresource_uris
+        :returns: The credentials associated with this resource.
         :rtype: unicode
         """
         return self._properties['subresource_uris']

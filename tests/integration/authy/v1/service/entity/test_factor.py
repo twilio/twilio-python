@@ -20,9 +20,9 @@ class FactorTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.authy.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                 .entities(identity="identity") \
-                                .factors.create(binding="binding", friendly_name="friendly_name", type="app-push")
+                                .factors.create(binding="binding", friendly_name="friendly_name", factor_type="app-push")
 
-        values = {'Binding': "binding", 'FriendlyName': "friendly_name", 'Type': "app-push", }
+        values = {'Binding': "binding", 'FriendlyName': "friendly_name", 'FactorType': "app-push", }
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -44,7 +44,7 @@ class FactorTestCase(IntegrationTestCase):
                 "date_updated": "2015-07-30T20:00:00Z",
                 "friendly_name": "friendly_name",
                 "status": "unverified",
-                "type": "sms",
+                "factor_type": "sms",
                 "url": "https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "links": {
                     "challenges": "https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges"
@@ -55,7 +55,7 @@ class FactorTestCase(IntegrationTestCase):
 
         actual = self.client.authy.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                      .entities(identity="identity") \
-                                     .factors.create(binding="binding", friendly_name="friendly_name", type="app-push")
+                                     .factors.create(binding="binding", friendly_name="friendly_name", factor_type="app-push")
 
         self.assertIsNotNone(actual)
 
@@ -111,7 +111,7 @@ class FactorTestCase(IntegrationTestCase):
                 "date_updated": "2015-07-30T20:00:00Z",
                 "friendly_name": "friendly_name",
                 "status": "unverified",
-                "type": "sms",
+                "factor_type": "sms",
                 "url": "https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "links": {
                     "challenges": "https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges"
@@ -180,7 +180,7 @@ class FactorTestCase(IntegrationTestCase):
                         "date_updated": "2015-07-30T20:00:00Z",
                         "friendly_name": "friendly_name",
                         "status": "unverified",
-                        "type": "sms",
+                        "factor_type": "sms",
                         "url": "https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "links": {
                             "challenges": "https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges"
@@ -233,7 +233,7 @@ class FactorTestCase(IntegrationTestCase):
                 "date_updated": "2015-07-30T20:00:00Z",
                 "friendly_name": "friendly_name",
                 "status": "verified",
-                "type": "sms",
+                "factor_type": "sms",
                 "url": "https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "links": {
                     "challenges": "https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges"

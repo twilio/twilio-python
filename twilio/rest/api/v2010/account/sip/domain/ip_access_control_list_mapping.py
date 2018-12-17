@@ -22,7 +22,7 @@ class IpAccessControlListMappingList(ListResource):
         Initialize the IpAccessControlListMappingList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The unique id of the Account that responsible for this resource.
+        :param account_sid: The unique id of the Account that is responsible for this resource.
         :param domain_sid: A string that uniquely identifies the SIP Domain
 
         :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingList
@@ -38,7 +38,7 @@ class IpAccessControlListMappingList(ListResource):
         """
         Create a new IpAccessControlListMappingInstance
 
-        :param unicode ip_access_control_list_sid: The ip_access_control_list_sid
+        :param unicode ip_access_control_list_sid: The unique id of the IP access control list to map to the SIP domain
 
         :returns: Newly created IpAccessControlListMappingInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance
@@ -143,7 +143,7 @@ class IpAccessControlListMappingList(ListResource):
         """
         Constructs a IpAccessControlListMappingContext
 
-        :param sid: The sid
+        :param sid: A 34 character string that uniquely identifies the resource to fetch.
 
         :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingContext
         :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingContext
@@ -159,7 +159,7 @@ class IpAccessControlListMappingList(ListResource):
         """
         Constructs a IpAccessControlListMappingContext
 
-        :param sid: The sid
+        :param sid: A 34 character string that uniquely identifies the resource to fetch.
 
         :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingContext
         :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingContext
@@ -190,7 +190,7 @@ class IpAccessControlListMappingPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The unique id of the Account that responsible for this resource.
+        :param account_sid: The unique id of the Account that is responsible for this resource.
         :param domain_sid: A string that uniquely identifies the SIP Domain
 
         :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingPage
@@ -235,9 +235,9 @@ class IpAccessControlListMappingContext(InstanceContext):
         Initialize the IpAccessControlListMappingContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
-        :param domain_sid: The domain_sid
-        :param sid: The sid
+        :param account_sid: The unique id of the Account that is responsible for this resource.
+        :param domain_sid: A string that uniquely identifies the SIP Domain
+        :param sid: A 34 character string that uniquely identifies the resource to fetch.
 
         :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingContext
         :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingContext
@@ -343,7 +343,7 @@ class IpAccessControlListMappingInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the Account that responsible for this resource.
+        :returns: The unique id of the Account that is responsible for this resource.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -391,7 +391,7 @@ class IpAccessControlListMappingInstance(InstanceResource):
     @property
     def subresource_uris(self):
         """
-        :returns: The subresource_uris
+        :returns: The list of IP addresses associated with this domain.
         :rtype: unicode
         """
         return self._properties['subresource_uris']

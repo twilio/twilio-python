@@ -3,6 +3,31 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2018-12-17] Version 6.22.0
+----------------------------
+**Authy**
+- Reverted the change to `FactorType` and `FormType`, avoiding conflicts with Helper Libraries reserved words (`type`) **(breaking change)**
+
+**Proxy**
+- Remove incorrect parameter for Session List
+
+**Studio**
+- Support date created filtering on list of executions
+
+**Taskrouter**
+- Adding ability to Create, Modify and Delete Task Channels.
+
+**Verify**
+- Add `SkipSmsToLandlines`, `TtsName`, `DtmfInputRequired` optional parameters on Service resource creation or update.
+
+**Wireless**
+- Added delete action on Command resource.
+- Added delete action on Sim resource.
+
+**Twiml**
+- Change `currency` from enum to string for `Pay` **(breaking change)**
+
+
 [2018-11-30] Version 6.21.0
 ----------------------------
 **Api**

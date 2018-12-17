@@ -310,7 +310,7 @@ class ChallengeInstance(InstanceResource):
             'responded_reason': payload['responded_reason'],
             'details': payload['details'],
             'hidden_details': payload['hidden_details'],
-            'type': payload['type'],
+            'factor_type': payload['factor_type'],
             'url': payload['url'],
         }
 
@@ -455,12 +455,12 @@ class ChallengeInstance(InstanceResource):
         return self._properties['hidden_details']
 
     @property
-    def type(self):
+    def factor_type(self):
         """
-        :returns: The Type of this Challenge
+        :returns: The Factor Type of this Challenge
         :rtype: ChallengeInstance.FactorTypes
         """
-        return self._properties['type']
+        return self._properties['factor_type']
 
     @property
     def url(self):

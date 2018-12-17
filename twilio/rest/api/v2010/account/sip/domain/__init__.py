@@ -118,9 +118,8 @@ class DomainList(ListResource):
         return DomainPage(self._version, response, self._solution)
 
     def create(self, domain_name, friendly_name=values.unset,
-               auth_type=values.unset, voice_url=values.unset,
-               voice_method=values.unset, voice_fallback_url=values.unset,
-               voice_fallback_method=values.unset,
+               voice_url=values.unset, voice_method=values.unset,
+               voice_fallback_url=values.unset, voice_fallback_method=values.unset,
                voice_status_callback_url=values.unset,
                voice_status_callback_method=values.unset,
                sip_registration=values.unset):
@@ -128,15 +127,14 @@ class DomainList(ListResource):
         Create a new DomainInstance
 
         :param unicode domain_name: The unique address on Twilio to route SIP traffic
-        :param unicode friendly_name: A user-specified, human-readable name for the trigger.
-        :param unicode auth_type: The types of authentication mapped to the domain
+        :param unicode friendly_name: A user-specified, human-readable name for the domain.
         :param unicode voice_url: URL Twilio will request when receiving a call
         :param unicode voice_method: HTTP method to use with voice_url
         :param unicode voice_fallback_url: URL Twilio will request if an error occurs in executing TwiML
         :param unicode voice_fallback_method: HTTP method used with voice_fallback_url
         :param unicode voice_status_callback_url: URL that Twilio will request with status updates
         :param unicode voice_status_callback_method: The HTTP method Twilio will use to make requests to the StatusCallback URL.
-        :param bool sip_registration: The sip_registration
+        :param bool sip_registration: If SIP registration is allowed
 
         :returns: Newly created DomainInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
@@ -144,7 +142,6 @@ class DomainList(ListResource):
         data = values.of({
             'DomainName': domain_name,
             'FriendlyName': friendly_name,
-            'AuthType': auth_type,
             'VoiceUrl': voice_url,
             'VoiceMethod': voice_method,
             'VoiceFallbackUrl': voice_fallback_url,
@@ -242,7 +239,7 @@ class DomainContext(InstanceContext):
         Initialize the DomainContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
+        :param account_sid: The unique sid that identifies this account
         :param sid: Fetch by unique Domain Sid
 
         :returns: twilio.rest.api.v2010.account.sip.domain.DomainContext
@@ -281,29 +278,28 @@ class DomainContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
-    def update(self, auth_type=values.unset, friendly_name=values.unset,
-               voice_fallback_method=values.unset, voice_fallback_url=values.unset,
-               voice_method=values.unset, voice_status_callback_method=values.unset,
+    def update(self, friendly_name=values.unset, voice_fallback_method=values.unset,
+               voice_fallback_url=values.unset, voice_method=values.unset,
+               voice_status_callback_method=values.unset,
                voice_status_callback_url=values.unset, voice_url=values.unset,
-               sip_registration=values.unset):
+               sip_registration=values.unset, domain_name=values.unset):
         """
         Update the DomainInstance
 
-        :param unicode auth_type: The auth_type
-        :param unicode friendly_name: A user-specified, human-readable name for the trigger.
-        :param unicode voice_fallback_method: The voice_fallback_method
-        :param unicode voice_fallback_url: The voice_fallback_url
+        :param unicode friendly_name: A user-specified, human-readable name for the domain.
+        :param unicode voice_fallback_method: HTTP method used with voice_fallback_url
+        :param unicode voice_fallback_url: URL Twilio will request if an error occurs in executing TwiML
         :param unicode voice_method: HTTP method to use with voice_url
-        :param unicode voice_status_callback_method: The voice_status_callback_method
-        :param unicode voice_status_callback_url: The voice_status_callback_url
-        :param unicode voice_url: The voice_url
-        :param bool sip_registration: The sip_registration
+        :param unicode voice_status_callback_method: The HTTP method Twilio will use to make requests to the StatusCallback URL.
+        :param unicode voice_status_callback_url: URL that Twilio will request with status updates
+        :param unicode voice_url: URL Twilio will request when receiving a call
+        :param bool sip_registration: If SIP registration is allowed
+        :param unicode domain_name: The unique address on Twilio to route SIP traffic
 
         :returns: Updated DomainInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
         data = values.of({
-            'AuthType': auth_type,
             'FriendlyName': friendly_name,
             'VoiceFallbackMethod': voice_fallback_method,
             'VoiceFallbackUrl': voice_fallback_url,
@@ -312,6 +308,7 @@ class DomainContext(InstanceContext):
             'VoiceStatusCallbackUrl': voice_status_callback_url,
             'VoiceUrl': voice_url,
             'SipRegistration': sip_registration,
+            'DomainName': domain_name,
         })
 
         payload = self._version.update(
@@ -452,7 +449,7 @@ class DomainInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the account that sent the call
+        :returns: The unique id of the account responsible for this domain
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -500,7 +497,7 @@ class DomainInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A user-specified, human-readable name for the trigger.
+        :returns: A user-specified, human-readable name for the domain.
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -572,7 +569,7 @@ class DomainInstance(InstanceResource):
     @property
     def subresource_uris(self):
         """
-        :returns: The subresource_uris
+        :returns: The list mapping resources associated with this resource.
         :rtype: unicode
         """
         return self._properties['subresource_uris']
@@ -594,29 +591,28 @@ class DomainInstance(InstanceResource):
         """
         return self._proxy.fetch()
 
-    def update(self, auth_type=values.unset, friendly_name=values.unset,
-               voice_fallback_method=values.unset, voice_fallback_url=values.unset,
-               voice_method=values.unset, voice_status_callback_method=values.unset,
+    def update(self, friendly_name=values.unset, voice_fallback_method=values.unset,
+               voice_fallback_url=values.unset, voice_method=values.unset,
+               voice_status_callback_method=values.unset,
                voice_status_callback_url=values.unset, voice_url=values.unset,
-               sip_registration=values.unset):
+               sip_registration=values.unset, domain_name=values.unset):
         """
         Update the DomainInstance
 
-        :param unicode auth_type: The auth_type
-        :param unicode friendly_name: A user-specified, human-readable name for the trigger.
-        :param unicode voice_fallback_method: The voice_fallback_method
-        :param unicode voice_fallback_url: The voice_fallback_url
+        :param unicode friendly_name: A user-specified, human-readable name for the domain.
+        :param unicode voice_fallback_method: HTTP method used with voice_fallback_url
+        :param unicode voice_fallback_url: URL Twilio will request if an error occurs in executing TwiML
         :param unicode voice_method: HTTP method to use with voice_url
-        :param unicode voice_status_callback_method: The voice_status_callback_method
-        :param unicode voice_status_callback_url: The voice_status_callback_url
-        :param unicode voice_url: The voice_url
-        :param bool sip_registration: The sip_registration
+        :param unicode voice_status_callback_method: The HTTP method Twilio will use to make requests to the StatusCallback URL.
+        :param unicode voice_status_callback_url: URL that Twilio will request with status updates
+        :param unicode voice_url: URL Twilio will request when receiving a call
+        :param bool sip_registration: If SIP registration is allowed
+        :param unicode domain_name: The unique address on Twilio to route SIP traffic
 
         :returns: Updated DomainInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
         return self._proxy.update(
-            auth_type=auth_type,
             friendly_name=friendly_name,
             voice_fallback_method=voice_fallback_method,
             voice_fallback_url=voice_fallback_url,
@@ -625,6 +621,7 @@ class DomainInstance(InstanceResource):
             voice_status_callback_url=voice_status_callback_url,
             voice_url=voice_url,
             sip_registration=sip_registration,
+            domain_name=domain_name,
         )
 
     def delete(self):

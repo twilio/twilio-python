@@ -22,7 +22,7 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
         Initialize the AuthCallsIpAccessControlListMappingList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The unique id of the account that sent the call
+        :param account_sid: The unique id of the account responsible for this domain
         :param domain_sid: A string that uniquely identifies the SIP Domain
 
         :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_calls_mapping.auth_calls_ip_access_control_list_mapping.AuthCallsIpAccessControlListMappingList
@@ -190,7 +190,7 @@ class AuthCallsIpAccessControlListMappingPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The unique id of the account that sent the call
+        :param account_sid: The unique id of the account responsible for this domain
         :param domain_sid: A string that uniquely identifies the SIP Domain
 
         :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_calls_mapping.auth_calls_ip_access_control_list_mapping.AuthCallsIpAccessControlListMappingPage

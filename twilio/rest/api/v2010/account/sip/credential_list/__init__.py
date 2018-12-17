@@ -214,7 +214,7 @@ class CredentialListContext(InstanceContext):
         Initialize the CredentialListContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
+        :param account_sid: The unique id of the Account that is responsible for this resource.
         :param sid: Fetch by unique credential list Sid
 
         :returns: twilio.rest.api.v2010.account.sip.credential_list.CredentialListContext
@@ -398,7 +398,7 @@ class CredentialListInstance(InstanceResource):
     @property
     def subresource_uris(self):
         """
-        :returns: The subresource_uris
+        :returns: The list of credentials associated with this credential list.
         :rtype: unicode
         """
         return self._properties['subresource_uris']

@@ -248,3 +248,24 @@ class CommandTestCase(IntegrationTestCase):
         actual = self.client.wireless.v1.commands.create(command="command")
 
         self.assertIsNotNone(actual)
+
+    def test_delete_request(self):
+        self.holodeck.mock(Response(500, ''))
+
+        with self.assertRaises(TwilioException):
+            self.client.wireless.v1.commands(sid="DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+
+        self.holodeck.assert_has_request(Request(
+            'delete',
+            'https://wireless.twilio.com/v1/Commands/DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        ))
+
+    def test_delete_response(self):
+        self.holodeck.mock(Response(
+            204,
+            None,
+        ))
+
+        actual = self.client.wireless.v1.commands(sid="DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+
+        self.assertTrue(actual)

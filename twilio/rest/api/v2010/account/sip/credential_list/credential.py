@@ -22,8 +22,8 @@ class CredentialList(ListResource):
         Initialize the CredentialList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The unique id of the Account that responsible for this resource.
-        :param credential_list_sid: The credential_list_sid
+        :param account_sid: The unique id of the Account that is responsible for this resource.
+        :param credential_list_sid: The unique id that identifies the credential list that includes this credential
 
         :returns: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialList
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialList
@@ -144,7 +144,7 @@ class CredentialList(ListResource):
         """
         Constructs a CredentialContext
 
-        :param sid: The sid
+        :param sid: The unique id that identifies the resource to fetch.
 
         :returns: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialContext
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialContext
@@ -160,7 +160,7 @@ class CredentialList(ListResource):
         """
         Constructs a CredentialContext
 
-        :param sid: The sid
+        :param sid: The unique id that identifies the resource to fetch.
 
         :returns: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialContext
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialContext
@@ -191,8 +191,8 @@ class CredentialPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The unique id of the Account that responsible for this resource.
-        :param credential_list_sid: The credential_list_sid
+        :param account_sid: The unique id of the Account that is responsible for this resource.
+        :param credential_list_sid: The unique id that identifies the credential list that includes this credential
 
         :returns: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialPage
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialPage
@@ -236,9 +236,9 @@ class CredentialContext(InstanceContext):
         Initialize the CredentialContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
-        :param credential_list_sid: The credential_list_sid
-        :param sid: The sid
+        :param account_sid: The unique id of the Account that is responsible for this resource.
+        :param credential_list_sid: The unique id that identifies the credential list that contains the desired credential
+        :param sid: The unique id that identifies the resource to fetch.
 
         :returns: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialContext
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialContext
@@ -280,7 +280,7 @@ class CredentialContext(InstanceContext):
         """
         Update the CredentialInstance
 
-        :param unicode password: The password will not be returned in the response.
+        :param unicode password: The password will not be returned in the response
 
         :returns: Updated CredentialInstance
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
@@ -382,7 +382,7 @@ class CredentialInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the Account that responsible for this resource.
+        :returns: The unique id of the Account that is responsible for this resource.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -390,7 +390,7 @@ class CredentialInstance(InstanceResource):
     @property
     def credential_list_sid(self):
         """
-        :returns: The credential_list_sid
+        :returns: The unique id that identifies the credential list that includes this credential
         :rtype: unicode
         """
         return self._properties['credential_list_sid']
@@ -440,7 +440,7 @@ class CredentialInstance(InstanceResource):
         """
         Update the CredentialInstance
 
-        :param unicode password: The password will not be returned in the response.
+        :param unicode password: The password will not be returned in the response
 
         :returns: Updated CredentialInstance
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance

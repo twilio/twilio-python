@@ -46,8 +46,8 @@ class SimList(ListResource):
         :param SimInstance.Status status: Only return Sims with this status.
         :param unicode iccid: Return Sims with this Iccid.
         :param unicode rate_plan: Only return Sims with this Rate Plan.
-        :param unicode e_id: The e_id
-        :param unicode sim_registration_code: The sim_registration_code
+        :param unicode e_id: Only return Sims with this EID.
+        :param unicode sim_registration_code: Only return Sims with this registration code.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -82,8 +82,8 @@ class SimList(ListResource):
         :param SimInstance.Status status: Only return Sims with this status.
         :param unicode iccid: Return Sims with this Iccid.
         :param unicode rate_plan: Only return Sims with this Rate Plan.
-        :param unicode e_id: The e_id
-        :param unicode sim_registration_code: The sim_registration_code
+        :param unicode e_id: Only return Sims with this EID.
+        :param unicode sim_registration_code: Only return Sims with this registration code.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -115,8 +115,8 @@ class SimList(ListResource):
         :param SimInstance.Status status: Only return Sims with this status.
         :param unicode iccid: Return Sims with this Iccid.
         :param unicode rate_plan: Only return Sims with this Rate Plan.
-        :param unicode e_id: The e_id
-        :param unicode sim_registration_code: The sim_registration_code
+        :param unicode e_id: Only return Sims with this EID.
+        :param unicode sim_registration_code: Only return Sims with this registration code.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -164,7 +164,7 @@ class SimList(ListResource):
         """
         Constructs a SimContext
 
-        :param sid: The sid
+        :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.wireless.v1.sim.SimContext
         :rtype: twilio.rest.wireless.v1.sim.SimContext
@@ -175,7 +175,7 @@ class SimList(ListResource):
         """
         Constructs a SimContext
 
-        :param sid: The sid
+        :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.wireless.v1.sim.SimContext
         :rtype: twilio.rest.wireless.v1.sim.SimContext
@@ -239,7 +239,7 @@ class SimContext(InstanceContext):
         Initialize the SimContext
 
         :param Version version: Version that contains the resource
-        :param sid: The sid
+        :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.wireless.v1.sim.SimContext
         :rtype: twilio.rest.wireless.v1.sim.SimContext
@@ -329,6 +329,15 @@ class SimContext(InstanceContext):
         )
 
         return SimInstance(self._version, payload, sid=self._solution['sid'], )
+
+    def delete(self):
+        """
+        Deletes the SimInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete('delete', self._uri)
 
     @property
     def usage_records(self):
@@ -674,6 +683,15 @@ class SimInstance(InstanceResource):
             voice_method=voice_method,
             voice_url=voice_url,
         )
+
+    def delete(self):
+        """
+        Deletes the SimInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
 
     @property
     def usage_records(self):

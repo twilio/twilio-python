@@ -39,11 +39,11 @@ class FeedbackSummaryList(ListResource):
         """
         Create a new FeedbackSummaryInstance
 
-        :param date start_date: Only include usage that has occurred on or after this date.
-        :param date end_date: Only include usage that has occurred on or before this date.
-        :param bool include_subaccounts: true to include feedback entries for the master account and all subaccounts.
-        :param unicode status_callback: The URL that Twilio will request when the Feedback Summary is completed.
-        :param unicode status_callback_method: The HTTP method Twilio will use to make requests to the StatusCallback URL.
+        :param date start_date: Only include feedback given on or after this date
+        :param date end_date: Only include feedback given on or before this date
+        :param bool include_subaccounts: `true` includes feedback from the specified account and its subaccounts
+        :param unicode status_callback: The URL that we will request when the feedback summary is complete
+        :param unicode status_callback_method: The HTTP method we use to make requests to the StatusCallback URL
 
         :returns: Newly created FeedbackSummaryInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance
@@ -68,7 +68,7 @@ class FeedbackSummaryList(ListResource):
         """
         Constructs a FeedbackSummaryContext
 
-        :param sid: The sid
+        :param sid: A string that uniquely identifies this feedback summary resource
 
         :returns: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
         :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
@@ -79,7 +79,7 @@ class FeedbackSummaryList(ListResource):
         """
         Constructs a FeedbackSummaryContext
 
-        :param sid: The sid
+        :param sid: A string that uniquely identifies this feedback summary resource
 
         :returns: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
         :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
@@ -144,8 +144,8 @@ class FeedbackSummaryContext(InstanceContext):
         Initialize the FeedbackSummaryContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
-        :param sid: The sid
+        :param account_sid: The unique sid that identifies this account
+        :param sid: A string that uniquely identifies this feedback summary resource
 
         :returns: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
         :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
@@ -258,7 +258,7 @@ class FeedbackSummaryInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The unique sid that identifies this account
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -266,7 +266,7 @@ class FeedbackSummaryInstance(InstanceResource):
     @property
     def call_count(self):
         """
-        :returns: The call_count
+        :returns: The total number of calls
         :rtype: unicode
         """
         return self._properties['call_count']
@@ -274,7 +274,7 @@ class FeedbackSummaryInstance(InstanceResource):
     @property
     def call_feedback_count(self):
         """
-        :returns: The call_feedback_count
+        :returns: The total number of calls with a feedback entry
         :rtype: unicode
         """
         return self._properties['call_feedback_count']
@@ -282,7 +282,7 @@ class FeedbackSummaryInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date this resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -290,7 +290,7 @@ class FeedbackSummaryInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date this resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -298,7 +298,7 @@ class FeedbackSummaryInstance(InstanceResource):
     @property
     def end_date(self):
         """
-        :returns: The end_date
+        :returns: The latest feedback entry date in the summary
         :rtype: datetime
         """
         return self._properties['end_date']
@@ -306,7 +306,7 @@ class FeedbackSummaryInstance(InstanceResource):
     @property
     def include_subaccounts(self):
         """
-        :returns: The include_subaccounts
+        :returns: Whether the feedback summary includes subaccounts
         :rtype: bool
         """
         return self._properties['include_subaccounts']
@@ -314,7 +314,7 @@ class FeedbackSummaryInstance(InstanceResource):
     @property
     def issues(self):
         """
-        :returns: The issues
+        :returns: Issues experienced during the call
         :rtype: unicode
         """
         return self._properties['issues']
@@ -322,7 +322,7 @@ class FeedbackSummaryInstance(InstanceResource):
     @property
     def quality_score_average(self):
         """
-        :returns: The quality_score_average
+        :returns: The average QualityScore of the feedback entries
         :rtype: unicode
         """
         return self._properties['quality_score_average']
@@ -330,7 +330,7 @@ class FeedbackSummaryInstance(InstanceResource):
     @property
     def quality_score_median(self):
         """
-        :returns: The quality_score_median
+        :returns: The median QualityScore of the feedback entries
         :rtype: unicode
         """
         return self._properties['quality_score_median']
@@ -338,7 +338,7 @@ class FeedbackSummaryInstance(InstanceResource):
     @property
     def quality_score_standard_deviation(self):
         """
-        :returns: The quality_score_standard_deviation
+        :returns: The standard deviation of the quality scores
         :rtype: unicode
         """
         return self._properties['quality_score_standard_deviation']
@@ -346,7 +346,7 @@ class FeedbackSummaryInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A string that uniquely identifies this feedback entry
         :rtype: unicode
         """
         return self._properties['sid']
@@ -354,7 +354,7 @@ class FeedbackSummaryInstance(InstanceResource):
     @property
     def start_date(self):
         """
-        :returns: The start_date
+        :returns: The earliest feedback entry date in the summary
         :rtype: datetime
         """
         return self._properties['start_date']
@@ -362,7 +362,7 @@ class FeedbackSummaryInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: The status
+        :returns: The status of the feedback summary
         :rtype: FeedbackSummaryInstance.Status
         """
         return self._properties['status']

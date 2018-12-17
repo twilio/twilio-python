@@ -22,8 +22,8 @@ class IpAddressList(ListResource):
         Initialize the IpAddressList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The unique id of the Account that responsible for this resource.
-        :param ip_access_control_list_sid: The ip_access_control_list_sid
+        :param account_sid: The unique id of the Account that is responsible for this resource.
+        :param ip_access_control_list_sid: The unique id of the IpAccessControlList resource that includes this resource.
 
         :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressList
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressList
@@ -122,9 +122,9 @@ class IpAddressList(ListResource):
         """
         Create a new IpAddressInstance
 
-        :param unicode friendly_name: The friendly_name
-        :param unicode ip_address: The ip_address
-        :param unicode cidr_prefix_length: The cidr_prefix_length
+        :param unicode friendly_name: A human readable descriptive text for this resource, up to 64 characters long.
+        :param unicode ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
+        :param unicode cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
 
         :returns: Newly created IpAddressInstance
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
@@ -152,7 +152,7 @@ class IpAddressList(ListResource):
         """
         Constructs a IpAddressContext
 
-        :param sid: The sid
+        :param sid: A string that identifies the IpAddress resource to fetch
 
         :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
@@ -168,7 +168,7 @@ class IpAddressList(ListResource):
         """
         Constructs a IpAddressContext
 
-        :param sid: The sid
+        :param sid: A string that identifies the IpAddress resource to fetch
 
         :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
@@ -199,8 +199,8 @@ class IpAddressPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The unique id of the Account that responsible for this resource.
-        :param ip_access_control_list_sid: The ip_access_control_list_sid
+        :param account_sid: The unique id of the Account that is responsible for this resource.
+        :param ip_access_control_list_sid: The unique id of the IpAccessControlList resource that includes this resource.
 
         :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressPage
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressPage
@@ -244,9 +244,9 @@ class IpAddressContext(InstanceContext):
         Initialize the IpAddressContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
-        :param ip_access_control_list_sid: The ip_access_control_list_sid
-        :param sid: The sid
+        :param account_sid: The unique sid that identifies this account
+        :param ip_access_control_list_sid: The IpAccessControlList Sid that identifies the IpAddress resources to fetch
+        :param sid: A string that identifies the IpAddress resource to fetch
 
         :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
@@ -289,9 +289,9 @@ class IpAddressContext(InstanceContext):
         """
         Update the IpAddressInstance
 
-        :param unicode ip_address: The ip_address
-        :param unicode friendly_name: The friendly_name
-        :param unicode cidr_prefix_length: The cidr_prefix_length
+        :param unicode ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
+        :param unicode friendly_name: A human readable descriptive text for this resource, up to 64 characters long.
+        :param unicode cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
 
         :returns: Updated IpAddressInstance
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
@@ -399,7 +399,7 @@ class IpAddressInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the Account that responsible for this resource.
+        :returns: The unique id of the Account that is responsible for this resource.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -431,7 +431,7 @@ class IpAddressInstance(InstanceResource):
     @property
     def ip_access_control_list_sid(self):
         """
-        :returns: The ip_access_control_list_sid
+        :returns: The unique id of the IpAccessControlList resource that includes this resource.
         :rtype: unicode
         """
         return self._properties['ip_access_control_list_sid']
@@ -474,9 +474,9 @@ class IpAddressInstance(InstanceResource):
         """
         Update the IpAddressInstance
 
-        :param unicode ip_address: The ip_address
-        :param unicode friendly_name: The friendly_name
-        :param unicode cidr_prefix_length: The cidr_prefix_length
+        :param unicode ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
+        :param unicode friendly_name: A human readable descriptive text for this resource, up to 64 characters long.
+        :param unicode cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
 
         :returns: Updated IpAddressInstance
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance

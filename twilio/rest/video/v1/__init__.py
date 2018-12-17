@@ -26,21 +26,12 @@ class V1(Version):
         """
         super(V1, self).__init__(domain)
         self.version = 'v1'
-        self._compositions = None
         self._composition_hooks = None
         self._composition_settings = None
         self._recordings = None
         self._recording_settings = None
+        self._compositions = None
         self._rooms = None
-
-    @property
-    def compositions(self):
-        """
-        :rtype: twilio.rest.video.v1.composition.CompositionList
-        """
-        if self._compositions is None:
-            self._compositions = CompositionList(self)
-        return self._compositions
 
     @property
     def composition_hooks(self):
@@ -77,6 +68,15 @@ class V1(Version):
         if self._recording_settings is None:
             self._recording_settings = RecordingSettingsList(self)
         return self._recording_settings
+
+    @property
+    def compositions(self):
+        """
+        :rtype: twilio.rest.video.v1.composition.CompositionList
+        """
+        if self._compositions is None:
+            self._compositions = CompositionList(self)
+        return self._compositions
 
     @property
     def rooms(self):

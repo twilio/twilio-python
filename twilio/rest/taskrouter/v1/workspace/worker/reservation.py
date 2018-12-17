@@ -286,7 +286,9 @@ class ReservationContext(InstanceContext):
                region=values.unset, sip_auth_username=values.unset,
                sip_auth_password=values.unset,
                dequeue_status_callback_event=values.unset,
-               post_work_activity_sid=values.unset):
+               post_work_activity_sid=values.unset,
+               end_conference_on_customer_exit=values.unset,
+               beep_on_customer_entrance=values.unset):
         """
         Update the ReservationInstance
 
@@ -339,6 +341,8 @@ class ReservationContext(InstanceContext):
         :param unicode sip_auth_password: The sip_auth_password
         :param unicode dequeue_status_callback_event: The dequeue_status_callback_event
         :param unicode post_work_activity_sid: The post_work_activity_sid
+        :param bool end_conference_on_customer_exit: The end_conference_on_customer_exit
+        :param bool beep_on_customer_entrance: The beep_on_customer_entrance
 
         :returns: Updated ReservationInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance
@@ -393,6 +397,8 @@ class ReservationContext(InstanceContext):
             'SipAuthPassword': sip_auth_password,
             'DequeueStatusCallbackEvent': serialize.map(dequeue_status_callback_event, lambda e: e),
             'PostWorkActivitySid': post_work_activity_sid,
+            'EndConferenceOnCustomerExit': end_conference_on_customer_exit,
+            'BeepOnCustomerEntrance': beep_on_customer_entrance,
         })
 
         payload = self._version.update(
@@ -625,7 +631,9 @@ class ReservationInstance(InstanceResource):
                region=values.unset, sip_auth_username=values.unset,
                sip_auth_password=values.unset,
                dequeue_status_callback_event=values.unset,
-               post_work_activity_sid=values.unset):
+               post_work_activity_sid=values.unset,
+               end_conference_on_customer_exit=values.unset,
+               beep_on_customer_entrance=values.unset):
         """
         Update the ReservationInstance
 
@@ -678,6 +686,8 @@ class ReservationInstance(InstanceResource):
         :param unicode sip_auth_password: The sip_auth_password
         :param unicode dequeue_status_callback_event: The dequeue_status_callback_event
         :param unicode post_work_activity_sid: The post_work_activity_sid
+        :param bool end_conference_on_customer_exit: The end_conference_on_customer_exit
+        :param bool beep_on_customer_entrance: The beep_on_customer_entrance
 
         :returns: Updated ReservationInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance
@@ -732,6 +742,8 @@ class ReservationInstance(InstanceResource):
             sip_auth_password=sip_auth_password,
             dequeue_status_callback_event=dequeue_status_callback_event,
             post_work_activity_sid=post_work_activity_sid,
+            end_conference_on_customer_exit=end_conference_on_customer_exit,
+            beep_on_customer_entrance=beep_on_customer_entrance,
         )
 
     def __repr__(self):

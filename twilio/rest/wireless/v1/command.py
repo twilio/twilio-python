@@ -43,7 +43,7 @@ class CommandList(ListResource):
         :param unicode sim: Only return Commands to or from this SIM.
         :param CommandInstance.Status status: Only return Commands with this status value.
         :param CommandInstance.Direction direction: Only return Commands with this direction value.
-        :param CommandInstance.Transport transport: The transport
+        :param CommandInstance.Transport transport: Only return Commands with this transport value.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -76,7 +76,7 @@ class CommandList(ListResource):
         :param unicode sim: Only return Commands to or from this SIM.
         :param CommandInstance.Status status: Only return Commands with this status value.
         :param CommandInstance.Direction direction: Only return Commands with this direction value.
-        :param CommandInstance.Transport transport: The transport
+        :param CommandInstance.Transport transport: Only return Commands with this transport value.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -106,7 +106,7 @@ class CommandList(ListResource):
         :param unicode sim: Only return Commands to or from this SIM.
         :param CommandInstance.Status status: Only return Commands with this status value.
         :param CommandInstance.Direction direction: Only return Commands with this direction value.
-        :param CommandInstance.Transport transport: The transport
+        :param CommandInstance.Transport transport: Only return Commands with this transport value.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -161,7 +161,7 @@ class CommandList(ListResource):
         :param unicode callback_url: Twilio will make a request to this URL when the Command has finished sending.
         :param CommandInstance.CommandMode command_mode: A string representing which mode to send the SMS message using.
         :param unicode include_sid: When sending a Command to a SIM in text mode, Twilio can automatically include the Sid of the Command in the message body, which could be used to ensure that the device does not process the same Command more than once.
-        :param bool delivery_receipt_requested: The delivery_receipt_requested
+        :param bool delivery_receipt_requested: A boolean representing whether to request delivery receipt from the recipient.
 
         :returns: Newly created CommandInstance
         :rtype: twilio.rest.wireless.v1.command.CommandInstance
@@ -188,7 +188,7 @@ class CommandList(ListResource):
         """
         Constructs a CommandContext
 
-        :param sid: The sid
+        :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.wireless.v1.command.CommandContext
         :rtype: twilio.rest.wireless.v1.command.CommandContext
@@ -199,7 +199,7 @@ class CommandList(ListResource):
         """
         Constructs a CommandContext
 
-        :param sid: The sid
+        :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.wireless.v1.command.CommandContext
         :rtype: twilio.rest.wireless.v1.command.CommandContext
@@ -263,7 +263,7 @@ class CommandContext(InstanceContext):
         Initialize the CommandContext
 
         :param Version version: Version that contains the resource
-        :param sid: The sid
+        :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.wireless.v1.command.CommandContext
         :rtype: twilio.rest.wireless.v1.command.CommandContext
@@ -290,6 +290,15 @@ class CommandContext(InstanceContext):
         )
 
         return CommandInstance(self._version, payload, sid=self._solution['sid'], )
+
+    def delete(self):
+        """
+        Deletes the CommandInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete('delete', self._uri)
 
     def __repr__(self):
         """
@@ -470,6 +479,15 @@ class CommandInstance(InstanceResource):
         :rtype: twilio.rest.wireless.v1.command.CommandInstance
         """
         return self._proxy.fetch()
+
+    def delete(self):
+        """
+        Deletes the CommandInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
 
     def __repr__(self):
         """

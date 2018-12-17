@@ -21,7 +21,7 @@ class AuthTypeCallsList(ListResource):
         Initialize the AuthTypeCallsList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The unique id of the account that sent the call
+        :param account_sid: The unique id of the account responsible for this domain
         :param domain_sid: A string that uniquely identifies the SIP Domain
 
         :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_calls_mapping.AuthTypeCallsList
@@ -87,7 +87,7 @@ class AuthTypeCallsPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The unique id of the account that sent the call
+        :param account_sid: The unique id of the account responsible for this domain
         :param domain_sid: A string that uniquely identifies the SIP Domain
 
         :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_calls_mapping.AuthTypeCallsPage

@@ -36,13 +36,17 @@ class ServiceList(ListResource):
         self._uri = '/Services'.format(**self._solution)
 
     def create(self, friendly_name, code_length=values.unset,
-               lookup_enabled=values.unset):
+               lookup_enabled=values.unset, skip_sms_to_landlines=values.unset,
+               dtmf_input_required=values.unset, tts_name=values.unset):
         """
         Create a new ServiceInstance
 
         :param unicode friendly_name: Friendly name of the service
         :param unicode code_length: Length of verification code. Valid values are 4-10
         :param bool lookup_enabled: Indicates whether or not to perform a lookup with each verification started
+        :param bool skip_sms_to_landlines: Indicates whether or not to ignore SMS verifications for landlines
+        :param bool dtmf_input_required: Indicates whether or not to require a random number input to deliver the verify code via phone calls
+        :param unicode tts_name: Alternative to be used as Service friendly name in phone calls
 
         :returns: Newly created ServiceInstance
         :rtype: twilio.rest.verify.v1.service.ServiceInstance
@@ -51,6 +55,9 @@ class ServiceList(ListResource):
             'FriendlyName': friendly_name,
             'CodeLength': code_length,
             'LookupEnabled': lookup_enabled,
+            'SkipSmsToLandlines': skip_sms_to_landlines,
+            'DtmfInputRequired': dtmf_input_required,
+            'TtsName': tts_name,
         })
 
         payload = self._version.create(
@@ -265,13 +272,17 @@ class ServiceContext(InstanceContext):
         return self._version.delete('delete', self._uri)
 
     def update(self, friendly_name=values.unset, code_length=values.unset,
-               lookup_enabled=values.unset):
+               lookup_enabled=values.unset, skip_sms_to_landlines=values.unset,
+               dtmf_input_required=values.unset, tts_name=values.unset):
         """
         Update the ServiceInstance
 
         :param unicode friendly_name: Friendly name of the service
         :param unicode code_length: Length of verification code. Valid values are 4-10
         :param bool lookup_enabled: Indicates whether or not to perform a lookup with each verification started
+        :param bool skip_sms_to_landlines: Indicates whether or not to ignore SMS verifications for landlines
+        :param bool dtmf_input_required: Indicates whether or not to require a random number input to deliver the verify code via phone calls
+        :param unicode tts_name: Alternative to be used as Service friendly name in phone calls
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.verify.v1.service.ServiceInstance
@@ -280,6 +291,9 @@ class ServiceContext(InstanceContext):
             'FriendlyName': friendly_name,
             'CodeLength': code_length,
             'LookupEnabled': lookup_enabled,
+            'SkipSmsToLandlines': skip_sms_to_landlines,
+            'DtmfInputRequired': dtmf_input_required,
+            'TtsName': tts_name,
         })
 
         payload = self._version.update(
@@ -345,6 +359,9 @@ class ServiceInstance(InstanceResource):
             'friendly_name': payload['friendly_name'],
             'code_length': deserialize.integer(payload['code_length']),
             'lookup_enabled': payload['lookup_enabled'],
+            'skip_sms_to_landlines': payload['skip_sms_to_landlines'],
+            'dtmf_input_required': payload['dtmf_input_required'],
+            'tts_name': payload['tts_name'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
             'url': payload['url'],
@@ -409,6 +426,30 @@ class ServiceInstance(InstanceResource):
         return self._properties['lookup_enabled']
 
     @property
+    def skip_sms_to_landlines(self):
+        """
+        :returns: Indicates whether or not to ignore SMS verifications for landlines
+        :rtype: bool
+        """
+        return self._properties['skip_sms_to_landlines']
+
+    @property
+    def dtmf_input_required(self):
+        """
+        :returns: Indicates whether or not to require a random number input to deliver the verify code via phone calls
+        :rtype: bool
+        """
+        return self._properties['dtmf_input_required']
+
+    @property
+    def tts_name(self):
+        """
+        :returns: Alternative to be used as Service friendly name in phone calls
+        :rtype: unicode
+        """
+        return self._properties['tts_name']
+
+    @property
     def date_created(self):
         """
         :returns: The date this Service was created
@@ -459,13 +500,17 @@ class ServiceInstance(InstanceResource):
         return self._proxy.delete()
 
     def update(self, friendly_name=values.unset, code_length=values.unset,
-               lookup_enabled=values.unset):
+               lookup_enabled=values.unset, skip_sms_to_landlines=values.unset,
+               dtmf_input_required=values.unset, tts_name=values.unset):
         """
         Update the ServiceInstance
 
         :param unicode friendly_name: Friendly name of the service
         :param unicode code_length: Length of verification code. Valid values are 4-10
         :param bool lookup_enabled: Indicates whether or not to perform a lookup with each verification started
+        :param bool skip_sms_to_landlines: Indicates whether or not to ignore SMS verifications for landlines
+        :param bool dtmf_input_required: Indicates whether or not to require a random number input to deliver the verify code via phone calls
+        :param unicode tts_name: Alternative to be used as Service friendly name in phone calls
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.verify.v1.service.ServiceInstance
@@ -474,6 +519,9 @@ class ServiceInstance(InstanceResource):
             friendly_name=friendly_name,
             code_length=code_length,
             lookup_enabled=lookup_enabled,
+            skip_sms_to_landlines=skip_sms_to_landlines,
+            dtmf_input_required=dtmf_input_required,
+            tts_name=tts_name,
         )
 
     @property
