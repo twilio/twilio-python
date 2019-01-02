@@ -118,9 +118,9 @@ class AwsList(ListResource):
         """
         Create a new AwsInstance
 
-        :param unicode credentials: The credentials
-        :param unicode friendly_name: The friendly_name
-        :param unicode account_sid: The account_sid
+        :param unicode credentials: String containing AWS access credentials with format <AWS_ACCESS_KEY_ID>:<AWS_SECRET_ACCESS_KEY>
+        :param unicode friendly_name: A human readable description of this resource
+        :param unicode account_sid: The Subaccount this Credential should be associated with.
 
         :returns: Newly created AwsInstance
         :rtype: twilio.rest.accounts.v1.credential.aws.AwsInstance
@@ -143,7 +143,7 @@ class AwsList(ListResource):
         """
         Constructs a AwsContext
 
-        :param sid: The sid
+        :param sid: Fetch by unique Credential Sid
 
         :returns: twilio.rest.accounts.v1.credential.aws.AwsContext
         :rtype: twilio.rest.accounts.v1.credential.aws.AwsContext
@@ -154,7 +154,7 @@ class AwsList(ListResource):
         """
         Constructs a AwsContext
 
-        :param sid: The sid
+        :param sid: Fetch by unique Credential Sid
 
         :returns: twilio.rest.accounts.v1.credential.aws.AwsContext
         :rtype: twilio.rest.accounts.v1.credential.aws.AwsContext
@@ -218,7 +218,7 @@ class AwsContext(InstanceContext):
         Initialize the AwsContext
 
         :param Version version: Version that contains the resource
-        :param sid: The sid
+        :param sid: Fetch by unique Credential Sid
 
         :returns: twilio.rest.accounts.v1.credential.aws.AwsContext
         :rtype: twilio.rest.accounts.v1.credential.aws.AwsContext
@@ -250,7 +250,7 @@ class AwsContext(InstanceContext):
         """
         Update the AwsInstance
 
-        :param unicode friendly_name: The friendly_name
+        :param unicode friendly_name: A human readable description of this resource
 
         :returns: Updated AwsInstance
         :rtype: twilio.rest.accounts.v1.credential.aws.AwsInstance
@@ -327,7 +327,7 @@ class AwsInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A 34 character string that uniquely identifies this resource.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -335,7 +335,7 @@ class AwsInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: AccountSid the Credential resource belongs to
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -343,7 +343,7 @@ class AwsInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The friendly_name
+        :returns: A human readable description of this resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -351,7 +351,7 @@ class AwsInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date this resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -359,7 +359,7 @@ class AwsInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date this resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -367,7 +367,7 @@ class AwsInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The URI for this resource, relative to `https://accounts.twilio.com`
         :rtype: unicode
         """
         return self._properties['url']
@@ -385,7 +385,7 @@ class AwsInstance(InstanceResource):
         """
         Update the AwsInstance
 
-        :param unicode friendly_name: The friendly_name
+        :param unicode friendly_name: A human readable description of this resource
 
         :returns: Updated AwsInstance
         :rtype: twilio.rest.accounts.v1.credential.aws.AwsInstance

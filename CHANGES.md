@@ -3,6 +3,12 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2019-01-02] Version 6.22.1
+----------------------------
+**Insights**
+- Initial revision.
+
+
 [2018-12-17] Version 6.22.0
 ----------------------------
 **Authy**
