@@ -23,8 +23,8 @@ class RecordingList(ListResource):
         Initialize the RecordingList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The unique sid that identifies this account
-        :param call_sid: The unique id for the call leg that corresponds to the recording.
+        :param account_sid: The SID of the Account that created this resource
+        :param call_sid: The SID of the Call this resource is associated with
 
         :returns: twilio.rest.api.v2010.account.call.recording.RecordingList
         :rtype: twilio.rest.api.v2010.account.call.recording.RecordingList
@@ -43,8 +43,8 @@ class RecordingList(ListResource):
         Create a new RecordingInstance
 
         :param unicode recording_status_callback_event: The recording status changes that should generate a callback
-        :param unicode recording_status_callback: The callback URL for recording actions
-        :param unicode recording_status_callback_method: The HTTP method Twilio should use when making a request to the RecordingStatusCallback URL
+        :param unicode recording_status_callback: The callback URL on each selected recording event
+        :param unicode recording_status_callback_method: The HTTP method we should use when calling the recording_status_callback URL
         :param unicode trim: Whether to trim the silence in the recording
         :param unicode recording_channels: The number of channels that the output recording will be configured with
 
@@ -80,9 +80,9 @@ class RecordingList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param date date_created_before: Filter by date created
-        :param date date_created: Filter by date created
-        :param date date_created_after: Filter by date created
+        :param date date_created_before: The `YYYY-MM-DD` value of the resources to read
+        :param date date_created: The `YYYY-MM-DD` value of the resources to read
+        :param date date_created_after: The `YYYY-MM-DD` value of the resources to read
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -111,9 +111,9 @@ class RecordingList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param date date_created_before: Filter by date created
-        :param date date_created: Filter by date created
-        :param date date_created_after: Filter by date created
+        :param date date_created_before: The `YYYY-MM-DD` value of the resources to read
+        :param date date_created: The `YYYY-MM-DD` value of the resources to read
+        :param date date_created_after: The `YYYY-MM-DD` value of the resources to read
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -139,9 +139,9 @@ class RecordingList(ListResource):
         Retrieve a single page of RecordingInstance records from the API.
         Request is executed immediately
 
-        :param date date_created_before: Filter by date created
-        :param date date_created: Filter by date created
-        :param date date_created_after: Filter by date created
+        :param date date_created_before: The `YYYY-MM-DD` value of the resources to read
+        :param date date_created: The `YYYY-MM-DD` value of the resources to read
+        :param date date_created_after: The `YYYY-MM-DD` value of the resources to read
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -187,7 +187,7 @@ class RecordingList(ListResource):
         """
         Constructs a RecordingContext
 
-        :param sid: Fetch by unique recording Sid
+        :param sid: The unique string that identifies this resource
 
         :returns: twilio.rest.api.v2010.account.call.recording.RecordingContext
         :rtype: twilio.rest.api.v2010.account.call.recording.RecordingContext
@@ -203,7 +203,7 @@ class RecordingList(ListResource):
         """
         Constructs a RecordingContext
 
-        :param sid: Fetch by unique recording Sid
+        :param sid: The unique string that identifies this resource
 
         :returns: twilio.rest.api.v2010.account.call.recording.RecordingContext
         :rtype: twilio.rest.api.v2010.account.call.recording.RecordingContext
@@ -234,8 +234,8 @@ class RecordingPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The unique sid that identifies this account
-        :param call_sid: The unique id for the call leg that corresponds to the recording.
+        :param account_sid: The SID of the Account that created this resource
+        :param call_sid: The SID of the Call this resource is associated with
 
         :returns: twilio.rest.api.v2010.account.call.recording.RecordingPage
         :rtype: twilio.rest.api.v2010.account.call.recording.RecordingPage
@@ -279,9 +279,9 @@ class RecordingContext(InstanceContext):
         Initialize the RecordingContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The unique sid that identifies this account
-        :param call_sid: Fetch by unique call Sid for the recording
-        :param sid: Fetch by unique recording Sid
+        :param account_sid: The SID of the Account that created the resource(s) to fetch
+        :param call_sid: The Call SID of the resource(s) to fetch
+        :param sid: The unique string that identifies this resource
 
         :returns: twilio.rest.api.v2010.account.call.recording.RecordingContext
         :rtype: twilio.rest.api.v2010.account.call.recording.RecordingContext
@@ -296,7 +296,7 @@ class RecordingContext(InstanceContext):
         """
         Update the RecordingInstance
 
-        :param RecordingInstance.Status status: The status to change the recording to.
+        :param RecordingInstance.Status status: The new status of the recording
         :param unicode pause_behavior: Whether to record or not during the pause period.
 
         :returns: Updated RecordingInstance
@@ -440,7 +440,7 @@ class RecordingInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique sid that identifies this account
+        :returns: The SID of the Account that created this resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -448,7 +448,7 @@ class RecordingInstance(InstanceResource):
     @property
     def api_version(self):
         """
-        :returns: The version of the API in use during the recording.
+        :returns: The API version used to make the recording
         :rtype: unicode
         """
         return self._properties['api_version']
@@ -456,7 +456,7 @@ class RecordingInstance(InstanceResource):
     @property
     def call_sid(self):
         """
-        :returns: The unique id for the call leg that corresponds to the recording.
+        :returns: The SID of the Call this resource is associated with
         :rtype: unicode
         """
         return self._properties['call_sid']
@@ -464,7 +464,7 @@ class RecordingInstance(InstanceResource):
     @property
     def conference_sid(self):
         """
-        :returns: The unique id for the conference associated with the recording, if a conference recording.
+        :returns: The Conference SID that identifies the conference associated with the recording
         :rtype: unicode
         """
         return self._properties['conference_sid']
@@ -472,7 +472,7 @@ class RecordingInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this resource was created
+        :returns: The RFC 2822 date and time in GMT that this resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -480,7 +480,7 @@ class RecordingInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this resource was last updated
+        :returns: The RFC 2822 date and time in GMT that this resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -488,7 +488,7 @@ class RecordingInstance(InstanceResource):
     @property
     def start_time(self):
         """
-        :returns: The start time of the recording, given in RFC 2822 format.
+        :returns: The start time of the recording, given in RFC 2822 format
         :rtype: datetime
         """
         return self._properties['start_time']
@@ -496,7 +496,7 @@ class RecordingInstance(InstanceResource):
     @property
     def duration(self):
         """
-        :returns: The length of the recording, in seconds.
+        :returns: The length of the recording in seconds
         :rtype: unicode
         """
         return self._properties['duration']
@@ -504,7 +504,7 @@ class RecordingInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this recording
+        :returns: The unique string that identifies this resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -520,7 +520,7 @@ class RecordingInstance(InstanceResource):
     @property
     def uri(self):
         """
-        :returns: The URI for this resource
+        :returns: The URI of this resource, relative to `https://api.twilio.com`
         :rtype: unicode
         """
         return self._properties['uri']
@@ -528,7 +528,7 @@ class RecordingInstance(InstanceResource):
     @property
     def encryption_details(self):
         """
-        :returns: Details for how to decrypt the recording.
+        :returns: Details about how to decrypt the recording
         :rtype: dict
         """
         return self._properties['encryption_details']
@@ -536,7 +536,7 @@ class RecordingInstance(InstanceResource):
     @property
     def price_unit(self):
         """
-        :returns: The currency used in the Price property.
+        :returns: The currency used in the Price property
         :rtype: unicode
         """
         return self._properties['price_unit']
@@ -544,7 +544,7 @@ class RecordingInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: The status of the recording.
+        :returns: The status of this recording
         :rtype: RecordingInstance.Status
         """
         return self._properties['status']
@@ -552,7 +552,7 @@ class RecordingInstance(InstanceResource):
     @property
     def channels(self):
         """
-        :returns: The number of channels in the final recording file as an integer.
+        :returns: The number of channels in the final recording file as an integer
         :rtype: unicode
         """
         return self._properties['channels']
@@ -560,7 +560,7 @@ class RecordingInstance(InstanceResource):
     @property
     def source(self):
         """
-        :returns: The way in which this recording was created.
+        :returns: How this recording was created
         :rtype: RecordingInstance.Source
         """
         return self._properties['source']
@@ -568,7 +568,7 @@ class RecordingInstance(InstanceResource):
     @property
     def error_code(self):
         """
-        :returns: More information about why the recording is missing, if Status is `absent`.
+        :returns: More information about why the recording is missing, if status is `absent`
         :rtype: unicode
         """
         return self._properties['error_code']
@@ -577,7 +577,7 @@ class RecordingInstance(InstanceResource):
         """
         Update the RecordingInstance
 
-        :param RecordingInstance.Status status: The status to change the recording to.
+        :param RecordingInstance.Status status: The new status of the recording
         :param unicode pause_behavior: Whether to record or not during the pause period.
 
         :returns: Updated RecordingInstance

@@ -23,7 +23,7 @@ class FeedbackSummaryList(ListResource):
         Initialize the FeedbackSummaryList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The unique id of the Account responsible for creating this Call
+        :param account_sid: The SID of the Account that created this resource
 
         :returns: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryList
         :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryList
@@ -105,7 +105,7 @@ class FeedbackSummaryPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The unique id of the Account responsible for creating this Call
+        :param account_sid: The SID of the Account that created this resource
 
         :returns: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryPage
         :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryPage

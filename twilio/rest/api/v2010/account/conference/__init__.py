@@ -25,7 +25,7 @@ class ConferenceList(ListResource):
         Initialize the ConferenceList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The unique sid that identifies this account
+        :param account_sid: The SID of the Account that created this resource
 
         :returns: twilio.rest.api.v2010.account.conference.ConferenceList
         :rtype: twilio.rest.api.v2010.account.conference.ConferenceList
@@ -47,14 +47,14 @@ class ConferenceList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param date date_created_before: Filter by date created
-        :param date date_created: Filter by date created
-        :param date date_created_after: Filter by date created
-        :param date date_updated_before: Filter by date updated
-        :param date date_updated: Filter by date updated
-        :param date date_updated_after: Filter by date updated
-        :param unicode friendly_name: Filter by friendly name
-        :param ConferenceInstance.Status status: The status of the conference
+        :param date date_created_before: The `YYYY-MM-DD` value of the resources to read
+        :param date date_created: The `YYYY-MM-DD` value of the resources to read
+        :param date date_created_after: The `YYYY-MM-DD` value of the resources to read
+        :param date date_updated_before: The `YYYY-MM-DD` value of the resources to read
+        :param date date_updated: The `YYYY-MM-DD` value of the resources to read
+        :param date date_updated_after: The `YYYY-MM-DD` value of the resources to read
+        :param unicode friendly_name: The string that identifies the Conference resources to read
+        :param ConferenceInstance.Status status: The status of the resources to read
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -91,14 +91,14 @@ class ConferenceList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param date date_created_before: Filter by date created
-        :param date date_created: Filter by date created
-        :param date date_created_after: Filter by date created
-        :param date date_updated_before: Filter by date updated
-        :param date date_updated: Filter by date updated
-        :param date date_updated_after: Filter by date updated
-        :param unicode friendly_name: Filter by friendly name
-        :param ConferenceInstance.Status status: The status of the conference
+        :param date date_created_before: The `YYYY-MM-DD` value of the resources to read
+        :param date date_created: The `YYYY-MM-DD` value of the resources to read
+        :param date date_created_after: The `YYYY-MM-DD` value of the resources to read
+        :param date date_updated_before: The `YYYY-MM-DD` value of the resources to read
+        :param date date_updated: The `YYYY-MM-DD` value of the resources to read
+        :param date date_updated_after: The `YYYY-MM-DD` value of the resources to read
+        :param unicode friendly_name: The string that identifies the Conference resources to read
+        :param ConferenceInstance.Status status: The status of the resources to read
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -132,14 +132,14 @@ class ConferenceList(ListResource):
         Retrieve a single page of ConferenceInstance records from the API.
         Request is executed immediately
 
-        :param date date_created_before: Filter by date created
-        :param date date_created: Filter by date created
-        :param date date_created_after: Filter by date created
-        :param date date_updated_before: Filter by date updated
-        :param date date_updated: Filter by date updated
-        :param date date_updated_after: Filter by date updated
-        :param unicode friendly_name: Filter by friendly name
-        :param ConferenceInstance.Status status: The status of the conference
+        :param date date_created_before: The `YYYY-MM-DD` value of the resources to read
+        :param date date_created: The `YYYY-MM-DD` value of the resources to read
+        :param date date_created_after: The `YYYY-MM-DD` value of the resources to read
+        :param date date_updated_before: The `YYYY-MM-DD` value of the resources to read
+        :param date date_updated: The `YYYY-MM-DD` value of the resources to read
+        :param date date_updated_after: The `YYYY-MM-DD` value of the resources to read
+        :param unicode friendly_name: The string that identifies the Conference resources to read
+        :param ConferenceInstance.Status status: The status of the resources to read
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -190,7 +190,7 @@ class ConferenceList(ListResource):
         """
         Constructs a ConferenceContext
 
-        :param sid: Fetch by unique conference Sid
+        :param sid: The unique string that identifies this resource
 
         :returns: twilio.rest.api.v2010.account.conference.ConferenceContext
         :rtype: twilio.rest.api.v2010.account.conference.ConferenceContext
@@ -201,7 +201,7 @@ class ConferenceList(ListResource):
         """
         Constructs a ConferenceContext
 
-        :param sid: Fetch by unique conference Sid
+        :param sid: The unique string that identifies this resource
 
         :returns: twilio.rest.api.v2010.account.conference.ConferenceContext
         :rtype: twilio.rest.api.v2010.account.conference.ConferenceContext
@@ -227,7 +227,7 @@ class ConferencePage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The unique sid that identifies this account
+        :param account_sid: The SID of the Account that created this resource
 
         :returns: twilio.rest.api.v2010.account.conference.ConferencePage
         :rtype: twilio.rest.api.v2010.account.conference.ConferencePage
@@ -266,8 +266,8 @@ class ConferenceContext(InstanceContext):
         Initialize the ConferenceContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
-        :param sid: Fetch by unique conference Sid
+        :param account_sid: The SID of the Account that created the resource(s) to fetch
+        :param sid: The unique string that identifies this resource
 
         :returns: twilio.rest.api.v2010.account.conference.ConferenceContext
         :rtype: twilio.rest.api.v2010.account.conference.ConferenceContext
@@ -309,9 +309,9 @@ class ConferenceContext(InstanceContext):
         """
         Update the ConferenceInstance
 
-        :param ConferenceInstance.UpdateStatus status: Specifying completed will end the conference and kick all participants
-        :param unicode announce_url: The 'AnnounceUrl' attribute lets you specify a URL for announcing something into a conference.
-        :param unicode announce_method: Specify GET or POST, defaults to POST
+        :param ConferenceInstance.UpdateStatus status: The new status of the resource
+        :param unicode announce_url: The URL we should call to announce something into the conference
+        :param unicode announce_method: he HTTP method used to call announce_url
 
         :returns: Updated ConferenceInstance
         :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
@@ -432,7 +432,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique sid that identifies this account
+        :returns: The SID of the Account that created this resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -440,7 +440,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this resource was created
+        :returns: The RFC 2822 date and time in GMT that this resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -448,7 +448,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this resource was last updated
+        :returns: The RFC 2822 date and time in GMT that this resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -456,7 +456,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def api_version(self):
         """
-        :returns: The api_version
+        :returns: The API version used to create this conference
         :rtype: unicode
         """
         return self._properties['api_version']
@@ -464,7 +464,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A human readable description of this resource
+        :returns: A string that you assigned to describe this conference room
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -472,7 +472,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def region(self):
         """
-        :returns: A string representing the Twilio Region where the conference was mixed.
+        :returns: A string that represents the Twilio Region where the conference was mixed
         :rtype: unicode
         """
         return self._properties['region']
@@ -480,7 +480,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this conference
+        :returns: The unique string that identifies this resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -488,7 +488,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: The status of the conference
+        :returns: The status of this conference
         :rtype: ConferenceInstance.Status
         """
         return self._properties['status']
@@ -496,7 +496,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def uri(self):
         """
-        :returns: The URI for this resource
+        :returns: The URI of this resource, relative to `https://api.twilio.com`
         :rtype: unicode
         """
         return self._properties['uri']
@@ -504,7 +504,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def subresource_uris(self):
         """
-        :returns: The subresource_uris
+        :returns: A list of related resources identified by their relative URIs
         :rtype: unicode
         """
         return self._properties['subresource_uris']
@@ -523,9 +523,9 @@ class ConferenceInstance(InstanceResource):
         """
         Update the ConferenceInstance
 
-        :param ConferenceInstance.UpdateStatus status: Specifying completed will end the conference and kick all participants
-        :param unicode announce_url: The 'AnnounceUrl' attribute lets you specify a URL for announcing something into a conference.
-        :param unicode announce_method: Specify GET or POST, defaults to POST
+        :param ConferenceInstance.UpdateStatus status: The new status of the resource
+        :param unicode announce_url: The URL we should call to announce something into the conference
+        :param unicode announce_method: he HTTP method used to call announce_url
 
         :returns: Updated ConferenceInstance
         :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance

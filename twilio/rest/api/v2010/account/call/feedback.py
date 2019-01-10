@@ -24,7 +24,7 @@ class FeedbackList(ListResource):
 
         :param Version version: Version that contains the resource
         :param account_sid: The unique sid that identifies this account
-        :param call_sid: A 34-character string that uniquely identifies the Call resource.
+        :param call_sid: The unique string that identifies this resource
 
         :returns: twilio.rest.api.v2010.account.call.feedback.FeedbackList
         :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackList
@@ -80,7 +80,7 @@ class FeedbackPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
         :param account_sid: The unique sid that identifies this account
-        :param call_sid: A 34-character string that uniquely identifies the Call resource.
+        :param call_sid: The unique string that identifies this resource
 
         :returns: twilio.rest.api.v2010.account.call.feedback.FeedbackPage
         :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackPage

@@ -27,7 +27,7 @@ class CallList(ListResource):
         Initialize the CallList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The unique id of the Account responsible for creating this Call
+        :param account_sid: The SID of the Account that created this resource
 
         :returns: twilio.rest.api.v2010.account.call.CallList
         :rtype: twilio.rest.api.v2010.account.call.CallList
@@ -62,26 +62,26 @@ class CallList(ListResource):
         :param unicode from_: Twilio number from which to originate the call
         :param unicode method: HTTP method to use to fetch TwiML
         :param unicode fallback_url: Fallback URL in case of error
-        :param unicode fallback_method: HTTP Method to use with FallbackUrl
-        :param unicode status_callback: Status Callback URL
-        :param unicode status_callback_event: The call progress events that Twilio will send webhooks on.
-        :param unicode status_callback_method: HTTP Method to use with StatusCallback
-        :param unicode send_digits: Digits to send
-        :param unicode if_machine: The if_machine
+        :param unicode fallback_method: HTTP Method to use with fallback_url
+        :param unicode status_callback: The URL we should call to send status information to your application
+        :param unicode status_callback_event: The call progress events that we send to the `status_callback` URL.
+        :param unicode status_callback_method: HTTP Method to use with status_callback
+        :param unicode send_digits: The digits to dial after connecting to the number
+        :param unicode if_machine: The action to take if an answering machine is detected
         :param unicode timeout: Number of seconds to wait for an answer
-        :param bool record: Whether or not to record the Call
-        :param unicode recording_channels: mono or dualSet this parameter to specify the number of channels in the final recording.
-        :param unicode recording_status_callback: A URL that Twilio will send a webhook request to when the recording is available for access.
-        :param unicode recording_status_callback_method: The HTTP method Twilio should use when requesting the `RecordingStatusCallback` URL.
-        :param unicode sip_auth_username: The sip_auth_username
-        :param unicode sip_auth_password: The sip_auth_password
+        :param bool record: Whether or not to record the call
+        :param unicode recording_channels: The number of channels in the final recording
+        :param unicode recording_status_callback: The URL that we call when the recording is available to be accessed
+        :param unicode recording_status_callback_method: The HTTP method we should use when calling the `recording_status_callback` URL
+        :param unicode sip_auth_username: The username used to authenticate the caller making a SIP call
+        :param unicode sip_auth_password: The password required to authenticate the user account specified in `sip_auth_username`.
         :param unicode machine_detection: Enable machine detection or end of greeting detection
-        :param unicode machine_detection_timeout: Number of miliseconds to wait for machine detection
-        :param unicode recording_status_callback_event: The recording status changes that Twilio will send webhooks on to the URL specified in RecordingStatusCallback.
+        :param unicode machine_detection_timeout: Number of milliseconds to wait for machine detection
+        :param unicode recording_status_callback_event: The recording status events that will trigger calls to the URL specified in `recording_status_callback`
         :param unicode trim: Set this parameter to control trimming of silence on the recording.
-        :param unicode caller_id: The phone number, SIP address, or Client identifier that made this Call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`.
-        :param unicode url: Url from which to fetch TwiML
-        :param unicode application_sid: ApplicationSid that configures from where to fetch TwiML
+        :param unicode caller_id: The phone number, SIP address, or Client identifier that made this call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`.
+        :param unicode url: The absolute URL that returns TwiML for this call
+        :param unicode application_sid: The SID of the Application resource that will handle the call
 
         :returns: Newly created CallInstance
         :rtype: twilio.rest.api.v2010.account.call.CallInstance
@@ -133,16 +133,16 @@ class CallList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode to: Phone number or Client identifier to filter `to` on
+        :param unicode to: Phone number or Client identifier of calls to include
         :param unicode from_: Phone number or Client identifier to filter `from` on
-        :param unicode parent_call_sid: Parent Call Sid to filter on
-        :param CallInstance.Status status: Status to filter on
-        :param datetime start_time_before: StartTime to filter on
-        :param datetime start_time: StartTime to filter on
-        :param datetime start_time_after: StartTime to filter on
-        :param datetime end_time_before: EndTime to filter on
-        :param datetime end_time: EndTime to filter on
-        :param datetime end_time_after: EndTime to filter on
+        :param unicode parent_call_sid: Parent call SID to filter on
+        :param CallInstance.Status status: The status of the resources to read
+        :param datetime start_time_before: Only include calls that started on or after this date
+        :param datetime start_time: Only include calls that started on or after this date
+        :param datetime start_time_after: Only include calls that started on or after this date
+        :param datetime end_time_before: Only include usage that occurred on or before this date
+        :param datetime end_time: Only include usage that occurred on or before this date
+        :param datetime end_time_after: Only include usage that occurred on or before this date
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -182,16 +182,16 @@ class CallList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode to: Phone number or Client identifier to filter `to` on
+        :param unicode to: Phone number or Client identifier of calls to include
         :param unicode from_: Phone number or Client identifier to filter `from` on
-        :param unicode parent_call_sid: Parent Call Sid to filter on
-        :param CallInstance.Status status: Status to filter on
-        :param datetime start_time_before: StartTime to filter on
-        :param datetime start_time: StartTime to filter on
-        :param datetime start_time_after: StartTime to filter on
-        :param datetime end_time_before: EndTime to filter on
-        :param datetime end_time: EndTime to filter on
-        :param datetime end_time_after: EndTime to filter on
+        :param unicode parent_call_sid: Parent call SID to filter on
+        :param CallInstance.Status status: The status of the resources to read
+        :param datetime start_time_before: Only include calls that started on or after this date
+        :param datetime start_time: Only include calls that started on or after this date
+        :param datetime start_time_after: Only include calls that started on or after this date
+        :param datetime end_time_before: Only include usage that occurred on or before this date
+        :param datetime end_time: Only include usage that occurred on or before this date
+        :param datetime end_time_after: Only include usage that occurred on or before this date
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -228,16 +228,16 @@ class CallList(ListResource):
         Retrieve a single page of CallInstance records from the API.
         Request is executed immediately
 
-        :param unicode to: Phone number or Client identifier to filter `to` on
+        :param unicode to: Phone number or Client identifier of calls to include
         :param unicode from_: Phone number or Client identifier to filter `from` on
-        :param unicode parent_call_sid: Parent Call Sid to filter on
-        :param CallInstance.Status status: Status to filter on
-        :param datetime start_time_before: StartTime to filter on
-        :param datetime start_time: StartTime to filter on
-        :param datetime start_time_after: StartTime to filter on
-        :param datetime end_time_before: EndTime to filter on
-        :param datetime end_time: EndTime to filter on
-        :param datetime end_time_after: EndTime to filter on
+        :param unicode parent_call_sid: Parent call SID to filter on
+        :param CallInstance.Status status: The status of the resources to read
+        :param datetime start_time_before: Only include calls that started on or after this date
+        :param datetime start_time: Only include calls that started on or after this date
+        :param datetime start_time_after: Only include calls that started on or after this date
+        :param datetime end_time_before: Only include usage that occurred on or before this date
+        :param datetime end_time: Only include usage that occurred on or before this date
+        :param datetime end_time_after: Only include usage that occurred on or before this date
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -305,7 +305,7 @@ class CallList(ListResource):
         """
         Constructs a CallContext
 
-        :param sid: Call Sid that uniquely identifies the Call to fetch
+        :param sid: The unique string that identifies this resource
 
         :returns: twilio.rest.api.v2010.account.call.CallContext
         :rtype: twilio.rest.api.v2010.account.call.CallContext
@@ -316,7 +316,7 @@ class CallList(ListResource):
         """
         Constructs a CallContext
 
-        :param sid: Call Sid that uniquely identifies the Call to fetch
+        :param sid: The unique string that identifies this resource
 
         :returns: twilio.rest.api.v2010.account.call.CallContext
         :rtype: twilio.rest.api.v2010.account.call.CallContext
@@ -342,7 +342,7 @@ class CallPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The unique id of the Account responsible for creating this Call
+        :param account_sid: The SID of the Account that created this resource
 
         :returns: twilio.rest.api.v2010.account.call.CallPage
         :rtype: twilio.rest.api.v2010.account.call.CallPage
@@ -381,8 +381,8 @@ class CallContext(InstanceContext):
         Initialize the CallContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
-        :param sid: Call Sid that uniquely identifies the Call to fetch
+        :param account_sid: The SID of the Account that created the resource(s) to fetch
+        :param sid: The unique string that identifies this resource
 
         :returns: twilio.rest.api.v2010.account.call.CallContext
         :rtype: twilio.rest.api.v2010.account.call.CallContext
@@ -435,13 +435,13 @@ class CallContext(InstanceContext):
         """
         Update the CallInstance
 
-        :param unicode url: URL that returns TwiML
+        :param unicode url: The absolute URL that returns TwiML for this call
         :param unicode method: HTTP method to use to fetch TwiML
-        :param CallInstance.UpdateStatus status: Status to update the Call with
+        :param CallInstance.UpdateStatus status: The new status to update the call with.
         :param unicode fallback_url: Fallback URL in case of error
-        :param unicode fallback_method: HTTP Method to use with FallbackUrl
-        :param unicode status_callback: Status Callback URL
-        :param unicode status_callback_method: HTTP Method to use with StatusCallback
+        :param unicode fallback_method: HTTP Method to use with fallback_url
+        :param unicode status_callback: The URL we should call to send status information to your application
+        :param unicode status_callback_method: HTTP Method to use to call status_callback
 
         :returns: Updated CallInstance
         :rtype: twilio.rest.api.v2010.account.call.CallInstance
@@ -613,7 +613,7 @@ class CallInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the Account responsible for creating this Call
+        :returns: The SID of the Account that created this resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -621,7 +621,7 @@ class CallInstance(InstanceResource):
     @property
     def annotation(self):
         """
-        :returns: The annotation provided for the Call
+        :returns: The annotation provided for the call
         :rtype: unicode
         """
         return self._properties['annotation']
@@ -629,7 +629,7 @@ class CallInstance(InstanceResource):
     @property
     def answered_by(self):
         """
-        :returns: Either `human` or `machine` if this Call was initiated with answering machine detection. Empty otherwise.
+        :returns: Either `human` or `machine` if this call was initiated with answering machine detection. Empty otherwise.
         :rtype: unicode
         """
         return self._properties['answered_by']
@@ -637,7 +637,7 @@ class CallInstance(InstanceResource):
     @property
     def api_version(self):
         """
-        :returns: The API Version used to create the Call
+        :returns: The API Version used to create the call
         :rtype: unicode
         """
         return self._properties['api_version']
@@ -645,7 +645,7 @@ class CallInstance(InstanceResource):
     @property
     def caller_name(self):
         """
-        :returns: The caller's name if this Call was an incoming call to a phone number with Caller ID Lookup enabled. Empty otherwise.
+        :returns: The caller's name if this call was an incoming call to a phone number with caller ID Lookup enabled. Otherwise, empty.
         :rtype: unicode
         """
         return self._properties['caller_name']
@@ -653,7 +653,7 @@ class CallInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this resource was created
+        :returns: The RFC 2822 date and time in GMT that this resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -661,7 +661,7 @@ class CallInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date that this resource was last updated
+        :returns: The RFC 2822 date and time in GMT that this resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -669,7 +669,7 @@ class CallInstance(InstanceResource):
     @property
     def direction(self):
         """
-        :returns: A string describing the direction of the Call. `inbound` for inbound calls, `outbound-api` for calls initiated via the REST API or `outbound-dial` for calls initiated by a `Dial` verb.
+        :returns: A string describing the direction of the call. `inbound` for inbound calls, `outbound-api` for calls initiated via the REST API or `outbound-dial` for calls initiated by a `Dial` verb.
         :rtype: unicode
         """
         return self._properties['direction']
@@ -677,7 +677,7 @@ class CallInstance(InstanceResource):
     @property
     def duration(self):
         """
-        :returns: The length of the Call in seconds.
+        :returns: The length of the call in seconds.
         :rtype: unicode
         """
         return self._properties['duration']
@@ -685,7 +685,7 @@ class CallInstance(InstanceResource):
     @property
     def end_time(self):
         """
-        :returns: The end time of the Call. Null if the call did not complete successfully.
+        :returns: The end time of the call. Null if the call did not complete successfully.
         :rtype: datetime
         """
         return self._properties['end_time']
@@ -693,7 +693,7 @@ class CallInstance(InstanceResource):
     @property
     def forwarded_from(self):
         """
-        :returns: The forwarding phone number if this Call was an incoming call forwarded from another number (depends on carrier supporting forwarding). Empty otherwise.
+        :returns: The forwarding phone number if this call was an incoming call forwarded from another number (depends on carrier supporting forwarding). Otherwise, empty.
         :rtype: unicode
         """
         return self._properties['forwarded_from']
@@ -701,7 +701,7 @@ class CallInstance(InstanceResource):
     @property
     def from_(self):
         """
-        :returns: The phone number, SIP address or Client identifier that made this Call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
+        :returns: The phone number, SIP address or Client identifier that made this call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
         :rtype: unicode
         """
         return self._properties['from_']
@@ -709,7 +709,7 @@ class CallInstance(InstanceResource):
     @property
     def from_formatted(self):
         """
-        :returns: The phone number, SIP address or Client identifier that made this Call. Formatted for display.
+        :returns: The calling phone number, SIP address, or Client identifier formatted for display.
         :rtype: unicode
         """
         return self._properties['from_formatted']
@@ -717,7 +717,7 @@ class CallInstance(InstanceResource):
     @property
     def group_sid(self):
         """
-        :returns: A 34-character Group Sid associated with this Call. Empty if no Group is associated with the Call.
+        :returns: The Group SID associated with this call. If no Group is associated with the call, the field is empty.
         :rtype: unicode
         """
         return self._properties['group_sid']
@@ -725,7 +725,7 @@ class CallInstance(InstanceResource):
     @property
     def parent_call_sid(self):
         """
-        :returns: A 34-character string that uniquely identifies the Call that created this leg.
+        :returns: The SID that identifies the call that created this leg.
         :rtype: unicode
         """
         return self._properties['parent_call_sid']
@@ -733,7 +733,7 @@ class CallInstance(InstanceResource):
     @property
     def phone_number_sid(self):
         """
-        :returns: If the call was inbound, this is the Sid of the `IncomingPhoneNumber` that received the call. If the call was outbound, it is the Sid of the `OutgoingCallerId` from which the call was placed.
+        :returns: If the call was inbound, this is the SID of the IncomingPhoneNumber resource that received the call. If the call was outbound, it is the SID of the OutgoingCallerId resource from which the call was placed.
         :rtype: unicode
         """
         return self._properties['phone_number_sid']
@@ -741,7 +741,7 @@ class CallInstance(InstanceResource):
     @property
     def price(self):
         """
-        :returns: The charge for this Call, in the currency associated with the account. Populated after the call is completed. May not be immediately available.
+        :returns: The charge for this call, in the currency associated with the account. Populated after the call is completed. May not be immediately available.
         :rtype: unicode
         """
         return self._properties['price']
@@ -757,7 +757,7 @@ class CallInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34-character string that uniquely identifies the Call resource.
+        :returns: The unique string that identifies this resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -765,7 +765,7 @@ class CallInstance(InstanceResource):
     @property
     def start_time(self):
         """
-        :returns: The start time of the Call. Null if the call has not yet been dialed.
+        :returns: The start time of the call. Null if the call has not yet been dialed.
         :rtype: datetime
         """
         return self._properties['start_time']
@@ -773,7 +773,7 @@ class CallInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: A string representing the status of the Call.
+        :returns: The status of this call.
         :rtype: CallInstance.Status
         """
         return self._properties['status']
@@ -781,7 +781,7 @@ class CallInstance(InstanceResource):
     @property
     def subresource_uris(self):
         """
-        :returns: Call Instance Subresources
+        :returns: A list of related subresources identified by their relative URIs
         :rtype: unicode
         """
         return self._properties['subresource_uris']
@@ -789,7 +789,7 @@ class CallInstance(InstanceResource):
     @property
     def to(self):
         """
-        :returns: The phone number, SIP address or Client identifier that received this Call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
+        :returns: The phone number, SIP address or Client identifier that received this call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
         :rtype: unicode
         """
         return self._properties['to']
@@ -797,7 +797,7 @@ class CallInstance(InstanceResource):
     @property
     def to_formatted(self):
         """
-        :returns: The phone number, SIP address or Client identifier that received this Call. Formatted for display.
+        :returns: The phone number, SIP address or Client identifier that received this call. Formatted for display.
         :rtype: unicode
         """
         return self._properties['to_formatted']
@@ -805,7 +805,7 @@ class CallInstance(InstanceResource):
     @property
     def uri(self):
         """
-        :returns: The URI for this resource, relative to `https://api.twilio.com`
+        :returns: The URI of this resource, relative to `https://api.twilio.com`
         :rtype: unicode
         """
         return self._properties['uri']
@@ -834,13 +834,13 @@ class CallInstance(InstanceResource):
         """
         Update the CallInstance
 
-        :param unicode url: URL that returns TwiML
+        :param unicode url: The absolute URL that returns TwiML for this call
         :param unicode method: HTTP method to use to fetch TwiML
-        :param CallInstance.UpdateStatus status: Status to update the Call with
+        :param CallInstance.UpdateStatus status: The new status to update the call with.
         :param unicode fallback_url: Fallback URL in case of error
-        :param unicode fallback_method: HTTP Method to use with FallbackUrl
-        :param unicode status_callback: Status Callback URL
-        :param unicode status_callback_method: HTTP Method to use with StatusCallback
+        :param unicode fallback_method: HTTP Method to use with fallback_url
+        :param unicode status_callback: The URL we should call to send status information to your application
+        :param unicode status_callback_method: HTTP Method to use to call status_callback
 
         :returns: Updated CallInstance
         :rtype: twilio.rest.api.v2010.account.call.CallInstance

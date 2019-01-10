@@ -45,8 +45,8 @@ class RecordingList(ListResource):
         :param RecordingInstance.Status status: Only show Recordings with the given status.
         :param unicode source_sid: Only show the Recordings with the given source Sid.
         :param unicode grouping_sid: Only show Recordings that have this GroupingSid.
-        :param datetime date_created_after: Only show Recordings that started on or after this ISO8601 date-time.
-        :param datetime date_created_before: Only show Recordings that started before this this ISO8601 date-time.
+        :param datetime date_created_after: Only show Recordings that started on or after this ISO8601 date-time with timezone.
+        :param datetime date_created_before: Only show Recordings that started before this ISO8601 date-time with timezone.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -81,8 +81,8 @@ class RecordingList(ListResource):
         :param RecordingInstance.Status status: Only show Recordings with the given status.
         :param unicode source_sid: Only show the Recordings with the given source Sid.
         :param unicode grouping_sid: Only show Recordings that have this GroupingSid.
-        :param datetime date_created_after: Only show Recordings that started on or after this ISO8601 date-time.
-        :param datetime date_created_before: Only show Recordings that started before this this ISO8601 date-time.
+        :param datetime date_created_after: Only show Recordings that started on or after this ISO8601 date-time with timezone.
+        :param datetime date_created_before: Only show Recordings that started before this ISO8601 date-time with timezone.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -114,8 +114,8 @@ class RecordingList(ListResource):
         :param RecordingInstance.Status status: Only show Recordings with the given status.
         :param unicode source_sid: Only show the Recordings with the given source Sid.
         :param unicode grouping_sid: Only show Recordings that have this GroupingSid.
-        :param datetime date_created_after: Only show Recordings that started on or after this ISO8601 date-time.
-        :param datetime date_created_before: Only show Recordings that started before this this ISO8601 date-time.
+        :param datetime date_created_after: Only show Recordings that started on or after this ISO8601 date-time with timezone.
+        :param datetime date_created_before: Only show Recordings that started before this ISO8601 date-time with timezone.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -462,7 +462,7 @@ class RecordingInstance(InstanceResource):
     @property
     def offset(self):
         """
-        :returns: Offset in miliseconds for this track.
+        :returns: Offset in milliseconds for this track.
         :rtype: unicode
         """
         return self._properties['offset']

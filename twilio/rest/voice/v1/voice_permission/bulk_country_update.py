@@ -138,7 +138,7 @@ class BulkCountryUpdateInstance(InstanceResource):
     @property
     def update_request(self):
         """
-        :returns: The update_request
+        :returns: A URL encoded JSON array of update objects
         :rtype: unicode
         """
         return self._properties['update_request']

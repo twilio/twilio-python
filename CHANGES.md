@@ -3,6 +3,16 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2019-01-10] Version 6.23.0
+----------------------------
+**Chat**
+- Mark Member attributes as PII
+
+**Proxy**
+- Remove unsupported query parameters **(breaking change)**
+- Remove invalid session statuses in doc
+
+
 [2019-01-02] Version 6.22.1
 ----------------------------
 **Insights**

@@ -23,7 +23,7 @@ class QueueList(ListResource):
         Initialize the QueueList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
+        :param account_sid: The SID of the Account that created this resource
 
         :returns: twilio.rest.api.v2010.account.queue.QueueList
         :rtype: twilio.rest.api.v2010.account.queue.QueueList
@@ -119,7 +119,7 @@ class QueueList(ListResource):
         """
         Create a new QueueInstance
 
-        :param unicode friendly_name: A user-provided string that identifies this queue.
+        :param unicode friendly_name: A string to describe this resource
         :param unicode max_size: The max number of calls allowed in the queue
 
         :returns: Newly created QueueInstance
@@ -139,7 +139,7 @@ class QueueList(ListResource):
         """
         Constructs a QueueContext
 
-        :param sid: Fetch by unique queue Sid
+        :param sid: The unique string that identifies this resource
 
         :returns: twilio.rest.api.v2010.account.queue.QueueContext
         :rtype: twilio.rest.api.v2010.account.queue.QueueContext
@@ -150,7 +150,7 @@ class QueueList(ListResource):
         """
         Constructs a QueueContext
 
-        :param sid: Fetch by unique queue Sid
+        :param sid: The unique string that identifies this resource
 
         :returns: twilio.rest.api.v2010.account.queue.QueueContext
         :rtype: twilio.rest.api.v2010.account.queue.QueueContext
@@ -176,7 +176,7 @@ class QueuePage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The account_sid
+        :param account_sid: The SID of the Account that created this resource
 
         :returns: twilio.rest.api.v2010.account.queue.QueuePage
         :rtype: twilio.rest.api.v2010.account.queue.QueuePage
@@ -215,8 +215,8 @@ class QueueContext(InstanceContext):
         Initialize the QueueContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
-        :param sid: Fetch by unique queue Sid
+        :param account_sid: The SID of the Account that created the resource(s) to fetch
+        :param sid: The unique string that identifies this resource
 
         :returns: twilio.rest.api.v2010.account.queue.QueueContext
         :rtype: twilio.rest.api.v2010.account.queue.QueueContext
@@ -256,8 +256,8 @@ class QueueContext(InstanceContext):
         """
         Update the QueueInstance
 
-        :param unicode friendly_name: A human readable description of the queue
-        :param unicode max_size: The max number of members allowed in the queue
+        :param unicode friendly_name: A string to describe this resource
+        :param unicode max_size: The max number of calls allowed in the queue
 
         :returns: Updated QueueInstance
         :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
@@ -362,7 +362,7 @@ class QueueInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The SID of the Account that created this resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -378,7 +378,7 @@ class QueueInstance(InstanceResource):
     @property
     def current_size(self):
         """
-        :returns: The count of calls currently in the queue.
+        :returns: The number of calls currently in the queue.
         :rtype: unicode
         """
         return self._properties['current_size']
@@ -386,7 +386,7 @@ class QueueInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The RFC 2822 date and time in GMT that this resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -394,7 +394,7 @@ class QueueInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The RFC 2822 date and time in GMT that this resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -402,7 +402,7 @@ class QueueInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A user-provided string that identifies this queue.
+        :returns: A string that you assigned to describe this resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -418,7 +418,7 @@ class QueueInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this queue
+        :returns: The unique string that identifies this resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -426,7 +426,7 @@ class QueueInstance(InstanceResource):
     @property
     def uri(self):
         """
-        :returns: The uri
+        :returns: The URI of this resource, relative to `https://api.twilio.com`
         :rtype: unicode
         """
         return self._properties['uri']
@@ -444,8 +444,8 @@ class QueueInstance(InstanceResource):
         """
         Update the QueueInstance
 
-        :param unicode friendly_name: A human readable description of the queue
-        :param unicode max_size: The max number of members allowed in the queue
+        :param unicode friendly_name: A string to describe this resource
+        :param unicode max_size: The max number of calls allowed in the queue
 
         :returns: Updated QueueInstance
         :rtype: twilio.rest.api.v2010.account.queue.QueueInstance

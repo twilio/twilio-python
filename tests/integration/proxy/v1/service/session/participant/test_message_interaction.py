@@ -34,7 +34,7 @@ class MessageInteractionTestCase(IntegrationTestCase):
             '''
             {
                 "service_sid": "KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "data": "body",
+                "data": "{\\"body\\":\\"some message\\"}",
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z",
                 "participant_sid": "KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -84,7 +84,7 @@ class MessageInteractionTestCase(IntegrationTestCase):
             '''
             {
                 "service_sid": "KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "data": "data",
+                "data": "{\\"body\\":\\"some message\\"}",
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z",
                 "participant_sid": "KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",

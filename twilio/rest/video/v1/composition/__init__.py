@@ -45,8 +45,8 @@ class CompositionList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param CompositionInstance.Status status: Only show Compositions with the given status.
-        :param datetime date_created_after: Only show Compositions that started on or after this ISO8601 date-time.
-        :param datetime date_created_before: Only show Compositions that started before this this ISO8601 date-time.
+        :param datetime date_created_after: Only show Compositions created on or after this ISO8601 date-time with timezone.
+        :param datetime date_created_before: Only show Compositions created before this ISO8601 date-time with timezone.
         :param unicode room_sid: Only show Compositions with the given Room SID.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
@@ -79,8 +79,8 @@ class CompositionList(ListResource):
         memory before returning.
 
         :param CompositionInstance.Status status: Only show Compositions with the given status.
-        :param datetime date_created_after: Only show Compositions that started on or after this ISO8601 date-time.
-        :param datetime date_created_before: Only show Compositions that started before this this ISO8601 date-time.
+        :param datetime date_created_after: Only show Compositions created on or after this ISO8601 date-time with timezone.
+        :param datetime date_created_before: Only show Compositions created before this ISO8601 date-time with timezone.
         :param unicode room_sid: Only show Compositions with the given Room SID.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
@@ -110,8 +110,8 @@ class CompositionList(ListResource):
         Request is executed immediately
 
         :param CompositionInstance.Status status: Only show Compositions with the given status.
-        :param datetime date_created_after: Only show Compositions that started on or after this ISO8601 date-time.
-        :param datetime date_created_before: Only show Compositions that started before this this ISO8601 date-time.
+        :param datetime date_created_after: Only show Compositions created on or after this ISO8601 date-time with timezone.
+        :param datetime date_created_before: Only show Compositions created before this ISO8601 date-time with timezone.
         :param unicode room_sid: Only show Compositions with the given Room SID.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state

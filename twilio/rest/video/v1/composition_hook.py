@@ -44,8 +44,8 @@ class CompositionHookList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param bool enabled: Only show Composition Hooks enabled or disabled.
-        :param datetime date_created_after: Only show Composition Hooks created on or after this ISO8601 date-time.
-        :param datetime date_created_before: Only show Composition Hooks created before this this ISO8601 date-time.
+        :param datetime date_created_after: Only show Composition Hooks created on or after this ISO8601 date-time with timezone.
+        :param datetime date_created_before: Only show Composition Hooks created before this ISO8601 date-time with timezone.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -75,8 +75,8 @@ class CompositionHookList(ListResource):
         memory before returning.
 
         :param bool enabled: Only show Composition Hooks enabled or disabled.
-        :param datetime date_created_after: Only show Composition Hooks created on or after this ISO8601 date-time.
-        :param datetime date_created_before: Only show Composition Hooks created before this this ISO8601 date-time.
+        :param datetime date_created_after: Only show Composition Hooks created on or after this ISO8601 date-time with timezone.
+        :param datetime date_created_before: Only show Composition Hooks created before this ISO8601 date-time with timezone.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -103,8 +103,8 @@ class CompositionHookList(ListResource):
         Request is executed immediately
 
         :param bool enabled: Only show Composition Hooks enabled or disabled.
-        :param datetime date_created_after: Only show Composition Hooks created on or after this ISO8601 date-time.
-        :param datetime date_created_before: Only show Composition Hooks created before this this ISO8601 date-time.
+        :param datetime date_created_after: Only show Composition Hooks created on or after this ISO8601 date-time with timezone.
+        :param datetime date_created_before: Only show Composition Hooks created before this ISO8601 date-time with timezone.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -155,7 +155,7 @@ class CompositionHookList(ListResource):
         Create a new CompositionHookInstance
 
         :param unicode friendly_name: Friendly name of the Composition Hook to be shown in the console.
-        :param bool enabled: Boolean flag for activating the Composition Hook.
+        :param bool enabled: Boolean flag indicating if the Composition Hook is active.
         :param dict video_layout: The JSON video layout description.
         :param unicode audio_sources: A list of audio sources related to this Composition Hook.
         :param unicode audio_sources_excluded: A list of audio sources excluded related to this Composition Hook.
@@ -317,7 +317,7 @@ class CompositionHookContext(InstanceContext):
         Update the CompositionHookInstance
 
         :param unicode friendly_name: Friendly name of the Composition Hook to be shown in the console.
-        :param bool enabled: Boolean flag for activating the Composition Hook.
+        :param bool enabled: Boolean flag indicating if the Composition Hook is active.
         :param dict video_layout: The JSON video layout description.
         :param unicode audio_sources: A list of audio sources related to this Composition Hook.
         :param unicode audio_sources_excluded: A list of audio sources excluded related to this Composition Hook.
@@ -435,7 +435,7 @@ class CompositionHookInstance(InstanceResource):
     @property
     def enabled(self):
         """
-        :returns: Boolean flag for activating the Composition Hook.
+        :returns: Boolean flag indicating if the Composition Hook is active.
         :rtype: bool
         """
         return self._properties['enabled']
@@ -515,7 +515,7 @@ class CompositionHookInstance(InstanceResource):
     @property
     def status_callback(self):
         """
-        :returns: The status_callback
+        :returns: A URL that Twilio sends asynchronous webhook requests to on every composition event.
         :rtype: unicode
         """
         return self._properties['status_callback']
@@ -523,7 +523,7 @@ class CompositionHookInstance(InstanceResource):
     @property
     def status_callback_method(self):
         """
-        :returns: The status_callback_method
+        :returns: HTTP method Twilio should use when requesting the above URL.
         :rtype: unicode
         """
         return self._properties['status_callback_method']
@@ -562,7 +562,7 @@ class CompositionHookInstance(InstanceResource):
         Update the CompositionHookInstance
 
         :param unicode friendly_name: Friendly name of the Composition Hook to be shown in the console.
-        :param bool enabled: Boolean flag for activating the Composition Hook.
+        :param bool enabled: Boolean flag indicating if the Composition Hook is active.
         :param dict video_layout: The JSON video layout description.
         :param unicode audio_sources: A list of audio sources related to this Composition Hook.
         :param unicode audio_sources_excluded: A list of audio sources excluded related to this Composition Hook.

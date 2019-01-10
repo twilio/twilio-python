@@ -47,10 +47,10 @@ class CountryList(ListResource):
 
         :param unicode iso_code: Filter to retrieve the country permissions by specifying the ISO country code
         :param unicode continent: Filter to retrieve the country permissions by specifying the continent
-        :param unicode country_code: country codes
-        :param bool low_risk_numbers_enabled: Filter to retrieve the country permissions with dialing to low-risk numbers enabled set to true / false
-        :param bool high_risk_special_numbers_enabled: Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled set to true / false
-        :param bool high_risk_tollfraud_numbers_enabled: Filter to retrieve the country permissions with dialing to high-risk toll fraud numbers enabled set to true / false
+        :param unicode country_code: Country code filter
+        :param bool low_risk_numbers_enabled: Filter to retrieve the country permissions with dialing to low-risk numbers enabled
+        :param bool high_risk_special_numbers_enabled: Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled
+        :param bool high_risk_tollfraud_numbers_enabled: Filter to retrieve the country permissions with dialing to high-risk toll fraud numbers enabled
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -87,10 +87,10 @@ class CountryList(ListResource):
 
         :param unicode iso_code: Filter to retrieve the country permissions by specifying the ISO country code
         :param unicode continent: Filter to retrieve the country permissions by specifying the continent
-        :param unicode country_code: country codes
-        :param bool low_risk_numbers_enabled: Filter to retrieve the country permissions with dialing to low-risk numbers enabled set to true / false
-        :param bool high_risk_special_numbers_enabled: Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled set to true / false
-        :param bool high_risk_tollfraud_numbers_enabled: Filter to retrieve the country permissions with dialing to high-risk toll fraud numbers enabled set to true / false
+        :param unicode country_code: Country code filter
+        :param bool low_risk_numbers_enabled: Filter to retrieve the country permissions with dialing to low-risk numbers enabled
+        :param bool high_risk_special_numbers_enabled: Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled
+        :param bool high_risk_tollfraud_numbers_enabled: Filter to retrieve the country permissions with dialing to high-risk toll fraud numbers enabled
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -124,10 +124,10 @@ class CountryList(ListResource):
 
         :param unicode iso_code: Filter to retrieve the country permissions by specifying the ISO country code
         :param unicode continent: Filter to retrieve the country permissions by specifying the continent
-        :param unicode country_code: country codes
-        :param bool low_risk_numbers_enabled: Filter to retrieve the country permissions with dialing to low-risk numbers enabled set to true / false
-        :param bool high_risk_special_numbers_enabled: Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled set to true / false
-        :param bool high_risk_tollfraud_numbers_enabled: Filter to retrieve the country permissions with dialing to high-risk toll fraud numbers enabled set to true / false
+        :param unicode country_code: Country code filter
+        :param bool low_risk_numbers_enabled: Filter to retrieve the country permissions with dialing to low-risk numbers enabled
+        :param bool high_risk_special_numbers_enabled: Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled
+        :param bool high_risk_tollfraud_numbers_enabled: Filter to retrieve the country permissions with dialing to high-risk toll fraud numbers enabled
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -391,7 +391,7 @@ class CountryInstance(InstanceResource):
     @property
     def low_risk_numbers_enabled(self):
         """
-        :returns: true, if dialing to low-risk numbers is enabled, else false
+        :returns: `true`, if dialing to low-risk numbers is enabled, else `false`
         :rtype: bool
         """
         return self._properties['low_risk_numbers_enabled']
@@ -399,7 +399,7 @@ class CountryInstance(InstanceResource):
     @property
     def high_risk_special_numbers_enabled(self):
         """
-        :returns: true, if dialing to high-risk special services numbers is enabled, else false. This group of prefixes, are number ranges allocated by the corresponding country. They consist of number types such as premium numbers, special services, shared cost and others
+        :returns: `true`, if dialing to high-risk special services numbers is enabled, else `false`
         :rtype: bool
         """
         return self._properties['high_risk_special_numbers_enabled']
@@ -407,7 +407,7 @@ class CountryInstance(InstanceResource):
     @property
     def high_risk_tollfraud_numbers_enabled(self):
         """
-        :returns: true, if dialing to high-risk toll fraud numbers is enabled, else false. This group of prefixes are narrow number ranges that have a high-risk of international revenue sharing fraud (IRSF) attacks also called toll fraud. The group of prefixes is formed through integration with anti-fraud databases and verified by analyzing calls on the Twilio Super Network. This group of prefixes are not available for download and are updated frequently
+        :returns: `true`, if dialing to high-risk toll fraud numbers is enabled, else `false`
         :rtype: bool
         """
         return self._properties['high_risk_tollfraud_numbers_enabled']
@@ -415,7 +415,7 @@ class CountryInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL for this resource
+        :returns: The absolute URL of this resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -423,7 +423,7 @@ class CountryInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links
+        :returns: A list of URLs related to this resource
         :rtype: unicode
         """
         return self._properties['links']

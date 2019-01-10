@@ -23,7 +23,7 @@ class MediaList(ListResource):
         Initialize the MediaList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The unique sid that identifies this account
+        :param account_sid: The SID of the Account that created this resource
         :param message_sid: A string that uniquely identifies this message
 
         :returns: twilio.rest.api.v2010.account.message.media.MediaList
@@ -43,9 +43,9 @@ class MediaList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param datetime date_created_before: Filter by date created
-        :param datetime date_created: Filter by date created
-        :param datetime date_created_after: Filter by date created
+        :param datetime date_created_before: The `YYYY-MM-DD` value of the resources to read
+        :param datetime date_created: The `YYYY-MM-DD` value of the resources to read
+        :param datetime date_created_after: The `YYYY-MM-DD` value of the resources to read
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -74,9 +74,9 @@ class MediaList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param datetime date_created_before: Filter by date created
-        :param datetime date_created: Filter by date created
-        :param datetime date_created_after: Filter by date created
+        :param datetime date_created_before: The `YYYY-MM-DD` value of the resources to read
+        :param datetime date_created: The `YYYY-MM-DD` value of the resources to read
+        :param datetime date_created_after: The `YYYY-MM-DD` value of the resources to read
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -102,9 +102,9 @@ class MediaList(ListResource):
         Retrieve a single page of MediaInstance records from the API.
         Request is executed immediately
 
-        :param datetime date_created_before: Filter by date created
-        :param datetime date_created: Filter by date created
-        :param datetime date_created_after: Filter by date created
+        :param datetime date_created_before: The `YYYY-MM-DD` value of the resources to read
+        :param datetime date_created: The `YYYY-MM-DD` value of the resources to read
+        :param datetime date_created_after: The `YYYY-MM-DD` value of the resources to read
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -150,7 +150,7 @@ class MediaList(ListResource):
         """
         Constructs a MediaContext
 
-        :param sid: Fetch by unique media Sid
+        :param sid: The unique string that identifies this resource
 
         :returns: twilio.rest.api.v2010.account.message.media.MediaContext
         :rtype: twilio.rest.api.v2010.account.message.media.MediaContext
@@ -166,7 +166,7 @@ class MediaList(ListResource):
         """
         Constructs a MediaContext
 
-        :param sid: Fetch by unique media Sid
+        :param sid: The unique string that identifies this resource
 
         :returns: twilio.rest.api.v2010.account.message.media.MediaContext
         :rtype: twilio.rest.api.v2010.account.message.media.MediaContext
@@ -197,7 +197,7 @@ class MediaPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The unique sid that identifies this account
+        :param account_sid: The SID of the Account that created this resource
         :param message_sid: A string that uniquely identifies this message
 
         :returns: twilio.rest.api.v2010.account.message.media.MediaPage
@@ -242,9 +242,9 @@ class MediaContext(InstanceContext):
         Initialize the MediaContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
-        :param message_sid: The message_sid
-        :param sid: Fetch by unique media Sid
+        :param account_sid: The SID of the Account that created the resource(s) to fetch
+        :param message_sid: The SID of the Message resource that this Media resource belongs to
+        :param sid: The unique string that identifies this resource
 
         :returns: twilio.rest.api.v2010.account.message.media.MediaContext
         :rtype: twilio.rest.api.v2010.account.message.media.MediaContext
@@ -350,7 +350,7 @@ class MediaInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique sid that identifies this account
+        :returns: The SID of the Account that created this resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -366,7 +366,7 @@ class MediaInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this resource was created
+        :returns: The RFC 2822 date and time in GMT that this resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -374,7 +374,7 @@ class MediaInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this resource was last updated
+        :returns: The RFC 2822 date and time in GMT that this resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -382,7 +382,7 @@ class MediaInstance(InstanceResource):
     @property
     def parent_sid(self):
         """
-        :returns: The unique id of the resource that created the media.
+        :returns: The SID of the resource that created the media
         :rtype: unicode
         """
         return self._properties['parent_sid']
@@ -390,7 +390,7 @@ class MediaInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this media
+        :returns: The unique string that identifies this resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -398,7 +398,7 @@ class MediaInstance(InstanceResource):
     @property
     def uri(self):
         """
-        :returns: The URI for this resource
+        :returns: The URI of this resource, relative to `https://api.twilio.com`
         :rtype: unicode
         """
         return self._properties['uri']

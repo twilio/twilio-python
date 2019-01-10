@@ -157,7 +157,7 @@ class TrunkList(ListResource):
         """
         Constructs a TrunkContext
 
-        :param sid: The sid
+        :param sid: A 34 character string that uniquely identifies the SIP Trunk in Twilio.
 
         :returns: twilio.rest.trunking.v1.trunk.TrunkContext
         :rtype: twilio.rest.trunking.v1.trunk.TrunkContext
@@ -168,7 +168,7 @@ class TrunkList(ListResource):
         """
         Constructs a TrunkContext
 
-        :param sid: The sid
+        :param sid: A 34 character string that uniquely identifies the SIP Trunk in Twilio.
 
         :returns: twilio.rest.trunking.v1.trunk.TrunkContext
         :rtype: twilio.rest.trunking.v1.trunk.TrunkContext
@@ -232,7 +232,7 @@ class TrunkContext(InstanceContext):
         Initialize the TrunkContext
 
         :param Version version: Version that contains the resource
-        :param sid: The sid
+        :param sid: A 34 character string that uniquely identifies the SIP Trunk in Twilio.
 
         :returns: twilio.rest.trunking.v1.trunk.TrunkContext
         :rtype: twilio.rest.trunking.v1.trunk.TrunkContext

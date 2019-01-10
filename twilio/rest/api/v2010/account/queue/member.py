@@ -22,8 +22,8 @@ class MemberList(ListResource):
         Initialize the MemberList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
-        :param queue_sid: A string that uniquely identifies this queue
+        :param account_sid: The SID of the Account that created this resource
+        :param queue_sid: The unique string that identifies this resource
 
         :returns: twilio.rest.api.v2010.account.queue.member.MemberList
         :rtype: twilio.rest.api.v2010.account.queue.member.MemberList
@@ -119,7 +119,7 @@ class MemberList(ListResource):
         """
         Constructs a MemberContext
 
-        :param call_sid: The call_sid
+        :param call_sid: The Call SID of the resource(s) to fetch
 
         :returns: twilio.rest.api.v2010.account.queue.member.MemberContext
         :rtype: twilio.rest.api.v2010.account.queue.member.MemberContext
@@ -135,7 +135,7 @@ class MemberList(ListResource):
         """
         Constructs a MemberContext
 
-        :param call_sid: The call_sid
+        :param call_sid: The Call SID of the resource(s) to fetch
 
         :returns: twilio.rest.api.v2010.account.queue.member.MemberContext
         :rtype: twilio.rest.api.v2010.account.queue.member.MemberContext
@@ -166,8 +166,8 @@ class MemberPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The account_sid
-        :param queue_sid: A string that uniquely identifies this queue
+        :param account_sid: The SID of the Account that created this resource
+        :param queue_sid: The unique string that identifies this resource
 
         :returns: twilio.rest.api.v2010.account.queue.member.MemberPage
         :rtype: twilio.rest.api.v2010.account.queue.member.MemberPage
@@ -211,9 +211,9 @@ class MemberContext(InstanceContext):
         Initialize the MemberContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
+        :param account_sid: The SID of the Account that created the resource(s) to fetch
         :param queue_sid: The Queue in which to find the members
-        :param call_sid: The call_sid
+        :param call_sid: The Call SID of the resource(s) to fetch
 
         :returns: twilio.rest.api.v2010.account.queue.member.MemberContext
         :rtype: twilio.rest.api.v2010.account.queue.member.MemberContext
@@ -251,8 +251,8 @@ class MemberContext(InstanceContext):
         """
         Update the MemberInstance
 
-        :param unicode url: The url
-        :param unicode method: The method
+        :param unicode url: The absolute URL of this Queue resource
+        :param unicode method: How to pass the update request data
 
         :returns: Updated MemberInstance
         :rtype: twilio.rest.api.v2010.account.queue.member.MemberInstance
@@ -334,7 +334,7 @@ class MemberInstance(InstanceResource):
     @property
     def call_sid(self):
         """
-        :returns: Unique string that identifies this resource
+        :returns: The SID of the Call this resource is associated with
         :rtype: unicode
         """
         return self._properties['call_sid']
@@ -358,7 +358,7 @@ class MemberInstance(InstanceResource):
     @property
     def uri(self):
         """
-        :returns: The uri
+        :returns: The URI of this resource, relative to `https://api.twilio.com`
         :rtype: unicode
         """
         return self._properties['uri']
@@ -384,8 +384,8 @@ class MemberInstance(InstanceResource):
         """
         Update the MemberInstance
 
-        :param unicode url: The url
-        :param unicode method: The method
+        :param unicode url: The absolute URL of this Queue resource
+        :param unicode method: How to pass the update request data
 
         :returns: Updated MemberInstance
         :rtype: twilio.rest.api.v2010.account.queue.member.MemberInstance
