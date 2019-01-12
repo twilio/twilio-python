@@ -33,17 +33,18 @@ class VerificationCheckList(ListResource):
         self._solution = {'service_sid': service_sid, }
         self._uri = '/Services/{service_sid}/VerificationCheck'.format(**self._solution)
 
-    def create(self, code, to=values.unset):
+    def create(self, code, to=values.unset, verification_sid=values.unset):
         """
         Create a new VerificationCheckInstance
 
         :param unicode code: The verification string
-        :param unicode to: To phonenumber
+        :param unicode to: To phone number
+        :param unicode verification_sid: A SID that uniquely identifies this Verification Check
 
         :returns: Newly created VerificationCheckInstance
         :rtype: twilio.rest.verify.v1.service.verification_check.VerificationCheckInstance
         """
-        data = values.of({'Code': code, 'To': to, })
+        data = values.of({'Code': code, 'To': to, 'VerificationSid': verification_sid, })
 
         payload = self._version.create(
             'POST',
@@ -165,7 +166,7 @@ class VerificationCheckInstance(InstanceResource):
     @property
     def to(self):
         """
-        :returns: To phonenumber
+        :returns: To phone number
         :rtype: unicode
         """
         return self._properties['to']

@@ -143,6 +143,7 @@ class VerificationInstance(InstanceResource):
             'channel': payload['channel'],
             'status': payload['status'],
             'valid': payload['valid'],
+            'lookup': payload['lookup'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
         }
@@ -206,6 +207,14 @@ class VerificationInstance(InstanceResource):
         :rtype: bool
         """
         return self._properties['valid']
+
+    @property
+    def lookup(self):
+        """
+        :returns: Info about the phone number
+        :rtype: dict
+        """
+        return self._properties['lookup']
 
     @property
     def date_created(self):
