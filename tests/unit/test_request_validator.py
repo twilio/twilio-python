@@ -23,9 +23,8 @@ class ValidationTest(unittest.TestCase):
         }
         self.expected = "RSOYDt4T1cUTdK1PDd93/VVr8B8="
         self.body = "{\"property\": \"value\", \"boolean\": true}"
-        self.bodyHash = "Ch/3Y02as7ldtcmi3+lBbkFQKyg6gMfPGWMmMvluZiA="
-        self.encodedBodyHash = self.bodyHash.replace("+", "%2B").replace("=", "%3D")
-        self.uriWithBody = self.uri + "&bodySHA256=" + self.encodedBodyHash
+        self.bodyHash = "0a1ff7634d9ab3b95db5c9a2dfe9416e41502b283a80c7cf19632632f96e6620"
+        self.uriWithBody = self.uri + "&bodySHA256=" + self.bodyHash
 
     def test_compute_signature_bytecode(self):
         expected = b(self.expected)
@@ -62,5 +61,5 @@ class ValidationTest(unittest.TestCase):
 
     def test_validation_of_body_succeeds(self):
         uri = self.uriWithBody
-        is_valid = self.validator.validate(uri, self.body, "afcFvPLPYT8mg/JyIVkdnqQKa2s=")
+        is_valid = self.validator.validate(uri, self.body, "a9nBmqA0ju/hNViExpshrM61xv4=")
         assert_true(is_valid)
