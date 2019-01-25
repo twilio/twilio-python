@@ -64,11 +64,8 @@ class RequestValidator(object):
 
         return computed.strip()
 
-    def compute_hash(self, body, utf=PY3):
-        computed = base64.b64encode(sha256(body.encode("utf-8")).digest())
-
-        if utf:
-            computed = computed.decode('utf-8')
+    def compute_hash(self, body):
+        computed = sha256(body.encode("utf-8")).hexdigest()
 
         return computed.strip()
 
