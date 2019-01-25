@@ -42,13 +42,13 @@ class ValidationTest(unittest.TestCase):
 
     def test_compute_hash_bytecode(self):
         expected = b(self.bodyHash)
-        body_hash = self.validator.compute_hash(self.body, utf=False)
+        body_hash = self.validator.compute_hash(self.body)
 
         assert_equal(expected, body_hash)
 
     def test_compute_hash_unicode(self):
         expected = u(self.bodyHash)
-        body_hash = self.validator.compute_hash(self.body, utf=True)
+        body_hash = self.validator.compute_hash(self.body)
 
         assert_equal(expected, body_hash)
 
