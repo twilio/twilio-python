@@ -33,18 +33,12 @@ class ValidationTest(unittest.TestCase):
                                                      utf=False)
         assert_equal(signature, expected)
 
-    def test_compute_signature_unicode(self):
-        expected = u(self.expected)
+    def test_compute_signature(self):
+        expected = (self.expected)
         signature = self.validator.compute_signature(self.uri,
                                                      self.params,
                                                      utf=True)
         assert_equal(signature, expected)
-
-    def test_compute_hash_bytecode(self):
-        expected = b(self.bodyHash)
-        body_hash = self.validator.compute_hash(self.body)
-
-        assert_equal(expected, body_hash)
 
     def test_compute_hash_unicode(self):
         expected = u(self.bodyHash)
