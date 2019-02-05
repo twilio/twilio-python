@@ -3,6 +3,19 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2019-02-04] Version 6.24.0
+----------------------------
+**Library**
+- PR #453: Switch body validator to use hex instead of base64. Thanks to @cjcodes!
+
+**Video**
+- [Recordings] Add media type filter to list operation
+- [Composer] Filter Composition Hook resources by FriendlyName
+
+**Twiml**
+- Update `language` enum for `Gather` to fix language code for Filipino (Philippines) and include additional supported languages **(breaking change)**
+
+
 [2019-01-11] Version 6.23.1
 ----------------------------
 **Verify**

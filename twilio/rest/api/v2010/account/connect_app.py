@@ -22,7 +22,7 @@ class ConnectAppList(ListResource):
         Initialize the ConnectAppList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The unique sid that identifies this account
+        :param account_sid: The SID of the Account that created the resource
 
         :returns: twilio.rest.api.v2010.account.connect_app.ConnectAppList
         :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppList
@@ -118,7 +118,7 @@ class ConnectAppList(ListResource):
         """
         Constructs a ConnectAppContext
 
-        :param sid: Fetch by unique connect-app Sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.connect_app.ConnectAppContext
         :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppContext
@@ -129,7 +129,7 @@ class ConnectAppList(ListResource):
         """
         Constructs a ConnectAppContext
 
-        :param sid: Fetch by unique connect-app Sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.connect_app.ConnectAppContext
         :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppContext
@@ -155,7 +155,7 @@ class ConnectAppPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The unique sid that identifies this account
+        :param account_sid: The SID of the Account that created the resource
 
         :returns: twilio.rest.api.v2010.account.connect_app.ConnectAppPage
         :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppPage
@@ -194,8 +194,8 @@ class ConnectAppContext(InstanceContext):
         Initialize the ConnectAppContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
-        :param sid: Fetch by unique connect-app Sid
+        :param account_sid: The SID of the Account that created the resource to fetch
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.connect_app.ConnectAppContext
         :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppContext
@@ -236,14 +236,14 @@ class ConnectAppContext(InstanceContext):
         """
         Update the ConnectAppInstance
 
-        :param unicode authorize_redirect_url: URIL Twilio sends requests when users authorize
-        :param unicode company_name: The company name set for this Connect App.
-        :param unicode deauthorize_callback_method: HTTP method Twilio WIll use making requests to the url
-        :param unicode deauthorize_callback_url: URL Twilio will send a request when a user de-authorizes this app
-        :param unicode description: A more detailed human readable description
-        :param unicode friendly_name: A human readable name for the Connect App.
-        :param unicode homepage_url: The URL users can obtain more information
-        :param ConnectAppInstance.Permission permissions: The set of permissions that your ConnectApp requests.
+        :param unicode authorize_redirect_url: The URL to redirect the user to after authorization
+        :param unicode company_name: The company name to set for the Connect App
+        :param unicode deauthorize_callback_method: The HTTP method to use when calling deauthorize_callback_url
+        :param unicode deauthorize_callback_url: The URL to call to de-authorize the Connect App
+        :param unicode description: A description of the Connect App
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode homepage_url: A public URL where users can obtain more information
+        :param ConnectAppInstance.Permission permissions: The set of permissions that your ConnectApp will request
 
         :returns: Updated ConnectAppInstance
         :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
@@ -338,7 +338,7 @@ class ConnectAppInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique sid that identifies this account
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -346,7 +346,7 @@ class ConnectAppInstance(InstanceResource):
     @property
     def authorize_redirect_url(self):
         """
-        :returns: URIL Twilio sends requests when users authorize
+        :returns: The URL to redirect the user to after authorization
         :rtype: unicode
         """
         return self._properties['authorize_redirect_url']
@@ -354,7 +354,7 @@ class ConnectAppInstance(InstanceResource):
     @property
     def company_name(self):
         """
-        :returns: The company name set for this Connect App.
+        :returns: The company name set for the Connect App
         :rtype: unicode
         """
         return self._properties['company_name']
@@ -362,7 +362,7 @@ class ConnectAppInstance(InstanceResource):
     @property
     def deauthorize_callback_method(self):
         """
-        :returns: HTTP method Twilio will use making requests to the url
+        :returns: The HTTP method we use to call deauthorize_callback_url
         :rtype: unicode
         """
         return self._properties['deauthorize_callback_method']
@@ -370,7 +370,7 @@ class ConnectAppInstance(InstanceResource):
     @property
     def deauthorize_callback_url(self):
         """
-        :returns: URL Twilio will send a request when a user de-authorizes this app
+        :returns: The URL we call to de-authorize the Connect App
         :rtype: unicode
         """
         return self._properties['deauthorize_callback_url']
@@ -378,7 +378,7 @@ class ConnectAppInstance(InstanceResource):
     @property
     def description(self):
         """
-        :returns: A more detailed human readable description
+        :returns: The description of the Connect App
         :rtype: unicode
         """
         return self._properties['description']
@@ -386,7 +386,7 @@ class ConnectAppInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A human readable name for the Connect App.
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -402,7 +402,7 @@ class ConnectAppInstance(InstanceResource):
     @property
     def permissions(self):
         """
-        :returns: The set of permissions that your ConnectApp requests.
+        :returns: The set of permissions that your ConnectApp requests
         :rtype: ConnectAppInstance.Permission
         """
         return self._properties['permissions']
@@ -410,7 +410,7 @@ class ConnectAppInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this connect-apps
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -418,7 +418,7 @@ class ConnectAppInstance(InstanceResource):
     @property
     def uri(self):
         """
-        :returns: The URI for this resource
+        :returns: The URI of the resource, relative to `https://api.twilio.com`
         :rtype: unicode
         """
         return self._properties['uri']
@@ -440,14 +440,14 @@ class ConnectAppInstance(InstanceResource):
         """
         Update the ConnectAppInstance
 
-        :param unicode authorize_redirect_url: URIL Twilio sends requests when users authorize
-        :param unicode company_name: The company name set for this Connect App.
-        :param unicode deauthorize_callback_method: HTTP method Twilio WIll use making requests to the url
-        :param unicode deauthorize_callback_url: URL Twilio will send a request when a user de-authorizes this app
-        :param unicode description: A more detailed human readable description
-        :param unicode friendly_name: A human readable name for the Connect App.
-        :param unicode homepage_url: The URL users can obtain more information
-        :param ConnectAppInstance.Permission permissions: The set of permissions that your ConnectApp requests.
+        :param unicode authorize_redirect_url: The URL to redirect the user to after authorization
+        :param unicode company_name: The company name to set for the Connect App
+        :param unicode deauthorize_callback_method: The HTTP method to use when calling deauthorize_callback_url
+        :param unicode deauthorize_callback_url: The URL to call to de-authorize the Connect App
+        :param unicode description: A description of the Connect App
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode homepage_url: A public URL where users can obtain more information
+        :param ConnectAppInstance.Permission permissions: The set of permissions that your ConnectApp will request
 
         :returns: Updated ConnectAppInstance
         :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance

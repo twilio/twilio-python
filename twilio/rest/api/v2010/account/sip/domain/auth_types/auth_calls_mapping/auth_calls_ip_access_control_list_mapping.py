@@ -22,8 +22,8 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
         Initialize the AuthCallsIpAccessControlListMappingList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The unique id of the account responsible for this domain
-        :param domain_sid: A string that uniquely identifies the SIP Domain
+        :param account_sid: The SID of the Account that created the resource
+        :param domain_sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_calls_mapping.auth_calls_ip_access_control_list_mapping.AuthCallsIpAccessControlListMappingList
         :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_calls_mapping.auth_calls_ip_access_control_list_mapping.AuthCallsIpAccessControlListMappingList
@@ -38,7 +38,7 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
         """
         Create a new AuthCallsIpAccessControlListMappingInstance
 
-        :param unicode ip_access_control_list_sid: A string that uniquely identifies IP Access Control List
+        :param unicode ip_access_control_list_sid: The SID of the IpAccessControlList resource to map to the SIP domain
 
         :returns: Newly created AuthCallsIpAccessControlListMappingInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_calls_mapping.auth_calls_ip_access_control_list_mapping.AuthCallsIpAccessControlListMappingInstance
@@ -143,7 +143,7 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
         """
         Constructs a AuthCallsIpAccessControlListMappingContext
 
-        :param sid: Fetch by unique IP Access Control List Sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_calls_mapping.auth_calls_ip_access_control_list_mapping.AuthCallsIpAccessControlListMappingContext
         :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_calls_mapping.auth_calls_ip_access_control_list_mapping.AuthCallsIpAccessControlListMappingContext
@@ -159,7 +159,7 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
         """
         Constructs a AuthCallsIpAccessControlListMappingContext
 
-        :param sid: Fetch by unique IP Access Control List Sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_calls_mapping.auth_calls_ip_access_control_list_mapping.AuthCallsIpAccessControlListMappingContext
         :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_calls_mapping.auth_calls_ip_access_control_list_mapping.AuthCallsIpAccessControlListMappingContext
@@ -190,8 +190,8 @@ class AuthCallsIpAccessControlListMappingPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The unique id of the account responsible for this domain
-        :param domain_sid: A string that uniquely identifies the SIP Domain
+        :param account_sid: The SID of the Account that created the resource
+        :param domain_sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_calls_mapping.auth_calls_ip_access_control_list_mapping.AuthCallsIpAccessControlListMappingPage
         :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_calls_mapping.auth_calls_ip_access_control_list_mapping.AuthCallsIpAccessControlListMappingPage
@@ -235,9 +235,9 @@ class AuthCallsIpAccessControlListMappingContext(InstanceContext):
         Initialize the AuthCallsIpAccessControlListMappingContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
-        :param domain_sid: The domain_sid
-        :param sid: Fetch by unique IP Access Control List Sid
+        :param account_sid: The SID of the Account that created the resource to fetch
+        :param domain_sid: The SID of the SIP domain that contains the resource to fetch
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_calls_mapping.auth_calls_ip_access_control_list_mapping.AuthCallsIpAccessControlListMappingContext
         :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_calls_mapping.auth_calls_ip_access_control_list_mapping.AuthCallsIpAccessControlListMappingContext
@@ -341,7 +341,7 @@ class AuthCallsIpAccessControlListMappingInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique sid that identifies this account
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -349,7 +349,7 @@ class AuthCallsIpAccessControlListMappingInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this resource was created
+        :returns: The RFC 2822 date and time in GMT that the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -357,7 +357,7 @@ class AuthCallsIpAccessControlListMappingInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this resource was last updated
+        :returns: The RFC 2822 date and time in GMT that the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -365,7 +365,7 @@ class AuthCallsIpAccessControlListMappingInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A human readable description of this resource
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -373,7 +373,7 @@ class AuthCallsIpAccessControlListMappingInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this resource
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']

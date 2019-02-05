@@ -39,13 +39,13 @@ class TriggerList(ListResource):
         """
         Create a new TriggerInstance
 
-        :param unicode callback_url: URL Twilio will request when the trigger fires
-        :param unicode trigger_value: the value at which the trigger will fire
+        :param unicode callback_url: The URL we call when the trigger fires
+        :param unicode trigger_value: The usage value at which the trigger should fire
         :param TriggerInstance.UsageCategory usage_category: The usage category the trigger watches
-        :param unicode callback_method: HTTP method to use with callback_url
-        :param unicode friendly_name: A user-specified, human-readable name for the trigger.
-        :param TriggerInstance.Recurring recurring: How this trigger recurs
-        :param TriggerInstance.TriggerField trigger_by: The field in the UsageRecord that fires the trigger
+        :param unicode callback_method: The HTTP method to use to call callback_url
+        :param unicode friendly_name: A string to describe the resource
+        :param TriggerInstance.Recurring recurring: The frequency of a recurring UsageTrigger
+        :param TriggerInstance.TriggerField trigger_by: The field in the UsageRecord resource that fires the trigger
 
         :returns: Newly created TriggerInstance
         :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
@@ -76,9 +76,9 @@ class TriggerList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param TriggerInstance.Recurring recurring: Filter by recurring
-        :param TriggerInstance.TriggerField trigger_by: Filter by trigger by
-        :param TriggerInstance.UsageCategory usage_category: Filter by Usage Category
+        :param TriggerInstance.Recurring recurring: The frequency of recurring UsageTriggers to read
+        :param TriggerInstance.TriggerField trigger_by: The trigger field of the UsageTriggers to read
+        :param TriggerInstance.UsageCategory usage_category: The usage category of the UsageTriggers to read
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -107,9 +107,9 @@ class TriggerList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param TriggerInstance.Recurring recurring: Filter by recurring
-        :param TriggerInstance.TriggerField trigger_by: Filter by trigger by
-        :param TriggerInstance.UsageCategory usage_category: Filter by Usage Category
+        :param TriggerInstance.Recurring recurring: The frequency of recurring UsageTriggers to read
+        :param TriggerInstance.TriggerField trigger_by: The trigger field of the UsageTriggers to read
+        :param TriggerInstance.UsageCategory usage_category: The usage category of the UsageTriggers to read
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -135,9 +135,9 @@ class TriggerList(ListResource):
         Retrieve a single page of TriggerInstance records from the API.
         Request is executed immediately
 
-        :param TriggerInstance.Recurring recurring: Filter by recurring
-        :param TriggerInstance.TriggerField trigger_by: Filter by trigger by
-        :param TriggerInstance.UsageCategory usage_category: Filter by Usage Category
+        :param TriggerInstance.Recurring recurring: The frequency of recurring UsageTriggers to read
+        :param TriggerInstance.TriggerField trigger_by: The trigger field of the UsageTriggers to read
+        :param TriggerInstance.UsageCategory usage_category: The usage category of the UsageTriggers to read
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -183,7 +183,7 @@ class TriggerList(ListResource):
         """
         Constructs a TriggerContext
 
-        :param sid: Fetch by unique usage-trigger Sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
         :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
@@ -194,7 +194,7 @@ class TriggerList(ListResource):
         """
         Constructs a TriggerContext
 
-        :param sid: Fetch by unique usage-trigger Sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
         :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
@@ -259,8 +259,8 @@ class TriggerContext(InstanceContext):
         Initialize the TriggerContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
-        :param sid: Fetch by unique usage-trigger Sid
+        :param account_sid: The SID of the Account that created the resource to fetch
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
         :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
@@ -298,9 +298,9 @@ class TriggerContext(InstanceContext):
         """
         Update the TriggerInstance
 
-        :param unicode callback_method: HTTP method to use with callback_url
-        :param unicode callback_url: URL Twilio will request when the trigger fires
-        :param unicode friendly_name: A user-specified, human-readable name for the trigger.
+        :param unicode callback_method: The HTTP method to use to call callback_url
+        :param unicode callback_url: The URL we call when the trigger fires
+        :param unicode friendly_name: A string to describe the resource
 
         :returns: Updated TriggerInstance
         :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
@@ -651,7 +651,7 @@ class TriggerInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account this trigger monitors.
+        :returns: The SID of the Account that this trigger monitors
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -659,7 +659,7 @@ class TriggerInstance(InstanceResource):
     @property
     def api_version(self):
         """
-        :returns: The api_version
+        :returns: The API version used to create the resource
         :rtype: unicode
         """
         return self._properties['api_version']
@@ -667,7 +667,7 @@ class TriggerInstance(InstanceResource):
     @property
     def callback_method(self):
         """
-        :returns: HTTP method to use with callback_url
+        :returns: The HTTP method we use to call callback_url
         :rtype: unicode
         """
         return self._properties['callback_method']
@@ -675,7 +675,7 @@ class TriggerInstance(InstanceResource):
     @property
     def callback_url(self):
         """
-        :returns: URL Twilio will request when the trigger fires
+        :returns: he URL we call when the trigger fires
         :rtype: unicode
         """
         return self._properties['callback_url']
@@ -683,7 +683,7 @@ class TriggerInstance(InstanceResource):
     @property
     def current_value(self):
         """
-        :returns: The current value of the field the trigger is watching.
+        :returns: The current value of the field the trigger is watching
         :rtype: unicode
         """
         return self._properties['current_value']
@@ -691,7 +691,7 @@ class TriggerInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this resource was created
+        :returns: The RFC 2822 date and time in GMT that the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -699,7 +699,7 @@ class TriggerInstance(InstanceResource):
     @property
     def date_fired(self):
         """
-        :returns: The date the trigger was last fired
+        :returns: The RFC 2822 date and time in GMT that the trigger was last fired
         :rtype: datetime
         """
         return self._properties['date_fired']
@@ -707,7 +707,7 @@ class TriggerInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this resource was last updated
+        :returns: The RFC 2822 date and time in GMT that the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -715,7 +715,7 @@ class TriggerInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A user-specified, human-readable name for the trigger.
+        :returns: The string that you assigned to describe the trigger
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -723,7 +723,7 @@ class TriggerInstance(InstanceResource):
     @property
     def recurring(self):
         """
-        :returns: How this trigger recurs
+        :returns: The frequency of a recurring UsageTrigger
         :rtype: TriggerInstance.Recurring
         """
         return self._properties['recurring']
@@ -731,7 +731,7 @@ class TriggerInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The trigger's unique Sid
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -739,7 +739,7 @@ class TriggerInstance(InstanceResource):
     @property
     def trigger_by(self):
         """
-        :returns: The field in the UsageRecord that fires the trigger
+        :returns: The field in the UsageRecord resource that fires the trigger
         :rtype: TriggerInstance.TriggerField
         """
         return self._properties['trigger_by']
@@ -747,7 +747,7 @@ class TriggerInstance(InstanceResource):
     @property
     def trigger_value(self):
         """
-        :returns: the value at which the trigger will fire
+        :returns: The value at which the trigger will fire
         :rtype: unicode
         """
         return self._properties['trigger_value']
@@ -755,7 +755,7 @@ class TriggerInstance(InstanceResource):
     @property
     def uri(self):
         """
-        :returns: The URI for this resource
+        :returns: The URI of the resource, relative to `https://api.twilio.com`
         :rtype: unicode
         """
         return self._properties['uri']
@@ -771,7 +771,7 @@ class TriggerInstance(InstanceResource):
     @property
     def usage_record_uri(self):
         """
-        :returns: The URI of the UsageRecord this trigger is watching
+        :returns: The URI of the UsageRecord resource this trigger watches
         :rtype: unicode
         """
         return self._properties['usage_record_uri']
@@ -790,9 +790,9 @@ class TriggerInstance(InstanceResource):
         """
         Update the TriggerInstance
 
-        :param unicode callback_method: HTTP method to use with callback_url
-        :param unicode callback_url: URL Twilio will request when the trigger fires
-        :param unicode friendly_name: A user-specified, human-readable name for the trigger.
+        :param unicode callback_method: The HTTP method to use to call callback_url
+        :param unicode callback_url: The URL we call when the trigger fires
+        :param unicode friendly_name: A string to describe the resource
 
         :returns: Updated TriggerInstance
         :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance

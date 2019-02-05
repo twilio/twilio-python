@@ -23,7 +23,7 @@ class NotificationList(ListResource):
         Initialize the NotificationList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The unique sid that identifies this account
+        :param account_sid: The SID of the Account that created the resource
 
         :returns: twilio.rest.api.v2010.account.notification.NotificationList
         :rtype: twilio.rest.api.v2010.account.notification.NotificationList
@@ -158,7 +158,7 @@ class NotificationList(ListResource):
         """
         Constructs a NotificationContext
 
-        :param sid: Fetch by unique notification Sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.notification.NotificationContext
         :rtype: twilio.rest.api.v2010.account.notification.NotificationContext
@@ -169,7 +169,7 @@ class NotificationList(ListResource):
         """
         Constructs a NotificationContext
 
-        :param sid: Fetch by unique notification Sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.notification.NotificationContext
         :rtype: twilio.rest.api.v2010.account.notification.NotificationContext
@@ -195,7 +195,7 @@ class NotificationPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The unique sid that identifies this account
+        :param account_sid: The SID of the Account that created the resource
 
         :returns: twilio.rest.api.v2010.account.notification.NotificationPage
         :rtype: twilio.rest.api.v2010.account.notification.NotificationPage
@@ -234,8 +234,8 @@ class NotificationContext(InstanceContext):
         Initialize the NotificationContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
-        :param sid: Fetch by unique notification Sid
+        :param account_sid: The SID of the Account that created the resource to fetch
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.notification.NotificationContext
         :rtype: twilio.rest.api.v2010.account.notification.NotificationContext
@@ -345,7 +345,7 @@ class NotificationInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique sid that identifies this account
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -353,7 +353,7 @@ class NotificationInstance(InstanceResource):
     @property
     def api_version(self):
         """
-        :returns: The version of the Twilio API in use
+        :returns: The API version used to generate the notification
         :rtype: unicode
         """
         return self._properties['api_version']
@@ -361,7 +361,7 @@ class NotificationInstance(InstanceResource):
     @property
     def call_sid(self):
         """
-        :returns: The string that uniquely identifies the call
+        :returns: The SID of the Call the resource is associated with
         :rtype: unicode
         """
         return self._properties['call_sid']
@@ -369,7 +369,7 @@ class NotificationInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this resource was created
+        :returns: The RFC 2822 date and time in GMT that the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -377,7 +377,7 @@ class NotificationInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this resource was last updated
+        :returns: The RFC 2822 date and time in GMT that the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -409,7 +409,7 @@ class NotificationInstance(InstanceResource):
     @property
     def message_text(self):
         """
-        :returns: The text of the notification.
+        :returns: The text of the notification
         :rtype: unicode
         """
         return self._properties['message_text']
@@ -449,7 +449,7 @@ class NotificationInstance(InstanceResource):
     @property
     def response_body(self):
         """
-        :returns: The HTTP body returned by your server.
+        :returns: The HTTP body returned by your server
         :rtype: unicode
         """
         return self._properties['response_body']
@@ -457,7 +457,7 @@ class NotificationInstance(InstanceResource):
     @property
     def response_headers(self):
         """
-        :returns: The HTTP headers returned by your server.
+        :returns: The HTTP headers returned by your server
         :rtype: unicode
         """
         return self._properties['response_headers']
@@ -465,7 +465,7 @@ class NotificationInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this notification
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -473,7 +473,7 @@ class NotificationInstance(InstanceResource):
     @property
     def uri(self):
         """
-        :returns: The URI for this resource
+        :returns: The URI of the resource, relative to `https://api.twilio.com`
         :rtype: unicode
         """
         return self._properties['uri']

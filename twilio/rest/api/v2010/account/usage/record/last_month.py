@@ -42,10 +42,10 @@ class LastMonthList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param LastMonthInstance.Category category: Only include usage of this usage category.
-        :param date start_date: Only include usage that has occurred on or after this date.
-        :param date end_date: Only include usage that has occurred on or before this date.
-        :param bool include_subaccounts: The include_subaccounts
+        :param LastMonthInstance.Category category: The usage category of the UsageRecord resources to read
+        :param date start_date: Only include usage that has occurred on or after this date
+        :param date end_date: Only include usage that occurred on or before this date
+        :param bool include_subaccounts: Whether to include usage from the master account and all its subaccounts
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -76,10 +76,10 @@ class LastMonthList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param LastMonthInstance.Category category: Only include usage of this usage category.
-        :param date start_date: Only include usage that has occurred on or after this date.
-        :param date end_date: Only include usage that has occurred on or before this date.
-        :param bool include_subaccounts: The include_subaccounts
+        :param LastMonthInstance.Category category: The usage category of the UsageRecord resources to read
+        :param date start_date: Only include usage that has occurred on or after this date
+        :param date end_date: Only include usage that occurred on or before this date
+        :param bool include_subaccounts: Whether to include usage from the master account and all its subaccounts
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -107,10 +107,10 @@ class LastMonthList(ListResource):
         Retrieve a single page of LastMonthInstance records from the API.
         Request is executed immediately
 
-        :param LastMonthInstance.Category category: Only include usage of this usage category.
-        :param date start_date: Only include usage that has occurred on or after this date.
-        :param date end_date: Only include usage that has occurred on or before this date.
-        :param bool include_subaccounts: The include_subaccounts
+        :param LastMonthInstance.Category category: The usage category of the UsageRecord resources to read
+        :param date start_date: Only include usage that has occurred on or after this date
+        :param date end_date: Only include usage that occurred on or before this date
+        :param bool include_subaccounts: Whether to include usage from the master account and all its subaccounts
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -480,7 +480,7 @@ class LastMonthInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The Account that accrued the usage.
+        :returns: The SID of the Account accrued the usage
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -488,7 +488,7 @@ class LastMonthInstance(InstanceResource):
     @property
     def api_version(self):
         """
-        :returns: The api_version
+        :returns: The API version used to create the resource
         :rtype: unicode
         """
         return self._properties['api_version']
@@ -496,7 +496,7 @@ class LastMonthInstance(InstanceResource):
     @property
     def category(self):
         """
-        :returns: The category of usage.
+        :returns: The category of usage
         :rtype: LastMonthInstance.Category
         """
         return self._properties['category']
@@ -504,7 +504,7 @@ class LastMonthInstance(InstanceResource):
     @property
     def count(self):
         """
-        :returns: The number of usage events.
+        :returns: The number of usage events
         :rtype: unicode
         """
         return self._properties['count']
@@ -512,7 +512,7 @@ class LastMonthInstance(InstanceResource):
     @property
     def count_unit(self):
         """
-        :returns: The units in which Count is measured.
+        :returns: The units in which count is measured
         :rtype: unicode
         """
         return self._properties['count_unit']
@@ -520,7 +520,7 @@ class LastMonthInstance(InstanceResource):
     @property
     def description(self):
         """
-        :returns: A human-readable description of the usage category.
+        :returns: A plain-language description of the usage category
         :rtype: unicode
         """
         return self._properties['description']
@@ -528,7 +528,7 @@ class LastMonthInstance(InstanceResource):
     @property
     def end_date(self):
         """
-        :returns: The last date for which usage is included in this UsageRecord, formatted as YYYY-MM-DD.
+        :returns: The last date for which usage is included in the UsageRecord
         :rtype: date
         """
         return self._properties['end_date']
@@ -536,7 +536,7 @@ class LastMonthInstance(InstanceResource):
     @property
     def price(self):
         """
-        :returns: The total price of the usage, in the currency associated with the account.
+        :returns: The total price of the usage
         :rtype: unicode
         """
         return self._properties['price']
@@ -544,7 +544,7 @@ class LastMonthInstance(InstanceResource):
     @property
     def price_unit(self):
         """
-        :returns: The currency in which Price is measured, in ISO 4127 format.
+        :returns: The currency in which `price` is measured
         :rtype: unicode
         """
         return self._properties['price_unit']
@@ -552,7 +552,7 @@ class LastMonthInstance(InstanceResource):
     @property
     def start_date(self):
         """
-        :returns: The first date for which usage is included in this UsageRecord, formatted as YYYY-MM-DD.
+        :returns: The first date for which usage is included in this UsageRecord
         :rtype: date
         """
         return self._properties['start_date']
@@ -560,7 +560,7 @@ class LastMonthInstance(InstanceResource):
     @property
     def subresource_uris(self):
         """
-        :returns: Subresource Uris for this UsageRecord.
+        :returns: A list of related resources identified by their relative URIs
         :rtype: unicode
         """
         return self._properties['subresource_uris']
@@ -568,7 +568,7 @@ class LastMonthInstance(InstanceResource):
     @property
     def uri(self):
         """
-        :returns: The URI that returns only this UsageRecord, relative to https://api.
+        :returns: The URI of the resource, relative to `https://api.twilio.com`
         :rtype: unicode
         """
         return self._properties['uri']
@@ -576,7 +576,7 @@ class LastMonthInstance(InstanceResource):
     @property
     def usage(self):
         """
-        :returns: The amount of billed usage.
+        :returns: The amount of usage
         :rtype: unicode
         """
         return self._properties['usage']
@@ -584,7 +584,7 @@ class LastMonthInstance(InstanceResource):
     @property
     def usage_unit(self):
         """
-        :returns: The units in which Usage is measured.
+        :returns: The units in which usage is measured
         :rtype: unicode
         """
         return self._properties['usage_unit']

@@ -35,7 +35,8 @@ class RecordingList(ListResource):
 
     def stream(self, status=values.unset, source_sid=values.unset,
                grouping_sid=values.unset, date_created_after=values.unset,
-               date_created_before=values.unset, limit=None, page_size=None):
+               date_created_before=values.unset, media_type=values.unset,
+               limit=None, page_size=None):
         """
         Streams RecordingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -47,6 +48,7 @@ class RecordingList(ListResource):
         :param unicode grouping_sid: Only show Recordings that have this GroupingSid.
         :param datetime date_created_after: Only show Recordings that started on or after this ISO8601 date-time with timezone.
         :param datetime date_created_before: Only show Recordings that started before this ISO8601 date-time with timezone.
+        :param RecordingInstance.Type media_type: Only show Recordings that have this media type.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -65,6 +67,7 @@ class RecordingList(ListResource):
             grouping_sid=grouping_sid,
             date_created_after=date_created_after,
             date_created_before=date_created_before,
+            media_type=media_type,
             page_size=limits['page_size'],
         )
 
@@ -72,7 +75,8 @@ class RecordingList(ListResource):
 
     def list(self, status=values.unset, source_sid=values.unset,
              grouping_sid=values.unset, date_created_after=values.unset,
-             date_created_before=values.unset, limit=None, page_size=None):
+             date_created_before=values.unset, media_type=values.unset, limit=None,
+             page_size=None):
         """
         Lists RecordingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -83,6 +87,7 @@ class RecordingList(ListResource):
         :param unicode grouping_sid: Only show Recordings that have this GroupingSid.
         :param datetime date_created_after: Only show Recordings that started on or after this ISO8601 date-time with timezone.
         :param datetime date_created_before: Only show Recordings that started before this ISO8601 date-time with timezone.
+        :param RecordingInstance.Type media_type: Only show Recordings that have this media type.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -99,14 +104,16 @@ class RecordingList(ListResource):
             grouping_sid=grouping_sid,
             date_created_after=date_created_after,
             date_created_before=date_created_before,
+            media_type=media_type,
             limit=limit,
             page_size=page_size,
         ))
 
     def page(self, status=values.unset, source_sid=values.unset,
              grouping_sid=values.unset, date_created_after=values.unset,
-             date_created_before=values.unset, page_token=values.unset,
-             page_number=values.unset, page_size=values.unset):
+             date_created_before=values.unset, media_type=values.unset,
+             page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of RecordingInstance records from the API.
         Request is executed immediately
@@ -116,6 +123,7 @@ class RecordingList(ListResource):
         :param unicode grouping_sid: Only show Recordings that have this GroupingSid.
         :param datetime date_created_after: Only show Recordings that started on or after this ISO8601 date-time with timezone.
         :param datetime date_created_before: Only show Recordings that started before this ISO8601 date-time with timezone.
+        :param RecordingInstance.Type media_type: Only show Recordings that have this media type.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -129,6 +137,7 @@ class RecordingList(ListResource):
             'GroupingSid': serialize.map(grouping_sid, lambda e: e),
             'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
             'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
+            'MediaType': media_type,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,

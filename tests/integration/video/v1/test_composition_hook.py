@@ -132,7 +132,7 @@ class CompositionHookTestCase(IntegrationTestCase):
                 "composition_hooks": [
                     {
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                        "friendly_name": "My composition hook",
+                        "friendly_name": "My Special Hook1",
                         "enabled": true,
                         "date_created": "2015-07-30T20:00:00Z",
                         "date_updated": "2015-07-30T20:01:33Z",

@@ -22,7 +22,7 @@ class OutgoingCallerIdList(ListResource):
         Initialize the OutgoingCallerIdList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The unique sid that identifies this account
+        :param account_sid: The SID of the Account that created the resource
 
         :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdList
         :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdList
@@ -41,8 +41,8 @@ class OutgoingCallerIdList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode phone_number: Filter by phone number
-        :param unicode friendly_name: Filter by friendly name
+        :param unicode phone_number: The phone number of the OutgoingCallerId resources to read
+        :param unicode friendly_name: The string that identifies the OutgoingCallerId resources to read
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -70,8 +70,8 @@ class OutgoingCallerIdList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode phone_number: Filter by phone number
-        :param unicode friendly_name: Filter by friendly name
+        :param unicode phone_number: The phone number of the OutgoingCallerId resources to read
+        :param unicode friendly_name: The string that identifies the OutgoingCallerId resources to read
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -96,8 +96,8 @@ class OutgoingCallerIdList(ListResource):
         Retrieve a single page of OutgoingCallerIdInstance records from the API.
         Request is executed immediately
 
-        :param unicode phone_number: Filter by phone number
-        :param unicode friendly_name: Filter by friendly name
+        :param unicode phone_number: The phone number of the OutgoingCallerId resources to read
+        :param unicode friendly_name: The string that identifies the OutgoingCallerId resources to read
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -142,7 +142,7 @@ class OutgoingCallerIdList(ListResource):
         """
         Constructs a OutgoingCallerIdContext
 
-        :param sid: Fetch by unique outgoing-caller-id Sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
         :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
@@ -153,7 +153,7 @@ class OutgoingCallerIdList(ListResource):
         """
         Constructs a OutgoingCallerIdContext
 
-        :param sid: Fetch by unique outgoing-caller-id Sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
         :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
@@ -179,7 +179,7 @@ class OutgoingCallerIdPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The unique sid that identifies this account
+        :param account_sid: The SID of the Account that created the resource
 
         :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdPage
         :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdPage
@@ -218,8 +218,8 @@ class OutgoingCallerIdContext(InstanceContext):
         Initialize the OutgoingCallerIdContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
-        :param sid: Fetch by unique outgoing-caller-id Sid
+        :param account_sid: The SID of the Account that created the resource to fetch
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
         :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
@@ -256,7 +256,7 @@ class OutgoingCallerIdContext(InstanceContext):
         """
         Update the OutgoingCallerIdInstance
 
-        :param unicode friendly_name: A human readable description of the caller ID
+        :param unicode friendly_name: A string to describe the resource
 
         :returns: Updated OutgoingCallerIdInstance
         :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
@@ -343,7 +343,7 @@ class OutgoingCallerIdInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this outgoing-caller-ids
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -351,7 +351,7 @@ class OutgoingCallerIdInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this resource was created
+        :returns: The RFC 2822 date and time in GMT that the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -359,7 +359,7 @@ class OutgoingCallerIdInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this resource was last updated
+        :returns: The RFC 2822 date and time in GMT that the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -367,7 +367,7 @@ class OutgoingCallerIdInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A human readable description for this resource
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -375,7 +375,7 @@ class OutgoingCallerIdInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique sid that identifies this account
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -383,7 +383,7 @@ class OutgoingCallerIdInstance(InstanceResource):
     @property
     def phone_number(self):
         """
-        :returns: The incoming phone number
+        :returns: The phone number in E.164 format
         :rtype: unicode
         """
         return self._properties['phone_number']
@@ -391,7 +391,7 @@ class OutgoingCallerIdInstance(InstanceResource):
     @property
     def uri(self):
         """
-        :returns: The URI for this resource
+        :returns: The URI of the resource, relative to `https://api.twilio.com`
         :rtype: unicode
         """
         return self._properties['uri']
@@ -409,7 +409,7 @@ class OutgoingCallerIdInstance(InstanceResource):
         """
         Update the OutgoingCallerIdInstance
 
-        :param unicode friendly_name: A human readable description of the caller ID
+        :param unicode friendly_name: A string to describe the resource
 
         :returns: Updated OutgoingCallerIdInstance
         :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance

@@ -36,7 +36,8 @@ class CompositionHookList(ListResource):
         self._uri = '/CompositionHooks'.format(**self._solution)
 
     def stream(self, enabled=values.unset, date_created_after=values.unset,
-               date_created_before=values.unset, limit=None, page_size=None):
+               date_created_before=values.unset, friendly_name=values.unset,
+               limit=None, page_size=None):
         """
         Streams CompositionHookInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -46,6 +47,7 @@ class CompositionHookList(ListResource):
         :param bool enabled: Only show Composition Hooks enabled or disabled.
         :param datetime date_created_after: Only show Composition Hooks created on or after this ISO8601 date-time with timezone.
         :param datetime date_created_before: Only show Composition Hooks created before this ISO8601 date-time with timezone.
+        :param unicode friendly_name: Only show Composition Hooks with friendly name that match this name.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -62,13 +64,15 @@ class CompositionHookList(ListResource):
             enabled=enabled,
             date_created_after=date_created_after,
             date_created_before=date_created_before,
+            friendly_name=friendly_name,
             page_size=limits['page_size'],
         )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
     def list(self, enabled=values.unset, date_created_after=values.unset,
-             date_created_before=values.unset, limit=None, page_size=None):
+             date_created_before=values.unset, friendly_name=values.unset,
+             limit=None, page_size=None):
         """
         Lists CompositionHookInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -77,6 +81,7 @@ class CompositionHookList(ListResource):
         :param bool enabled: Only show Composition Hooks enabled or disabled.
         :param datetime date_created_after: Only show Composition Hooks created on or after this ISO8601 date-time with timezone.
         :param datetime date_created_before: Only show Composition Hooks created before this ISO8601 date-time with timezone.
+        :param unicode friendly_name: Only show Composition Hooks with friendly name that match this name.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -91,13 +96,15 @@ class CompositionHookList(ListResource):
             enabled=enabled,
             date_created_after=date_created_after,
             date_created_before=date_created_before,
+            friendly_name=friendly_name,
             limit=limit,
             page_size=page_size,
         ))
 
     def page(self, enabled=values.unset, date_created_after=values.unset,
-             date_created_before=values.unset, page_token=values.unset,
-             page_number=values.unset, page_size=values.unset):
+             date_created_before=values.unset, friendly_name=values.unset,
+             page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of CompositionHookInstance records from the API.
         Request is executed immediately
@@ -105,6 +112,7 @@ class CompositionHookList(ListResource):
         :param bool enabled: Only show Composition Hooks enabled or disabled.
         :param datetime date_created_after: Only show Composition Hooks created on or after this ISO8601 date-time with timezone.
         :param datetime date_created_before: Only show Composition Hooks created before this ISO8601 date-time with timezone.
+        :param unicode friendly_name: Only show Composition Hooks with friendly name that match this name.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -116,6 +124,7 @@ class CompositionHookList(ListResource):
             'Enabled': enabled,
             'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
             'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
+            'FriendlyName': friendly_name,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,

@@ -21,8 +21,8 @@ class FeedbackList(ListResource):
         Initialize the FeedbackList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
-        :param message_sid: The message_sid
+        :param account_sid: The SID of the Account that created the resource
+        :param message_sid: The SID of the Message resource for which the feedback was provided
 
         :returns: twilio.rest.api.v2010.account.message.feedback.FeedbackList
         :rtype: twilio.rest.api.v2010.account.message.feedback.FeedbackList
@@ -37,7 +37,7 @@ class FeedbackList(ListResource):
         """
         Create a new FeedbackInstance
 
-        :param FeedbackInstance.Outcome outcome: The outcome
+        :param FeedbackInstance.Outcome outcome: Whether the feedback has arrived
 
         :returns: Newly created FeedbackInstance
         :rtype: twilio.rest.api.v2010.account.message.feedback.FeedbackInstance
@@ -76,8 +76,8 @@ class FeedbackPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The account_sid
-        :param message_sid: The message_sid
+        :param account_sid: The SID of the Account that created the resource
+        :param message_sid: The SID of the Message resource for which the feedback was provided
 
         :returns: twilio.rest.api.v2010.account.message.feedback.FeedbackPage
         :rtype: twilio.rest.api.v2010.account.message.feedback.FeedbackPage
@@ -146,7 +146,7 @@ class FeedbackInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -154,7 +154,7 @@ class FeedbackInstance(InstanceResource):
     @property
     def message_sid(self):
         """
-        :returns: The message_sid
+        :returns: The SID of the Message resource for which the feedback was provided
         :rtype: unicode
         """
         return self._properties['message_sid']
@@ -162,7 +162,7 @@ class FeedbackInstance(InstanceResource):
     @property
     def outcome(self):
         """
-        :returns: unconfirmed or confirmed. If ProvideFeedback=true in the initial HTTP POST, this value will default to unconfirmed. Make an HTTP POST to update this value to confirmed after the message arrives.
+        :returns: Whether the feedback has arrived
         :rtype: FeedbackInstance.Outcome
         """
         return self._properties['outcome']
@@ -170,7 +170,7 @@ class FeedbackInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The RFC 2822 date and time in GMT that the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -178,7 +178,7 @@ class FeedbackInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The RFC 2822 date and time in GMT that the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -186,7 +186,7 @@ class FeedbackInstance(InstanceResource):
     @property
     def uri(self):
         """
-        :returns: The uri
+        :returns: The URI of the resource, relative to `https://api.twilio.com`
         :rtype: unicode
         """
         return self._properties['uri']

@@ -21,7 +21,7 @@ class TokenList(ListResource):
         Initialize the TokenList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The unique sid that identifies this account
+        :param account_sid: The SID of the Account that created the resource
 
         :returns: twilio.rest.api.v2010.account.token.TokenList
         :rtype: twilio.rest.api.v2010.account.token.TokenList
@@ -70,7 +70,7 @@ class TokenPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The unique sid that identifies this account
+        :param account_sid: The SID of the Account that created the resource
 
         :returns: twilio.rest.api.v2010.account.token.TokenPage
         :rtype: twilio.rest.api.v2010.account.token.TokenPage
@@ -131,7 +131,7 @@ class TokenInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique sid that identifies this account
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -139,7 +139,7 @@ class TokenInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this resource was created
+        :returns: The RFC 2822 date and time in GMT that the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -147,7 +147,7 @@ class TokenInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this resource was last updated
+        :returns: The RFC 2822 date and time in GMT that the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -179,7 +179,7 @@ class TokenInstance(InstanceResource):
     @property
     def username(self):
         """
-        :returns: The temporary username that uniquely identifies a Token.
+        :returns: The temporary username that uniquely identifies a Token
         :rtype: unicode
         """
         return self._properties['username']

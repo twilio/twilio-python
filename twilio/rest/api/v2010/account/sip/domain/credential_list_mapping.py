@@ -23,7 +23,7 @@ class CredentialListMappingList(ListResource):
 
         :param Version version: Version that contains the resource
         :param account_sid: The unique id of the Account that is responsible for this resource.
-        :param domain_sid: A string that uniquely identifies the SIP Domain
+        :param domain_sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingList
         :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingList
@@ -191,7 +191,7 @@ class CredentialListMappingPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
         :param account_sid: The unique id of the Account that is responsible for this resource.
-        :param domain_sid: A string that uniquely identifies the SIP Domain
+        :param domain_sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingPage
         :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingPage

@@ -22,7 +22,7 @@ class DependentPhoneNumberList(ListResource):
 
         :param Version version: Version that contains the resource
         :param account_sid: The account_sid
-        :param address_sid: A 34 character string that uniquely identifies this address.
+        :param address_sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.address.dependent_phone_number.DependentPhoneNumberList
         :rtype: twilio.rest.api.v2010.account.address.dependent_phone_number.DependentPhoneNumberList
@@ -134,7 +134,7 @@ class DependentPhoneNumberPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
         :param account_sid: The account_sid
-        :param address_sid: A 34 character string that uniquely identifies this address.
+        :param address_sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.address.dependent_phone_number.DependentPhoneNumberPage
         :rtype: twilio.rest.api.v2010.account.address.dependent_phone_number.DependentPhoneNumberPage

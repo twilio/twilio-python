@@ -22,7 +22,7 @@ class ApplicationList(ListResource):
         Initialize the ApplicationList
 
         :param Version version: Version that contains the resource
-        :param account_sid: A string that uniquely identifies this resource
+        :param account_sid: The SID of the Account that created the resource
 
         :returns: twilio.rest.api.v2010.account.application.ApplicationList
         :rtype: twilio.rest.api.v2010.account.application.ApplicationList
@@ -44,21 +44,21 @@ class ApplicationList(ListResource):
         """
         Create a new ApplicationInstance
 
-        :param unicode friendly_name: A human readable description of the application
-        :param unicode api_version: The API version to use
-        :param unicode voice_url: URL Twilio will make requests to when relieving a call
-        :param unicode voice_method: HTTP method to use with the URL
-        :param unicode voice_fallback_url: Fallback URL
-        :param unicode voice_fallback_method: HTTP method to use with the fallback url
-        :param unicode status_callback: URL to hit with status updates
-        :param unicode status_callback_method: HTTP method to use with the status callback
-        :param bool voice_caller_id_lookup: True or False
-        :param unicode sms_url: URL Twilio will request when receiving an SMS
-        :param unicode sms_method: HTTP method to use with sms_url
-        :param unicode sms_fallback_url: Fallback URL if there's an error parsing TwiML
-        :param unicode sms_fallback_method: HTTP method to use with sms_fallback_method
-        :param unicode sms_status_callback: URL Twilio with request with status updates
-        :param unicode message_status_callback: URL to make requests to with status updates
+        :param unicode friendly_name: A string to describe the new resource
+        :param unicode api_version: The API version to use to start a new TwiML session
+        :param unicode voice_url: The URL to call when the phone number receives a call
+        :param unicode voice_method: The HTTP method to use with the voice_url
+        :param unicode voice_fallback_url: The URL to call when a TwiML error occurs
+        :param unicode voice_fallback_method: The HTTP method to use with voice_fallback_url
+        :param unicode status_callback: The URL to send status information to your application
+        :param unicode status_callback_method: The HTTP method to use to call status_callback
+        :param bool voice_caller_id_lookup: Whether to lookup the caller's name
+        :param unicode sms_url: The URL to call when the phone number receives an incoming SMS message
+        :param unicode sms_method: The HTTP method to use with sms_url
+        :param unicode sms_fallback_url: The URL to call when an error occurs while retrieving or executing the TwiML
+        :param unicode sms_fallback_method: The HTTP method to use with sms_fallback_url
+        :param unicode sms_status_callback: The URL to send status information to your application
+        :param unicode message_status_callback: The URL to send message status information to your application
 
         :returns: Newly created ApplicationInstance
         :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
@@ -96,7 +96,7 @@ class ApplicationList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode friendly_name: Filter by friendly name
+        :param unicode friendly_name: The string that identifies the Application resources to read
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -119,7 +119,7 @@ class ApplicationList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode friendly_name: Filter by friendly name
+        :param unicode friendly_name: The string that identifies the Application resources to read
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -138,7 +138,7 @@ class ApplicationList(ListResource):
         Retrieve a single page of ApplicationInstance records from the API.
         Request is executed immediately
 
-        :param unicode friendly_name: Filter by friendly name
+        :param unicode friendly_name: The string that identifies the Application resources to read
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -182,7 +182,7 @@ class ApplicationList(ListResource):
         """
         Constructs a ApplicationContext
 
-        :param sid: Fetch by unique Application Sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.application.ApplicationContext
         :rtype: twilio.rest.api.v2010.account.application.ApplicationContext
@@ -193,7 +193,7 @@ class ApplicationList(ListResource):
         """
         Constructs a ApplicationContext
 
-        :param sid: Fetch by unique Application Sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.application.ApplicationContext
         :rtype: twilio.rest.api.v2010.account.application.ApplicationContext
@@ -219,7 +219,7 @@ class ApplicationPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: A string that uniquely identifies this resource
+        :param account_sid: The SID of the Account that created the resource
 
         :returns: twilio.rest.api.v2010.account.application.ApplicationPage
         :rtype: twilio.rest.api.v2010.account.application.ApplicationPage
@@ -258,8 +258,8 @@ class ApplicationContext(InstanceContext):
         Initialize the ApplicationContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
-        :param sid: Fetch by unique Application Sid
+        :param account_sid: The SID of the Account that created the resource to fetch
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.application.ApplicationContext
         :rtype: twilio.rest.api.v2010.account.application.ApplicationContext
@@ -312,21 +312,21 @@ class ApplicationContext(InstanceContext):
         """
         Update the ApplicationInstance
 
-        :param unicode friendly_name: Human readable description of this resource
-        :param unicode api_version: The API version to use
-        :param unicode voice_url: URL Twilio will make requests to when relieving a call
-        :param unicode voice_method: HTTP method to use with the URL
-        :param unicode voice_fallback_url: Fallback URL
-        :param unicode voice_fallback_method: HTTP method to use with the fallback url
-        :param unicode status_callback: URL to hit with status updates
-        :param unicode status_callback_method: HTTP method to use with the status callback
-        :param bool voice_caller_id_lookup: True or False
-        :param unicode sms_url: URL Twilio will request when receiving an SMS
-        :param unicode sms_method: HTTP method to use with sms_url
-        :param unicode sms_fallback_url: Fallback URL if there's an error parsing TwiML
-        :param unicode sms_fallback_method: HTTP method to use with sms_fallback_method
-        :param unicode sms_status_callback: URL Twilio with request with status updates
-        :param unicode message_status_callback: URL to make requests to with status updates
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode api_version: The API version to use to start a new TwiML session
+        :param unicode voice_url: The URL to call when the phone number receives a call
+        :param unicode voice_method: The HTTP method to use with the voice_url
+        :param unicode voice_fallback_url: The URL to call when a TwiML error occurs
+        :param unicode voice_fallback_method: The HTTP method to use with voice_fallback_url
+        :param unicode status_callback: The URL to send status information to your application
+        :param unicode status_callback_method: The HTTP method to use to call status_callback
+        :param bool voice_caller_id_lookup: Whether to lookup the caller's name
+        :param unicode sms_url: The URL to call when the phone number receives an incoming SMS message
+        :param unicode sms_method: The HTTP method to use with sms_url
+        :param unicode sms_fallback_url: The URL to call when an error occurs while retrieving or executing the TwiML
+        :param unicode sms_fallback_method: The HTTP method to use with sms_fallback_url
+        :param unicode sms_status_callback: The URL to send status information to your application
+        :param unicode message_status_callback: The URL to send message status information to your application
 
         :returns: Updated ApplicationInstance
         :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
@@ -433,7 +433,7 @@ class ApplicationInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: A string that uniquely identifies this resource
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -441,7 +441,7 @@ class ApplicationInstance(InstanceResource):
     @property
     def api_version(self):
         """
-        :returns: The API version to use
+        :returns: The API version used to start a new TwiML session
         :rtype: unicode
         """
         return self._properties['api_version']
@@ -449,7 +449,7 @@ class ApplicationInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: Date this resource was created
+        :returns: The RFC 2822 date and time in GMT that the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -457,7 +457,7 @@ class ApplicationInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: Date this resource was last updated
+        :returns: The RFC 2822 date and time in GMT that the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -465,7 +465,7 @@ class ApplicationInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: Human readable description of this resource
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -473,7 +473,7 @@ class ApplicationInstance(InstanceResource):
     @property
     def message_status_callback(self):
         """
-        :returns: URL to make requests to with status updates
+        :returns: The URL to send message status information to your application
         :rtype: unicode
         """
         return self._properties['message_status_callback']
@@ -481,7 +481,7 @@ class ApplicationInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this resource
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -489,7 +489,7 @@ class ApplicationInstance(InstanceResource):
     @property
     def sms_fallback_method(self):
         """
-        :returns: HTTP method to use with sms_fallback_method
+        :returns: The HTTP method used with sms_fallback_url
         :rtype: unicode
         """
         return self._properties['sms_fallback_method']
@@ -497,7 +497,7 @@ class ApplicationInstance(InstanceResource):
     @property
     def sms_fallback_url(self):
         """
-        :returns: Fallback URL if there's an error parsing TwiML
+        :returns: The URL that we call when an error occurs while retrieving or executing the TwiML
         :rtype: unicode
         """
         return self._properties['sms_fallback_url']
@@ -505,7 +505,7 @@ class ApplicationInstance(InstanceResource):
     @property
     def sms_method(self):
         """
-        :returns: HTTP method to use with sms_url
+        :returns: The HTTP method to use with sms_url
         :rtype: unicode
         """
         return self._properties['sms_method']
@@ -513,7 +513,7 @@ class ApplicationInstance(InstanceResource):
     @property
     def sms_status_callback(self):
         """
-        :returns: URL Twilio with request with status updates
+        :returns: The URL to send status information to your application
         :rtype: unicode
         """
         return self._properties['sms_status_callback']
@@ -521,7 +521,7 @@ class ApplicationInstance(InstanceResource):
     @property
     def sms_url(self):
         """
-        :returns: URL Twilio will request when receiving an SMS
+        :returns: The URL we call when the phone number receives an incoming SMS message
         :rtype: unicode
         """
         return self._properties['sms_url']
@@ -529,7 +529,7 @@ class ApplicationInstance(InstanceResource):
     @property
     def status_callback(self):
         """
-        :returns: URL to hit with status updates
+        :returns: The URL to send status information to your application
         :rtype: unicode
         """
         return self._properties['status_callback']
@@ -537,7 +537,7 @@ class ApplicationInstance(InstanceResource):
     @property
     def status_callback_method(self):
         """
-        :returns: HTTP method to use with the status callback
+        :returns: The HTTP method we use to call status_callback
         :rtype: unicode
         """
         return self._properties['status_callback_method']
@@ -545,7 +545,7 @@ class ApplicationInstance(InstanceResource):
     @property
     def uri(self):
         """
-        :returns: URI for this resource
+        :returns: The URI of the resource, relative to `https://api.twilio.com`
         :rtype: unicode
         """
         return self._properties['uri']
@@ -553,7 +553,7 @@ class ApplicationInstance(InstanceResource):
     @property
     def voice_caller_id_lookup(self):
         """
-        :returns: True or False
+        :returns: Whether to lookup the caller's name
         :rtype: bool
         """
         return self._properties['voice_caller_id_lookup']
@@ -561,7 +561,7 @@ class ApplicationInstance(InstanceResource):
     @property
     def voice_fallback_method(self):
         """
-        :returns: HTTP method to use with the fallback url
+        :returns: The HTTP method used with voice_fallback_url
         :rtype: unicode
         """
         return self._properties['voice_fallback_method']
@@ -569,7 +569,7 @@ class ApplicationInstance(InstanceResource):
     @property
     def voice_fallback_url(self):
         """
-        :returns: Fallback URL
+        :returns: The URL we call when a TwiML error occurs
         :rtype: unicode
         """
         return self._properties['voice_fallback_url']
@@ -577,7 +577,7 @@ class ApplicationInstance(InstanceResource):
     @property
     def voice_method(self):
         """
-        :returns: HTTP method to use with the URL
+        :returns: The HTTP method used with the voice_url
         :rtype: unicode
         """
         return self._properties['voice_method']
@@ -585,7 +585,7 @@ class ApplicationInstance(InstanceResource):
     @property
     def voice_url(self):
         """
-        :returns: URL Twilio will make requests to when relieving a call
+        :returns: The URL we call when the phone number receives a call
         :rtype: unicode
         """
         return self._properties['voice_url']
@@ -619,21 +619,21 @@ class ApplicationInstance(InstanceResource):
         """
         Update the ApplicationInstance
 
-        :param unicode friendly_name: Human readable description of this resource
-        :param unicode api_version: The API version to use
-        :param unicode voice_url: URL Twilio will make requests to when relieving a call
-        :param unicode voice_method: HTTP method to use with the URL
-        :param unicode voice_fallback_url: Fallback URL
-        :param unicode voice_fallback_method: HTTP method to use with the fallback url
-        :param unicode status_callback: URL to hit with status updates
-        :param unicode status_callback_method: HTTP method to use with the status callback
-        :param bool voice_caller_id_lookup: True or False
-        :param unicode sms_url: URL Twilio will request when receiving an SMS
-        :param unicode sms_method: HTTP method to use with sms_url
-        :param unicode sms_fallback_url: Fallback URL if there's an error parsing TwiML
-        :param unicode sms_fallback_method: HTTP method to use with sms_fallback_method
-        :param unicode sms_status_callback: URL Twilio with request with status updates
-        :param unicode message_status_callback: URL to make requests to with status updates
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode api_version: The API version to use to start a new TwiML session
+        :param unicode voice_url: The URL to call when the phone number receives a call
+        :param unicode voice_method: The HTTP method to use with the voice_url
+        :param unicode voice_fallback_url: The URL to call when a TwiML error occurs
+        :param unicode voice_fallback_method: The HTTP method to use with voice_fallback_url
+        :param unicode status_callback: The URL to send status information to your application
+        :param unicode status_callback_method: The HTTP method to use to call status_callback
+        :param bool voice_caller_id_lookup: Whether to lookup the caller's name
+        :param unicode sms_url: The URL to call when the phone number receives an incoming SMS message
+        :param unicode sms_method: The HTTP method to use with sms_url
+        :param unicode sms_fallback_url: The URL to call when an error occurs while retrieving or executing the TwiML
+        :param unicode sms_fallback_method: The HTTP method to use with sms_fallback_url
+        :param unicode sms_status_callback: The URL to send status information to your application
+        :param unicode message_status_callback: The URL to send message status information to your application
 
         :returns: Updated ApplicationInstance
         :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
