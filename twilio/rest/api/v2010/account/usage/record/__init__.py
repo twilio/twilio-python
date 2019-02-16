@@ -321,6 +321,7 @@ class RecordInstance(InstanceResource):
     """  """
 
     class Category(object):
+        AGENT_CONFERENCE = "agent-conference"
         ANSWERING_MACHINE_DETECTION = "answering-machine-detection"
         AUTHY_AUTHENTICATIONS = "authy-authentications"
         AUTHY_CALLS_OUTBOUND = "authy-calls-outbound"

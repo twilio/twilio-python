@@ -42,8 +42,9 @@ class MessageList(ListResource):
                force_delivery=values.unset, provider_sid=values.unset,
                content_retention=values.unset, address_retention=values.unset,
                smart_encoded=values.unset, interactive_data=values.unset,
-               from_=values.unset, messaging_service_sid=values.unset,
-               body=values.unset, media_url=values.unset):
+               force_opt_in=values.unset, from_=values.unset,
+               messaging_service_sid=values.unset, body=values.unset,
+               media_url=values.unset):
         """
         Create a new MessageInstance
 
@@ -60,6 +61,7 @@ class MessageList(ListResource):
         :param MessageInstance.AddressRetention address_retention: The address_retention
         :param bool smart_encoded: The smart_encoded
         :param unicode interactive_data: JSON string representing interactive data message.
+        :param bool force_opt_in: Boolean representing force opt in for a message.
         :param unicode from_: The phone number that initiated the message
         :param unicode messaging_service_sid: The 34 character unique id of the Messaging Service you want to associate with this Message.
         :param unicode body: The text of the message you want to send, limited to 1600 characters.
@@ -86,6 +88,7 @@ class MessageList(ListResource):
             'AddressRetention': address_retention,
             'SmartEncoded': smart_encoded,
             'InteractiveData': interactive_data,
+            'ForceOptIn': force_opt_in,
         })
 
         payload = self._version.create(

@@ -93,7 +93,7 @@ class TaskQueuesStatisticsTestCase(IntegrationTestCase):
                                 }
                             ],
                             "longest_task_waiting_age": 0,
-                            "longest_task_waiting_sid": null,
+                            "longest_task_waiting_sid": "WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                             "tasks_by_status": {
                                 "assigned": 0,
                                 "pending": 0,

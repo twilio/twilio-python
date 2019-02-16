@@ -35,7 +35,7 @@ class VerificationList(ListResource):
 
     def create(self, to, channel, custom_message=values.unset,
                send_digits=values.unset, locale=values.unset,
-               custom_code=values.unset):
+               custom_code=values.unset, amount=values.unset, payee=values.unset):
         """
         Create a new VerificationInstance
 
@@ -45,6 +45,8 @@ class VerificationList(ListResource):
         :param unicode send_digits: Digits to send when a phone call is started
         :param unicode locale: Locale used in the sms or call.
         :param unicode custom_code: A pre-generated code
+        :param unicode amount: Amount of the associated PSD2 compliant transaction.
+        :param unicode payee: Payee of the associated PSD2 compliant transaction.
 
         :returns: Newly created VerificationInstance
         :rtype: twilio.rest.verify.v1.service.verification.VerificationInstance
@@ -56,6 +58,8 @@ class VerificationList(ListResource):
             'SendDigits': send_digits,
             'Locale': locale,
             'CustomCode': custom_code,
+            'Amount': amount,
+            'Payee': payee,
         })
 
         payload = self._version.create(
@@ -144,6 +148,8 @@ class VerificationInstance(InstanceResource):
             'status': payload['status'],
             'valid': payload['valid'],
             'lookup': payload['lookup'],
+            'amount': payload['amount'],
+            'payee': payload['payee'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
         }
@@ -215,6 +221,22 @@ class VerificationInstance(InstanceResource):
         :rtype: dict
         """
         return self._properties['lookup']
+
+    @property
+    def amount(self):
+        """
+        :returns: Amount of the associated PSD2 compliant transaction.
+        :rtype: unicode
+        """
+        return self._properties['amount']
+
+    @property
+    def payee(self):
+        """
+        :returns: Payee of the associated PSD2 compliant transaction.
+        :rtype: unicode
+        """
+        return self._properties['payee']
 
     @property
     def date_created(self):

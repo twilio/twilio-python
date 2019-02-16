@@ -23,7 +23,7 @@ class EventList(ListResource):
         Initialize the EventList
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The unique ID of the Workspace
+        :param workspace_sid: The workspace_sid
 
         :returns: twilio.rest.taskrouter.v1.workspace.event.EventList
         :rtype: twilio.rest.taskrouter.v1.workspace.event.EventList
@@ -38,7 +38,8 @@ class EventList(ListResource):
                minutes=values.unset, reservation_sid=values.unset,
                start_date=values.unset, task_queue_sid=values.unset,
                task_sid=values.unset, worker_sid=values.unset,
-               workflow_sid=values.unset, limit=None, page_size=None):
+               workflow_sid=values.unset, task_channel=values.unset,
+               sid=values.unset, limit=None, page_size=None):
         """
         Streams EventInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -53,7 +54,9 @@ class EventList(ListResource):
         :param unicode task_queue_sid: Filter events by those pertaining to a particular queue
         :param unicode task_sid: Filter events by those pertaining to a particular task
         :param unicode worker_sid: Filter events by those pertaining to a particular worker
-        :param unicode workflow_sid: The workflow_sid
+        :param unicode workflow_sid: Filter events by those pertaining to a particular workflow
+        :param unicode task_channel: Filter events by those pertaining to a particular task channel
+        :param unicode sid: Filter events by those pertaining to a particular event
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -76,6 +79,8 @@ class EventList(ListResource):
             task_sid=task_sid,
             worker_sid=worker_sid,
             workflow_sid=workflow_sid,
+            task_channel=task_channel,
+            sid=sid,
             page_size=limits['page_size'],
         )
 
@@ -85,7 +90,8 @@ class EventList(ListResource):
              minutes=values.unset, reservation_sid=values.unset,
              start_date=values.unset, task_queue_sid=values.unset,
              task_sid=values.unset, worker_sid=values.unset,
-             workflow_sid=values.unset, limit=None, page_size=None):
+             workflow_sid=values.unset, task_channel=values.unset, sid=values.unset,
+             limit=None, page_size=None):
         """
         Lists EventInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -99,7 +105,9 @@ class EventList(ListResource):
         :param unicode task_queue_sid: Filter events by those pertaining to a particular queue
         :param unicode task_sid: Filter events by those pertaining to a particular task
         :param unicode worker_sid: Filter events by those pertaining to a particular worker
-        :param unicode workflow_sid: The workflow_sid
+        :param unicode workflow_sid: Filter events by those pertaining to a particular workflow
+        :param unicode task_channel: Filter events by those pertaining to a particular task channel
+        :param unicode sid: Filter events by those pertaining to a particular event
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -120,6 +128,8 @@ class EventList(ListResource):
             task_sid=task_sid,
             worker_sid=worker_sid,
             workflow_sid=workflow_sid,
+            task_channel=task_channel,
+            sid=sid,
             limit=limit,
             page_size=page_size,
         ))
@@ -128,8 +138,9 @@ class EventList(ListResource):
              minutes=values.unset, reservation_sid=values.unset,
              start_date=values.unset, task_queue_sid=values.unset,
              task_sid=values.unset, worker_sid=values.unset,
-             workflow_sid=values.unset, page_token=values.unset,
-             page_number=values.unset, page_size=values.unset):
+             workflow_sid=values.unset, task_channel=values.unset, sid=values.unset,
+             page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of EventInstance records from the API.
         Request is executed immediately
@@ -142,7 +153,9 @@ class EventList(ListResource):
         :param unicode task_queue_sid: Filter events by those pertaining to a particular queue
         :param unicode task_sid: Filter events by those pertaining to a particular task
         :param unicode worker_sid: Filter events by those pertaining to a particular worker
-        :param unicode workflow_sid: The workflow_sid
+        :param unicode workflow_sid: Filter events by those pertaining to a particular workflow
+        :param unicode task_channel: Filter events by those pertaining to a particular task channel
+        :param unicode sid: Filter events by those pertaining to a particular event
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -160,6 +173,8 @@ class EventList(ListResource):
             'TaskSid': task_sid,
             'WorkerSid': worker_sid,
             'WorkflowSid': workflow_sid,
+            'TaskChannel': task_channel,
+            'Sid': sid,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -231,7 +246,7 @@ class EventPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param workspace_sid: The unique ID of the Workspace
+        :param workspace_sid: The workspace_sid
 
         :returns: twilio.rest.taskrouter.v1.workspace.event.EventPage
         :rtype: twilio.rest.taskrouter.v1.workspace.event.EventPage
@@ -336,6 +351,7 @@ class EventInstance(InstanceResource):
             'description': payload['description'],
             'event_data': payload['event_data'],
             'event_date': deserialize.iso8601_datetime(payload['event_date']),
+            'event_date_ms': deserialize.integer(payload['event_date_ms']),
             'event_type': payload['event_type'],
             'resource_sid': payload['resource_sid'],
             'resource_type': payload['resource_type'],
@@ -344,6 +360,7 @@ class EventInstance(InstanceResource):
             'source': payload['source'],
             'source_ip_address': payload['source_ip_address'],
             'url': payload['url'],
+            'workspace_sid': payload['workspace_sid'],
         }
 
         # Context
@@ -411,7 +428,7 @@ class EventInstance(InstanceResource):
     def event_data(self):
         """
         :returns: Data about this specific event.
-        :rtype: unicode
+        :rtype: dict
         """
         return self._properties['event_data']
 
@@ -422,6 +439,14 @@ class EventInstance(InstanceResource):
         :rtype: datetime
         """
         return self._properties['event_date']
+
+    @property
+    def event_date_ms(self):
+        """
+        :returns: The time this event was sent in ms
+        :rtype: unicode
+        """
+        return self._properties['event_date_ms']
 
     @property
     def event_type(self):
@@ -486,6 +511,14 @@ class EventInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['url']
+
+    @property
+    def workspace_sid(self):
+        """
+        :returns: The workspace_sid
+        :rtype: unicode
+        """
+        return self._properties['workspace_sid']
 
     def fetch(self):
         """

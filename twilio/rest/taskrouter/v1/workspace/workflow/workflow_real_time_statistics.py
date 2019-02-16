@@ -186,6 +186,7 @@ class WorkflowRealTimeStatisticsInstance(InstanceResource):
         self._properties = {
             'account_sid': payload['account_sid'],
             'longest_task_waiting_age': deserialize.integer(payload['longest_task_waiting_age']),
+            'longest_task_waiting_sid': payload['longest_task_waiting_sid'],
             'tasks_by_priority': payload['tasks_by_priority'],
             'tasks_by_status': payload['tasks_by_status'],
             'total_tasks': deserialize.integer(payload['total_tasks']),
@@ -230,6 +231,14 @@ class WorkflowRealTimeStatisticsInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['longest_task_waiting_age']
+
+    @property
+    def longest_task_waiting_sid(self):
+        """
+        :returns: The SID of the longest waiting Task
+        :rtype: unicode
+        """
+        return self._properties['longest_task_waiting_sid']
 
     @property
     def tasks_by_priority(self):

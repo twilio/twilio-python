@@ -33,18 +33,27 @@ class VerificationCheckList(ListResource):
         self._solution = {'service_sid': service_sid, }
         self._uri = '/Services/{service_sid}/VerificationCheck'.format(**self._solution)
 
-    def create(self, code, to=values.unset, verification_sid=values.unset):
+    def create(self, code, to=values.unset, verification_sid=values.unset,
+               amount=values.unset, payee=values.unset):
         """
         Create a new VerificationCheckInstance
 
         :param unicode code: The verification string
         :param unicode to: To phone number
         :param unicode verification_sid: A SID that uniquely identifies this Verification Check
+        :param unicode amount: Amount of the associated PSD2 compliant transaction.
+        :param unicode payee: Payee of the associated PSD2 compliant transaction.
 
         :returns: Newly created VerificationCheckInstance
         :rtype: twilio.rest.verify.v1.service.verification_check.VerificationCheckInstance
         """
-        data = values.of({'Code': code, 'To': to, 'VerificationSid': verification_sid, })
+        data = values.of({
+            'Code': code,
+            'To': to,
+            'VerificationSid': verification_sid,
+            'Amount': amount,
+            'Payee': payee,
+        })
 
         payload = self._version.create(
             'POST',
@@ -131,6 +140,8 @@ class VerificationCheckInstance(InstanceResource):
             'channel': payload['channel'],
             'status': payload['status'],
             'valid': payload['valid'],
+            'amount': payload['amount'],
+            'payee': payload['payee'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
         }
@@ -194,6 +205,22 @@ class VerificationCheckInstance(InstanceResource):
         :rtype: bool
         """
         return self._properties['valid']
+
+    @property
+    def amount(self):
+        """
+        :returns: Amount of the associated PSD2 compliant transaction.
+        :rtype: unicode
+        """
+        return self._properties['amount']
+
+    @property
+    def payee(self):
+        """
+        :returns: Payee of the associated PSD2 compliant transaction.
+        :rtype: unicode
+        """
+        return self._properties['payee']
 
     @property
     def date_created(self):

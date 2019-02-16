@@ -58,6 +58,7 @@ class Client(object):
         self._autopilot = None
         self._chat = None
         self._fax = None
+        self._flex_api = None
         self._ip_messaging = None
         self._lookups = None
         self._monitor = None
@@ -204,6 +205,19 @@ class Client(object):
             from twilio.rest.fax import Fax
             self._fax = Fax(self)
         return self._fax
+
+    @property
+    def flex_api(self):
+        """
+        Access the FlexApi Twilio Domain
+
+        :returns: FlexApi Twilio Domain
+        :rtype: twilio.rest.flex_api.FlexApi
+        """
+        if self._flex_api is None:
+            from twilio.rest.flex_api import FlexApi
+            self._flex_api = FlexApi(self)
+        return self._flex_api
 
     @property
     def ip_messaging(self):

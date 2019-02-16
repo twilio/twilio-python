@@ -346,13 +346,15 @@ class WorkerContext(InstanceContext):
         )
 
     def update(self, activity_sid=values.unset, attributes=values.unset,
-               friendly_name=values.unset):
+               friendly_name=values.unset,
+               reject_pending_reservations=values.unset):
         """
         Update the WorkerInstance
 
         :param unicode activity_sid: The activity_sid
         :param unicode attributes: The attributes
         :param unicode friendly_name: The friendly_name
+        :param bool reject_pending_reservations: The reject_pending_reservations
 
         :returns: Updated WorkerInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
@@ -361,6 +363,7 @@ class WorkerContext(InstanceContext):
             'ActivitySid': activity_sid,
             'Attributes': attributes,
             'FriendlyName': friendly_name,
+            'RejectPendingReservations': reject_pending_reservations,
         })
 
         payload = self._version.update(
@@ -638,13 +641,15 @@ class WorkerInstance(InstanceResource):
         return self._proxy.fetch()
 
     def update(self, activity_sid=values.unset, attributes=values.unset,
-               friendly_name=values.unset):
+               friendly_name=values.unset,
+               reject_pending_reservations=values.unset):
         """
         Update the WorkerInstance
 
         :param unicode activity_sid: The activity_sid
         :param unicode attributes: The attributes
         :param unicode friendly_name: The friendly_name
+        :param bool reject_pending_reservations: The reject_pending_reservations
 
         :returns: Updated WorkerInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
@@ -653,6 +658,7 @@ class WorkerInstance(InstanceResource):
             activity_sid=activity_sid,
             attributes=attributes,
             friendly_name=friendly_name,
+            reject_pending_reservations=reject_pending_reservations,
         )
 
     def delete(self):

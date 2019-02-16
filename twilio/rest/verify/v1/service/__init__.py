@@ -37,7 +37,8 @@ class ServiceList(ListResource):
 
     def create(self, friendly_name, code_length=values.unset,
                lookup_enabled=values.unset, skip_sms_to_landlines=values.unset,
-               dtmf_input_required=values.unset, tts_name=values.unset):
+               dtmf_input_required=values.unset, tts_name=values.unset,
+               psd2_enabled=values.unset):
         """
         Create a new ServiceInstance
 
@@ -47,6 +48,7 @@ class ServiceList(ListResource):
         :param bool skip_sms_to_landlines: Indicates whether or not to ignore SMS verifications for landlines
         :param bool dtmf_input_required: Indicates whether or not to require a random number input to deliver the verify code via phone calls
         :param unicode tts_name: Alternative to be used as Service friendly name in phone calls
+        :param bool psd2_enabled: Indicates whether PSD2 parameters are enabled or not
 
         :returns: Newly created ServiceInstance
         :rtype: twilio.rest.verify.v1.service.ServiceInstance
@@ -58,6 +60,7 @@ class ServiceList(ListResource):
             'SkipSmsToLandlines': skip_sms_to_landlines,
             'DtmfInputRequired': dtmf_input_required,
             'TtsName': tts_name,
+            'Psd2Enabled': psd2_enabled,
         })
 
         payload = self._version.create(
@@ -273,7 +276,8 @@ class ServiceContext(InstanceContext):
 
     def update(self, friendly_name=values.unset, code_length=values.unset,
                lookup_enabled=values.unset, skip_sms_to_landlines=values.unset,
-               dtmf_input_required=values.unset, tts_name=values.unset):
+               dtmf_input_required=values.unset, tts_name=values.unset,
+               psd2_enabled=values.unset):
         """
         Update the ServiceInstance
 
@@ -283,6 +287,7 @@ class ServiceContext(InstanceContext):
         :param bool skip_sms_to_landlines: Indicates whether or not to ignore SMS verifications for landlines
         :param bool dtmf_input_required: Indicates whether or not to require a random number input to deliver the verify code via phone calls
         :param unicode tts_name: Alternative to be used as Service friendly name in phone calls
+        :param bool psd2_enabled: Indicates whether PSD2 parameters are enabled or not
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.verify.v1.service.ServiceInstance
@@ -294,6 +299,7 @@ class ServiceContext(InstanceContext):
             'SkipSmsToLandlines': skip_sms_to_landlines,
             'DtmfInputRequired': dtmf_input_required,
             'TtsName': tts_name,
+            'Psd2Enabled': psd2_enabled,
         })
 
         payload = self._version.update(
@@ -359,6 +365,7 @@ class ServiceInstance(InstanceResource):
             'friendly_name': payload['friendly_name'],
             'code_length': deserialize.integer(payload['code_length']),
             'lookup_enabled': payload['lookup_enabled'],
+            'psd2_enabled': payload['psd2_enabled'],
             'skip_sms_to_landlines': payload['skip_sms_to_landlines'],
             'dtmf_input_required': payload['dtmf_input_required'],
             'tts_name': payload['tts_name'],
@@ -424,6 +431,14 @@ class ServiceInstance(InstanceResource):
         :rtype: bool
         """
         return self._properties['lookup_enabled']
+
+    @property
+    def psd2_enabled(self):
+        """
+        :returns: Indicates whether PSD2 parameters are enabled or not
+        :rtype: bool
+        """
+        return self._properties['psd2_enabled']
 
     @property
     def skip_sms_to_landlines(self):
@@ -501,7 +516,8 @@ class ServiceInstance(InstanceResource):
 
     def update(self, friendly_name=values.unset, code_length=values.unset,
                lookup_enabled=values.unset, skip_sms_to_landlines=values.unset,
-               dtmf_input_required=values.unset, tts_name=values.unset):
+               dtmf_input_required=values.unset, tts_name=values.unset,
+               psd2_enabled=values.unset):
         """
         Update the ServiceInstance
 
@@ -511,6 +527,7 @@ class ServiceInstance(InstanceResource):
         :param bool skip_sms_to_landlines: Indicates whether or not to ignore SMS verifications for landlines
         :param bool dtmf_input_required: Indicates whether or not to require a random number input to deliver the verify code via phone calls
         :param unicode tts_name: Alternative to be used as Service friendly name in phone calls
+        :param bool psd2_enabled: Indicates whether PSD2 parameters are enabled or not
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.verify.v1.service.ServiceInstance
@@ -522,6 +539,7 @@ class ServiceInstance(InstanceResource):
             skip_sms_to_landlines=skip_sms_to_landlines,
             dtmf_input_required=dtmf_input_required,
             tts_name=tts_name,
+            psd2_enabled=psd2_enabled,
         )
 
     @property
