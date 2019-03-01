@@ -359,6 +359,14 @@ class FactorInstance(InstanceResource):
         SMS = "sms"
         TOTP = "totp"
 
+    class FactorStrengths(object):
+        UNKNOWN = "unknown"
+        VERY_LOW = "very_low"
+        LOW = "low"
+        MEDIUM = "medium"
+        HIGH = "high"
+        VERY_HIGH = "very_high"
+
     def __init__(self, version, payload, service_sid, identity, sid=None):
         """
         Initialize the FactorInstance
@@ -380,6 +388,7 @@ class FactorInstance(InstanceResource):
             'friendly_name': payload['friendly_name'],
             'status': payload['status'],
             'factor_type': payload['factor_type'],
+            'factor_strength': payload['factor_strength'],
             'url': payload['url'],
             'links': payload['links'],
         }
@@ -489,6 +498,14 @@ class FactorInstance(InstanceResource):
         :rtype: FactorInstance.FactorTypes
         """
         return self._properties['factor_type']
+
+    @property
+    def factor_strength(self):
+        """
+        :returns: The Strength of this Factor
+        :rtype: FactorInstance.FactorStrengths
+        """
+        return self._properties['factor_strength']
 
     @property
     def url(self):

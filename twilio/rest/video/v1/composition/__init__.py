@@ -155,7 +155,7 @@ class CompositionList(ListResource):
 
         return CompositionPage(self._version, response, self._solution)
 
-    def create(self, room_sid=values.unset, video_layout=values.unset,
+    def create(self, room_sid, video_layout=values.unset,
                audio_sources=values.unset, audio_sources_excluded=values.unset,
                resolution=values.unset, format=values.unset,
                status_callback=values.unset, status_callback_method=values.unset,
@@ -333,6 +333,7 @@ class CompositionInstance(InstanceResource):
     preview access, please contact help@twilio.com. """
 
     class Status(object):
+        ENQUEUED = "enqueued"
         PROCESSING = "processing"
         COMPLETED = "completed"
         DELETED = "deleted"

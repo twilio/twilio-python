@@ -22,8 +22,8 @@ class TranscriptionList(ListResource):
         Initialize the TranscriptionList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
-        :param recording_sid: The recording_sid
+        :param account_sid: The SID of the Account that created the resource
+        :param recording_sid: The SID that identifies the transcription's recording
 
         :returns: twilio.rest.api.v2010.account.recording.transcription.TranscriptionList
         :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionList
@@ -119,7 +119,7 @@ class TranscriptionList(ListResource):
         """
         Constructs a TranscriptionContext
 
-        :param sid: The sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.recording.transcription.TranscriptionContext
         :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionContext
@@ -135,7 +135,7 @@ class TranscriptionList(ListResource):
         """
         Constructs a TranscriptionContext
 
-        :param sid: The sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.recording.transcription.TranscriptionContext
         :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionContext
@@ -166,8 +166,8 @@ class TranscriptionPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The account_sid
-        :param recording_sid: The recording_sid
+        :param account_sid: The SID of the Account that created the resource
+        :param recording_sid: The SID that identifies the transcription's recording
 
         :returns: twilio.rest.api.v2010.account.recording.transcription.TranscriptionPage
         :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionPage
@@ -211,9 +211,9 @@ class TranscriptionContext(InstanceContext):
         Initialize the TranscriptionContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
-        :param recording_sid: The recording_sid
-        :param sid: The sid
+        :param account_sid: The SID of the Account that created the resource to fetch
+        :param recording_sid: The SID of the recording that created the transcriptions to fetch
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.recording.transcription.TranscriptionContext
         :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionContext
@@ -330,7 +330,7 @@ class TranscriptionInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -338,7 +338,7 @@ class TranscriptionInstance(InstanceResource):
     @property
     def api_version(self):
         """
-        :returns: The api_version
+        :returns: The API version used to create the transcription
         :rtype: unicode
         """
         return self._properties['api_version']
@@ -346,7 +346,7 @@ class TranscriptionInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The RFC 2822 date and time in GMT that the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -354,7 +354,7 @@ class TranscriptionInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The RFC 2822 date and time in GMT that the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -362,7 +362,7 @@ class TranscriptionInstance(InstanceResource):
     @property
     def duration(self):
         """
-        :returns: The duration
+        :returns: The duration of the transcribed audio in seconds.
         :rtype: unicode
         """
         return self._properties['duration']
@@ -370,7 +370,7 @@ class TranscriptionInstance(InstanceResource):
     @property
     def price(self):
         """
-        :returns: The price
+        :returns: The charge for the transcription
         :rtype: unicode
         """
         return self._properties['price']
@@ -378,7 +378,7 @@ class TranscriptionInstance(InstanceResource):
     @property
     def price_unit(self):
         """
-        :returns: The price_unit
+        :returns: The currency in which price is measured
         :rtype: unicode
         """
         return self._properties['price_unit']
@@ -386,7 +386,7 @@ class TranscriptionInstance(InstanceResource):
     @property
     def recording_sid(self):
         """
-        :returns: The recording_sid
+        :returns: The SID that identifies the transcription's recording
         :rtype: unicode
         """
         return self._properties['recording_sid']
@@ -394,7 +394,7 @@ class TranscriptionInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -402,7 +402,7 @@ class TranscriptionInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: The status
+        :returns: The status of the transcription
         :rtype: TranscriptionInstance.Status
         """
         return self._properties['status']
@@ -410,7 +410,7 @@ class TranscriptionInstance(InstanceResource):
     @property
     def transcription_text(self):
         """
-        :returns: The transcription_text
+        :returns: The text content of the transcription.
         :rtype: unicode
         """
         return self._properties['transcription_text']
@@ -418,7 +418,7 @@ class TranscriptionInstance(InstanceResource):
     @property
     def type(self):
         """
-        :returns: The type
+        :returns: The transcription type
         :rtype: unicode
         """
         return self._properties['type']
@@ -426,7 +426,7 @@ class TranscriptionInstance(InstanceResource):
     @property
     def uri(self):
         """
-        :returns: The uri
+        :returns: The URI of the resource, relative to `https://api.twilio.com`
         :rtype: unicode
         """
         return self._properties['uri']

@@ -118,8 +118,8 @@ class PublicKeyList(ListResource):
         """
         Create a new PublicKeyInstance
 
-        :param unicode public_key: URL encoded representation of the public key
-        :param unicode friendly_name: A human readable description of this resource
+        :param unicode public_key: A URL encoded representation of the public key
+        :param unicode friendly_name: A string to describe the resource
         :param unicode account_sid: The Subaccount this Credential should be associated with.
 
         :returns: Newly created PublicKeyInstance
@@ -143,7 +143,7 @@ class PublicKeyList(ListResource):
         """
         Constructs a PublicKeyContext
 
-        :param sid: Fetch by unique Credential Sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
         :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
@@ -154,7 +154,7 @@ class PublicKeyList(ListResource):
         """
         Constructs a PublicKeyContext
 
-        :param sid: Fetch by unique Credential Sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
         :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
@@ -218,7 +218,7 @@ class PublicKeyContext(InstanceContext):
         Initialize the PublicKeyContext
 
         :param Version version: Version that contains the resource
-        :param sid: Fetch by unique Credential Sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
         :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
@@ -250,7 +250,7 @@ class PublicKeyContext(InstanceContext):
         """
         Update the PublicKeyInstance
 
-        :param unicode friendly_name: A human readable description of this resource
+        :param unicode friendly_name: A string to describe the resource
 
         :returns: Updated PublicKeyInstance
         :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
@@ -327,7 +327,7 @@ class PublicKeyInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34 character string that uniquely identifies this resource.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -335,7 +335,7 @@ class PublicKeyInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: AccountSid the Credential resource belongs to
+        :returns: The SID of the Account that created the Credential that the PublicKey resource belongs to
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -343,7 +343,7 @@ class PublicKeyInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A human readable description of this resource
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -351,7 +351,7 @@ class PublicKeyInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this resource was created
+        :returns: The RFC 2822 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -359,7 +359,7 @@ class PublicKeyInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this resource was last updated
+        :returns: The RFC 2822 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -385,7 +385,7 @@ class PublicKeyInstance(InstanceResource):
         """
         Update the PublicKeyInstance
 
-        :param unicode friendly_name: A human readable description of this resource
+        :param unicode friendly_name: A string to describe the resource
 
         :returns: Updated PublicKeyInstance
         :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance

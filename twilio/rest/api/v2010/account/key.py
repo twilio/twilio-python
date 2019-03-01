@@ -118,7 +118,7 @@ class KeyList(ListResource):
         """
         Constructs a KeyContext
 
-        :param sid: The sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.key.KeyContext
         :rtype: twilio.rest.api.v2010.account.key.KeyContext
@@ -129,7 +129,7 @@ class KeyList(ListResource):
         """
         Constructs a KeyContext
 
-        :param sid: The sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.key.KeyContext
         :rtype: twilio.rest.api.v2010.account.key.KeyContext
@@ -194,8 +194,8 @@ class KeyContext(InstanceContext):
         Initialize the KeyContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
-        :param sid: The sid
+        :param account_sid: The SID of the Account that created the resource to fetch
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.key.KeyContext
         :rtype: twilio.rest.api.v2010.account.key.KeyContext
@@ -232,7 +232,7 @@ class KeyContext(InstanceContext):
         """
         Update the KeyInstance
 
-        :param unicode friendly_name: A descriptive string for this resource, chosen by your application, up to 64 characters long.
+        :param unicode friendly_name: A string to describe the resource
 
         :returns: Updated KeyInstance
         :rtype: twilio.rest.api.v2010.account.key.KeyInstance
@@ -316,7 +316,7 @@ class KeyInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34 character string that uniquely identifies this API Key.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -324,7 +324,7 @@ class KeyInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A descriptive string for this resource, chosen by your application, up to 64 characters long.
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -332,7 +332,7 @@ class KeyInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date-time this API Key was created, given as a RFC 2822 Timestamp.
+        :returns: The RFC 2822 date and time in GMT that the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -340,7 +340,7 @@ class KeyInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date-time this API Key was most recently updated, given as a  RFC 2822 Timestamp.
+        :returns: The RFC 2822 date and time in GMT that the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -358,7 +358,7 @@ class KeyInstance(InstanceResource):
         """
         Update the KeyInstance
 
-        :param unicode friendly_name: A descriptive string for this resource, chosen by your application, up to 64 characters long.
+        :param unicode friendly_name: A string to describe the resource
 
         :returns: Updated KeyInstance
         :rtype: twilio.rest.api.v2010.account.key.KeyInstance

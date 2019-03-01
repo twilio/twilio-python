@@ -3,6 +3,28 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2019-03-01] Version 6.25.0
+----------------------------
+**Api**
+- Make conference participant preview parameters public
+
+**Authy**
+- Added support for FactorType and FactorStrength for Factors and Challenges
+
+**Iam**
+- First public release
+
+**Verify**
+- Add endpoint to update/cancel a Verification **(breaking change)**
+
+**Video**
+- [Composer] Make RoomSid mandatory **(breaking change)**
+- [Composer] Add `enqueued` state to Composition
+
+**Twiml**
+- Update message body to not be required for TwiML `Dial` noun.
+
+
 [2019-02-15] Version 6.24.1
 ----------------------------
 **Api**

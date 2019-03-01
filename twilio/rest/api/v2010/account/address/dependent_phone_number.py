@@ -21,7 +21,7 @@ class DependentPhoneNumberList(ListResource):
         Initialize the DependentPhoneNumberList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
+        :param account_sid: The SID of the Account that created the resource
         :param address_sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.address.dependent_phone_number.DependentPhoneNumberList
@@ -133,7 +133,7 @@ class DependentPhoneNumberPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The account_sid
+        :param account_sid: The SID of the Account that created the resource
         :param address_sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.address.dependent_phone_number.DependentPhoneNumberPage
@@ -229,7 +229,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -237,7 +237,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -245,7 +245,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The friendly_name
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -253,7 +253,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     @property
     def phone_number(self):
         """
-        :returns: The phone_number
+        :returns: The phone number in E.164 format
         :rtype: unicode
         """
         return self._properties['phone_number']
@@ -261,7 +261,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     @property
     def voice_url(self):
         """
-        :returns: The voice_url
+        :returns: The URL we call when the phone number receives a call
         :rtype: unicode
         """
         return self._properties['voice_url']
@@ -269,7 +269,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     @property
     def voice_method(self):
         """
-        :returns: The voice_method
+        :returns: The HTTP method used with the voice_url
         :rtype: unicode
         """
         return self._properties['voice_method']
@@ -277,7 +277,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     @property
     def voice_fallback_method(self):
         """
-        :returns: The voice_fallback_method
+        :returns: The HTTP method used with voice_fallback_url
         :rtype: unicode
         """
         return self._properties['voice_fallback_method']
@@ -285,7 +285,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     @property
     def voice_fallback_url(self):
         """
-        :returns: The voice_fallback_url
+        :returns: The URL we call when an error occurs in TwiML
         :rtype: unicode
         """
         return self._properties['voice_fallback_url']
@@ -293,7 +293,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     @property
     def voice_caller_id_lookup(self):
         """
-        :returns: The voice_caller_id_lookup
+        :returns: Whether to lookup the caller's name
         :rtype: bool
         """
         return self._properties['voice_caller_id_lookup']
@@ -301,7 +301,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The RFC 2822 date and time in GMT that the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -309,7 +309,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The RFC 2822 date and time in GMT that the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -317,7 +317,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     @property
     def sms_fallback_method(self):
         """
-        :returns: The sms_fallback_method
+        :returns: The HTTP method used with sms_fallback_url
         :rtype: unicode
         """
         return self._properties['sms_fallback_method']
@@ -325,7 +325,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     @property
     def sms_fallback_url(self):
         """
-        :returns: The sms_fallback_url
+        :returns: The URL that we call when an error occurs while retrieving or executing the TwiML
         :rtype: unicode
         """
         return self._properties['sms_fallback_url']
@@ -333,7 +333,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     @property
     def sms_method(self):
         """
-        :returns: The sms_method
+        :returns: The HTTP method to use with sms_url
         :rtype: unicode
         """
         return self._properties['sms_method']
@@ -341,7 +341,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     @property
     def sms_url(self):
         """
-        :returns: The sms_url
+        :returns: The URL we call when the phone number receives an incoming SMS message
         :rtype: unicode
         """
         return self._properties['sms_url']
@@ -349,7 +349,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     @property
     def address_requirements(self):
         """
-        :returns: The address_requirements
+        :returns: Whether the phone number requires an Address registered with Twilio
         :rtype: DependentPhoneNumberInstance.AddressRequirement
         """
         return self._properties['address_requirements']
@@ -357,7 +357,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     @property
     def capabilities(self):
         """
-        :returns: The capabilities
+        :returns: Indicate if a phone can receive calls or messages
         :rtype: dict
         """
         return self._properties['capabilities']
@@ -365,7 +365,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     @property
     def status_callback(self):
         """
-        :returns: The status_callback
+        :returns: The URL to send status information to your application
         :rtype: unicode
         """
         return self._properties['status_callback']
@@ -373,7 +373,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     @property
     def status_callback_method(self):
         """
-        :returns: The status_callback_method
+        :returns: The HTTP method we use to call status_callback
         :rtype: unicode
         """
         return self._properties['status_callback_method']
@@ -381,7 +381,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     @property
     def api_version(self):
         """
-        :returns: The api_version
+        :returns: The API version used to start a new TwiML session
         :rtype: unicode
         """
         return self._properties['api_version']
@@ -389,7 +389,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     @property
     def sms_application_sid(self):
         """
-        :returns: The sms_application_sid
+        :returns: The SID of the application that handles SMS messages sent to the phone number
         :rtype: unicode
         """
         return self._properties['sms_application_sid']
@@ -397,7 +397,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     @property
     def voice_application_sid(self):
         """
-        :returns: The voice_application_sid
+        :returns: The SID of the application that handles calls to the phone number
         :rtype: unicode
         """
         return self._properties['voice_application_sid']
@@ -405,7 +405,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     @property
     def trunk_sid(self):
         """
-        :returns: The trunk_sid
+        :returns: The SID of the Trunk that handles calls to the phone number
         :rtype: unicode
         """
         return self._properties['trunk_sid']
@@ -413,7 +413,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     @property
     def emergency_status(self):
         """
-        :returns: The emergency_status
+        :returns: Whether the phone number is enabled for emergency calling
         :rtype: DependentPhoneNumberInstance.EmergencyStatus
         """
         return self._properties['emergency_status']
@@ -421,7 +421,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     @property
     def emergency_address_sid(self):
         """
-        :returns: The emergency_address_sid
+        :returns: The emergency address configuration to use for emergency calling
         :rtype: unicode
         """
         return self._properties['emergency_address_sid']
@@ -429,7 +429,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     @property
     def uri(self):
         """
-        :returns: The uri
+        :returns: The URI of the resource, relative to `https://api.twilio.com`
         :rtype: unicode
         """
         return self._properties['uri']

@@ -25,7 +25,7 @@ class MessageList(ListResource):
         Initialize the MessageList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The unique sid that identifies this account
+        :param account_sid: The SID of the Account that created the resource
 
         :returns: twilio.rest.api.v2010.account.message.MessageList
         :rtype: twilio.rest.api.v2010.account.message.MessageList
@@ -38,34 +38,26 @@ class MessageList(ListResource):
 
     def create(self, to, status_callback=values.unset, application_sid=values.unset,
                max_price=values.unset, provide_feedback=values.unset,
-               validity_period=values.unset, max_rate=values.unset,
-               force_delivery=values.unset, provider_sid=values.unset,
-               content_retention=values.unset, address_retention=values.unset,
-               smart_encoded=values.unset, interactive_data=values.unset,
-               force_opt_in=values.unset, from_=values.unset,
-               messaging_service_sid=values.unset, body=values.unset,
-               media_url=values.unset):
+               validity_period=values.unset, smart_encoded=values.unset,
+               interactive_data=values.unset, force_opt_in=values.unset,
+               from_=values.unset, messaging_service_sid=values.unset,
+               body=values.unset, media_url=values.unset):
         """
         Create a new MessageInstance
 
-        :param unicode to: The phone number to receive the message
-        :param unicode status_callback: URL Twilio will request when the status changes
+        :param unicode to: The destination phone number
+        :param unicode status_callback: The URL we should call to send status information to your application
         :param unicode application_sid: The application to use for callbacks
-        :param unicode max_price: The total maximum price up to the fourth decimal in US dollars acceptable for the message to be delivered.
-        :param bool provide_feedback: Set this value to true if you are sending messages that have a trackable user action and you intend to confirm delivery of the message using the Message Feedback API.
-        :param unicode validity_period: The number of seconds that the message can remain in a Twilio queue.
-        :param unicode max_rate: The max_rate
-        :param bool force_delivery: The force_delivery
-        :param unicode provider_sid: The provider_sid
-        :param MessageInstance.ContentRetention content_retention: The content_retention
-        :param MessageInstance.AddressRetention address_retention: The address_retention
-        :param bool smart_encoded: The smart_encoded
-        :param unicode interactive_data: JSON string representing interactive data message.
-        :param bool force_opt_in: Boolean representing force opt in for a message.
+        :param unicode max_price: The total maximum price up to 4 decimal places in US dollars acceptable for the message to be delivered.
+        :param bool provide_feedback: Whether to confirm delivery of the message
+        :param unicode validity_period: The number of seconds that the message can remain in our outgoing queue.
+        :param bool smart_encoded: Whether to detect Unicode characters that have a similar GSM-7 character and replace them
+        :param unicode interactive_data: A JSON string that represents an interactive message
+        :param bool force_opt_in: Whether to forcefully whitelist a from:to pair
         :param unicode from_: The phone number that initiated the message
-        :param unicode messaging_service_sid: The 34 character unique id of the Messaging Service you want to associate with this Message.
-        :param unicode body: The text of the message you want to send, limited to 1600 characters.
-        :param unicode media_url: The URL of the media you wish to send out with the message.
+        :param unicode messaging_service_sid: The SID of the Messaging Service you want to associate with the message.
+        :param unicode body: The text of the message you want to send. Can be up to 1,600 characters in length.
+        :param unicode media_url: The URL of the media to send with the message
 
         :returns: Newly created MessageInstance
         :rtype: twilio.rest.api.v2010.account.message.MessageInstance
@@ -81,11 +73,6 @@ class MessageList(ListResource):
             'MaxPrice': max_price,
             'ProvideFeedback': provide_feedback,
             'ValidityPeriod': validity_period,
-            'MaxRate': max_rate,
-            'ForceDelivery': force_delivery,
-            'ProviderSid': provider_sid,
-            'ContentRetention': content_retention,
-            'AddressRetention': address_retention,
             'SmartEncoded': smart_encoded,
             'InteractiveData': interactive_data,
             'ForceOptIn': force_opt_in,
@@ -108,7 +95,7 @@ class MessageList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode to: Filter by messages to this number
+        :param unicode to: Filter by messages sent to this number
         :param unicode from_: Filter by from number
         :param datetime date_sent_before: Filter by date sent
         :param datetime date_sent: Filter by date sent
@@ -144,7 +131,7 @@ class MessageList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode to: Filter by messages to this number
+        :param unicode to: Filter by messages sent to this number
         :param unicode from_: Filter by from number
         :param datetime date_sent_before: Filter by date sent
         :param datetime date_sent: Filter by date sent
@@ -177,7 +164,7 @@ class MessageList(ListResource):
         Retrieve a single page of MessageInstance records from the API.
         Request is executed immediately
 
-        :param unicode to: Filter by messages to this number
+        :param unicode to: Filter by messages sent to this number
         :param unicode from_: Filter by from number
         :param datetime date_sent_before: Filter by date sent
         :param datetime date_sent: Filter by date sent
@@ -229,7 +216,7 @@ class MessageList(ListResource):
         """
         Constructs a MessageContext
 
-        :param sid: Fetch by unique message Sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.message.MessageContext
         :rtype: twilio.rest.api.v2010.account.message.MessageContext
@@ -240,7 +227,7 @@ class MessageList(ListResource):
         """
         Constructs a MessageContext
 
-        :param sid: Fetch by unique message Sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.message.MessageContext
         :rtype: twilio.rest.api.v2010.account.message.MessageContext
@@ -266,7 +253,7 @@ class MessagePage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The unique sid that identifies this account
+        :param account_sid: The SID of the Account that created the resource
 
         :returns: twilio.rest.api.v2010.account.message.MessagePage
         :rtype: twilio.rest.api.v2010.account.message.MessagePage
@@ -305,8 +292,8 @@ class MessageContext(InstanceContext):
         Initialize the MessageContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The account_sid
-        :param sid: Fetch by unique message Sid
+        :param account_sid: The SID of the Account that created the resource to fetch
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.message.MessageContext
         :rtype: twilio.rest.api.v2010.account.message.MessageContext
@@ -356,7 +343,7 @@ class MessageContext(InstanceContext):
         """
         Update the MessageInstance
 
-        :param unicode body: The text of the message you want to send, limited to 1600 characters.
+        :param unicode body: The text of the message you want to send
 
         :returns: Updated MessageInstance
         :rtype: twilio.rest.api.v2010.account.message.MessageInstance
@@ -504,7 +491,7 @@ class MessageInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique sid that identifies this account
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -512,7 +499,7 @@ class MessageInstance(InstanceResource):
     @property
     def api_version(self):
         """
-        :returns: The version of the Twilio API used to process the message.
+        :returns: The API version used to process the message
         :rtype: unicode
         """
         return self._properties['api_version']
@@ -520,7 +507,7 @@ class MessageInstance(InstanceResource):
     @property
     def body(self):
         """
-        :returns: The text body of the message. Up to 1600 characters long.
+        :returns: The message text
         :rtype: unicode
         """
         return self._properties['body']
@@ -528,7 +515,7 @@ class MessageInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this resource was created
+        :returns: The RFC 2822 date and time in GMT that the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -536,7 +523,7 @@ class MessageInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this resource was last updated
+        :returns: The RFC 2822 date and time in GMT that the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -544,7 +531,7 @@ class MessageInstance(InstanceResource):
     @property
     def date_sent(self):
         """
-        :returns: The date the message was sent
+        :returns: The RFC 2822 date and time in GMT when the message was sent
         :rtype: datetime
         """
         return self._properties['date_sent']
@@ -568,7 +555,7 @@ class MessageInstance(InstanceResource):
     @property
     def error_message(self):
         """
-        :returns: Human readable description of the ErrorCode
+        :returns: The description of the error_code
         :rtype: unicode
         """
         return self._properties['error_message']
@@ -584,7 +571,7 @@ class MessageInstance(InstanceResource):
     @property
     def messaging_service_sid(self):
         """
-        :returns: The unique id of the Messaging Service used with the message.
+        :returns: The SID of the Messaging Service used with the message.
         :rtype: unicode
         """
         return self._properties['messaging_service_sid']
@@ -592,7 +579,7 @@ class MessageInstance(InstanceResource):
     @property
     def num_media(self):
         """
-        :returns: Number of media files associated with the message
+        :returns: The number of media files associated with the message
         :rtype: unicode
         """
         return self._properties['num_media']
@@ -600,7 +587,7 @@ class MessageInstance(InstanceResource):
     @property
     def num_segments(self):
         """
-        :returns: Indicates number of messages used to delivery the body
+        :returns: The number of messages used to deliver the message body
         :rtype: unicode
         """
         return self._properties['num_segments']
@@ -616,7 +603,7 @@ class MessageInstance(InstanceResource):
     @property
     def price_unit(self):
         """
-        :returns: The currency in which Price is measured
+        :returns: The currency in which price is measured
         :rtype: unicode
         """
         return self._properties['price_unit']
@@ -624,7 +611,7 @@ class MessageInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this message
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -632,7 +619,7 @@ class MessageInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: The status of this message
+        :returns: The status of the message
         :rtype: MessageInstance.Status
         """
         return self._properties['status']
@@ -640,7 +627,7 @@ class MessageInstance(InstanceResource):
     @property
     def subresource_uris(self):
         """
-        :returns: The URI for any subresources
+        :returns: A list of related resources identified by their relative URIs
         :rtype: unicode
         """
         return self._properties['subresource_uris']
@@ -656,7 +643,7 @@ class MessageInstance(InstanceResource):
     @property
     def uri(self):
         """
-        :returns: The URI for this resource
+        :returns: The URI of the resource, relative to `https://api.twilio.com`
         :rtype: unicode
         """
         return self._properties['uri']
@@ -683,7 +670,7 @@ class MessageInstance(InstanceResource):
         """
         Update the MessageInstance
 
-        :param unicode body: The text of the message you want to send, limited to 1600 characters.
+        :param unicode body: The text of the message you want to send
 
         :returns: Updated MessageInstance
         :rtype: twilio.rest.api.v2010.account.message.MessageInstance

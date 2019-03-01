@@ -109,6 +109,29 @@ class CompositionTestCase(IntegrationTestCase):
             'https://video.twilio.com/v1/Compositions',
         ))
 
+    def test_read_enqueued_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "compositions": [],
+                "meta": {
+                    "page": 0,
+                    "page_size": 50,
+                    "first_page_url": "https://video.twilio.com/v1/Compositions?PageSize=50&Page=0",
+                    "previous_page_url": null,
+                    "url": "https://video.twilio.com/v1/Compositions?PageSize=50&Page=0",
+                    "next_page_url": null,
+                    "key": "compositions"
+                }
+            }
+            '''
+        ))
+
+        actual = self.client.video.v1.compositions.list()
+
+        self.assertIsNotNone(actual)
+
     def test_read_empty_response(self):
         self.holodeck.mock(Response(
             200,
@@ -239,11 +262,14 @@ class CompositionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.compositions.create()
+            self.client.video.v1.compositions.create(room_sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+        values = {'RoomSid': "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
 
         self.holodeck.assert_has_request(Request(
             'post',
             'https://video.twilio.com/v1/Compositions',
+            data=values,
         ))
 
     def test_create_response(self):
@@ -303,6 +329,6 @@ class CompositionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.video.v1.compositions.create()
+        actual = self.client.video.v1.compositions.create(room_sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         self.assertIsNotNone(actual)

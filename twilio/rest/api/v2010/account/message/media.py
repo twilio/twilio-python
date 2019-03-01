@@ -24,7 +24,7 @@ class MediaList(ListResource):
 
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the Account that created this resource
-        :param message_sid: A string that uniquely identifies this message
+        :param message_sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.message.media.MediaList
         :rtype: twilio.rest.api.v2010.account.message.media.MediaList
@@ -198,7 +198,7 @@ class MediaPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
         :param account_sid: The SID of the Account that created this resource
-        :param message_sid: A string that uniquely identifies this message
+        :param message_sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.message.media.MediaPage
         :rtype: twilio.rest.api.v2010.account.message.media.MediaPage

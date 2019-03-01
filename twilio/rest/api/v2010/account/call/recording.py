@@ -23,8 +23,8 @@ class RecordingList(ListResource):
         Initialize the RecordingList
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the Account that created this resource
-        :param call_sid: The SID of the Call this resource is associated with
+        :param account_sid: The SID of the Account that created the resource
+        :param call_sid: The SID of the Call the resource is associated with
 
         :returns: twilio.rest.api.v2010.account.call.recording.RecordingList
         :rtype: twilio.rest.api.v2010.account.call.recording.RecordingList
@@ -44,7 +44,7 @@ class RecordingList(ListResource):
 
         :param unicode recording_status_callback_event: The recording status changes that should generate a callback
         :param unicode recording_status_callback: The callback URL on each selected recording event
-        :param unicode recording_status_callback_method: The HTTP method we should use when calling the recording_status_callback URL
+        :param unicode recording_status_callback_method: The HTTP method we should use to call `recording_status_callback`
         :param unicode trim: Whether to trim the silence in the recording
         :param unicode recording_channels: The number of channels that the output recording will be configured with
 
@@ -187,7 +187,7 @@ class RecordingList(ListResource):
         """
         Constructs a RecordingContext
 
-        :param sid: The unique string that identifies this resource
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.call.recording.RecordingContext
         :rtype: twilio.rest.api.v2010.account.call.recording.RecordingContext
@@ -203,7 +203,7 @@ class RecordingList(ListResource):
         """
         Constructs a RecordingContext
 
-        :param sid: The unique string that identifies this resource
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.call.recording.RecordingContext
         :rtype: twilio.rest.api.v2010.account.call.recording.RecordingContext
@@ -234,8 +234,8 @@ class RecordingPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: The SID of the Account that created this resource
-        :param call_sid: The SID of the Call this resource is associated with
+        :param account_sid: The SID of the Account that created the resource
+        :param call_sid: The SID of the Call the resource is associated with
 
         :returns: twilio.rest.api.v2010.account.call.recording.RecordingPage
         :rtype: twilio.rest.api.v2010.account.call.recording.RecordingPage
@@ -279,9 +279,9 @@ class RecordingContext(InstanceContext):
         Initialize the RecordingContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the Account that created the resource(s) to fetch
-        :param call_sid: The Call SID of the resource(s) to fetch
-        :param sid: The unique string that identifies this resource
+        :param account_sid: The SID of the Account that created the resource to fetch
+        :param call_sid: The Call SID of the resource to fetch
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.api.v2010.account.call.recording.RecordingContext
         :rtype: twilio.rest.api.v2010.account.call.recording.RecordingContext
@@ -440,7 +440,7 @@ class RecordingInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The SID of the Account that created this resource
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -456,7 +456,7 @@ class RecordingInstance(InstanceResource):
     @property
     def call_sid(self):
         """
-        :returns: The SID of the Call this resource is associated with
+        :returns: The SID of the Call the resource is associated with
         :rtype: unicode
         """
         return self._properties['call_sid']
@@ -472,7 +472,7 @@ class RecordingInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The RFC 2822 date and time in GMT that this resource was created
+        :returns: The RFC 2822 date and time in GMT that the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -480,7 +480,7 @@ class RecordingInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The RFC 2822 date and time in GMT that this resource was last updated
+        :returns: The RFC 2822 date and time in GMT that the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -504,7 +504,7 @@ class RecordingInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The unique string that identifies this resource
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -512,7 +512,7 @@ class RecordingInstance(InstanceResource):
     @property
     def price(self):
         """
-        :returns: The one-time cost of creating this recording.
+        :returns: The one-time cost of creating the recording.
         :rtype: unicode
         """
         return self._properties['price']
@@ -520,7 +520,7 @@ class RecordingInstance(InstanceResource):
     @property
     def uri(self):
         """
-        :returns: The URI of this resource, relative to `https://api.twilio.com`
+        :returns: The URI of the resource, relative to `https://api.twilio.com`
         :rtype: unicode
         """
         return self._properties['uri']
@@ -528,7 +528,7 @@ class RecordingInstance(InstanceResource):
     @property
     def encryption_details(self):
         """
-        :returns: Details about how to decrypt the recording
+        :returns: How to decrypt the recording.
         :rtype: dict
         """
         return self._properties['encryption_details']
@@ -536,7 +536,7 @@ class RecordingInstance(InstanceResource):
     @property
     def price_unit(self):
         """
-        :returns: The currency used in the Price property
+        :returns: The currency used in the price property.
         :rtype: unicode
         """
         return self._properties['price_unit']
@@ -544,7 +544,7 @@ class RecordingInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: The status of this recording
+        :returns: The status of the recording
         :rtype: RecordingInstance.Status
         """
         return self._properties['status']
@@ -552,7 +552,7 @@ class RecordingInstance(InstanceResource):
     @property
     def channels(self):
         """
-        :returns: The number of channels in the final recording file as an integer
+        :returns: The number of channels in the final recording file
         :rtype: unicode
         """
         return self._properties['channels']
@@ -560,7 +560,7 @@ class RecordingInstance(InstanceResource):
     @property
     def source(self):
         """
-        :returns: How this recording was created
+        :returns: How the recording was created
         :rtype: RecordingInstance.Source
         """
         return self._properties['source']
@@ -568,7 +568,7 @@ class RecordingInstance(InstanceResource):
     @property
     def error_code(self):
         """
-        :returns: More information about why the recording is missing, if status is `absent`
+        :returns: More information about why the recording is missing, if status is `absent`.
         :rtype: unicode
         """
         return self._properties['error_code']
