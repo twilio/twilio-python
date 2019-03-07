@@ -3,6 +3,12 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2019-03-06] Version 6.25.1
+----------------------------
+**Twiml**
+- Add `de1` to `<Conference>` regions
+
+
 [2019-03-01] Version 6.25.0
 ----------------------------
 **Api**
