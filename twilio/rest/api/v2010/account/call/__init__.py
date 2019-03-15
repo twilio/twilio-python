@@ -53,7 +53,10 @@ class CallList(ListResource):
                machine_detection=values.unset,
                machine_detection_timeout=values.unset,
                recording_status_callback_event=values.unset, trim=values.unset,
-               caller_id=values.unset, url=values.unset,
+               caller_id=values.unset,
+               machine_detection_speech_threshold=values.unset,
+               machine_detection_speech_end_threshold=values.unset,
+               machine_detection_silence_timeout=values.unset, url=values.unset,
                application_sid=values.unset):
         """
         Create a new CallInstance
@@ -76,10 +79,13 @@ class CallList(ListResource):
         :param unicode sip_auth_username: The username used to authenticate the caller making a SIP call
         :param unicode sip_auth_password: The password required to authenticate the user account specified in `sip_auth_username`.
         :param unicode machine_detection: Enable machine detection or end of greeting detection
-        :param unicode machine_detection_timeout: Number of milliseconds to wait for machine detection
+        :param unicode machine_detection_timeout: Number of seconds to wait for machine detection
         :param unicode recording_status_callback_event: The recording status events that will trigger calls to the URL specified in `recording_status_callback`
         :param unicode trim: Set this parameter to control trimming of silence on the recording.
         :param unicode caller_id: The phone number, SIP address, or Client identifier that made this call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`.
+        :param unicode machine_detection_speech_threshold: Number of milliseconds for measuring stick for the length of the speech activity
+        :param unicode machine_detection_speech_end_threshold: Number of milliseconds of silence after speech activity
+        :param unicode machine_detection_silence_timeout: Number of milliseconds of initial silence
         :param unicode url: The absolute URL that returns TwiML for this call
         :param unicode application_sid: The SID of the Application resource that will handle the call
 
@@ -111,6 +117,9 @@ class CallList(ListResource):
             'RecordingStatusCallbackEvent': serialize.map(recording_status_callback_event, lambda e: e),
             'Trim': trim,
             'CallerId': caller_id,
+            'MachineDetectionSpeechThreshold': machine_detection_speech_threshold,
+            'MachineDetectionSpeechEndThreshold': machine_detection_speech_end_threshold,
+            'MachineDetectionSilenceTimeout': machine_detection_silence_timeout,
         })
 
         payload = self._version.create(

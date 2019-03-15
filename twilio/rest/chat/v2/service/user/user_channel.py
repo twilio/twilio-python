@@ -22,8 +22,8 @@ class UserChannelList(ListResource):
         Initialize the UserChannelList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The unique id of the Service this channel belongs to.
-        :param user_sid: The unique id of the User this Channel belongs to.
+        :param service_sid: The SID of the Service that the resource is associated with
+        :param user_sid: The SID of the User the User Channel belongs to
 
         :returns: twilio.rest.chat.v2.service.user.user_channel.UserChannelList
         :rtype: twilio.rest.chat.v2.service.user.user_channel.UserChannelList
@@ -119,7 +119,7 @@ class UserChannelList(ListResource):
         """
         Constructs a UserChannelContext
 
-        :param channel_sid: The unique id of a Channel.
+        :param channel_sid: The SID of the Channel that has the User Channel to fetch
 
         :returns: twilio.rest.chat.v2.service.user.user_channel.UserChannelContext
         :rtype: twilio.rest.chat.v2.service.user.user_channel.UserChannelContext
@@ -135,7 +135,7 @@ class UserChannelList(ListResource):
         """
         Constructs a UserChannelContext
 
-        :param channel_sid: The unique id of a Channel.
+        :param channel_sid: The SID of the Channel that has the User Channel to fetch
 
         :returns: twilio.rest.chat.v2.service.user.user_channel.UserChannelContext
         :rtype: twilio.rest.chat.v2.service.user.user_channel.UserChannelContext
@@ -166,8 +166,8 @@ class UserChannelPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The unique id of the Service this channel belongs to.
-        :param user_sid: The unique id of the User this Channel belongs to.
+        :param service_sid: The SID of the Service that the resource is associated with
+        :param user_sid: The SID of the User the User Channel belongs to
 
         :returns: twilio.rest.chat.v2.service.user.user_channel.UserChannelPage
         :rtype: twilio.rest.chat.v2.service.user.user_channel.UserChannelPage
@@ -211,9 +211,9 @@ class UserChannelContext(InstanceContext):
         Initialize the UserChannelContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The unique id of the Service those channels belong to.
-        :param user_sid: The unique id of a User.
-        :param channel_sid: The unique id of a Channel.
+        :param service_sid: The SID of the Service to fetch the User Channel resource from
+        :param user_sid: The SID of the User to fetch the User Channel resource from
+        :param channel_sid: The SID of the Channel that has the User Channel to fetch
 
         :returns: twilio.rest.chat.v2.service.user.user_channel.UserChannelContext
         :rtype: twilio.rest.chat.v2.service.user.user_channel.UserChannelContext
@@ -251,7 +251,7 @@ class UserChannelContext(InstanceContext):
         """
         Update the UserChannelInstance
 
-        :param UserChannelInstance.NotificationLevel notification_level: Push notification level to be assigned to Channel of the User.
+        :param UserChannelInstance.NotificationLevel notification_level: The push notification level to assign to the User Channel
 
         :returns: Updated UserChannelInstance
         :rtype: twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance
@@ -348,7 +348,7 @@ class UserChannelInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the Account responsible for this channel.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -356,7 +356,7 @@ class UserChannelInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The unique id of the Service this channel belongs to.
+        :returns: The SID of the Service that the resource is associated with
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -364,7 +364,7 @@ class UserChannelInstance(InstanceResource):
     @property
     def channel_sid(self):
         """
-        :returns: The unique id of a Channel.
+        :returns: The SID of the Channel the resource belongs to
         :rtype: unicode
         """
         return self._properties['channel_sid']
@@ -372,7 +372,7 @@ class UserChannelInstance(InstanceResource):
     @property
     def user_sid(self):
         """
-        :returns: The unique id of the User this Channel belongs to.
+        :returns: The SID of the User the User Channel belongs to
         :rtype: unicode
         """
         return self._properties['user_sid']
@@ -380,7 +380,7 @@ class UserChannelInstance(InstanceResource):
     @property
     def member_sid(self):
         """
-        :returns: The unique id of this User as a Member in this Channel.
+        :returns: The SID of the User as a Member in the Channel
         :rtype: unicode
         """
         return self._properties['member_sid']
@@ -388,7 +388,7 @@ class UserChannelInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: The status of the User on this Channel.
+        :returns: The status of the User on the Channel
         :rtype: UserChannelInstance.ChannelStatus
         """
         return self._properties['status']
@@ -396,7 +396,7 @@ class UserChannelInstance(InstanceResource):
     @property
     def last_consumed_message_index(self):
         """
-        :returns: The index of the last read Message in this Channel for this User.
+        :returns: The index of the last Message in the Channel the Member has read
         :rtype: unicode
         """
         return self._properties['last_consumed_message_index']
@@ -404,7 +404,7 @@ class UserChannelInstance(InstanceResource):
     @property
     def unread_messages_count(self):
         """
-        :returns: The count of unread Messages in this Channel for this User.
+        :returns: The number of unread Messages in the Channel for the User
         :rtype: unicode
         """
         return self._properties['unread_messages_count']
@@ -412,7 +412,7 @@ class UserChannelInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links
+        :returns: Absolute URLs to access the Members, Messages , Invites and, if it exists, the last Message for the Channel
         :rtype: unicode
         """
         return self._properties['links']
@@ -420,7 +420,7 @@ class UserChannelInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: An absolute URL for this User Channel.
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -428,7 +428,7 @@ class UserChannelInstance(InstanceResource):
     @property
     def notification_level(self):
         """
-        :returns: The notification level of the User for this Channel.
+        :returns: The push notification level of the User for the Channel
         :rtype: UserChannelInstance.NotificationLevel
         """
         return self._properties['notification_level']
@@ -446,7 +446,7 @@ class UserChannelInstance(InstanceResource):
         """
         Update the UserChannelInstance
 
-        :param UserChannelInstance.NotificationLevel notification_level: Push notification level to be assigned to Channel of the User.
+        :param UserChannelInstance.NotificationLevel notification_level: The push notification level to assign to the User Channel
 
         :returns: Updated UserChannelInstance
         :rtype: twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance

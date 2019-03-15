@@ -11,6 +11,7 @@ from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
 from twilio.rest.voice.v1.voice_permission.bulk_country_update import BulkCountryUpdateList
 from twilio.rest.voice.v1.voice_permission.country import CountryList
+from twilio.rest.voice.v1.voice_permission.settings import SettingsList
 
 
 class VoicePermissionList(ListResource):
@@ -48,6 +49,18 @@ class VoicePermissionList(ListResource):
         if self._countries is None:
             self._countries = CountryList(self._version, )
         return self._countries
+
+    @property
+    def settings(self):
+        """
+        Access the settings
+
+        :returns: twilio.rest.voice.v1.voice_permission.settings.SettingsList
+        :rtype: twilio.rest.voice.v1.voice_permission.settings.SettingsList
+        """
+        if self._settings is None:
+            self._settings = SettingsList(self._version, )
+        return self._settings
 
     @property
     def bulk_country_updates(self):
