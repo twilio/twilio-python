@@ -34,7 +34,7 @@ class NumberList(ListResource):
         """
         Constructs a NumberContext
 
-        :param number: The number
+        :param number: The phone number to fetch
 
         :returns: twilio.rest.pricing.v1.voice.number.NumberContext
         :rtype: twilio.rest.pricing.v1.voice.number.NumberContext
@@ -45,7 +45,7 @@ class NumberList(ListResource):
         """
         Constructs a NumberContext
 
-        :param number: The number
+        :param number: The phone number to fetch
 
         :returns: twilio.rest.pricing.v1.voice.number.NumberContext
         :rtype: twilio.rest.pricing.v1.voice.number.NumberContext
@@ -109,7 +109,7 @@ class NumberContext(InstanceContext):
         Initialize the NumberContext
 
         :param Version version: Version that contains the resource
-        :param number: The number
+        :param number: The phone number to fetch
 
         :returns: twilio.rest.pricing.v1.voice.number.NumberContext
         :rtype: twilio.rest.pricing.v1.voice.number.NumberContext
@@ -191,7 +191,7 @@ class NumberInstance(InstanceResource):
     @property
     def number(self):
         """
-        :returns: The number
+        :returns: The phone number
         :rtype: unicode
         """
         return self._properties['number']
@@ -199,7 +199,7 @@ class NumberInstance(InstanceResource):
     @property
     def country(self):
         """
-        :returns: Name of the country
+        :returns: The name of the country
         :rtype: unicode
         """
         return self._properties['country']
@@ -215,7 +215,7 @@ class NumberInstance(InstanceResource):
     @property
     def outbound_call_price(self):
         """
-        :returns: See OutboundCallPrice record
+        :returns: The OutboundCallPrice record
         :rtype: unicode
         """
         return self._properties['outbound_call_price']
@@ -223,7 +223,7 @@ class NumberInstance(InstanceResource):
     @property
     def inbound_call_price(self):
         """
-        :returns: See InboundCallPrice record (returned as null if the Phone Number provided is not a Twilio number owned by this account)
+        :returns: The InboundCallPrice record
         :rtype: unicode
         """
         return self._properties['inbound_call_price']
@@ -231,7 +231,7 @@ class NumberInstance(InstanceResource):
     @property
     def price_unit(self):
         """
-        :returns: The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy).
+        :returns: The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
         :rtype: unicode
         """
         return self._properties['price_unit']
@@ -239,7 +239,7 @@ class NumberInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']

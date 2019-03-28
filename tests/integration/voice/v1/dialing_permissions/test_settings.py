@@ -18,7 +18,7 @@ class SettingsTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.voice.v1.voice_permissions \
+            self.client.voice.v1.dialing_permissions \
                                 .settings().fetch()
 
         self.holodeck.assert_has_request(Request(
@@ -37,7 +37,7 @@ class SettingsTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.voice.v1.voice_permissions \
+        actual = self.client.voice.v1.dialing_permissions \
                                      .settings().fetch()
 
         self.assertIsNotNone(actual)
@@ -46,7 +46,7 @@ class SettingsTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.voice.v1.voice_permissions \
+            self.client.voice.v1.dialing_permissions \
                                 .settings().update()
 
         self.holodeck.assert_has_request(Request(
@@ -65,7 +65,7 @@ class SettingsTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.voice.v1.voice_permissions \
+        actual = self.client.voice.v1.dialing_permissions \
                                      .settings().update()
 
         self.assertIsNotNone(actual)

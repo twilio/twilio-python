@@ -236,7 +236,7 @@ class WorkspaceRealTimeStatisticsInstance(InstanceResource):
     @property
     def longest_task_waiting_sid(self):
         """
-        :returns: The SID of the longest waiting Task
+        :returns: The longest_task_waiting_sid
         :rtype: unicode
         """
         return self._properties['longest_task_waiting_sid']

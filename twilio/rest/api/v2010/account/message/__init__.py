@@ -38,10 +38,11 @@ class MessageList(ListResource):
 
     def create(self, to, status_callback=values.unset, application_sid=values.unset,
                max_price=values.unset, provide_feedback=values.unset,
-               validity_period=values.unset, smart_encoded=values.unset,
-               interactive_data=values.unset, force_opt_in=values.unset,
-               from_=values.unset, messaging_service_sid=values.unset,
-               body=values.unset, media_url=values.unset):
+               validity_period=values.unset, force_delivery=values.unset,
+               smart_encoded=values.unset, interactive_data=values.unset,
+               force_opt_in=values.unset, from_=values.unset,
+               messaging_service_sid=values.unset, body=values.unset,
+               media_url=values.unset):
         """
         Create a new MessageInstance
 
@@ -51,6 +52,7 @@ class MessageList(ListResource):
         :param unicode max_price: The total maximum price up to 4 decimal places in US dollars acceptable for the message to be delivered.
         :param bool provide_feedback: Whether to confirm delivery of the message
         :param unicode validity_period: The number of seconds that the message can remain in our outgoing queue.
+        :param bool force_delivery: Reserved
         :param bool smart_encoded: Whether to detect Unicode characters that have a similar GSM-7 character and replace them
         :param unicode interactive_data: A JSON string that represents an interactive message
         :param bool force_opt_in: Whether to forcefully whitelist a from:to pair
@@ -73,6 +75,7 @@ class MessageList(ListResource):
             'MaxPrice': max_price,
             'ProvideFeedback': provide_feedback,
             'ValidityPeriod': validity_period,
+            'ForceDelivery': force_delivery,
             'SmartEncoded': smart_encoded,
             'InteractiveData': interactive_data,
             'ForceOptIn': force_opt_in,

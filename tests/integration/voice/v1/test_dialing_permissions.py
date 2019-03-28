@@ -12,5 +12,5 @@ from twilio.base.exceptions import TwilioException
 from twilio.http.response import Response
 
 
-class VoicePermissionTestCase(IntegrationTestCase):
+class DialingPermissionsTestCase(IntegrationTestCase):
     pass

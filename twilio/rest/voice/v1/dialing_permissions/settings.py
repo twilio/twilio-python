@@ -24,8 +24,8 @@ class SettingsList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: twilio.rest.voice.v1.voice_permission.settings.SettingsList
-        :rtype: twilio.rest.voice.v1.voice_permission.settings.SettingsList
+        :returns: twilio.rest.voice.v1.dialing_permissions.settings.SettingsList
+        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsList
         """
         super(SettingsList, self).__init__(version)
 
@@ -36,8 +36,8 @@ class SettingsList(ListResource):
         """
         Constructs a SettingsContext
 
-        :returns: twilio.rest.voice.v1.voice_permission.settings.SettingsContext
-        :rtype: twilio.rest.voice.v1.voice_permission.settings.SettingsContext
+        :returns: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext
+        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext
         """
         return SettingsContext(self._version, )
 
@@ -45,8 +45,8 @@ class SettingsList(ListResource):
         """
         Constructs a SettingsContext
 
-        :returns: twilio.rest.voice.v1.voice_permission.settings.SettingsContext
-        :rtype: twilio.rest.voice.v1.voice_permission.settings.SettingsContext
+        :returns: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext
+        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext
         """
         return SettingsContext(self._version, )
 
@@ -72,8 +72,8 @@ class SettingsPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.voice.v1.voice_permission.settings.SettingsPage
-        :rtype: twilio.rest.voice.v1.voice_permission.settings.SettingsPage
+        :returns: twilio.rest.voice.v1.dialing_permissions.settings.SettingsPage
+        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsPage
         """
         super(SettingsPage, self).__init__(version, response)
 
@@ -86,8 +86,8 @@ class SettingsPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.voice.v1.voice_permission.settings.SettingsInstance
-        :rtype: twilio.rest.voice.v1.voice_permission.settings.SettingsInstance
+        :returns: twilio.rest.voice.v1.dialing_permissions.settings.SettingsInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsInstance
         """
         return SettingsInstance(self._version, payload, )
 
@@ -112,8 +112,8 @@ class SettingsContext(InstanceContext):
 
         :param Version version: Version that contains the resource
 
-        :returns: twilio.rest.voice.v1.voice_permission.settings.SettingsContext
-        :rtype: twilio.rest.voice.v1.voice_permission.settings.SettingsContext
+        :returns: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext
+        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext
         """
         super(SettingsContext, self).__init__(version)
 
@@ -126,7 +126,7 @@ class SettingsContext(InstanceContext):
         Fetch a SettingsInstance
 
         :returns: Fetched SettingsInstance
-        :rtype: twilio.rest.voice.v1.voice_permission.settings.SettingsInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsInstance
         """
         params = values.of({})
 
@@ -145,7 +145,7 @@ class SettingsContext(InstanceContext):
         :param bool dialing_permissions_inheritance: `true` for this sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`
 
         :returns: Updated SettingsInstance
-        :rtype: twilio.rest.voice.v1.voice_permission.settings.SettingsInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsInstance
         """
         data = values.of({'DialingPermissionsInheritance': dialing_permissions_inheritance, })
 
@@ -177,8 +177,8 @@ class SettingsInstance(InstanceResource):
         """
         Initialize the SettingsInstance
 
-        :returns: twilio.rest.voice.v1.voice_permission.settings.SettingsInstance
-        :rtype: twilio.rest.voice.v1.voice_permission.settings.SettingsInstance
+        :returns: twilio.rest.voice.v1.dialing_permissions.settings.SettingsInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsInstance
         """
         super(SettingsInstance, self).__init__(version)
 
@@ -199,7 +199,7 @@ class SettingsInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: SettingsContext for this SettingsInstance
-        :rtype: twilio.rest.voice.v1.voice_permission.settings.SettingsContext
+        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext
         """
         if self._context is None:
             self._context = SettingsContext(self._version, )
@@ -226,7 +226,7 @@ class SettingsInstance(InstanceResource):
         Fetch a SettingsInstance
 
         :returns: Fetched SettingsInstance
-        :rtype: twilio.rest.voice.v1.voice_permission.settings.SettingsInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsInstance
         """
         return self._proxy.fetch()
 
@@ -237,7 +237,7 @@ class SettingsInstance(InstanceResource):
         :param bool dialing_permissions_inheritance: `true` for this sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`
 
         :returns: Updated SettingsInstance
-        :rtype: twilio.rest.voice.v1.voice_permission.settings.SettingsInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsInstance
         """
         return self._proxy.update(dialing_permissions_inheritance=dialing_permissions_inheritance, )
 

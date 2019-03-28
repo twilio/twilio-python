@@ -34,7 +34,7 @@ class NumberList(ListResource):
         """
         Constructs a NumberContext
 
-        :param destination_number: Fetches voice prices for number
+        :param destination_number: The destination number for which to fetch pricing information
 
         :returns: twilio.rest.pricing.v2.voice.number.NumberContext
         :rtype: twilio.rest.pricing.v2.voice.number.NumberContext
@@ -45,7 +45,7 @@ class NumberList(ListResource):
         """
         Constructs a NumberContext
 
-        :param destination_number: Fetches voice prices for number
+        :param destination_number: The destination number for which to fetch pricing information
 
         :returns: twilio.rest.pricing.v2.voice.number.NumberContext
         :rtype: twilio.rest.pricing.v2.voice.number.NumberContext
@@ -109,7 +109,7 @@ class NumberContext(InstanceContext):
         Initialize the NumberContext
 
         :param Version version: Version that contains the resource
-        :param destination_number: Fetches voice prices for number
+        :param destination_number: The destination number for which to fetch pricing information
 
         :returns: twilio.rest.pricing.v2.voice.number.NumberContext
         :rtype: twilio.rest.pricing.v2.voice.number.NumberContext
@@ -124,7 +124,7 @@ class NumberContext(InstanceContext):
         """
         Fetch a NumberInstance
 
-        :param unicode origination_number: The origination_number
+        :param unicode origination_number: The origination number for which to fetch pricing information
 
         :returns: Fetched NumberInstance
         :rtype: twilio.rest.pricing.v2.voice.number.NumberInstance
@@ -203,7 +203,7 @@ class NumberInstance(InstanceResource):
     @property
     def destination_number(self):
         """
-        :returns: The destination phone number, in E.164
+        :returns: The destination phone number, in E.164 format
         :rtype: unicode
         """
         return self._properties['destination_number']
@@ -211,7 +211,7 @@ class NumberInstance(InstanceResource):
     @property
     def origination_number(self):
         """
-        :returns: The origination phone number, in E.164
+        :returns: The origination phone number, in E.164 format
         :rtype: unicode
         """
         return self._properties['origination_number']
@@ -219,7 +219,7 @@ class NumberInstance(InstanceResource):
     @property
     def country(self):
         """
-        :returns: Name of the country
+        :returns: The name of the country
         :rtype: unicode
         """
         return self._properties['country']
@@ -235,7 +235,7 @@ class NumberInstance(InstanceResource):
     @property
     def outbound_call_prices(self):
         """
-        :returns: List of OutboundCallPriceWithOrigin records
+        :returns: The list of OutboundCallPriceWithOrigin records
         :rtype: unicode
         """
         return self._properties['outbound_call_prices']
@@ -243,7 +243,7 @@ class NumberInstance(InstanceResource):
     @property
     def inbound_call_price(self):
         """
-        :returns: List of InboundCallPrice records
+        :returns: The InboundCallPrice record
         :rtype: unicode
         """
         return self._properties['inbound_call_price']
@@ -251,7 +251,7 @@ class NumberInstance(InstanceResource):
     @property
     def price_unit(self):
         """
-        :returns: The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy).
+        :returns: The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
         :rtype: unicode
         """
         return self._properties['price_unit']
@@ -259,7 +259,7 @@ class NumberInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL of this resource.
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -268,7 +268,7 @@ class NumberInstance(InstanceResource):
         """
         Fetch a NumberInstance
 
-        :param unicode origination_number: The origination_number
+        :param unicode origination_number: The origination number for which to fetch pricing information
 
         :returns: Fetched NumberInstance
         :rtype: twilio.rest.pricing.v2.voice.number.NumberInstance

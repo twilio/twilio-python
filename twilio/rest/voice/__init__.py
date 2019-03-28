@@ -37,11 +37,11 @@ class Voice(Domain):
         return self._v1
 
     @property
-    def voice_permissions(self):
+    def dialing_permissions(self):
         """
-        :rtype: twilio.rest.voice.v1.voice_permission.VoicePermissionList
+        :rtype: twilio.rest.voice.v1.dialing_permissions.DialingPermissionsList
         """
-        return self.v1.voice_permissions
+        return self.v1.dialing_permissions
 
     def __repr__(self):
         """

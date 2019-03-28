@@ -143,7 +143,7 @@ class WebhookContext(InstanceContext):
     def update(self, webhook_method=values.unset, webhook_filters=values.unset,
                pre_webhook_url=values.unset, post_webhook_url=values.unset,
                pre_webhook_retry_count=values.unset,
-               post_webhook_retry_count=values.unset):
+               post_webhook_retry_count=values.unset, target=values.unset):
         """
         Update the WebhookInstance
 
@@ -153,6 +153,7 @@ class WebhookContext(InstanceContext):
         :param unicode post_webhook_url: The absolute url the post-event webhook request should be sent to.
         :param unicode pre_webhook_retry_count: The number of retries in case of pre-event webhook request failures.
         :param unicode post_webhook_retry_count: The number of retries in case of post-event webhook request failures.
+        :param WebhookInstance.Target target: The routing target of the webhook.
 
         :returns: Updated WebhookInstance
         :rtype: twilio.rest.messaging.v1.webhook.WebhookInstance
@@ -164,6 +165,7 @@ class WebhookContext(InstanceContext):
             'PostWebhookUrl': post_webhook_url,
             'PreWebhookRetryCount': pre_webhook_retry_count,
             'PostWebhookRetryCount': post_webhook_retry_count,
+            'Target': target,
         })
 
         payload = self._version.update(
@@ -190,6 +192,10 @@ class WebhookInstance(InstanceResource):
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
+    class Target(object):
+        WEBHOOK = "webhook"
+        FLEX = "flex"
+
     def __init__(self, version, payload):
         """
         Initialize the WebhookInstance
@@ -209,6 +215,7 @@ class WebhookInstance(InstanceResource):
             'post_webhook_url': payload['post_webhook_url'],
             'pre_webhook_retry_count': deserialize.integer(payload['pre_webhook_retry_count']),
             'post_webhook_retry_count': deserialize.integer(payload['post_webhook_retry_count']),
+            'target': payload['target'],
             'url': payload['url'],
         }
 
@@ -294,6 +301,14 @@ class WebhookInstance(InstanceResource):
         return self._properties['post_webhook_retry_count']
 
     @property
+    def target(self):
+        """
+        :returns: The routing target of the webhook.
+        :rtype: WebhookInstance.Target
+        """
+        return self._properties['target']
+
+    @property
     def url(self):
         """
         :returns: An absolute URL for this webhook.
@@ -313,7 +328,7 @@ class WebhookInstance(InstanceResource):
     def update(self, webhook_method=values.unset, webhook_filters=values.unset,
                pre_webhook_url=values.unset, post_webhook_url=values.unset,
                pre_webhook_retry_count=values.unset,
-               post_webhook_retry_count=values.unset):
+               post_webhook_retry_count=values.unset, target=values.unset):
         """
         Update the WebhookInstance
 
@@ -323,6 +338,7 @@ class WebhookInstance(InstanceResource):
         :param unicode post_webhook_url: The absolute url the post-event webhook request should be sent to.
         :param unicode pre_webhook_retry_count: The number of retries in case of pre-event webhook request failures.
         :param unicode post_webhook_retry_count: The number of retries in case of post-event webhook request failures.
+        :param WebhookInstance.Target target: The routing target of the webhook.
 
         :returns: Updated WebhookInstance
         :rtype: twilio.rest.messaging.v1.webhook.WebhookInstance
@@ -334,6 +350,7 @@ class WebhookInstance(InstanceResource):
             post_webhook_url=post_webhook_url,
             pre_webhook_retry_count=pre_webhook_retry_count,
             post_webhook_retry_count=post_webhook_retry_count,
+            target=target,
         )
 
     def __repr__(self):

@@ -23,7 +23,7 @@ class MemberList(ListResource):
 
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the Account that created this resource
-        :param queue_sid: The unique string that identifies this resource
+        :param queue_sid: The SID of the Queue the member is in
 
         :returns: twilio.rest.api.v2010.account.queue.member.MemberList
         :rtype: twilio.rest.api.v2010.account.queue.member.MemberList
@@ -167,7 +167,7 @@ class MemberPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
         :param account_sid: The SID of the Account that created this resource
-        :param queue_sid: The unique string that identifies this resource
+        :param queue_sid: The SID of the Queue the member is in
 
         :returns: twilio.rest.api.v2010.account.queue.member.MemberPage
         :rtype: twilio.rest.api.v2010.account.queue.member.MemberPage
@@ -212,7 +212,7 @@ class MemberContext(InstanceContext):
 
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the Account that created the resource(s) to fetch
-        :param queue_sid: The Queue in which to find the members
+        :param queue_sid: The SID of the Queue in which to find the members
         :param call_sid: The Call SID of the resource(s) to fetch
 
         :returns: twilio.rest.api.v2010.account.queue.member.MemberContext
@@ -251,7 +251,7 @@ class MemberContext(InstanceContext):
         """
         Update the MemberInstance
 
-        :param unicode url: The absolute URL of this Queue resource
+        :param unicode url: The absolute URL of the Queue resource
         :param unicode method: How to pass the update request data
 
         :returns: Updated MemberInstance
@@ -303,6 +303,7 @@ class MemberInstance(InstanceResource):
             'position': deserialize.integer(payload['position']),
             'uri': payload['uri'],
             'wait_time': deserialize.integer(payload['wait_time']),
+            'queue_sid': payload['queue_sid'],
         }
 
         # Context
@@ -334,7 +335,7 @@ class MemberInstance(InstanceResource):
     @property
     def call_sid(self):
         """
-        :returns: The SID of the Call this resource is associated with
+        :returns: The SID of the Call the resource is associated with
         :rtype: unicode
         """
         return self._properties['call_sid']
@@ -358,7 +359,7 @@ class MemberInstance(InstanceResource):
     @property
     def uri(self):
         """
-        :returns: The URI of this resource, relative to `https://api.twilio.com`
+        :returns: The URI of the resource, relative to `https://api.twilio.com`
         :rtype: unicode
         """
         return self._properties['uri']
@@ -370,6 +371,14 @@ class MemberInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['wait_time']
+
+    @property
+    def queue_sid(self):
+        """
+        :returns: The SID of the Queue the member is in
+        :rtype: unicode
+        """
+        return self._properties['queue_sid']
 
     def fetch(self):
         """
@@ -384,7 +393,7 @@ class MemberInstance(InstanceResource):
         """
         Update the MemberInstance
 
-        :param unicode url: The absolute URL of this Queue resource
+        :param unicode url: The absolute URL of the Queue resource
         :param unicode method: How to pass the update request data
 
         :returns: Updated MemberInstance

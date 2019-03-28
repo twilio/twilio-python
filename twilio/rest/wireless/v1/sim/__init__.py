@@ -279,7 +279,7 @@ class SimContext(InstanceContext):
                sms_fallback_url=values.unset, sms_method=values.unset,
                sms_url=values.unset, voice_fallback_method=values.unset,
                voice_fallback_url=values.unset, voice_method=values.unset,
-               voice_url=values.unset):
+               voice_url=values.unset, reset_status=values.unset):
         """
         Update the SimInstance
 
@@ -299,6 +299,7 @@ class SimContext(InstanceContext):
         :param unicode voice_fallback_url: The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by voice_url.
         :param unicode voice_method: The HTTP method Twilio will use when requesting the above Url.
         :param unicode voice_url: The URL Twilio will request when the SIM-connected device makes a call.
+        :param SimInstance.ResetStatus reset_status: Initiate a connectivity reset on a Sim.
 
         :returns: Updated SimInstance
         :rtype: twilio.rest.wireless.v1.sim.SimInstance
@@ -320,6 +321,7 @@ class SimContext(InstanceContext):
             'VoiceFallbackUrl': voice_fallback_url,
             'VoiceMethod': voice_method,
             'VoiceUrl': voice_url,
+            'ResetStatus': reset_status,
         })
 
         payload = self._version.update(
@@ -387,6 +389,9 @@ class SimInstance(InstanceResource):
         SCHEDULED = "scheduled"
         UPDATING = "updating"
 
+    class ResetStatus(object):
+        RESETTING = "resetting"
+
     def __init__(self, version, payload, sid=None):
         """
         Initialize the SimInstance
@@ -406,6 +411,7 @@ class SimInstance(InstanceResource):
             'iccid': payload['iccid'],
             'e_id': payload['e_id'],
             'status': payload['status'],
+            'reset_status': payload['reset_status'],
             'commands_callback_url': payload['commands_callback_url'],
             'commands_callback_method': payload['commands_callback_method'],
             'sms_fallback_method': payload['sms_fallback_method'],
@@ -503,6 +509,14 @@ class SimInstance(InstanceResource):
         :rtype: SimInstance.Status
         """
         return self._properties['status']
+
+    @property
+    def reset_status(self):
+        """
+        :returns: A string representing the connectivity reset status of the Sim.
+        :rtype: SimInstance.ResetStatus
+        """
+        return self._properties['reset_status']
 
     @property
     def commands_callback_url(self):
@@ -641,7 +655,7 @@ class SimInstance(InstanceResource):
                sms_fallback_url=values.unset, sms_method=values.unset,
                sms_url=values.unset, voice_fallback_method=values.unset,
                voice_fallback_url=values.unset, voice_method=values.unset,
-               voice_url=values.unset):
+               voice_url=values.unset, reset_status=values.unset):
         """
         Update the SimInstance
 
@@ -661,6 +675,7 @@ class SimInstance(InstanceResource):
         :param unicode voice_fallback_url: The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by voice_url.
         :param unicode voice_method: The HTTP method Twilio will use when requesting the above Url.
         :param unicode voice_url: The URL Twilio will request when the SIM-connected device makes a call.
+        :param SimInstance.ResetStatus reset_status: Initiate a connectivity reset on a Sim.
 
         :returns: Updated SimInstance
         :rtype: twilio.rest.wireless.v1.sim.SimInstance
@@ -682,6 +697,7 @@ class SimInstance(InstanceResource):
             voice_fallback_url=voice_fallback_url,
             voice_method=voice_method,
             voice_url=voice_url,
+            reset_status=reset_status,
         )
 
     def delete(self):

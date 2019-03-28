@@ -129,7 +129,7 @@ class VoiceInstance(InstanceResource):
     @property
     def name(self):
         """
-        :returns: The name
+        :returns: The resource name
         :rtype: unicode
         """
         return self._properties['name']
@@ -137,7 +137,7 @@ class VoiceInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -145,7 +145,7 @@ class VoiceInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links
+        :returns: The URLs of the related Countries and Numbers resources
         :rtype: unicode
         """
         return self._properties['links']

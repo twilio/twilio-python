@@ -15,6 +15,7 @@ from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
 from twilio.rest.messaging.v1.session.message import MessageList
 from twilio.rest.messaging.v1.session.participant import ParticipantList
+from twilio.rest.messaging.v1.session.webhook import WebhookList
 
 
 class SessionList(ListResource):
@@ -253,6 +254,7 @@ class SessionContext(InstanceContext):
         # Dependents
         self._participants = None
         self._messages = None
+        self._webhooks = None
 
     def fetch(self):
         """
@@ -334,6 +336,18 @@ class SessionContext(InstanceContext):
         if self._messages is None:
             self._messages = MessageList(self._version, session_sid=self._solution['sid'], )
         return self._messages
+
+    @property
+    def webhooks(self):
+        """
+        Access the webhooks
+
+        :returns: twilio.rest.messaging.v1.session.webhook.WebhookList
+        :rtype: twilio.rest.messaging.v1.session.webhook.WebhookList
+        """
+        if self._webhooks is None:
+            self._webhooks = WebhookList(self._version, session_sid=self._solution['sid'], )
+        return self._webhooks
 
     def __repr__(self):
         """
@@ -540,6 +554,16 @@ class SessionInstance(InstanceResource):
         :rtype: twilio.rest.messaging.v1.session.message.MessageList
         """
         return self._proxy.messages
+
+    @property
+    def webhooks(self):
+        """
+        Access the webhooks
+
+        :returns: twilio.rest.messaging.v1.session.webhook.WebhookList
+        :rtype: twilio.rest.messaging.v1.session.webhook.WebhookList
+        """
+        return self._proxy.webhooks
 
     def __repr__(self):
         """

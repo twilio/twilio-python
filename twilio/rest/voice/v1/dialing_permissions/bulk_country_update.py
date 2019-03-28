@@ -24,8 +24,8 @@ class BulkCountryUpdateList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: twilio.rest.voice.v1.voice_permission.bulk_country_update.BulkCountryUpdateList
-        :rtype: twilio.rest.voice.v1.voice_permission.bulk_country_update.BulkCountryUpdateList
+        :returns: twilio.rest.voice.v1.dialing_permissions.bulk_country_update.BulkCountryUpdateList
+        :rtype: twilio.rest.voice.v1.dialing_permissions.bulk_country_update.BulkCountryUpdateList
         """
         super(BulkCountryUpdateList, self).__init__(version)
 
@@ -40,7 +40,7 @@ class BulkCountryUpdateList(ListResource):
         :param unicode update_request: URL encoded JSON array of update objects
 
         :returns: Newly created BulkCountryUpdateInstance
-        :rtype: twilio.rest.voice.v1.voice_permission.bulk_country_update.BulkCountryUpdateInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.bulk_country_update.BulkCountryUpdateInstance
         """
         data = values.of({'UpdateRequest': update_request, })
 
@@ -74,8 +74,8 @@ class BulkCountryUpdatePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.voice.v1.voice_permission.bulk_country_update.BulkCountryUpdatePage
-        :rtype: twilio.rest.voice.v1.voice_permission.bulk_country_update.BulkCountryUpdatePage
+        :returns: twilio.rest.voice.v1.dialing_permissions.bulk_country_update.BulkCountryUpdatePage
+        :rtype: twilio.rest.voice.v1.dialing_permissions.bulk_country_update.BulkCountryUpdatePage
         """
         super(BulkCountryUpdatePage, self).__init__(version, response)
 
@@ -88,8 +88,8 @@ class BulkCountryUpdatePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.voice.v1.voice_permission.bulk_country_update.BulkCountryUpdateInstance
-        :rtype: twilio.rest.voice.v1.voice_permission.bulk_country_update.BulkCountryUpdateInstance
+        :returns: twilio.rest.voice.v1.dialing_permissions.bulk_country_update.BulkCountryUpdateInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.bulk_country_update.BulkCountryUpdateInstance
         """
         return BulkCountryUpdateInstance(self._version, payload, )
 
@@ -112,8 +112,8 @@ class BulkCountryUpdateInstance(InstanceResource):
         """
         Initialize the BulkCountryUpdateInstance
 
-        :returns: twilio.rest.voice.v1.voice_permission.bulk_country_update.BulkCountryUpdateInstance
-        :rtype: twilio.rest.voice.v1.voice_permission.bulk_country_update.BulkCountryUpdateInstance
+        :returns: twilio.rest.voice.v1.dialing_permissions.bulk_country_update.BulkCountryUpdateInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.bulk_country_update.BulkCountryUpdateInstance
         """
         super(BulkCountryUpdateInstance, self).__init__(version)
 

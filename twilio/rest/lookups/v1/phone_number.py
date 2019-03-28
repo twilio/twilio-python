@@ -35,7 +35,7 @@ class PhoneNumberList(ListResource):
         """
         Constructs a PhoneNumberContext
 
-        :param phone_number: The phone_number
+        :param phone_number: The phone number to fetch in E.164 format
 
         :returns: twilio.rest.lookups.v1.phone_number.PhoneNumberContext
         :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberContext
@@ -46,7 +46,7 @@ class PhoneNumberList(ListResource):
         """
         Constructs a PhoneNumberContext
 
-        :param phone_number: The phone_number
+        :param phone_number: The phone number to fetch in E.164 format
 
         :returns: twilio.rest.lookups.v1.phone_number.PhoneNumberContext
         :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberContext
@@ -110,7 +110,7 @@ class PhoneNumberContext(InstanceContext):
         Initialize the PhoneNumberContext
 
         :param Version version: Version that contains the resource
-        :param phone_number: The phone_number
+        :param phone_number: The phone number to fetch in E.164 format
 
         :returns: twilio.rest.lookups.v1.phone_number.PhoneNumberContext
         :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberContext
@@ -126,10 +126,10 @@ class PhoneNumberContext(InstanceContext):
         """
         Fetch a PhoneNumberInstance
 
-        :param unicode country_code: Optional ISO country code of the phone number.
-        :param unicode type: Indicates the type of information you would like returned with your request.
-        :param unicode add_ons: Indicates the particular Add-on you would like to use to get more information.
-        :param dict add_ons_data: The add_ons_data
+        :param unicode country_code: The ISO country code of the phone number
+        :param unicode type: The type of information to return
+        :param unicode add_ons: The unique_name of an Add-on you would like to invoke
+        :param dict add_ons_data: Data specific to the add-on you would like to invoke
 
         :returns: Fetched PhoneNumberInstance
         :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberInstance
@@ -208,7 +208,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def caller_name(self):
         """
-        :returns: String indicating the name of the owner of the phone number.
+        :returns: The name of the phone number's owner
         :rtype: unicode
         """
         return self._properties['caller_name']
@@ -216,7 +216,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def country_code(self):
         """
-        :returns: The ISO country code for the phone number.
+        :returns: The ISO country code for the phone number
         :rtype: unicode
         """
         return self._properties['country_code']
@@ -224,7 +224,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def phone_number(self):
         """
-        :returns: The phone number, in E.
+        :returns: The phone number in E.164 format
         :rtype: unicode
         """
         return self._properties['phone_number']
@@ -232,7 +232,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def national_format(self):
         """
-        :returns: The phone number, in national format.
+        :returns: The phone number, in national format
         :rtype: unicode
         """
         return self._properties['national_format']
@@ -240,7 +240,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def carrier(self):
         """
-        :returns: The carrier
+        :returns: The telecom company that provides the phone number
         :rtype: unicode
         """
         return self._properties['carrier']
@@ -248,7 +248,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def add_ons(self):
         """
-        :returns: Results of any Add-ons you have specified using the AddOn parameter in the request, as a JSON dictionary.
+        :returns: A JSON string with the results of the Add-ons you specified
         :rtype: dict
         """
         return self._properties['add_ons']
@@ -256,7 +256,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -266,10 +266,10 @@ class PhoneNumberInstance(InstanceResource):
         """
         Fetch a PhoneNumberInstance
 
-        :param unicode country_code: Optional ISO country code of the phone number.
-        :param unicode type: Indicates the type of information you would like returned with your request.
-        :param unicode add_ons: Indicates the particular Add-on you would like to use to get more information.
-        :param dict add_ons_data: The add_ons_data
+        :param unicode country_code: The ISO country code of the phone number
+        :param unicode type: The type of information to return
+        :param unicode add_ons: The unique_name of an Add-on you would like to invoke
+        :param dict add_ons_data: Data specific to the add-on you would like to invoke
 
         :returns: Fetched PhoneNumberInstance
         :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberInstance

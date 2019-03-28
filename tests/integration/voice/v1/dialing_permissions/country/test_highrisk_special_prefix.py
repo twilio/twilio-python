@@ -18,7 +18,7 @@ class HighriskSpecialPrefixTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.voice.v1.voice_permissions \
+            self.client.voice.v1.dialing_permissions \
                                 .countries(iso_code="US") \
                                 .highrisk_special_prefixes.list()
 
@@ -27,7 +27,7 @@ class HighriskSpecialPrefixTestCase(IntegrationTestCase):
             'https://voice.twilio.com/v1/DialingPermissions/Countries/US/HighRiskSpecialPrefixes',
         ))
 
-    def test_read_us_response(self):
+    def test_read_lv_response(self):
         self.holodeck.mock(Response(
             200,
             '''
@@ -53,7 +53,7 @@ class HighriskSpecialPrefixTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.voice.v1.voice_permissions \
+        actual = self.client.voice.v1.dialing_permissions \
                                      .countries(iso_code="US") \
                                      .highrisk_special_prefixes.list()
 

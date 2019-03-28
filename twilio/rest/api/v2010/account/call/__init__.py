@@ -45,7 +45,7 @@ class CallList(ListResource):
                fallback_method=values.unset, status_callback=values.unset,
                status_callback_event=values.unset,
                status_callback_method=values.unset, send_digits=values.unset,
-               if_machine=values.unset, timeout=values.unset, record=values.unset,
+               timeout=values.unset, record=values.unset,
                recording_channels=values.unset,
                recording_status_callback=values.unset,
                recording_status_callback_method=values.unset,
@@ -70,7 +70,6 @@ class CallList(ListResource):
         :param unicode status_callback_event: The call progress events that we send to the `status_callback` URL.
         :param unicode status_callback_method: HTTP Method to use with status_callback
         :param unicode send_digits: The digits to dial after connecting to the number
-        :param unicode if_machine: Deprecated. Action to take if a machine has answered the call
         :param unicode timeout: Number of seconds to wait for an answer
         :param bool record: Whether or not to record the call
         :param unicode recording_channels: The number of channels in the final recording
@@ -104,7 +103,6 @@ class CallList(ListResource):
             'StatusCallbackEvent': serialize.map(status_callback_event, lambda e: e),
             'StatusCallbackMethod': status_callback_method,
             'SendDigits': send_digits,
-            'IfMachine': if_machine,
             'Timeout': timeout,
             'Record': record,
             'RecordingChannels': recording_channels,

@@ -24,8 +24,8 @@ class HighriskSpecialPrefixList(ListResource):
         :param Version version: Version that contains the resource
         :param iso_code: The ISO country code
 
-        :returns: twilio.rest.voice.v1.voice_permission.country.highrisk_special_prefix.HighriskSpecialPrefixList
-        :rtype: twilio.rest.voice.v1.voice_permission.country.highrisk_special_prefix.HighriskSpecialPrefixList
+        :returns: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixList
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixList
         """
         super(HighriskSpecialPrefixList, self).__init__(version)
 
@@ -48,7 +48,7 @@ class HighriskSpecialPrefixList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.voice.v1.voice_permission.country.highrisk_special_prefix.HighriskSpecialPrefixInstance]
+        :rtype: list[twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -70,7 +70,7 @@ class HighriskSpecialPrefixList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.voice.v1.voice_permission.country.highrisk_special_prefix.HighriskSpecialPrefixInstance]
+        :rtype: list[twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixInstance]
         """
         return list(self.stream(limit=limit, page_size=page_size, ))
 
@@ -85,7 +85,7 @@ class HighriskSpecialPrefixList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of HighriskSpecialPrefixInstance
-        :rtype: twilio.rest.voice.v1.voice_permission.country.highrisk_special_prefix.HighriskSpecialPrefixPage
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixPage
         """
         params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
@@ -105,7 +105,7 @@ class HighriskSpecialPrefixList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of HighriskSpecialPrefixInstance
-        :rtype: twilio.rest.voice.v1.voice_permission.country.highrisk_special_prefix.HighriskSpecialPrefixPage
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -137,8 +137,8 @@ class HighriskSpecialPrefixPage(Page):
         :param Response response: Response from the API
         :param iso_code: The ISO country code
 
-        :returns: twilio.rest.voice.v1.voice_permission.country.highrisk_special_prefix.HighriskSpecialPrefixPage
-        :rtype: twilio.rest.voice.v1.voice_permission.country.highrisk_special_prefix.HighriskSpecialPrefixPage
+        :returns: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixPage
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixPage
         """
         super(HighriskSpecialPrefixPage, self).__init__(version, response)
 
@@ -151,8 +151,8 @@ class HighriskSpecialPrefixPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.voice.v1.voice_permission.country.highrisk_special_prefix.HighriskSpecialPrefixInstance
-        :rtype: twilio.rest.voice.v1.voice_permission.country.highrisk_special_prefix.HighriskSpecialPrefixInstance
+        :returns: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixInstance
         """
         return HighriskSpecialPrefixInstance(self._version, payload, iso_code=self._solution['iso_code'], )
 
@@ -175,8 +175,8 @@ class HighriskSpecialPrefixInstance(InstanceResource):
         """
         Initialize the HighriskSpecialPrefixInstance
 
-        :returns: twilio.rest.voice.v1.voice_permission.country.highrisk_special_prefix.HighriskSpecialPrefixInstance
-        :rtype: twilio.rest.voice.v1.voice_permission.country.highrisk_special_prefix.HighriskSpecialPrefixInstance
+        :returns: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixInstance
         """
         super(HighriskSpecialPrefixInstance, self).__init__(version)
 

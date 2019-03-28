@@ -116,7 +116,7 @@ class CountryList(ListResource):
         """
         Constructs a CountryContext
 
-        :param iso_country: The iso_country
+        :param iso_country: The ISO country code
 
         :returns: twilio.rest.pricing.v1.voice.country.CountryContext
         :rtype: twilio.rest.pricing.v1.voice.country.CountryContext
@@ -127,7 +127,7 @@ class CountryList(ListResource):
         """
         Constructs a CountryContext
 
-        :param iso_country: The iso_country
+        :param iso_country: The ISO country code
 
         :returns: twilio.rest.pricing.v1.voice.country.CountryContext
         :rtype: twilio.rest.pricing.v1.voice.country.CountryContext
@@ -191,7 +191,7 @@ class CountryContext(InstanceContext):
         Initialize the CountryContext
 
         :param Version version: Version that contains the resource
-        :param iso_country: The iso_country
+        :param iso_country: The ISO country code
 
         :returns: twilio.rest.pricing.v1.voice.country.CountryContext
         :rtype: twilio.rest.pricing.v1.voice.country.CountryContext
@@ -272,7 +272,7 @@ class CountryInstance(InstanceResource):
     @property
     def country(self):
         """
-        :returns: Name of the country
+        :returns: The name of the country
         :rtype: unicode
         """
         return self._properties['country']
@@ -288,7 +288,7 @@ class CountryInstance(InstanceResource):
     @property
     def outbound_prefix_prices(self):
         """
-        :returns: The outbound_prefix_prices
+        :returns: The list of OutboundPrefixPrice records
         :rtype: unicode
         """
         return self._properties['outbound_prefix_prices']
@@ -296,7 +296,7 @@ class CountryInstance(InstanceResource):
     @property
     def inbound_call_prices(self):
         """
-        :returns: The inbound_call_prices
+        :returns: The list of InboundCallPrice records
         :rtype: unicode
         """
         return self._properties['inbound_call_prices']
@@ -304,7 +304,7 @@ class CountryInstance(InstanceResource):
     @property
     def price_unit(self):
         """
-        :returns: The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy).
+        :returns: The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
         :rtype: unicode
         """
         return self._properties['price_unit']
@@ -312,7 +312,7 @@ class CountryInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']

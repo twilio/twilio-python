@@ -32,6 +32,28 @@ class MemberTestCase(IntegrationTestCase):
             200,
             '''
             {
+                "queue_sid": "QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_enqueued": "Tue, 07 Aug 2012 22:57:41 +0000",
+                "position": 1,
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json",
+                "wait_time": 143
+            }
+            '''
+        ))
+
+        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .queues(sid="QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .members(call_sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+
+        self.assertIsNotNone(actual)
+
+    def test_fetch_front_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "queue_sid": "QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_enqueued": "Tue, 07 Aug 2012 22:57:41 +0000",
                 "position": 1,
@@ -68,6 +90,28 @@ class MemberTestCase(IntegrationTestCase):
             200,
             '''
             {
+                "queue_sid": "QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_enqueued": "Thu, 06 Dec 2018 18:42:47 +0000",
+                "position": 1,
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json",
+                "wait_time": 143
+            }
+            '''
+        ))
+
+        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .queues(sid="QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .members(call_sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(url="https://example.com", method="GET")
+
+        self.assertIsNotNone(actual)
+
+    def test_dequeue_front_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "queue_sid": "QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_enqueued": "Tue, 07 Aug 2012 22:57:41 +0000",
                 "position": 1,
@@ -102,25 +146,23 @@ class MemberTestCase(IntegrationTestCase):
             '''
             {
                 "end": 0,
-                "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members.json?Page=0&PageSize=50",
-                "last_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members.json?Page=0&PageSize=50",
+                "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members.json?PageSize=50&Page=0",
                 "next_page_uri": null,
-                "num_pages": 1,
                 "page": 0,
                 "page_size": 50,
                 "previous_page_uri": null,
                 "queue_members": [
                     {
+                        "queue_sid": "QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                        "date_enqueued": "Tue, 07 Aug 2012 22:57:41 +0000",
+                        "date_enqueued": "Mon, 17 Dec 2018 18:36:39 +0000",
                         "position": 1,
                         "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json",
                         "wait_time": 124
                     }
                 ],
                 "start": 0,
-                "total": 1,
-                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members.json"
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members.json?PageSize=50&Page=0"
             }
             '''
         ))
@@ -138,15 +180,12 @@ class MemberTestCase(IntegrationTestCase):
             {
                 "end": 0,
                 "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members.json?Page=0&PageSize=50",
-                "last_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members.json?Page=0&PageSize=50",
                 "next_page_uri": null,
-                "num_pages": 1,
                 "page": 0,
                 "page_size": 50,
                 "previous_page_uri": null,
                 "queue_members": [],
                 "start": 0,
-                "total": 1,
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members.json"
             }
             '''

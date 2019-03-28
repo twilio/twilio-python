@@ -11,7 +11,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
-from twilio.rest.voice.v1.voice_permission.country.highrisk_special_prefix import HighriskSpecialPrefixList
+from twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix import HighriskSpecialPrefixList
 
 
 class CountryList(ListResource):
@@ -25,8 +25,8 @@ class CountryList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: twilio.rest.voice.v1.voice_permission.country.CountryList
-        :rtype: twilio.rest.voice.v1.voice_permission.country.CountryList
+        :returns: twilio.rest.voice.v1.dialing_permissions.country.CountryList
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryList
         """
         super(CountryList, self).__init__(version)
 
@@ -59,7 +59,7 @@ class CountryList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.voice.v1.voice_permission.country.CountryInstance]
+        :rtype: list[twilio.rest.voice.v1.dialing_permissions.country.CountryInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -99,7 +99,7 @@ class CountryList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.voice.v1.voice_permission.country.CountryInstance]
+        :rtype: list[twilio.rest.voice.v1.dialing_permissions.country.CountryInstance]
         """
         return list(self.stream(
             iso_code=iso_code,
@@ -133,7 +133,7 @@ class CountryList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CountryInstance
-        :rtype: twilio.rest.voice.v1.voice_permission.country.CountryPage
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryPage
         """
         params = values.of({
             'IsoCode': iso_code,
@@ -163,7 +163,7 @@ class CountryList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CountryInstance
-        :rtype: twilio.rest.voice.v1.voice_permission.country.CountryPage
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -178,8 +178,8 @@ class CountryList(ListResource):
 
         :param iso_code: The ISO country code
 
-        :returns: twilio.rest.voice.v1.voice_permission.country.CountryContext
-        :rtype: twilio.rest.voice.v1.voice_permission.country.CountryContext
+        :returns: twilio.rest.voice.v1.dialing_permissions.country.CountryContext
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryContext
         """
         return CountryContext(self._version, iso_code=iso_code, )
 
@@ -189,8 +189,8 @@ class CountryList(ListResource):
 
         :param iso_code: The ISO country code
 
-        :returns: twilio.rest.voice.v1.voice_permission.country.CountryContext
-        :rtype: twilio.rest.voice.v1.voice_permission.country.CountryContext
+        :returns: twilio.rest.voice.v1.dialing_permissions.country.CountryContext
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryContext
         """
         return CountryContext(self._version, iso_code=iso_code, )
 
@@ -216,8 +216,8 @@ class CountryPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.voice.v1.voice_permission.country.CountryPage
-        :rtype: twilio.rest.voice.v1.voice_permission.country.CountryPage
+        :returns: twilio.rest.voice.v1.dialing_permissions.country.CountryPage
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryPage
         """
         super(CountryPage, self).__init__(version, response)
 
@@ -230,8 +230,8 @@ class CountryPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.voice.v1.voice_permission.country.CountryInstance
-        :rtype: twilio.rest.voice.v1.voice_permission.country.CountryInstance
+        :returns: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
         """
         return CountryInstance(self._version, payload, )
 
@@ -257,8 +257,8 @@ class CountryContext(InstanceContext):
         :param Version version: Version that contains the resource
         :param iso_code: The ISO country code
 
-        :returns: twilio.rest.voice.v1.voice_permission.country.CountryContext
-        :rtype: twilio.rest.voice.v1.voice_permission.country.CountryContext
+        :returns: twilio.rest.voice.v1.dialing_permissions.country.CountryContext
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryContext
         """
         super(CountryContext, self).__init__(version)
 
@@ -274,7 +274,7 @@ class CountryContext(InstanceContext):
         Fetch a CountryInstance
 
         :returns: Fetched CountryInstance
-        :rtype: twilio.rest.voice.v1.voice_permission.country.CountryInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
         """
         params = values.of({})
 
@@ -291,8 +291,8 @@ class CountryContext(InstanceContext):
         """
         Access the highrisk_special_prefixes
 
-        :returns: twilio.rest.voice.v1.voice_permission.country.highrisk_special_prefix.HighriskSpecialPrefixList
-        :rtype: twilio.rest.voice.v1.voice_permission.country.highrisk_special_prefix.HighriskSpecialPrefixList
+        :returns: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixList
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixList
         """
         if self._highrisk_special_prefixes is None:
             self._highrisk_special_prefixes = HighriskSpecialPrefixList(
@@ -321,8 +321,8 @@ class CountryInstance(InstanceResource):
         """
         Initialize the CountryInstance
 
-        :returns: twilio.rest.voice.v1.voice_permission.country.CountryInstance
-        :rtype: twilio.rest.voice.v1.voice_permission.country.CountryInstance
+        :returns: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
         """
         super(CountryInstance, self).__init__(version)
 
@@ -350,7 +350,7 @@ class CountryInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: CountryContext for this CountryInstance
-        :rtype: twilio.rest.voice.v1.voice_permission.country.CountryContext
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryContext
         """
         if self._context is None:
             self._context = CountryContext(self._version, iso_code=self._solution['iso_code'], )
@@ -433,7 +433,7 @@ class CountryInstance(InstanceResource):
         Fetch a CountryInstance
 
         :returns: Fetched CountryInstance
-        :rtype: twilio.rest.voice.v1.voice_permission.country.CountryInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
         """
         return self._proxy.fetch()
 
@@ -442,8 +442,8 @@ class CountryInstance(InstanceResource):
         """
         Access the highrisk_special_prefixes
 
-        :returns: twilio.rest.voice.v1.voice_permission.country.highrisk_special_prefix.HighriskSpecialPrefixList
-        :rtype: twilio.rest.voice.v1.voice_permission.country.highrisk_special_prefix.HighriskSpecialPrefixList
+        :returns: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixList
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixList
         """
         return self._proxy.highrisk_special_prefixes
 

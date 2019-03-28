@@ -422,7 +422,7 @@ class CredentialInstance(InstanceResource):
     @property
     def uri(self):
         """
-        :returns: The URI for this resource, relative to https://api.
+        :returns: The URI for this resource, relative to https://api.twilio.com
         :rtype: unicode
         """
         return self._properties['uri']

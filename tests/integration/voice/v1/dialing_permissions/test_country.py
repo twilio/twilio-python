@@ -18,7 +18,7 @@ class CountryTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.voice.v1.voice_permissions \
+            self.client.voice.v1.dialing_permissions \
                                 .countries(iso_code="US").fetch()
 
         self.holodeck.assert_has_request(Request(
@@ -48,7 +48,7 @@ class CountryTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.voice.v1.voice_permissions \
+        actual = self.client.voice.v1.dialing_permissions \
                                      .countries(iso_code="US").fetch()
 
         self.assertIsNotNone(actual)
@@ -57,7 +57,7 @@ class CountryTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.voice.v1.voice_permissions \
+            self.client.voice.v1.dialing_permissions \
                                 .countries.list()
 
         self.holodeck.assert_has_request(Request(
@@ -100,7 +100,7 @@ class CountryTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.voice.v1.voice_permissions \
+        actual = self.client.voice.v1.dialing_permissions \
                                      .countries.list()
 
         self.assertIsNotNone(actual)

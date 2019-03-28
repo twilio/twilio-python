@@ -55,6 +55,7 @@ class SimTestCase(IntegrationTestCase):
                 "iccid": "iccid",
                 "e_id": "e_id",
                 "status": "new",
+                "reset_status": null,
                 "url": "https://wireless.twilio.com/v1/Sims/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "ip_address": "192.168.1.1"
             }
@@ -123,6 +124,7 @@ class SimTestCase(IntegrationTestCase):
                         "iccid": "iccid",
                         "e_id": "e_id",
                         "status": "new",
+                        "reset_status": "resetting",
                         "sms_fallback_method": "http_method",
                         "sms_fallback_url": "http://www.example.com",
                         "sms_method": "http_method",
@@ -185,6 +187,7 @@ class SimTestCase(IntegrationTestCase):
                 "iccid": "iccid",
                 "e_id": "e_id",
                 "status": "new",
+                "reset_status": "resetting",
                 "sms_fallback_method": "http_method",
                 "sms_fallback_url": "http://www.example.com",
                 "sms_method": "http_method",
