@@ -22,7 +22,7 @@ class VerificationCheckList(ListResource):
         Initialize the VerificationCheckList
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
+        :param service_sid: The SID of the Service that the resource is associated with
 
         :returns: twilio.rest.verify.v2.service.verification_check.VerificationCheckList
         :rtype: twilio.rest.verify.v2.service.verification_check.VerificationCheckList
@@ -39,10 +39,10 @@ class VerificationCheckList(ListResource):
         Create a new VerificationCheckInstance
 
         :param unicode code: The verification string
-        :param unicode to: To phone number
-        :param unicode verification_sid: A SID that uniquely identifies this Verification Check
-        :param unicode amount: Amount of the associated PSD2 compliant transaction.
-        :param unicode payee: Payee of the associated PSD2 compliant transaction.
+        :param unicode to: The phone number to verify
+        :param unicode verification_sid: A SID that uniquely identifies the Verification Check
+        :param unicode amount: The amount of the associated PSD2 compliant transaction.
+        :param unicode payee: The payee of the associated PSD2 compliant transaction
 
         :returns: Newly created VerificationCheckInstance
         :rtype: twilio.rest.verify.v2.service.verification_check.VerificationCheckInstance
@@ -83,7 +83,7 @@ class VerificationCheckPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: Service Sid.
+        :param service_sid: The SID of the Service that the resource is associated with
 
         :returns: twilio.rest.verify.v2.service.verification_check.VerificationCheckPage
         :rtype: twilio.rest.verify.v2.service.verification_check.VerificationCheckPage
@@ -153,7 +153,7 @@ class VerificationCheckInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this Verification Check.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -161,7 +161,7 @@ class VerificationCheckInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: Service Sid.
+        :returns: The SID of the Service that the resource is associated with
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -169,7 +169,7 @@ class VerificationCheckInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -177,7 +177,7 @@ class VerificationCheckInstance(InstanceResource):
     @property
     def to(self):
         """
-        :returns: To phone number
+        :returns: The phone number being verified
         :rtype: unicode
         """
         return self._properties['to']
@@ -185,7 +185,7 @@ class VerificationCheckInstance(InstanceResource):
     @property
     def channel(self):
         """
-        :returns: sms or call
+        :returns: The verification method to use
         :rtype: VerificationCheckInstance.Channel
         """
         return self._properties['channel']
@@ -193,7 +193,7 @@ class VerificationCheckInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: pending, approved, denied or expired
+        :returns: The status of the verification resource
         :rtype: unicode
         """
         return self._properties['status']
@@ -201,7 +201,7 @@ class VerificationCheckInstance(InstanceResource):
     @property
     def valid(self):
         """
-        :returns: successful verification
+        :returns: Whether the verification was successful
         :rtype: bool
         """
         return self._properties['valid']
@@ -209,7 +209,7 @@ class VerificationCheckInstance(InstanceResource):
     @property
     def amount(self):
         """
-        :returns: Amount of the associated PSD2 compliant transaction.
+        :returns: The amount of the associated PSD2 compliant transaction.
         :rtype: unicode
         """
         return self._properties['amount']
@@ -217,7 +217,7 @@ class VerificationCheckInstance(InstanceResource):
     @property
     def payee(self):
         """
-        :returns: Payee of the associated PSD2 compliant transaction.
+        :returns: The payee of the associated PSD2 compliant transaction
         :rtype: unicode
         """
         return self._properties['payee']
@@ -225,7 +225,7 @@ class VerificationCheckInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this Verification Check was created
+        :returns: The ISO 8601 date and time in GMT when the Verification Check resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -233,7 +233,7 @@ class VerificationCheckInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this Verification Check was updated
+        :returns: The ISO 8601 date and time in GMT when the Verification Check resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']

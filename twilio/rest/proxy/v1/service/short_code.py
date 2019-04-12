@@ -23,7 +23,7 @@ class ShortCodeList(ListResource):
         Initialize the ShortCodeList
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
+        :param service_sid: The SID of the resource's parent Service
 
         :returns: twilio.rest.proxy.v1.service.short_code.ShortCodeList
         :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeList
@@ -38,7 +38,7 @@ class ShortCodeList(ListResource):
         """
         Create a new ShortCodeInstance
 
-        :param unicode sid: A string that uniquely identifies this Short Code.
+        :param unicode sid: The SID of a Twilio ShortCode resource
 
         :returns: Newly created ShortCodeInstance
         :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeInstance
@@ -138,7 +138,7 @@ class ShortCodeList(ListResource):
         """
         Constructs a ShortCodeContext
 
-        :param sid: A string that uniquely identifies this Short Code.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.proxy.v1.service.short_code.ShortCodeContext
         :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeContext
@@ -149,7 +149,7 @@ class ShortCodeList(ListResource):
         """
         Constructs a ShortCodeContext
 
-        :param sid: A string that uniquely identifies this Short Code.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.proxy.v1.service.short_code.ShortCodeContext
         :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeContext
@@ -176,7 +176,7 @@ class ShortCodePage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: Service Sid.
+        :param service_sid: The SID of the resource's parent Service
 
         :returns: twilio.rest.proxy.v1.service.short_code.ShortCodePage
         :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodePage
@@ -216,8 +216,8 @@ class ShortCodeContext(InstanceContext):
         Initialize the ShortCodeContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
-        :param sid: A string that uniquely identifies this Short Code.
+        :param service_sid: The SID of the parent Service to fetch the resource from
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.proxy.v1.service.short_code.ShortCodeContext
         :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeContext
@@ -263,7 +263,7 @@ class ShortCodeContext(InstanceContext):
         """
         Update the ShortCodeInstance
 
-        :param bool is_reserved: Reserve for manual assignment to participants only.
+        :param bool is_reserved: Whether the short code should be reserved for manual assignment to participants only
 
         :returns: Updated ShortCodeInstance
         :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeInstance
@@ -345,7 +345,7 @@ class ShortCodeInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this Short Code.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -353,7 +353,7 @@ class ShortCodeInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -361,7 +361,7 @@ class ShortCodeInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: Service Sid.
+        :returns: The SID of the resource's parent Service
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -369,7 +369,7 @@ class ShortCodeInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this Short Code was added to the service
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -377,7 +377,7 @@ class ShortCodeInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this Short Code was updated
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -385,7 +385,7 @@ class ShortCodeInstance(InstanceResource):
     @property
     def short_code(self):
         """
-        :returns: Shortcode.
+        :returns: The short code's number
         :rtype: unicode
         """
         return self._properties['short_code']
@@ -393,7 +393,7 @@ class ShortCodeInstance(InstanceResource):
     @property
     def iso_country(self):
         """
-        :returns: ISO Country Code,
+        :returns: The ISO Country Code
         :rtype: unicode
         """
         return self._properties['iso_country']
@@ -401,7 +401,7 @@ class ShortCodeInstance(InstanceResource):
     @property
     def capabilities(self):
         """
-        :returns: A list of capabilities.
+        :returns: The capabilities of the short code
         :rtype: unicode
         """
         return self._properties['capabilities']
@@ -409,7 +409,7 @@ class ShortCodeInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL of this resource.
+        :returns: The absolute URL of the ShortCode resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -417,7 +417,7 @@ class ShortCodeInstance(InstanceResource):
     @property
     def is_reserved(self):
         """
-        :returns: Reserve for manual assignment to participants only.
+        :returns: Whether the short code should be reserved for manual assignment to participants only
         :rtype: bool
         """
         return self._properties['is_reserved']
@@ -444,7 +444,7 @@ class ShortCodeInstance(InstanceResource):
         """
         Update the ShortCodeInstance
 
-        :param bool is_reserved: Reserve for manual assignment to participants only.
+        :param bool is_reserved: Whether the short code should be reserved for manual assignment to participants only
 
         :returns: Updated ShortCodeInstance
         :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeInstance

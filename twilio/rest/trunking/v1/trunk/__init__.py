@@ -16,6 +16,7 @@ from twilio.rest.trunking.v1.trunk.credential_list import CredentialListList
 from twilio.rest.trunking.v1.trunk.ip_access_control_list import IpAccessControlListList
 from twilio.rest.trunking.v1.trunk.origination_url import OriginationUrlList
 from twilio.rest.trunking.v1.trunk.phone_number import PhoneNumberList
+from twilio.rest.trunking.v1.trunk.terminating_sip_domain import TerminatingSipDomainList
 
 
 class TrunkList(ListResource):
@@ -248,6 +249,7 @@ class TrunkContext(InstanceContext):
         self._credentials_lists = None
         self._ip_access_control_lists = None
         self._phone_numbers = None
+        self._terminating_sip_domains = None
 
     def fetch(self):
         """
@@ -361,6 +363,21 @@ class TrunkContext(InstanceContext):
         if self._phone_numbers is None:
             self._phone_numbers = PhoneNumberList(self._version, trunk_sid=self._solution['sid'], )
         return self._phone_numbers
+
+    @property
+    def terminating_sip_domains(self):
+        """
+        Access the terminating_sip_domains
+
+        :returns: twilio.rest.trunking.v1.trunk.terminating_sip_domain.TerminatingSipDomainList
+        :rtype: twilio.rest.trunking.v1.trunk.terminating_sip_domain.TerminatingSipDomainList
+        """
+        if self._terminating_sip_domains is None:
+            self._terminating_sip_domains = TerminatingSipDomainList(
+                self._version,
+                trunk_sid=self._solution['sid'],
+            )
+        return self._terminating_sip_domains
 
     def __repr__(self):
         """
@@ -631,6 +648,16 @@ class TrunkInstance(InstanceResource):
         :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberList
         """
         return self._proxy.phone_numbers
+
+    @property
+    def terminating_sip_domains(self):
+        """
+        Access the terminating_sip_domains
+
+        :returns: twilio.rest.trunking.v1.trunk.terminating_sip_domain.TerminatingSipDomainList
+        :rtype: twilio.rest.trunking.v1.trunk.terminating_sip_domain.TerminatingSipDomainList
+        """
+        return self._proxy.terminating_sip_domains
 
     def __repr__(self):
         """

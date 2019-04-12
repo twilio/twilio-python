@@ -23,7 +23,7 @@ class PhoneNumberList(ListResource):
         Initialize the PhoneNumberList
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
+        :param service_sid: The SID of the PhoneNumber resource's parent Service resource
 
         :returns: twilio.rest.proxy.v1.service.phone_number.PhoneNumberList
         :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberList
@@ -39,9 +39,9 @@ class PhoneNumberList(ListResource):
         """
         Create a new PhoneNumberInstance
 
-        :param unicode sid: Phone Number Sid of Twilio Number to assign to your Proxy Service
-        :param unicode phone_number: Twilio Number to assign to your Proxy Service
-        :param bool is_reserved: Reserve for manual assignment to participants only.
+        :param unicode sid: The SID of a Twilio IncomingPhoneNumber resource
+        :param unicode phone_number: The phone number in E.164 format
+        :param bool is_reserved: Whether the new phone number should be reserved
 
         :returns: Newly created PhoneNumberInstance
         :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberInstance
@@ -141,7 +141,7 @@ class PhoneNumberList(ListResource):
         """
         Constructs a PhoneNumberContext
 
-        :param sid: A string that uniquely identifies this Phone Number.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.proxy.v1.service.phone_number.PhoneNumberContext
         :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberContext
@@ -152,7 +152,7 @@ class PhoneNumberList(ListResource):
         """
         Constructs a PhoneNumberContext
 
-        :param sid: A string that uniquely identifies this Phone Number.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.proxy.v1.service.phone_number.PhoneNumberContext
         :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberContext
@@ -179,7 +179,7 @@ class PhoneNumberPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: Service Sid.
+        :param service_sid: The SID of the PhoneNumber resource's parent Service resource
 
         :returns: twilio.rest.proxy.v1.service.phone_number.PhoneNumberPage
         :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberPage
@@ -219,8 +219,8 @@ class PhoneNumberContext(InstanceContext):
         Initialize the PhoneNumberContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
-        :param sid: A string that uniquely identifies this Phone Number.
+        :param service_sid: The SID of the parent Service resource of the PhoneNumber resource to fetch
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.proxy.v1.service.phone_number.PhoneNumberContext
         :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberContext
@@ -266,7 +266,7 @@ class PhoneNumberContext(InstanceContext):
         """
         Update the PhoneNumberInstance
 
-        :param bool is_reserved: Reserve for manual assignment to participants only.
+        :param bool is_reserved: Whether the new phone number should be reserved
 
         :returns: Updated PhoneNumberInstance
         :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberInstance
@@ -349,7 +349,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this Phone Number.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -357,7 +357,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -365,7 +365,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: Service Sid.
+        :returns: The SID of the PhoneNumber resource's parent Service resource
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -373,7 +373,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this Phone Number was added to the service
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -381,7 +381,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this Phone Number was updated
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -389,7 +389,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def phone_number(self):
         """
-        :returns: The phone number.
+        :returns: The phone number in E.164 format
         :rtype: unicode
         """
         return self._properties['phone_number']
@@ -397,7 +397,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A human-readable description of this resource.
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -405,7 +405,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def iso_country(self):
         """
-        :returns: ISO Country Code,
+        :returns: The ISO Country Code
         :rtype: unicode
         """
         return self._properties['iso_country']
@@ -413,7 +413,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def capabilities(self):
         """
-        :returns: A list of capabilities.
+        :returns: The capabilities of the phone number
         :rtype: unicode
         """
         return self._properties['capabilities']
@@ -421,7 +421,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL of this resource.
+        :returns: The absolute URL of the PhoneNumber resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -429,7 +429,7 @@ class PhoneNumberInstance(InstanceResource):
     @property
     def is_reserved(self):
         """
-        :returns: Reserve for manual assignment to participants only.
+        :returns: Reserve the phone number for manual assignment to participants only
         :rtype: bool
         """
         return self._properties['is_reserved']
@@ -456,7 +456,7 @@ class PhoneNumberInstance(InstanceResource):
         """
         Update the PhoneNumberInstance
 
-        :param bool is_reserved: Reserve for manual assignment to participants only.
+        :param bool is_reserved: Whether the new phone number should be reserved
 
         :returns: Updated PhoneNumberInstance
         :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberInstance

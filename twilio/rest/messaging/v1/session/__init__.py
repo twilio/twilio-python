@@ -40,8 +40,7 @@ class SessionList(ListResource):
 
     def create(self, messaging_service_sid, friendly_name=values.unset,
                attributes=values.unset, date_created=values.unset,
-               date_updated=values.unset, created_by=values.unset,
-               twilio_address=values.unset, user_address=values.unset):
+               date_updated=values.unset, created_by=values.unset):
         """
         Create a new SessionInstance
 
@@ -51,8 +50,6 @@ class SessionList(ListResource):
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
         :param unicode created_by: Identity of the session's creator.
-        :param unicode twilio_address: Twilio address the participant is contacting to.
-        :param unicode user_address: Address the participant is contacting from.
 
         :returns: Newly created SessionInstance
         :rtype: twilio.rest.messaging.v1.session.SessionInstance
@@ -64,8 +61,6 @@ class SessionList(ListResource):
             'DateCreated': serialize.iso8601_datetime(date_created),
             'DateUpdated': serialize.iso8601_datetime(date_updated),
             'CreatedBy': created_by,
-            'TwilioAddress': twilio_address,
-            'UserAddress': user_address,
         })
 
         payload = self._version.create(

@@ -24,8 +24,8 @@ class ParticipantList(ListResource):
         Initialize the ParticipantList
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
-        :param session_sid: Session Sid.
+        :param service_sid: The SID of the resource's parent Service
+        :param session_sid: The SID of the resource's parent Session
 
         :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantList
         :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantList
@@ -122,10 +122,10 @@ class ParticipantList(ListResource):
         """
         Create a new ParticipantInstance
 
-        :param unicode identifier: The phone number of this Participant.
-        :param unicode friendly_name: A human-readable description of this resource.
-        :param unicode proxy_identifier: The proxy phone number to use for this Participant.
-        :param unicode proxy_identifier_sid: The proxy_identifier_sid
+        :param unicode identifier: The phone number of the Participant
+        :param unicode friendly_name: The string that you assigned to describe the participant
+        :param unicode proxy_identifier: The proxy phone number to use for the Participant
+        :param unicode proxy_identifier_sid: The Proxy Identifier Sid
 
         :returns: Newly created ParticipantInstance
         :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
@@ -154,7 +154,7 @@ class ParticipantList(ListResource):
         """
         Constructs a ParticipantContext
 
-        :param sid: A string that uniquely identifies this Participant.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
         :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
@@ -170,7 +170,7 @@ class ParticipantList(ListResource):
         """
         Constructs a ParticipantContext
 
-        :param sid: A string that uniquely identifies this Participant.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
         :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
@@ -202,8 +202,8 @@ class ParticipantPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: Service Sid.
-        :param session_sid: Session Sid.
+        :param service_sid: The SID of the resource's parent Service
+        :param session_sid: The SID of the resource's parent Session
 
         :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantPage
         :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantPage
@@ -248,9 +248,9 @@ class ParticipantContext(InstanceContext):
         Initialize the ParticipantContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
-        :param session_sid: Session Sid.
-        :param sid: A string that uniquely identifies this Participant.
+        :param service_sid: The SID of the parent Service of the resource to fetch
+        :param session_sid: The SID of the parent Session of the resource to fetch
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
         :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
@@ -383,7 +383,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this Participant.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -391,7 +391,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def session_sid(self):
         """
-        :returns: Session Sid.
+        :returns: The SID of the resource's parent Session
         :rtype: unicode
         """
         return self._properties['session_sid']
@@ -399,7 +399,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: Service Sid.
+        :returns: The SID of the resource's parent Service
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -407,7 +407,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -415,7 +415,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A human-readable description of this resource.
+        :returns: The string that you assigned to describe the participant
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -423,7 +423,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def identifier(self):
         """
-        :returns: The phone number of this Participant.
+        :returns: The phone number of the Participant
         :rtype: unicode
         """
         return self._properties['identifier']
@@ -431,7 +431,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def proxy_identifier(self):
         """
-        :returns: Proxy Identifier.
+        :returns: The phone number or short code of the participant's partner
         :rtype: unicode
         """
         return self._properties['proxy_identifier']
@@ -439,7 +439,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def proxy_identifier_sid(self):
         """
-        :returns: Proxy Identifier Sid.
+        :returns: The SID of the Proxy Identifier assigned to the Participant
         :rtype: unicode
         """
         return self._properties['proxy_identifier_sid']
@@ -447,7 +447,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def date_deleted(self):
         """
-        :returns: The date this Participant was removed
+        :returns: The ISO 8601 date the Participant was removed
         :rtype: datetime
         """
         return self._properties['date_deleted']
@@ -455,7 +455,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this Participant was created
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -463,7 +463,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this Participant was last updated
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -471,7 +471,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL of this resource.
+        :returns: The absolute URL of the Participant resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -479,7 +479,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: Nested resource URLs.
+        :returns: The URLs to resources related the participant
         :rtype: unicode
         """
         return self._properties['links']

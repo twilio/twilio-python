@@ -23,7 +23,7 @@ class VerificationList(ListResource):
         Initialize the VerificationList
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
+        :param service_sid: The SID of the Service that the resource is associated with
 
         :returns: twilio.rest.verify.v2.service.verification.VerificationList
         :rtype: twilio.rest.verify.v2.service.verification.VerificationList
@@ -40,14 +40,14 @@ class VerificationList(ListResource):
         """
         Create a new VerificationInstance
 
-        :param unicode to: To phonenumber
-        :param unicode channel: sms or call
-        :param unicode custom_message: A custom message for this verification
-        :param unicode send_digits: Digits to send when a phone call is started
-        :param unicode locale: Locale used in the sms or call.
+        :param unicode to: The phone number to verify
+        :param unicode channel: The verification method to use
+        :param unicode custom_message: The text of a custom message to use for the verification
+        :param unicode send_digits: The digits to send after a phone call is answered
+        :param unicode locale: The local to use for the verification SMS or call
         :param unicode custom_code: A pre-generated code
-        :param unicode amount: Amount of the associated PSD2 compliant transaction.
-        :param unicode payee: Payee of the associated PSD2 compliant transaction.
+        :param unicode amount: The amount of the associated PSD2 compliant transaction.
+        :param unicode payee: The payee of the associated PSD2 compliant transaction
 
         :returns: Newly created VerificationInstance
         :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
@@ -75,7 +75,7 @@ class VerificationList(ListResource):
         """
         Constructs a VerificationContext
 
-        :param sid: A string that uniquely identifies this Verification.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.verify.v2.service.verification.VerificationContext
         :rtype: twilio.rest.verify.v2.service.verification.VerificationContext
@@ -86,7 +86,7 @@ class VerificationList(ListResource):
         """
         Constructs a VerificationContext
 
-        :param sid: A string that uniquely identifies this Verification.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.verify.v2.service.verification.VerificationContext
         :rtype: twilio.rest.verify.v2.service.verification.VerificationContext
@@ -113,7 +113,7 @@ class VerificationPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: Service Sid.
+        :param service_sid: The SID of the Service that the resource is associated with
 
         :returns: twilio.rest.verify.v2.service.verification.VerificationPage
         :rtype: twilio.rest.verify.v2.service.verification.VerificationPage
@@ -153,8 +153,8 @@ class VerificationContext(InstanceContext):
         Initialize the VerificationContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
-        :param sid: A string that uniquely identifies this Verification.
+        :param service_sid: The SID of the verification Service to fetch the resource from
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.verify.v2.service.verification.VerificationContext
         :rtype: twilio.rest.verify.v2.service.verification.VerificationContext
@@ -169,7 +169,7 @@ class VerificationContext(InstanceContext):
         """
         Update the VerificationInstance
 
-        :param VerificationInstance.Status status: New status to set for the Verification.
+        :param VerificationInstance.Status status: The new status of the resource
 
         :returns: Updated VerificationInstance
         :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
@@ -283,7 +283,7 @@ class VerificationInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this Verification.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -291,7 +291,7 @@ class VerificationInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: Service Sid.
+        :returns: The SID of the Service that the resource is associated with
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -299,7 +299,7 @@ class VerificationInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -307,7 +307,7 @@ class VerificationInstance(InstanceResource):
     @property
     def to(self):
         """
-        :returns: To phonenumber
+        :returns: The phone number being verified
         :rtype: unicode
         """
         return self._properties['to']
@@ -315,7 +315,7 @@ class VerificationInstance(InstanceResource):
     @property
     def channel(self):
         """
-        :returns: sms or call
+        :returns: The verification method to use
         :rtype: VerificationInstance.Channel
         """
         return self._properties['channel']
@@ -323,7 +323,7 @@ class VerificationInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: pending, approved, denied or expired
+        :returns: The status of the verification resource
         :rtype: unicode
         """
         return self._properties['status']
@@ -331,7 +331,7 @@ class VerificationInstance(InstanceResource):
     @property
     def valid(self):
         """
-        :returns: successful verification
+        :returns: Whether the verification was successful
         :rtype: bool
         """
         return self._properties['valid']
@@ -339,7 +339,7 @@ class VerificationInstance(InstanceResource):
     @property
     def lookup(self):
         """
-        :returns: Info about the phone number
+        :returns: Information about the phone number being verified
         :rtype: dict
         """
         return self._properties['lookup']
@@ -347,7 +347,7 @@ class VerificationInstance(InstanceResource):
     @property
     def amount(self):
         """
-        :returns: Amount of the associated PSD2 compliant transaction.
+        :returns: The amount of the associated PSD2 compliant transaction.
         :rtype: unicode
         """
         return self._properties['amount']
@@ -355,7 +355,7 @@ class VerificationInstance(InstanceResource):
     @property
     def payee(self):
         """
-        :returns: Payee of the associated PSD2 compliant transaction.
+        :returns: The payee of the associated PSD2 compliant transaction
         :rtype: unicode
         """
         return self._properties['payee']
@@ -363,7 +363,7 @@ class VerificationInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this Verification was created
+        :returns: The RFC 2822 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -371,7 +371,7 @@ class VerificationInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this Verification was updated
+        :returns: The RFC 2822 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -379,7 +379,7 @@ class VerificationInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL of this resource.
+        :returns: The absolute URL of the Verification resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -388,7 +388,7 @@ class VerificationInstance(InstanceResource):
         """
         Update the VerificationInstance
 
-        :param VerificationInstance.Status status: New status to set for the Verification.
+        :param VerificationInstance.Status status: The new status of the resource
 
         :returns: Updated VerificationInstance
         :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance

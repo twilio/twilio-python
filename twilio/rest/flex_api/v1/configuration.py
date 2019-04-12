@@ -227,6 +227,8 @@ class ConfigurationInstance(InstanceResource):
             'crm_fallback_url': payload['crm_fallback_url'],
             'crm_attributes': payload['crm_attributes'],
             'public_attributes': payload['public_attributes'],
+            'plugin_service_enabled': payload['plugin_service_enabled'],
+            'plugin_service_attributes': payload['plugin_service_attributes'],
             'url': payload['url'],
         }
 
@@ -470,6 +472,22 @@ class ConfigurationInstance(InstanceResource):
         :rtype: dict
         """
         return self._properties['public_attributes']
+
+    @property
+    def plugin_service_enabled(self):
+        """
+        :returns: Is plugin service Enabled
+        :rtype: bool
+        """
+        return self._properties['plugin_service_enabled']
+
+    @property
+    def plugin_service_attributes(self):
+        """
+        :returns: Plugin service Attributes
+        :rtype: dict
+        """
+        return self._properties['plugin_service_attributes']
 
     @property
     def url(self):

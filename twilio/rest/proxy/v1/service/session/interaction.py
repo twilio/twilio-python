@@ -23,8 +23,8 @@ class InteractionList(ListResource):
         Initialize the InteractionList
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
-        :param session_sid: Session Sid.
+        :param service_sid: The SID of the resource's parent Service
+        :param session_sid: The SID of the resource's parent Session
 
         :returns: twilio.rest.proxy.v1.service.session.interaction.InteractionList
         :rtype: twilio.rest.proxy.v1.service.session.interaction.InteractionList
@@ -120,7 +120,7 @@ class InteractionList(ListResource):
         """
         Constructs a InteractionContext
 
-        :param sid: A string that uniquely identifies this Interaction.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.proxy.v1.service.session.interaction.InteractionContext
         :rtype: twilio.rest.proxy.v1.service.session.interaction.InteractionContext
@@ -136,7 +136,7 @@ class InteractionList(ListResource):
         """
         Constructs a InteractionContext
 
-        :param sid: A string that uniquely identifies this Interaction.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.proxy.v1.service.session.interaction.InteractionContext
         :rtype: twilio.rest.proxy.v1.service.session.interaction.InteractionContext
@@ -168,8 +168,8 @@ class InteractionPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: Service Sid.
-        :param session_sid: Session Sid.
+        :param service_sid: The SID of the resource's parent Service
+        :param session_sid: The SID of the resource's parent Session
 
         :returns: twilio.rest.proxy.v1.service.session.interaction.InteractionPage
         :rtype: twilio.rest.proxy.v1.service.session.interaction.InteractionPage
@@ -214,9 +214,9 @@ class InteractionContext(InstanceContext):
         Initialize the InteractionContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
-        :param session_sid: Session Sid.
-        :param sid: A string that uniquely identifies this Interaction.
+        :param service_sid: The SID of the parent Service of the resource to fetch
+        :param session_sid: he SID of the parent Session of the resource to fetch
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.proxy.v1.service.session.interaction.InteractionContext
         :rtype: twilio.rest.proxy.v1.service.session.interaction.InteractionContext
@@ -363,7 +363,7 @@ class InteractionInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this Interaction.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -371,7 +371,7 @@ class InteractionInstance(InstanceResource):
     @property
     def session_sid(self):
         """
-        :returns: Session Sid.
+        :returns: The SID of the resource's parent Session
         :rtype: unicode
         """
         return self._properties['session_sid']
@@ -379,7 +379,7 @@ class InteractionInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: Service Sid.
+        :returns: The SID of the resource's parent Service
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -387,7 +387,7 @@ class InteractionInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -395,7 +395,7 @@ class InteractionInstance(InstanceResource):
     @property
     def data(self):
         """
-        :returns: Further details about an interaction.
+        :returns: A JSON string that includes the message body of message interactions
         :rtype: unicode
         """
         return self._properties['data']
@@ -403,7 +403,7 @@ class InteractionInstance(InstanceResource):
     @property
     def type(self):
         """
-        :returns: The Type of this Interaction
+        :returns: The Type of the Interaction
         :rtype: InteractionInstance.Type
         """
         return self._properties['type']
@@ -411,7 +411,7 @@ class InteractionInstance(InstanceResource):
     @property
     def inbound_participant_sid(self):
         """
-        :returns: Inbound Participant Sid.
+        :returns: The SID of the inbound Participant resource
         :rtype: unicode
         """
         return self._properties['inbound_participant_sid']
@@ -419,7 +419,7 @@ class InteractionInstance(InstanceResource):
     @property
     def inbound_resource_sid(self):
         """
-        :returns: Inbound Resource Sid.
+        :returns: The SID of the inbound resource
         :rtype: unicode
         """
         return self._properties['inbound_resource_sid']
@@ -427,7 +427,7 @@ class InteractionInstance(InstanceResource):
     @property
     def inbound_resource_status(self):
         """
-        :returns: The Inbound Resource Status of this Interaction
+        :returns: The inbound resource status of the Interaction
         :rtype: InteractionInstance.ResourceStatus
         """
         return self._properties['inbound_resource_status']
@@ -435,7 +435,7 @@ class InteractionInstance(InstanceResource):
     @property
     def inbound_resource_type(self):
         """
-        :returns: The type of the Inbound Resource, Call or Message.
+        :returns: The inbound resource type
         :rtype: unicode
         """
         return self._properties['inbound_resource_type']
@@ -443,7 +443,7 @@ class InteractionInstance(InstanceResource):
     @property
     def inbound_resource_url(self):
         """
-        :returns: The URL of the Twilio inbound resource.
+        :returns: The URL of the Twilio inbound resource
         :rtype: unicode
         """
         return self._properties['inbound_resource_url']
@@ -451,7 +451,7 @@ class InteractionInstance(InstanceResource):
     @property
     def outbound_participant_sid(self):
         """
-        :returns: Outbound Participant Sid.
+        :returns: The SID of the outbound Participant
         :rtype: unicode
         """
         return self._properties['outbound_participant_sid']
@@ -459,7 +459,7 @@ class InteractionInstance(InstanceResource):
     @property
     def outbound_resource_sid(self):
         """
-        :returns: Outbound Resource Sid.
+        :returns: The SID of the outbound resource
         :rtype: unicode
         """
         return self._properties['outbound_resource_sid']
@@ -467,7 +467,7 @@ class InteractionInstance(InstanceResource):
     @property
     def outbound_resource_status(self):
         """
-        :returns: The Outbound Resource Status of this Interaction
+        :returns: The outbound resource status of the Interaction
         :rtype: InteractionInstance.ResourceStatus
         """
         return self._properties['outbound_resource_status']
@@ -475,7 +475,7 @@ class InteractionInstance(InstanceResource):
     @property
     def outbound_resource_type(self):
         """
-        :returns: The type of the Outbound Resource, Call or Message.
+        :returns: The outbound resource type
         :rtype: unicode
         """
         return self._properties['outbound_resource_type']
@@ -483,7 +483,7 @@ class InteractionInstance(InstanceResource):
     @property
     def outbound_resource_url(self):
         """
-        :returns: The URL of the Twilio outbound resource.
+        :returns: The URL of the Twilio outbound resource
         :rtype: unicode
         """
         return self._properties['outbound_resource_url']
@@ -491,7 +491,7 @@ class InteractionInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this Interaction was created
+        :returns: The ISO 8601 date and time in GMT when the Interaction was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -499,7 +499,7 @@ class InteractionInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this Interaction was last updated
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -507,7 +507,7 @@ class InteractionInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL of this resource.
+        :returns: The absolute URL of the Interaction resource
         :rtype: unicode
         """
         return self._properties['url']

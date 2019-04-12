@@ -42,13 +42,13 @@ class ServiceList(ListResource):
         """
         Create a new ServiceInstance
 
-        :param unicode friendly_name: Friendly name of the service
-        :param unicode code_length: Length of verification code. Valid values are 4-10
-        :param bool lookup_enabled: Indicates whether or not to perform a lookup with each verification started
-        :param bool skip_sms_to_landlines: Indicates whether or not to ignore SMS verifications for landlines
-        :param bool dtmf_input_required: Indicates whether or not to require a random number input to deliver the verify code via phone calls
-        :param unicode tts_name: Alternative to be used as Service friendly name in phone calls
-        :param bool psd2_enabled: Indicates whether PSD2 parameters are enabled or not
+        :param unicode friendly_name: A string to describe the verification service
+        :param unicode code_length: The length of the verification code to generate
+        :param bool lookup_enabled: Whether to perform a lookup with each verification
+        :param bool skip_sms_to_landlines: Whether to skip sending SMS verifications to landlines
+        :param bool dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call
+        :param unicode tts_name: The name of an alternative text-to-speech service to use in phone calls
+        :param bool psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification
 
         :returns: Newly created ServiceInstance
         :rtype: twilio.rest.verify.v2.service.ServiceInstance
@@ -156,7 +156,7 @@ class ServiceList(ListResource):
         """
         Constructs a ServiceContext
 
-        :param sid: Verification Service Instance SID.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.verify.v2.service.ServiceContext
         :rtype: twilio.rest.verify.v2.service.ServiceContext
@@ -167,7 +167,7 @@ class ServiceList(ListResource):
         """
         Constructs a ServiceContext
 
-        :param sid: Verification Service Instance SID.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.verify.v2.service.ServiceContext
         :rtype: twilio.rest.verify.v2.service.ServiceContext
@@ -233,7 +233,7 @@ class ServiceContext(InstanceContext):
         Initialize the ServiceContext
 
         :param Version version: Version that contains the resource
-        :param sid: Verification Service Instance SID.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.verify.v2.service.ServiceContext
         :rtype: twilio.rest.verify.v2.service.ServiceContext
@@ -281,13 +281,13 @@ class ServiceContext(InstanceContext):
         """
         Update the ServiceInstance
 
-        :param unicode friendly_name: Friendly name of the service
-        :param unicode code_length: Length of verification code. Valid values are 4-10
-        :param bool lookup_enabled: Indicates whether or not to perform a lookup with each verification started
-        :param bool skip_sms_to_landlines: Indicates whether or not to ignore SMS verifications for landlines
-        :param bool dtmf_input_required: Indicates whether or not to require a random number input to deliver the verify code via phone calls
-        :param unicode tts_name: Alternative to be used as Service friendly name in phone calls
-        :param bool psd2_enabled: Indicates whether PSD2 parameters are enabled or not
+        :param unicode friendly_name: A string to describe the verification service
+        :param unicode code_length: The length of the verification code to generate
+        :param bool lookup_enabled: Whether to perform a lookup with each verification
+        :param bool skip_sms_to_landlines: Whether to skip sending SMS verifications to landlines
+        :param bool dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call
+        :param unicode tts_name: The name of an alternative text-to-speech service to use in phone calls
+        :param bool psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.verify.v2.service.ServiceInstance
@@ -395,7 +395,7 @@ class ServiceInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this Service.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -403,7 +403,7 @@ class ServiceInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -411,7 +411,7 @@ class ServiceInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: Friendly name of the service
+        :returns: The string that you assigned to describe the verification service
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -419,7 +419,7 @@ class ServiceInstance(InstanceResource):
     @property
     def code_length(self):
         """
-        :returns: Length of verification code. Valid values are 4-10
+        :returns: The length of the verification code
         :rtype: unicode
         """
         return self._properties['code_length']
@@ -427,7 +427,7 @@ class ServiceInstance(InstanceResource):
     @property
     def lookup_enabled(self):
         """
-        :returns: Indicates whether or not to perform a lookup with each verification started
+        :returns: Whether to perform a lookup with each verification
         :rtype: bool
         """
         return self._properties['lookup_enabled']
@@ -435,7 +435,7 @@ class ServiceInstance(InstanceResource):
     @property
     def psd2_enabled(self):
         """
-        :returns: Indicates whether PSD2 parameters are enabled or not
+        :returns: Whether to pass PSD2 transaction parameters when starting a verification
         :rtype: bool
         """
         return self._properties['psd2_enabled']
@@ -443,7 +443,7 @@ class ServiceInstance(InstanceResource):
     @property
     def skip_sms_to_landlines(self):
         """
-        :returns: Indicates whether or not to ignore SMS verifications for landlines
+        :returns: Whether to skip sending SMS verifications to landlines
         :rtype: bool
         """
         return self._properties['skip_sms_to_landlines']
@@ -451,7 +451,7 @@ class ServiceInstance(InstanceResource):
     @property
     def dtmf_input_required(self):
         """
-        :returns: Indicates whether or not to require a random number input to deliver the verify code via phone calls
+        :returns: Whether to ask the user to press a number before delivering the verify code in a phone call
         :rtype: bool
         """
         return self._properties['dtmf_input_required']
@@ -459,7 +459,7 @@ class ServiceInstance(InstanceResource):
     @property
     def tts_name(self):
         """
-        :returns: Alternative to be used as Service friendly name in phone calls
+        :returns: The name of an alternative text-to-speech service to use in phone calls
         :rtype: unicode
         """
         return self._properties['tts_name']
@@ -467,7 +467,7 @@ class ServiceInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this Service was created
+        :returns: The RFC 2822 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -475,7 +475,7 @@ class ServiceInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this Service was updated
+        :returns: The RFC 2822 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -483,7 +483,7 @@ class ServiceInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -491,7 +491,7 @@ class ServiceInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links
+        :returns: The URLs of related resources
         :rtype: unicode
         """
         return self._properties['links']
@@ -521,13 +521,13 @@ class ServiceInstance(InstanceResource):
         """
         Update the ServiceInstance
 
-        :param unicode friendly_name: Friendly name of the service
-        :param unicode code_length: Length of verification code. Valid values are 4-10
-        :param bool lookup_enabled: Indicates whether or not to perform a lookup with each verification started
-        :param bool skip_sms_to_landlines: Indicates whether or not to ignore SMS verifications for landlines
-        :param bool dtmf_input_required: Indicates whether or not to require a random number input to deliver the verify code via phone calls
-        :param unicode tts_name: Alternative to be used as Service friendly name in phone calls
-        :param bool psd2_enabled: Indicates whether PSD2 parameters are enabled or not
+        :param unicode friendly_name: A string to describe the verification service
+        :param unicode code_length: The length of the verification code to generate
+        :param bool lookup_enabled: Whether to perform a lookup with each verification
+        :param bool skip_sms_to_landlines: Whether to skip sending SMS verifications to landlines
+        :param bool dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call
+        :param unicode tts_name: The name of an alternative text-to-speech service to use in phone calls
+        :param bool psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.verify.v2.service.ServiceInstance

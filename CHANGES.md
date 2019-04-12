@@ -3,6 +3,25 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2019-04-12] Version 6.26.1
+----------------------------
+**Library**
+- PR #459: Add py37 to TravisCI config. Thanks to @childish-sambino!
+- PR #458: Make the Yoyodyne watermark a raw string. Thanks to @childish-sambino!
+
+**Flex**
+- Adding PluginService to Flex Configuration
+
+**Numbers**
+- Add API for Proof of Addresses
+
+**Proxy**
+- Clarify documentation for Service and Session fetch
+
+**Serverless**
+- Serverless scaffolding
+
+
 [2019-03-28] Version 6.26.0
 ----------------------------
 **Api**

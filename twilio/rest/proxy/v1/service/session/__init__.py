@@ -26,7 +26,7 @@ class SessionList(ListResource):
         Initialize the SessionList
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
+        :param service_sid: The SID of the resource's parent Service
 
         :returns: twilio.rest.proxy.v1.service.session.SessionList
         :rtype: twilio.rest.proxy.v1.service.session.SessionList
@@ -124,12 +124,12 @@ class SessionList(ListResource):
         """
         Create a new SessionInstance
 
-        :param unicode unique_name: A unique, developer assigned name of this Session.
-        :param datetime date_expiry: The date this Session should expire
-        :param unicode ttl: TTL for a Session, in seconds.
-        :param SessionInstance.Mode mode: The Mode of this Session
+        :param unicode unique_name: An application-defined string that uniquely identifies the resource
+        :param datetime date_expiry: The ISO 8601 date when the Session should expire
+        :param unicode ttl: When the session will expire
+        :param SessionInstance.Mode mode: The Mode of the Session
         :param SessionInstance.Status status: Session status
-        :param dict participants: The participants
+        :param dict participants: The Participant objects to include in the new session
 
         :returns: Newly created SessionInstance
         :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
@@ -155,7 +155,7 @@ class SessionList(ListResource):
         """
         Constructs a SessionContext
 
-        :param sid: A string that uniquely identifies this Session.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.proxy.v1.service.session.SessionContext
         :rtype: twilio.rest.proxy.v1.service.session.SessionContext
@@ -166,7 +166,7 @@ class SessionList(ListResource):
         """
         Constructs a SessionContext
 
-        :param sid: A string that uniquely identifies this Session.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.proxy.v1.service.session.SessionContext
         :rtype: twilio.rest.proxy.v1.service.session.SessionContext
@@ -193,7 +193,7 @@ class SessionPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: Service Sid.
+        :param service_sid: The SID of the resource's parent Service
 
         :returns: twilio.rest.proxy.v1.service.session.SessionPage
         :rtype: twilio.rest.proxy.v1.service.session.SessionPage
@@ -233,8 +233,8 @@ class SessionContext(InstanceContext):
         Initialize the SessionContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
-        :param sid: A string that uniquely identifies this Session.
+        :param service_sid: The SID of the Service to fetch the resource from
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.proxy.v1.service.session.SessionContext
         :rtype: twilio.rest.proxy.v1.service.session.SessionContext
@@ -285,11 +285,11 @@ class SessionContext(InstanceContext):
         """
         Update the SessionInstance
 
-        :param datetime date_expiry: The date this Session should expire
-        :param unicode ttl: TTL for a Session, in seconds.
-        :param SessionInstance.Mode mode: The mode
-        :param SessionInstance.Status status: The Status of this Session
-        :param dict participants: The participants
+        :param datetime date_expiry: The ISO 8601 date when the Session should expire
+        :param unicode ttl: When the session will expire
+        :param SessionInstance.Mode mode: The Mode of the Session
+        :param SessionInstance.Status status: The new status of the resource
+        :param dict participants: The Participant objects to include in the session
 
         :returns: Updated SessionInstance
         :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
@@ -427,7 +427,7 @@ class SessionInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this Session.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -435,7 +435,7 @@ class SessionInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: Service Sid.
+        :returns: The SID of the resource's parent Service
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -443,7 +443,7 @@ class SessionInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -451,7 +451,7 @@ class SessionInstance(InstanceResource):
     @property
     def date_started(self):
         """
-        :returns: The date this Session was started
+        :returns: The ISO 8601 date when the Session started
         :rtype: datetime
         """
         return self._properties['date_started']
@@ -459,7 +459,7 @@ class SessionInstance(InstanceResource):
     @property
     def date_ended(self):
         """
-        :returns: The date this Session was ended
+        :returns: The ISO 8601 date when the Session ended
         :rtype: datetime
         """
         return self._properties['date_ended']
@@ -467,7 +467,7 @@ class SessionInstance(InstanceResource):
     @property
     def date_last_interaction(self):
         """
-        :returns: The date this Session last had an interaction
+        :returns: The ISO 8601 date when the Session last had an interaction
         :rtype: datetime
         """
         return self._properties['date_last_interaction']
@@ -475,7 +475,7 @@ class SessionInstance(InstanceResource):
     @property
     def date_expiry(self):
         """
-        :returns: The date this Session should expire
+        :returns: The ISO 8601 date when the Session should expire
         :rtype: datetime
         """
         return self._properties['date_expiry']
@@ -483,7 +483,7 @@ class SessionInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: A unique, developer assigned identifier for this Session.
+        :returns: An application-defined string that uniquely identifies the resource
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -491,7 +491,7 @@ class SessionInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: The Status of this Session
+        :returns: The status of the Session
         :rtype: SessionInstance.Status
         """
         return self._properties['status']
@@ -499,7 +499,7 @@ class SessionInstance(InstanceResource):
     @property
     def closed_reason(self):
         """
-        :returns: Reason Session ended.
+        :returns: The reason the Session ended
         :rtype: unicode
         """
         return self._properties['closed_reason']
@@ -507,7 +507,7 @@ class SessionInstance(InstanceResource):
     @property
     def ttl(self):
         """
-        :returns: TTL for a Session, in seconds.
+        :returns: When the session will expire
         :rtype: unicode
         """
         return self._properties['ttl']
@@ -515,7 +515,7 @@ class SessionInstance(InstanceResource):
     @property
     def mode(self):
         """
-        :returns: The Mode of this Session
+        :returns: The Mode of the Session
         :rtype: SessionInstance.Mode
         """
         return self._properties['mode']
@@ -523,7 +523,7 @@ class SessionInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this Session was created
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -531,7 +531,7 @@ class SessionInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this Session was last updated
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -539,7 +539,7 @@ class SessionInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL of this resource.
+        :returns: The absolute URL of the Session resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -547,7 +547,7 @@ class SessionInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: Nested resource URLs.
+        :returns: The URLs of resources related to the Session
         :rtype: unicode
         """
         return self._properties['links']
@@ -575,11 +575,11 @@ class SessionInstance(InstanceResource):
         """
         Update the SessionInstance
 
-        :param datetime date_expiry: The date this Session should expire
-        :param unicode ttl: TTL for a Session, in seconds.
-        :param SessionInstance.Mode mode: The mode
-        :param SessionInstance.Status status: The Status of this Session
-        :param dict participants: The participants
+        :param datetime date_expiry: The ISO 8601 date when the Session should expire
+        :param unicode ttl: When the session will expire
+        :param SessionInstance.Mode mode: The Mode of the Session
+        :param SessionInstance.Status status: The new status of the resource
+        :param dict participants: The Participant objects to include in the session
 
         :returns: Updated SessionInstance
         :rtype: twilio.rest.proxy.v1.service.session.SessionInstance

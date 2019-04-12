@@ -126,14 +126,14 @@ class ServiceList(ListResource):
         """
         Create a new ServiceInstance
 
-        :param unicode unique_name: The human-readable string that uniquely identifies this Service.
-        :param unicode default_ttl: Default TTL for Sessions in Service, in seconds.
-        :param unicode callback_url: URL Twilio will send callbacks to
-        :param ServiceInstance.GeoMatchLevel geo_match_level: Whether proxy number selected must be in the same area code as the participant identifier.
-        :param ServiceInstance.NumberSelectionBehavior number_selection_behavior: What behavior to use when choosing a proxy number.
-        :param unicode intercept_callback_url: A URL for Twilio call before each Interaction.
-        :param unicode out_of_session_callback_url: A URL for Twilio call when a new Interaction has no Session.
-        :param unicode chat_instance_sid: The Chat Service Instance sid managed by Proxy Service
+        :param unicode unique_name: An application-defined string that uniquely identifies the resource
+        :param unicode default_ttl: Default TTL for a Session, in seconds
+        :param unicode callback_url: The URL we should call when the interaction status changes
+        :param ServiceInstance.GeoMatchLevel geo_match_level: Where a proxy number must be located relative to the participant identifier
+        :param ServiceInstance.NumberSelectionBehavior number_selection_behavior: The preference for Proxy Number selection for the Service instance
+        :param unicode intercept_callback_url: The URL we call on each interaction
+        :param unicode out_of_session_callback_url: The URL we call when an inbound call or SMS action occurs on a closed or non-existent Session
+        :param unicode chat_instance_sid: The SID of the Chat Service Instance
 
         :returns: Newly created ServiceInstance
         :rtype: twilio.rest.proxy.v1.service.ServiceInstance
@@ -161,7 +161,7 @@ class ServiceList(ListResource):
         """
         Constructs a ServiceContext
 
-        :param sid: A string that uniquely identifies this Service.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.proxy.v1.service.ServiceContext
         :rtype: twilio.rest.proxy.v1.service.ServiceContext
@@ -172,7 +172,7 @@ class ServiceList(ListResource):
         """
         Constructs a ServiceContext
 
-        :param sid: A string that uniquely identifies this Service.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.proxy.v1.service.ServiceContext
         :rtype: twilio.rest.proxy.v1.service.ServiceContext
@@ -238,7 +238,7 @@ class ServiceContext(InstanceContext):
         Initialize the ServiceContext
 
         :param Version version: Version that contains the resource
-        :param sid: A string that uniquely identifies this Service.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.proxy.v1.service.ServiceContext
         :rtype: twilio.rest.proxy.v1.service.ServiceContext
@@ -289,14 +289,14 @@ class ServiceContext(InstanceContext):
         """
         Update the ServiceInstance
 
-        :param unicode unique_name: A human-readable description of this resource.
-        :param unicode default_ttl: Default TTL for Sessions in Service, in seconds.
-        :param unicode callback_url: URL Twilio will send callbacks to
-        :param ServiceInstance.GeoMatchLevel geo_match_level: Whether proxy number selected must be in the same area code as the participant identifier.
-        :param ServiceInstance.NumberSelectionBehavior number_selection_behavior: What behavior to use when choosing a proxy number.
-        :param unicode intercept_callback_url: A URL for Twilio call before each Interaction.
-        :param unicode out_of_session_callback_url: A URL for Twilio call when a new Interaction has no Session.
-        :param unicode chat_instance_sid: The Chat Service Instance sid managed by Proxy Service
+        :param unicode unique_name: An application-defined string that uniquely identifies the resource
+        :param unicode default_ttl: Default TTL for a Session, in seconds
+        :param unicode callback_url: The URL we should call when the interaction status changes
+        :param ServiceInstance.GeoMatchLevel geo_match_level: Where a proxy number must be located relative to the participant identifier
+        :param ServiceInstance.NumberSelectionBehavior number_selection_behavior: The preference for Proxy Number selection for the Service instance
+        :param unicode intercept_callback_url: The URL we call on each interaction
+        :param unicode out_of_session_callback_url: The URL we call when an inbound call or SMS action occurs on a closed or non-existent Session
+        :param unicode chat_instance_sid: The SID of the Chat Service Instance
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.proxy.v1.service.ServiceInstance
@@ -428,7 +428,7 @@ class ServiceInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this Service.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -436,7 +436,7 @@ class ServiceInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: A human-readable description of this resource.
+        :returns: An application-defined string that uniquely identifies the resource
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -444,7 +444,7 @@ class ServiceInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -452,7 +452,7 @@ class ServiceInstance(InstanceResource):
     @property
     def chat_instance_sid(self):
         """
-        :returns: The Chat Service Instance sid managed by Proxy Service
+        :returns: The SID of the Chat Service Instance
         :rtype: unicode
         """
         return self._properties['chat_instance_sid']
@@ -460,7 +460,7 @@ class ServiceInstance(InstanceResource):
     @property
     def callback_url(self):
         """
-        :returns: URL Twilio will send callbacks to
+        :returns: The URL we call when the interaction status changes
         :rtype: unicode
         """
         return self._properties['callback_url']
@@ -468,7 +468,7 @@ class ServiceInstance(InstanceResource):
     @property
     def default_ttl(self):
         """
-        :returns: Default TTL for a Session, in seconds.
+        :returns: Default TTL for a Session, in seconds
         :rtype: unicode
         """
         return self._properties['default_ttl']
@@ -476,7 +476,7 @@ class ServiceInstance(InstanceResource):
     @property
     def number_selection_behavior(self):
         """
-        :returns: What behavior to use when choosing a proxy number.
+        :returns: The preference for Proxy Number selection for the Service instance
         :rtype: ServiceInstance.NumberSelectionBehavior
         """
         return self._properties['number_selection_behavior']
@@ -484,7 +484,7 @@ class ServiceInstance(InstanceResource):
     @property
     def geo_match_level(self):
         """
-        :returns: Whether proxy number selected must be in the same area code as the participant identifier.
+        :returns: Where a proxy number must be located relative to the participant identifier
         :rtype: ServiceInstance.GeoMatchLevel
         """
         return self._properties['geo_match_level']
@@ -492,7 +492,7 @@ class ServiceInstance(InstanceResource):
     @property
     def intercept_callback_url(self):
         """
-        :returns: A URL for Twilio call before each Interaction.
+        :returns: The URL we call on each interaction
         :rtype: unicode
         """
         return self._properties['intercept_callback_url']
@@ -500,7 +500,7 @@ class ServiceInstance(InstanceResource):
     @property
     def out_of_session_callback_url(self):
         """
-        :returns: A URL for Twilio call when a new Interaction has no Session.
+        :returns: The URL we call when an inbound call or SMS action occurs on a closed or non-existent Session
         :rtype: unicode
         """
         return self._properties['out_of_session_callback_url']
@@ -508,7 +508,7 @@ class ServiceInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this Service was created
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -516,7 +516,7 @@ class ServiceInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this Service was last updated
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -524,7 +524,7 @@ class ServiceInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL of this resource.
+        :returns: The absolute URL of the Service resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -532,7 +532,7 @@ class ServiceInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: Nested resource URLs.
+        :returns: The URLs of resources related to the Service
         :rtype: unicode
         """
         return self._properties['links']
@@ -564,14 +564,14 @@ class ServiceInstance(InstanceResource):
         """
         Update the ServiceInstance
 
-        :param unicode unique_name: A human-readable description of this resource.
-        :param unicode default_ttl: Default TTL for Sessions in Service, in seconds.
-        :param unicode callback_url: URL Twilio will send callbacks to
-        :param ServiceInstance.GeoMatchLevel geo_match_level: Whether proxy number selected must be in the same area code as the participant identifier.
-        :param ServiceInstance.NumberSelectionBehavior number_selection_behavior: What behavior to use when choosing a proxy number.
-        :param unicode intercept_callback_url: A URL for Twilio call before each Interaction.
-        :param unicode out_of_session_callback_url: A URL for Twilio call when a new Interaction has no Session.
-        :param unicode chat_instance_sid: The Chat Service Instance sid managed by Proxy Service
+        :param unicode unique_name: An application-defined string that uniquely identifies the resource
+        :param unicode default_ttl: Default TTL for a Session, in seconds
+        :param unicode callback_url: The URL we should call when the interaction status changes
+        :param ServiceInstance.GeoMatchLevel geo_match_level: Where a proxy number must be located relative to the participant identifier
+        :param ServiceInstance.NumberSelectionBehavior number_selection_behavior: The preference for Proxy Number selection for the Service instance
+        :param unicode intercept_callback_url: The URL we call on each interaction
+        :param unicode out_of_session_callback_url: The URL we call when an inbound call or SMS action occurs on a closed or non-existent Session
+        :param unicode chat_instance_sid: The SID of the Chat Service Instance
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.proxy.v1.service.ServiceInstance

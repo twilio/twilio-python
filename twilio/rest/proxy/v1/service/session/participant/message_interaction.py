@@ -24,9 +24,9 @@ class MessageInteractionList(ListResource):
         Initialize the MessageInteractionList
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
-        :param session_sid: Session Sid.
-        :param participant_sid: Participant Sid.
+        :param service_sid: The SID of the resource's parent Service
+        :param session_sid: The SID of the resource's parent Session
+        :param participant_sid: The SID of the Participant resource
 
         :returns: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionList
         :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionList
@@ -46,7 +46,7 @@ class MessageInteractionList(ListResource):
         Create a new MessageInteractionInstance
 
         :param unicode body: Message body
-        :param unicode media_url: Not supported in beta
+        :param unicode media_url: Reserved
 
         :returns: Newly created MessageInteractionInstance
         :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionInstance
@@ -152,7 +152,7 @@ class MessageInteractionList(ListResource):
         """
         Constructs a MessageInteractionContext
 
-        :param sid: The sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionContext
         :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionContext
@@ -169,7 +169,7 @@ class MessageInteractionList(ListResource):
         """
         Constructs a MessageInteractionContext
 
-        :param sid: The sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionContext
         :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionContext
@@ -202,9 +202,9 @@ class MessageInteractionPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: Service Sid.
-        :param session_sid: Session Sid.
-        :param participant_sid: Participant Sid.
+        :param service_sid: The SID of the resource's parent Service
+        :param session_sid: The SID of the resource's parent Session
+        :param participant_sid: The SID of the Participant resource
 
         :returns: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionPage
         :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionPage
@@ -250,10 +250,10 @@ class MessageInteractionContext(InstanceContext):
         Initialize the MessageInteractionContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
-        :param session_sid: The session_sid
-        :param participant_sid: The participant_sid
-        :param sid: The sid
+        :param service_sid: The SID of the Service to fetch the resource from
+        :param session_sid: The SID of the parent Session
+        :param participant_sid: The SID of the Participant resource
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionContext
         :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionContext
@@ -401,7 +401,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this Message Interaction.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -409,7 +409,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def session_sid(self):
         """
-        :returns: Session Sid.
+        :returns: The SID of the resource's parent Session
         :rtype: unicode
         """
         return self._properties['session_sid']
@@ -417,7 +417,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: Service Sid.
+        :returns: The SID of the resource's parent Service
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -425,7 +425,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -433,7 +433,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def data(self):
         """
-        :returns: Message body
+        :returns: A JSON string that includes the message body sent to the participant
         :rtype: unicode
         """
         return self._properties['data']
@@ -441,7 +441,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def type(self):
         """
-        :returns: The Type of this Message Interaction
+        :returns: The Type of Message Interaction
         :rtype: MessageInteractionInstance.Type
         """
         return self._properties['type']
@@ -449,7 +449,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def participant_sid(self):
         """
-        :returns: Participant Sid.
+        :returns: The SID of the Participant resource
         :rtype: unicode
         """
         return self._properties['participant_sid']
@@ -457,7 +457,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def inbound_participant_sid(self):
         """
-        :returns: Always empty for Message Interactions.
+        :returns: Always empty for Message Interactions
         :rtype: unicode
         """
         return self._properties['inbound_participant_sid']
@@ -465,7 +465,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def inbound_resource_sid(self):
         """
-        :returns: Always empty for Message Interactions.
+        :returns: Always empty for Message Interactions
         :rtype: unicode
         """
         return self._properties['inbound_resource_sid']
@@ -473,7 +473,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def inbound_resource_status(self):
         """
-        :returns: Always empty for Message Interactions.
+        :returns: Always empty for Message Interactions
         :rtype: MessageInteractionInstance.ResourceStatus
         """
         return self._properties['inbound_resource_status']
@@ -481,7 +481,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def inbound_resource_type(self):
         """
-        :returns: Always empty for Message Interactions.
+        :returns: Always empty for Message Interactions
         :rtype: unicode
         """
         return self._properties['inbound_resource_type']
@@ -489,7 +489,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def inbound_resource_url(self):
         """
-        :returns: Always empty for Message Interactions.
+        :returns: Always empty for Message Interactions
         :rtype: unicode
         """
         return self._properties['inbound_resource_url']
@@ -497,7 +497,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def outbound_participant_sid(self):
         """
-        :returns: Outbound Participant Sid.
+        :returns: The SID of the outbound Participant resource
         :rtype: unicode
         """
         return self._properties['outbound_participant_sid']
@@ -505,7 +505,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def outbound_resource_sid(self):
         """
-        :returns: Outbound message resource Sid.
+        :returns: The SID of the outbound Message resource
         :rtype: unicode
         """
         return self._properties['outbound_resource_sid']
@@ -513,7 +513,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def outbound_resource_status(self):
         """
-        :returns: The Outbound Resource Status of this Message Interaction
+        :returns: The outbound resource status
         :rtype: MessageInteractionInstance.ResourceStatus
         """
         return self._properties['outbound_resource_status']
@@ -521,7 +521,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def outbound_resource_type(self):
         """
-        :returns: Message
+        :returns: The outbound resource type
         :rtype: unicode
         """
         return self._properties['outbound_resource_type']
@@ -529,7 +529,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def outbound_resource_url(self):
         """
-        :returns: The URL of the Twilio message resource.
+        :returns: The URL of the Twilio message resource
         :rtype: unicode
         """
         return self._properties['outbound_resource_url']
@@ -537,7 +537,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this Message Interaction was created
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -545,7 +545,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this Message Interaction was last updated
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -553,7 +553,7 @@ class MessageInteractionInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL of this resource.
+        :returns: The absolute URL of the MessageInteraction resource
         :rtype: unicode
         """
         return self._properties['url']
