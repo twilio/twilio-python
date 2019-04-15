@@ -336,7 +336,7 @@ class QueueInstance(InstanceResource):
             'max_size': deserialize.integer(payload['max_size']),
             'sid': payload['sid'],
             'uri': payload['uri'],
-            'subresource_uris': payload['subresource_uris'],
+            'subresource_uris': payload.get('subresource_uris'),
         }
 
         # Context
