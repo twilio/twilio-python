@@ -7,7 +7,7 @@ WORKDIR /twilio
 
 COPY setup.py .
 COPY requirements.txt .
-COPY README.rst .
+COPY README.md .
 COPY twilio ./twilio
 
 RUN pip install .
