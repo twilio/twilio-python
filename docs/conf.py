@@ -23,7 +23,7 @@ from twilio import __version__
 # -- Project information -----------------------------------------------------
 
 project = 'twilio-python'
-copyright = '2018, Twilio'
+copyright = '2019, Twilio'
 author = 'Twilio'
 
 # The short X.Y version
@@ -48,6 +48,7 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
+    'recommonmark'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -56,8 +57,10 @@ templates_path = ['source/_templates']
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 #
-# source_suffix = ['.rst', '.md']
-source_suffix = '.rst'
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.md': 'markdown',
+}
 
 # The master toctree document.
 master_doc = 'index'
