@@ -15,8 +15,7 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.join(os.path.abspath('..'), 'twilio'))
-sys.path.append('..')
+sys.path.insert(0, os.path.abspath('..'))
 from twilio import __version__
 
 
