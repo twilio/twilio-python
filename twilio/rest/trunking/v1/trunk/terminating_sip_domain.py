@@ -22,7 +22,7 @@ class TerminatingSipDomainList(ListResource):
         Initialize the TerminatingSipDomainList
 
         :param Version version: Version that contains the resource
-        :param trunk_sid: Unique string to identify an associated trunk
+        :param trunk_sid: The SID of the Trunk to which we should route calls
 
         :returns: twilio.rest.trunking.v1.trunk.terminating_sip_domain.TerminatingSipDomainList
         :rtype: twilio.rest.trunking.v1.trunk.terminating_sip_domain.TerminatingSipDomainList
@@ -37,7 +37,7 @@ class TerminatingSipDomainList(ListResource):
         """
         Create a new TerminatingSipDomainInstance
 
-        :param unicode sip_domain_sid: The SID of the SIP Domain to associate.
+        :param unicode sip_domain_sid: The SID of the SIP Domain to associate with the trunk
 
         :returns: Newly created TerminatingSipDomainInstance
         :rtype: twilio.rest.trunking.v1.trunk.terminating_sip_domain.TerminatingSipDomainInstance
@@ -137,7 +137,7 @@ class TerminatingSipDomainList(ListResource):
         """
         Constructs a TerminatingSipDomainContext
 
-        :param sid: The unique sid of the domain.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.trunking.v1.trunk.terminating_sip_domain.TerminatingSipDomainContext
         :rtype: twilio.rest.trunking.v1.trunk.terminating_sip_domain.TerminatingSipDomainContext
@@ -148,7 +148,7 @@ class TerminatingSipDomainList(ListResource):
         """
         Constructs a TerminatingSipDomainContext
 
-        :param sid: The unique sid of the domain.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.trunking.v1.trunk.terminating_sip_domain.TerminatingSipDomainContext
         :rtype: twilio.rest.trunking.v1.trunk.terminating_sip_domain.TerminatingSipDomainContext
@@ -174,7 +174,7 @@ class TerminatingSipDomainPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param trunk_sid: Unique string to identify an associated trunk
+        :param trunk_sid: The SID of the Trunk to which we should route calls
 
         :returns: twilio.rest.trunking.v1.trunk.terminating_sip_domain.TerminatingSipDomainPage
         :rtype: twilio.rest.trunking.v1.trunk.terminating_sip_domain.TerminatingSipDomainPage
@@ -213,8 +213,8 @@ class TerminatingSipDomainContext(InstanceContext):
         Initialize the TerminatingSipDomainContext
 
         :param Version version: Version that contains the resource
-        :param trunk_sid: The unique sid of the trunk.
-        :param sid: The unique sid of the domain.
+        :param trunk_sid: The SID of the Trunk with the resource to fetch
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.trunking.v1.trunk.terminating_sip_domain.TerminatingSipDomainContext
         :rtype: twilio.rest.trunking.v1.trunk.terminating_sip_domain.TerminatingSipDomainContext
@@ -325,7 +325,7 @@ class TerminatingSipDomainInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the account responsible for this domain
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -333,7 +333,7 @@ class TerminatingSipDomainInstance(InstanceResource):
     @property
     def api_version(self):
         """
-        :returns: The Twilio API version used to process the call
+        :returns: The API version used to process the call
         :rtype: unicode
         """
         return self._properties['api_version']
@@ -349,7 +349,7 @@ class TerminatingSipDomainInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this resource was created
+        :returns: The RFC 2822 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -357,7 +357,7 @@ class TerminatingSipDomainInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this resource was last updated
+        :returns: The RFC 2822 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -365,7 +365,7 @@ class TerminatingSipDomainInstance(InstanceResource):
     @property
     def domain_name(self):
         """
-        :returns: The unique address on Twilio to route SIP traffic
+        :returns: The unique address you reserve on Twilio to which you route your SIP traffic
         :rtype: unicode
         """
         return self._properties['domain_name']
@@ -373,7 +373,7 @@ class TerminatingSipDomainInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A user-specified, human-readable name for the domain.
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -381,7 +381,7 @@ class TerminatingSipDomainInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies the SIP Domain
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -389,7 +389,7 @@ class TerminatingSipDomainInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -397,7 +397,7 @@ class TerminatingSipDomainInstance(InstanceResource):
     @property
     def voice_fallback_method(self):
         """
-        :returns: HTTP method used with voice_fallback_url
+        :returns: The HTTP method used with voice_fallback_url
         :rtype: unicode
         """
         return self._properties['voice_fallback_method']
@@ -405,7 +405,7 @@ class TerminatingSipDomainInstance(InstanceResource):
     @property
     def voice_fallback_url(self):
         """
-        :returns: URL Twilio will request if an error occurs in executing TwiML
+        :returns: The URL that we call when an error occurs in executing TwiML
         :rtype: unicode
         """
         return self._properties['voice_fallback_url']
@@ -413,7 +413,7 @@ class TerminatingSipDomainInstance(InstanceResource):
     @property
     def voice_method(self):
         """
-        :returns: HTTP method to use with voice_url
+        :returns: The HTTP method used with voice_url
         :rtype: unicode
         """
         return self._properties['voice_method']
@@ -421,7 +421,7 @@ class TerminatingSipDomainInstance(InstanceResource):
     @property
     def voice_status_callback_method(self):
         """
-        :returns: The HTTP method Twilio will use to make requests to the StatusCallback URL.
+        :returns: The HTTP method that we use to call the voice_status_callback_url
         :rtype: unicode
         """
         return self._properties['voice_status_callback_method']
@@ -429,7 +429,7 @@ class TerminatingSipDomainInstance(InstanceResource):
     @property
     def voice_status_callback_url(self):
         """
-        :returns: URL that Twilio will request with status updates
+        :returns: The URL that we call to pass status parameters to your application
         :rtype: unicode
         """
         return self._properties['voice_status_callback_url']
@@ -437,7 +437,7 @@ class TerminatingSipDomainInstance(InstanceResource):
     @property
     def voice_url(self):
         """
-        :returns: URL Twilio will request when receiving a call
+        :returns: The URL we call when the domain receives a call
         :rtype: unicode
         """
         return self._properties['voice_url']
@@ -445,7 +445,7 @@ class TerminatingSipDomainInstance(InstanceResource):
     @property
     def sip_registration(self):
         """
-        :returns: If SIP registration is allowed
+        :returns: Whether SIP Endpoints can register with the domain to receive calls
         :rtype: bool
         """
         return self._properties['sip_registration']
@@ -453,7 +453,7 @@ class TerminatingSipDomainInstance(InstanceResource):
     @property
     def trunk_sid(self):
         """
-        :returns: Unique string to identify an associated trunk
+        :returns: The SID of the Trunk to which we should route calls
         :rtype: unicode
         """
         return self._properties['trunk_sid']
@@ -461,7 +461,7 @@ class TerminatingSipDomainInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links
+        :returns: The URLs of related resources
         :rtype: unicode
         """
         return self._properties['links']

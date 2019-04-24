@@ -24,8 +24,8 @@ class FieldValueList(ListResource):
         Initialize the FieldValueList
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the Assistant.
-        :param field_type_sid: The unique ID of the Field Type associated with this Field Value.
+        :param assistant_sid: The SID of the Assistant that is the parent of the FieldType associated with the resource
+        :param field_type_sid: The SID of the Field Type associated with the Field Value
 
         :returns: twilio.rest.autopilot.v1.assistant.field_type.field_value.FieldValueList
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.field_value.FieldValueList
@@ -43,7 +43,7 @@ class FieldValueList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode language: An ISO language-country string that specifies the language used for this field value. For example: en-US
+        :param unicode language: The ISO language-country tag that identifies the language of the value
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -66,7 +66,7 @@ class FieldValueList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode language: An ISO language-country string that specifies the language used for this field value. For example: en-US
+        :param unicode language: The ISO language-country tag that identifies the language of the value
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -85,7 +85,7 @@ class FieldValueList(ListResource):
         Retrieve a single page of FieldValueInstance records from the API.
         Request is executed immediately
 
-        :param unicode language: An ISO language-country string that specifies the language used for this field value. For example: en-US
+        :param unicode language: The ISO language-country tag that identifies the language of the value
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -129,9 +129,9 @@ class FieldValueList(ListResource):
         """
         Create a new FieldValueInstance
 
-        :param unicode language: An ISO language-country string that specifies the language used for this field value. For example: en-US
-        :param unicode value: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-        :param unicode synonym_of: A string value that indicates which word this field value is a synonym of.
+        :param unicode language: The ISO language-country tag that identifies the language of the value
+        :param unicode value: The Field Value data
+        :param unicode synonym_of: The string value that indicates which word the field value is a synonym of
 
         :returns: Newly created FieldValueInstance
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.field_value.FieldValueInstance
@@ -155,7 +155,7 @@ class FieldValueList(ListResource):
         """
         Constructs a FieldValueContext
 
-        :param sid: A 34 character string that uniquely identifies this resource
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.field_type.field_value.FieldValueContext
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.field_value.FieldValueContext
@@ -171,7 +171,7 @@ class FieldValueList(ListResource):
         """
         Constructs a FieldValueContext
 
-        :param sid: A 34 character string that uniquely identifies this resource
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.field_type.field_value.FieldValueContext
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.field_value.FieldValueContext
@@ -204,8 +204,8 @@ class FieldValuePage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param assistant_sid: The unique ID of the Assistant.
-        :param field_type_sid: The unique ID of the Field Type associated with this Field Value.
+        :param assistant_sid: The SID of the Assistant that is the parent of the FieldType associated with the resource
+        :param field_type_sid: The SID of the Field Type associated with the Field Value
 
         :returns: twilio.rest.autopilot.v1.assistant.field_type.field_value.FieldValuePage
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.field_value.FieldValuePage
@@ -251,9 +251,9 @@ class FieldValueContext(InstanceContext):
         Initialize the FieldValueContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the Assistant
-        :param field_type_sid: The unique ID of the Field Type associated with this Field Value
-        :param sid: A 34 character string that uniquely identifies this resource
+        :param assistant_sid: The SID of the Assistant that is the parent of the FieldType associated with the resource to fetch
+        :param field_type_sid: The SID of the Field Type associated with  the Field Value to fetch
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.field_type.field_value.FieldValueContext
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.field_value.FieldValueContext
@@ -364,7 +364,7 @@ class FieldValueInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique ID of the Account that created this Field Value.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -372,7 +372,7 @@ class FieldValueInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this resource was created
+        :returns: The RFC 2822 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -380,7 +380,7 @@ class FieldValueInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date that this resource was last updated
+        :returns: The RFC 2822 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -388,7 +388,7 @@ class FieldValueInstance(InstanceResource):
     @property
     def field_type_sid(self):
         """
-        :returns: The unique ID of the Field Type associated with this Field Value.
+        :returns: The SID of the Field Type associated with the Field Value
         :rtype: unicode
         """
         return self._properties['field_type_sid']
@@ -396,7 +396,7 @@ class FieldValueInstance(InstanceResource):
     @property
     def language(self):
         """
-        :returns: An ISO language-country string of the value (currently supported: `en-US`, `nl-NL`)
+        :returns: The ISO language-country tag that identifies the language of the value
         :rtype: unicode
         """
         return self._properties['language']
@@ -404,7 +404,7 @@ class FieldValueInstance(InstanceResource):
     @property
     def assistant_sid(self):
         """
-        :returns: The unique ID of the Assistant.
+        :returns: The SID of the Assistant that is the parent of the FieldType associated with the resource
         :rtype: unicode
         """
         return self._properties['assistant_sid']
@@ -412,7 +412,7 @@ class FieldValueInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34 character string that uniquely identifies this resource.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -420,7 +420,7 @@ class FieldValueInstance(InstanceResource):
     @property
     def value(self):
         """
-        :returns: The Field Value itself.
+        :returns: The Field Value data
         :rtype: unicode
         """
         return self._properties['value']
@@ -428,7 +428,7 @@ class FieldValueInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the FieldValue resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -436,7 +436,7 @@ class FieldValueInstance(InstanceResource):
     @property
     def synonym_of(self):
         """
-        :returns: A string value that indicates which word this field value is a synonym of.
+        :returns: The word for which the field value is a synonym of
         :rtype: unicode
         """
         return self._properties['synonym_of']

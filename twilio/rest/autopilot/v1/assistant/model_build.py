@@ -24,7 +24,7 @@ class ModelBuildList(ListResource):
         Initialize the ModelBuildList
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the parent Assistant.
+        :param assistant_sid: The SID of the Assistant that is the parent of the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildList
         :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildList
@@ -120,8 +120,8 @@ class ModelBuildList(ListResource):
         """
         Create a new ModelBuildInstance
 
-        :param unicode status_callback: The status_callback
-        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
+        :param unicode status_callback: The URL we should call using a POST method to send status information to your application
+        :param unicode unique_name: An application-defined string that uniquely identifies the new resource
 
         :returns: Newly created ModelBuildInstance
         :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance
@@ -140,7 +140,7 @@ class ModelBuildList(ListResource):
         """
         Constructs a ModelBuildContext
 
-        :param sid: A 34-character string that uniquely identifies this resource.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildContext
         :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildContext
@@ -151,7 +151,7 @@ class ModelBuildList(ListResource):
         """
         Constructs a ModelBuildContext
 
-        :param sid: A 34-character string that uniquely identifies this resource.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildContext
         :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildContext
@@ -179,7 +179,7 @@ class ModelBuildPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param assistant_sid: The unique ID of the parent Assistant.
+        :param assistant_sid: The SID of the Assistant that is the parent of the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildPage
         :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildPage
@@ -220,8 +220,8 @@ class ModelBuildContext(InstanceContext):
         Initialize the ModelBuildContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the parent Assistant.
-        :param sid: A 34-character string that uniquely identifies this resource.
+        :param assistant_sid: The SID of the Assistant that is the parent of the resource to fetch
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildContext
         :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildContext
@@ -258,7 +258,7 @@ class ModelBuildContext(InstanceContext):
         """
         Update the ModelBuildInstance
 
-        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
+        :param unicode unique_name: An application-defined string that uniquely identifies the resource
 
         :returns: Updated ModelBuildInstance
         :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance
@@ -357,7 +357,7 @@ class ModelBuildInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique ID of the Account that created this Model Build.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -365,7 +365,7 @@ class ModelBuildInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this resource was created
+        :returns: The RFC 2822 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -373,7 +373,7 @@ class ModelBuildInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date that this resource was last updated
+        :returns: The RFC 2822 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -381,7 +381,7 @@ class ModelBuildInstance(InstanceResource):
     @property
     def assistant_sid(self):
         """
-        :returns: The unique ID of the parent Assistant.
+        :returns: The SID of the Assistant that is the parent of the resource
         :rtype: unicode
         """
         return self._properties['assistant_sid']
@@ -389,7 +389,7 @@ class ModelBuildInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34-character string that uniquely identifies this resource.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -397,7 +397,7 @@ class ModelBuildInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: A string that described the model build status. The values can be: `enqueued`, `building`, `completed`, `failed`
+        :returns: The status of the model build process
         :rtype: ModelBuildInstance.Status
         """
         return self._properties['status']
@@ -405,7 +405,7 @@ class ModelBuildInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :returns: An application-defined string that uniquely identifies the resource
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -413,7 +413,7 @@ class ModelBuildInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the ModelBuild resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -421,7 +421,7 @@ class ModelBuildInstance(InstanceResource):
     @property
     def build_duration(self):
         """
-        :returns: The time in seconds it took to build the model.
+        :returns: The time in seconds it took to build the model
         :rtype: unicode
         """
         return self._properties['build_duration']
@@ -429,7 +429,7 @@ class ModelBuildInstance(InstanceResource):
     @property
     def error_code(self):
         """
-        :returns: The error_code
+        :returns: More information about why the model build failed, if `status` is `failed`
         :rtype: unicode
         """
         return self._properties['error_code']
@@ -447,7 +447,7 @@ class ModelBuildInstance(InstanceResource):
         """
         Update the ModelBuildInstance
 
-        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
+        :param unicode unique_name: An application-defined string that uniquely identifies the resource
 
         :returns: Updated ModelBuildInstance
         :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance

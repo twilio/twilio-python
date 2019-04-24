@@ -24,7 +24,7 @@ class StyleSheetList(ListResource):
         Initialize the StyleSheetList
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the Assistant
+        :param assistant_sid: The SID of the Assistant that is the parent of the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.style_sheet.StyleSheetList
         :rtype: twilio.rest.autopilot.v1.assistant.style_sheet.StyleSheetList
@@ -73,7 +73,7 @@ class StyleSheetPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param assistant_sid: The unique ID of the Assistant
+        :param assistant_sid: The SID of the Assistant that is the parent of the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.style_sheet.StyleSheetPage
         :rtype: twilio.rest.autopilot.v1.assistant.style_sheet.StyleSheetPage
@@ -114,7 +114,7 @@ class StyleSheetContext(InstanceContext):
         Initialize the StyleSheetContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the Assistant
+        :param assistant_sid: The SID of the Assistant with the StyleSheet resource to fetch
 
         :returns: twilio.rest.autopilot.v1.assistant.style_sheet.StyleSheetContext
         :rtype: twilio.rest.autopilot.v1.assistant.style_sheet.StyleSheetContext
@@ -146,7 +146,7 @@ class StyleSheetContext(InstanceContext):
         """
         Update the StyleSheetInstance
 
-        :param dict style_sheet: The JSON Style sheet string
+        :param dict style_sheet: The JSON string that describes the style sheet object
 
         :returns: Updated StyleSheetInstance
         :rtype: twilio.rest.autopilot.v1.assistant.style_sheet.StyleSheetInstance
@@ -214,7 +214,7 @@ class StyleSheetInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique ID of the Account that created this Assistant
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -222,7 +222,7 @@ class StyleSheetInstance(InstanceResource):
     @property
     def assistant_sid(self):
         """
-        :returns: The unique ID of the Assistant
+        :returns: The SID of the Assistant that is the parent of the resource
         :rtype: unicode
         """
         return self._properties['assistant_sid']
@@ -230,7 +230,7 @@ class StyleSheetInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the StyleSheet resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -238,7 +238,7 @@ class StyleSheetInstance(InstanceResource):
     @property
     def data(self):
         """
-        :returns: The JSON style sheet object
+        :returns: The JSON string that describes the style sheet object
         :rtype: dict
         """
         return self._properties['data']
@@ -256,7 +256,7 @@ class StyleSheetInstance(InstanceResource):
         """
         Update the StyleSheetInstance
 
-        :param dict style_sheet: The JSON Style sheet string
+        :param dict style_sheet: The JSON string that describes the style sheet object
 
         :returns: Updated StyleSheetInstance
         :rtype: twilio.rest.autopilot.v1.assistant.style_sheet.StyleSheetInstance

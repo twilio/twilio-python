@@ -59,24 +59,24 @@ class Client(object):
         self._chat = None
         self._fax = None
         self._flex_api = None
+        self._insights = None
         self._ip_messaging = None
         self._lookups = None
+        self._messaging = None
         self._monitor = None
         self._notify = None
         self._preview = None
         self._pricing = None
         self._proxy = None
         self._serverless = None
+        self._studio = None
+        self._sync = None
         self._taskrouter = None
         self._trunking = None
-        self._video = None
-        self._messaging = None
-        self._wireless = None
-        self._sync = None
-        self._studio = None
         self._verify = None
+        self._video = None
         self._voice = None
-        self._insights = None
+        self._wireless = None
 
     def request(self, method, uri, params=None, data=None, headers=None, auth=None,
                 timeout=None, allow_redirects=False):
@@ -221,6 +221,19 @@ class Client(object):
         return self._flex_api
 
     @property
+    def insights(self):
+        """
+        Access the Insights Twilio Domain
+
+        :returns: Insights Twilio Domain
+        :rtype: twilio.rest.insights.Insights
+        """
+        if self._insights is None:
+            from twilio.rest.insights import Insights
+            self._insights = Insights(self)
+        return self._insights
+
+    @property
     def ip_messaging(self):
         """
         Access the IpMessaging Twilio Domain
@@ -245,6 +258,19 @@ class Client(object):
             from twilio.rest.lookups import Lookups
             self._lookups = Lookups(self)
         return self._lookups
+
+    @property
+    def messaging(self):
+        """
+        Access the Messaging Twilio Domain
+
+        :returns: Messaging Twilio Domain
+        :rtype: twilio.rest.messaging.Messaging
+        """
+        if self._messaging is None:
+            from twilio.rest.messaging import Messaging
+            self._messaging = Messaging(self)
+        return self._messaging
 
     @property
     def monitor(self):
@@ -325,6 +351,32 @@ class Client(object):
         return self._serverless
 
     @property
+    def studio(self):
+        """
+        Access the Studio Twilio Domain
+
+        :returns: Studio Twilio Domain
+        :rtype: twilio.rest.studio.Studio
+        """
+        if self._studio is None:
+            from twilio.rest.studio import Studio
+            self._studio = Studio(self)
+        return self._studio
+
+    @property
+    def sync(self):
+        """
+        Access the Sync Twilio Domain
+
+        :returns: Sync Twilio Domain
+        :rtype: twilio.rest.sync.Sync
+        """
+        if self._sync is None:
+            from twilio.rest.sync import Sync
+            self._sync = Sync(self)
+        return self._sync
+
+    @property
     def taskrouter(self):
         """
         Access the Taskrouter Twilio Domain
@@ -351,71 +403,6 @@ class Client(object):
         return self._trunking
 
     @property
-    def video(self):
-        """
-        Access the Video Twilio Domain
-
-        :returns: Video Twilio Domain
-        :rtype: twilio.rest.video.Video
-        """
-        if self._video is None:
-            from twilio.rest.video import Video
-            self._video = Video(self)
-        return self._video
-
-    @property
-    def messaging(self):
-        """
-        Access the Messaging Twilio Domain
-
-        :returns: Messaging Twilio Domain
-        :rtype: twilio.rest.messaging.Messaging
-        """
-        if self._messaging is None:
-            from twilio.rest.messaging import Messaging
-            self._messaging = Messaging(self)
-        return self._messaging
-
-    @property
-    def wireless(self):
-        """
-        Access the Wireless Twilio Domain
-
-        :returns: Wireless Twilio Domain
-        :rtype: twilio.rest.wireless.Wireless
-        """
-        if self._wireless is None:
-            from twilio.rest.wireless import Wireless
-            self._wireless = Wireless(self)
-        return self._wireless
-
-    @property
-    def sync(self):
-        """
-        Access the Sync Twilio Domain
-
-        :returns: Sync Twilio Domain
-        :rtype: twilio.rest.sync.Sync
-        """
-        if self._sync is None:
-            from twilio.rest.sync import Sync
-            self._sync = Sync(self)
-        return self._sync
-
-    @property
-    def studio(self):
-        """
-        Access the Studio Twilio Domain
-
-        :returns: Studio Twilio Domain
-        :rtype: twilio.rest.studio.Studio
-        """
-        if self._studio is None:
-            from twilio.rest.studio import Studio
-            self._studio = Studio(self)
-        return self._studio
-
-    @property
     def verify(self):
         """
         Access the Verify Twilio Domain
@@ -427,6 +414,19 @@ class Client(object):
             from twilio.rest.verify import Verify
             self._verify = Verify(self)
         return self._verify
+
+    @property
+    def video(self):
+        """
+        Access the Video Twilio Domain
+
+        :returns: Video Twilio Domain
+        :rtype: twilio.rest.video.Video
+        """
+        if self._video is None:
+            from twilio.rest.video import Video
+            self._video = Video(self)
+        return self._video
 
     @property
     def voice(self):
@@ -442,17 +442,17 @@ class Client(object):
         return self._voice
 
     @property
-    def insights(self):
+    def wireless(self):
         """
-        Access the Insights Twilio Domain
+        Access the Wireless Twilio Domain
 
-        :returns: Insights Twilio Domain
-        :rtype: twilio.rest.insights.Insights
+        :returns: Wireless Twilio Domain
+        :rtype: twilio.rest.wireless.Wireless
         """
-        if self._insights is None:
-            from twilio.rest.insights import Insights
-            self._insights = Insights(self)
-        return self._insights
+        if self._wireless is None:
+            from twilio.rest.wireless import Wireless
+            self._wireless = Wireless(self)
+        return self._wireless
 
     @property
     def addresses(self):

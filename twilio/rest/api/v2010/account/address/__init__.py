@@ -408,6 +408,7 @@ class AddressInstance(InstanceResource):
             'uri': payload['uri'],
             'emergency_enabled': payload['emergency_enabled'],
             'validated': payload['validated'],
+            'verified': payload['verified'],
         }
 
         # Context
@@ -542,6 +543,14 @@ class AddressInstance(InstanceResource):
         :rtype: bool
         """
         return self._properties['validated']
+
+    @property
+    def verified(self):
+        """
+        :returns: Whether the address has been verified to comply with regulation
+        :rtype: bool
+        """
+        return self._properties['verified']
 
     def delete(self):
         """

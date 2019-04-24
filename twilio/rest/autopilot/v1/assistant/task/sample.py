@@ -24,8 +24,8 @@ class SampleList(ListResource):
         Initialize the SampleList
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the Assistant.
-        :param task_sid: The unique ID of the Task associated with this Sample.
+        :param assistant_sid: The SID of the Assistant that is the parent of the Task associated with the resource
+        :param task_sid: The SID of the Task associated with the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.task.sample.SampleList
         :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleList
@@ -43,7 +43,7 @@ class SampleList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode language: An [ISO language-country string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this sample. For example: `en-US`.
+        :param unicode language: The ISO language-country string that specifies the language used for the sample
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -66,7 +66,7 @@ class SampleList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode language: An [ISO language-country string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this sample. For example: `en-US`.
+        :param unicode language: The ISO language-country string that specifies the language used for the sample
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -85,7 +85,7 @@ class SampleList(ListResource):
         Retrieve a single page of SampleInstance records from the API.
         Request is executed immediately
 
-        :param unicode language: An [ISO language-country string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this sample. For example: `en-US`.
+        :param unicode language: The ISO language-country string that specifies the language used for the sample
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -129,9 +129,9 @@ class SampleList(ListResource):
         """
         Create a new SampleInstance
 
-        :param unicode language: An [ISO language-country string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this sample. For example: `en-US`.
-        :param unicode tagged_text: The text example of how end-users may express this task. The sample may contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
-        :param unicode source_channel: The communication channel from which the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included, the value will be `null`
+        :param unicode language: The ISO language-country string that specifies the language used for the new sample
+        :param unicode tagged_text: The text example of how end users might express the task
+        :param unicode source_channel: The communication channel from which the new sample was captured
 
         :returns: Newly created SampleInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
@@ -155,7 +155,7 @@ class SampleList(ListResource):
         """
         Constructs a SampleContext
 
-        :param sid: A 34-character string that uniquely identifies this resource.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.task.sample.SampleContext
         :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleContext
@@ -171,7 +171,7 @@ class SampleList(ListResource):
         """
         Constructs a SampleContext
 
-        :param sid: A 34-character string that uniquely identifies this resource.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.task.sample.SampleContext
         :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleContext
@@ -204,8 +204,8 @@ class SamplePage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param assistant_sid: The unique ID of the Assistant.
-        :param task_sid: The unique ID of the Task associated with this Sample.
+        :param assistant_sid: The SID of the Assistant that is the parent of the Task associated with the resource
+        :param task_sid: The SID of the Task associated with the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.task.sample.SamplePage
         :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SamplePage
@@ -251,9 +251,9 @@ class SampleContext(InstanceContext):
         Initialize the SampleContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the Assistant.
-        :param task_sid: The unique ID of the Task associated with this Sample.
-        :param sid: A 34-character string that uniquely identifies this resource.
+        :param assistant_sid: The SID of the Assistant that is the parent of the Task associated with the resource to fetch
+        :param task_sid: The SID of the Task associated with the Sample resource to create
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.task.sample.SampleContext
         :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleContext
@@ -292,9 +292,9 @@ class SampleContext(InstanceContext):
         """
         Update the SampleInstance
 
-        :param unicode language: An [ISO language-country string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this sample. For example: `en-US`.
-        :param unicode tagged_text: The text example of how end-users may express this task. The sample may contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
-        :param unicode source_channel: The communication channel from which the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included, the value will be `null`
+        :param unicode language: The ISO language-country string that specifies the language used for the sample
+        :param unicode tagged_text: The text example of how end users might express the task
+        :param unicode source_channel: The communication channel from which the sample was captured
 
         :returns: Updated SampleInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
@@ -392,7 +392,7 @@ class SampleInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique ID of the Account that created this Sample.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -400,7 +400,7 @@ class SampleInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this resource was created
+        :returns: The RFC 2822 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -408,7 +408,7 @@ class SampleInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date that this resource was last updated
+        :returns: The RFC 2822 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -416,7 +416,7 @@ class SampleInstance(InstanceResource):
     @property
     def task_sid(self):
         """
-        :returns: The unique ID of the Task associated with this Sample.
+        :returns: The SID of the Task associated with the resource
         :rtype: unicode
         """
         return self._properties['task_sid']
@@ -424,7 +424,7 @@ class SampleInstance(InstanceResource):
     @property
     def language(self):
         """
-        :returns: An [ISO language-country string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this sample. For example: `en-US`.
+        :returns: An ISO language-country string that specifies the language used for the sample
         :rtype: unicode
         """
         return self._properties['language']
@@ -432,7 +432,7 @@ class SampleInstance(InstanceResource):
     @property
     def assistant_sid(self):
         """
-        :returns: The unique ID of the Assistant.
+        :returns: The SID of the Assistant that is the parent of the Task associated with the resource
         :rtype: unicode
         """
         return self._properties['assistant_sid']
@@ -440,7 +440,7 @@ class SampleInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34-character string that uniquely identifies this resource.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -448,7 +448,7 @@ class SampleInstance(InstanceResource):
     @property
     def tagged_text(self):
         """
-        :returns: The text example of how end-users may express this task. The sample may contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
+        :returns: The text example of how end users might express the task
         :rtype: unicode
         """
         return self._properties['tagged_text']
@@ -456,7 +456,7 @@ class SampleInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the Sample resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -464,7 +464,7 @@ class SampleInstance(InstanceResource):
     @property
     def source_channel(self):
         """
-        :returns: The communication channel from which the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included, the value will be `null`
+        :returns: The communication channel from which the sample was captured
         :rtype: unicode
         """
         return self._properties['source_channel']
@@ -483,9 +483,9 @@ class SampleInstance(InstanceResource):
         """
         Update the SampleInstance
 
-        :param unicode language: An [ISO language-country string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this sample. For example: `en-US`.
-        :param unicode tagged_text: The text example of how end-users may express this task. The sample may contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
-        :param unicode source_channel: The communication channel from which the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included, the value will be `null`
+        :param unicode language: The ISO language-country string that specifies the language used for the sample
+        :param unicode tagged_text: The text example of how end users might express the task
+        :param unicode source_channel: The communication channel from which the sample was captured
 
         :returns: Updated SampleInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance

@@ -24,8 +24,8 @@ class FieldList(ListResource):
         Initialize the FieldList
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the Assistant.
-        :param task_sid: The unique ID of the Task associated with this Field.
+        :param assistant_sid: The SID of the Assistant that is the parent of the Task associated with the resource
+        :param task_sid: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) resource associated with this Field
 
         :returns: twilio.rest.autopilot.v1.assistant.task.field.FieldList
         :rtype: twilio.rest.autopilot.v1.assistant.task.field.FieldList
@@ -121,8 +121,8 @@ class FieldList(ListResource):
         """
         Create a new FieldInstance
 
-        :param unicode field_type: The Field Type of this field. It can be either a Built-in Field Type or the unique_name or sid of a custom Field Type.
-        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :param unicode field_type: The Field Type of this field
+        :param unicode unique_name: An application-defined string that uniquely identifies the new resource
 
         :returns: Newly created FieldInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.field.FieldInstance
@@ -146,7 +146,7 @@ class FieldList(ListResource):
         """
         Constructs a FieldContext
 
-        :param sid: A 34-character string that uniquely identifies this resource.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.task.field.FieldContext
         :rtype: twilio.rest.autopilot.v1.assistant.task.field.FieldContext
@@ -162,7 +162,7 @@ class FieldList(ListResource):
         """
         Constructs a FieldContext
 
-        :param sid: A 34-character string that uniquely identifies this resource.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.task.field.FieldContext
         :rtype: twilio.rest.autopilot.v1.assistant.task.field.FieldContext
@@ -195,8 +195,8 @@ class FieldPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param assistant_sid: The unique ID of the Assistant.
-        :param task_sid: The unique ID of the Task associated with this Field.
+        :param assistant_sid: The SID of the Assistant that is the parent of the Task associated with the resource
+        :param task_sid: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) resource associated with this Field
 
         :returns: twilio.rest.autopilot.v1.assistant.task.field.FieldPage
         :rtype: twilio.rest.autopilot.v1.assistant.task.field.FieldPage
@@ -242,9 +242,9 @@ class FieldContext(InstanceContext):
         Initialize the FieldContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the Assistant.
-        :param task_sid: The unique ID of the Task associated with this Field.
-        :param sid: A 34-character string that uniquely identifies this resource.
+        :param assistant_sid: The SID of the Assistant that is the parent of the Task associated with the resource to fetch
+        :param task_sid: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) resource associated with the Field resource to fetch
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.task.field.FieldContext
         :rtype: twilio.rest.autopilot.v1.assistant.task.field.FieldContext
@@ -354,7 +354,7 @@ class FieldInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique ID of the Account that created this Field.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -362,7 +362,7 @@ class FieldInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this resource was created
+        :returns: The RFC 2822 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -370,7 +370,7 @@ class FieldInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date that this resource was last updated
+        :returns: The RFC 2822 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -378,7 +378,7 @@ class FieldInstance(InstanceResource):
     @property
     def field_type(self):
         """
-        :returns: The Field Type of this field. It can be either a Built-in Field Type or the unique_name or sid of a custom Field Type.
+        :returns: The Field Type of the field
         :rtype: unicode
         """
         return self._properties['field_type']
@@ -386,7 +386,7 @@ class FieldInstance(InstanceResource):
     @property
     def task_sid(self):
         """
-        :returns: The unique ID of the Task associated with this Field.
+        :returns: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) resource associated with this Field
         :rtype: unicode
         """
         return self._properties['task_sid']
@@ -394,7 +394,7 @@ class FieldInstance(InstanceResource):
     @property
     def assistant_sid(self):
         """
-        :returns: The unique ID of the Assistant.
+        :returns: The SID of the Assistant that is the parent of the Task associated with the resource
         :rtype: unicode
         """
         return self._properties['assistant_sid']
@@ -402,7 +402,7 @@ class FieldInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34-character string that uniquely identifies this resource.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -410,7 +410,7 @@ class FieldInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :returns: An application-defined string that uniquely identifies the resource
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -418,7 +418,7 @@ class FieldInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the Field resource
         :rtype: unicode
         """
         return self._properties['url']

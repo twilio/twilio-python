@@ -323,6 +323,7 @@ class PhoneNumberInstance(InstanceResource):
             'capabilities': payload['capabilities'],
             'url': payload['url'],
             'is_reserved': payload['is_reserved'],
+            'in_use': deserialize.integer(payload['in_use']),
         }
 
         # Context
@@ -433,6 +434,14 @@ class PhoneNumberInstance(InstanceResource):
         :rtype: bool
         """
         return self._properties['is_reserved']
+
+    @property
+    def in_use(self):
+        """
+        :returns: The number of open session assigned to the number.
+        :rtype: unicode
+        """
+        return self._properties['in_use']
 
     def delete(self):
         """

@@ -25,7 +25,7 @@ class FieldTypeList(ListResource):
         Initialize the FieldTypeList
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the Assistant.
+        :param assistant_sid: The SID of the Assistant that is the parent of the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeList
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeList
@@ -121,8 +121,8 @@ class FieldTypeList(ListResource):
         """
         Create a new FieldTypeInstance
 
-        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-        :param unicode friendly_name: A user-provided string that identifies this resource. It is non-unique and can be up to 255 characters long.
+        :param unicode unique_name: An application-defined string that uniquely identifies the new resource
+        :param unicode friendly_name: A string to describe the new resource
 
         :returns: Newly created FieldTypeInstance
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeInstance
@@ -141,7 +141,7 @@ class FieldTypeList(ListResource):
         """
         Constructs a FieldTypeContext
 
-        :param sid: A 34-character string that uniquely identifies this resource.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeContext
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeContext
@@ -152,7 +152,7 @@ class FieldTypeList(ListResource):
         """
         Constructs a FieldTypeContext
 
-        :param sid: A 34-character string that uniquely identifies this resource.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeContext
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeContext
@@ -180,7 +180,7 @@ class FieldTypePage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param assistant_sid: The unique ID of the Assistant.
+        :param assistant_sid: The SID of the Assistant that is the parent of the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.field_type.FieldTypePage
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.FieldTypePage
@@ -221,8 +221,8 @@ class FieldTypeContext(InstanceContext):
         Initialize the FieldTypeContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the Assistant.
-        :param sid: A 34-character string that uniquely identifies this resource.
+        :param assistant_sid: The SID of the Assistant that is the parent of the resource to fetch
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeContext
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeContext
@@ -262,8 +262,8 @@ class FieldTypeContext(InstanceContext):
         """
         Update the FieldTypeInstance
 
-        :param unicode friendly_name: A user-provided string that identifies this resource. It is non-unique and can be up to 255 characters long.
-        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode unique_name: An application-defined string that uniquely identifies the resource
 
         :returns: Updated FieldTypeInstance
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeInstance
@@ -370,7 +370,7 @@ class FieldTypeInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique ID of the Account that created this Field Type.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -378,7 +378,7 @@ class FieldTypeInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this resource was created
+        :returns: The RFC 2822 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -386,7 +386,7 @@ class FieldTypeInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date that this resource was last updated
+        :returns: The RFC 2822 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -394,7 +394,7 @@ class FieldTypeInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A user-provided string that identifies this resource. It is non-unique and can be up to 255 characters long.
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -402,7 +402,7 @@ class FieldTypeInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links
+        :returns: A list of the URLs of related resources
         :rtype: unicode
         """
         return self._properties['links']
@@ -410,7 +410,7 @@ class FieldTypeInstance(InstanceResource):
     @property
     def assistant_sid(self):
         """
-        :returns: The unique ID of the Assistant.
+        :returns: The SID of the Assistant that is the parent of the resource
         :rtype: unicode
         """
         return self._properties['assistant_sid']
@@ -418,7 +418,7 @@ class FieldTypeInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34-character string that uniquely identifies this resource.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -426,7 +426,7 @@ class FieldTypeInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :returns: An application-defined string that uniquely identifies the resource
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -434,7 +434,7 @@ class FieldTypeInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the FieldType resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -452,8 +452,8 @@ class FieldTypeInstance(InstanceResource):
         """
         Update the FieldTypeInstance
 
-        :param unicode friendly_name: A user-provided string that identifies this resource. It is non-unique and can be up to 255 characters long.
-        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode unique_name: An application-defined string that uniquely identifies the resource
 
         :returns: Updated FieldTypeInstance
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeInstance

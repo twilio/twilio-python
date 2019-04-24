@@ -24,7 +24,7 @@ class QueryList(ListResource):
         Initialize the QueryList
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the parent Assistant.
+        :param assistant_sid: The SID of the Assistant that is the parent of the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.query.QueryList
         :rtype: twilio.rest.autopilot.v1.assistant.query.QueryList
@@ -43,9 +43,9 @@ class QueryList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode language: An [ISO language-country string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this query. For example: `en-US`.
-        :param unicode model_build: The Sid or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
-        :param unicode status: A string that described the query status. The values can be: `pending_review`, `reviewed`, `discarded`
+        :param unicode language: The ISO language-country string that specifies the language used by the Query resources to read
+        :param unicode model_build: The SID or unique name of the Model Build to be queried
+        :param unicode status: The status of the resources to read
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -74,9 +74,9 @@ class QueryList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode language: An [ISO language-country string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this query. For example: `en-US`.
-        :param unicode model_build: The Sid or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
-        :param unicode status: A string that described the query status. The values can be: `pending_review`, `reviewed`, `discarded`
+        :param unicode language: The ISO language-country string that specifies the language used by the Query resources to read
+        :param unicode model_build: The SID or unique name of the Model Build to be queried
+        :param unicode status: The status of the resources to read
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -102,9 +102,9 @@ class QueryList(ListResource):
         Retrieve a single page of QueryInstance records from the API.
         Request is executed immediately
 
-        :param unicode language: An [ISO language-country string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this query. For example: `en-US`.
-        :param unicode model_build: The Sid or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
-        :param unicode status: A string that described the query status. The values can be: `pending_review`, `reviewed`, `discarded`
+        :param unicode language: The ISO language-country string that specifies the language used by the Query resources to read
+        :param unicode model_build: The SID or unique name of the Model Build to be queried
+        :param unicode status: The status of the resources to read
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -150,10 +150,10 @@ class QueryList(ListResource):
         """
         Create a new QueryInstance
 
-        :param unicode language: An [ISO language-country string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this query. For example: `en-US`.
-        :param unicode query: A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long.
-        :param unicode tasks: Constraints the query to a set of tasks. Useful when you need to constrain the paths the user can take. Tasks should be comma separated task-unique-name-1, task-unique-name-2
-        :param unicode model_build: The Sid or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
+        :param unicode language: The ISO language-country string that specifies the language used for the new query
+        :param unicode query: The end-user's natural language input
+        :param unicode tasks: The list of tasks to limit the new query to
+        :param unicode model_build: The SID or unique name of the Model Build to be queried
 
         :returns: Newly created QueryInstance
         :rtype: twilio.rest.autopilot.v1.assistant.query.QueryInstance
@@ -172,7 +172,7 @@ class QueryList(ListResource):
         """
         Constructs a QueryContext
 
-        :param sid: A 34-character string that uniquely identifies this resource.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.query.QueryContext
         :rtype: twilio.rest.autopilot.v1.assistant.query.QueryContext
@@ -183,7 +183,7 @@ class QueryList(ListResource):
         """
         Constructs a QueryContext
 
-        :param sid: A 34-character string that uniquely identifies this resource.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.query.QueryContext
         :rtype: twilio.rest.autopilot.v1.assistant.query.QueryContext
@@ -211,7 +211,7 @@ class QueryPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param assistant_sid: The unique ID of the parent Assistant.
+        :param assistant_sid: The SID of the Assistant that is the parent of the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.query.QueryPage
         :rtype: twilio.rest.autopilot.v1.assistant.query.QueryPage
@@ -252,8 +252,8 @@ class QueryContext(InstanceContext):
         Initialize the QueryContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the Assistant.
-        :param sid: A 34-character string that uniquely identifies this resource.
+        :param assistant_sid: The SID of the Assistant that is the parent of the resource to fetch
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.query.QueryContext
         :rtype: twilio.rest.autopilot.v1.assistant.query.QueryContext
@@ -290,8 +290,8 @@ class QueryContext(InstanceContext):
         """
         Update the QueryInstance
 
-        :param unicode sample_sid: An optional reference to the Sample created from this query.
-        :param unicode status: A string that described the query status. The values can be: `pending_review`, `reviewed`, `discarded`
+        :param unicode sample_sid: The SID of an optional reference to the Sample created from the query
+        :param unicode status: The new status of the resource
 
         :returns: Updated QueryInstance
         :rtype: twilio.rest.autopilot.v1.assistant.query.QueryInstance
@@ -386,7 +386,7 @@ class QueryInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique ID of the Account that created this Query.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -394,7 +394,7 @@ class QueryInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this resource was created
+        :returns: The RFC 2822 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -402,7 +402,7 @@ class QueryInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date that this resource was last updated
+        :returns: The RFC 2822 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -410,7 +410,7 @@ class QueryInstance(InstanceResource):
     @property
     def results(self):
         """
-        :returns: The natural language analysis results which include the [Task](https://www.twilio.com/docs/autopilot/api/task) recognized, the confidence score, and a list of identified [Fields](https://www.twilio.com/docs/autopilot/api/task-field).
+        :returns: The natural language analysis results that include the Task recognized, the confidence score, and a list of identified Fields
         :rtype: dict
         """
         return self._properties['results']
@@ -418,7 +418,7 @@ class QueryInstance(InstanceResource):
     @property
     def language(self):
         """
-        :returns: An [ISO language-country string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this query. For example: `en-US`
+        :returns: The ISO language-country string that specifies the language used by the Query
         :rtype: unicode
         """
         return self._properties['language']
@@ -426,7 +426,7 @@ class QueryInstance(InstanceResource):
     @property
     def model_build_sid(self):
         """
-        :returns: The unique ID of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) queried.
+        :returns: The SID of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) queried
         :rtype: unicode
         """
         return self._properties['model_build_sid']
@@ -434,7 +434,7 @@ class QueryInstance(InstanceResource):
     @property
     def query(self):
         """
-        :returns: The end-user's natural language input.
+        :returns: The end-user's natural language input
         :rtype: unicode
         """
         return self._properties['query']
@@ -442,7 +442,7 @@ class QueryInstance(InstanceResource):
     @property
     def sample_sid(self):
         """
-        :returns: An optional reference to the Sample created from this query.
+        :returns: The SID of an optional reference to the Sample created from the query
         :rtype: unicode
         """
         return self._properties['sample_sid']
@@ -450,7 +450,7 @@ class QueryInstance(InstanceResource):
     @property
     def assistant_sid(self):
         """
-        :returns: The unique ID of the parent Assistant.
+        :returns: The SID of the Assistant that is the parent of the resource
         :rtype: unicode
         """
         return self._properties['assistant_sid']
@@ -458,7 +458,7 @@ class QueryInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34-character string that uniquely identifies this resource.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -466,7 +466,7 @@ class QueryInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: A string that describes the query status. The values can be: `pending_review`, `reviewed`, `discarded`
+        :returns: The status of the Query
         :rtype: unicode
         """
         return self._properties['status']
@@ -474,7 +474,7 @@ class QueryInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the Query resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -482,7 +482,7 @@ class QueryInstance(InstanceResource):
     @property
     def source_channel(self):
         """
-        :returns: The communication channel where this end-user input came from
+        :returns: The communication channel from where the end-user input came
         :rtype: unicode
         """
         return self._properties['source_channel']
@@ -500,8 +500,8 @@ class QueryInstance(InstanceResource):
         """
         Update the QueryInstance
 
-        :param unicode sample_sid: An optional reference to the Sample created from this query.
-        :param unicode status: A string that described the query status. The values can be: `pending_review`, `reviewed`, `discarded`
+        :param unicode sample_sid: The SID of an optional reference to the Sample created from the query
+        :param unicode status: The new status of the resource
 
         :returns: Updated QueryInstance
         :rtype: twilio.rest.autopilot.v1.assistant.query.QueryInstance

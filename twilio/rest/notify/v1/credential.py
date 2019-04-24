@@ -120,13 +120,13 @@ class CredentialList(ListResource):
         """
         Create a new CredentialInstance
 
-        :param CredentialInstance.PushService type: Credential type, one of "gcm", "fcm", or "apn"
-        :param unicode friendly_name: Friendly name for stored credential
-        :param unicode certificate: [APN only] URL encoded representation of the certificate.
-        :param unicode private_key: [APN only] URL encoded representation of the private key.
-        :param bool sandbox: [APN only] use this credential for sending to production or sandbox APNs
-        :param unicode api_key: [GCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
-        :param unicode secret: [FCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
+        :param CredentialInstance.PushService type: The Credential type
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode certificate: [APN only] The URL-encoded representation of the certificate
+        :param unicode private_key: [APN only] URL-encoded representation of the private key
+        :param bool sandbox: [APN only] Whether to send the credential to sandbox APNs
+        :param unicode api_key: [GCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging
+        :param unicode secret: [FCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging
 
         :returns: Newly created CredentialInstance
         :rtype: twilio.rest.notify.v1.credential.CredentialInstance
@@ -153,7 +153,7 @@ class CredentialList(ListResource):
         """
         Constructs a CredentialContext
 
-        :param sid: The sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.notify.v1.credential.CredentialContext
         :rtype: twilio.rest.notify.v1.credential.CredentialContext
@@ -164,7 +164,7 @@ class CredentialList(ListResource):
         """
         Constructs a CredentialContext
 
-        :param sid: The sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.notify.v1.credential.CredentialContext
         :rtype: twilio.rest.notify.v1.credential.CredentialContext
@@ -230,7 +230,7 @@ class CredentialContext(InstanceContext):
         Initialize the CredentialContext
 
         :param Version version: Version that contains the resource
-        :param sid: The sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.notify.v1.credential.CredentialContext
         :rtype: twilio.rest.notify.v1.credential.CredentialContext
@@ -264,12 +264,12 @@ class CredentialContext(InstanceContext):
         """
         Update the CredentialInstance
 
-        :param unicode friendly_name: Friendly name for stored credential
-        :param unicode certificate: [APN only] URL encoded representation of the certificate.
-        :param unicode private_key: [APN only] URL encoded representation of the private key.
-        :param bool sandbox: [APN only] use this credential for sending to production or sandbox APNs
-        :param unicode api_key: [GCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
-        :param unicode secret: [FCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode certificate: [APN only] The URL-encoded representation of the certificate
+        :param unicode private_key: [APN only] URL-encoded representation of the private key
+        :param bool sandbox: [APN only] Whether to send the credential to sandbox APNs
+        :param unicode api_key: [GCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging
+        :param unicode secret: [FCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging
 
         :returns: Updated CredentialInstance
         :rtype: twilio.rest.notify.v1.credential.CredentialInstance
@@ -361,7 +361,7 @@ class CredentialInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -369,7 +369,7 @@ class CredentialInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -377,7 +377,7 @@ class CredentialInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: Friendly name for stored credential
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -385,7 +385,7 @@ class CredentialInstance(InstanceResource):
     @property
     def type(self):
         """
-        :returns: Credential type, one of "gcm", "fcm", or "apn"
+        :returns: The Credential type, one of `gcm`, `fcm`, or `apn`
         :rtype: CredentialInstance.PushService
         """
         return self._properties['type']
@@ -393,7 +393,7 @@ class CredentialInstance(InstanceResource):
     @property
     def sandbox(self):
         """
-        :returns: [APN only] use this credential for sending to production or sandbox APNs
+        :returns: [APN only] Whether to send the credential to sandbox APNs
         :rtype: unicode
         """
         return self._properties['sandbox']
@@ -401,7 +401,7 @@ class CredentialInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The RFC 2822 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -409,7 +409,7 @@ class CredentialInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The RFC 2822 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -417,7 +417,7 @@ class CredentialInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the Credential resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -437,12 +437,12 @@ class CredentialInstance(InstanceResource):
         """
         Update the CredentialInstance
 
-        :param unicode friendly_name: Friendly name for stored credential
-        :param unicode certificate: [APN only] URL encoded representation of the certificate.
-        :param unicode private_key: [APN only] URL encoded representation of the private key.
-        :param bool sandbox: [APN only] use this credential for sending to production or sandbox APNs
-        :param unicode api_key: [GCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
-        :param unicode secret: [FCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode certificate: [APN only] The URL-encoded representation of the certificate
+        :param unicode private_key: [APN only] URL-encoded representation of the private key
+        :param bool sandbox: [APN only] Whether to send the credential to sandbox APNs
+        :param unicode api_key: [GCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging
+        :param unicode secret: [FCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging
 
         :returns: Updated CredentialInstance
         :rtype: twilio.rest.notify.v1.credential.CredentialInstance

@@ -24,7 +24,7 @@ class DefaultsList(ListResource):
         Initialize the DefaultsList
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The assistant_sid
+        :param assistant_sid: The SID of the Assistant that is the parent of the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.defaults.DefaultsList
         :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsList
@@ -73,7 +73,7 @@ class DefaultsPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param assistant_sid: The assistant_sid
+        :param assistant_sid: The SID of the Assistant that is the parent of the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.defaults.DefaultsPage
         :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsPage
@@ -114,7 +114,7 @@ class DefaultsContext(InstanceContext):
         Initialize the DefaultsContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The assistant_sid
+        :param assistant_sid: The SID of the Assistant that is the parent of the resource to fetch
 
         :returns: twilio.rest.autopilot.v1.assistant.defaults.DefaultsContext
         :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsContext
@@ -146,7 +146,7 @@ class DefaultsContext(InstanceContext):
         """
         Update the DefaultsInstance
 
-        :param dict defaults: The defaults
+        :param dict defaults: A JSON string that describes the default task links.
 
         :returns: Updated DefaultsInstance
         :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsInstance
@@ -214,7 +214,7 @@ class DefaultsInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -222,7 +222,7 @@ class DefaultsInstance(InstanceResource):
     @property
     def assistant_sid(self):
         """
-        :returns: The assistant_sid
+        :returns: The SID of the Assistant that is the parent of the resource
         :rtype: unicode
         """
         return self._properties['assistant_sid']
@@ -230,7 +230,7 @@ class DefaultsInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the Defaults resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -238,7 +238,7 @@ class DefaultsInstance(InstanceResource):
     @property
     def data(self):
         """
-        :returns: The data
+        :returns: The JSON string that describes the default task links
         :rtype: dict
         """
         return self._properties['data']
@@ -256,7 +256,7 @@ class DefaultsInstance(InstanceResource):
         """
         Update the DefaultsInstance
 
-        :param dict defaults: The defaults
+        :param dict defaults: A JSON string that describes the default task links.
 
         :returns: Updated DefaultsInstance
         :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsInstance

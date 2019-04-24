@@ -23,7 +23,7 @@ class DialogueList(ListResource):
         Initialize the DialogueList
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the parent Assistant.
+        :param assistant_sid: The SID of the Assistant that is the parent of the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.dialogue.DialogueList
         :rtype: twilio.rest.autopilot.v1.assistant.dialogue.DialogueList
@@ -37,7 +37,7 @@ class DialogueList(ListResource):
         """
         Constructs a DialogueContext
 
-        :param sid: The sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.dialogue.DialogueContext
         :rtype: twilio.rest.autopilot.v1.assistant.dialogue.DialogueContext
@@ -48,7 +48,7 @@ class DialogueList(ListResource):
         """
         Constructs a DialogueContext
 
-        :param sid: The sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.dialogue.DialogueContext
         :rtype: twilio.rest.autopilot.v1.assistant.dialogue.DialogueContext
@@ -76,7 +76,7 @@ class DialoguePage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param assistant_sid: The unique ID of the parent Assistant.
+        :param assistant_sid: The SID of the Assistant that is the parent of the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.dialogue.DialoguePage
         :rtype: twilio.rest.autopilot.v1.assistant.dialogue.DialoguePage
@@ -117,8 +117,8 @@ class DialogueContext(InstanceContext):
         Initialize the DialogueContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The assistant_sid
-        :param sid: The sid
+        :param assistant_sid: The SID of the Assistant that is the parent of the resource to fetch
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.dialogue.DialogueContext
         :rtype: twilio.rest.autopilot.v1.assistant.dialogue.DialogueContext
@@ -209,7 +209,7 @@ class DialogueInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique ID of the Account that created this Field.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -217,7 +217,7 @@ class DialogueInstance(InstanceResource):
     @property
     def assistant_sid(self):
         """
-        :returns: The unique ID of the parent Assistant.
+        :returns: The SID of the Assistant that is the parent of the resource
         :rtype: unicode
         """
         return self._properties['assistant_sid']
@@ -225,7 +225,7 @@ class DialogueInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The unique ID of the Dialogue
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -233,7 +233,7 @@ class DialogueInstance(InstanceResource):
     @property
     def data(self):
         """
-        :returns: The dialogue session object as json
+        :returns: The JSON string that describes the dialogue session object
         :rtype: dict
         """
         return self._properties['data']
@@ -241,7 +241,7 @@ class DialogueInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the Dialogue resource
         :rtype: unicode
         """
         return self._properties['url']

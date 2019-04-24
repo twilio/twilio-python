@@ -24,8 +24,8 @@ class TaskStatisticsList(ListResource):
         Initialize the TaskStatisticsList
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the Assistant.
-        :param task_sid: The unique ID of the Task associated with this Field.
+        :param assistant_sid: The SID of the Assistant that is the parent of the Task associated with the resource
+        :param task_sid: The SID of the Task for which the statistics were collected
 
         :returns: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsList
         :rtype: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsList
@@ -82,8 +82,8 @@ class TaskStatisticsPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param assistant_sid: The unique ID of the Assistant.
-        :param task_sid: The unique ID of the Task associated with this Field.
+        :param assistant_sid: The SID of the Assistant that is the parent of the Task associated with the resource
+        :param task_sid: The SID of the Task for which the statistics were collected
 
         :returns: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsPage
         :rtype: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsPage
@@ -129,8 +129,8 @@ class TaskStatisticsContext(InstanceContext):
         Initialize the TaskStatisticsContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the Assistant.
-        :param task_sid: The unique ID of the Task associated with this Field.
+        :param assistant_sid: The SID of the Assistant that is the parent of the resource to fetch
+        :param task_sid: The SID of the Task that is associated with the resource to fetch
 
         :returns: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsContext
         :rtype: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsContext
@@ -222,7 +222,7 @@ class TaskStatisticsInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique ID of the Account that created this resource.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -230,7 +230,7 @@ class TaskStatisticsInstance(InstanceResource):
     @property
     def assistant_sid(self):
         """
-        :returns: The unique ID of the Assistant.
+        :returns: The SID of the Assistant that is the parent of the Task associated with the resource
         :rtype: unicode
         """
         return self._properties['assistant_sid']
@@ -238,7 +238,7 @@ class TaskStatisticsInstance(InstanceResource):
     @property
     def task_sid(self):
         """
-        :returns: The unique ID of the Task associated with this Field.
+        :returns: The SID of the Task for which the statistics were collected
         :rtype: unicode
         """
         return self._properties['task_sid']
@@ -246,7 +246,7 @@ class TaskStatisticsInstance(InstanceResource):
     @property
     def samples_count(self):
         """
-        :returns: The total number of Samples associated with this Task.
+        :returns: The total number of Samples associated with the Task
         :rtype: unicode
         """
         return self._properties['samples_count']
@@ -254,7 +254,7 @@ class TaskStatisticsInstance(InstanceResource):
     @property
     def fields_count(self):
         """
-        :returns: The total number of Fields associated with this Task.
+        :returns: The total number of Fields associated with the Task
         :rtype: unicode
         """
         return self._properties['fields_count']
@@ -262,7 +262,7 @@ class TaskStatisticsInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the TaskStatistics resource
         :rtype: unicode
         """
         return self._properties['url']

@@ -29,7 +29,7 @@ class TaskList(ListResource):
         Initialize the TaskList
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the Assistant.
+        :param assistant_sid: The SID of the Assistant that is the parent of the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.task.TaskList
         :rtype: twilio.rest.autopilot.v1.assistant.task.TaskList
@@ -126,10 +126,10 @@ class TaskList(ListResource):
         """
         Create a new TaskInstance
 
-        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-        :param unicode friendly_name: A user-provided string that identifies this resource. It is non-unique and can be up to 255 characters long.
-        :param dict actions: A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique.
-        :param unicode actions_url: User-provided HTTP endpoint where the assistant can fetch actions.
+        :param unicode unique_name: An application-defined string that uniquely identifies the resource
+        :param unicode friendly_name:  descriptive string that you create to describe the new resource
+        :param dict actions: The JSON string that specifies the actions that instruct the Assistant on how to perform the task
+        :param unicode actions_url: The URL from which the Assistant can fetch actions
 
         :returns: Newly created TaskInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.TaskInstance
@@ -153,7 +153,7 @@ class TaskList(ListResource):
         """
         Constructs a TaskContext
 
-        :param sid: A 34-character string that uniquely identifies this resource.
+        :param sid: The unique string that identifies the resource to fetch
 
         :returns: twilio.rest.autopilot.v1.assistant.task.TaskContext
         :rtype: twilio.rest.autopilot.v1.assistant.task.TaskContext
@@ -164,7 +164,7 @@ class TaskList(ListResource):
         """
         Constructs a TaskContext
 
-        :param sid: A 34-character string that uniquely identifies this resource.
+        :param sid: The unique string that identifies the resource to fetch
 
         :returns: twilio.rest.autopilot.v1.assistant.task.TaskContext
         :rtype: twilio.rest.autopilot.v1.assistant.task.TaskContext
@@ -192,7 +192,7 @@ class TaskPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param assistant_sid: The unique ID of the Assistant.
+        :param assistant_sid: The SID of the Assistant that is the parent of the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.task.TaskPage
         :rtype: twilio.rest.autopilot.v1.assistant.task.TaskPage
@@ -233,8 +233,8 @@ class TaskContext(InstanceContext):
         Initialize the TaskContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the Assistant.
-        :param sid: A 34-character string that uniquely identifies this resource.
+        :param assistant_sid: The SID of the Assistant that is the parent of the resource to fetch
+        :param sid: The unique string that identifies the resource to fetch
 
         :returns: twilio.rest.autopilot.v1.assistant.task.TaskContext
         :rtype: twilio.rest.autopilot.v1.assistant.task.TaskContext
@@ -278,10 +278,10 @@ class TaskContext(InstanceContext):
         """
         Update the TaskInstance
 
-        :param unicode friendly_name: A user-provided string that identifies this resource. It is non-unique and can be up to 255 characters long.
-        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-        :param dict actions: A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique.
-        :param unicode actions_url: User-provided HTTP endpoint where the assistant can fetch actions.
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode unique_name: An application-defined string that uniquely identifies the resource
+        :param dict actions: The JSON string that specifies the actions that instruct the Assistant on how to perform the task
+        :param unicode actions_url: The URL from which the Assistant can fetch actions
 
         :returns: Updated TaskInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.TaskInstance
@@ -442,7 +442,7 @@ class TaskInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique ID of the Account that created this Task.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -450,7 +450,7 @@ class TaskInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this resource was created
+        :returns: The RFC 2822 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -458,7 +458,7 @@ class TaskInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date that this resource was last updated
+        :returns: The RFC 2822 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -466,7 +466,7 @@ class TaskInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A user-provided string that identifies this resource. It is non-unique and can be up to 255 characters long.
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -474,7 +474,7 @@ class TaskInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links
+        :returns: A list of the URLs of related resources
         :rtype: unicode
         """
         return self._properties['links']
@@ -482,7 +482,7 @@ class TaskInstance(InstanceResource):
     @property
     def assistant_sid(self):
         """
-        :returns: The unique ID of the Assistant.
+        :returns: The SID of the Assistant that is the parent of the resource
         :rtype: unicode
         """
         return self._properties['assistant_sid']
@@ -490,7 +490,7 @@ class TaskInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34-character string that uniquely identifies this resource.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -498,7 +498,7 @@ class TaskInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :returns: An application-defined string that uniquely identifies the resource
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -506,7 +506,7 @@ class TaskInstance(InstanceResource):
     @property
     def actions_url(self):
         """
-        :returns: A user-provided HTTP endpoint where the assistant can fetch actions.
+        :returns: The URL from which the Assistant can fetch actions
         :rtype: unicode
         """
         return self._properties['actions_url']
@@ -514,7 +514,7 @@ class TaskInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the Task resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -533,10 +533,10 @@ class TaskInstance(InstanceResource):
         """
         Update the TaskInstance
 
-        :param unicode friendly_name: A user-provided string that identifies this resource. It is non-unique and can be up to 255 characters long.
-        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-        :param dict actions: A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique.
-        :param unicode actions_url: User-provided HTTP endpoint where the assistant can fetch actions.
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode unique_name: An application-defined string that uniquely identifies the resource
+        :param dict actions: The JSON string that specifies the actions that instruct the Assistant on how to perform the task
+        :param unicode actions_url: The URL from which the Assistant can fetch actions
 
         :returns: Updated TaskInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.TaskInstance

@@ -47,18 +47,18 @@ class ServiceList(ListResource):
         """
         Create a new ServiceInstance
 
-        :param unicode friendly_name: Human-readable name for this service instance
-        :param unicode apn_credential_sid: The SID of the Credential to be used for APN Bindings.
-        :param unicode gcm_credential_sid: The SID of the Credential to be used for GCM Bindings.
-        :param unicode messaging_service_sid: The SID of the Messaging Service to be used for SMS Bindings.
-        :param unicode facebook_messenger_page_id: The Page ID to be used to send for Facebook Messenger Bindings.
-        :param unicode default_apn_notification_protocol_version: The version of the protocol to be used for sending APNS notifications.
-        :param unicode default_gcm_notification_protocol_version: The version of the protocol to be used for sending GCM notifications.
-        :param unicode fcm_credential_sid: The SID of the Credential to be used for FCM Bindings.
-        :param unicode default_fcm_notification_protocol_version: The version of the protocol to be used for sending FCM notifications.
-        :param bool log_enabled: The log_enabled
-        :param unicode alexa_skill_id: The alexa_skill_id
-        :param unicode default_alexa_notification_protocol_version: The default_alexa_notification_protocol_version
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode apn_credential_sid: The SID of the Credential to use for APN Bindings
+        :param unicode gcm_credential_sid: The SID of the Credential to use for GCM Bindings
+        :param unicode messaging_service_sid: The SID of the Messaging Service to use for SMS Bindings
+        :param unicode facebook_messenger_page_id: Deprecated
+        :param unicode default_apn_notification_protocol_version: The protocol version to use for sending APNS notifications
+        :param unicode default_gcm_notification_protocol_version: The protocol version to use for sending GCM notifications
+        :param unicode fcm_credential_sid: The SID of the Credential to use for FCM Bindings
+        :param unicode default_fcm_notification_protocol_version: The protocol version to use for sending FCM notifications
+        :param bool log_enabled: Whether to log notifications
+        :param unicode alexa_skill_id: Deprecated
+        :param unicode default_alexa_notification_protocol_version: Deprecated
 
         :returns: Newly created ServiceInstance
         :rtype: twilio.rest.notify.v1.service.ServiceInstance
@@ -93,7 +93,7 @@ class ServiceList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode friendly_name: Filter services by FriendlyName
+        :param unicode friendly_name: The string that identifies the Service resources to read
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -116,7 +116,7 @@ class ServiceList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode friendly_name: Filter services by FriendlyName
+        :param unicode friendly_name: The string that identifies the Service resources to read
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -135,7 +135,7 @@ class ServiceList(ListResource):
         Retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
 
-        :param unicode friendly_name: Filter services by FriendlyName
+        :param unicode friendly_name: The string that identifies the Service resources to read
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -179,7 +179,7 @@ class ServiceList(ListResource):
         """
         Constructs a ServiceContext
 
-        :param sid: The sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.notify.v1.service.ServiceContext
         :rtype: twilio.rest.notify.v1.service.ServiceContext
@@ -190,7 +190,7 @@ class ServiceList(ListResource):
         """
         Constructs a ServiceContext
 
-        :param sid: The sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.notify.v1.service.ServiceContext
         :rtype: twilio.rest.notify.v1.service.ServiceContext
@@ -256,7 +256,7 @@ class ServiceContext(InstanceContext):
         Initialize the ServiceContext
 
         :param Version version: Version that contains the resource
-        :param sid: The sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.notify.v1.service.ServiceContext
         :rtype: twilio.rest.notify.v1.service.ServiceContext
@@ -309,18 +309,18 @@ class ServiceContext(InstanceContext):
         """
         Update the ServiceInstance
 
-        :param unicode friendly_name: Human-readable name for this service instance
-        :param unicode apn_credential_sid: The SID of the default Credential to be used for APN Bindings
-        :param unicode gcm_credential_sid: The SID of the default Credential to be used for GCM Bindings
-        :param unicode messaging_service_sid: The SID of the Messaging Service to be used for SMS Bindings.
-        :param unicode facebook_messenger_page_id: The Page ID to be used to send for Facebook Messenger Bindings.
-        :param unicode default_apn_notification_protocol_version: The version of the protocol to be used for sending APNS notifications.
-        :param unicode default_gcm_notification_protocol_version: The version of the protocol to be used for sending GCM notifications.
-        :param unicode fcm_credential_sid: The SID of the default Credential to be used for FCM Bindings
-        :param unicode default_fcm_notification_protocol_version: The version of the protocol to be used for sending FCM notifications.
-        :param bool log_enabled: The log_enabled
-        :param unicode alexa_skill_id: The alexa_skill_id
-        :param unicode default_alexa_notification_protocol_version: The default_alexa_notification_protocol_version
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode apn_credential_sid: The SID of the Credential to use for APN Bindings
+        :param unicode gcm_credential_sid: The SID of the Credential to use for GCM Bindings
+        :param unicode messaging_service_sid: The SID of the Messaging Service to use for SMS Bindings
+        :param unicode facebook_messenger_page_id: Deprecated
+        :param unicode default_apn_notification_protocol_version: The protocol version to use for sending APNS notifications
+        :param unicode default_gcm_notification_protocol_version: The protocol version to use for sending GCM notifications
+        :param unicode fcm_credential_sid: The SID of the Credential to use for FCM Bindings
+        :param unicode default_fcm_notification_protocol_version: The protocol version to use for sending FCM notifications
+        :param bool log_enabled: Whether to log notifications
+        :param unicode alexa_skill_id: Deprecated
+        :param unicode default_alexa_notification_protocol_version: Deprecated
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.notify.v1.service.ServiceInstance
@@ -438,7 +438,7 @@ class ServiceInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -446,7 +446,7 @@ class ServiceInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -454,7 +454,7 @@ class ServiceInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: Human-readable name for this service instance
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -462,7 +462,7 @@ class ServiceInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The RFC 2822 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -470,7 +470,7 @@ class ServiceInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The RFC 2822 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -478,7 +478,7 @@ class ServiceInstance(InstanceResource):
     @property
     def apn_credential_sid(self):
         """
-        :returns: The SID of the Credential to be used for APN Bindings.
+        :returns: The SID of the Credential to use for APN Bindings
         :rtype: unicode
         """
         return self._properties['apn_credential_sid']
@@ -486,7 +486,7 @@ class ServiceInstance(InstanceResource):
     @property
     def gcm_credential_sid(self):
         """
-        :returns: The SID of the Credential to be used for GCM Bindings.
+        :returns: The SID of the Credential to use for GCM Bindings
         :rtype: unicode
         """
         return self._properties['gcm_credential_sid']
@@ -494,7 +494,7 @@ class ServiceInstance(InstanceResource):
     @property
     def fcm_credential_sid(self):
         """
-        :returns: The SID of the Credential to be used for FCM Bindings.
+        :returns: The SID of the Credential to use for FCM Bindings
         :rtype: unicode
         """
         return self._properties['fcm_credential_sid']
@@ -502,7 +502,7 @@ class ServiceInstance(InstanceResource):
     @property
     def messaging_service_sid(self):
         """
-        :returns: The SID of the Messaging Service to be used for SMS Bindings.
+        :returns: The SID of the Messaging Service to use for SMS Bindings
         :rtype: unicode
         """
         return self._properties['messaging_service_sid']
@@ -510,7 +510,7 @@ class ServiceInstance(InstanceResource):
     @property
     def facebook_messenger_page_id(self):
         """
-        :returns: The Page ID to be used to send for Facebook Messenger Bindings.
+        :returns: Deprecated
         :rtype: unicode
         """
         return self._properties['facebook_messenger_page_id']
@@ -518,7 +518,7 @@ class ServiceInstance(InstanceResource):
     @property
     def default_apn_notification_protocol_version(self):
         """
-        :returns: The version of the protocol to be used for sending APNS notifications.
+        :returns: The protocol version to use for sending APNS notifications
         :rtype: unicode
         """
         return self._properties['default_apn_notification_protocol_version']
@@ -526,7 +526,7 @@ class ServiceInstance(InstanceResource):
     @property
     def default_gcm_notification_protocol_version(self):
         """
-        :returns: The version of the protocol to be used for sending GCM notifications.
+        :returns: The protocol version to use for sending GCM notifications
         :rtype: unicode
         """
         return self._properties['default_gcm_notification_protocol_version']
@@ -534,7 +534,7 @@ class ServiceInstance(InstanceResource):
     @property
     def default_fcm_notification_protocol_version(self):
         """
-        :returns: The version of the protocol to be used for sending FCM notifications.
+        :returns: The protocol version to use for sending FCM notifications
         :rtype: unicode
         """
         return self._properties['default_fcm_notification_protocol_version']
@@ -542,7 +542,7 @@ class ServiceInstance(InstanceResource):
     @property
     def log_enabled(self):
         """
-        :returns: The log_enabled
+        :returns: Whether to log notifications
         :rtype: bool
         """
         return self._properties['log_enabled']
@@ -550,7 +550,7 @@ class ServiceInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the Service resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -558,7 +558,7 @@ class ServiceInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links
+        :returns: The URLs of the resources related to the service
         :rtype: unicode
         """
         return self._properties['links']
@@ -566,7 +566,7 @@ class ServiceInstance(InstanceResource):
     @property
     def alexa_skill_id(self):
         """
-        :returns: The alexa_skill_id
+        :returns: Deprecated
         :rtype: unicode
         """
         return self._properties['alexa_skill_id']
@@ -574,7 +574,7 @@ class ServiceInstance(InstanceResource):
     @property
     def default_alexa_notification_protocol_version(self):
         """
-        :returns: The default_alexa_notification_protocol_version
+        :returns: Deprecated
         :rtype: unicode
         """
         return self._properties['default_alexa_notification_protocol_version']
@@ -609,18 +609,18 @@ class ServiceInstance(InstanceResource):
         """
         Update the ServiceInstance
 
-        :param unicode friendly_name: Human-readable name for this service instance
-        :param unicode apn_credential_sid: The SID of the default Credential to be used for APN Bindings
-        :param unicode gcm_credential_sid: The SID of the default Credential to be used for GCM Bindings
-        :param unicode messaging_service_sid: The SID of the Messaging Service to be used for SMS Bindings.
-        :param unicode facebook_messenger_page_id: The Page ID to be used to send for Facebook Messenger Bindings.
-        :param unicode default_apn_notification_protocol_version: The version of the protocol to be used for sending APNS notifications.
-        :param unicode default_gcm_notification_protocol_version: The version of the protocol to be used for sending GCM notifications.
-        :param unicode fcm_credential_sid: The SID of the default Credential to be used for FCM Bindings
-        :param unicode default_fcm_notification_protocol_version: The version of the protocol to be used for sending FCM notifications.
-        :param bool log_enabled: The log_enabled
-        :param unicode alexa_skill_id: The alexa_skill_id
-        :param unicode default_alexa_notification_protocol_version: The default_alexa_notification_protocol_version
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode apn_credential_sid: The SID of the Credential to use for APN Bindings
+        :param unicode gcm_credential_sid: The SID of the Credential to use for GCM Bindings
+        :param unicode messaging_service_sid: The SID of the Messaging Service to use for SMS Bindings
+        :param unicode facebook_messenger_page_id: Deprecated
+        :param unicode default_apn_notification_protocol_version: The protocol version to use for sending APNS notifications
+        :param unicode default_gcm_notification_protocol_version: The protocol version to use for sending GCM notifications
+        :param unicode fcm_credential_sid: The SID of the Credential to use for FCM Bindings
+        :param unicode default_fcm_notification_protocol_version: The protocol version to use for sending FCM notifications
+        :param bool log_enabled: Whether to log notifications
+        :param unicode alexa_skill_id: Deprecated
+        :param unicode default_alexa_notification_protocol_version: Deprecated
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.notify.v1.service.ServiceInstance

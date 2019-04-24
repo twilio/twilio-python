@@ -24,8 +24,8 @@ class TaskActionsList(ListResource):
         Initialize the TaskActionsList
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the parent Assistant.
-        :param task_sid: The unique ID of the Task.
+        :param assistant_sid: The SID of the Assistant that is the parent of the Task associated with the resource
+        :param task_sid: The SID of the Task associated with the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsList
         :rtype: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsList
@@ -82,8 +82,8 @@ class TaskActionsPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param assistant_sid: The unique ID of the parent Assistant.
-        :param task_sid: The unique ID of the Task.
+        :param assistant_sid: The SID of the Assistant that is the parent of the Task associated with the resource
+        :param task_sid: The SID of the Task associated with the resource
 
         :returns: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsPage
         :rtype: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsPage
@@ -129,8 +129,8 @@ class TaskActionsContext(InstanceContext):
         Initialize the TaskActionsContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the parent Assistant.
-        :param task_sid: The unique ID of the Task.
+        :param assistant_sid: The SID of the Assistant that is the parent of the Task for which the task actions to fetch were defined
+        :param task_sid: The SID of the Task for which the task actions to fetch were defined
 
         :returns: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsContext
         :rtype: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsContext
@@ -167,7 +167,7 @@ class TaskActionsContext(InstanceContext):
         """
         Update the TaskActionsInstance
 
-        :param dict actions: The JSON [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant how to perform this task.
+        :param dict actions: The JSON string that specifies the actions that instruct the Assistant on how to perform the task
 
         :returns: Updated TaskActionsInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsInstance
@@ -245,7 +245,7 @@ class TaskActionsInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique ID of the Account that created this Field.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -253,7 +253,7 @@ class TaskActionsInstance(InstanceResource):
     @property
     def assistant_sid(self):
         """
-        :returns: The unique ID of the parent Assistant.
+        :returns: The SID of the Assistant that is the parent of the Task associated with the resource
         :rtype: unicode
         """
         return self._properties['assistant_sid']
@@ -261,7 +261,7 @@ class TaskActionsInstance(InstanceResource):
     @property
     def task_sid(self):
         """
-        :returns: The unique ID of the Task.
+        :returns: The SID of the Task associated with the resource
         :rtype: unicode
         """
         return self._properties['task_sid']
@@ -269,7 +269,7 @@ class TaskActionsInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the TaskActions resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -277,7 +277,7 @@ class TaskActionsInstance(InstanceResource):
     @property
     def data(self):
         """
-        :returns: The JSON [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant how to perform this task.
+        :returns: The JSON string that specifies the actions that instruct the Assistant on how to perform the task
         :rtype: dict
         """
         return self._properties['data']
@@ -295,7 +295,7 @@ class TaskActionsInstance(InstanceResource):
         """
         Update the TaskActionsInstance
 
-        :param dict actions: The JSON [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant how to perform this task.
+        :param dict actions: The JSON string that specifies the actions that instruct the Assistant on how to perform the task
 
         :returns: Updated TaskActionsInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsInstance

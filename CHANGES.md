@@ -3,6 +3,22 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2019-04-24] Version 6.26.2
+----------------------------
+**Library**
+- PR #465: Prepend the repo root to the system paths during doc generation. Thanks to @childish-sambino!
+- PR #463: Migrate the README to markdown. Thanks to @childish-sambino!
+
+**Api**
+- Add `verified` property to Addresses
+
+**Numbers**
+- Add API for Identites and documents
+
+**Proxy**
+- Add in use count on number instance
+
+
 [2019-04-12] Version 6.26.1
 ----------------------------
 **Library**

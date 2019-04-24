@@ -54,6 +54,7 @@ class AddressTestCase(IntegrationTestCase):
                 "sid": "ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "street": "4th",
                 "validated": false,
+                "verified": false,
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
             }
             '''
@@ -117,6 +118,7 @@ class AddressTestCase(IntegrationTestCase):
                 "sid": "ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "street": "4th",
                 "validated": false,
+                "verified": false,
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
             }
             '''
@@ -157,6 +159,7 @@ class AddressTestCase(IntegrationTestCase):
                 "sid": "ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "street": "4th",
                 "validated": false,
+                "verified": false,
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
             }
             '''
@@ -199,6 +202,7 @@ class AddressTestCase(IntegrationTestCase):
                         "sid": "ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "street": "4th",
                         "validated": false,
+                        "verified": false,
                         "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
                     }
                 ],

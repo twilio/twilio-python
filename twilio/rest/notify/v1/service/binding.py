@@ -24,7 +24,7 @@ class BindingList(ListResource):
         Initialize the BindingList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
+        :param service_sid: The SID of the Service that the resource is associated with
 
         :returns: twilio.rest.notify.v1.service.binding.BindingList
         :rtype: twilio.rest.notify.v1.service.binding.BindingList
@@ -41,13 +41,13 @@ class BindingList(ListResource):
         """
         Create a new BindingInstance
 
-        :param unicode identity: The Identity to which this Binding belongs to.
-        :param BindingInstance.BindingType binding_type: The type of the Binding.
-        :param unicode address: The address specific to the channel.
-        :param unicode tag: The list of tags associated with this Binding.
-        :param unicode notification_protocol_version: The version of the protocol used to send the notification.
-        :param unicode credential_sid: The unique identifier of the Credential resource to be used to send notifications to this Binding.
-        :param unicode endpoint: DEPRECATED*
+        :param unicode identity: The `identity` value that identifies the new resource's User
+        :param BindingInstance.BindingType binding_type: The type of the Binding
+        :param unicode address: The channel-specific address
+        :param unicode tag: A tag that can be used to select the Bindings to notify
+        :param unicode notification_protocol_version: The protocol version to use to send the notification
+        :param unicode credential_sid: The SID of the Credential resource to be used to send notifications to this Binding
+        :param unicode endpoint: Deprecated
 
         :returns: Newly created BindingInstance
         :rtype: twilio.rest.notify.v1.service.binding.BindingInstance
@@ -78,10 +78,10 @@ class BindingList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param date start_date: Only list Bindings created on or after the given date.
-        :param date end_date: Only list Bindings created on or before the given date.
-        :param unicode identity: Only list Bindings that have any of the specified Identities.
-        :param unicode tag: Only list Bindings that have all of the specified Tags.
+        :param date start_date: Only include usage that has occurred on or after this date
+        :param date end_date: Only include usage that occurred on or before this date
+        :param unicode identity: The `identity` value of the resources to read
+        :param unicode tag: Only list Bindings that have all of the specified Tags
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -111,10 +111,10 @@ class BindingList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param date start_date: Only list Bindings created on or after the given date.
-        :param date end_date: Only list Bindings created on or before the given date.
-        :param unicode identity: Only list Bindings that have any of the specified Identities.
-        :param unicode tag: Only list Bindings that have all of the specified Tags.
+        :param date start_date: Only include usage that has occurred on or after this date
+        :param date end_date: Only include usage that occurred on or before this date
+        :param unicode identity: The `identity` value of the resources to read
+        :param unicode tag: Only list Bindings that have all of the specified Tags
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -141,10 +141,10 @@ class BindingList(ListResource):
         Retrieve a single page of BindingInstance records from the API.
         Request is executed immediately
 
-        :param date start_date: Only list Bindings created on or after the given date.
-        :param date end_date: Only list Bindings created on or before the given date.
-        :param unicode identity: Only list Bindings that have any of the specified Identities.
-        :param unicode tag: Only list Bindings that have all of the specified Tags.
+        :param date start_date: Only include usage that has occurred on or after this date
+        :param date end_date: Only include usage that occurred on or before this date
+        :param unicode identity: The `identity` value of the resources to read
+        :param unicode tag: Only list Bindings that have all of the specified Tags
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -191,7 +191,7 @@ class BindingList(ListResource):
         """
         Constructs a BindingContext
 
-        :param sid: The sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.notify.v1.service.binding.BindingContext
         :rtype: twilio.rest.notify.v1.service.binding.BindingContext
@@ -202,7 +202,7 @@ class BindingList(ListResource):
         """
         Constructs a BindingContext
 
-        :param sid: The sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.notify.v1.service.binding.BindingContext
         :rtype: twilio.rest.notify.v1.service.binding.BindingContext
@@ -229,7 +229,7 @@ class BindingPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The service_sid
+        :param service_sid: The SID of the Service that the resource is associated with
 
         :returns: twilio.rest.notify.v1.service.binding.BindingPage
         :rtype: twilio.rest.notify.v1.service.binding.BindingPage
@@ -269,8 +269,8 @@ class BindingContext(InstanceContext):
         Initialize the BindingContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
-        :param sid: The sid
+        :param service_sid: The SID of the Service to fetch the resource from
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.notify.v1.service.binding.BindingContext
         :rtype: twilio.rest.notify.v1.service.binding.BindingContext
@@ -386,7 +386,7 @@ class BindingInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -394,7 +394,7 @@ class BindingInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -402,7 +402,7 @@ class BindingInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The service_sid
+        :returns: The SID of the Service that the resource is associated with
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -410,7 +410,7 @@ class BindingInstance(InstanceResource):
     @property
     def credential_sid(self):
         """
-        :returns: The unique identifier of the Credential resource to be used to send notifications to this Binding.
+        :returns: The SID of the Credential resource to be used to send notifications to this Binding
         :rtype: unicode
         """
         return self._properties['credential_sid']
@@ -418,7 +418,7 @@ class BindingInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The RFC 2822 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -426,7 +426,7 @@ class BindingInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The RFC 2822 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -434,7 +434,7 @@ class BindingInstance(InstanceResource):
     @property
     def notification_protocol_version(self):
         """
-        :returns: The version of the protocol used to send the notification.
+        :returns: The protocol version to use to send the notification
         :rtype: unicode
         """
         return self._properties['notification_protocol_version']
@@ -442,7 +442,7 @@ class BindingInstance(InstanceResource):
     @property
     def endpoint(self):
         """
-        :returns: DEPRECATED*
+        :returns: Deprecated
         :rtype: unicode
         """
         return self._properties['endpoint']
@@ -450,7 +450,7 @@ class BindingInstance(InstanceResource):
     @property
     def identity(self):
         """
-        :returns: The Identity to which this Binding belongs to.
+        :returns: The `identity` value that identifies the new resource's User
         :rtype: unicode
         """
         return self._properties['identity']
@@ -458,7 +458,7 @@ class BindingInstance(InstanceResource):
     @property
     def binding_type(self):
         """
-        :returns: The type of the Binding.
+        :returns: The type of the Binding
         :rtype: unicode
         """
         return self._properties['binding_type']
@@ -466,7 +466,7 @@ class BindingInstance(InstanceResource):
     @property
     def address(self):
         """
-        :returns: The address specific to the channel.
+        :returns: The channel-specific address
         :rtype: unicode
         """
         return self._properties['address']
@@ -474,7 +474,7 @@ class BindingInstance(InstanceResource):
     @property
     def tags(self):
         """
-        :returns: The list of tags associated with this Binding.
+        :returns: The list of tags associated with this Binding
         :rtype: unicode
         """
         return self._properties['tags']
@@ -482,7 +482,7 @@ class BindingInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the Binding resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -490,7 +490,7 @@ class BindingInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links
+        :returns: The URLs of related resources
         :rtype: unicode
         """
         return self._properties['links']

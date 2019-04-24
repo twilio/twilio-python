@@ -22,7 +22,7 @@ class CredentialListList(ListResource):
         Initialize the CredentialListList
 
         :param Version version: Version that contains the resource
-        :param trunk_sid: The trunk_sid
+        :param trunk_sid: The SID of the Trunk the credential list in associated with
 
         :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListList
         :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListList
@@ -37,7 +37,7 @@ class CredentialListList(ListResource):
         """
         Create a new CredentialListInstance
 
-        :param unicode credential_list_sid: The SID of the Credential List that you want to associate with this trunk. Once associated, Twilio will start authenticating access to the trunk against this list.
+        :param unicode credential_list_sid: The SID of the Credential List that you want to associate with the trunk
 
         :returns: Newly created CredentialListInstance
         :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
@@ -137,7 +137,7 @@ class CredentialListList(ListResource):
         """
         Constructs a CredentialListContext
 
-        :param sid: The sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListContext
         :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListContext
@@ -148,7 +148,7 @@ class CredentialListList(ListResource):
         """
         Constructs a CredentialListContext
 
-        :param sid: The sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListContext
         :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListContext
@@ -174,7 +174,7 @@ class CredentialListPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param trunk_sid: The trunk_sid
+        :param trunk_sid: The SID of the Trunk the credential list in associated with
 
         :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListPage
         :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListPage
@@ -213,8 +213,8 @@ class CredentialListContext(InstanceContext):
         Initialize the CredentialListContext
 
         :param Version version: Version that contains the resource
-        :param trunk_sid: The trunk_sid
-        :param sid: The sid
+        :param trunk_sid: The SID of the Trunk from which to fetch the credential list
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListContext
         :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListContext
@@ -314,7 +314,7 @@ class CredentialListInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -322,7 +322,7 @@ class CredentialListInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -330,7 +330,7 @@ class CredentialListInstance(InstanceResource):
     @property
     def trunk_sid(self):
         """
-        :returns: The trunk_sid
+        :returns: The SID of the Trunk the credential list in associated with
         :rtype: unicode
         """
         return self._properties['trunk_sid']
@@ -338,7 +338,7 @@ class CredentialListInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The friendly_name
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -346,7 +346,7 @@ class CredentialListInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The RFC 2822 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -354,7 +354,7 @@ class CredentialListInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The RFC 2822 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -362,7 +362,7 @@ class CredentialListInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']
