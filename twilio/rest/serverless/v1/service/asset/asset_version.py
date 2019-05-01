@@ -24,8 +24,8 @@ class AssetVersionList(ListResource):
         Initialize the AssetVersionList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
-        :param asset_sid: The asset_sid
+        :param service_sid: Service Sid.
+        :param asset_sid: Asset Sid.
 
         :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionList
         :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionList
@@ -121,8 +121,8 @@ class AssetVersionList(ListResource):
         """
         Create a new AssetVersionInstance
 
-        :param unicode path: The path
-        :param AssetVersionInstance.Visibility visibility: The visibility
+        :param unicode path: The URL-friendly string by which this Asset Version can be referenced.
+        :param AssetVersionInstance.Visibility visibility: The access control which determines how the Asset Version can be accessed.
 
         :returns: Newly created AssetVersionInstance
         :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance
@@ -146,7 +146,7 @@ class AssetVersionList(ListResource):
         """
         Constructs a AssetVersionContext
 
-        :param sid: The sid
+        :param sid: Asset Version Sid.
 
         :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
         :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
@@ -162,7 +162,7 @@ class AssetVersionList(ListResource):
         """
         Constructs a AssetVersionContext
 
-        :param sid: The sid
+        :param sid: Asset Version Sid.
 
         :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
         :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
@@ -195,8 +195,8 @@ class AssetVersionPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The service_sid
-        :param asset_sid: The asset_sid
+        :param service_sid: Service Sid.
+        :param asset_sid: Asset Sid.
 
         :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionPage
         :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionPage
@@ -242,9 +242,9 @@ class AssetVersionContext(InstanceContext):
         Initialize the AssetVersionContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
-        :param asset_sid: The asset_sid
-        :param sid: The sid
+        :param service_sid: Service Sid.
+        :param asset_sid: Asset Sid.
+        :param sid: Asset Version Sid.
 
         :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
         :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
@@ -350,7 +350,7 @@ class AssetVersionInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: Asset Version Sid.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -358,7 +358,7 @@ class AssetVersionInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: Account Sid.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -366,7 +366,7 @@ class AssetVersionInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The service_sid
+        :returns: Service Sid.
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -374,7 +374,7 @@ class AssetVersionInstance(InstanceResource):
     @property
     def asset_sid(self):
         """
-        :returns: The asset_sid
+        :returns: Asset Sid.
         :rtype: unicode
         """
         return self._properties['asset_sid']
@@ -382,7 +382,7 @@ class AssetVersionInstance(InstanceResource):
     @property
     def path(self):
         """
-        :returns: The path
+        :returns: The URL-friendly string by which this Asset Version can be referenced.
         :rtype: unicode
         """
         return self._properties['path']
@@ -390,7 +390,7 @@ class AssetVersionInstance(InstanceResource):
     @property
     def visibility(self):
         """
-        :returns: The visibility
+        :returns: The access control which determines how the Asset Version can be accessed.
         :rtype: AssetVersionInstance.Visibility
         """
         return self._properties['visibility']
@@ -398,7 +398,7 @@ class AssetVersionInstance(InstanceResource):
     @property
     def pre_signed_upload_url(self):
         """
-        :returns: The pre_signed_upload_url
+        :returns: The object which provides the details required for uploading this Asset Version.
         :rtype: dict
         """
         return self._properties['pre_signed_upload_url']
@@ -406,7 +406,7 @@ class AssetVersionInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date that this Asset Version was created.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -414,7 +414,7 @@ class AssetVersionInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The URL of this Asset Version.
         :rtype: unicode
         """
         return self._properties['url']

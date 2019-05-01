@@ -24,8 +24,8 @@ class VariableList(ListResource):
         Initialize the VariableList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
-        :param environment_sid: The environment_sid
+        :param service_sid: Service Sid.
+        :param environment_sid: Environment Sid.
 
         :returns: twilio.rest.serverless.v1.service.environment.variable.VariableList
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableList
@@ -121,8 +121,8 @@ class VariableList(ListResource):
         """
         Create a new VariableInstance
 
-        :param unicode key: The key
-        :param unicode value: The value
+        :param unicode key: A string by which this Variable can be referenced.
+        :param unicode value: A string that contains the actual value of this Variable.
 
         :returns: Newly created VariableInstance
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableInstance
@@ -146,7 +146,7 @@ class VariableList(ListResource):
         """
         Constructs a VariableContext
 
-        :param sid: The sid
+        :param sid: Variable Sid.
 
         :returns: twilio.rest.serverless.v1.service.environment.variable.VariableContext
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableContext
@@ -162,7 +162,7 @@ class VariableList(ListResource):
         """
         Constructs a VariableContext
 
-        :param sid: The sid
+        :param sid: Variable Sid.
 
         :returns: twilio.rest.serverless.v1.service.environment.variable.VariableContext
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableContext
@@ -195,8 +195,8 @@ class VariablePage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The service_sid
-        :param environment_sid: The environment_sid
+        :param service_sid: Service Sid.
+        :param environment_sid: Environment Sid.
 
         :returns: twilio.rest.serverless.v1.service.environment.variable.VariablePage
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariablePage
@@ -242,9 +242,9 @@ class VariableContext(InstanceContext):
         Initialize the VariableContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
-        :param environment_sid: The environment_sid
-        :param sid: The sid
+        :param service_sid: Service Sid.
+        :param environment_sid: Environment Sid.
+        :param sid: Variable Sid.
 
         :returns: twilio.rest.serverless.v1.service.environment.variable.VariableContext
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableContext
@@ -282,8 +282,8 @@ class VariableContext(InstanceContext):
         """
         Update the VariableInstance
 
-        :param unicode key: The key
-        :param unicode value: The value
+        :param unicode key: A string by which this Variable can be referenced.
+        :param unicode value: A string that contains the actual value of this Variable.
 
         :returns: Updated VariableInstance
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableInstance
@@ -371,7 +371,7 @@ class VariableInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: Variable Sid.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -379,7 +379,7 @@ class VariableInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: Account Sid.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -387,7 +387,7 @@ class VariableInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The service_sid
+        :returns: Service Sid.
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -395,7 +395,7 @@ class VariableInstance(InstanceResource):
     @property
     def environment_sid(self):
         """
-        :returns: The environment_sid
+        :returns: Environment Sid.
         :rtype: unicode
         """
         return self._properties['environment_sid']
@@ -403,7 +403,7 @@ class VariableInstance(InstanceResource):
     @property
     def key(self):
         """
-        :returns: The key
+        :returns: A string by which this Variable can be referenced.
         :rtype: unicode
         """
         return self._properties['key']
@@ -411,7 +411,7 @@ class VariableInstance(InstanceResource):
     @property
     def value(self):
         """
-        :returns: The value
+        :returns: A string that contains the actual value of this Variable.
         :rtype: unicode
         """
         return self._properties['value']
@@ -419,7 +419,7 @@ class VariableInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date that this Variable was created.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -427,7 +427,7 @@ class VariableInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date that this Variable was updated.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -435,7 +435,7 @@ class VariableInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The URL of this Variable.
         :rtype: unicode
         """
         return self._properties['url']
@@ -453,8 +453,8 @@ class VariableInstance(InstanceResource):
         """
         Update the VariableInstance
 
-        :param unicode key: The key
-        :param unicode value: The value
+        :param unicode key: A string by which this Variable can be referenced.
+        :param unicode value: A string that contains the actual value of this Variable.
 
         :returns: Updated VariableInstance
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableInstance

@@ -159,7 +159,7 @@ class BuildTestCase(IntegrationTestCase):
                         "version": "3.6.3"
                     }
                 ],
-                "status": "queued",
+                "status": "building",
                 "date_created": "2018-11-10T20:00:00Z",
                 "date_updated": "2018-11-10T20:00:00Z",
                 "url": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Builds/ZB00000000000000000000000000000000"

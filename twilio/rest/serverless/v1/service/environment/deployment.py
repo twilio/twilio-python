@@ -24,8 +24,8 @@ class DeploymentList(ListResource):
         Initialize the DeploymentList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
-        :param environment_sid: The environment_sid
+        :param service_sid: Service Sid.
+        :param environment_sid: Environment Sid.
 
         :returns: twilio.rest.serverless.v1.service.environment.deployment.DeploymentList
         :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentList
@@ -121,7 +121,7 @@ class DeploymentList(ListResource):
         """
         Create a new DeploymentInstance
 
-        :param unicode build_sid: The build_sid
+        :param unicode build_sid: Build Sid.
 
         :returns: Newly created DeploymentInstance
         :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance
@@ -145,7 +145,7 @@ class DeploymentList(ListResource):
         """
         Constructs a DeploymentContext
 
-        :param sid: The sid
+        :param sid: Deployment Sid.
 
         :returns: twilio.rest.serverless.v1.service.environment.deployment.DeploymentContext
         :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentContext
@@ -161,7 +161,7 @@ class DeploymentList(ListResource):
         """
         Constructs a DeploymentContext
 
-        :param sid: The sid
+        :param sid: Deployment Sid.
 
         :returns: twilio.rest.serverless.v1.service.environment.deployment.DeploymentContext
         :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentContext
@@ -194,8 +194,8 @@ class DeploymentPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The service_sid
-        :param environment_sid: The environment_sid
+        :param service_sid: Service Sid.
+        :param environment_sid: Environment Sid.
 
         :returns: twilio.rest.serverless.v1.service.environment.deployment.DeploymentPage
         :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentPage
@@ -241,9 +241,9 @@ class DeploymentContext(InstanceContext):
         Initialize the DeploymentContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
-        :param environment_sid: The environment_sid
-        :param sid: The sid
+        :param service_sid: Service Sid.
+        :param environment_sid: Environment Sid.
+        :param sid: Deployment Sid.
 
         :returns: twilio.rest.serverless.v1.service.environment.deployment.DeploymentContext
         :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentContext
@@ -343,7 +343,7 @@ class DeploymentInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: Deployment Sid.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -351,7 +351,7 @@ class DeploymentInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: Account Sid.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -359,7 +359,7 @@ class DeploymentInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The service_sid
+        :returns: Service Sid.
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -367,7 +367,7 @@ class DeploymentInstance(InstanceResource):
     @property
     def environment_sid(self):
         """
-        :returns: The environment_sid
+        :returns: Environment Sid.
         :rtype: unicode
         """
         return self._properties['environment_sid']
@@ -375,7 +375,7 @@ class DeploymentInstance(InstanceResource):
     @property
     def build_sid(self):
         """
-        :returns: The build_sid
+        :returns: Build Sid.
         :rtype: unicode
         """
         return self._properties['build_sid']
@@ -383,7 +383,7 @@ class DeploymentInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date that this Deployment was created.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -391,7 +391,7 @@ class DeploymentInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The date that this Deployment was updated.
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -399,7 +399,7 @@ class DeploymentInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The URL of this Deployment.
         :rtype: unicode
         """
         return self._properties['url']

@@ -24,8 +24,8 @@ class FunctionVersionList(ListResource):
         Initialize the FunctionVersionList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
-        :param function_sid: The function_sid
+        :param service_sid: Service Sid.
+        :param function_sid: Function Sid.
 
         :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionList
         :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionList
@@ -121,8 +121,8 @@ class FunctionVersionList(ListResource):
         """
         Create a new FunctionVersionInstance
 
-        :param unicode path: The path
-        :param FunctionVersionInstance.Visibility visibility: The visibility
+        :param unicode path: The URL-friendly string by which this Function Version can be referenced.
+        :param FunctionVersionInstance.Visibility visibility: The access control which determines how the Function Version can be accessed.
 
         :returns: Newly created FunctionVersionInstance
         :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance
@@ -146,7 +146,7 @@ class FunctionVersionList(ListResource):
         """
         Constructs a FunctionVersionContext
 
-        :param sid: The sid
+        :param sid: Function Version Sid.
 
         :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
         :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
@@ -162,7 +162,7 @@ class FunctionVersionList(ListResource):
         """
         Constructs a FunctionVersionContext
 
-        :param sid: The sid
+        :param sid: Function Version Sid.
 
         :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
         :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
@@ -195,8 +195,8 @@ class FunctionVersionPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The service_sid
-        :param function_sid: The function_sid
+        :param service_sid: Service Sid.
+        :param function_sid: Function Sid.
 
         :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionPage
         :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionPage
@@ -242,9 +242,9 @@ class FunctionVersionContext(InstanceContext):
         Initialize the FunctionVersionContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
-        :param function_sid: The function_sid
-        :param sid: The sid
+        :param service_sid: Service Sid.
+        :param function_sid: Function Sid.
+        :param sid: Function Version Sid.
 
         :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
         :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
@@ -350,7 +350,7 @@ class FunctionVersionInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: Function Version Sid.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -358,7 +358,7 @@ class FunctionVersionInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: Account Sid.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -366,7 +366,7 @@ class FunctionVersionInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The service_sid
+        :returns: Service Sid.
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -374,7 +374,7 @@ class FunctionVersionInstance(InstanceResource):
     @property
     def function_sid(self):
         """
-        :returns: The function_sid
+        :returns: Function Sid.
         :rtype: unicode
         """
         return self._properties['function_sid']
@@ -382,7 +382,7 @@ class FunctionVersionInstance(InstanceResource):
     @property
     def path(self):
         """
-        :returns: The path
+        :returns: The URL-friendly string by which this Function Version can be referenced.
         :rtype: unicode
         """
         return self._properties['path']
@@ -390,7 +390,7 @@ class FunctionVersionInstance(InstanceResource):
     @property
     def pre_signed_upload_url(self):
         """
-        :returns: The pre_signed_upload_url
+        :returns: The object which provides the details required for uploading this Function Version.
         :rtype: dict
         """
         return self._properties['pre_signed_upload_url']
@@ -398,7 +398,7 @@ class FunctionVersionInstance(InstanceResource):
     @property
     def visibility(self):
         """
-        :returns: The visibility
+        :returns: The access control which determines how the Function Version can be accessed.
         :rtype: FunctionVersionInstance.Visibility
         """
         return self._properties['visibility']
@@ -406,7 +406,7 @@ class FunctionVersionInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The date that this Function Version was created.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -414,7 +414,7 @@ class FunctionVersionInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The URL of this Function Version.
         :rtype: unicode
         """
         return self._properties['url']
