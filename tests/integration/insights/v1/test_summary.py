@@ -45,6 +45,7 @@ class CallSummaryTestCase(IntegrationTestCase):
                 "to": {},
                 "carrier_edge": {},
                 "client_edge": {},
+                "sdk_edge": {},
                 "sip_edge": {},
                 "tags": [
                     "tags"

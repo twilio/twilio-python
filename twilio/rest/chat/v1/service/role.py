@@ -23,7 +23,7 @@ class RoleList(ListResource):
         Initialize the RoleList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The unique id of the Service this role belongs to.
+        :param service_sid: The SID of the Service that the resource is associated with
 
         :returns: twilio.rest.chat.v1.service.role.RoleList
         :rtype: twilio.rest.chat.v1.service.role.RoleList
@@ -38,9 +38,9 @@ class RoleList(ListResource):
         """
         Create a new RoleInstance
 
-        :param unicode friendly_name: The human-readable name of this role.
-        :param RoleInstance.RoleType type: What kind of role this is.
-        :param unicode permission: A permission this role should have.
+        :param unicode friendly_name: A string to describe the new resource
+        :param RoleInstance.RoleType type: The type of role
+        :param unicode permission: A permission the role should have
 
         :returns: Newly created RoleInstance
         :rtype: twilio.rest.chat.v1.service.role.RoleInstance
@@ -144,7 +144,7 @@ class RoleList(ListResource):
         """
         Constructs a RoleContext
 
-        :param sid: The sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.chat.v1.service.role.RoleContext
         :rtype: twilio.rest.chat.v1.service.role.RoleContext
@@ -155,7 +155,7 @@ class RoleList(ListResource):
         """
         Constructs a RoleContext
 
-        :param sid: The sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.chat.v1.service.role.RoleContext
         :rtype: twilio.rest.chat.v1.service.role.RoleContext
@@ -181,7 +181,7 @@ class RolePage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The unique id of the Service this role belongs to.
+        :param service_sid: The SID of the Service that the resource is associated with
 
         :returns: twilio.rest.chat.v1.service.role.RolePage
         :rtype: twilio.rest.chat.v1.service.role.RolePage
@@ -220,8 +220,8 @@ class RoleContext(InstanceContext):
         Initialize the RoleContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
-        :param sid: The sid
+        :param service_sid: The SID of the Service to fetch the resource from
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.chat.v1.service.role.RoleContext
         :rtype: twilio.rest.chat.v1.service.role.RoleContext
@@ -267,7 +267,7 @@ class RoleContext(InstanceContext):
         """
         Update the RoleInstance
 
-        :param unicode permission: A permission this role should have.
+        :param unicode permission: A permission the role should have
 
         :returns: Updated RoleInstance
         :rtype: twilio.rest.chat.v1.service.role.RoleInstance
@@ -351,7 +351,7 @@ class RoleInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34 character string that uniquely identifies this resource.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -359,7 +359,7 @@ class RoleInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the Account responsible for this role.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -367,7 +367,7 @@ class RoleInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The unique id of the Service this role belongs to.
+        :returns: The SID of the Service that the resource is associated with
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -375,7 +375,7 @@ class RoleInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The human-readable name of this role.
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -383,7 +383,7 @@ class RoleInstance(InstanceResource):
     @property
     def type(self):
         """
-        :returns: What kind of role this is.
+        :returns: The type of role
         :rtype: RoleInstance.RoleType
         """
         return self._properties['type']
@@ -391,7 +391,7 @@ class RoleInstance(InstanceResource):
     @property
     def permissions(self):
         """
-        :returns: A JSON array of the permissions this role has.
+        :returns: An array of the permissions the role has been granted
         :rtype: unicode
         """
         return self._properties['permissions']
@@ -399,7 +399,7 @@ class RoleInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this resource was created in ISO 8601 format.
+        :returns: The RFC 2822 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -407,7 +407,7 @@ class RoleInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date that this resource was last updated in ISO 8601 format.
+        :returns: The RFC 2822 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -415,7 +415,7 @@ class RoleInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: An absolute URL for this role.
+        :returns: The absolute URL of the Role resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -442,7 +442,7 @@ class RoleInstance(InstanceResource):
         """
         Update the RoleInstance
 
-        :param unicode permission: A permission this role should have.
+        :param unicode permission: A permission the role should have
 
         :returns: Updated RoleInstance
         :rtype: twilio.rest.chat.v1.service.role.RoleInstance

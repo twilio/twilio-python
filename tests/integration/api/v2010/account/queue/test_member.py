@@ -75,9 +75,9 @@ class MemberTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .queues(sid="QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .members(call_sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(url="https://example.com", method="GET")
+                                 .members(call_sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(url="https://example.com")
 
-        values = {'Url': "https://example.com", 'Method': "GET", }
+        values = {'Url': "https://example.com", }
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -102,7 +102,7 @@ class MemberTestCase(IntegrationTestCase):
 
         actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .queues(sid="QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .members(call_sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(url="https://example.com", method="GET")
+                                      .members(call_sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(url="https://example.com")
 
         self.assertIsNotNone(actual)
 
@@ -123,7 +123,7 @@ class MemberTestCase(IntegrationTestCase):
 
         actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .queues(sid="QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .members(call_sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(url="https://example.com", method="GET")
+                                      .members(call_sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(url="https://example.com")
 
         self.assertIsNotNone(actual)
 

@@ -14,6 +14,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
 from twilio.rest.video.v1.room.room_participant.room_participant_published_track import PublishedTrackList
+from twilio.rest.video.v1.room.room_participant.room_participant_subscribe_rule import SubscribeRulesList
 from twilio.rest.video.v1.room.room_participant.room_participant_subscribed_track import SubscribedTrackList
 
 
@@ -160,7 +161,7 @@ class ParticipantList(ListResource):
         """
         Constructs a ParticipantContext
 
-        :param sid: The sid
+        :param sid: A system-generated 34-character string that uniquely identifies this Participant.
 
         :returns: twilio.rest.video.v1.room.room_participant.ParticipantContext
         :rtype: twilio.rest.video.v1.room.room_participant.ParticipantContext
@@ -171,7 +172,7 @@ class ParticipantList(ListResource):
         """
         Constructs a ParticipantContext
 
-        :param sid: The sid
+        :param sid: A system-generated 34-character string that uniquely identifies this Participant.
 
         :returns: twilio.rest.video.v1.room.room_participant.ParticipantContext
         :rtype: twilio.rest.video.v1.room.room_participant.ParticipantContext
@@ -236,8 +237,8 @@ class ParticipantContext(InstanceContext):
         Initialize the ParticipantContext
 
         :param Version version: Version that contains the resource
-        :param room_sid: The room_sid
-        :param sid: The sid
+        :param room_sid: A system-generated 34-character string that uniquely identifies a Room.
+        :param sid: A system-generated 34-character string that uniquely identifies this Participant.
 
         :returns: twilio.rest.video.v1.room.room_participant.ParticipantContext
         :rtype: twilio.rest.video.v1.room.room_participant.ParticipantContext
@@ -251,6 +252,7 @@ class ParticipantContext(InstanceContext):
         # Dependents
         self._published_tracks = None
         self._subscribed_tracks = None
+        self._subscribe_rules = None
 
     def fetch(self):
         """
@@ -278,7 +280,7 @@ class ParticipantContext(InstanceContext):
         """
         Update the ParticipantInstance
 
-        :param ParticipantInstance.Status status: Set to disconnected to remove participant.
+        :param ParticipantInstance.Status status: Set to `disconnected` to remove participant.
 
         :returns: Updated ParticipantInstance
         :rtype: twilio.rest.video.v1.room.room_participant.ParticipantInstance
@@ -326,9 +328,25 @@ class ParticipantContext(InstanceContext):
             self._subscribed_tracks = SubscribedTrackList(
                 self._version,
                 room_sid=self._solution['room_sid'],
-                subscriber_sid=self._solution['sid'],
+                participant_sid=self._solution['sid'],
             )
         return self._subscribed_tracks
+
+    @property
+    def subscribe_rules(self):
+        """
+        Access the subscribe_rules
+
+        :returns: twilio.rest.video.v1.room.room_participant.room_participant_subscribe_rule.SubscribeRulesList
+        :rtype: twilio.rest.video.v1.room.room_participant.room_participant_subscribe_rule.SubscribeRulesList
+        """
+        if self._subscribe_rules is None:
+            self._subscribe_rules = SubscribeRulesList(
+                self._version,
+                room_sid=self._solution['room_sid'],
+                participant_sid=self._solution['sid'],
+            )
+        return self._subscribe_rules
 
     def __repr__(self):
         """
@@ -503,7 +521,7 @@ class ParticipantInstance(InstanceResource):
         """
         Update the ParticipantInstance
 
-        :param ParticipantInstance.Status status: Set to disconnected to remove participant.
+        :param ParticipantInstance.Status status: Set to `disconnected` to remove participant.
 
         :returns: Updated ParticipantInstance
         :rtype: twilio.rest.video.v1.room.room_participant.ParticipantInstance
@@ -529,6 +547,16 @@ class ParticipantInstance(InstanceResource):
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_subscribed_track.SubscribedTrackList
         """
         return self._proxy.subscribed_tracks
+
+    @property
+    def subscribe_rules(self):
+        """
+        Access the subscribe_rules
+
+        :returns: twilio.rest.video.v1.room.room_participant.room_participant_subscribe_rule.SubscribeRulesList
+        :rtype: twilio.rest.video.v1.room.room_participant.room_participant_subscribe_rule.SubscribeRulesList
+        """
+        return self._proxy.subscribe_rules
 
     def __repr__(self):
         """

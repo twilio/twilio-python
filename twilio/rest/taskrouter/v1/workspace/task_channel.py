@@ -114,17 +114,23 @@ class TaskChannelList(ListResource):
 
         return TaskChannelPage(self._version, response, self._solution)
 
-    def create(self, friendly_name, unique_name):
+    def create(self, friendly_name, unique_name,
+               channel_optimized_routing=values.unset):
         """
         Create a new TaskChannelInstance
 
         :param unicode friendly_name: String representing user-friendly name for the TaskChannel
         :param unicode unique_name: String representing unique name for the TaskChannel
+        :param bool channel_optimized_routing: If true then prioritize longest idle workers
 
         :returns: Newly created TaskChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
         """
-        data = values.of({'FriendlyName': friendly_name, 'UniqueName': unique_name, })
+        data = values.of({
+            'FriendlyName': friendly_name,
+            'UniqueName': unique_name,
+            'ChannelOptimizedRouting': channel_optimized_routing,
+        })
 
         payload = self._version.create(
             'POST',
@@ -138,7 +144,7 @@ class TaskChannelList(ListResource):
         """
         Constructs a TaskChannelContext
 
-        :param sid: The sid
+        :param sid: The unique ID for this TaskChannel.
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
         :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
@@ -149,7 +155,7 @@ class TaskChannelList(ListResource):
         """
         Constructs a TaskChannelContext
 
-        :param sid: The sid
+        :param sid: The unique ID for this TaskChannel.
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
         :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
@@ -214,8 +220,8 @@ class TaskChannelContext(InstanceContext):
         Initialize the TaskChannelContext
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The workspace_sid
-        :param sid: The sid
+        :param workspace_sid: The unique ID of the Workspace that this TaskChannel belongs to.
+        :param sid: The unique ID for this TaskChannel.
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
         :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
@@ -248,16 +254,21 @@ class TaskChannelContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
-    def update(self, friendly_name=values.unset):
+    def update(self, friendly_name=values.unset,
+               channel_optimized_routing=values.unset):
         """
         Update the TaskChannelInstance
 
         :param unicode friendly_name: Toggle the FriendlyName for the TaskChannel
+        :param bool channel_optimized_routing: If true then prioritize longest idle workers
 
         :returns: Updated TaskChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
         """
-        data = values.of({'FriendlyName': friendly_name, })
+        data = values.of({
+            'FriendlyName': friendly_name,
+            'ChannelOptimizedRouting': channel_optimized_routing,
+        })
 
         payload = self._version.update(
             'POST',
@@ -313,6 +324,7 @@ class TaskChannelInstance(InstanceResource):
             'sid': payload['sid'],
             'unique_name': payload['unique_name'],
             'workspace_sid': payload['workspace_sid'],
+            'channel_optimized_routing': payload['channel_optimized_routing'],
             'url': payload['url'],
             'links': payload['links'],
         }
@@ -395,6 +407,14 @@ class TaskChannelInstance(InstanceResource):
         return self._properties['workspace_sid']
 
     @property
+    def channel_optimized_routing(self):
+        """
+        :returns: If true then prioritize longest idle workers
+        :rtype: bool
+        """
+        return self._properties['channel_optimized_routing']
+
+    @property
     def url(self):
         """
         :returns: The url
@@ -419,16 +439,21 @@ class TaskChannelInstance(InstanceResource):
         """
         return self._proxy.fetch()
 
-    def update(self, friendly_name=values.unset):
+    def update(self, friendly_name=values.unset,
+               channel_optimized_routing=values.unset):
         """
         Update the TaskChannelInstance
 
         :param unicode friendly_name: Toggle the FriendlyName for the TaskChannel
+        :param bool channel_optimized_routing: If true then prioritize longest idle workers
 
         :returns: Updated TaskChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, )
+        return self._proxy.update(
+            friendly_name=friendly_name,
+            channel_optimized_routing=channel_optimized_routing,
+        )
 
     def delete(self):
         """

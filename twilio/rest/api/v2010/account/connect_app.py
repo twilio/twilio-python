@@ -272,6 +272,15 @@ class ConnectAppContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
+    def delete(self):
+        """
+        Deletes the ConnectAppInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete('delete', self._uri)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -462,6 +471,15 @@ class ConnectAppInstance(InstanceResource):
             homepage_url=homepage_url,
             permissions=permissions,
         )
+
+    def delete(self):
+        """
+        Deletes the ConnectAppInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
 
     def __repr__(self):
         """

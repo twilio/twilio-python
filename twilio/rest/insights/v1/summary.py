@@ -127,14 +127,16 @@ class CallSummaryContext(InstanceContext):
         self._solution = {'call_sid': call_sid, }
         self._uri = '/Voice/{call_sid}/Summary'.format(**self._solution)
 
-    def fetch(self):
+    def fetch(self, processing_state=values.unset):
         """
         Fetch a CallSummaryInstance
+
+        :param CallSummaryInstance.ProcessingState processing_state: The processing_state
 
         :returns: Fetched CallSummaryInstance
         :rtype: twilio.rest.insights.v1.summary.CallSummaryInstance
         """
-        params = values.of({})
+        params = values.of({'ProcessingState': processing_state, })
 
         payload = self._version.fetch(
             'GET',
@@ -218,6 +220,7 @@ class CallSummaryInstance(InstanceResource):
             'to': payload['to'],
             'carrier_edge': payload['carrier_edge'],
             'client_edge': payload['client_edge'],
+            'sdk_edge': payload['sdk_edge'],
             'sip_edge': payload['sip_edge'],
             'tags': payload['tags'],
             'url': payload['url'],
@@ -361,6 +364,14 @@ class CallSummaryInstance(InstanceResource):
         return self._properties['client_edge']
 
     @property
+    def sdk_edge(self):
+        """
+        :returns: The sdk_edge
+        :rtype: dict
+        """
+        return self._properties['sdk_edge']
+
+    @property
     def sip_edge(self):
         """
         :returns: The sip_edge
@@ -384,14 +395,16 @@ class CallSummaryInstance(InstanceResource):
         """
         return self._properties['url']
 
-    def fetch(self):
+    def fetch(self, processing_state=values.unset):
         """
         Fetch a CallSummaryInstance
+
+        :param CallSummaryInstance.ProcessingState processing_state: The processing_state
 
         :returns: Fetched CallSummaryInstance
         :rtype: twilio.rest.insights.v1.summary.CallSummaryInstance
         """
-        return self._proxy.fetch()
+        return self._proxy.fetch(processing_state=processing_state, )
 
     def __repr__(self):
         """

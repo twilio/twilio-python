@@ -247,7 +247,7 @@ class MemberContext(InstanceContext):
             call_sid=self._solution['call_sid'],
         )
 
-    def update(self, url, method):
+    def update(self, url, method=values.unset):
         """
         Update the MemberInstance
 
@@ -389,7 +389,7 @@ class MemberInstance(InstanceResource):
         """
         return self._proxy.fetch()
 
-    def update(self, url, method):
+    def update(self, url, method=values.unset):
         """
         Update the MemberInstance
 
@@ -399,7 +399,7 @@ class MemberInstance(InstanceResource):
         :returns: Updated MemberInstance
         :rtype: twilio.rest.api.v2010.account.queue.member.MemberInstance
         """
-        return self._proxy.update(url, method, )
+        return self._proxy.update(url, method=method, )
 
     def __repr__(self):
         """

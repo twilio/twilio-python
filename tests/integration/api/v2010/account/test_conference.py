@@ -26,19 +26,100 @@ class ConferenceTestCase(IntegrationTestCase):
             'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json',
         ))
 
-    def test_fetch_response(self):
+    def test_fetch_valid_mixer_zone_response(self):
         self.holodeck.mock(Response(
             200,
             '''
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "api_version": "2008-08-01",
+                "api_version": "2010-04-01",
                 "date_created": "Fri, 18 Feb 2011 19:26:50 +0000",
                 "date_updated": "Fri, 18 Feb 2011 19:27:33 +0000",
                 "friendly_name": "AHH YEAH",
                 "sid": "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "region": "us1",
                 "status": "completed",
+                "subresource_uris": {
+                    "participants": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants.json",
+                    "recordings": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json"
+                },
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+            }
+            '''
+        ))
+
+        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .conferences(sid="CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+
+        self.assertIsNotNone(actual)
+
+    def test_fetch_valid_region_in_progress_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "api_version": "2010-04-01",
+                "date_created": "Fri, 18 Feb 2011 19:26:50 +0000",
+                "date_updated": "Fri, 18 Feb 2011 19:27:33 +0000",
+                "friendly_name": "AHH YEAH",
+                "sid": "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "region": "au1",
+                "status": "in-progress",
+                "subresource_uris": {
+                    "participants": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants.json",
+                    "recordings": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json"
+                },
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+            }
+            '''
+        ))
+
+        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .conferences(sid="CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+
+        self.assertIsNotNone(actual)
+
+    def test_fetch_without_mixer_zone_integer_status_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "api_version": "2010-04-01",
+                "date_created": "Fri, 18 Feb 2011 19:26:50 +0000",
+                "date_updated": "Fri, 18 Feb 2011 19:27:33 +0000",
+                "friendly_name": "AHH YEAH",
+                "sid": "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "region": "us1",
+                "status": "completed",
+                "subresource_uris": {
+                    "participants": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants.json",
+                    "recordings": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json"
+                },
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+            }
+            '''
+        ))
+
+        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .conferences(sid="CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+
+        self.assertIsNotNone(actual)
+
+    def test_fetch_unknown_mixer_zone_init_integer_status_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "api_version": "2010-04-01",
+                "date_created": "Fri, 18 Feb 2011 19:26:50 +0000",
+                "date_updated": "Fri, 18 Feb 2011 19:27:33 +0000",
+                "friendly_name": "AHH YEAH",
+                "sid": "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "region": "unknown",
+                "status": "init",
                 "subresource_uris": {
                     "participants": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants.json",
                     "recordings": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json"

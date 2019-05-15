@@ -148,7 +148,7 @@ class ServiceList(ListResource):
         """
         Constructs a ServiceContext
 
-        :param sid: Service Sid.
+        :param sid: Serverless Service Sid or unique name.
 
         :returns: twilio.rest.serverless.v1.service.ServiceContext
         :rtype: twilio.rest.serverless.v1.service.ServiceContext
@@ -159,7 +159,7 @@ class ServiceList(ListResource):
         """
         Constructs a ServiceContext
 
-        :param sid: Service Sid.
+        :param sid: Serverless Service Sid or unique name.
 
         :returns: twilio.rest.serverless.v1.service.ServiceContext
         :rtype: twilio.rest.serverless.v1.service.ServiceContext
@@ -227,7 +227,7 @@ class ServiceContext(InstanceContext):
         Initialize the ServiceContext
 
         :param Version version: Version that contains the resource
-        :param sid: Service Sid.
+        :param sid: Serverless Service Sid or unique name.
 
         :returns: twilio.rest.serverless.v1.service.ServiceContext
         :rtype: twilio.rest.serverless.v1.service.ServiceContext

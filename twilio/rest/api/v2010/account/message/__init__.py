@@ -437,6 +437,9 @@ class MessageInstance(InstanceResource):
         RETAIN = "retain"
         DISCARD = "discard"
 
+    class TrafficType(object):
+        FREE = "free"
+
     def __init__(self, version, payload, account_sid, sid=None):
         """
         Initialize the MessageInstance

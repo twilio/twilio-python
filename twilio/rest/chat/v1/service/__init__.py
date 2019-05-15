@@ -40,7 +40,7 @@ class ServiceList(ListResource):
         """
         Create a new ServiceInstance
 
-        :param unicode friendly_name: Human-readable name for this service instance
+        :param unicode friendly_name: A string to describe the resource
 
         :returns: Newly created ServiceInstance
         :rtype: twilio.rest.chat.v1.service.ServiceInstance
@@ -140,7 +140,7 @@ class ServiceList(ListResource):
         """
         Constructs a ServiceContext
 
-        :param sid: The sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.chat.v1.service.ServiceContext
         :rtype: twilio.rest.chat.v1.service.ServiceContext
@@ -151,7 +151,7 @@ class ServiceList(ListResource):
         """
         Constructs a ServiceContext
 
-        :param sid: The sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.chat.v1.service.ServiceContext
         :rtype: twilio.rest.chat.v1.service.ServiceContext
@@ -215,7 +215,7 @@ class ServiceContext(InstanceContext):
         Initialize the ServiceContext
 
         :param Version version: Version that contains the resource
-        :param sid: The sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.chat.v1.service.ServiceContext
         :rtype: twilio.rest.chat.v1.service.ServiceContext
@@ -276,127 +276,95 @@ class ServiceContext(InstanceContext):
                webhook_method=values.unset, webhook_filters=values.unset,
                webhooks_on_message_send_url=values.unset,
                webhooks_on_message_send_method=values.unset,
-               webhooks_on_message_send_format=values.unset,
                webhooks_on_message_update_url=values.unset,
                webhooks_on_message_update_method=values.unset,
-               webhooks_on_message_update_format=values.unset,
                webhooks_on_message_remove_url=values.unset,
                webhooks_on_message_remove_method=values.unset,
-               webhooks_on_message_remove_format=values.unset,
                webhooks_on_channel_add_url=values.unset,
                webhooks_on_channel_add_method=values.unset,
-               webhooks_on_channel_add_format=values.unset,
                webhooks_on_channel_destroy_url=values.unset,
                webhooks_on_channel_destroy_method=values.unset,
-               webhooks_on_channel_destroy_format=values.unset,
                webhooks_on_channel_update_url=values.unset,
                webhooks_on_channel_update_method=values.unset,
-               webhooks_on_channel_update_format=values.unset,
                webhooks_on_member_add_url=values.unset,
                webhooks_on_member_add_method=values.unset,
-               webhooks_on_member_add_format=values.unset,
                webhooks_on_member_remove_url=values.unset,
                webhooks_on_member_remove_method=values.unset,
-               webhooks_on_member_remove_format=values.unset,
                webhooks_on_message_sent_url=values.unset,
                webhooks_on_message_sent_method=values.unset,
-               webhooks_on_message_sent_format=values.unset,
                webhooks_on_message_updated_url=values.unset,
                webhooks_on_message_updated_method=values.unset,
-               webhooks_on_message_updated_format=values.unset,
                webhooks_on_message_removed_url=values.unset,
                webhooks_on_message_removed_method=values.unset,
-               webhooks_on_message_removed_format=values.unset,
                webhooks_on_channel_added_url=values.unset,
                webhooks_on_channel_added_method=values.unset,
-               webhooks_on_channel_added_format=values.unset,
                webhooks_on_channel_destroyed_url=values.unset,
                webhooks_on_channel_destroyed_method=values.unset,
-               webhooks_on_channel_destroyed_format=values.unset,
                webhooks_on_channel_updated_url=values.unset,
                webhooks_on_channel_updated_method=values.unset,
-               webhooks_on_channel_updated_format=values.unset,
                webhooks_on_member_added_url=values.unset,
                webhooks_on_member_added_method=values.unset,
-               webhooks_on_member_added_format=values.unset,
                webhooks_on_member_removed_url=values.unset,
                webhooks_on_member_removed_method=values.unset,
-               webhooks_on_member_removed_format=values.unset,
                limits_channel_members=values.unset,
                limits_user_channels=values.unset):
         """
         Update the ServiceInstance
 
-        :param unicode friendly_name: Human-readable name for this service instance
-        :param unicode default_service_role_sid: The default_service_role_sid
-        :param unicode default_channel_role_sid: Channel role assigned on channel join
-        :param unicode default_channel_creator_role_sid: Channel role assigned to creator of channel when joining for first time
-        :param bool read_status_enabled: true if the member read status feature is enabled, false if not.
-        :param bool reachability_enabled: true if the reachability feature should be enabled.
-        :param unicode typing_indicator_timeout: ISO 8601 duration indicating the timeout after "started typing" event when client should assume that user is not typing anymore even if no "ended typing" message received
-        :param unicode consumption_report_interval: ISO 8601 duration indicating the interval between consumption reports sent from client endpoints.
-        :param bool notifications_new_message_enabled: The notifications.new_message.enabled
-        :param unicode notifications_new_message_template: The notifications.new_message.template
-        :param bool notifications_added_to_channel_enabled: The notifications.added_to_channel.enabled
-        :param unicode notifications_added_to_channel_template: The notifications.added_to_channel.template
-        :param bool notifications_removed_from_channel_enabled: The notifications.removed_from_channel.enabled
-        :param unicode notifications_removed_from_channel_template: The notifications.removed_from_channel.template
-        :param bool notifications_invited_to_channel_enabled: The notifications.invited_to_channel.enabled
-        :param unicode notifications_invited_to_channel_template: The notifications.invited_to_channel.template
-        :param unicode pre_webhook_url: The webhook URL for PRE-Event webhooks.
-        :param unicode post_webhook_url: The webhook URL for POST-Event webhooks.
-        :param unicode webhook_method: The webhook request format to use.
-        :param unicode webhook_filters: The list of WebHook events that are enabled for this Service instance.
-        :param unicode webhooks_on_message_send_url: The webhooks.on_message_send.url
-        :param unicode webhooks_on_message_send_method: The webhooks.on_message_send.method
-        :param unicode webhooks_on_message_send_format: The webhooks.on_message_send.format
-        :param unicode webhooks_on_message_update_url: The webhooks.on_message_update.url
-        :param unicode webhooks_on_message_update_method: The webhooks.on_message_update.method
-        :param unicode webhooks_on_message_update_format: The webhooks.on_message_update.format
-        :param unicode webhooks_on_message_remove_url: The webhooks.on_message_remove.url
-        :param unicode webhooks_on_message_remove_method: The webhooks.on_message_remove.method
-        :param unicode webhooks_on_message_remove_format: The webhooks.on_message_remove.format
-        :param unicode webhooks_on_channel_add_url: The webhooks.on_channel_add.url
-        :param unicode webhooks_on_channel_add_method: The webhooks.on_channel_add.method
-        :param unicode webhooks_on_channel_add_format: The webhooks.on_channel_add.format
-        :param unicode webhooks_on_channel_destroy_url: The webhooks.on_channel_destroy.url
-        :param unicode webhooks_on_channel_destroy_method: The webhooks.on_channel_destroy.method
-        :param unicode webhooks_on_channel_destroy_format: The webhooks.on_channel_destroy.format
-        :param unicode webhooks_on_channel_update_url: The webhooks.on_channel_update.url
-        :param unicode webhooks_on_channel_update_method: The webhooks.on_channel_update.method
-        :param unicode webhooks_on_channel_update_format: The webhooks.on_channel_update.format
-        :param unicode webhooks_on_member_add_url: The webhooks.on_member_add.url
-        :param unicode webhooks_on_member_add_method: The webhooks.on_member_add.method
-        :param unicode webhooks_on_member_add_format: The webhooks.on_member_add.format
-        :param unicode webhooks_on_member_remove_url: The webhooks.on_member_remove.url
-        :param unicode webhooks_on_member_remove_method: The webhooks.on_member_remove.method
-        :param unicode webhooks_on_member_remove_format: The webhooks.on_member_remove.format
-        :param unicode webhooks_on_message_sent_url: The webhooks.on_message_sent.url
-        :param unicode webhooks_on_message_sent_method: The webhooks.on_message_sent.method
-        :param unicode webhooks_on_message_sent_format: The webhooks.on_message_sent.format
-        :param unicode webhooks_on_message_updated_url: The webhooks.on_message_updated.url
-        :param unicode webhooks_on_message_updated_method: The webhooks.on_message_updated.method
-        :param unicode webhooks_on_message_updated_format: The webhooks.on_message_updated.format
-        :param unicode webhooks_on_message_removed_url: The webhooks.on_message_removed.url
-        :param unicode webhooks_on_message_removed_method: The webhooks.on_message_removed.method
-        :param unicode webhooks_on_message_removed_format: The webhooks.on_message_removed.format
-        :param unicode webhooks_on_channel_added_url: The webhooks.on_channel_added.url
-        :param unicode webhooks_on_channel_added_method: The webhooks.on_channel_added.method
-        :param unicode webhooks_on_channel_added_format: The webhooks.on_channel_added.format
-        :param unicode webhooks_on_channel_destroyed_url: The webhooks.on_channel_destroyed.url
-        :param unicode webhooks_on_channel_destroyed_method: The webhooks.on_channel_destroyed.method
-        :param unicode webhooks_on_channel_destroyed_format: The webhooks.on_channel_destroyed.format
-        :param unicode webhooks_on_channel_updated_url: The webhooks.on_channel_updated.url
-        :param unicode webhooks_on_channel_updated_method: The webhooks.on_channel_updated.method
-        :param unicode webhooks_on_channel_updated_format: The webhooks.on_channel_updated.format
-        :param unicode webhooks_on_member_added_url: The webhooks.on_member_added.url
-        :param unicode webhooks_on_member_added_method: The webhooks.on_member_added.method
-        :param unicode webhooks_on_member_added_format: The webhooks.on_member_added.format
-        :param unicode webhooks_on_member_removed_url: The webhooks.on_member_removed.url
-        :param unicode webhooks_on_member_removed_method: The webhooks.on_member_removed.method
-        :param unicode webhooks_on_member_removed_format: The webhooks.on_member_removed.format
-        :param unicode limits_channel_members: The limits.channel_members
-        :param unicode limits_user_channels: The limits.user_channels
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode default_service_role_sid: The service role assigned to users when they are added to the service
+        :param unicode default_channel_role_sid: The channel role assigned to users when they are added to a channel
+        :param unicode default_channel_creator_role_sid: The channel role assigned to a channel creator when they join a new channel
+        :param bool read_status_enabled: Whether to enable the Message Consumption Horizon feature
+        :param bool reachability_enabled: Whether to enable the Reachability Indicator feature for this Service instance
+        :param unicode typing_indicator_timeout: How long in seconds to wait before assuming the user is no longer typing
+        :param unicode consumption_report_interval: DEPRECATED
+        :param bool notifications_new_message_enabled: Whether to send a notification when a new message is added to a channel
+        :param unicode notifications_new_message_template: The template to use to create the notification text displayed when a new message is added to a channel
+        :param bool notifications_added_to_channel_enabled: Whether to send a notification when a member is added to a channel
+        :param unicode notifications_added_to_channel_template: The template to use to create the notification text displayed when a member is added to a channel
+        :param bool notifications_removed_from_channel_enabled: Whether to send a notification to a user when they are removed from a channel
+        :param unicode notifications_removed_from_channel_template: The template to use to create the notification text displayed to a user when they are removed
+        :param bool notifications_invited_to_channel_enabled: Whether to send a notification when a user is invited to a channel
+        :param unicode notifications_invited_to_channel_template: The template to use to create the notification text displayed when a user is invited to a channel
+        :param unicode pre_webhook_url: The webhook URL for pre-event webhooks
+        :param unicode post_webhook_url: The URL for post-event webhooks
+        :param unicode webhook_method: The HTTP method  to use for both PRE and POST webhooks
+        :param unicode webhook_filters: The list of WebHook events that are enabled for this Service instance
+        :param unicode webhooks_on_message_send_url: The URL of the webhook to call in response to the on_message_send event
+        :param unicode webhooks_on_message_send_method: The HTTP method to use when calling the webhooks.on_message_send.url
+        :param unicode webhooks_on_message_update_url: The URL of the webhook to call in response to the on_message_update event
+        :param unicode webhooks_on_message_update_method: The HTTP method to use when calling the webhooks.on_message_update.url
+        :param unicode webhooks_on_message_remove_url: The URL of the webhook to call in response to the on_message_remove event
+        :param unicode webhooks_on_message_remove_method: The HTTP method to use when calling the webhooks.on_message_remove.url
+        :param unicode webhooks_on_channel_add_url: The URL of the webhook to call in response to the on_channel_add event
+        :param unicode webhooks_on_channel_add_method: The HTTP method to use when calling the webhooks.on_channel_add.url
+        :param unicode webhooks_on_channel_destroy_url: The URL of the webhook to call in response to the on_channel_destroy event
+        :param unicode webhooks_on_channel_destroy_method: The HTTP method to use when calling the webhooks.on_channel_destroy.url
+        :param unicode webhooks_on_channel_update_url: The URL of the webhook to call in response to the on_channel_update event
+        :param unicode webhooks_on_channel_update_method: The HTTP method to use when calling the webhooks.on_channel_update.url
+        :param unicode webhooks_on_member_add_url: The URL of the webhook to call in response to the on_member_add event
+        :param unicode webhooks_on_member_add_method: The HTTP method to use when calling the webhooks.on_member_add.url
+        :param unicode webhooks_on_member_remove_url: The URL of the webhook to call in response to the on_member_remove event
+        :param unicode webhooks_on_member_remove_method: The HTTP method to use when calling the webhooks.on_member_remove.url
+        :param unicode webhooks_on_message_sent_url: The URL of the webhook to call in response to the on_message_sent event
+        :param unicode webhooks_on_message_sent_method: The URL of the webhook to call in response to the on_message_sent event
+        :param unicode webhooks_on_message_updated_url: The URL of the webhook to call in response to the on_message_updated event
+        :param unicode webhooks_on_message_updated_method: The HTTP method to use when calling the webhooks.on_message_updated.url
+        :param unicode webhooks_on_message_removed_url: The URL of the webhook to call in response to the on_message_removed event
+        :param unicode webhooks_on_message_removed_method: The HTTP method to use when calling the webhooks.on_message_removed.url
+        :param unicode webhooks_on_channel_added_url: The URL of the webhook to call in response to the on_channel_added event
+        :param unicode webhooks_on_channel_added_method: The URL of the webhook to call in response to the on_channel_added event
+        :param unicode webhooks_on_channel_destroyed_url: The URL of the webhook to call in response to the on_channel_added event
+        :param unicode webhooks_on_channel_destroyed_method: The HTTP method to use when calling the webhooks.on_channel_destroyed.url
+        :param unicode webhooks_on_channel_updated_url: he URL of the webhook to call in response to the on_channel_updated event
+        :param unicode webhooks_on_channel_updated_method: The HTTP method to use when calling the webhooks.on_channel_updated.url
+        :param unicode webhooks_on_member_added_url: The URL of the webhook to call in response to the on_channel_updated event
+        :param unicode webhooks_on_member_added_method: he HTTP method to use when calling the webhooks.on_channel_updated.url
+        :param unicode webhooks_on_member_removed_url: The URL of the webhook to call in response to the on_member_removed event
+        :param unicode webhooks_on_member_removed_method: The HTTP method to use when calling the webhooks.on_member_removed.url
+        :param unicode limits_channel_members: The maximum number of Members that can be added to Channels within this Service
+        :param unicode limits_user_channels: The maximum number of Channels Users can be a Member of within this Service
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.chat.v1.service.ServiceInstance
@@ -424,52 +392,36 @@ class ServiceContext(InstanceContext):
             'WebhookFilters': serialize.map(webhook_filters, lambda e: e),
             'Webhooks.OnMessageSend.Url': webhooks_on_message_send_url,
             'Webhooks.OnMessageSend.Method': webhooks_on_message_send_method,
-            'Webhooks.OnMessageSend.Format': webhooks_on_message_send_format,
             'Webhooks.OnMessageUpdate.Url': webhooks_on_message_update_url,
             'Webhooks.OnMessageUpdate.Method': webhooks_on_message_update_method,
-            'Webhooks.OnMessageUpdate.Format': webhooks_on_message_update_format,
             'Webhooks.OnMessageRemove.Url': webhooks_on_message_remove_url,
             'Webhooks.OnMessageRemove.Method': webhooks_on_message_remove_method,
-            'Webhooks.OnMessageRemove.Format': webhooks_on_message_remove_format,
             'Webhooks.OnChannelAdd.Url': webhooks_on_channel_add_url,
             'Webhooks.OnChannelAdd.Method': webhooks_on_channel_add_method,
-            'Webhooks.OnChannelAdd.Format': webhooks_on_channel_add_format,
             'Webhooks.OnChannelDestroy.Url': webhooks_on_channel_destroy_url,
             'Webhooks.OnChannelDestroy.Method': webhooks_on_channel_destroy_method,
-            'Webhooks.OnChannelDestroy.Format': webhooks_on_channel_destroy_format,
             'Webhooks.OnChannelUpdate.Url': webhooks_on_channel_update_url,
             'Webhooks.OnChannelUpdate.Method': webhooks_on_channel_update_method,
-            'Webhooks.OnChannelUpdate.Format': webhooks_on_channel_update_format,
             'Webhooks.OnMemberAdd.Url': webhooks_on_member_add_url,
             'Webhooks.OnMemberAdd.Method': webhooks_on_member_add_method,
-            'Webhooks.OnMemberAdd.Format': webhooks_on_member_add_format,
             'Webhooks.OnMemberRemove.Url': webhooks_on_member_remove_url,
             'Webhooks.OnMemberRemove.Method': webhooks_on_member_remove_method,
-            'Webhooks.OnMemberRemove.Format': webhooks_on_member_remove_format,
             'Webhooks.OnMessageSent.Url': webhooks_on_message_sent_url,
             'Webhooks.OnMessageSent.Method': webhooks_on_message_sent_method,
-            'Webhooks.OnMessageSent.Format': webhooks_on_message_sent_format,
             'Webhooks.OnMessageUpdated.Url': webhooks_on_message_updated_url,
             'Webhooks.OnMessageUpdated.Method': webhooks_on_message_updated_method,
-            'Webhooks.OnMessageUpdated.Format': webhooks_on_message_updated_format,
             'Webhooks.OnMessageRemoved.Url': webhooks_on_message_removed_url,
             'Webhooks.OnMessageRemoved.Method': webhooks_on_message_removed_method,
-            'Webhooks.OnMessageRemoved.Format': webhooks_on_message_removed_format,
             'Webhooks.OnChannelAdded.Url': webhooks_on_channel_added_url,
             'Webhooks.OnChannelAdded.Method': webhooks_on_channel_added_method,
-            'Webhooks.OnChannelAdded.Format': webhooks_on_channel_added_format,
             'Webhooks.OnChannelDestroyed.Url': webhooks_on_channel_destroyed_url,
             'Webhooks.OnChannelDestroyed.Method': webhooks_on_channel_destroyed_method,
-            'Webhooks.OnChannelDestroyed.Format': webhooks_on_channel_destroyed_format,
             'Webhooks.OnChannelUpdated.Url': webhooks_on_channel_updated_url,
             'Webhooks.OnChannelUpdated.Method': webhooks_on_channel_updated_method,
-            'Webhooks.OnChannelUpdated.Format': webhooks_on_channel_updated_format,
             'Webhooks.OnMemberAdded.Url': webhooks_on_member_added_url,
             'Webhooks.OnMemberAdded.Method': webhooks_on_member_added_method,
-            'Webhooks.OnMemberAdded.Format': webhooks_on_member_added_format,
             'Webhooks.OnMemberRemoved.Url': webhooks_on_member_removed_url,
             'Webhooks.OnMemberRemoved.Method': webhooks_on_member_removed_method,
-            'Webhooks.OnMemberRemoved.Format': webhooks_on_member_removed_format,
             'Limits.ChannelMembers': limits_channel_members,
             'Limits.UserChannels': limits_user_channels,
         })
@@ -586,7 +538,7 @@ class ServiceInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34 character string that uniquely identifies this resource.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -594,7 +546,7 @@ class ServiceInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the Account responsible for this service.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -602,7 +554,7 @@ class ServiceInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The human-readable name of this service.
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -610,7 +562,7 @@ class ServiceInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this resource was created
+        :returns: The RFC 2822 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -618,7 +570,7 @@ class ServiceInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date that this resource was last updated
+        :returns: The RFC 2822 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -626,7 +578,7 @@ class ServiceInstance(InstanceResource):
     @property
     def default_service_role_sid(self):
         """
-        :returns: The service role assigned to users when they are added to the service.
+        :returns: The service role assigned to users when they are added to the service
         :rtype: unicode
         """
         return self._properties['default_service_role_sid']
@@ -634,7 +586,7 @@ class ServiceInstance(InstanceResource):
     @property
     def default_channel_role_sid(self):
         """
-        :returns: The channel role assigned to users when they are added to a channel.
+        :returns: The channel role assigned to users when they are added to a channel
         :rtype: unicode
         """
         return self._properties['default_channel_role_sid']
@@ -642,7 +594,7 @@ class ServiceInstance(InstanceResource):
     @property
     def default_channel_creator_role_sid(self):
         """
-        :returns: The channel role assigned to a channel creator when joining a new channel.
+        :returns: The channel role assigned to a channel creator when they join a new channel
         :rtype: unicode
         """
         return self._properties['default_channel_creator_role_sid']
@@ -650,7 +602,7 @@ class ServiceInstance(InstanceResource):
     @property
     def read_status_enabled(self):
         """
-        :returns: Enable the Message Consumption Horizon feature.
+        :returns: Whether the Message Consumption Horizon feature is enabled
         :rtype: bool
         """
         return self._properties['read_status_enabled']
@@ -658,7 +610,7 @@ class ServiceInstance(InstanceResource):
     @property
     def reachability_enabled(self):
         """
-        :returns: Indicates whether the  the Reachability feature is enabled for this Service instance.
+        :returns: Whether the Reachability Indicator feature is enabled for this Service instance
         :rtype: bool
         """
         return self._properties['reachability_enabled']
@@ -666,7 +618,7 @@ class ServiceInstance(InstanceResource):
     @property
     def typing_indicator_timeout(self):
         """
-        :returns: The amount of time after a "started typing" event when clients should assume that user is no longer typing, even if no "ended typing" message was received.
+        :returns: How long in seconds to wait before assuming the user is no longer typing
         :rtype: unicode
         """
         return self._properties['typing_indicator_timeout']
@@ -674,7 +626,7 @@ class ServiceInstance(InstanceResource):
     @property
     def consumption_report_interval(self):
         """
-        :returns: The interval between consumption reports submission batches from client endpoints.
+        :returns: DEPRECATED
         :rtype: unicode
         """
         return self._properties['consumption_report_interval']
@@ -682,7 +634,7 @@ class ServiceInstance(InstanceResource):
     @property
     def limits(self):
         """
-        :returns: The limits
+        :returns: An object that describes the limits of the service instance
         :rtype: dict
         """
         return self._properties['limits']
@@ -690,7 +642,7 @@ class ServiceInstance(InstanceResource):
     @property
     def webhooks(self):
         """
-        :returns: The webhooks
+        :returns: An object that contains information about the webhooks configured for this service
         :rtype: dict
         """
         return self._properties['webhooks']
@@ -698,7 +650,7 @@ class ServiceInstance(InstanceResource):
     @property
     def pre_webhook_url(self):
         """
-        :returns: The webhook URL for PRE-Event webhooks.
+        :returns: The webhook URL for pre-event webhooks
         :rtype: unicode
         """
         return self._properties['pre_webhook_url']
@@ -706,7 +658,7 @@ class ServiceInstance(InstanceResource):
     @property
     def post_webhook_url(self):
         """
-        :returns: The webhook URL for POST-Event webhooks.
+        :returns: The URL for post-event webhooks
         :rtype: unicode
         """
         return self._properties['post_webhook_url']
@@ -714,7 +666,7 @@ class ServiceInstance(InstanceResource):
     @property
     def webhook_method(self):
         """
-        :returns: The webhook request format to use.
+        :returns: The HTTP method  to use for both PRE and POST webhooks
         :rtype: unicode
         """
         return self._properties['webhook_method']
@@ -722,7 +674,7 @@ class ServiceInstance(InstanceResource):
     @property
     def webhook_filters(self):
         """
-        :returns: The list of WebHook events that are enabled for this Service instance.
+        :returns: The list of WebHook events that are enabled for this Service instance
         :rtype: unicode
         """
         return self._properties['webhook_filters']
@@ -730,7 +682,7 @@ class ServiceInstance(InstanceResource):
     @property
     def notifications(self):
         """
-        :returns: Notification configuration for the Service instance.
+        :returns: The notification configuration for the Service instance
         :rtype: dict
         """
         return self._properties['notifications']
@@ -738,7 +690,7 @@ class ServiceInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: An absolute URL for this service.
+        :returns: The absolute URL of the Service resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -746,7 +698,7 @@ class ServiceInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: URLs to access the Channels, Roles, and Users for this service.
+        :returns: The absolute URLs of the Service's Channels, Roles, and Users
         :rtype: unicode
         """
         return self._properties['links']
@@ -788,127 +740,95 @@ class ServiceInstance(InstanceResource):
                webhook_method=values.unset, webhook_filters=values.unset,
                webhooks_on_message_send_url=values.unset,
                webhooks_on_message_send_method=values.unset,
-               webhooks_on_message_send_format=values.unset,
                webhooks_on_message_update_url=values.unset,
                webhooks_on_message_update_method=values.unset,
-               webhooks_on_message_update_format=values.unset,
                webhooks_on_message_remove_url=values.unset,
                webhooks_on_message_remove_method=values.unset,
-               webhooks_on_message_remove_format=values.unset,
                webhooks_on_channel_add_url=values.unset,
                webhooks_on_channel_add_method=values.unset,
-               webhooks_on_channel_add_format=values.unset,
                webhooks_on_channel_destroy_url=values.unset,
                webhooks_on_channel_destroy_method=values.unset,
-               webhooks_on_channel_destroy_format=values.unset,
                webhooks_on_channel_update_url=values.unset,
                webhooks_on_channel_update_method=values.unset,
-               webhooks_on_channel_update_format=values.unset,
                webhooks_on_member_add_url=values.unset,
                webhooks_on_member_add_method=values.unset,
-               webhooks_on_member_add_format=values.unset,
                webhooks_on_member_remove_url=values.unset,
                webhooks_on_member_remove_method=values.unset,
-               webhooks_on_member_remove_format=values.unset,
                webhooks_on_message_sent_url=values.unset,
                webhooks_on_message_sent_method=values.unset,
-               webhooks_on_message_sent_format=values.unset,
                webhooks_on_message_updated_url=values.unset,
                webhooks_on_message_updated_method=values.unset,
-               webhooks_on_message_updated_format=values.unset,
                webhooks_on_message_removed_url=values.unset,
                webhooks_on_message_removed_method=values.unset,
-               webhooks_on_message_removed_format=values.unset,
                webhooks_on_channel_added_url=values.unset,
                webhooks_on_channel_added_method=values.unset,
-               webhooks_on_channel_added_format=values.unset,
                webhooks_on_channel_destroyed_url=values.unset,
                webhooks_on_channel_destroyed_method=values.unset,
-               webhooks_on_channel_destroyed_format=values.unset,
                webhooks_on_channel_updated_url=values.unset,
                webhooks_on_channel_updated_method=values.unset,
-               webhooks_on_channel_updated_format=values.unset,
                webhooks_on_member_added_url=values.unset,
                webhooks_on_member_added_method=values.unset,
-               webhooks_on_member_added_format=values.unset,
                webhooks_on_member_removed_url=values.unset,
                webhooks_on_member_removed_method=values.unset,
-               webhooks_on_member_removed_format=values.unset,
                limits_channel_members=values.unset,
                limits_user_channels=values.unset):
         """
         Update the ServiceInstance
 
-        :param unicode friendly_name: Human-readable name for this service instance
-        :param unicode default_service_role_sid: The default_service_role_sid
-        :param unicode default_channel_role_sid: Channel role assigned on channel join
-        :param unicode default_channel_creator_role_sid: Channel role assigned to creator of channel when joining for first time
-        :param bool read_status_enabled: true if the member read status feature is enabled, false if not.
-        :param bool reachability_enabled: true if the reachability feature should be enabled.
-        :param unicode typing_indicator_timeout: ISO 8601 duration indicating the timeout after "started typing" event when client should assume that user is not typing anymore even if no "ended typing" message received
-        :param unicode consumption_report_interval: ISO 8601 duration indicating the interval between consumption reports sent from client endpoints.
-        :param bool notifications_new_message_enabled: The notifications.new_message.enabled
-        :param unicode notifications_new_message_template: The notifications.new_message.template
-        :param bool notifications_added_to_channel_enabled: The notifications.added_to_channel.enabled
-        :param unicode notifications_added_to_channel_template: The notifications.added_to_channel.template
-        :param bool notifications_removed_from_channel_enabled: The notifications.removed_from_channel.enabled
-        :param unicode notifications_removed_from_channel_template: The notifications.removed_from_channel.template
-        :param bool notifications_invited_to_channel_enabled: The notifications.invited_to_channel.enabled
-        :param unicode notifications_invited_to_channel_template: The notifications.invited_to_channel.template
-        :param unicode pre_webhook_url: The webhook URL for PRE-Event webhooks.
-        :param unicode post_webhook_url: The webhook URL for POST-Event webhooks.
-        :param unicode webhook_method: The webhook request format to use.
-        :param unicode webhook_filters: The list of WebHook events that are enabled for this Service instance.
-        :param unicode webhooks_on_message_send_url: The webhooks.on_message_send.url
-        :param unicode webhooks_on_message_send_method: The webhooks.on_message_send.method
-        :param unicode webhooks_on_message_send_format: The webhooks.on_message_send.format
-        :param unicode webhooks_on_message_update_url: The webhooks.on_message_update.url
-        :param unicode webhooks_on_message_update_method: The webhooks.on_message_update.method
-        :param unicode webhooks_on_message_update_format: The webhooks.on_message_update.format
-        :param unicode webhooks_on_message_remove_url: The webhooks.on_message_remove.url
-        :param unicode webhooks_on_message_remove_method: The webhooks.on_message_remove.method
-        :param unicode webhooks_on_message_remove_format: The webhooks.on_message_remove.format
-        :param unicode webhooks_on_channel_add_url: The webhooks.on_channel_add.url
-        :param unicode webhooks_on_channel_add_method: The webhooks.on_channel_add.method
-        :param unicode webhooks_on_channel_add_format: The webhooks.on_channel_add.format
-        :param unicode webhooks_on_channel_destroy_url: The webhooks.on_channel_destroy.url
-        :param unicode webhooks_on_channel_destroy_method: The webhooks.on_channel_destroy.method
-        :param unicode webhooks_on_channel_destroy_format: The webhooks.on_channel_destroy.format
-        :param unicode webhooks_on_channel_update_url: The webhooks.on_channel_update.url
-        :param unicode webhooks_on_channel_update_method: The webhooks.on_channel_update.method
-        :param unicode webhooks_on_channel_update_format: The webhooks.on_channel_update.format
-        :param unicode webhooks_on_member_add_url: The webhooks.on_member_add.url
-        :param unicode webhooks_on_member_add_method: The webhooks.on_member_add.method
-        :param unicode webhooks_on_member_add_format: The webhooks.on_member_add.format
-        :param unicode webhooks_on_member_remove_url: The webhooks.on_member_remove.url
-        :param unicode webhooks_on_member_remove_method: The webhooks.on_member_remove.method
-        :param unicode webhooks_on_member_remove_format: The webhooks.on_member_remove.format
-        :param unicode webhooks_on_message_sent_url: The webhooks.on_message_sent.url
-        :param unicode webhooks_on_message_sent_method: The webhooks.on_message_sent.method
-        :param unicode webhooks_on_message_sent_format: The webhooks.on_message_sent.format
-        :param unicode webhooks_on_message_updated_url: The webhooks.on_message_updated.url
-        :param unicode webhooks_on_message_updated_method: The webhooks.on_message_updated.method
-        :param unicode webhooks_on_message_updated_format: The webhooks.on_message_updated.format
-        :param unicode webhooks_on_message_removed_url: The webhooks.on_message_removed.url
-        :param unicode webhooks_on_message_removed_method: The webhooks.on_message_removed.method
-        :param unicode webhooks_on_message_removed_format: The webhooks.on_message_removed.format
-        :param unicode webhooks_on_channel_added_url: The webhooks.on_channel_added.url
-        :param unicode webhooks_on_channel_added_method: The webhooks.on_channel_added.method
-        :param unicode webhooks_on_channel_added_format: The webhooks.on_channel_added.format
-        :param unicode webhooks_on_channel_destroyed_url: The webhooks.on_channel_destroyed.url
-        :param unicode webhooks_on_channel_destroyed_method: The webhooks.on_channel_destroyed.method
-        :param unicode webhooks_on_channel_destroyed_format: The webhooks.on_channel_destroyed.format
-        :param unicode webhooks_on_channel_updated_url: The webhooks.on_channel_updated.url
-        :param unicode webhooks_on_channel_updated_method: The webhooks.on_channel_updated.method
-        :param unicode webhooks_on_channel_updated_format: The webhooks.on_channel_updated.format
-        :param unicode webhooks_on_member_added_url: The webhooks.on_member_added.url
-        :param unicode webhooks_on_member_added_method: The webhooks.on_member_added.method
-        :param unicode webhooks_on_member_added_format: The webhooks.on_member_added.format
-        :param unicode webhooks_on_member_removed_url: The webhooks.on_member_removed.url
-        :param unicode webhooks_on_member_removed_method: The webhooks.on_member_removed.method
-        :param unicode webhooks_on_member_removed_format: The webhooks.on_member_removed.format
-        :param unicode limits_channel_members: The limits.channel_members
-        :param unicode limits_user_channels: The limits.user_channels
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode default_service_role_sid: The service role assigned to users when they are added to the service
+        :param unicode default_channel_role_sid: The channel role assigned to users when they are added to a channel
+        :param unicode default_channel_creator_role_sid: The channel role assigned to a channel creator when they join a new channel
+        :param bool read_status_enabled: Whether to enable the Message Consumption Horizon feature
+        :param bool reachability_enabled: Whether to enable the Reachability Indicator feature for this Service instance
+        :param unicode typing_indicator_timeout: How long in seconds to wait before assuming the user is no longer typing
+        :param unicode consumption_report_interval: DEPRECATED
+        :param bool notifications_new_message_enabled: Whether to send a notification when a new message is added to a channel
+        :param unicode notifications_new_message_template: The template to use to create the notification text displayed when a new message is added to a channel
+        :param bool notifications_added_to_channel_enabled: Whether to send a notification when a member is added to a channel
+        :param unicode notifications_added_to_channel_template: The template to use to create the notification text displayed when a member is added to a channel
+        :param bool notifications_removed_from_channel_enabled: Whether to send a notification to a user when they are removed from a channel
+        :param unicode notifications_removed_from_channel_template: The template to use to create the notification text displayed to a user when they are removed
+        :param bool notifications_invited_to_channel_enabled: Whether to send a notification when a user is invited to a channel
+        :param unicode notifications_invited_to_channel_template: The template to use to create the notification text displayed when a user is invited to a channel
+        :param unicode pre_webhook_url: The webhook URL for pre-event webhooks
+        :param unicode post_webhook_url: The URL for post-event webhooks
+        :param unicode webhook_method: The HTTP method  to use for both PRE and POST webhooks
+        :param unicode webhook_filters: The list of WebHook events that are enabled for this Service instance
+        :param unicode webhooks_on_message_send_url: The URL of the webhook to call in response to the on_message_send event
+        :param unicode webhooks_on_message_send_method: The HTTP method to use when calling the webhooks.on_message_send.url
+        :param unicode webhooks_on_message_update_url: The URL of the webhook to call in response to the on_message_update event
+        :param unicode webhooks_on_message_update_method: The HTTP method to use when calling the webhooks.on_message_update.url
+        :param unicode webhooks_on_message_remove_url: The URL of the webhook to call in response to the on_message_remove event
+        :param unicode webhooks_on_message_remove_method: The HTTP method to use when calling the webhooks.on_message_remove.url
+        :param unicode webhooks_on_channel_add_url: The URL of the webhook to call in response to the on_channel_add event
+        :param unicode webhooks_on_channel_add_method: The HTTP method to use when calling the webhooks.on_channel_add.url
+        :param unicode webhooks_on_channel_destroy_url: The URL of the webhook to call in response to the on_channel_destroy event
+        :param unicode webhooks_on_channel_destroy_method: The HTTP method to use when calling the webhooks.on_channel_destroy.url
+        :param unicode webhooks_on_channel_update_url: The URL of the webhook to call in response to the on_channel_update event
+        :param unicode webhooks_on_channel_update_method: The HTTP method to use when calling the webhooks.on_channel_update.url
+        :param unicode webhooks_on_member_add_url: The URL of the webhook to call in response to the on_member_add event
+        :param unicode webhooks_on_member_add_method: The HTTP method to use when calling the webhooks.on_member_add.url
+        :param unicode webhooks_on_member_remove_url: The URL of the webhook to call in response to the on_member_remove event
+        :param unicode webhooks_on_member_remove_method: The HTTP method to use when calling the webhooks.on_member_remove.url
+        :param unicode webhooks_on_message_sent_url: The URL of the webhook to call in response to the on_message_sent event
+        :param unicode webhooks_on_message_sent_method: The URL of the webhook to call in response to the on_message_sent event
+        :param unicode webhooks_on_message_updated_url: The URL of the webhook to call in response to the on_message_updated event
+        :param unicode webhooks_on_message_updated_method: The HTTP method to use when calling the webhooks.on_message_updated.url
+        :param unicode webhooks_on_message_removed_url: The URL of the webhook to call in response to the on_message_removed event
+        :param unicode webhooks_on_message_removed_method: The HTTP method to use when calling the webhooks.on_message_removed.url
+        :param unicode webhooks_on_channel_added_url: The URL of the webhook to call in response to the on_channel_added event
+        :param unicode webhooks_on_channel_added_method: The URL of the webhook to call in response to the on_channel_added event
+        :param unicode webhooks_on_channel_destroyed_url: The URL of the webhook to call in response to the on_channel_added event
+        :param unicode webhooks_on_channel_destroyed_method: The HTTP method to use when calling the webhooks.on_channel_destroyed.url
+        :param unicode webhooks_on_channel_updated_url: he URL of the webhook to call in response to the on_channel_updated event
+        :param unicode webhooks_on_channel_updated_method: The HTTP method to use when calling the webhooks.on_channel_updated.url
+        :param unicode webhooks_on_member_added_url: The URL of the webhook to call in response to the on_channel_updated event
+        :param unicode webhooks_on_member_added_method: he HTTP method to use when calling the webhooks.on_channel_updated.url
+        :param unicode webhooks_on_member_removed_url: The URL of the webhook to call in response to the on_member_removed event
+        :param unicode webhooks_on_member_removed_method: The HTTP method to use when calling the webhooks.on_member_removed.url
+        :param unicode limits_channel_members: The maximum number of Members that can be added to Channels within this Service
+        :param unicode limits_user_channels: The maximum number of Channels Users can be a Member of within this Service
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.chat.v1.service.ServiceInstance
@@ -936,52 +856,36 @@ class ServiceInstance(InstanceResource):
             webhook_filters=webhook_filters,
             webhooks_on_message_send_url=webhooks_on_message_send_url,
             webhooks_on_message_send_method=webhooks_on_message_send_method,
-            webhooks_on_message_send_format=webhooks_on_message_send_format,
             webhooks_on_message_update_url=webhooks_on_message_update_url,
             webhooks_on_message_update_method=webhooks_on_message_update_method,
-            webhooks_on_message_update_format=webhooks_on_message_update_format,
             webhooks_on_message_remove_url=webhooks_on_message_remove_url,
             webhooks_on_message_remove_method=webhooks_on_message_remove_method,
-            webhooks_on_message_remove_format=webhooks_on_message_remove_format,
             webhooks_on_channel_add_url=webhooks_on_channel_add_url,
             webhooks_on_channel_add_method=webhooks_on_channel_add_method,
-            webhooks_on_channel_add_format=webhooks_on_channel_add_format,
             webhooks_on_channel_destroy_url=webhooks_on_channel_destroy_url,
             webhooks_on_channel_destroy_method=webhooks_on_channel_destroy_method,
-            webhooks_on_channel_destroy_format=webhooks_on_channel_destroy_format,
             webhooks_on_channel_update_url=webhooks_on_channel_update_url,
             webhooks_on_channel_update_method=webhooks_on_channel_update_method,
-            webhooks_on_channel_update_format=webhooks_on_channel_update_format,
             webhooks_on_member_add_url=webhooks_on_member_add_url,
             webhooks_on_member_add_method=webhooks_on_member_add_method,
-            webhooks_on_member_add_format=webhooks_on_member_add_format,
             webhooks_on_member_remove_url=webhooks_on_member_remove_url,
             webhooks_on_member_remove_method=webhooks_on_member_remove_method,
-            webhooks_on_member_remove_format=webhooks_on_member_remove_format,
             webhooks_on_message_sent_url=webhooks_on_message_sent_url,
             webhooks_on_message_sent_method=webhooks_on_message_sent_method,
-            webhooks_on_message_sent_format=webhooks_on_message_sent_format,
             webhooks_on_message_updated_url=webhooks_on_message_updated_url,
             webhooks_on_message_updated_method=webhooks_on_message_updated_method,
-            webhooks_on_message_updated_format=webhooks_on_message_updated_format,
             webhooks_on_message_removed_url=webhooks_on_message_removed_url,
             webhooks_on_message_removed_method=webhooks_on_message_removed_method,
-            webhooks_on_message_removed_format=webhooks_on_message_removed_format,
             webhooks_on_channel_added_url=webhooks_on_channel_added_url,
             webhooks_on_channel_added_method=webhooks_on_channel_added_method,
-            webhooks_on_channel_added_format=webhooks_on_channel_added_format,
             webhooks_on_channel_destroyed_url=webhooks_on_channel_destroyed_url,
             webhooks_on_channel_destroyed_method=webhooks_on_channel_destroyed_method,
-            webhooks_on_channel_destroyed_format=webhooks_on_channel_destroyed_format,
             webhooks_on_channel_updated_url=webhooks_on_channel_updated_url,
             webhooks_on_channel_updated_method=webhooks_on_channel_updated_method,
-            webhooks_on_channel_updated_format=webhooks_on_channel_updated_format,
             webhooks_on_member_added_url=webhooks_on_member_added_url,
             webhooks_on_member_added_method=webhooks_on_member_added_method,
-            webhooks_on_member_added_format=webhooks_on_member_added_format,
             webhooks_on_member_removed_url=webhooks_on_member_removed_url,
             webhooks_on_member_removed_method=webhooks_on_member_removed_method,
-            webhooks_on_member_removed_format=webhooks_on_member_removed_format,
             limits_channel_members=limits_channel_members,
             limits_user_channels=limits_user_channels,
         )

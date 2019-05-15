@@ -207,7 +207,7 @@ class DataSessionInstance(InstanceResource):
             'last_updated': deserialize.iso8601_datetime(payload['last_updated']),
             'start': deserialize.iso8601_datetime(payload['start']),
             'end': deserialize.iso8601_datetime(payload['end']),
-            'imeisv': payload['imeisv'],
+            'imei': payload['imei'],
         }
 
         # Context
@@ -335,12 +335,12 @@ class DataSessionInstance(InstanceResource):
         return self._properties['end']
 
     @property
-    def imeisv(self):
+    def imei(self):
         """
         :returns: The unique id of the device using the SIM to connect.
         :rtype: unicode
         """
-        return self._properties['imeisv']
+        return self._properties['imei']
 
     def __repr__(self):
         """

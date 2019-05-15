@@ -48,7 +48,7 @@ class DataSessionTestCase(IntegrationTestCase):
                         "last_updated": "2015-07-30T20:00:00Z",
                         "start": "2015-07-30T20:00:00Z",
                         "end": null,
-                        "imeisv": null
+                        "imei": null
                     },
                     {
                         "sid": "WNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -66,7 +66,7 @@ class DataSessionTestCase(IntegrationTestCase):
                         "last_updated": "2015-07-30T20:00:00Z",
                         "start": "2015-07-30T20:00:00Z",
                         "end": "2015-07-30T20:00:00Z",
-                        "imeisv": "8693070314126600"
+                        "imei": "014931000129700"
                     }
                 ],
                 "meta": {

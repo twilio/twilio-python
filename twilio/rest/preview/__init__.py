@@ -13,6 +13,7 @@ from twilio.rest.preview.deployed_devices import DeployedDevices
 from twilio.rest.preview.hosted_numbers import HostedNumbers
 from twilio.rest.preview.marketplace import Marketplace
 from twilio.rest.preview.sync import Sync
+from twilio.rest.preview.trusted_comms import TrustedComms
 from twilio.rest.preview.understand import Understand
 from twilio.rest.preview.wireless import Wireless
 
@@ -39,6 +40,7 @@ class Preview(Domain):
         self._sync = None
         self._understand = None
         self._wireless = None
+        self._trusted_comms = None
 
     @property
     def bulk_exports(self):
@@ -119,6 +121,16 @@ class Preview(Domain):
         if self._wireless is None:
             self._wireless = Wireless(self)
         return self._wireless
+
+    @property
+    def trusted_comms(self):
+        """
+        :returns: Version trusted_comms of preview
+        :rtype: twilio.rest.preview.trusted_comms.TrustedComms
+        """
+        if self._trusted_comms is None:
+            self._trusted_comms = TrustedComms(self)
+        return self._trusted_comms
 
     @property
     def exports(self):
@@ -203,6 +215,27 @@ class Preview(Domain):
         :rtype: twilio.rest.preview.wireless.sim.SimList
         """
         return self.wireless.sims
+
+    @property
+    def devices(self):
+        """
+        :rtype: twilio.rest.preview.trusted_comms.device.DeviceList
+        """
+        return self.trusted_comms.devices
+
+    @property
+    def phone_calls(self):
+        """
+        :rtype: twilio.rest.preview.trusted_comms.phone_call.PhoneCallList
+        """
+        return self.trusted_comms.phone_calls
+
+    @property
+    def current_calls(self):
+        """
+        :rtype: twilio.rest.preview.trusted_comms.current_call.CurrentCallList
+        """
+        return self.trusted_comms.current_calls
 
     def __repr__(self):
         """

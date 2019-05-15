@@ -23,7 +23,7 @@ class UserList(ListResource):
         Initialize the UserList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The unique id of the Service this user belongs to.
+        :param service_sid: The SID of the Service that the resource is associated with
 
         :returns: twilio.rest.chat.v1.service.user.UserList
         :rtype: twilio.rest.chat.v1.service.user.UserList
@@ -39,10 +39,10 @@ class UserList(ListResource):
         """
         Create a new UserInstance
 
-        :param unicode identity: A unique string that identifies the user within this service - often a username or email address.
-        :param unicode role_sid: The unique id of the Role assigned to this user.
-        :param unicode attributes: An optional string used to contain any metadata or other information for the User.
-        :param unicode friendly_name: An optional human readable string representing the user.
+        :param unicode identity: The `identity` value that identifies the new resource's User
+        :param unicode role_sid: The SID of the Role assigned to this user
+        :param unicode attributes: A valid JSON string that contains application-specific data
+        :param unicode friendly_name: A string to describe the new resource
 
         :returns: Newly created UserInstance
         :rtype: twilio.rest.chat.v1.service.user.UserInstance
@@ -147,7 +147,7 @@ class UserList(ListResource):
         """
         Constructs a UserContext
 
-        :param sid: The sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.chat.v1.service.user.UserContext
         :rtype: twilio.rest.chat.v1.service.user.UserContext
@@ -158,7 +158,7 @@ class UserList(ListResource):
         """
         Constructs a UserContext
 
-        :param sid: The sid
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.chat.v1.service.user.UserContext
         :rtype: twilio.rest.chat.v1.service.user.UserContext
@@ -184,7 +184,7 @@ class UserPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The unique id of the Service this user belongs to.
+        :param service_sid: The SID of the Service that the resource is associated with
 
         :returns: twilio.rest.chat.v1.service.user.UserPage
         :rtype: twilio.rest.chat.v1.service.user.UserPage
@@ -223,8 +223,8 @@ class UserContext(InstanceContext):
         Initialize the UserContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
-        :param sid: The sid
+        :param service_sid: The SID of the Service to fetch the resource from
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.chat.v1.service.user.UserContext
         :rtype: twilio.rest.chat.v1.service.user.UserContext
@@ -274,9 +274,9 @@ class UserContext(InstanceContext):
         """
         Update the UserInstance
 
-        :param unicode role_sid: The unique id of the [Role][role] assigned to this user.
-        :param unicode attributes: An optional string used to contain any metadata or other information for the User.
-        :param unicode friendly_name: An optional human readable string representing the user.
+        :param unicode role_sid: The SID id of the Role assigned to this user
+        :param unicode attributes: A valid JSON string that contains application-specific data
+        :param unicode friendly_name: A string to describe the resource
 
         :returns: Updated UserInstance
         :rtype: twilio.rest.chat.v1.service.user.UserInstance
@@ -377,7 +377,7 @@ class UserInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34 character string that uniquely identifies this resource.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -385,7 +385,7 @@ class UserInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the Account responsible for this user.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -393,7 +393,7 @@ class UserInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The unique id of the Service this user belongs to.
+        :returns: The SID of the Service that the resource is associated with
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -401,7 +401,7 @@ class UserInstance(InstanceResource):
     @property
     def attributes(self):
         """
-        :returns: An optional string metadata field you can use to store any data you wish.
+        :returns: The JSON string that stores application-specific data
         :rtype: unicode
         """
         return self._properties['attributes']
@@ -409,7 +409,7 @@ class UserInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The human-readable name of this user.
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -417,7 +417,7 @@ class UserInstance(InstanceResource):
     @property
     def role_sid(self):
         """
-        :returns: The unique id of the [Role][role] assigned to this user.
+        :returns: The SID of the assigned to the user
         :rtype: unicode
         """
         return self._properties['role_sid']
@@ -425,7 +425,7 @@ class UserInstance(InstanceResource):
     @property
     def identity(self):
         """
-        :returns: A unique string that identifies the user within this service - often a username or email address.
+        :returns: The string that identifies the resource's User
         :rtype: unicode
         """
         return self._properties['identity']
@@ -433,7 +433,7 @@ class UserInstance(InstanceResource):
     @property
     def is_online(self):
         """
-        :returns: Indicates whether the User is actively connected to the Service instance and online.
+        :returns: Whether the User is actively connected to the Service instance and online
         :rtype: bool
         """
         return self._properties['is_online']
@@ -441,7 +441,7 @@ class UserInstance(InstanceResource):
     @property
     def is_notifiable(self):
         """
-        :returns: Indicates whether the User has a potentially valid Push Notification registration  for the Service instance.
+        :returns: Whether the User has a potentially valid Push Notification registration for the Service instance
         :rtype: bool
         """
         return self._properties['is_notifiable']
@@ -449,7 +449,7 @@ class UserInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this resource was created in ISO 8601 format.
+        :returns: The RFC 2822 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -457,7 +457,7 @@ class UserInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date that this resource was last updated in ISO 8601 format.
+        :returns: The RFC 2822 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -465,7 +465,7 @@ class UserInstance(InstanceResource):
     @property
     def joined_channels_count(self):
         """
-        :returns: The joined_channels_count
+        :returns: The number of Channels this User is a Member of
         :rtype: unicode
         """
         return self._properties['joined_channels_count']
@@ -473,7 +473,7 @@ class UserInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links
+        :returns: The absolute URLs of the Channel and Binding resources related to the user
         :rtype: unicode
         """
         return self._properties['links']
@@ -481,7 +481,7 @@ class UserInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: An absolute URL for this user.
+        :returns: The absolute URL of the User resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -509,9 +509,9 @@ class UserInstance(InstanceResource):
         """
         Update the UserInstance
 
-        :param unicode role_sid: The unique id of the [Role][role] assigned to this user.
-        :param unicode attributes: An optional string used to contain any metadata or other information for the User.
-        :param unicode friendly_name: An optional human readable string representing the user.
+        :param unicode role_sid: The SID id of the Role assigned to this user
+        :param unicode attributes: A valid JSON string that contains application-specific data
+        :param unicode friendly_name: A string to describe the resource
 
         :returns: Updated UserInstance
         :rtype: twilio.rest.chat.v1.service.user.UserInstance
