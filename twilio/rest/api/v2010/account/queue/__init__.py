@@ -336,7 +336,6 @@ class QueueInstance(InstanceResource):
             'max_size': deserialize.integer(payload['max_size']),
             'sid': payload['sid'],
             'uri': payload['uri'],
-            'subresource_uris': payload['subresource_uris'],
         }
 
         # Context
@@ -431,14 +430,6 @@ class QueueInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['uri']
-
-    @property
-    def subresource_uris(self):
-        """
-        :returns: Queue Instance Subresources
-        :rtype: unicode
-        """
-        return self._properties['subresource_uris']
 
     def fetch(self):
         """

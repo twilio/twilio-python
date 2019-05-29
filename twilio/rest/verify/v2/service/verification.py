@@ -232,6 +232,7 @@ class VerificationInstance(InstanceResource):
 
     class Status(object):
         CANCELED = "canceled"
+        APPROVED = "approved"
 
     def __init__(self, version, payload, service_sid, sid=None):
         """

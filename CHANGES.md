@@ -3,6 +3,12 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2019-05-29] Version 6.27.1
+----------------------------
+**Verify**
+- Add `approved` to status enum
+
+
 [2019-05-15] Version 6.27.0
 ----------------------------
 **Api**

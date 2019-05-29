@@ -18,9 +18,9 @@ class PhoneCallTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.trusted_comms.phone_calls.create(from_="from", to="to", url="url")
+            self.client.preview.trusted_comms.phone_calls.create(from_="from", to="to")
 
-        values = {'From': "from", 'To': "to", 'Url': "url", }
+        values = {'From': "from", 'To': "to", }
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -44,6 +44,6 @@ class PhoneCallTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.trusted_comms.phone_calls.create(from_="from", to="to", url="url")
+        actual = self.client.preview.trusted_comms.phone_calls.create(from_="from", to="to")
 
         self.assertIsNotNone(actual)

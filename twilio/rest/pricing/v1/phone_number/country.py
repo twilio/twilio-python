@@ -279,7 +279,7 @@ class CountryInstance(InstanceResource):
     @property
     def iso_country(self):
         """
-        :returns: The ISO country code 
+        :returns: The ISO country code
         :rtype: unicode
         """
         return self._properties['iso_country']
