@@ -229,6 +229,7 @@ class ConfigurationInstance(InstanceResource):
             'public_attributes': payload['public_attributes'],
             'plugin_service_enabled': payload['plugin_service_enabled'],
             'plugin_service_attributes': payload['plugin_service_attributes'],
+            'integrations': payload['integrations'],
             'url': payload['url'],
         }
 
@@ -488,6 +489,14 @@ class ConfigurationInstance(InstanceResource):
         :rtype: dict
         """
         return self._properties['plugin_service_attributes']
+
+    @property
+    def integrations(self):
+        """
+        :returns: Integration parameters
+        :rtype: dict
+        """
+        return self._properties['integrations']
 
     @property
     def url(self):

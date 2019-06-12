@@ -45,7 +45,9 @@ class ServiceTestCase(IntegrationTestCase):
                 "url": "https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "webhook_url": "http://www.example.com",
                 "reachability_webhooks_enabled": false,
-                "acl_enabled": false
+                "acl_enabled": false,
+                "reachability_debouncing_enabled": false,
+                "reachability_debouncing_window": 5000
             }
             '''
         ))
@@ -106,7 +108,9 @@ class ServiceTestCase(IntegrationTestCase):
                 "url": "https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "webhook_url": "http://www.example.com",
                 "reachability_webhooks_enabled": false,
-                "acl_enabled": true
+                "acl_enabled": true,
+                "reachability_debouncing_enabled": false,
+                "reachability_debouncing_window": 5000
             }
             '''
         ))
@@ -180,7 +184,9 @@ class ServiceTestCase(IntegrationTestCase):
                         "url": "https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "webhook_url": "http://www.example.com",
                         "reachability_webhooks_enabled": false,
-                        "acl_enabled": false
+                        "acl_enabled": false,
+                        "reachability_debouncing_enabled": false,
+                        "reachability_debouncing_window": 5000
                     }
                 ]
             }
@@ -222,7 +228,9 @@ class ServiceTestCase(IntegrationTestCase):
                 "url": "https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "webhook_url": "http://www.example.com",
                 "reachability_webhooks_enabled": false,
-                "acl_enabled": true
+                "acl_enabled": true,
+                "reachability_debouncing_enabled": false,
+                "reachability_debouncing_window": 5000
             }
             '''
         ))

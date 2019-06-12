@@ -20,6 +20,7 @@ from twilio.rest.autopilot.v1.assistant.model_build import ModelBuildList
 from twilio.rest.autopilot.v1.assistant.query import QueryList
 from twilio.rest.autopilot.v1.assistant.style_sheet import StyleSheetList
 from twilio.rest.autopilot.v1.assistant.task import TaskList
+from twilio.rest.autopilot.v1.assistant.webhook import WebhookList
 
 
 class AssistantList(ListResource):
@@ -261,6 +262,7 @@ class AssistantContext(InstanceContext):
         self._style_sheet = None
         self._defaults = None
         self._dialogues = None
+        self._webhooks = None
 
     def fetch(self):
         """
@@ -407,6 +409,18 @@ class AssistantContext(InstanceContext):
         if self._dialogues is None:
             self._dialogues = DialogueList(self._version, assistant_sid=self._solution['sid'], )
         return self._dialogues
+
+    @property
+    def webhooks(self):
+        """
+        Access the webhooks
+
+        :returns: twilio.rest.autopilot.v1.assistant.webhook.WebhookList
+        :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookList
+        """
+        if self._webhooks is None:
+            self._webhooks = WebhookList(self._version, assistant_sid=self._solution['sid'], )
+        return self._webhooks
 
     def __repr__(self):
         """
@@ -677,6 +691,16 @@ class AssistantInstance(InstanceResource):
         :rtype: twilio.rest.autopilot.v1.assistant.dialogue.DialogueList
         """
         return self._proxy.dialogues
+
+    @property
+    def webhooks(self):
+        """
+        Access the webhooks
+
+        :returns: twilio.rest.autopilot.v1.assistant.webhook.WebhookList
+        :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookList
+        """
+        return self._proxy.webhooks
 
     def __repr__(self):
         """

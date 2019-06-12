@@ -64,6 +64,41 @@ class VerificationTestCase(IntegrationTestCase):
 
         self.assertIsNotNone(actual)
 
+    def test_create_verification_with_rate_limits_response(self):
+        self.holodeck.mock(Response(
+            201,
+            '''
+            {
+                "sid": "VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "service_sid": "VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "to": "+14159373912",
+                "channel": "sms",
+                "status": "pending",
+                "valid": null,
+                "date_created": "2015-07-30T20:00:00Z",
+                "date_updated": "2015-07-30T20:00:00Z",
+                "lookup": {
+                    "carrier": {
+                        "error_code": null,
+                        "name": "Carrier Name",
+                        "mobile_country_code": "310",
+                        "mobile_network_code": "150",
+                        "type": "mobile"
+                    }
+                },
+                "amount": null,
+                "payee": null,
+                "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
+
+        actual = self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .verifications.create(to="to", channel="channel")
+
+        self.assertIsNotNone(actual)
+
     def test_update_request(self):
         self.holodeck.mock(Response(500, ''))
 

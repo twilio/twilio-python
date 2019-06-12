@@ -38,8 +38,9 @@ class ServiceList(ListResource):
         self._uri = '/Services'.format(**self._solution)
 
     def create(self, friendly_name=values.unset, webhook_url=values.unset,
-               reachability_webhooks_enabled=values.unset,
-               acl_enabled=values.unset):
+               reachability_webhooks_enabled=values.unset, acl_enabled=values.unset,
+               reachability_debouncing_enabled=values.unset,
+               reachability_debouncing_window=values.unset):
         """
         Create a new ServiceInstance
 
@@ -47,6 +48,8 @@ class ServiceList(ListResource):
         :param unicode webhook_url: A URL that will receive event updates when objects are manipulated.
         :param bool reachability_webhooks_enabled: true or false - controls whether this instance fires webhooks when client endpoints connect to Sync
         :param bool acl_enabled: true or false - determines whether token identities must be granted access to Sync objects via the Permissions API in this Service.
+        :param bool reachability_debouncing_enabled: true or false - Determines whether transient disconnections (i.e. an immediate reconnect succeeds) cause reachability webhooks.
+        :param unicode reachability_debouncing_window: Determines how long an identity must be offline before reachability webhooks fire.
 
         :returns: Newly created ServiceInstance
         :rtype: twilio.rest.sync.v1.service.ServiceInstance
@@ -56,6 +59,8 @@ class ServiceList(ListResource):
             'WebhookUrl': webhook_url,
             'ReachabilityWebhooksEnabled': reachability_webhooks_enabled,
             'AclEnabled': acl_enabled,
+            'ReachabilityDebouncingEnabled': reachability_debouncing_enabled,
+            'ReachabilityDebouncingWindow': reachability_debouncing_window,
         })
 
         payload = self._version.create(
@@ -151,7 +156,7 @@ class ServiceList(ListResource):
         """
         Constructs a ServiceContext
 
-        :param sid: The sid
+        :param sid: A unique identifier for this service instance.
 
         :returns: twilio.rest.sync.v1.service.ServiceContext
         :rtype: twilio.rest.sync.v1.service.ServiceContext
@@ -162,7 +167,7 @@ class ServiceList(ListResource):
         """
         Constructs a ServiceContext
 
-        :param sid: The sid
+        :param sid: A unique identifier for this service instance.
 
         :returns: twilio.rest.sync.v1.service.ServiceContext
         :rtype: twilio.rest.sync.v1.service.ServiceContext
@@ -228,7 +233,7 @@ class ServiceContext(InstanceContext):
         Initialize the ServiceContext
 
         :param Version version: Version that contains the resource
-        :param sid: The sid
+        :param sid: A unique identifier for this service instance.
 
         :returns: twilio.rest.sync.v1.service.ServiceContext
         :rtype: twilio.rest.sync.v1.service.ServiceContext
@@ -272,8 +277,9 @@ class ServiceContext(InstanceContext):
         return self._version.delete('delete', self._uri)
 
     def update(self, webhook_url=values.unset, friendly_name=values.unset,
-               reachability_webhooks_enabled=values.unset,
-               acl_enabled=values.unset):
+               reachability_webhooks_enabled=values.unset, acl_enabled=values.unset,
+               reachability_debouncing_enabled=values.unset,
+               reachability_debouncing_window=values.unset):
         """
         Update the ServiceInstance
 
@@ -281,6 +287,8 @@ class ServiceContext(InstanceContext):
         :param unicode friendly_name: Human-readable name for this service instance
         :param bool reachability_webhooks_enabled: True or false - controls whether this instance fires webhooks when client endpoints connect to Sync
         :param bool acl_enabled: true or false - determines whether token identities must be granted access to Sync objects via the Permissions API in this Service.
+        :param bool reachability_debouncing_enabled: true or false - Determines whether transient disconnections (i.e. an immediate reconnect succeeds) cause reachability webhooks.
+        :param unicode reachability_debouncing_window: Determines how long an identity must be offline before reachability webhooks fire.
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.sync.v1.service.ServiceInstance
@@ -290,6 +298,8 @@ class ServiceContext(InstanceContext):
             'FriendlyName': friendly_name,
             'ReachabilityWebhooksEnabled': reachability_webhooks_enabled,
             'AclEnabled': acl_enabled,
+            'ReachabilityDebouncingEnabled': reachability_debouncing_enabled,
+            'ReachabilityDebouncingWindow': reachability_debouncing_window,
         })
 
         payload = self._version.update(
@@ -384,6 +394,8 @@ class ServiceInstance(InstanceResource):
             'webhook_url': payload['webhook_url'],
             'reachability_webhooks_enabled': payload['reachability_webhooks_enabled'],
             'acl_enabled': payload['acl_enabled'],
+            'reachability_debouncing_enabled': payload['reachability_debouncing_enabled'],
+            'reachability_debouncing_window': deserialize.integer(payload['reachability_debouncing_window']),
             'links': payload['links'],
         }
 
@@ -407,7 +419,7 @@ class ServiceInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: A unique identifier for this service instance.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -485,6 +497,22 @@ class ServiceInstance(InstanceResource):
         return self._properties['acl_enabled']
 
     @property
+    def reachability_debouncing_enabled(self):
+        """
+        :returns: true or false - Determines whether transient disconnections (i.e. an immediate reconnect succeeds) cause reachability webhooks.
+        :rtype: bool
+        """
+        return self._properties['reachability_debouncing_enabled']
+
+    @property
+    def reachability_debouncing_window(self):
+        """
+        :returns: Determines how long an identity must be offline before reachability webhooks fire.
+        :rtype: unicode
+        """
+        return self._properties['reachability_debouncing_window']
+
+    @property
     def links(self):
         """
         :returns: The links
@@ -511,8 +539,9 @@ class ServiceInstance(InstanceResource):
         return self._proxy.delete()
 
     def update(self, webhook_url=values.unset, friendly_name=values.unset,
-               reachability_webhooks_enabled=values.unset,
-               acl_enabled=values.unset):
+               reachability_webhooks_enabled=values.unset, acl_enabled=values.unset,
+               reachability_debouncing_enabled=values.unset,
+               reachability_debouncing_window=values.unset):
         """
         Update the ServiceInstance
 
@@ -520,6 +549,8 @@ class ServiceInstance(InstanceResource):
         :param unicode friendly_name: Human-readable name for this service instance
         :param bool reachability_webhooks_enabled: True or false - controls whether this instance fires webhooks when client endpoints connect to Sync
         :param bool acl_enabled: true or false - determines whether token identities must be granted access to Sync objects via the Permissions API in this Service.
+        :param bool reachability_debouncing_enabled: true or false - Determines whether transient disconnections (i.e. an immediate reconnect succeeds) cause reachability webhooks.
+        :param unicode reachability_debouncing_window: Determines how long an identity must be offline before reachability webhooks fire.
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.sync.v1.service.ServiceInstance
@@ -529,6 +560,8 @@ class ServiceInstance(InstanceResource):
             friendly_name=friendly_name,
             reachability_webhooks_enabled=reachability_webhooks_enabled,
             acl_enabled=acl_enabled,
+            reachability_debouncing_enabled=reachability_debouncing_enabled,
+            reachability_debouncing_window=reachability_debouncing_window,
         )
 
     @property

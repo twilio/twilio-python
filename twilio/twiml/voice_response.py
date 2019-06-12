@@ -1136,17 +1136,17 @@ class Connect(TwiML):
         super(Connect, self).__init__(**kwargs)
         self.name = 'Connect'
 
-    def room(self, name, participantIdentity=None, **kwargs):
+    def room(self, name, participant_identity=None, **kwargs):
         """
         Create a <Room> element
 
         :param name: Room name
-        :param participantIdentity: Participant identity when connecting to the Room
+        :param participant_identity: Participant identity when connecting to the Room
         :param kwargs: additional attributes
 
         :returns: <Room> element
         """
-        return self.nest(Room(name, participantIdentity=participantIdentity, **kwargs))
+        return self.nest(Room(name, participant_identity=participant_identity, **kwargs))
 
     def autopilot(self, name, **kwargs):
         """

@@ -372,6 +372,7 @@ class FlexFlowInstance(InstanceResource):
         FACEBOOK = "facebook"
         WHATSAPP = "whatsapp"
         LINE = "line"
+        CUSTOM = "custom"
 
     class IntegrationType(object):
         STUDIO = "studio"

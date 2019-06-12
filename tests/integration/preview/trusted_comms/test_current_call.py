@@ -33,8 +33,16 @@ class CurrentCallTestCase(IntegrationTestCase):
                 "sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "from": "+15000000000",
                 "to": "+573000000000",
-                "reason": "Hello Jhon, your appointment has been confirmed.",
+                "status": "ringing",
+                "reason": "Hello Jhon, your bank appointment has been confirmed.",
                 "created_at": "2019-05-01T20:00:00Z",
+                "caller": "Owl Bank",
+                "logo": "https://www.twilio.com/marketing/bundles/company/img/logos/red/twilio-logo-red.png",
+                "bg_color": "#fff",
+                "font_color": "#f22f46",
+                "use_case": "conversational",
+                "manager": "Twilio",
+                "shield_img": "https://www.twilio.com/marketing/bundles/company/img/badges/red/twilio-badge-red.png",
                 "url": "https://preview.twilio.com/TrustedComms/CurrentCall"
             }
             '''

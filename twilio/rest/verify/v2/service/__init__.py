@@ -12,6 +12,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.verify.v2.service.rate_limit import RateLimitList
 from twilio.rest.verify.v2.service.verification import VerificationList
 from twilio.rest.verify.v2.service.verification_check import VerificationCheckList
 
@@ -247,6 +248,7 @@ class ServiceContext(InstanceContext):
         # Dependents
         self._verifications = None
         self._verification_checks = None
+        self._rate_limits = None
 
     def fetch(self):
         """
@@ -333,6 +335,18 @@ class ServiceContext(InstanceContext):
         if self._verification_checks is None:
             self._verification_checks = VerificationCheckList(self._version, service_sid=self._solution['sid'], )
         return self._verification_checks
+
+    @property
+    def rate_limits(self):
+        """
+        Access the rate_limits
+
+        :returns: twilio.rest.verify.v2.service.rate_limit.RateLimitList
+        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitList
+        """
+        if self._rate_limits is None:
+            self._rate_limits = RateLimitList(self._version, service_sid=self._solution['sid'], )
+        return self._rate_limits
 
     def __repr__(self):
         """
@@ -561,6 +575,16 @@ class ServiceInstance(InstanceResource):
         :rtype: twilio.rest.verify.v2.service.verification_check.VerificationCheckList
         """
         return self._proxy.verification_checks
+
+    @property
+    def rate_limits(self):
+        """
+        Access the rate_limits
+
+        :returns: twilio.rest.verify.v2.service.rate_limit.RateLimitList
+        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitList
+        """
+        return self._proxy.rate_limits
 
     def __repr__(self):
         """

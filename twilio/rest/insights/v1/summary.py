@@ -224,6 +224,7 @@ class CallSummaryInstance(InstanceResource):
             'sip_edge': payload['sip_edge'],
             'tags': payload['tags'],
             'url': payload['url'],
+            'attributes': payload['attributes'],
         }
 
         # Context
@@ -394,6 +395,14 @@ class CallSummaryInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['url']
+
+    @property
+    def attributes(self):
+        """
+        :returns: The attributes
+        :rtype: dict
+        """
+        return self._properties['attributes']
 
     def fetch(self, processing_state=values.unset):
         """

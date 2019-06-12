@@ -280,16 +280,14 @@ class SessionContext(InstanceContext):
         """
         return self._version.delete('delete', self._uri)
 
-    def update(self, date_expiry=values.unset, ttl=values.unset, mode=values.unset,
-               status=values.unset, participants=values.unset):
+    def update(self, date_expiry=values.unset, ttl=values.unset,
+               status=values.unset):
         """
         Update the SessionInstance
 
         :param datetime date_expiry: The ISO 8601 date when the Session should expire
         :param unicode ttl: When the session will expire
-        :param SessionInstance.Mode mode: The Mode of the Session
         :param SessionInstance.Status status: The new status of the resource
-        :param dict participants: The Participant objects to include in the session
 
         :returns: Updated SessionInstance
         :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
@@ -297,9 +295,7 @@ class SessionContext(InstanceContext):
         data = values.of({
             'DateExpiry': serialize.iso8601_datetime(date_expiry),
             'Ttl': ttl,
-            'Mode': mode,
             'Status': status,
-            'Participants': serialize.map(participants, lambda e: serialize.object(e)),
         })
 
         payload = self._version.update(
@@ -570,27 +566,19 @@ class SessionInstance(InstanceResource):
         """
         return self._proxy.delete()
 
-    def update(self, date_expiry=values.unset, ttl=values.unset, mode=values.unset,
-               status=values.unset, participants=values.unset):
+    def update(self, date_expiry=values.unset, ttl=values.unset,
+               status=values.unset):
         """
         Update the SessionInstance
 
         :param datetime date_expiry: The ISO 8601 date when the Session should expire
         :param unicode ttl: When the session will expire
-        :param SessionInstance.Mode mode: The Mode of the Session
         :param SessionInstance.Status status: The new status of the resource
-        :param dict participants: The Participant objects to include in the session
 
         :returns: Updated SessionInstance
         :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
         """
-        return self._proxy.update(
-            date_expiry=date_expiry,
-            ttl=ttl,
-            mode=mode,
-            status=status,
-            participants=participants,
-        )
+        return self._proxy.update(date_expiry=date_expiry, ttl=ttl, status=status, )
 
     @property
     def interactions(self):

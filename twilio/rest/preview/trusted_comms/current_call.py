@@ -172,8 +172,16 @@ class CurrentCallInstance(InstanceResource):
             'sid': payload['sid'],
             'from_': payload['from'],
             'to': payload['to'],
+            'status': payload['status'],
             'reason': payload['reason'],
             'created_at': deserialize.iso8601_datetime(payload['created_at']),
+            'caller': payload['caller'],
+            'logo': payload['logo'],
+            'bg_color': payload['bg_color'],
+            'font_color': payload['font_color'],
+            'use_case': payload['use_case'],
+            'manager': payload['manager'],
+            'shield_img': payload['shield_img'],
             'url': payload['url'],
         }
 
@@ -197,7 +205,7 @@ class CurrentCallInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this Current Call.
+        :returns: A string that uniquely identifies this current phone call.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -205,7 +213,7 @@ class CurrentCallInstance(InstanceResource):
     @property
     def from_(self):
         """
-        :returns: The originating Phone Number
+        :returns: The originating phone number
         :rtype: unicode
         """
         return self._properties['from_']
@@ -213,15 +221,23 @@ class CurrentCallInstance(InstanceResource):
     @property
     def to(self):
         """
-        :returns: The terminating Phone Number
+        :returns: The terminating phone number
         :rtype: unicode
         """
         return self._properties['to']
 
     @property
+    def status(self):
+        """
+        :returns: The status of the current phone call
+        :rtype: unicode
+        """
+        return self._properties['status']
+
+    @property
     def reason(self):
         """
-        :returns: The business reason for this phone call
+        :returns: The business reason for this current phone call
         :rtype: unicode
         """
         return self._properties['reason']
@@ -229,10 +245,66 @@ class CurrentCallInstance(InstanceResource):
     @property
     def created_at(self):
         """
-        :returns: The date this Current Call was created
+        :returns: The date this current phone call was created
         :rtype: datetime
         """
         return self._properties['created_at']
+
+    @property
+    def caller(self):
+        """
+        :returns: Caller name of the current phone call
+        :rtype: unicode
+        """
+        return self._properties['caller']
+
+    @property
+    def logo(self):
+        """
+        :returns: Logo URL of the caller
+        :rtype: unicode
+        """
+        return self._properties['logo']
+
+    @property
+    def bg_color(self):
+        """
+        :returns: Background color of the current phone call
+        :rtype: unicode
+        """
+        return self._properties['bg_color']
+
+    @property
+    def font_color(self):
+        """
+        :returns: Font color of the current phone call
+        :rtype: unicode
+        """
+        return self._properties['font_color']
+
+    @property
+    def use_case(self):
+        """
+        :returns: The use case for the current phone call
+        :rtype: unicode
+        """
+        return self._properties['use_case']
+
+    @property
+    def manager(self):
+        """
+        :returns: The name of the CPS organization
+        :rtype: unicode
+        """
+        return self._properties['manager']
+
+    @property
+    def shield_img(self):
+        """
+        :returns: Shield image URL that serves as authenticity proof of the current phone call
+        :rtype: unicode
+        """
+        return self._properties['shield_img']
 
     @property
     def url(self):

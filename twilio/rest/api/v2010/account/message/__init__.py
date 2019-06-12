@@ -422,6 +422,8 @@ class MessageInstance(InstanceResource):
         RECEIVING = "receiving"
         RECEIVED = "received"
         ACCEPTED = "accepted"
+        SCHEDULED = "scheduled"
+        READ = "read"
 
     class Direction(object):
         INBOUND = "inbound"
@@ -464,7 +466,7 @@ class MessageInstance(InstanceResource):
             'messaging_service_sid': payload['messaging_service_sid'],
             'num_media': payload['num_media'],
             'num_segments': payload['num_segments'],
-            'price': deserialize.decimal(payload['price']),
+            'price': payload['price'],
             'price_unit': payload['price_unit'],
             'sid': payload['sid'],
             'status': payload['status'],
