@@ -237,6 +237,13 @@ class Preview(Domain):
         """
         return self.trusted_comms.current_calls
 
+    @property
+    def cps(self):
+        """
+        :rtype: twilio.rest.preview.trusted_comms.cps.CpsList
+        """
+        return self.trusted_comms.cps
+
     def __repr__(self):
         """
         Provide a friendly representation

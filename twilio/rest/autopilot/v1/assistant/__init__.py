@@ -284,7 +284,7 @@ class AssistantContext(InstanceContext):
     def update(self, friendly_name=values.unset, log_queries=values.unset,
                unique_name=values.unset, callback_url=values.unset,
                callback_events=values.unset, style_sheet=values.unset,
-               defaults=values.unset):
+               defaults=values.unset, development_stage=values.unset):
         """
         Update the AssistantInstance
 
@@ -295,6 +295,7 @@ class AssistantContext(InstanceContext):
         :param unicode callback_events: Reserved
         :param dict style_sheet: A JSON string that defines the Assistant's style sheet
         :param dict defaults: A JSON object that defines the Assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios
+        :param unicode development_stage: A string describing the state of the assistant.
 
         :returns: Updated AssistantInstance
         :rtype: twilio.rest.autopilot.v1.assistant.AssistantInstance
@@ -307,6 +308,7 @@ class AssistantContext(InstanceContext):
             'CallbackEvents': callback_events,
             'StyleSheet': serialize.object(style_sheet),
             'Defaults': serialize.object(defaults),
+            'DevelopmentStage': development_stage,
         })
 
         payload = self._version.update(
@@ -456,6 +458,8 @@ class AssistantInstance(InstanceResource):
             'latest_model_build_sid': payload['latest_model_build_sid'],
             'links': payload['links'],
             'log_queries': payload['log_queries'],
+            'development_stage': payload['development_stage'],
+            'needs_model_build': payload['needs_model_build'],
             'sid': payload['sid'],
             'unique_name': payload['unique_name'],
             'url': payload['url'],
@@ -537,6 +541,22 @@ class AssistantInstance(InstanceResource):
         return self._properties['log_queries']
 
     @property
+    def development_stage(self):
+        """
+        :returns: A string describing the state of the assistant.
+        :rtype: unicode
+        """
+        return self._properties['development_stage']
+
+    @property
+    def needs_model_build(self):
+        """
+        :returns: Whether model needs to be rebuilt
+        :rtype: bool
+        """
+        return self._properties['needs_model_build']
+
+    @property
     def sid(self):
         """
         :returns: The unique string that identifies the resource
@@ -588,7 +608,7 @@ class AssistantInstance(InstanceResource):
     def update(self, friendly_name=values.unset, log_queries=values.unset,
                unique_name=values.unset, callback_url=values.unset,
                callback_events=values.unset, style_sheet=values.unset,
-               defaults=values.unset):
+               defaults=values.unset, development_stage=values.unset):
         """
         Update the AssistantInstance
 
@@ -599,6 +619,7 @@ class AssistantInstance(InstanceResource):
         :param unicode callback_events: Reserved
         :param dict style_sheet: A JSON string that defines the Assistant's style sheet
         :param dict defaults: A JSON object that defines the Assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios
+        :param unicode development_stage: A string describing the state of the assistant.
 
         :returns: Updated AssistantInstance
         :rtype: twilio.rest.autopilot.v1.assistant.AssistantInstance
@@ -611,6 +632,7 @@ class AssistantInstance(InstanceResource):
             callback_events=callback_events,
             style_sheet=style_sheet,
             defaults=defaults,
+            development_stage=development_stage,
         )
 
     def delete(self):

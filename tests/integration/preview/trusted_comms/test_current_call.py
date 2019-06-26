@@ -31,8 +31,8 @@ class CurrentCallTestCase(IntegrationTestCase):
             '''
             {
                 "sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "from": "+15000000000",
-                "to": "+573000000000",
+                "from": "+1500123",
+                "to": "+1500456",
                 "status": "ringing",
                 "reason": "Hello Jhon, your bank appointment has been confirmed.",
                 "created_at": "2019-05-01T20:00:00Z",

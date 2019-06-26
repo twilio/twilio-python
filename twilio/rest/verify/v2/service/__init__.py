@@ -12,6 +12,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.verify.v2.service.messaging_configuration import MessagingConfigurationList
 from twilio.rest.verify.v2.service.rate_limit import RateLimitList
 from twilio.rest.verify.v2.service.verification import VerificationList
 from twilio.rest.verify.v2.service.verification_check import VerificationCheckList
@@ -249,6 +250,7 @@ class ServiceContext(InstanceContext):
         self._verifications = None
         self._verification_checks = None
         self._rate_limits = None
+        self._messaging_configurations = None
 
     def fetch(self):
         """
@@ -347,6 +349,21 @@ class ServiceContext(InstanceContext):
         if self._rate_limits is None:
             self._rate_limits = RateLimitList(self._version, service_sid=self._solution['sid'], )
         return self._rate_limits
+
+    @property
+    def messaging_configurations(self):
+        """
+        Access the messaging_configurations
+
+        :returns: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationList
+        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationList
+        """
+        if self._messaging_configurations is None:
+            self._messaging_configurations = MessagingConfigurationList(
+                self._version,
+                service_sid=self._solution['sid'],
+            )
+        return self._messaging_configurations
 
     def __repr__(self):
         """
@@ -585,6 +602,16 @@ class ServiceInstance(InstanceResource):
         :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitList
         """
         return self._proxy.rate_limits
+
+    @property
+    def messaging_configurations(self):
+        """
+        Access the messaging_configurations
+
+        :returns: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationList
+        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationList
+        """
+        return self._proxy.messaging_configurations
 
     def __repr__(self):
         """

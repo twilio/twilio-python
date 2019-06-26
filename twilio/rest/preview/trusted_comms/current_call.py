@@ -122,17 +122,14 @@ class CurrentCallContext(InstanceContext):
         self._solution = {}
         self._uri = '/CurrentCall'.format(**self._solution)
 
-    def fetch(self, from_=values.unset, to=values.unset):
+    def fetch(self):
         """
         Fetch a CurrentCallInstance
-
-        :param unicode from_: The originating Phone Number
-        :param unicode to: The terminating Phone Number
 
         :returns: Fetched CurrentCallInstance
         :rtype: twilio.rest.preview.trusted_comms.current_call.CurrentCallInstance
         """
-        params = values.of({'From': from_, 'To': to, })
+        params = values.of({})
 
         payload = self._version.fetch(
             'GET',
@@ -314,17 +311,14 @@ class CurrentCallInstance(InstanceResource):
         """
         return self._properties['url']
 
-    def fetch(self, from_=values.unset, to=values.unset):
+    def fetch(self):
         """
         Fetch a CurrentCallInstance
-
-        :param unicode from_: The originating Phone Number
-        :param unicode to: The terminating Phone Number
 
         :returns: Fetched CurrentCallInstance
         :rtype: twilio.rest.preview.trusted_comms.current_call.CurrentCallInstance
         """
-        return self._proxy.fetch(from_=from_, to=to, )
+        return self._proxy.fetch()
 
     def __repr__(self):
         """
