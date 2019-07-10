@@ -33,18 +33,17 @@ class ApplicationList(ListResource):
         self._solution = {'account_sid': account_sid, }
         self._uri = '/Accounts/{account_sid}/Applications.json'.format(**self._solution)
 
-    def create(self, friendly_name, api_version=values.unset,
-               voice_url=values.unset, voice_method=values.unset,
-               voice_fallback_url=values.unset, voice_fallback_method=values.unset,
-               status_callback=values.unset, status_callback_method=values.unset,
+    def create(self, api_version=values.unset, voice_url=values.unset,
+               voice_method=values.unset, voice_fallback_url=values.unset,
+               voice_fallback_method=values.unset, status_callback=values.unset,
+               status_callback_method=values.unset,
                voice_caller_id_lookup=values.unset, sms_url=values.unset,
                sms_method=values.unset, sms_fallback_url=values.unset,
                sms_fallback_method=values.unset, sms_status_callback=values.unset,
-               message_status_callback=values.unset):
+               message_status_callback=values.unset, friendly_name=values.unset):
         """
         Create a new ApplicationInstance
 
-        :param unicode friendly_name: A string to describe the new resource
         :param unicode api_version: The API version to use to start a new TwiML session
         :param unicode voice_url: The URL to call when the phone number receives a call
         :param unicode voice_method: The HTTP method to use with the voice_url
@@ -59,12 +58,12 @@ class ApplicationList(ListResource):
         :param unicode sms_fallback_method: The HTTP method to use with sms_fallback_url
         :param unicode sms_status_callback: The URL to send status information to your application
         :param unicode message_status_callback: The URL to send message status information to your application
+        :param unicode friendly_name: A string to describe the new resource
 
         :returns: Newly created ApplicationInstance
         :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
         data = values.of({
-            'FriendlyName': friendly_name,
             'ApiVersion': api_version,
             'VoiceUrl': voice_url,
             'VoiceMethod': voice_method,
@@ -79,6 +78,7 @@ class ApplicationList(ListResource):
             'SmsFallbackMethod': sms_fallback_method,
             'SmsStatusCallback': sms_status_callback,
             'MessageStatusCallback': message_status_callback,
+            'FriendlyName': friendly_name,
         })
 
         payload = self._version.create(

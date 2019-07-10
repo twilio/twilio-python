@@ -10,6 +10,7 @@ from twilio.base.version import Version
 from twilio.rest.wireless.v1.command import CommandList
 from twilio.rest.wireless.v1.rate_plan import RatePlanList
 from twilio.rest.wireless.v1.sim import SimList
+from twilio.rest.wireless.v1.usage_record import UsageRecordList
 
 
 class V1(Version):
@@ -25,6 +26,7 @@ class V1(Version):
         self.version = 'v1'
         self._commands = None
         self._rate_plans = None
+        self._usage_records = None
         self._sims = None
 
     @property
@@ -44,6 +46,15 @@ class V1(Version):
         if self._rate_plans is None:
             self._rate_plans = RatePlanList(self)
         return self._rate_plans
+
+    @property
+    def usage_records(self):
+        """
+        :rtype: twilio.rest.wireless.v1.usage_record.UsageRecordList
+        """
+        if self._usage_records is None:
+            self._usage_records = UsageRecordList(self)
+        return self._usage_records
 
     @property
     def sims(self):

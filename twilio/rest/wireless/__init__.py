@@ -51,6 +51,13 @@ class Wireless(Domain):
         return self.v1.rate_plans
 
     @property
+    def usage_records(self):
+        """
+        :rtype: twilio.rest.wireless.v1.usage_record.UsageRecordList
+        """
+        return self.v1.usage_records
+
+    @property
     def sims(self):
         """
         :rtype: twilio.rest.wireless.v1.sim.SimList

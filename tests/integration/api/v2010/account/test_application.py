@@ -19,14 +19,11 @@ class ApplicationTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .applications.create(friendly_name="friendly_name")
-
-        values = {'FriendlyName': "friendly_name", }
+                                 .applications.create()
 
         self.holodeck.assert_has_request(Request(
             'post',
             'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Applications.json',
-            data=values,
         ))
 
     def test_create_response(self):
@@ -59,7 +56,7 @@ class ApplicationTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .applications.create(friendly_name="friendly_name")
+                                      .applications.create()
 
         self.assertIsNotNone(actual)
 

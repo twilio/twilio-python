@@ -3,6 +3,16 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2019-07-10] Version 6.29.1
+----------------------------
+**Api**
+- Make `friendly_name` optional for applications create
+- Add new property `as_of` date to Usage Record API calls
+
+**Wireless**
+- Added Usage Records resource.
+
+
 [2019-06-26] Version 6.29.0
 ----------------------------
 **Autopilot**

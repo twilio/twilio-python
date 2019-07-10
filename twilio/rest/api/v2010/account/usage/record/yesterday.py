@@ -464,6 +464,7 @@ class YesterdayInstance(InstanceResource):
         self._properties = {
             'account_sid': payload['account_sid'],
             'api_version': payload['api_version'],
+            'as_of': payload['as_of'],
             'category': payload['category'],
             'count': payload['count'],
             'count_unit': payload['count_unit'],
@@ -497,6 +498,14 @@ class YesterdayInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['api_version']
+
+    @property
+    def as_of(self):
+        """
+        :returns: Usage records up to date as of this timestamp
+        :rtype: unicode
+        """
+        return self._properties['as_of']
 
     @property
     def category(self):
