@@ -23,18 +23,9 @@ class V1(Version):
         """
         super(V1, self).__init__(domain)
         self.version = 'v1'
-        self._services = None
         self._sessions = None
+        self._services = None
         self._webhooks = None
-
-    @property
-    def services(self):
-        """
-        :rtype: twilio.rest.messaging.v1.service.ServiceList
-        """
-        if self._services is None:
-            self._services = ServiceList(self)
-        return self._services
 
     @property
     def sessions(self):
@@ -44,6 +35,15 @@ class V1(Version):
         if self._sessions is None:
             self._sessions = SessionList(self)
         return self._sessions
+
+    @property
+    def services(self):
+        """
+        :rtype: twilio.rest.messaging.v1.service.ServiceList
+        """
+        if self._services is None:
+            self._services = ServiceList(self)
+        return self._services
 
     @property
     def webhooks(self):

@@ -37,18 +37,18 @@ class Authy(Domain):
         return self._v1
 
     @property
-    def forms(self):
-        """
-        :rtype: twilio.rest.authy.v1.form.FormList
-        """
-        return self.v1.forms
-
-    @property
     def services(self):
         """
         :rtype: twilio.rest.authy.v1.service.ServiceList
         """
         return self.v1.services
+
+    @property
+    def forms(self):
+        """
+        :rtype: twilio.rest.authy.v1.form.FormList
+        """
+        return self.v1.forms
 
     def __repr__(self):
         """

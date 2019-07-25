@@ -26,10 +26,10 @@ class TrustedComms(Version):
         super(TrustedComms, self).__init__(domain)
         self.version = 'TrustedComms'
         self._branded_calls = None
-        self._cps = None
-        self._current_calls = None
         self._devices = None
         self._phone_calls = None
+        self._current_calls = None
+        self._cps = None
 
     @property
     def branded_calls(self):
@@ -39,24 +39,6 @@ class TrustedComms(Version):
         if self._branded_calls is None:
             self._branded_calls = BrandedCallList(self)
         return self._branded_calls
-
-    @property
-    def cps(self):
-        """
-        :rtype: twilio.rest.preview.trusted_comms.cps.CpsList
-        """
-        if self._cps is None:
-            self._cps = CpsList(self)
-        return self._cps
-
-    @property
-    def current_calls(self):
-        """
-        :rtype: twilio.rest.preview.trusted_comms.current_call.CurrentCallList
-        """
-        if self._current_calls is None:
-            self._current_calls = CurrentCallList(self)
-        return self._current_calls
 
     @property
     def devices(self):
@@ -75,6 +57,24 @@ class TrustedComms(Version):
         if self._phone_calls is None:
             self._phone_calls = PhoneCallList(self)
         return self._phone_calls
+
+    @property
+    def current_calls(self):
+        """
+        :rtype: twilio.rest.preview.trusted_comms.current_call.CurrentCallList
+        """
+        if self._current_calls is None:
+            self._current_calls = CurrentCallList(self)
+        return self._current_calls
+
+    @property
+    def cps(self):
+        """
+        :rtype: twilio.rest.preview.trusted_comms.cps.CpsList
+        """
+        if self._cps is None:
+            self._cps = CpsList(self)
+        return self._cps
 
     def __repr__(self):
         """
