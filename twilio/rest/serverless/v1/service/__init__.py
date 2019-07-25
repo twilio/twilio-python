@@ -261,6 +261,15 @@ class ServiceContext(InstanceContext):
 
         return ServiceInstance(self._version, payload, sid=self._solution['sid'], )
 
+    def delete(self):
+        """
+        Deletes the ServiceInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete('delete', self._uri)
+
     def update(self, include_credentials=values.unset, friendly_name=values.unset):
         """
         Update the ServiceInstance
@@ -464,6 +473,15 @@ class ServiceInstance(InstanceResource):
         :rtype: twilio.rest.serverless.v1.service.ServiceInstance
         """
         return self._proxy.fetch()
+
+    def delete(self):
+        """
+        Deletes the ServiceInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
 
     def update(self, include_credentials=values.unset, friendly_name=values.unset):
         """

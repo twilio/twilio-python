@@ -225,6 +225,7 @@ class CallSummaryInstance(InstanceResource):
             'tags': payload['tags'],
             'url': payload['url'],
             'attributes': payload['attributes'],
+            'properties': payload['properties'],
         }
 
         # Context
@@ -403,6 +404,14 @@ class CallSummaryInstance(InstanceResource):
         :rtype: dict
         """
         return self._properties['attributes']
+
+    @property
+    def properties(self):
+        """
+        :returns: The properties
+        :rtype: dict
+        """
+        return self._properties['properties']
 
     def fetch(self, processing_state=values.unset):
         """

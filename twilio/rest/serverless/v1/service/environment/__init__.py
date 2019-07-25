@@ -260,6 +260,15 @@ class EnvironmentContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
+    def delete(self):
+        """
+        Deletes the EnvironmentInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete('delete', self._uri)
+
     @property
     def variables(self):
         """
@@ -449,6 +458,15 @@ class EnvironmentInstance(InstanceResource):
         :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentInstance
         """
         return self._proxy.fetch()
+
+    def delete(self):
+        """
+        Deletes the EnvironmentInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
 
     @property
     def variables(self):

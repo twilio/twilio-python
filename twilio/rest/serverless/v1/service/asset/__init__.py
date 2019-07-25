@@ -257,6 +257,15 @@ class AssetContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
+    def delete(self):
+        """
+        Deletes the AssetInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete('delete', self._uri)
+
     def update(self, friendly_name):
         """
         Update the AssetInstance
@@ -427,6 +436,15 @@ class AssetInstance(InstanceResource):
         :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
         """
         return self._proxy.fetch()
+
+    def delete(self):
+        """
+        Deletes the AssetInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
 
     def update(self, friendly_name):
         """

@@ -37,18 +37,18 @@ class Messaging(Domain):
         return self._v1
 
     @property
-    def sessions(self):
-        """
-        :rtype: twilio.rest.messaging.v1.session.SessionList
-        """
-        return self.v1.sessions
-
-    @property
     def services(self):
         """
         :rtype: twilio.rest.messaging.v1.service.ServiceList
         """
         return self.v1.services
+
+    @property
+    def sessions(self):
+        """
+        :rtype: twilio.rest.messaging.v1.session.SessionList
+        """
+        return self.v1.sessions
 
     @property
     def webhooks(self):

@@ -22,17 +22,8 @@ class V1(Version):
         """
         super(V1, self).__init__(domain)
         self.version = 'v1'
-        self._flex_flow = None
         self._configuration = None
-
-    @property
-    def flex_flow(self):
-        """
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowList
-        """
-        if self._flex_flow is None:
-            self._flex_flow = FlexFlowList(self)
-        return self._flex_flow
+        self._flex_flow = None
 
     @property
     def configuration(self):
@@ -42,6 +33,15 @@ class V1(Version):
         if self._configuration is None:
             self._configuration = ConfigurationList(self)
         return self._configuration
+
+    @property
+    def flex_flow(self):
+        """
+        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowList
+        """
+        if self._flex_flow is None:
+            self._flex_flow = FlexFlowList(self)
+        return self._flex_flow
 
     def __repr__(self):
         """

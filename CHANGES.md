@@ -3,6 +3,18 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2019-07-24] Version 6.29.2
+----------------------------
+**Insights**
+- Added `properties` to summary.
+
+**Preview**
+- Added endpoint to brand a call without initiating it, so it can be initiated manually by the Customer
+
+**Twiml**
+- Update `<Conference>` recording events **(breaking change)**
+
+
 [2019-07-10] Version 6.29.1
 ----------------------------
 **Api**

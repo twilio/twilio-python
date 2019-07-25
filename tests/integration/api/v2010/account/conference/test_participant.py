@@ -79,7 +79,7 @@ class ParticipantTestCase(IntegrationTestCase):
                 "date_created": "Fri, 18 Feb 2011 21:07:19 +0000",
                 "date_updated": "Fri, 18 Feb 2011 21:07:19 +0000",
                 "end_conference_on_exit": false,
-                "muted": false,
+                "muted": true,
                 "hold": false,
                 "status": "complete",
                 "start_conference_on_enter": true,

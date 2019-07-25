@@ -117,31 +117,6 @@ class AssetVersionList(ListResource):
 
         return AssetVersionPage(self._version, response, self._solution)
 
-    def create(self, path, visibility):
-        """
-        Create a new AssetVersionInstance
-
-        :param unicode path: The URL-friendly string by which this Asset Version can be referenced.
-        :param AssetVersionInstance.Visibility visibility: The access control which determines how the Asset Version can be accessed.
-
-        :returns: Newly created AssetVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance
-        """
-        data = values.of({'Path': path, 'Visibility': visibility, })
-
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
-
-        return AssetVersionInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            asset_sid=self._solution['asset_sid'],
-        )
-
     def get(self, sid):
         """
         Constructs a AssetVersionContext
@@ -316,7 +291,6 @@ class AssetVersionInstance(InstanceResource):
             'asset_sid': payload['asset_sid'],
             'path': payload['path'],
             'visibility': payload['visibility'],
-            'pre_signed_upload_url': payload['pre_signed_upload_url'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'url': payload['url'],
         }
@@ -394,14 +368,6 @@ class AssetVersionInstance(InstanceResource):
         :rtype: AssetVersionInstance.Visibility
         """
         return self._properties['visibility']
-
-    @property
-    def pre_signed_upload_url(self):
-        """
-        :returns: The object which provides the details required for uploading this Asset Version.
-        :rtype: dict
-        """
-        return self._properties['pre_signed_upload_url']
 
     @property
     def date_created(self):

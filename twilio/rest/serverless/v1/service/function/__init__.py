@@ -257,6 +257,15 @@ class FunctionContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
+    def delete(self):
+        """
+        Deletes the FunctionInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete('delete', self._uri)
+
     def update(self, friendly_name):
         """
         Update the FunctionInstance
@@ -427,6 +436,15 @@ class FunctionInstance(InstanceResource):
         :rtype: twilio.rest.serverless.v1.service.function.FunctionInstance
         """
         return self._proxy.fetch()
+
+    def delete(self):
+        """
+        Deletes the FunctionInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
 
     def update(self, friendly_name):
         """

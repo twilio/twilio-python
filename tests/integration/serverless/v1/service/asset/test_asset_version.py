@@ -76,7 +76,6 @@ class AssetVersionTestCase(IntegrationTestCase):
                 "asset_sid": "ZH00000000000000000000000000000000",
                 "path": "test-path",
                 "visibility": "public",
-                "pre_signed_upload_url": null,
                 "date_created": "2018-11-10T20:00:00Z",
                 "url": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Assets/ZH00000000000000000000000000000000/Versions/ZN00000000000000000000000000000000"
             }
@@ -86,50 +85,5 @@ class AssetVersionTestCase(IntegrationTestCase):
         actual = self.client.serverless.v1.services(sid="ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                           .assets(sid="ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                           .asset_versions(sid="ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
-
-        self.assertIsNotNone(actual)
-
-    def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
-
-        with self.assertRaises(TwilioException):
-            self.client.serverless.v1.services(sid="ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .assets(sid="ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .asset_versions.create(path="path", visibility="public")
-
-        values = {'Path': "path", 'Visibility': "public", }
-
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions',
-            data=values,
-        ))
-
-    def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
-            {
-                "sid": "ZN00000000000000000000000000000000",
-                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "service_sid": "ZS00000000000000000000000000000000",
-                "asset_sid": "ZH00000000000000000000000000000000",
-                "path": "/some/sample/path",
-                "visibility": "private",
-                "date_created": "2018-11-10T20:00:00Z",
-                "pre_signed_upload_url": {
-                    "url": "https://s3.amazonaws.com/com.twilio.dev.serverless",
-                    "expiration": "2019-01-01T00:08:00.000Z",
-                    "method": "PUT",
-                    "kmsARN": "arn:aws:kms:us-east-1:719084529295:key/2a7bf064-c88c-4fdd-b376-625d7bcd2d98"
-                },
-                "url": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Assets/ZH00000000000000000000000000000000/Versions/ZN00000000000000000000000000000000"
-            }
-            '''
-        ))
-
-        actual = self.client.serverless.v1.services(sid="ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .assets(sid="ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .asset_versions.create(path="path", visibility="public")
 
         self.assertIsNotNone(actual)

@@ -304,6 +304,15 @@ class VariableContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
+    def delete(self):
+        """
+        Deletes the VariableInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete('delete', self._uri)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -460,6 +469,15 @@ class VariableInstance(InstanceResource):
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableInstance
         """
         return self._proxy.update(key=key, value=value, )
+
+    def delete(self):
+        """
+        Deletes the VariableInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
 
     def __repr__(self):
         """

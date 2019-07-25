@@ -51,6 +51,7 @@ class CallSummaryTestCase(IntegrationTestCase):
                     "tags"
                 ],
                 "attributes": {},
+                "properties": {},
                 "url": "https://insights.twilio.com/v1/Voice/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Summary"
             }
             '''
