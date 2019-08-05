@@ -57,6 +57,7 @@ class Client(object):
         self._authy = None
         self._autopilot = None
         self._chat = None
+        self._conversations = None
         self._fax = None
         self._flex_api = None
         self._insights = None
@@ -193,6 +194,19 @@ class Client(object):
             from twilio.rest.chat import Chat
             self._chat = Chat(self)
         return self._chat
+
+    @property
+    def conversations(self):
+        """
+        Access the Conversations Twilio Domain
+
+        :returns: Conversations Twilio Domain
+        :rtype: twilio.rest.conversations.Conversations
+        """
+        if self._conversations is None:
+            from twilio.rest.conversations import Conversations
+            self._conversations = Conversations(self)
+        return self._conversations
 
     @property
     def fax(self):

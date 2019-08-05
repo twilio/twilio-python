@@ -397,6 +397,146 @@ class VoiceResponse(TwiML):
             **kwargs
         ))
 
+    def start(self, action=None, method=None, **kwargs):
+        """
+        Create a <Start> element
+
+        :param action: Action URL
+        :param method: Action URL method
+        :param kwargs: additional attributes
+
+        :returns: <Start> element
+        """
+        return self.nest(Start(action=action, method=method, **kwargs))
+
+    def stop(self, **kwargs):
+        """
+        Create a <Stop> element
+
+        :param kwargs: additional attributes
+
+        :returns: <Stop> element
+        """
+        return self.nest(Stop(**kwargs))
+
+
+class Stop(TwiML):
+    """ <Stop> TwiML Verb """
+
+    def __init__(self, **kwargs):
+        super(Stop, self).__init__(**kwargs)
+        self.name = 'Stop'
+
+    def stream(self, name=None, connector_name=None, url=None, track=None,
+               **kwargs):
+        """
+        Create a <Stream> element
+
+        :param name: Friendly name given to the Stream
+        :param connector_name: Unique name for Stream Connector
+        :param url: URL of the remote service where the Stream is routed
+        :param track: Track to be streamed to remote service
+        :param kwargs: additional attributes
+
+        :returns: <Stream> element
+        """
+        return self.nest(Stream(name=name, connector_name=connector_name, url=url, track=track, **kwargs))
+
+    def siprec(self, name=None, connector_name=None, **kwargs):
+        """
+        Create a <Siprec> element
+
+        :param name: Friendly name given to SIPREC
+        :param connector_name: Unique name for Connector
+        :param kwargs: additional attributes
+
+        :returns: <Siprec> element
+        """
+        return self.nest(Siprec(name=name, connector_name=connector_name, **kwargs))
+
+
+class Siprec(TwiML):
+    """ <Siprec> TwiML Noun """
+
+    def __init__(self, **kwargs):
+        super(Siprec, self).__init__(**kwargs)
+        self.name = 'Siprec'
+
+    def parameter(self, name=None, value=None, **kwargs):
+        """
+        Create a <Parameter> element
+
+        :param name: The name of the custom parameter
+        :param value: The value of the custom parameter
+        :param kwargs: additional attributes
+
+        :returns: <Parameter> element
+        """
+        return self.nest(Parameter(name=name, value=value, **kwargs))
+
+
+class Parameter(TwiML):
+    """ <Parameter> TwiML Noun """
+
+    def __init__(self, **kwargs):
+        super(Parameter, self).__init__(**kwargs)
+        self.name = 'Parameter'
+
+
+class Stream(TwiML):
+    """ <Stream> TwiML Noun """
+
+    def __init__(self, **kwargs):
+        super(Stream, self).__init__(**kwargs)
+        self.name = 'Stream'
+
+    def parameter(self, name=None, value=None, **kwargs):
+        """
+        Create a <Parameter> element
+
+        :param name: The name of the custom parameter
+        :param value: The value of the custom parameter
+        :param kwargs: additional attributes
+
+        :returns: <Parameter> element
+        """
+        return self.nest(Parameter(name=name, value=value, **kwargs))
+
+
+class Start(TwiML):
+    """ <Start> TwiML Verb """
+
+    def __init__(self, **kwargs):
+        super(Start, self).__init__(**kwargs)
+        self.name = 'Start'
+
+    def stream(self, name=None, connector_name=None, url=None, track=None,
+               **kwargs):
+        """
+        Create a <Stream> element
+
+        :param name: Friendly name given to the Stream
+        :param connector_name: Unique name for Stream Connector
+        :param url: URL of the remote service where the Stream is routed
+        :param track: Track to be streamed to remote service
+        :param kwargs: additional attributes
+
+        :returns: <Stream> element
+        """
+        return self.nest(Stream(name=name, connector_name=connector_name, url=url, track=track, **kwargs))
+
+    def siprec(self, name=None, connector_name=None, **kwargs):
+        """
+        Create a <Siprec> element
+
+        :param name: Friendly name given to SIPREC
+        :param connector_name: Unique name for Connector
+        :param kwargs: additional attributes
+
+        :returns: <Siprec> element
+        """
+        return self.nest(Siprec(name=name, connector_name=connector_name, **kwargs))
+
 
 class Prompt(TwiML):
     """ <Prompt> Twiml Verb """
@@ -1112,14 +1252,6 @@ class Client(TwiML):
         return self.nest(Parameter(name=name, value=value, **kwargs))
 
 
-class Parameter(TwiML):
-    """ <Parameter> TwiML Noun """
-
-    def __init__(self, **kwargs):
-        super(Parameter, self).__init__(**kwargs)
-        self.name = 'Parameter'
-
-
 class Identity(TwiML):
     """ <Identity> TwiML Noun """
 
@@ -1158,6 +1290,21 @@ class Connect(TwiML):
         :returns: <Autopilot> element
         """
         return self.nest(Autopilot(name, **kwargs))
+
+    def stream(self, name=None, connector_name=None, url=None, track=None,
+               **kwargs):
+        """
+        Create a <Stream> element
+
+        :param name: Friendly name given to the Stream
+        :param connector_name: Unique name for Stream Connector
+        :param url: URL of the remote service where the Stream is routed
+        :param track: Track to be streamed to remote service
+        :param kwargs: additional attributes
+
+        :returns: <Stream> element
+        """
+        return self.nest(Stream(name=name, connector_name=connector_name, url=url, track=track, **kwargs))
 
 
 class Autopilot(TwiML):

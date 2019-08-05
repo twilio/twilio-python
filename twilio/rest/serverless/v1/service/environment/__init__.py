@@ -13,6 +13,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
 from twilio.rest.serverless.v1.service.environment.deployment import DeploymentList
+from twilio.rest.serverless.v1.service.environment.log import LogList
 from twilio.rest.serverless.v1.service.environment.variable import VariableList
 
 
@@ -237,6 +238,7 @@ class EnvironmentContext(InstanceContext):
         # Dependents
         self._variables = None
         self._deployments = None
+        self._logs = None
 
     def fetch(self):
         """
@@ -300,6 +302,22 @@ class EnvironmentContext(InstanceContext):
                 environment_sid=self._solution['sid'],
             )
         return self._deployments
+
+    @property
+    def logs(self):
+        """
+        Access the logs
+
+        :returns: twilio.rest.serverless.v1.service.environment.log.LogList
+        :rtype: twilio.rest.serverless.v1.service.environment.log.LogList
+        """
+        if self._logs is None:
+            self._logs = LogList(
+                self._version,
+                service_sid=self._solution['service_sid'],
+                environment_sid=self._solution['sid'],
+            )
+        return self._logs
 
     def __repr__(self):
         """
@@ -487,6 +505,16 @@ class EnvironmentInstance(InstanceResource):
         :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentList
         """
         return self._proxy.deployments
+
+    @property
+    def logs(self):
+        """
+        Access the logs
+
+        :returns: twilio.rest.serverless.v1.service.environment.log.LogList
+        :rtype: twilio.rest.serverless.v1.service.environment.log.LogList
+        """
+        return self._proxy.logs
 
     def __repr__(self):
         """

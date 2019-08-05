@@ -127,14 +127,14 @@ class RatePlanList(ListResource):
         :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the Sid.
         :param unicode friendly_name: A user-provided string that identifies this resource.
         :param bool data_enabled: Defines whether SIMs are capable of using GPRS/3G/LTE data connectivity.
-        :param unicode data_limit: Network-enforced limit specifying the total Megabytes of data usage allowed during one month on the home network.
-        :param unicode data_metering: The model by which to meter data usage, in accordance with the two available data metering models.
+        :param unicode data_limit: Network-enforced limit specifying the total Megabytes of data usage allowed during one month on the 'home' (T-Mobile USA) network.
+        :param unicode data_metering: The model by which to meter data usage, in accordance with the available data metering models.
         :param bool messaging_enabled: Defines whether SIMs are capable of making and sending and receiving SMS messages via either Commands or Programmable SMS APIs.
         :param bool voice_enabled: Defines whether SIMs are capable of making and receiving voice calls.
-        :param bool national_roaming_enabled: Defines whether SIMs can roam onto other networks in the SIM's home country.
-        :param unicode international_roaming: The international_roaming
-        :param unicode national_roaming_data_limit: Network-enforced limit specifying the total Megabytes of national roaming data usage allowed during one month.
-        :param unicode international_roaming_data_limit: The international_roaming_data_limit
+        :param bool national_roaming_enabled: Defines whether SIMs can roam onto networks other than the 'home' (T-Mobile USA) network in the United States.
+        :param unicode international_roaming: Defines whether SIMs are capable of using GPRS/3G/4G/LTE data connectivity and messaging outside of the United States.
+        :param unicode national_roaming_data_limit: Network-enforced limit specifying the total Megabytes of data usage allowed during one month on networks in the United States other than the 'home' (T-Mobile USA) network.
+        :param unicode international_roaming_data_limit: Network-enforced limit specifying the total Megabytes of international roaming (non-US) data usage (download and upload combined) allowed during one month.
 
         :returns: Newly created RatePlanInstance
         :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanInstance
@@ -165,7 +165,7 @@ class RatePlanList(ListResource):
         """
         Constructs a RatePlanContext
 
-        :param sid: The sid
+        :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.wireless.v1.rate_plan.RatePlanContext
         :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanContext
@@ -176,7 +176,7 @@ class RatePlanList(ListResource):
         """
         Constructs a RatePlanContext
 
-        :param sid: The sid
+        :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.wireless.v1.rate_plan.RatePlanContext
         :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanContext
@@ -240,7 +240,7 @@ class RatePlanContext(InstanceContext):
         Initialize the RatePlanContext
 
         :param Version version: Version that contains the resource
-        :param sid: The sid
+        :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.wireless.v1.rate_plan.RatePlanContext
         :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanContext
@@ -400,7 +400,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def data_metering(self):
         """
-        :returns: The model by which to meter data usage, in accordance with the two available data metering models.
+        :returns: The model by which to meter data usage, in accordance with the available data metering models.
         :rtype: unicode
         """
         return self._properties['data_metering']
@@ -408,7 +408,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def data_limit(self):
         """
-        :returns: Network-enforced limit specifying the total Megabytes of data usage allowed during one month on the home network.
+        :returns: Network-enforced limit specifying the total Megabytes of data usage allowed during one month on the 'home' (T-Mobile USA) network.
         :rtype: unicode
         """
         return self._properties['data_limit']
@@ -432,7 +432,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def national_roaming_enabled(self):
         """
-        :returns: Defines whether SIMs can roam onto other networks in the SIM's home country.
+        :returns: Defines whether SIMs can roam onto networks other than the 'home' (T-Mobile USA) network in the United States.
         :rtype: bool
         """
         return self._properties['national_roaming_enabled']
@@ -440,7 +440,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def national_roaming_data_limit(self):
         """
-        :returns: Network-enforced limit specifying the total Megabytes of national roaming data usage allowed during one month.
+        :returns: Network-enforced limit specifying the total Megabytes of 'national roaming' data usage allowed during one month on networks in the United States other than the 'home' (T-Mobile USA) network.
         :rtype: unicode
         """
         return self._properties['national_roaming_data_limit']
@@ -448,7 +448,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def international_roaming(self):
         """
-        :returns: The international_roaming
+        :returns: Defines whether SIMs are capable of using GPRS/3G/4G/LTE data connectivity and messaging outside of the United States.
         :rtype: unicode
         """
         return self._properties['international_roaming']
@@ -456,7 +456,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def international_roaming_data_limit(self):
         """
-        :returns: The international_roaming_data_limit
+        :returns: Network-enforced limit specifying the total Megabytes of 'international roaming' (non-US) data usage (download and upload combined) allowed during one month.
         :rtype: unicode
         """
         return self._properties['international_roaming_data_limit']
