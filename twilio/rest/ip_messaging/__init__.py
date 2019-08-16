@@ -22,7 +22,7 @@ class IpMessaging(Domain):
         """
         super(IpMessaging, self).__init__(twilio)
 
-        self.base_url = 'https://ip-messaging.twilio.com'
+        self.base_url = 'https://chat.twilio.com'
 
         # Versions
         self._v1 = None
