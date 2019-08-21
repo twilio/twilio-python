@@ -129,7 +129,7 @@ class ConversationTestCase(IntegrationTestCase):
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "chat_service_sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "messaging_service_sid": "MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "friendly_name": "Sartorial Consultation",
+                "friendly_name": "My First Conversation",
                 "date_created": "2015-12-16T22:18:37Z",
                 "date_updated": "2015-12-16T22:18:38Z",
                 "url": "https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",

@@ -46,7 +46,7 @@ class AlertTestCase(IntegrationTestCase):
                 "response_body": "response_body",
                 "response_headers": "response_headers",
                 "sid": "NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "url": "http://www.example.com"
+                "url": "https://monitor.twilio.com/v1/Alerts/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
         ))
@@ -94,13 +94,13 @@ class AlertTestCase(IntegrationTestCase):
             {
                 "alerts": [],
                 "meta": {
-                    "first_page_url": "https://monitor.twilio.com/v1/Alerts?Page=0&PageSize=50",
+                    "first_page_url": "https://monitor.twilio.com/v1/Alerts?LogLevel=log_level&StartDate=2016-01-01&EndDate=2016-01-01&PageSize=50&Page=0",
                     "key": "alerts",
                     "next_page_url": null,
                     "page": 0,
-                    "page_size": 0,
+                    "page_size": 50,
                     "previous_page_url": null,
-                    "url": "https://monitor.twilio.com/v1/Alerts"
+                    "url": "https://monitor.twilio.com/v1/Alerts?LogLevel=log_level&StartDate=2016-01-01&EndDate=2016-01-01&PageSize=50&Page=0"
                 }
             }
             '''
@@ -130,17 +130,17 @@ class AlertTestCase(IntegrationTestCase):
                         "request_url": "http://www.example.com",
                         "resource_sid": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "sid": "NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                        "url": "http://www.example.com"
+                        "url": "https://monitor.twilio.com/v1/Alerts/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     }
                 ],
                 "meta": {
-                    "first_page_url": "https://monitor.twilio.com/v1/Alerts?Page=0&PageSize=50",
+                    "first_page_url": "https://monitor.twilio.com/v1/Alerts?LogLevel=log_level&StartDate=2016-01-01&EndDate=2016-01-01&PageSize=50&Page=0",
                     "key": "alerts",
                     "next_page_url": null,
                     "page": 0,
-                    "page_size": 1,
+                    "page_size": 50,
                     "previous_page_url": null,
-                    "url": "https://monitor.twilio.com/v1/Alerts"
+                    "url": "https://monitor.twilio.com/v1/Alerts?LogLevel=log_level&StartDate=2016-01-01&EndDate=2016-01-01&PageSize=50&Page=0"
                 }
             }
             '''

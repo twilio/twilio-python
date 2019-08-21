@@ -330,23 +330,27 @@ class VoiceResponse(TwiML):
             **kwargs
         ))
 
-    def pay(self, input=None, action=None, status_callback=None,
-            status_callback_method=None, timeout=None, max_attempts=None,
-            security_code=None, postal_code=None, payment_connector=None,
-            token_type=None, charge_amount=None, currency=None, description=None,
-            valid_card_types=None, language=None, **kwargs):
+    def pay(self, input=None, action=None, bank_account_type=None,
+            status_callback=None, status_callback_method=None, timeout=None,
+            max_attempts=None, security_code=None, postal_code=None,
+            min_postal_code_length=None, payment_connector=None,
+            payment_method=None, token_type=None, charge_amount=None, currency=None,
+            description=None, valid_card_types=None, language=None, **kwargs):
         """
         Create a <Pay> element
 
         :param input: Input type Twilio should accept
         :param action: Action URL
+        :param bank_account_type: Bank account type for ach transactions. If set, payment method attribute must be provided and value should be set to ach-debit. defaults to consumer-checking
         :param status_callback: Status callback URL
         :param status_callback_method: Status callback method
         :param timeout: Time to wait to gather input
         :param max_attempts: Maximum number of allowed retries when gathering input
         :param security_code: Prompt for security code
         :param postal_code: Prompt for postal code and it should be true/false or default postal code
+        :param min_postal_code_length: Prompt for minimum postal code length
         :param payment_connector: Unique name for payment connector
+        :param payment_method: Payment method to be used. defaults to credit-card
         :param token_type: Type of token
         :param charge_amount: Amount to process. If value is greater than 0 then make the payment else create a payment token
         :param currency: Currency of the amount attribute
@@ -360,13 +364,16 @@ class VoiceResponse(TwiML):
         return self.nest(Pay(
             input=input,
             action=action,
+            bank_account_type=bank_account_type,
             status_callback=status_callback,
             status_callback_method=status_callback_method,
             timeout=timeout,
             max_attempts=max_attempts,
             security_code=security_code,
             postal_code=postal_code,
+            min_postal_code_length=min_postal_code_length,
             payment_connector=payment_connector,
+            payment_method=payment_method,
             token_type=token_type,
             charge_amount=charge_amount,
             currency=currency,
@@ -381,7 +388,7 @@ class VoiceResponse(TwiML):
         """
         Create a <Prompt> element
 
-        :param for_: Name of the credit card data element
+        :param for_: Name of the payment source data element
         :param error_type: Type of error
         :param card_type: Type of the credit card
         :param attempt: Current attempt count
@@ -835,7 +842,7 @@ class Pay(TwiML):
         """
         Create a <Prompt> element
 
-        :param for_: Name of the credit card data element
+        :param for_: Name of the payment source data element
         :param error_type: Type of error
         :param card_type: Type of the credit card
         :param attempt: Current attempt count
@@ -850,6 +857,18 @@ class Pay(TwiML):
             attempt=attempt,
             **kwargs
         ))
+
+    def parameter(self, name=None, value=None, **kwargs):
+        """
+        Create a <Parameter> element
+
+        :param name: The name of the custom parameter
+        :param value: The value of the custom parameter
+        :param kwargs: additional attributes
+
+        :returns: <Parameter> element
+        """
+        return self.nest(Parameter(name=name, value=value, **kwargs))
 
 
 class Sms(TwiML):

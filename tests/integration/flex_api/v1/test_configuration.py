@@ -134,6 +134,14 @@ class ConfigurationTestCase(IntegrationTestCase):
                         "config": "{\\"callback\\":\\"twilio.com/cb\\",\\"allowed_methods\\":[\\"GET\\",\\"POST\\"]}"
                     }
                 ],
+                "outbound_call_flows": {
+                    "default": {
+                        "caller_id": "+12345",
+                        "queue_sid": "WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "location": "EE",
+                        "workflow_sid": "WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    }
+                },
                 "url": "https://flex-api.twilio.com/v1/Configuration"
             }
             '''
@@ -263,6 +271,14 @@ class ConfigurationTestCase(IntegrationTestCase):
                         "config": "{\\"callback\\":\\"twilio.com/cb\\",\\"allowed_methods\\":[\\"GET\\",\\"POST\\"]}"
                     }
                 ],
+                "outbound_call_flows": {
+                    "default": {
+                        "caller_id": "+12345",
+                        "queue_sid": "WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "location": "EE",
+                        "workflow_sid": "WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    }
+                },
                 "url": "https://flex-api.twilio.com/v1/Configuration"
             }
             '''
@@ -392,6 +408,14 @@ class ConfigurationTestCase(IntegrationTestCase):
                         "config": "{\\"callback\\":\\"twilio.com/cb\\",\\"allowed_methods\\":[\\"GET\\",\\"POST\\"]}"
                     }
                 ],
+                "outbound_call_flows": {
+                    "default": {
+                        "caller_id": "+12345",
+                        "queue_sid": "WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "location": "EE",
+                        "workflow_sid": "WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    }
+                },
                 "url": "https://flex-api.twilio.com/v1/Configuration"
             }
             '''

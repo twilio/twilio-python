@@ -182,18 +182,6 @@ class CallSummaryInstance(InstanceResource):
         COMPLETE = "complete"
         PARTIAL = "partial"
 
-    class Direction(object):
-        INBOUND = "inbound"
-        OUTBOUND_API = "outbound_api"
-        OUTBOUND_DIAL = "outbound_dial"
-        TRUNKING_ORIGINATING = "trunking_originating"
-        TRUNKING_TERMINATING = "trunking_terminating"
-
-    class DisconnectedBy(object):
-        CALLEE = "callee"
-        CALLER = "caller"
-        UNKNOWN = "unknown"
-
     def __init__(self, version, payload, call_sid=None):
         """
         Initialize the CallSummaryInstance
@@ -210,8 +198,6 @@ class CallSummaryInstance(InstanceResource):
             'call_type': payload['call_type'],
             'call_state': payload['call_state'],
             'processing_state': payload['processing_state'],
-            'direction': payload['direction'],
-            'disconnected_by': payload['disconnected_by'],
             'start_time': deserialize.iso8601_datetime(payload['start_time']),
             'end_time': deserialize.iso8601_datetime(payload['end_time']),
             'duration': deserialize.integer(payload['duration']),
@@ -284,22 +270,6 @@ class CallSummaryInstance(InstanceResource):
         :rtype: CallSummaryInstance.ProcessingState
         """
         return self._properties['processing_state']
-
-    @property
-    def direction(self):
-        """
-        :returns: The direction
-        :rtype: CallSummaryInstance.Direction
-        """
-        return self._properties['direction']
-
-    @property
-    def disconnected_by(self):
-        """
-        :returns: The disconnected_by
-        :rtype: CallSummaryInstance.DisconnectedBy
-        """
-        return self._properties['disconnected_by']
 
     @property
     def start_time(self):

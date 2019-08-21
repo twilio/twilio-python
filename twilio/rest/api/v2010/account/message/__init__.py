@@ -39,8 +39,7 @@ class MessageList(ListResource):
     def create(self, to, status_callback=values.unset, application_sid=values.unset,
                max_price=values.unset, provide_feedback=values.unset,
                validity_period=values.unset, force_delivery=values.unset,
-               smart_encoded=values.unset, interactive_data=values.unset,
-               force_opt_in=values.unset, from_=values.unset,
+               smart_encoded=values.unset, from_=values.unset,
                messaging_service_sid=values.unset, body=values.unset,
                media_url=values.unset):
         """
@@ -54,8 +53,6 @@ class MessageList(ListResource):
         :param unicode validity_period: The number of seconds that the message can remain in our outgoing queue.
         :param bool force_delivery: Reserved
         :param bool smart_encoded: Whether to detect Unicode characters that have a similar GSM-7 character and replace them
-        :param unicode interactive_data: A JSON string that represents an interactive message
-        :param bool force_opt_in: Whether to forcefully whitelist a from:to pair
         :param unicode from_: The phone number that initiated the message
         :param unicode messaging_service_sid: The SID of the Messaging Service you want to associate with the message.
         :param unicode body: The text of the message you want to send. Can be up to 1,600 characters in length.
@@ -77,8 +74,6 @@ class MessageList(ListResource):
             'ValidityPeriod': validity_period,
             'ForceDelivery': force_delivery,
             'SmartEncoded': smart_encoded,
-            'InteractiveData': interactive_data,
-            'ForceOptIn': force_opt_in,
         })
 
         payload = self._version.create(

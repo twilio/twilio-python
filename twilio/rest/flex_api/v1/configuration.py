@@ -230,6 +230,7 @@ class ConfigurationInstance(InstanceResource):
             'plugin_service_enabled': payload['plugin_service_enabled'],
             'plugin_service_attributes': payload['plugin_service_attributes'],
             'integrations': payload['integrations'],
+            'outbound_call_flows': payload['outbound_call_flows'],
             'url': payload['url'],
         }
 
@@ -497,6 +498,14 @@ class ConfigurationInstance(InstanceResource):
         :rtype: dict
         """
         return self._properties['integrations']
+
+    @property
+    def outbound_call_flows(self):
+        """
+        :returns: Outbound call flows Attributes
+        :rtype: dict
+        """
+        return self._properties['outbound_call_flows']
 
     @property
     def url(self):
