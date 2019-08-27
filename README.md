@@ -1,12 +1,14 @@
 # twilio-python
 
-[![Build Status](https://secure.travis-ci.org/twilio/twilio-python.png?branch=master)](http://travis-ci.org/twilio/twilio-python)
+[![Build Status](https://secure.travis-ci.org/twilio/twilio-python.png?branch=master)](https://travis-ci.org/twilio/twilio-python)
 [![PyPI](https://img.shields.io/pypi/v/twilio.svg)](https://pypi.python.org/pypi/twilio)
 [![PyPI](https://img.shields.io/pypi/pyversions/twilio.svg)](https://pypi.python.org/pypi/twilio)
 
-A module for using the Twilio REST API and generating valid
-[TwiML](http://www.twilio.com/docs/api/twiml/ "TwiML -
-Twilio Markup Language").
+## Documentation
+
+The documentation for the Twilio API can be found [here][apidocs].
+
+The Python library documentation can be found [here][libdocs].
 
 ## Recent Update
 
@@ -44,6 +46,7 @@ source code") for `twilio-python`, and then run:
 You may need to run the above commands with `sudo`.
 
 ### Migrate from 5.x
+
 Please consult the [official migration guide](https://www.twilio.com/docs/libraries/python/migration-guide) for information on upgrading your application using twilio-python 5.x to 6.x
 
 ## Getting Started
@@ -106,11 +109,11 @@ message = client.messages.create(to="+12316851234", from_="+15555555555",
                                  body="Hello there!")
 ```
 
-### Handling a call using TwiML
+### Generating TwiML
 
-To control phone calls, your application needs to output
-[TwiML](http://www.twilio.com/docs/api/twiml/ "TwiML - Twilio Markup
-Language"). Use `twilio.twiml.Response` to easily create such responses.
+To control phone calls, your application needs to output [TwiML][twiml].
+
+Use `twilio.twiml.Response` to easily create such responses.
 
 ```python
 from twilio.twiml.voice_response import VoiceResponse
@@ -134,3 +137,7 @@ The `Dockerfile` present in this repository and its respective `twilio/twilio-py
 If you need help installing or using the library, please check the [Twilio Support Help Center](https://support.twilio.com) first, and [file a support ticket](https://twilio.com/help/contact) if you don't find an answer to your question.
 
 If you've instead found a bug in the library or would like new features added, go ahead and open issues or pull requests against this repo!
+
+[apidocs]: https://www.twilio.com/docs/api
+[twiml]: https://www.twilio.com/docs/api/twiml
+[libdocs]: https://twilio.github.io/twilio-python
