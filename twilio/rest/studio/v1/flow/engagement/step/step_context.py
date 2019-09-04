@@ -21,9 +21,9 @@ class StepContextList(ListResource):
         Initialize the StepContextList
 
         :param Version version: Version that contains the resource
-        :param flow_sid: Flow Sid.
-        :param engagement_sid: Engagement Sid.
-        :param step_sid: Step Sid.
+        :param flow_sid: The SID of the Flow
+        :param engagement_sid: The SID of the Engagement
+        :param step_sid: Step SID
 
         :returns: twilio.rest.studio.v1.flow.engagement.step.step_context.StepContextList
         :rtype: twilio.rest.studio.v1.flow.engagement.step.step_context.StepContextList
@@ -80,9 +80,9 @@ class StepContextPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param flow_sid: Flow Sid.
-        :param engagement_sid: Engagement Sid.
-        :param step_sid: Step Sid.
+        :param flow_sid: The SID of the Flow
+        :param engagement_sid: The SID of the Engagement
+        :param step_sid: Step SID
 
         :returns: twilio.rest.studio.v1.flow.engagement.step.step_context.StepContextPage
         :rtype: twilio.rest.studio.v1.flow.engagement.step.step_context.StepContextPage
@@ -127,9 +127,9 @@ class StepContextContext(InstanceContext):
         Initialize the StepContextContext
 
         :param Version version: Version that contains the resource
-        :param flow_sid: Flow Sid.
-        :param engagement_sid: Engagement Sid.
-        :param step_sid: Step Sid.
+        :param flow_sid: The SID of the Flow
+        :param engagement_sid: The SID of the Engagement
+        :param step_sid: Step SID
 
         :returns: twilio.rest.studio.v1.flow.engagement.step.step_context.StepContextContext
         :rtype: twilio.rest.studio.v1.flow.engagement.step.step_context.StepContextContext
@@ -221,7 +221,7 @@ class StepContextInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -229,7 +229,7 @@ class StepContextInstance(InstanceResource):
     @property
     def context(self):
         """
-        :returns: Flow state.
+        :returns: The current state of the flow
         :rtype: dict
         """
         return self._properties['context']
@@ -237,7 +237,7 @@ class StepContextInstance(InstanceResource):
     @property
     def engagement_sid(self):
         """
-        :returns: Engagement Sid.
+        :returns: The SID of the Engagement
         :rtype: unicode
         """
         return self._properties['engagement_sid']
@@ -245,7 +245,7 @@ class StepContextInstance(InstanceResource):
     @property
     def flow_sid(self):
         """
-        :returns: Flow Sid.
+        :returns: The SID of the Flow
         :rtype: unicode
         """
         return self._properties['flow_sid']
@@ -253,7 +253,7 @@ class StepContextInstance(InstanceResource):
     @property
     def step_sid(self):
         """
-        :returns: Step Sid.
+        :returns: Step SID
         :rtype: unicode
         """
         return self._properties['step_sid']
@@ -261,7 +261,7 @@ class StepContextInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL of this resource.
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']

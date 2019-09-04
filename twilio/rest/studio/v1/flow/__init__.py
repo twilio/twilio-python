@@ -119,7 +119,7 @@ class FlowList(ListResource):
         """
         Constructs a FlowContext
 
-        :param sid: A string that uniquely identifies this Flow.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.studio.v1.flow.FlowContext
         :rtype: twilio.rest.studio.v1.flow.FlowContext
@@ -130,7 +130,7 @@ class FlowList(ListResource):
         """
         Constructs a FlowContext
 
-        :param sid: A string that uniquely identifies this Flow.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.studio.v1.flow.FlowContext
         :rtype: twilio.rest.studio.v1.flow.FlowContext
@@ -194,7 +194,7 @@ class FlowContext(InstanceContext):
         Initialize the FlowContext
 
         :param Version version: Version that contains the resource
-        :param sid: A string that uniquely identifies this Flow.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.studio.v1.flow.FlowContext
         :rtype: twilio.rest.studio.v1.flow.FlowContext
@@ -319,7 +319,7 @@ class FlowInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this Flow.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -327,7 +327,7 @@ class FlowInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -335,7 +335,7 @@ class FlowInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A human readable description of this resource.
+        :returns: The string that you assigned to describe the Flow
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -343,7 +343,7 @@ class FlowInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: The Status of this Flow
+        :returns: The status of the Flow
         :rtype: FlowInstance.Status
         """
         return self._properties['status']
@@ -351,7 +351,7 @@ class FlowInstance(InstanceResource):
     @property
     def version(self):
         """
-        :returns: The latest version number of this Flow's definition.
+        :returns: The latest version number of the Flow's definition
         :rtype: unicode
         """
         return self._properties['version']
@@ -359,7 +359,7 @@ class FlowInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this Flow was created
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -367,7 +367,7 @@ class FlowInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this Flow was updated
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -375,7 +375,7 @@ class FlowInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL of this resource.
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -383,7 +383,7 @@ class FlowInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: Nested resource URLs.
+        :returns: Nested resource URLs
         :rtype: unicode
         """
         return self._properties['links']

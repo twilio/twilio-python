@@ -37,7 +37,8 @@ class MessageList(ListResource):
         self._uri = '/Conversations/{conversation_sid}/Messages'.format(**self._solution)
 
     def create(self, author=values.unset, body=values.unset,
-               date_created=values.unset, date_updated=values.unset):
+               date_created=values.unset, date_updated=values.unset,
+               attributes=values.unset):
         """
         Create a new MessageInstance
 
@@ -45,6 +46,7 @@ class MessageList(ListResource):
         :param unicode body: The content of the message.
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
+        :param unicode attributes: A string metadata field you can use to store any data you wish.
 
         :returns: Newly created MessageInstance
         :rtype: twilio.rest.conversations.v1.conversation.message.MessageInstance
@@ -54,6 +56,7 @@ class MessageList(ListResource):
             'Body': body,
             'DateCreated': serialize.iso8601_datetime(date_created),
             'DateUpdated': serialize.iso8601_datetime(date_updated),
+            'Attributes': attributes,
         })
 
         payload = self._version.create(
@@ -242,7 +245,8 @@ class MessageContext(InstanceContext):
         self._uri = '/Conversations/{conversation_sid}/Messages/{sid}'.format(**self._solution)
 
     def update(self, author=values.unset, body=values.unset,
-               date_created=values.unset, date_updated=values.unset):
+               date_created=values.unset, date_updated=values.unset,
+               attributes=values.unset):
         """
         Update the MessageInstance
 
@@ -250,6 +254,7 @@ class MessageContext(InstanceContext):
         :param unicode body: The content of the message.
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
+        :param unicode attributes: A string metadata field you can use to store any data you wish.
 
         :returns: Updated MessageInstance
         :rtype: twilio.rest.conversations.v1.conversation.message.MessageInstance
@@ -259,6 +264,7 @@ class MessageContext(InstanceContext):
             'Body': body,
             'DateCreated': serialize.iso8601_datetime(date_created),
             'DateUpdated': serialize.iso8601_datetime(date_updated),
+            'Attributes': attributes,
         })
 
         payload = self._version.update(
@@ -342,6 +348,7 @@ class MessageInstance(InstanceResource):
             'index': deserialize.integer(payload['index']),
             'author': payload['author'],
             'body': payload['body'],
+            'attributes': payload['attributes'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
             'url': payload['url'],
@@ -417,6 +424,14 @@ class MessageInstance(InstanceResource):
         return self._properties['body']
 
     @property
+    def attributes(self):
+        """
+        :returns: A string metadata field you can use to store any data you wish.
+        :rtype: unicode
+        """
+        return self._properties['attributes']
+
+    @property
     def date_created(self):
         """
         :returns: The date that this resource was created.
@@ -441,7 +456,8 @@ class MessageInstance(InstanceResource):
         return self._properties['url']
 
     def update(self, author=values.unset, body=values.unset,
-               date_created=values.unset, date_updated=values.unset):
+               date_created=values.unset, date_updated=values.unset,
+               attributes=values.unset):
         """
         Update the MessageInstance
 
@@ -449,6 +465,7 @@ class MessageInstance(InstanceResource):
         :param unicode body: The content of the message.
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
+        :param unicode attributes: A string metadata field you can use to store any data you wish.
 
         :returns: Updated MessageInstance
         :rtype: twilio.rest.conversations.v1.conversation.message.MessageInstance
@@ -458,6 +475,7 @@ class MessageInstance(InstanceResource):
             body=body,
             date_created=date_created,
             date_updated=date_updated,
+            attributes=attributes,
         )
 
     def delete(self):

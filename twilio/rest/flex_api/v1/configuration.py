@@ -231,6 +231,8 @@ class ConfigurationInstance(InstanceResource):
             'plugin_service_attributes': payload['plugin_service_attributes'],
             'integrations': payload['integrations'],
             'outbound_call_flows': payload['outbound_call_flows'],
+            'features_enabled': payload['features_enabled'],
+            'serverless_service_sids': payload['serverless_service_sids'],
             'url': payload['url'],
         }
 
@@ -506,6 +508,22 @@ class ConfigurationInstance(InstanceResource):
         :rtype: dict
         """
         return self._properties['outbound_call_flows']
+
+    @property
+    def features_enabled(self):
+        """
+        :returns: List of enabled features
+        :rtype: unicode
+        """
+        return self._properties['features_enabled']
+
+    @property
+    def serverless_service_sids(self):
+        """
+        :returns: List of serverless services sids
+        :rtype: unicode
+        """
+        return self._properties['serverless_service_sids']
 
     @property
     def url(self):

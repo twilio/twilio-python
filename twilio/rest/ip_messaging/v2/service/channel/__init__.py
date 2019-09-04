@@ -46,7 +46,7 @@ class ChannelList(ListResource):
         Create a new ChannelInstance
 
         :param unicode friendly_name: A string to describe the new resource
-        :param unicode unique_name: An application-defined string that uniquely identifies the resource
+        :param unicode unique_name: An application-defined string that uniquely identifies the Channel resource
         :param unicode attributes: A valid JSON string that contains application-specific data
         :param ChannelInstance.ChannelType type: The visibility of the channel
         :param datetime date_created: The ISO 8601 date and time in GMT when the resource was created
@@ -167,7 +167,7 @@ class ChannelList(ListResource):
         """
         Constructs a ChannelContext
 
-        :param sid: The unique string that identifies the resource
+        :param sid: The SID of the resource
 
         :returns: twilio.rest.chat.v2.service.channel.ChannelContext
         :rtype: twilio.rest.chat.v2.service.channel.ChannelContext
@@ -178,7 +178,7 @@ class ChannelList(ListResource):
         """
         Constructs a ChannelContext
 
-        :param sid: The unique string that identifies the resource
+        :param sid: The SID of the resource
 
         :returns: twilio.rest.chat.v2.service.channel.ChannelContext
         :rtype: twilio.rest.chat.v2.service.channel.ChannelContext
@@ -244,7 +244,7 @@ class ChannelContext(InstanceContext):
 
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the Service to fetch the resource from
-        :param sid: The unique string that identifies the resource
+        :param sid: The SID of the resource
 
         :returns: twilio.rest.chat.v2.service.channel.ChannelContext
         :rtype: twilio.rest.chat.v2.service.channel.ChannelContext
@@ -523,7 +523,7 @@ class ChannelInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The RFC 2822 date and time in GMT when the resource was created
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -531,7 +531,7 @@ class ChannelInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The RFC 2822 date and time in GMT when the resource was last updated
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -555,7 +555,7 @@ class ChannelInstance(InstanceResource):
     @property
     def messages_count(self):
         """
-        :returns: The number of Messages in the Channel
+        :returns: The number of Messages that have been passed in the Channel
         :rtype: unicode
         """
         return self._properties['messages_count']

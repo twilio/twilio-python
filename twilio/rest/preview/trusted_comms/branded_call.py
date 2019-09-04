@@ -33,18 +33,19 @@ class BrandedCallList(ListResource):
         self._solution = {}
         self._uri = '/Business/BrandedCalls'.format(**self._solution)
 
-    def create(self, from_, to, reason):
+    def create(self, from_, to, reason, call_sid=values.unset):
         """
         Create a new BrandedCallInstance
 
         :param unicode from_: Twilio number from which to brand the call
         :param unicode to: The terminating Phone Number
         :param unicode reason: The business reason for this phone call
+        :param unicode call_sid: The call_sid
 
         :returns: Newly created BrandedCallInstance
         :rtype: twilio.rest.preview.trusted_comms.branded_call.BrandedCallInstance
         """
-        data = values.of({'From': from_, 'To': to, 'Reason': reason, })
+        data = values.of({'From': from_, 'To': to, 'Reason': reason, 'CallSid': call_sid, })
 
         payload = self._version.create(
             'POST',
@@ -129,6 +130,7 @@ class BrandedCallInstance(InstanceResource):
             'from_': payload['from'],
             'logo': payload['logo'],
             'reason': payload['reason'],
+            'sid': payload['sid'],
             'status': payload['status'],
             'to': payload['to'],
             'url': payload['url'],
@@ -202,6 +204,14 @@ class BrandedCallInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['reason']
+
+    @property
+    def sid(self):
+        """
+        :returns: A string that uniquely identifies this current phone call.
+        :rtype: unicode
+        """
+        return self._properties['sid']
 
     @property
     def status(self):

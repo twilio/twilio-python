@@ -24,7 +24,7 @@ class SyncStreamList(ListResource):
         Initialize the SyncStreamList
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Instance SID.
+        :param service_sid: The SID of the Sync Service that the resource is associated with
 
         :returns: twilio.rest.sync.v1.service.sync_stream.SyncStreamList
         :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamList
@@ -39,8 +39,8 @@ class SyncStreamList(ListResource):
         """
         Create a new SyncStreamInstance
 
-        :param unicode unique_name: Stream unique name.
-        :param unicode ttl: Stream TTL.
+        :param unicode unique_name: An application-defined string that uniquely identifies the resource
+        :param unicode ttl: How long, in seconds, before the Stream expires and is deleted
 
         :returns: Newly created SyncStreamInstance
         :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
@@ -140,7 +140,7 @@ class SyncStreamList(ListResource):
         """
         Constructs a SyncStreamContext
 
-        :param sid: Stream SID or unique name.
+        :param sid: The SID of the Stream resource to fetch
 
         :returns: twilio.rest.sync.v1.service.sync_stream.SyncStreamContext
         :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamContext
@@ -151,7 +151,7 @@ class SyncStreamList(ListResource):
         """
         Constructs a SyncStreamContext
 
-        :param sid: Stream SID or unique name.
+        :param sid: The SID of the Stream resource to fetch
 
         :returns: twilio.rest.sync.v1.service.sync_stream.SyncStreamContext
         :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamContext
@@ -178,7 +178,7 @@ class SyncStreamPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: Service Instance SID.
+        :param service_sid: The SID of the Sync Service that the resource is associated with
 
         :returns: twilio.rest.sync.v1.service.sync_stream.SyncStreamPage
         :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamPage
@@ -218,8 +218,8 @@ class SyncStreamContext(InstanceContext):
         Initialize the SyncStreamContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Instance SID or unique name.
-        :param sid: Stream SID or unique name.
+        :param service_sid: The SID of the Sync Service with the Sync Stream resource to fetch
+        :param sid: The SID of the Stream resource to fetch
 
         :returns: twilio.rest.sync.v1.service.sync_stream.SyncStreamContext
         :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamContext
@@ -268,7 +268,7 @@ class SyncStreamContext(InstanceContext):
         """
         Update the SyncStreamInstance
 
-        :param unicode ttl: Stream TTL.
+        :param unicode ttl: How long, in seconds, before the Stream expires and is deleted
 
         :returns: Updated SyncStreamInstance
         :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
@@ -366,7 +366,7 @@ class SyncStreamInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: Stream SID.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -374,7 +374,7 @@ class SyncStreamInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: Stream unique name.
+        :returns: An application-defined string that uniquely identifies the resource
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -382,7 +382,7 @@ class SyncStreamInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Twilio Account SID.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -390,7 +390,7 @@ class SyncStreamInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: Service Instance SID.
+        :returns: The SID of the Sync Service that the resource is associated with
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -398,7 +398,7 @@ class SyncStreamInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: URL of this Stream.
+        :returns: The absolute URL of the Message Stream resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -406,7 +406,7 @@ class SyncStreamInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: Nested resource URLs.
+        :returns: The URLs of the Stream's nested resources
         :rtype: unicode
         """
         return self._properties['links']
@@ -414,7 +414,7 @@ class SyncStreamInstance(InstanceResource):
     @property
     def date_expires(self):
         """
-        :returns: The date this Stream expires.
+        :returns: The ISO 8601 date and time in GMT when the Message Stream expires
         :rtype: datetime
         """
         return self._properties['date_expires']
@@ -422,7 +422,7 @@ class SyncStreamInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this Stream was created.
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -430,7 +430,7 @@ class SyncStreamInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this Stream was updated.
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -438,7 +438,7 @@ class SyncStreamInstance(InstanceResource):
     @property
     def created_by(self):
         """
-        :returns: Identity of the Stream creator.
+        :returns: The Identity of the Stream's creator
         :rtype: unicode
         """
         return self._properties['created_by']
@@ -465,7 +465,7 @@ class SyncStreamInstance(InstanceResource):
         """
         Update the SyncStreamInstance
 
-        :param unicode ttl: Stream TTL.
+        :param unicode ttl: How long, in seconds, before the Stream expires and is deleted
 
         :returns: Updated SyncStreamInstance
         :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance

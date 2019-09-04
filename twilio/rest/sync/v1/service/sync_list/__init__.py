@@ -25,7 +25,7 @@ class SyncListList(ListResource):
         Initialize the SyncListList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The unique SID identifier of the Service Instance that hosts this List object.
+        :param service_sid: The SID of the Sync Service that the resource is associated with
 
         :returns: twilio.rest.sync.v1.service.sync_list.SyncListList
         :rtype: twilio.rest.sync.v1.service.sync_list.SyncListList
@@ -41,9 +41,9 @@ class SyncListList(ListResource):
         """
         Create a new SyncListInstance
 
-        :param unicode unique_name: Human-readable name for this list
+        :param unicode unique_name: An application-defined string that uniquely identifies the resource
         :param unicode ttl: Alias for collection_ttl
-        :param unicode collection_ttl: Time-to-live of this List in seconds, defaults to no expiration.
+        :param unicode collection_ttl: How long, in seconds, before the Sync List expires and is deleted
 
         :returns: Newly created SyncListInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.SyncListInstance
@@ -143,7 +143,7 @@ class SyncListList(ListResource):
         """
         Constructs a SyncListContext
 
-        :param sid: The sid
+        :param sid: The SID of the Sync List resource to fetch
 
         :returns: twilio.rest.sync.v1.service.sync_list.SyncListContext
         :rtype: twilio.rest.sync.v1.service.sync_list.SyncListContext
@@ -154,7 +154,7 @@ class SyncListList(ListResource):
         """
         Constructs a SyncListContext
 
-        :param sid: The sid
+        :param sid: The SID of the Sync List resource to fetch
 
         :returns: twilio.rest.sync.v1.service.sync_list.SyncListContext
         :rtype: twilio.rest.sync.v1.service.sync_list.SyncListContext
@@ -181,7 +181,7 @@ class SyncListPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The unique SID identifier of the Service Instance that hosts this List object.
+        :param service_sid: The SID of the Sync Service that the resource is associated with
 
         :returns: twilio.rest.sync.v1.service.sync_list.SyncListPage
         :rtype: twilio.rest.sync.v1.service.sync_list.SyncListPage
@@ -221,8 +221,8 @@ class SyncListContext(InstanceContext):
         Initialize the SyncListContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
-        :param sid: The sid
+        :param service_sid: The SID of the Sync Service with the Sync List resource to fetch
+        :param sid: The SID of the Sync List resource to fetch
 
         :returns: twilio.rest.sync.v1.service.sync_list.SyncListContext
         :rtype: twilio.rest.sync.v1.service.sync_list.SyncListContext
@@ -272,8 +272,8 @@ class SyncListContext(InstanceContext):
         """
         Update the SyncListInstance
 
-        :param unicode ttl: Alias for collection_ttl
-        :param unicode collection_ttl: Time-to-live of this List in seconds, defaults to no expiration.
+        :param unicode ttl: An alias for collection_ttl
+        :param unicode collection_ttl: How long, in seconds, before the Sync List expires and is deleted
 
         :returns: Updated SyncListInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.SyncListInstance
@@ -388,7 +388,7 @@ class SyncListInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The unique 34-character SID identifier of the List.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -396,7 +396,7 @@ class SyncListInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: The unique and addressable name of this List.
+        :returns: An application-defined string that uniquely identifies the resource
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -404,7 +404,7 @@ class SyncListInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique SID identifier of the Twilio Account.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -412,7 +412,7 @@ class SyncListInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The unique SID identifier of the Service Instance that hosts this List object.
+        :returns: The SID of the Sync Service that the resource is associated with
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -420,7 +420,7 @@ class SyncListInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The absolute URL for this List.
+        :returns: The absolute URL of the Sync List resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -428,7 +428,7 @@ class SyncListInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: A dictionary of URL links to nested resources of this List.
+        :returns: The URLs of the Sync List's nested resources
         :rtype: unicode
         """
         return self._properties['links']
@@ -436,7 +436,7 @@ class SyncListInstance(InstanceResource):
     @property
     def revision(self):
         """
-        :returns: Contains the current revision of this List, represented by a string identifier.
+        :returns: The current revision of the Sync List, represented as a string
         :rtype: unicode
         """
         return self._properties['revision']
@@ -444,7 +444,7 @@ class SyncListInstance(InstanceResource):
     @property
     def date_expires(self):
         """
-        :returns: Contains the date this List expires and gets deleted automatically.
+        :returns: The ISO 8601 date and time in GMT when the Sync List expires
         :rtype: datetime
         """
         return self._properties['date_expires']
@@ -452,7 +452,7 @@ class SyncListInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this List was created, given in UTC ISO 8601 format.
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -460,7 +460,7 @@ class SyncListInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: Specifies the date this List was last updated, given in UTC ISO 8601 format.
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -468,7 +468,7 @@ class SyncListInstance(InstanceResource):
     @property
     def created_by(self):
         """
-        :returns: The identity of the List creator.
+        :returns: The identity of the Sync List's creator
         :rtype: unicode
         """
         return self._properties['created_by']
@@ -495,8 +495,8 @@ class SyncListInstance(InstanceResource):
         """
         Update the SyncListInstance
 
-        :param unicode ttl: Alias for collection_ttl
-        :param unicode collection_ttl: Time-to-live of this List in seconds, defaults to no expiration.
+        :param unicode ttl: An alias for collection_ttl
+        :param unicode collection_ttl: How long, in seconds, before the Sync List expires and is deleted
 
         :returns: Updated SyncListInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.SyncListInstance

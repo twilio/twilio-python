@@ -21,9 +21,9 @@ class ExecutionStepContextList(ListResource):
         Initialize the ExecutionStepContextList
 
         :param Version version: Version that contains the resource
-        :param flow_sid: Flow Sid.
-        :param execution_sid: Execution Sid.
-        :param step_sid: Step Sid.
+        :param flow_sid: The SID of the Flow
+        :param execution_sid: The SID of the Execution
+        :param step_sid: Step SID
 
         :returns: twilio.rest.studio.v1.flow.execution.execution_step.execution_step_context.ExecutionStepContextList
         :rtype: twilio.rest.studio.v1.flow.execution.execution_step.execution_step_context.ExecutionStepContextList
@@ -80,9 +80,9 @@ class ExecutionStepContextPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param flow_sid: Flow Sid.
-        :param execution_sid: Execution Sid.
-        :param step_sid: Step Sid.
+        :param flow_sid: The SID of the Flow
+        :param execution_sid: The SID of the Execution
+        :param step_sid: Step SID
 
         :returns: twilio.rest.studio.v1.flow.execution.execution_step.execution_step_context.ExecutionStepContextPage
         :rtype: twilio.rest.studio.v1.flow.execution.execution_step.execution_step_context.ExecutionStepContextPage
@@ -127,9 +127,9 @@ class ExecutionStepContextContext(InstanceContext):
         Initialize the ExecutionStepContextContext
 
         :param Version version: Version that contains the resource
-        :param flow_sid: Flow Sid.
-        :param execution_sid: Execution Sid.
-        :param step_sid: Step Sid.
+        :param flow_sid: The SID of the Flow
+        :param execution_sid: The SID of the Execution
+        :param step_sid: Step SID
 
         :returns: twilio.rest.studio.v1.flow.execution.execution_step.execution_step_context.ExecutionStepContextContext
         :rtype: twilio.rest.studio.v1.flow.execution.execution_step.execution_step_context.ExecutionStepContextContext
@@ -221,7 +221,7 @@ class ExecutionStepContextInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -229,7 +229,7 @@ class ExecutionStepContextInstance(InstanceResource):
     @property
     def context(self):
         """
-        :returns: Flow state.
+        :returns: The current state of the flow
         :rtype: dict
         """
         return self._properties['context']
@@ -237,7 +237,7 @@ class ExecutionStepContextInstance(InstanceResource):
     @property
     def execution_sid(self):
         """
-        :returns: Execution Sid.
+        :returns: The SID of the Execution
         :rtype: unicode
         """
         return self._properties['execution_sid']
@@ -245,7 +245,7 @@ class ExecutionStepContextInstance(InstanceResource):
     @property
     def flow_sid(self):
         """
-        :returns: Flow Sid.
+        :returns: The SID of the Flow
         :rtype: unicode
         """
         return self._properties['flow_sid']
@@ -253,7 +253,7 @@ class ExecutionStepContextInstance(InstanceResource):
     @property
     def step_sid(self):
         """
-        :returns: Step Sid.
+        :returns: Step SID
         :rtype: unicode
         """
         return self._properties['step_sid']
@@ -261,7 +261,7 @@ class ExecutionStepContextInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL of this resource.
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']

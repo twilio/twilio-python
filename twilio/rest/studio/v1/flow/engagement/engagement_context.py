@@ -21,8 +21,8 @@ class EngagementContextList(ListResource):
         Initialize the EngagementContextList
 
         :param Version version: Version that contains the resource
-        :param flow_sid: Flow Sid.
-        :param engagement_sid: Engagement Sid.
+        :param flow_sid: Flow SID
+        :param engagement_sid: Engagement SID
 
         :returns: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextList
         :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextList
@@ -77,8 +77,8 @@ class EngagementContextPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param flow_sid: Flow Sid.
-        :param engagement_sid: Engagement Sid.
+        :param flow_sid: Flow SID
+        :param engagement_sid: Engagement SID
 
         :returns: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextPage
         :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextPage
@@ -122,8 +122,8 @@ class EngagementContextContext(InstanceContext):
         Initialize the EngagementContextContext
 
         :param Version version: Version that contains the resource
-        :param flow_sid: Flow Sid.
-        :param engagement_sid: Engagement Sid.
+        :param flow_sid: Flow SID
+        :param engagement_sid: Engagement SID
 
         :returns: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextContext
         :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextContext
@@ -212,7 +212,7 @@ class EngagementContextInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid.
+        :returns: Account SID
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -220,7 +220,7 @@ class EngagementContextInstance(InstanceResource):
     @property
     def context(self):
         """
-        :returns: Flow state.
+        :returns: Flow state
         :rtype: dict
         """
         return self._properties['context']
@@ -228,7 +228,7 @@ class EngagementContextInstance(InstanceResource):
     @property
     def engagement_sid(self):
         """
-        :returns: Engagement Sid.
+        :returns: Engagement SID
         :rtype: unicode
         """
         return self._properties['engagement_sid']
@@ -236,7 +236,7 @@ class EngagementContextInstance(InstanceResource):
     @property
     def flow_sid(self):
         """
-        :returns: Flow Sid.
+        :returns: Flow SID
         :rtype: unicode
         """
         return self._properties['flow_sid']
@@ -244,7 +244,7 @@ class EngagementContextInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL of this resource.
+        :returns: The URL of the resource
         :rtype: unicode
         """
         return self._properties['url']

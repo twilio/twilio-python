@@ -124,17 +124,17 @@ class RatePlanList(ListResource):
         """
         Create a new RatePlanInstance
 
-        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the Sid.
-        :param unicode friendly_name: A user-provided string that identifies this resource.
-        :param bool data_enabled: Defines whether SIMs are capable of using GPRS/3G/LTE data connectivity.
-        :param unicode data_limit: Network-enforced limit specifying the total Megabytes of data usage allowed during one month on the 'home' (T-Mobile USA) network.
-        :param unicode data_metering: The model by which to meter data usage, in accordance with the available data metering models.
-        :param bool messaging_enabled: Defines whether SIMs are capable of making and sending and receiving SMS messages via either Commands or Programmable SMS APIs.
-        :param bool voice_enabled: Defines whether SIMs are capable of making and receiving voice calls.
-        :param bool national_roaming_enabled: Defines whether SIMs can roam onto networks other than the 'home' (T-Mobile USA) network in the United States.
-        :param unicode international_roaming: Defines whether SIMs are capable of using GPRS/3G/4G/LTE data connectivity and messaging outside of the United States.
-        :param unicode national_roaming_data_limit: Network-enforced limit specifying the total Megabytes of data usage allowed during one month on networks in the United States other than the 'home' (T-Mobile USA) network.
-        :param unicode international_roaming_data_limit: Network-enforced limit specifying the total Megabytes of international roaming (non-US) data usage (download and upload combined) allowed during one month.
+        :param unicode unique_name: An application-defined string that uniquely identifies the resource
+        :param unicode friendly_name: A string to describe the resource
+        :param bool data_enabled: Whether SIMs can use GPRS/3G/4G/LTE data connectivity
+        :param unicode data_limit: The total data usage in Megabytes that the Network allows during one month on the home network
+        :param unicode data_metering: The model used to meter data usage
+        :param bool messaging_enabled: Whether SIMs can make, send, and receive SMS using Commands
+        :param bool voice_enabled: Whether SIMs can make and receive voice calls
+        :param bool national_roaming_enabled: Whether SIMs can roam on networks other than the home network in the United States
+        :param unicode international_roaming: The services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States
+        :param unicode national_roaming_data_limit: The total data usage in Megabytes that the Network allows during one month on non-home networks in the United States
+        :param unicode international_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States
 
         :returns: Newly created RatePlanInstance
         :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanInstance
@@ -165,7 +165,7 @@ class RatePlanList(ListResource):
         """
         Constructs a RatePlanContext
 
-        :param sid: A 34 character string that uniquely identifies this resource.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.wireless.v1.rate_plan.RatePlanContext
         :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanContext
@@ -176,7 +176,7 @@ class RatePlanList(ListResource):
         """
         Constructs a RatePlanContext
 
-        :param sid: A 34 character string that uniquely identifies this resource.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.wireless.v1.rate_plan.RatePlanContext
         :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanContext
@@ -240,7 +240,7 @@ class RatePlanContext(InstanceContext):
         Initialize the RatePlanContext
 
         :param Version version: Version that contains the resource
-        :param sid: A 34 character string that uniquely identifies this resource.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.wireless.v1.rate_plan.RatePlanContext
         :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanContext
@@ -272,8 +272,8 @@ class RatePlanContext(InstanceContext):
         """
         Update the RatePlanInstance
 
-        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the Sid.
-        :param unicode friendly_name: A user-provided string that identifies this resource.
+        :param unicode unique_name: An application-defined string that uniquely identifies the resource
+        :param unicode friendly_name: A string to describe the resource
 
         :returns: Updated RatePlanInstance
         :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanInstance
@@ -360,7 +360,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34 character string that uniquely identifies this resource.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -368,7 +368,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: A user-provided string that uniquely identifies this resource as an alternative to the sid.
+        :returns: An application-defined string that uniquely identifies the resource
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -376,7 +376,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the Account that this Rate Plan belongs to.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -384,7 +384,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A user-provided string that identifies this resource.
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -392,7 +392,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def data_enabled(self):
         """
-        :returns: Defines whether SIMs are capable of using GPRS/3G/4G/LTE data connectivity.
+        :returns: Whether SIMs can use GPRS/3G/4G/LTE data connectivity
         :rtype: bool
         """
         return self._properties['data_enabled']
@@ -400,7 +400,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def data_metering(self):
         """
-        :returns: The model by which to meter data usage, in accordance with the available data metering models.
+        :returns: The model used to meter data usage
         :rtype: unicode
         """
         return self._properties['data_metering']
@@ -408,7 +408,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def data_limit(self):
         """
-        :returns: Network-enforced limit specifying the total Megabytes of data usage allowed during one month on the 'home' (T-Mobile USA) network.
+        :returns: The total data usage in Megabytes that the Network allows during one month on the home network
         :rtype: unicode
         """
         return self._properties['data_limit']
@@ -416,7 +416,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def messaging_enabled(self):
         """
-        :returns: Defines whether SIMs are capable of making and sending and receiving SMS via Commands.
+        :returns: Whether SIMs can make, send, and receive SMS using Commands
         :rtype: bool
         """
         return self._properties['messaging_enabled']
@@ -424,7 +424,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def voice_enabled(self):
         """
-        :returns: Defines whether SIMs are capable of making and receiving voice calls.
+        :returns: Whether SIMs can make and receive voice calls
         :rtype: bool
         """
         return self._properties['voice_enabled']
@@ -432,7 +432,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def national_roaming_enabled(self):
         """
-        :returns: Defines whether SIMs can roam onto networks other than the 'home' (T-Mobile USA) network in the United States.
+        :returns: Whether SIMs can roam on networks other than the home network in the United States
         :rtype: bool
         """
         return self._properties['national_roaming_enabled']
@@ -440,7 +440,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def national_roaming_data_limit(self):
         """
-        :returns: Network-enforced limit specifying the total Megabytes of 'national roaming' data usage allowed during one month on networks in the United States other than the 'home' (T-Mobile USA) network.
+        :returns: The total data usage in Megabytes that the Network allows during one month on non-home networks in the United States
         :rtype: unicode
         """
         return self._properties['national_roaming_data_limit']
@@ -448,7 +448,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def international_roaming(self):
         """
-        :returns: Defines whether SIMs are capable of using GPRS/3G/4G/LTE data connectivity and messaging outside of the United States.
+        :returns: The services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States
         :rtype: unicode
         """
         return self._properties['international_roaming']
@@ -456,7 +456,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def international_roaming_data_limit(self):
         """
-        :returns: Network-enforced limit specifying the total Megabytes of 'international roaming' (non-US) data usage (download and upload combined) allowed during one month.
+        :returns: The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States
         :rtype: unicode
         """
         return self._properties['international_roaming_data_limit']
@@ -464,7 +464,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this resource was created, given as GMT in ISO 8601 format.
+        :returns: The date when the resource was created, given as GMT in ISO 8601 format
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -472,7 +472,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date that this resource was last updated, given as GMT in ISO 8601 format.
+        :returns: The date when the resource was last updated, given as GMT in ISO 8601 format
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -480,7 +480,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL for this resource.
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -498,8 +498,8 @@ class RatePlanInstance(InstanceResource):
         """
         Update the RatePlanInstance
 
-        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the Sid.
-        :param unicode friendly_name: A user-provided string that identifies this resource.
+        :param unicode unique_name: An application-defined string that uniquely identifies the resource
+        :param unicode friendly_name: A string to describe the resource
 
         :returns: Updated RatePlanInstance
         :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanInstance

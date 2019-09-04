@@ -39,7 +39,8 @@ class ConversationList(ListResource):
         self._uri = '/Conversations'.format(**self._solution)
 
     def create(self, friendly_name=values.unset, date_created=values.unset,
-               date_updated=values.unset, messaging_service_sid=values.unset):
+               date_updated=values.unset, messaging_service_sid=values.unset,
+               attributes=values.unset):
         """
         Create a new ConversationInstance
 
@@ -47,6 +48,7 @@ class ConversationList(ListResource):
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
         :param unicode messaging_service_sid: The unique id of the SMS Service this conversation belongs to.
+        :param unicode attributes: An optional string metadata field you can use to store any data you wish.
 
         :returns: Newly created ConversationInstance
         :rtype: twilio.rest.conversations.v1.conversation.ConversationInstance
@@ -56,6 +58,7 @@ class ConversationList(ListResource):
             'DateCreated': serialize.iso8601_datetime(date_created),
             'DateUpdated': serialize.iso8601_datetime(date_updated),
             'MessagingServiceSid': messaging_service_sid,
+            'Attributes': attributes,
         })
 
         payload = self._version.create(
@@ -247,13 +250,14 @@ class ConversationContext(InstanceContext):
         self._webhooks = None
 
     def update(self, friendly_name=values.unset, date_created=values.unset,
-               date_updated=values.unset):
+               date_updated=values.unset, attributes=values.unset):
         """
         Update the ConversationInstance
 
         :param unicode friendly_name: The human-readable name of this conversation.
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
+        :param unicode attributes: An optional string metadata field you can use to store any data you wish.
 
         :returns: Updated ConversationInstance
         :rtype: twilio.rest.conversations.v1.conversation.ConversationInstance
@@ -262,6 +266,7 @@ class ConversationContext(InstanceContext):
             'FriendlyName': friendly_name,
             'DateCreated': serialize.iso8601_datetime(date_created),
             'DateUpdated': serialize.iso8601_datetime(date_updated),
+            'Attributes': attributes,
         })
 
         payload = self._version.update(
@@ -370,6 +375,7 @@ class ConversationInstance(InstanceResource):
             'messaging_service_sid': payload['messaging_service_sid'],
             'sid': payload['sid'],
             'friendly_name': payload['friendly_name'],
+            'attributes': payload['attributes'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
             'url': payload['url'],
@@ -434,6 +440,14 @@ class ConversationInstance(InstanceResource):
         return self._properties['friendly_name']
 
     @property
+    def attributes(self):
+        """
+        :returns: An optional string metadata field you can use to store any data you wish.
+        :rtype: unicode
+        """
+        return self._properties['attributes']
+
+    @property
     def date_created(self):
         """
         :returns: The date that this resource was created.
@@ -466,13 +480,14 @@ class ConversationInstance(InstanceResource):
         return self._properties['links']
 
     def update(self, friendly_name=values.unset, date_created=values.unset,
-               date_updated=values.unset):
+               date_updated=values.unset, attributes=values.unset):
         """
         Update the ConversationInstance
 
         :param unicode friendly_name: The human-readable name of this conversation.
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
+        :param unicode attributes: An optional string metadata field you can use to store any data you wish.
 
         :returns: Updated ConversationInstance
         :rtype: twilio.rest.conversations.v1.conversation.ConversationInstance
@@ -481,6 +496,7 @@ class ConversationInstance(InstanceResource):
             friendly_name=friendly_name,
             date_created=date_created,
             date_updated=date_updated,
+            attributes=attributes,
         )
 
     def delete(self):

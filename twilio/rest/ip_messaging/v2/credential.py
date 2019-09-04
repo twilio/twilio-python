@@ -152,7 +152,7 @@ class CredentialList(ListResource):
         """
         Constructs a CredentialContext
 
-        :param sid: The unique string that identifies the resource
+        :param sid: The SID of the Credential resource to fetch
 
         :returns: twilio.rest.chat.v2.credential.CredentialContext
         :rtype: twilio.rest.chat.v2.credential.CredentialContext
@@ -163,7 +163,7 @@ class CredentialList(ListResource):
         """
         Constructs a CredentialContext
 
-        :param sid: The unique string that identifies the resource
+        :param sid: The SID of the Credential resource to fetch
 
         :returns: twilio.rest.chat.v2.credential.CredentialContext
         :rtype: twilio.rest.chat.v2.credential.CredentialContext
@@ -227,7 +227,7 @@ class CredentialContext(InstanceContext):
         Initialize the CredentialContext
 
         :param Version version: Version that contains the resource
-        :param sid: The unique string that identifies the resource
+        :param sid: The SID of the Credential resource to fetch
 
         :returns: twilio.rest.chat.v2.credential.CredentialContext
         :rtype: twilio.rest.chat.v2.credential.CredentialContext
@@ -397,7 +397,7 @@ class CredentialInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The RFC 2822 date and time in GMT when the resource was created
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -405,7 +405,7 @@ class CredentialInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The RFC 2822 date and time in GMT when the resource was last updated
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']

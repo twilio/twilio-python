@@ -24,7 +24,7 @@ class MemberList(ListResource):
 
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the Service that the resource is associated with
-        :param channel_sid: The unique ID of the Channel for the member
+        :param channel_sid: The SID of the Channel for the member
 
         :returns: twilio.rest.chat.v2.service.channel.member.MemberList
         :rtype: twilio.rest.chat.v2.service.channel.member.MemberList
@@ -45,7 +45,7 @@ class MemberList(ListResource):
         :param unicode identity: The `identity` value that identifies the new resource's User
         :param unicode role_sid: The SID of the Role to assign to the member
         :param unicode last_consumed_message_index: The index of the last Message in the Channel the Member has read
-        :param datetime last_consumption_timestamp: The ISO 8601 based timestamp string representing the date-time of the last Message read event for the Member within the Channel
+        :param datetime last_consumption_timestamp: The ISO 8601 based timestamp string representing the datetime of the last Message read event for the member within the Channel
         :param datetime date_created: The ISO 8601 date and time in GMT when the resource was created
         :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
         :param unicode attributes: A valid JSON string that contains application-specific data
@@ -169,7 +169,7 @@ class MemberList(ListResource):
         """
         Constructs a MemberContext
 
-        :param sid: The unique string that identifies the resource
+        :param sid: The SID of the Member resource to fetch
 
         :returns: twilio.rest.chat.v2.service.channel.member.MemberContext
         :rtype: twilio.rest.chat.v2.service.channel.member.MemberContext
@@ -185,7 +185,7 @@ class MemberList(ListResource):
         """
         Constructs a MemberContext
 
-        :param sid: The unique string that identifies the resource
+        :param sid: The SID of the Member resource to fetch
 
         :returns: twilio.rest.chat.v2.service.channel.member.MemberContext
         :rtype: twilio.rest.chat.v2.service.channel.member.MemberContext
@@ -217,7 +217,7 @@ class MemberPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
         :param service_sid: The SID of the Service that the resource is associated with
-        :param channel_sid: The unique ID of the Channel for the member
+        :param channel_sid: The SID of the Channel for the member
 
         :returns: twilio.rest.chat.v2.service.channel.member.MemberPage
         :rtype: twilio.rest.chat.v2.service.channel.member.MemberPage
@@ -262,8 +262,8 @@ class MemberContext(InstanceContext):
 
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the Service to fetch the resource from
-        :param channel_sid: The unique ID of the channel the member belongs to
-        :param sid: The unique string that identifies the resource
+        :param channel_sid: The SID of the channel the member belongs to
+        :param sid: The SID of the Member resource to fetch
 
         :returns: twilio.rest.chat.v2.service.channel.member.MemberContext
         :rtype: twilio.rest.chat.v2.service.channel.member.MemberContext
@@ -315,7 +315,7 @@ class MemberContext(InstanceContext):
 
         :param unicode role_sid: The SID of the Role to assign to the member
         :param unicode last_consumed_message_index: The index of the last consumed Message for the Channel for the Member
-        :param datetime last_consumption_timestamp: The ISO 8601 based timestamp string representing the date-time of the last Message read event for the Member within the Channel
+        :param datetime last_consumption_timestamp: The ISO 8601 based timestamp string representing the datetime of the last Message read event for the Member within the Channel
         :param datetime date_created: The ISO 8601 date and time in GMT when the resource was created
         :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
         :param unicode attributes: A valid JSON string that contains application-specific data
@@ -434,7 +434,7 @@ class MemberInstance(InstanceResource):
     @property
     def channel_sid(self):
         """
-        :returns: The unique ID of the Channel for the member
+        :returns: The SID of the Channel for the member
         :rtype: unicode
         """
         return self._properties['channel_sid']
@@ -458,7 +458,7 @@ class MemberInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The RFC 2822 date and time in GMT when the resource was created
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -466,7 +466,7 @@ class MemberInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The RFC 2822 date and time in GMT when the resource was last updated
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -490,7 +490,7 @@ class MemberInstance(InstanceResource):
     @property
     def last_consumption_timestamp(self):
         """
-        :returns: The ISO 8601 based timestamp string that represents the date-time of the last Message read event for the Member within the Channel
+        :returns: The ISO 8601 based timestamp string that represents the datetime of the last Message read event for the Member within the Channel
         :rtype: datetime
         """
         return self._properties['last_consumption_timestamp']
@@ -538,7 +538,7 @@ class MemberInstance(InstanceResource):
 
         :param unicode role_sid: The SID of the Role to assign to the member
         :param unicode last_consumed_message_index: The index of the last consumed Message for the Channel for the Member
-        :param datetime last_consumption_timestamp: The ISO 8601 based timestamp string representing the date-time of the last Message read event for the Member within the Channel
+        :param datetime last_consumption_timestamp: The ISO 8601 based timestamp string representing the datetime of the last Message read event for the Member within the Channel
         :param datetime date_created: The ISO 8601 date and time in GMT when the resource was created
         :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
         :param unicode attributes: A valid JSON string that contains application-specific data

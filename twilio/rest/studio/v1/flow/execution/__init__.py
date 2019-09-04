@@ -25,7 +25,7 @@ class ExecutionList(ListResource):
         Initialize the ExecutionList
 
         :param Version version: Version that contains the resource
-        :param flow_sid: Flow Sid.
+        :param flow_sid: The SID of the Flow
 
         :returns: twilio.rest.studio.v1.flow.execution.ExecutionList
         :rtype: twilio.rest.studio.v1.flow.execution.ExecutionList
@@ -44,8 +44,8 @@ class ExecutionList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param datetime date_created_from: Only show Executions that started on or after this ISO8601 date-time.
-        :param datetime date_created_to: Only show Executions that started before this this ISO8601 date-time.
+        :param datetime date_created_from: Only show Executions that started on or after this ISO 8601 date-time
+        :param datetime date_created_to: Only show Executions that started before this ISO 8601 date-time
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -73,8 +73,8 @@ class ExecutionList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param datetime date_created_from: Only show Executions that started on or after this ISO8601 date-time.
-        :param datetime date_created_to: Only show Executions that started before this this ISO8601 date-time.
+        :param datetime date_created_from: Only show Executions that started on or after this ISO 8601 date-time
+        :param datetime date_created_to: Only show Executions that started before this ISO 8601 date-time
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -99,8 +99,8 @@ class ExecutionList(ListResource):
         Retrieve a single page of ExecutionInstance records from the API.
         Request is executed immediately
 
-        :param datetime date_created_from: Only show Executions that started on or after this ISO8601 date-time.
-        :param datetime date_created_to: Only show Executions that started before this this ISO8601 date-time.
+        :param datetime date_created_from: Only show Executions that started on or after this ISO 8601 date-time
+        :param datetime date_created_to: Only show Executions that started before this ISO 8601 date-time
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -145,9 +145,9 @@ class ExecutionList(ListResource):
         """
         Create a new ExecutionInstance
 
-        :param unicode to: The Contact phone number to start a Studio Flow Execution.
-        :param unicode from_: The Twilio phone number to send messages or initiate calls from during the Flow Execution.
-        :param dict parameters: JSON data that will be added to your flow's context and can accessed as variables inside your flow.
+        :param unicode to: The Contact phone number to start a Studio Flow Execution
+        :param unicode from_: The Twilio phone number to send messages or initiate calls from during the Flow Execution
+        :param dict parameters: JSON data that will be added to the Flow's context
 
         :returns: Newly created ExecutionInstance
         :rtype: twilio.rest.studio.v1.flow.execution.ExecutionInstance
@@ -166,7 +166,7 @@ class ExecutionList(ListResource):
         """
         Constructs a ExecutionContext
 
-        :param sid: Execution Sid.
+        :param sid: The SID of the Execution resource to fetch
 
         :returns: twilio.rest.studio.v1.flow.execution.ExecutionContext
         :rtype: twilio.rest.studio.v1.flow.execution.ExecutionContext
@@ -177,7 +177,7 @@ class ExecutionList(ListResource):
         """
         Constructs a ExecutionContext
 
-        :param sid: Execution Sid.
+        :param sid: The SID of the Execution resource to fetch
 
         :returns: twilio.rest.studio.v1.flow.execution.ExecutionContext
         :rtype: twilio.rest.studio.v1.flow.execution.ExecutionContext
@@ -203,7 +203,7 @@ class ExecutionPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param flow_sid: Flow Sid.
+        :param flow_sid: The SID of the Flow
 
         :returns: twilio.rest.studio.v1.flow.execution.ExecutionPage
         :rtype: twilio.rest.studio.v1.flow.execution.ExecutionPage
@@ -242,8 +242,8 @@ class ExecutionContext(InstanceContext):
         Initialize the ExecutionContext
 
         :param Version version: Version that contains the resource
-        :param flow_sid: Flow Sid.
-        :param sid: Execution Sid.
+        :param flow_sid: The SID of the Flow
+        :param sid: The SID of the Execution resource to fetch
 
         :returns: twilio.rest.studio.v1.flow.execution.ExecutionContext
         :rtype: twilio.rest.studio.v1.flow.execution.ExecutionContext
@@ -387,7 +387,7 @@ class ExecutionInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this Execution.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -395,7 +395,7 @@ class ExecutionInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -403,7 +403,7 @@ class ExecutionInstance(InstanceResource):
     @property
     def flow_sid(self):
         """
-        :returns: Flow Sid.
+        :returns: The SID of the Flow
         :rtype: unicode
         """
         return self._properties['flow_sid']
@@ -411,7 +411,7 @@ class ExecutionInstance(InstanceResource):
     @property
     def contact_sid(self):
         """
-        :returns: Contact Sid.
+        :returns: The SID of the Contact
         :rtype: unicode
         """
         return self._properties['contact_sid']
@@ -419,7 +419,7 @@ class ExecutionInstance(InstanceResource):
     @property
     def contact_channel_address(self):
         """
-        :returns: The phone number, SIP address or Client identifier that triggered this Execution.
+        :returns: The phone number, SIP address or Client identifier that triggered the Execution
         :rtype: unicode
         """
         return self._properties['contact_channel_address']
@@ -427,7 +427,7 @@ class ExecutionInstance(InstanceResource):
     @property
     def context(self):
         """
-        :returns: The context
+        :returns: The current state of the flow
         :rtype: dict
         """
         return self._properties['context']
@@ -435,7 +435,7 @@ class ExecutionInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: The Status of this Execution
+        :returns: The status of the Execution
         :rtype: ExecutionInstance.Status
         """
         return self._properties['status']
@@ -443,7 +443,7 @@ class ExecutionInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this Execution was created
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -451,7 +451,7 @@ class ExecutionInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this Execution was updated
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -459,7 +459,7 @@ class ExecutionInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL of this resource.
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -467,7 +467,7 @@ class ExecutionInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: Nested resource URLs.
+        :returns: Nested resource URLs
         :rtype: unicode
         """
         return self._properties['links']

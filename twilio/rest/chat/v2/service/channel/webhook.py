@@ -23,8 +23,8 @@ class WebhookList(ListResource):
         Initialize the WebhookList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service that the resource is associated with
-        :param channel_sid: The SID of the Channel the ChannelWebhook resource belongs to
+        :param service_sid: The SID of the Service that the Channel Webhook resource is associated with
+        :param channel_sid: The SID of the Channel the Channel Webhook resource belongs to
 
         :returns: twilio.rest.chat.v2.service.channel.webhook.WebhookList
         :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookList
@@ -163,7 +163,7 @@ class WebhookList(ListResource):
         """
         Constructs a WebhookContext
 
-        :param sid: The unique string that identifies the resource
+        :param sid: The SID of the Channel Webhook resource to fetch
 
         :returns: twilio.rest.chat.v2.service.channel.webhook.WebhookContext
         :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookContext
@@ -179,7 +179,7 @@ class WebhookList(ListResource):
         """
         Constructs a WebhookContext
 
-        :param sid: The unique string that identifies the resource
+        :param sid: The SID of the Channel Webhook resource to fetch
 
         :returns: twilio.rest.chat.v2.service.channel.webhook.WebhookContext
         :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookContext
@@ -210,8 +210,8 @@ class WebhookPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The SID of the Service that the resource is associated with
-        :param channel_sid: The SID of the Channel the ChannelWebhook resource belongs to
+        :param service_sid: The SID of the Service that the Channel Webhook resource is associated with
+        :param channel_sid: The SID of the Channel the Channel Webhook resource belongs to
 
         :returns: twilio.rest.chat.v2.service.channel.webhook.WebhookPage
         :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookPage
@@ -255,9 +255,9 @@ class WebhookContext(InstanceContext):
         Initialize the WebhookContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to fetch the resource from
+        :param service_sid: The SID of the Service with the Channel to fetch the Webhook resource from
         :param channel_sid: The SID of the Channel the resource to fetch belongs to
-        :param sid: The unique string that identifies the resource
+        :param sid: The SID of the Channel Webhook resource to fetch
 
         :returns: twilio.rest.chat.v2.service.channel.webhook.WebhookContext
         :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookContext
@@ -432,7 +432,7 @@ class WebhookInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The SID of the Service that the resource is associated with
+        :returns: The SID of the Service that the Channel Webhook resource is associated with
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -440,7 +440,7 @@ class WebhookInstance(InstanceResource):
     @property
     def channel_sid(self):
         """
-        :returns: The SID of the Channel the ChannelWebhook resource belongs to
+        :returns: The SID of the Channel the Channel Webhook resource belongs to
         :rtype: unicode
         """
         return self._properties['channel_sid']
@@ -456,7 +456,7 @@ class WebhookInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The absolute URL of the resource
+        :returns: The absolute URL of the Channel Webhook resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -472,7 +472,7 @@ class WebhookInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The RFC 2822 date and time in GMT when the resource was created
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -480,7 +480,7 @@ class WebhookInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The RFC 2822 date and time in GMT when the resource was last updated
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']

@@ -429,7 +429,7 @@ class RateLimitInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links
+        :returns: The URLs of related resources
         :rtype: unicode
         """
         return self._properties['links']

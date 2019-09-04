@@ -25,7 +25,7 @@ class EngagementList(ListResource):
         Initialize the EngagementList
 
         :param Version version: Version that contains the resource
-        :param flow_sid: Flow Sid.
+        :param flow_sid: The SID of the Flow
 
         :returns: twilio.rest.studio.v1.flow.engagement.EngagementList
         :rtype: twilio.rest.studio.v1.flow.engagement.EngagementList
@@ -121,9 +121,9 @@ class EngagementList(ListResource):
         """
         Create a new EngagementInstance
 
-        :param unicode to: The Contact phone number to start a Studio Flow Engagement.
-        :param unicode from_: The Twilio phone number to send messages or initiate calls from during the Flow Engagement.
-        :param dict parameters: JSON data that will be added to your flow's context and can accessed as variables inside your flow.
+        :param unicode to: The Contact phone number to start a Studio Flow Engagement
+        :param unicode from_: The Twilio phone number to send messages or initiate calls from during the Flow Engagement
+        :param dict parameters: A JSON string we will add to your flow's context and that you can access as variables inside your flow
 
         :returns: Newly created EngagementInstance
         :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
@@ -142,7 +142,7 @@ class EngagementList(ListResource):
         """
         Constructs a EngagementContext
 
-        :param sid: Engagement Sid.
+        :param sid: The SID of the Engagement resource to fetch
 
         :returns: twilio.rest.studio.v1.flow.engagement.EngagementContext
         :rtype: twilio.rest.studio.v1.flow.engagement.EngagementContext
@@ -153,7 +153,7 @@ class EngagementList(ListResource):
         """
         Constructs a EngagementContext
 
-        :param sid: Engagement Sid.
+        :param sid: The SID of the Engagement resource to fetch
 
         :returns: twilio.rest.studio.v1.flow.engagement.EngagementContext
         :rtype: twilio.rest.studio.v1.flow.engagement.EngagementContext
@@ -179,7 +179,7 @@ class EngagementPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param flow_sid: Flow Sid.
+        :param flow_sid: The SID of the Flow
 
         :returns: twilio.rest.studio.v1.flow.engagement.EngagementPage
         :rtype: twilio.rest.studio.v1.flow.engagement.EngagementPage
@@ -218,8 +218,8 @@ class EngagementContext(InstanceContext):
         Initialize the EngagementContext
 
         :param Version version: Version that contains the resource
-        :param flow_sid: Flow Sid.
-        :param sid: Engagement Sid.
+        :param flow_sid: Flow SID
+        :param sid: The SID of the Engagement resource to fetch
 
         :returns: twilio.rest.studio.v1.flow.engagement.EngagementContext
         :rtype: twilio.rest.studio.v1.flow.engagement.EngagementContext
@@ -363,7 +363,7 @@ class EngagementInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this Engagement.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -371,7 +371,7 @@ class EngagementInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -379,7 +379,7 @@ class EngagementInstance(InstanceResource):
     @property
     def flow_sid(self):
         """
-        :returns: Flow Sid.
+        :returns: The SID of the Flow
         :rtype: unicode
         """
         return self._properties['flow_sid']
@@ -387,7 +387,7 @@ class EngagementInstance(InstanceResource):
     @property
     def contact_sid(self):
         """
-        :returns: Contact Sid.
+        :returns: The SID of the Contact
         :rtype: unicode
         """
         return self._properties['contact_sid']
@@ -395,7 +395,7 @@ class EngagementInstance(InstanceResource):
     @property
     def contact_channel_address(self):
         """
-        :returns: The phone number, SIP address or Client identifier that triggered this Engagement.
+        :returns: The phone number, SIP address or Client identifier that triggered this Engagement
         :rtype: unicode
         """
         return self._properties['contact_channel_address']
@@ -403,7 +403,7 @@ class EngagementInstance(InstanceResource):
     @property
     def context(self):
         """
-        :returns: Flow state.
+        :returns: The current state of the execution flow
         :rtype: dict
         """
         return self._properties['context']
@@ -411,7 +411,7 @@ class EngagementInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: The Status of this Engagement
+        :returns: The status of the Engagement
         :rtype: EngagementInstance.Status
         """
         return self._properties['status']
@@ -419,7 +419,7 @@ class EngagementInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this Engagement was created
+        :returns: The ISO 8601 date and time in GMT when the Engagement was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -427,7 +427,7 @@ class EngagementInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this Engagement was updated
+        :returns: The ISO 8601 date and time in GMT when the Engagement was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -435,7 +435,7 @@ class EngagementInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL of this resource.
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -443,7 +443,7 @@ class EngagementInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: Nested resource URLs.
+        :returns: The URLs of the Engagement's nested resources
         :rtype: unicode
         """
         return self._properties['links']

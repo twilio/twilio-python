@@ -23,8 +23,8 @@ class ExecutionStepList(ListResource):
         Initialize the ExecutionStepList
 
         :param Version version: Version that contains the resource
-        :param flow_sid: Flow Sid.
-        :param execution_sid: Execution Sid.
+        :param flow_sid: The SID of the Flow
+        :param execution_sid: The SID of the Execution
 
         :returns: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepList
         :rtype: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepList
@@ -120,7 +120,7 @@ class ExecutionStepList(ListResource):
         """
         Constructs a ExecutionStepContext
 
-        :param sid: Step Sid.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepContext
         :rtype: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepContext
@@ -136,7 +136,7 @@ class ExecutionStepList(ListResource):
         """
         Constructs a ExecutionStepContext
 
-        :param sid: Step Sid.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepContext
         :rtype: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepContext
@@ -167,8 +167,8 @@ class ExecutionStepPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param flow_sid: Flow Sid.
-        :param execution_sid: Execution Sid.
+        :param flow_sid: The SID of the Flow
+        :param execution_sid: The SID of the Execution
 
         :returns: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepPage
         :rtype: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepPage
@@ -212,9 +212,9 @@ class ExecutionStepContext(InstanceContext):
         Initialize the ExecutionStepContext
 
         :param Version version: Version that contains the resource
-        :param flow_sid: Flow Sid.
-        :param execution_sid: Execution Sid.
-        :param sid: Step Sid.
+        :param flow_sid: The SID of the Flow
+        :param execution_sid: The SID of the Execution
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepContext
         :rtype: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepContext
@@ -336,7 +336,7 @@ class ExecutionStepInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this Step.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -344,7 +344,7 @@ class ExecutionStepInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -352,7 +352,7 @@ class ExecutionStepInstance(InstanceResource):
     @property
     def flow_sid(self):
         """
-        :returns: Flow Sid.
+        :returns: The SID of the Flow
         :rtype: unicode
         """
         return self._properties['flow_sid']
@@ -360,7 +360,7 @@ class ExecutionStepInstance(InstanceResource):
     @property
     def execution_sid(self):
         """
-        :returns: Execution Sid.
+        :returns: The SID of the Execution
         :rtype: unicode
         """
         return self._properties['execution_sid']
@@ -368,7 +368,7 @@ class ExecutionStepInstance(InstanceResource):
     @property
     def name(self):
         """
-        :returns: The event that caused the flow to transition to this Step.
+        :returns: The event that caused the Flow to transition to the Step
         :rtype: unicode
         """
         return self._properties['name']
@@ -376,7 +376,7 @@ class ExecutionStepInstance(InstanceResource):
     @property
     def context(self):
         """
-        :returns: The context
+        :returns: The current state of the flow
         :rtype: dict
         """
         return self._properties['context']
@@ -384,7 +384,7 @@ class ExecutionStepInstance(InstanceResource):
     @property
     def transitioned_from(self):
         """
-        :returns: The Widget that preceded the Widget for this Step.
+        :returns: The Widget that preceded the Widget for the Step
         :rtype: unicode
         """
         return self._properties['transitioned_from']
@@ -392,7 +392,7 @@ class ExecutionStepInstance(InstanceResource):
     @property
     def transitioned_to(self):
         """
-        :returns: The Widget that will follow the Widget for this Step.
+        :returns: The Widget that will follow the Widget for the Step
         :rtype: unicode
         """
         return self._properties['transitioned_to']
@@ -400,7 +400,7 @@ class ExecutionStepInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this Step was created
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -408,7 +408,7 @@ class ExecutionStepInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this Step was updated
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -416,7 +416,7 @@ class ExecutionStepInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL of this resource.
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -424,7 +424,7 @@ class ExecutionStepInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links
+        :returns: The URLs of related resources
         :rtype: unicode
         """
         return self._properties['links']

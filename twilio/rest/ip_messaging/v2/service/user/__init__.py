@@ -148,7 +148,7 @@ class UserList(ListResource):
         """
         Constructs a UserContext
 
-        :param sid: The unique string that identifies the resource
+        :param sid: The SID of the User resource to fetch
 
         :returns: twilio.rest.chat.v2.service.user.UserContext
         :rtype: twilio.rest.chat.v2.service.user.UserContext
@@ -159,7 +159,7 @@ class UserList(ListResource):
         """
         Constructs a UserContext
 
-        :param sid: The unique string that identifies the resource
+        :param sid: The SID of the User resource to fetch
 
         :returns: twilio.rest.chat.v2.service.user.UserContext
         :rtype: twilio.rest.chat.v2.service.user.UserContext
@@ -225,7 +225,7 @@ class UserContext(InstanceContext):
 
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the Service to fetch the resource from
-        :param sid: The unique string that identifies the resource
+        :param sid: The SID of the User resource to fetch
 
         :returns: twilio.rest.chat.v2.service.user.UserContext
         :rtype: twilio.rest.chat.v2.service.user.UserContext
@@ -471,7 +471,7 @@ class UserInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The RFC 2822 date and time in GMT when the resource was created
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -479,7 +479,7 @@ class UserInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The RFC 2822 date and time in GMT when the resource was last updated
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -487,7 +487,7 @@ class UserInstance(InstanceResource):
     @property
     def joined_channels_count(self):
         """
-        :returns: The number of Channels this User is a Member of
+        :returns: The number of Channels the User is a Member of
         :rtype: unicode
         """
         return self._properties['joined_channels_count']

@@ -39,9 +39,9 @@ class UsageRecordList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param datetime end: Only include usage that has occurred on or before this date.
-        :param datetime start: Only include usage that has occurred on or after this date.
-        :param UsageRecordInstance.Granularity granularity: The time-based grouping that results are aggregated by.
+        :param datetime end: Only include usage that has occurred on or before this date
+        :param datetime start: Only include usage that has occurred on or after this date
+        :param UsageRecordInstance.Granularity granularity: The time-based grouping that results are aggregated by
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -65,9 +65,9 @@ class UsageRecordList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param datetime end: Only include usage that has occurred on or before this date.
-        :param datetime start: Only include usage that has occurred on or after this date.
-        :param UsageRecordInstance.Granularity granularity: The time-based grouping that results are aggregated by.
+        :param datetime end: Only include usage that has occurred on or before this date
+        :param datetime start: Only include usage that has occurred on or after this date
+        :param UsageRecordInstance.Granularity granularity: The time-based grouping that results are aggregated by
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -93,9 +93,9 @@ class UsageRecordList(ListResource):
         Retrieve a single page of UsageRecordInstance records from the API.
         Request is executed immediately
 
-        :param datetime end: Only include usage that has occurred on or before this date.
-        :param datetime start: Only include usage that has occurred on or after this date.
-        :param UsageRecordInstance.Granularity granularity: The time-based grouping that results are aggregated by.
+        :param datetime end: Only include usage that has occurred on or before this date
+        :param datetime start: Only include usage that has occurred on or after this date
+        :param UsageRecordInstance.Granularity granularity: The time-based grouping that results are aggregated by
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -218,7 +218,7 @@ class UsageRecordInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the Account.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -226,7 +226,7 @@ class UsageRecordInstance(InstanceResource):
     @property
     def period(self):
         """
-        :returns: The time period for which usage is reported.
+        :returns: The time period for which usage is reported
         :rtype: dict
         """
         return self._properties['period']
@@ -234,7 +234,7 @@ class UsageRecordInstance(InstanceResource):
     @property
     def commands(self):
         """
-        :returns: An object representing the aggregated Commands usage for all SIMs over the period.
+        :returns: An object that describes the aggregated Commands usage for all SIMs during the specified period
         :rtype: dict
         """
         return self._properties['commands']
@@ -242,7 +242,7 @@ class UsageRecordInstance(InstanceResource):
     @property
     def data(self):
         """
-        :returns: An object representing the aggregated Data usage for all SIMs over the period.
+        :returns: An object that describes the aggregated Data usage for all SIMs over the period
         :rtype: dict
         """
         return self._properties['data']

@@ -38,7 +38,8 @@ class ParticipantList(ListResource):
 
     def create(self, identity=values.unset, messaging_binding_address=values.unset,
                messaging_binding_proxy_address=values.unset,
-               date_created=values.unset, date_updated=values.unset):
+               date_created=values.unset, date_updated=values.unset,
+               attributes=values.unset):
         """
         Create a new ParticipantInstance
 
@@ -47,6 +48,7 @@ class ParticipantList(ListResource):
         :param unicode messaging_binding_proxy_address: The address of the Twilio phone number that the participant is in contact with.
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
+        :param unicode attributes: An optional string metadata field you can use to store any data you wish.
 
         :returns: Newly created ParticipantInstance
         :rtype: twilio.rest.conversations.v1.conversation.participant.ParticipantInstance
@@ -57,6 +59,7 @@ class ParticipantList(ListResource):
             'MessagingBinding.ProxyAddress': messaging_binding_proxy_address,
             'DateCreated': serialize.iso8601_datetime(date_created),
             'DateUpdated': serialize.iso8601_datetime(date_updated),
+            'Attributes': attributes,
         })
 
         payload = self._version.create(
@@ -260,12 +263,14 @@ class ParticipantContext(InstanceContext):
         self._solution = {'conversation_sid': conversation_sid, 'sid': sid, }
         self._uri = '/Conversations/{conversation_sid}/Participants/{sid}'.format(**self._solution)
 
-    def update(self, date_created=values.unset, date_updated=values.unset):
+    def update(self, date_created=values.unset, date_updated=values.unset,
+               attributes=values.unset):
         """
         Update the ParticipantInstance
 
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
+        :param unicode attributes: An optional string metadata field you can use to store any data you wish.
 
         :returns: Updated ParticipantInstance
         :rtype: twilio.rest.conversations.v1.conversation.participant.ParticipantInstance
@@ -273,6 +278,7 @@ class ParticipantContext(InstanceContext):
         data = values.of({
             'DateCreated': serialize.iso8601_datetime(date_created),
             'DateUpdated': serialize.iso8601_datetime(date_updated),
+            'Attributes': attributes,
         })
 
         payload = self._version.update(
@@ -354,6 +360,7 @@ class ParticipantInstance(InstanceResource):
             'conversation_sid': payload['conversation_sid'],
             'sid': payload['sid'],
             'identity': payload['identity'],
+            'attributes': payload['attributes'],
             'messaging_binding': payload['messaging_binding'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
@@ -414,6 +421,14 @@ class ParticipantInstance(InstanceResource):
         return self._properties['identity']
 
     @property
+    def attributes(self):
+        """
+        :returns: An optional string metadata field you can use to store any data you wish.
+        :rtype: unicode
+        """
+        return self._properties['attributes']
+
+    @property
     def messaging_binding(self):
         """
         :returns: Information about how this participant exchanges messages with the conversation.
@@ -445,17 +460,23 @@ class ParticipantInstance(InstanceResource):
         """
         return self._properties['url']
 
-    def update(self, date_created=values.unset, date_updated=values.unset):
+    def update(self, date_created=values.unset, date_updated=values.unset,
+               attributes=values.unset):
         """
         Update the ParticipantInstance
 
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
+        :param unicode attributes: An optional string metadata field you can use to store any data you wish.
 
         :returns: Updated ParticipantInstance
         :rtype: twilio.rest.conversations.v1.conversation.participant.ParticipantInstance
         """
-        return self._proxy.update(date_created=date_created, date_updated=date_updated, )
+        return self._proxy.update(
+            date_created=date_created,
+            date_updated=date_updated,
+            attributes=attributes,
+        )
 
     def delete(self):
         """

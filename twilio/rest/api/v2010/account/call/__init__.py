@@ -438,7 +438,8 @@ class CallContext(InstanceContext):
 
     def update(self, url=values.unset, method=values.unset, status=values.unset,
                fallback_url=values.unset, fallback_method=values.unset,
-               status_callback=values.unset, status_callback_method=values.unset):
+               status_callback=values.unset, status_callback_method=values.unset,
+               twiml=values.unset):
         """
         Update the CallInstance
 
@@ -449,6 +450,7 @@ class CallContext(InstanceContext):
         :param unicode fallback_method: HTTP Method to use with fallback_url
         :param unicode status_callback: The URL we should call to send status information to your application
         :param unicode status_callback_method: HTTP Method to use to call status_callback
+        :param unicode twiml: TwiML instructions for the call
 
         :returns: Updated CallInstance
         :rtype: twilio.rest.api.v2010.account.call.CallInstance
@@ -461,6 +463,7 @@ class CallContext(InstanceContext):
             'FallbackMethod': fallback_method,
             'StatusCallback': status_callback,
             'StatusCallbackMethod': status_callback_method,
+            'Twiml': twiml,
         })
 
         payload = self._version.update(
@@ -837,7 +840,8 @@ class CallInstance(InstanceResource):
 
     def update(self, url=values.unset, method=values.unset, status=values.unset,
                fallback_url=values.unset, fallback_method=values.unset,
-               status_callback=values.unset, status_callback_method=values.unset):
+               status_callback=values.unset, status_callback_method=values.unset,
+               twiml=values.unset):
         """
         Update the CallInstance
 
@@ -848,6 +852,7 @@ class CallInstance(InstanceResource):
         :param unicode fallback_method: HTTP Method to use with fallback_url
         :param unicode status_callback: The URL we should call to send status information to your application
         :param unicode status_callback_method: HTTP Method to use to call status_callback
+        :param unicode twiml: TwiML instructions for the call
 
         :returns: Updated CallInstance
         :rtype: twilio.rest.api.v2010.account.call.CallInstance
@@ -860,6 +865,7 @@ class CallInstance(InstanceResource):
             fallback_method=fallback_method,
             status_callback=status_callback,
             status_callback_method=status_callback_method,
+            twiml=twiml,
         )
 
     @property

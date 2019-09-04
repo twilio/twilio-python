@@ -45,13 +45,13 @@ class ServiceList(ListResource):
         """
         Create a new ServiceInstance
 
-        :param unicode friendly_name: Human-readable name for this service instance
-        :param unicode webhook_url: A URL that will receive event updates when objects are manipulated.
-        :param bool reachability_webhooks_enabled: true or false - controls whether this instance fires webhooks when client endpoints connect to Sync
-        :param bool acl_enabled: true or false - determines whether token identities must be granted access to Sync objects via the Permissions API in this Service.
-        :param bool reachability_debouncing_enabled: true or false - Determines whether transient disconnections (i.e. an immediate reconnect succeeds) cause reachability webhooks.
-        :param unicode reachability_debouncing_window: Determines how long an identity must be offline before reachability webhooks fire.
-        :param bool webhooks_from_rest_enabled: true or false - controls whether this instance fires webhooks when Sync objects are updated through REST
+        :param unicode friendly_name: A string that you assign to describe the resource
+        :param unicode webhook_url: The URL we should call when Sync objects are manipulated
+        :param bool reachability_webhooks_enabled: Whether the service instance should call webhook_url when client endpoints connect to Sync
+        :param bool acl_enabled: Whether token identities in the Service must be granted access to Sync objects by using the Permissions resource
+        :param bool reachability_debouncing_enabled: Whether every endpoint_disconnected event occurs after a configurable delay
+        :param unicode reachability_debouncing_window: The reachability event delay in milliseconds
+        :param bool webhooks_from_rest_enabled: Whether the Service instance should call webhook_url when the REST API is used to update Sync objects
 
         :returns: Newly created ServiceInstance
         :rtype: twilio.rest.sync.v1.service.ServiceInstance
@@ -159,7 +159,7 @@ class ServiceList(ListResource):
         """
         Constructs a ServiceContext
 
-        :param sid: A unique identifier for this service instance.
+        :param sid: The SID of the Service resource to fetch
 
         :returns: twilio.rest.sync.v1.service.ServiceContext
         :rtype: twilio.rest.sync.v1.service.ServiceContext
@@ -170,7 +170,7 @@ class ServiceList(ListResource):
         """
         Constructs a ServiceContext
 
-        :param sid: A unique identifier for this service instance.
+        :param sid: The SID of the Service resource to fetch
 
         :returns: twilio.rest.sync.v1.service.ServiceContext
         :rtype: twilio.rest.sync.v1.service.ServiceContext
@@ -236,7 +236,7 @@ class ServiceContext(InstanceContext):
         Initialize the ServiceContext
 
         :param Version version: Version that contains the resource
-        :param sid: A unique identifier for this service instance.
+        :param sid: The SID of the Service resource to fetch
 
         :returns: twilio.rest.sync.v1.service.ServiceContext
         :rtype: twilio.rest.sync.v1.service.ServiceContext
@@ -287,13 +287,13 @@ class ServiceContext(InstanceContext):
         """
         Update the ServiceInstance
 
-        :param unicode webhook_url: A URL that will receive event updates when objects are manipulated.
-        :param unicode friendly_name: Human-readable name for this service instance
-        :param bool reachability_webhooks_enabled: True or false - controls whether this instance fires webhooks when client endpoints connect to Sync
-        :param bool acl_enabled: true or false - determines whether token identities must be granted access to Sync objects via the Permissions API in this Service.
-        :param bool reachability_debouncing_enabled: true or false - Determines whether transient disconnections (i.e. an immediate reconnect succeeds) cause reachability webhooks.
-        :param unicode reachability_debouncing_window: Determines how long an identity must be offline before reachability webhooks fire.
-        :param bool webhooks_from_rest_enabled: true or false - controls whether this instance fires webhooks when Sync objects are updated through REST
+        :param unicode webhook_url: The URL we should call when Sync objects are manipulated
+        :param unicode friendly_name: A string that you assign to describe the resource
+        :param bool reachability_webhooks_enabled: Whether the service instance should call webhook_url when client endpoints connect to Sync
+        :param bool acl_enabled: Whether token identities in the Service must be granted access to Sync objects by using the Permissions resource
+        :param bool reachability_debouncing_enabled: Whether every endpoint_disconnected event occurs after a configurable delay
+        :param unicode reachability_debouncing_window: The reachability event delay in milliseconds
+        :param bool webhooks_from_rest_enabled: Whether the Service instance should call webhook_url when the REST API is used to update Sync objects
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.sync.v1.service.ServiceInstance
@@ -426,7 +426,7 @@ class ServiceInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A unique identifier for this service instance.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -434,7 +434,7 @@ class ServiceInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: The unique_name
+        :returns: An application-defined string that uniquely identifies the resource
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -442,7 +442,7 @@ class ServiceInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -450,7 +450,7 @@ class ServiceInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: Human-readable name for this service instance
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -458,7 +458,7 @@ class ServiceInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -466,7 +466,7 @@ class ServiceInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -474,7 +474,7 @@ class ServiceInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the Service resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -482,7 +482,7 @@ class ServiceInstance(InstanceResource):
     @property
     def webhook_url(self):
         """
-        :returns: A URL that will receive event updates when objects are manipulated.
+        :returns: The URL we call when Sync objects are manipulated
         :rtype: unicode
         """
         return self._properties['webhook_url']
@@ -490,7 +490,7 @@ class ServiceInstance(InstanceResource):
     @property
     def webhooks_from_rest_enabled(self):
         """
-        :returns: true or false - controls whether this instance fires webhooks when Sync objects are updated through REST
+        :returns: Whether the Service instance should call webhook_url when the REST API is used to update Sync objects
         :rtype: bool
         """
         return self._properties['webhooks_from_rest_enabled']
@@ -498,7 +498,7 @@ class ServiceInstance(InstanceResource):
     @property
     def reachability_webhooks_enabled(self):
         """
-        :returns: true or false - controls whether this instance fires webhooks when client endpoints connect to Sync
+        :returns: Whether the service instance calls webhook_url when client endpoints connect to Sync
         :rtype: bool
         """
         return self._properties['reachability_webhooks_enabled']
@@ -506,7 +506,7 @@ class ServiceInstance(InstanceResource):
     @property
     def acl_enabled(self):
         """
-        :returns: true or false - determines whether token identities must be granted access to Sync objects via the Permissions API in this Service.
+        :returns: Whether token identities in the Service must be granted access to Sync objects by using the Permissions resource
         :rtype: bool
         """
         return self._properties['acl_enabled']
@@ -514,7 +514,7 @@ class ServiceInstance(InstanceResource):
     @property
     def reachability_debouncing_enabled(self):
         """
-        :returns: true or false - Determines whether transient disconnections (i.e. an immediate reconnect succeeds) cause reachability webhooks.
+        :returns: Whether every endpoint_disconnected event occurs after a configurable delay
         :rtype: bool
         """
         return self._properties['reachability_debouncing_enabled']
@@ -522,7 +522,7 @@ class ServiceInstance(InstanceResource):
     @property
     def reachability_debouncing_window(self):
         """
-        :returns: Determines how long an identity must be offline before reachability webhooks fire.
+        :returns: The reachability event delay in milliseconds
         :rtype: unicode
         """
         return self._properties['reachability_debouncing_window']
@@ -530,7 +530,7 @@ class ServiceInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links
+        :returns: The URLs of related resources
         :rtype: unicode
         """
         return self._properties['links']
@@ -561,13 +561,13 @@ class ServiceInstance(InstanceResource):
         """
         Update the ServiceInstance
 
-        :param unicode webhook_url: A URL that will receive event updates when objects are manipulated.
-        :param unicode friendly_name: Human-readable name for this service instance
-        :param bool reachability_webhooks_enabled: True or false - controls whether this instance fires webhooks when client endpoints connect to Sync
-        :param bool acl_enabled: true or false - determines whether token identities must be granted access to Sync objects via the Permissions API in this Service.
-        :param bool reachability_debouncing_enabled: true or false - Determines whether transient disconnections (i.e. an immediate reconnect succeeds) cause reachability webhooks.
-        :param unicode reachability_debouncing_window: Determines how long an identity must be offline before reachability webhooks fire.
-        :param bool webhooks_from_rest_enabled: true or false - controls whether this instance fires webhooks when Sync objects are updated through REST
+        :param unicode webhook_url: The URL we should call when Sync objects are manipulated
+        :param unicode friendly_name: A string that you assign to describe the resource
+        :param bool reachability_webhooks_enabled: Whether the service instance should call webhook_url when client endpoints connect to Sync
+        :param bool acl_enabled: Whether token identities in the Service must be granted access to Sync objects by using the Permissions resource
+        :param bool reachability_debouncing_enabled: Whether every endpoint_disconnected event occurs after a configurable delay
+        :param unicode reachability_debouncing_window: The reachability event delay in milliseconds
+        :param bool webhooks_from_rest_enabled: Whether the Service instance should call webhook_url when the REST API is used to update Sync objects
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.sync.v1.service.ServiceInstance

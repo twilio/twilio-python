@@ -153,7 +153,7 @@ class InviteList(ListResource):
         """
         Constructs a InviteContext
 
-        :param sid: The unique string that identifies the resource
+        :param sid: The SID of the Invite resource to fetch
 
         :returns: twilio.rest.chat.v2.service.channel.invite.InviteContext
         :rtype: twilio.rest.chat.v2.service.channel.invite.InviteContext
@@ -169,7 +169,7 @@ class InviteList(ListResource):
         """
         Constructs a InviteContext
 
-        :param sid: The unique string that identifies the resource
+        :param sid: The SID of the Invite resource to fetch
 
         :returns: twilio.rest.chat.v2.service.channel.invite.InviteContext
         :rtype: twilio.rest.chat.v2.service.channel.invite.InviteContext
@@ -247,7 +247,7 @@ class InviteContext(InstanceContext):
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the Service to fetch the resource from
         :param channel_sid: The SID of the Channel the resource to fetch belongs to
-        :param sid: The unique string that identifies the resource
+        :param sid: The SID of the Invite resource to fetch
 
         :returns: twilio.rest.chat.v2.service.channel.invite.InviteContext
         :rtype: twilio.rest.chat.v2.service.channel.invite.InviteContext
@@ -396,7 +396,7 @@ class InviteInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The RFC 2822 date and time in GMT when the resource was created
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -404,7 +404,7 @@ class InviteInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The RFC 2822 date and time in GMT when the resource was last updated
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']

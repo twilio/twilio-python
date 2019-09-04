@@ -43,11 +43,11 @@ class SimList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param SimInstance.Status status: Only return Sims with this status.
-        :param unicode iccid: Return Sims with this Iccid.
-        :param unicode rate_plan: Only return Sims with this Rate Plan.
-        :param unicode e_id: Only return Sims with this EID.
-        :param unicode sim_registration_code: Only return Sims with this registration code.
+        :param SimInstance.Status status: Only return Sim resources with this status
+        :param unicode iccid: Only return Sim resources with this ICCID
+        :param unicode rate_plan: Only return Sim resources with this Rate Plan
+        :param unicode e_id: Deprecated
+        :param unicode sim_registration_code: Only return Sim resources with this registration code
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -79,11 +79,11 @@ class SimList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param SimInstance.Status status: Only return Sims with this status.
-        :param unicode iccid: Return Sims with this Iccid.
-        :param unicode rate_plan: Only return Sims with this Rate Plan.
-        :param unicode e_id: Only return Sims with this EID.
-        :param unicode sim_registration_code: Only return Sims with this registration code.
+        :param SimInstance.Status status: Only return Sim resources with this status
+        :param unicode iccid: Only return Sim resources with this ICCID
+        :param unicode rate_plan: Only return Sim resources with this Rate Plan
+        :param unicode e_id: Deprecated
+        :param unicode sim_registration_code: Only return Sim resources with this registration code
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -112,11 +112,11 @@ class SimList(ListResource):
         Retrieve a single page of SimInstance records from the API.
         Request is executed immediately
 
-        :param SimInstance.Status status: Only return Sims with this status.
-        :param unicode iccid: Return Sims with this Iccid.
-        :param unicode rate_plan: Only return Sims with this Rate Plan.
-        :param unicode e_id: Only return Sims with this EID.
-        :param unicode sim_registration_code: Only return Sims with this registration code.
+        :param SimInstance.Status status: Only return Sim resources with this status
+        :param unicode iccid: Only return Sim resources with this ICCID
+        :param unicode rate_plan: Only return Sim resources with this Rate Plan
+        :param unicode e_id: Deprecated
+        :param unicode sim_registration_code: Only return Sim resources with this registration code
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -164,7 +164,7 @@ class SimList(ListResource):
         """
         Constructs a SimContext
 
-        :param sid: A 34 character string that uniquely identifies this resource.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.wireless.v1.sim.SimContext
         :rtype: twilio.rest.wireless.v1.sim.SimContext
@@ -175,7 +175,7 @@ class SimList(ListResource):
         """
         Constructs a SimContext
 
-        :param sid: A 34 character string that uniquely identifies this resource.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.wireless.v1.sim.SimContext
         :rtype: twilio.rest.wireless.v1.sim.SimContext
@@ -239,7 +239,7 @@ class SimContext(InstanceContext):
         Initialize the SimContext
 
         :param Version version: Version that contains the resource
-        :param sid: A 34 character string that uniquely identifies this resource.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.wireless.v1.sim.SimContext
         :rtype: twilio.rest.wireless.v1.sim.SimContext
@@ -283,23 +283,23 @@ class SimContext(InstanceContext):
         """
         Update the SimInstance
 
-        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the Sid.
-        :param unicode callback_method: The HTTP method Twilio will use when making a request to the callback URL.
-        :param unicode callback_url: Twilio will make a request to this URL when the Sim has finished updating.
-        :param unicode friendly_name: A user-provided string that identifies this resource.
-        :param unicode rate_plan: The Sid or UniqueName of the RatePlan that this Sim should use.
-        :param SimInstance.Status status: A string representing the status of the Sim.
-        :param unicode commands_callback_method: A string representing the HTTP method to use when making a request to CommandsCallbackUrl.
-        :param unicode commands_callback_url: The URL that will receive a webhook when this Sim originates a Command.
-        :param unicode sms_fallback_method: The HTTP method Twilio will use when requesting the sms_fallback_url.
-        :param unicode sms_fallback_url: The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by sms_url.
-        :param unicode sms_method: The HTTP method Twilio will use when requesting the above Url.
-        :param unicode sms_url: The URL Twilio will request when the SIM-connected device sends an SMS message that is not a Command.
-        :param unicode voice_fallback_method: The HTTP method Twilio will use when requesting the voice_fallback_url.
-        :param unicode voice_fallback_url: The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by voice_url.
-        :param unicode voice_method: The HTTP method Twilio will use when requesting the above Url.
-        :param unicode voice_url: The URL Twilio will request when the SIM-connected device makes a call.
-        :param SimInstance.ResetStatus reset_status: Initiate a connectivity reset on a Sim.
+        :param unicode unique_name: An application-defined string that uniquely identifies the resource
+        :param unicode callback_method: The HTTP method we use to call callback_url
+        :param unicode callback_url: The URL we call when the SIM has finished updating
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode rate_plan: The sid or unique_name of the RatePlan resource that this SIM should use
+        :param SimInstance.Status status: The new status of the resource
+        :param unicode commands_callback_method: The HTTP method we use to call commands_callback_url
+        :param unicode commands_callback_url: he URL we call when the SIM originates a Command
+        :param unicode sms_fallback_method: The HTTP method we use to call sms_fallback_url
+        :param unicode sms_fallback_url: The URL we call when an error occurs while retrieving or executing the TwiML requested from sms_url
+        :param unicode sms_method: The HTTP method we use to call sms_url
+        :param unicode sms_url: The URL we call when the SIM-connected device sends an SMS message that is not a Command
+        :param unicode voice_fallback_method: The HTTP method we use to call voice_fallback_url
+        :param unicode voice_fallback_url: The URL we call when an error occurs while retrieving or executing the TwiML requested from voice_url
+        :param unicode voice_method: The HTTP method we use when we call voice_url
+        :param unicode voice_url: The URL we call when the SIM-connected device makes a voice call
+        :param SimInstance.ResetStatus reset_status: Initiate a connectivity reset on a SIM
 
         :returns: Updated SimInstance
         :rtype: twilio.rest.wireless.v1.sim.SimInstance
@@ -449,7 +449,7 @@ class SimInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34 character string that uniquely identifies this resource.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -457,7 +457,7 @@ class SimInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: A user-provided string that uniquely identifies this resource as an alternative to the sid.
+        :returns: An application-defined string that uniquely identifies the resource
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -465,7 +465,7 @@ class SimInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the Account that this Sim belongs to.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -473,7 +473,7 @@ class SimInstance(InstanceResource):
     @property
     def rate_plan_sid(self):
         """
-        :returns: The unique ID of the Rate Plan configured for this Sim.
+        :returns: The SID of the RatePlan resource configured for this SIM
         :rtype: unicode
         """
         return self._properties['rate_plan_sid']
@@ -481,7 +481,7 @@ class SimInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A user-provided string that identifies this resource.
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -489,7 +489,7 @@ class SimInstance(InstanceResource):
     @property
     def iccid(self):
         """
-        :returns: The ICCID associated with the SIM.
+        :returns: The ICCID associated with the SIM
         :rtype: unicode
         """
         return self._properties['iccid']
@@ -497,7 +497,7 @@ class SimInstance(InstanceResource):
     @property
     def e_id(self):
         """
-        :returns: The e_id
+        :returns: Deprecated
         :rtype: unicode
         """
         return self._properties['e_id']
@@ -505,7 +505,7 @@ class SimInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: A string representing the status of the Sim.
+        :returns: The status of the SIM
         :rtype: SimInstance.Status
         """
         return self._properties['status']
@@ -513,7 +513,7 @@ class SimInstance(InstanceResource):
     @property
     def reset_status(self):
         """
-        :returns: A string representing the connectivity reset status of the Sim.
+        :returns: The connectivity reset status of the SIM
         :rtype: SimInstance.ResetStatus
         """
         return self._properties['reset_status']
@@ -521,7 +521,7 @@ class SimInstance(InstanceResource):
     @property
     def commands_callback_url(self):
         """
-        :returns: The URL that will receive a webhook when this Sim originates a machine-to-machine Command.
+        :returns: The URL we call when the SIM originates a machine-to-machine Command
         :rtype: unicode
         """
         return self._properties['commands_callback_url']
@@ -529,7 +529,7 @@ class SimInstance(InstanceResource):
     @property
     def commands_callback_method(self):
         """
-        :returns: A string representing the HTTP method to use when making a request to commands_callback_url.
+        :returns: The HTTP method we use to call commands_callback_url
         :rtype: unicode
         """
         return self._properties['commands_callback_method']
@@ -537,7 +537,7 @@ class SimInstance(InstanceResource):
     @property
     def sms_fallback_method(self):
         """
-        :returns: The HTTP method Twilio will use when requesting the sms_fallback_url.
+        :returns: The HTTP method we use to call sms_fallback_url
         :rtype: unicode
         """
         return self._properties['sms_fallback_method']
@@ -545,7 +545,7 @@ class SimInstance(InstanceResource):
     @property
     def sms_fallback_url(self):
         """
-        :returns: The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by sms_url.
+        :returns: The URL we call when an error occurs while retrieving or executing the TwiML requested from the sms_url
         :rtype: unicode
         """
         return self._properties['sms_fallback_url']
@@ -553,7 +553,7 @@ class SimInstance(InstanceResource):
     @property
     def sms_method(self):
         """
-        :returns: The HTTP method Twilio will use when requesting the above Url.
+        :returns: The HTTP method we use to call sms_url
         :rtype: unicode
         """
         return self._properties['sms_method']
@@ -561,7 +561,7 @@ class SimInstance(InstanceResource):
     @property
     def sms_url(self):
         """
-        :returns: The URL Twilio will request when the SIM-connected device send an SMS that is not a Command.
+        :returns: The URL we call when the SIM-connected device sends an SMS message that is not a Command
         :rtype: unicode
         """
         return self._properties['sms_url']
@@ -569,7 +569,7 @@ class SimInstance(InstanceResource):
     @property
     def voice_fallback_method(self):
         """
-        :returns: The HTTP method Twilio will use when requesting the voice_fallback_url.
+        :returns: The HTTP method we use to call voice_fallback_url
         :rtype: unicode
         """
         return self._properties['voice_fallback_method']
@@ -577,7 +577,7 @@ class SimInstance(InstanceResource):
     @property
     def voice_fallback_url(self):
         """
-        :returns: The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by voice_url.
+        :returns: The URL we call when an error occurs while retrieving or executing the TwiML requested from voice_url
         :rtype: unicode
         """
         return self._properties['voice_fallback_url']
@@ -585,7 +585,7 @@ class SimInstance(InstanceResource):
     @property
     def voice_method(self):
         """
-        :returns: The HTTP method Twilio will use when requesting the above Url.
+        :returns: The HTTP method we use to call voice_url
         :rtype: unicode
         """
         return self._properties['voice_method']
@@ -593,7 +593,7 @@ class SimInstance(InstanceResource):
     @property
     def voice_url(self):
         """
-        :returns: The URL Twilio will request when the SIM-connected device makes a call.
+        :returns: The URL we call when the SIM-connected device makes a voice call
         :rtype: unicode
         """
         return self._properties['voice_url']
@@ -601,7 +601,7 @@ class SimInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this resource was created, given as GMT in ISO 8601 format.
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -609,7 +609,7 @@ class SimInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date that this resource was last updated, given as GMT in ISO 8601 format.
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -617,7 +617,7 @@ class SimInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL for this resource.
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -625,7 +625,7 @@ class SimInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: Each Sim instance resource supports a few subresources, listed here for convenience.
+        :returns: The URLs of related subresources
         :rtype: unicode
         """
         return self._properties['links']
@@ -633,7 +633,7 @@ class SimInstance(InstanceResource):
     @property
     def ip_address(self):
         """
-        :returns: The ip_address
+        :returns: Deprecated
         :rtype: unicode
         """
         return self._properties['ip_address']
@@ -659,23 +659,23 @@ class SimInstance(InstanceResource):
         """
         Update the SimInstance
 
-        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the Sid.
-        :param unicode callback_method: The HTTP method Twilio will use when making a request to the callback URL.
-        :param unicode callback_url: Twilio will make a request to this URL when the Sim has finished updating.
-        :param unicode friendly_name: A user-provided string that identifies this resource.
-        :param unicode rate_plan: The Sid or UniqueName of the RatePlan that this Sim should use.
-        :param SimInstance.Status status: A string representing the status of the Sim.
-        :param unicode commands_callback_method: A string representing the HTTP method to use when making a request to CommandsCallbackUrl.
-        :param unicode commands_callback_url: The URL that will receive a webhook when this Sim originates a Command.
-        :param unicode sms_fallback_method: The HTTP method Twilio will use when requesting the sms_fallback_url.
-        :param unicode sms_fallback_url: The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by sms_url.
-        :param unicode sms_method: The HTTP method Twilio will use when requesting the above Url.
-        :param unicode sms_url: The URL Twilio will request when the SIM-connected device sends an SMS message that is not a Command.
-        :param unicode voice_fallback_method: The HTTP method Twilio will use when requesting the voice_fallback_url.
-        :param unicode voice_fallback_url: The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by voice_url.
-        :param unicode voice_method: The HTTP method Twilio will use when requesting the above Url.
-        :param unicode voice_url: The URL Twilio will request when the SIM-connected device makes a call.
-        :param SimInstance.ResetStatus reset_status: Initiate a connectivity reset on a Sim.
+        :param unicode unique_name: An application-defined string that uniquely identifies the resource
+        :param unicode callback_method: The HTTP method we use to call callback_url
+        :param unicode callback_url: The URL we call when the SIM has finished updating
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode rate_plan: The sid or unique_name of the RatePlan resource that this SIM should use
+        :param SimInstance.Status status: The new status of the resource
+        :param unicode commands_callback_method: The HTTP method we use to call commands_callback_url
+        :param unicode commands_callback_url: he URL we call when the SIM originates a Command
+        :param unicode sms_fallback_method: The HTTP method we use to call sms_fallback_url
+        :param unicode sms_fallback_url: The URL we call when an error occurs while retrieving or executing the TwiML requested from sms_url
+        :param unicode sms_method: The HTTP method we use to call sms_url
+        :param unicode sms_url: The URL we call when the SIM-connected device sends an SMS message that is not a Command
+        :param unicode voice_fallback_method: The HTTP method we use to call voice_fallback_url
+        :param unicode voice_fallback_url: The URL we call when an error occurs while retrieving or executing the TwiML requested from voice_url
+        :param unicode voice_method: The HTTP method we use when we call voice_url
+        :param unicode voice_url: The URL we call when the SIM-connected device makes a voice call
+        :param SimInstance.ResetStatus reset_status: Initiate a connectivity reset on a SIM
 
         :returns: Updated SimInstance
         :rtype: twilio.rest.wireless.v1.sim.SimInstance

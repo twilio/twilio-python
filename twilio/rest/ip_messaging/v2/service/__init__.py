@@ -141,7 +141,7 @@ class ServiceList(ListResource):
         """
         Constructs a ServiceContext
 
-        :param sid: The unique string that identifies the resource
+        :param sid: The SID of the Service resource to fetch
 
         :returns: twilio.rest.chat.v2.service.ServiceContext
         :rtype: twilio.rest.chat.v2.service.ServiceContext
@@ -152,7 +152,7 @@ class ServiceList(ListResource):
         """
         Constructs a ServiceContext
 
-        :param sid: The unique string that identifies the resource
+        :param sid: The SID of the Service resource to fetch
 
         :returns: twilio.rest.chat.v2.service.ServiceContext
         :rtype: twilio.rest.chat.v2.service.ServiceContext
@@ -216,7 +216,7 @@ class ServiceContext(InstanceContext):
         Initialize the ServiceContext
 
         :param Version version: Version that contains the resource
-        :param sid: The unique string that identifies the resource
+        :param sid: The SID of the Service resource to fetch
 
         :returns: twilio.rest.chat.v2.service.ServiceContext
         :rtype: twilio.rest.chat.v2.service.ServiceContext
@@ -314,7 +314,7 @@ class ServiceContext(InstanceContext):
         :param unicode pre_webhook_url: The webhook URL for pre-event webhooks
         :param unicode post_webhook_url: The URL for post-event webhooks
         :param unicode webhook_method: The HTTP method  to use for both PRE and POST webhooks
-        :param unicode webhook_filters: The list of WebHook events that are enabled for this Service instance
+        :param unicode webhook_filters: The list of webhook events that are enabled for this Service instance
         :param unicode limits_channel_members: The maximum number of Members that can be added to Channels within this Service
         :param unicode limits_user_channels: The maximum number of Channels Users can be a Member of within this Service
         :param unicode media_compatibility_message: The message to send when a media message has no text
@@ -613,7 +613,7 @@ class ServiceInstance(InstanceResource):
     @property
     def webhook_filters(self):
         """
-        :returns: The list of WebHook events that are enabled for this Service instance
+        :returns: The list of webhook events that are enabled for this Service instance
         :rtype: unicode
         """
         return self._properties['webhook_filters']
@@ -739,7 +739,7 @@ class ServiceInstance(InstanceResource):
         :param unicode pre_webhook_url: The webhook URL for pre-event webhooks
         :param unicode post_webhook_url: The URL for post-event webhooks
         :param unicode webhook_method: The HTTP method  to use for both PRE and POST webhooks
-        :param unicode webhook_filters: The list of WebHook events that are enabled for this Service instance
+        :param unicode webhook_filters: The list of webhook events that are enabled for this Service instance
         :param unicode limits_channel_members: The maximum number of Members that can be added to Channels within this Service
         :param unicode limits_user_channels: The maximum number of Channels Users can be a Member of within this Service
         :param unicode media_compatibility_message: The message to send when a media message has no text

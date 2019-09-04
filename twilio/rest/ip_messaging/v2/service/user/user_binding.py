@@ -24,7 +24,7 @@ class UserBindingList(ListResource):
 
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the Service that the resource is associated with
-        :param user_sid: The SID of the User for the binding
+        :param user_sid: The SID of the User with the binding
 
         :returns: twilio.rest.chat.v2.service.user.user_binding.UserBindingList
         :rtype: twilio.rest.chat.v2.service.user.user_binding.UserBindingList
@@ -128,7 +128,7 @@ class UserBindingList(ListResource):
         """
         Constructs a UserBindingContext
 
-        :param sid: The unique string that identifies the resource
+        :param sid: The SID of the User Binding resource to fetch
 
         :returns: twilio.rest.chat.v2.service.user.user_binding.UserBindingContext
         :rtype: twilio.rest.chat.v2.service.user.user_binding.UserBindingContext
@@ -144,7 +144,7 @@ class UserBindingList(ListResource):
         """
         Constructs a UserBindingContext
 
-        :param sid: The unique string that identifies the resource
+        :param sid: The SID of the User Binding resource to fetch
 
         :returns: twilio.rest.chat.v2.service.user.user_binding.UserBindingContext
         :rtype: twilio.rest.chat.v2.service.user.user_binding.UserBindingContext
@@ -176,7 +176,7 @@ class UserBindingPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
         :param service_sid: The SID of the Service that the resource is associated with
-        :param user_sid: The SID of the User for the binding
+        :param user_sid: The SID of the User with the binding
 
         :returns: twilio.rest.chat.v2.service.user.user_binding.UserBindingPage
         :rtype: twilio.rest.chat.v2.service.user.user_binding.UserBindingPage
@@ -221,8 +221,8 @@ class UserBindingContext(InstanceContext):
 
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the Service to fetch the resource from
-        :param user_sid: The SID of the User for the binding
-        :param sid: The unique string that identifies the resource
+        :param user_sid: The SID of the User with the binding
+        :param sid: The SID of the User Binding resource to fetch
 
         :returns: twilio.rest.chat.v2.service.user.user_binding.UserBindingContext
         :rtype: twilio.rest.chat.v2.service.user.user_binding.UserBindingContext
@@ -362,7 +362,7 @@ class UserBindingInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The RFC 2822 date and time in GMT when the resource was created
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -370,7 +370,7 @@ class UserBindingInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The RFC 2822 date and time in GMT when the resource was last updated
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -394,7 +394,7 @@ class UserBindingInstance(InstanceResource):
     @property
     def user_sid(self):
         """
-        :returns: The SID of the User for the binding
+        :returns: The SID of the User with the binding
         :rtype: unicode
         """
         return self._properties['user_sid']

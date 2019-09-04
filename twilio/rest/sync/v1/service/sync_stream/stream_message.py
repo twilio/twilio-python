@@ -22,8 +22,8 @@ class StreamMessageList(ListResource):
         Initialize the StreamMessageList
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Instance SID.
-        :param stream_sid: Stream SID.
+        :param service_sid: The SID of the Sync Service that the resource is associated with
+        :param stream_sid: The unique string that identifies the resource
 
         :returns: twilio.rest.sync.v1.service.sync_stream.stream_message.StreamMessageList
         :rtype: twilio.rest.sync.v1.service.sync_stream.stream_message.StreamMessageList
@@ -38,7 +38,7 @@ class StreamMessageList(ListResource):
         """
         Create a new StreamMessageInstance
 
-        :param dict data: Stream Message body.
+        :param dict data: A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body
 
         :returns: Newly created StreamMessageInstance
         :rtype: twilio.rest.sync.v1.service.sync_stream.stream_message.StreamMessageInstance
@@ -78,8 +78,8 @@ class StreamMessagePage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: Service Instance SID.
-        :param stream_sid: Stream SID.
+        :param service_sid: The SID of the Sync Service that the resource is associated with
+        :param stream_sid: The unique string that identifies the resource
 
         :returns: twilio.rest.sync.v1.service.sync_stream.stream_message.StreamMessagePage
         :rtype: twilio.rest.sync.v1.service.sync_stream.stream_message.StreamMessagePage
@@ -138,7 +138,7 @@ class StreamMessageInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: Stream Message SID.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -146,7 +146,7 @@ class StreamMessageInstance(InstanceResource):
     @property
     def data(self):
         """
-        :returns: Stream Message body.
+        :returns: Stream Message body
         :rtype: dict
         """
         return self._properties['data']

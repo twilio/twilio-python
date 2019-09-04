@@ -40,10 +40,10 @@ class CommandList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode sim: Only return Commands to or from this SIM.
-        :param CommandInstance.Status status: Only return Commands with this status value.
-        :param CommandInstance.Direction direction: Only return Commands with this direction value.
-        :param CommandInstance.Transport transport: Only return Commands with this transport value.
+        :param unicode sim: The sid or unique_name of the Sim resources to read
+        :param CommandInstance.Status status: The status of the resources to read
+        :param CommandInstance.Direction direction: Only return Commands with this direction value
+        :param CommandInstance.Transport transport: Only return Commands with this transport value
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -73,10 +73,10 @@ class CommandList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode sim: Only return Commands to or from this SIM.
-        :param CommandInstance.Status status: Only return Commands with this status value.
-        :param CommandInstance.Direction direction: Only return Commands with this direction value.
-        :param CommandInstance.Transport transport: Only return Commands with this transport value.
+        :param unicode sim: The sid or unique_name of the Sim resources to read
+        :param CommandInstance.Status status: The status of the resources to read
+        :param CommandInstance.Direction direction: Only return Commands with this direction value
+        :param CommandInstance.Transport transport: Only return Commands with this transport value
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -103,10 +103,10 @@ class CommandList(ListResource):
         Retrieve a single page of CommandInstance records from the API.
         Request is executed immediately
 
-        :param unicode sim: Only return Commands to or from this SIM.
-        :param CommandInstance.Status status: Only return Commands with this status value.
-        :param CommandInstance.Direction direction: Only return Commands with this direction value.
-        :param CommandInstance.Transport transport: Only return Commands with this transport value.
+        :param unicode sim: The sid or unique_name of the Sim resources to read
+        :param CommandInstance.Status status: The status of the resources to read
+        :param CommandInstance.Direction direction: Only return Commands with this direction value
+        :param CommandInstance.Transport transport: Only return Commands with this transport value
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -155,13 +155,13 @@ class CommandList(ListResource):
         """
         Create a new CommandInstance
 
-        :param unicode command: The message body of the Command or a Base64 encoded byte string in binary mode.
-        :param unicode sim: The Sid or UniqueName of the SIM to send the Command to.
-        :param unicode callback_method: The HTTP method Twilio will use when making a request to the callback URL.
-        :param unicode callback_url: Twilio will make a request to this URL when the Command has finished sending.
-        :param CommandInstance.CommandMode command_mode: A string representing which mode to send the SMS message using.
-        :param unicode include_sid: When sending a Command to a SIM in text mode, Twilio can automatically include the Sid of the Command in the message body, which could be used to ensure that the device does not process the same Command more than once.
-        :param bool delivery_receipt_requested: A boolean representing whether to request delivery receipt from the recipient.
+        :param unicode command: The message body of the Command or a Base64 encoded byte string in binary mode
+        :param unicode sim: The sid or unique_name of the SIM to send the Command to
+        :param unicode callback_method: The HTTP method we use to call callback_url
+        :param unicode callback_url: he URL we call when the Command has finished sending
+        :param CommandInstance.CommandMode command_mode: The mode to use when sending the SMS message
+        :param unicode include_sid: Whether to include the SID of the command in the message body
+        :param bool delivery_receipt_requested: Whether to request delivery receipt from the recipient
 
         :returns: Newly created CommandInstance
         :rtype: twilio.rest.wireless.v1.command.CommandInstance
@@ -188,7 +188,7 @@ class CommandList(ListResource):
         """
         Constructs a CommandContext
 
-        :param sid: A 34 character string that uniquely identifies this resource.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.wireless.v1.command.CommandContext
         :rtype: twilio.rest.wireless.v1.command.CommandContext
@@ -199,7 +199,7 @@ class CommandList(ListResource):
         """
         Constructs a CommandContext
 
-        :param sid: A 34 character string that uniquely identifies this resource.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.wireless.v1.command.CommandContext
         :rtype: twilio.rest.wireless.v1.command.CommandContext
@@ -263,7 +263,7 @@ class CommandContext(InstanceContext):
         Initialize the CommandContext
 
         :param Version version: Version that contains the resource
-        :param sid: A 34 character string that uniquely identifies this resource.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.wireless.v1.command.CommandContext
         :rtype: twilio.rest.wireless.v1.command.CommandContext
@@ -378,7 +378,7 @@ class CommandInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34 character string that uniquely identifies this resource.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -386,7 +386,7 @@ class CommandInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the Account that this Command belongs to.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -394,7 +394,7 @@ class CommandInstance(InstanceResource):
     @property
     def sim_sid(self):
         """
-        :returns: The unique ID of the SIM that this Command was sent to or from.
+        :returns: The SID of the Sim resource that the Command was sent to or from
         :rtype: unicode
         """
         return self._properties['sim_sid']
@@ -402,7 +402,7 @@ class CommandInstance(InstanceResource):
     @property
     def command(self):
         """
-        :returns: The message being sent to or from the SIM.
+        :returns: The message being sent to or from the SIM
         :rtype: unicode
         """
         return self._properties['command']
@@ -410,7 +410,7 @@ class CommandInstance(InstanceResource):
     @property
     def command_mode(self):
         """
-        :returns: A string representing which mode the SMS was sent or received using.
+        :returns: The mode used to send the SMS message
         :rtype: CommandInstance.CommandMode
         """
         return self._properties['command_mode']
@@ -418,7 +418,7 @@ class CommandInstance(InstanceResource):
     @property
     def transport(self):
         """
-        :returns: The transport
+        :returns: The type of transport used
         :rtype: CommandInstance.Transport
         """
         return self._properties['transport']
@@ -426,7 +426,7 @@ class CommandInstance(InstanceResource):
     @property
     def delivery_receipt_requested(self):
         """
-        :returns: The delivery_receipt_requested
+        :returns: Whether to request a delivery receipt
         :rtype: bool
         """
         return self._properties['delivery_receipt_requested']
@@ -434,7 +434,7 @@ class CommandInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: A string representing the status of the Command.
+        :returns: The status of the Command
         :rtype: CommandInstance.Status
         """
         return self._properties['status']
@@ -442,7 +442,7 @@ class CommandInstance(InstanceResource):
     @property
     def direction(self):
         """
-        :returns: The direction of the Command.
+        :returns: The direction of the Command
         :rtype: CommandInstance.Direction
         """
         return self._properties['direction']
@@ -450,7 +450,7 @@ class CommandInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this resource was created, given as GMT in ISO 8601 format.
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -458,7 +458,7 @@ class CommandInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date that this resource was last updated, given as GMT in ISO 8601 format.
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated format
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -466,7 +466,7 @@ class CommandInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL for this resource.
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']

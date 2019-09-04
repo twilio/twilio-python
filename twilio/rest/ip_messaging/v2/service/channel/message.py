@@ -24,7 +24,7 @@ class MessageList(ListResource):
 
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the Service that the resource is associated with
-        :param channel_sid: The unique ID of the Channel the Message resource belongs to
+        :param channel_sid: The SID of the Channel the Message resource belongs to
 
         :returns: twilio.rest.chat.v2.service.channel.message.MessageList
         :rtype: twilio.rest.chat.v2.service.channel.message.MessageList
@@ -42,7 +42,7 @@ class MessageList(ListResource):
         """
         Create a new MessageInstance
 
-        :param unicode from_: The identity of the new message's author
+        :param unicode from_: The Identity of the new message's author
         :param unicode attributes: A valid JSON string that contains application-specific data
         :param datetime date_created: The ISO 8601 date and time in GMT when the resource was created
         :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
@@ -169,7 +169,7 @@ class MessageList(ListResource):
         """
         Constructs a MessageContext
 
-        :param sid: The unique string that identifies the resource
+        :param sid: The SID of the Message resource to fetch
 
         :returns: twilio.rest.chat.v2.service.channel.message.MessageContext
         :rtype: twilio.rest.chat.v2.service.channel.message.MessageContext
@@ -185,7 +185,7 @@ class MessageList(ListResource):
         """
         Constructs a MessageContext
 
-        :param sid: The unique string that identifies the resource
+        :param sid: The SID of the Message resource to fetch
 
         :returns: twilio.rest.chat.v2.service.channel.message.MessageContext
         :rtype: twilio.rest.chat.v2.service.channel.message.MessageContext
@@ -217,7 +217,7 @@ class MessagePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
         :param service_sid: The SID of the Service that the resource is associated with
-        :param channel_sid: The unique ID of the Channel the Message resource belongs to
+        :param channel_sid: The SID of the Channel the Message resource belongs to
 
         :returns: twilio.rest.chat.v2.service.channel.message.MessagePage
         :rtype: twilio.rest.chat.v2.service.channel.message.MessagePage
@@ -262,8 +262,8 @@ class MessageContext(InstanceContext):
 
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the Service to fetch the resource from
-        :param channel_sid: The unique ID of the Channel the message to fetch belongs to
-        :param sid: The unique string that identifies the resource
+        :param channel_sid: The SID of the Channel the message to fetch belongs to
+        :param sid: The SID of the Message resource to fetch
 
         :returns: twilio.rest.chat.v2.service.channel.message.MessageContext
         :rtype: twilio.rest.chat.v2.service.channel.message.MessageContext
@@ -317,7 +317,7 @@ class MessageContext(InstanceContext):
         :param datetime date_created: The ISO 8601 date and time in GMT when the resource was created
         :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
         :param unicode last_updated_by: The Identity of the User who last updated the Message, if applicable
-        :param unicode from_: The identity of the message's author
+        :param unicode from_: The Identity of the message's author
 
         :returns: Updated MessageInstance
         :rtype: twilio.rest.chat.v2.service.channel.message.MessageInstance
@@ -465,7 +465,7 @@ class MessageInstance(InstanceResource):
     @property
     def channel_sid(self):
         """
-        :returns: The unique ID of the Channel the Message resource belongs to
+        :returns: The SID of the Channel the Message resource belongs to
         :rtype: unicode
         """
         return self._properties['channel_sid']
@@ -505,7 +505,7 @@ class MessageInstance(InstanceResource):
     @property
     def from_(self):
         """
-        :returns: The identity of the message's author
+        :returns: The Identity of the message's author
         :rtype: unicode
         """
         return self._properties['from_']
@@ -579,7 +579,7 @@ class MessageInstance(InstanceResource):
         :param datetime date_created: The ISO 8601 date and time in GMT when the resource was created
         :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
         :param unicode last_updated_by: The Identity of the User who last updated the Message, if applicable
-        :param unicode from_: The identity of the message's author
+        :param unicode from_: The Identity of the message's author
 
         :returns: Updated MessageInstance
         :rtype: twilio.rest.chat.v2.service.channel.message.MessageInstance

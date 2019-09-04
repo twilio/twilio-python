@@ -24,8 +24,8 @@ class SyncListItemList(ListResource):
         Initialize the SyncListItemList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The unique SID identifier of the Service Instance that hosts this List object.
-        :param list_sid: The unique 34-character SID identifier of the List containing this Item.
+        :param service_sid: The SID of the Sync Service that the resource is associated with
+        :param list_sid: The SID of the Sync List that contains the List Item
 
         :returns: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemList
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemList
@@ -41,10 +41,10 @@ class SyncListItemList(ListResource):
         """
         Create a new SyncListItemInstance
 
-        :param dict data: Contains arbitrary user-defined, schema-less data that this List Item stores, represented by a JSON object, up to 16KB.
-        :param unicode ttl: Alias for item_ttl
-        :param unicode item_ttl: Time-to-live of this item in seconds, defaults to no expiration.
-        :param unicode collection_ttl: Time-to-live of this item's parent List in seconds, defaults to no expiration.
+        :param dict data: A JSON string that represents an arbitrary, schema-less object that the List Item stores
+        :param unicode ttl: An alias for item_ttl
+        :param unicode item_ttl: How long, in seconds, before the List Item expires
+        :param unicode collection_ttl: How long, in seconds, before the List Item's parent Sync List expires
 
         :returns: Newly created SyncListItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
@@ -77,9 +77,9 @@ class SyncListItemList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param SyncListItemInstance.QueryResultOrder order: A string; asc or desc
-        :param unicode from_: An integer representing Item index offset.
-        :param SyncListItemInstance.QueryFromBoundType bounds: The bounds
+        :param SyncListItemInstance.QueryResultOrder order: The order to return the List Items
+        :param unicode from_: The index of the first Sync List Item resource to read
+        :param SyncListItemInstance.QueryFromBoundType bounds: Whether to include the List Item referenced by the from parameter
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -103,9 +103,9 @@ class SyncListItemList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param SyncListItemInstance.QueryResultOrder order: A string; asc or desc
-        :param unicode from_: An integer representing Item index offset.
-        :param SyncListItemInstance.QueryFromBoundType bounds: The bounds
+        :param SyncListItemInstance.QueryResultOrder order: The order to return the List Items
+        :param unicode from_: The index of the first Sync List Item resource to read
+        :param SyncListItemInstance.QueryFromBoundType bounds: Whether to include the List Item referenced by the from parameter
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -125,9 +125,9 @@ class SyncListItemList(ListResource):
         Retrieve a single page of SyncListItemInstance records from the API.
         Request is executed immediately
 
-        :param SyncListItemInstance.QueryResultOrder order: A string; asc or desc
-        :param unicode from_: An integer representing Item index offset.
-        :param SyncListItemInstance.QueryFromBoundType bounds: The bounds
+        :param SyncListItemInstance.QueryResultOrder order: The order to return the List Items
+        :param unicode from_: The index of the first Sync List Item resource to read
+        :param SyncListItemInstance.QueryFromBoundType bounds: Whether to include the List Item referenced by the from parameter
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -173,7 +173,7 @@ class SyncListItemList(ListResource):
         """
         Constructs a SyncListItemContext
 
-        :param index: The index
+        :param index: The index of the Sync List Item resource to fetch
 
         :returns: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemContext
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemContext
@@ -189,7 +189,7 @@ class SyncListItemList(ListResource):
         """
         Constructs a SyncListItemContext
 
-        :param index: The index
+        :param index: The index of the Sync List Item resource to fetch
 
         :returns: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemContext
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemContext
@@ -221,8 +221,8 @@ class SyncListItemPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The unique SID identifier of the Service Instance that hosts this List object.
-        :param list_sid: The unique 34-character SID identifier of the List containing this Item.
+        :param service_sid: The SID of the Sync Service that the resource is associated with
+        :param list_sid: The SID of the Sync List that contains the List Item
 
         :returns: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemPage
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemPage
@@ -267,9 +267,9 @@ class SyncListItemContext(InstanceContext):
         Initialize the SyncListItemContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
-        :param list_sid: The list_sid
-        :param index: The index
+        :param service_sid: The SID of the Sync Service with the Sync List Item resource to fetch
+        :param list_sid: The SID of the Sync List with the Sync List Item resource to fetch
+        :param index: The index of the Sync List Item resource to fetch
 
         :returns: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemContext
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemContext
@@ -317,10 +317,10 @@ class SyncListItemContext(InstanceContext):
         """
         Update the SyncListItemInstance
 
-        :param dict data: Contains arbitrary user-defined, schema-less data that this List Item stores, represented by a JSON object, up to 16KB.
-        :param unicode ttl: Alias for item_ttl
-        :param unicode item_ttl: Time-to-live of this item in seconds, defaults to no expiration.
-        :param unicode collection_ttl: Time-to-live of this item's parent List in seconds, defaults to no expiration.
+        :param dict data: A JSON string that represents an arbitrary, schema-less object that the List Item stores
+        :param unicode ttl: An alias for item_ttl
+        :param unicode item_ttl: How long, in seconds, before the List Item expires
+        :param unicode collection_ttl: How long, in seconds, before the List Item's parent Sync List expires
 
         :returns: Updated SyncListItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
@@ -422,7 +422,7 @@ class SyncListItemInstance(InstanceResource):
     @property
     def index(self):
         """
-        :returns: Contains the numeric index of this List Item.
+        :returns: The automatically generated index of the List Item
         :rtype: unicode
         """
         return self._properties['index']
@@ -430,7 +430,7 @@ class SyncListItemInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique SID identifier of the Twilio Account.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -438,7 +438,7 @@ class SyncListItemInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The unique SID identifier of the Service Instance that hosts this List object.
+        :returns: The SID of the Sync Service that the resource is associated with
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -446,7 +446,7 @@ class SyncListItemInstance(InstanceResource):
     @property
     def list_sid(self):
         """
-        :returns: The unique 34-character SID identifier of the List containing this Item.
+        :returns: The SID of the Sync List that contains the List Item
         :rtype: unicode
         """
         return self._properties['list_sid']
@@ -454,7 +454,7 @@ class SyncListItemInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The absolute URL for this item.
+        :returns: The absolute URL of the List Item resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -462,7 +462,7 @@ class SyncListItemInstance(InstanceResource):
     @property
     def revision(self):
         """
-        :returns: Contains the current revision of this item, represented by a string identifier.
+        :returns: The current revision of the item, represented as a string
         :rtype: unicode
         """
         return self._properties['revision']
@@ -470,7 +470,7 @@ class SyncListItemInstance(InstanceResource):
     @property
     def data(self):
         """
-        :returns: Contains arbitrary user-defined, schema-less data that this List Item stores, represented by a JSON object, up to 16KB.
+        :returns: An arbitrary, schema-less object that the List Item stores
         :rtype: dict
         """
         return self._properties['data']
@@ -478,7 +478,7 @@ class SyncListItemInstance(InstanceResource):
     @property
     def date_expires(self):
         """
-        :returns: Contains the date this item expires and gets deleted automatically.
+        :returns: The ISO 8601 date and time in GMT when the List Item expires
         :rtype: datetime
         """
         return self._properties['date_expires']
@@ -486,7 +486,7 @@ class SyncListItemInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this item was created, given in UTC ISO 8601 format.
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -494,7 +494,7 @@ class SyncListItemInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: Specifies the date this item was last updated, given in UTC ISO 8601 format.
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -502,7 +502,7 @@ class SyncListItemInstance(InstanceResource):
     @property
     def created_by(self):
         """
-        :returns: The identity of this item's creator.
+        :returns: The identity of the List Item's creator
         :rtype: unicode
         """
         return self._properties['created_by']
@@ -530,10 +530,10 @@ class SyncListItemInstance(InstanceResource):
         """
         Update the SyncListItemInstance
 
-        :param dict data: Contains arbitrary user-defined, schema-less data that this List Item stores, represented by a JSON object, up to 16KB.
-        :param unicode ttl: Alias for item_ttl
-        :param unicode item_ttl: Time-to-live of this item in seconds, defaults to no expiration.
-        :param unicode collection_ttl: Time-to-live of this item's parent List in seconds, defaults to no expiration.
+        :param dict data: A JSON string that represents an arbitrary, schema-less object that the List Item stores
+        :param unicode ttl: An alias for item_ttl
+        :param unicode item_ttl: How long, in seconds, before the List Item expires
+        :param unicode collection_ttl: How long, in seconds, before the List Item's parent Sync List expires
 
         :returns: Updated SyncListItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance

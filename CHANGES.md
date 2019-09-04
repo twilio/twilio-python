@@ -3,6 +3,24 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2019-09-04] Version 6.30.0
+----------------------------
+**Api**
+-  Pass Twiml in call update request
+
+**Conversations**
+- Add attributes to Conversations resources
+
+**Flex**
+- Adding `features_enabled` and `serverless_service_sids` to Flex Configuration
+
+**Messaging**
+- Message API required params updated **(breaking change)**
+
+**Preview**
+- Added support for the optional `CallSid` to `/BrandedCalls` endpoint
+
+
 [2019-08-21] Version 6.29.4
 ----------------------------
 **Library**

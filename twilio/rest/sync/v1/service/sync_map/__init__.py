@@ -25,7 +25,7 @@ class SyncMapList(ListResource):
         Initialize the SyncMapList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The unique SID identifier of the Service Instance that hosts this Map object.
+        :param service_sid: The SID of the Sync Service that the resource is associated with
 
         :returns: twilio.rest.sync.v1.service.sync_map.SyncMapList
         :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapList
@@ -41,9 +41,9 @@ class SyncMapList(ListResource):
         """
         Create a new SyncMapInstance
 
-        :param unicode unique_name: Human-readable name for this map
-        :param unicode ttl: Alias for collection_ttl
-        :param unicode collection_ttl: Time-to-live of this Map in seconds, defaults to no expiration.
+        :param unicode unique_name: An application-defined string that uniquely identifies the resource
+        :param unicode ttl: An alias for collection_ttl
+        :param unicode collection_ttl: How long, in seconds, before the Sync Map expires and is deleted
 
         :returns: Newly created SyncMapInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapInstance
@@ -143,7 +143,7 @@ class SyncMapList(ListResource):
         """
         Constructs a SyncMapContext
 
-        :param sid: The sid
+        :param sid: The SID of the Sync Map resource to fetch
 
         :returns: twilio.rest.sync.v1.service.sync_map.SyncMapContext
         :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapContext
@@ -154,7 +154,7 @@ class SyncMapList(ListResource):
         """
         Constructs a SyncMapContext
 
-        :param sid: The sid
+        :param sid: The SID of the Sync Map resource to fetch
 
         :returns: twilio.rest.sync.v1.service.sync_map.SyncMapContext
         :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapContext
@@ -181,7 +181,7 @@ class SyncMapPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The unique SID identifier of the Service Instance that hosts this Map object.
+        :param service_sid: The SID of the Sync Service that the resource is associated with
 
         :returns: twilio.rest.sync.v1.service.sync_map.SyncMapPage
         :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapPage
@@ -221,8 +221,8 @@ class SyncMapContext(InstanceContext):
         Initialize the SyncMapContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The service_sid
-        :param sid: The sid
+        :param service_sid: The SID of the Sync Service with the Sync Map resource to fetch
+        :param sid: The SID of the Sync Map resource to fetch
 
         :returns: twilio.rest.sync.v1.service.sync_map.SyncMapContext
         :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapContext
@@ -272,8 +272,8 @@ class SyncMapContext(InstanceContext):
         """
         Update the SyncMapInstance
 
-        :param unicode ttl: Alias for collection_ttl
-        :param unicode collection_ttl: New time-to-live of this Map in seconds.
+        :param unicode ttl: An alias for collection_ttl
+        :param unicode collection_ttl: How long, in seconds, before the Sync Map expires and is deleted
 
         :returns: Updated SyncMapInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapInstance
@@ -388,7 +388,7 @@ class SyncMapInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The unique 34-character SID identifier of the Map.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -396,7 +396,7 @@ class SyncMapInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: The unique and addressable name of this Map.
+        :returns: An application-defined string that uniquely identifies the resource
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -404,7 +404,7 @@ class SyncMapInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique SID identifier of the Twilio Account.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -412,7 +412,7 @@ class SyncMapInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The unique SID identifier of the Service Instance that hosts this Map object.
+        :returns: The SID of the Sync Service that the resource is associated with
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -420,7 +420,7 @@ class SyncMapInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The absolute URL for this Map.
+        :returns: The absolute URL of the Sync Map resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -428,7 +428,7 @@ class SyncMapInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: A dictionary of URL links to nested resources of this Map.
+        :returns: The URLs of the Sync Map's nested resources
         :rtype: unicode
         """
         return self._properties['links']
@@ -436,7 +436,7 @@ class SyncMapInstance(InstanceResource):
     @property
     def revision(self):
         """
-        :returns: Contains the current revision of this Map, represented by a string identifier.
+        :returns: The current revision of the Sync Map, represented as a string
         :rtype: unicode
         """
         return self._properties['revision']
@@ -444,7 +444,7 @@ class SyncMapInstance(InstanceResource):
     @property
     def date_expires(self):
         """
-        :returns: Contains the date this Map expires and gets deleted automatically.
+        :returns: The ISO 8601 date and time in GMT when the Sync Map expires
         :rtype: datetime
         """
         return self._properties['date_expires']
@@ -452,7 +452,7 @@ class SyncMapInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this Map was created, given in UTC ISO 8601 format.
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -460,7 +460,7 @@ class SyncMapInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: Specifies the date this Map was last updated, given in UTC ISO 8601 format.
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -468,7 +468,7 @@ class SyncMapInstance(InstanceResource):
     @property
     def created_by(self):
         """
-        :returns: The identity of the Map creator.
+        :returns: The identity of the Sync Map's creator
         :rtype: unicode
         """
         return self._properties['created_by']
@@ -495,8 +495,8 @@ class SyncMapInstance(InstanceResource):
         """
         Update the SyncMapInstance
 
-        :param unicode ttl: Alias for collection_ttl
-        :param unicode collection_ttl: New time-to-live of this Map in seconds.
+        :param unicode ttl: An alias for collection_ttl
+        :param unicode collection_ttl: How long, in seconds, before the Sync Map expires and is deleted
 
         :returns: Updated SyncMapInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapInstance
