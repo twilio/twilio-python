@@ -45,6 +45,10 @@ source code") for `twilio-python`, and then run:
 
 You may need to run the above commands with `sudo`.
 
+## Versions
+
+`twilio-python` uses a modified version of [Semantic Versioning](https://semver.org) for all changes. [See this document](VERSIONS.md) for details.
+
 ### Migrate from 5.x
 
 Please consult the [official migration guide](https://www.twilio.com/docs/libraries/python/migration-guide) for information on upgrading your application using twilio-python 5.x to 6.x
