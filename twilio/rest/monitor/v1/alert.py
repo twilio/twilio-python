@@ -148,7 +148,7 @@ class AlertList(ListResource):
         """
         Constructs a AlertContext
 
-        :param sid: The sid
+        :param sid: A 34 character string that uniquely identifies this Alert.
 
         :returns: twilio.rest.monitor.v1.alert.AlertContext
         :rtype: twilio.rest.monitor.v1.alert.AlertContext
@@ -159,7 +159,7 @@ class AlertList(ListResource):
         """
         Constructs a AlertContext
 
-        :param sid: The sid
+        :param sid: A 34 character string that uniquely identifies this Alert.
 
         :returns: twilio.rest.monitor.v1.alert.AlertContext
         :rtype: twilio.rest.monitor.v1.alert.AlertContext
@@ -223,7 +223,7 @@ class AlertContext(InstanceContext):
         Initialize the AlertContext
 
         :param Version version: Version that contains the resource
-        :param sid: The sid
+        :param sid: A 34 character string that uniquely identifies this Alert.
 
         :returns: twilio.rest.monitor.v1.alert.AlertContext
         :rtype: twilio.rest.monitor.v1.alert.AlertContext
@@ -250,15 +250,6 @@ class AlertContext(InstanceContext):
         )
 
         return AlertInstance(self._version, payload, sid=self._solution['sid'], )
-
-    def delete(self):
-        """
-        Deletes the AlertInstance
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete('delete', self._uri)
 
     def __repr__(self):
         """
@@ -299,9 +290,11 @@ class AlertInstance(InstanceResource):
             'resource_sid': payload['resource_sid'],
             'sid': payload['sid'],
             'url': payload['url'],
+            'service_sid': payload['service_sid'],
             'request_variables': payload.get('request_variables'),
             'response_body': payload.get('response_body'),
             'response_headers': payload.get('response_headers'),
+            'request_headers': payload.get('request_headers'),
         }
 
         # Context
@@ -457,6 +450,22 @@ class AlertInstance(InstanceResource):
         """
         return self._properties['url']
 
+    @property
+    def request_headers(self):
+        """
+        :returns: The request_headers
+        :rtype: unicode
+        """
+        return self._properties['request_headers']
+
+    @property
+    def service_sid(self):
+        """
+        :returns: The service_sid
+        :rtype: unicode
+        """
+        return self._properties['service_sid']
+
     def fetch(self):
         """
         Fetch a AlertInstance
@@ -465,15 +474,6 @@ class AlertInstance(InstanceResource):
         :rtype: twilio.rest.monitor.v1.alert.AlertInstance
         """
         return self._proxy.fetch()
-
-    def delete(self):
-        """
-        Deletes the AlertInstance
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._proxy.delete()
 
     def __repr__(self):
         """

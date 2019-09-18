@@ -45,8 +45,10 @@ class AlertTestCase(IntegrationTestCase):
                 "resource_sid": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "response_body": "response_body",
                 "response_headers": "response_headers",
+                "request_headers": "request_headers",
                 "sid": "NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "url": "https://monitor.twilio.com/v1/Alerts/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                "url": "https://monitor.twilio.com/v1/Alerts/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "service_sid": "PNe2cd757cd5257b0217a447933a0290d2"
             }
             '''
         ))
@@ -54,27 +56,6 @@ class AlertTestCase(IntegrationTestCase):
         actual = self.client.monitor.v1.alerts(sid="NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
-
-    def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
-
-        with self.assertRaises(TwilioException):
-            self.client.monitor.v1.alerts(sid="NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
-
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://monitor.twilio.com/v1/Alerts/NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
-
-    def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
-
-        actual = self.client.monitor.v1.alerts(sid="NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
-
-        self.assertTrue(actual)
 
     def test_list_request(self):
         self.holodeck.mock(Response(500, ''))
@@ -130,7 +111,8 @@ class AlertTestCase(IntegrationTestCase):
                         "request_url": "http://www.example.com",
                         "resource_sid": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "sid": "NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                        "url": "https://monitor.twilio.com/v1/Alerts/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                        "url": "https://monitor.twilio.com/v1/Alerts/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "service_sid": "PNe2cd757cd5257b0217a447933a0290d2"
                     }
                 ],
                 "meta": {
