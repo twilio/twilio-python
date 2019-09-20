@@ -89,7 +89,6 @@ class RequestValidator(object):
         valid_signature_with_port = False
         valid_body_hash = True  # May not receive body hash, so default succeed
 
-
         query = parse_qs(parsed_uri.query)
         if "bodySHA256" in query and isinstance(params, string_types):
             valid_body_hash = compare(self.compute_hash(params), query["bodySHA256"][0])
@@ -98,6 +97,5 @@ class RequestValidator(object):
         else:
             valid_signature = compare(self.compute_signature(uri, params), signature)
             valid_signature_with_port = compare(self.compute_signature(parsed_uri, params), signature)
-
 
         return valid_body_hash and (valid_signature or valid_signature_with_port)
