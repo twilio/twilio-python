@@ -99,14 +99,16 @@ class RequestValidator(object):
         uri_with_port = uri
         uri_without_port = uri
 
-        if parsed_uri.scheme == "https" and parsed_uri.port:
-            uri_without_port = remove_port(parsed_uri)
-        elif parsed_uri.scheme == "https":
-            uri_with_port = add_port(parsed_uri, 443)
-        elif parsed_uri.scheme == "http" and parsed_uri.port:
-            uri_without_port = remove_port(parsed_uri)
+        if parsed_uri.scheme == "https":
+            if parsed_uri.port:
+                uri_without_port = remove_port(parsed_uri)
+            else:
+                uri_with_port = add_port(parsed_uri, 443)
         elif parsed_uri.scheme == "http":
-            uri_with_port = add_port(parsed_uri, 80)
+            if parsed_uri.port:
+                uri_without_port = remove_port(parsed_uri)
+            else:
+                uri_with_port = add_port(parsed_uri, 80)
 
         valid_signature = False  # Default fail
         valid_signature_with_port = False
