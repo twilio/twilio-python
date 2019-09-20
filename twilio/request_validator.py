@@ -37,6 +37,20 @@ def remove_port(uri):
     return new_uri.geturl()
 
 
+def add_port(uri, port):
+    """Add the port number to a URI
+
+    :param uri: full URI that Twilio requested on your server
+    :param port: the port number to be added to the URI
+
+    :returns: full URI with a port number
+    :rtype: str
+    """
+    new_netloc = uri.netloc + ":" + str(port)
+    new_uri = uri._replace(netloc=new_netloc)
+    return new_uri.geturl()
+
+
 class RequestValidator(object):
 
     def __init__(self, token):
@@ -82,8 +96,17 @@ class RequestValidator(object):
             params = {}
 
         parsed_uri = urlparse(uri)
+        uri_with_port = uri
+        uri_without_port = uri
+
         if parsed_uri.scheme == "https" and parsed_uri.port:
-            uri = remove_port(parsed_uri)
+            uri_without_port = remove_port(parsed_uri)
+        elif parsed_uri.scheme == "https":
+            uri_with_port = add_port(parsed_uri, 443)
+        elif parsed_uri.scheme == "http" and parsed_uri.port:
+            uri_without_port = remove_port(parsed_uri)
+        elif parsed_uri.scheme == "http":
+            uri_with_port = add_port(parsed_uri, 80)
 
         valid_signature = False  # Default fail
         valid_signature_with_port = False
@@ -92,10 +115,10 @@ class RequestValidator(object):
         query = parse_qs(parsed_uri.query)
         if "bodySHA256" in query and isinstance(params, string_types):
             valid_body_hash = compare(self.compute_hash(params), query["bodySHA256"][0])
-            valid_signature = compare(self.compute_signature(uri, {}), signature)
-            valid_signature_with_port = compare(self.compute_signature(parsed_uri, {}), signature)
+            valid_signature = compare(self.compute_signature(uri_without_port, {}), signature)
+            valid_signature_with_port = compare(self.compute_signature(uri_with_port, {}), signature)
         else:
-            valid_signature = compare(self.compute_signature(uri, params), signature)
-            valid_signature_with_port = compare(self.compute_signature(parsed_uri, params), signature)
+            valid_signature = compare(self.compute_signature(uri_without_port, params), signature)
+            valid_signature_with_port = compare(self.compute_signature(uri_with_port, params), signature)
 
         return valid_body_hash and (valid_signature or valid_signature_with_port)
