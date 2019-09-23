@@ -21,7 +21,7 @@ def compare(string1, string2):
     result = True
     for c1, c2 in izip(string1, string2):
         result &= c1 == c2
-        
+
     return result
 
 
@@ -54,11 +54,7 @@ def add_port(uri):
     if uri.port:
         return uri.geturl()
     
-    port = None
-    if uri.scheme == "https":
-        port = 443
-    elif uri.scheme == "http":
-        port = 80
+    port = 443 if uri.scheme == "https" else 80
     new_netloc = uri.netloc + ":" + str(port)
     new_uri = uri._replace(netloc=new_netloc)
 
