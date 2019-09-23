@@ -21,33 +21,47 @@ def compare(string1, string2):
     result = True
     for c1, c2 in izip(string1, string2):
         result &= c1 == c2
+        
     return result
 
 
 def remove_port(uri):
     """Remove the port number from a URI
 
-    :param uri: full URI that Twilio requested on your server
+    :param uri: parsed URI that Twilio requested on your server
 
     :returns: full URI without a port number
     :rtype: str
     """
+    if not uri.port:
+        return uri.geturl()
+
     new_netloc = uri.netloc.split(':')[0]
     new_uri = uri._replace(netloc=new_netloc)
+
     return new_uri.geturl()
 
 
-def add_port(uri, port):
+def add_port(uri):
     """Add the port number to a URI
 
-    :param uri: full URI that Twilio requested on your server
+    :param uri: parsed URI that Twilio requested on your server
     :param port: the port number to be added to the URI
 
     :returns: full URI with a port number
     :rtype: str
     """
+    if uri.port:
+        return uri.geturl()
+    
+    port = None
+    if uri.scheme == "https":
+        port = 443
+    elif uri.scheme == "http":
+        port = 80
     new_netloc = uri.netloc + ":" + str(port)
     new_uri = uri._replace(netloc=new_netloc)
+
     return new_uri.geturl()
 
 
@@ -96,19 +110,8 @@ class RequestValidator(object):
             params = {}
 
         parsed_uri = urlparse(uri)
-        uri_with_port = uri
-        uri_without_port = uri
-
-        if parsed_uri.scheme == "https":
-            if parsed_uri.port:
-                uri_without_port = remove_port(parsed_uri)
-            else:
-                uri_with_port = add_port(parsed_uri, 443)
-        elif parsed_uri.scheme == "http":
-            if parsed_uri.port:
-                uri_without_port = remove_port(parsed_uri)
-            else:
-                uri_with_port = add_port(parsed_uri, 80)
+        uri_with_port = add_port(parsed_uri)
+        uri_without_port = remove_port(parsed_uri)
 
         valid_signature = False  # Default fail
         valid_signature_with_port = False
@@ -117,10 +120,9 @@ class RequestValidator(object):
         query = parse_qs(parsed_uri.query)
         if "bodySHA256" in query and isinstance(params, string_types):
             valid_body_hash = compare(self.compute_hash(params), query["bodySHA256"][0])
-            valid_signature = compare(self.compute_signature(uri_without_port, {}), signature)
-            valid_signature_with_port = compare(self.compute_signature(uri_with_port, {}), signature)
-        else:
-            valid_signature = compare(self.compute_signature(uri_without_port, params), signature)
-            valid_signature_with_port = compare(self.compute_signature(uri_with_port, params), signature)
+            params = {}
+
+        valid_signature = compare(self.compute_signature(uri_without_port, params), signature)
+        valid_signature_with_port = compare(self.compute_signature(uri_with_port, params), signature)
 
         return valid_body_hash and (valid_signature or valid_signature_with_port)
