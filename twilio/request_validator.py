@@ -46,7 +46,6 @@ def add_port(uri):
     """Add the port number to a URI
 
     :param uri: parsed URI that Twilio requested on your server
-    :param port: the port number to be added to the URI
 
     :returns: full URI with a port number
     :rtype: str
@@ -118,6 +117,8 @@ class RequestValidator(object):
             valid_body_hash = compare(self.compute_hash(params), query["bodySHA256"][0])
             params = {}
 
+        #  check signature of uri with and without port, 
+        #  since sig generation on back end is inconsistent
         valid_signature = compare(self.compute_signature(uri_without_port, params), signature)
         valid_signature_with_port = compare(self.compute_signature(uri_with_port, params), signature)
 
