@@ -123,9 +123,9 @@ class ServiceList(ListResource):
         """
         Create a new ServiceInstance
 
-        :param unicode unique_name: A unique, addressable name of this Service.
-        :param unicode friendly_name: A human-readable description of this Service.
-        :param bool include_credentials: Whether to inject Account credentials into a Function invocation context.
+        :param unicode unique_name: An application-defined string that uniquely identifies the Service resource
+        :param unicode friendly_name: A string to describe the Service resource
+        :param bool include_credentials: Whether to inject Account credentials into a function invocation context
 
         :returns: Newly created ServiceInstance
         :rtype: twilio.rest.serverless.v1.service.ServiceInstance
@@ -148,7 +148,7 @@ class ServiceList(ListResource):
         """
         Constructs a ServiceContext
 
-        :param sid: Serverless Service Sid or unique name.
+        :param sid: The SID of the Service resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.ServiceContext
         :rtype: twilio.rest.serverless.v1.service.ServiceContext
@@ -159,7 +159,7 @@ class ServiceList(ListResource):
         """
         Constructs a ServiceContext
 
-        :param sid: Serverless Service Sid or unique name.
+        :param sid: The SID of the Service resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.ServiceContext
         :rtype: twilio.rest.serverless.v1.service.ServiceContext
@@ -227,7 +227,7 @@ class ServiceContext(InstanceContext):
         Initialize the ServiceContext
 
         :param Version version: Version that contains the resource
-        :param sid: Serverless Service Sid or unique name.
+        :param sid: The SID of the Service resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.ServiceContext
         :rtype: twilio.rest.serverless.v1.service.ServiceContext
@@ -274,8 +274,8 @@ class ServiceContext(InstanceContext):
         """
         Update the ServiceInstance
 
-        :param bool include_credentials: Whether to inject Account credentials into a Function invocation context.
-        :param unicode friendly_name: A human-readable description of this Service.
+        :param bool include_credentials: Whether to inject Account credentials into a function invocation context
+        :param unicode friendly_name: A string to describe the Service resource
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.serverless.v1.service.ServiceInstance
@@ -396,7 +396,7 @@ class ServiceInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: Service Sid.
+        :returns: The unique string that identifies the Service resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -404,7 +404,7 @@ class ServiceInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid.
+        :returns: The SID of the Account that created the Service resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -412,7 +412,7 @@ class ServiceInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A human-readable description of this Service.
+        :returns: The string that you assigned to describe the Service resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -420,7 +420,7 @@ class ServiceInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: A unique, URL-friendly name of this Service.
+        :returns: An application-defined string that uniquely identifies the Service resource
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -428,7 +428,7 @@ class ServiceInstance(InstanceResource):
     @property
     def include_credentials(self):
         """
-        :returns: Whether to inject Account credentials into a Function invocation context.
+        :returns: Whether to inject Account credentials into a function invocation context
         :rtype: bool
         """
         return self._properties['include_credentials']
@@ -436,7 +436,7 @@ class ServiceInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this Service was created.
+        :returns: The ISO 8601 date and time in GMT when the Service resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -444,7 +444,7 @@ class ServiceInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date that this Service was updated.
+        :returns: The ISO 8601 date and time in GMT when the Service resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -452,7 +452,7 @@ class ServiceInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL of this Service.
+        :returns: The absolute URL of the Service resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -460,7 +460,7 @@ class ServiceInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: Nested resource URLs.
+        :returns: The URLs of the Service's nested resources
         :rtype: unicode
         """
         return self._properties['links']
@@ -487,8 +487,8 @@ class ServiceInstance(InstanceResource):
         """
         Update the ServiceInstance
 
-        :param bool include_credentials: Whether to inject Account credentials into a Function invocation context.
-        :param unicode friendly_name: A human-readable description of this Service.
+        :param bool include_credentials: Whether to inject Account credentials into a function invocation context
+        :param unicode friendly_name: A string to describe the Service resource
 
         :returns: Updated ServiceInstance
         :rtype: twilio.rest.serverless.v1.service.ServiceInstance

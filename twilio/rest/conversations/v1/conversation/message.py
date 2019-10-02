@@ -37,7 +37,7 @@ class MessageList(ListResource):
 
     def create(self, author=values.unset, body=values.unset,
                date_created=values.unset, date_updated=values.unset,
-               attributes=values.unset):
+               attributes=values.unset, media_sid=values.unset):
         """
         Create a new MessageInstance
 
@@ -46,6 +46,7 @@ class MessageList(ListResource):
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
         :param unicode attributes: A string metadata field you can use to store any data you wish.
+        :param unicode media_sid: The Media Sid to be attached to the new Message.
 
         :returns: Newly created MessageInstance
         :rtype: twilio.rest.conversations.v1.conversation.message.MessageInstance
@@ -56,6 +57,7 @@ class MessageList(ListResource):
             'DateCreated': serialize.iso8601_datetime(date_created),
             'DateUpdated': serialize.iso8601_datetime(date_updated),
             'Attributes': attributes,
+            'MediaSid': media_sid,
         })
 
         payload = self._version.create(
@@ -344,6 +346,7 @@ class MessageInstance(InstanceResource):
             'index': deserialize.integer(payload['index']),
             'author': payload['author'],
             'body': payload['body'],
+            'media': payload['media'],
             'attributes': payload['attributes'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
             'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
@@ -418,6 +421,14 @@ class MessageInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['body']
+
+    @property
+    def media(self):
+        """
+        :returns: An array of objects that describe the Message's media if attached, otherwise, null.
+        :rtype: dict
+        """
+        return self._properties['media']
 
     @property
     def attributes(self):

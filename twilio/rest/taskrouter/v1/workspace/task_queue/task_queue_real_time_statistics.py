@@ -22,8 +22,8 @@ class TaskQueueRealTimeStatisticsList(ListResource):
         Initialize the TaskQueueRealTimeStatisticsList
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The workspace_sid
-        :param task_queue_sid: The task_queue_sid
+        :param workspace_sid: The SID of the Workspace that contains the TaskQueue
+        :param task_queue_sid: The SID of the TaskQueue from which these statistics were calculated
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsList
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsList
@@ -78,8 +78,8 @@ class TaskQueueRealTimeStatisticsPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param workspace_sid: The workspace_sid
-        :param task_queue_sid: The task_queue_sid
+        :param workspace_sid: The SID of the Workspace that contains the TaskQueue
+        :param task_queue_sid: The SID of the TaskQueue from which these statistics were calculated
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsPage
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsPage
@@ -123,8 +123,8 @@ class TaskQueueRealTimeStatisticsContext(InstanceContext):
         Initialize the TaskQueueRealTimeStatisticsContext
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The workspace_sid
-        :param task_queue_sid: The task_queue_sid
+        :param workspace_sid: The SID of the Workspace with the TaskQueue to fetch
+        :param task_queue_sid: The SID of the TaskQueue for which to fetch statistics
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsContext
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsContext
@@ -139,7 +139,7 @@ class TaskQueueRealTimeStatisticsContext(InstanceContext):
         """
         Fetch a TaskQueueRealTimeStatisticsInstance
 
-        :param unicode task_channel: Filter real-time and cumulative statistics by TaskChannel.
+        :param unicode task_channel: The TaskChannel for which to fetch statistics
 
         :returns: Fetched TaskQueueRealTimeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsInstance
@@ -222,7 +222,7 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -230,7 +230,7 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
     @property
     def activity_statistics(self):
         """
-        :returns: The current Worker status count breakdown by Activity
+        :returns: The number of current Workers by Activity
         :rtype: dict
         """
         return self._properties['activity_statistics']
@@ -254,7 +254,7 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
     @property
     def task_queue_sid(self):
         """
-        :returns: The task_queue_sid
+        :returns: The SID of the TaskQueue from which these statistics were calculated
         :rtype: unicode
         """
         return self._properties['task_queue_sid']
@@ -262,7 +262,7 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
     @property
     def tasks_by_priority(self):
         """
-        :returns: The Tasks broken down by priority
+        :returns: The number of Tasks by priority
         :rtype: dict
         """
         return self._properties['tasks_by_priority']
@@ -270,7 +270,7 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
     @property
     def tasks_by_status(self):
         """
-        :returns: The Tasks broken down by status
+        :returns: The number of Tasks by their current status
         :rtype: dict
         """
         return self._properties['tasks_by_status']
@@ -278,7 +278,7 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
     @property
     def total_available_workers(self):
         """
-        :returns: The total number of Workers available for Tasks in this TaskQueue
+        :returns: The total number of Workers available for Tasks in the TaskQueue
         :rtype: unicode
         """
         return self._properties['total_available_workers']
@@ -286,7 +286,7 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
     @property
     def total_eligible_workers(self):
         """
-        :returns: The total number of Workers eligible for Tasks in this TaskQueue, irrespective of Activity state.
+        :returns: The total number of Workers eligible for Tasks in the TaskQueue, independent of their Activity state
         :rtype: unicode
         """
         return self._properties['total_eligible_workers']
@@ -302,7 +302,7 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
     @property
     def workspace_sid(self):
         """
-        :returns: The workspace_sid
+        :returns: The SID of the Workspace that contains the TaskQueue
         :rtype: unicode
         """
         return self._properties['workspace_sid']
@@ -310,7 +310,7 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the TaskQueue statistics resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -319,7 +319,7 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
         """
         Fetch a TaskQueueRealTimeStatisticsInstance
 
-        :param unicode task_channel: Filter real-time and cumulative statistics by TaskChannel.
+        :param unicode task_channel: The TaskChannel for which to fetch statistics
 
         :returns: Fetched TaskQueueRealTimeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsInstance

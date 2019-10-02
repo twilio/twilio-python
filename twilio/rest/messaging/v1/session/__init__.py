@@ -44,12 +44,12 @@ class SessionList(ListResource):
         """
         Create a new SessionInstance
 
-        :param unicode messaging_service_sid: The unique id of the SMS Service this session belongs to.
-        :param unicode friendly_name: The human-readable name of this session.
-        :param unicode attributes: An optional string metadata field you can use to store any data you wish.
-        :param datetime date_created: The date that this resource was created.
-        :param datetime date_updated: The date that this resource was last updated.
-        :param unicode created_by: Identity of the session's creator.
+        :param unicode messaging_service_sid: The SID of the SMS Service the session belongs to
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode attributes: A JSON string that stores application-specific data
+        :param datetime date_created: The ISO 8601 date and time in GMT when the resource was created
+        :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
+        :param unicode created_by: The Identity of the session's creator
 
         :returns: Newly created SessionInstance
         :rtype: twilio.rest.messaging.v1.session.SessionInstance
@@ -156,7 +156,7 @@ class SessionList(ListResource):
         """
         Constructs a SessionContext
 
-        :param sid: A 34 character string that uniquely identifies this resource.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.messaging.v1.session.SessionContext
         :rtype: twilio.rest.messaging.v1.session.SessionContext
@@ -167,7 +167,7 @@ class SessionList(ListResource):
         """
         Constructs a SessionContext
 
-        :param sid: A 34 character string that uniquely identifies this resource.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.messaging.v1.session.SessionContext
         :rtype: twilio.rest.messaging.v1.session.SessionContext
@@ -235,7 +235,7 @@ class SessionContext(InstanceContext):
         Initialize the SessionContext
 
         :param Version version: Version that contains the resource
-        :param sid: A 34 character string that uniquely identifies this resource.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.messaging.v1.session.SessionContext
         :rtype: twilio.rest.messaging.v1.session.SessionContext
@@ -283,11 +283,11 @@ class SessionContext(InstanceContext):
         """
         Update the SessionInstance
 
-        :param unicode friendly_name: The human-readable name of this session.
-        :param unicode attributes: An optional string metadata field you can use to store any data you wish.
-        :param datetime date_created: The date that this resource was created.
-        :param datetime date_updated: The date that this resource was last updated.
-        :param unicode created_by: Identity of the session's creator.
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode attributes: A JSON string that stores application-specific data
+        :param datetime date_created: The ISO 8601 date and time in GMT when the resource was created
+        :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
+        :param unicode created_by: The Identity of the session's creator
 
         :returns: Updated SessionInstance
         :rtype: twilio.rest.messaging.v1.session.SessionInstance
@@ -404,7 +404,7 @@ class SessionInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34 character string that uniquely identifies this resource.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -412,7 +412,7 @@ class SessionInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the Account responsible for this session.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -420,7 +420,7 @@ class SessionInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The unique id of the Chat Service this session belongs to.
+        :returns: The SID of the Service that the resource is associated with
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -428,7 +428,7 @@ class SessionInstance(InstanceResource):
     @property
     def messaging_service_sid(self):
         """
-        :returns: The unique id of the SMS Service this session belongs to.
+        :returns: The SID of the SMS Service the session belongs to
         :rtype: unicode
         """
         return self._properties['messaging_service_sid']
@@ -436,7 +436,7 @@ class SessionInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The human-readable name of this session.
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -444,7 +444,7 @@ class SessionInstance(InstanceResource):
     @property
     def attributes(self):
         """
-        :returns: An optional string metadata field you can use to store any data you wish.
+        :returns: The JSON string that stores application-specific data
         :rtype: unicode
         """
         return self._properties['attributes']
@@ -452,7 +452,7 @@ class SessionInstance(InstanceResource):
     @property
     def created_by(self):
         """
-        :returns: Identity of the session's creator.
+        :returns: The Identity of the session's creator
         :rtype: unicode
         """
         return self._properties['created_by']
@@ -460,7 +460,7 @@ class SessionInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this resource was created.
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -468,7 +468,7 @@ class SessionInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date that this resource was last updated.
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -476,7 +476,7 @@ class SessionInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: An absolute URL for this session.
+        :returns: The absolute URL of the session
         :rtype: unicode
         """
         return self._properties['url']
@@ -484,7 +484,7 @@ class SessionInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: Absolute URLs to access the Participants and Messages for this Session.
+        :returns: The absolute URLs of the Participants, Interactions, and Messages for the Session
         :rtype: unicode
         """
         return self._properties['links']
@@ -513,11 +513,11 @@ class SessionInstance(InstanceResource):
         """
         Update the SessionInstance
 
-        :param unicode friendly_name: The human-readable name of this session.
-        :param unicode attributes: An optional string metadata field you can use to store any data you wish.
-        :param datetime date_created: The date that this resource was created.
-        :param datetime date_updated: The date that this resource was last updated.
-        :param unicode created_by: Identity of the session's creator.
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode attributes: A JSON string that stores application-specific data
+        :param datetime date_created: The ISO 8601 date and time in GMT when the resource was created
+        :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
+        :param unicode created_by: The Identity of the session's creator
 
         :returns: Updated SessionInstance
         :rtype: twilio.rest.messaging.v1.session.SessionInstance

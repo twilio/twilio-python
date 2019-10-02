@@ -23,7 +23,7 @@ class WorkersCumulativeStatisticsList(ListResource):
         Initialize the WorkersCumulativeStatisticsList
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The workspace_sid
+        :param workspace_sid: The SID of the Workspace that contains the Workers
 
         :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsList
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsList
@@ -76,7 +76,7 @@ class WorkersCumulativeStatisticsPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param workspace_sid: The workspace_sid
+        :param workspace_sid: The SID of the Workspace that contains the Workers
 
         :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsPage
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsPage
@@ -119,7 +119,7 @@ class WorkersCumulativeStatisticsContext(InstanceContext):
         Initialize the WorkersCumulativeStatisticsContext
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The workspace_sid
+        :param workspace_sid: The SID of the Workspace with the resource to fetch
 
         :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsContext
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsContext
@@ -135,10 +135,10 @@ class WorkersCumulativeStatisticsContext(InstanceContext):
         """
         Fetch a WorkersCumulativeStatisticsInstance
 
-        :param datetime end_date: Filter cumulative statistics by a end date.
-        :param unicode minutes: Filter cumulative statistics by up to 'x' minutes in the past.
-        :param datetime start_date: Filter cumulative statistics by a start date.
-        :param unicode task_channel: Filter cumulative statistics by TaskChannel.
+        :param datetime end_date: Only calculate statistics from on or before this date
+        :param unicode minutes: Only calculate statistics since this many minutes in the past
+        :param datetime start_date: Only calculate statistics from on or after this date
+        :param unicode task_channel: Only calculate cumulative statistics on this TaskChannel
 
         :returns: Fetched WorkersCumulativeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsInstance
@@ -224,7 +224,7 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -232,7 +232,7 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
     @property
     def start_time(self):
         """
-        :returns: The start_time
+        :returns: The beginning of the interval during which these statistics were calculated
         :rtype: datetime
         """
         return self._properties['start_time']
@@ -240,7 +240,7 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
     @property
     def end_time(self):
         """
-        :returns: The end_time
+        :returns: The end of the interval during which these statistics were calculated
         :rtype: datetime
         """
         return self._properties['end_time']
@@ -248,7 +248,7 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
     @property
     def activity_durations(self):
         """
-        :returns: The minimum, average, maximum and total time Workers spent in each Activity
+        :returns: The minimum, average, maximum, and total time that Workers spent in each Activity
         :rtype: dict
         """
         return self._properties['activity_durations']
@@ -304,7 +304,7 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
     @property
     def workspace_sid(self):
         """
-        :returns: The workspace_sid
+        :returns: The SID of the Workspace that contains the Workers
         :rtype: unicode
         """
         return self._properties['workspace_sid']
@@ -312,7 +312,7 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the Workers statistics resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -322,10 +322,10 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
         """
         Fetch a WorkersCumulativeStatisticsInstance
 
-        :param datetime end_date: Filter cumulative statistics by a end date.
-        :param unicode minutes: Filter cumulative statistics by up to 'x' minutes in the past.
-        :param datetime start_date: Filter cumulative statistics by a start date.
-        :param unicode task_channel: Filter cumulative statistics by TaskChannel.
+        :param datetime end_date: Only calculate statistics from on or before this date
+        :param unicode minutes: Only calculate statistics since this many minutes in the past
+        :param datetime start_date: Only calculate statistics from on or after this date
+        :param unicode task_channel: Only calculate cumulative statistics on this TaskChannel
 
         :returns: Fetched WorkersCumulativeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsInstance

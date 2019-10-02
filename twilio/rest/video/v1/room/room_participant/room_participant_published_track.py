@@ -22,8 +22,8 @@ class PublishedTrackList(ListResource):
         Initialize the PublishedTrackList
 
         :param Version version: Version that contains the resource
-        :param room_sid: Unique Room identifier where this Track is published.
-        :param participant_sid: Unique Participant identifier that publishes this Track.
+        :param room_sid: The SID of the Room resource where the track is published
+        :param participant_sid: The SID of the Participant resource with the published track
 
         :returns: twilio.rest.video.v1.room.room_participant.room_participant_published_track.PublishedTrackList
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_published_track.PublishedTrackList
@@ -119,7 +119,7 @@ class PublishedTrackList(ListResource):
         """
         Constructs a PublishedTrackContext
 
-        :param sid: A 34 character string that uniquely identifies this resource.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.video.v1.room.room_participant.room_participant_published_track.PublishedTrackContext
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_published_track.PublishedTrackContext
@@ -135,7 +135,7 @@ class PublishedTrackList(ListResource):
         """
         Constructs a PublishedTrackContext
 
-        :param sid: A 34 character string that uniquely identifies this resource.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.video.v1.room.room_participant.room_participant_published_track.PublishedTrackContext
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_published_track.PublishedTrackContext
@@ -166,8 +166,8 @@ class PublishedTrackPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param room_sid: Unique Room identifier where this Track is published.
-        :param participant_sid: Unique Participant identifier that publishes this Track.
+        :param room_sid: The SID of the Room resource where the track is published
+        :param participant_sid: The SID of the Participant resource with the published track
 
         :returns: twilio.rest.video.v1.room.room_participant.room_participant_published_track.PublishedTrackPage
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_published_track.PublishedTrackPage
@@ -211,9 +211,9 @@ class PublishedTrackContext(InstanceContext):
         Initialize the PublishedTrackContext
 
         :param Version version: Version that contains the resource
-        :param room_sid: Unique Room identifier where this Track is published.
-        :param participant_sid: Unique Participant identifier that publishes this Track.
-        :param sid: A 34 character string that uniquely identifies this resource.
+        :param room_sid: The SID of the Room resource where the Track resource to fetch is published
+        :param participant_sid: The SID of the Participant resource with the published track to fetch
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.video.v1.room.room_participant.room_participant_published_track.PublishedTrackContext
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_published_track.PublishedTrackContext
@@ -317,7 +317,7 @@ class PublishedTrackInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34 character string that uniquely identifies this resource.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -325,7 +325,7 @@ class PublishedTrackInstance(InstanceResource):
     @property
     def participant_sid(self):
         """
-        :returns: Unique Participant identifier that publishes this Track.
+        :returns: The SID of the Participant resource with the published track
         :rtype: unicode
         """
         return self._properties['participant_sid']
@@ -333,7 +333,7 @@ class PublishedTrackInstance(InstanceResource):
     @property
     def room_sid(self):
         """
-        :returns: Unique Room identifier where this Track is published.
+        :returns: The SID of the Room resource where the track is published
         :rtype: unicode
         """
         return self._properties['room_sid']
@@ -341,7 +341,7 @@ class PublishedTrackInstance(InstanceResource):
     @property
     def name(self):
         """
-        :returns: Track name. Limited to 128 characters.
+        :returns: The track name
         :rtype: unicode
         """
         return self._properties['name']
@@ -349,7 +349,7 @@ class PublishedTrackInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this resource was created.
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -357,7 +357,7 @@ class PublishedTrackInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date that this resource was last updated.
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -365,7 +365,7 @@ class PublishedTrackInstance(InstanceResource):
     @property
     def enabled(self):
         """
-        :returns: Specifies whether the Track is enabled or not.
+        :returns: Whether the track is enabled
         :rtype: bool
         """
         return self._properties['enabled']
@@ -373,7 +373,7 @@ class PublishedTrackInstance(InstanceResource):
     @property
     def kind(self):
         """
-        :returns: Specifies whether Track represents `audio`, `video` or `data`
+        :returns: The track type
         :rtype: PublishedTrackInstance.Kind
         """
         return self._properties['kind']
@@ -381,7 +381,7 @@ class PublishedTrackInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The absolute URL for this resource.
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']

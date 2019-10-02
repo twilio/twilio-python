@@ -22,8 +22,8 @@ class WorkflowRealTimeStatisticsList(ListResource):
         Initialize the WorkflowRealTimeStatisticsList
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The workspace_sid
-        :param workflow_sid: The workflow_sid
+        :param workspace_sid: The SID of the Workspace that contains the Workflow.
+        :param workflow_sid: Returns the list of Tasks that are being controlled by the Workflow with the specified SID value
 
         :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsList
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsList
@@ -78,8 +78,8 @@ class WorkflowRealTimeStatisticsPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param workspace_sid: The workspace_sid
-        :param workflow_sid: The workflow_sid
+        :param workspace_sid: The SID of the Workspace that contains the Workflow.
+        :param workflow_sid: Returns the list of Tasks that are being controlled by the Workflow with the specified SID value
 
         :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsPage
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsPage
@@ -123,8 +123,8 @@ class WorkflowRealTimeStatisticsContext(InstanceContext):
         Initialize the WorkflowRealTimeStatisticsContext
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The workspace_sid
-        :param workflow_sid: The workflow_sid
+        :param workspace_sid: The SID of the Workspace with the Workflow to fetch
+        :param workflow_sid: Returns the list of Tasks that are being controlled by the Workflow with the specified SID value
 
         :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsContext
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsContext
@@ -139,7 +139,7 @@ class WorkflowRealTimeStatisticsContext(InstanceContext):
         """
         Fetch a WorkflowRealTimeStatisticsInstance
 
-        :param unicode task_channel: Filter real-time and cumulative statistics by TaskChannel.
+        :param unicode task_channel: Only calculate real-time statistics on this TaskChannel
 
         :returns: Fetched WorkflowRealTimeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsInstance
@@ -219,7 +219,7 @@ class WorkflowRealTimeStatisticsInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -243,7 +243,7 @@ class WorkflowRealTimeStatisticsInstance(InstanceResource):
     @property
     def tasks_by_priority(self):
         """
-        :returns: The tasks_by_priority
+        :returns: The number of Tasks by priority
         :rtype: dict
         """
         return self._properties['tasks_by_priority']
@@ -251,7 +251,7 @@ class WorkflowRealTimeStatisticsInstance(InstanceResource):
     @property
     def tasks_by_status(self):
         """
-        :returns: The Tasks broken down by status
+        :returns: The number of Tasks by their current status
         :rtype: dict
         """
         return self._properties['tasks_by_status']
@@ -267,7 +267,7 @@ class WorkflowRealTimeStatisticsInstance(InstanceResource):
     @property
     def workflow_sid(self):
         """
-        :returns: The workflow_sid
+        :returns: Returns the list of Tasks that are being controlled by the Workflow with the specified SID value
         :rtype: unicode
         """
         return self._properties['workflow_sid']
@@ -275,7 +275,7 @@ class WorkflowRealTimeStatisticsInstance(InstanceResource):
     @property
     def workspace_sid(self):
         """
-        :returns: The workspace_sid
+        :returns: The SID of the Workspace that contains the Workflow.
         :rtype: unicode
         """
         return self._properties['workspace_sid']
@@ -283,7 +283,7 @@ class WorkflowRealTimeStatisticsInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the Workflow statistics resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -292,7 +292,7 @@ class WorkflowRealTimeStatisticsInstance(InstanceResource):
         """
         Fetch a WorkflowRealTimeStatisticsInstance
 
-        :param unicode task_channel: Filter real-time and cumulative statistics by TaskChannel.
+        :param unicode task_channel: Only calculate real-time statistics on this TaskChannel
 
         :returns: Fetched WorkflowRealTimeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsInstance

@@ -44,10 +44,10 @@ class CompositionList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param CompositionInstance.Status status: Only show Compositions with the given status.
-        :param datetime date_created_after: Only show Compositions created on or after this ISO8601 date-time with timezone.
-        :param datetime date_created_before: Only show Compositions created before this ISO8601 date-time with timezone.
-        :param unicode room_sid: Only show Compositions with the given Room SID.
+        :param CompositionInstance.Status status: Read only Composition resources with this status
+        :param datetime date_created_after: Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone
+        :param datetime date_created_before: Read only Composition resources created before this ISO 8601 date-time with time zone
+        :param unicode room_sid: Read only Composition resources with this Room SID
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -78,10 +78,10 @@ class CompositionList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param CompositionInstance.Status status: Only show Compositions with the given status.
-        :param datetime date_created_after: Only show Compositions created on or after this ISO8601 date-time with timezone.
-        :param datetime date_created_before: Only show Compositions created before this ISO8601 date-time with timezone.
-        :param unicode room_sid: Only show Compositions with the given Room SID.
+        :param CompositionInstance.Status status: Read only Composition resources with this status
+        :param datetime date_created_after: Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone
+        :param datetime date_created_before: Read only Composition resources created before this ISO 8601 date-time with time zone
+        :param unicode room_sid: Read only Composition resources with this Room SID
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -109,10 +109,10 @@ class CompositionList(ListResource):
         Retrieve a single page of CompositionInstance records from the API.
         Request is executed immediately
 
-        :param CompositionInstance.Status status: Only show Compositions with the given status.
-        :param datetime date_created_after: Only show Compositions created on or after this ISO8601 date-time with timezone.
-        :param datetime date_created_before: Only show Compositions created before this ISO8601 date-time with timezone.
-        :param unicode room_sid: Only show Compositions with the given Room SID.
+        :param CompositionInstance.Status status: Read only Composition resources with this status
+        :param datetime date_created_after: Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone
+        :param datetime date_created_before: Read only Composition resources created before this ISO 8601 date-time with time zone
+        :param unicode room_sid: Read only Composition resources with this Room SID
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -163,15 +163,15 @@ class CompositionList(ListResource):
         """
         Create a new CompositionInstance
 
-        :param unicode room_sid: Twilio Room SID.
-        :param dict video_layout: The JSON video layout description.
-        :param unicode audio_sources: A list of audio sources related to this Composition.
-        :param unicode audio_sources_excluded: A list of audio sources excluded related to this Composition.
-        :param unicode resolution: Pixel resolution of the composed video.
-        :param CompositionInstance.Format format: Container format of the Composition media file. Any of the following: `mp4`, `webm`.
-        :param unicode status_callback: A URL that Twilio sends asynchronous webhook requests to on every composition event.
-        :param unicode status_callback_method: HTTP method Twilio should use when requesting the above URL.
-        :param bool trim: Boolean flag for clipping intervals that have no media.
+        :param unicode room_sid: The SID of the Group Room with the media tracks to be used as composition sources
+        :param dict video_layout: An object that describes the video layout of the composition
+        :param unicode audio_sources: An array of track names from the same group room to merge
+        :param unicode audio_sources_excluded: An array of track names to exclude
+        :param unicode resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels
+        :param CompositionInstance.Format format: The container format of the composition's media files
+        :param unicode status_callback: The URL we should call to send status information to your application
+        :param unicode status_callback_method: The HTTP method we should use to call status_callback
+        :param bool trim: Whether to clip the intervals where there is no active media in the composition
 
         :returns: Newly created CompositionInstance
         :rtype: twilio.rest.video.v1.composition.CompositionInstance
@@ -200,7 +200,7 @@ class CompositionList(ListResource):
         """
         Constructs a CompositionContext
 
-        :param sid: The Composition Sid that uniquely identifies the Composition to fetch.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.video.v1.composition.CompositionContext
         :rtype: twilio.rest.video.v1.composition.CompositionContext
@@ -211,7 +211,7 @@ class CompositionList(ListResource):
         """
         Constructs a CompositionContext
 
-        :param sid: The Composition Sid that uniquely identifies the Composition to fetch.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.video.v1.composition.CompositionContext
         :rtype: twilio.rest.video.v1.composition.CompositionContext
@@ -279,7 +279,7 @@ class CompositionContext(InstanceContext):
         Initialize the CompositionContext
 
         :param Version version: Version that contains the resource
-        :param sid: The Composition Sid that uniquely identifies the Composition to fetch.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.video.v1.composition.CompositionContext
         :rtype: twilio.rest.video.v1.composition.CompositionContext
@@ -394,7 +394,7 @@ class CompositionInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Twilio Account SID.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -402,7 +402,7 @@ class CompositionInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: The status of the Composition.
+        :returns: The status of the composition
         :rtype: CompositionInstance.Status
         """
         return self._properties['status']
@@ -410,7 +410,7 @@ class CompositionInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: Date when the Composition Resource was created.
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -418,7 +418,7 @@ class CompositionInstance(InstanceResource):
     @property
     def date_completed(self):
         """
-        :returns: Date when the media processing task finished.
+        :returns: Date when the media processing task finished
         :rtype: unicode
         """
         return self._properties['date_completed']
@@ -426,7 +426,7 @@ class CompositionInstance(InstanceResource):
     @property
     def date_deleted(self):
         """
-        :returns: Date when the Composition Resource generated media was deleted.
+        :returns: The ISO 8601 date and time in GMT when the composition generated media was deleted
         :rtype: unicode
         """
         return self._properties['date_deleted']
@@ -434,7 +434,7 @@ class CompositionInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34-character string that uniquely identifies this Composition.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -442,7 +442,7 @@ class CompositionInstance(InstanceResource):
     @property
     def room_sid(self):
         """
-        :returns: A 34-character string that uniquely identifies the source of this Composition.
+        :returns: The SID of the Group Room that generated the audio and video tracks used in the composition
         :rtype: unicode
         """
         return self._properties['room_sid']
@@ -450,7 +450,7 @@ class CompositionInstance(InstanceResource):
     @property
     def audio_sources(self):
         """
-        :returns: A list of audio sources related to this Composition.
+        :returns: The array of track names to include in the composition
         :rtype: unicode
         """
         return self._properties['audio_sources']
@@ -458,7 +458,7 @@ class CompositionInstance(InstanceResource):
     @property
     def audio_sources_excluded(self):
         """
-        :returns: A list of audio sources excluded related to this Composition.
+        :returns: The array of track names to exclude from the composition
         :rtype: unicode
         """
         return self._properties['audio_sources_excluded']
@@ -466,7 +466,7 @@ class CompositionInstance(InstanceResource):
     @property
     def video_layout(self):
         """
-        :returns: The JSON video layout description.
+        :returns: An object that describes the video layout of the composition
         :rtype: dict
         """
         return self._properties['video_layout']
@@ -474,7 +474,7 @@ class CompositionInstance(InstanceResource):
     @property
     def resolution(self):
         """
-        :returns: Pixel resolution of the composed video.
+        :returns: The dimensions of the video image in pixels expressed as columns (width) and rows (height)
         :rtype: unicode
         """
         return self._properties['resolution']
@@ -482,7 +482,7 @@ class CompositionInstance(InstanceResource):
     @property
     def trim(self):
         """
-        :returns: Boolean flag for clipping intervals that have no media.
+        :returns: Whether to remove intervals with no media
         :rtype: bool
         """
         return self._properties['trim']
@@ -490,7 +490,7 @@ class CompositionInstance(InstanceResource):
     @property
     def format(self):
         """
-        :returns: The file format for this Composition.
+        :returns: The container format of the composition's media files as specified in the POST request that created the Composition resource
         :rtype: CompositionInstance.Format
         """
         return self._properties['format']
@@ -498,7 +498,7 @@ class CompositionInstance(InstanceResource):
     @property
     def bitrate(self):
         """
-        :returns: The bitrate
+        :returns: The average bit rate of the composition's media
         :rtype: unicode
         """
         return self._properties['bitrate']
@@ -506,7 +506,7 @@ class CompositionInstance(InstanceResource):
     @property
     def size(self):
         """
-        :returns: Size of the Composed media file expressed in bytes.
+        :returns: The size of the composed media file in bytes
         :rtype: unicode
         """
         return self._properties['size']
@@ -514,7 +514,7 @@ class CompositionInstance(InstanceResource):
     @property
     def duration(self):
         """
-        :returns: Duration of the Composed media in seconds.
+        :returns: The duration of the composition's media file in seconds
         :rtype: unicode
         """
         return self._properties['duration']
@@ -522,7 +522,7 @@ class CompositionInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The absolute URL for this resource.
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -530,7 +530,7 @@ class CompositionInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: JSON object with the URL where the media file can be fetched.
+        :returns: The URL of the media file associated with the composition
         :rtype: unicode
         """
         return self._properties['links']

@@ -23,7 +23,7 @@ class WorkspaceCumulativeStatisticsList(ListResource):
         Initialize the WorkspaceCumulativeStatisticsList
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The workspace_sid
+        :param workspace_sid: The SID of the Workspace
 
         :returns: twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics.WorkspaceCumulativeStatisticsList
         :rtype: twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics.WorkspaceCumulativeStatisticsList
@@ -76,7 +76,7 @@ class WorkspaceCumulativeStatisticsPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param workspace_sid: The workspace_sid
+        :param workspace_sid: The SID of the Workspace
 
         :returns: twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics.WorkspaceCumulativeStatisticsPage
         :rtype: twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics.WorkspaceCumulativeStatisticsPage
@@ -119,7 +119,7 @@ class WorkspaceCumulativeStatisticsContext(InstanceContext):
         Initialize the WorkspaceCumulativeStatisticsContext
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The workspace_sid
+        :param workspace_sid: The SID of the Workspace to fetch
 
         :returns: twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics.WorkspaceCumulativeStatisticsContext
         :rtype: twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics.WorkspaceCumulativeStatisticsContext
@@ -136,11 +136,11 @@ class WorkspaceCumulativeStatisticsContext(InstanceContext):
         """
         Fetch a WorkspaceCumulativeStatisticsInstance
 
-        :param datetime end_date: Filter cumulative statistics by an end date.
-        :param unicode minutes: Filter cumulative statistics by up to 'x' minutes in the past.
-        :param datetime start_date: Filter cumulative statistics by a start date.
-        :param unicode task_channel: Filter real-time and cumulative statistics by TaskChannel.
-        :param unicode split_by_wait_time: A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
+        :param datetime end_date: Only include usage that occurred on or before this date
+        :param unicode minutes: Only calculate statistics since this many minutes in the past
+        :param datetime start_date: Only calculate statistics from on or after this date
+        :param unicode task_channel: Only calculate cumulative statistics on this TaskChannel
+        :param unicode split_by_wait_time: A comma separated list of values that describes the thresholds to calculate statistics on
 
         :returns: Fetched WorkspaceCumulativeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics.WorkspaceCumulativeStatisticsInstance
@@ -236,7 +236,7 @@ class WorkspaceCumulativeStatisticsInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -244,7 +244,7 @@ class WorkspaceCumulativeStatisticsInstance(InstanceResource):
     @property
     def avg_task_acceptance_time(self):
         """
-        :returns: The average time from Task creation to acceptance
+        :returns: The average time in seconds between Task creation and acceptance
         :rtype: unicode
         """
         return self._properties['avg_task_acceptance_time']
@@ -252,7 +252,7 @@ class WorkspaceCumulativeStatisticsInstance(InstanceResource):
     @property
     def start_time(self):
         """
-        :returns: The start_time
+        :returns: The beginning of the interval during which these statistics were calculated
         :rtype: datetime
         """
         return self._properties['start_time']
@@ -260,7 +260,7 @@ class WorkspaceCumulativeStatisticsInstance(InstanceResource):
     @property
     def end_time(self):
         """
-        :returns: The end_time
+        :returns: The end of the interval during which these statistics were calculated
         :rtype: datetime
         """
         return self._properties['end_time']
@@ -316,7 +316,7 @@ class WorkspaceCumulativeStatisticsInstance(InstanceResource):
     @property
     def split_by_wait_time(self):
         """
-        :returns: The splits of the tasks canceled and accepted based on the provided SplitByWaitTime parameter.
+        :returns: A list of objects that describe the Tasks canceled and reservations accepted above and below the specified thresholds
         :rtype: dict
         """
         return self._properties['split_by_wait_time']
@@ -324,7 +324,7 @@ class WorkspaceCumulativeStatisticsInstance(InstanceResource):
     @property
     def wait_duration_until_accepted(self):
         """
-        :returns: The wait duration stats for tasks that were accepted.
+        :returns: The wait duration statistics for Tasks that were accepted
         :rtype: dict
         """
         return self._properties['wait_duration_until_accepted']
@@ -332,7 +332,7 @@ class WorkspaceCumulativeStatisticsInstance(InstanceResource):
     @property
     def wait_duration_until_canceled(self):
         """
-        :returns: The wait duration stats for tasks that were canceled.
+        :returns: The wait duration statistics for Tasks that were canceled
         :rtype: dict
         """
         return self._properties['wait_duration_until_canceled']
@@ -388,7 +388,7 @@ class WorkspaceCumulativeStatisticsInstance(InstanceResource):
     @property
     def workspace_sid(self):
         """
-        :returns: The workspace_sid
+        :returns: The SID of the Workspace
         :rtype: unicode
         """
         return self._properties['workspace_sid']
@@ -396,7 +396,7 @@ class WorkspaceCumulativeStatisticsInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the Workspace statistics resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -407,11 +407,11 @@ class WorkspaceCumulativeStatisticsInstance(InstanceResource):
         """
         Fetch a WorkspaceCumulativeStatisticsInstance
 
-        :param datetime end_date: Filter cumulative statistics by an end date.
-        :param unicode minutes: Filter cumulative statistics by up to 'x' minutes in the past.
-        :param datetime start_date: Filter cumulative statistics by a start date.
-        :param unicode task_channel: Filter real-time and cumulative statistics by TaskChannel.
-        :param unicode split_by_wait_time: A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
+        :param datetime end_date: Only include usage that occurred on or before this date
+        :param unicode minutes: Only calculate statistics since this many minutes in the past
+        :param datetime start_date: Only calculate statistics from on or after this date
+        :param unicode task_channel: Only calculate cumulative statistics on this TaskChannel
+        :param unicode split_by_wait_time: A comma separated list of values that describes the thresholds to calculate statistics on
 
         :returns: Fetched WorkspaceCumulativeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics.WorkspaceCumulativeStatisticsInstance

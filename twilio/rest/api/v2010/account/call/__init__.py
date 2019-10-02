@@ -144,12 +144,12 @@ class CallList(ListResource):
         :param unicode from_: Phone number or Client identifier to filter `from` on
         :param unicode parent_call_sid: Parent call SID to filter on
         :param CallInstance.Status status: The status of the resources to read
-        :param datetime start_time_before: Only include calls that started on or after this date
-        :param datetime start_time: Only include calls that started on or after this date
-        :param datetime start_time_after: Only include calls that started on or after this date
-        :param datetime end_time_before: Only include usage that occurred on or before this date
-        :param datetime end_time: Only include usage that occurred on or before this date
-        :param datetime end_time_after: Only include usage that occurred on or before this date
+        :param datetime start_time_before: Only include calls that started on this date
+        :param datetime start_time: Only include calls that started on this date
+        :param datetime start_time_after: Only include calls that started on this date
+        :param datetime end_time_before: Only include calls that ended on this date
+        :param datetime end_time: Only include calls that ended on this date
+        :param datetime end_time_after: Only include calls that ended on this date
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -193,12 +193,12 @@ class CallList(ListResource):
         :param unicode from_: Phone number or Client identifier to filter `from` on
         :param unicode parent_call_sid: Parent call SID to filter on
         :param CallInstance.Status status: The status of the resources to read
-        :param datetime start_time_before: Only include calls that started on or after this date
-        :param datetime start_time: Only include calls that started on or after this date
-        :param datetime start_time_after: Only include calls that started on or after this date
-        :param datetime end_time_before: Only include usage that occurred on or before this date
-        :param datetime end_time: Only include usage that occurred on or before this date
-        :param datetime end_time_after: Only include usage that occurred on or before this date
+        :param datetime start_time_before: Only include calls that started on this date
+        :param datetime start_time: Only include calls that started on this date
+        :param datetime start_time_after: Only include calls that started on this date
+        :param datetime end_time_before: Only include calls that ended on this date
+        :param datetime end_time: Only include calls that ended on this date
+        :param datetime end_time_after: Only include calls that ended on this date
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -239,12 +239,12 @@ class CallList(ListResource):
         :param unicode from_: Phone number or Client identifier to filter `from` on
         :param unicode parent_call_sid: Parent call SID to filter on
         :param CallInstance.Status status: The status of the resources to read
-        :param datetime start_time_before: Only include calls that started on or after this date
-        :param datetime start_time: Only include calls that started on or after this date
-        :param datetime start_time_after: Only include calls that started on or after this date
-        :param datetime end_time_before: Only include usage that occurred on or before this date
-        :param datetime end_time: Only include usage that occurred on or before this date
-        :param datetime end_time_after: Only include usage that occurred on or before this date
+        :param datetime start_time_before: Only include calls that started on this date
+        :param datetime start_time: Only include calls that started on this date
+        :param datetime start_time_after: Only include calls that started on this date
+        :param datetime end_time_before: Only include calls that ended on this date
+        :param datetime end_time: Only include calls that ended on this date
+        :param datetime end_time_after: Only include calls that ended on this date
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50

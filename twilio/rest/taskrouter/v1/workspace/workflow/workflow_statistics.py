@@ -22,8 +22,8 @@ class WorkflowStatisticsList(ListResource):
         Initialize the WorkflowStatisticsList
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The workspace_sid
-        :param workflow_sid: The workflow_sid
+        :param workspace_sid: The SID of the Workspace that contains the Workflow
+        :param workflow_sid: Returns the list of Tasks that are being controlled by the Workflow with the specified SID value
 
         :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics.WorkflowStatisticsList
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics.WorkflowStatisticsList
@@ -78,8 +78,8 @@ class WorkflowStatisticsPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param workspace_sid: The workspace_sid
-        :param workflow_sid: The workflow_sid
+        :param workspace_sid: The SID of the Workspace that contains the Workflow
+        :param workflow_sid: Returns the list of Tasks that are being controlled by the Workflow with the specified SID value
 
         :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics.WorkflowStatisticsPage
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics.WorkflowStatisticsPage
@@ -123,8 +123,8 @@ class WorkflowStatisticsContext(InstanceContext):
         Initialize the WorkflowStatisticsContext
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The workspace_sid
-        :param workflow_sid: The workflow_sid
+        :param workspace_sid: The SID of the Workspace with the Workflow to fetch
+        :param workflow_sid: Returns the list of Tasks that are being controlled by the Workflow with the specified SID value
 
         :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics.WorkflowStatisticsContext
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics.WorkflowStatisticsContext
@@ -141,11 +141,11 @@ class WorkflowStatisticsContext(InstanceContext):
         """
         Fetch a WorkflowStatisticsInstance
 
-        :param unicode minutes: Filter cumulative statistics by up to 'x' minutes in the past.
-        :param datetime start_date: Filter cumulative statistics by a start date.
-        :param datetime end_date: Filter cumulative statistics by an end date.
-        :param unicode task_channel: Filter real-time and cumulative statistics by TaskChannel.
-        :param unicode split_by_wait_time: A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
+        :param unicode minutes: Only calculate statistics since this many minutes in the past
+        :param datetime start_date: Only calculate statistics from on or after this date
+        :param datetime end_date: Only calculate statistics from this date and time and earlier
+        :param unicode task_channel: Only calculate real-time statistics on this TaskChannel.
+        :param unicode split_by_wait_time: A comma separated list of values that describes the thresholds to calculate statistics on
 
         :returns: Fetched WorkflowStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics.WorkflowStatisticsInstance
@@ -228,7 +228,7 @@ class WorkflowStatisticsInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -236,7 +236,7 @@ class WorkflowStatisticsInstance(InstanceResource):
     @property
     def cumulative(self):
         """
-        :returns: The cumulative
+        :returns: An object that contains the cumulative statistics for the Workflow
         :rtype: dict
         """
         return self._properties['cumulative']
@@ -244,7 +244,7 @@ class WorkflowStatisticsInstance(InstanceResource):
     @property
     def realtime(self):
         """
-        :returns: The realtime
+        :returns: An object that contains the real-time statistics for the Workflow
         :rtype: dict
         """
         return self._properties['realtime']
@@ -252,7 +252,7 @@ class WorkflowStatisticsInstance(InstanceResource):
     @property
     def workflow_sid(self):
         """
-        :returns: The workflow_sid
+        :returns: Returns the list of Tasks that are being controlled by the Workflow with the specified SID value
         :rtype: unicode
         """
         return self._properties['workflow_sid']
@@ -260,7 +260,7 @@ class WorkflowStatisticsInstance(InstanceResource):
     @property
     def workspace_sid(self):
         """
-        :returns: The workspace_sid
+        :returns: The SID of the Workspace that contains the Workflow
         :rtype: unicode
         """
         return self._properties['workspace_sid']
@@ -268,7 +268,7 @@ class WorkflowStatisticsInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the Workflow statistics resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -279,11 +279,11 @@ class WorkflowStatisticsInstance(InstanceResource):
         """
         Fetch a WorkflowStatisticsInstance
 
-        :param unicode minutes: Filter cumulative statistics by up to 'x' minutes in the past.
-        :param datetime start_date: Filter cumulative statistics by a start date.
-        :param datetime end_date: Filter cumulative statistics by an end date.
-        :param unicode task_channel: Filter real-time and cumulative statistics by TaskChannel.
-        :param unicode split_by_wait_time: A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
+        :param unicode minutes: Only calculate statistics since this many minutes in the past
+        :param datetime start_date: Only calculate statistics from on or after this date
+        :param datetime end_date: Only calculate statistics from this date and time and earlier
+        :param unicode task_channel: Only calculate real-time statistics on this TaskChannel.
+        :param unicode split_by_wait_time: A comma separated list of values that describes the thresholds to calculate statistics on
 
         :returns: Fetched WorkflowStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics.WorkflowStatisticsInstance

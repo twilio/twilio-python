@@ -25,7 +25,7 @@ class BuildList(ListResource):
         Initialize the BuildList
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
+        :param service_sid: The SID of the Service that the Build resource is associated with
 
         :returns: twilio.rest.serverless.v1.service.build.BuildList
         :rtype: twilio.rest.serverless.v1.service.build.BuildList
@@ -122,9 +122,9 @@ class BuildList(ListResource):
         """
         Create a new BuildInstance
 
-        :param unicode asset_versions: List of Asset Version Sids.
-        :param unicode function_versions: List of Function Version Sids.
-        :param unicode dependencies: List of Dependencies.
+        :param unicode asset_versions: The list of AssetVersion resource SIDs to include in the build
+        :param unicode function_versions: The list of the Variable resource SIDs to include in the build
+        :param unicode dependencies: A list of objects that describe the Dependencies included in the build
 
         :returns: Newly created BuildInstance
         :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
@@ -147,7 +147,7 @@ class BuildList(ListResource):
         """
         Constructs a BuildContext
 
-        :param sid: Build Sid.
+        :param sid: The SID of the Build resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.build.BuildContext
         :rtype: twilio.rest.serverless.v1.service.build.BuildContext
@@ -158,7 +158,7 @@ class BuildList(ListResource):
         """
         Constructs a BuildContext
 
-        :param sid: Build Sid.
+        :param sid: The SID of the Build resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.build.BuildContext
         :rtype: twilio.rest.serverless.v1.service.build.BuildContext
@@ -186,7 +186,7 @@ class BuildPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: Service Sid.
+        :param service_sid: The SID of the Service that the Build resource is associated with
 
         :returns: twilio.rest.serverless.v1.service.build.BuildPage
         :rtype: twilio.rest.serverless.v1.service.build.BuildPage
@@ -227,8 +227,8 @@ class BuildContext(InstanceContext):
         Initialize the BuildContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
-        :param sid: Build Sid.
+        :param service_sid: The SID of the Service to fetch the Build resource from
+        :param sid: The SID of the Build resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.build.BuildContext
         :rtype: twilio.rest.serverless.v1.service.build.BuildContext
@@ -338,7 +338,7 @@ class BuildInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: Build Sid.
+        :returns: The unique string that identifies the Build resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -346,7 +346,7 @@ class BuildInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid.
+        :returns: The SID of the Account that created the Build resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -354,7 +354,7 @@ class BuildInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: Service Sid.
+        :returns: The SID of the Service that the Build resource is associated with
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -362,7 +362,7 @@ class BuildInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: The current state of the Build.
+        :returns: The status of the build
         :rtype: BuildInstance.Status
         """
         return self._properties['status']
@@ -370,7 +370,7 @@ class BuildInstance(InstanceResource):
     @property
     def asset_versions(self):
         """
-        :returns: List of Asset Version Sids.
+        :returns: The list of AssetVersion resource SIDs that are included in the build
         :rtype: dict
         """
         return self._properties['asset_versions']
@@ -378,7 +378,7 @@ class BuildInstance(InstanceResource):
     @property
     def function_versions(self):
         """
-        :returns: List of Function Version Sids.
+        :returns: List of the Variable resource SIDs
         :rtype: dict
         """
         return self._properties['function_versions']
@@ -386,7 +386,7 @@ class BuildInstance(InstanceResource):
     @property
     def dependencies(self):
         """
-        :returns: List of Dependencies.
+        :returns: A list of objects that describe the Dependencies included in the build
         :rtype: dict
         """
         return self._properties['dependencies']
@@ -394,7 +394,7 @@ class BuildInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this Build was created.
+        :returns: The ISO 8601 date and time in GMT when the Build resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -402,7 +402,7 @@ class BuildInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date that this Build was updated.
+        :returns: The ISO 8601 date and time in GMT when the Build resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -410,7 +410,7 @@ class BuildInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL of this Build.
+        :returns: The absolute URL of the Build resource
         :rtype: unicode
         """
         return self._properties['url']

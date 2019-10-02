@@ -3,6 +3,18 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2019-10-02] Version 6.31.1
+---------------------------
+**Library**
+- [PR #477](https://github.com/twilio/twilio-python/pull/477): added validation of signature without stripping port number. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Conversations**
+- Add media to Conversations Message resource
+
+**Supersim**
+- Add List endpoint to Sims resource for Super Sim Pilot
+
+
 [2019-09-18] Version 6.31.0
 ----------------------------
 **Numbers**

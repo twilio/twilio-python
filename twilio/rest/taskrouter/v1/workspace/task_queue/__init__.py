@@ -26,7 +26,7 @@ class TaskQueueList(ListResource):
         Initialize the TaskQueueList
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The ID of the Workspace that owns this TaskQueue
+        :param workspace_sid: The SID of the Workspace that contains the TaskQueue
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueList
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueList
@@ -49,9 +49,9 @@ class TaskQueueList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode friendly_name: Filter by a human readable description of a TaskQueue
-        :param unicode evaluate_worker_attributes: Provide a Worker attributes expression, and this will return the list of TaskQueues that would distribute tasks to a worker with these attributes.
-        :param unicode worker_sid: The worker_sid
+        :param unicode friendly_name: The friendly_name of the TaskQueue resources to read
+        :param unicode evaluate_worker_attributes: The attributes of the Workers to read
+        :param unicode worker_sid: The SID of the Worker with the TaskQueue resources to read
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -81,9 +81,9 @@ class TaskQueueList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode friendly_name: Filter by a human readable description of a TaskQueue
-        :param unicode evaluate_worker_attributes: Provide a Worker attributes expression, and this will return the list of TaskQueues that would distribute tasks to a worker with these attributes.
-        :param unicode worker_sid: The worker_sid
+        :param unicode friendly_name: The friendly_name of the TaskQueue resources to read
+        :param unicode evaluate_worker_attributes: The attributes of the Workers to read
+        :param unicode worker_sid: The SID of the Worker with the TaskQueue resources to read
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -110,9 +110,9 @@ class TaskQueueList(ListResource):
         Retrieve a single page of TaskQueueInstance records from the API.
         Request is executed immediately
 
-        :param unicode friendly_name: Filter by a human readable description of a TaskQueue
-        :param unicode evaluate_worker_attributes: Provide a Worker attributes expression, and this will return the list of TaskQueues that would distribute tasks to a worker with these attributes.
-        :param unicode worker_sid: The worker_sid
+        :param unicode friendly_name: The friendly_name of the TaskQueue resources to read
+        :param unicode evaluate_worker_attributes: The attributes of the Workers to read
+        :param unicode worker_sid: The SID of the Worker with the TaskQueue resources to read
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -161,12 +161,12 @@ class TaskQueueList(ListResource):
         """
         Create a new TaskQueueInstance
 
-        :param unicode friendly_name: Human readable description of this TaskQueue
-        :param unicode target_workers: A string describing the Worker selection criteria for any Tasks that enter this TaskQueue.
-        :param unicode max_reserved_workers: The maximum amount of workers to create reservations for the assignment of a task while in this queue.
-        :param TaskQueueInstance.TaskOrder task_order: TaskOrder will determine which order the Tasks will be assigned to Workers.
-        :param unicode reservation_activity_sid: ActivitySID to assign workers once a task is reserved for them
-        :param unicode assignment_activity_sid: ActivitySID to assign workers once a task is assigned for them
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode target_workers: A string describing the Worker selection criteria for any Tasks that enter the TaskQueue
+        :param unicode max_reserved_workers: The maximum number of Workers to reserve
+        :param TaskQueueInstance.TaskOrder task_order: How Tasks will be assigned to Workers
+        :param unicode reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them
+        :param unicode assignment_activity_sid: The SID of the Activity to assign Workers once a task is assigned to them
 
         :returns: Newly created TaskQueueInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
@@ -207,7 +207,7 @@ class TaskQueueList(ListResource):
         """
         Constructs a TaskQueueContext
 
-        :param sid: The sid
+        :param sid: The SID of the resource to
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
@@ -218,7 +218,7 @@ class TaskQueueList(ListResource):
         """
         Constructs a TaskQueueContext
 
-        :param sid: The sid
+        :param sid: The SID of the resource to
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
@@ -244,7 +244,7 @@ class TaskQueuePage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param workspace_sid: The ID of the Workspace that owns this TaskQueue
+        :param workspace_sid: The SID of the Workspace that contains the TaskQueue
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueuePage
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueuePage
@@ -283,8 +283,8 @@ class TaskQueueContext(InstanceContext):
         Initialize the TaskQueueContext
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The workspace_sid
-        :param sid: The sid
+        :param workspace_sid: The SID of the Workspace with the TaskQueue to fetch
+        :param sid: The SID of the resource to
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
@@ -329,12 +329,12 @@ class TaskQueueContext(InstanceContext):
         """
         Update the TaskQueueInstance
 
-        :param unicode friendly_name: Human readable description of this TaskQueue
-        :param unicode target_workers: A string describing the Worker selection criteria for any Tasks that enter this TaskQueue.
-        :param unicode reservation_activity_sid: ActivitySID that will be assigned to Workers when they are reserved for a task from this TaskQueue.
-        :param unicode assignment_activity_sid: ActivitySID that will be assigned to Workers when they are assigned a task from this TaskQueue.
-        :param unicode max_reserved_workers: The maximum amount of workers to create reservations for the assignment of a task while in this queue.
-        :param TaskQueueInstance.TaskOrder task_order: TaskOrder will determine which order the Tasks will be assigned to Workers.
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode target_workers: A string describing the Worker selection criteria for any Tasks that enter the TaskQueue
+        :param unicode reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them
+        :param unicode assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them
+        :param unicode max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue
+        :param TaskQueueInstance.TaskOrder task_order: How Tasks will be assigned to Workers
 
         :returns: Updated TaskQueueInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
@@ -488,7 +488,7 @@ class TaskQueueInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The ID of the Account that owns this TaskQueue
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -496,7 +496,7 @@ class TaskQueueInstance(InstanceResource):
     @property
     def assignment_activity_sid(self):
         """
-        :returns: ActivitySID to assign workers once a task is assigned for them
+        :returns: The SID of the Activity to assign Workers when a task is assigned for them
         :rtype: unicode
         """
         return self._properties['assignment_activity_sid']
@@ -504,7 +504,7 @@ class TaskQueueInstance(InstanceResource):
     @property
     def assignment_activity_name(self):
         """
-        :returns: The assignment_activity_name
+        :returns: The name of the Activity to assign Workers when a task is assigned for them
         :rtype: unicode
         """
         return self._properties['assignment_activity_name']
@@ -512,7 +512,7 @@ class TaskQueueInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The RFC 2822 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -520,7 +520,7 @@ class TaskQueueInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The RFC 2822 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -528,7 +528,7 @@ class TaskQueueInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: Filter by a human readable description of a TaskQueue
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -536,7 +536,7 @@ class TaskQueueInstance(InstanceResource):
     @property
     def max_reserved_workers(self):
         """
-        :returns: The maximum amount of workers to create reservations for the assignment of a task while in this queue.
+        :returns: The maximum number of Workers to reserve
         :rtype: unicode
         """
         return self._properties['max_reserved_workers']
@@ -544,7 +544,7 @@ class TaskQueueInstance(InstanceResource):
     @property
     def reservation_activity_sid(self):
         """
-        :returns: ActivitySID to assign workers once a task is reserved for them
+        :returns: The SID of the Activity to assign Workers once a task is reserved for them
         :rtype: unicode
         """
         return self._properties['reservation_activity_sid']
@@ -552,7 +552,7 @@ class TaskQueueInstance(InstanceResource):
     @property
     def reservation_activity_name(self):
         """
-        :returns: The reservation_activity_name
+        :returns: The name of the Activity to assign Workers once a task is reserved for them
         :rtype: unicode
         """
         return self._properties['reservation_activity_name']
@@ -560,7 +560,7 @@ class TaskQueueInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The unique ID of the TaskQueue
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -568,7 +568,7 @@ class TaskQueueInstance(InstanceResource):
     @property
     def target_workers(self):
         """
-        :returns: A string describing the Worker selection criteria for any Tasks that enter this TaskQueue.
+        :returns: A string describing the Worker selection criteria for any Tasks that enter the TaskQueue
         :rtype: unicode
         """
         return self._properties['target_workers']
@@ -576,7 +576,7 @@ class TaskQueueInstance(InstanceResource):
     @property
     def task_order(self):
         """
-        :returns: TaskOrder will determine which order the Tasks will be assigned to Workers.
+        :returns: How Tasks will be assigned to Workers
         :rtype: TaskQueueInstance.TaskOrder
         """
         return self._properties['task_order']
@@ -584,7 +584,7 @@ class TaskQueueInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the TaskQueue resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -592,7 +592,7 @@ class TaskQueueInstance(InstanceResource):
     @property
     def workspace_sid(self):
         """
-        :returns: The ID of the Workspace that owns this TaskQueue
+        :returns: The SID of the Workspace that contains the TaskQueue
         :rtype: unicode
         """
         return self._properties['workspace_sid']
@@ -600,7 +600,7 @@ class TaskQueueInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links
+        :returns: The URLs of related resources
         :rtype: unicode
         """
         return self._properties['links']
@@ -621,12 +621,12 @@ class TaskQueueInstance(InstanceResource):
         """
         Update the TaskQueueInstance
 
-        :param unicode friendly_name: Human readable description of this TaskQueue
-        :param unicode target_workers: A string describing the Worker selection criteria for any Tasks that enter this TaskQueue.
-        :param unicode reservation_activity_sid: ActivitySID that will be assigned to Workers when they are reserved for a task from this TaskQueue.
-        :param unicode assignment_activity_sid: ActivitySID that will be assigned to Workers when they are assigned a task from this TaskQueue.
-        :param unicode max_reserved_workers: The maximum amount of workers to create reservations for the assignment of a task while in this queue.
-        :param TaskQueueInstance.TaskOrder task_order: TaskOrder will determine which order the Tasks will be assigned to Workers.
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode target_workers: A string describing the Worker selection criteria for any Tasks that enter the TaskQueue
+        :param unicode reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them
+        :param unicode assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them
+        :param unicode max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue
+        :param TaskQueueInstance.TaskOrder task_order: How Tasks will be assigned to Workers
 
         :returns: Updated TaskQueueInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance

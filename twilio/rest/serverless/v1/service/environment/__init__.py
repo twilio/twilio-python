@@ -27,7 +27,7 @@ class EnvironmentList(ListResource):
         Initialize the EnvironmentList
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
+        :param service_sid: The SID of the Service that the Environment resource is associated with
 
         :returns: twilio.rest.serverless.v1.service.environment.EnvironmentList
         :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentList
@@ -123,8 +123,8 @@ class EnvironmentList(ListResource):
         """
         Create a new EnvironmentInstance
 
-        :param unicode unique_name: A unique, addressable name of this Environment.
-        :param unicode domain_suffix: A URL-friendly name that represents this Environment.
+        :param unicode unique_name: An application-defined string that uniquely identifies the Environment resource
+        :param unicode domain_suffix: A URL-friendly name that represents the environment
 
         :returns: Newly created EnvironmentInstance
         :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentInstance
@@ -143,7 +143,7 @@ class EnvironmentList(ListResource):
         """
         Constructs a EnvironmentContext
 
-        :param sid: Environment Sid.
+        :param sid: The SID of the Environment resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.environment.EnvironmentContext
         :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentContext
@@ -154,7 +154,7 @@ class EnvironmentList(ListResource):
         """
         Constructs a EnvironmentContext
 
-        :param sid: Environment Sid.
+        :param sid: The SID of the Environment resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.environment.EnvironmentContext
         :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentContext
@@ -182,7 +182,7 @@ class EnvironmentPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: Service Sid.
+        :param service_sid: The SID of the Service that the Environment resource is associated with
 
         :returns: twilio.rest.serverless.v1.service.environment.EnvironmentPage
         :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentPage
@@ -223,8 +223,8 @@ class EnvironmentContext(InstanceContext):
         Initialize the EnvironmentContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
-        :param sid: Environment Sid.
+        :param service_sid: The SID of the Service to fetch the Environment resource from
+        :param sid: The SID of the Environment resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.environment.EnvironmentContext
         :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentContext
@@ -383,7 +383,7 @@ class EnvironmentInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: Environment Sid.
+        :returns: The unique string that identifies the Environment resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -391,7 +391,7 @@ class EnvironmentInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid.
+        :returns: The SID of the Account that created the Environment resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -399,7 +399,7 @@ class EnvironmentInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: Service Sid.
+        :returns: The SID of the Service that the Environment resource is associated with
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -407,7 +407,7 @@ class EnvironmentInstance(InstanceResource):
     @property
     def build_sid(self):
         """
-        :returns: Build Sid.
+        :returns: The SID of the build deployed in the environment
         :rtype: unicode
         """
         return self._properties['build_sid']
@@ -415,7 +415,7 @@ class EnvironmentInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: A unique, addressable name of this Environment.
+        :returns: An application-defined string that uniquely identifies the Environment resource
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -423,7 +423,7 @@ class EnvironmentInstance(InstanceResource):
     @property
     def domain_suffix(self):
         """
-        :returns: A URL-friendly name that represents this Environment.
+        :returns: A URL-friendly name that represents the environment
         :rtype: unicode
         """
         return self._properties['domain_suffix']
@@ -431,7 +431,7 @@ class EnvironmentInstance(InstanceResource):
     @property
     def domain_name(self):
         """
-        :returns: The base domain name for all Functions and Assets deployed in this Environment.
+        :returns: The base domain name for all Functions and Assets deployed in the environment
         :rtype: unicode
         """
         return self._properties['domain_name']
@@ -439,7 +439,7 @@ class EnvironmentInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this Environment was created.
+        :returns: The ISO 8601 date and time in GMT when the Environment resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -447,7 +447,7 @@ class EnvironmentInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date that this Environment was updated.
+        :returns: The ISO 8601 date and time in GMT when the Environment resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -455,7 +455,7 @@ class EnvironmentInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL of this Environment.
+        :returns: The absolute URL of the Environment resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -463,7 +463,7 @@ class EnvironmentInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: Nested resource URLs.
+        :returns: The URLs of the environment's nested resources
         :rtype: unicode
         """
         return self._properties['links']

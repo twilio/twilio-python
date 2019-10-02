@@ -121,16 +121,16 @@ class ChannelList(ListResource):
         """
         Create a new ChannelInstance
 
-        :param unicode flex_flow_sid: The unique ID of the FlexFlow
-        :param unicode identity: Chat User identity
-        :param unicode chat_user_friendly_name: Customer friendly name
-        :param unicode chat_friendly_name: Chat channel friendly name
-        :param unicode target: Target Contact Identity
-        :param unicode chat_unique_name: Chat channel unique name
-        :param unicode pre_engagement_data: Pre-engagement data
-        :param unicode task_sid: TaskRouter Task Sid.
-        :param unicode task_attributes: Task attributes to be added for the TaskRouter Task
-        :param bool long_lived: Long Lived flag
+        :param unicode flex_flow_sid: The SID of the FlexFlow
+        :param unicode identity: The identity value that identifies the new resource's chat User
+        :param unicode chat_user_friendly_name: The chat participant's friendly name
+        :param unicode chat_friendly_name: The chat channel's friendly name
+        :param unicode target: The Target Contact Identity
+        :param unicode chat_unique_name: The chat channel's unique name
+        :param unicode pre_engagement_data: The pre-engagement data
+        :param unicode task_sid: The SID of the TaskRouter task
+        :param unicode task_attributes: The task attributes to be added for the TaskRouter Task
+        :param bool long_lived: Whether to create the channel as long-lived
 
         :returns: Newly created ChannelInstance
         :rtype: twilio.rest.flex_api.v1.channel.ChannelInstance
@@ -160,7 +160,7 @@ class ChannelList(ListResource):
         """
         Constructs a ChannelContext
 
-        :param sid: Flex Chat Channel Sid
+        :param sid: The SID that identifies the Flex chat channel resource to fetch
 
         :returns: twilio.rest.flex_api.v1.channel.ChannelContext
         :rtype: twilio.rest.flex_api.v1.channel.ChannelContext
@@ -171,7 +171,7 @@ class ChannelList(ListResource):
         """
         Constructs a ChannelContext
 
-        :param sid: Flex Chat Channel Sid
+        :param sid: The SID that identifies the Flex chat channel resource to fetch
 
         :returns: twilio.rest.flex_api.v1.channel.ChannelContext
         :rtype: twilio.rest.flex_api.v1.channel.ChannelContext
@@ -235,7 +235,7 @@ class ChannelContext(InstanceContext):
         Initialize the ChannelContext
 
         :param Version version: Version that contains the resource
-        :param sid: Flex Chat Channel Sid
+        :param sid: The SID that identifies the Flex chat channel resource to fetch
 
         :returns: twilio.rest.flex_api.v1.channel.ChannelContext
         :rtype: twilio.rest.flex_api.v1.channel.ChannelContext
@@ -327,7 +327,7 @@ class ChannelInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The ID of the account that owns this Workflow
+        :returns: The SID of the Account that created the resource and owns this Workflow
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -335,7 +335,7 @@ class ChannelInstance(InstanceResource):
     @property
     def flex_flow_sid(self):
         """
-        :returns: The unique ID of the FlexFlow
+        :returns: The SID of the FlexFlow
         :rtype: unicode
         """
         return self._properties['flex_flow_sid']
@@ -343,7 +343,7 @@ class ChannelInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: Flex Chat Channel Sid
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -351,7 +351,7 @@ class ChannelInstance(InstanceResource):
     @property
     def user_sid(self):
         """
-        :returns: Chat User Sid.
+        :returns: The SID of the chat user
         :rtype: unicode
         """
         return self._properties['user_sid']
@@ -359,7 +359,7 @@ class ChannelInstance(InstanceResource):
     @property
     def task_sid(self):
         """
-        :returns: TaskRouter Task Sid.
+        :returns: The SID of the TaskRouter task
         :rtype: unicode
         """
         return self._properties['task_sid']
@@ -367,7 +367,7 @@ class ChannelInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the Flex chat channel resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -375,7 +375,7 @@ class ChannelInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The time the Flex Chat Channel was created, given as GMT in ISO 8601 format.
+        :returns: The ISO 8601 date and time in GMT when the Flex chat channel was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -383,7 +383,7 @@ class ChannelInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The time the Flex Chat Channel was last updated, given as GMT in ISO 8601 format.
+        :returns: The ISO 8601 date and time in GMT when the Flex chat channel was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']

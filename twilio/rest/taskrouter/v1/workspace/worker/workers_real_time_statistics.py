@@ -22,7 +22,7 @@ class WorkersRealTimeStatisticsList(ListResource):
         Initialize the WorkersRealTimeStatisticsList
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The workspace_sid
+        :param workspace_sid: The SID of the Workspace that contains the Workers
 
         :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsList
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsList
@@ -75,7 +75,7 @@ class WorkersRealTimeStatisticsPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param workspace_sid: The workspace_sid
+        :param workspace_sid: The SID of the Workspace that contains the Workers
 
         :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsPage
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsPage
@@ -118,7 +118,7 @@ class WorkersRealTimeStatisticsContext(InstanceContext):
         Initialize the WorkersRealTimeStatisticsContext
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The workspace_sid
+        :param workspace_sid: The SID of the Workspace with the resource to fetch
 
         :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsContext
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsContext
@@ -133,7 +133,7 @@ class WorkersRealTimeStatisticsContext(InstanceContext):
         """
         Fetch a WorkersRealTimeStatisticsInstance
 
-        :param unicode task_channel: Filter cumulative statistics by TaskChannel.
+        :param unicode task_channel: Only calculate real-time statistics on this TaskChannel
 
         :returns: Fetched WorkersRealTimeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsInstance
@@ -207,7 +207,7 @@ class WorkersRealTimeStatisticsInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -215,7 +215,7 @@ class WorkersRealTimeStatisticsInstance(InstanceResource):
     @property
     def activity_statistics(self):
         """
-        :returns: The current Worker status count breakdown by Activity
+        :returns: The number of current Workers by Activity
         :rtype: dict
         """
         return self._properties['activity_statistics']
@@ -231,7 +231,7 @@ class WorkersRealTimeStatisticsInstance(InstanceResource):
     @property
     def workspace_sid(self):
         """
-        :returns: The workspace_sid
+        :returns: The SID of the Workspace that contains the Workers
         :rtype: unicode
         """
         return self._properties['workspace_sid']
@@ -239,7 +239,7 @@ class WorkersRealTimeStatisticsInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the Workers statistics resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -248,7 +248,7 @@ class WorkersRealTimeStatisticsInstance(InstanceResource):
         """
         Fetch a WorkersRealTimeStatisticsInstance
 
-        :param unicode task_channel: Filter cumulative statistics by TaskChannel.
+        :param unicode task_channel: Only calculate real-time statistics on this TaskChannel
 
         :returns: Fetched WorkersRealTimeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsInstance

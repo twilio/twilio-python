@@ -41,9 +41,9 @@ class AlertList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode log_level: Only show alerts for this log-level.
-        :param date start_date: Only show Alerts on or after this date.
-        :param date end_date: Only show Alerts on or before this date.
+        :param unicode log_level: Only show alerts for this log-level
+        :param date start_date: Only include alerts that occurred on or after this date
+        :param date end_date: Only include alerts that occurred on or before this date
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -72,9 +72,9 @@ class AlertList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode log_level: Only show alerts for this log-level.
-        :param date start_date: Only show Alerts on or after this date.
-        :param date end_date: Only show Alerts on or before this date.
+        :param unicode log_level: Only show alerts for this log-level
+        :param date start_date: Only include alerts that occurred on or after this date
+        :param date end_date: Only include alerts that occurred on or before this date
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -100,9 +100,9 @@ class AlertList(ListResource):
         Retrieve a single page of AlertInstance records from the API.
         Request is executed immediately
 
-        :param unicode log_level: Only show alerts for this log-level.
-        :param date start_date: Only show Alerts on or after this date.
-        :param date end_date: Only show Alerts on or before this date.
+        :param unicode log_level: Only show alerts for this log-level
+        :param date start_date: Only include alerts that occurred on or after this date
+        :param date end_date: Only include alerts that occurred on or before this date
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -148,7 +148,7 @@ class AlertList(ListResource):
         """
         Constructs a AlertContext
 
-        :param sid: A 34 character string that uniquely identifies this Alert.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.monitor.v1.alert.AlertContext
         :rtype: twilio.rest.monitor.v1.alert.AlertContext
@@ -159,7 +159,7 @@ class AlertList(ListResource):
         """
         Constructs a AlertContext
 
-        :param sid: A 34 character string that uniquely identifies this Alert.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.monitor.v1.alert.AlertContext
         :rtype: twilio.rest.monitor.v1.alert.AlertContext
@@ -223,7 +223,7 @@ class AlertContext(InstanceContext):
         Initialize the AlertContext
 
         :param Version version: Version that contains the resource
-        :param sid: A 34 character string that uniquely identifies this Alert.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.monitor.v1.alert.AlertContext
         :rtype: twilio.rest.monitor.v1.alert.AlertContext
@@ -317,7 +317,7 @@ class AlertInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the Account responsible for this alert.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -325,7 +325,7 @@ class AlertInstance(InstanceResource):
     @property
     def alert_text(self):
         """
-        :returns: The text of the alert.
+        :returns: The text of the alert
         :rtype: unicode
         """
         return self._properties['alert_text']
@@ -333,7 +333,7 @@ class AlertInstance(InstanceResource):
     @property
     def api_version(self):
         """
-        :returns: The version of the Twilio API in use when this alert was generated.
+        :returns: The API version used when the alert was generated
         :rtype: unicode
         """
         return self._properties['api_version']
@@ -341,7 +341,7 @@ class AlertInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this resource was created, given in ISO 8601 format.
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -349,7 +349,7 @@ class AlertInstance(InstanceResource):
     @property
     def date_generated(self):
         """
-        :returns: The date the alert was actually generated, given in ISO 8601 format.
+        :returns: The date and time when the alert was generated specified in ISO 8601 format
         :rtype: datetime
         """
         return self._properties['date_generated']
@@ -357,7 +357,7 @@ class AlertInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The most recent date that this resource was updated, given in ISO 8601 format.
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -365,7 +365,7 @@ class AlertInstance(InstanceResource):
     @property
     def error_code(self):
         """
-        :returns: A unique error code for the error condition.
+        :returns: The error code for the condition that generated the alert
         :rtype: unicode
         """
         return self._properties['error_code']
@@ -373,7 +373,7 @@ class AlertInstance(InstanceResource):
     @property
     def log_level(self):
         """
-        :returns: A string representing the log level.
+        :returns: The log level
         :rtype: unicode
         """
         return self._properties['log_level']
@@ -381,7 +381,7 @@ class AlertInstance(InstanceResource):
     @property
     def more_info(self):
         """
-        :returns: A URL for more information about the error condition.
+        :returns: The URL of the page in our Error Dictionary with more information about the error condition
         :rtype: unicode
         """
         return self._properties['more_info']
@@ -389,7 +389,7 @@ class AlertInstance(InstanceResource):
     @property
     def request_method(self):
         """
-        :returns: If the Alert was generated by a request Twilio made to your server, this will be the request method used when Twilio made the request to your server.
+        :returns: The method used by the request that generated the alert
         :rtype: unicode
         """
         return self._properties['request_method']
@@ -397,7 +397,7 @@ class AlertInstance(InstanceResource):
     @property
     def request_url(self):
         """
-        :returns: If the Alert was generated by a request Twilio made to your server, this will be the URL on your server that generated the alert.
+        :returns: The URL of the request that generated the alert
         :rtype: unicode
         """
         return self._properties['request_url']
@@ -405,7 +405,7 @@ class AlertInstance(InstanceResource):
     @property
     def request_variables(self):
         """
-        :returns: The request_variables
+        :returns: The variables passed in the request that generated the alert
         :rtype: unicode
         """
         return self._properties['request_variables']
@@ -413,7 +413,7 @@ class AlertInstance(InstanceResource):
     @property
     def resource_sid(self):
         """
-        :returns: The unique ID of the resource for which the Alert was generated.
+        :returns: The SID of the resource for which the alert was generated
         :rtype: unicode
         """
         return self._properties['resource_sid']
@@ -421,7 +421,7 @@ class AlertInstance(InstanceResource):
     @property
     def response_body(self):
         """
-        :returns: The response_body
+        :returns: The response body of the request that generated the alert
         :rtype: unicode
         """
         return self._properties['response_body']
@@ -429,7 +429,7 @@ class AlertInstance(InstanceResource):
     @property
     def response_headers(self):
         """
-        :returns: The response_headers
+        :returns: The response headers of the request that generated the alert
         :rtype: unicode
         """
         return self._properties['response_headers']
@@ -437,7 +437,7 @@ class AlertInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34 character string that uniquely identifies this Alert.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -445,7 +445,7 @@ class AlertInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The absolute URL for this resource.
+        :returns: The absolute URL of the Alert resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -453,7 +453,7 @@ class AlertInstance(InstanceResource):
     @property
     def request_headers(self):
         """
-        :returns: The request_headers
+        :returns: The request headers of the request that generated the alert
         :rtype: unicode
         """
         return self._properties['request_headers']
@@ -461,7 +461,7 @@ class AlertInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The service_sid
+        :returns: The SID of the service or resource that generated the alert
         :rtype: unicode
         """
         return self._properties['service_sid']

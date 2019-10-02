@@ -23,8 +23,8 @@ class TaskQueueCumulativeStatisticsList(ListResource):
         Initialize the TaskQueueCumulativeStatisticsList
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The workspace_sid
-        :param task_queue_sid: The task_queue_sid
+        :param workspace_sid: The SID of the Workspace that contains the TaskQueue
+        :param task_queue_sid: The SID of the TaskQueue from which these statistics were calculated
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_cumulative_statistics.TaskQueueCumulativeStatisticsList
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_cumulative_statistics.TaskQueueCumulativeStatisticsList
@@ -79,8 +79,8 @@ class TaskQueueCumulativeStatisticsPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param workspace_sid: The workspace_sid
-        :param task_queue_sid: The task_queue_sid
+        :param workspace_sid: The SID of the Workspace that contains the TaskQueue
+        :param task_queue_sid: The SID of the TaskQueue from which these statistics were calculated
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_cumulative_statistics.TaskQueueCumulativeStatisticsPage
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_cumulative_statistics.TaskQueueCumulativeStatisticsPage
@@ -124,8 +124,8 @@ class TaskQueueCumulativeStatisticsContext(InstanceContext):
         Initialize the TaskQueueCumulativeStatisticsContext
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The workspace_sid
-        :param task_queue_sid: The task_queue_sid
+        :param workspace_sid: The SID of the Workspace with the TaskQueue to fetch
+        :param task_queue_sid: The SID of the TaskQueue for which to fetch statistics
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_cumulative_statistics.TaskQueueCumulativeStatisticsContext
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_cumulative_statistics.TaskQueueCumulativeStatisticsContext
@@ -142,11 +142,11 @@ class TaskQueueCumulativeStatisticsContext(InstanceContext):
         """
         Fetch a TaskQueueCumulativeStatisticsInstance
 
-        :param datetime end_date: Filter cumulative statistics by an end date.
-        :param unicode minutes: Filter cumulative statistics by up to 'x' minutes in the past.
-        :param datetime start_date: Filter cumulative statistics by a start date.
-        :param unicode task_channel: Filter real-time and cumulative statistics by TaskChannel.
-        :param unicode split_by_wait_time: A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
+        :param datetime end_date: Only calculate statistics from on or before this date
+        :param unicode minutes: Only calculate statistics since this many minutes in the past
+        :param datetime start_date: Only calculate statistics from on or after this date
+        :param unicode task_channel: Only calculate cumulative statistics on this TaskChannel
+        :param unicode split_by_wait_time: A comma separated list of values that describes the thresholds to calculate statistics on
 
         :returns: Fetched TaskQueueCumulativeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_cumulative_statistics.TaskQueueCumulativeStatisticsInstance
@@ -244,7 +244,7 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -252,7 +252,7 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
     @property
     def avg_task_acceptance_time(self):
         """
-        :returns: The average time from Task creation to reservation acceptance while in this TaskQueue
+        :returns: The average time in seconds between Task creation and acceptance
         :rtype: unicode
         """
         return self._properties['avg_task_acceptance_time']
@@ -260,7 +260,7 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
     @property
     def start_time(self):
         """
-        :returns: The start_time
+        :returns: The beginning of the interval during which these statistics were calculated
         :rtype: datetime
         """
         return self._properties['start_time']
@@ -268,7 +268,7 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
     @property
     def end_time(self):
         """
-        :returns: The end_time
+        :returns: The end of the interval during which these statistics were calculated
         :rtype: datetime
         """
         return self._properties['end_time']
@@ -276,7 +276,7 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
     @property
     def reservations_created(self):
         """
-        :returns: The total number of Reservations that were created for Tasks while in this TaskQueue
+        :returns: The total number of Reservations created for Tasks in the TaskQueue
         :rtype: unicode
         """
         return self._properties['reservations_created']
@@ -284,7 +284,7 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
     @property
     def reservations_accepted(self):
         """
-        :returns: The total number of Reservations that were accepted for Tasks while in this TaskQueue
+        :returns: The total number of Reservations accepted for Tasks in the TaskQueue
         :rtype: unicode
         """
         return self._properties['reservations_accepted']
@@ -292,7 +292,7 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
     @property
     def reservations_rejected(self):
         """
-        :returns: The total number of Reservations that were rejected for Tasks while in this TaskQueue
+        :returns: The total number of Reservations rejected for Tasks in the TaskQueue
         :rtype: unicode
         """
         return self._properties['reservations_rejected']
@@ -300,7 +300,7 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
     @property
     def reservations_timed_out(self):
         """
-        :returns: The total number of Reservations that were timed out for Tasks while in this TaskQueue
+        :returns: The total number of Reservations that timed out for Tasks in the TaskQueue
         :rtype: unicode
         """
         return self._properties['reservations_timed_out']
@@ -308,7 +308,7 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
     @property
     def reservations_canceled(self):
         """
-        :returns: The total number of Reservations that were canceled for Tasks while in this TaskQueue
+        :returns: The total number of Reservations canceled for Tasks in the TaskQueue
         :rtype: unicode
         """
         return self._properties['reservations_canceled']
@@ -316,7 +316,7 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
     @property
     def reservations_rescinded(self):
         """
-        :returns: The total number of Reservations that were rescinded
+        :returns: The total number of Reservations rescinded
         :rtype: unicode
         """
         return self._properties['reservations_rescinded']
@@ -324,7 +324,7 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
     @property
     def split_by_wait_time(self):
         """
-        :returns: The splits of the tasks canceled and accepted based on the provided SplitByWaitTime parameter
+        :returns: A list of objects that describe the Tasks canceled and reservations accepted above and below the specified thresholds
         :rtype: dict
         """
         return self._properties['split_by_wait_time']
@@ -332,7 +332,7 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
     @property
     def task_queue_sid(self):
         """
-        :returns: The task_queue_sid
+        :returns: The SID of the TaskQueue from which these statistics were calculated
         :rtype: unicode
         """
         return self._properties['task_queue_sid']
@@ -340,7 +340,7 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
     @property
     def wait_duration_until_accepted(self):
         """
-        :returns: The wait duration stats for tasks that were accepted while in this TaskQueue
+        :returns: The wait duration statistics for Tasks accepted while in the TaskQueue
         :rtype: dict
         """
         return self._properties['wait_duration_until_accepted']
@@ -348,7 +348,7 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
     @property
     def wait_duration_until_canceled(self):
         """
-        :returns: The wait duration stats for tasks that were canceled while in this TaskQueue
+        :returns: The wait duration statistics for Tasks canceled while in the TaskQueue
         :rtype: dict
         """
         return self._properties['wait_duration_until_canceled']
@@ -356,7 +356,7 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
     @property
     def tasks_canceled(self):
         """
-        :returns: The total number of Tasks canceled while in this TaskQueue
+        :returns: The total number of Tasks canceled in the TaskQueue
         :rtype: unicode
         """
         return self._properties['tasks_canceled']
@@ -364,7 +364,7 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
     @property
     def tasks_completed(self):
         """
-        :returns: The total number of Tasks completed while in this TaskQueue
+        :returns: The total number of Tasks completed in the TaskQueue
         :rtype: unicode
         """
         return self._properties['tasks_completed']
@@ -372,7 +372,7 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
     @property
     def tasks_deleted(self):
         """
-        :returns: The total number of Tasks that were deleted while in this TaskQueue
+        :returns: The total number of Tasks deleted in the TaskQueue
         :rtype: unicode
         """
         return self._properties['tasks_deleted']
@@ -380,7 +380,7 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
     @property
     def tasks_entered(self):
         """
-        :returns: The total number of Tasks entered into this TaskQueue
+        :returns: The total number of Tasks entered into the TaskQueue
         :rtype: unicode
         """
         return self._properties['tasks_entered']
@@ -388,7 +388,7 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
     @property
     def tasks_moved(self):
         """
-        :returns: The total number of Tasks moved to another TaskQueue from this TaskQueue
+        :returns: The total number of Tasks that were moved from one queue to another
         :rtype: unicode
         """
         return self._properties['tasks_moved']
@@ -396,7 +396,7 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
     @property
     def workspace_sid(self):
         """
-        :returns: The workspace_sid
+        :returns: The SID of the Workspace that contains the TaskQueue
         :rtype: unicode
         """
         return self._properties['workspace_sid']
@@ -404,7 +404,7 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the TaskQueue statistics resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -415,11 +415,11 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
         """
         Fetch a TaskQueueCumulativeStatisticsInstance
 
-        :param datetime end_date: Filter cumulative statistics by an end date.
-        :param unicode minutes: Filter cumulative statistics by up to 'x' minutes in the past.
-        :param datetime start_date: Filter cumulative statistics by a start date.
-        :param unicode task_channel: Filter real-time and cumulative statistics by TaskChannel.
-        :param unicode split_by_wait_time: A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
+        :param datetime end_date: Only calculate statistics from on or before this date
+        :param unicode minutes: Only calculate statistics since this many minutes in the past
+        :param datetime start_date: Only calculate statistics from on or after this date
+        :param unicode task_channel: Only calculate cumulative statistics on this TaskChannel
+        :param unicode split_by_wait_time: A comma separated list of values that describes the thresholds to calculate statistics on
 
         :returns: Fetched TaskQueueCumulativeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_cumulative_statistics.TaskQueueCumulativeStatisticsInstance

@@ -24,8 +24,8 @@ class LogList(ListResource):
         Initialize the LogList
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
-        :param environment_sid: Environment Sid.
+        :param service_sid: The SID of the Service that the Log resource is associated with
+        :param environment_sid: The SID of the environment in which the log occurred
 
         :returns: twilio.rest.serverless.v1.service.environment.log.LogList
         :rtype: twilio.rest.serverless.v1.service.environment.log.LogList
@@ -43,7 +43,7 @@ class LogList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode function_sid: Function Sid.
+        :param unicode function_sid: The SID of the function whose invocation produced the Log resources to read
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -66,7 +66,7 @@ class LogList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode function_sid: Function Sid.
+        :param unicode function_sid: The SID of the function whose invocation produced the Log resources to read
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -85,7 +85,7 @@ class LogList(ListResource):
         Retrieve a single page of LogInstance records from the API.
         Request is executed immediately
 
-        :param unicode function_sid: Function Sid.
+        :param unicode function_sid: The SID of the function whose invocation produced the Log resources to read
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -129,7 +129,7 @@ class LogList(ListResource):
         """
         Constructs a LogContext
 
-        :param sid: Log Sid.
+        :param sid: The SID that identifies the Log resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.environment.log.LogContext
         :rtype: twilio.rest.serverless.v1.service.environment.log.LogContext
@@ -145,7 +145,7 @@ class LogList(ListResource):
         """
         Constructs a LogContext
 
-        :param sid: Log Sid.
+        :param sid: The SID that identifies the Log resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.environment.log.LogContext
         :rtype: twilio.rest.serverless.v1.service.environment.log.LogContext
@@ -178,8 +178,8 @@ class LogPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: Service Sid.
-        :param environment_sid: Environment Sid.
+        :param service_sid: The SID of the Service that the Log resource is associated with
+        :param environment_sid: The SID of the environment in which the log occurred
 
         :returns: twilio.rest.serverless.v1.service.environment.log.LogPage
         :rtype: twilio.rest.serverless.v1.service.environment.log.LogPage
@@ -225,9 +225,9 @@ class LogContext(InstanceContext):
         Initialize the LogContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
-        :param environment_sid: Environment Sid.
-        :param sid: Log Sid.
+        :param service_sid: The SID of the Service to fetch the Log resource from
+        :param environment_sid: The SID of the environment with the Log resource to fetch
+        :param sid: The SID that identifies the Log resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.environment.log.LogContext
         :rtype: twilio.rest.serverless.v1.service.environment.log.LogContext
@@ -335,7 +335,7 @@ class LogInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: Log Sid.
+        :returns: The unique string that identifies the Log resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -343,7 +343,7 @@ class LogInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid.
+        :returns: The SID of the Account that created the Log resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -351,7 +351,7 @@ class LogInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: Service Sid.
+        :returns: The SID of the Service that the Log resource is associated with
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -359,7 +359,7 @@ class LogInstance(InstanceResource):
     @property
     def environment_sid(self):
         """
-        :returns: Environment Sid.
+        :returns: The SID of the environment in which the log occurred
         :rtype: unicode
         """
         return self._properties['environment_sid']
@@ -367,7 +367,7 @@ class LogInstance(InstanceResource):
     @property
     def deployment_sid(self):
         """
-        :returns: Deployment Sid.
+        :returns: The SID of the deployment that corresponds to the log
         :rtype: unicode
         """
         return self._properties['deployment_sid']
@@ -375,7 +375,7 @@ class LogInstance(InstanceResource):
     @property
     def function_sid(self):
         """
-        :returns: Function Sid.
+        :returns: The SID of the function whose invocation produced the log
         :rtype: unicode
         """
         return self._properties['function_sid']
@@ -383,7 +383,7 @@ class LogInstance(InstanceResource):
     @property
     def request_sid(self):
         """
-        :returns: The request_sid
+        :returns: The SID of the request associated with the log
         :rtype: unicode
         """
         return self._properties['request_sid']
@@ -391,7 +391,7 @@ class LogInstance(InstanceResource):
     @property
     def level(self):
         """
-        :returns: The level
+        :returns: The log level
         :rtype: LogInstance.Level
         """
         return self._properties['level']
@@ -399,7 +399,7 @@ class LogInstance(InstanceResource):
     @property
     def message(self):
         """
-        :returns: The message
+        :returns: The log message
         :rtype: unicode
         """
         return self._properties['message']
@@ -407,7 +407,7 @@ class LogInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this Log was created.
+        :returns: The ISO 8601 date and time in GMT when the Log resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -415,7 +415,7 @@ class LogInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL of this Log.
+        :returns: The absolute URL of the Log resource
         :rtype: unicode
         """
         return self._properties['url']

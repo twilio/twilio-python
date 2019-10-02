@@ -24,8 +24,8 @@ class VariableList(ListResource):
         Initialize the VariableList
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
-        :param environment_sid: Environment Sid.
+        :param service_sid: The SID of the Service that the Variable resource is associated with
+        :param environment_sid: The SID of the environment in which the variable exists
 
         :returns: twilio.rest.serverless.v1.service.environment.variable.VariableList
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableList
@@ -121,8 +121,8 @@ class VariableList(ListResource):
         """
         Create a new VariableInstance
 
-        :param unicode key: A string by which this Variable can be referenced.
-        :param unicode value: A string that contains the actual value of this Variable.
+        :param unicode key: A string by which the Variable resource can be referenced
+        :param unicode value: A string that contains the actual value of the variable
 
         :returns: Newly created VariableInstance
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableInstance
@@ -146,7 +146,7 @@ class VariableList(ListResource):
         """
         Constructs a VariableContext
 
-        :param sid: Variable Sid.
+        :param sid: The SID of the Variable resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.environment.variable.VariableContext
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableContext
@@ -162,7 +162,7 @@ class VariableList(ListResource):
         """
         Constructs a VariableContext
 
-        :param sid: Variable Sid.
+        :param sid: The SID of the Variable resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.environment.variable.VariableContext
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableContext
@@ -195,8 +195,8 @@ class VariablePage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: Service Sid.
-        :param environment_sid: Environment Sid.
+        :param service_sid: The SID of the Service that the Variable resource is associated with
+        :param environment_sid: The SID of the environment in which the variable exists
 
         :returns: twilio.rest.serverless.v1.service.environment.variable.VariablePage
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariablePage
@@ -242,9 +242,9 @@ class VariableContext(InstanceContext):
         Initialize the VariableContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
-        :param environment_sid: Environment Sid.
-        :param sid: Variable Sid.
+        :param service_sid: The SID of the Service to fetch the Variable resource from
+        :param environment_sid: The SID of the environment with the Variable resource to fetch
+        :param sid: The SID of the Variable resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.environment.variable.VariableContext
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableContext
@@ -282,8 +282,8 @@ class VariableContext(InstanceContext):
         """
         Update the VariableInstance
 
-        :param unicode key: A string by which this Variable can be referenced.
-        :param unicode value: A string that contains the actual value of this Variable.
+        :param unicode key: A string by which the Variable resource can be referenced
+        :param unicode value: A string that contains the actual value of the variable
 
         :returns: Updated VariableInstance
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableInstance
@@ -380,7 +380,7 @@ class VariableInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: Variable Sid.
+        :returns: The unique string that identifies the Variable resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -388,7 +388,7 @@ class VariableInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid.
+        :returns: The SID of the Account that created the Variable resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -396,7 +396,7 @@ class VariableInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: Service Sid.
+        :returns: The SID of the Service that the Variable resource is associated with
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -404,7 +404,7 @@ class VariableInstance(InstanceResource):
     @property
     def environment_sid(self):
         """
-        :returns: Environment Sid.
+        :returns: The SID of the environment in which the variable exists
         :rtype: unicode
         """
         return self._properties['environment_sid']
@@ -412,7 +412,7 @@ class VariableInstance(InstanceResource):
     @property
     def key(self):
         """
-        :returns: A string by which this Variable can be referenced.
+        :returns: A string by which the Variable resource can be referenced
         :rtype: unicode
         """
         return self._properties['key']
@@ -420,7 +420,7 @@ class VariableInstance(InstanceResource):
     @property
     def value(self):
         """
-        :returns: A string that contains the actual value of this Variable.
+        :returns: A string that contains the actual value of the variable
         :rtype: unicode
         """
         return self._properties['value']
@@ -428,7 +428,7 @@ class VariableInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this Variable was created.
+        :returns: The ISO 8601 date and time in GMT when the Variable resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -436,7 +436,7 @@ class VariableInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date that this Variable was updated.
+        :returns: The ISO 8601 date and time in GMT when the Variable resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -444,7 +444,7 @@ class VariableInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL of this Variable.
+        :returns: The absolute URL of the Variable resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -462,8 +462,8 @@ class VariableInstance(InstanceResource):
         """
         Update the VariableInstance
 
-        :param unicode key: A string by which this Variable can be referenced.
-        :param unicode value: A string that contains the actual value of this Variable.
+        :param unicode key: A string by which the Variable resource can be referenced
+        :param unicode value: A string that contains the actual value of the variable
 
         :returns: Updated VariableInstance
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableInstance

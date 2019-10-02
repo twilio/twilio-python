@@ -45,9 +45,9 @@ class RecordingList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param datetime date_created_before: The `YYYY-MM-DD` value of the resources to read
-        :param datetime date_created: The `YYYY-MM-DD` value of the resources to read
-        :param datetime date_created_after: The `YYYY-MM-DD` value of the resources to read
+        :param datetime date_created_before: Only include recordings that were created on this date
+        :param datetime date_created: Only include recordings that were created on this date
+        :param datetime date_created_after: Only include recordings that were created on this date
         :param unicode call_sid: The Call SID of the resources to read
         :param unicode conference_sid: Read by unique Conference SID for the recording
         :param int limit: Upper limit for the number of records to return. stream()
@@ -81,9 +81,9 @@ class RecordingList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param datetime date_created_before: The `YYYY-MM-DD` value of the resources to read
-        :param datetime date_created: The `YYYY-MM-DD` value of the resources to read
-        :param datetime date_created_after: The `YYYY-MM-DD` value of the resources to read
+        :param datetime date_created_before: Only include recordings that were created on this date
+        :param datetime date_created: Only include recordings that were created on this date
+        :param datetime date_created_after: Only include recordings that were created on this date
         :param unicode call_sid: The Call SID of the resources to read
         :param unicode conference_sid: Read by unique Conference SID for the recording
         :param int limit: Upper limit for the number of records to return. list() guarantees
@@ -114,9 +114,9 @@ class RecordingList(ListResource):
         Retrieve a single page of RecordingInstance records from the API.
         Request is executed immediately
 
-        :param datetime date_created_before: The `YYYY-MM-DD` value of the resources to read
-        :param datetime date_created: The `YYYY-MM-DD` value of the resources to read
-        :param datetime date_created_after: The `YYYY-MM-DD` value of the resources to read
+        :param datetime date_created_before: Only include recordings that were created on this date
+        :param datetime date_created: Only include recordings that were created on this date
+        :param datetime date_created_after: Only include recordings that were created on this date
         :param unicode call_sid: The Call SID of the resources to read
         :param unicode conference_sid: Read by unique Conference SID for the recording
         :param str page_token: PageToken provided by the API

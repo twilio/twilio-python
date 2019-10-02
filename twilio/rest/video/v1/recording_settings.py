@@ -144,12 +144,12 @@ class RecordingSettingsContext(InstanceContext):
         """
         Create a new RecordingSettingsInstance
 
-        :param unicode friendly_name: Friendly name of the configuration to be shown in the console
-        :param unicode aws_credentials_sid: SID of the Stored Credential resource CRxx
-        :param unicode encryption_key_sid: SID of the Public Key resource CRxx
-        :param unicode aws_s3_url: Identity of the external location where the recordings should be stored. We only support DNS-compliant URLs like http://<my-bucket>.s3-<aws-region>.amazonaws.com/recordings, where recordings is the path where you want recordings to be stored.
-        :param bool aws_storage_enabled: true|false When set to true, all Recordings will be written to the AwsS3Url specified above. When set to false, all Recordings will be stored in Twilio's cloud.
-        :param bool encryption_enabled: true|false When set to true, all Recordings will be stored encrypted.
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode aws_credentials_sid: The SID of the stored Credential resource
+        :param unicode encryption_key_sid: The SID of the Public Key resource to use for encryption
+        :param unicode aws_s3_url: The URL of the AWS S3 bucket where the recordings should be stored
+        :param bool aws_storage_enabled: Whether all recordings should be written to the aws_s3_url
+        :param bool encryption_enabled: Whether all recordings should be stored in an encrypted form
 
         :returns: Newly created RecordingSettingsInstance
         :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsInstance
@@ -228,7 +228,7 @@ class RecordingSettingsInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The Twilio Account SID associated with this item
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -236,7 +236,7 @@ class RecordingSettingsInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: Friendly name of the configuration to be shown in the console
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -244,7 +244,7 @@ class RecordingSettingsInstance(InstanceResource):
     @property
     def aws_credentials_sid(self):
         """
-        :returns: SID of the Stored Credential resource CRxx
+        :returns: The SID of the stored Credential resource
         :rtype: unicode
         """
         return self._properties['aws_credentials_sid']
@@ -252,7 +252,7 @@ class RecordingSettingsInstance(InstanceResource):
     @property
     def aws_s3_url(self):
         """
-        :returns: URL of the S3 bucket where the recordings should be stored. We only support DNS-compliant URLs like http://<my-bucket>.s3-<aws-region>.amazonaws.com/recordings, where recordings is the path where you want recordings to be stored.
+        :returns: The URL of the AWS S3 bucket where the recordings are stored
         :rtype: unicode
         """
         return self._properties['aws_s3_url']
@@ -260,7 +260,7 @@ class RecordingSettingsInstance(InstanceResource):
     @property
     def aws_storage_enabled(self):
         """
-        :returns: true|false When set to true, all Recordings will be written to the AwsS3Url specified above. When set to false, all Recordings will be stored in Twilio's cloud.
+        :returns: Whether all recordings are written to the aws_s3_url
         :rtype: bool
         """
         return self._properties['aws_storage_enabled']
@@ -268,7 +268,7 @@ class RecordingSettingsInstance(InstanceResource):
     @property
     def encryption_key_sid(self):
         """
-        :returns: SID of the Public Key resource CRxx
+        :returns: The SID of the Public Key resource used for encryption
         :rtype: unicode
         """
         return self._properties['encryption_key_sid']
@@ -276,7 +276,7 @@ class RecordingSettingsInstance(InstanceResource):
     @property
     def encryption_enabled(self):
         """
-        :returns: true|false When set to true, all Recordings will be stored encrypted.
+        :returns: Whether all recordings are stored in an encrypted form
         :rtype: bool
         """
         return self._properties['encryption_enabled']
@@ -284,7 +284,7 @@ class RecordingSettingsInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -304,12 +304,12 @@ class RecordingSettingsInstance(InstanceResource):
         """
         Create a new RecordingSettingsInstance
 
-        :param unicode friendly_name: Friendly name of the configuration to be shown in the console
-        :param unicode aws_credentials_sid: SID of the Stored Credential resource CRxx
-        :param unicode encryption_key_sid: SID of the Public Key resource CRxx
-        :param unicode aws_s3_url: Identity of the external location where the recordings should be stored. We only support DNS-compliant URLs like http://<my-bucket>.s3-<aws-region>.amazonaws.com/recordings, where recordings is the path where you want recordings to be stored.
-        :param bool aws_storage_enabled: true|false When set to true, all Recordings will be written to the AwsS3Url specified above. When set to false, all Recordings will be stored in Twilio's cloud.
-        :param bool encryption_enabled: true|false When set to true, all Recordings will be stored encrypted.
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode aws_credentials_sid: The SID of the stored Credential resource
+        :param unicode encryption_key_sid: The SID of the Public Key resource to use for encryption
+        :param unicode aws_s3_url: The URL of the AWS S3 bucket where the recordings should be stored
+        :param bool aws_storage_enabled: Whether all recordings should be written to the aws_s3_url
+        :param bool encryption_enabled: Whether all recordings should be stored in an encrypted form
 
         :returns: Newly created RecordingSettingsInstance
         :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsInstance

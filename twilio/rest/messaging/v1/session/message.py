@@ -25,7 +25,7 @@ class MessageList(ListResource):
         Initialize the MessageList
 
         :param Version version: Version that contains the resource
-        :param session_sid: The unique id of the Session for this message.
+        :param session_sid: The SID of the Session for the message
 
         :returns: twilio.rest.messaging.v1.session.message.MessageList
         :rtype: twilio.rest.messaging.v1.session.message.MessageList
@@ -42,11 +42,11 @@ class MessageList(ListResource):
         """
         Create a new MessageInstance
 
-        :param unicode author: The identity of the message's author.
-        :param unicode attributes: A string metadata field you can use to store any data you wish.
-        :param datetime date_created: The date that this resource was created.
-        :param datetime date_updated: The date that this resource was last updated.
-        :param unicode body: The contents of the message.
+        :param unicode author: The identity of the message's author
+        :param unicode attributes: A JSON string that stores application-specific data
+        :param datetime date_created: The ISO 8601 date and time in GMT when the resource was created
+        :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
+        :param unicode body: The message body
 
         :returns: Newly created MessageInstance
         :rtype: twilio.rest.messaging.v1.session.message.MessageInstance
@@ -152,7 +152,7 @@ class MessageList(ListResource):
         """
         Constructs a MessageContext
 
-        :param sid: A 34 character string that uniquely identifies this resource.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.messaging.v1.session.message.MessageContext
         :rtype: twilio.rest.messaging.v1.session.message.MessageContext
@@ -163,7 +163,7 @@ class MessageList(ListResource):
         """
         Constructs a MessageContext
 
-        :param sid: A 34 character string that uniquely identifies this resource.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.messaging.v1.session.message.MessageContext
         :rtype: twilio.rest.messaging.v1.session.message.MessageContext
@@ -191,7 +191,7 @@ class MessagePage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param session_sid: The unique id of the Session for this message.
+        :param session_sid: The SID of the Session for the message
 
         :returns: twilio.rest.messaging.v1.session.message.MessagePage
         :rtype: twilio.rest.messaging.v1.session.message.MessagePage
@@ -232,8 +232,8 @@ class MessageContext(InstanceContext):
         Initialize the MessageContext
 
         :param Version version: Version that contains the resource
-        :param session_sid: The unique id of the Session for this message.
-        :param sid: A 34 character string that uniquely identifies this resource.
+        :param session_sid: The SID of the Session with the message to fetch
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.messaging.v1.session.message.MessageContext
         :rtype: twilio.rest.messaging.v1.session.message.MessageContext
@@ -272,11 +272,11 @@ class MessageContext(InstanceContext):
         """
         Update the MessageInstance
 
-        :param unicode author: The identity of the message's author.
-        :param unicode attributes: A string metadata field you can use to store any data you wish.
-        :param datetime date_created: The date that this resource was created.
-        :param datetime date_updated: The date that this resource was last updated.
-        :param unicode body: The contents of the message.
+        :param unicode author: The identity of the message's author
+        :param unicode attributes: A JSON string that stores application-specific data
+        :param datetime date_created: The ISO 8601 date and time in GMT when the resource was created
+        :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
+        :param unicode body: The message body
 
         :returns: Updated MessageInstance
         :rtype: twilio.rest.messaging.v1.session.message.MessageInstance
@@ -376,7 +376,7 @@ class MessageInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the Account responsible for this message.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -384,7 +384,7 @@ class MessageInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The unique id of the Chat Service this message belongs to.
+        :returns: The SID of the Service that the resource is associated with
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -392,7 +392,7 @@ class MessageInstance(InstanceResource):
     @property
     def messaging_service_sid(self):
         """
-        :returns: The unique id of the SMS Service this message belongs to.
+        :returns: The SID of the Messaging Service the message belongs to
         :rtype: unicode
         """
         return self._properties['messaging_service_sid']
@@ -400,7 +400,7 @@ class MessageInstance(InstanceResource):
     @property
     def session_sid(self):
         """
-        :returns: The unique id of the Session for this message.
+        :returns: The SID of the Session for the message
         :rtype: unicode
         """
         return self._properties['session_sid']
@@ -408,7 +408,7 @@ class MessageInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34 character string that uniquely identifies this resource.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -424,7 +424,7 @@ class MessageInstance(InstanceResource):
     @property
     def author(self):
         """
-        :returns: The identity or the address of the device of the message's author.
+        :returns: The identity or the address of the device of the message's author
         :rtype: unicode
         """
         return self._properties['author']
@@ -432,7 +432,7 @@ class MessageInstance(InstanceResource):
     @property
     def body(self):
         """
-        :returns: The contents of the message.
+        :returns: The message body
         :rtype: unicode
         """
         return self._properties['body']
@@ -440,7 +440,7 @@ class MessageInstance(InstanceResource):
     @property
     def attributes(self):
         """
-        :returns: A string metadata field you can use to store any data you wish.
+        :returns: The JSON string that stores application-specific data
         :rtype: unicode
         """
         return self._properties['attributes']
@@ -448,7 +448,7 @@ class MessageInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this resource was created.
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -456,7 +456,7 @@ class MessageInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date that this resource was last updated.
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -464,7 +464,7 @@ class MessageInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: An absolute URL for this message.
+        :returns: The absolute URL of the message
         :rtype: unicode
         """
         return self._properties['url']
@@ -484,11 +484,11 @@ class MessageInstance(InstanceResource):
         """
         Update the MessageInstance
 
-        :param unicode author: The identity of the message's author.
-        :param unicode attributes: A string metadata field you can use to store any data you wish.
-        :param datetime date_created: The date that this resource was created.
-        :param datetime date_updated: The date that this resource was last updated.
-        :param unicode body: The contents of the message.
+        :param unicode author: The identity of the message's author
+        :param unicode attributes: A JSON string that stores application-specific data
+        :param datetime date_created: The ISO 8601 date and time in GMT when the resource was created
+        :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
+        :param unicode body: The message body
 
         :returns: Updated MessageInstance
         :rtype: twilio.rest.messaging.v1.session.message.MessageInstance

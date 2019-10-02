@@ -39,7 +39,7 @@ class FlexFlowList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode friendly_name: Human readable description of this FlexFlow
+        :param unicode friendly_name: The `friendly_name` of the FlexFlow resources to read
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -62,7 +62,7 @@ class FlexFlowList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode friendly_name: Human readable description of this FlexFlow
+        :param unicode friendly_name: The `friendly_name` of the FlexFlow resources to read
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -81,7 +81,7 @@ class FlexFlowList(ListResource):
         Retrieve a single page of FlexFlowInstance records from the API.
         Request is executed immediately
 
-        :param unicode friendly_name: Human readable description of this FlexFlow
+        :param unicode friendly_name: The `friendly_name` of the FlexFlow resources to read
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -133,21 +133,21 @@ class FlexFlowList(ListResource):
         """
         Create a new FlexFlowInstance
 
-        :param unicode friendly_name: Human readable description of this FlexFlow
-        :param unicode chat_service_sid: Service Sid.
-        :param FlexFlowInstance.ChannelType channel_type: Channel type
-        :param unicode contact_identity: Channel contact Identity
-        :param bool enabled: Boolean flag for enabling or disabling the FlexFlow
-        :param FlexFlowInstance.IntegrationType integration_type: Integration type
-        :param unicode integration_flow_sid: Flow Sid.
-        :param unicode integration_url: External Webhook Url
-        :param unicode integration_workspace_sid: Workspace Sid for a new task
-        :param unicode integration_workflow_sid: Workflow Sid for a new task
-        :param unicode integration_channel: Task Channel for a new task
-        :param unicode integration_timeout: Task timeout in seconds for a new task
-        :param unicode integration_priority: Task priority for a new task
-        :param bool integration_creation_on_message: Flag for task creation
-        :param bool long_lived: Long Lived flag for new Channel
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode chat_service_sid: The SID of the chat service
+        :param FlexFlowInstance.ChannelType channel_type: The channel type
+        :param unicode contact_identity: The channel contact's Identity
+        :param bool enabled: Whether the new FlexFlow is enabled
+        :param FlexFlowInstance.IntegrationType integration_type: The integration type
+        :param unicode integration_flow_sid: The SID of the Flow
+        :param unicode integration_url: The External Webhook URL
+        :param unicode integration_workspace_sid: The Workspace SID for a new task
+        :param unicode integration_workflow_sid: The Workflow SID for a new task
+        :param unicode integration_channel: The task channel for a new task
+        :param unicode integration_timeout: The task timeout in seconds for a new task
+        :param unicode integration_priority: The task priority of a new task
+        :param bool integration_creation_on_message: Whether to create a task when the first message arrives
+        :param bool long_lived: Whether new channels are long-lived
 
         :returns: Newly created FlexFlowInstance
         :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
@@ -182,7 +182,7 @@ class FlexFlowList(ListResource):
         """
         Constructs a FlexFlowContext
 
-        :param sid: The unique ID of the FlexFlow
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.flex_api.v1.flex_flow.FlexFlowContext
         :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowContext
@@ -193,7 +193,7 @@ class FlexFlowList(ListResource):
         """
         Constructs a FlexFlowContext
 
-        :param sid: The unique ID of the FlexFlow
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.flex_api.v1.flex_flow.FlexFlowContext
         :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowContext
@@ -257,7 +257,7 @@ class FlexFlowContext(InstanceContext):
         Initialize the FlexFlowContext
 
         :param Version version: Version that contains the resource
-        :param sid: The unique ID of the FlexFlow
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.flex_api.v1.flex_flow.FlexFlowContext
         :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowContext
@@ -298,21 +298,21 @@ class FlexFlowContext(InstanceContext):
         """
         Update the FlexFlowInstance
 
-        :param unicode friendly_name: Human readable description of this FlexFlow
-        :param unicode chat_service_sid: Service Sid.
-        :param FlexFlowInstance.ChannelType channel_type: Channel type
-        :param unicode contact_identity: Channel contact Identity
-        :param bool enabled: Boolean flag for enabling or disabling the FlexFlow
-        :param FlexFlowInstance.IntegrationType integration_type: Integration type
-        :param unicode integration_flow_sid: Flow Sid.
-        :param unicode integration_url: External Webhook Url
-        :param unicode integration_workspace_sid: Workspace Sid for a new task
-        :param unicode integration_workflow_sid: Workflow Sid for a new task
-        :param unicode integration_channel: Task Channel for a new task
-        :param unicode integration_timeout: Task timeout in seconds for a new task
-        :param unicode integration_priority: Task priority for a new task
-        :param bool integration_creation_on_message: Flag for task creation
-        :param bool long_lived: Long Lived flag for new Channel
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode chat_service_sid: The SID of the chat service
+        :param FlexFlowInstance.ChannelType channel_type: The channel type
+        :param unicode contact_identity: The channel contact's Identity
+        :param bool enabled: Whether the FlexFlow is enabled
+        :param FlexFlowInstance.IntegrationType integration_type: The integration type
+        :param unicode integration_flow_sid: The SID of the Flow
+        :param unicode integration_url: The External Webhook URL
+        :param unicode integration_workspace_sid: The Workspace SID for a new task
+        :param unicode integration_workflow_sid: The Workflow SID for a new task
+        :param unicode integration_channel: task channel for a new task
+        :param unicode integration_timeout: The task timeout in seconds for a new task
+        :param unicode integration_priority: The task priority of a new task
+        :param bool integration_creation_on_message: Whether to create a task when the first message arrives
+        :param bool long_lived: Whether new channels created are long-lived
 
         :returns: Updated FlexFlowInstance
         :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
@@ -425,7 +425,7 @@ class FlexFlowInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The ID of the account that owns this Workflow
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -433,7 +433,7 @@ class FlexFlowInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The time the FlexFlow was created, given as GMT in ISO 8601 format.
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -441,7 +441,7 @@ class FlexFlowInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The time the FlexFlow was last updated, given as GMT in ISO 8601 format.
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -449,7 +449,7 @@ class FlexFlowInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The unique ID of the FlexFlow
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -457,7 +457,7 @@ class FlexFlowInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: Human readable description of this FlexFlow
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -465,7 +465,7 @@ class FlexFlowInstance(InstanceResource):
     @property
     def chat_service_sid(self):
         """
-        :returns: Service Sid.
+        :returns: The SID of the chat service
         :rtype: unicode
         """
         return self._properties['chat_service_sid']
@@ -473,7 +473,7 @@ class FlexFlowInstance(InstanceResource):
     @property
     def channel_type(self):
         """
-        :returns: Channel type
+        :returns: The channel type
         :rtype: FlexFlowInstance.ChannelType
         """
         return self._properties['channel_type']
@@ -481,7 +481,7 @@ class FlexFlowInstance(InstanceResource):
     @property
     def contact_identity(self):
         """
-        :returns: Channel contact Identity
+        :returns: The channel contact's Identity
         :rtype: unicode
         """
         return self._properties['contact_identity']
@@ -489,7 +489,7 @@ class FlexFlowInstance(InstanceResource):
     @property
     def enabled(self):
         """
-        :returns: Boolean flag for enabling or disabling the FlexFlow
+        :returns: Whether the FlexFlow is enabled
         :rtype: bool
         """
         return self._properties['enabled']
@@ -497,7 +497,7 @@ class FlexFlowInstance(InstanceResource):
     @property
     def integration_type(self):
         """
-        :returns: Integration type
+        :returns: The integration type
         :rtype: FlexFlowInstance.IntegrationType
         """
         return self._properties['integration_type']
@@ -505,7 +505,7 @@ class FlexFlowInstance(InstanceResource):
     @property
     def integration(self):
         """
-        :returns: Integration block
+        :returns: An object that contains specific parameters for the integration
         :rtype: dict
         """
         return self._properties['integration']
@@ -513,7 +513,7 @@ class FlexFlowInstance(InstanceResource):
     @property
     def long_lived(self):
         """
-        :returns: Long Lived flag for new Channel
+        :returns: Whether new channels are long-lived
         :rtype: bool
         """
         return self._properties['long_lived']
@@ -521,7 +521,7 @@ class FlexFlowInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the FlexFlow resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -548,21 +548,21 @@ class FlexFlowInstance(InstanceResource):
         """
         Update the FlexFlowInstance
 
-        :param unicode friendly_name: Human readable description of this FlexFlow
-        :param unicode chat_service_sid: Service Sid.
-        :param FlexFlowInstance.ChannelType channel_type: Channel type
-        :param unicode contact_identity: Channel contact Identity
-        :param bool enabled: Boolean flag for enabling or disabling the FlexFlow
-        :param FlexFlowInstance.IntegrationType integration_type: Integration type
-        :param unicode integration_flow_sid: Flow Sid.
-        :param unicode integration_url: External Webhook Url
-        :param unicode integration_workspace_sid: Workspace Sid for a new task
-        :param unicode integration_workflow_sid: Workflow Sid for a new task
-        :param unicode integration_channel: Task Channel for a new task
-        :param unicode integration_timeout: Task timeout in seconds for a new task
-        :param unicode integration_priority: Task priority for a new task
-        :param bool integration_creation_on_message: Flag for task creation
-        :param bool long_lived: Long Lived flag for new Channel
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode chat_service_sid: The SID of the chat service
+        :param FlexFlowInstance.ChannelType channel_type: The channel type
+        :param unicode contact_identity: The channel contact's Identity
+        :param bool enabled: Whether the FlexFlow is enabled
+        :param FlexFlowInstance.IntegrationType integration_type: The integration type
+        :param unicode integration_flow_sid: The SID of the Flow
+        :param unicode integration_url: The External Webhook URL
+        :param unicode integration_workspace_sid: The Workspace SID for a new task
+        :param unicode integration_workflow_sid: The Workflow SID for a new task
+        :param unicode integration_channel: task channel for a new task
+        :param unicode integration_timeout: The task timeout in seconds for a new task
+        :param unicode integration_priority: The task priority of a new task
+        :param bool integration_creation_on_message: Whether to create a task when the first message arrives
+        :param bool long_lived: Whether new channels created are long-lived
 
         :returns: Updated FlexFlowInstance
         :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance

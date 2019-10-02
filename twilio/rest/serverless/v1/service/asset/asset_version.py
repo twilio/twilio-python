@@ -24,8 +24,8 @@ class AssetVersionList(ListResource):
         Initialize the AssetVersionList
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
-        :param asset_sid: Asset Sid.
+        :param service_sid: The SID of the Service that the AssetVersion resource is associated with
+        :param asset_sid: The SID of the Asset resource that is the parent of the asset version
 
         :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionList
         :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionList
@@ -121,7 +121,7 @@ class AssetVersionList(ListResource):
         """
         Constructs a AssetVersionContext
 
-        :param sid: Asset Version Sid.
+        :param sid: The SID that identifies the AssetVersion resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
         :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
@@ -137,7 +137,7 @@ class AssetVersionList(ListResource):
         """
         Constructs a AssetVersionContext
 
-        :param sid: Asset Version Sid.
+        :param sid: The SID that identifies the AssetVersion resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
         :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
@@ -170,8 +170,8 @@ class AssetVersionPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: Service Sid.
-        :param asset_sid: Asset Sid.
+        :param service_sid: The SID of the Service that the AssetVersion resource is associated with
+        :param asset_sid: The SID of the Asset resource that is the parent of the asset version
 
         :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionPage
         :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionPage
@@ -217,9 +217,9 @@ class AssetVersionContext(InstanceContext):
         Initialize the AssetVersionContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
-        :param asset_sid: Asset Sid.
-        :param sid: Asset Version Sid.
+        :param service_sid: The SID of the Service to fetch the AssetVersion resource from
+        :param asset_sid: The SID of the Asset resource that is the parent of the AssetVersion resource to fetch
+        :param sid: The SID that identifies the AssetVersion resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
         :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
@@ -324,7 +324,7 @@ class AssetVersionInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: Asset Version Sid.
+        :returns: The unique string that identifies the AssetVersion resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -332,7 +332,7 @@ class AssetVersionInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid.
+        :returns: The SID of the Account that created the AssetVersion resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -340,7 +340,7 @@ class AssetVersionInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: Service Sid.
+        :returns: The SID of the Service that the AssetVersion resource is associated with
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -348,7 +348,7 @@ class AssetVersionInstance(InstanceResource):
     @property
     def asset_sid(self):
         """
-        :returns: Asset Sid.
+        :returns: The SID of the Asset resource that is the parent of the asset version
         :rtype: unicode
         """
         return self._properties['asset_sid']
@@ -356,7 +356,7 @@ class AssetVersionInstance(InstanceResource):
     @property
     def path(self):
         """
-        :returns: The URL-friendly string by which this Asset Version can be referenced.
+        :returns: The URL-friendly string by which the asset version can be referenced
         :rtype: unicode
         """
         return self._properties['path']
@@ -364,7 +364,7 @@ class AssetVersionInstance(InstanceResource):
     @property
     def visibility(self):
         """
-        :returns: The access control which determines how the Asset Version can be accessed.
+        :returns: The access control that determines how the asset version can be accessed
         :rtype: AssetVersionInstance.Visibility
         """
         return self._properties['visibility']
@@ -372,7 +372,7 @@ class AssetVersionInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this Asset Version was created.
+        :returns: The ISO 8601 date and time in GMT when the AssetVersion resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -380,7 +380,7 @@ class AssetVersionInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL of this Asset Version.
+        :returns: The absolute URL of the AssetVersion resource
         :rtype: unicode
         """
         return self._properties['url']

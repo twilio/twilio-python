@@ -28,7 +28,7 @@ class WorkerList(ListResource):
         Initialize the WorkerList
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The ID of the Workflow this worker is associated with
+        :param workspace_sid: The SID of the Workspace that contains the Worker
 
         :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerList
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerList
@@ -52,13 +52,13 @@ class WorkerList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode activity_name: Filter by workers that are in a particular Activity by Friendly Name
-        :param unicode activity_sid: Filter by workers that are in a particular Activity by SID
-        :param unicode available: Filter by workers that are available or unavailable.
-        :param unicode friendly_name: Filter by a worker's friendly name
-        :param unicode target_workers_expression: Filter by workers that would match an expression on a TaskQueue.
-        :param unicode task_queue_name: Filter by workers that are eligible for a TaskQueue by Friendly Name
-        :param unicode task_queue_sid: Filter by workers that are eligible for a TaskQueue by SID
+        :param unicode activity_name: The activity_name of the Worker resources to read
+        :param unicode activity_sid: The activity_sid of the Worker resources to read
+        :param unicode available: Whether to return Worker resources that are available or unavailable
+        :param unicode friendly_name: The friendly_name of the Worker resources to read
+        :param unicode target_workers_expression: Filter by Workers that would match an expression on a TaskQueue
+        :param unicode task_queue_name: The friendly_name of the TaskQueue that the Workers to read are eligible for
+        :param unicode task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -93,13 +93,13 @@ class WorkerList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode activity_name: Filter by workers that are in a particular Activity by Friendly Name
-        :param unicode activity_sid: Filter by workers that are in a particular Activity by SID
-        :param unicode available: Filter by workers that are available or unavailable.
-        :param unicode friendly_name: Filter by a worker's friendly name
-        :param unicode target_workers_expression: Filter by workers that would match an expression on a TaskQueue.
-        :param unicode task_queue_name: Filter by workers that are eligible for a TaskQueue by Friendly Name
-        :param unicode task_queue_sid: Filter by workers that are eligible for a TaskQueue by SID
+        :param unicode activity_name: The activity_name of the Worker resources to read
+        :param unicode activity_sid: The activity_sid of the Worker resources to read
+        :param unicode available: Whether to return Worker resources that are available or unavailable
+        :param unicode friendly_name: The friendly_name of the Worker resources to read
+        :param unicode target_workers_expression: Filter by Workers that would match an expression on a TaskQueue
+        :param unicode task_queue_name: The friendly_name of the TaskQueue that the Workers to read are eligible for
+        :param unicode task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -131,13 +131,13 @@ class WorkerList(ListResource):
         Retrieve a single page of WorkerInstance records from the API.
         Request is executed immediately
 
-        :param unicode activity_name: Filter by workers that are in a particular Activity by Friendly Name
-        :param unicode activity_sid: Filter by workers that are in a particular Activity by SID
-        :param unicode available: Filter by workers that are available or unavailable.
-        :param unicode friendly_name: Filter by a worker's friendly name
-        :param unicode target_workers_expression: Filter by workers that would match an expression on a TaskQueue.
-        :param unicode task_queue_name: Filter by workers that are eligible for a TaskQueue by Friendly Name
-        :param unicode task_queue_sid: Filter by workers that are eligible for a TaskQueue by SID
+        :param unicode activity_name: The activity_name of the Worker resources to read
+        :param unicode activity_sid: The activity_sid of the Worker resources to read
+        :param unicode available: Whether to return Worker resources that are available or unavailable
+        :param unicode friendly_name: The friendly_name of the Worker resources to read
+        :param unicode target_workers_expression: Filter by Workers that would match an expression on a TaskQueue
+        :param unicode task_queue_name: The friendly_name of the TaskQueue that the Workers to read are eligible for
+        :param unicode task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -188,9 +188,9 @@ class WorkerList(ListResource):
         """
         Create a new WorkerInstance
 
-        :param unicode friendly_name: String representing user-friendly name for the Worker.
-        :param unicode activity_sid: A valid Activity describing the worker's initial state.
-        :param unicode attributes: JSON object describing this worker.
+        :param unicode friendly_name: A string to describe the resource
+        :param unicode activity_sid: The SID of a valid Activity that describes the new Worker's initial state
+        :param unicode attributes: A valid JSON string that describes the new Worker
 
         :returns: Newly created WorkerInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
@@ -228,7 +228,7 @@ class WorkerList(ListResource):
         """
         Constructs a WorkerContext
 
-        :param sid: The sid
+        :param sid: The SID of the resource to fetch
 
         :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
@@ -239,7 +239,7 @@ class WorkerList(ListResource):
         """
         Constructs a WorkerContext
 
-        :param sid: The sid
+        :param sid: The SID of the resource to fetch
 
         :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
@@ -265,7 +265,7 @@ class WorkerPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param workspace_sid: The ID of the Workflow this worker is associated with
+        :param workspace_sid: The SID of the Workspace that contains the Worker
 
         :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerPage
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerPage
@@ -304,8 +304,8 @@ class WorkerContext(InstanceContext):
         Initialize the WorkerContext
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The workspace_sid
-        :param sid: The sid
+        :param workspace_sid: The SID of the Workspace with the Worker to fetch
+        :param sid: The SID of the resource to fetch
 
         :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
@@ -351,10 +351,10 @@ class WorkerContext(InstanceContext):
         """
         Update the WorkerInstance
 
-        :param unicode activity_sid: The activity_sid
-        :param unicode attributes: The attributes
-        :param unicode friendly_name: The friendly_name
-        :param bool reject_pending_reservations: The reject_pending_reservations
+        :param unicode activity_sid: The SID of the Activity that describes the Worker's initial state
+        :param unicode attributes: The JSON string that describes the Worker
+        :param unicode friendly_name: A string to describe the Worker
+        :param bool reject_pending_reservations: Whether to reject pending reservations
 
         :returns: Updated WorkerInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
@@ -530,7 +530,7 @@ class WorkerInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The ID of the account that owns this worker
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -538,7 +538,7 @@ class WorkerInstance(InstanceResource):
     @property
     def activity_name(self):
         """
-        :returns: Filter by workers that are in a particular Activity by Friendly Name
+        :returns: The friendly_name of the Worker's current Activity
         :rtype: unicode
         """
         return self._properties['activity_name']
@@ -546,7 +546,7 @@ class WorkerInstance(InstanceResource):
     @property
     def activity_sid(self):
         """
-        :returns: Filter by workers that are in a particular Activity by SID
+        :returns: The SID of the Worker's current Activity
         :rtype: unicode
         """
         return self._properties['activity_sid']
@@ -554,7 +554,7 @@ class WorkerInstance(InstanceResource):
     @property
     def attributes(self):
         """
-        :returns: JSON object describing this worker.
+        :returns: The JSON string that describes the Worker
         :rtype: unicode
         """
         return self._properties['attributes']
@@ -562,7 +562,7 @@ class WorkerInstance(InstanceResource):
     @property
     def available(self):
         """
-        :returns: Filter by workers that are available or unavailable.
+        :returns: Whether the Worker is available to perform tasks
         :rtype: bool
         """
         return self._properties['available']
@@ -570,7 +570,7 @@ class WorkerInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: DateTime this worker was created
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -578,7 +578,7 @@ class WorkerInstance(InstanceResource):
     @property
     def date_status_changed(self):
         """
-        :returns: DateTime of the last change to the Worker's activity.
+        :returns: The date and time in GMT of the last change to the Worker's activity
         :rtype: datetime
         """
         return self._properties['date_status_changed']
@@ -586,7 +586,7 @@ class WorkerInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: DateTime of the last update
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -594,7 +594,7 @@ class WorkerInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: Filter by a worker's friendly name
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -602,7 +602,7 @@ class WorkerInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The unique ID of the worker
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -610,7 +610,7 @@ class WorkerInstance(InstanceResource):
     @property
     def workspace_sid(self):
         """
-        :returns: The ID of the Workflow this worker is associated with
+        :returns: The SID of the Workspace that contains the Worker
         :rtype: unicode
         """
         return self._properties['workspace_sid']
@@ -618,7 +618,7 @@ class WorkerInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the Worker resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -626,7 +626,7 @@ class WorkerInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links
+        :returns: The URLs of related resources
         :rtype: unicode
         """
         return self._properties['links']
@@ -646,10 +646,10 @@ class WorkerInstance(InstanceResource):
         """
         Update the WorkerInstance
 
-        :param unicode activity_sid: The activity_sid
-        :param unicode attributes: The attributes
-        :param unicode friendly_name: The friendly_name
-        :param bool reject_pending_reservations: The reject_pending_reservations
+        :param unicode activity_sid: The SID of the Activity that describes the Worker's initial state
+        :param unicode attributes: The JSON string that describes the Worker
+        :param unicode friendly_name: A string to describe the Worker
+        :param bool reject_pending_reservations: Whether to reject pending reservations
 
         :returns: Updated WorkerInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance

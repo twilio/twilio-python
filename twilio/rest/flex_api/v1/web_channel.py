@@ -119,12 +119,12 @@ class WebChannelList(ListResource):
         """
         Create a new WebChannelInstance
 
-        :param unicode flex_flow_sid: The unique ID of the FlexFlow
-        :param unicode identity: Chat identity
-        :param unicode customer_friendly_name: Customer friendly name
-        :param unicode chat_friendly_name: Chat channel friendly name
-        :param unicode chat_unique_name: Chat channel unique name
-        :param unicode pre_engagement_data: Pre-engagement data
+        :param unicode flex_flow_sid: The SID of the FlexFlow
+        :param unicode identity: The chat identity
+        :param unicode customer_friendly_name: The chat participant's friendly name
+        :param unicode chat_friendly_name: The chat channel's friendly name
+        :param unicode chat_unique_name: The chat channel's unique name
+        :param unicode pre_engagement_data: The pre-engagement data
 
         :returns: Newly created WebChannelInstance
         :rtype: twilio.rest.flex_api.v1.web_channel.WebChannelInstance
@@ -150,7 +150,7 @@ class WebChannelList(ListResource):
         """
         Constructs a WebChannelContext
 
-        :param sid: Flex Chat Channel Sid
+        :param sid: The SID of the WebChannel resource to fetch
 
         :returns: twilio.rest.flex_api.v1.web_channel.WebChannelContext
         :rtype: twilio.rest.flex_api.v1.web_channel.WebChannelContext
@@ -161,7 +161,7 @@ class WebChannelList(ListResource):
         """
         Constructs a WebChannelContext
 
-        :param sid: Flex Chat Channel Sid
+        :param sid: The SID of the WebChannel resource to fetch
 
         :returns: twilio.rest.flex_api.v1.web_channel.WebChannelContext
         :rtype: twilio.rest.flex_api.v1.web_channel.WebChannelContext
@@ -225,7 +225,7 @@ class WebChannelContext(InstanceContext):
         Initialize the WebChannelContext
 
         :param Version version: Version that contains the resource
-        :param sid: Flex Chat Channel Sid
+        :param sid: The SID of the WebChannel resource to fetch
 
         :returns: twilio.rest.flex_api.v1.web_channel.WebChannelContext
         :rtype: twilio.rest.flex_api.v1.web_channel.WebChannelContext
@@ -257,8 +257,8 @@ class WebChannelContext(InstanceContext):
         """
         Update the WebChannelInstance
 
-        :param WebChannelInstance.ChatStatus chat_status: Chat status
-        :param unicode post_engagement_data: Post-engagement data
+        :param WebChannelInstance.ChatStatus chat_status: The chat status
+        :param unicode post_engagement_data: The post-engagement data
 
         :returns: Updated WebChannelInstance
         :rtype: twilio.rest.flex_api.v1.web_channel.WebChannelInstance
@@ -338,7 +338,7 @@ class WebChannelInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The ID of the account that owns this Workflow
+        :returns: The SID of the Account that created the resource and owns this Workflow
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -346,7 +346,7 @@ class WebChannelInstance(InstanceResource):
     @property
     def flex_flow_sid(self):
         """
-        :returns: The unique ID of the FlexFlow
+        :returns: The SID of the FlexFlow
         :rtype: unicode
         """
         return self._properties['flex_flow_sid']
@@ -354,7 +354,7 @@ class WebChannelInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: Flex Chat Channel Sid
+        :returns: The unique string that identifies the WebChannel resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -362,7 +362,7 @@ class WebChannelInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the WebChannel resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -370,7 +370,7 @@ class WebChannelInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The time the Flex Chat Channel was created, given as GMT in ISO 8601 format.
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -378,7 +378,7 @@ class WebChannelInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The time the Flex Chat Channel was last updated, given as GMT in ISO 8601 format.
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -396,8 +396,8 @@ class WebChannelInstance(InstanceResource):
         """
         Update the WebChannelInstance
 
-        :param WebChannelInstance.ChatStatus chat_status: Chat status
-        :param unicode post_engagement_data: Post-engagement data
+        :param WebChannelInstance.ChatStatus chat_status: The chat status
+        :param unicode post_engagement_data: The post-engagement data
 
         :returns: Updated WebChannelInstance
         :rtype: twilio.rest.flex_api.v1.web_channel.WebChannelInstance

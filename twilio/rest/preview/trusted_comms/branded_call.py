@@ -40,7 +40,7 @@ class BrandedCallList(ListResource):
         :param unicode from_: Twilio number from which to brand the call
         :param unicode to: The terminating Phone Number
         :param unicode reason: The business reason for this phone call
-        :param unicode call_sid: The call_sid
+        :param unicode call_sid: The Call sid this Branded Call should link to
 
         :returns: Newly created BrandedCallInstance
         :rtype: twilio.rest.preview.trusted_comms.branded_call.BrandedCallInstance

@@ -23,8 +23,8 @@ class SubscribeRulesList(ListResource):
         Initialize the SubscribeRulesList
 
         :param Version version: Version that contains the resource
-        :param room_sid: The unique Room identifier for the Subscribe Rules
-        :param participant_sid: The unique Participant identifier for the Subscribe Rules.
+        :param room_sid: The SID of the Room resource for the Subscribe Rules
+        :param participant_sid: The SID of the Participant resource for the Subscribe Rules
 
         :returns: twilio.rest.video.v1.room.room_participant.room_participant_subscribe_rule.SubscribeRulesList
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_subscribe_rule.SubscribeRulesList
@@ -61,7 +61,7 @@ class SubscribeRulesList(ListResource):
         """
         Update the SubscribeRulesInstance
 
-        :param dict rules: A JSON-encoded array of Subscribe Rules.
+        :param dict rules: A JSON-encoded array of subscribe rules
 
         :returns: Updated SubscribeRulesInstance
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_subscribe_rule.SubscribeRulesInstance
@@ -101,8 +101,8 @@ class SubscribeRulesPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param room_sid: The unique Room identifier for the Subscribe Rules
-        :param participant_sid: The unique Participant identifier for the Subscribe Rules.
+        :param room_sid: The SID of the Room resource for the Subscribe Rules
+        :param participant_sid: The SID of the Participant resource for the Subscribe Rules
 
         :returns: twilio.rest.video.v1.room.room_participant.room_participant_subscribe_rule.SubscribeRulesPage
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_subscribe_rule.SubscribeRulesPage
@@ -167,7 +167,7 @@ class SubscribeRulesInstance(InstanceResource):
     @property
     def participant_sid(self):
         """
-        :returns: The unique Participant identifier for the Subscribe Rules.
+        :returns: The SID of the Participant resource for the Subscribe Rules
         :rtype: unicode
         """
         return self._properties['participant_sid']
@@ -175,7 +175,7 @@ class SubscribeRulesInstance(InstanceResource):
     @property
     def room_sid(self):
         """
-        :returns: The unique Room identifier for the Subscribe Rules
+        :returns: The SID of the Room resource for the Subscribe Rules
         :rtype: unicode
         """
         return self._properties['room_sid']
@@ -183,7 +183,7 @@ class SubscribeRulesInstance(InstanceResource):
     @property
     def rules(self):
         """
-        :returns: A collection of Subscribe Rules to include or exclude matching Tracks.
+        :returns: A collection of Subscribe Rules that describe how to include or exclude matching tracks
         :rtype: unicode
         """
         return self._properties['rules']
@@ -191,7 +191,7 @@ class SubscribeRulesInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this resource was created.
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -199,7 +199,7 @@ class SubscribeRulesInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date that this resource was last updated.
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']

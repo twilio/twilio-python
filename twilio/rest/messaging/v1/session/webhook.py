@@ -25,7 +25,7 @@ class WebhookList(ListResource):
         Initialize the WebhookList
 
         :param Version version: Version that contains the resource
-        :param session_sid: The unique id of the Session for this webhook.
+        :param session_sid: The SID of the Session for the webhook
 
         :returns: twilio.rest.messaging.v1.session.webhook.WebhookList
         :rtype: twilio.rest.messaging.v1.session.webhook.WebhookList
@@ -129,16 +129,16 @@ class WebhookList(ListResource):
         """
         Create a new WebhookInstance
 
-        :param WebhookInstance.Target target: The target of this webhook.
-        :param unicode configuration_url: The absolute url the webhook request should be sent to.
-        :param WebhookInstance.Method configuration_method: The HTTP method to be used when sending a webhook request.
-        :param unicode configuration_filters: The list of events, firing webhook event for this Session.
-        :param unicode configuration_triggers: The list of keywords, firing webhook event for this Session.
-        :param unicode configuration_flow_sid: The studio flow sid, where the webhook should be sent to.
-        :param unicode configuration_retry_count: The number of retries in case of webhook request failures.
-        :param unicode configuration_replay_after: The message index for which and it's successors the webhook will be replayed.
-        :param bool configuration_buffer_messages: The flag whether buffering should be applied to messages.
-        :param unicode configuration_buffer_window: The period of buffering messages.
+        :param WebhookInstance.Target target: The target of the webhook
+        :param unicode configuration_url: The absolute URL the webhook request should be sent to
+        :param WebhookInstance.Method configuration_method: The HTTP method we should use when sending a webhook request to url
+        :param unicode configuration_filters: The list of events that trigger a webhook event for the Session
+        :param unicode configuration_triggers: The list of keywords, firing webhook event for the Session
+        :param unicode configuration_flow_sid: The SID of the studio flow where the webhook should be sent to
+        :param unicode configuration_retry_count: The number of times to call the webhook request if the first attempt fails
+        :param unicode configuration_replay_after: The message index for which and its successors the webhook will be replayed
+        :param bool configuration_buffer_messages: Whether buffering should be applied to messages
+        :param unicode configuration_buffer_window: The period to buffer messages
 
         :returns: Newly created WebhookInstance
         :rtype: twilio.rest.messaging.v1.session.webhook.WebhookInstance
@@ -168,7 +168,7 @@ class WebhookList(ListResource):
         """
         Constructs a WebhookContext
 
-        :param sid: A 34 character string that uniquely identifies this resource.
+        :param sid: The SID of the resource to fetch
 
         :returns: twilio.rest.messaging.v1.session.webhook.WebhookContext
         :rtype: twilio.rest.messaging.v1.session.webhook.WebhookContext
@@ -179,7 +179,7 @@ class WebhookList(ListResource):
         """
         Constructs a WebhookContext
 
-        :param sid: A 34 character string that uniquely identifies this resource.
+        :param sid: The SID of the resource to fetch
 
         :returns: twilio.rest.messaging.v1.session.webhook.WebhookContext
         :rtype: twilio.rest.messaging.v1.session.webhook.WebhookContext
@@ -207,7 +207,7 @@ class WebhookPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param session_sid: The unique id of the Session for this webhook.
+        :param session_sid: The SID of the Session for the webhook
 
         :returns: twilio.rest.messaging.v1.session.webhook.WebhookPage
         :rtype: twilio.rest.messaging.v1.session.webhook.WebhookPage
@@ -248,8 +248,8 @@ class WebhookContext(InstanceContext):
         Initialize the WebhookContext
 
         :param Version version: Version that contains the resource
-        :param session_sid: The unique id of the Session for this webhook.
-        :param sid: A 34 character string that uniquely identifies this resource.
+        :param session_sid: The SID of the Session with the Webhook resource to fetch
+        :param sid: The SID of the resource to fetch
 
         :returns: twilio.rest.messaging.v1.session.webhook.WebhookContext
         :rtype: twilio.rest.messaging.v1.session.webhook.WebhookContext
@@ -293,14 +293,14 @@ class WebhookContext(InstanceContext):
         """
         Update the WebhookInstance
 
-        :param unicode configuration_url: The absolute url the webhook request should be sent to.
-        :param WebhookInstance.Method configuration_method: The HTTP method to be used when sending a webhook request.
-        :param unicode configuration_filters: The list of events, firing webhook event for this Session.
-        :param unicode configuration_triggers: The list of keywords, firing webhook event for this Session.
-        :param unicode configuration_flow_sid: The studio flow sid, where the webhook should be sent to.
-        :param unicode configuration_retry_count: The number of retries in case of webhook request failures.
-        :param bool configuration_buffer_messages: The flag whether buffering should be applied to messages.
-        :param unicode configuration_buffer_window: The period of buffering messages.
+        :param unicode configuration_url: The absolute URL the webhook request should be sent to
+        :param WebhookInstance.Method configuration_method: The HTTP method we should use when sending a webhook request to url
+        :param unicode configuration_filters: The list of events that trigger a  webhook event for the Session
+        :param unicode configuration_triggers: The list of keywords, that trigger a webhook event for the Session
+        :param unicode configuration_flow_sid: The SID of the studio flow where the webhook should be sent to
+        :param unicode configuration_retry_count: The number of times to try the webhook request if the first attempt fails
+        :param bool configuration_buffer_messages: Whether buffering should be applied to messages
+        :param unicode configuration_buffer_window: The period to buffer messages
 
         :returns: Updated WebhookInstance
         :rtype: twilio.rest.messaging.v1.session.webhook.WebhookInstance
@@ -408,7 +408,7 @@ class WebhookInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34 character string that uniquely identifies this resource.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -416,7 +416,7 @@ class WebhookInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the Account responsible for this session.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -424,7 +424,7 @@ class WebhookInstance(InstanceResource):
     @property
     def session_sid(self):
         """
-        :returns: The unique id of the Session for this webhook.
+        :returns: The SID of the Session for the webhook
         :rtype: unicode
         """
         return self._properties['session_sid']
@@ -432,7 +432,7 @@ class WebhookInstance(InstanceResource):
     @property
     def target(self):
         """
-        :returns: The target of this webhook.
+        :returns: The target of the webhook
         :rtype: unicode
         """
         return self._properties['target']
@@ -440,7 +440,7 @@ class WebhookInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: An absolute URL for this webhook.
+        :returns: The absolute URL of the webhook
         :rtype: unicode
         """
         return self._properties['url']
@@ -448,7 +448,7 @@ class WebhookInstance(InstanceResource):
     @property
     def configuration(self):
         """
-        :returns: The configuration of this webhook.
+        :returns: The configuration of the webhook
         :rtype: dict
         """
         return self._properties['configuration']
@@ -456,7 +456,7 @@ class WebhookInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this resource was created.
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -464,7 +464,7 @@ class WebhookInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date that this resource was last updated.
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -489,14 +489,14 @@ class WebhookInstance(InstanceResource):
         """
         Update the WebhookInstance
 
-        :param unicode configuration_url: The absolute url the webhook request should be sent to.
-        :param WebhookInstance.Method configuration_method: The HTTP method to be used when sending a webhook request.
-        :param unicode configuration_filters: The list of events, firing webhook event for this Session.
-        :param unicode configuration_triggers: The list of keywords, firing webhook event for this Session.
-        :param unicode configuration_flow_sid: The studio flow sid, where the webhook should be sent to.
-        :param unicode configuration_retry_count: The number of retries in case of webhook request failures.
-        :param bool configuration_buffer_messages: The flag whether buffering should be applied to messages.
-        :param unicode configuration_buffer_window: The period of buffering messages.
+        :param unicode configuration_url: The absolute URL the webhook request should be sent to
+        :param WebhookInstance.Method configuration_method: The HTTP method we should use when sending a webhook request to url
+        :param unicode configuration_filters: The list of events that trigger a  webhook event for the Session
+        :param unicode configuration_triggers: The list of keywords, that trigger a webhook event for the Session
+        :param unicode configuration_flow_sid: The SID of the studio flow where the webhook should be sent to
+        :param unicode configuration_retry_count: The number of times to try the webhook request if the first attempt fails
+        :param bool configuration_buffer_messages: Whether buffering should be applied to messages
+        :param unicode configuration_buffer_window: The period to buffer messages
 
         :returns: Updated WebhookInstance
         :rtype: twilio.rest.messaging.v1.session.webhook.WebhookInstance

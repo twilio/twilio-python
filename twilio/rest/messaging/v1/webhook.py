@@ -147,13 +147,13 @@ class WebhookContext(InstanceContext):
         """
         Update the WebhookInstance
 
-        :param unicode webhook_method: The HTTP method to be used when sending a webhook request.
-        :param unicode webhook_filters: The list of webhook event triggers that are enabled for this Service.
-        :param unicode pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
-        :param unicode post_webhook_url: The absolute url the post-event webhook request should be sent to.
-        :param unicode pre_webhook_retry_count: The number of retries in case of pre-event webhook request failures.
-        :param unicode post_webhook_retry_count: The number of retries in case of post-event webhook request failures.
-        :param WebhookInstance.Target target: The routing target of the webhook.
+        :param unicode webhook_method: The HTTP method to use when sending a webhook request
+        :param unicode webhook_filters: The list of webhook event triggers that are enabled for the Service
+        :param unicode pre_webhook_url: The absolute URL of the pre-event webhook
+        :param unicode post_webhook_url: The absolute URL of the post-event webhook
+        :param unicode pre_webhook_retry_count: The number of times to try the pre-event webhook request if the first attempt fails
+        :param unicode post_webhook_retry_count: The number of times to try the post-event webhook request if the first attempt fails
+        :param WebhookInstance.Target target: The routing target of the webhook
 
         :returns: Updated WebhookInstance
         :rtype: twilio.rest.messaging.v1.webhook.WebhookInstance
@@ -239,7 +239,7 @@ class WebhookInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the Account responsible for this session.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -247,7 +247,7 @@ class WebhookInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The unique id of the Chat Service this session belongs to.
+        :returns: The SID of the Chat Service that the resource is associated with
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -255,7 +255,7 @@ class WebhookInstance(InstanceResource):
     @property
     def webhook_method(self):
         """
-        :returns: The HTTP method to be used when sending a webhook request.
+        :returns: The HTTP method to use when sending a webhook request
         :rtype: unicode
         """
         return self._properties['webhook_method']
@@ -263,7 +263,7 @@ class WebhookInstance(InstanceResource):
     @property
     def webhook_filters(self):
         """
-        :returns: The list of webhook event triggers that are enabled for this Service.
+        :returns: The list of webhook event triggers that are enabled for the Service
         :rtype: unicode
         """
         return self._properties['webhook_filters']
@@ -271,7 +271,7 @@ class WebhookInstance(InstanceResource):
     @property
     def pre_webhook_url(self):
         """
-        :returns: The absolute url the pre-event webhook request should be sent to.
+        :returns: The absolute URL of the pre-event webhook
         :rtype: unicode
         """
         return self._properties['pre_webhook_url']
@@ -279,7 +279,7 @@ class WebhookInstance(InstanceResource):
     @property
     def post_webhook_url(self):
         """
-        :returns: The absolute url the post-event webhook request should be sent to.
+        :returns: The absolute URL of the post-event webhook
         :rtype: unicode
         """
         return self._properties['post_webhook_url']
@@ -287,7 +287,7 @@ class WebhookInstance(InstanceResource):
     @property
     def pre_webhook_retry_count(self):
         """
-        :returns: The number of retries in case of pre-event webhook request failures.
+        :returns: The number of times to try the pre-event webhook request if the first attempt fails
         :rtype: unicode
         """
         return self._properties['pre_webhook_retry_count']
@@ -295,7 +295,7 @@ class WebhookInstance(InstanceResource):
     @property
     def post_webhook_retry_count(self):
         """
-        :returns: The number of retries in case of post-event webhook request failures.
+        :returns: The number of times to try the post-event webhook request if the first attempt fails
         :rtype: unicode
         """
         return self._properties['post_webhook_retry_count']
@@ -303,7 +303,7 @@ class WebhookInstance(InstanceResource):
     @property
     def target(self):
         """
-        :returns: The routing target of the webhook.
+        :returns: The routing target of the webhook
         :rtype: WebhookInstance.Target
         """
         return self._properties['target']
@@ -311,7 +311,7 @@ class WebhookInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: An absolute URL for this webhook.
+        :returns: The absolute URL of the webhook
         :rtype: unicode
         """
         return self._properties['url']
@@ -332,13 +332,13 @@ class WebhookInstance(InstanceResource):
         """
         Update the WebhookInstance
 
-        :param unicode webhook_method: The HTTP method to be used when sending a webhook request.
-        :param unicode webhook_filters: The list of webhook event triggers that are enabled for this Service.
-        :param unicode pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
-        :param unicode post_webhook_url: The absolute url the post-event webhook request should be sent to.
-        :param unicode pre_webhook_retry_count: The number of retries in case of pre-event webhook request failures.
-        :param unicode post_webhook_retry_count: The number of retries in case of post-event webhook request failures.
-        :param WebhookInstance.Target target: The routing target of the webhook.
+        :param unicode webhook_method: The HTTP method to use when sending a webhook request
+        :param unicode webhook_filters: The list of webhook event triggers that are enabled for the Service
+        :param unicode pre_webhook_url: The absolute URL of the pre-event webhook
+        :param unicode post_webhook_url: The absolute URL of the post-event webhook
+        :param unicode pre_webhook_retry_count: The number of times to try the pre-event webhook request if the first attempt fails
+        :param unicode post_webhook_retry_count: The number of times to try the post-event webhook request if the first attempt fails
+        :param WebhookInstance.Target target: The routing target of the webhook
 
         :returns: Updated WebhookInstance
         :rtype: twilio.rest.messaging.v1.webhook.WebhookInstance

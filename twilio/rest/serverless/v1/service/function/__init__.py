@@ -25,7 +25,7 @@ class FunctionList(ListResource):
         Initialize the FunctionList
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
+        :param service_sid: The SID of the Service that the Function resource is associated with
 
         :returns: twilio.rest.serverless.v1.service.function.FunctionList
         :rtype: twilio.rest.serverless.v1.service.function.FunctionList
@@ -121,7 +121,7 @@ class FunctionList(ListResource):
         """
         Create a new FunctionInstance
 
-        :param unicode friendly_name: A human-readable description of this Function.
+        :param unicode friendly_name: A string to describe the Function resource
 
         :returns: Newly created FunctionInstance
         :rtype: twilio.rest.serverless.v1.service.function.FunctionInstance
@@ -140,7 +140,7 @@ class FunctionList(ListResource):
         """
         Constructs a FunctionContext
 
-        :param sid: Function Sid.
+        :param sid: The SID of the Function resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.function.FunctionContext
         :rtype: twilio.rest.serverless.v1.service.function.FunctionContext
@@ -151,7 +151,7 @@ class FunctionList(ListResource):
         """
         Constructs a FunctionContext
 
-        :param sid: Function Sid.
+        :param sid: The SID of the Function resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.function.FunctionContext
         :rtype: twilio.rest.serverless.v1.service.function.FunctionContext
@@ -179,7 +179,7 @@ class FunctionPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: Service Sid.
+        :param service_sid: The SID of the Service that the Function resource is associated with
 
         :returns: twilio.rest.serverless.v1.service.function.FunctionPage
         :rtype: twilio.rest.serverless.v1.service.function.FunctionPage
@@ -220,8 +220,8 @@ class FunctionContext(InstanceContext):
         Initialize the FunctionContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
-        :param sid: Function Sid.
+        :param service_sid: The SID of the Service to fetch the Function resource from
+        :param sid: The SID of the Function resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.function.FunctionContext
         :rtype: twilio.rest.serverless.v1.service.function.FunctionContext
@@ -270,7 +270,7 @@ class FunctionContext(InstanceContext):
         """
         Update the FunctionInstance
 
-        :param unicode friendly_name: A human-readable description of this Function.
+        :param unicode friendly_name: A string to describe the Function resource
 
         :returns: Updated FunctionInstance
         :rtype: twilio.rest.serverless.v1.service.function.FunctionInstance
@@ -367,7 +367,7 @@ class FunctionInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: Function Sid.
+        :returns: The unique string that identifies the Function resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -375,7 +375,7 @@ class FunctionInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid.
+        :returns: The SID of the Account that created the Function resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -383,7 +383,7 @@ class FunctionInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: Service Sid.
+        :returns: The SID of the Service that the Function resource is associated with
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -391,7 +391,7 @@ class FunctionInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A human-readable description of this Function.
+        :returns: The string that you assigned to describe the Function resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -399,7 +399,7 @@ class FunctionInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this Function was created.
+        :returns: The ISO 8601 date and time in GMT when the Function resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -407,7 +407,7 @@ class FunctionInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date that this Function was updated.
+        :returns: The ISO 8601 date and time in GMT when the Function resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -415,7 +415,7 @@ class FunctionInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL of this Function.
+        :returns: The absolute URL of the Function resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -423,7 +423,7 @@ class FunctionInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: Nested resource URLs.
+        :returns: The URLs of nested resources of the function
         :rtype: unicode
         """
         return self._properties['links']
@@ -450,7 +450,7 @@ class FunctionInstance(InstanceResource):
         """
         Update the FunctionInstance
 
-        :param unicode friendly_name: A human-readable description of this Function.
+        :param unicode friendly_name: A string to describe the Function resource
 
         :returns: Updated FunctionInstance
         :rtype: twilio.rest.serverless.v1.service.function.FunctionInstance

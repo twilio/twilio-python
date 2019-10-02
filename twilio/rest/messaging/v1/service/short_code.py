@@ -23,7 +23,7 @@ class ShortCodeList(ListResource):
         Initialize the ShortCodeList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service that this resource is associated with
+        :param service_sid: The SID of the Service that the resource is associated with
 
         :returns: twilio.rest.messaging.v1.service.short_code.ShortCodeList
         :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeList
@@ -38,7 +38,7 @@ class ShortCodeList(ListResource):
         """
         Create a new ShortCodeInstance
 
-        :param unicode short_code_sid: SID of the ShortCode being added to the Service.
+        :param unicode short_code_sid: The SID of the ShortCode being added to the Service
 
         :returns: Newly created ShortCodeInstance
         :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeInstance
@@ -138,7 +138,7 @@ class ShortCodeList(ListResource):
         """
         Constructs a ShortCodeContext
 
-        :param sid: The unique string that identifies this resource
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.messaging.v1.service.short_code.ShortCodeContext
         :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeContext
@@ -149,7 +149,7 @@ class ShortCodeList(ListResource):
         """
         Constructs a ShortCodeContext
 
-        :param sid: The unique string that identifies this resource
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.messaging.v1.service.short_code.ShortCodeContext
         :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeContext
@@ -176,7 +176,7 @@ class ShortCodePage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The SID of the Service that this resource is associated with
+        :param service_sid: The SID of the Service that the resource is associated with
 
         :returns: twilio.rest.messaging.v1.service.short_code.ShortCodePage
         :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodePage
@@ -217,7 +217,7 @@ class ShortCodeContext(InstanceContext):
 
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the Service to fetch the resource from
-        :param sid: The unique string that identifies this resource
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.messaging.v1.service.short_code.ShortCodeContext
         :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeContext
@@ -320,7 +320,7 @@ class ShortCodeInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The unique string that identifies this resource
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -328,7 +328,7 @@ class ShortCodeInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The SID of the Account that created this resource
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -336,7 +336,7 @@ class ShortCodeInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The SID of the Service that this resource is associated with
+        :returns: The SID of the Service that the resource is associated with
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -344,7 +344,7 @@ class ShortCodeInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The RFC 2822 date and time in GMT that this resource was created
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -352,7 +352,7 @@ class ShortCodeInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The RFC 2822 date and time in GMT that this resource was last updated
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -360,7 +360,7 @@ class ShortCodeInstance(InstanceResource):
     @property
     def short_code(self):
         """
-        :returns: The E.164 format of the short code.
+        :returns: The E.164 format of the short code
         :rtype: unicode
         """
         return self._properties['short_code']
@@ -368,7 +368,7 @@ class ShortCodeInstance(InstanceResource):
     @property
     def country_code(self):
         """
-        :returns: The 2-character ISO Country Code of the number.
+        :returns: The 2-character ISO Country Code of the number
         :rtype: unicode
         """
         return self._properties['country_code']
@@ -376,7 +376,7 @@ class ShortCodeInstance(InstanceResource):
     @property
     def capabilities(self):
         """
-        :returns: Any array of values that indicate whether the number can receive calls or messages.
+        :returns: An array of values that describe whether the number can receive calls or messages
         :rtype: dict
         """
         return self._properties['capabilities']
@@ -384,7 +384,7 @@ class ShortCodeInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The absolute URL of this ShortCode resource
+        :returns: The absolute URL of the ShortCode resource
         :rtype: unicode
         """
         return self._properties['url']

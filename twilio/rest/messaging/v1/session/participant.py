@@ -25,7 +25,7 @@ class ParticipantList(ListResource):
         Initialize the ParticipantList
 
         :param Version version: Version that contains the resource
-        :param session_sid: The unique id of the Session for this participant.
+        :param session_sid: The SID of the Session for the participant
 
         :returns: twilio.rest.messaging.v1.session.participant.ParticipantList
         :rtype: twilio.rest.messaging.v1.session.participant.ParticipantList
@@ -42,12 +42,12 @@ class ParticipantList(ListResource):
         """
         Create a new ParticipantInstance
 
-        :param unicode attributes: An optional string metadata field you can use to store any data you wish.
-        :param unicode twilio_address: The address of the Twilio phone number that the participant is in contact with.
-        :param datetime date_created: The date that this resource was created.
-        :param datetime date_updated: The date that this resource was last updated.
-        :param unicode identity: A unique string identifier for the session participant as Chat User.
-        :param unicode user_address: The address of the participant's device.
+        :param unicode attributes: A JSON string that stores application-specific data
+        :param unicode twilio_address: The address of the Twilio phone number that the participant is in contact with
+        :param datetime date_created: The ISO 8601 date and time in GMT when the resource was created
+        :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
+        :param unicode identity: The string that identifies the resource's User
+        :param unicode user_address: The address of the participant's device
 
         :returns: Newly created ParticipantInstance
         :rtype: twilio.rest.messaging.v1.session.participant.ParticipantInstance
@@ -154,7 +154,7 @@ class ParticipantList(ListResource):
         """
         Constructs a ParticipantContext
 
-        :param sid: A 34 character string that uniquely identifies this resource.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.messaging.v1.session.participant.ParticipantContext
         :rtype: twilio.rest.messaging.v1.session.participant.ParticipantContext
@@ -165,7 +165,7 @@ class ParticipantList(ListResource):
         """
         Constructs a ParticipantContext
 
-        :param sid: A 34 character string that uniquely identifies this resource.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.messaging.v1.session.participant.ParticipantContext
         :rtype: twilio.rest.messaging.v1.session.participant.ParticipantContext
@@ -193,7 +193,7 @@ class ParticipantPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param session_sid: The unique id of the Session for this participant.
+        :param session_sid: The SID of the Session for the participant
 
         :returns: twilio.rest.messaging.v1.session.participant.ParticipantPage
         :rtype: twilio.rest.messaging.v1.session.participant.ParticipantPage
@@ -234,8 +234,8 @@ class ParticipantContext(InstanceContext):
         Initialize the ParticipantContext
 
         :param Version version: Version that contains the resource
-        :param session_sid: The unique id of the Session for this participant.
-        :param sid: A 34 character string that uniquely identifies this resource.
+        :param session_sid: The SID of the Session with the participant to fetch
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.messaging.v1.session.participant.ParticipantContext
         :rtype: twilio.rest.messaging.v1.session.participant.ParticipantContext
@@ -251,9 +251,9 @@ class ParticipantContext(InstanceContext):
         """
         Update the ParticipantInstance
 
-        :param unicode attributes: An optional string metadata field you can use to store any data you wish.
-        :param datetime date_created: The date that this resource was created.
-        :param datetime date_updated: The date that this resource was last updated.
+        :param unicode attributes: A JSON string that stores application-specific data
+        :param datetime date_created: The ISO 8601 date and time in GMT when the resource was created
+        :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
 
         :returns: Updated ParticipantInstance
         :rtype: twilio.rest.messaging.v1.session.participant.ParticipantInstance
@@ -378,7 +378,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the Account responsible for this session.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -386,7 +386,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The unique id of the Chat Service this session belongs to.
+        :returns: The SID of the Service the session belongs to
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -394,7 +394,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def messaging_service_sid(self):
         """
-        :returns: The unique id of the SMS Service this session belongs to.
+        :returns: The SID of the SMS Service the session belongs to
         :rtype: unicode
         """
         return self._properties['messaging_service_sid']
@@ -402,7 +402,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def session_sid(self):
         """
-        :returns: The unique id of the Session for this participant.
+        :returns: The SID of the Session for the participant
         :rtype: unicode
         """
         return self._properties['session_sid']
@@ -410,7 +410,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34 character string that uniquely identifies this resource.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -418,7 +418,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def identity(self):
         """
-        :returns: A unique string identifier for the session participant as Chat User.
+        :returns: The string that identifies the resource's User
         :rtype: unicode
         """
         return self._properties['identity']
@@ -426,7 +426,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def twilio_address(self):
         """
-        :returns: The address of the Twilio phone number that the participant is in contact with.
+        :returns: The address of the Twilio phone number that the participant is in contact with
         :rtype: unicode
         """
         return self._properties['twilio_address']
@@ -434,7 +434,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def user_address(self):
         """
-        :returns: The address of the participant's device.
+        :returns: The address of the participant's device
         :rtype: unicode
         """
         return self._properties['user_address']
@@ -442,7 +442,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def attributes(self):
         """
-        :returns: An optional string metadata field you can use to store any data you wish.
+        :returns: The JSON string that stores application-specific data
         :rtype: unicode
         """
         return self._properties['attributes']
@@ -450,7 +450,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def type(self):
         """
-        :returns: The type of twilio product, participant is a user of.
+        :returns: The type of messaging used by the participant
         :rtype: ParticipantInstance.ParticipantType
         """
         return self._properties['type']
@@ -458,7 +458,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this resource was created.
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -466,7 +466,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date that this resource was last updated.
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -474,7 +474,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: An absolute URL for this participant.
+        :returns: The absolute URL of the participant
         :rtype: unicode
         """
         return self._properties['url']
@@ -484,9 +484,9 @@ class ParticipantInstance(InstanceResource):
         """
         Update the ParticipantInstance
 
-        :param unicode attributes: An optional string metadata field you can use to store any data you wish.
-        :param datetime date_created: The date that this resource was created.
-        :param datetime date_updated: The date that this resource was last updated.
+        :param unicode attributes: A JSON string that stores application-specific data
+        :param datetime date_created: The ISO 8601 date and time in GMT when the resource was created
+        :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
 
         :returns: Updated ParticipantInstance
         :rtype: twilio.rest.messaging.v1.session.participant.ParticipantInstance

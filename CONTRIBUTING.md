@@ -11,6 +11,7 @@ even better than it is today! Here are the guidelines we'd like you to follow:
  - [Submission Guidelines](#submit)
  - [Coding Rules](#rules)
 
+
 ## <a name="coc"></a> Code of Conduct
 
 Help us keep `twilio-python` open and inclusive. Please be kind to and considerate
@@ -153,6 +154,7 @@ you are working:
 
 * All features or bug fixes **must be tested** by one or more tests.
 * All classes and methods **must be documented**.
+
 
 [docs-link]: https://www.twilio.com/docs/libraries/python
 [issue-link]: https://github.com/twilio/twilio-python/issues/new

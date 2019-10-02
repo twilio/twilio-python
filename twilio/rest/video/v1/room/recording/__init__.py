@@ -23,7 +23,7 @@ class RoomRecordingList(ListResource):
         Initialize the RoomRecordingList
 
         :param Version version: Version that contains the resource
-        :param room_sid: The room_sid
+        :param room_sid: The SID of the Room resource the recording is associated with
 
         :returns: twilio.rest.video.v1.room.recording.RoomRecordingList
         :rtype: twilio.rest.video.v1.room.recording.RoomRecordingList
@@ -43,10 +43,10 @@ class RoomRecordingList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param RoomRecordingInstance.Status status: The status
-        :param unicode source_sid: The source_sid
-        :param datetime date_created_after: The date_created_after
-        :param datetime date_created_before: The date_created_before
+        :param RoomRecordingInstance.Status status: Read only the recordings with this status
+        :param unicode source_sid: Read only the recordings that have this source_sid
+        :param datetime date_created_after: Read only Recordings that started on or after this ISO 8601 datetime with time zone
+        :param datetime date_created_before: Read only Recordings that started before this ISO 8601 date-time with time zone
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -77,10 +77,10 @@ class RoomRecordingList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param RoomRecordingInstance.Status status: The status
-        :param unicode source_sid: The source_sid
-        :param datetime date_created_after: The date_created_after
-        :param datetime date_created_before: The date_created_before
+        :param RoomRecordingInstance.Status status: Read only the recordings with this status
+        :param unicode source_sid: Read only the recordings that have this source_sid
+        :param datetime date_created_after: Read only Recordings that started on or after this ISO 8601 datetime with time zone
+        :param datetime date_created_before: Read only Recordings that started before this ISO 8601 date-time with time zone
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -108,10 +108,10 @@ class RoomRecordingList(ListResource):
         Retrieve a single page of RoomRecordingInstance records from the API.
         Request is executed immediately
 
-        :param RoomRecordingInstance.Status status: The status
-        :param unicode source_sid: The source_sid
-        :param datetime date_created_after: The date_created_after
-        :param datetime date_created_before: The date_created_before
+        :param RoomRecordingInstance.Status status: Read only the recordings with this status
+        :param unicode source_sid: Read only the recordings that have this source_sid
+        :param datetime date_created_after: Read only Recordings that started on or after this ISO 8601 datetime with time zone
+        :param datetime date_created_before: Read only Recordings that started before this ISO 8601 date-time with time zone
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -158,7 +158,7 @@ class RoomRecordingList(ListResource):
         """
         Constructs a RoomRecordingContext
 
-        :param sid: The sid
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.video.v1.room.recording.RoomRecordingContext
         :rtype: twilio.rest.video.v1.room.recording.RoomRecordingContext
@@ -169,7 +169,7 @@ class RoomRecordingList(ListResource):
         """
         Constructs a RoomRecordingContext
 
-        :param sid: The sid
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.video.v1.room.recording.RoomRecordingContext
         :rtype: twilio.rest.video.v1.room.recording.RoomRecordingContext
@@ -195,7 +195,7 @@ class RoomRecordingPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param room_sid: The room_sid
+        :param room_sid: The SID of the Room resource the recording is associated with
 
         :returns: twilio.rest.video.v1.room.recording.RoomRecordingPage
         :rtype: twilio.rest.video.v1.room.recording.RoomRecordingPage
@@ -234,8 +234,8 @@ class RoomRecordingContext(InstanceContext):
         Initialize the RoomRecordingContext
 
         :param Version version: Version that contains the resource
-        :param room_sid: The room_sid
-        :param sid: The sid
+        :param room_sid: The SID of the Room resource with the recording to fetch
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.video.v1.room.recording.RoomRecordingContext
         :rtype: twilio.rest.video.v1.room.recording.RoomRecordingContext
@@ -365,7 +365,7 @@ class RoomRecordingInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -373,7 +373,7 @@ class RoomRecordingInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: The status
+        :returns: The status of the recording
         :rtype: RoomRecordingInstance.Status
         """
         return self._properties['status']
@@ -381,7 +381,7 @@ class RoomRecordingInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -389,7 +389,7 @@ class RoomRecordingInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -397,7 +397,7 @@ class RoomRecordingInstance(InstanceResource):
     @property
     def source_sid(self):
         """
-        :returns: The source_sid
+        :returns: The SID of the recording source
         :rtype: unicode
         """
         return self._properties['source_sid']
@@ -405,7 +405,7 @@ class RoomRecordingInstance(InstanceResource):
     @property
     def size(self):
         """
-        :returns: The size
+        :returns: The size of the recorded track in bytes
         :rtype: unicode
         """
         return self._properties['size']
@@ -413,7 +413,7 @@ class RoomRecordingInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -421,7 +421,7 @@ class RoomRecordingInstance(InstanceResource):
     @property
     def type(self):
         """
-        :returns: The type
+        :returns: The recording's media type
         :rtype: RoomRecordingInstance.Type
         """
         return self._properties['type']
@@ -429,7 +429,7 @@ class RoomRecordingInstance(InstanceResource):
     @property
     def duration(self):
         """
-        :returns: The duration
+        :returns: The duration of the recording in seconds
         :rtype: unicode
         """
         return self._properties['duration']
@@ -437,7 +437,7 @@ class RoomRecordingInstance(InstanceResource):
     @property
     def container_format(self):
         """
-        :returns: The container_format
+        :returns: The file format for the recording
         :rtype: RoomRecordingInstance.Format
         """
         return self._properties['container_format']
@@ -445,7 +445,7 @@ class RoomRecordingInstance(InstanceResource):
     @property
     def codec(self):
         """
-        :returns: The codec
+        :returns: The codec used for the recording
         :rtype: RoomRecordingInstance.Codec
         """
         return self._properties['codec']
@@ -453,7 +453,7 @@ class RoomRecordingInstance(InstanceResource):
     @property
     def grouping_sids(self):
         """
-        :returns: The grouping_sids
+        :returns: A list of SIDs related to the Recording
         :rtype: dict
         """
         return self._properties['grouping_sids']
@@ -461,7 +461,7 @@ class RoomRecordingInstance(InstanceResource):
     @property
     def track_name(self):
         """
-        :returns: The track_name
+        :returns: The name that was given to the source track of the recording
         :rtype: unicode
         """
         return self._properties['track_name']
@@ -469,7 +469,7 @@ class RoomRecordingInstance(InstanceResource):
     @property
     def offset(self):
         """
-        :returns: The offset
+        :returns: The number of milliseconds between a point in time that is common to all rooms in a group and when the source room of the recording started
         :rtype: unicode
         """
         return self._properties['offset']
@@ -477,7 +477,7 @@ class RoomRecordingInstance(InstanceResource):
     @property
     def room_sid(self):
         """
-        :returns: The room_sid
+        :returns: The SID of the Room resource the recording is associated with
         :rtype: unicode
         """
         return self._properties['room_sid']
@@ -485,7 +485,7 @@ class RoomRecordingInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links
+        :returns: The URLs of related resources
         :rtype: unicode
         """
         return self._properties['links']

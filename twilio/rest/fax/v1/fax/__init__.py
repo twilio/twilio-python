@@ -163,7 +163,7 @@ class FaxList(ListResource):
         Create a new FaxInstance
 
         :param unicode to: The phone number to receive the fax
-        :param unicode media_url: The Twilio-hosted URL of the PDF that contains the fax
+        :param unicode media_url: The URL of the PDF that contains the fax
         :param FaxInstance.Quality quality: The quality of this fax
         :param unicode status_callback: The URL we should call to send status information to your application
         :param unicode from_: The number the fax was sent from

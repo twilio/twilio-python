@@ -43,9 +43,9 @@ class MediaList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param datetime date_created_before: The `YYYY-MM-DD` value of the resources to read
-        :param datetime date_created: The `YYYY-MM-DD` value of the resources to read
-        :param datetime date_created_after: The `YYYY-MM-DD` value of the resources to read
+        :param datetime date_created_before: Only include media that was created on this date
+        :param datetime date_created: Only include media that was created on this date
+        :param datetime date_created_after: Only include media that was created on this date
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -74,9 +74,9 @@ class MediaList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param datetime date_created_before: The `YYYY-MM-DD` value of the resources to read
-        :param datetime date_created: The `YYYY-MM-DD` value of the resources to read
-        :param datetime date_created_after: The `YYYY-MM-DD` value of the resources to read
+        :param datetime date_created_before: Only include media that was created on this date
+        :param datetime date_created: Only include media that was created on this date
+        :param datetime date_created_after: Only include media that was created on this date
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -102,9 +102,9 @@ class MediaList(ListResource):
         Retrieve a single page of MediaInstance records from the API.
         Request is executed immediately
 
-        :param datetime date_created_before: The `YYYY-MM-DD` value of the resources to read
-        :param datetime date_created: The `YYYY-MM-DD` value of the resources to read
-        :param datetime date_created_after: The `YYYY-MM-DD` value of the resources to read
+        :param datetime date_created_before: Only include media that was created on this date
+        :param datetime date_created: Only include media that was created on this date
+        :param datetime date_created_after: Only include media that was created on this date
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50

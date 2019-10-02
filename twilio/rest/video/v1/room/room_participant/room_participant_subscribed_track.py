@@ -22,8 +22,8 @@ class SubscribedTrackList(ListResource):
         Initialize the SubscribedTrackList
 
         :param Version version: Version that contains the resource
-        :param room_sid: Unique Room identifier where this Track is published.
-        :param participant_sid: Unique Participant identifier that subscribes to this Track.
+        :param room_sid: The SID of the room where the track is published
+        :param participant_sid: The SID of the participant that subscribes to the track
 
         :returns: twilio.rest.video.v1.room.room_participant.room_participant_subscribed_track.SubscribedTrackList
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_subscribed_track.SubscribedTrackList
@@ -119,7 +119,7 @@ class SubscribedTrackList(ListResource):
         """
         Constructs a SubscribedTrackContext
 
-        :param sid: A 34 character string that uniquely identifies this resource.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.video.v1.room.room_participant.room_participant_subscribed_track.SubscribedTrackContext
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_subscribed_track.SubscribedTrackContext
@@ -135,7 +135,7 @@ class SubscribedTrackList(ListResource):
         """
         Constructs a SubscribedTrackContext
 
-        :param sid: A 34 character string that uniquely identifies this resource.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.video.v1.room.room_participant.room_participant_subscribed_track.SubscribedTrackContext
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_subscribed_track.SubscribedTrackContext
@@ -166,8 +166,8 @@ class SubscribedTrackPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param room_sid: Unique Room identifier where this Track is published.
-        :param participant_sid: Unique Participant identifier that subscribes to this Track.
+        :param room_sid: The SID of the room where the track is published
+        :param participant_sid: The SID of the participant that subscribes to the track
 
         :returns: twilio.rest.video.v1.room.room_participant.room_participant_subscribed_track.SubscribedTrackPage
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_subscribed_track.SubscribedTrackPage
@@ -211,9 +211,9 @@ class SubscribedTrackContext(InstanceContext):
         Initialize the SubscribedTrackContext
 
         :param Version version: Version that contains the resource
-        :param room_sid: Unique Room identifier where this Track is subscribed.
-        :param participant_sid: Unique Participant identifier that subscribes to this Track.
-        :param sid: A 34 character string that uniquely identifies this resource.
+        :param room_sid: The SID of the Room where the Track resource to fetch is subscribed
+        :param participant_sid: The SID of the participant that subscribes to the Track resource to fetch
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.video.v1.room.room_participant.room_participant_subscribed_track.SubscribedTrackContext
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_subscribed_track.SubscribedTrackContext
@@ -318,7 +318,7 @@ class SubscribedTrackInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34 character string that uniquely identifies this resource.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -326,7 +326,7 @@ class SubscribedTrackInstance(InstanceResource):
     @property
     def participant_sid(self):
         """
-        :returns: Unique Participant identifier that subscribes to this Track.
+        :returns: The SID of the participant that subscribes to the track
         :rtype: unicode
         """
         return self._properties['participant_sid']
@@ -334,7 +334,7 @@ class SubscribedTrackInstance(InstanceResource):
     @property
     def publisher_sid(self):
         """
-        :returns: Unique Participant identifier that publishes this Track.
+        :returns: The SID of the participant that publishes the track
         :rtype: unicode
         """
         return self._properties['publisher_sid']
@@ -342,7 +342,7 @@ class SubscribedTrackInstance(InstanceResource):
     @property
     def room_sid(self):
         """
-        :returns: Unique Room identifier where this Track is published.
+        :returns: The SID of the room where the track is published
         :rtype: unicode
         """
         return self._properties['room_sid']
@@ -350,7 +350,7 @@ class SubscribedTrackInstance(InstanceResource):
     @property
     def name(self):
         """
-        :returns: Track name. Limited to 128 characters.
+        :returns: The track name
         :rtype: unicode
         """
         return self._properties['name']
@@ -358,7 +358,7 @@ class SubscribedTrackInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this resource was created.
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -366,7 +366,7 @@ class SubscribedTrackInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date that this resource was last updated.
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -374,7 +374,7 @@ class SubscribedTrackInstance(InstanceResource):
     @property
     def enabled(self):
         """
-        :returns: Specifies whether the Track is enabled or not.
+        :returns: Whether the track is enabled
         :rtype: bool
         """
         return self._properties['enabled']
@@ -382,7 +382,7 @@ class SubscribedTrackInstance(InstanceResource):
     @property
     def kind(self):
         """
-        :returns: Specifies whether Track represents `audio`, `video` or `data`
+        :returns: The track type
         :rtype: SubscribedTrackInstance.Kind
         """
         return self._properties['kind']
@@ -390,7 +390,7 @@ class SubscribedTrackInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The absolute URL for this resource.
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']

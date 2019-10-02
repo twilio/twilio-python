@@ -25,7 +25,7 @@ class AssetList(ListResource):
         Initialize the AssetList
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
+        :param service_sid: The SID of the Service that the Asset resource is associated with
 
         :returns: twilio.rest.serverless.v1.service.asset.AssetList
         :rtype: twilio.rest.serverless.v1.service.asset.AssetList
@@ -121,7 +121,7 @@ class AssetList(ListResource):
         """
         Create a new AssetInstance
 
-        :param unicode friendly_name: A human-readable description of this Asset.
+        :param unicode friendly_name: A string to describe the Asset resource
 
         :returns: Newly created AssetInstance
         :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
@@ -140,7 +140,7 @@ class AssetList(ListResource):
         """
         Constructs a AssetContext
 
-        :param sid: Asset Sid.
+        :param sid: The SID that identifies the Asset resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.asset.AssetContext
         :rtype: twilio.rest.serverless.v1.service.asset.AssetContext
@@ -151,7 +151,7 @@ class AssetList(ListResource):
         """
         Constructs a AssetContext
 
-        :param sid: Asset Sid.
+        :param sid: The SID that identifies the Asset resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.asset.AssetContext
         :rtype: twilio.rest.serverless.v1.service.asset.AssetContext
@@ -179,7 +179,7 @@ class AssetPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: Service Sid.
+        :param service_sid: The SID of the Service that the Asset resource is associated with
 
         :returns: twilio.rest.serverless.v1.service.asset.AssetPage
         :rtype: twilio.rest.serverless.v1.service.asset.AssetPage
@@ -220,8 +220,8 @@ class AssetContext(InstanceContext):
         Initialize the AssetContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
-        :param sid: Asset Sid.
+        :param service_sid: The SID of the Service to fetch the Asset resource from
+        :param sid: The SID that identifies the Asset resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.asset.AssetContext
         :rtype: twilio.rest.serverless.v1.service.asset.AssetContext
@@ -270,7 +270,7 @@ class AssetContext(InstanceContext):
         """
         Update the AssetInstance
 
-        :param unicode friendly_name: A human-readable description of this Asset.
+        :param unicode friendly_name: A string to describe the Asset resource
 
         :returns: Updated AssetInstance
         :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
@@ -367,7 +367,7 @@ class AssetInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: Asset Sid.
+        :returns: The unique string that identifies the Asset resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -375,7 +375,7 @@ class AssetInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid.
+        :returns: The SID of the Account that created the Asset resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -383,7 +383,7 @@ class AssetInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: Service Sid.
+        :returns: The SID of the Service that the Asset resource is associated with
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -391,7 +391,7 @@ class AssetInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A human-readable description of this Asset.
+        :returns: The string that you assigned to describe the Asset resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -399,7 +399,7 @@ class AssetInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date that this Asset was created.
+        :returns: The ISO 8601 date and time in GMT when the Asset resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -407,7 +407,7 @@ class AssetInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date that this Asset was updated.
+        :returns: The ISO 8601 date and time in GMT when the Asset resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -415,7 +415,7 @@ class AssetInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The URL of this Asset.
+        :returns: The absolute URL of the Asset resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -423,7 +423,7 @@ class AssetInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: Nested resource URLs.
+        :returns: The links to the nested resources of the asset
         :rtype: unicode
         """
         return self._properties['links']
@@ -450,7 +450,7 @@ class AssetInstance(InstanceResource):
         """
         Update the AssetInstance
 
-        :param unicode friendly_name: A human-readable description of this Asset.
+        :param unicode friendly_name: A string to describe the Asset resource
 
         :returns: Updated AssetInstance
         :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance

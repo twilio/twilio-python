@@ -44,10 +44,10 @@ class CompositionHookList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param bool enabled: Only show Composition Hooks enabled or disabled.
-        :param datetime date_created_after: Only show Composition Hooks created on or after this ISO8601 date-time with timezone.
-        :param datetime date_created_before: Only show Composition Hooks created before this ISO8601 date-time with timezone.
-        :param unicode friendly_name: Only show Composition Hooks with friendly name that match this name.
+        :param bool enabled: Read only CompositionHook resources with an enabled value that matches this parameter
+        :param datetime date_created_after: Read only CompositionHook resources created on or after this ISO 8601 datetime with time zone
+        :param datetime date_created_before: Read only CompositionHook resources created before this ISO 8601 datetime with time zone
+        :param unicode friendly_name: Read only CompositionHook resources with friendly names that match this string
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -78,10 +78,10 @@ class CompositionHookList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param bool enabled: Only show Composition Hooks enabled or disabled.
-        :param datetime date_created_after: Only show Composition Hooks created on or after this ISO8601 date-time with timezone.
-        :param datetime date_created_before: Only show Composition Hooks created before this ISO8601 date-time with timezone.
-        :param unicode friendly_name: Only show Composition Hooks with friendly name that match this name.
+        :param bool enabled: Read only CompositionHook resources with an enabled value that matches this parameter
+        :param datetime date_created_after: Read only CompositionHook resources created on or after this ISO 8601 datetime with time zone
+        :param datetime date_created_before: Read only CompositionHook resources created before this ISO 8601 datetime with time zone
+        :param unicode friendly_name: Read only CompositionHook resources with friendly names that match this string
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -109,10 +109,10 @@ class CompositionHookList(ListResource):
         Retrieve a single page of CompositionHookInstance records from the API.
         Request is executed immediately
 
-        :param bool enabled: Only show Composition Hooks enabled or disabled.
-        :param datetime date_created_after: Only show Composition Hooks created on or after this ISO8601 date-time with timezone.
-        :param datetime date_created_before: Only show Composition Hooks created before this ISO8601 date-time with timezone.
-        :param unicode friendly_name: Only show Composition Hooks with friendly name that match this name.
+        :param bool enabled: Read only CompositionHook resources with an enabled value that matches this parameter
+        :param datetime date_created_after: Read only CompositionHook resources created on or after this ISO 8601 datetime with time zone
+        :param datetime date_created_before: Read only CompositionHook resources created before this ISO 8601 datetime with time zone
+        :param unicode friendly_name: Read only CompositionHook resources with friendly names that match this string
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -163,16 +163,16 @@ class CompositionHookList(ListResource):
         """
         Create a new CompositionHookInstance
 
-        :param unicode friendly_name: Friendly name of the Composition Hook to be shown in the console.
-        :param bool enabled: Boolean flag indicating if the Composition Hook is active.
-        :param dict video_layout: The JSON video layout description.
-        :param unicode audio_sources: A list of audio sources related to this Composition Hook.
-        :param unicode audio_sources_excluded: A list of audio sources excluded related to this Composition Hook.
-        :param unicode resolution: Pixel resolution of the composed video.
-        :param CompositionHookInstance.Format format: Container format of the Composition Hook media file. Any of the following: `mp4`, `webm`.
-        :param unicode status_callback: A URL that Twilio sends asynchronous webhook requests to on every composition event.
-        :param unicode status_callback_method: HTTP method Twilio should use when requesting the above URL.
-        :param bool trim: Boolean flag for clipping intervals that have no media.
+        :param unicode friendly_name: A unique string to describe the resource
+        :param bool enabled: Whether the composition hook is active
+        :param dict video_layout: An object that describes the video layout of the composition hook
+        :param unicode audio_sources: An array of track names from the same group room to merge
+        :param unicode audio_sources_excluded: An array of track names to exclude
+        :param unicode resolution: A string that describes the rows (width) and columns (height) of the generated composed video in pixels
+        :param CompositionHookInstance.Format format: The container format of the media files used by the compositions created by the composition hook
+        :param unicode status_callback: The URL we should call to send status information to your application
+        :param unicode status_callback_method: The HTTP method we should use to call status_callback
+        :param bool trim: Whether to clip the intervals where there is no active media in the Compositions triggered by the composition hook
 
         :returns: Newly created CompositionHookInstance
         :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
@@ -202,7 +202,7 @@ class CompositionHookList(ListResource):
         """
         Constructs a CompositionHookContext
 
-        :param sid: The Composition Hook Sid that uniquely identifies the Composition Hook to fetch.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.video.v1.composition_hook.CompositionHookContext
         :rtype: twilio.rest.video.v1.composition_hook.CompositionHookContext
@@ -213,7 +213,7 @@ class CompositionHookList(ListResource):
         """
         Constructs a CompositionHookContext
 
-        :param sid: The Composition Hook Sid that uniquely identifies the Composition Hook to fetch.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.video.v1.composition_hook.CompositionHookContext
         :rtype: twilio.rest.video.v1.composition_hook.CompositionHookContext
@@ -281,7 +281,7 @@ class CompositionHookContext(InstanceContext):
         Initialize the CompositionHookContext
 
         :param Version version: Version that contains the resource
-        :param sid: The Composition Hook Sid that uniquely identifies the Composition Hook to fetch.
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.video.v1.composition_hook.CompositionHookContext
         :rtype: twilio.rest.video.v1.composition_hook.CompositionHookContext
@@ -325,16 +325,16 @@ class CompositionHookContext(InstanceContext):
         """
         Update the CompositionHookInstance
 
-        :param unicode friendly_name: Friendly name of the Composition Hook to be shown in the console.
-        :param bool enabled: Boolean flag indicating if the Composition Hook is active.
-        :param dict video_layout: The JSON video layout description.
-        :param unicode audio_sources: A list of audio sources related to this Composition Hook.
-        :param unicode audio_sources_excluded: A list of audio sources excluded related to this Composition Hook.
-        :param bool trim: Boolean flag for clipping intervals that have no media.
-        :param CompositionHookInstance.Format format: Container format of the Composition Hook media file. Any of the following: `mp4`, `webm`.
-        :param unicode resolution: Pixel resolution of the composed video.
-        :param unicode status_callback: A URL that Twilio sends asynchronous webhook requests to on every composition event.
-        :param unicode status_callback_method: HTTP method Twilio should use when requesting the above URL.
+        :param unicode friendly_name: A unique string to describe the resource
+        :param bool enabled: Whether the composition hook is active
+        :param dict video_layout: A JSON object that describes the video layout of the composition hook
+        :param unicode audio_sources: An array of track names from the same group room to merge
+        :param unicode audio_sources_excluded: An array of track names to exclude
+        :param bool trim: Whether to clip the intervals where there is no active media in the Compositions triggered by the composition hook
+        :param CompositionHookInstance.Format format: The container format of the media files used by the compositions created by the composition hook
+        :param unicode resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels
+        :param unicode status_callback: The URL we should call to send status information to your application
+        :param unicode status_callback_method: The HTTP method we should use to call status_callback
 
         :returns: Updated CompositionHookInstance
         :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
@@ -428,7 +428,7 @@ class CompositionHookInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Twilio Account SID.
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -436,7 +436,7 @@ class CompositionHookInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: Friendly name of the Composition Hook to be shown in the console.
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -444,7 +444,7 @@ class CompositionHookInstance(InstanceResource):
     @property
     def enabled(self):
         """
-        :returns: Boolean flag indicating if the Composition Hook is active.
+        :returns: Whether the CompositionHook is active
         :rtype: bool
         """
         return self._properties['enabled']
@@ -452,7 +452,7 @@ class CompositionHookInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: Date when the Composition Hook Resource was created.
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -460,7 +460,7 @@ class CompositionHookInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: Date when the Composition Hook was last updated.
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: unicode
         """
         return self._properties['date_updated']
@@ -468,7 +468,7 @@ class CompositionHookInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A 34-character string that uniquely identifies this Composition Hook.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -476,7 +476,7 @@ class CompositionHookInstance(InstanceResource):
     @property
     def audio_sources(self):
         """
-        :returns: A list of audio sources related to this Composition Hook.
+        :returns: The array of track names to include in the compositions created by the composition hook
         :rtype: unicode
         """
         return self._properties['audio_sources']
@@ -484,7 +484,7 @@ class CompositionHookInstance(InstanceResource):
     @property
     def audio_sources_excluded(self):
         """
-        :returns: A list of audio sources excluded related to this Composition Hook.
+        :returns: The array of track names to exclude from the compositions created by the composition hook
         :rtype: unicode
         """
         return self._properties['audio_sources_excluded']
@@ -492,7 +492,7 @@ class CompositionHookInstance(InstanceResource):
     @property
     def video_layout(self):
         """
-        :returns: The JSON video layout description.
+        :returns: A JSON object that describes the video layout of the Composition
         :rtype: dict
         """
         return self._properties['video_layout']
@@ -500,7 +500,7 @@ class CompositionHookInstance(InstanceResource):
     @property
     def resolution(self):
         """
-        :returns: Pixel resolution of the composed video.
+        :returns: The dimensions of the video image in pixels expressed as columns (width) and rows (height)
         :rtype: unicode
         """
         return self._properties['resolution']
@@ -508,7 +508,7 @@ class CompositionHookInstance(InstanceResource):
     @property
     def trim(self):
         """
-        :returns: Boolean flag for clipping intervals that have no media.
+        :returns: Whether intervals with no media are clipped
         :rtype: bool
         """
         return self._properties['trim']
@@ -516,7 +516,7 @@ class CompositionHookInstance(InstanceResource):
     @property
     def format(self):
         """
-        :returns: The file format for the Compositions triggered by the Composition Hook.
+        :returns: The container format of the media files used by the compositions created by the composition hook
         :rtype: CompositionHookInstance.Format
         """
         return self._properties['format']
@@ -524,7 +524,7 @@ class CompositionHookInstance(InstanceResource):
     @property
     def status_callback(self):
         """
-        :returns: A URL that Twilio sends asynchronous webhook requests to on every composition event.
+        :returns: The URL to send status information to your application
         :rtype: unicode
         """
         return self._properties['status_callback']
@@ -532,7 +532,7 @@ class CompositionHookInstance(InstanceResource):
     @property
     def status_callback_method(self):
         """
-        :returns: HTTP method Twilio should use when requesting the above URL.
+        :returns: The HTTP method we should use to call status_callback
         :rtype: unicode
         """
         return self._properties['status_callback_method']
@@ -540,7 +540,7 @@ class CompositionHookInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The absolute URL for this resource.
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -570,16 +570,16 @@ class CompositionHookInstance(InstanceResource):
         """
         Update the CompositionHookInstance
 
-        :param unicode friendly_name: Friendly name of the Composition Hook to be shown in the console.
-        :param bool enabled: Boolean flag indicating if the Composition Hook is active.
-        :param dict video_layout: The JSON video layout description.
-        :param unicode audio_sources: A list of audio sources related to this Composition Hook.
-        :param unicode audio_sources_excluded: A list of audio sources excluded related to this Composition Hook.
-        :param bool trim: Boolean flag for clipping intervals that have no media.
-        :param CompositionHookInstance.Format format: Container format of the Composition Hook media file. Any of the following: `mp4`, `webm`.
-        :param unicode resolution: Pixel resolution of the composed video.
-        :param unicode status_callback: A URL that Twilio sends asynchronous webhook requests to on every composition event.
-        :param unicode status_callback_method: HTTP method Twilio should use when requesting the above URL.
+        :param unicode friendly_name: A unique string to describe the resource
+        :param bool enabled: Whether the composition hook is active
+        :param dict video_layout: A JSON object that describes the video layout of the composition hook
+        :param unicode audio_sources: An array of track names from the same group room to merge
+        :param unicode audio_sources_excluded: An array of track names to exclude
+        :param bool trim: Whether to clip the intervals where there is no active media in the Compositions triggered by the composition hook
+        :param CompositionHookInstance.Format format: The container format of the media files used by the compositions created by the composition hook
+        :param unicode resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels
+        :param unicode status_callback: The URL we should call to send status information to your application
+        :param unicode status_callback_method: The HTTP method we should use to call status_callback
 
         :returns: Updated CompositionHookInstance
         :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
