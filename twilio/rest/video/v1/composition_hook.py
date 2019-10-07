@@ -395,7 +395,7 @@ class CompositionHookInstance(InstanceResource):
             'friendly_name': payload['friendly_name'],
             'enabled': payload['enabled'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': payload['date_updated'],
+            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
             'sid': payload['sid'],
             'audio_sources': payload['audio_sources'],
             'audio_sources_excluded': payload['audio_sources_excluded'],
@@ -461,7 +461,7 @@ class CompositionHookInstance(InstanceResource):
     def date_updated(self):
         """
         :returns: The ISO 8601 date and time in GMT when the resource was last updated
-        :rtype: unicode
+        :rtype: datetime
         """
         return self._properties['date_updated']
 

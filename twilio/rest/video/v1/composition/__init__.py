@@ -357,8 +357,8 @@ class CompositionInstance(InstanceResource):
             'account_sid': payload['account_sid'],
             'status': payload['status'],
             'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_completed': payload['date_completed'],
-            'date_deleted': payload['date_deleted'],
+            'date_completed': deserialize.iso8601_datetime(payload['date_completed']),
+            'date_deleted': deserialize.iso8601_datetime(payload['date_deleted']),
             'sid': payload['sid'],
             'room_sid': payload['room_sid'],
             'audio_sources': payload['audio_sources'],
@@ -419,7 +419,7 @@ class CompositionInstance(InstanceResource):
     def date_completed(self):
         """
         :returns: Date when the media processing task finished
-        :rtype: unicode
+        :rtype: datetime
         """
         return self._properties['date_completed']
 
@@ -427,7 +427,7 @@ class CompositionInstance(InstanceResource):
     def date_deleted(self):
         """
         :returns: The ISO 8601 date and time in GMT when the composition generated media was deleted
-        :rtype: unicode
+        :rtype: datetime
         """
         return self._properties['date_deleted']
 
