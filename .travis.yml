@@ -15,9 +15,16 @@ install:
 script:
   - make test
 deploy:
-  provider: script
-  script: make docker-build && make docker-push
-  skip_cleanup: true
-  on:
-    tags: true
-    python: "3.6"
+  - provider: script
+    script: make docker-build && make docker-push
+    skip_cleanup: true
+    on:
+      tags: true
+      node: "3.6"
+  - provider: pypi
+    user: "__token__"
+    password: 
+      secure: $PYPI_TOKEN
+    on:
+      tags: true
+      node: "3.6"
