@@ -241,7 +241,7 @@ class PhoneNumberInstance(InstanceResource):
     def carrier(self):
         """
         :returns: The telecom company that provides the phone number
-        :rtype: unicode
+        :rtype: dict
         """
         return self._properties['carrier']
 
