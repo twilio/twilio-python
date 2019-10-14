@@ -285,14 +285,14 @@ class AlphaSenderInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'account_sid': payload['account_sid'],
-            'service_sid': payload['service_sid'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'alpha_sender': payload['alpha_sender'],
-            'capabilities': payload['capabilities'],
-            'url': payload['url'],
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'service_sid': payload.get('service_sid'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'alpha_sender': payload.get('alpha_sender'),
+            'capabilities': payload.get('capabilities'),
+            'url': payload.get('url'),
         }
 
         # Context

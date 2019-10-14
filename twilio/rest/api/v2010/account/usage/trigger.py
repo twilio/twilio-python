@@ -614,22 +614,22 @@ class TriggerInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'api_version': payload['api_version'],
-            'callback_method': payload['callback_method'],
-            'callback_url': payload['callback_url'],
-            'current_value': payload['current_value'],
-            'date_created': deserialize.rfc2822_datetime(payload['date_created']),
-            'date_fired': deserialize.rfc2822_datetime(payload['date_fired']),
-            'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
-            'friendly_name': payload['friendly_name'],
-            'recurring': payload['recurring'],
-            'sid': payload['sid'],
-            'trigger_by': payload['trigger_by'],
-            'trigger_value': payload['trigger_value'],
-            'uri': payload['uri'],
-            'usage_category': payload['usage_category'],
-            'usage_record_uri': payload['usage_record_uri'],
+            'account_sid': payload.get('account_sid'),
+            'api_version': payload.get('api_version'),
+            'callback_method': payload.get('callback_method'),
+            'callback_url': payload.get('callback_url'),
+            'current_value': payload.get('current_value'),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
+            'date_fired': deserialize.rfc2822_datetime(payload.get('date_fired')),
+            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'friendly_name': payload.get('friendly_name'),
+            'recurring': payload.get('recurring'),
+            'sid': payload.get('sid'),
+            'trigger_by': payload.get('trigger_by'),
+            'trigger_value': payload.get('trigger_value'),
+            'uri': payload.get('uri'),
+            'usage_category': payload.get('usage_category'),
+            'usage_record_uri': payload.get('usage_record_uri'),
         }
 
         # Context

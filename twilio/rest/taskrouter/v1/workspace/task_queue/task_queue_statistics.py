@@ -196,12 +196,12 @@ class TaskQueueStatisticsInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'cumulative': payload['cumulative'],
-            'realtime': payload['realtime'],
-            'task_queue_sid': payload['task_queue_sid'],
-            'workspace_sid': payload['workspace_sid'],
-            'url': payload['url'],
+            'account_sid': payload.get('account_sid'),
+            'cumulative': payload.get('cumulative'),
+            'realtime': payload.get('realtime'),
+            'task_queue_sid': payload.get('task_queue_sid'),
+            'workspace_sid': payload.get('workspace_sid'),
+            'url': payload.get('url'),
         }
 
         # Context

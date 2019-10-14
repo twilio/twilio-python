@@ -192,22 +192,22 @@ class DataSessionInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'sim_sid': payload['sim_sid'],
-            'account_sid': payload['account_sid'],
-            'radio_link': payload['radio_link'],
-            'operator_mcc': payload['operator_mcc'],
-            'operator_mnc': payload['operator_mnc'],
-            'operator_country': payload['operator_country'],
-            'operator_name': payload['operator_name'],
-            'cell_id': payload['cell_id'],
-            'cell_location_estimate': payload['cell_location_estimate'],
-            'packets_uploaded': deserialize.integer(payload['packets_uploaded']),
-            'packets_downloaded': deserialize.integer(payload['packets_downloaded']),
-            'last_updated': deserialize.iso8601_datetime(payload['last_updated']),
-            'start': deserialize.iso8601_datetime(payload['start']),
-            'end': deserialize.iso8601_datetime(payload['end']),
-            'imei': payload['imei'],
+            'sid': payload.get('sid'),
+            'sim_sid': payload.get('sim_sid'),
+            'account_sid': payload.get('account_sid'),
+            'radio_link': payload.get('radio_link'),
+            'operator_mcc': payload.get('operator_mcc'),
+            'operator_mnc': payload.get('operator_mnc'),
+            'operator_country': payload.get('operator_country'),
+            'operator_name': payload.get('operator_name'),
+            'cell_id': payload.get('cell_id'),
+            'cell_location_estimate': payload.get('cell_location_estimate'),
+            'packets_uploaded': deserialize.integer(payload.get('packets_uploaded')),
+            'packets_downloaded': deserialize.integer(payload.get('packets_downloaded')),
+            'last_updated': deserialize.iso8601_datetime(payload.get('last_updated')),
+            'start': deserialize.iso8601_datetime(payload.get('start')),
+            'end': deserialize.iso8601_datetime(payload.get('end')),
+            'imei': payload.get('imei'),
         }
 
         # Context

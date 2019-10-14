@@ -312,18 +312,18 @@ class PhoneNumberInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'account_sid': payload['account_sid'],
-            'service_sid': payload['service_sid'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'phone_number': payload['phone_number'],
-            'friendly_name': payload['friendly_name'],
-            'iso_country': payload['iso_country'],
-            'capabilities': payload['capabilities'],
-            'url': payload['url'],
-            'is_reserved': payload['is_reserved'],
-            'in_use': deserialize.integer(payload['in_use']),
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'service_sid': payload.get('service_sid'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'phone_number': payload.get('phone_number'),
+            'friendly_name': payload.get('friendly_name'),
+            'iso_country': payload.get('iso_country'),
+            'capabilities': payload.get('capabilities'),
+            'url': payload.get('url'),
+            'is_reserved': payload.get('is_reserved'),
+            'in_use': deserialize.integer(payload.get('in_use')),
         }
 
         # Context

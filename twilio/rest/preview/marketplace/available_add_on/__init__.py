@@ -271,13 +271,13 @@ class AvailableAddOnInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'friendly_name': payload['friendly_name'],
-            'description': payload['description'],
-            'pricing_type': payload['pricing_type'],
-            'configuration_schema': payload['configuration_schema'],
-            'url': payload['url'],
-            'links': payload['links'],
+            'sid': payload.get('sid'),
+            'friendly_name': payload.get('friendly_name'),
+            'description': payload.get('description'),
+            'pricing_type': payload.get('pricing_type'),
+            'configuration_schema': payload.get('configuration_schema'),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context

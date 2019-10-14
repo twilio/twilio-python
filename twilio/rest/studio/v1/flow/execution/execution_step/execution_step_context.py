@@ -188,12 +188,12 @@ class ExecutionStepContextInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'context': payload['context'],
-            'execution_sid': payload['execution_sid'],
-            'flow_sid': payload['flow_sid'],
-            'step_sid': payload['step_sid'],
-            'url': payload['url'],
+            'account_sid': payload.get('account_sid'),
+            'context': payload.get('context'),
+            'execution_sid': payload.get('execution_sid'),
+            'flow_sid': payload.get('flow_sid'),
+            'step_sid': payload.get('step_sid'),
+            'url': payload.get('url'),
         }
 
         # Context

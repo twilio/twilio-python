@@ -198,14 +198,14 @@ class CompositionSettingsInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'friendly_name': payload['friendly_name'],
-            'aws_credentials_sid': payload['aws_credentials_sid'],
-            'aws_s3_url': payload['aws_s3_url'],
-            'aws_storage_enabled': payload['aws_storage_enabled'],
-            'encryption_key_sid': payload['encryption_key_sid'],
-            'encryption_enabled': payload['encryption_enabled'],
-            'url': payload['url'],
+            'account_sid': payload.get('account_sid'),
+            'friendly_name': payload.get('friendly_name'),
+            'aws_credentials_sid': payload.get('aws_credentials_sid'),
+            'aws_s3_url': payload.get('aws_s3_url'),
+            'aws_storage_enabled': payload.get('aws_storage_enabled'),
+            'encryption_key_sid': payload.get('encryption_key_sid'),
+            'encryption_enabled': payload.get('encryption_enabled'),
+            'url': payload.get('url'),
         }
 
         # Context

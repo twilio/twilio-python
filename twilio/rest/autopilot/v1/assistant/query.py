@@ -347,19 +347,19 @@ class QueryInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'results': payload['results'],
-            'language': payload['language'],
-            'model_build_sid': payload['model_build_sid'],
-            'query': payload['query'],
-            'sample_sid': payload['sample_sid'],
-            'assistant_sid': payload['assistant_sid'],
-            'sid': payload['sid'],
-            'status': payload['status'],
-            'url': payload['url'],
-            'source_channel': payload['source_channel'],
+            'account_sid': payload.get('account_sid'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'results': payload.get('results'),
+            'language': payload.get('language'),
+            'model_build_sid': payload.get('model_build_sid'),
+            'query': payload.get('query'),
+            'sample_sid': payload.get('sample_sid'),
+            'assistant_sid': payload.get('assistant_sid'),
+            'sid': payload.get('sid'),
+            'status': payload.get('status'),
+            'url': payload.get('url'),
+            'source_channel': payload.get('source_channel'),
         }
 
         # Context

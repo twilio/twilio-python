@@ -293,17 +293,17 @@ class LogInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'account_sid': payload['account_sid'],
-            'service_sid': payload['service_sid'],
-            'environment_sid': payload['environment_sid'],
-            'deployment_sid': payload['deployment_sid'],
-            'function_sid': payload['function_sid'],
-            'request_sid': payload['request_sid'],
-            'level': payload['level'],
-            'message': payload['message'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'url': payload['url'],
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'service_sid': payload.get('service_sid'),
+            'environment_sid': payload.get('environment_sid'),
+            'deployment_sid': payload.get('deployment_sid'),
+            'function_sid': payload.get('function_sid'),
+            'request_sid': payload.get('request_sid'),
+            'level': payload.get('level'),
+            'message': payload.get('message'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'url': payload.get('url'),
         }
 
         # Context

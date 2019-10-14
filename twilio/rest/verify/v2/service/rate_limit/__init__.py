@@ -330,15 +330,15 @@ class RateLimitInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'service_sid': payload['service_sid'],
-            'account_sid': payload['account_sid'],
-            'unique_name': payload['unique_name'],
-            'description': payload['description'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'url': payload['url'],
-            'links': payload['links'],
+            'sid': payload.get('sid'),
+            'service_sid': payload.get('service_sid'),
+            'account_sid': payload.get('account_sid'),
+            'unique_name': payload.get('unique_name'),
+            'description': payload.get('description'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context

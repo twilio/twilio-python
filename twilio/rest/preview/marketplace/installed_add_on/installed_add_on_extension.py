@@ -296,13 +296,13 @@ class InstalledAddOnExtensionInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'installed_add_on_sid': payload['installed_add_on_sid'],
-            'friendly_name': payload['friendly_name'],
-            'product_name': payload['product_name'],
-            'unique_name': payload['unique_name'],
-            'enabled': payload['enabled'],
-            'url': payload['url'],
+            'sid': payload.get('sid'),
+            'installed_add_on_sid': payload.get('installed_add_on_sid'),
+            'friendly_name': payload.get('friendly_name'),
+            'product_name': payload.get('product_name'),
+            'unique_name': payload.get('unique_name'),
+            'enabled': payload.get('enabled'),
+            'url': payload.get('url'),
         }
 
         # Context

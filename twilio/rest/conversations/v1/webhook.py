@@ -201,13 +201,13 @@ class WebhookInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'method': payload['method'],
-            'filters': payload['filters'],
-            'pre_webhook_url': payload['pre_webhook_url'],
-            'post_webhook_url': payload['post_webhook_url'],
-            'target': payload['target'],
-            'url': payload['url'],
+            'account_sid': payload.get('account_sid'),
+            'method': payload.get('method'),
+            'filters': payload.get('filters'),
+            'pre_webhook_url': payload.get('pre_webhook_url'),
+            'post_webhook_url': payload.get('post_webhook_url'),
+            'target': payload.get('target'),
+            'url': payload.get('url'),
         }
 
         # Context

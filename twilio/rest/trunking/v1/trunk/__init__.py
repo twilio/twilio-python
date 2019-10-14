@@ -409,21 +409,21 @@ class TrunkInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'domain_name': payload['domain_name'],
-            'disaster_recovery_method': payload['disaster_recovery_method'],
-            'disaster_recovery_url': payload['disaster_recovery_url'],
-            'friendly_name': payload['friendly_name'],
-            'secure': payload['secure'],
-            'recording': payload['recording'],
-            'cnam_lookup_enabled': payload['cnam_lookup_enabled'],
-            'auth_type': payload['auth_type'],
-            'auth_type_set': payload['auth_type_set'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'sid': payload['sid'],
-            'url': payload['url'],
-            'links': payload['links'],
+            'account_sid': payload.get('account_sid'),
+            'domain_name': payload.get('domain_name'),
+            'disaster_recovery_method': payload.get('disaster_recovery_method'),
+            'disaster_recovery_url': payload.get('disaster_recovery_url'),
+            'friendly_name': payload.get('friendly_name'),
+            'secure': payload.get('secure'),
+            'recording': payload.get('recording'),
+            'cnam_lookup_enabled': payload.get('cnam_lookup_enabled'),
+            'auth_type': payload.get('auth_type'),
+            'auth_type_set': payload.get('auth_type_set'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'sid': payload.get('sid'),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context

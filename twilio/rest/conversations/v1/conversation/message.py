@@ -340,17 +340,17 @@ class MessageInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'conversation_sid': payload['conversation_sid'],
-            'sid': payload['sid'],
-            'index': deserialize.integer(payload['index']),
-            'author': payload['author'],
-            'body': payload['body'],
-            'media': payload['media'],
-            'attributes': payload['attributes'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'url': payload['url'],
+            'account_sid': payload.get('account_sid'),
+            'conversation_sid': payload.get('conversation_sid'),
+            'sid': payload.get('sid'),
+            'index': deserialize.integer(payload.get('index')),
+            'author': payload.get('author'),
+            'body': payload.get('body'),
+            'media': payload.get('media'),
+            'attributes': payload.get('attributes'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'url': payload.get('url'),
         }
 
         # Context

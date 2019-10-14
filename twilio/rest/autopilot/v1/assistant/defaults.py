@@ -188,10 +188,10 @@ class DefaultsInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'assistant_sid': payload['assistant_sid'],
-            'url': payload['url'],
-            'data': payload['data'],
+            'account_sid': payload.get('account_sid'),
+            'assistant_sid': payload.get('assistant_sid'),
+            'url': payload.get('url'),
+            'data': payload.get('data'),
         }
 
         # Context

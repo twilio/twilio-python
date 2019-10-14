@@ -269,16 +269,16 @@ class AuthorizedConnectAppInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'connect_app_company_name': payload['connect_app_company_name'],
-            'connect_app_description': payload['connect_app_description'],
-            'connect_app_friendly_name': payload['connect_app_friendly_name'],
-            'connect_app_homepage_url': payload['connect_app_homepage_url'],
-            'connect_app_sid': payload['connect_app_sid'],
-            'date_created': deserialize.rfc2822_datetime(payload['date_created']),
-            'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
-            'permissions': payload['permissions'],
-            'uri': payload['uri'],
+            'account_sid': payload.get('account_sid'),
+            'connect_app_company_name': payload.get('connect_app_company_name'),
+            'connect_app_description': payload.get('connect_app_description'),
+            'connect_app_friendly_name': payload.get('connect_app_friendly_name'),
+            'connect_app_homepage_url': payload.get('connect_app_homepage_url'),
+            'connect_app_sid': payload.get('connect_app_sid'),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
+            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'permissions': payload.get('permissions'),
+            'uri': payload.get('uri'),
         }
 
         # Context

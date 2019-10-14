@@ -329,19 +329,19 @@ class TollFreeInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'friendly_name': payload['friendly_name'],
-            'phone_number': payload['phone_number'],
-            'lata': payload['lata'],
-            'locality': payload['locality'],
-            'rate_center': payload['rate_center'],
-            'latitude': deserialize.decimal(payload['latitude']),
-            'longitude': deserialize.decimal(payload['longitude']),
-            'region': payload['region'],
-            'postal_code': payload['postal_code'],
-            'iso_country': payload['iso_country'],
-            'address_requirements': payload['address_requirements'],
-            'beta': payload['beta'],
-            'capabilities': payload['capabilities'],
+            'friendly_name': payload.get('friendly_name'),
+            'phone_number': payload.get('phone_number'),
+            'lata': payload.get('lata'),
+            'locality': payload.get('locality'),
+            'rate_center': payload.get('rate_center'),
+            'latitude': deserialize.decimal(payload.get('latitude')),
+            'longitude': deserialize.decimal(payload.get('longitude')),
+            'region': payload.get('region'),
+            'postal_code': payload.get('postal_code'),
+            'iso_country': payload.get('iso_country'),
+            'address_requirements': payload.get('address_requirements'),
+            'beta': payload.get('beta'),
+            'capabilities': payload.get('capabilities'),
         }
 
         # Context

@@ -381,22 +381,22 @@ class SessionInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'service_sid': payload['service_sid'],
-            'account_sid': payload['account_sid'],
-            'date_started': deserialize.iso8601_datetime(payload['date_started']),
-            'date_ended': deserialize.iso8601_datetime(payload['date_ended']),
-            'date_last_interaction': deserialize.iso8601_datetime(payload['date_last_interaction']),
-            'date_expiry': deserialize.iso8601_datetime(payload['date_expiry']),
-            'unique_name': payload['unique_name'],
-            'status': payload['status'],
-            'closed_reason': payload['closed_reason'],
-            'ttl': deserialize.integer(payload['ttl']),
-            'mode': payload['mode'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'url': payload['url'],
-            'links': payload['links'],
+            'sid': payload.get('sid'),
+            'service_sid': payload.get('service_sid'),
+            'account_sid': payload.get('account_sid'),
+            'date_started': deserialize.iso8601_datetime(payload.get('date_started')),
+            'date_ended': deserialize.iso8601_datetime(payload.get('date_ended')),
+            'date_last_interaction': deserialize.iso8601_datetime(payload.get('date_last_interaction')),
+            'date_expiry': deserialize.iso8601_datetime(payload.get('date_expiry')),
+            'unique_name': payload.get('unique_name'),
+            'status': payload.get('status'),
+            'closed_reason': payload.get('closed_reason'),
+            'ttl': deserialize.integer(payload.get('ttl')),
+            'mode': payload.get('mode'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context

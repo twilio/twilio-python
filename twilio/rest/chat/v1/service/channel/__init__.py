@@ -390,20 +390,20 @@ class ChannelInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'account_sid': payload['account_sid'],
-            'service_sid': payload['service_sid'],
-            'friendly_name': payload['friendly_name'],
-            'unique_name': payload['unique_name'],
-            'attributes': payload['attributes'],
-            'type': payload['type'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'created_by': payload['created_by'],
-            'members_count': deserialize.integer(payload['members_count']),
-            'messages_count': deserialize.integer(payload['messages_count']),
-            'url': payload['url'],
-            'links': payload['links'],
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'service_sid': payload.get('service_sid'),
+            'friendly_name': payload.get('friendly_name'),
+            'unique_name': payload.get('unique_name'),
+            'attributes': payload.get('attributes'),
+            'type': payload.get('type'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'created_by': payload.get('created_by'),
+            'members_count': deserialize.integer(payload.get('members_count')),
+            'messages_count': deserialize.integer(payload.get('messages_count')),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context

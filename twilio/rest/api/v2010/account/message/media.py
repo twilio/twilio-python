@@ -312,13 +312,13 @@ class MediaInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'content_type': payload['content_type'],
-            'date_created': deserialize.rfc2822_datetime(payload['date_created']),
-            'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
-            'parent_sid': payload['parent_sid'],
-            'sid': payload['sid'],
-            'uri': payload['uri'],
+            'account_sid': payload.get('account_sid'),
+            'content_type': payload.get('content_type'),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
+            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'parent_sid': payload.get('parent_sid'),
+            'sid': payload.get('sid'),
+            'uri': payload.get('uri'),
         }
 
         # Context

@@ -317,16 +317,16 @@ class TaskChannelInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'friendly_name': payload['friendly_name'],
-            'sid': payload['sid'],
-            'unique_name': payload['unique_name'],
-            'workspace_sid': payload['workspace_sid'],
-            'channel_optimized_routing': payload['channel_optimized_routing'],
-            'url': payload['url'],
-            'links': payload['links'],
+            'account_sid': payload.get('account_sid'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'friendly_name': payload.get('friendly_name'),
+            'sid': payload.get('sid'),
+            'unique_name': payload.get('unique_name'),
+            'workspace_sid': payload.get('workspace_sid'),
+            'channel_optimized_routing': payload.get('channel_optimized_routing'),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context

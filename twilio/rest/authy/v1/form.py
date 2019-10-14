@@ -175,10 +175,10 @@ class FormInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'form_type': payload['form_type'],
-            'forms': payload['forms'],
-            'form_meta': payload['form_meta'],
-            'url': payload['url'],
+            'form_type': payload.get('form_type'),
+            'forms': payload.get('forms'),
+            'form_meta': payload.get('form_meta'),
+            'url': payload.get('url'),
         }
 
         # Context

@@ -187,18 +187,18 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'start_time': deserialize.iso8601_datetime(payload['start_time']),
-            'end_time': deserialize.iso8601_datetime(payload['end_time']),
-            'activity_durations': payload['activity_durations'],
-            'reservations_created': deserialize.integer(payload['reservations_created']),
-            'reservations_accepted': deserialize.integer(payload['reservations_accepted']),
-            'reservations_rejected': deserialize.integer(payload['reservations_rejected']),
-            'reservations_timed_out': deserialize.integer(payload['reservations_timed_out']),
-            'reservations_canceled': deserialize.integer(payload['reservations_canceled']),
-            'reservations_rescinded': deserialize.integer(payload['reservations_rescinded']),
-            'workspace_sid': payload['workspace_sid'],
-            'url': payload['url'],
+            'account_sid': payload.get('account_sid'),
+            'start_time': deserialize.iso8601_datetime(payload.get('start_time')),
+            'end_time': deserialize.iso8601_datetime(payload.get('end_time')),
+            'activity_durations': payload.get('activity_durations'),
+            'reservations_created': deserialize.integer(payload.get('reservations_created')),
+            'reservations_accepted': deserialize.integer(payload.get('reservations_accepted')),
+            'reservations_rejected': deserialize.integer(payload.get('reservations_rejected')),
+            'reservations_timed_out': deserialize.integer(payload.get('reservations_timed_out')),
+            'reservations_canceled': deserialize.integer(payload.get('reservations_canceled')),
+            'reservations_rescinded': deserialize.integer(payload.get('reservations_rescinded')),
+            'workspace_sid': payload.get('workspace_sid'),
+            'url': payload.get('url'),
         }
 
         # Context

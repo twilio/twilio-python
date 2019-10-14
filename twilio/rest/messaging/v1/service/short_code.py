@@ -285,15 +285,15 @@ class ShortCodeInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'account_sid': payload['account_sid'],
-            'service_sid': payload['service_sid'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'short_code': payload['short_code'],
-            'country_code': payload['country_code'],
-            'capabilities': payload['capabilities'],
-            'url': payload['url'],
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'service_sid': payload.get('service_sid'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'short_code': payload.get('short_code'),
+            'country_code': payload.get('country_code'),
+            'capabilities': payload.get('capabilities'),
+            'url': payload.get('url'),
         }
 
         # Context

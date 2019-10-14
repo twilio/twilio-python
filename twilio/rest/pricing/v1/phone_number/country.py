@@ -244,11 +244,11 @@ class CountryInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'country': payload['country'],
-            'iso_country': payload['iso_country'],
-            'url': payload['url'],
+            'country': payload.get('country'),
+            'iso_country': payload.get('iso_country'),
             'phone_number_prices': payload.get('phone_number_prices'),
             'price_unit': payload.get('price_unit'),
+            'url': payload.get('url'),
         }
 
         # Context

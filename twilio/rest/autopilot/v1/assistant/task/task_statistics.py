@@ -190,12 +190,12 @@ class TaskStatisticsInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'assistant_sid': payload['assistant_sid'],
-            'task_sid': payload['task_sid'],
-            'samples_count': deserialize.integer(payload['samples_count']),
-            'fields_count': deserialize.integer(payload['fields_count']),
-            'url': payload['url'],
+            'account_sid': payload.get('account_sid'),
+            'assistant_sid': payload.get('assistant_sid'),
+            'task_sid': payload.get('task_sid'),
+            'samples_count': deserialize.integer(payload.get('samples_count')),
+            'fields_count': deserialize.integer(payload.get('fields_count')),
+            'url': payload.get('url'),
         }
 
         # Context

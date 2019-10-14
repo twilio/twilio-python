@@ -106,7 +106,11 @@ class MessagingInstance(InstanceResource):
         super(MessagingInstance, self).__init__(version)
 
         # Marshaled Properties
-        self._properties = {'name': payload['name'], 'url': payload['url'], 'links': payload['links'], }
+        self._properties = {
+            'name': payload.get('name'),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
+        }
 
         # Context
         self._context = None

@@ -391,21 +391,21 @@ class CompositionHookInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'friendly_name': payload['friendly_name'],
-            'enabled': payload['enabled'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'sid': payload['sid'],
-            'audio_sources': payload['audio_sources'],
-            'audio_sources_excluded': payload['audio_sources_excluded'],
-            'video_layout': payload['video_layout'],
-            'resolution': payload['resolution'],
-            'trim': payload['trim'],
-            'format': payload['format'],
-            'status_callback': payload['status_callback'],
-            'status_callback_method': payload['status_callback_method'],
-            'url': payload['url'],
+            'account_sid': payload.get('account_sid'),
+            'friendly_name': payload.get('friendly_name'),
+            'enabled': payload.get('enabled'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'sid': payload.get('sid'),
+            'audio_sources': payload.get('audio_sources'),
+            'audio_sources_excluded': payload.get('audio_sources_excluded'),
+            'video_layout': payload.get('video_layout'),
+            'resolution': payload.get('resolution'),
+            'trim': payload.get('trim'),
+            'format': payload.get('format'),
+            'status_callback': payload.get('status_callback'),
+            'status_callback_method': payload.get('status_callback_method'),
+            'url': payload.get('url'),
         }
 
         # Context

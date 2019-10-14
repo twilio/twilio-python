@@ -396,16 +396,16 @@ class ConferenceInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'date_created': deserialize.rfc2822_datetime(payload['date_created']),
-            'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
-            'api_version': payload['api_version'],
-            'friendly_name': payload['friendly_name'],
-            'region': payload['region'],
-            'sid': payload['sid'],
-            'status': payload['status'],
-            'uri': payload['uri'],
-            'subresource_uris': payload['subresource_uris'],
+            'account_sid': payload.get('account_sid'),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
+            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'api_version': payload.get('api_version'),
+            'friendly_name': payload.get('friendly_name'),
+            'region': payload.get('region'),
+            'sid': payload.get('sid'),
+            'status': payload.get('status'),
+            'uri': payload.get('uri'),
+            'subresource_uris': payload.get('subresource_uris'),
         }
 
         # Context

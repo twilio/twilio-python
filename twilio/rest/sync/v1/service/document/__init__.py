@@ -333,18 +333,18 @@ class DocumentInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'unique_name': payload['unique_name'],
-            'account_sid': payload['account_sid'],
-            'service_sid': payload['service_sid'],
-            'url': payload['url'],
-            'links': payload['links'],
-            'revision': payload['revision'],
-            'data': payload['data'],
-            'date_expires': deserialize.iso8601_datetime(payload['date_expires']),
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'created_by': payload['created_by'],
+            'sid': payload.get('sid'),
+            'unique_name': payload.get('unique_name'),
+            'account_sid': payload.get('account_sid'),
+            'service_sid': payload.get('service_sid'),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
+            'revision': payload.get('revision'),
+            'data': payload.get('data'),
+            'date_expires': deserialize.iso8601_datetime(payload.get('date_expires')),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'created_by': payload.get('created_by'),
         }
 
         # Context

@@ -315,14 +315,14 @@ class DeploymentInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'url': payload['url'],
-            'friendly_name': payload['friendly_name'],
-            'fleet_sid': payload['fleet_sid'],
-            'account_sid': payload['account_sid'],
-            'sync_service_sid': payload['sync_service_sid'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
+            'sid': payload.get('sid'),
+            'url': payload.get('url'),
+            'friendly_name': payload.get('friendly_name'),
+            'fleet_sid': payload.get('fleet_sid'),
+            'account_sid': payload.get('account_sid'),
+            'sync_service_sid': payload.get('sync_service_sid'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
         }
 
         # Context

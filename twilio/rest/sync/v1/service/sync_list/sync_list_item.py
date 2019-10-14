@@ -380,17 +380,17 @@ class SyncListItemInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'index': deserialize.integer(payload['index']),
-            'account_sid': payload['account_sid'],
-            'service_sid': payload['service_sid'],
-            'list_sid': payload['list_sid'],
-            'url': payload['url'],
-            'revision': payload['revision'],
-            'data': payload['data'],
-            'date_expires': deserialize.iso8601_datetime(payload['date_expires']),
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'created_by': payload['created_by'],
+            'index': deserialize.integer(payload.get('index')),
+            'account_sid': payload.get('account_sid'),
+            'service_sid': payload.get('service_sid'),
+            'list_sid': payload.get('list_sid'),
+            'url': payload.get('url'),
+            'revision': payload.get('revision'),
+            'data': payload.get('data'),
+            'date_expires': deserialize.iso8601_datetime(payload.get('date_expires')),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'created_by': payload.get('created_by'),
         }
 
         # Context

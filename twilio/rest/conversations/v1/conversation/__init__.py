@@ -366,16 +366,16 @@ class ConversationInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'chat_service_sid': payload['chat_service_sid'],
-            'messaging_service_sid': payload['messaging_service_sid'],
-            'sid': payload['sid'],
-            'friendly_name': payload['friendly_name'],
-            'attributes': payload['attributes'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'url': payload['url'],
-            'links': payload['links'],
+            'account_sid': payload.get('account_sid'),
+            'chat_service_sid': payload.get('chat_service_sid'),
+            'messaging_service_sid': payload.get('messaging_service_sid'),
+            'sid': payload.get('sid'),
+            'friendly_name': payload.get('friendly_name'),
+            'attributes': payload.get('attributes'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context

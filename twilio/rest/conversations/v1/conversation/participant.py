@@ -352,15 +352,15 @@ class ParticipantInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'conversation_sid': payload['conversation_sid'],
-            'sid': payload['sid'],
-            'identity': payload['identity'],
-            'attributes': payload['attributes'],
-            'messaging_binding': payload['messaging_binding'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'url': payload['url'],
+            'account_sid': payload.get('account_sid'),
+            'conversation_sid': payload.get('conversation_sid'),
+            'sid': payload.get('sid'),
+            'identity': payload.get('identity'),
+            'attributes': payload.get('attributes'),
+            'messaging_binding': payload.get('messaging_binding'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'url': payload.get('url'),
         }
 
         # Context

@@ -243,12 +243,12 @@ class FeedbackInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'date_created': deserialize.rfc2822_datetime(payload['date_created']),
-            'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
-            'issues': payload['issues'],
-            'quality_score': deserialize.integer(payload['quality_score']),
-            'sid': payload['sid'],
+            'account_sid': payload.get('account_sid'),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
+            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'issues': payload.get('issues'),
+            'quality_score': deserialize.integer(payload.get('quality_score')),
+            'sid': payload.get('sid'),
         }
 
         # Context

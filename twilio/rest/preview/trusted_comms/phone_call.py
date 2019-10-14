@@ -189,13 +189,13 @@ class PhoneCallInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'account_sid': payload['account_sid'],
-            'from_': payload['from'],
-            'to': payload['to'],
-            'reason': payload['reason'],
-            'created_at': deserialize.iso8601_datetime(payload['created_at']),
-            'url': payload['url'],
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'from_': payload.get('from'),
+            'to': payload.get('to'),
+            'reason': payload.get('reason'),
+            'created_at': deserialize.iso8601_datetime(payload.get('created_at')),
+            'url': payload.get('url'),
         }
 
         # Context

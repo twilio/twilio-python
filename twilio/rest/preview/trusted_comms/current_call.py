@@ -166,20 +166,20 @@ class CurrentCallInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'from_': payload['from'],
-            'to': payload['to'],
-            'status': payload['status'],
-            'reason': payload['reason'],
-            'created_at': deserialize.iso8601_datetime(payload['created_at']),
-            'caller': payload['caller'],
-            'logo': payload['logo'],
-            'bg_color': payload['bg_color'],
-            'font_color': payload['font_color'],
-            'use_case': payload['use_case'],
-            'manager': payload['manager'],
-            'shield_img': payload['shield_img'],
-            'url': payload['url'],
+            'sid': payload.get('sid'),
+            'from_': payload.get('from'),
+            'to': payload.get('to'),
+            'status': payload.get('status'),
+            'reason': payload.get('reason'),
+            'created_at': deserialize.iso8601_datetime(payload.get('created_at')),
+            'caller': payload.get('caller'),
+            'logo': payload.get('logo'),
+            'bg_color': payload.get('bg_color'),
+            'font_color': payload.get('font_color'),
+            'use_case': payload.get('use_case'),
+            'manager': payload.get('manager'),
+            'shield_img': payload.get('shield_img'),
+            'url': payload.get('url'),
         }
 
         # Context

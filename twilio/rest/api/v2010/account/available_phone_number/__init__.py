@@ -392,11 +392,11 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'country_code': payload['country_code'],
-            'country': payload['country'],
-            'uri': payload['uri'],
-            'beta': payload['beta'],
-            'subresource_uris': payload['subresource_uris'],
+            'country_code': payload.get('country_code'),
+            'country': payload.get('country'),
+            'uri': payload.get('uri'),
+            'beta': payload.get('beta'),
+            'subresource_uris': payload.get('subresource_uris'),
         }
 
         # Context

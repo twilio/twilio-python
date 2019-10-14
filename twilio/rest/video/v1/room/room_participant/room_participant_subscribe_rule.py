@@ -153,11 +153,11 @@ class SubscribeRulesInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'participant_sid': payload['participant_sid'],
-            'room_sid': payload['room_sid'],
-            'rules': payload['rules'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
+            'participant_sid': payload.get('participant_sid'),
+            'room_sid': payload.get('room_sid'),
+            'rules': payload.get('rules'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
         }
 
         # Context

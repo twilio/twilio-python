@@ -183,11 +183,11 @@ class WorkspaceStatisticsInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'realtime': payload['realtime'],
-            'cumulative': payload['cumulative'],
-            'account_sid': payload['account_sid'],
-            'workspace_sid': payload['workspace_sid'],
-            'url': payload['url'],
+            'realtime': payload.get('realtime'),
+            'cumulative': payload.get('cumulative'),
+            'account_sid': payload.get('account_sid'),
+            'workspace_sid': payload.get('workspace_sid'),
+            'url': payload.get('url'),
         }
 
         # Context

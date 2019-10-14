@@ -310,17 +310,17 @@ class ConnectAppInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'authorize_redirect_url': payload['authorize_redirect_url'],
-            'company_name': payload['company_name'],
-            'deauthorize_callback_method': payload['deauthorize_callback_method'],
-            'deauthorize_callback_url': payload['deauthorize_callback_url'],
-            'description': payload['description'],
-            'friendly_name': payload['friendly_name'],
-            'homepage_url': payload['homepage_url'],
-            'permissions': payload['permissions'],
-            'sid': payload['sid'],
-            'uri': payload['uri'],
+            'account_sid': payload.get('account_sid'),
+            'authorize_redirect_url': payload.get('authorize_redirect_url'),
+            'company_name': payload.get('company_name'),
+            'deauthorize_callback_method': payload.get('deauthorize_callback_method'),
+            'deauthorize_callback_url': payload.get('deauthorize_callback_url'),
+            'description': payload.get('description'),
+            'friendly_name': payload.get('friendly_name'),
+            'homepage_url': payload.get('homepage_url'),
+            'permissions': payload.get('permissions'),
+            'sid': payload.get('sid'),
+            'uri': payload.get('uri'),
         }
 
         # Context

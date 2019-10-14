@@ -115,13 +115,13 @@ class TokenInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'date_created': deserialize.rfc2822_datetime(payload['date_created']),
-            'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
-            'ice_servers': payload['ice_servers'],
-            'password': payload['password'],
-            'ttl': payload['ttl'],
-            'username': payload['username'],
+            'account_sid': payload.get('account_sid'),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
+            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'ice_servers': payload.get('ice_servers'),
+            'password': payload.get('password'),
+            'ttl': payload.get('ttl'),
+            'username': payload.get('username'),
         }
 
         # Context

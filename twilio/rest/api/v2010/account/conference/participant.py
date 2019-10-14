@@ -483,19 +483,19 @@ class ParticipantInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'call_sid': payload['call_sid'],
-            'call_sid_to_coach': payload['call_sid_to_coach'],
-            'coaching': payload['coaching'],
-            'conference_sid': payload['conference_sid'],
-            'date_created': deserialize.rfc2822_datetime(payload['date_created']),
-            'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
-            'end_conference_on_exit': payload['end_conference_on_exit'],
-            'muted': payload['muted'],
-            'hold': payload['hold'],
-            'start_conference_on_enter': payload['start_conference_on_enter'],
-            'status': payload['status'],
-            'uri': payload['uri'],
+            'account_sid': payload.get('account_sid'),
+            'call_sid': payload.get('call_sid'),
+            'call_sid_to_coach': payload.get('call_sid_to_coach'),
+            'coaching': payload.get('coaching'),
+            'conference_sid': payload.get('conference_sid'),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
+            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'end_conference_on_exit': payload.get('end_conference_on_exit'),
+            'muted': payload.get('muted'),
+            'hold': payload.get('hold'),
+            'start_conference_on_enter': payload.get('start_conference_on_enter'),
+            'status': payload.get('status'),
+            'uri': payload.get('uri'),
         }
 
         # Context

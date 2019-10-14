@@ -184,15 +184,15 @@ class WorkflowRealTimeStatisticsInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'longest_task_waiting_age': deserialize.integer(payload['longest_task_waiting_age']),
-            'longest_task_waiting_sid': payload['longest_task_waiting_sid'],
-            'tasks_by_priority': payload['tasks_by_priority'],
-            'tasks_by_status': payload['tasks_by_status'],
-            'total_tasks': deserialize.integer(payload['total_tasks']),
-            'workflow_sid': payload['workflow_sid'],
-            'workspace_sid': payload['workspace_sid'],
-            'url': payload['url'],
+            'account_sid': payload.get('account_sid'),
+            'longest_task_waiting_age': deserialize.integer(payload.get('longest_task_waiting_age')),
+            'longest_task_waiting_sid': payload.get('longest_task_waiting_sid'),
+            'tasks_by_priority': payload.get('tasks_by_priority'),
+            'tasks_by_status': payload.get('tasks_by_status'),
+            'total_tasks': deserialize.integer(payload.get('total_tasks')),
+            'workflow_sid': payload.get('workflow_sid'),
+            'workspace_sid': payload.get('workspace_sid'),
+            'url': payload.get('url'),
         }
 
         # Context

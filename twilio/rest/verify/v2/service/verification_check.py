@@ -133,17 +133,17 @@ class VerificationCheckInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'service_sid': payload['service_sid'],
-            'account_sid': payload['account_sid'],
-            'to': payload['to'],
-            'channel': payload['channel'],
-            'status': payload['status'],
-            'valid': payload['valid'],
-            'amount': payload['amount'],
-            'payee': payload['payee'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
+            'sid': payload.get('sid'),
+            'service_sid': payload.get('service_sid'),
+            'account_sid': payload.get('account_sid'),
+            'to': payload.get('to'),
+            'channel': payload.get('channel'),
+            'status': payload.get('status'),
+            'valid': payload.get('valid'),
+            'amount': payload.get('amount'),
+            'payee': payload.get('payee'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
         }
 
         # Context

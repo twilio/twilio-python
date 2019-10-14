@@ -378,19 +378,19 @@ class FactorInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'account_sid': payload['account_sid'],
-            'service_sid': payload['service_sid'],
-            'entity_sid': payload['entity_sid'],
-            'identity': payload['identity'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'friendly_name': payload['friendly_name'],
-            'status': payload['status'],
-            'factor_type': payload['factor_type'],
-            'factor_strength': payload['factor_strength'],
-            'url': payload['url'],
-            'links': payload['links'],
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'service_sid': payload.get('service_sid'),
+            'entity_sid': payload.get('entity_sid'),
+            'identity': payload.get('identity'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'friendly_name': payload.get('friendly_name'),
+            'status': payload.get('status'),
+            'factor_type': payload.get('factor_type'),
+            'factor_strength': payload.get('factor_strength'),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context

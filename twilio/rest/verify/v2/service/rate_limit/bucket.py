@@ -336,15 +336,15 @@ class BucketInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'rate_limit_sid': payload['rate_limit_sid'],
-            'service_sid': payload['service_sid'],
-            'account_sid': payload['account_sid'],
-            'max': deserialize.integer(payload['max']),
-            'interval': deserialize.integer(payload['interval']),
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'url': payload['url'],
+            'sid': payload.get('sid'),
+            'rate_limit_sid': payload.get('rate_limit_sid'),
+            'service_sid': payload.get('service_sid'),
+            'account_sid': payload.get('account_sid'),
+            'max': deserialize.integer(payload.get('max')),
+            'interval': deserialize.integer(payload.get('interval')),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'url': payload.get('url'),
         }
 
         # Context

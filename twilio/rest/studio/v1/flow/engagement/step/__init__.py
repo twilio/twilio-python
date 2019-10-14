@@ -293,18 +293,18 @@ class StepInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'account_sid': payload['account_sid'],
-            'flow_sid': payload['flow_sid'],
-            'engagement_sid': payload['engagement_sid'],
-            'name': payload['name'],
-            'context': payload['context'],
-            'transitioned_from': payload['transitioned_from'],
-            'transitioned_to': payload['transitioned_to'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'url': payload['url'],
-            'links': payload['links'],
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'flow_sid': payload.get('flow_sid'),
+            'engagement_sid': payload.get('engagement_sid'),
+            'name': payload.get('name'),
+            'context': payload.get('context'),
+            'transitioned_from': payload.get('transitioned_from'),
+            'transitioned_to': payload.get('transitioned_to'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context

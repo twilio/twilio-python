@@ -281,13 +281,13 @@ class IpAccessControlListInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'sid': payload['sid'],
-            'trunk_sid': payload['trunk_sid'],
-            'friendly_name': payload['friendly_name'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'url': payload['url'],
+            'account_sid': payload.get('account_sid'),
+            'sid': payload.get('sid'),
+            'trunk_sid': payload.get('trunk_sid'),
+            'friendly_name': payload.get('friendly_name'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'url': payload.get('url'),
         }
 
         # Context

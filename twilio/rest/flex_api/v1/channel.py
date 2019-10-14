@@ -297,14 +297,14 @@ class ChannelInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'flex_flow_sid': payload['flex_flow_sid'],
-            'sid': payload['sid'],
-            'user_sid': payload['user_sid'],
-            'task_sid': payload['task_sid'],
-            'url': payload['url'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
+            'account_sid': payload.get('account_sid'),
+            'flex_flow_sid': payload.get('flex_flow_sid'),
+            'sid': payload.get('sid'),
+            'user_sid': payload.get('user_sid'),
+            'task_sid': payload.get('task_sid'),
+            'url': payload.get('url'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
         }
 
         # Context

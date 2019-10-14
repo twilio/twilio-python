@@ -378,22 +378,22 @@ class MessageInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'account_sid': payload['account_sid'],
-            'attributes': payload['attributes'],
-            'service_sid': payload['service_sid'],
-            'to': payload['to'],
-            'channel_sid': payload['channel_sid'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'last_updated_by': payload['last_updated_by'],
-            'was_edited': payload['was_edited'],
-            'from_': payload['from'],
-            'body': payload['body'],
-            'index': deserialize.integer(payload['index']),
-            'type': payload['type'],
-            'media': payload['media'],
-            'url': payload['url'],
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'attributes': payload.get('attributes'),
+            'service_sid': payload.get('service_sid'),
+            'to': payload.get('to'),
+            'channel_sid': payload.get('channel_sid'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'last_updated_by': payload.get('last_updated_by'),
+            'was_edited': payload.get('was_edited'),
+            'from_': payload.get('from'),
+            'body': payload.get('body'),
+            'index': deserialize.integer(payload.get('index')),
+            'type': payload.get('type'),
+            'media': payload.get('media'),
+            'url': payload.get('url'),
         }
 
         # Context

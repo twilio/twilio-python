@@ -447,21 +447,21 @@ class TaskQueueInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'assignment_activity_sid': payload['assignment_activity_sid'],
-            'assignment_activity_name': payload['assignment_activity_name'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'friendly_name': payload['friendly_name'],
-            'max_reserved_workers': deserialize.integer(payload['max_reserved_workers']),
-            'reservation_activity_sid': payload['reservation_activity_sid'],
-            'reservation_activity_name': payload['reservation_activity_name'],
-            'sid': payload['sid'],
-            'target_workers': payload['target_workers'],
-            'task_order': payload['task_order'],
-            'url': payload['url'],
-            'workspace_sid': payload['workspace_sid'],
-            'links': payload['links'],
+            'account_sid': payload.get('account_sid'),
+            'assignment_activity_sid': payload.get('assignment_activity_sid'),
+            'assignment_activity_name': payload.get('assignment_activity_name'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'friendly_name': payload.get('friendly_name'),
+            'max_reserved_workers': deserialize.integer(payload.get('max_reserved_workers')),
+            'reservation_activity_sid': payload.get('reservation_activity_sid'),
+            'reservation_activity_name': payload.get('reservation_activity_name'),
+            'sid': payload.get('sid'),
+            'target_workers': payload.get('target_workers'),
+            'task_order': payload.get('task_order'),
+            'url': payload.get('url'),
+            'workspace_sid': payload.get('workspace_sid'),
+            'links': payload.get('links'),
         }
 
         # Context

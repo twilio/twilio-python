@@ -168,14 +168,14 @@ class NumberInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'destination_number': payload['destination_number'],
-            'origination_number': payload['origination_number'],
-            'country': payload['country'],
-            'iso_country': payload['iso_country'],
-            'outbound_call_prices': payload['outbound_call_prices'],
-            'inbound_call_price': payload['inbound_call_price'],
-            'price_unit': payload['price_unit'],
-            'url': payload['url'],
+            'destination_number': payload.get('destination_number'),
+            'origination_number': payload.get('origination_number'),
+            'country': payload.get('country'),
+            'iso_country': payload.get('iso_country'),
+            'outbound_call_prices': payload.get('outbound_call_prices'),
+            'inbound_call_price': payload.get('inbound_call_price'),
+            'price_unit': payload.get('price_unit'),
+            'url': payload.get('url'),
         }
 
         # Context

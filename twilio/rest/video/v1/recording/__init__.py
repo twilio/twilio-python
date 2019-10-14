@@ -330,21 +330,21 @@ class RecordingInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'status': payload['status'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'sid': payload['sid'],
-            'source_sid': payload['source_sid'],
-            'size': deserialize.integer(payload['size']),
-            'url': payload['url'],
-            'type': payload['type'],
-            'duration': deserialize.integer(payload['duration']),
-            'container_format': payload['container_format'],
-            'codec': payload['codec'],
-            'grouping_sids': payload['grouping_sids'],
-            'track_name': payload['track_name'],
-            'offset': deserialize.integer(payload['offset']),
-            'links': payload['links'],
+            'account_sid': payload.get('account_sid'),
+            'status': payload.get('status'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'sid': payload.get('sid'),
+            'source_sid': payload.get('source_sid'),
+            'size': deserialize.integer(payload.get('size')),
+            'url': payload.get('url'),
+            'type': payload.get('type'),
+            'duration': deserialize.integer(payload.get('duration')),
+            'container_format': payload.get('container_format'),
+            'codec': payload.get('codec'),
+            'grouping_sids': payload.get('grouping_sids'),
+            'track_name': payload.get('track_name'),
+            'offset': deserialize.integer(payload.get('offset')),
+            'links': payload.get('links'),
         }
 
         # Context

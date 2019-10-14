@@ -344,18 +344,18 @@ class CommandInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'account_sid': payload['account_sid'],
-            'sim_sid': payload['sim_sid'],
-            'command': payload['command'],
-            'command_mode': payload['command_mode'],
-            'transport': payload['transport'],
-            'delivery_receipt_requested': payload['delivery_receipt_requested'],
-            'status': payload['status'],
-            'direction': payload['direction'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'url': payload['url'],
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'sim_sid': payload.get('sim_sid'),
+            'command': payload.get('command'),
+            'command_mode': payload.get('command_mode'),
+            'transport': payload.get('transport'),
+            'delivery_receipt_requested': payload.get('delivery_receipt_requested'),
+            'status': payload.get('status'),
+            'direction': payload.get('direction'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'url': payload.get('url'),
         }
 
         # Context

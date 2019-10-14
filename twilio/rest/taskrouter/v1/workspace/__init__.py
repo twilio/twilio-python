@@ -484,21 +484,21 @@ class WorkspaceInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'default_activity_name': payload['default_activity_name'],
-            'default_activity_sid': payload['default_activity_sid'],
-            'event_callback_url': payload['event_callback_url'],
-            'events_filter': payload['events_filter'],
-            'friendly_name': payload['friendly_name'],
-            'multi_task_enabled': payload['multi_task_enabled'],
-            'sid': payload['sid'],
-            'timeout_activity_name': payload['timeout_activity_name'],
-            'timeout_activity_sid': payload['timeout_activity_sid'],
-            'prioritize_queue_order': payload['prioritize_queue_order'],
-            'url': payload['url'],
-            'links': payload['links'],
+            'account_sid': payload.get('account_sid'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'default_activity_name': payload.get('default_activity_name'),
+            'default_activity_sid': payload.get('default_activity_sid'),
+            'event_callback_url': payload.get('event_callback_url'),
+            'events_filter': payload.get('events_filter'),
+            'friendly_name': payload.get('friendly_name'),
+            'multi_task_enabled': payload.get('multi_task_enabled'),
+            'sid': payload.get('sid'),
+            'timeout_activity_name': payload.get('timeout_activity_name'),
+            'timeout_activity_sid': payload.get('timeout_activity_sid'),
+            'prioritize_queue_order': payload.get('prioritize_queue_order'),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context

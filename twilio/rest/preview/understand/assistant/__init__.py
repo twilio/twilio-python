@@ -459,18 +459,18 @@ class AssistantInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'friendly_name': payload['friendly_name'],
-            'latest_model_build_sid': payload['latest_model_build_sid'],
-            'links': payload['links'],
-            'log_queries': payload['log_queries'],
-            'sid': payload['sid'],
-            'unique_name': payload['unique_name'],
-            'url': payload['url'],
-            'callback_url': payload['callback_url'],
-            'callback_events': payload['callback_events'],
+            'account_sid': payload.get('account_sid'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'friendly_name': payload.get('friendly_name'),
+            'latest_model_build_sid': payload.get('latest_model_build_sid'),
+            'links': payload.get('links'),
+            'log_queries': payload.get('log_queries'),
+            'sid': payload.get('sid'),
+            'unique_name': payload.get('unique_name'),
+            'url': payload.get('url'),
+            'callback_url': payload.get('callback_url'),
+            'callback_events': payload.get('callback_events'),
         }
 
         # Context

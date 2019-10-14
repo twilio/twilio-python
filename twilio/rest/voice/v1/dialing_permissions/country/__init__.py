@@ -328,15 +328,15 @@ class CountryInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'iso_code': payload['iso_code'],
-            'name': payload['name'],
-            'continent': payload['continent'],
-            'country_codes': payload['country_codes'],
-            'low_risk_numbers_enabled': payload['low_risk_numbers_enabled'],
-            'high_risk_special_numbers_enabled': payload['high_risk_special_numbers_enabled'],
-            'high_risk_tollfraud_numbers_enabled': payload['high_risk_tollfraud_numbers_enabled'],
-            'url': payload['url'],
-            'links': payload['links'],
+            'iso_code': payload.get('iso_code'),
+            'name': payload.get('name'),
+            'continent': payload.get('continent'),
+            'country_codes': payload.get('country_codes'),
+            'low_risk_numbers_enabled': payload.get('low_risk_numbers_enabled'),
+            'high_risk_special_numbers_enabled': payload.get('high_risk_special_numbers_enabled'),
+            'high_risk_tollfraud_numbers_enabled': payload.get('high_risk_tollfraud_numbers_enabled'),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context

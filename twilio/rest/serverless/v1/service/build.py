@@ -302,16 +302,16 @@ class BuildInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'account_sid': payload['account_sid'],
-            'service_sid': payload['service_sid'],
-            'status': payload['status'],
-            'asset_versions': payload['asset_versions'],
-            'function_versions': payload['function_versions'],
-            'dependencies': payload['dependencies'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'url': payload['url'],
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'service_sid': payload.get('service_sid'),
+            'status': payload.get('status'),
+            'asset_versions': payload.get('asset_versions'),
+            'function_versions': payload.get('function_versions'),
+            'dependencies': payload.get('dependencies'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'url': payload.get('url'),
         }
 
         # Context

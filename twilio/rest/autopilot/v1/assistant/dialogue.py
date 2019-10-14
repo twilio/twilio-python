@@ -178,11 +178,11 @@ class DialogueInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'assistant_sid': payload['assistant_sid'],
-            'sid': payload['sid'],
-            'data': payload['data'],
-            'url': payload['url'],
+            'account_sid': payload.get('account_sid'),
+            'assistant_sid': payload.get('assistant_sid'),
+            'sid': payload.get('sid'),
+            'data': payload.get('data'),
+            'url': payload.get('url'),
         }
 
         # Context

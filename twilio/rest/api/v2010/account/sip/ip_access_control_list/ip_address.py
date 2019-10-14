@@ -351,15 +351,15 @@ class IpAddressInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'account_sid': payload['account_sid'],
-            'friendly_name': payload['friendly_name'],
-            'ip_address': payload['ip_address'],
-            'cidr_prefix_length': deserialize.integer(payload['cidr_prefix_length']),
-            'ip_access_control_list_sid': payload['ip_access_control_list_sid'],
-            'date_created': deserialize.rfc2822_datetime(payload['date_created']),
-            'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
-            'uri': payload['uri'],
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'friendly_name': payload.get('friendly_name'),
+            'ip_address': payload.get('ip_address'),
+            'cidr_prefix_length': deserialize.integer(payload.get('cidr_prefix_length')),
+            'ip_access_control_list_sid': payload.get('ip_access_control_list_sid'),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
+            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'uri': payload.get('uri'),
         }
 
         # Context

@@ -179,13 +179,13 @@ class PhoneNumberInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'caller_name': payload['caller_name'],
-            'country_code': payload['country_code'],
-            'phone_number': payload['phone_number'],
-            'national_format': payload['national_format'],
-            'carrier': payload['carrier'],
-            'add_ons': payload['add_ons'],
-            'url': payload['url'],
+            'caller_name': payload.get('caller_name'),
+            'country_code': payload.get('country_code'),
+            'phone_number': payload.get('phone_number'),
+            'national_format': payload.get('national_format'),
+            'carrier': payload.get('carrier'),
+            'add_ons': payload.get('add_ons'),
+            'url': payload.get('url'),
         }
 
         # Context
@@ -241,7 +241,7 @@ class PhoneNumberInstance(InstanceResource):
     def carrier(self):
         """
         :returns: The telecom company that provides the phone number
-        :rtype: dict
+        :rtype: unicode
         """
         return self._properties['carrier']
 

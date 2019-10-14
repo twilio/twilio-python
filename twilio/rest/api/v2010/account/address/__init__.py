@@ -394,21 +394,21 @@ class AddressInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'city': payload['city'],
-            'customer_name': payload['customer_name'],
-            'date_created': deserialize.rfc2822_datetime(payload['date_created']),
-            'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
-            'friendly_name': payload['friendly_name'],
-            'iso_country': payload['iso_country'],
-            'postal_code': payload['postal_code'],
-            'region': payload['region'],
-            'sid': payload['sid'],
-            'street': payload['street'],
-            'uri': payload['uri'],
-            'emergency_enabled': payload['emergency_enabled'],
-            'validated': payload['validated'],
-            'verified': payload['verified'],
+            'account_sid': payload.get('account_sid'),
+            'city': payload.get('city'),
+            'customer_name': payload.get('customer_name'),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
+            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'friendly_name': payload.get('friendly_name'),
+            'iso_country': payload.get('iso_country'),
+            'postal_code': payload.get('postal_code'),
+            'region': payload.get('region'),
+            'sid': payload.get('sid'),
+            'street': payload.get('street'),
+            'uri': payload.get('uri'),
+            'emergency_enabled': payload.get('emergency_enabled'),
+            'validated': payload.get('validated'),
+            'verified': payload.get('verified'),
         }
 
         # Context
