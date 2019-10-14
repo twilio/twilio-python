@@ -209,7 +209,7 @@ class PhoneNumberInstance(InstanceResource):
     def caller_name(self):
         """
         :returns: The name of the phone number's owner
-        :rtype: unicode
+        :rtype: dict
         """
         return self._properties['caller_name']
 
@@ -241,7 +241,7 @@ class PhoneNumberInstance(InstanceResource):
     def carrier(self):
         """
         :returns: The telecom company that provides the phone number
-        :rtype: unicode
+        :rtype: dict
         """
         return self._properties['carrier']
 

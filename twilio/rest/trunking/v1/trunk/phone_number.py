@@ -372,7 +372,7 @@ class PhoneNumberInstance(InstanceResource):
     def capabilities(self):
         """
         :returns: Indicate if a phone can receive calls or messages
-        :rtype: unicode
+        :rtype: dict
         """
         return self._properties['capabilities']
 
