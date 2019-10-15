@@ -13,11 +13,12 @@ class TwilioHttpClient(HttpClient):
     """
     General purpose HTTP Client for interacting with the Twilio API
     """
-    def __init__(self, pool_connections=True, request_hooks=None):
+    def __init__(self, pool_connections=True, request_hooks=None, timeout=None):
         self.session = Session() if pool_connections else None
         self.last_request = None
         self.last_response = None
         self.request_hooks = request_hooks or hooks.default_hooks()
+        self.timeout = timeout
 
     def request(self, method, url, params=None, data=None, headers=None, auth=None, timeout=None,
                 allow_redirects=False):
@@ -65,7 +66,7 @@ class TwilioHttpClient(HttpClient):
         response = session.send(
             prepped_request,
             allow_redirects=allow_redirects,
-            timeout=timeout,
+            timeout=timeout if timeout is not None else self.timeout,
         )
 
         _logger.info('{method} Response: {status} {text}'.format(method=method, status=response.status_code, text=response.text))
