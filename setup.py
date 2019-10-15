@@ -34,8 +34,7 @@ setup(
             "requests[security] >= 2.0.0",
         ],
         ':python_version>="3.0"': [
-            "requests >= 2.0.0",
-            "pysocks",
+            "requests >= 2.0.0"
         ],
     },
     packages=find_packages(exclude=['tests', 'tests.*']),

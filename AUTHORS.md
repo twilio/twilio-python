@@ -38,3 +38,4 @@ We'd like to thank the following people who have contributed to the
 - Evan Cooke
 - tysonholub
 - Brodan
+- Kyle Jones <kylejones1310@outlook.com>
