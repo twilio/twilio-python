@@ -122,19 +122,19 @@ class BrandedCallInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'bg_color': payload['bg_color'],
-            'caller': payload['caller'],
-            'created_at': deserialize.iso8601_datetime(payload['created_at']),
-            'font_color': payload['font_color'],
-            'from_': payload['from'],
-            'logo': payload['logo'],
-            'reason': payload['reason'],
-            'sid': payload['sid'],
-            'status': payload['status'],
-            'to': payload['to'],
-            'url': payload['url'],
-            'use_case': payload['use_case'],
+            'account_sid': payload.get('account_sid'),
+            'bg_color': payload.get('bg_color'),
+            'caller': payload.get('caller'),
+            'created_at': deserialize.iso8601_datetime(payload.get('created_at')),
+            'font_color': payload.get('font_color'),
+            'from_': payload.get('from'),
+            'logo': payload.get('logo'),
+            'reason': payload.get('reason'),
+            'sid': payload.get('sid'),
+            'status': payload.get('status'),
+            'to': payload.get('to'),
+            'url': payload.get('url'),
+            'use_case': payload.get('use_case'),
         }
 
         # Context

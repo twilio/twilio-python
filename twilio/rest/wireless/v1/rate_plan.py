@@ -322,22 +322,22 @@ class RatePlanInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'unique_name': payload['unique_name'],
-            'account_sid': payload['account_sid'],
-            'friendly_name': payload['friendly_name'],
-            'data_enabled': payload['data_enabled'],
-            'data_metering': payload['data_metering'],
-            'data_limit': deserialize.integer(payload['data_limit']),
-            'messaging_enabled': payload['messaging_enabled'],
-            'voice_enabled': payload['voice_enabled'],
-            'national_roaming_enabled': payload['national_roaming_enabled'],
-            'national_roaming_data_limit': deserialize.integer(payload['national_roaming_data_limit']),
-            'international_roaming': payload['international_roaming'],
-            'international_roaming_data_limit': deserialize.integer(payload['international_roaming_data_limit']),
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'url': payload['url'],
+            'sid': payload.get('sid'),
+            'unique_name': payload.get('unique_name'),
+            'account_sid': payload.get('account_sid'),
+            'friendly_name': payload.get('friendly_name'),
+            'data_enabled': payload.get('data_enabled'),
+            'data_metering': payload.get('data_metering'),
+            'data_limit': deserialize.integer(payload.get('data_limit')),
+            'messaging_enabled': payload.get('messaging_enabled'),
+            'voice_enabled': payload.get('voice_enabled'),
+            'national_roaming_enabled': payload.get('national_roaming_enabled'),
+            'national_roaming_data_limit': deserialize.integer(payload.get('national_roaming_data_limit')),
+            'international_roaming': payload.get('international_roaming'),
+            'international_roaming_data_limit': deserialize.integer(payload.get('international_roaming_data_limit')),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'url': payload.get('url'),
         }
 
         # Context

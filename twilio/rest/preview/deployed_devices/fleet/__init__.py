@@ -360,15 +360,15 @@ class FleetInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'url': payload['url'],
-            'unique_name': payload['unique_name'],
-            'friendly_name': payload['friendly_name'],
-            'account_sid': payload['account_sid'],
-            'default_deployment_sid': payload['default_deployment_sid'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'links': payload['links'],
+            'sid': payload.get('sid'),
+            'url': payload.get('url'),
+            'unique_name': payload.get('unique_name'),
+            'friendly_name': payload.get('friendly_name'),
+            'account_sid': payload.get('account_sid'),
+            'default_deployment_sid': payload.get('default_deployment_sid'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'links': payload.get('links'),
         }
 
         # Context

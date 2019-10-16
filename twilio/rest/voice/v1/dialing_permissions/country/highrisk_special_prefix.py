@@ -181,7 +181,7 @@ class HighriskSpecialPrefixInstance(InstanceResource):
         super(HighriskSpecialPrefixInstance, self).__init__(version)
 
         # Marshaled Properties
-        self._properties = {'prefix': payload['prefix'], }
+        self._properties = {'prefix': payload.get('prefix'), }
 
         # Context
         self._context = None

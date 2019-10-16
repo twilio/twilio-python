@@ -285,14 +285,14 @@ class FunctionVersionInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'account_sid': payload['account_sid'],
-            'service_sid': payload['service_sid'],
-            'function_sid': payload['function_sid'],
-            'path': payload['path'],
-            'visibility': payload['visibility'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'url': payload['url'],
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'service_sid': payload.get('service_sid'),
+            'function_sid': payload.get('function_sid'),
+            'path': payload.get('path'),
+            'visibility': payload.get('visibility'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'url': payload.get('url'),
         }
 
         # Context

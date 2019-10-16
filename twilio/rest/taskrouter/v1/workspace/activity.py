@@ -326,14 +326,14 @@ class ActivityInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'available': payload['available'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'friendly_name': payload['friendly_name'],
-            'sid': payload['sid'],
-            'workspace_sid': payload['workspace_sid'],
-            'url': payload['url'],
+            'account_sid': payload.get('account_sid'),
+            'available': payload.get('available'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'friendly_name': payload.get('friendly_name'),
+            'sid': payload.get('sid'),
+            'workspace_sid': payload.get('workspace_sid'),
+            'url': payload.get('url'),
         }
 
         # Context

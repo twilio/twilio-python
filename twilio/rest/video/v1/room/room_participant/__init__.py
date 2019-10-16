@@ -377,18 +377,18 @@ class ParticipantInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'room_sid': payload['room_sid'],
-            'account_sid': payload['account_sid'],
-            'status': payload['status'],
-            'identity': payload['identity'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'start_time': deserialize.iso8601_datetime(payload['start_time']),
-            'end_time': deserialize.iso8601_datetime(payload['end_time']),
-            'duration': deserialize.integer(payload['duration']),
-            'url': payload['url'],
-            'links': payload['links'],
+            'sid': payload.get('sid'),
+            'room_sid': payload.get('room_sid'),
+            'account_sid': payload.get('account_sid'),
+            'status': payload.get('status'),
+            'identity': payload.get('identity'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'start_time': deserialize.iso8601_datetime(payload.get('start_time')),
+            'end_time': deserialize.iso8601_datetime(payload.get('end_time')),
+            'duration': deserialize.integer(payload.get('duration')),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context

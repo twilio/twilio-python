@@ -205,10 +205,10 @@ class UsageRecordInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'period': payload['period'],
-            'commands': payload['commands'],
-            'data': payload['data'],
+            'account_sid': payload.get('account_sid'),
+            'period': payload.get('period'),
+            'commands': payload.get('commands'),
+            'data': payload.get('data'),
         }
 
         # Context

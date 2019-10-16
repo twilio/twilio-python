@@ -184,8 +184,8 @@ class SettingsInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'dialing_permissions_inheritance': payload['dialing_permissions_inheritance'],
-            'url': payload['url'],
+            'dialing_permissions_inheritance': payload.get('dialing_permissions_inheritance'),
+            'url': payload.get('url'),
         }
 
         # Context

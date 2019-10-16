@@ -406,16 +406,16 @@ class TaskInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'friendly_name': payload['friendly_name'],
-            'links': payload['links'],
-            'assistant_sid': payload['assistant_sid'],
-            'sid': payload['sid'],
-            'unique_name': payload['unique_name'],
-            'actions_url': payload['actions_url'],
-            'url': payload['url'],
+            'account_sid': payload.get('account_sid'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'friendly_name': payload.get('friendly_name'),
+            'links': payload.get('links'),
+            'assistant_sid': payload.get('assistant_sid'),
+            'sid': payload.get('sid'),
+            'unique_name': payload.get('unique_name'),
+            'actions_url': payload.get('actions_url'),
+            'url': payload.get('url'),
         }
 
         # Context

@@ -391,19 +391,19 @@ class ServiceInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'account_sid': payload['account_sid'],
-            'friendly_name': payload['friendly_name'],
-            'code_length': deserialize.integer(payload['code_length']),
-            'lookup_enabled': payload['lookup_enabled'],
-            'psd2_enabled': payload['psd2_enabled'],
-            'skip_sms_to_landlines': payload['skip_sms_to_landlines'],
-            'dtmf_input_required': payload['dtmf_input_required'],
-            'tts_name': payload['tts_name'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'url': payload['url'],
-            'links': payload['links'],
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'friendly_name': payload.get('friendly_name'),
+            'code_length': deserialize.integer(payload.get('code_length')),
+            'lookup_enabled': payload.get('lookup_enabled'),
+            'psd2_enabled': payload.get('psd2_enabled'),
+            'skip_sms_to_landlines': payload.get('skip_sms_to_landlines'),
+            'dtmf_input_required': payload.get('dtmf_input_required'),
+            'tts_name': payload.get('tts_name'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context

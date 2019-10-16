@@ -311,18 +311,18 @@ class ShortCodeInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'api_version': payload['api_version'],
-            'date_created': deserialize.rfc2822_datetime(payload['date_created']),
-            'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
-            'friendly_name': payload['friendly_name'],
-            'short_code': payload['short_code'],
-            'sid': payload['sid'],
-            'sms_fallback_method': payload['sms_fallback_method'],
-            'sms_fallback_url': payload['sms_fallback_url'],
-            'sms_method': payload['sms_method'],
-            'sms_url': payload['sms_url'],
-            'uri': payload['uri'],
+            'account_sid': payload.get('account_sid'),
+            'api_version': payload.get('api_version'),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
+            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'friendly_name': payload.get('friendly_name'),
+            'short_code': payload.get('short_code'),
+            'sid': payload.get('sid'),
+            'sms_fallback_method': payload.get('sms_fallback_method'),
+            'sms_fallback_url': payload.get('sms_fallback_url'),
+            'sms_method': payload.get('sms_method'),
+            'sms_url': payload.get('sms_url'),
+            'uri': payload.get('uri'),
         }
 
         # Context

@@ -465,17 +465,17 @@ class ReservationInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'reservation_status': payload['reservation_status'],
-            'sid': payload['sid'],
-            'task_sid': payload['task_sid'],
-            'worker_name': payload['worker_name'],
-            'worker_sid': payload['worker_sid'],
-            'workspace_sid': payload['workspace_sid'],
-            'url': payload['url'],
-            'links': payload['links'],
+            'account_sid': payload.get('account_sid'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'reservation_status': payload.get('reservation_status'),
+            'sid': payload.get('sid'),
+            'task_sid': payload.get('task_sid'),
+            'worker_name': payload.get('worker_name'),
+            'worker_sid': payload.get('worker_sid'),
+            'workspace_sid': payload.get('workspace_sid'),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context

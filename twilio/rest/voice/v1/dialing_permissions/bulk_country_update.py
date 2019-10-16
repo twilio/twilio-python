@@ -119,8 +119,8 @@ class BulkCountryUpdateInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'update_count': deserialize.integer(payload['update_count']),
-            'update_request': payload['update_request'],
+            'update_count': deserialize.integer(payload.get('update_count')),
+            'update_request': payload.get('update_request'),
         }
 
         # Context

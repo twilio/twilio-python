@@ -374,14 +374,14 @@ class WebhookInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'account_sid': payload['account_sid'],
-            'session_sid': payload['session_sid'],
-            'target': payload['target'],
-            'url': payload['url'],
-            'configuration': payload['configuration'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'session_sid': payload.get('session_sid'),
+            'target': payload.get('target'),
+            'url': payload.get('url'),
+            'configuration': payload.get('configuration'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
         }
 
         # Context

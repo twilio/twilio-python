@@ -323,14 +323,14 @@ class ServiceInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'account_sid': payload['account_sid'],
-            'name': payload['name'],
-            'code_length': deserialize.integer(payload['code_length']),
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'url': payload['url'],
-            'links': payload['links'],
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'name': payload.get('name'),
+            'code_length': deserialize.integer(payload.get('code_length')),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context

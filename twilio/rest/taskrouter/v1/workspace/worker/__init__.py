@@ -491,19 +491,19 @@ class WorkerInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'activity_name': payload['activity_name'],
-            'activity_sid': payload['activity_sid'],
-            'attributes': payload['attributes'],
-            'available': payload['available'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_status_changed': deserialize.iso8601_datetime(payload['date_status_changed']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'friendly_name': payload['friendly_name'],
-            'sid': payload['sid'],
-            'workspace_sid': payload['workspace_sid'],
-            'url': payload['url'],
-            'links': payload['links'],
+            'account_sid': payload.get('account_sid'),
+            'activity_name': payload.get('activity_name'),
+            'activity_sid': payload.get('activity_sid'),
+            'attributes': payload.get('attributes'),
+            'available': payload.get('available'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_status_changed': deserialize.iso8601_datetime(payload.get('date_status_changed')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'friendly_name': payload.get('friendly_name'),
+            'sid': payload.get('sid'),
+            'workspace_sid': payload.get('workspace_sid'),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context

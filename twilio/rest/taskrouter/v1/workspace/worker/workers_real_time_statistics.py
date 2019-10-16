@@ -177,11 +177,11 @@ class WorkersRealTimeStatisticsInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'activity_statistics': payload['activity_statistics'],
-            'total_workers': deserialize.integer(payload['total_workers']),
-            'workspace_sid': payload['workspace_sid'],
-            'url': payload['url'],
+            'account_sid': payload.get('account_sid'),
+            'activity_statistics': payload.get('activity_statistics'),
+            'total_workers': deserialize.integer(payload.get('total_workers')),
+            'workspace_sid': payload.get('workspace_sid'),
+            'url': payload.get('url'),
         }
 
         # Context

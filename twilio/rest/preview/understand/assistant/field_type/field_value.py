@@ -323,16 +323,16 @@ class FieldValueInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'field_type_sid': payload['field_type_sid'],
-            'language': payload['language'],
-            'assistant_sid': payload['assistant_sid'],
-            'sid': payload['sid'],
-            'value': payload['value'],
-            'url': payload['url'],
-            'synonym_of': payload['synonym_of'],
+            'account_sid': payload.get('account_sid'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'field_type_sid': payload.get('field_type_sid'),
+            'language': payload.get('language'),
+            'assistant_sid': payload.get('assistant_sid'),
+            'sid': payload.get('sid'),
+            'value': payload.get('value'),
+            'url': payload.get('url'),
+            'synonym_of': payload.get('synonym_of'),
         }
 
         # Context

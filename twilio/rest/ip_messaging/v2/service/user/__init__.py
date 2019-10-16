@@ -359,20 +359,20 @@ class UserInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'account_sid': payload['account_sid'],
-            'service_sid': payload['service_sid'],
-            'attributes': payload['attributes'],
-            'friendly_name': payload['friendly_name'],
-            'role_sid': payload['role_sid'],
-            'identity': payload['identity'],
-            'is_online': payload['is_online'],
-            'is_notifiable': payload['is_notifiable'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'joined_channels_count': deserialize.integer(payload['joined_channels_count']),
-            'links': payload['links'],
-            'url': payload['url'],
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'service_sid': payload.get('service_sid'),
+            'attributes': payload.get('attributes'),
+            'friendly_name': payload.get('friendly_name'),
+            'role_sid': payload.get('role_sid'),
+            'identity': payload.get('identity'),
+            'is_online': payload.get('is_online'),
+            'is_notifiable': payload.get('is_notifiable'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'joined_channels_count': deserialize.integer(payload.get('joined_channels_count')),
+            'links': payload.get('links'),
+            'url': payload.get('url'),
         }
 
         # Context

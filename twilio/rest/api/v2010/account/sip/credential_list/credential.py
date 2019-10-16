@@ -336,13 +336,13 @@ class CredentialInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'account_sid': payload['account_sid'],
-            'credential_list_sid': payload['credential_list_sid'],
-            'username': payload['username'],
-            'date_created': deserialize.rfc2822_datetime(payload['date_created']),
-            'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
-            'uri': payload['uri'],
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'credential_list_sid': payload.get('credential_list_sid'),
+            'username': payload.get('username'),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
+            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'uri': payload.get('uri'),
         }
 
         # Context

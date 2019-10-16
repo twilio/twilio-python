@@ -342,17 +342,17 @@ class MemberInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'account_sid': payload['account_sid'],
-            'channel_sid': payload['channel_sid'],
-            'service_sid': payload['service_sid'],
-            'identity': payload['identity'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'role_sid': payload['role_sid'],
-            'last_consumed_message_index': deserialize.integer(payload['last_consumed_message_index']),
-            'last_consumption_timestamp': deserialize.iso8601_datetime(payload['last_consumption_timestamp']),
-            'url': payload['url'],
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'channel_sid': payload.get('channel_sid'),
+            'service_sid': payload.get('service_sid'),
+            'identity': payload.get('identity'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'role_sid': payload.get('role_sid'),
+            'last_consumed_message_index': deserialize.integer(payload.get('last_consumed_message_index')),
+            'last_consumption_timestamp': deserialize.iso8601_datetime(payload.get('last_consumption_timestamp')),
+            'url': payload.get('url'),
         }
 
         # Context

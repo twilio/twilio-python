@@ -392,20 +392,20 @@ class ServiceInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'unique_name': payload['unique_name'],
-            'account_sid': payload['account_sid'],
-            'chat_instance_sid': payload['chat_instance_sid'],
-            'callback_url': payload['callback_url'],
-            'default_ttl': deserialize.integer(payload['default_ttl']),
-            'number_selection_behavior': payload['number_selection_behavior'],
-            'geo_match_level': payload['geo_match_level'],
-            'intercept_callback_url': payload['intercept_callback_url'],
-            'out_of_session_callback_url': payload['out_of_session_callback_url'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'url': payload['url'],
-            'links': payload['links'],
+            'sid': payload.get('sid'),
+            'unique_name': payload.get('unique_name'),
+            'account_sid': payload.get('account_sid'),
+            'chat_instance_sid': payload.get('chat_instance_sid'),
+            'callback_url': payload.get('callback_url'),
+            'default_ttl': deserialize.integer(payload.get('default_ttl')),
+            'number_selection_behavior': payload.get('number_selection_behavior'),
+            'geo_match_level': payload.get('geo_match_level'),
+            'intercept_callback_url': payload.get('intercept_callback_url'),
+            'out_of_session_callback_url': payload.get('out_of_session_callback_url'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context

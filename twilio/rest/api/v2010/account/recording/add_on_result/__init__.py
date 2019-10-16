@@ -312,16 +312,16 @@ class AddOnResultInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'account_sid': payload['account_sid'],
-            'status': payload['status'],
-            'add_on_sid': payload['add_on_sid'],
-            'add_on_configuration_sid': payload['add_on_configuration_sid'],
-            'date_created': deserialize.rfc2822_datetime(payload['date_created']),
-            'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
-            'date_completed': deserialize.rfc2822_datetime(payload['date_completed']),
-            'reference_sid': payload['reference_sid'],
-            'subresource_uris': payload['subresource_uris'],
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'status': payload.get('status'),
+            'add_on_sid': payload.get('add_on_sid'),
+            'add_on_configuration_sid': payload.get('add_on_configuration_sid'),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
+            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'date_completed': deserialize.rfc2822_datetime(payload.get('date_completed')),
+            'reference_sid': payload.get('reference_sid'),
+            'subresource_uris': payload.get('subresource_uris'),
         }
 
         # Context

@@ -112,9 +112,9 @@ class BalanceInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'balance': payload['balance'],
-            'currency': payload['currency'],
+            'account_sid': payload.get('account_sid'),
+            'balance': payload.get('balance'),
+            'currency': payload.get('currency'),
         }
 
         # Context

@@ -129,11 +129,11 @@ class ValidationRequestInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'phone_number': payload['phone_number'],
-            'friendly_name': payload['friendly_name'],
-            'validation_code': deserialize.integer(payload['validation_code']),
-            'call_sid': payload['call_sid'],
+            'account_sid': payload.get('account_sid'),
+            'phone_number': payload.get('phone_number'),
+            'friendly_name': payload.get('friendly_name'),
+            'validation_code': deserialize.integer(payload.get('validation_code')),
+            'call_sid': payload.get('call_sid'),
         }
 
         # Context

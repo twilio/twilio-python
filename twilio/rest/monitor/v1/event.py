@@ -300,20 +300,20 @@ class EventInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'actor_sid': payload['actor_sid'],
-            'actor_type': payload['actor_type'],
-            'description': payload['description'],
-            'event_data': payload['event_data'],
-            'event_date': deserialize.iso8601_datetime(payload['event_date']),
-            'event_type': payload['event_type'],
-            'resource_sid': payload['resource_sid'],
-            'resource_type': payload['resource_type'],
-            'sid': payload['sid'],
-            'source': payload['source'],
-            'source_ip_address': payload['source_ip_address'],
-            'url': payload['url'],
-            'links': payload['links'],
+            'account_sid': payload.get('account_sid'),
+            'actor_sid': payload.get('actor_sid'),
+            'actor_type': payload.get('actor_type'),
+            'description': payload.get('description'),
+            'event_data': payload.get('event_data'),
+            'event_date': deserialize.iso8601_datetime(payload.get('event_date')),
+            'event_type': payload.get('event_type'),
+            'resource_sid': payload.get('resource_sid'),
+            'resource_type': payload.get('resource_type'),
+            'sid': payload.get('sid'),
+            'source': payload.get('source'),
+            'source_ip_address': payload.get('source_ip_address'),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context

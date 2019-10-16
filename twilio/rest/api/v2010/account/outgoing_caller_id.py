@@ -310,13 +310,13 @@ class OutgoingCallerIdInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'date_created': deserialize.rfc2822_datetime(payload['date_created']),
-            'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
-            'friendly_name': payload['friendly_name'],
-            'account_sid': payload['account_sid'],
-            'phone_number': payload['phone_number'],
-            'uri': payload['uri'],
+            'sid': payload.get('sid'),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
+            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'friendly_name': payload.get('friendly_name'),
+            'account_sid': payload.get('account_sid'),
+            'phone_number': payload.get('phone_number'),
+            'uri': payload.get('uri'),
         }
 
         # Context

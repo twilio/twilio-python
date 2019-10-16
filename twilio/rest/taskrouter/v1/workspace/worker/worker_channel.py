@@ -298,19 +298,19 @@ class WorkerChannelInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'assigned_tasks': deserialize.integer(payload['assigned_tasks']),
-            'available': payload['available'],
-            'available_capacity_percentage': deserialize.integer(payload['available_capacity_percentage']),
-            'configured_capacity': deserialize.integer(payload['configured_capacity']),
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'sid': payload['sid'],
-            'task_channel_sid': payload['task_channel_sid'],
-            'task_channel_unique_name': payload['task_channel_unique_name'],
-            'worker_sid': payload['worker_sid'],
-            'workspace_sid': payload['workspace_sid'],
-            'url': payload['url'],
+            'account_sid': payload.get('account_sid'),
+            'assigned_tasks': deserialize.integer(payload.get('assigned_tasks')),
+            'available': payload.get('available'),
+            'available_capacity_percentage': deserialize.integer(payload.get('available_capacity_percentage')),
+            'configured_capacity': deserialize.integer(payload.get('configured_capacity')),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'sid': payload.get('sid'),
+            'task_channel_sid': payload.get('task_channel_sid'),
+            'task_channel_unique_name': payload.get('task_channel_unique_name'),
+            'worker_sid': payload.get('worker_sid'),
+            'workspace_sid': payload.get('workspace_sid'),
+            'url': payload.get('url'),
         }
 
         # Context

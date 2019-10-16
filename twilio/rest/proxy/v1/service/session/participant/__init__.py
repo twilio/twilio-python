@@ -339,19 +339,19 @@ class ParticipantInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'session_sid': payload['session_sid'],
-            'service_sid': payload['service_sid'],
-            'account_sid': payload['account_sid'],
-            'friendly_name': payload['friendly_name'],
-            'identifier': payload['identifier'],
-            'proxy_identifier': payload['proxy_identifier'],
-            'proxy_identifier_sid': payload['proxy_identifier_sid'],
-            'date_deleted': deserialize.iso8601_datetime(payload['date_deleted']),
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'url': payload['url'],
-            'links': payload['links'],
+            'sid': payload.get('sid'),
+            'session_sid': payload.get('session_sid'),
+            'service_sid': payload.get('service_sid'),
+            'account_sid': payload.get('account_sid'),
+            'friendly_name': payload.get('friendly_name'),
+            'identifier': payload.get('identifier'),
+            'proxy_identifier': payload.get('proxy_identifier'),
+            'proxy_identifier_sid': payload.get('proxy_identifier_sid'),
+            'date_deleted': deserialize.iso8601_datetime(payload.get('date_deleted')),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context

@@ -330,17 +330,17 @@ class AssignedAddOnInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'account_sid': payload['account_sid'],
-            'resource_sid': payload['resource_sid'],
-            'friendly_name': payload['friendly_name'],
-            'description': payload['description'],
-            'configuration': payload['configuration'],
-            'unique_name': payload['unique_name'],
-            'date_created': deserialize.rfc2822_datetime(payload['date_created']),
-            'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
-            'uri': payload['uri'],
-            'subresource_uris': payload['subresource_uris'],
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'resource_sid': payload.get('resource_sid'),
+            'friendly_name': payload.get('friendly_name'),
+            'description': payload.get('description'),
+            'configuration': payload.get('configuration'),
+            'unique_name': payload.get('unique_name'),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
+            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'uri': payload.get('uri'),
+            'subresource_uris': payload.get('subresource_uris'),
         }
 
         # Context

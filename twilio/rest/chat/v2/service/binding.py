@@ -288,18 +288,18 @@ class BindingInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'account_sid': payload['account_sid'],
-            'service_sid': payload['service_sid'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'endpoint': payload['endpoint'],
-            'identity': payload['identity'],
-            'credential_sid': payload['credential_sid'],
-            'binding_type': payload['binding_type'],
-            'message_types': payload['message_types'],
-            'url': payload['url'],
-            'links': payload['links'],
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'service_sid': payload.get('service_sid'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'endpoint': payload.get('endpoint'),
+            'identity': payload.get('identity'),
+            'credential_sid': payload.get('credential_sid'),
+            'binding_type': payload.get('binding_type'),
+            'message_types': payload.get('message_types'),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context

@@ -395,19 +395,19 @@ class WorkflowInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'assignment_callback_url': payload['assignment_callback_url'],
-            'configuration': payload['configuration'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'document_content_type': payload['document_content_type'],
-            'fallback_assignment_callback_url': payload['fallback_assignment_callback_url'],
-            'friendly_name': payload['friendly_name'],
-            'sid': payload['sid'],
-            'task_reservation_timeout': deserialize.integer(payload['task_reservation_timeout']),
-            'workspace_sid': payload['workspace_sid'],
-            'url': payload['url'],
-            'links': payload['links'],
+            'account_sid': payload.get('account_sid'),
+            'assignment_callback_url': payload.get('assignment_callback_url'),
+            'configuration': payload.get('configuration'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'document_content_type': payload.get('document_content_type'),
+            'fallback_assignment_callback_url': payload.get('fallback_assignment_callback_url'),
+            'friendly_name': payload.get('friendly_name'),
+            'sid': payload.get('sid'),
+            'task_reservation_timeout': deserialize.integer(payload.get('task_reservation_timeout')),
+            'workspace_sid': payload.get('workspace_sid'),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context

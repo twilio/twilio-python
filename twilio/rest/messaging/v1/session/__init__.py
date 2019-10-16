@@ -371,17 +371,17 @@ class SessionInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'account_sid': payload['account_sid'],
-            'service_sid': payload['service_sid'],
-            'messaging_service_sid': payload['messaging_service_sid'],
-            'friendly_name': payload['friendly_name'],
-            'attributes': payload['attributes'],
-            'created_by': payload['created_by'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'url': payload['url'],
-            'links': payload['links'],
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'service_sid': payload.get('service_sid'),
+            'messaging_service_sid': payload.get('messaging_service_sid'),
+            'friendly_name': payload.get('friendly_name'),
+            'attributes': payload.get('attributes'),
+            'created_by': payload.get('created_by'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context

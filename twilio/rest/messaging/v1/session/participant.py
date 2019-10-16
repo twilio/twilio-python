@@ -339,19 +339,19 @@ class ParticipantInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'service_sid': payload['service_sid'],
-            'messaging_service_sid': payload['messaging_service_sid'],
-            'session_sid': payload['session_sid'],
-            'sid': payload['sid'],
-            'identity': payload['identity'],
-            'twilio_address': payload['twilio_address'],
-            'user_address': payload['user_address'],
-            'attributes': payload['attributes'],
-            'type': payload['type'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'url': payload['url'],
+            'account_sid': payload.get('account_sid'),
+            'service_sid': payload.get('service_sid'),
+            'messaging_service_sid': payload.get('messaging_service_sid'),
+            'session_sid': payload.get('session_sid'),
+            'sid': payload.get('sid'),
+            'identity': payload.get('identity'),
+            'twilio_address': payload.get('twilio_address'),
+            'user_address': payload.get('user_address'),
+            'attributes': payload.get('attributes'),
+            'type': payload.get('type'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'url': payload.get('url'),
         }
 
         # Context

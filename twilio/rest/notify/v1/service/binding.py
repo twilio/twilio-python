@@ -346,20 +346,20 @@ class BindingInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'account_sid': payload['account_sid'],
-            'service_sid': payload['service_sid'],
-            'credential_sid': payload['credential_sid'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'notification_protocol_version': payload['notification_protocol_version'],
-            'endpoint': payload['endpoint'],
-            'identity': payload['identity'],
-            'binding_type': payload['binding_type'],
-            'address': payload['address'],
-            'tags': payload['tags'],
-            'url': payload['url'],
-            'links': payload['links'],
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'service_sid': payload.get('service_sid'),
+            'credential_sid': payload.get('credential_sid'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'notification_protocol_version': payload.get('notification_protocol_version'),
+            'endpoint': payload.get('endpoint'),
+            'identity': payload.get('identity'),
+            'binding_type': payload.get('binding_type'),
+            'address': payload.get('address'),
+            'tags': payload.get('tags'),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context

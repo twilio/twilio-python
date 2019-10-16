@@ -207,16 +207,16 @@ class WebhookInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'service_sid': payload['service_sid'],
-            'webhook_method': payload['webhook_method'],
-            'webhook_filters': payload['webhook_filters'],
-            'pre_webhook_url': payload['pre_webhook_url'],
-            'post_webhook_url': payload['post_webhook_url'],
-            'pre_webhook_retry_count': deserialize.integer(payload['pre_webhook_retry_count']),
-            'post_webhook_retry_count': deserialize.integer(payload['post_webhook_retry_count']),
-            'target': payload['target'],
-            'url': payload['url'],
+            'account_sid': payload.get('account_sid'),
+            'service_sid': payload.get('service_sid'),
+            'webhook_method': payload.get('webhook_method'),
+            'webhook_filters': payload.get('webhook_filters'),
+            'pre_webhook_url': payload.get('pre_webhook_url'),
+            'post_webhook_url': payload.get('post_webhook_url'),
+            'pre_webhook_retry_count': deserialize.integer(payload.get('pre_webhook_retry_count')),
+            'post_webhook_retry_count': deserialize.integer(payload.get('post_webhook_retry_count')),
+            'target': payload.get('target'),
+            'url': payload.get('url'),
         }
 
         # Context

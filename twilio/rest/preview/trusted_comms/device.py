@@ -119,10 +119,10 @@ class DeviceInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'phone_number': payload['phone_number'],
-            'binding_sid': payload['binding_sid'],
-            'url': payload['url'],
+            'sid': payload.get('sid'),
+            'phone_number': payload.get('phone_number'),
+            'binding_sid': payload.get('binding_sid'),
+            'url': payload.get('url'),
         }
 
         # Context

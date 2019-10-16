@@ -362,15 +362,15 @@ class AuthorizationDocumentInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'address_sid': payload['address_sid'],
-            'status': payload['status'],
-            'email': payload['email'],
-            'cc_emails': payload['cc_emails'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'url': payload['url'],
-            'links': payload['links'],
+            'sid': payload.get('sid'),
+            'address_sid': payload.get('address_sid'),
+            'status': payload.get('status'),
+            'email': payload.get('email'),
+            'cc_emails': payload.get('cc_emails'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context

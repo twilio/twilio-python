@@ -462,21 +462,21 @@ class MonthlyInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'api_version': payload['api_version'],
-            'as_of': payload['as_of'],
-            'category': payload['category'],
-            'count': payload['count'],
-            'count_unit': payload['count_unit'],
-            'description': payload['description'],
-            'end_date': deserialize.iso8601_date(payload['end_date']),
-            'price': deserialize.decimal(payload['price']),
-            'price_unit': payload['price_unit'],
-            'start_date': deserialize.iso8601_date(payload['start_date']),
-            'subresource_uris': payload['subresource_uris'],
-            'uri': payload['uri'],
-            'usage': payload['usage'],
-            'usage_unit': payload['usage_unit'],
+            'account_sid': payload.get('account_sid'),
+            'api_version': payload.get('api_version'),
+            'as_of': payload.get('as_of'),
+            'category': payload.get('category'),
+            'count': payload.get('count'),
+            'count_unit': payload.get('count_unit'),
+            'description': payload.get('description'),
+            'end_date': deserialize.iso8601_date(payload.get('end_date')),
+            'price': deserialize.decimal(payload.get('price')),
+            'price_unit': payload.get('price_unit'),
+            'start_date': deserialize.iso8601_date(payload.get('start_date')),
+            'subresource_uris': payload.get('subresource_uris'),
+            'uri': payload.get('uri'),
+            'usage': payload.get('usage'),
+            'usage_unit': payload.get('usage_unit'),
         }
 
         # Context

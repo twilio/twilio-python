@@ -311,14 +311,14 @@ class SyncListPermissionInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'service_sid': payload['service_sid'],
-            'list_sid': payload['list_sid'],
-            'identity': payload['identity'],
-            'read': payload['read'],
-            'write': payload['write'],
-            'manage': payload['manage'],
-            'url': payload['url'],
+            'account_sid': payload.get('account_sid'),
+            'service_sid': payload.get('service_sid'),
+            'list_sid': payload.get('list_sid'),
+            'identity': payload.get('identity'),
+            'read': payload.get('read'),
+            'write': payload.get('write'),
+            'manage': payload.get('manage'),
+            'url': payload.get('url'),
         }
 
         # Context

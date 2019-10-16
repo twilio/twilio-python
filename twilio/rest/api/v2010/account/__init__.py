@@ -660,16 +660,16 @@ class AccountInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'auth_token': payload['auth_token'],
-            'date_created': deserialize.rfc2822_datetime(payload['date_created']),
-            'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
-            'friendly_name': payload['friendly_name'],
-            'owner_account_sid': payload['owner_account_sid'],
-            'sid': payload['sid'],
-            'status': payload['status'],
-            'subresource_uris': payload['subresource_uris'],
-            'type': payload['type'],
-            'uri': payload['uri'],
+            'auth_token': payload.get('auth_token'),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
+            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'friendly_name': payload.get('friendly_name'),
+            'owner_account_sid': payload.get('owner_account_sid'),
+            'sid': payload.get('sid'),
+            'status': payload.get('status'),
+            'subresource_uris': payload.get('subresource_uris'),
+            'type': payload.get('type'),
+            'uri': payload.get('uri'),
         }
 
         # Context

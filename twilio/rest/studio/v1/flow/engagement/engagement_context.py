@@ -181,11 +181,11 @@ class EngagementContextInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'context': payload['context'],
-            'engagement_sid': payload['engagement_sid'],
-            'flow_sid': payload['flow_sid'],
-            'url': payload['url'],
+            'account_sid': payload.get('account_sid'),
+            'context': payload.get('context'),
+            'engagement_sid': payload.get('engagement_sid'),
+            'flow_sid': payload.get('flow_sid'),
+            'url': payload.get('url'),
         }
 
         # Context

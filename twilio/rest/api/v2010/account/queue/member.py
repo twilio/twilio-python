@@ -298,12 +298,12 @@ class MemberInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'call_sid': payload['call_sid'],
-            'date_enqueued': deserialize.rfc2822_datetime(payload['date_enqueued']),
-            'position': deserialize.integer(payload['position']),
-            'uri': payload['uri'],
-            'wait_time': deserialize.integer(payload['wait_time']),
-            'queue_sid': payload['queue_sid'],
+            'call_sid': payload.get('call_sid'),
+            'date_enqueued': deserialize.rfc2822_datetime(payload.get('date_enqueued')),
+            'position': deserialize.integer(payload.get('position')),
+            'uri': payload.get('uri'),
+            'wait_time': deserialize.integer(payload.get('wait_time')),
+            'queue_sid': payload.get('queue_sid'),
         }
 
         # Context

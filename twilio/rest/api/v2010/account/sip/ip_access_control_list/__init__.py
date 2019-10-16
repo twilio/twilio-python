@@ -333,13 +333,13 @@ class IpAccessControlListInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'account_sid': payload['account_sid'],
-            'friendly_name': payload['friendly_name'],
-            'date_created': deserialize.rfc2822_datetime(payload['date_created']),
-            'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
-            'subresource_uris': payload['subresource_uris'],
-            'uri': payload['uri'],
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'friendly_name': payload.get('friendly_name'),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
+            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'subresource_uris': payload.get('subresource_uris'),
+            'uri': payload.get('uri'),
         }
 
         # Context

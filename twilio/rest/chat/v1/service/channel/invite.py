@@ -315,16 +315,16 @@ class InviteInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'account_sid': payload['account_sid'],
-            'channel_sid': payload['channel_sid'],
-            'service_sid': payload['service_sid'],
-            'identity': payload['identity'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'role_sid': payload['role_sid'],
-            'created_by': payload['created_by'],
-            'url': payload['url'],
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'channel_sid': payload.get('channel_sid'),
+            'service_sid': payload.get('service_sid'),
+            'identity': payload.get('identity'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'role_sid': payload.get('role_sid'),
+            'created_by': payload.get('created_by'),
+            'url': payload.get('url'),
         }
 
         # Context

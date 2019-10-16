@@ -321,23 +321,23 @@ class NotificationInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'api_version': payload['api_version'],
-            'call_sid': payload['call_sid'],
-            'date_created': deserialize.rfc2822_datetime(payload['date_created']),
-            'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
-            'error_code': payload['error_code'],
-            'log': payload['log'],
-            'message_date': deserialize.rfc2822_datetime(payload['message_date']),
-            'message_text': payload['message_text'],
-            'more_info': payload['more_info'],
-            'request_method': payload['request_method'],
-            'request_url': payload['request_url'],
-            'sid': payload['sid'],
-            'uri': payload['uri'],
+            'account_sid': payload.get('account_sid'),
+            'api_version': payload.get('api_version'),
+            'call_sid': payload.get('call_sid'),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
+            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'error_code': payload.get('error_code'),
+            'log': payload.get('log'),
+            'message_date': deserialize.rfc2822_datetime(payload.get('message_date')),
+            'message_text': payload.get('message_text'),
+            'more_info': payload.get('more_info'),
+            'request_method': payload.get('request_method'),
+            'request_url': payload.get('request_url'),
             'request_variables': payload.get('request_variables'),
             'response_body': payload.get('response_body'),
             'response_headers': payload.get('response_headers'),
+            'sid': payload.get('sid'),
+            'uri': payload.get('uri'),
         }
 
         # Context

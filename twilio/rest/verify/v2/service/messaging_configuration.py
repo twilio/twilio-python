@@ -326,13 +326,13 @@ class MessagingConfigurationInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'service_sid': payload['service_sid'],
-            'country': payload['country'],
-            'messaging_service_sid': payload['messaging_service_sid'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'url': payload['url'],
+            'account_sid': payload.get('account_sid'),
+            'service_sid': payload.get('service_sid'),
+            'country': payload.get('country'),
+            'messaging_service_sid': payload.get('messaging_service_sid'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'url': payload.get('url'),
         }
 
         # Context

@@ -326,17 +326,17 @@ class EngagementInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'account_sid': payload['account_sid'],
-            'flow_sid': payload['flow_sid'],
-            'contact_sid': payload['contact_sid'],
-            'contact_channel_address': payload['contact_channel_address'],
-            'context': payload['context'],
-            'status': payload['status'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'url': payload['url'],
-            'links': payload['links'],
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'flow_sid': payload.get('flow_sid'),
+            'contact_sid': payload.get('contact_sid'),
+            'contact_channel_address': payload.get('contact_channel_address'),
+            'context': payload.get('context'),
+            'status': payload.get('status'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context

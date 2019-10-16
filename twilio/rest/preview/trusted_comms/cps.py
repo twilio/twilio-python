@@ -165,9 +165,9 @@ class CpsInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'phone_number': payload['phone_number'],
-            'cps_url': payload['cps_url'],
-            'url': payload['url'],
+            'phone_number': payload.get('phone_number'),
+            'cps_url': payload.get('cps_url'),
+            'url': payload.get('url'),
         }
 
         # Context

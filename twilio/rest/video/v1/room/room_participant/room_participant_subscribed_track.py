@@ -277,16 +277,16 @@ class SubscribedTrackInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'participant_sid': payload['participant_sid'],
-            'publisher_sid': payload['publisher_sid'],
-            'room_sid': payload['room_sid'],
-            'name': payload['name'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'enabled': payload['enabled'],
-            'kind': payload['kind'],
-            'url': payload['url'],
+            'sid': payload.get('sid'),
+            'participant_sid': payload.get('participant_sid'),
+            'publisher_sid': payload.get('publisher_sid'),
+            'room_sid': payload.get('room_sid'),
+            'name': payload.get('name'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'enabled': payload.get('enabled'),
+            'kind': payload.get('kind'),
+            'url': payload.get('url'),
         }
 
         # Context

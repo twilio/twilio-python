@@ -351,16 +351,16 @@ class SampleInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'task_sid': payload['task_sid'],
-            'language': payload['language'],
-            'assistant_sid': payload['assistant_sid'],
-            'sid': payload['sid'],
-            'tagged_text': payload['tagged_text'],
-            'url': payload['url'],
-            'source_channel': payload['source_channel'],
+            'account_sid': payload.get('account_sid'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'task_sid': payload.get('task_sid'),
+            'language': payload.get('language'),
+            'assistant_sid': payload.get('assistant_sid'),
+            'sid': payload.get('sid'),
+            'tagged_text': payload.get('tagged_text'),
+            'url': payload.get('url'),
+            'source_channel': payload.get('source_channel'),
         }
 
         # Context

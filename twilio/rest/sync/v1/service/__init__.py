@@ -390,20 +390,20 @@ class ServiceInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'unique_name': payload['unique_name'],
-            'account_sid': payload['account_sid'],
-            'friendly_name': payload['friendly_name'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'url': payload['url'],
-            'webhook_url': payload['webhook_url'],
-            'webhooks_from_rest_enabled': payload['webhooks_from_rest_enabled'],
-            'reachability_webhooks_enabled': payload['reachability_webhooks_enabled'],
-            'acl_enabled': payload['acl_enabled'],
-            'reachability_debouncing_enabled': payload['reachability_debouncing_enabled'],
-            'reachability_debouncing_window': deserialize.integer(payload['reachability_debouncing_window']),
-            'links': payload['links'],
+            'sid': payload.get('sid'),
+            'unique_name': payload.get('unique_name'),
+            'account_sid': payload.get('account_sid'),
+            'friendly_name': payload.get('friendly_name'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'url': payload.get('url'),
+            'webhook_url': payload.get('webhook_url'),
+            'webhooks_from_rest_enabled': payload.get('webhooks_from_rest_enabled'),
+            'reachability_webhooks_enabled': payload.get('reachability_webhooks_enabled'),
+            'acl_enabled': payload.get('acl_enabled'),
+            'reachability_debouncing_enabled': payload.get('reachability_debouncing_enabled'),
+            'reachability_debouncing_window': deserialize.integer(payload.get('reachability_debouncing_window')),
+            'links': payload.get('links'),
         }
 
         # Context

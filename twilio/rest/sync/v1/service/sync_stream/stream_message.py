@@ -129,7 +129,7 @@ class StreamMessageInstance(InstanceResource):
         super(StreamMessageInstance, self).__init__(version)
 
         # Marshaled Properties
-        self._properties = {'sid': payload['sid'], 'data': payload['data'], }
+        self._properties = {'sid': payload.get('sid'), 'data': payload.get('data'), }
 
         # Context
         self._context = None

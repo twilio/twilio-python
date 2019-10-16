@@ -298,17 +298,17 @@ class PayloadInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload['sid'],
-            'add_on_result_sid': payload['add_on_result_sid'],
-            'account_sid': payload['account_sid'],
-            'label': payload['label'],
-            'add_on_sid': payload['add_on_sid'],
-            'add_on_configuration_sid': payload['add_on_configuration_sid'],
-            'content_type': payload['content_type'],
-            'date_created': deserialize.rfc2822_datetime(payload['date_created']),
-            'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
-            'reference_sid': payload['reference_sid'],
-            'subresource_uris': payload['subresource_uris'],
+            'sid': payload.get('sid'),
+            'add_on_result_sid': payload.get('add_on_result_sid'),
+            'account_sid': payload.get('account_sid'),
+            'label': payload.get('label'),
+            'add_on_sid': payload.get('add_on_sid'),
+            'add_on_configuration_sid': payload.get('add_on_configuration_sid'),
+            'content_type': payload.get('content_type'),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
+            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'reference_sid': payload.get('reference_sid'),
+            'subresource_uris': payload.get('subresource_uris'),
         }
 
         # Context

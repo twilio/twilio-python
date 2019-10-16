@@ -267,19 +267,19 @@ class TranscriptionInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'api_version': payload['api_version'],
-            'date_created': deserialize.rfc2822_datetime(payload['date_created']),
-            'date_updated': deserialize.rfc2822_datetime(payload['date_updated']),
-            'duration': payload['duration'],
-            'price': deserialize.decimal(payload['price']),
-            'price_unit': payload['price_unit'],
-            'recording_sid': payload['recording_sid'],
-            'sid': payload['sid'],
-            'status': payload['status'],
-            'transcription_text': payload['transcription_text'],
-            'type': payload['type'],
-            'uri': payload['uri'],
+            'account_sid': payload.get('account_sid'),
+            'api_version': payload.get('api_version'),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
+            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'duration': payload.get('duration'),
+            'price': deserialize.decimal(payload.get('price')),
+            'price_unit': payload.get('price_unit'),
+            'recording_sid': payload.get('recording_sid'),
+            'sid': payload.get('sid'),
+            'status': payload.get('status'),
+            'transcription_text': payload.get('transcription_text'),
+            'type': payload.get('type'),
+            'uri': payload.get('uri'),
         }
 
         # Context

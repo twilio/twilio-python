@@ -390,19 +390,19 @@ class FlexFlowInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'sid': payload['sid'],
-            'friendly_name': payload['friendly_name'],
-            'chat_service_sid': payload['chat_service_sid'],
-            'channel_type': payload['channel_type'],
-            'contact_identity': payload['contact_identity'],
-            'enabled': payload['enabled'],
-            'integration_type': payload['integration_type'],
-            'integration': payload['integration'],
-            'long_lived': payload['long_lived'],
-            'url': payload['url'],
+            'account_sid': payload.get('account_sid'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'sid': payload.get('sid'),
+            'friendly_name': payload.get('friendly_name'),
+            'chat_service_sid': payload.get('chat_service_sid'),
+            'channel_type': payload.get('channel_type'),
+            'contact_identity': payload.get('contact_identity'),
+            'enabled': payload.get('enabled'),
+            'integration_type': payload.get('integration_type'),
+            'integration': payload.get('integration'),
+            'long_lived': payload.get('long_lived'),
+            'url': payload.get('url'),
         }
 
         # Context

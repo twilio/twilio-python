@@ -327,17 +327,17 @@ class OriginationUrlInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'sid': payload['sid'],
-            'trunk_sid': payload['trunk_sid'],
-            'weight': deserialize.integer(payload['weight']),
-            'enabled': payload['enabled'],
-            'sip_url': payload['sip_url'],
-            'friendly_name': payload['friendly_name'],
-            'priority': deserialize.integer(payload['priority']),
-            'date_created': deserialize.iso8601_datetime(payload['date_created']),
-            'date_updated': deserialize.iso8601_datetime(payload['date_updated']),
-            'url': payload['url'],
+            'account_sid': payload.get('account_sid'),
+            'sid': payload.get('sid'),
+            'trunk_sid': payload.get('trunk_sid'),
+            'weight': deserialize.integer(payload.get('weight')),
+            'enabled': payload.get('enabled'),
+            'sip_url': payload.get('sip_url'),
+            'friendly_name': payload.get('friendly_name'),
+            'priority': deserialize.integer(payload.get('priority')),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'url': payload.get('url'),
         }
 
         # Context

@@ -306,17 +306,17 @@ class UserChannelInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload['account_sid'],
-            'service_sid': payload['service_sid'],
-            'channel_sid': payload['channel_sid'],
-            'user_sid': payload['user_sid'],
-            'member_sid': payload['member_sid'],
-            'status': payload['status'],
-            'last_consumed_message_index': deserialize.integer(payload['last_consumed_message_index']),
-            'unread_messages_count': deserialize.integer(payload['unread_messages_count']),
-            'links': payload['links'],
-            'url': payload['url'],
-            'notification_level': payload['notification_level'],
+            'account_sid': payload.get('account_sid'),
+            'service_sid': payload.get('service_sid'),
+            'channel_sid': payload.get('channel_sid'),
+            'user_sid': payload.get('user_sid'),
+            'member_sid': payload.get('member_sid'),
+            'status': payload.get('status'),
+            'last_consumed_message_index': deserialize.integer(payload.get('last_consumed_message_index')),
+            'unread_messages_count': deserialize.integer(payload.get('unread_messages_count')),
+            'links': payload.get('links'),
+            'url': payload.get('url'),
+            'notification_level': payload.get('notification_level'),
         }
 
         # Context
