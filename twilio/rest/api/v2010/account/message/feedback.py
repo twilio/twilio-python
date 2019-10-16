@@ -118,7 +118,7 @@ class FeedbackInstance(InstanceResource):
 
     class Outcome(object):
         CONFIRMED = "confirmed"
-        UMCONFIRMED = "umconfirmed"
+        UNCONFIRMED = "unconfirmed"
 
     def __init__(self, version, payload, account_sid, message_sid):
         """

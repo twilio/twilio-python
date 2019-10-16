@@ -1054,7 +1054,7 @@ class Dial(TwiML):
     def conference(self, name, muted=None, beep=None,
                    start_conference_on_enter=None, end_conference_on_exit=None,
                    wait_url=None, wait_method=None, max_participants=None,
-                   record=None, region=None, whisper=None, trim=None,
+                   record=None, region=None, coach=None, trim=None,
                    status_callback_event=None, status_callback=None,
                    status_callback_method=None, recording_status_callback=None,
                    recording_status_callback_method=None,
@@ -1073,7 +1073,7 @@ class Dial(TwiML):
         :param max_participants: Maximum number of participants
         :param record: Record the conference
         :param region: Conference region
-        :param whisper: Call whisper
+        :param coach: Call coach
         :param trim: Trim the conference recording
         :param status_callback_event: Events to call status callback URL
         :param status_callback: Status callback URL
@@ -1097,7 +1097,7 @@ class Dial(TwiML):
             max_participants=max_participants,
             record=record,
             region=region,
-            whisper=whisper,
+            coach=coach,
             trim=trim,
             status_callback_event=status_callback_event,
             status_callback=status_callback,

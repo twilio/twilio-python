@@ -129,7 +129,7 @@ class FlexFlowList(ListResource):
                integration_channel=values.unset, integration_timeout=values.unset,
                integration_priority=values.unset,
                integration_creation_on_message=values.unset,
-               long_lived=values.unset):
+               long_lived=values.unset, janitor_enabled=values.unset):
         """
         Create a new FlexFlowInstance
 
@@ -148,6 +148,7 @@ class FlexFlowList(ListResource):
         :param unicode integration_priority: The task priority of a new task
         :param bool integration_creation_on_message: Whether to create a task when the first message arrives
         :param bool long_lived: Whether new channels are long-lived
+        :param bool janitor_enabled: Boolean flag for enabling or disabling the Janitor
 
         :returns: Newly created FlexFlowInstance
         :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
@@ -168,6 +169,7 @@ class FlexFlowList(ListResource):
             'Integration.Priority': integration_priority,
             'Integration.CreationOnMessage': integration_creation_on_message,
             'LongLived': long_lived,
+            'JanitorEnabled': janitor_enabled,
         })
 
         payload = self._version.create(
@@ -294,7 +296,7 @@ class FlexFlowContext(InstanceContext):
                integration_channel=values.unset, integration_timeout=values.unset,
                integration_priority=values.unset,
                integration_creation_on_message=values.unset,
-               long_lived=values.unset):
+               long_lived=values.unset, janitor_enabled=values.unset):
         """
         Update the FlexFlowInstance
 
@@ -313,6 +315,7 @@ class FlexFlowContext(InstanceContext):
         :param unicode integration_priority: The task priority of a new task
         :param bool integration_creation_on_message: Whether to create a task when the first message arrives
         :param bool long_lived: Whether new channels created are long-lived
+        :param bool janitor_enabled: Boolean flag for enabling or disabling the Janitor
 
         :returns: Updated FlexFlowInstance
         :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
@@ -333,6 +336,7 @@ class FlexFlowContext(InstanceContext):
             'Integration.Priority': integration_priority,
             'Integration.CreationOnMessage': integration_creation_on_message,
             'LongLived': long_lived,
+            'JanitorEnabled': janitor_enabled,
         })
 
         payload = self._version.update(
@@ -402,6 +406,7 @@ class FlexFlowInstance(InstanceResource):
             'integration_type': payload.get('integration_type'),
             'integration': payload.get('integration'),
             'long_lived': payload.get('long_lived'),
+            'janitor_enabled': payload.get('janitor_enabled'),
             'url': payload.get('url'),
         }
 
@@ -519,6 +524,14 @@ class FlexFlowInstance(InstanceResource):
         return self._properties['long_lived']
 
     @property
+    def janitor_enabled(self):
+        """
+        :returns: Boolean flag for enabling or disabling the Janitor
+        :rtype: bool
+        """
+        return self._properties['janitor_enabled']
+
+    @property
     def url(self):
         """
         :returns: The absolute URL of the FlexFlow resource
@@ -544,7 +557,7 @@ class FlexFlowInstance(InstanceResource):
                integration_channel=values.unset, integration_timeout=values.unset,
                integration_priority=values.unset,
                integration_creation_on_message=values.unset,
-               long_lived=values.unset):
+               long_lived=values.unset, janitor_enabled=values.unset):
         """
         Update the FlexFlowInstance
 
@@ -563,6 +576,7 @@ class FlexFlowInstance(InstanceResource):
         :param unicode integration_priority: The task priority of a new task
         :param bool integration_creation_on_message: Whether to create a task when the first message arrives
         :param bool long_lived: Whether new channels created are long-lived
+        :param bool janitor_enabled: Boolean flag for enabling or disabling the Janitor
 
         :returns: Updated FlexFlowInstance
         :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
@@ -583,6 +597,7 @@ class FlexFlowInstance(InstanceResource):
             integration_priority=integration_priority,
             integration_creation_on_message=integration_creation_on_message,
             long_lived=long_lived,
+            janitor_enabled=janitor_enabled,
         )
 
     def delete(self):

@@ -99,7 +99,7 @@ class NotificationTestCase(IntegrationTestCase):
             {
                 "end": 0,
                 "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json?PageSize=1&Page=0",
-                "last_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json?PageSize=1&Page=100",
+                "previous_page_uri": null,
                 "next_page_uri": null,
                 "notifications": [
                     {
@@ -116,15 +116,12 @@ class NotificationTestCase(IntegrationTestCase):
                         "request_method": null,
                         "request_url": "",
                         "sid": "NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                        "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                        "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
                     }
                 ],
-                "num_pages": 101,
                 "page": 0,
                 "page_size": 1,
-                "previous_page_uri": null,
                 "start": 0,
-                "total": 101,
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json?PageSize=1&Page=0"
             }
             '''
@@ -142,15 +139,12 @@ class NotificationTestCase(IntegrationTestCase):
             {
                 "end": 0,
                 "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json?PageSize=1&Page=0",
-                "last_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json?PageSize=1&Page=100",
                 "next_page_uri": null,
                 "notifications": [],
-                "num_pages": 101,
                 "page": 0,
                 "page_size": 1,
                 "previous_page_uri": null,
                 "start": 0,
-                "total": 101,
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json?PageSize=1&Page=0"
             }
             '''

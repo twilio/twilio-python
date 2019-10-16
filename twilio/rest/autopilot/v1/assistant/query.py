@@ -410,7 +410,7 @@ class QueryInstance(InstanceResource):
     @property
     def results(self):
         """
-        :returns: The natural language analysis results that include the Task recognized, the confidence score, and a list of identified Fields
+        :returns: The natural language analysis results that include the Task recognized and a list of identified Fields
         :rtype: dict
         """
         return self._properties['results']

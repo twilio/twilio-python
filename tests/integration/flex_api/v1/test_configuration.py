@@ -142,10 +142,6 @@ class ConfigurationTestCase(IntegrationTestCase):
                         "workflow_sid": "WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     }
                 },
-                "features_enabled": [
-                    "some_feature",
-                    "another_feature"
-                ],
                 "serverless_service_sids": [
                     "ZSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                     "ZSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab"
@@ -287,10 +283,6 @@ class ConfigurationTestCase(IntegrationTestCase):
                         "workflow_sid": "WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     }
                 },
-                "features_enabled": [
-                    "some_feature",
-                    "another_feature"
-                ],
                 "serverless_service_sids": [
                     "ZSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                     "ZSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab"
@@ -432,10 +424,6 @@ class ConfigurationTestCase(IntegrationTestCase):
                         "workflow_sid": "WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     }
                 },
-                "features_enabled": [
-                    "some_feature",
-                    "another_feature"
-                ],
                 "serverless_service_sids": [
                     "ZSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                     "ZSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab"
