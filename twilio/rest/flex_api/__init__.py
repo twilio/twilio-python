@@ -37,13 +37,6 @@ class FlexApi(Domain):
         return self._v1
 
     @property
-    def flex_flow(self):
-        """
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowList
-        """
-        return self.v1.flex_flow
-
-    @property
     def channel(self):
         """
         :rtype: twilio.rest.flex_api.v1.channel.ChannelList
@@ -51,18 +44,25 @@ class FlexApi(Domain):
         return self.v1.channel
 
     @property
-    def web_channel(self):
-        """
-        :rtype: twilio.rest.flex_api.v1.web_channel.WebChannelList
-        """
-        return self.v1.web_channel
-
-    @property
     def configuration(self):
         """
         :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationList
         """
         return self.v1.configuration
+
+    @property
+    def flex_flow(self):
+        """
+        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowList
+        """
+        return self.v1.flex_flow
+
+    @property
+    def web_channel(self):
+        """
+        :rtype: twilio.rest.flex_api.v1.web_channel.WebChannelList
+        """
+        return self.v1.web_channel
 
     def __repr__(self):
         """
