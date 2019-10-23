@@ -27,9 +27,7 @@ class TwilioHttpClient(HttpClient):
         self.last_response = None
         self.request_hooks = request_hooks or hooks.default_hooks()
 
-        if timeout is None:
-            pass
-        elif timeout <= 0:
+        if timeout is not None and timeout <= 0:
             raise ValueError(timeout)
         self.timeout = timeout
 
@@ -51,9 +49,7 @@ class TwilioHttpClient(HttpClient):
         :return: An http response
         :rtype: A :class:`Response <twilio.rest.http.response.Response>` object
         """
-        if timeout is None:
-            pass
-        elif timeout <= 0:
+        if timeout is not None and timeout <= 0:
             raise ValueError(timeout)
 
         kwargs = {

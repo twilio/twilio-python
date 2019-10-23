@@ -1,13 +1,10 @@
 # -*- coding: utf-8 -*-
-
 import six
 
 import unittest
 
-import mock
 from mock import patch, Mock
-from requests import Request
-from requests import Session
+from requests import Request, Session
 
 from twilio.http.http_client import TwilioHttpClient
 from twilio.http.response import Response
@@ -60,7 +57,7 @@ class TestHttpClientRequest(unittest.TestCase):
         try:
             self.client.request(
                 'doesnt matter', 'doesnt matter', None, None, None, None, 0, None)
-        except ValueError as e:
+        except Exception as e:
             self.assertEqual(ValueError, type(e))
 
     def test_request_where_class_timeout_manually_set(self):
@@ -82,7 +79,7 @@ class TestHttpClientRequest(unittest.TestCase):
         try:
             self.client.request(
                 'doesnt matter', 'doesnt matter')
-        except ValueError as e:
+        except Exception as e:
             self.assertEqual(type(e), ValueError)
 
     def test_request_where_class_timeout_and_method_timeout_set(self):
