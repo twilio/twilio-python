@@ -168,18 +168,18 @@ class Preview(Domain):
         return self.hosted_numbers.hosted_number_orders
 
     @property
-    def installed_add_ons(self):
-        """
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnList
-        """
-        return self.marketplace.installed_add_ons
-
-    @property
     def available_add_ons(self):
         """
         :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnList
         """
         return self.marketplace.available_add_ons
+
+    @property
+    def installed_add_ons(self):
+        """
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnList
+        """
+        return self.marketplace.installed_add_ons
 
     @property
     def services(self):
@@ -224,6 +224,20 @@ class Preview(Domain):
         return self.trusted_comms.branded_calls
 
     @property
+    def cps(self):
+        """
+        :rtype: twilio.rest.preview.trusted_comms.cps.CpsList
+        """
+        return self.trusted_comms.cps
+
+    @property
+    def current_calls(self):
+        """
+        :rtype: twilio.rest.preview.trusted_comms.current_call.CurrentCallList
+        """
+        return self.trusted_comms.current_calls
+
+    @property
     def devices(self):
         """
         :rtype: twilio.rest.preview.trusted_comms.device.DeviceList
@@ -236,20 +250,6 @@ class Preview(Domain):
         :rtype: twilio.rest.preview.trusted_comms.phone_call.PhoneCallList
         """
         return self.trusted_comms.phone_calls
-
-    @property
-    def current_calls(self):
-        """
-        :rtype: twilio.rest.preview.trusted_comms.current_call.CurrentCallList
-        """
-        return self.trusted_comms.current_calls
-
-    @property
-    def cps(self):
-        """
-        :rtype: twilio.rest.preview.trusted_comms.cps.CpsList
-        """
-        return self.trusted_comms.cps
 
     def __repr__(self):
         """

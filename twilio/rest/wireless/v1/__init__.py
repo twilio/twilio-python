@@ -24,10 +24,19 @@ class V1(Version):
         """
         super(V1, self).__init__(domain)
         self.version = 'v1'
+        self._usage_records = None
         self._commands = None
         self._rate_plans = None
-        self._usage_records = None
         self._sims = None
+
+    @property
+    def usage_records(self):
+        """
+        :rtype: twilio.rest.wireless.v1.usage_record.UsageRecordList
+        """
+        if self._usage_records is None:
+            self._usage_records = UsageRecordList(self)
+        return self._usage_records
 
     @property
     def commands(self):
@@ -46,15 +55,6 @@ class V1(Version):
         if self._rate_plans is None:
             self._rate_plans = RatePlanList(self)
         return self._rate_plans
-
-    @property
-    def usage_records(self):
-        """
-        :rtype: twilio.rest.wireless.v1.usage_record.UsageRecordList
-        """
-        if self._usage_records is None:
-            self._usage_records = UsageRecordList(self)
-        return self._usage_records
 
     @property
     def sims(self):
