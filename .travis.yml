@@ -1,13 +1,31 @@
+dist: xenial # required for Python >= 3.7
 language: python
 python:
   - "2.7"
-  - "3.3"
   - "3.4"
   - "3.5"
   - "3.6"
+  - "3.7"
+  - "3.8"
+services:
+  - docker
 install:
   - pip install virtualenv --upgrade
   - make install
   - make test-install
 script:
   - make test
+deploy:
+  - provider: script
+    script: make docker-build && make docker-push
+    skip_cleanup: true
+    on:
+      tags: true
+      python: "3.6"
+  - provider: pypi
+    user: "__token__"
+    password: 
+      secure: $PYPI_TOKEN
+    on:
+      tags: true
+      python: "3.6"

@@ -42,6 +42,27 @@ class TestResponse(TwilioTest):
             '<?xml version="1.0" encoding="UTF-8"?><Response><Message>Hello<Media>example.com</Media></Message></Response>'
         )
 
+    def test_child_node(self):
+        with MessagingResponse() as r:
+            with r.add_child('message', tag='global') as mod:
+                mod.add_child('bold', 'Hello')
+
+        assert_equal(
+            self.strip(r),
+            '<?xml version="1.0" encoding="UTF-8"?><Response><message tag="global"><bold>Hello</bold></message></Response>')
+
+    def test_mixed(self):
+        r = MessagingResponse()
+
+        r.append('before')
+        r.add_child('Child').append('content')
+        r.append('after')
+
+        assert_equal(
+            self.strip(r),
+            '<?xml version="1.0" encoding="UTF-8"?><Response>before<Child>content</Child>after</Response>'
+        )
+
 
 class TestMessage(TwilioTest):
 
@@ -87,4 +108,26 @@ class TestRedirect(TwilioTest):
         assert_equal(
             self.strip(r),
             '<?xml version="1.0" encoding="UTF-8"?><Response><Redirect>example.com</Redirect></Response>'
+        )
+
+
+class TestText(TwilioTest):
+    def test_text(self):
+        r = MessagingResponse()
+        r.append('No tags!')
+
+        assert_equal(
+            self.strip(r),
+            '<?xml version="1.0" encoding="UTF-8"?><Response>No tags!</Response>'
+        )
+
+    def text_mixed(self):
+        r = MessagingResponse()
+        r.append('before')
+        r.append(Body('Content'))
+        r.append('after')
+
+        assert_equal(
+            self.strip(r),
+            '<?xml version="1.0" encoding="UTF-8"?><Response>before<Body>Content</Body>after</Response>'
         )

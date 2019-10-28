@@ -5,11 +5,11 @@ all changes to the helper library. It is strongly encouraged that you pin at
 least the major version and potentially the minor version to avoid pulling in
 breaking changes.
 
-Semantic Versions take the form of `MAJOR`.`MINOR`.`PATCH`
+Semantic Versions take the form of `MAJOR.MINOR.PATCH`
 
-When bugs are fixed in the library in a backwards compatible way, the `PATCH`
+When bugs are fixed in the library in a backwards-compatible way, the `PATCH`
 level will be incremented by one. When new features are added to the library
-in a backwards compatible way, the `PATCH` level will be incremented by one.
+in a backwards-compatible way, the `PATCH` level will be incremented by one.
 `PATCH` changes should _not_ break your code and are generally safe for upgrade.
 
 When a new large feature set comes online or a small breaking change is
@@ -19,8 +19,8 @@ change for upgrade. These backwards-incompatible changes will generally be
 limited to a small number of function signature changes.
 
 The `MAJOR` version is used to indicate the family of technology represented by
-the helper library. Breaking changes that requires extensive reworking of code
-will case the `MAJOR` version to be incremented by one, and the `MINOR` and
+the helper library. Breaking changes that require extensive reworking of code
+will cause the `MAJOR` version to be incremented by one, and the `MINOR` and
 `PATCH` versions will be reset to zero. Twilio understands that this can be very
 disruptive, so we will only introduce this type of breaking change when
 absolutely necessary. New `MAJOR` versions will be communicated in advance with
@@ -28,9 +28,8 @@ absolutely necessary. New `MAJOR` versions will be communicated in advance with
 
 ## Supported Versions
 
-`twilio-python` follows an evergreen model of support. New features and
-functionality will only be added to the current version. The current version -
-1 will continue to be supported with bug fixes and security updates, but no new
-features.
+Only the current `MAJOR` version of `twilio-python` is supported. New
+features, functionality, bug fixes, and security updates will only be added to
+the current `MAJOR` version.
 
-[semver]: http://semver.org/
+[semver]: https://semver.org

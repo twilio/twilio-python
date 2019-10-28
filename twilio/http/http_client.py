@@ -13,12 +13,25 @@ class TwilioHttpClient(HttpClient):
     """
     General purpose HTTP Client for interacting with the Twilio API
     """
-    def __init__(self, pool_connections=True, logger=_logger, request_hooks=None):
+    def __init__(self, pool_connections=True, request_hooks=None, timeout=None, logger=_logger):
+        """
+        Constructor for the TwilioHttpClient
+
+        :param bool pool_connections
+        :param request_hooks
+        :param int timeout: Timeout for the requests.
+                            Timeout should never be zero (0) or less.
+        :param logger
+        """
         self.session = Session() if pool_connections else None
         self.last_request = None
         self.last_response = None
         self.logger = logger
         self.request_hooks = request_hooks or hooks.default_hooks()
+
+        if timeout is not None and timeout <= 0:
+            raise ValueError(timeout)
+        self.timeout = timeout
 
     def request(self, method, url, params=None, data=None, headers=None, auth=None, timeout=None,
                 allow_redirects=False):
@@ -38,6 +51,8 @@ class TwilioHttpClient(HttpClient):
         :return: An http response
         :rtype: A :class:`Response <twilio.rest.http.response.Response>` object
         """
+        if timeout is not None and timeout <= 0:
+            raise ValueError(timeout)
 
         kwargs = {
             'method': method.upper(),
@@ -66,7 +81,7 @@ class TwilioHttpClient(HttpClient):
         response = session.send(
             prepped_request,
             allow_redirects=allow_redirects,
-            timeout=timeout,
+            timeout=timeout if timeout is not None else self.timeout,
         )
 
         self.logger.info('{method} Response: {status} {text}'.format(

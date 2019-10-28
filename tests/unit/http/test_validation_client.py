@@ -7,6 +7,7 @@ from mock import patch, Mock
 from requests import Request
 from requests import Session
 
+from twilio.base.exceptions import TwilioRestException
 from twilio.http.validation_client import ValidationClient
 from twilio.http.response import Response
 
@@ -119,3 +120,15 @@ class TestValidationClientRequest(unittest.TestCase):
         self.assertEqual('test-token', self.request_mock.headers['Twilio-Client-Validation'])
         self.assertEqual(200, response.status_code)
         self.assertEqual('test, omega: Ω, pile of poop: 💩', response.content)
+
+    @patch('twilio.http.validation_client')
+    def test_validate_ssl_certificate_success(self, http_client):
+        http_client.request.return_value = Response(200, 'success')
+        self.client.validate_ssl_certificate(http_client)
+
+    @patch('twilio.http.validation_client')
+    def test_validate_ssl_certificate_error(self, http_client):
+        http_client.request.return_value = Response(504, 'error')
+
+        with self.assertRaises(TwilioRestException):
+            self.client.validate_ssl_certificate(http_client)

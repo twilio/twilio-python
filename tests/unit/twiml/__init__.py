@@ -18,7 +18,7 @@ class TwilioTest(unittest.TestCase):
     @raises(TwiMLException)
     def test_append_fail(self):
         t = TwiML()
-        t.append('foobar')
+        t.append(12345)
 
     def test_format_language_none(self):
         language = None

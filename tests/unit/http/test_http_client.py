@@ -1,13 +1,10 @@
 # -*- coding: utf-8 -*-
-
 import six
 
 import unittest
 
-import mock
 from mock import patch, Mock
-from requests import Request
-from requests import Session
+from requests import Request, Session
 
 from twilio.http.http_client import TwilioHttpClient
 from twilio.http.response import Response
@@ -41,6 +38,61 @@ class TestHttpClientRequest(unittest.TestCase):
         self.assertEqual('other.twilio.com', self.request_mock.headers['Host'])
         self.assertIsNotNone(self.client.last_request)
         self.assertIsNotNone(self.client.last_response)
+
+    def test_request_with_timeout(self):
+        self.request_mock.url = 'https://api.twilio.com/'
+        self.request_mock.headers = {'Host': 'other.twilio.com'}
+
+        response = self.client.request(
+            'doesnt matter', 'doesnt matter', None, None, None, None, 30, None)
+
+        self.assertEqual('other.twilio.com', self.request_mock.headers['Host'])
+        self.assertEqual(200, response.status_code)
+        self.assertEqual('testing-unicode: Ω≈ç√, 💩', response.content)
+
+    def test_request_where_method_timeout_equals_zero(self):
+        self.request_mock.url = 'https://api.twilio.com/'
+        self.request_mock.headers = {'Host': 'other.twilio.com'}
+
+        try:
+            self.client.request(
+                'doesnt matter', 'doesnt matter', None, None, None, None, 0, None)
+        except Exception as e:
+            self.assertEqual(ValueError, type(e))
+
+    def test_request_where_class_timeout_manually_set(self):
+        self.request_mock.url = 'https://api.twilio.com/'
+        self.request_mock.headers = {'Host': 'other.twilio.com'}
+        self.client.timeout = 30
+
+        response = self.client.request(
+                'doesnt matter', 'doesnt matter')
+        self.assertEqual('other.twilio.com', self.request_mock.headers['Host'])
+        self.assertEqual(200, response.status_code)
+        self.assertEqual('testing-unicode: Ω≈ç√, 💩', response.content)
+
+    def test_request_where_class_timeout_equals_zero(self):
+        self.request_mock.url = 'https://api.twilio.com/'
+        self.request_mock.headers = {'Host': 'other.twilio.com'}
+        self.client.timeout = 0
+
+        try:
+            self.client.request(
+                'doesnt matter', 'doesnt matter')
+        except Exception as e:
+            self.assertEqual(type(e), ValueError)
+
+    def test_request_where_class_timeout_and_method_timeout_set(self):
+        self.request_mock.url = 'https://api.twilio.com/'
+        self.request_mock.headers = {'Host': 'other.twilio.com'}
+        self.client.timeout = 30
+
+        response = self.client.request(
+            'doesnt matter', 'doesnt matter', None, None, None, None, 15, None)
+
+        self.assertEqual('other.twilio.com', self.request_mock.headers['Host'])
+        self.assertEqual(200, response.status_code)
+        self.assertEqual('testing-unicode: Ω≈ç√, 💩', response.content)
 
     def test_request_with_unicode_response(self):
         self.request_mock.url = 'https://api.twilio.com/'

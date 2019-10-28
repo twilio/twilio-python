@@ -1,4 +1,4 @@
-sphinx==1.4.9
+Sphinx==1.8.0
 mock==0.8.0
 nose
 coverage
@@ -8,3 +8,4 @@ mccabe
 wheel>=0.22.0
 cryptography
 twine
+recommonmark

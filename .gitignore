@@ -23,7 +23,9 @@ pip-log.txt
 
 .DS_Store
 
-docs/
+# sphinx build and rst folder
+docs/_build
+docs/source/_rst
 
 # PyCharm/IntelliJ
 .idea
