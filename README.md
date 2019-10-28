@@ -114,6 +114,23 @@ message = client.messages.create(to="+12316851234", from_="+15555555555",
                                  body="Hello there!")
 ```
 
+### Handling Exceptions
+
+```python
+from twilio.rest import Client
+from twilio.base.exceptions import TwilioRestException
+
+account = "ACXXXXXXXXXXXXXXXXX"
+token = "YYYYYYYYYYYYYYYYYY"
+client = Client(account, token)
+
+try:
+  message = client.messages.create(to="+12316851234", from_="+15555555555",
+                                   body="Hello there!")
+except TwilioRestException as e:
+  print(e)
+```
+
 ### Generating TwiML
 
 To control phone calls, your application needs to output [TwiML][twiml].
