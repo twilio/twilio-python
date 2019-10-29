@@ -13,7 +13,7 @@ class TwilioHttpClient(HttpClient):
     """
     General purpose HTTP Client for interacting with the Twilio API
     """
-    def __init__(self, pool_connections=True, request_hooks=None, timeout=None):
+    def __init__(self, pool_connections=True, request_hooks=None, timeout=None, logger=_logger):
         """
         Constructor for the TwilioHttpClient
 
@@ -21,10 +21,12 @@ class TwilioHttpClient(HttpClient):
         :param request_hooks
         :param int timeout: Timeout for the requests.
                             Timeout should never be zero (0) or less.
+        :param logger
         """
         self.session = Session() if pool_connections else None
         self.last_request = None
         self.last_response = None
+        self.logger = logger
         self.request_hooks = request_hooks or hooks.default_hooks()
 
         if timeout is not None and timeout <= 0:
@@ -63,12 +65,12 @@ class TwilioHttpClient(HttpClient):
         }
 
         if params:
-            _logger.info('{method} Request: {url}?{query}'.format(query=urlencode(params), **kwargs))
-            _logger.info('PARAMS: {params}'.format(**kwargs))
+            self.logger.info('{method} Request: {url}?{query}'.format(query=urlencode(params), **kwargs))
+            self.logger.info('PARAMS: {params}'.format(**kwargs))
         else:
-            _logger.info('{method} Request: {url}'.format(**kwargs))
+            self.logger.info('{method} Request: {url}'.format(**kwargs))
         if data:
-            _logger.info('PAYLOAD: {data}'.format(**kwargs))
+            self.logger.info('PAYLOAD: {data}'.format(**kwargs))
 
         self.last_response = None
         session = self.session or Session()
@@ -82,7 +84,9 @@ class TwilioHttpClient(HttpClient):
             timeout=timeout if timeout is not None else self.timeout,
         )
 
-        _logger.info('{method} Response: {status} {text}'.format(method=method, status=response.status_code, text=response.text))
+        self.logger.info('{method} Response: {status} {text}'.format(
+            method=method, status=response.status_code, text=response.text)
+        )
 
         self.last_response = Response(int(response.status_code), response.text)
 
