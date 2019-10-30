@@ -367,7 +367,7 @@ class CountryInstance(InstanceResource):
     @property
     def name(self):
         """
-        :returns: Name of the country
+        :returns: The name of the country
         :rtype: unicode
         """
         return self._properties['name']
@@ -375,7 +375,7 @@ class CountryInstance(InstanceResource):
     @property
     def continent(self):
         """
-        :returns: Name of the continent
+        :returns: The name of the continent in which the country is located
         :rtype: unicode
         """
         return self._properties['continent']
@@ -391,7 +391,7 @@ class CountryInstance(InstanceResource):
     @property
     def low_risk_numbers_enabled(self):
         """
-        :returns: `true`, if dialing to low-risk numbers is enabled, else `false`
+        :returns: Whether dialing to low-risk numbers is enabled
         :rtype: bool
         """
         return self._properties['low_risk_numbers_enabled']
@@ -399,7 +399,7 @@ class CountryInstance(InstanceResource):
     @property
     def high_risk_special_numbers_enabled(self):
         """
-        :returns: `true`, if dialing to high-risk special services numbers is enabled, else `false`
+        :returns: Whether dialing to high-risk special services numbers is enabled
         :rtype: bool
         """
         return self._properties['high_risk_special_numbers_enabled']
@@ -407,7 +407,7 @@ class CountryInstance(InstanceResource):
     @property
     def high_risk_tollfraud_numbers_enabled(self):
         """
-        :returns: `true`, if dialing to high-risk toll fraud numbers is enabled, else `false`
+        :returns: Whether dialing to high-risk toll fraud numbers is enabled, else `false`
         :rtype: bool
         """
         return self._properties['high_risk_tollfraud_numbers_enabled']

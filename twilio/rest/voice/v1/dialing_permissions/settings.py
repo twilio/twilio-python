@@ -142,7 +142,7 @@ class SettingsContext(InstanceContext):
         """
         Update the SettingsInstance
 
-        :param bool dialing_permissions_inheritance: `true` for this sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`
+        :param bool dialing_permissions_inheritance: `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`
 
         :returns: Updated SettingsInstance
         :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsInstance
@@ -208,7 +208,7 @@ class SettingsInstance(InstanceResource):
     @property
     def dialing_permissions_inheritance(self):
         """
-        :returns: `true` if this sub-account will inherit voice dialing permissions from the Master Project; otherwise `false`
+        :returns: `true` if the sub-account will inherit voice dialing permissions from the Master Project; otherwise `false`
         :rtype: bool
         """
         return self._properties['dialing_permissions_inheritance']
@@ -234,7 +234,7 @@ class SettingsInstance(InstanceResource):
         """
         Update the SettingsInstance
 
-        :param bool dialing_permissions_inheritance: `true` for this sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`
+        :param bool dialing_permissions_inheritance: `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`
 
         :returns: Updated SettingsInstance
         :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsInstance

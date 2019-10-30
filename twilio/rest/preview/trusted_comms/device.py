@@ -119,9 +119,9 @@ class DeviceInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'sid': payload.get('sid'),
-            'phone_number': payload.get('phone_number'),
             'binding_sid': payload.get('binding_sid'),
+            'phone_number': payload.get('phone_number'),
+            'sid': payload.get('sid'),
             'url': payload.get('url'),
         }
 
@@ -130,12 +130,12 @@ class DeviceInstance(InstanceResource):
         self._solution = {}
 
     @property
-    def sid(self):
+    def binding_sid(self):
         """
-        :returns: A string that uniquely identifies this Device.
+        :returns: Binding Sid.
         :rtype: unicode
         """
-        return self._properties['sid']
+        return self._properties['binding_sid']
 
     @property
     def phone_number(self):
@@ -146,12 +146,12 @@ class DeviceInstance(InstanceResource):
         return self._properties['phone_number']
 
     @property
-    def binding_sid(self):
+    def sid(self):
         """
-        :returns: Binding Sid.
+        :returns: A string that uniquely identifies this Device.
         :rtype: unicode
         """
-        return self._properties['binding_sid']
+        return self._properties['sid']
 
     @property
     def url(self):

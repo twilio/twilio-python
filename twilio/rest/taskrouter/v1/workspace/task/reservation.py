@@ -23,8 +23,8 @@ class ReservationList(ListResource):
         Initialize the ReservationList
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The ID of the Workspace that this task is contained within.
-        :param task_sid: The ID of the reserved Task
+        :param workspace_sid: The SID of the Workspace that this task is contained within.
+        :param task_sid: The SID of the reserved Task resource
 
         :returns: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationList
         :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationList
@@ -128,7 +128,7 @@ class ReservationList(ListResource):
         """
         Constructs a ReservationContext
 
-        :param sid: The sid
+        :param sid: The SID of the TaskReservation resource to fetch
 
         :returns: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationContext
         :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationContext
@@ -144,7 +144,7 @@ class ReservationList(ListResource):
         """
         Constructs a ReservationContext
 
-        :param sid: The sid
+        :param sid: The SID of the TaskReservation resource to fetch
 
         :returns: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationContext
         :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationContext
@@ -175,8 +175,8 @@ class ReservationPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param workspace_sid: The ID of the Workspace that this task is contained within.
-        :param task_sid: The ID of the reserved Task
+        :param workspace_sid: The SID of the Workspace that this task is contained within.
+        :param task_sid: The SID of the reserved Task resource
 
         :returns: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationPage
         :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationPage
@@ -220,9 +220,9 @@ class ReservationContext(InstanceContext):
         Initialize the ReservationContext
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The workspace_sid
-        :param task_sid: The task_sid
-        :param sid: The sid
+        :param workspace_sid: The SID of the Workspace with the TaskReservation resource to fetch
+        :param task_sid: The SID of the reserved Task resource with the TaskReservation resource to fetch
+        :param sid: The SID of the TaskReservation resource to fetch
 
         :returns: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationContext
         :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationContext
@@ -293,59 +293,59 @@ class ReservationContext(InstanceContext):
         """
         Update the ReservationInstance
 
-        :param ReservationInstance.Status reservation_status: New reservation status
-        :param unicode worker_activity_sid: New worker activity sid if rejecting a reservation
-        :param unicode instruction: Assignment instruction for reservation
-        :param unicode dequeue_post_work_activity_sid: New worker activity sid after executing a Dequeue instruction
-        :param unicode dequeue_from: Caller ID for the call to the worker when executing a Dequeue instruction
-        :param unicode dequeue_record: Attribute to record both legs of a call when executing a Dequeue instruction
+        :param ReservationInstance.Status reservation_status: The new status of the reservation
+        :param unicode worker_activity_sid: The new worker activity SID if rejecting a reservation
+        :param unicode instruction: The assignment instruction for reservation
+        :param unicode dequeue_post_work_activity_sid: The SID of the Activity resource to start after executing a Dequeue instruction
+        :param unicode dequeue_from: The Caller ID of the call to the worker when executing a Dequeue instruction
+        :param unicode dequeue_record: Whether to record both legs of a call when executing a Dequeue instruction
         :param unicode dequeue_timeout: Timeout for call when executing a Dequeue instruction
-        :param unicode dequeue_to: Contact URI of the worker when executing a Dequeue instruction
-        :param unicode dequeue_status_callback_url: Callback URL for completed call event when executing a Dequeue instruction
-        :param unicode call_from: Caller ID for the outbound call when executing a Call instruction
-        :param unicode call_record: Attribute to record both legs of a call when executing a Call instruction
+        :param unicode dequeue_to: The Contact URI of the worker when executing a Dequeue instruction
+        :param unicode dequeue_status_callback_url: The Callback URL for completed call event when executing a Dequeue instruction
+        :param unicode call_from: The Caller ID of the outbound call when executing a Call instruction
+        :param unicode call_record: Whether to record both legs of a call when executing a Call instruction
         :param unicode call_timeout: Timeout for call when executing a Call instruction
-        :param unicode call_to: Contact URI of the worker when executing a Call instruction
+        :param unicode call_to: The Contact URI of the worker when executing a Call instruction
         :param unicode call_url: TwiML URI executed on answering the worker's leg as a result of the Call instruction
-        :param unicode call_status_callback_url: Callback URL for completed call event when executing a Call instruction
-        :param bool call_accept: Flag to determine if reservation should be accepted when executing a Call instruction
-        :param unicode redirect_call_sid: Call sid of the call parked in the queue when executing a Redirect instruction
-        :param bool redirect_accept: Flag to determine if reservation should be accepted when executing a Redirect instruction
+        :param unicode call_status_callback_url: The URL to call  for the completed call event when executing a Call instruction
+        :param bool call_accept: Whether to accept a reservation when executing a Call instruction
+        :param unicode redirect_call_sid: The Call SID of the call parked in the queue when executing a Redirect instruction
+        :param bool redirect_accept: Whether the reservation should be accepted when executing a Redirect instruction
         :param unicode redirect_url: TwiML URI to redirect the call to when executing the Redirect instruction
-        :param unicode to: Contact URI of the worker when executing a Conference instruction
-        :param unicode from_: Caller ID for the call to the worker when executing a Conference instruction
-        :param unicode status_callback: The status_callback
-        :param unicode status_callback_method: The status_callback_method
-        :param ReservationInstance.CallStatus status_callback_event: The status_callback_event
+        :param unicode to: The Contact URI of the worker when executing a Conference instruction
+        :param unicode from_: The Caller ID of the call to the worker when executing a Conference instruction
+        :param unicode status_callback: The URL we should call to send status information to your application
+        :param unicode status_callback_method: The HTTP method we should use to call status_callback
+        :param ReservationInstance.CallStatus status_callback_event: The call progress events that we will send to status_callback
         :param unicode timeout: Timeout for call when executing a Conference instruction
-        :param bool record: The record
-        :param bool muted: The muted
-        :param unicode beep: The beep
-        :param bool start_conference_on_enter: The start_conference_on_enter
-        :param bool end_conference_on_exit: The end_conference_on_exit
-        :param unicode wait_url: The wait_url
-        :param unicode wait_method: The wait_method
-        :param bool early_media: The early_media
-        :param unicode max_participants: The max_participants
-        :param unicode conference_status_callback: The conference_status_callback
-        :param unicode conference_status_callback_method: The conference_status_callback_method
-        :param ReservationInstance.ConferenceEvent conference_status_callback_event: The conference_status_callback_event
-        :param unicode conference_record: The conference_record
-        :param unicode conference_trim: The conference_trim
-        :param unicode recording_channels: The recording_channels
-        :param unicode recording_status_callback: The recording_status_callback
-        :param unicode recording_status_callback_method: The recording_status_callback_method
-        :param unicode conference_recording_status_callback: The conference_recording_status_callback
-        :param unicode conference_recording_status_callback_method: The conference_recording_status_callback_method
-        :param unicode region: The region
-        :param unicode sip_auth_username: The sip_auth_username
-        :param unicode sip_auth_password: The sip_auth_password
-        :param unicode dequeue_status_callback_event: Call progress events sent via webhooks as a result of a Dequeue instruction
-        :param unicode post_work_activity_sid: New worker activity sid after executing a Conference instruction
-        :param ReservationInstance.SupervisorMode supervisor_mode: Supervisor mode when executing the Supervise instruction
-        :param unicode supervisor: Supervisor sid/uri when executing the Supervise instruction
-        :param bool end_conference_on_customer_exit: The end_conference_on_customer_exit
-        :param bool beep_on_customer_entrance: The beep_on_customer_entrance
+        :param bool record: Whether to record the participant and their conferences
+        :param bool muted: Whether to mute the agent
+        :param unicode beep: Whether to play a notification beep when the participant joins
+        :param bool start_conference_on_enter: Whether the conference starts when the participant joins the conference
+        :param bool end_conference_on_exit: Whether to end the conference when the agent leaves
+        :param unicode wait_url: URL that hosts pre-conference hold music
+        :param unicode wait_method: The HTTP method we should use to call `wait_url`
+        :param bool early_media: Whether agents can hear the state of the outbound call
+        :param unicode max_participants: The maximum number of agent conference participants
+        :param unicode conference_status_callback: The callback URL for conference events
+        :param unicode conference_status_callback_method: HTTP method for requesting `conference_status_callback` URL
+        :param ReservationInstance.ConferenceEvent conference_status_callback_event: The conference status events that we will send to conference_status_callback
+        :param unicode conference_record: Whether to record the conference the participant is joining
+        :param unicode conference_trim: How to trim leading and trailing silence from your recorded conference audio files
+        :param unicode recording_channels: Specify `mono` or `dual` recording channels
+        :param unicode recording_status_callback: The URL that we should call using the `recording_status_callback_method` when the recording status changes
+        :param unicode recording_status_callback_method: The HTTP method we should use when we call `recording_status_callback`
+        :param unicode conference_recording_status_callback: The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available
+        :param unicode conference_recording_status_callback_method: The HTTP method we should use to call `conference_recording_status_callback`
+        :param unicode region: The region where we should mix the conference audio
+        :param unicode sip_auth_username: The SIP username used for authentication
+        :param unicode sip_auth_password: The SIP password for authentication
+        :param unicode dequeue_status_callback_event: The Call progress events sent via webhooks as a result of a Dequeue instruction
+        :param unicode post_work_activity_sid: The new worker activity SID after executing a Conference instruction
+        :param ReservationInstance.SupervisorMode supervisor_mode: The Supervisor mode when executing the Supervise instruction
+        :param unicode supervisor: The Supervisor SID/URI when executing the Supervise instruction
+        :param bool end_conference_on_customer_exit: Whether to end the conference when the customer leaves
+        :param bool beep_on_customer_entrance: Whether to play a notification beep when the customer joins
 
         :returns: Updated ReservationInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationInstance
@@ -517,7 +517,7 @@ class ReservationInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The ID of the Account that owns this Task
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -525,7 +525,7 @@ class ReservationInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -533,7 +533,7 @@ class ReservationInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -541,7 +541,7 @@ class ReservationInstance(InstanceResource):
     @property
     def reservation_status(self):
         """
-        :returns: The current status of the reservation.
+        :returns: The current status of the reservation
         :rtype: ReservationInstance.Status
         """
         return self._properties['reservation_status']
@@ -549,7 +549,7 @@ class ReservationInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The unique ID of this Reservation.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -557,7 +557,7 @@ class ReservationInstance(InstanceResource):
     @property
     def task_sid(self):
         """
-        :returns: The ID of the reserved Task
+        :returns: The SID of the reserved Task resource
         :rtype: unicode
         """
         return self._properties['task_sid']
@@ -565,7 +565,7 @@ class ReservationInstance(InstanceResource):
     @property
     def worker_name(self):
         """
-        :returns: Human readable description of the Worker that is reserved
+        :returns: The friendly_name of the Worker that is reserved
         :rtype: unicode
         """
         return self._properties['worker_name']
@@ -573,7 +573,7 @@ class ReservationInstance(InstanceResource):
     @property
     def worker_sid(self):
         """
-        :returns: The ID of the reserved Worker
+        :returns: The SID of the reserved Worker resource
         :rtype: unicode
         """
         return self._properties['worker_sid']
@@ -581,7 +581,7 @@ class ReservationInstance(InstanceResource):
     @property
     def workspace_sid(self):
         """
-        :returns: The ID of the Workspace that this task is contained within.
+        :returns: The SID of the Workspace that this task is contained within.
         :rtype: unicode
         """
         return self._properties['workspace_sid']
@@ -589,7 +589,7 @@ class ReservationInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the TaskReservation reservation
         :rtype: unicode
         """
         return self._properties['url']
@@ -597,7 +597,7 @@ class ReservationInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links
+        :returns: The URLs of related resources
         :rtype: unicode
         """
         return self._properties['links']
@@ -648,59 +648,59 @@ class ReservationInstance(InstanceResource):
         """
         Update the ReservationInstance
 
-        :param ReservationInstance.Status reservation_status: New reservation status
-        :param unicode worker_activity_sid: New worker activity sid if rejecting a reservation
-        :param unicode instruction: Assignment instruction for reservation
-        :param unicode dequeue_post_work_activity_sid: New worker activity sid after executing a Dequeue instruction
-        :param unicode dequeue_from: Caller ID for the call to the worker when executing a Dequeue instruction
-        :param unicode dequeue_record: Attribute to record both legs of a call when executing a Dequeue instruction
+        :param ReservationInstance.Status reservation_status: The new status of the reservation
+        :param unicode worker_activity_sid: The new worker activity SID if rejecting a reservation
+        :param unicode instruction: The assignment instruction for reservation
+        :param unicode dequeue_post_work_activity_sid: The SID of the Activity resource to start after executing a Dequeue instruction
+        :param unicode dequeue_from: The Caller ID of the call to the worker when executing a Dequeue instruction
+        :param unicode dequeue_record: Whether to record both legs of a call when executing a Dequeue instruction
         :param unicode dequeue_timeout: Timeout for call when executing a Dequeue instruction
-        :param unicode dequeue_to: Contact URI of the worker when executing a Dequeue instruction
-        :param unicode dequeue_status_callback_url: Callback URL for completed call event when executing a Dequeue instruction
-        :param unicode call_from: Caller ID for the outbound call when executing a Call instruction
-        :param unicode call_record: Attribute to record both legs of a call when executing a Call instruction
+        :param unicode dequeue_to: The Contact URI of the worker when executing a Dequeue instruction
+        :param unicode dequeue_status_callback_url: The Callback URL for completed call event when executing a Dequeue instruction
+        :param unicode call_from: The Caller ID of the outbound call when executing a Call instruction
+        :param unicode call_record: Whether to record both legs of a call when executing a Call instruction
         :param unicode call_timeout: Timeout for call when executing a Call instruction
-        :param unicode call_to: Contact URI of the worker when executing a Call instruction
+        :param unicode call_to: The Contact URI of the worker when executing a Call instruction
         :param unicode call_url: TwiML URI executed on answering the worker's leg as a result of the Call instruction
-        :param unicode call_status_callback_url: Callback URL for completed call event when executing a Call instruction
-        :param bool call_accept: Flag to determine if reservation should be accepted when executing a Call instruction
-        :param unicode redirect_call_sid: Call sid of the call parked in the queue when executing a Redirect instruction
-        :param bool redirect_accept: Flag to determine if reservation should be accepted when executing a Redirect instruction
+        :param unicode call_status_callback_url: The URL to call  for the completed call event when executing a Call instruction
+        :param bool call_accept: Whether to accept a reservation when executing a Call instruction
+        :param unicode redirect_call_sid: The Call SID of the call parked in the queue when executing a Redirect instruction
+        :param bool redirect_accept: Whether the reservation should be accepted when executing a Redirect instruction
         :param unicode redirect_url: TwiML URI to redirect the call to when executing the Redirect instruction
-        :param unicode to: Contact URI of the worker when executing a Conference instruction
-        :param unicode from_: Caller ID for the call to the worker when executing a Conference instruction
-        :param unicode status_callback: The status_callback
-        :param unicode status_callback_method: The status_callback_method
-        :param ReservationInstance.CallStatus status_callback_event: The status_callback_event
+        :param unicode to: The Contact URI of the worker when executing a Conference instruction
+        :param unicode from_: The Caller ID of the call to the worker when executing a Conference instruction
+        :param unicode status_callback: The URL we should call to send status information to your application
+        :param unicode status_callback_method: The HTTP method we should use to call status_callback
+        :param ReservationInstance.CallStatus status_callback_event: The call progress events that we will send to status_callback
         :param unicode timeout: Timeout for call when executing a Conference instruction
-        :param bool record: The record
-        :param bool muted: The muted
-        :param unicode beep: The beep
-        :param bool start_conference_on_enter: The start_conference_on_enter
-        :param bool end_conference_on_exit: The end_conference_on_exit
-        :param unicode wait_url: The wait_url
-        :param unicode wait_method: The wait_method
-        :param bool early_media: The early_media
-        :param unicode max_participants: The max_participants
-        :param unicode conference_status_callback: The conference_status_callback
-        :param unicode conference_status_callback_method: The conference_status_callback_method
-        :param ReservationInstance.ConferenceEvent conference_status_callback_event: The conference_status_callback_event
-        :param unicode conference_record: The conference_record
-        :param unicode conference_trim: The conference_trim
-        :param unicode recording_channels: The recording_channels
-        :param unicode recording_status_callback: The recording_status_callback
-        :param unicode recording_status_callback_method: The recording_status_callback_method
-        :param unicode conference_recording_status_callback: The conference_recording_status_callback
-        :param unicode conference_recording_status_callback_method: The conference_recording_status_callback_method
-        :param unicode region: The region
-        :param unicode sip_auth_username: The sip_auth_username
-        :param unicode sip_auth_password: The sip_auth_password
-        :param unicode dequeue_status_callback_event: Call progress events sent via webhooks as a result of a Dequeue instruction
-        :param unicode post_work_activity_sid: New worker activity sid after executing a Conference instruction
-        :param ReservationInstance.SupervisorMode supervisor_mode: Supervisor mode when executing the Supervise instruction
-        :param unicode supervisor: Supervisor sid/uri when executing the Supervise instruction
-        :param bool end_conference_on_customer_exit: The end_conference_on_customer_exit
-        :param bool beep_on_customer_entrance: The beep_on_customer_entrance
+        :param bool record: Whether to record the participant and their conferences
+        :param bool muted: Whether to mute the agent
+        :param unicode beep: Whether to play a notification beep when the participant joins
+        :param bool start_conference_on_enter: Whether the conference starts when the participant joins the conference
+        :param bool end_conference_on_exit: Whether to end the conference when the agent leaves
+        :param unicode wait_url: URL that hosts pre-conference hold music
+        :param unicode wait_method: The HTTP method we should use to call `wait_url`
+        :param bool early_media: Whether agents can hear the state of the outbound call
+        :param unicode max_participants: The maximum number of agent conference participants
+        :param unicode conference_status_callback: The callback URL for conference events
+        :param unicode conference_status_callback_method: HTTP method for requesting `conference_status_callback` URL
+        :param ReservationInstance.ConferenceEvent conference_status_callback_event: The conference status events that we will send to conference_status_callback
+        :param unicode conference_record: Whether to record the conference the participant is joining
+        :param unicode conference_trim: How to trim leading and trailing silence from your recorded conference audio files
+        :param unicode recording_channels: Specify `mono` or `dual` recording channels
+        :param unicode recording_status_callback: The URL that we should call using the `recording_status_callback_method` when the recording status changes
+        :param unicode recording_status_callback_method: The HTTP method we should use when we call `recording_status_callback`
+        :param unicode conference_recording_status_callback: The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available
+        :param unicode conference_recording_status_callback_method: The HTTP method we should use to call `conference_recording_status_callback`
+        :param unicode region: The region where we should mix the conference audio
+        :param unicode sip_auth_username: The SIP username used for authentication
+        :param unicode sip_auth_password: The SIP password for authentication
+        :param unicode dequeue_status_callback_event: The Call progress events sent via webhooks as a result of a Dequeue instruction
+        :param unicode post_work_activity_sid: The new worker activity SID after executing a Conference instruction
+        :param ReservationInstance.SupervisorMode supervisor_mode: The Supervisor mode when executing the Supervise instruction
+        :param unicode supervisor: The Supervisor SID/URI when executing the Supervise instruction
+        :param bool end_conference_on_customer_exit: Whether to end the conference when the customer leaves
+        :param bool beep_on_customer_entrance: Whether to play a notification beep when the customer joins
 
         :returns: Updated ReservationInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationInstance

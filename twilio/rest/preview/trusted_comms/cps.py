@@ -165,8 +165,8 @@ class CpsInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'phone_number': payload.get('phone_number'),
             'cps_url': payload.get('cps_url'),
+            'phone_number': payload.get('phone_number'),
             'url': payload.get('url'),
         }
 
@@ -188,20 +188,20 @@ class CpsInstance(InstanceResource):
         return self._context
 
     @property
-    def phone_number(self):
-        """
-        :returns: Phone number passed.
-        :rtype: unicode
-        """
-        return self._properties['phone_number']
-
-    @property
     def cps_url(self):
         """
         :returns: CPS URL of the phone number.
         :rtype: unicode
         """
         return self._properties['cps_url']
+
+    @property
+    def phone_number(self):
+        """
+        :returns: Phone number passed.
+        :rtype: unicode
+        """
+        return self._properties['phone_number']
 
     @property
     def url(self):

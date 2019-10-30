@@ -3,6 +3,42 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2019-10-30] Version 6.33.0
+---------------------------
+**Library**
+- [PR #414](https://github.com/twilio/twilio-python/pull/414): Add support for passing custom logger into TwilioHttpClient. Thanks to [@tysonholub](https://github.com/tysonholub)!
+- [PR #423](https://github.com/twilio/twilio-python/pull/423): Document exception case in README. Thanks to [@prateem](https://github.com/prateem)!
+- [PR #489](https://github.com/twilio/twilio-python/pull/489): Include the license file when packaging the library. Thanks to [@marcelotrevisani](https://github.com/marcelotrevisani)!
+- [PR #485](https://github.com/twilio/twilio-python/pull/485): Adding timeout to TwilioHttpClient constructor. Thanks to [@Kerl1310](https://github.com/Kerl1310)!
+- [PR #488](https://github.com/twilio/twilio-python/pull/488): Update resources after sorting. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #486](https://github.com/twilio/twilio-python/pull/486): Declare support for Python 3.8. Thanks to [@Jamim](https://github.com/Jamim)!
+
+**Api**
+- Add new usage categories to the public api `sms-messages-carrierfees` and `mms-messages-carrierfees`
+
+**Conversations**
+- Add ProjectedAddress to Conversations Participant resource
+
+**Preview**
+- Implemented different `Sid` for Current Calls (Verified by Twilio), instead of relying in `Call.Sid` from Voice API team **(breaking change)**
+
+**Supersim**
+- Add List endpoint to Commands resource for Super Sim Pilot
+- Add UsageRecords resource for the Super Sim Pilot
+- Add List endpoint to UsageRecords resource for the Super Sim Pilot
+- Allow assigning a Sim to a Fleet by Fleet SID or Unique Name for Super SIM Pilot
+- Add Update endpoint to Fleets resource for Super Sim Pilot
+- Add Fetch endpoint to Commands resource for Super Sim Pilot
+- Allow filtering the Sims resource List endpoint by Fleet
+- Add List endpoint to Fleets resource for Super Sim Pilot
+
+**Wireless**
+- Added `account_sid` to Sim update parameters.
+
+**Twiml**
+- Add new locales and voices for `Say` from Polly
+
+
 [2019-10-16] Version 6.32.0
 ---------------------------
 **Library**

@@ -76,6 +76,32 @@ class ParticipantTestCase(IntegrationTestCase):
 
         self.assertIsNotNone(actual)
 
+    def test_create_gmms_response(self):
+        self.holodeck.mock(Response(
+            201,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "conversation_sid": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "sid": "MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "identity": "IDENTITY",
+                "attributes": "{ \\"role\\": \\"driver\\" }",
+                "messaging_binding": {
+                    "type": "sms",
+                    "projected_address": "+15017122661"
+                },
+                "date_created": "2015-12-16T22:18:37Z",
+                "date_updated": "2015-12-16T22:18:38Z",
+                "url": "https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
+
+        actual = self.client.conversations.v1.conversations(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                             .participants.create()
+
+        self.assertIsNotNone(actual)
+
     def test_update_request(self):
         self.holodeck.mock(Response(500, ''))
 

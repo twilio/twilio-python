@@ -33,9 +33,9 @@ class DeviceTestCase(IntegrationTestCase):
             201,
             '''
             {
-                "sid": "DDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "binding_sid": "BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "phone_number": "+573000000000",
+                "sid": "DDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://preview.twilio.com/TrustedComms/Devices"
             }
             '''

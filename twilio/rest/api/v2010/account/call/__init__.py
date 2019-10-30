@@ -71,7 +71,7 @@ class CallList(ListResource):
         :param unicode status_callback_method: HTTP Method to use with status_callback
         :param unicode send_digits: The digits to dial after connecting to the number
         :param unicode timeout: Number of seconds to wait for an answer
-        :param bool record: Whether or not to record the call
+        :param bool record: Whether to record the call
         :param unicode recording_channels: The number of channels in the final recording
         :param unicode recording_status_callback: The URL that we call when the recording is available to be accessed
         :param unicode recording_status_callback_method: The HTTP method we should use when calling the `recording_status_callback` URL
@@ -312,7 +312,7 @@ class CallList(ListResource):
         """
         Constructs a CallContext
 
-        :param sid: The unique string that identifies this resource
+        :param sid: The SID of the Call resource to fetch
 
         :returns: twilio.rest.api.v2010.account.call.CallContext
         :rtype: twilio.rest.api.v2010.account.call.CallContext
@@ -323,7 +323,7 @@ class CallList(ListResource):
         """
         Constructs a CallContext
 
-        :param sid: The unique string that identifies this resource
+        :param sid: The SID of the Call resource to fetch
 
         :returns: twilio.rest.api.v2010.account.call.CallContext
         :rtype: twilio.rest.api.v2010.account.call.CallContext
@@ -389,7 +389,7 @@ class CallContext(InstanceContext):
 
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the Account that created the resource(s) to fetch
-        :param sid: The unique string that identifies this resource
+        :param sid: The SID of the Call resource to fetch
 
         :returns: twilio.rest.api.v2010.account.call.CallContext
         :rtype: twilio.rest.api.v2010.account.call.CallContext

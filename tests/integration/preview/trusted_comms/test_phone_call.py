@@ -33,13 +33,24 @@ class PhoneCallTestCase(IntegrationTestCase):
             201,
             '''
             {
-                "sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "from": "+15000000000",
-                "to": "+573000000000",
-                "reason": "Hello Jhon, your appointment has been confirmed.",
+                "bg_color": "#fff",
+                "brand_sid": "BZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "branded_channel_sid": "BWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "business_sid": "BXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "caller": "Owl Bank",
                 "created_at": "2019-05-01T20:00:00Z",
-                "url": "https://preview.twilio.com/TrustedComms/Business/PhoneCalls"
+                "font_color": "#000",
+                "from": "+15000000000",
+                "logo": "https://www.twilio.com/marketing/bundles/company/img/logos/red/twilio-logo-red.png",
+                "phone_number_sid": "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "reason": "Hello Jhon, your appointment has been confirmed.",
+                "sid": "CQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "status": "unknown",
+                "to": "+573000000000",
+                "url": "https://preview.twilio.com/TrustedComms/Business/PhoneCalls",
+                "use_case": "conversational"
             }
             '''
         ))

@@ -38,7 +38,8 @@ class ParticipantList(ListResource):
     def create(self, identity=values.unset, messaging_binding_address=values.unset,
                messaging_binding_proxy_address=values.unset,
                date_created=values.unset, date_updated=values.unset,
-               attributes=values.unset):
+               attributes=values.unset,
+               messaging_binding_projected_address=values.unset):
         """
         Create a new ParticipantInstance
 
@@ -48,6 +49,7 @@ class ParticipantList(ListResource):
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
         :param unicode attributes: An optional string metadata field you can use to store any data you wish.
+        :param unicode messaging_binding_projected_address: The address of the Twilio phone number that is used in Group MMS.
 
         :returns: Newly created ParticipantInstance
         :rtype: twilio.rest.conversations.v1.conversation.participant.ParticipantInstance
@@ -59,6 +61,7 @@ class ParticipantList(ListResource):
             'DateCreated': serialize.iso8601_datetime(date_created),
             'DateUpdated': serialize.iso8601_datetime(date_updated),
             'Attributes': attributes,
+            'MessagingBinding.ProjectedAddress': messaging_binding_projected_address,
         })
 
         payload = self._version.create(

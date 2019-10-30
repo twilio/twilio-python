@@ -57,29 +57,6 @@ class NotificationTestCase(IntegrationTestCase):
 
         self.assertIsNotNone(actual)
 
-    def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
-
-        with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .notifications(sid="NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
-
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Notifications/NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json',
-        ))
-
-    def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
-
-        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .notifications(sid="NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
-
-        self.assertTrue(actual)
-
     def test_list_request(self):
         self.holodeck.mock(Response(500, ''))
 

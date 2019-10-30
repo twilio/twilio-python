@@ -12,6 +12,8 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
 from twilio.rest.preview.bulk_exports.export.day import DayList
+from twilio.rest.preview.bulk_exports.export.export_custom_job import ExportCustomJobList
+from twilio.rest.preview.bulk_exports.export.job import JobList
 
 
 class ExportList(ListResource):
@@ -32,6 +34,21 @@ class ExportList(ListResource):
 
         # Path Solution
         self._solution = {}
+
+        # Components
+        self._jobs = None
+
+    @property
+    def jobs(self):
+        """
+        Access the jobs
+
+        :returns: twilio.rest.preview.bulk_exports.export.job.JobList
+        :rtype: twilio.rest.preview.bulk_exports.export.job.JobList
+        """
+        if self._jobs is None:
+            self._jobs = JobList(self._version, )
+        return self._jobs
 
     def get(self, resource_type):
         """
@@ -129,6 +146,7 @@ class ExportContext(InstanceContext):
 
         # Dependents
         self._days = None
+        self._export_custom_jobs = None
 
     def fetch(self):
         """
@@ -158,6 +176,21 @@ class ExportContext(InstanceContext):
         if self._days is None:
             self._days = DayList(self._version, resource_type=self._solution['resource_type'], )
         return self._days
+
+    @property
+    def export_custom_jobs(self):
+        """
+        Access the export_custom_jobs
+
+        :returns: twilio.rest.preview.bulk_exports.export.export_custom_job.ExportCustomJobList
+        :rtype: twilio.rest.preview.bulk_exports.export.export_custom_job.ExportCustomJobList
+        """
+        if self._export_custom_jobs is None:
+            self._export_custom_jobs = ExportCustomJobList(
+                self._version,
+                resource_type=self._solution['resource_type'],
+            )
+        return self._export_custom_jobs
 
     def __repr__(self):
         """
@@ -250,6 +283,16 @@ class ExportInstance(InstanceResource):
         :rtype: twilio.rest.preview.bulk_exports.export.day.DayList
         """
         return self._proxy.days
+
+    @property
+    def export_custom_jobs(self):
+        """
+        Access the export_custom_jobs
+
+        :returns: twilio.rest.preview.bulk_exports.export.export_custom_job.ExportCustomJobList
+        :rtype: twilio.rest.preview.bulk_exports.export.export_custom_job.ExportCustomJobList
+        """
+        return self._proxy.export_custom_jobs
 
     def __repr__(self):
         """

@@ -30,20 +30,20 @@ class CurrentCallTestCase(IntegrationTestCase):
             200,
             '''
             {
-                "sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "from": "+1500123",
-                "to": "+1500456",
-                "status": "ringing",
-                "reason": "Hello Jhon, your bank appointment has been confirmed.",
-                "created_at": "2019-05-01T20:00:00Z",
-                "caller": "Owl Bank",
-                "logo": "https://www.twilio.com/marketing/bundles/company/img/logos/red/twilio-logo-red.png",
                 "bg_color": "#fff",
+                "caller": "Owl Bank",
+                "created_at": "2019-05-01T20:00:00Z",
                 "font_color": "#f22f46",
-                "use_case": "conversational",
+                "from": "+1500123",
+                "logo": "https://www.twilio.com/marketing/bundles/company/img/logos/red/twilio-logo-red.png",
                 "manager": "Twilio",
+                "reason": "Hello Jhon, your bank appointment has been confirmed.",
                 "shield_img": "https://www.twilio.com/marketing/bundles/company/img/badges/red/twilio-badge-red.png",
-                "url": "https://preview.twilio.com/TrustedComms/CurrentCall"
+                "sid": "CQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "status": "ringing",
+                "to": "+1500456",
+                "url": "https://preview.twilio.com/TrustedComms/CurrentCall",
+                "use_case": "conversational"
             }
             '''
         ))
