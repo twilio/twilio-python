@@ -10,13 +10,13 @@ class DeprecatedMethodTest(unittest.TestCase):
 
         @deprecated_method('new_method')
         def old_method():
-            pass
+            return True
 
         with warnings.catch_warnings(record=True) as caught_warnings:
             warnings.simplefilter("always")
 
-            # Call function that should raise a warning
-            old_method()
+            # Call function that should raise a warning, but still execute
+            self.assertTrue(old_method())
 
             if len(caught_warnings):
                 self.assertEqual(
