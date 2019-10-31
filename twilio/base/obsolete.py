@@ -33,8 +33,8 @@ def deprecated_method(new_func):
 
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
-            warnings.warn('Function method .{}() is being deprecated in favor of .{}()'.format(func.__name__, new_func),
-                          DeprecationWarning)
+            msg = 'Function method .{}() is being deprecated in favor of .{}()'.format(func.__name__, new_func)
+            warnings.warn(msg, DeprecationWarning)
             return func(*args, **kwargs)
 
         return wrapper
