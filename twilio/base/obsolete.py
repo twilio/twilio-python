@@ -2,7 +2,7 @@ import warnings
 import functools
 
 
-class ObsoleteException(BaseException):
+class ObsoleteException(Exception):
     """ Base class for warnings about obsolete features. """
     pass
 
