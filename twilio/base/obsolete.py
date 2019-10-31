@@ -21,3 +21,22 @@ def obsolete_client(func):
         )
 
     return new_func
+
+
+def deprecated_method(new_func):
+    """
+    This is a decorator which can be used to mark deprecated methods.
+    It will report in a DeprecationWarning being emitted to stderr when the deprecated method is used.
+    """
+
+    def deprecated_method_wrapper(func):
+
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            warnings.warn('Function method .{}() is being deprecated in favor of .{}()'.format(func.__name__, new_func),
+                          DeprecationWarning)
+            return func(*args, **kwargs)
+
+        return wrapper
+
+    return deprecated_method_wrapper
