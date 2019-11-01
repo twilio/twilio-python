@@ -631,7 +631,7 @@ class Say(TwiML):
         """
         return self.nest(SsmlBreak(strength=strength, time=time, **kwargs))
 
-    @deprecated_method(break_)
+    @deprecated_method('break_')
     def ssml_break(self, strength=None, time=None, **kwargs):
         """
         Create a <Break> element
@@ -656,7 +656,7 @@ class Say(TwiML):
         """
         return self.nest(SsmlEmphasis(words, level=level, **kwargs))
 
-    @deprecated_method(emphasis)
+    @deprecated_method('emphasis')
     def ssml_emphasis(self, words, level=None, **kwargs):
         """
         Create a <Emphasis> element
@@ -681,7 +681,7 @@ class Say(TwiML):
         """
         return self.nest(SsmlLang(words, xml_lang=xml_lang, **kwargs))
 
-    @deprecated_method(lang)
+    @deprecated_method('lang')
     def ssml_lang(self, words, xml_lang=None, **kwargs):
         """
         Create a <Lang> element
@@ -705,7 +705,7 @@ class Say(TwiML):
         """
         return self.nest(SsmlP(words, **kwargs))
 
-    @deprecated_method(p)
+    @deprecated_method('p')
     def ssml_p(self, words, **kwargs):
         """
         Create a <P> element
@@ -730,7 +730,7 @@ class Say(TwiML):
         """
         return self.nest(SsmlPhoneme(words, alphabet=alphabet, ph=ph, **kwargs))
 
-    @deprecated_method(phoneme)
+    @deprecated_method('phoneme')
     def ssml_phoneme(self, words, alphabet=None, ph=None, **kwargs):
         """
         Create a <Phoneme> element
@@ -758,7 +758,7 @@ class Say(TwiML):
         """
         return self.nest(SsmlProsody(words, volume=volume, rate=rate, pitch=pitch, **kwargs))
 
-    @deprecated_method(prosody)
+    @deprecated_method('prosody')
     def ssml_prosody(self, words, volume=None, rate=None, pitch=None, **kwargs):
         """
         Create a <Prosody> element
@@ -784,7 +784,7 @@ class Say(TwiML):
         """
         return self.nest(SsmlS(words, **kwargs))
 
-    @deprecated_method(s)
+    @deprecated_method('s')
     def ssml_s(self, words, **kwargs):
         """
         Create a <S> element
@@ -809,7 +809,7 @@ class Say(TwiML):
         """
         return self.nest(SsmlSayAs(words, interpret_as=interpret_as, role=role, **kwargs))
 
-    @deprecated_method(say_as)
+    @deprecated_method('say_as')
     def ssml_say_as(self, words, interpret_as=None, role=None, **kwargs):
         """
         Create a <Say-As> element
@@ -835,7 +835,7 @@ class Say(TwiML):
         """
         return self.nest(SsmlSub(words, alias=alias, **kwargs))
 
-    @deprecated_method(sub)
+    @deprecated_method('sub')
     def ssml_sub(self, words, alias=None, **kwargs):
         """
         Create a <Sub> element
@@ -860,7 +860,7 @@ class Say(TwiML):
         """
         return self.nest(SsmlW(words, role=role, **kwargs))
 
-    @deprecated_method(w)
+    @deprecated_method('w')
     def ssml_w(self, words, role=None, **kwargs):
         """
         Create a <W> element

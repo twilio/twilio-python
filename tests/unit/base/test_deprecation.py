@@ -8,7 +8,7 @@ class DeprecatedMethodTest(unittest.TestCase):
 
     def test_deprecation_decorator(self):
 
-        @deprecated_method()
+        @deprecated_method
         def old_method():
             return True
 
@@ -16,12 +16,12 @@ class DeprecatedMethodTest(unittest.TestCase):
             warnings.simplefilter("always")
             # Call function that should raise a warning, but still execute
             self.assertTrue(old_method())
-            if len(caught_warnings):
-                self.assertEqual(
-                    str(caught_warnings[0].message),
-                    'Function method .old_method() is being deprecated'
-                )
-                assert issubclass(caught_warnings[0].category, DeprecationWarning)
+            self.assertTrue(len(caught_warnings))
+            self.assertEqual(
+                str(caught_warnings[0].message),
+                'Function method .old_method() is deprecated'
+            )
+            assert issubclass(caught_warnings[0].category, DeprecationWarning)
 
     def test_deprecation_decorator_with_new_method(self):
 
@@ -34,10 +34,9 @@ class DeprecatedMethodTest(unittest.TestCase):
 
             # Call function that should raise a warning, but still execute
             self.assertTrue(old_method())
-
-            if len(caught_warnings):
-                self.assertEqual(
-                    str(caught_warnings[0].message),
-                    'Function method .old_method() is being deprecated in favor of .new_method()'
-                )
-                assert issubclass(caught_warnings[0].category, DeprecationWarning)
+            self.assertTrue(len(caught_warnings))
+            self.assertEqual(
+                str(caught_warnings[0].message),
+                'Function method .old_method() is deprecated in favor of .new_method()'
+            )
+            assert issubclass(caught_warnings[0].category, DeprecationWarning)
