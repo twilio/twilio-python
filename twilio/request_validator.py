@@ -52,7 +52,7 @@ def add_port(uri):
     """
     if uri.port:
         return uri.geturl()
-    
+
     port = 443 if uri.scheme == "https" else 80
     new_netloc = uri.netloc + ":" + str(port)
     new_uri = uri._replace(netloc=new_netloc)
@@ -75,7 +75,7 @@ class RequestValidator(object):
         :returns: The computed signature
         """
         s = uri
-        if len(params) > 0:
+        if params:
             for k, v in sorted(params.items()):
                 s += k + v
 
@@ -117,7 +117,7 @@ class RequestValidator(object):
             valid_body_hash = compare(self.compute_hash(params), query["bodySHA256"][0])
             params = {}
 
-        #  check signature of uri with and without port, 
+        #  check signature of uri with and without port,
         #  since sig generation on back end is inconsistent
         valid_signature = compare(self.compute_signature(uri_without_port, params), signature)
         valid_signature_with_port = compare(self.compute_signature(uri_with_port, params), signature)

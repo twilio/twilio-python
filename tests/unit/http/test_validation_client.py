@@ -2,7 +2,6 @@
 
 import unittest
 
-import mock
 from mock import patch, Mock
 from requests import Request
 from requests import Session

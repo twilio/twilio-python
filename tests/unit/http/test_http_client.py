@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
-import six
-
 import unittest
 
 from mock import patch, Mock
-from requests import Request, Session
+from requests import Session
 
 from twilio.http.http_client import TwilioHttpClient
 from twilio.http.response import Response

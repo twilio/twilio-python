@@ -48,7 +48,7 @@ class Page(object):
         return self.get_instance(next(self._records))
 
     @classmethod
-    def process_response(self, response):
+    def process_response(cls, response):
         """
         Load a JSON response.
 
