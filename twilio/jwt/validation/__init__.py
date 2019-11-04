@@ -72,13 +72,13 @@ class ClientValidationJwt(Jwt):
         }
 
     @classmethod
-    def _sort_and_join(self, values, joiner):
+    def _sort_and_join(cls, values, joiner):
         if isinstance(values, string_types):
             return values
         return joiner.join(sorted(values))
 
     @classmethod
-    def _hash(self, input_str):
+    def _hash(cls, input_str):
         if not input_str:
             return input_str
 

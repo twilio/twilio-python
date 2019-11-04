@@ -39,7 +39,14 @@ def prefixed_collapsible_map(m, prefix):
     if m == values.unset:
         return {}
 
-    def flatten_dict(d, result={}, prv_keys=[]):
+    def flatten_dict(d, result=None, prv_keys=None):
+
+        if result is None:
+            result = {}
+
+        if prv_keys is None:
+            prv_keys = []
+
         for k, v in d.items():
             if isinstance(v, dict):
                 flatten_dict(v, result, prv_keys + [k])
