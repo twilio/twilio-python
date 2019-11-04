@@ -10,6 +10,7 @@ even better than it is today! Here are the guidelines we'd like you to follow:
  - [Documentation fixes](#docs)
  - [Submission Guidelines](#submit)
  - [Coding Rules](#rules)
+ - [Local Testing](#testing)
 
 
 ## <a name="coc"></a> Code of Conduct
@@ -155,6 +156,11 @@ you are working:
 * All features or bug fixes **must be tested** by one or more tests.
 * All classes and methods **must be documented**.
 
+## <a name="testing"></a> Local Testing
+There exists a separate `requirements.txt` document under `tests` that contains dependencies required for running unit tests. To install them and run the unit tests, try this:
+```
+make test-install test
+```
 
 [docs-link]: https://www.twilio.com/docs/libraries/python
 [issue-link]: https://github.com/twilio/twilio-python/issues/new
