@@ -119,7 +119,7 @@ class AvailableAddOnList(ListResource):
         """
         Constructs a AvailableAddOnContext
 
-        :param sid: The unique Available Add-on Sid
+        :param sid: The SID of the AvailableAddOn resource to fetch
 
         :returns: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnContext
         :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnContext
@@ -130,7 +130,7 @@ class AvailableAddOnList(ListResource):
         """
         Constructs a AvailableAddOnContext
 
-        :param sid: The unique Available Add-on Sid
+        :param sid: The SID of the AvailableAddOn resource to fetch
 
         :returns: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnContext
         :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnContext
@@ -198,7 +198,7 @@ class AvailableAddOnContext(InstanceContext):
         Initialize the AvailableAddOnContext
 
         :param Version version: Version that contains the resource
-        :param sid: The unique Available Add-on Sid
+        :param sid: The SID of the AvailableAddOn resource to fetch
 
         :returns: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnContext
         :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnContext
@@ -300,7 +300,7 @@ class AvailableAddOnInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this Add-on
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -308,7 +308,7 @@ class AvailableAddOnInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A description of this Add-on
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -316,7 +316,7 @@ class AvailableAddOnInstance(InstanceResource):
     @property
     def description(self):
         """
-        :returns: A short description of the Add-on functionality
+        :returns: A short description of the Add-on's functionality
         :rtype: unicode
         """
         return self._properties['description']
@@ -324,7 +324,7 @@ class AvailableAddOnInstance(InstanceResource):
     @property
     def pricing_type(self):
         """
-        :returns: The way customers are charged for using this Add-on
+        :returns: How customers are charged for using this Add-on
         :rtype: unicode
         """
         return self._properties['pricing_type']
@@ -332,7 +332,7 @@ class AvailableAddOnInstance(InstanceResource):
     @property
     def configuration_schema(self):
         """
-        :returns: The JSON Schema describing the Add-on's configuration
+        :returns: The JSON object with the configuration that must be provided when installing a given Add-on
         :rtype: dict
         """
         return self._properties['configuration_schema']
@@ -340,7 +340,7 @@ class AvailableAddOnInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -348,7 +348,7 @@ class AvailableAddOnInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links
+        :returns: The URLs of related resources
         :rtype: unicode
         """
         return self._properties['links']

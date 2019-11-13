@@ -129,7 +129,8 @@ class FlexFlowList(ListResource):
                integration_channel=values.unset, integration_timeout=values.unset,
                integration_priority=values.unset,
                integration_creation_on_message=values.unset,
-               long_lived=values.unset, janitor_enabled=values.unset):
+               long_lived=values.unset, janitor_enabled=values.unset,
+               integration_retry_count=values.unset):
         """
         Create a new FlexFlowInstance
 
@@ -149,6 +150,7 @@ class FlexFlowList(ListResource):
         :param bool integration_creation_on_message: Whether to create a task when the first message arrives
         :param bool long_lived: Whether new channels are long-lived
         :param bool janitor_enabled: Boolean flag for enabling or disabling the Janitor
+        :param unicode integration_retry_count: The number of times to retry the webhook if the first attempt fails
 
         :returns: Newly created FlexFlowInstance
         :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
@@ -170,6 +172,7 @@ class FlexFlowList(ListResource):
             'Integration.CreationOnMessage': integration_creation_on_message,
             'LongLived': long_lived,
             'JanitorEnabled': janitor_enabled,
+            'Integration.RetryCount': integration_retry_count,
         })
 
         payload = self._version.create(
@@ -296,7 +299,8 @@ class FlexFlowContext(InstanceContext):
                integration_channel=values.unset, integration_timeout=values.unset,
                integration_priority=values.unset,
                integration_creation_on_message=values.unset,
-               long_lived=values.unset, janitor_enabled=values.unset):
+               long_lived=values.unset, janitor_enabled=values.unset,
+               integration_retry_count=values.unset):
         """
         Update the FlexFlowInstance
 
@@ -316,6 +320,7 @@ class FlexFlowContext(InstanceContext):
         :param bool integration_creation_on_message: Whether to create a task when the first message arrives
         :param bool long_lived: Whether new channels created are long-lived
         :param bool janitor_enabled: Boolean flag for enabling or disabling the Janitor
+        :param unicode integration_retry_count: The number of times to retry the webhook if the first attempt fails
 
         :returns: Updated FlexFlowInstance
         :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
@@ -337,6 +342,7 @@ class FlexFlowContext(InstanceContext):
             'Integration.CreationOnMessage': integration_creation_on_message,
             'LongLived': long_lived,
             'JanitorEnabled': janitor_enabled,
+            'Integration.RetryCount': integration_retry_count,
         })
 
         payload = self._version.update(
@@ -557,7 +563,8 @@ class FlexFlowInstance(InstanceResource):
                integration_channel=values.unset, integration_timeout=values.unset,
                integration_priority=values.unset,
                integration_creation_on_message=values.unset,
-               long_lived=values.unset, janitor_enabled=values.unset):
+               long_lived=values.unset, janitor_enabled=values.unset,
+               integration_retry_count=values.unset):
         """
         Update the FlexFlowInstance
 
@@ -577,6 +584,7 @@ class FlexFlowInstance(InstanceResource):
         :param bool integration_creation_on_message: Whether to create a task when the first message arrives
         :param bool long_lived: Whether new channels created are long-lived
         :param bool janitor_enabled: Boolean flag for enabling or disabling the Janitor
+        :param unicode integration_retry_count: The number of times to retry the webhook if the first attempt fails
 
         :returns: Updated FlexFlowInstance
         :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
@@ -598,6 +606,7 @@ class FlexFlowInstance(InstanceResource):
             integration_creation_on_message=integration_creation_on_message,
             long_lived=long_lived,
             janitor_enabled=janitor_enabled,
+            integration_retry_count=integration_retry_count,
         )
 
     def delete(self):

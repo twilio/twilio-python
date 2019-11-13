@@ -37,11 +37,11 @@ class Insights(Domain):
         return self._v1
 
     @property
-    def summary(self):
+    def calls(self):
         """
-        :rtype: twilio.rest.insights.v1.summary.CallSummaryList
+        :rtype: twilio.rest.insights.v1.call.CallList
         """
-        return self.v1.summary
+        return self.v1.calls
 
     def __repr__(self):
         """

@@ -121,6 +121,7 @@ class VerificationCheckInstance(InstanceResource):
     class Channel(object):
         SMS = "sms"
         CALL = "call"
+        EMAIL = "email"
 
     def __init__(self, version, payload, service_sid):
         """

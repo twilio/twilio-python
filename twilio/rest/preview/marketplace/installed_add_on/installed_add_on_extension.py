@@ -23,7 +23,7 @@ class InstalledAddOnExtensionList(ListResource):
         Initialize the InstalledAddOnExtensionList
 
         :param Version version: Version that contains the resource
-        :param installed_add_on_sid: The installed_add_on_sid
+        :param installed_add_on_sid: The SID of the InstalledAddOn resource to which this extension applies
 
         :returns: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionList
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionList
@@ -119,7 +119,7 @@ class InstalledAddOnExtensionList(ListResource):
         """
         Constructs a InstalledAddOnExtensionContext
 
-        :param sid: The unique Extension Sid
+        :param sid: The SID of the InstalledAddOn Extension resource to fetch
 
         :returns: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionContext
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionContext
@@ -134,7 +134,7 @@ class InstalledAddOnExtensionList(ListResource):
         """
         Constructs a InstalledAddOnExtensionContext
 
-        :param sid: The unique Extension Sid
+        :param sid: The SID of the InstalledAddOn Extension resource to fetch
 
         :returns: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionContext
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionContext
@@ -166,7 +166,7 @@ class InstalledAddOnExtensionPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param installed_add_on_sid: The installed_add_on_sid
+        :param installed_add_on_sid: The SID of the InstalledAddOn resource to which this extension applies
 
         :returns: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionPage
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionPage
@@ -211,8 +211,8 @@ class InstalledAddOnExtensionContext(InstanceContext):
         Initialize the InstalledAddOnExtensionContext
 
         :param Version version: Version that contains the resource
-        :param installed_add_on_sid: The installed_add_on_sid
-        :param sid: The unique Extension Sid
+        :param installed_add_on_sid: The SID of the InstalledAddOn resource with the extension to fetch
+        :param sid: The SID of the InstalledAddOn Extension resource to fetch
 
         :returns: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionContext
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionContext
@@ -249,7 +249,7 @@ class InstalledAddOnExtensionContext(InstanceContext):
         """
         Update the InstalledAddOnExtensionInstance
 
-        :param bool enabled: A Boolean indicating if the Extension will be invoked
+        :param bool enabled: Whether the Extension should be invoked
 
         :returns: Updated InstalledAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
@@ -332,7 +332,7 @@ class InstalledAddOnExtensionInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this Extension
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -340,7 +340,7 @@ class InstalledAddOnExtensionInstance(InstanceResource):
     @property
     def installed_add_on_sid(self):
         """
-        :returns: The installed_add_on_sid
+        :returns: The SID of the InstalledAddOn resource to which this extension applies
         :rtype: unicode
         """
         return self._properties['installed_add_on_sid']
@@ -348,7 +348,7 @@ class InstalledAddOnExtensionInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A human-readable description of this Extension
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -356,7 +356,7 @@ class InstalledAddOnExtensionInstance(InstanceResource):
     @property
     def product_name(self):
         """
-        :returns: A human-readable description of the Extension's Product
+        :returns: The name of the Extension's Product
         :rtype: unicode
         """
         return self._properties['product_name']
@@ -364,7 +364,7 @@ class InstalledAddOnExtensionInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: The string that uniquely identifies this Extension
+        :returns: An application-defined string that uniquely identifies the resource
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -372,7 +372,7 @@ class InstalledAddOnExtensionInstance(InstanceResource):
     @property
     def enabled(self):
         """
-        :returns: A Boolean indicating if the Extension will be invoked
+        :returns: Whether the Extension will be invoked
         :rtype: bool
         """
         return self._properties['enabled']
@@ -380,7 +380,7 @@ class InstalledAddOnExtensionInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -398,7 +398,7 @@ class InstalledAddOnExtensionInstance(InstanceResource):
         """
         Update the InstalledAddOnExtensionInstance
 
-        :param bool enabled: A Boolean indicating if the Extension will be invoked
+        :param bool enabled: Whether the Extension should be invoked
 
         :returns: Updated InstalledAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance

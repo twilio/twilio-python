@@ -15,6 +15,7 @@ from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
 from twilio.rest.autopilot.v1.assistant.defaults import DefaultsList
 from twilio.rest.autopilot.v1.assistant.dialogue import DialogueList
+from twilio.rest.autopilot.v1.assistant.export_assistant import ExportAssistantList
 from twilio.rest.autopilot.v1.assistant.field_type import FieldTypeList
 from twilio.rest.autopilot.v1.assistant.model_build import ModelBuildList
 from twilio.rest.autopilot.v1.assistant.query import QueryList
@@ -263,6 +264,7 @@ class AssistantContext(InstanceContext):
         self._defaults = None
         self._dialogues = None
         self._webhooks = None
+        self._export_assistant = None
 
     def fetch(self):
         """
@@ -423,6 +425,18 @@ class AssistantContext(InstanceContext):
         if self._webhooks is None:
             self._webhooks = WebhookList(self._version, assistant_sid=self._solution['sid'], )
         return self._webhooks
+
+    @property
+    def export_assistant(self):
+        """
+        Access the export_assistant
+
+        :returns: twilio.rest.autopilot.v1.assistant.export_assistant.ExportAssistantList
+        :rtype: twilio.rest.autopilot.v1.assistant.export_assistant.ExportAssistantList
+        """
+        if self._export_assistant is None:
+            self._export_assistant = ExportAssistantList(self._version, assistant_sid=self._solution['sid'], )
+        return self._export_assistant
 
     def __repr__(self):
         """
@@ -723,6 +737,16 @@ class AssistantInstance(InstanceResource):
         :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookList
         """
         return self._proxy.webhooks
+
+    @property
+    def export_assistant(self):
+        """
+        Access the export_assistant
+
+        :returns: twilio.rest.autopilot.v1.assistant.export_assistant.ExportAssistantList
+        :rtype: twilio.rest.autopilot.v1.assistant.export_assistant.ExportAssistantList
+        """
+        return self._proxy.export_assistant
 
     def __repr__(self):
         """

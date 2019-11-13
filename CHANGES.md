@@ -3,6 +3,43 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2019-11-13] Version 6.33.1
+---------------------------
+**Library**
+- [PR #498](https://github.com/twilio/twilio-python/pull/498): docs: Add local testing docs. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #497](https://github.com/twilio/twilio-python/pull/497): fix: Resolve some bug risks and code quality issues. Thanks to [@sanketsaurav](https://github.com/sanketsaurav)!
+- [PR #495](https://github.com/twilio/twilio-python/pull/495): Rename child twiml methods to be the tag name and deprecate old methods. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+- [PR #490](https://github.com/twilio/twilio-python/pull/490): fix: Change ObsoleteException to inherit from Exception instead of BaseException. Thanks to [@fefi95](https://github.com/fefi95)!
+
+**Api**
+- Make `persistent_action` parameter public
+- Add `twiml` optional private parameter for call create
+
+**Autopilot**
+- Add Export resource to Autopilot Assistant.
+
+**Flex**
+- Added Integration.RetryCount attribute to Flex Flow
+- Updating a Flex Flow `channel_type` options documentation
+
+**Insights**
+- Added edges to events and metrics
+- Added new endpoint definitions for Events and Metrics
+
+**Messaging**
+- **create** support for sender registration
+- **fetch** support for fetching a sender
+- **update** support for sender verification
+
+**Supersim**
+- Add `Direction` filter parameter to list commands endpoint
+- Allow filtering commands list by Sim Unique Name
+- Add `Iccid` filter parameter to list sims endpoint
+
+**Twiml**
+- Add support for `<Refer>` verb
+
+
 [2019-10-30] Version 6.33.0
 ---------------------------
 **Library**

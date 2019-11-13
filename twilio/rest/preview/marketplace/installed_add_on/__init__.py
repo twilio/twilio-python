@@ -41,10 +41,10 @@ class InstalledAddOnList(ListResource):
         """
         Create a new InstalledAddOnInstance
 
-        :param unicode available_add_on_sid: A string that uniquely identifies the Add-on to install
-        :param bool accept_terms_of_service: A boolean reflecting your acceptance of the Terms of Service
+        :param unicode available_add_on_sid: The SID of the AvaliableAddOn to install
+        :param bool accept_terms_of_service: Whether the Terms of Service were accepted
         :param dict configuration: The JSON object representing the configuration
-        :param unicode unique_name: The string that uniquely identifies this Add-on installation
+        :param unicode unique_name: An application-defined string that uniquely identifies the resource
 
         :returns: Newly created InstalledAddOnInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
@@ -149,7 +149,7 @@ class InstalledAddOnList(ListResource):
         """
         Constructs a InstalledAddOnContext
 
-        :param sid: The unique Installed Add-on Sid
+        :param sid: The SID of the InstalledAddOn resource to fetch
 
         :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
         :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
@@ -160,7 +160,7 @@ class InstalledAddOnList(ListResource):
         """
         Constructs a InstalledAddOnContext
 
-        :param sid: The unique Installed Add-on Sid
+        :param sid: The SID of the InstalledAddOn resource to fetch
 
         :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
         :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
@@ -228,7 +228,7 @@ class InstalledAddOnContext(InstanceContext):
         Initialize the InstalledAddOnContext
 
         :param Version version: Version that contains the resource
-        :param sid: The unique Installed Add-on Sid
+        :param sid: The SID of the InstalledAddOn resource to fetch
 
         :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
         :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
@@ -273,7 +273,7 @@ class InstalledAddOnContext(InstanceContext):
         Update the InstalledAddOnInstance
 
         :param dict configuration: The JSON object representing the configuration
-        :param unicode unique_name: The string that uniquely identifies this Add-on installation
+        :param unicode unique_name: An application-defined string that uniquely identifies the resource
 
         :returns: Updated InstalledAddOnInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
@@ -362,7 +362,7 @@ class InstalledAddOnInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this Add-on installation
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -370,7 +370,7 @@ class InstalledAddOnInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The Account id that has installed this Add-on
+        :returns: The SID of the Account that created the resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -378,7 +378,7 @@ class InstalledAddOnInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A description of this Add-on installation
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -386,7 +386,7 @@ class InstalledAddOnInstance(InstanceResource):
     @property
     def description(self):
         """
-        :returns: A short description of the Add-on functionality
+        :returns: A short description of the Add-on's functionality
         :rtype: unicode
         """
         return self._properties['description']
@@ -394,7 +394,7 @@ class InstalledAddOnInstance(InstanceResource):
     @property
     def configuration(self):
         """
-        :returns: The JSON object representing the current configuration
+        :returns: The JSON object that represents the current configuration of installed Add-on
         :rtype: dict
         """
         return self._properties['configuration']
@@ -402,7 +402,7 @@ class InstalledAddOnInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: The string that uniquely identifies this Add-on installation
+        :returns: An application-defined string that uniquely identifies the resource
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -410,7 +410,7 @@ class InstalledAddOnInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this Add-on installation was created
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -418,7 +418,7 @@ class InstalledAddOnInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date this Add-on installation was last updated
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -426,7 +426,7 @@ class InstalledAddOnInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -434,7 +434,7 @@ class InstalledAddOnInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: A dictionary of URLs for related resource.
+        :returns: The URLs of related resources
         :rtype: unicode
         """
         return self._properties['links']
@@ -462,7 +462,7 @@ class InstalledAddOnInstance(InstanceResource):
         Update the InstalledAddOnInstance
 
         :param dict configuration: The JSON object representing the configuration
-        :param unicode unique_name: The string that uniquely identifies this Add-on installation
+        :param unicode unique_name: An application-defined string that uniquely identifies the resource
 
         :returns: Updated InstalledAddOnInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance

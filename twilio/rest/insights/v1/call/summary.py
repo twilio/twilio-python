@@ -19,41 +19,38 @@ class CallSummaryList(ListResource):
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
-    def __init__(self, version):
+    def __init__(self, version, call_sid):
         """
         Initialize the CallSummaryList
 
         :param Version version: Version that contains the resource
+        :param call_sid: The call_sid
 
-        :returns: twilio.rest.insights.v1.summary.CallSummaryList
-        :rtype: twilio.rest.insights.v1.summary.CallSummaryList
+        :returns: twilio.rest.insights.v1.call.summary.CallSummaryList
+        :rtype: twilio.rest.insights.v1.call.summary.CallSummaryList
         """
         super(CallSummaryList, self).__init__(version)
 
         # Path Solution
-        self._solution = {}
+        self._solution = {'call_sid': call_sid, }
 
-    def get(self, call_sid):
+    def get(self):
         """
         Constructs a CallSummaryContext
 
-        :param call_sid: The call_sid
-
-        :returns: twilio.rest.insights.v1.summary.CallSummaryContext
-        :rtype: twilio.rest.insights.v1.summary.CallSummaryContext
+        :returns: twilio.rest.insights.v1.call.summary.CallSummaryContext
+        :rtype: twilio.rest.insights.v1.call.summary.CallSummaryContext
         """
-        return CallSummaryContext(self._version, call_sid=call_sid, )
+        return CallSummaryContext(self._version, call_sid=self._solution['call_sid'], )
 
-    def __call__(self, call_sid):
+    def __call__(self):
         """
         Constructs a CallSummaryContext
 
-        :param call_sid: The call_sid
-
-        :returns: twilio.rest.insights.v1.summary.CallSummaryContext
-        :rtype: twilio.rest.insights.v1.summary.CallSummaryContext
+        :returns: twilio.rest.insights.v1.call.summary.CallSummaryContext
+        :rtype: twilio.rest.insights.v1.call.summary.CallSummaryContext
         """
-        return CallSummaryContext(self._version, call_sid=call_sid, )
+        return CallSummaryContext(self._version, call_sid=self._solution['call_sid'], )
 
     def __repr__(self):
         """
@@ -76,9 +73,10 @@ class CallSummaryPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
+        :param call_sid: The call_sid
 
-        :returns: twilio.rest.insights.v1.summary.CallSummaryPage
-        :rtype: twilio.rest.insights.v1.summary.CallSummaryPage
+        :returns: twilio.rest.insights.v1.call.summary.CallSummaryPage
+        :rtype: twilio.rest.insights.v1.call.summary.CallSummaryPage
         """
         super(CallSummaryPage, self).__init__(version, response)
 
@@ -91,10 +89,10 @@ class CallSummaryPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.insights.v1.summary.CallSummaryInstance
-        :rtype: twilio.rest.insights.v1.summary.CallSummaryInstance
+        :returns: twilio.rest.insights.v1.call.summary.CallSummaryInstance
+        :rtype: twilio.rest.insights.v1.call.summary.CallSummaryInstance
         """
-        return CallSummaryInstance(self._version, payload, )
+        return CallSummaryInstance(self._version, payload, call_sid=self._solution['call_sid'], )
 
     def __repr__(self):
         """
@@ -118,8 +116,8 @@ class CallSummaryContext(InstanceContext):
         :param Version version: Version that contains the resource
         :param call_sid: The call_sid
 
-        :returns: twilio.rest.insights.v1.summary.CallSummaryContext
-        :rtype: twilio.rest.insights.v1.summary.CallSummaryContext
+        :returns: twilio.rest.insights.v1.call.summary.CallSummaryContext
+        :rtype: twilio.rest.insights.v1.call.summary.CallSummaryContext
         """
         super(CallSummaryContext, self).__init__(version)
 
@@ -134,7 +132,7 @@ class CallSummaryContext(InstanceContext):
         :param CallSummaryInstance.ProcessingState processing_state: The processing_state
 
         :returns: Fetched CallSummaryInstance
-        :rtype: twilio.rest.insights.v1.summary.CallSummaryInstance
+        :rtype: twilio.rest.insights.v1.call.summary.CallSummaryInstance
         """
         params = values.of({'ProcessingState': processing_state, })
 
@@ -182,12 +180,12 @@ class CallSummaryInstance(InstanceResource):
         COMPLETE = "complete"
         PARTIAL = "partial"
 
-    def __init__(self, version, payload, call_sid=None):
+    def __init__(self, version, payload, call_sid):
         """
         Initialize the CallSummaryInstance
 
-        :returns: twilio.rest.insights.v1.summary.CallSummaryInstance
-        :rtype: twilio.rest.insights.v1.summary.CallSummaryInstance
+        :returns: twilio.rest.insights.v1.call.summary.CallSummaryInstance
+        :rtype: twilio.rest.insights.v1.call.summary.CallSummaryInstance
         """
         super(CallSummaryInstance, self).__init__(version)
 
@@ -216,7 +214,7 @@ class CallSummaryInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'call_sid': call_sid or self._properties['call_sid'], }
+        self._solution = {'call_sid': call_sid, }
 
     @property
     def _proxy(self):
@@ -225,7 +223,7 @@ class CallSummaryInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: CallSummaryContext for this CallSummaryInstance
-        :rtype: twilio.rest.insights.v1.summary.CallSummaryContext
+        :rtype: twilio.rest.insights.v1.call.summary.CallSummaryContext
         """
         if self._context is None:
             self._context = CallSummaryContext(self._version, call_sid=self._solution['call_sid'], )
@@ -390,7 +388,7 @@ class CallSummaryInstance(InstanceResource):
         :param CallSummaryInstance.ProcessingState processing_state: The processing_state
 
         :returns: Fetched CallSummaryInstance
-        :rtype: twilio.rest.insights.v1.summary.CallSummaryInstance
+        :rtype: twilio.rest.insights.v1.call.summary.CallSummaryInstance
         """
         return self._proxy.fetch(processing_state=processing_state, )
 

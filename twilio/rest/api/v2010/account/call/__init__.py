@@ -56,8 +56,8 @@ class CallList(ListResource):
                caller_id=values.unset,
                machine_detection_speech_threshold=values.unset,
                machine_detection_speech_end_threshold=values.unset,
-               machine_detection_silence_timeout=values.unset, url=values.unset,
-               application_sid=values.unset):
+               machine_detection_silence_timeout=values.unset, twiml=values.unset,
+               url=values.unset, application_sid=values.unset):
         """
         Create a new CallInstance
 
@@ -85,6 +85,7 @@ class CallList(ListResource):
         :param unicode machine_detection_speech_threshold: Number of milliseconds for measuring stick for the length of the speech activity
         :param unicode machine_detection_speech_end_threshold: Number of milliseconds of silence after speech activity
         :param unicode machine_detection_silence_timeout: Number of milliseconds of initial silence
+        :param unicode twiml: TwiML instructions for the call
         :param unicode url: The absolute URL that returns TwiML for this call
         :param unicode application_sid: The SID of the Application resource that will handle the call
 
@@ -118,6 +119,7 @@ class CallList(ListResource):
             'MachineDetectionSpeechThreshold': machine_detection_speech_threshold,
             'MachineDetectionSpeechEndThreshold': machine_detection_speech_end_threshold,
             'MachineDetectionSilenceTimeout': machine_detection_silence_timeout,
+            'Twiml': twiml,
         })
 
         payload = self._version.create(
@@ -588,7 +590,7 @@ class CallInstance(InstanceResource):
             'group_sid': payload.get('group_sid'),
             'parent_call_sid': payload.get('parent_call_sid'),
             'phone_number_sid': payload.get('phone_number_sid'),
-            'price': deserialize.decimal(payload.get('price')),
+            'price': payload.get('price'),
             'price_unit': payload.get('price_unit'),
             'sid': payload.get('sid'),
             'start_time': deserialize.rfc2822_datetime(payload.get('start_time')),

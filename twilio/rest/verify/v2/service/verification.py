@@ -38,11 +38,11 @@ class VerificationList(ListResource):
     def create(self, to, channel, custom_message=values.unset,
                send_digits=values.unset, locale=values.unset,
                custom_code=values.unset, amount=values.unset, payee=values.unset,
-               rate_limits=values.unset):
+               rate_limits=values.unset, channel_configuration=values.unset):
         """
         Create a new VerificationInstance
 
-        :param unicode to: The phone number to verify
+        :param unicode to: The phone number or email to verify
         :param unicode channel: The verification method to use
         :param unicode custom_message: The text of a custom message to use for the verification
         :param unicode send_digits: The digits to send after a phone call is answered
@@ -51,6 +51,7 @@ class VerificationList(ListResource):
         :param unicode amount: The amount of the associated PSD2 compliant transaction.
         :param unicode payee: The payee of the associated PSD2 compliant transaction
         :param dict rate_limits: The custom key-value pairs of Programmable Rate Limits.
+        :param dict channel_configuration: Channel specific configuration in json format.
 
         :returns: Newly created VerificationInstance
         :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
@@ -65,6 +66,7 @@ class VerificationList(ListResource):
             'Amount': amount,
             'Payee': payee,
             'RateLimits': serialize.object(rate_limits),
+            'ChannelConfiguration': serialize.object(channel_configuration),
         })
 
         payload = self._version.create(
@@ -233,6 +235,7 @@ class VerificationInstance(InstanceResource):
     class Channel(object):
         SMS = "sms"
         CALL = "call"
+        EMAIL = "email"
 
     class Status(object):
         CANCELED = "canceled"
@@ -312,7 +315,7 @@ class VerificationInstance(InstanceResource):
     @property
     def to(self):
         """
-        :returns: The phone number being verified
+        :returns: The phone number or email being verified
         :rtype: unicode
         """
         return self._properties['to']

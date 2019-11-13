@@ -23,7 +23,7 @@ class AvailableAddOnExtensionList(ListResource):
         Initialize the AvailableAddOnExtensionList
 
         :param Version version: Version that contains the resource
-        :param available_add_on_sid: The available_add_on_sid
+        :param available_add_on_sid: The SID of the AvailableAddOn resource to which this extension applies
 
         :returns: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionList
         :rtype: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionList
@@ -119,7 +119,7 @@ class AvailableAddOnExtensionList(ListResource):
         """
         Constructs a AvailableAddOnExtensionContext
 
-        :param sid: The unique Extension Sid
+        :param sid: The SID of the AvailableAddOn Extension resource to fetch
 
         :returns: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionContext
         :rtype: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionContext
@@ -134,7 +134,7 @@ class AvailableAddOnExtensionList(ListResource):
         """
         Constructs a AvailableAddOnExtensionContext
 
-        :param sid: The unique Extension Sid
+        :param sid: The SID of the AvailableAddOn Extension resource to fetch
 
         :returns: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionContext
         :rtype: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionContext
@@ -166,7 +166,7 @@ class AvailableAddOnExtensionPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param available_add_on_sid: The available_add_on_sid
+        :param available_add_on_sid: The SID of the AvailableAddOn resource to which this extension applies
 
         :returns: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionPage
         :rtype: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionPage
@@ -211,8 +211,8 @@ class AvailableAddOnExtensionContext(InstanceContext):
         Initialize the AvailableAddOnExtensionContext
 
         :param Version version: Version that contains the resource
-        :param available_add_on_sid: The available_add_on_sid
-        :param sid: The unique Extension Sid
+        :param available_add_on_sid: The SID of the AvailableAddOn resource with the extension to fetch
+        :param sid: The SID of the AvailableAddOn Extension resource to fetch
 
         :returns: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionContext
         :rtype: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionContext
@@ -307,7 +307,7 @@ class AvailableAddOnExtensionInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this Extension
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -315,7 +315,7 @@ class AvailableAddOnExtensionInstance(InstanceResource):
     @property
     def available_add_on_sid(self):
         """
-        :returns: The available_add_on_sid
+        :returns: The SID of the AvailableAddOn resource to which this extension applies
         :rtype: unicode
         """
         return self._properties['available_add_on_sid']
@@ -323,7 +323,7 @@ class AvailableAddOnExtensionInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A human-readable description of this Extension
+        :returns: The string that you assigned to describe the resource
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -331,7 +331,7 @@ class AvailableAddOnExtensionInstance(InstanceResource):
     @property
     def product_name(self):
         """
-        :returns: A human-readable description of the Extension's Product
+        :returns: The name of the Extension's Product
         :rtype: unicode
         """
         return self._properties['product_name']
@@ -339,7 +339,7 @@ class AvailableAddOnExtensionInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: The string that uniquely identifies this Extension
+        :returns: An application-defined string that uniquely identifies the resource
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -347,7 +347,7 @@ class AvailableAddOnExtensionInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']

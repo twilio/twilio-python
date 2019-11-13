@@ -52,7 +52,8 @@ class FlexFlowTestCase(IntegrationTestCase):
                         "enabled": true,
                         "integration_type": "studio",
                         "integration": {
-                            "flow_sid": "FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                            "flow_sid": "FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                            "retry_count": 1
                         },
                         "long_lived": true,
                         "janitor_enabled": true,
@@ -117,7 +118,8 @@ class FlexFlowTestCase(IntegrationTestCase):
                 "enabled": true,
                 "integration_type": "studio",
                 "integration": {
-                    "flow_sid": "FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    "flow_sid": "FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "retry_count": 1
                 },
                 "long_lived": true,
                 "janitor_enabled": true,
@@ -164,7 +166,8 @@ class FlexFlowTestCase(IntegrationTestCase):
                 "enabled": true,
                 "integration_type": "studio",
                 "integration": {
-                    "flow_sid": "FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    "flow_sid": "FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "retry_count": 1
                 },
                 "long_lived": true,
                 "janitor_enabled": true,
@@ -204,7 +207,8 @@ class FlexFlowTestCase(IntegrationTestCase):
                 "enabled": true,
                 "integration_type": "studio",
                 "integration": {
-                    "flow_sid": "FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    "flow_sid": "FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "retry_count": 1
                 },
                 "long_lived": true,
                 "janitor_enabled": true,

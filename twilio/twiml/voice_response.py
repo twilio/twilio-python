@@ -427,6 +427,58 @@ class VoiceResponse(TwiML):
         """
         return self.nest(Stop(**kwargs))
 
+    def refer(self, action=None, method=None, **kwargs):
+        """
+        Create a <Refer> element
+
+        :param action: Action URL
+        :param method: Action URL method
+        :param kwargs: additional attributes
+
+        :returns: <Refer> element
+        """
+        return self.nest(Refer(action=action, method=method, **kwargs))
+
+
+class Refer(TwiML):
+    """ <Refer> TwiML Verb """
+
+    def __init__(self, **kwargs):
+        super(Refer, self).__init__(**kwargs)
+        self.name = 'Refer'
+
+    def sip(self, sip_url, **kwargs):
+        """
+        Create a <Sip> element
+
+        :param sip_url: SIP URL
+        :param kwargs: additional attributes
+
+        :returns: <Sip> element
+        """
+        return self.nest(ReferSip(sip_url, **kwargs))
+
+    @deprecated_method('sip')
+    def refer_sip(self, sip_url, **kwargs):
+        """
+        Create a <Sip> element
+
+        :param sip_url: SIP URL
+        :param kwargs: additional attributes
+
+        :returns: <Sip> element
+        """
+        return self.sip(sip_url, **kwargs)
+
+
+class ReferSip(TwiML):
+    """ <Sip> TwiML Noun used in <Refer> """
+
+    def __init__(self, sip_url, **kwargs):
+        super(ReferSip, self).__init__(**kwargs)
+        self.name = 'Sip'
+        self.value = sip_url
+
 
 class Stop(TwiML):
     """ <Stop> TwiML Verb """
