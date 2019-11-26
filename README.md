@@ -11,20 +11,24 @@ The documentation for the Twilio API can be found [here][apidocs].
 
 The Python library documentation can be found [here][libdocs].
 
-## Recent Update
+## Versions
 
-As of release 6.5.0, Beta and Developer Preview products are now exposed via
-the main `twilio-python` artifact. Releases of the `alpha` branch have been
-discontinued.
+`twilio-python` uses a modified version of [Semantic Versioning](https://semver.org) for all changes. [See this document](VERSIONS.md) for details.
 
-If you were using the `alpha` release line, you should be able to switch back
-to the normal release line without issue.
+### Migrating from 5.x
 
-If you were using the normal release line, you should now see several new
-product lines that were historically hidden from you due to their Beta or
-Developer Preview status. Such products are explicitly documented as
-Beta/Developer Preview both in the Twilio docs and console, as well as through
-in-line code documentation here in the library.
+Please consult the [official migration guide](https://www.twilio.com/docs/libraries/python/migration-guide) for information on upgrading your application using twilio-python 5.x to 6.x
+
+### Supported Python Versions
+
+This library supports the following Python implementations:
+
+* Python 2.7
+* Python 3.4
+* Python 3.5
+* Python 3.6
+* Python 3.7
+* Python 3.8
 
 ## Installation
 
@@ -45,14 +49,6 @@ source code") for `twilio-python`, and then run:
     python setup.py install
 
 You may need to run the above commands with `sudo`.
-
-## Versions
-
-`twilio-python` uses a modified version of [Semantic Versioning](https://semver.org) for all changes. [See this document](VERSIONS.md) for details.
-
-### Migrate from 5.x
-
-Please consult the [official migration guide](https://www.twilio.com/docs/libraries/python/migration-guide) for information on upgrading your application using twilio-python 5.x to 6.x
 
 ## Getting Started
 
