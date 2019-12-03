@@ -13,7 +13,7 @@ class TwilioHttpClient(HttpClient):
     """
     General purpose HTTP Client for interacting with the Twilio API
     """
-    def __init__(self, pool_connections=True, request_hooks=None, timeout=None, logger=_logger):
+    def __init__(self, pool_connections=True, request_hooks=None, timeout=None, logger=_logger, proxy=None):
         """
         Constructor for the TwilioHttpClient
 
@@ -22,6 +22,7 @@ class TwilioHttpClient(HttpClient):
         :param int timeout: Timeout for the requests.
                             Timeout should never be zero (0) or less.
         :param logger
+        :param dict proxy: Http proxy for the requests session
         """
         self.session = Session() if pool_connections else None
         self.last_request = None
@@ -32,6 +33,7 @@ class TwilioHttpClient(HttpClient):
         if timeout is not None and timeout <= 0:
             raise ValueError(timeout)
         self.timeout = timeout
+        self.proxy = proxy
 
     def request(self, method, url, params=None, data=None, headers=None, auth=None, timeout=None,
                 allow_redirects=False):
@@ -74,6 +76,8 @@ class TwilioHttpClient(HttpClient):
 
         self.last_response = None
         session = self.session or Session()
+        if self.proxy:
+            session.proxies = self.proxy
         request = Request(**kwargs)
         self.last_request = TwilioRequest(**kwargs)
 
