@@ -39,9 +39,10 @@ class ParticipantList(ListResource):
                messaging_binding_proxy_address=values.unset,
                date_created=values.unset, date_updated=values.unset,
                attributes=values.unset,
-               messaging_binding_projected_address=values.unset):
+               messaging_binding_projected_address=values.unset,
+               x_twilio_webhook_enabled=values.unset):
         """
-        Create a new ParticipantInstance
+        Create the ParticipantInstance
 
         :param unicode identity: A unique string identifier for the conversation participant as Chat User.
         :param unicode messaging_binding_address: The address of the participant's device.
@@ -50,8 +51,9 @@ class ParticipantList(ListResource):
         :param datetime date_updated: The date that this resource was last updated.
         :param unicode attributes: An optional string metadata field you can use to store any data you wish.
         :param unicode messaging_binding_projected_address: The address of the Twilio phone number that is used in Group MMS.
+        :param ParticipantInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
-        :returns: Newly created ParticipantInstance
+        :returns: The created ParticipantInstance
         :rtype: twilio.rest.conversations.v1.conversation.participant.ParticipantInstance
         """
         data = values.of({
@@ -63,12 +65,9 @@ class ParticipantList(ListResource):
             'Attributes': attributes,
             'MessagingBinding.ProjectedAddress': messaging_binding_projected_address,
         })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers, )
 
         return ParticipantInstance(
             self._version,
@@ -130,13 +129,9 @@ class ParticipantList(ListResource):
         :returns: Page of ParticipantInstance
         :rtype: twilio.rest.conversations.v1.conversation.participant.ParticipantPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return ParticipantPage(self._version, response, self._solution)
 
@@ -264,15 +259,16 @@ class ParticipantContext(InstanceContext):
         self._uri = '/Conversations/{conversation_sid}/Participants/{sid}'.format(**self._solution)
 
     def update(self, date_created=values.unset, date_updated=values.unset,
-               attributes=values.unset):
+               attributes=values.unset, x_twilio_webhook_enabled=values.unset):
         """
         Update the ParticipantInstance
 
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
         :param unicode attributes: An optional string metadata field you can use to store any data you wish.
+        :param ParticipantInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
-        :returns: Updated ParticipantInstance
+        :returns: The updated ParticipantInstance
         :rtype: twilio.rest.conversations.v1.conversation.participant.ParticipantInstance
         """
         data = values.of({
@@ -280,12 +276,9 @@ class ParticipantContext(InstanceContext):
             'DateUpdated': serialize.iso8601_datetime(date_updated),
             'Attributes': attributes,
         })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers, )
 
         return ParticipantInstance(
             self._version,
@@ -294,29 +287,27 @@ class ParticipantContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
-    def delete(self):
+    def delete(self, x_twilio_webhook_enabled=values.unset):
         """
         Deletes the ParticipantInstance
+
+        :param ParticipantInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers, )
 
     def fetch(self):
         """
-        Fetch a ParticipantInstance
+        Fetch the ParticipantInstance
 
-        :returns: Fetched ParticipantInstance
+        :returns: The fetched ParticipantInstance
         :rtype: twilio.rest.conversations.v1.conversation.participant.ParticipantInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ParticipantInstance(
             self._version,
@@ -460,37 +451,41 @@ class ParticipantInstance(InstanceResource):
         return self._properties['url']
 
     def update(self, date_created=values.unset, date_updated=values.unset,
-               attributes=values.unset):
+               attributes=values.unset, x_twilio_webhook_enabled=values.unset):
         """
         Update the ParticipantInstance
 
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
         :param unicode attributes: An optional string metadata field you can use to store any data you wish.
+        :param ParticipantInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
-        :returns: Updated ParticipantInstance
+        :returns: The updated ParticipantInstance
         :rtype: twilio.rest.conversations.v1.conversation.participant.ParticipantInstance
         """
         return self._proxy.update(
             date_created=date_created,
             date_updated=date_updated,
             attributes=attributes,
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
         )
 
-    def delete(self):
+    def delete(self, x_twilio_webhook_enabled=values.unset):
         """
         Deletes the ParticipantInstance
+
+        :param ParticipantInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete()
+        return self._proxy.delete(x_twilio_webhook_enabled=x_twilio_webhook_enabled, )
 
     def fetch(self):
         """
-        Fetch a ParticipantInstance
+        Fetch the ParticipantInstance
 
-        :returns: Fetched ParticipantInstance
+        :returns: The fetched ParticipantInstance
         :rtype: twilio.rest.conversations.v1.conversation.participant.ParticipantInstance
         """
         return self._proxy.fetch()

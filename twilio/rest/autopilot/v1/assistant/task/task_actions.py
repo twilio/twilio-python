@@ -143,18 +143,12 @@ class TaskActionsContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a TaskActionsInstance
+        Fetch the TaskActionsInstance
 
-        :returns: Fetched TaskActionsInstance
+        :returns: The fetched TaskActionsInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return TaskActionsInstance(
             self._version,
@@ -169,16 +163,12 @@ class TaskActionsContext(InstanceContext):
 
         :param dict actions: The JSON string that specifies the actions that instruct the Assistant on how to perform the task
 
-        :returns: Updated TaskActionsInstance
+        :returns: The updated TaskActionsInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsInstance
         """
         data = values.of({'Actions': serialize.object(actions), })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return TaskActionsInstance(
             self._version,
@@ -284,9 +274,9 @@ class TaskActionsInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a TaskActionsInstance
+        Fetch the TaskActionsInstance
 
-        :returns: Fetched TaskActionsInstance
+        :returns: The fetched TaskActionsInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsInstance
         """
         return self._proxy.fetch()
@@ -297,7 +287,7 @@ class TaskActionsInstance(InstanceResource):
 
         :param dict actions: The JSON string that specifies the actions that instruct the Assistant on how to perform the task
 
-        :returns: Updated TaskActionsInstance
+        :returns: The updated TaskActionsInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsInstance
         """
         return self._proxy.update(actions=actions, )

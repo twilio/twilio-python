@@ -86,13 +86,9 @@ class ChannelList(ListResource):
         :returns: Page of ChannelInstance
         :rtype: twilio.rest.flex_api.v1.channel.ChannelPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return ChannelPage(self._version, response, self._solution)
 
@@ -119,7 +115,7 @@ class ChannelList(ListResource):
                task_sid=values.unset, task_attributes=values.unset,
                long_lived=values.unset):
         """
-        Create a new ChannelInstance
+        Create the ChannelInstance
 
         :param unicode flex_flow_sid: The SID of the FlexFlow
         :param unicode identity: The identity value that identifies the new resource's chat User
@@ -132,7 +128,7 @@ class ChannelList(ListResource):
         :param unicode task_attributes: The task attributes to be added for the TaskRouter Task
         :param bool long_lived: Whether to create the channel as long-lived
 
-        :returns: Newly created ChannelInstance
+        :returns: The created ChannelInstance
         :rtype: twilio.rest.flex_api.v1.channel.ChannelInstance
         """
         data = values.of({
@@ -148,11 +144,7 @@ class ChannelList(ListResource):
             'LongLived': long_lived,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return ChannelInstance(self._version, payload, )
 
@@ -248,18 +240,12 @@ class ChannelContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a ChannelInstance
+        Fetch the ChannelInstance
 
-        :returns: Fetched ChannelInstance
+        :returns: The fetched ChannelInstance
         :rtype: twilio.rest.flex_api.v1.channel.ChannelInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ChannelInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -270,7 +256,7 @@ class ChannelContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -390,9 +376,9 @@ class ChannelInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a ChannelInstance
+        Fetch the ChannelInstance
 
-        :returns: Fetched ChannelInstance
+        :returns: The fetched ChannelInstance
         :rtype: twilio.rest.flex_api.v1.channel.ChannelInstance
         """
         return self._proxy.fetch()

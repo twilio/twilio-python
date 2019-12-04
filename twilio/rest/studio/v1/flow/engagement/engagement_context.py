@@ -136,18 +136,12 @@ class EngagementContextContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a EngagementContextInstance
+        Fetch the EngagementContextInstance
 
-        :returns: Fetched EngagementContextInstance
+        :returns: The fetched EngagementContextInstance
         :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return EngagementContextInstance(
             self._version,
@@ -251,9 +245,9 @@ class EngagementContextInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a EngagementContextInstance
+        Fetch the EngagementContextInstance
 
-        :returns: Fetched EngagementContextInstance
+        :returns: The fetched EngagementContextInstance
         :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextInstance
         """
         return self._proxy.fetch()

@@ -89,13 +89,9 @@ class ModelBuildList(ListResource):
         :returns: Page of ModelBuildInstance
         :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return ModelBuildPage(self._version, response, self._solution)
 
@@ -118,21 +114,17 @@ class ModelBuildList(ListResource):
 
     def create(self, status_callback=values.unset, unique_name=values.unset):
         """
-        Create a new ModelBuildInstance
+        Create the ModelBuildInstance
 
         :param unicode status_callback: The URL we should call using a POST method to send status information to your application
         :param unicode unique_name: An application-defined string that uniquely identifies the new resource
 
-        :returns: Newly created ModelBuildInstance
+        :returns: The created ModelBuildInstance
         :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance
         """
         data = values.of({'StatusCallback': status_callback, 'UniqueName': unique_name, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return ModelBuildInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], )
 
@@ -234,18 +226,12 @@ class ModelBuildContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a ModelBuildInstance
+        Fetch the ModelBuildInstance
 
-        :returns: Fetched ModelBuildInstance
+        :returns: The fetched ModelBuildInstance
         :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ModelBuildInstance(
             self._version,
@@ -260,16 +246,12 @@ class ModelBuildContext(InstanceContext):
 
         :param unicode unique_name: An application-defined string that uniquely identifies the resource
 
-        :returns: Updated ModelBuildInstance
+        :returns: The updated ModelBuildInstance
         :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance
         """
         data = values.of({'UniqueName': unique_name, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return ModelBuildInstance(
             self._version,
@@ -285,7 +267,7 @@ class ModelBuildContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -436,9 +418,9 @@ class ModelBuildInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a ModelBuildInstance
+        Fetch the ModelBuildInstance
 
-        :returns: Fetched ModelBuildInstance
+        :returns: The fetched ModelBuildInstance
         :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance
         """
         return self._proxy.fetch()
@@ -449,7 +431,7 @@ class ModelBuildInstance(InstanceResource):
 
         :param unicode unique_name: An application-defined string that uniquely identifies the resource
 
-        :returns: Updated ModelBuildInstance
+        :returns: The updated ModelBuildInstance
         :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance
         """
         return self._proxy.update(unique_name=unique_name, )

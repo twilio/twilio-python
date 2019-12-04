@@ -119,7 +119,7 @@ class RoomRecordingList(ListResource):
         :returns: Page of RoomRecordingInstance
         :rtype: twilio.rest.video.v1.room.recording.RoomRecordingPage
         """
-        params = values.of({
+        data = values.of({
             'Status': status,
             'SourceSid': source_sid,
             'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
@@ -129,11 +129,7 @@ class RoomRecordingList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return RoomRecordingPage(self._version, response, self._solution)
 
@@ -248,18 +244,12 @@ class RoomRecordingContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a RoomRecordingInstance
+        Fetch the RoomRecordingInstance
 
-        :returns: Fetched RoomRecordingInstance
+        :returns: The fetched RoomRecordingInstance
         :rtype: twilio.rest.video.v1.room.recording.RoomRecordingInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return RoomRecordingInstance(
             self._version,
@@ -275,7 +265,7 @@ class RoomRecordingContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -492,9 +482,9 @@ class RoomRecordingInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a RoomRecordingInstance
+        Fetch the RoomRecordingInstance
 
-        :returns: Fetched RoomRecordingInstance
+        :returns: The fetched RoomRecordingInstance
         :rtype: twilio.rest.video.v1.room.recording.RoomRecordingInstance
         """
         return self._proxy.fetch()

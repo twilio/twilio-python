@@ -41,7 +41,7 @@ class RoomList(ListResource):
                record_participants_on_connect=values.unset,
                video_codecs=values.unset, media_region=values.unset):
         """
-        Create a new RoomInstance
+        Create the RoomInstance
 
         :param bool enable_turn: Enable Twilio's Network Traversal TURN service
         :param RoomInstance.RoomType type: The type of room
@@ -53,7 +53,7 @@ class RoomList(ListResource):
         :param RoomInstance.VideoCodec video_codecs: An array of the video codecs that are supported when publishing a track in the room
         :param unicode media_region: The region for the media server in Group Rooms
 
-        :returns: Newly created RoomInstance
+        :returns: The created RoomInstance
         :rtype: twilio.rest.video.v1.room.RoomInstance
         """
         data = values.of({
@@ -68,11 +68,7 @@ class RoomList(ListResource):
             'MediaRegion': media_region,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return RoomInstance(self._version, payload, )
 
@@ -161,7 +157,7 @@ class RoomList(ListResource):
         :returns: Page of RoomInstance
         :rtype: twilio.rest.video.v1.room.RoomPage
         """
-        params = values.of({
+        data = values.of({
             'Status': status,
             'UniqueName': unique_name,
             'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
@@ -171,11 +167,7 @@ class RoomList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return RoomPage(self._version, response, self._solution)
 
@@ -292,18 +284,12 @@ class RoomContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a RoomInstance
+        Fetch the RoomInstance
 
-        :returns: Fetched RoomInstance
+        :returns: The fetched RoomInstance
         :rtype: twilio.rest.video.v1.room.RoomInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return RoomInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -313,16 +299,12 @@ class RoomContext(InstanceContext):
 
         :param RoomInstance.RoomStatus status: The new status of the resource
 
-        :returns: Updated RoomInstance
+        :returns: The updated RoomInstance
         :rtype: twilio.rest.video.v1.room.RoomInstance
         """
         data = values.of({'Status': status, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return RoomInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -572,9 +554,9 @@ class RoomInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a RoomInstance
+        Fetch the RoomInstance
 
-        :returns: Fetched RoomInstance
+        :returns: The fetched RoomInstance
         :rtype: twilio.rest.video.v1.room.RoomInstance
         """
         return self._proxy.fetch()
@@ -585,7 +567,7 @@ class RoomInstance(InstanceResource):
 
         :param RoomInstance.RoomStatus status: The new status of the resource
 
-        :returns: Updated RoomInstance
+        :returns: The updated RoomInstance
         :rtype: twilio.rest.video.v1.room.RoomInstance
         """
         return self._proxy.update(status, )

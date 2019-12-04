@@ -59,7 +59,7 @@ class CallList(ListResource):
                machine_detection_silence_timeout=values.unset, twiml=values.unset,
                url=values.unset, application_sid=values.unset):
         """
-        Create a new CallInstance
+        Create the CallInstance
 
         :param unicode to: Phone number, SIP address, or client identifier to call
         :param unicode from_: Twilio number from which to originate the call
@@ -89,7 +89,7 @@ class CallList(ListResource):
         :param unicode url: The absolute URL that returns TwiML for this call
         :param unicode application_sid: The SID of the Application resource that will handle the call
 
-        :returns: Newly created CallInstance
+        :returns: The created CallInstance
         :rtype: twilio.rest.api.v2010.account.call.CallInstance
         """
         data = values.of({
@@ -122,11 +122,7 @@ class CallList(ListResource):
             'Twiml': twiml,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return CallInstance(self._version, payload, account_sid=self._solution['account_sid'], )
 
@@ -254,7 +250,7 @@ class CallList(ListResource):
         :returns: Page of CallInstance
         :rtype: twilio.rest.api.v2010.account.call.CallPage
         """
-        params = values.of({
+        data = values.of({
             'To': to,
             'From': from_,
             'ParentCallSid': parent_call_sid,
@@ -270,11 +266,7 @@ class CallList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return CallPage(self._version, response, self._solution)
 
@@ -414,22 +406,16 @@ class CallContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def fetch(self):
         """
-        Fetch a CallInstance
+        Fetch the CallInstance
 
-        :returns: Fetched CallInstance
+        :returns: The fetched CallInstance
         :rtype: twilio.rest.api.v2010.account.call.CallInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CallInstance(
             self._version,
@@ -454,7 +440,7 @@ class CallContext(InstanceContext):
         :param unicode status_callback_method: HTTP Method to use to call status_callback
         :param unicode twiml: TwiML instructions for the call
 
-        :returns: Updated CallInstance
+        :returns: The updated CallInstance
         :rtype: twilio.rest.api.v2010.account.call.CallInstance
         """
         data = values.of({
@@ -468,11 +454,7 @@ class CallContext(InstanceContext):
             'Twiml': twiml,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return CallInstance(
             self._version,
@@ -833,9 +815,9 @@ class CallInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a CallInstance
+        Fetch the CallInstance
 
-        :returns: Fetched CallInstance
+        :returns: The fetched CallInstance
         :rtype: twilio.rest.api.v2010.account.call.CallInstance
         """
         return self._proxy.fetch()
@@ -856,7 +838,7 @@ class CallInstance(InstanceResource):
         :param unicode status_callback_method: HTTP Method to use to call status_callback
         :param unicode twiml: TwiML instructions for the call
 
-        :returns: Updated CallInstance
+        :returns: The updated CallInstance
         :rtype: twilio.rest.api.v2010.account.call.CallInstance
         """
         return self._proxy.update(

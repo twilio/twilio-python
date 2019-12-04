@@ -90,13 +90,9 @@ class DeploymentList(ListResource):
         :returns: Page of DeploymentInstance
         :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return DeploymentPage(self._version, response, self._solution)
 
@@ -119,20 +115,16 @@ class DeploymentList(ListResource):
 
     def create(self, build_sid):
         """
-        Create a new DeploymentInstance
+        Create the DeploymentInstance
 
         :param unicode build_sid: The SID of the build for the deployment
 
-        :returns: Newly created DeploymentInstance
+        :returns: The created DeploymentInstance
         :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance
         """
         data = values.of({'BuildSid': build_sid, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return DeploymentInstance(
             self._version,
@@ -256,18 +248,12 @@ class DeploymentContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a DeploymentInstance
+        Fetch the DeploymentInstance
 
-        :returns: Fetched DeploymentInstance
+        :returns: The fetched DeploymentInstance
         :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return DeploymentInstance(
             self._version,
@@ -406,9 +392,9 @@ class DeploymentInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a DeploymentInstance
+        Fetch the DeploymentInstance
 
-        :returns: Fetched DeploymentInstance
+        :returns: The fetched DeploymentInstance
         :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance
         """
         return self._proxy.fetch()

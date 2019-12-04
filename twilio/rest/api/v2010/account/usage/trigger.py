@@ -37,7 +37,7 @@ class TriggerList(ListResource):
                callback_method=values.unset, friendly_name=values.unset,
                recurring=values.unset, trigger_by=values.unset):
         """
-        Create a new TriggerInstance
+        Create the TriggerInstance
 
         :param unicode callback_url: The URL we call when the trigger fires
         :param unicode trigger_value: The usage value at which the trigger should fire
@@ -47,7 +47,7 @@ class TriggerList(ListResource):
         :param TriggerInstance.Recurring recurring: The frequency of a recurring UsageTrigger
         :param TriggerInstance.TriggerField trigger_by: The field in the UsageRecord resource that fires the trigger
 
-        :returns: Newly created TriggerInstance
+        :returns: The created TriggerInstance
         :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
         """
         data = values.of({
@@ -60,11 +60,7 @@ class TriggerList(ListResource):
             'TriggerBy': trigger_by,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return TriggerInstance(self._version, payload, account_sid=self._solution['account_sid'], )
 
@@ -145,7 +141,7 @@ class TriggerList(ListResource):
         :returns: Page of TriggerInstance
         :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerPage
         """
-        params = values.of({
+        data = values.of({
             'Recurring': recurring,
             'TriggerBy': trigger_by,
             'UsageCategory': usage_category,
@@ -154,11 +150,7 @@ class TriggerList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return TriggerPage(self._version, response, self._solution)
 
@@ -273,18 +265,12 @@ class TriggerContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a TriggerInstance
+        Fetch the TriggerInstance
 
-        :returns: Fetched TriggerInstance
+        :returns: The fetched TriggerInstance
         :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return TriggerInstance(
             self._version,
@@ -302,7 +288,7 @@ class TriggerContext(InstanceContext):
         :param unicode callback_url: The URL we call when the trigger fires
         :param unicode friendly_name: A string to describe the resource
 
-        :returns: Updated TriggerInstance
+        :returns: The updated TriggerInstance
         :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
         """
         data = values.of({
@@ -311,11 +297,7 @@ class TriggerContext(InstanceContext):
             'FriendlyName': friendly_name,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return TriggerInstance(
             self._version,
@@ -331,7 +313,7 @@ class TriggerContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -785,9 +767,9 @@ class TriggerInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a TriggerInstance
+        Fetch the TriggerInstance
 
-        :returns: Fetched TriggerInstance
+        :returns: The fetched TriggerInstance
         :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
         """
         return self._proxy.fetch()
@@ -801,7 +783,7 @@ class TriggerInstance(InstanceResource):
         :param unicode callback_url: The URL we call when the trigger fires
         :param unicode friendly_name: A string to describe the resource
 
-        :returns: Updated TriggerInstance
+        :returns: The updated TriggerInstance
         :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
         """
         return self._proxy.update(

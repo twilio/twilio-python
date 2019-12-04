@@ -91,13 +91,9 @@ class SessionList(ListResource):
         :returns: Page of SessionInstance
         :rtype: twilio.rest.proxy.v1.service.session.SessionPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return SessionPage(self._version, response, self._solution)
 
@@ -122,7 +118,7 @@ class SessionList(ListResource):
                ttl=values.unset, mode=values.unset, status=values.unset,
                participants=values.unset):
         """
-        Create a new SessionInstance
+        Create the SessionInstance
 
         :param unicode unique_name: An application-defined string that uniquely identifies the resource
         :param datetime date_expiry: The ISO 8601 date when the Session should expire
@@ -131,7 +127,7 @@ class SessionList(ListResource):
         :param SessionInstance.Status status: Session status
         :param dict participants: The Participant objects to include in the new session
 
-        :returns: Newly created SessionInstance
+        :returns: The created SessionInstance
         :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
         """
         data = values.of({
@@ -143,11 +139,7 @@ class SessionList(ListResource):
             'Participants': serialize.map(participants, lambda e: serialize.object(e)),
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return SessionInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
@@ -251,18 +243,12 @@ class SessionContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a SessionInstance
+        Fetch the SessionInstance
 
-        :returns: Fetched SessionInstance
+        :returns: The fetched SessionInstance
         :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SessionInstance(
             self._version,
@@ -278,7 +264,7 @@ class SessionContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def update(self, date_expiry=values.unset, ttl=values.unset,
                status=values.unset):
@@ -289,7 +275,7 @@ class SessionContext(InstanceContext):
         :param unicode ttl: When the session will expire
         :param SessionInstance.Status status: The new status of the resource
 
-        :returns: Updated SessionInstance
+        :returns: The updated SessionInstance
         :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
         """
         data = values.of({
@@ -298,11 +284,7 @@ class SessionContext(InstanceContext):
             'Status': status,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return SessionInstance(
             self._version,
@@ -550,9 +532,9 @@ class SessionInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a SessionInstance
+        Fetch the SessionInstance
 
-        :returns: Fetched SessionInstance
+        :returns: The fetched SessionInstance
         :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
         """
         return self._proxy.fetch()
@@ -575,7 +557,7 @@ class SessionInstance(InstanceResource):
         :param unicode ttl: When the session will expire
         :param SessionInstance.Status status: The new status of the resource
 
-        :returns: Updated SessionInstance
+        :returns: The updated SessionInstance
         :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
         """
         return self._proxy.update(date_expiry=date_expiry, ttl=ttl, status=status, )

@@ -117,7 +117,7 @@ class MobileList(ListResource):
         :returns: Page of MobileInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.mobile.MobilePage
         """
-        params = values.of({
+        data = values.of({
             'Beta': beta,
             'FriendlyName': friendly_name,
             'PhoneNumber': phone_number,
@@ -127,11 +127,7 @@ class MobileList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return MobilePage(self._version, response, self._solution)
 
@@ -163,7 +159,7 @@ class MobileList(ListResource):
                voice_method=values.unset, voice_url=values.unset,
                identity_sid=values.unset, address_sid=values.unset):
         """
-        Create a new MobileInstance
+        Create the MobileInstance
 
         :param unicode phone_number: The phone number to purchase in E.164 format
         :param unicode api_version: The API version to use for incoming calls made to the new phone number
@@ -184,7 +180,7 @@ class MobileList(ListResource):
         :param unicode identity_sid: The SID of the Identity resource to associate with the new phone number
         :param unicode address_sid: The SID of the Address resource associated with the phone number
 
-        :returns: Newly created MobileInstance
+        :returns: The created MobileInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.mobile.MobileInstance
         """
         data = values.of({
@@ -208,11 +204,7 @@ class MobileList(ListResource):
             'AddressSid': address_sid,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return MobileInstance(self._version, payload, account_sid=self._solution['account_sid'], )
 

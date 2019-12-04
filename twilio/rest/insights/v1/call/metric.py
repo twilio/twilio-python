@@ -96,7 +96,7 @@ class MetricList(ListResource):
         :returns: Page of MetricInstance
         :rtype: twilio.rest.insights.v1.call.metric.MetricPage
         """
-        params = values.of({
+        data = values.of({
             'Edge': edge,
             'Direction': direction,
             'PageToken': page_token,
@@ -104,11 +104,7 @@ class MetricList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return MetricPage(self._version, response, self._solution)
 

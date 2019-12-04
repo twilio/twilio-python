@@ -86,13 +86,9 @@ class AwsList(ListResource):
         :returns: Page of AwsInstance
         :rtype: twilio.rest.accounts.v1.credential.aws.AwsPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return AwsPage(self._version, response, self._solution)
 
@@ -116,13 +112,13 @@ class AwsList(ListResource):
     def create(self, credentials, friendly_name=values.unset,
                account_sid=values.unset):
         """
-        Create a new AwsInstance
+        Create the AwsInstance
 
         :param unicode credentials: A string that contains the AWS access credentials in the format <AWS_ACCESS_KEY_ID>:<AWS_SECRET_ACCESS_KEY>
         :param unicode friendly_name: A string to describe the resource
         :param unicode account_sid: The Subaccount this Credential should be associated with.
 
-        :returns: Newly created AwsInstance
+        :returns: The created AwsInstance
         :rtype: twilio.rest.accounts.v1.credential.aws.AwsInstance
         """
         data = values.of({
@@ -131,11 +127,7 @@ class AwsList(ListResource):
             'AccountSid': account_sid,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return AwsInstance(self._version, payload, )
 
@@ -231,18 +223,12 @@ class AwsContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a AwsInstance
+        Fetch the AwsInstance
 
-        :returns: Fetched AwsInstance
+        :returns: The fetched AwsInstance
         :rtype: twilio.rest.accounts.v1.credential.aws.AwsInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AwsInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -252,16 +238,12 @@ class AwsContext(InstanceContext):
 
         :param unicode friendly_name: A string to describe the resource
 
-        :returns: Updated AwsInstance
+        :returns: The updated AwsInstance
         :rtype: twilio.rest.accounts.v1.credential.aws.AwsInstance
         """
         data = values.of({'FriendlyName': friendly_name, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return AwsInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -272,7 +254,7 @@ class AwsContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -374,9 +356,9 @@ class AwsInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a AwsInstance
+        Fetch the AwsInstance
 
-        :returns: Fetched AwsInstance
+        :returns: The fetched AwsInstance
         :rtype: twilio.rest.accounts.v1.credential.aws.AwsInstance
         """
         return self._proxy.fetch()
@@ -387,7 +369,7 @@ class AwsInstance(InstanceResource):
 
         :param unicode friendly_name: A string to describe the resource
 
-        :returns: Updated AwsInstance
+        :returns: The updated AwsInstance
         :rtype: twilio.rest.accounts.v1.credential.aws.AwsInstance
         """
         return self._proxy.update(friendly_name=friendly_name, )

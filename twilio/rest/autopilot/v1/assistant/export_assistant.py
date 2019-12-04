@@ -131,18 +131,12 @@ class ExportAssistantContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a ExportAssistantInstance
+        Fetch the ExportAssistantInstance
 
-        :returns: Fetched ExportAssistantInstance
+        :returns: The fetched ExportAssistantInstance
         :rtype: twilio.rest.autopilot.v1.assistant.export_assistant.ExportAssistantInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ExportAssistantInstance(
             self._version,
@@ -265,9 +259,9 @@ class ExportAssistantInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a ExportAssistantInstance
+        Fetch the ExportAssistantInstance
 
-        :returns: Fetched ExportAssistantInstance
+        :returns: The fetched ExportAssistantInstance
         :rtype: twilio.rest.autopilot.v1.assistant.export_assistant.ExportAssistantInstance
         """
         return self._proxy.fetch()

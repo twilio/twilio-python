@@ -87,13 +87,9 @@ class DependentPhoneNumberList(ListResource):
         :returns: Page of DependentPhoneNumberInstance
         :rtype: twilio.rest.api.v2010.account.address.dependent_phone_number.DependentPhoneNumberPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return DependentPhoneNumberPage(self._version, response, self._solution)
 

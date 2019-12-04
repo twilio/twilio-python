@@ -127,7 +127,7 @@ class WorkspaceStatisticsContext(InstanceContext):
               end_date=values.unset, task_channel=values.unset,
               split_by_wait_time=values.unset):
         """
-        Fetch a WorkspaceStatisticsInstance
+        Fetch the WorkspaceStatisticsInstance
 
         :param unicode minutes: Only calculate statistics since this many minutes in the past
         :param datetime start_date: Only calculate statistics from on or after this date
@@ -135,10 +135,10 @@ class WorkspaceStatisticsContext(InstanceContext):
         :param unicode task_channel: Only calculate statistics on this TaskChannel.
         :param unicode split_by_wait_time: A comma separated list of values that describes the thresholds to calculate statistics on
 
-        :returns: Fetched WorkspaceStatisticsInstance
+        :returns: The fetched WorkspaceStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsInstance
         """
-        params = values.of({
+        data = values.of({
             'Minutes': minutes,
             'StartDate': serialize.iso8601_datetime(start_date),
             'EndDate': serialize.iso8601_datetime(end_date),
@@ -146,11 +146,7 @@ class WorkspaceStatisticsContext(InstanceContext):
             'SplitByWaitTime': split_by_wait_time,
         })
 
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data, )
 
         return WorkspaceStatisticsInstance(
             self._version,
@@ -254,7 +250,7 @@ class WorkspaceStatisticsInstance(InstanceResource):
               end_date=values.unset, task_channel=values.unset,
               split_by_wait_time=values.unset):
         """
-        Fetch a WorkspaceStatisticsInstance
+        Fetch the WorkspaceStatisticsInstance
 
         :param unicode minutes: Only calculate statistics since this many minutes in the past
         :param datetime start_date: Only calculate statistics from on or after this date
@@ -262,7 +258,7 @@ class WorkspaceStatisticsInstance(InstanceResource):
         :param unicode task_channel: Only calculate statistics on this TaskChannel.
         :param unicode split_by_wait_time: A comma separated list of values that describes the thresholds to calculate statistics on
 
-        :returns: Fetched WorkspaceStatisticsInstance
+        :returns: The fetched WorkspaceStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsInstance
         """
         return self._proxy.fetch(

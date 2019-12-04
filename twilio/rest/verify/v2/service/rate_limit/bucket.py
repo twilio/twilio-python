@@ -37,21 +37,17 @@ class BucketList(ListResource):
 
     def create(self, max, interval):
         """
-        Create a new BucketInstance
+        Create the BucketInstance
 
         :param unicode max: Max number of requests.
         :param unicode interval: Number of seconds that the rate limit will be enforced over.
 
-        :returns: Newly created BucketInstance
+        :returns: The created BucketInstance
         :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketInstance
         """
         data = values.of({'Max': max, 'Interval': interval, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return BucketInstance(
             self._version,
@@ -114,13 +110,9 @@ class BucketList(ListResource):
         :returns: Page of BucketInstance
         :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return BucketPage(self._version, response, self._solution)
 
@@ -259,16 +251,12 @@ class BucketContext(InstanceContext):
         :param unicode max: Max number of requests.
         :param unicode interval: Number of seconds that the rate limit will be enforced over.
 
-        :returns: Updated BucketInstance
+        :returns: The updated BucketInstance
         :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketInstance
         """
         data = values.of({'Max': max, 'Interval': interval, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return BucketInstance(
             self._version,
@@ -280,18 +268,12 @@ class BucketContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a BucketInstance
+        Fetch the BucketInstance
 
-        :returns: Fetched BucketInstance
+        :returns: The fetched BucketInstance
         :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return BucketInstance(
             self._version,
@@ -308,7 +290,7 @@ class BucketContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -452,16 +434,16 @@ class BucketInstance(InstanceResource):
         :param unicode max: Max number of requests.
         :param unicode interval: Number of seconds that the rate limit will be enforced over.
 
-        :returns: Updated BucketInstance
+        :returns: The updated BucketInstance
         :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketInstance
         """
         return self._proxy.update(max=max, interval=interval, )
 
     def fetch(self):
         """
-        Fetch a BucketInstance
+        Fetch the BucketInstance
 
-        :returns: Fetched BucketInstance
+        :returns: The fetched BucketInstance
         :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketInstance
         """
         return self._proxy.fetch()

@@ -128,7 +128,7 @@ class WorkersStatisticsContext(InstanceContext):
               task_queue_name=values.unset, friendly_name=values.unset,
               task_channel=values.unset):
         """
-        Fetch a WorkersStatisticsInstance
+        Fetch the WorkersStatisticsInstance
 
         :param unicode minutes: Only calculate statistics since this many minutes in the past
         :param datetime start_date: Only calculate statistics from on or after this date
@@ -138,10 +138,10 @@ class WorkersStatisticsContext(InstanceContext):
         :param unicode friendly_name: Only include Workers with `friendly_name` values that match this parameter
         :param unicode task_channel: Only calculate statistics on this TaskChannel
 
-        :returns: Fetched WorkersStatisticsInstance
+        :returns: The fetched WorkersStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_statistics.WorkersStatisticsInstance
         """
-        params = values.of({
+        data = values.of({
             'Minutes': minutes,
             'StartDate': serialize.iso8601_datetime(start_date),
             'EndDate': serialize.iso8601_datetime(end_date),
@@ -151,11 +151,7 @@ class WorkersStatisticsContext(InstanceContext):
             'TaskChannel': task_channel,
         })
 
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data, )
 
         return WorkersStatisticsInstance(
             self._version,
@@ -260,7 +256,7 @@ class WorkersStatisticsInstance(InstanceResource):
               task_queue_name=values.unset, friendly_name=values.unset,
               task_channel=values.unset):
         """
-        Fetch a WorkersStatisticsInstance
+        Fetch the WorkersStatisticsInstance
 
         :param unicode minutes: Only calculate statistics since this many minutes in the past
         :param datetime start_date: Only calculate statistics from on or after this date
@@ -270,7 +266,7 @@ class WorkersStatisticsInstance(InstanceResource):
         :param unicode friendly_name: Only include Workers with `friendly_name` values that match this parameter
         :param unicode task_channel: Only calculate statistics on this TaskChannel
 
-        :returns: Fetched WorkersStatisticsInstance
+        :returns: The fetched WorkersStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_statistics.WorkersStatisticsInstance
         """
         return self._proxy.fetch(

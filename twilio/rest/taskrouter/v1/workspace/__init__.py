@@ -99,18 +99,14 @@ class WorkspaceList(ListResource):
         :returns: Page of WorkspaceInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.WorkspacePage
         """
-        params = values.of({
+        data = values.of({
             'FriendlyName': friendly_name,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return WorkspacePage(self._version, response, self._solution)
 
@@ -135,7 +131,7 @@ class WorkspaceList(ListResource):
                events_filter=values.unset, multi_task_enabled=values.unset,
                template=values.unset, prioritize_queue_order=values.unset):
         """
-        Create a new WorkspaceInstance
+        Create the WorkspaceInstance
 
         :param unicode friendly_name: A string to describe the Workspace resource
         :param unicode event_callback_url: The URL we should call when an event occurs
@@ -144,7 +140,7 @@ class WorkspaceList(ListResource):
         :param unicode template: An available template name
         :param WorkspaceInstance.QueueOrder prioritize_queue_order: The type of TaskQueue to prioritize when Workers are receiving Tasks from both types of TaskQueues
 
-        :returns: Newly created WorkspaceInstance
+        :returns: The created WorkspaceInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
         """
         data = values.of({
@@ -156,11 +152,7 @@ class WorkspaceList(ListResource):
             'PrioritizeQueueOrder': prioritize_queue_order,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return WorkspaceInstance(self._version, payload, )
 
@@ -268,18 +260,12 @@ class WorkspaceContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a WorkspaceInstance
+        Fetch the WorkspaceInstance
 
-        :returns: Fetched WorkspaceInstance
+        :returns: The fetched WorkspaceInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return WorkspaceInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -299,7 +285,7 @@ class WorkspaceContext(InstanceContext):
         :param unicode timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response
         :param WorkspaceInstance.QueueOrder prioritize_queue_order: The type of TaskQueue to prioritize when Workers are receiving Tasks from both types of TaskQueues
 
-        :returns: Updated WorkspaceInstance
+        :returns: The updated WorkspaceInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
         """
         data = values.of({
@@ -312,11 +298,7 @@ class WorkspaceContext(InstanceContext):
             'PrioritizeQueueOrder': prioritize_queue_order,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return WorkspaceInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -327,7 +309,7 @@ class WorkspaceContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     @property
     def activities(self):
@@ -640,9 +622,9 @@ class WorkspaceInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a WorkspaceInstance
+        Fetch the WorkspaceInstance
 
-        :returns: Fetched WorkspaceInstance
+        :returns: The fetched WorkspaceInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
         """
         return self._proxy.fetch()
@@ -663,7 +645,7 @@ class WorkspaceInstance(InstanceResource):
         :param unicode timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response
         :param WorkspaceInstance.QueueOrder prioritize_queue_order: The type of TaskQueue to prioritize when Workers are receiving Tasks from both types of TaskQueues
 
-        :returns: Updated WorkspaceInstance
+        :returns: The updated WorkspaceInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
         """
         return self._proxy.update(

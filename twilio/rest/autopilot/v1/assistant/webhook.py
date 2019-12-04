@@ -89,13 +89,9 @@ class WebhookList(ListResource):
         :returns: Page of WebhookInstance
         :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return WebhookPage(self._version, response, self._solution)
 
@@ -118,14 +114,14 @@ class WebhookList(ListResource):
 
     def create(self, unique_name, events, webhook_url, webhook_method=values.unset):
         """
-        Create a new WebhookInstance
+        Create the WebhookInstance
 
         :param unicode unique_name: An application-defined string that uniquely identifies the resource
         :param unicode events: The list of space-separated events that this Webhook will subscribe to.
         :param unicode webhook_url: The URL associated with this Webhook.
         :param unicode webhook_method: The method to be used when calling the webhook's URL.
 
-        :returns: Newly created WebhookInstance
+        :returns: The created WebhookInstance
         :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookInstance
         """
         data = values.of({
@@ -135,11 +131,7 @@ class WebhookList(ListResource):
             'WebhookMethod': webhook_method,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return WebhookInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], )
 
@@ -241,18 +233,12 @@ class WebhookContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a WebhookInstance
+        Fetch the WebhookInstance
 
-        :returns: Fetched WebhookInstance
+        :returns: The fetched WebhookInstance
         :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return WebhookInstance(
             self._version,
@@ -271,7 +257,7 @@ class WebhookContext(InstanceContext):
         :param unicode webhook_url: The URL associated with this Webhook.
         :param unicode webhook_method: The method to be used when calling the webhook's URL.
 
-        :returns: Updated WebhookInstance
+        :returns: The updated WebhookInstance
         :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookInstance
         """
         data = values.of({
@@ -281,11 +267,7 @@ class WebhookContext(InstanceContext):
             'WebhookMethod': webhook_method,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return WebhookInstance(
             self._version,
@@ -301,7 +283,7 @@ class WebhookContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -445,9 +427,9 @@ class WebhookInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a WebhookInstance
+        Fetch the WebhookInstance
 
-        :returns: Fetched WebhookInstance
+        :returns: The fetched WebhookInstance
         :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookInstance
         """
         return self._proxy.fetch()
@@ -462,7 +444,7 @@ class WebhookInstance(InstanceResource):
         :param unicode webhook_url: The URL associated with this Webhook.
         :param unicode webhook_method: The method to be used when calling the webhook's URL.
 
-        :returns: Updated WebhookInstance
+        :returns: The updated WebhookInstance
         :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookInstance
         """
         return self._proxy.update(

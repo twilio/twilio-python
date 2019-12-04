@@ -42,7 +42,7 @@ class TrunkList(ListResource):
                disaster_recovery_method=values.unset, recording=values.unset,
                secure=values.unset, cnam_lookup_enabled=values.unset):
         """
-        Create a new TrunkInstance
+        Create the TrunkInstance
 
         :param unicode friendly_name: A string to describe the resource
         :param unicode domain_name: The unique address you reserve on Twilio to which you route your SIP traffic
@@ -52,7 +52,7 @@ class TrunkList(ListResource):
         :param bool secure: Whether Secure Trunking is enabled for the trunk
         :param bool cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup should be enabled for the trunk
 
-        :returns: Newly created TrunkInstance
+        :returns: The created TrunkInstance
         :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
         """
         data = values.of({
@@ -65,11 +65,7 @@ class TrunkList(ListResource):
             'CnamLookupEnabled': cnam_lookup_enabled,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return TrunkInstance(self._version, payload, )
 
@@ -127,13 +123,9 @@ class TrunkList(ListResource):
         :returns: Page of TrunkInstance
         :rtype: twilio.rest.trunking.v1.trunk.TrunkPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return TrunkPage(self._version, response, self._solution)
 
@@ -253,18 +245,12 @@ class TrunkContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a TrunkInstance
+        Fetch the TrunkInstance
 
-        :returns: Fetched TrunkInstance
+        :returns: The fetched TrunkInstance
         :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return TrunkInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -275,7 +261,7 @@ class TrunkContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def update(self, friendly_name=values.unset, domain_name=values.unset,
                disaster_recovery_url=values.unset,
@@ -292,7 +278,7 @@ class TrunkContext(InstanceContext):
         :param bool secure: Whether Secure Trunking is enabled for the trunk
         :param bool cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup should be enabled for the trunk
 
-        :returns: Updated TrunkInstance
+        :returns: The updated TrunkInstance
         :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
         """
         data = values.of({
@@ -305,11 +291,7 @@ class TrunkContext(InstanceContext):
             'CnamLookupEnabled': cnam_lookup_enabled,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return TrunkInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -565,9 +547,9 @@ class TrunkInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a TrunkInstance
+        Fetch the TrunkInstance
 
-        :returns: Fetched TrunkInstance
+        :returns: The fetched TrunkInstance
         :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
         """
         return self._proxy.fetch()
@@ -596,7 +578,7 @@ class TrunkInstance(InstanceResource):
         :param bool secure: Whether Secure Trunking is enabled for the trunk
         :param bool cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup should be enabled for the trunk
 
-        :returns: Updated TrunkInstance
+        :returns: The updated TrunkInstance
         :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
         """
         return self._proxy.update(

@@ -90,18 +90,14 @@ class EventList(ListResource):
         :returns: Page of EventInstance
         :rtype: twilio.rest.insights.v1.call.event.EventPage
         """
-        params = values.of({
+        data = values.of({
             'Edge': edge,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return EventPage(self._version, response, self._solution)
 

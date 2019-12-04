@@ -127,20 +127,16 @@ class CallSummaryContext(InstanceContext):
 
     def fetch(self, processing_state=values.unset):
         """
-        Fetch a CallSummaryInstance
+        Fetch the CallSummaryInstance
 
         :param CallSummaryInstance.ProcessingState processing_state: The processing_state
 
-        :returns: Fetched CallSummaryInstance
+        :returns: The fetched CallSummaryInstance
         :rtype: twilio.rest.insights.v1.call.summary.CallSummaryInstance
         """
-        params = values.of({'ProcessingState': processing_state, })
+        data = values.of({'ProcessingState': processing_state, })
 
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data, )
 
         return CallSummaryInstance(self._version, payload, call_sid=self._solution['call_sid'], )
 
@@ -383,11 +379,11 @@ class CallSummaryInstance(InstanceResource):
 
     def fetch(self, processing_state=values.unset):
         """
-        Fetch a CallSummaryInstance
+        Fetch the CallSummaryInstance
 
         :param CallSummaryInstance.ProcessingState processing_state: The processing_state
 
-        :returns: Fetched CallSummaryInstance
+        :returns: The fetched CallSummaryInstance
         :rtype: twilio.rest.insights.v1.call.summary.CallSummaryInstance
         """
         return self._proxy.fetch(processing_state=processing_state, )

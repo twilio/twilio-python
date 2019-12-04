@@ -37,18 +37,12 @@ class SubscribeRulesList(ListResource):
 
     def fetch(self):
         """
-        Fetch a SubscribeRulesInstance
+        Fetch the SubscribeRulesInstance
 
-        :returns: Fetched SubscribeRulesInstance
+        :returns: The fetched SubscribeRulesInstance
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_subscribe_rule.SubscribeRulesInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SubscribeRulesInstance(
             self._version,
@@ -63,16 +57,12 @@ class SubscribeRulesList(ListResource):
 
         :param dict rules: A JSON-encoded array of subscribe rules
 
-        :returns: Updated SubscribeRulesInstance
+        :returns: The updated SubscribeRulesInstance
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_subscribe_rule.SubscribeRulesInstance
         """
         data = values.of({'Rules': serialize.object(rules), })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return SubscribeRulesInstance(
             self._version,

@@ -98,13 +98,9 @@ class AssistantList(ListResource):
         :returns: Page of AssistantInstance
         :rtype: twilio.rest.autopilot.v1.assistant.AssistantPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return AssistantPage(self._version, response, self._solution)
 
@@ -130,7 +126,7 @@ class AssistantList(ListResource):
                callback_events=values.unset, style_sheet=values.unset,
                defaults=values.unset):
         """
-        Create a new AssistantInstance
+        Create the AssistantInstance
 
         :param unicode friendly_name: A string to describe the new resource
         :param bool log_queries: Whether queries should be logged and kept after training
@@ -140,7 +136,7 @@ class AssistantList(ListResource):
         :param dict style_sheet: A JSON string that defines the Assistant's style sheet
         :param dict defaults: A JSON object that defines the Assistant's default tasks for various scenarios
 
-        :returns: Newly created AssistantInstance
+        :returns: The created AssistantInstance
         :rtype: twilio.rest.autopilot.v1.assistant.AssistantInstance
         """
         data = values.of({
@@ -153,11 +149,7 @@ class AssistantList(ListResource):
             'Defaults': serialize.object(defaults),
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return AssistantInstance(self._version, payload, )
 
@@ -268,18 +260,12 @@ class AssistantContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a AssistantInstance
+        Fetch the AssistantInstance
 
-        :returns: Fetched AssistantInstance
+        :returns: The fetched AssistantInstance
         :rtype: twilio.rest.autopilot.v1.assistant.AssistantInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AssistantInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -299,7 +285,7 @@ class AssistantContext(InstanceContext):
         :param dict defaults: A JSON object that defines the Assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios
         :param unicode development_stage: A string describing the state of the assistant.
 
-        :returns: Updated AssistantInstance
+        :returns: The updated AssistantInstance
         :rtype: twilio.rest.autopilot.v1.assistant.AssistantInstance
         """
         data = values.of({
@@ -313,11 +299,7 @@ class AssistantContext(InstanceContext):
             'DevelopmentStage': development_stage,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return AssistantInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -328,7 +310,7 @@ class AssistantContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     @property
     def field_types(self):
@@ -612,9 +594,9 @@ class AssistantInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a AssistantInstance
+        Fetch the AssistantInstance
 
-        :returns: Fetched AssistantInstance
+        :returns: The fetched AssistantInstance
         :rtype: twilio.rest.autopilot.v1.assistant.AssistantInstance
         """
         return self._proxy.fetch()
@@ -635,7 +617,7 @@ class AssistantInstance(InstanceResource):
         :param dict defaults: A JSON object that defines the Assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios
         :param unicode development_stage: A string describing the state of the assistant.
 
-        :returns: Updated AssistantInstance
+        :returns: The updated AssistantInstance
         :rtype: twilio.rest.autopilot.v1.assistant.AssistantInstance
         """
         return self._proxy.update(

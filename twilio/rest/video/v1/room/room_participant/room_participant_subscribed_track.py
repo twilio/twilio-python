@@ -88,13 +88,9 @@ class SubscribedTrackList(ListResource):
         :returns: Page of SubscribedTrackInstance
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_subscribed_track.SubscribedTrackPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return SubscribedTrackPage(self._version, response, self._solution)
 
@@ -226,18 +222,12 @@ class SubscribedTrackContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a SubscribedTrackInstance
+        Fetch the SubscribedTrackInstance
 
-        :returns: Fetched SubscribedTrackInstance
+        :returns: The fetched SubscribedTrackInstance
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_subscribed_track.SubscribedTrackInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SubscribedTrackInstance(
             self._version,
@@ -397,9 +387,9 @@ class SubscribedTrackInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a SubscribedTrackInstance
+        Fetch the SubscribedTrackInstance
 
-        :returns: Fetched SubscribedTrackInstance
+        :returns: The fetched SubscribedTrackInstance
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_subscribed_track.SubscribedTrackInstance
         """
         return self._proxy.fetch()

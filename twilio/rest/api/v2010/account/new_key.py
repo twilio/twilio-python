@@ -34,20 +34,16 @@ class NewKeyList(ListResource):
 
     def create(self, friendly_name=values.unset):
         """
-        Create a new NewKeyInstance
+        Create the NewKeyInstance
 
         :param unicode friendly_name: A string to describe the resource
 
-        :returns: Newly created NewKeyInstance
+        :returns: The created NewKeyInstance
         :rtype: twilio.rest.api.v2010.account.new_key.NewKeyInstance
         """
         data = values.of({'FriendlyName': friendly_name, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return NewKeyInstance(self._version, payload, account_sid=self._solution['account_sid'], )
 

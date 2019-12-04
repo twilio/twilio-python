@@ -85,13 +85,9 @@ class CountryList(ListResource):
         :returns: Page of CountryInstance
         :rtype: twilio.rest.pricing.v1.phone_number.country.CountryPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return CountryPage(self._version, response, self._solution)
 
@@ -204,18 +200,12 @@ class CountryContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a CountryInstance
+        Fetch the CountryInstance
 
-        :returns: Fetched CountryInstance
+        :returns: The fetched CountryInstance
         :rtype: twilio.rest.pricing.v1.phone_number.country.CountryInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CountryInstance(self._version, payload, iso_country=self._solution['iso_country'], )
 
@@ -310,9 +300,9 @@ class CountryInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a CountryInstance
+        Fetch the CountryInstance
 
-        :returns: Fetched CountryInstance
+        :returns: The fetched CountryInstance
         :rtype: twilio.rest.pricing.v1.phone_number.country.CountryInstance
         """
         return self._proxy.fetch()

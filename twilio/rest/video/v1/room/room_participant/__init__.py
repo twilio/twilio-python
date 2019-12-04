@@ -122,7 +122,7 @@ class ParticipantList(ListResource):
         :returns: Page of ParticipantInstance
         :rtype: twilio.rest.video.v1.room.room_participant.ParticipantPage
         """
-        params = values.of({
+        data = values.of({
             'Status': status,
             'Identity': identity,
             'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
@@ -132,11 +132,7 @@ class ParticipantList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return ParticipantPage(self._version, response, self._solution)
 
@@ -256,18 +252,12 @@ class ParticipantContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a ParticipantInstance
+        Fetch the ParticipantInstance
 
-        :returns: Fetched ParticipantInstance
+        :returns: The fetched ParticipantInstance
         :rtype: twilio.rest.video.v1.room.room_participant.ParticipantInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ParticipantInstance(
             self._version,
@@ -282,16 +272,12 @@ class ParticipantContext(InstanceContext):
 
         :param ParticipantInstance.Status status: The new status of the resource
 
-        :returns: Updated ParticipantInstance
+        :returns: The updated ParticipantInstance
         :rtype: twilio.rest.video.v1.room.room_participant.ParticipantInstance
         """
         data = values.of({'Status': status, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return ParticipantInstance(
             self._version,
@@ -510,9 +496,9 @@ class ParticipantInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a ParticipantInstance
+        Fetch the ParticipantInstance
 
-        :returns: Fetched ParticipantInstance
+        :returns: The fetched ParticipantInstance
         :rtype: twilio.rest.video.v1.room.room_participant.ParticipantInstance
         """
         return self._proxy.fetch()
@@ -523,7 +509,7 @@ class ParticipantInstance(InstanceResource):
 
         :param ParticipantInstance.Status status: The new status of the resource
 
-        :returns: Updated ParticipantInstance
+        :returns: The updated ParticipantInstance
         :rtype: twilio.rest.video.v1.room.room_participant.ParticipantInstance
         """
         return self._proxy.update(status=status, )

@@ -139,7 +139,7 @@ class TaskQueueStatisticsContext(InstanceContext):
               start_date=values.unset, task_channel=values.unset,
               split_by_wait_time=values.unset):
         """
-        Fetch a TaskQueueStatisticsInstance
+        Fetch the TaskQueueStatisticsInstance
 
         :param datetime end_date: Only calculate statistics from on or before this date
         :param unicode minutes: Only calculate statistics since this many minutes in the past
@@ -147,10 +147,10 @@ class TaskQueueStatisticsContext(InstanceContext):
         :param unicode task_channel: Only calculate real-time and cumulative statistics for the specified TaskChannel
         :param unicode split_by_wait_time: A comma separated list of values that describes the thresholds to calculate statistics on
 
-        :returns: Fetched TaskQueueStatisticsInstance
+        :returns: The fetched TaskQueueStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsInstance
         """
-        params = values.of({
+        data = values.of({
             'EndDate': serialize.iso8601_datetime(end_date),
             'Minutes': minutes,
             'StartDate': serialize.iso8601_datetime(start_date),
@@ -158,11 +158,7 @@ class TaskQueueStatisticsContext(InstanceContext):
             'SplitByWaitTime': split_by_wait_time,
         })
 
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data, )
 
         return TaskQueueStatisticsInstance(
             self._version,
@@ -277,7 +273,7 @@ class TaskQueueStatisticsInstance(InstanceResource):
               start_date=values.unset, task_channel=values.unset,
               split_by_wait_time=values.unset):
         """
-        Fetch a TaskQueueStatisticsInstance
+        Fetch the TaskQueueStatisticsInstance
 
         :param datetime end_date: Only calculate statistics from on or before this date
         :param unicode minutes: Only calculate statistics since this many minutes in the past
@@ -285,7 +281,7 @@ class TaskQueueStatisticsInstance(InstanceResource):
         :param unicode task_channel: Only calculate real-time and cumulative statistics for the specified TaskChannel
         :param unicode split_by_wait_time: A comma separated list of values that describes the thresholds to calculate statistics on
 
-        :returns: Fetched TaskQueueStatisticsInstance
+        :returns: The fetched TaskQueueStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsInstance
         """
         return self._proxy.fetch(

@@ -42,7 +42,7 @@ class ApplicationList(ListResource):
                sms_fallback_method=values.unset, sms_status_callback=values.unset,
                message_status_callback=values.unset, friendly_name=values.unset):
         """
-        Create a new ApplicationInstance
+        Create the ApplicationInstance
 
         :param unicode api_version: The API version to use to start a new TwiML session
         :param unicode voice_url: The URL to call when the phone number receives a call
@@ -60,7 +60,7 @@ class ApplicationList(ListResource):
         :param unicode message_status_callback: The URL to send message status information to your application
         :param unicode friendly_name: A string to describe the new resource
 
-        :returns: Newly created ApplicationInstance
+        :returns: The created ApplicationInstance
         :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
         data = values.of({
@@ -81,11 +81,7 @@ class ApplicationList(ListResource):
             'FriendlyName': friendly_name,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return ApplicationInstance(self._version, payload, account_sid=self._solution['account_sid'], )
 
@@ -146,18 +142,14 @@ class ApplicationList(ListResource):
         :returns: Page of ApplicationInstance
         :rtype: twilio.rest.api.v2010.account.application.ApplicationPage
         """
-        params = values.of({
+        data = values.of({
             'FriendlyName': friendly_name,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return ApplicationPage(self._version, response, self._solution)
 
@@ -277,22 +269,16 @@ class ApplicationContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def fetch(self):
         """
-        Fetch a ApplicationInstance
+        Fetch the ApplicationInstance
 
-        :returns: Fetched ApplicationInstance
+        :returns: The fetched ApplicationInstance
         :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ApplicationInstance(
             self._version,
@@ -328,7 +314,7 @@ class ApplicationContext(InstanceContext):
         :param unicode sms_status_callback: The URL to send status information to your application
         :param unicode message_status_callback: The URL to send message status information to your application
 
-        :returns: Updated ApplicationInstance
+        :returns: The updated ApplicationInstance
         :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
         data = values.of({
@@ -349,11 +335,7 @@ class ApplicationContext(InstanceContext):
             'MessageStatusCallback': message_status_callback,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return ApplicationInstance(
             self._version,
@@ -601,9 +583,9 @@ class ApplicationInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a ApplicationInstance
+        Fetch the ApplicationInstance
 
-        :returns: Fetched ApplicationInstance
+        :returns: The fetched ApplicationInstance
         :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
         return self._proxy.fetch()
@@ -635,7 +617,7 @@ class ApplicationInstance(InstanceResource):
         :param unicode sms_status_callback: The URL to send status information to your application
         :param unicode message_status_callback: The URL to send message status information to your application
 
-        :returns: Updated ApplicationInstance
+        :returns: The updated ApplicationInstance
         :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
         return self._proxy.update(

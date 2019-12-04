@@ -88,13 +88,9 @@ class CredentialList(ListResource):
         :returns: Page of CredentialInstance
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return CredentialPage(self._version, response, self._solution)
 
@@ -117,21 +113,17 @@ class CredentialList(ListResource):
 
     def create(self, username, password):
         """
-        Create a new CredentialInstance
+        Create the CredentialInstance
 
         :param unicode username: The username for this credential.
         :param unicode password: The password will not be returned in the response.
 
-        :returns: Newly created CredentialInstance
+        :returns: The created CredentialInstance
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
         """
         data = values.of({'Username': username, 'Password': password, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return CredentialInstance(
             self._version,
@@ -255,18 +247,12 @@ class CredentialContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a CredentialInstance
+        Fetch the CredentialInstance
 
-        :returns: Fetched CredentialInstance
+        :returns: The fetched CredentialInstance
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CredentialInstance(
             self._version,
@@ -282,16 +268,12 @@ class CredentialContext(InstanceContext):
 
         :param unicode password: The password will not be returned in the response
 
-        :returns: Updated CredentialInstance
+        :returns: The updated CredentialInstance
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
         """
         data = values.of({'Password': password, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return CredentialInstance(
             self._version,
@@ -308,7 +290,7 @@ class CredentialContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -429,9 +411,9 @@ class CredentialInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a CredentialInstance
+        Fetch the CredentialInstance
 
-        :returns: Fetched CredentialInstance
+        :returns: The fetched CredentialInstance
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
         """
         return self._proxy.fetch()
@@ -442,7 +424,7 @@ class CredentialInstance(InstanceResource):
 
         :param unicode password: The password will not be returned in the response
 
-        :returns: Updated CredentialInstance
+        :returns: The updated CredentialInstance
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
         """
         return self._proxy.update(password=password, )

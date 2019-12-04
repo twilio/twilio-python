@@ -87,13 +87,9 @@ class SigningKeyList(ListResource):
         :returns: Page of SigningKeyInstance
         :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return SigningKeyPage(self._version, response, self._solution)
 
@@ -208,18 +204,12 @@ class SigningKeyContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a SigningKeyInstance
+        Fetch the SigningKeyInstance
 
-        :returns: Fetched SigningKeyInstance
+        :returns: The fetched SigningKeyInstance
         :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SigningKeyInstance(
             self._version,
@@ -234,16 +224,12 @@ class SigningKeyContext(InstanceContext):
 
         :param unicode friendly_name: The friendly_name
 
-        :returns: Updated SigningKeyInstance
+        :returns: The updated SigningKeyInstance
         :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
         """
         data = values.of({'FriendlyName': friendly_name, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return SigningKeyInstance(
             self._version,
@@ -259,7 +245,7 @@ class SigningKeyContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -347,9 +333,9 @@ class SigningKeyInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a SigningKeyInstance
+        Fetch the SigningKeyInstance
 
-        :returns: Fetched SigningKeyInstance
+        :returns: The fetched SigningKeyInstance
         :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
         """
         return self._proxy.fetch()
@@ -360,7 +346,7 @@ class SigningKeyInstance(InstanceResource):
 
         :param unicode friendly_name: The friendly_name
 
-        :returns: Updated SigningKeyInstance
+        :returns: The updated SigningKeyInstance
         :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
         """
         return self._proxy.update(friendly_name=friendly_name, )

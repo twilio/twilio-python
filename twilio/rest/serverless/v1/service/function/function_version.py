@@ -90,13 +90,9 @@ class FunctionVersionList(ListResource):
         :returns: Page of FunctionVersionInstance
         :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return FunctionVersionPage(self._version, response, self._solution)
 
@@ -232,18 +228,12 @@ class FunctionVersionContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a FunctionVersionInstance
+        Fetch the FunctionVersionInstance
 
-        :returns: Fetched FunctionVersionInstance
+        :returns: The fetched FunctionVersionInstance
         :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FunctionVersionInstance(
             self._version,
@@ -387,9 +377,9 @@ class FunctionVersionInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a FunctionVersionInstance
+        Fetch the FunctionVersionInstance
 
-        :returns: Fetched FunctionVersionInstance
+        :returns: The fetched FunctionVersionInstance
         :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance
         """
         return self._proxy.fetch()

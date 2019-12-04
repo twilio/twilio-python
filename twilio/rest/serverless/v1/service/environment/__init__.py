@@ -92,13 +92,9 @@ class EnvironmentList(ListResource):
         :returns: Page of EnvironmentInstance
         :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return EnvironmentPage(self._version, response, self._solution)
 
@@ -121,21 +117,17 @@ class EnvironmentList(ListResource):
 
     def create(self, unique_name, domain_suffix=values.unset):
         """
-        Create a new EnvironmentInstance
+        Create the EnvironmentInstance
 
         :param unicode unique_name: An application-defined string that uniquely identifies the Environment resource
         :param unicode domain_suffix: A URL-friendly name that represents the environment
 
-        :returns: Newly created EnvironmentInstance
+        :returns: The created EnvironmentInstance
         :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentInstance
         """
         data = values.of({'UniqueName': unique_name, 'DomainSuffix': domain_suffix, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return EnvironmentInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
@@ -242,18 +234,12 @@ class EnvironmentContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a EnvironmentInstance
+        Fetch the EnvironmentInstance
 
-        :returns: Fetched EnvironmentInstance
+        :returns: The fetched EnvironmentInstance
         :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return EnvironmentInstance(
             self._version,
@@ -269,7 +255,7 @@ class EnvironmentContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     @property
     def variables(self):
@@ -470,9 +456,9 @@ class EnvironmentInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a EnvironmentInstance
+        Fetch the EnvironmentInstance
 
-        :returns: Fetched EnvironmentInstance
+        :returns: The fetched EnvironmentInstance
         :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentInstance
         """
         return self._proxy.fetch()

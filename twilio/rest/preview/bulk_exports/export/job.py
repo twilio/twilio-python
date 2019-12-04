@@ -128,18 +128,12 @@ class JobContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a JobInstance
+        Fetch the JobInstance
 
-        :returns: Fetched JobInstance
+        :returns: The fetched JobInstance
         :rtype: twilio.rest.preview.bulk_exports.export.job.JobInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return JobInstance(self._version, payload, job_sid=self._solution['job_sid'], )
 
@@ -150,7 +144,7 @@ class JobContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -263,9 +257,9 @@ class JobInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a JobInstance
+        Fetch the JobInstance
 
-        :returns: Fetched JobInstance
+        :returns: The fetched JobInstance
         :rtype: twilio.rest.preview.bulk_exports.export.job.JobInstance
         """
         return self._proxy.fetch()

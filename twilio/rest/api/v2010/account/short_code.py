@@ -101,7 +101,7 @@ class ShortCodeList(ListResource):
         :returns: Page of ShortCodeInstance
         :rtype: twilio.rest.api.v2010.account.short_code.ShortCodePage
         """
-        params = values.of({
+        data = values.of({
             'FriendlyName': friendly_name,
             'ShortCode': short_code,
             'PageToken': page_token,
@@ -109,11 +109,7 @@ class ShortCodeList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return ShortCodePage(self._version, response, self._solution)
 
@@ -228,18 +224,12 @@ class ShortCodeContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a ShortCodeInstance
+        Fetch the ShortCodeInstance
 
-        :returns: Fetched ShortCodeInstance
+        :returns: The fetched ShortCodeInstance
         :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ShortCodeInstance(
             self._version,
@@ -261,7 +251,7 @@ class ShortCodeContext(InstanceContext):
         :param unicode sms_fallback_url: URL Twilio will request if an error occurs in executing TwiML
         :param unicode sms_fallback_method: HTTP method Twilio will use with sms_fallback_url
 
-        :returns: Updated ShortCodeInstance
+        :returns: The updated ShortCodeInstance
         :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
         """
         data = values.of({
@@ -273,11 +263,7 @@ class ShortCodeContext(InstanceContext):
             'SmsFallbackMethod': sms_fallback_method,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return ShortCodeInstance(
             self._version,
@@ -444,9 +430,9 @@ class ShortCodeInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a ShortCodeInstance
+        Fetch the ShortCodeInstance
 
-        :returns: Fetched ShortCodeInstance
+        :returns: The fetched ShortCodeInstance
         :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
         """
         return self._proxy.fetch()
@@ -464,7 +450,7 @@ class ShortCodeInstance(InstanceResource):
         :param unicode sms_fallback_url: URL Twilio will request if an error occurs in executing TwiML
         :param unicode sms_fallback_method: HTTP method Twilio will use with sms_fallback_url
 
-        :returns: Updated ShortCodeInstance
+        :returns: The updated ShortCodeInstance
         :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
         """
         return self._proxy.update(

@@ -88,13 +88,9 @@ class IpAccessControlListList(ListResource):
         :returns: Page of IpAccessControlListInstance
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return IpAccessControlListPage(self._version, response, self._solution)
 
@@ -117,20 +113,16 @@ class IpAccessControlListList(ListResource):
 
     def create(self, friendly_name):
         """
-        Create a new IpAccessControlListInstance
+        Create the IpAccessControlListInstance
 
         :param unicode friendly_name: A human readable description of this resource
 
-        :returns: Newly created IpAccessControlListInstance
+        :returns: The created IpAccessControlListInstance
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance
         """
         data = values.of({'FriendlyName': friendly_name, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return IpAccessControlListInstance(
             self._version,
@@ -239,18 +231,12 @@ class IpAccessControlListContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a IpAccessControlListInstance
+        Fetch the IpAccessControlListInstance
 
-        :returns: Fetched IpAccessControlListInstance
+        :returns: The fetched IpAccessControlListInstance
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return IpAccessControlListInstance(
             self._version,
@@ -265,16 +251,12 @@ class IpAccessControlListContext(InstanceContext):
 
         :param unicode friendly_name: A human readable description of this resource
 
-        :returns: Updated IpAccessControlListInstance
+        :returns: The updated IpAccessControlListInstance
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance
         """
         data = values.of({'FriendlyName': friendly_name, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return IpAccessControlListInstance(
             self._version,
@@ -290,7 +272,7 @@ class IpAccessControlListContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     @property
     def ip_addresses(self):
@@ -421,9 +403,9 @@ class IpAccessControlListInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a IpAccessControlListInstance
+        Fetch the IpAccessControlListInstance
 
-        :returns: Fetched IpAccessControlListInstance
+        :returns: The fetched IpAccessControlListInstance
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance
         """
         return self._proxy.fetch()
@@ -434,7 +416,7 @@ class IpAccessControlListInstance(InstanceResource):
 
         :param unicode friendly_name: A human readable description of this resource
 
-        :returns: Updated IpAccessControlListInstance
+        :returns: The updated IpAccessControlListInstance
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance
         """
         return self._proxy.update(friendly_name, )

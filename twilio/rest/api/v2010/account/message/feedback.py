@@ -35,20 +35,16 @@ class FeedbackList(ListResource):
 
     def create(self, outcome=values.unset):
         """
-        Create a new FeedbackInstance
+        Create the FeedbackInstance
 
         :param FeedbackInstance.Outcome outcome: Whether the feedback has arrived
 
-        :returns: Newly created FeedbackInstance
+        :returns: The created FeedbackInstance
         :rtype: twilio.rest.api.v2010.account.message.feedback.FeedbackInstance
         """
         data = values.of({'Outcome': outcome, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return FeedbackInstance(
             self._version,

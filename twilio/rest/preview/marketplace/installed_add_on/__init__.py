@@ -39,14 +39,14 @@ class InstalledAddOnList(ListResource):
     def create(self, available_add_on_sid, accept_terms_of_service,
                configuration=values.unset, unique_name=values.unset):
         """
-        Create a new InstalledAddOnInstance
+        Create the InstalledAddOnInstance
 
         :param unicode available_add_on_sid: The SID of the AvaliableAddOn to install
         :param bool accept_terms_of_service: Whether the Terms of Service were accepted
         :param dict configuration: The JSON object representing the configuration
         :param unicode unique_name: An application-defined string that uniquely identifies the resource
 
-        :returns: Newly created InstalledAddOnInstance
+        :returns: The created InstalledAddOnInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
         """
         data = values.of({
@@ -56,11 +56,7 @@ class InstalledAddOnList(ListResource):
             'UniqueName': unique_name,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return InstalledAddOnInstance(self._version, payload, )
 
@@ -118,13 +114,9 @@ class InstalledAddOnList(ListResource):
         :returns: Page of InstalledAddOnInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return InstalledAddOnPage(self._version, response, self._solution)
 
@@ -249,22 +241,16 @@ class InstalledAddOnContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def fetch(self):
         """
-        Fetch a InstalledAddOnInstance
+        Fetch the InstalledAddOnInstance
 
-        :returns: Fetched InstalledAddOnInstance
+        :returns: The fetched InstalledAddOnInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return InstalledAddOnInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -275,16 +261,12 @@ class InstalledAddOnContext(InstanceContext):
         :param dict configuration: The JSON object representing the configuration
         :param unicode unique_name: An application-defined string that uniquely identifies the resource
 
-        :returns: Updated InstalledAddOnInstance
+        :returns: The updated InstalledAddOnInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
         """
         data = values.of({'Configuration': serialize.object(configuration), 'UniqueName': unique_name, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return InstalledAddOnInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -450,9 +432,9 @@ class InstalledAddOnInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a InstalledAddOnInstance
+        Fetch the InstalledAddOnInstance
 
-        :returns: Fetched InstalledAddOnInstance
+        :returns: The fetched InstalledAddOnInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
         """
         return self._proxy.fetch()
@@ -464,7 +446,7 @@ class InstalledAddOnInstance(InstanceResource):
         :param dict configuration: The JSON object representing the configuration
         :param unicode unique_name: An application-defined string that uniquely identifies the resource
 
-        :returns: Updated InstalledAddOnInstance
+        :returns: The updated InstalledAddOnInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
         """
         return self._proxy.update(configuration=configuration, unique_name=unique_name, )

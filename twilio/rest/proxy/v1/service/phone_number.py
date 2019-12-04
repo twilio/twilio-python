@@ -37,22 +37,18 @@ class PhoneNumberList(ListResource):
     def create(self, sid=values.unset, phone_number=values.unset,
                is_reserved=values.unset):
         """
-        Create a new PhoneNumberInstance
+        Create the PhoneNumberInstance
 
         :param unicode sid: The SID of a Twilio IncomingPhoneNumber resource
         :param unicode phone_number: The phone number in E.164 format
         :param bool is_reserved: Whether the new phone number should be reserved
 
-        :returns: Newly created PhoneNumberInstance
+        :returns: The created PhoneNumberInstance
         :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberInstance
         """
         data = values.of({'Sid': sid, 'PhoneNumber': phone_number, 'IsReserved': is_reserved, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return PhoneNumberInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
@@ -110,13 +106,9 @@ class PhoneNumberList(ListResource):
         :returns: Page of PhoneNumberInstance
         :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return PhoneNumberPage(self._version, response, self._solution)
 
@@ -238,22 +230,16 @@ class PhoneNumberContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def fetch(self):
         """
-        Fetch a PhoneNumberInstance
+        Fetch the PhoneNumberInstance
 
-        :returns: Fetched PhoneNumberInstance
+        :returns: The fetched PhoneNumberInstance
         :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return PhoneNumberInstance(
             self._version,
@@ -268,16 +254,12 @@ class PhoneNumberContext(InstanceContext):
 
         :param bool is_reserved: Whether the new phone number should be reserved
 
-        :returns: Updated PhoneNumberInstance
+        :returns: The updated PhoneNumberInstance
         :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberInstance
         """
         data = values.of({'IsReserved': is_reserved, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return PhoneNumberInstance(
             self._version,
@@ -454,9 +436,9 @@ class PhoneNumberInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a PhoneNumberInstance
+        Fetch the PhoneNumberInstance
 
-        :returns: Fetched PhoneNumberInstance
+        :returns: The fetched PhoneNumberInstance
         :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberInstance
         """
         return self._proxy.fetch()
@@ -467,7 +449,7 @@ class PhoneNumberInstance(InstanceResource):
 
         :param bool is_reserved: Whether the new phone number should be reserved
 
-        :returns: Updated PhoneNumberInstance
+        :returns: The updated PhoneNumberInstance
         :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberInstance
         """
         return self._proxy.update(is_reserved=is_reserved, )

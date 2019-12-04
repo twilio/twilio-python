@@ -131,18 +131,12 @@ class AssistantFallbackActionsContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a AssistantFallbackActionsInstance
+        Fetch the AssistantFallbackActionsInstance
 
-        :returns: Fetched AssistantFallbackActionsInstance
+        :returns: The fetched AssistantFallbackActionsInstance
         :rtype: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AssistantFallbackActionsInstance(
             self._version,
@@ -156,16 +150,12 @@ class AssistantFallbackActionsContext(InstanceContext):
 
         :param dict fallback_actions: The fallback_actions
 
-        :returns: Updated AssistantFallbackActionsInstance
+        :returns: The updated AssistantFallbackActionsInstance
         :rtype: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsInstance
         """
         data = values.of({'FallbackActions': serialize.object(fallback_actions), })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return AssistantFallbackActionsInstance(
             self._version,
@@ -260,9 +250,9 @@ class AssistantFallbackActionsInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a AssistantFallbackActionsInstance
+        Fetch the AssistantFallbackActionsInstance
 
-        :returns: Fetched AssistantFallbackActionsInstance
+        :returns: The fetched AssistantFallbackActionsInstance
         :rtype: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsInstance
         """
         return self._proxy.fetch()
@@ -273,7 +263,7 @@ class AssistantFallbackActionsInstance(InstanceResource):
 
         :param dict fallback_actions: The fallback_actions
 
-        :returns: Updated AssistantFallbackActionsInstance
+        :returns: The updated AssistantFallbackActionsInstance
         :rtype: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsInstance
         """
         return self._proxy.update(fallback_actions=fallback_actions, )

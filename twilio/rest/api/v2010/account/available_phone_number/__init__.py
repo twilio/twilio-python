@@ -93,13 +93,9 @@ class AvailablePhoneNumberCountryList(ListResource):
         :returns: Page of AvailablePhoneNumberCountryInstance
         :rtype: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return AvailablePhoneNumberCountryPage(self._version, response, self._solution)
 
@@ -235,18 +231,12 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a AvailablePhoneNumberCountryInstance
+        Fetch the AvailablePhoneNumberCountryInstance
 
-        :returns: Fetched AvailablePhoneNumberCountryInstance
+        :returns: The fetched AvailablePhoneNumberCountryInstance
         :rtype: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AvailablePhoneNumberCountryInstance(
             self._version,
@@ -465,9 +455,9 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a AvailablePhoneNumberCountryInstance
+        Fetch the AvailablePhoneNumberCountryInstance
 
-        :returns: Fetched AvailablePhoneNumberCountryInstance
+        :returns: The fetched AvailablePhoneNumberCountryInstance
         :rtype: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryInstance
         """
         return self._proxy.fetch()

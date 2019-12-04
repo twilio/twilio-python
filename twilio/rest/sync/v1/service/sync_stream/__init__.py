@@ -37,21 +37,17 @@ class SyncStreamList(ListResource):
 
     def create(self, unique_name=values.unset, ttl=values.unset):
         """
-        Create a new SyncStreamInstance
+        Create the SyncStreamInstance
 
         :param unicode unique_name: An application-defined string that uniquely identifies the resource
         :param unicode ttl: How long, in seconds, before the Stream expires and is deleted
 
-        :returns: Newly created SyncStreamInstance
+        :returns: The created SyncStreamInstance
         :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
         """
         data = values.of({'UniqueName': unique_name, 'Ttl': ttl, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return SyncStreamInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
@@ -109,13 +105,9 @@ class SyncStreamList(ListResource):
         :returns: Page of SyncStreamInstance
         :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return SyncStreamPage(self._version, response, self._solution)
 
@@ -235,18 +227,12 @@ class SyncStreamContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a SyncStreamInstance
+        Fetch the SyncStreamInstance
 
-        :returns: Fetched SyncStreamInstance
+        :returns: The fetched SyncStreamInstance
         :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SyncStreamInstance(
             self._version,
@@ -262,7 +248,7 @@ class SyncStreamContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def update(self, ttl=values.unset):
         """
@@ -270,16 +256,12 @@ class SyncStreamContext(InstanceContext):
 
         :param unicode ttl: How long, in seconds, before the Stream expires and is deleted
 
-        :returns: Updated SyncStreamInstance
+        :returns: The updated SyncStreamInstance
         :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
         """
         data = values.of({'Ttl': ttl, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return SyncStreamInstance(
             self._version,
@@ -445,9 +427,9 @@ class SyncStreamInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a SyncStreamInstance
+        Fetch the SyncStreamInstance
 
-        :returns: Fetched SyncStreamInstance
+        :returns: The fetched SyncStreamInstance
         :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
         """
         return self._proxy.fetch()
@@ -467,7 +449,7 @@ class SyncStreamInstance(InstanceResource):
 
         :param unicode ttl: How long, in seconds, before the Stream expires and is deleted
 
-        :returns: Updated SyncStreamInstance
+        :returns: The updated SyncStreamInstance
         :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
         """
         return self._proxy.update(ttl=ttl, )

@@ -128,18 +128,12 @@ class ExportConfigurationContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a ExportConfigurationInstance
+        Fetch the ExportConfigurationInstance
 
-        :returns: Fetched ExportConfigurationInstance
+        :returns: The fetched ExportConfigurationInstance
         :rtype: twilio.rest.preview.bulk_exports.export_configuration.ExportConfigurationInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ExportConfigurationInstance(
             self._version,
@@ -156,16 +150,12 @@ class ExportConfigurationContext(InstanceContext):
         :param unicode webhook_url: The webhook_url
         :param unicode webhook_method: The webhook_method
 
-        :returns: Updated ExportConfigurationInstance
+        :returns: The updated ExportConfigurationInstance
         :rtype: twilio.rest.preview.bulk_exports.export_configuration.ExportConfigurationInstance
         """
         data = values.of({'Enabled': enabled, 'WebhookUrl': webhook_url, 'WebhookMethod': webhook_method, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return ExportConfigurationInstance(
             self._version,
@@ -269,9 +259,9 @@ class ExportConfigurationInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a ExportConfigurationInstance
+        Fetch the ExportConfigurationInstance
 
-        :returns: Fetched ExportConfigurationInstance
+        :returns: The fetched ExportConfigurationInstance
         :rtype: twilio.rest.preview.bulk_exports.export_configuration.ExportConfigurationInstance
         """
         return self._proxy.fetch()
@@ -285,7 +275,7 @@ class ExportConfigurationInstance(InstanceResource):
         :param unicode webhook_url: The webhook_url
         :param unicode webhook_method: The webhook_method
 
-        :returns: Updated ExportConfigurationInstance
+        :returns: The updated ExportConfigurationInstance
         :rtype: twilio.rest.preview.bulk_exports.export_configuration.ExportConfigurationInstance
         """
         return self._proxy.update(enabled=enabled, webhook_url=webhook_url, webhook_method=webhook_method, )

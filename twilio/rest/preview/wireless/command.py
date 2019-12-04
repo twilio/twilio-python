@@ -116,7 +116,7 @@ class CommandList(ListResource):
         :returns: Page of CommandInstance
         :rtype: twilio.rest.preview.wireless.command.CommandPage
         """
-        params = values.of({
+        data = values.of({
             'Device': device,
             'Sim': sim,
             'Status': status,
@@ -126,11 +126,7 @@ class CommandList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return CommandPage(self._version, response, self._solution)
 
@@ -155,7 +151,7 @@ class CommandList(ListResource):
                callback_method=values.unset, callback_url=values.unset,
                command_mode=values.unset, include_sid=values.unset):
         """
-        Create a new CommandInstance
+        Create the CommandInstance
 
         :param unicode command: The command
         :param unicode device: The device
@@ -165,7 +161,7 @@ class CommandList(ListResource):
         :param unicode command_mode: The command_mode
         :param unicode include_sid: The include_sid
 
-        :returns: Newly created CommandInstance
+        :returns: The created CommandInstance
         :rtype: twilio.rest.preview.wireless.command.CommandInstance
         """
         data = values.of({
@@ -178,11 +174,7 @@ class CommandList(ListResource):
             'IncludeSid': include_sid,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return CommandInstance(self._version, payload, )
 
@@ -282,18 +274,12 @@ class CommandContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a CommandInstance
+        Fetch the CommandInstance
 
-        :returns: Fetched CommandInstance
+        :returns: The fetched CommandInstance
         :rtype: twilio.rest.preview.wireless.command.CommandInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CommandInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -444,9 +430,9 @@ class CommandInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a CommandInstance
+        Fetch the CommandInstance
 
-        :returns: Fetched CommandInstance
+        :returns: The fetched CommandInstance
         :rtype: twilio.rest.preview.wireless.command.CommandInstance
         """
         return self._proxy.fetch()

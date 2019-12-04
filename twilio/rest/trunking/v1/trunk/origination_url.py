@@ -35,7 +35,7 @@ class OriginationUrlList(ListResource):
 
     def create(self, weight, priority, enabled, friendly_name, sip_url):
         """
-        Create a new OriginationUrlInstance
+        Create the OriginationUrlInstance
 
         :param unicode weight: The value that determines the relative load the URI should receive compared to others with the same priority
         :param unicode priority: The relative importance of the URI
@@ -43,7 +43,7 @@ class OriginationUrlList(ListResource):
         :param unicode friendly_name: A string to describe the resource
         :param unicode sip_url: The SIP address you want Twilio to route your Origination calls to
 
-        :returns: Newly created OriginationUrlInstance
+        :returns: The created OriginationUrlInstance
         :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
         """
         data = values.of({
@@ -54,11 +54,7 @@ class OriginationUrlList(ListResource):
             'SipUrl': sip_url,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return OriginationUrlInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'], )
 
@@ -116,13 +112,9 @@ class OriginationUrlList(ListResource):
         :returns: Page of OriginationUrlInstance
         :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return OriginationUrlPage(self._version, response, self._solution)
 
@@ -237,18 +229,12 @@ class OriginationUrlContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a OriginationUrlInstance
+        Fetch the OriginationUrlInstance
 
-        :returns: Fetched OriginationUrlInstance
+        :returns: The fetched OriginationUrlInstance
         :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return OriginationUrlInstance(
             self._version,
@@ -264,7 +250,7 @@ class OriginationUrlContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def update(self, weight=values.unset, priority=values.unset,
                enabled=values.unset, friendly_name=values.unset,
@@ -278,7 +264,7 @@ class OriginationUrlContext(InstanceContext):
         :param unicode friendly_name: A string to describe the resource
         :param unicode sip_url: The SIP address you want Twilio to route your Origination calls to
 
-        :returns: Updated OriginationUrlInstance
+        :returns: The updated OriginationUrlInstance
         :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
         """
         data = values.of({
@@ -289,11 +275,7 @@ class OriginationUrlContext(InstanceContext):
             'SipUrl': sip_url,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return OriginationUrlInstance(
             self._version,
@@ -451,9 +433,9 @@ class OriginationUrlInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a OriginationUrlInstance
+        Fetch the OriginationUrlInstance
 
-        :returns: Fetched OriginationUrlInstance
+        :returns: The fetched OriginationUrlInstance
         :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
         """
         return self._proxy.fetch()
@@ -479,7 +461,7 @@ class OriginationUrlInstance(InstanceResource):
         :param unicode friendly_name: A string to describe the resource
         :param unicode sip_url: The SIP address you want Twilio to route your Origination calls to
 
-        :returns: Updated OriginationUrlInstance
+        :returns: The updated OriginationUrlInstance
         :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
         """
         return self._proxy.update(

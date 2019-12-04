@@ -58,7 +58,7 @@ class ParticipantList(ListResource):
                conference_recording_status_callback_event=values.unset,
                coaching=values.unset, call_sid_to_coach=values.unset):
         """
-        Create a new ParticipantInstance
+        Create the ParticipantInstance
 
         :param unicode from_: The `from` phone number used to invite a participant
         :param unicode to: The number, client id, or sip address of the new participant
@@ -93,7 +93,7 @@ class ParticipantList(ListResource):
         :param bool coaching: Indicates if the participant changed to coach
         :param unicode call_sid_to_coach: The SID of the participant who is being `coached`
 
-        :returns: Newly created ParticipantInstance
+        :returns: The created ParticipantInstance
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
         """
         data = values.of({
@@ -131,11 +131,7 @@ class ParticipantList(ListResource):
             'CallSidToCoach': call_sid_to_coach,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return ParticipantInstance(
             self._version,
@@ -216,7 +212,7 @@ class ParticipantList(ListResource):
         :returns: Page of ParticipantInstance
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantPage
         """
-        params = values.of({
+        data = values.of({
             'Muted': muted,
             'Hold': hold,
             'Coaching': coaching,
@@ -225,11 +221,7 @@ class ParticipantList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return ParticipantPage(self._version, response, self._solution)
 
@@ -365,18 +357,12 @@ class ParticipantContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a ParticipantInstance
+        Fetch the ParticipantInstance
 
-        :returns: Fetched ParticipantInstance
+        :returns: The fetched ParticipantInstance
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ParticipantInstance(
             self._version,
@@ -408,7 +394,7 @@ class ParticipantContext(InstanceContext):
         :param bool coaching: Indicates if the participant changed to coach
         :param unicode call_sid_to_coach: The SID of the participant who is being `coached`
 
-        :returns: Updated ParticipantInstance
+        :returns: The updated ParticipantInstance
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
         """
         data = values.of({
@@ -426,11 +412,7 @@ class ParticipantContext(InstanceContext):
             'CallSidToCoach': call_sid_to_coach,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return ParticipantInstance(
             self._version,
@@ -447,7 +429,7 @@ class ParticipantContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -630,9 +612,9 @@ class ParticipantInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a ParticipantInstance
+        Fetch the ParticipantInstance
 
-        :returns: Fetched ParticipantInstance
+        :returns: The fetched ParticipantInstance
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
         """
         return self._proxy.fetch()
@@ -659,7 +641,7 @@ class ParticipantInstance(InstanceResource):
         :param bool coaching: Indicates if the participant changed to coach
         :param unicode call_sid_to_coach: The SID of the participant who is being `coached`
 
-        :returns: Updated ParticipantInstance
+        :returns: The updated ParticipantInstance
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
         """
         return self._proxy.update(

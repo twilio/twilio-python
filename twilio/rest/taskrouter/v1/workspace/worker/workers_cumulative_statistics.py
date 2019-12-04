@@ -133,28 +133,24 @@ class WorkersCumulativeStatisticsContext(InstanceContext):
     def fetch(self, end_date=values.unset, minutes=values.unset,
               start_date=values.unset, task_channel=values.unset):
         """
-        Fetch a WorkersCumulativeStatisticsInstance
+        Fetch the WorkersCumulativeStatisticsInstance
 
         :param datetime end_date: Only calculate statistics from on or before this date
         :param unicode minutes: Only calculate statistics since this many minutes in the past
         :param datetime start_date: Only calculate statistics from on or after this date
         :param unicode task_channel: Only calculate cumulative statistics on this TaskChannel
 
-        :returns: Fetched WorkersCumulativeStatisticsInstance
+        :returns: The fetched WorkersCumulativeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsInstance
         """
-        params = values.of({
+        data = values.of({
             'EndDate': serialize.iso8601_datetime(end_date),
             'Minutes': minutes,
             'StartDate': serialize.iso8601_datetime(start_date),
             'TaskChannel': task_channel,
         })
 
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data, )
 
         return WorkersCumulativeStatisticsInstance(
             self._version,
@@ -320,14 +316,14 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
     def fetch(self, end_date=values.unset, minutes=values.unset,
               start_date=values.unset, task_channel=values.unset):
         """
-        Fetch a WorkersCumulativeStatisticsInstance
+        Fetch the WorkersCumulativeStatisticsInstance
 
         :param datetime end_date: Only calculate statistics from on or before this date
         :param unicode minutes: Only calculate statistics since this many minutes in the past
         :param datetime start_date: Only calculate statistics from on or after this date
         :param unicode task_channel: Only calculate cumulative statistics on this TaskChannel
 
-        :returns: Fetched WorkersCumulativeStatisticsInstance
+        :returns: The fetched WorkersCumulativeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsInstance
         """
         return self._proxy.fetch(

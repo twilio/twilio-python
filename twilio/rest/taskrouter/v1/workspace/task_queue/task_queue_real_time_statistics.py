@@ -137,20 +137,16 @@ class TaskQueueRealTimeStatisticsContext(InstanceContext):
 
     def fetch(self, task_channel=values.unset):
         """
-        Fetch a TaskQueueRealTimeStatisticsInstance
+        Fetch the TaskQueueRealTimeStatisticsInstance
 
         :param unicode task_channel: The TaskChannel for which to fetch statistics
 
-        :returns: Fetched TaskQueueRealTimeStatisticsInstance
+        :returns: The fetched TaskQueueRealTimeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsInstance
         """
-        params = values.of({'TaskChannel': task_channel, })
+        data = values.of({'TaskChannel': task_channel, })
 
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data, )
 
         return TaskQueueRealTimeStatisticsInstance(
             self._version,
@@ -317,11 +313,11 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
 
     def fetch(self, task_channel=values.unset):
         """
-        Fetch a TaskQueueRealTimeStatisticsInstance
+        Fetch the TaskQueueRealTimeStatisticsInstance
 
         :param unicode task_channel: The TaskChannel for which to fetch statistics
 
-        :returns: Fetched TaskQueueRealTimeStatisticsInstance
+        :returns: The fetched TaskQueueRealTimeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsInstance
         """
         return self._proxy.fetch(task_channel=task_channel, )

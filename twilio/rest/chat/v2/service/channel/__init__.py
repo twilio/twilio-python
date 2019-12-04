@@ -41,9 +41,9 @@ class ChannelList(ListResource):
     def create(self, friendly_name=values.unset, unique_name=values.unset,
                attributes=values.unset, type=values.unset,
                date_created=values.unset, date_updated=values.unset,
-               created_by=values.unset):
+               created_by=values.unset, x_twilio_webhook_enabled=values.unset):
         """
-        Create a new ChannelInstance
+        Create the ChannelInstance
 
         :param unicode friendly_name: A string to describe the new resource
         :param unicode unique_name: An application-defined string that uniquely identifies the Channel resource
@@ -52,8 +52,9 @@ class ChannelList(ListResource):
         :param datetime date_created: The ISO 8601 date and time in GMT when the resource was created
         :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
         :param unicode created_by: The identity of the User that created the Channel
+        :param ChannelInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
-        :returns: Newly created ChannelInstance
+        :returns: The created ChannelInstance
         :rtype: twilio.rest.chat.v2.service.channel.ChannelInstance
         """
         data = values.of({
@@ -65,12 +66,9 @@ class ChannelList(ListResource):
             'DateUpdated': serialize.iso8601_datetime(date_updated),
             'CreatedBy': created_by,
         })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers, )
 
         return ChannelInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
@@ -131,18 +129,14 @@ class ChannelList(ListResource):
         :returns: Page of ChannelInstance
         :rtype: twilio.rest.chat.v2.service.channel.ChannelPage
         """
-        params = values.of({
+        data = values.of({
             'Type': serialize.map(type, lambda e: e),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return ChannelPage(self._version, response, self._solution)
 
@@ -263,18 +257,12 @@ class ChannelContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a ChannelInstance
+        Fetch the ChannelInstance
 
-        :returns: Fetched ChannelInstance
+        :returns: The fetched ChannelInstance
         :rtype: twilio.rest.chat.v2.service.channel.ChannelInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ChannelInstance(
             self._version,
@@ -283,18 +271,23 @@ class ChannelContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
-    def delete(self):
+    def delete(self, x_twilio_webhook_enabled=values.unset):
         """
         Deletes the ChannelInstance
+
+        :param ChannelInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers, )
 
     def update(self, friendly_name=values.unset, unique_name=values.unset,
                attributes=values.unset, date_created=values.unset,
-               date_updated=values.unset, created_by=values.unset):
+               date_updated=values.unset, created_by=values.unset,
+               x_twilio_webhook_enabled=values.unset):
         """
         Update the ChannelInstance
 
@@ -304,8 +297,9 @@ class ChannelContext(InstanceContext):
         :param datetime date_created: The ISO 8601 date and time in GMT when the resource was created
         :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
         :param unicode created_by: The identity of the User that created the Channel
+        :param ChannelInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
-        :returns: Updated ChannelInstance
+        :returns: The updated ChannelInstance
         :rtype: twilio.rest.chat.v2.service.channel.ChannelInstance
         """
         data = values.of({
@@ -316,12 +310,9 @@ class ChannelContext(InstanceContext):
             'DateUpdated': serialize.iso8601_datetime(date_updated),
             'CreatedBy': created_by,
         })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers, )
 
         return ChannelInstance(
             self._version,
@@ -578,25 +569,28 @@ class ChannelInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a ChannelInstance
+        Fetch the ChannelInstance
 
-        :returns: Fetched ChannelInstance
+        :returns: The fetched ChannelInstance
         :rtype: twilio.rest.chat.v2.service.channel.ChannelInstance
         """
         return self._proxy.fetch()
 
-    def delete(self):
+    def delete(self, x_twilio_webhook_enabled=values.unset):
         """
         Deletes the ChannelInstance
+
+        :param ChannelInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete()
+        return self._proxy.delete(x_twilio_webhook_enabled=x_twilio_webhook_enabled, )
 
     def update(self, friendly_name=values.unset, unique_name=values.unset,
                attributes=values.unset, date_created=values.unset,
-               date_updated=values.unset, created_by=values.unset):
+               date_updated=values.unset, created_by=values.unset,
+               x_twilio_webhook_enabled=values.unset):
         """
         Update the ChannelInstance
 
@@ -606,8 +600,9 @@ class ChannelInstance(InstanceResource):
         :param datetime date_created: The ISO 8601 date and time in GMT when the resource was created
         :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
         :param unicode created_by: The identity of the User that created the Channel
+        :param ChannelInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
-        :returns: Updated ChannelInstance
+        :returns: The updated ChannelInstance
         :rtype: twilio.rest.chat.v2.service.channel.ChannelInstance
         """
         return self._proxy.update(
@@ -617,6 +612,7 @@ class ChannelInstance(InstanceResource):
             date_created=date_created,
             date_updated=date_updated,
             created_by=created_by,
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
         )
 
     @property

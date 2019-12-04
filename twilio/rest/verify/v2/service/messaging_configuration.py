@@ -36,21 +36,17 @@ class MessagingConfigurationList(ListResource):
 
     def create(self, country, messaging_service_sid):
         """
-        Create a new MessagingConfigurationInstance
+        Create the MessagingConfigurationInstance
 
         :param unicode country: The ISO-3166-1 country code of the country or `all`.
         :param unicode messaging_service_sid: The SID of the Messaging Service used for this configuration.
 
-        :returns: Newly created MessagingConfigurationInstance
+        :returns: The created MessagingConfigurationInstance
         :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
         """
         data = values.of({'Country': country, 'MessagingServiceSid': messaging_service_sid, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return MessagingConfigurationInstance(
             self._version,
@@ -112,13 +108,9 @@ class MessagingConfigurationList(ListResource):
         :returns: Page of MessagingConfigurationInstance
         :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return MessagingConfigurationPage(self._version, response, self._solution)
 
@@ -251,16 +243,12 @@ class MessagingConfigurationContext(InstanceContext):
 
         :param unicode messaging_service_sid: The SID of the Messaging Service used for this configuration.
 
-        :returns: Updated MessagingConfigurationInstance
+        :returns: The updated MessagingConfigurationInstance
         :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
         """
         data = values.of({'MessagingServiceSid': messaging_service_sid, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return MessagingConfigurationInstance(
             self._version,
@@ -271,18 +259,12 @@ class MessagingConfigurationContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a MessagingConfigurationInstance
+        Fetch the MessagingConfigurationInstance
 
-        :returns: Fetched MessagingConfigurationInstance
+        :returns: The fetched MessagingConfigurationInstance
         :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return MessagingConfigurationInstance(
             self._version,
@@ -298,7 +280,7 @@ class MessagingConfigurationContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -418,16 +400,16 @@ class MessagingConfigurationInstance(InstanceResource):
 
         :param unicode messaging_service_sid: The SID of the Messaging Service used for this configuration.
 
-        :returns: Updated MessagingConfigurationInstance
+        :returns: The updated MessagingConfigurationInstance
         :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
         """
         return self._proxy.update(messaging_service_sid, )
 
     def fetch(self):
         """
-        Fetch a MessagingConfigurationInstance
+        Fetch the MessagingConfigurationInstance
 
-        :returns: Fetched MessagingConfigurationInstance
+        :returns: The fetched MessagingConfigurationInstance
         :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
         """
         return self._proxy.fetch()

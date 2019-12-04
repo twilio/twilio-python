@@ -123,18 +123,12 @@ class SettingsContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a SettingsInstance
+        Fetch the SettingsInstance
 
-        :returns: Fetched SettingsInstance
+        :returns: The fetched SettingsInstance
         :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SettingsInstance(self._version, payload, )
 
@@ -144,16 +138,12 @@ class SettingsContext(InstanceContext):
 
         :param bool dialing_permissions_inheritance: `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`
 
-        :returns: Updated SettingsInstance
+        :returns: The updated SettingsInstance
         :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsInstance
         """
         data = values.of({'DialingPermissionsInheritance': dialing_permissions_inheritance, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return SettingsInstance(self._version, payload, )
 
@@ -223,9 +213,9 @@ class SettingsInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a SettingsInstance
+        Fetch the SettingsInstance
 
-        :returns: Fetched SettingsInstance
+        :returns: The fetched SettingsInstance
         :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsInstance
         """
         return self._proxy.fetch()
@@ -236,7 +226,7 @@ class SettingsInstance(InstanceResource):
 
         :param bool dialing_permissions_inheritance: `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`
 
-        :returns: Updated SettingsInstance
+        :returns: The updated SettingsInstance
         :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsInstance
         """
         return self._proxy.update(dialing_permissions_inheritance=dialing_permissions_inheritance, )

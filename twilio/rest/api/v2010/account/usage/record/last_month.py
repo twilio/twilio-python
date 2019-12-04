@@ -118,7 +118,7 @@ class LastMonthList(ListResource):
         :returns: Page of LastMonthInstance
         :rtype: twilio.rest.api.v2010.account.usage.record.last_month.LastMonthPage
         """
-        params = values.of({
+        data = values.of({
             'Category': category,
             'StartDate': serialize.iso8601_date(start_date),
             'EndDate': serialize.iso8601_date(end_date),
@@ -128,11 +128,7 @@ class LastMonthList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return LastMonthPage(self._version, response, self._solution)
 

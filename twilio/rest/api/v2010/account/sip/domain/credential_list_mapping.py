@@ -36,20 +36,16 @@ class CredentialListMappingList(ListResource):
 
     def create(self, credential_list_sid):
         """
-        Create a new CredentialListMappingInstance
+        Create the CredentialListMappingInstance
 
         :param unicode credential_list_sid: A string that identifies the CredentialList resource to map to the SIP domain
 
-        :returns: Newly created CredentialListMappingInstance
+        :returns: The created CredentialListMappingInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
         """
         data = values.of({'CredentialListSid': credential_list_sid, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return CredentialListMappingInstance(
             self._version,
@@ -112,13 +108,9 @@ class CredentialListMappingList(ListResource):
         :returns: Page of CredentialListMappingInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return CredentialListMappingPage(self._version, response, self._solution)
 
@@ -250,18 +242,12 @@ class CredentialListMappingContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a CredentialListMappingInstance
+        Fetch the CredentialListMappingInstance
 
-        :returns: Fetched CredentialListMappingInstance
+        :returns: The fetched CredentialListMappingInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CredentialListMappingInstance(
             self._version,
@@ -278,7 +264,7 @@ class CredentialListMappingContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -398,9 +384,9 @@ class CredentialListMappingInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a CredentialListMappingInstance
+        Fetch the CredentialListMappingInstance
 
-        :returns: Fetched CredentialListMappingInstance
+        :returns: The fetched CredentialListMappingInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
         """
         return self._proxy.fetch()

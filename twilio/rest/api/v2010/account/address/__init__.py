@@ -38,7 +38,7 @@ class AddressList(ListResource):
                friendly_name=values.unset, emergency_enabled=values.unset,
                auto_correct_address=values.unset):
         """
-        Create a new AddressInstance
+        Create the AddressInstance
 
         :param unicode customer_name: The name to associate with the new address
         :param unicode street: The number and street address of the new address
@@ -50,7 +50,7 @@ class AddressList(ListResource):
         :param bool emergency_enabled: Whether to enable emergency calling on the new address
         :param bool auto_correct_address: Whether we should automatically correct the address
 
-        :returns: Newly created AddressInstance
+        :returns: The created AddressInstance
         :rtype: twilio.rest.api.v2010.account.address.AddressInstance
         """
         data = values.of({
@@ -65,11 +65,7 @@ class AddressList(ListResource):
             'AutoCorrectAddress': auto_correct_address,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return AddressInstance(self._version, payload, account_sid=self._solution['account_sid'], )
 
@@ -150,7 +146,7 @@ class AddressList(ListResource):
         :returns: Page of AddressInstance
         :rtype: twilio.rest.api.v2010.account.address.AddressPage
         """
-        params = values.of({
+        data = values.of({
             'CustomerName': customer_name,
             'FriendlyName': friendly_name,
             'IsoCountry': iso_country,
@@ -159,11 +155,7 @@ class AddressList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return AddressPage(self._version, response, self._solution)
 
@@ -286,22 +278,16 @@ class AddressContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def fetch(self):
         """
-        Fetch a AddressInstance
+        Fetch the AddressInstance
 
-        :returns: Fetched AddressInstance
+        :returns: The fetched AddressInstance
         :rtype: twilio.rest.api.v2010.account.address.AddressInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AddressInstance(
             self._version,
@@ -326,7 +312,7 @@ class AddressContext(InstanceContext):
         :param bool emergency_enabled: Whether to enable emergency calling on the address
         :param bool auto_correct_address: Whether we should automatically correct the address
 
-        :returns: Updated AddressInstance
+        :returns: The updated AddressInstance
         :rtype: twilio.rest.api.v2010.account.address.AddressInstance
         """
         data = values.of({
@@ -340,11 +326,7 @@ class AddressContext(InstanceContext):
             'AutoCorrectAddress': auto_correct_address,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return AddressInstance(
             self._version,
@@ -563,9 +545,9 @@ class AddressInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a AddressInstance
+        Fetch the AddressInstance
 
-        :returns: Fetched AddressInstance
+        :returns: The fetched AddressInstance
         :rtype: twilio.rest.api.v2010.account.address.AddressInstance
         """
         return self._proxy.fetch()
@@ -586,7 +568,7 @@ class AddressInstance(InstanceResource):
         :param bool emergency_enabled: Whether to enable emergency calling on the address
         :param bool auto_correct_address: Whether we should automatically correct the address
 
-        :returns: Updated AddressInstance
+        :returns: The updated AddressInstance
         :rtype: twilio.rest.api.v2010.account.address.AddressInstance
         """
         return self._proxy.update(

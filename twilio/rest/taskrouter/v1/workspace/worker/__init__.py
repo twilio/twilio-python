@@ -145,7 +145,7 @@ class WorkerList(ListResource):
         :returns: Page of WorkerInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerPage
         """
-        params = values.of({
+        data = values.of({
             'ActivityName': activity_name,
             'ActivitySid': activity_sid,
             'Available': available,
@@ -158,11 +158,7 @@ class WorkerList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return WorkerPage(self._version, response, self._solution)
 
@@ -186,13 +182,13 @@ class WorkerList(ListResource):
     def create(self, friendly_name, activity_sid=values.unset,
                attributes=values.unset):
         """
-        Create a new WorkerInstance
+        Create the WorkerInstance
 
         :param unicode friendly_name: A string to describe the resource
         :param unicode activity_sid: The SID of a valid Activity that describes the new Worker's initial state
         :param unicode attributes: A valid JSON string that describes the new Worker
 
-        :returns: Newly created WorkerInstance
+        :returns: The created WorkerInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
         """
         data = values.of({
@@ -201,11 +197,7 @@ class WorkerList(ListResource):
             'Attributes': attributes,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return WorkerInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'], )
 
@@ -325,18 +317,12 @@ class WorkerContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a WorkerInstance
+        Fetch the WorkerInstance
 
-        :returns: Fetched WorkerInstance
+        :returns: The fetched WorkerInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return WorkerInstance(
             self._version,
@@ -356,7 +342,7 @@ class WorkerContext(InstanceContext):
         :param unicode friendly_name: A string to describe the Worker
         :param bool reject_pending_reservations: Whether to reject pending reservations
 
-        :returns: Updated WorkerInstance
+        :returns: The updated WorkerInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
         """
         data = values.of({
@@ -366,11 +352,7 @@ class WorkerContext(InstanceContext):
             'RejectPendingReservations': reject_pending_reservations,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return WorkerInstance(
             self._version,
@@ -386,7 +368,7 @@ class WorkerContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     @property
     def real_time_statistics(self):
@@ -633,9 +615,9 @@ class WorkerInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a WorkerInstance
+        Fetch the WorkerInstance
 
-        :returns: Fetched WorkerInstance
+        :returns: The fetched WorkerInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
         """
         return self._proxy.fetch()
@@ -651,7 +633,7 @@ class WorkerInstance(InstanceResource):
         :param unicode friendly_name: A string to describe the Worker
         :param bool reject_pending_reservations: Whether to reject pending reservations
 
-        :returns: Updated WorkerInstance
+        :returns: The updated WorkerInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
         """
         return self._proxy.update(

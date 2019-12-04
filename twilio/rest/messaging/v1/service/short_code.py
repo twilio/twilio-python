@@ -36,20 +36,16 @@ class ShortCodeList(ListResource):
 
     def create(self, short_code_sid):
         """
-        Create a new ShortCodeInstance
+        Create the ShortCodeInstance
 
         :param unicode short_code_sid: The SID of the ShortCode being added to the Service
 
-        :returns: Newly created ShortCodeInstance
+        :returns: The created ShortCodeInstance
         :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeInstance
         """
         data = values.of({'ShortCodeSid': short_code_sid, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return ShortCodeInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
@@ -107,13 +103,9 @@ class ShortCodeList(ListResource):
         :returns: Page of ShortCodeInstance
         :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodePage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return ShortCodePage(self._version, response, self._solution)
 
@@ -235,22 +227,16 @@ class ShortCodeContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def fetch(self):
         """
-        Fetch a ShortCodeInstance
+        Fetch the ShortCodeInstance
 
-        :returns: Fetched ShortCodeInstance
+        :returns: The fetched ShortCodeInstance
         :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ShortCodeInstance(
             self._version,
@@ -400,9 +386,9 @@ class ShortCodeInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a ShortCodeInstance
+        Fetch the ShortCodeInstance
 
-        :returns: Fetched ShortCodeInstance
+        :returns: The fetched ShortCodeInstance
         :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeInstance
         """
         return self._proxy.fetch()

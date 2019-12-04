@@ -88,13 +88,9 @@ class TranscriptionList(ListResource):
         :returns: Page of TranscriptionInstance
         :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return TranscriptionPage(self._version, response, self._solution)
 
@@ -226,18 +222,12 @@ class TranscriptionContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a TranscriptionInstance
+        Fetch the TranscriptionInstance
 
-        :returns: Fetched TranscriptionInstance
+        :returns: The fetched TranscriptionInstance
         :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return TranscriptionInstance(
             self._version,
@@ -254,7 +244,7 @@ class TranscriptionContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -433,9 +423,9 @@ class TranscriptionInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a TranscriptionInstance
+        Fetch the TranscriptionInstance
 
-        :returns: Fetched TranscriptionInstance
+        :returns: The fetched TranscriptionInstance
         :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionInstance
         """
         return self._proxy.fetch()

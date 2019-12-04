@@ -210,7 +210,7 @@ class SharedCostList(ListResource):
         :returns: Page of SharedCostInstance
         :rtype: twilio.rest.api.v2010.account.available_phone_number.shared_cost.SharedCostPage
         """
-        params = values.of({
+        data = values.of({
             'AreaCode': area_code,
             'Contains': contains,
             'SmsEnabled': sms_enabled,
@@ -234,11 +234,7 @@ class SharedCostList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return SharedCostPage(self._version, response, self._solution)
 

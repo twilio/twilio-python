@@ -93,18 +93,14 @@ class FieldValueList(ListResource):
         :returns: Page of FieldValueInstance
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.field_value.FieldValuePage
         """
-        params = values.of({
+        data = values.of({
             'Language': language,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return FieldValuePage(self._version, response, self._solution)
 
@@ -127,22 +123,18 @@ class FieldValueList(ListResource):
 
     def create(self, language, value, synonym_of=values.unset):
         """
-        Create a new FieldValueInstance
+        Create the FieldValueInstance
 
         :param unicode language: The ISO language-country tag that identifies the language of the value
         :param unicode value: The Field Value data
         :param unicode synonym_of: The string value that indicates which word the field value is a synonym of
 
-        :returns: Newly created FieldValueInstance
+        :returns: The created FieldValueInstance
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.field_value.FieldValueInstance
         """
         data = values.of({'Language': language, 'Value': value, 'SynonymOf': synonym_of, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return FieldValueInstance(
             self._version,
@@ -266,18 +258,12 @@ class FieldValueContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a FieldValueInstance
+        Fetch the FieldValueInstance
 
-        :returns: Fetched FieldValueInstance
+        :returns: The fetched FieldValueInstance
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.field_value.FieldValueInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FieldValueInstance(
             self._version,
@@ -294,7 +280,7 @@ class FieldValueContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -443,9 +429,9 @@ class FieldValueInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a FieldValueInstance
+        Fetch the FieldValueInstance
 
-        :returns: Fetched FieldValueInstance
+        :returns: The fetched FieldValueInstance
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.field_value.FieldValueInstance
         """
         return self._proxy.fetch()

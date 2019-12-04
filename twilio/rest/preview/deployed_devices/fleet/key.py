@@ -37,21 +37,17 @@ class KeyList(ListResource):
 
     def create(self, friendly_name=values.unset, device_sid=values.unset):
         """
-        Create a new KeyInstance
+        Create the KeyInstance
 
         :param unicode friendly_name: The human readable description for this Key.
         :param unicode device_sid: The unique identifier of a Key to be authenticated.
 
-        :returns: Newly created KeyInstance
+        :returns: The created KeyInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
         """
         data = values.of({'FriendlyName': friendly_name, 'DeviceSid': device_sid, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return KeyInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'], )
 
@@ -112,18 +108,14 @@ class KeyList(ListResource):
         :returns: Page of KeyInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyPage
         """
-        params = values.of({
+        data = values.of({
             'DeviceSid': device_sid,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return KeyPage(self._version, response, self._solution)
 
@@ -242,18 +234,12 @@ class KeyContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a KeyInstance
+        Fetch the KeyInstance
 
-        :returns: Fetched KeyInstance
+        :returns: The fetched KeyInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return KeyInstance(
             self._version,
@@ -269,7 +255,7 @@ class KeyContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def update(self, friendly_name=values.unset, device_sid=values.unset):
         """
@@ -278,16 +264,12 @@ class KeyContext(InstanceContext):
         :param unicode friendly_name: The human readable description for this Key.
         :param unicode device_sid: The unique identifier of a Key to be authenticated.
 
-        :returns: Updated KeyInstance
+        :returns: The updated KeyInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
         """
         data = values.of({'FriendlyName': friendly_name, 'DeviceSid': device_sid, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return KeyInstance(
             self._version,
@@ -429,9 +411,9 @@ class KeyInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a KeyInstance
+        Fetch the KeyInstance
 
-        :returns: Fetched KeyInstance
+        :returns: The fetched KeyInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
         """
         return self._proxy.fetch()
@@ -452,7 +434,7 @@ class KeyInstance(InstanceResource):
         :param unicode friendly_name: The human readable description for this Key.
         :param unicode device_sid: The unique identifier of a Key to be authenticated.
 
-        :returns: Updated KeyInstance
+        :returns: The updated KeyInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
         """
         return self._proxy.update(friendly_name=friendly_name, device_sid=device_sid, )

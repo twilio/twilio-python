@@ -131,18 +131,12 @@ class DialogueContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a DialogueInstance
+        Fetch the DialogueInstance
 
-        :returns: Fetched DialogueInstance
+        :returns: The fetched DialogueInstance
         :rtype: twilio.rest.autopilot.v1.assistant.dialogue.DialogueInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return DialogueInstance(
             self._version,
@@ -248,9 +242,9 @@ class DialogueInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a DialogueInstance
+        Fetch the DialogueInstance
 
-        :returns: Fetched DialogueInstance
+        :returns: The fetched DialogueInstance
         :rtype: twilio.rest.autopilot.v1.assistant.dialogue.DialogueInstance
         """
         return self._proxy.fetch()

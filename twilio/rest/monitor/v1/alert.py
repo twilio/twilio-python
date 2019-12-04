@@ -110,7 +110,7 @@ class AlertList(ListResource):
         :returns: Page of AlertInstance
         :rtype: twilio.rest.monitor.v1.alert.AlertPage
         """
-        params = values.of({
+        data = values.of({
             'LogLevel': log_level,
             'StartDate': serialize.iso8601_date(start_date),
             'EndDate': serialize.iso8601_date(end_date),
@@ -119,11 +119,7 @@ class AlertList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return AlertPage(self._version, response, self._solution)
 
@@ -236,18 +232,12 @@ class AlertContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a AlertInstance
+        Fetch the AlertInstance
 
-        :returns: Fetched AlertInstance
+        :returns: The fetched AlertInstance
         :rtype: twilio.rest.monitor.v1.alert.AlertInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AlertInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -468,9 +458,9 @@ class AlertInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a AlertInstance
+        Fetch the AlertInstance
 
-        :returns: Fetched AlertInstance
+        :returns: The fetched AlertInstance
         :rtype: twilio.rest.monitor.v1.alert.AlertInstance
         """
         return self._proxy.fetch()

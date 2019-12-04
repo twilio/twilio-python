@@ -121,20 +121,23 @@ class CpsContext(InstanceContext):
         self._solution = {}
         self._uri = '/CPS'.format(**self._solution)
 
-    def fetch(self):
+    def fetch(self, twilio_sandbox_mode=values.unset,
+              x_xcnam_sensitive_phone_number=values.unset):
         """
-        Fetch a CpsInstance
+        Fetch the CpsInstance
 
-        :returns: Fetched CpsInstance
+        :param unicode twilio_sandbox_mode: Optional header to mock all voice dependencies.
+        :param unicode x_xcnam_sensitive_phone_number: Phone number to retrieve CPS.
+
+        :returns: The fetched CpsInstance
         :rtype: twilio.rest.preview.trusted_comms.cps.CpsInstance
         """
-        params = values.of({})
+        headers = values.of({
+            'Twilio-Sandbox-Mode': twilio_sandbox_mode,
+            'X-Xcnam-Sensitive-Phone-Number': x_xcnam_sensitive_phone_number,
+        })
 
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, headers=headers, )
 
         return CpsInstance(self._version, payload, )
 
@@ -211,14 +214,21 @@ class CpsInstance(InstanceResource):
         """
         return self._properties['url']
 
-    def fetch(self):
+    def fetch(self, twilio_sandbox_mode=values.unset,
+              x_xcnam_sensitive_phone_number=values.unset):
         """
-        Fetch a CpsInstance
+        Fetch the CpsInstance
 
-        :returns: Fetched CpsInstance
+        :param unicode twilio_sandbox_mode: Optional header to mock all voice dependencies.
+        :param unicode x_xcnam_sensitive_phone_number: Phone number to retrieve CPS.
+
+        :returns: The fetched CpsInstance
         :rtype: twilio.rest.preview.trusted_comms.cps.CpsInstance
         """
-        return self._proxy.fetch()
+        return self._proxy.fetch(
+            twilio_sandbox_mode=twilio_sandbox_mode,
+            x_xcnam_sensitive_phone_number=x_xcnam_sensitive_phone_number,
+        )
 
     def __repr__(self):
         """

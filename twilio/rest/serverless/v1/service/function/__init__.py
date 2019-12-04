@@ -90,13 +90,9 @@ class FunctionList(ListResource):
         :returns: Page of FunctionInstance
         :rtype: twilio.rest.serverless.v1.service.function.FunctionPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return FunctionPage(self._version, response, self._solution)
 
@@ -119,20 +115,16 @@ class FunctionList(ListResource):
 
     def create(self, friendly_name):
         """
-        Create a new FunctionInstance
+        Create the FunctionInstance
 
         :param unicode friendly_name: A string to describe the Function resource
 
-        :returns: Newly created FunctionInstance
+        :returns: The created FunctionInstance
         :rtype: twilio.rest.serverless.v1.service.function.FunctionInstance
         """
         data = values.of({'FriendlyName': friendly_name, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return FunctionInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
@@ -237,18 +229,12 @@ class FunctionContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a FunctionInstance
+        Fetch the FunctionInstance
 
-        :returns: Fetched FunctionInstance
+        :returns: The fetched FunctionInstance
         :rtype: twilio.rest.serverless.v1.service.function.FunctionInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FunctionInstance(
             self._version,
@@ -264,7 +250,7 @@ class FunctionContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def update(self, friendly_name):
         """
@@ -272,16 +258,12 @@ class FunctionContext(InstanceContext):
 
         :param unicode friendly_name: A string to describe the Function resource
 
-        :returns: Updated FunctionInstance
+        :returns: The updated FunctionInstance
         :rtype: twilio.rest.serverless.v1.service.function.FunctionInstance
         """
         data = values.of({'FriendlyName': friendly_name, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return FunctionInstance(
             self._version,
@@ -430,9 +412,9 @@ class FunctionInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a FunctionInstance
+        Fetch the FunctionInstance
 
-        :returns: Fetched FunctionInstance
+        :returns: The fetched FunctionInstance
         :rtype: twilio.rest.serverless.v1.service.function.FunctionInstance
         """
         return self._proxy.fetch()
@@ -452,7 +434,7 @@ class FunctionInstance(InstanceResource):
 
         :param unicode friendly_name: A string to describe the Function resource
 
-        :returns: Updated FunctionInstance
+        :returns: The updated FunctionInstance
         :rtype: twilio.rest.serverless.v1.service.function.FunctionInstance
         """
         return self._proxy.update(friendly_name, )

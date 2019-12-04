@@ -124,7 +124,7 @@ class DependentHostedNumberOrderList(ListResource):
         :returns: Page of DependentHostedNumberOrderInstance
         :rtype: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderPage
         """
-        params = values.of({
+        data = values.of({
             'Status': status,
             'PhoneNumber': phone_number,
             'IncomingPhoneNumberSid': incoming_phone_number_sid,
@@ -135,11 +135,7 @@ class DependentHostedNumberOrderList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return DependentHostedNumberOrderPage(self._version, response, self._solution)
 

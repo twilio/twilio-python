@@ -88,13 +88,9 @@ class FaxMediaList(ListResource):
         :returns: Page of FaxMediaInstance
         :rtype: twilio.rest.fax.v1.fax.fax_media.FaxMediaPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return FaxMediaPage(self._version, response, self._solution)
 
@@ -211,18 +207,12 @@ class FaxMediaContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a FaxMediaInstance
+        Fetch the FaxMediaInstance
 
-        :returns: Fetched FaxMediaInstance
+        :returns: The fetched FaxMediaInstance
         :rtype: twilio.rest.fax.v1.fax.fax_media.FaxMediaInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FaxMediaInstance(
             self._version,
@@ -238,7 +228,7 @@ class FaxMediaContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -354,9 +344,9 @@ class FaxMediaInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a FaxMediaInstance
+        Fetch the FaxMediaInstance
 
-        :returns: Fetched FaxMediaInstance
+        :returns: The fetched FaxMediaInstance
         :rtype: twilio.rest.fax.v1.fax.fax_media.FaxMediaInstance
         """
         return self._proxy.fetch()

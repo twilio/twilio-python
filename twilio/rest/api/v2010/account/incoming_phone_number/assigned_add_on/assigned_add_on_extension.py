@@ -93,13 +93,9 @@ class AssignedAddOnExtensionList(ListResource):
         :returns: Page of AssignedAddOnExtensionInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return AssignedAddOnExtensionPage(self._version, response, self._solution)
 
@@ -244,18 +240,12 @@ class AssignedAddOnExtensionContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a AssignedAddOnExtensionInstance
+        Fetch the AssignedAddOnExtensionInstance
 
-        :returns: Fetched AssignedAddOnExtensionInstance
+        :returns: The fetched AssignedAddOnExtensionInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AssignedAddOnExtensionInstance(
             self._version,
@@ -406,9 +396,9 @@ class AssignedAddOnExtensionInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a AssignedAddOnExtensionInstance
+        Fetch the AssignedAddOnExtensionInstance
 
-        :returns: Fetched AssignedAddOnExtensionInstance
+        :returns: The fetched AssignedAddOnExtensionInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance
         """
         return self._proxy.fetch()

@@ -105,7 +105,7 @@ class ExportCustomJobList(ListResource):
         :returns: Page of ExportCustomJobInstance
         :rtype: twilio.rest.preview.bulk_exports.export.export_custom_job.ExportCustomJobPage
         """
-        params = values.of({
+        data = values.of({
             'NextToken': next_token,
             'PreviousToken': previous_token,
             'PageToken': page_token,
@@ -113,11 +113,7 @@ class ExportCustomJobList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return ExportCustomJobPage(self._version, response, self._solution)
 
@@ -142,7 +138,7 @@ class ExportCustomJobList(ListResource):
                end_day=values.unset, webhook_url=values.unset,
                webhook_method=values.unset, email=values.unset):
         """
-        Create a new ExportCustomJobInstance
+        Create the ExportCustomJobInstance
 
         :param unicode friendly_name: The friendly_name
         :param unicode start_day: The start_day
@@ -151,7 +147,7 @@ class ExportCustomJobList(ListResource):
         :param unicode webhook_method: The webhook_method
         :param unicode email: The email
 
-        :returns: Newly created ExportCustomJobInstance
+        :returns: The created ExportCustomJobInstance
         :rtype: twilio.rest.preview.bulk_exports.export.export_custom_job.ExportCustomJobInstance
         """
         data = values.of({
@@ -163,11 +159,7 @@ class ExportCustomJobList(ListResource):
             'Email': email,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return ExportCustomJobInstance(
             self._version,

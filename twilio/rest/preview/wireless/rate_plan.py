@@ -89,13 +89,9 @@ class RatePlanList(ListResource):
         :returns: Page of RatePlanInstance
         :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return RatePlanPage(self._version, response, self._solution)
 
@@ -123,7 +119,7 @@ class RatePlanList(ListResource):
                national_roaming_enabled=values.unset,
                international_roaming=values.unset):
         """
-        Create a new RatePlanInstance
+        Create the RatePlanInstance
 
         :param unicode unique_name: The unique_name
         :param unicode friendly_name: The friendly_name
@@ -136,7 +132,7 @@ class RatePlanList(ListResource):
         :param bool national_roaming_enabled: The national_roaming_enabled
         :param unicode international_roaming: The international_roaming
 
-        :returns: Newly created RatePlanInstance
+        :returns: The created RatePlanInstance
         :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
         """
         data = values.of({
@@ -152,11 +148,7 @@ class RatePlanList(ListResource):
             'InternationalRoaming': serialize.map(international_roaming, lambda e: e),
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return RatePlanInstance(self._version, payload, )
 
@@ -256,18 +248,12 @@ class RatePlanContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a RatePlanInstance
+        Fetch the RatePlanInstance
 
-        :returns: Fetched RatePlanInstance
+        :returns: The fetched RatePlanInstance
         :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return RatePlanInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -278,16 +264,12 @@ class RatePlanContext(InstanceContext):
         :param unicode unique_name: The unique_name
         :param unicode friendly_name: The friendly_name
 
-        :returns: Updated RatePlanInstance
+        :returns: The updated RatePlanInstance
         :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
         """
         data = values.of({'UniqueName': unique_name, 'FriendlyName': friendly_name, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return RatePlanInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -298,7 +280,7 @@ class RatePlanContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -474,9 +456,9 @@ class RatePlanInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a RatePlanInstance
+        Fetch the RatePlanInstance
 
-        :returns: Fetched RatePlanInstance
+        :returns: The fetched RatePlanInstance
         :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
         """
         return self._proxy.fetch()
@@ -488,7 +470,7 @@ class RatePlanInstance(InstanceResource):
         :param unicode unique_name: The unique_name
         :param unicode friendly_name: The friendly_name
 
-        :returns: Updated RatePlanInstance
+        :returns: The updated RatePlanInstance
         :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
         """
         return self._proxy.update(unique_name=unique_name, friendly_name=friendly_name, )

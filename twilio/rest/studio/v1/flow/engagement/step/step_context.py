@@ -142,18 +142,12 @@ class StepContextContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a StepContextInstance
+        Fetch the StepContextInstance
 
-        :returns: Fetched StepContextInstance
+        :returns: The fetched StepContextInstance
         :rtype: twilio.rest.studio.v1.flow.engagement.step.step_context.StepContextInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return StepContextInstance(
             self._version,
@@ -268,9 +262,9 @@ class StepContextInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a StepContextInstance
+        Fetch the StepContextInstance
 
-        :returns: Fetched StepContextInstance
+        :returns: The fetched StepContextInstance
         :rtype: twilio.rest.studio.v1.flow.engagement.step.step_context.StepContextInstance
         """
         return self._proxy.fetch()

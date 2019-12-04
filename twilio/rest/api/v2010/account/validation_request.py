@@ -36,7 +36,7 @@ class ValidationRequestList(ListResource):
                call_delay=values.unset, extension=values.unset,
                status_callback=values.unset, status_callback_method=values.unset):
         """
-        Create a new ValidationRequestInstance
+        Create the ValidationRequestInstance
 
         :param unicode phone_number: The phone number to verify in E.164 format
         :param unicode friendly_name: A string to describe the resource
@@ -45,7 +45,7 @@ class ValidationRequestList(ListResource):
         :param unicode status_callback: The URL we should call to send status information to your application
         :param unicode status_callback_method: The HTTP method we should use to call status_callback
 
-        :returns: Newly created ValidationRequestInstance
+        :returns: The created ValidationRequestInstance
         :rtype: twilio.rest.api.v2010.account.validation_request.ValidationRequestInstance
         """
         data = values.of({
@@ -57,11 +57,7 @@ class ValidationRequestList(ListResource):
             'StatusCallbackMethod': status_callback_method,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return ValidationRequestInstance(self._version, payload, account_sid=self._solution['account_sid'], )
 

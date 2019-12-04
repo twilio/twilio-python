@@ -88,13 +88,9 @@ class PublishedTrackList(ListResource):
         :returns: Page of PublishedTrackInstance
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_published_track.PublishedTrackPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return PublishedTrackPage(self._version, response, self._solution)
 
@@ -226,18 +222,12 @@ class PublishedTrackContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a PublishedTrackInstance
+        Fetch the PublishedTrackInstance
 
-        :returns: Fetched PublishedTrackInstance
+        :returns: The fetched PublishedTrackInstance
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_published_track.PublishedTrackInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return PublishedTrackInstance(
             self._version,
@@ -388,9 +378,9 @@ class PublishedTrackInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a PublishedTrackInstance
+        Fetch the PublishedTrackInstance
 
-        :returns: Fetched PublishedTrackInstance
+        :returns: The fetched PublishedTrackInstance
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_published_track.PublishedTrackInstance
         """
         return self._proxy.fetch()

@@ -114,7 +114,7 @@ class CommandList(ListResource):
         :returns: Page of CommandInstance
         :rtype: twilio.rest.wireless.v1.command.CommandPage
         """
-        params = values.of({
+        data = values.of({
             'Sim': sim,
             'Status': status,
             'Direction': direction,
@@ -124,11 +124,7 @@ class CommandList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return CommandPage(self._version, response, self._solution)
 
@@ -153,7 +149,7 @@ class CommandList(ListResource):
                callback_url=values.unset, command_mode=values.unset,
                include_sid=values.unset, delivery_receipt_requested=values.unset):
         """
-        Create a new CommandInstance
+        Create the CommandInstance
 
         :param unicode command: The message body of the Command or a Base64 encoded byte string in binary mode
         :param unicode sim: The sid or unique_name of the SIM to send the Command to
@@ -163,7 +159,7 @@ class CommandList(ListResource):
         :param unicode include_sid: Whether to include the SID of the command in the message body
         :param bool delivery_receipt_requested: Whether to request delivery receipt from the recipient
 
-        :returns: Newly created CommandInstance
+        :returns: The created CommandInstance
         :rtype: twilio.rest.wireless.v1.command.CommandInstance
         """
         data = values.of({
@@ -176,11 +172,7 @@ class CommandList(ListResource):
             'DeliveryReceiptRequested': delivery_receipt_requested,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return CommandInstance(self._version, payload, )
 
@@ -276,18 +268,12 @@ class CommandContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a CommandInstance
+        Fetch the CommandInstance
 
-        :returns: Fetched CommandInstance
+        :returns: The fetched CommandInstance
         :rtype: twilio.rest.wireless.v1.command.CommandInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CommandInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -298,7 +284,7 @@ class CommandContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -473,9 +459,9 @@ class CommandInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a CommandInstance
+        Fetch the CommandInstance
 
-        :returns: Fetched CommandInstance
+        :returns: The fetched CommandInstance
         :rtype: twilio.rest.wireless.v1.command.CommandInstance
         """
         return self._proxy.fetch()

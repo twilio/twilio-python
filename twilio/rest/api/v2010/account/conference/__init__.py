@@ -147,7 +147,7 @@ class ConferenceList(ListResource):
         :returns: Page of ConferenceInstance
         :rtype: twilio.rest.api.v2010.account.conference.ConferencePage
         """
-        params = values.of({
+        data = values.of({
             'DateCreated<': serialize.iso8601_date(date_created_before),
             'DateCreated': serialize.iso8601_date(date_created),
             'DateCreated>': serialize.iso8601_date(date_created_after),
@@ -161,11 +161,7 @@ class ConferenceList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return ConferencePage(self._version, response, self._solution)
 
@@ -284,18 +280,12 @@ class ConferenceContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a ConferenceInstance
+        Fetch the ConferenceInstance
 
-        :returns: Fetched ConferenceInstance
+        :returns: The fetched ConferenceInstance
         :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ConferenceInstance(
             self._version,
@@ -313,16 +303,12 @@ class ConferenceContext(InstanceContext):
         :param unicode announce_url: The URL we should call to announce something into the conference
         :param unicode announce_method: he HTTP method used to call announce_url
 
-        :returns: Updated ConferenceInstance
+        :returns: The updated ConferenceInstance
         :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
         """
         data = values.of({'Status': status, 'AnnounceUrl': announce_url, 'AnnounceMethod': announce_method, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return ConferenceInstance(
             self._version,
@@ -511,9 +497,9 @@ class ConferenceInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a ConferenceInstance
+        Fetch the ConferenceInstance
 
-        :returns: Fetched ConferenceInstance
+        :returns: The fetched ConferenceInstance
         :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
         """
         return self._proxy.fetch()
@@ -527,7 +513,7 @@ class ConferenceInstance(InstanceResource):
         :param unicode announce_url: The URL we should call to announce something into the conference
         :param unicode announce_method: he HTTP method used to call announce_url
 
-        :returns: Updated ConferenceInstance
+        :returns: The updated ConferenceInstance
         :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
         """
         return self._proxy.update(status=status, announce_url=announce_url, announce_method=announce_method, )

@@ -90,13 +90,9 @@ class BuildList(ListResource):
         :returns: Page of BuildInstance
         :rtype: twilio.rest.serverless.v1.service.build.BuildPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return BuildPage(self._version, response, self._solution)
 
@@ -120,13 +116,13 @@ class BuildList(ListResource):
     def create(self, asset_versions=values.unset, function_versions=values.unset,
                dependencies=values.unset):
         """
-        Create a new BuildInstance
+        Create the BuildInstance
 
         :param unicode asset_versions: The list of AssetVersion resource SIDs to include in the build
         :param unicode function_versions: The list of the Variable resource SIDs to include in the build
         :param unicode dependencies: A list of objects that describe the Dependencies included in the build
 
-        :returns: Newly created BuildInstance
+        :returns: The created BuildInstance
         :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
         """
         data = values.of({
@@ -135,11 +131,7 @@ class BuildList(ListResource):
             'Dependencies': dependencies,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return BuildInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
@@ -241,18 +233,12 @@ class BuildContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a BuildInstance
+        Fetch the BuildInstance
 
-        :returns: Fetched BuildInstance
+        :returns: The fetched BuildInstance
         :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return BuildInstance(
             self._version,
@@ -268,7 +254,7 @@ class BuildContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -417,9 +403,9 @@ class BuildInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a BuildInstance
+        Fetch the BuildInstance
 
-        :returns: Fetched BuildInstance
+        :returns: The fetched BuildInstance
         :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
         """
         return self._proxy.fetch()

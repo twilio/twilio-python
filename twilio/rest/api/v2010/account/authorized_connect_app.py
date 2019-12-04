@@ -87,13 +87,9 @@ class AuthorizedConnectAppList(ListResource):
         :returns: Page of AuthorizedConnectAppInstance
         :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return AuthorizedConnectAppPage(self._version, response, self._solution)
 
@@ -220,18 +216,12 @@ class AuthorizedConnectAppContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a AuthorizedConnectAppInstance
+        Fetch the AuthorizedConnectAppInstance
 
-        :returns: Fetched AuthorizedConnectAppInstance
+        :returns: The fetched AuthorizedConnectAppInstance
         :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AuthorizedConnectAppInstance(
             self._version,
@@ -387,9 +377,9 @@ class AuthorizedConnectAppInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a AuthorizedConnectAppInstance
+        Fetch the AuthorizedConnectAppInstance
 
-        :returns: Fetched AuthorizedConnectAppInstance
+        :returns: The fetched AuthorizedConnectAppInstance
         :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance
         """
         return self._proxy.fetch()

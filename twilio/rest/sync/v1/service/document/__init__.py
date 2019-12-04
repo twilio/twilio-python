@@ -38,22 +38,18 @@ class DocumentList(ListResource):
 
     def create(self, unique_name=values.unset, data=values.unset, ttl=values.unset):
         """
-        Create a new DocumentInstance
+        Create the DocumentInstance
 
         :param unicode unique_name: An application-defined string that uniquely identifies the Sync Document
         :param dict data: A JSON string that represents an arbitrary, schema-less object that the Sync Document stores
         :param unicode ttl: How long, in seconds, before the Sync Document expires and is deleted
 
-        :returns: Newly created DocumentInstance
+        :returns: The created DocumentInstance
         :rtype: twilio.rest.sync.v1.service.document.DocumentInstance
         """
         data = values.of({'UniqueName': unique_name, 'Data': serialize.object(data), 'Ttl': ttl, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return DocumentInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
@@ -111,13 +107,9 @@ class DocumentList(ListResource):
         :returns: Page of DocumentInstance
         :rtype: twilio.rest.sync.v1.service.document.DocumentPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return DocumentPage(self._version, response, self._solution)
 
@@ -237,18 +229,12 @@ class DocumentContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a DocumentInstance
+        Fetch the DocumentInstance
 
-        :returns: Fetched DocumentInstance
+        :returns: The fetched DocumentInstance
         :rtype: twilio.rest.sync.v1.service.document.DocumentInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return DocumentInstance(
             self._version,
@@ -257,32 +243,34 @@ class DocumentContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
-    def delete(self):
+    def delete(self, if_match=values.unset):
         """
         Deletes the DocumentInstance
+
+        :param unicode if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        headers = values.of({'If-Match': if_match, })
 
-    def update(self, data=values.unset, ttl=values.unset):
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers, )
+
+    def update(self, data=values.unset, ttl=values.unset, if_match=values.unset):
         """
         Update the DocumentInstance
 
         :param dict data: A JSON string that represents an arbitrary, schema-less object that the Sync Document stores
         :param unicode ttl: How long, in seconds, before the Document resource expires and is deleted
+        :param unicode if_match: The If-Match HTTP request header
 
-        :returns: Updated DocumentInstance
+        :returns: The updated DocumentInstance
         :rtype: twilio.rest.sync.v1.service.document.DocumentInstance
         """
         data = values.of({'Data': serialize.object(data), 'Ttl': ttl, })
+        headers = values.of({'If-Match': if_match, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers, )
 
         return DocumentInstance(
             self._version,
@@ -466,33 +454,36 @@ class DocumentInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a DocumentInstance
+        Fetch the DocumentInstance
 
-        :returns: Fetched DocumentInstance
+        :returns: The fetched DocumentInstance
         :rtype: twilio.rest.sync.v1.service.document.DocumentInstance
         """
         return self._proxy.fetch()
 
-    def delete(self):
+    def delete(self, if_match=values.unset):
         """
         Deletes the DocumentInstance
+
+        :param unicode if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete()
+        return self._proxy.delete(if_match=if_match, )
 
-    def update(self, data=values.unset, ttl=values.unset):
+    def update(self, data=values.unset, ttl=values.unset, if_match=values.unset):
         """
         Update the DocumentInstance
 
         :param dict data: A JSON string that represents an arbitrary, schema-less object that the Sync Document stores
         :param unicode ttl: How long, in seconds, before the Document resource expires and is deleted
+        :param unicode if_match: The If-Match HTTP request header
 
-        :returns: Updated DocumentInstance
+        :returns: The updated DocumentInstance
         :rtype: twilio.rest.sync.v1.service.document.DocumentInstance
         """
-        return self._proxy.update(data=data, ttl=ttl, )
+        return self._proxy.update(data=data, ttl=ttl, if_match=if_match, )
 
     @property
     def document_permissions(self):

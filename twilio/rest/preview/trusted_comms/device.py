@@ -32,23 +32,21 @@ class DeviceList(ListResource):
         self._solution = {}
         self._uri = '/Devices'.format(**self._solution)
 
-    def create(self, phone_number, push_token):
+    def create(self, phone_number, push_token, twilio_sandbox_mode=values.unset):
         """
-        Create a new DeviceInstance
+        Create the DeviceInstance
 
         :param unicode phone_number: The end user Phone Number
         :param unicode push_token: The Push Token for this Phone Number
+        :param unicode twilio_sandbox_mode: Optional header to mock all voice dependencies
 
-        :returns: Newly created DeviceInstance
+        :returns: The created DeviceInstance
         :rtype: twilio.rest.preview.trusted_comms.device.DeviceInstance
         """
         data = values.of({'PhoneNumber': phone_number, 'PushToken': push_token, })
+        headers = values.of({'Twilio-Sandbox-Mode': twilio_sandbox_mode, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers, )
 
         return DeviceInstance(self._version, payload, )
 

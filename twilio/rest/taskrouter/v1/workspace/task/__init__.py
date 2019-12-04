@@ -151,7 +151,7 @@ class TaskList(ListResource):
         :returns: Page of TaskInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskPage
         """
-        params = values.of({
+        data = values.of({
             'Priority': priority,
             'AssignmentStatus': serialize.map(assignment_status, lambda e: e),
             'WorkflowSid': workflow_sid,
@@ -166,11 +166,7 @@ class TaskList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return TaskPage(self._version, response, self._solution)
 
@@ -195,7 +191,7 @@ class TaskList(ListResource):
                task_channel=values.unset, workflow_sid=values.unset,
                attributes=values.unset):
         """
-        Create a new TaskInstance
+        Create the TaskInstance
 
         :param unicode timeout: The amount of time in seconds the task is allowed to live
         :param unicode priority: The priority to assign the new task and override the default
@@ -203,7 +199,7 @@ class TaskList(ListResource):
         :param unicode workflow_sid: The SID of the Workflow that you would like to handle routing for the new Task
         :param unicode attributes: A URL-encoded JSON string describing the attributes of the task
 
-        :returns: Newly created TaskInstance
+        :returns: The created TaskInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         """
         data = values.of({
@@ -214,11 +210,7 @@ class TaskList(ListResource):
             'Attributes': attributes,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return TaskInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'], )
 
@@ -319,18 +311,12 @@ class TaskContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a TaskInstance
+        Fetch the TaskInstance
 
-        :returns: Fetched TaskInstance
+        :returns: The fetched TaskInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return TaskInstance(
             self._version,
@@ -351,7 +337,7 @@ class TaskContext(InstanceContext):
         :param unicode priority: The Task's new priority value
         :param unicode task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update
 
-        :returns: Updated TaskInstance
+        :returns: The updated TaskInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         """
         data = values.of({
@@ -362,11 +348,7 @@ class TaskContext(InstanceContext):
             'TaskChannel': task_channel,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return TaskInstance(
             self._version,
@@ -382,7 +364,7 @@ class TaskContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     @property
     def reservations(self):
@@ -638,9 +620,9 @@ class TaskInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a TaskInstance
+        Fetch the TaskInstance
 
-        :returns: Fetched TaskInstance
+        :returns: The fetched TaskInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         """
         return self._proxy.fetch()
@@ -657,7 +639,7 @@ class TaskInstance(InstanceResource):
         :param unicode priority: The Task's new priority value
         :param unicode task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update
 
-        :returns: Updated TaskInstance
+        :returns: The updated TaskInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         """
         return self._proxy.update(

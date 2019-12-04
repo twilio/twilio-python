@@ -125,7 +125,7 @@ class SimList(ListResource):
         :returns: Page of SimInstance
         :rtype: twilio.rest.preview.wireless.sim.SimPage
         """
-        params = values.of({
+        data = values.of({
             'Status': status,
             'Iccid': iccid,
             'RatePlan': rate_plan,
@@ -136,11 +136,7 @@ class SimList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return SimPage(self._version, response, self._solution)
 
@@ -260,18 +256,12 @@ class SimContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a SimInstance
+        Fetch the SimInstance
 
-        :returns: Fetched SimInstance
+        :returns: The fetched SimInstance
         :rtype: twilio.rest.preview.wireless.sim.SimInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SimInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -304,7 +294,7 @@ class SimContext(InstanceContext):
         :param unicode voice_method: The voice_method
         :param unicode voice_url: The voice_url
 
-        :returns: Updated SimInstance
+        :returns: The updated SimInstance
         :rtype: twilio.rest.preview.wireless.sim.SimInstance
         """
         data = values.of({
@@ -326,11 +316,7 @@ class SimContext(InstanceContext):
             'VoiceUrl': voice_url,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return SimInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -592,9 +578,9 @@ class SimInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a SimInstance
+        Fetch the SimInstance
 
-        :returns: Fetched SimInstance
+        :returns: The fetched SimInstance
         :rtype: twilio.rest.preview.wireless.sim.SimInstance
         """
         return self._proxy.fetch()
@@ -628,7 +614,7 @@ class SimInstance(InstanceResource):
         :param unicode voice_method: The voice_method
         :param unicode voice_url: The voice_url
 
-        :returns: Updated SimInstance
+        :returns: The updated SimInstance
         :rtype: twilio.rest.preview.wireless.sim.SimInstance
         """
         return self._proxy.update(

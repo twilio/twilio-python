@@ -36,20 +36,16 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
 
     def create(self, ip_access_control_list_sid):
         """
-        Create a new AuthCallsIpAccessControlListMappingInstance
+        Create the AuthCallsIpAccessControlListMappingInstance
 
         :param unicode ip_access_control_list_sid: The SID of the IpAccessControlList resource to map to the SIP domain
 
-        :returns: Newly created AuthCallsIpAccessControlListMappingInstance
+        :returns: The created AuthCallsIpAccessControlListMappingInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_calls_mapping.auth_calls_ip_access_control_list_mapping.AuthCallsIpAccessControlListMappingInstance
         """
         data = values.of({'IpAccessControlListSid': ip_access_control_list_sid, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return AuthCallsIpAccessControlListMappingInstance(
             self._version,
@@ -112,13 +108,9 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
         :returns: Page of AuthCallsIpAccessControlListMappingInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_calls_mapping.auth_calls_ip_access_control_list_mapping.AuthCallsIpAccessControlListMappingPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return AuthCallsIpAccessControlListMappingPage(self._version, response, self._solution)
 
@@ -250,18 +242,12 @@ class AuthCallsIpAccessControlListMappingContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a AuthCallsIpAccessControlListMappingInstance
+        Fetch the AuthCallsIpAccessControlListMappingInstance
 
-        :returns: Fetched AuthCallsIpAccessControlListMappingInstance
+        :returns: The fetched AuthCallsIpAccessControlListMappingInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_calls_mapping.auth_calls_ip_access_control_list_mapping.AuthCallsIpAccessControlListMappingInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AuthCallsIpAccessControlListMappingInstance(
             self._version,
@@ -278,7 +264,7 @@ class AuthCallsIpAccessControlListMappingContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -380,9 +366,9 @@ class AuthCallsIpAccessControlListMappingInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a AuthCallsIpAccessControlListMappingInstance
+        Fetch the AuthCallsIpAccessControlListMappingInstance
 
-        :returns: Fetched AuthCallsIpAccessControlListMappingInstance
+        :returns: The fetched AuthCallsIpAccessControlListMappingInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_calls_mapping.auth_calls_ip_access_control_list_mapping.AuthCallsIpAccessControlListMappingInstance
         """
         return self._proxy.fetch()

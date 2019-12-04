@@ -39,20 +39,16 @@ class SyncListItemList(ListResource):
 
     def create(self, data):
         """
-        Create a new SyncListItemInstance
+        Create the SyncListItemInstance
 
         :param dict data: The data
 
-        :returns: Newly created SyncListItemInstance
+        :returns: The created SyncListItemInstance
         :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance
         """
         data = values.of({'Data': serialize.object(data), })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return SyncListItemInstance(
             self._version,
@@ -127,7 +123,7 @@ class SyncListItemList(ListResource):
         :returns: Page of SyncListItemInstance
         :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemPage
         """
-        params = values.of({
+        data = values.of({
             'Order': order,
             'From': from_,
             'Bounds': bounds,
@@ -136,11 +132,7 @@ class SyncListItemList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return SyncListItemPage(self._version, response, self._solution)
 
@@ -276,18 +268,12 @@ class SyncListItemContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a SyncListItemInstance
+        Fetch the SyncListItemInstance
 
-        :returns: Fetched SyncListItemInstance
+        :returns: The fetched SyncListItemInstance
         :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SyncListItemInstance(
             self._version,
@@ -297,31 +283,33 @@ class SyncListItemContext(InstanceContext):
             index=self._solution['index'],
         )
 
-    def delete(self):
+    def delete(self, if_match=values.unset):
         """
         Deletes the SyncListItemInstance
+
+        :param unicode if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        headers = values.of({'If-Match': if_match, })
 
-    def update(self, data):
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers, )
+
+    def update(self, data, if_match=values.unset):
         """
         Update the SyncListItemInstance
 
         :param dict data: The data
+        :param unicode if_match: The If-Match HTTP request header
 
-        :returns: Updated SyncListItemInstance
+        :returns: The updated SyncListItemInstance
         :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance
         """
         data = values.of({'Data': serialize.object(data), })
+        headers = values.of({'If-Match': if_match, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers, )
 
         return SyncListItemInstance(
             self._version,
@@ -486,32 +474,35 @@ class SyncListItemInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a SyncListItemInstance
+        Fetch the SyncListItemInstance
 
-        :returns: Fetched SyncListItemInstance
+        :returns: The fetched SyncListItemInstance
         :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance
         """
         return self._proxy.fetch()
 
-    def delete(self):
+    def delete(self, if_match=values.unset):
         """
         Deletes the SyncListItemInstance
+
+        :param unicode if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete()
+        return self._proxy.delete(if_match=if_match, )
 
-    def update(self, data):
+    def update(self, data, if_match=values.unset):
         """
         Update the SyncListItemInstance
 
         :param dict data: The data
+        :param unicode if_match: The If-Match HTTP request header
 
-        :returns: Updated SyncListItemInstance
+        :returns: The updated SyncListItemInstance
         :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance
         """
-        return self._proxy.update(data, )
+        return self._proxy.update(data, if_match=if_match, )
 
     def __repr__(self):
         """

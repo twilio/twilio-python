@@ -36,32 +36,32 @@ class EntityList(ListResource):
         self._solution = {'service_sid': service_sid, }
         self._uri = '/Services/{service_sid}/Entities'.format(**self._solution)
 
-    def create(self, identity):
+    def create(self, identity, twilio_authy_sandbox_mode=values.unset):
         """
-        Create a new EntityInstance
+        Create the EntityInstance
 
         :param unicode identity: Unique identity of the Entity
+        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
 
-        :returns: Newly created EntityInstance
+        :returns: The created EntityInstance
         :rtype: twilio.rest.authy.v1.service.entity.EntityInstance
         """
         data = values.of({'Identity': identity, })
+        headers = values.of({'Twilio-Authy-Sandbox-Mode': twilio_authy_sandbox_mode, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers, )
 
         return EntityInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, twilio_authy_sandbox_mode=values.unset, limit=None,
+               page_size=None):
         """
         Streams EntityInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
+        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -74,16 +74,18 @@ class EntityList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'], )
+        page = self.page(twilio_authy_sandbox_mode=twilio_authy_sandbox_mode, page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, twilio_authy_sandbox_mode=values.unset, limit=None,
+             page_size=None):
         """
         Lists EntityInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
+        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -94,14 +96,19 @@ class EntityList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.authy.v1.service.entity.EntityInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size, ))
+        return list(self.stream(
+            twilio_authy_sandbox_mode=twilio_authy_sandbox_mode,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    def page(self, page_token=values.unset, page_number=values.unset,
-             page_size=values.unset):
+    def page(self, twilio_authy_sandbox_mode=values.unset, page_token=values.unset,
+             page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of EntityInstance records from the API.
         Request is executed immediately
 
+        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -109,13 +116,10 @@ class EntityList(ListResource):
         :returns: Page of EntityInstance
         :rtype: twilio.rest.authy.v1.service.entity.EntityPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        headers = values.of({'Twilio-Authy-Sandbox-Mode': twilio_authy_sandbox_mode, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, headers=headers, )
 
         return EntityPage(self._version, response, self._solution)
 
@@ -235,29 +239,31 @@ class EntityContext(InstanceContext):
         # Dependents
         self._factors = None
 
-    def delete(self):
+    def delete(self, twilio_authy_sandbox_mode=values.unset):
         """
         Deletes the EntityInstance
+
+        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        headers = values.of({'Twilio-Authy-Sandbox-Mode': twilio_authy_sandbox_mode, })
 
-    def fetch(self):
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers, )
+
+    def fetch(self, twilio_authy_sandbox_mode=values.unset):
         """
-        Fetch a EntityInstance
+        Fetch the EntityInstance
 
-        :returns: Fetched EntityInstance
+        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
+
+        :returns: The fetched EntityInstance
         :rtype: twilio.rest.authy.v1.service.entity.EntityInstance
         """
-        params = values.of({})
+        headers = values.of({'Twilio-Authy-Sandbox-Mode': twilio_authy_sandbox_mode, })
 
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, headers=headers, )
 
         return EntityInstance(
             self._version,
@@ -404,23 +410,27 @@ class EntityInstance(InstanceResource):
         """
         return self._properties['links']
 
-    def delete(self):
+    def delete(self, twilio_authy_sandbox_mode=values.unset):
         """
         Deletes the EntityInstance
+
+        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete()
+        return self._proxy.delete(twilio_authy_sandbox_mode=twilio_authy_sandbox_mode, )
 
-    def fetch(self):
+    def fetch(self, twilio_authy_sandbox_mode=values.unset):
         """
-        Fetch a EntityInstance
+        Fetch the EntityInstance
 
-        :returns: Fetched EntityInstance
+        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
+
+        :returns: The fetched EntityInstance
         :rtype: twilio.rest.authy.v1.service.entity.EntityInstance
         """
-        return self._proxy.fetch()
+        return self._proxy.fetch(twilio_authy_sandbox_mode=twilio_authy_sandbox_mode, )
 
     @property
     def factors(self):

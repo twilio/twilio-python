@@ -101,7 +101,7 @@ class ActivityList(ListResource):
         :returns: Page of ActivityInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityPage
         """
-        params = values.of({
+        data = values.of({
             'FriendlyName': friendly_name,
             'Available': available,
             'PageToken': page_token,
@@ -109,11 +109,7 @@ class ActivityList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return ActivityPage(self._version, response, self._solution)
 
@@ -136,21 +132,17 @@ class ActivityList(ListResource):
 
     def create(self, friendly_name, available=values.unset):
         """
-        Create a new ActivityInstance
+        Create the ActivityInstance
 
         :param unicode friendly_name: A string to describe the Activity resource
         :param bool available: Whether the Worker should be eligible to receive a Task when it occupies the Activity
 
-        :returns: Newly created ActivityInstance
+        :returns: The created ActivityInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
         """
         data = values.of({'FriendlyName': friendly_name, 'Available': available, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return ActivityInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'], )
 
@@ -248,18 +240,12 @@ class ActivityContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a ActivityInstance
+        Fetch the ActivityInstance
 
-        :returns: Fetched ActivityInstance
+        :returns: The fetched ActivityInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ActivityInstance(
             self._version,
@@ -274,16 +260,12 @@ class ActivityContext(InstanceContext):
 
         :param unicode friendly_name: A string to describe the Activity resource
 
-        :returns: Updated ActivityInstance
+        :returns: The updated ActivityInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
         """
         data = values.of({'FriendlyName': friendly_name, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return ActivityInstance(
             self._version,
@@ -299,7 +281,7 @@ class ActivityContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -423,9 +405,9 @@ class ActivityInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a ActivityInstance
+        Fetch the ActivityInstance
 
-        :returns: Fetched ActivityInstance
+        :returns: The fetched ActivityInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
         """
         return self._proxy.fetch()
@@ -436,7 +418,7 @@ class ActivityInstance(InstanceResource):
 
         :param unicode friendly_name: A string to describe the Activity resource
 
-        :returns: Updated ActivityInstance
+        :returns: The updated ActivityInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
         """
         return self._proxy.update(friendly_name=friendly_name, )

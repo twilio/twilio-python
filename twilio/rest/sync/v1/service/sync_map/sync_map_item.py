@@ -39,7 +39,7 @@ class SyncMapItemList(ListResource):
     def create(self, key, data, ttl=values.unset, item_ttl=values.unset,
                collection_ttl=values.unset):
         """
-        Create a new SyncMapItemInstance
+        Create the SyncMapItemInstance
 
         :param unicode key: The unique, user-defined key for the Map Item
         :param dict data: A JSON string that represents an arbitrary, schema-less object that the Map Item stores
@@ -47,7 +47,7 @@ class SyncMapItemList(ListResource):
         :param unicode item_ttl: How long, in seconds, before the Map Item expires
         :param unicode collection_ttl: How long, in seconds, before the Map Item's parent Sync Map expires and is deleted
 
-        :returns: Newly created SyncMapItemInstance
+        :returns: The created SyncMapItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemInstance
         """
         data = values.of({
@@ -58,11 +58,7 @@ class SyncMapItemList(ListResource):
             'CollectionTtl': collection_ttl,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return SyncMapItemInstance(
             self._version,
@@ -137,7 +133,7 @@ class SyncMapItemList(ListResource):
         :returns: Page of SyncMapItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemPage
         """
-        params = values.of({
+        data = values.of({
             'Order': order,
             'From': from_,
             'Bounds': bounds,
@@ -146,11 +142,7 @@ class SyncMapItemList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return SyncMapItemPage(self._version, response, self._solution)
 
@@ -284,18 +276,12 @@ class SyncMapItemContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a SyncMapItemInstance
+        Fetch the SyncMapItemInstance
 
-        :returns: Fetched SyncMapItemInstance
+        :returns: The fetched SyncMapItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SyncMapItemInstance(
             self._version,
@@ -305,17 +291,21 @@ class SyncMapItemContext(InstanceContext):
             key=self._solution['key'],
         )
 
-    def delete(self):
+    def delete(self, if_match=values.unset):
         """
         Deletes the SyncMapItemInstance
+
+        :param unicode if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        headers = values.of({'If-Match': if_match, })
+
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers, )
 
     def update(self, data=values.unset, ttl=values.unset, item_ttl=values.unset,
-               collection_ttl=values.unset):
+               collection_ttl=values.unset, if_match=values.unset):
         """
         Update the SyncMapItemInstance
 
@@ -323,8 +313,9 @@ class SyncMapItemContext(InstanceContext):
         :param unicode ttl: An alias for item_ttl
         :param unicode item_ttl: How long, in seconds, before the Map Item expires
         :param unicode collection_ttl: How long, in seconds, before the Map Item's parent Sync Map expires and is deleted
+        :param unicode if_match: The If-Match HTTP request header
 
-        :returns: Updated SyncMapItemInstance
+        :returns: The updated SyncMapItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemInstance
         """
         data = values.of({
@@ -333,12 +324,9 @@ class SyncMapItemContext(InstanceContext):
             'ItemTtl': item_ttl,
             'CollectionTtl': collection_ttl,
         })
+        headers = values.of({'If-Match': if_match, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers, )
 
         return SyncMapItemInstance(
             self._version,
@@ -511,24 +499,26 @@ class SyncMapItemInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a SyncMapItemInstance
+        Fetch the SyncMapItemInstance
 
-        :returns: Fetched SyncMapItemInstance
+        :returns: The fetched SyncMapItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemInstance
         """
         return self._proxy.fetch()
 
-    def delete(self):
+    def delete(self, if_match=values.unset):
         """
         Deletes the SyncMapItemInstance
+
+        :param unicode if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete()
+        return self._proxy.delete(if_match=if_match, )
 
     def update(self, data=values.unset, ttl=values.unset, item_ttl=values.unset,
-               collection_ttl=values.unset):
+               collection_ttl=values.unset, if_match=values.unset):
         """
         Update the SyncMapItemInstance
 
@@ -536,11 +526,18 @@ class SyncMapItemInstance(InstanceResource):
         :param unicode ttl: An alias for item_ttl
         :param unicode item_ttl: How long, in seconds, before the Map Item expires
         :param unicode collection_ttl: How long, in seconds, before the Map Item's parent Sync Map expires and is deleted
+        :param unicode if_match: The If-Match HTTP request header
 
-        :returns: Updated SyncMapItemInstance
+        :returns: The updated SyncMapItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemInstance
         """
-        return self._proxy.update(data=data, ttl=ttl, item_ttl=item_ttl, collection_ttl=collection_ttl, )
+        return self._proxy.update(
+            data=data,
+            ttl=ttl,
+            item_ttl=item_ttl,
+            collection_ttl=collection_ttl,
+            if_match=if_match,
+        )
 
     def __repr__(self):
         """
