@@ -38,8 +38,7 @@ class MemberList(ListResource):
     def create(self, identity, role_sid=values.unset,
                last_consumed_message_index=values.unset,
                last_consumption_timestamp=values.unset, date_created=values.unset,
-               date_updated=values.unset, attributes=values.unset,
-               x_twilio_webhook_enabled=values.unset):
+               date_updated=values.unset, attributes=values.unset):
         """
         Create the MemberInstance
 
@@ -50,7 +49,6 @@ class MemberList(ListResource):
         :param datetime date_created: The ISO 8601 date and time in GMT when the resource was created
         :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
         :param unicode attributes: A valid JSON string that contains application-specific data
-        :param MemberInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: The created MemberInstance
         :rtype: twilio.rest.chat.v2.service.channel.member.MemberInstance
@@ -64,9 +62,8 @@ class MemberList(ListResource):
             'DateUpdated': serialize.iso8601_datetime(date_updated),
             'Attributes': attributes,
         })
-        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers, )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return MemberInstance(
             self._version,
@@ -286,24 +283,19 @@ class MemberContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
-    def delete(self, x_twilio_webhook_enabled=values.unset):
+    def delete(self):
         """
         Deletes the MemberInstance
-
-        :param MemberInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
-
-        return self._version.delete(method='DELETE', uri=self._uri, headers=headers, )
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def update(self, role_sid=values.unset,
                last_consumed_message_index=values.unset,
                last_consumption_timestamp=values.unset, date_created=values.unset,
-               date_updated=values.unset, attributes=values.unset,
-               x_twilio_webhook_enabled=values.unset):
+               date_updated=values.unset, attributes=values.unset):
         """
         Update the MemberInstance
 
@@ -313,7 +305,6 @@ class MemberContext(InstanceContext):
         :param datetime date_created: The ISO 8601 date and time in GMT when the resource was created
         :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
         :param unicode attributes: A valid JSON string that contains application-specific data
-        :param MemberInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: The updated MemberInstance
         :rtype: twilio.rest.chat.v2.service.channel.member.MemberInstance
@@ -326,9 +317,8 @@ class MemberContext(InstanceContext):
             'DateUpdated': serialize.iso8601_datetime(date_updated),
             'Attributes': attributes,
         })
-        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers, )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return MemberInstance(
             self._version,
@@ -512,22 +502,19 @@ class MemberInstance(InstanceResource):
         """
         return self._proxy.fetch()
 
-    def delete(self, x_twilio_webhook_enabled=values.unset):
+    def delete(self):
         """
         Deletes the MemberInstance
-
-        :param MemberInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete(x_twilio_webhook_enabled=x_twilio_webhook_enabled, )
+        return self._proxy.delete()
 
     def update(self, role_sid=values.unset,
                last_consumed_message_index=values.unset,
                last_consumption_timestamp=values.unset, date_created=values.unset,
-               date_updated=values.unset, attributes=values.unset,
-               x_twilio_webhook_enabled=values.unset):
+               date_updated=values.unset, attributes=values.unset):
         """
         Update the MemberInstance
 
@@ -537,7 +524,6 @@ class MemberInstance(InstanceResource):
         :param datetime date_created: The ISO 8601 date and time in GMT when the resource was created
         :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
         :param unicode attributes: A valid JSON string that contains application-specific data
-        :param MemberInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: The updated MemberInstance
         :rtype: twilio.rest.chat.v2.service.channel.member.MemberInstance
@@ -549,7 +535,6 @@ class MemberInstance(InstanceResource):
             date_created=date_created,
             date_updated=date_updated,
             attributes=attributes,
-            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
         )
 
     def __repr__(self):

@@ -122,26 +122,14 @@ class CurrentCallContext(InstanceContext):
         self._solution = {}
         self._uri = '/CurrentCall'.format(**self._solution)
 
-    def fetch(self, twilio_sandbox_mode=values.unset,
-              x_xcnam_sensitive_phone_number_from=values.unset,
-              x_xcnam_sensitive_phone_number_to=values.unset):
+    def fetch(self):
         """
         Fetch the CurrentCallInstance
-
-        :param unicode twilio_sandbox_mode: Optional header to mock all voice dependencies
-        :param unicode x_xcnam_sensitive_phone_number_from: The originating Phone Number
-        :param unicode x_xcnam_sensitive_phone_number_to: The terminating Phone Number
 
         :returns: The fetched CurrentCallInstance
         :rtype: twilio.rest.preview.trusted_comms.current_call.CurrentCallInstance
         """
-        headers = values.of({
-            'Twilio-Sandbox-Mode': twilio_sandbox_mode,
-            'X-Xcnam-Sensitive-Phone-Number-From': x_xcnam_sensitive_phone_number_from,
-            'X-Xcnam-Sensitive-Phone-Number-To': x_xcnam_sensitive_phone_number_to,
-        })
-
-        payload = self._version.fetch(method='GET', uri=self._uri, headers=headers, )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CurrentCallInstance(self._version, payload, )
 
@@ -317,24 +305,14 @@ class CurrentCallInstance(InstanceResource):
         """
         return self._properties['use_case']
 
-    def fetch(self, twilio_sandbox_mode=values.unset,
-              x_xcnam_sensitive_phone_number_from=values.unset,
-              x_xcnam_sensitive_phone_number_to=values.unset):
+    def fetch(self):
         """
         Fetch the CurrentCallInstance
-
-        :param unicode twilio_sandbox_mode: Optional header to mock all voice dependencies
-        :param unicode x_xcnam_sensitive_phone_number_from: The originating Phone Number
-        :param unicode x_xcnam_sensitive_phone_number_to: The terminating Phone Number
 
         :returns: The fetched CurrentCallInstance
         :rtype: twilio.rest.preview.trusted_comms.current_call.CurrentCallInstance
         """
-        return self._proxy.fetch(
-            twilio_sandbox_mode=twilio_sandbox_mode,
-            x_xcnam_sensitive_phone_number_from=x_xcnam_sensitive_phone_number_from,
-            x_xcnam_sensitive_phone_number_to=x_xcnam_sensitive_phone_number_to,
-        )
+        return self._proxy.fetch()
 
     def __repr__(self):
         """

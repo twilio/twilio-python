@@ -35,32 +35,28 @@ class ServiceList(ListResource):
         self._solution = {}
         self._uri = '/Services'.format(**self._solution)
 
-    def create(self, friendly_name, twilio_authy_sandbox_mode=values.unset):
+    def create(self, friendly_name):
         """
         Create the ServiceInstance
 
         :param unicode friendly_name: A human readable description of this resource.
-        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
 
         :returns: The created ServiceInstance
         :rtype: twilio.rest.authy.v1.service.ServiceInstance
         """
         data = values.of({'FriendlyName': friendly_name, })
-        headers = values.of({'Twilio-Authy-Sandbox-Mode': twilio_authy_sandbox_mode, })
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers, )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return ServiceInstance(self._version, payload, )
 
-    def stream(self, twilio_authy_sandbox_mode=values.unset, limit=None,
-               page_size=None):
+    def stream(self, limit=None, page_size=None):
         """
         Streams ServiceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -73,18 +69,16 @@ class ServiceList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(twilio_authy_sandbox_mode=twilio_authy_sandbox_mode, page_size=limits['page_size'], )
+        page = self.page(page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def list(self, twilio_authy_sandbox_mode=values.unset, limit=None,
-             page_size=None):
+    def list(self, limit=None, page_size=None):
         """
         Lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -95,19 +89,14 @@ class ServiceList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.authy.v1.service.ServiceInstance]
         """
-        return list(self.stream(
-            twilio_authy_sandbox_mode=twilio_authy_sandbox_mode,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(limit=limit, page_size=page_size, ))
 
-    def page(self, twilio_authy_sandbox_mode=values.unset, page_token=values.unset,
-             page_number=values.unset, page_size=values.unset):
+    def page(self, page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
 
-        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -116,9 +105,8 @@ class ServiceList(ListResource):
         :rtype: twilio.rest.authy.v1.service.ServicePage
         """
         data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
-        headers = values.of({'Twilio-Authy-Sandbox-Mode': twilio_authy_sandbox_mode, })
 
-        response = self._version.page(method='GET', uri=self._uri, params=data, headers=headers, )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return ServicePage(self._version, response, self._solution)
 
@@ -236,49 +224,38 @@ class ServiceContext(InstanceContext):
         # Dependents
         self._entities = None
 
-    def delete(self, twilio_authy_sandbox_mode=values.unset):
+    def delete(self):
         """
         Deletes the ServiceInstance
-
-        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        headers = values.of({'Twilio-Authy-Sandbox-Mode': twilio_authy_sandbox_mode, })
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
-        return self._version.delete(method='DELETE', uri=self._uri, headers=headers, )
-
-    def fetch(self, twilio_authy_sandbox_mode=values.unset):
+    def fetch(self):
         """
         Fetch the ServiceInstance
-
-        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
 
         :returns: The fetched ServiceInstance
         :rtype: twilio.rest.authy.v1.service.ServiceInstance
         """
-        headers = values.of({'Twilio-Authy-Sandbox-Mode': twilio_authy_sandbox_mode, })
-
-        payload = self._version.fetch(method='GET', uri=self._uri, headers=headers, )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ServiceInstance(self._version, payload, sid=self._solution['sid'], )
 
-    def update(self, friendly_name=values.unset,
-               twilio_authy_sandbox_mode=values.unset):
+    def update(self, friendly_name=values.unset):
         """
         Update the ServiceInstance
 
         :param unicode friendly_name: A human readable description of this resource.
-        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
 
         :returns: The updated ServiceInstance
         :rtype: twilio.rest.authy.v1.service.ServiceInstance
         """
         data = values.of({'FriendlyName': friendly_name, })
-        headers = values.of({'Twilio-Authy-Sandbox-Mode': twilio_authy_sandbox_mode, })
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers, )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return ServiceInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -403,43 +380,34 @@ class ServiceInstance(InstanceResource):
         """
         return self._properties['links']
 
-    def delete(self, twilio_authy_sandbox_mode=values.unset):
+    def delete(self):
         """
         Deletes the ServiceInstance
-
-        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete(twilio_authy_sandbox_mode=twilio_authy_sandbox_mode, )
+        return self._proxy.delete()
 
-    def fetch(self, twilio_authy_sandbox_mode=values.unset):
+    def fetch(self):
         """
         Fetch the ServiceInstance
-
-        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
 
         :returns: The fetched ServiceInstance
         :rtype: twilio.rest.authy.v1.service.ServiceInstance
         """
-        return self._proxy.fetch(twilio_authy_sandbox_mode=twilio_authy_sandbox_mode, )
+        return self._proxy.fetch()
 
-    def update(self, friendly_name=values.unset,
-               twilio_authy_sandbox_mode=values.unset):
+    def update(self, friendly_name=values.unset):
         """
         Update the ServiceInstance
 
         :param unicode friendly_name: A human readable description of this resource.
-        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
 
         :returns: The updated ServiceInstance
         :rtype: twilio.rest.authy.v1.service.ServiceInstance
         """
-        return self._proxy.update(
-            friendly_name=friendly_name,
-            twilio_authy_sandbox_mode=twilio_authy_sandbox_mode,
-        )
+        return self._proxy.update(friendly_name=friendly_name, )
 
     @property
     def entities(self):

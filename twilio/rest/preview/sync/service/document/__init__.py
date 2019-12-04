@@ -245,33 +245,27 @@ class DocumentContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
-    def delete(self, if_match=values.unset):
+    def delete(self):
         """
         Deletes the DocumentInstance
-
-        :param unicode if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        headers = values.of({'If-Match': if_match, })
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
-        return self._version.delete(method='DELETE', uri=self._uri, headers=headers, )
-
-    def update(self, data, if_match=values.unset):
+    def update(self, data):
         """
         Update the DocumentInstance
 
         :param dict data: The data
-        :param unicode if_match: The If-Match HTTP request header
 
         :returns: The updated DocumentInstance
         :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
         """
         data = values.of({'Data': serialize.object(data), })
-        headers = values.of({'If-Match': if_match, })
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers, )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return DocumentInstance(
             self._version,
@@ -454,28 +448,25 @@ class DocumentInstance(InstanceResource):
         """
         return self._proxy.fetch()
 
-    def delete(self, if_match=values.unset):
+    def delete(self):
         """
         Deletes the DocumentInstance
-
-        :param unicode if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete(if_match=if_match, )
+        return self._proxy.delete()
 
-    def update(self, data, if_match=values.unset):
+    def update(self, data):
         """
         Update the DocumentInstance
 
         :param dict data: The data
-        :param unicode if_match: The If-Match HTTP request header
 
         :returns: The updated DocumentInstance
         :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
         """
-        return self._proxy.update(data, if_match=if_match, )
+        return self._proxy.update(data, )
 
     @property
     def document_permissions(self):

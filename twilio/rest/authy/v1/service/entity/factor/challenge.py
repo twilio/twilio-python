@@ -39,14 +39,13 @@ class ChallengeList(ListResource):
         self._uri = '/Services/{service_sid}/Entities/{identity}/Factors/{factor_sid}/Challenges'.format(**self._solution)
 
     def create(self, expiration_date=values.unset, details=values.unset,
-               hidden_details=values.unset, twilio_authy_sandbox_mode=values.unset):
+               hidden_details=values.unset):
         """
         Create the ChallengeInstance
 
         :param datetime expiration_date: The future date in which this Challenge will expire
         :param unicode details: Public details provided to contextualize the Challenge
         :param unicode hidden_details: Hidden details provided to contextualize the Challenge
-        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
 
         :returns: The created ChallengeInstance
         :rtype: twilio.rest.authy.v1.service.entity.factor.challenge.ChallengeInstance
@@ -56,9 +55,8 @@ class ChallengeList(ListResource):
             'Details': details,
             'HiddenDetails': hidden_details,
         })
-        headers = values.of({'Twilio-Authy-Sandbox-Mode': twilio_authy_sandbox_mode, })
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers, )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return ChallengeInstance(
             self._version,
@@ -191,31 +189,23 @@ class ChallengeContext(InstanceContext):
         }
         self._uri = '/Services/{service_sid}/Entities/{identity}/Factors/{factor_sid}/Challenges/{sid}'.format(**self._solution)
 
-    def delete(self, twilio_authy_sandbox_mode=values.unset):
+    def delete(self):
         """
         Deletes the ChallengeInstance
-
-        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        headers = values.of({'Twilio-Authy-Sandbox-Mode': twilio_authy_sandbox_mode, })
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
-        return self._version.delete(method='DELETE', uri=self._uri, headers=headers, )
-
-    def fetch(self, twilio_authy_sandbox_mode=values.unset):
+    def fetch(self):
         """
         Fetch the ChallengeInstance
-
-        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
 
         :returns: The fetched ChallengeInstance
         :rtype: twilio.rest.authy.v1.service.entity.factor.challenge.ChallengeInstance
         """
-        headers = values.of({'Twilio-Authy-Sandbox-Mode': twilio_authy_sandbox_mode, })
-
-        payload = self._version.fetch(method='GET', uri=self._uri, headers=headers, )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ChallengeInstance(
             self._version,
@@ -226,21 +216,18 @@ class ChallengeContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
-    def update(self, auth_payload=values.unset,
-               twilio_authy_sandbox_mode=values.unset):
+    def update(self, auth_payload=values.unset):
         """
         Update the ChallengeInstance
 
         :param unicode auth_payload: Optional payload to verify the Challenge
-        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
 
         :returns: The updated ChallengeInstance
         :rtype: twilio.rest.authy.v1.service.entity.factor.challenge.ChallengeInstance
         """
         data = values.of({'AuthPayload': auth_payload, })
-        headers = values.of({'Twilio-Authy-Sandbox-Mode': twilio_authy_sandbox_mode, })
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers, )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return ChallengeInstance(
             self._version,
@@ -486,43 +473,34 @@ class ChallengeInstance(InstanceResource):
         """
         return self._properties['url']
 
-    def delete(self, twilio_authy_sandbox_mode=values.unset):
+    def delete(self):
         """
         Deletes the ChallengeInstance
-
-        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete(twilio_authy_sandbox_mode=twilio_authy_sandbox_mode, )
+        return self._proxy.delete()
 
-    def fetch(self, twilio_authy_sandbox_mode=values.unset):
+    def fetch(self):
         """
         Fetch the ChallengeInstance
-
-        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
 
         :returns: The fetched ChallengeInstance
         :rtype: twilio.rest.authy.v1.service.entity.factor.challenge.ChallengeInstance
         """
-        return self._proxy.fetch(twilio_authy_sandbox_mode=twilio_authy_sandbox_mode, )
+        return self._proxy.fetch()
 
-    def update(self, auth_payload=values.unset,
-               twilio_authy_sandbox_mode=values.unset):
+    def update(self, auth_payload=values.unset):
         """
         Update the ChallengeInstance
 
         :param unicode auth_payload: Optional payload to verify the Challenge
-        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
 
         :returns: The updated ChallengeInstance
         :rtype: twilio.rest.authy.v1.service.entity.factor.challenge.ChallengeInstance
         """
-        return self._proxy.update(
-            auth_payload=auth_payload,
-            twilio_authy_sandbox_mode=twilio_authy_sandbox_mode,
-        )
+        return self._proxy.update(auth_payload=auth_payload, )
 
     def __repr__(self):
         """
