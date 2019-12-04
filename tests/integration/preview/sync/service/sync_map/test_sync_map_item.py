@@ -59,11 +59,13 @@ class SyncMapItemTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.preview.sync.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .sync_maps(sid="MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .sync_map_items(key="key").delete()
+                                    .sync_map_items(key="key").delete(if_match="if_match")
 
+        headers = {'If-Match': "if_match", }
         self.holodeck.assert_has_request(Request(
             'delete',
             'https://preview.twilio.com/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/key',
+            headers=headers,
         ))
 
     def test_delete_response(self):
@@ -201,10 +203,16 @@ class SyncMapItemTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.preview.sync.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .sync_maps(sid="MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .sync_map_items(key="key").update(data={})
+                                    .sync_map_items(key="key").update(data={}, if_match="if_match")
 
         values = {'Data': serialize.object({}), }
 
+        headers = {'If-Match': "if_match", }
+        self.holodeck.assert_has_request(Request(
+            'post',
+            'https://preview.twilio.com/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/key',
+            headers=headers,
+        ))
         self.holodeck.assert_has_request(Request(
             'post',
             'https://preview.twilio.com/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/key',

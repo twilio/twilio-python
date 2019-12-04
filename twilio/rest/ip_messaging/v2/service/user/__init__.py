@@ -36,7 +36,7 @@ class UserList(ListResource):
         self._uri = '/Services/{service_sid}/Users'.format(**self._solution)
 
     def create(self, identity, role_sid=values.unset, attributes=values.unset,
-               friendly_name=values.unset):
+               friendly_name=values.unset, x_twilio_webhook_enabled=values.unset):
         """
         Create the UserInstance
 
@@ -44,6 +44,7 @@ class UserList(ListResource):
         :param unicode role_sid: The SID of the Role assigned to this user
         :param unicode attributes: A valid JSON string that contains application-specific data
         :param unicode friendly_name: A string to describe the new resource
+        :param UserInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: The created UserInstance
         :rtype: twilio.rest.chat.v2.service.user.UserInstance
@@ -54,8 +55,9 @@ class UserList(ListResource):
             'Attributes': attributes,
             'FriendlyName': friendly_name,
         })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data, )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers, )
 
         return UserInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
@@ -258,20 +260,22 @@ class UserContext(InstanceContext):
         return self._version.delete(method='DELETE', uri=self._uri, )
 
     def update(self, role_sid=values.unset, attributes=values.unset,
-               friendly_name=values.unset):
+               friendly_name=values.unset, x_twilio_webhook_enabled=values.unset):
         """
         Update the UserInstance
 
         :param unicode role_sid: The SID id of the Role assigned to this user
         :param unicode attributes: A valid JSON string that contains application-specific data
         :param unicode friendly_name: A string to describe the resource
+        :param UserInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: The updated UserInstance
         :rtype: twilio.rest.chat.v2.service.user.UserInstance
         """
         data = values.of({'RoleSid': role_sid, 'Attributes': attributes, 'FriendlyName': friendly_name, })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data, )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers, )
 
         return UserInstance(
             self._version,
@@ -509,18 +513,24 @@ class UserInstance(InstanceResource):
         return self._proxy.delete()
 
     def update(self, role_sid=values.unset, attributes=values.unset,
-               friendly_name=values.unset):
+               friendly_name=values.unset, x_twilio_webhook_enabled=values.unset):
         """
         Update the UserInstance
 
         :param unicode role_sid: The SID id of the Role assigned to this user
         :param unicode attributes: A valid JSON string that contains application-specific data
         :param unicode friendly_name: A string to describe the resource
+        :param UserInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: The updated UserInstance
         :rtype: twilio.rest.chat.v2.service.user.UserInstance
         """
-        return self._proxy.update(role_sid=role_sid, attributes=attributes, friendly_name=friendly_name, )
+        return self._proxy.update(
+            role_sid=role_sid,
+            attributes=attributes,
+            friendly_name=friendly_name,
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+        )
 
     @property
     def user_channels(self):

@@ -19,11 +19,13 @@ class MessageTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.conversations.v1.conversations(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .messages.create()
+                                        .messages.create(x_twilio_webhook_enabled="true")
 
+        headers = {'X-Twilio-Webhook-Enabled': "true", }
         self.holodeck.assert_has_request(Request(
             'post',
             'https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages',
+            headers=headers,
         ))
 
     def test_create_response(self):
@@ -88,11 +90,13 @@ class MessageTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.conversations.v1.conversations(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .messages(sid="IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+                                        .messages(sid="IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(x_twilio_webhook_enabled="true")
 
+        headers = {'X-Twilio-Webhook-Enabled': "true", }
         self.holodeck.assert_has_request(Request(
             'post',
             'https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            headers=headers,
         ))
 
     def test_update_response(self):
@@ -125,11 +129,13 @@ class MessageTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.conversations.v1.conversations(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .messages(sid="IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+                                        .messages(sid="IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(x_twilio_webhook_enabled="true")
 
+        headers = {'X-Twilio-Webhook-Enabled': "true", }
         self.holodeck.assert_has_request(Request(
             'delete',
             'https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            headers=headers,
         ))
 
     def test_delete_response(self):
